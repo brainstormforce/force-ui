@@ -1,0 +1,68 @@
+{
+  "name": "@bsf/force-ui",
+  "version": "1.0.0",
+  "description": "Library of components for the BSF project",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack --mode production",
+    "start": "webpack serve --mode development",
+    "pretty-fix": "prettier --write .",
+    "pretty-lint": "prettier --check .",
+    "lint": "eslint .",
+    "lint-fix": "eslint --fix ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rahulvarma722/bsf-admin-ui.git"
+  },
+  "volta": {
+    "node": "18.15.0"
+  },
+  "keywords": [
+    "bsf",
+    "components",
+    "library"
+  ],
+  "license": "ISC",
+  "dependencies": {
+    "@emotion/css": "^11.11.2",
+    "@emotion/react": "^11.11.4",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "import": "./dist/index.js"
+    },
+    "./index.js": {
+      "import": "./dist/index.js"
+    },
+    "./components": {
+      "default": "./dist/components.js"
+    },
+    "./components.js": {
+      "default": "./dist/components.js"
+    },
+    "./settings": {
+      "default": "./dist/settings.js"
+    },
+    "./settings.js": {
+      "default": "./dist/settings.js"
+    }
+  },
+  "devDependencies": {
+    "prettier": "^3.2.5",
+    "prettier-plugin-organize-imports": "^3.2.4",
+    "webpack": "^5.69.1",
+    "webpack-cli": "^4.9.2",
+    "webpack-dev-server": "^4.7.4",
+    "babel-loader": "^8.2.3",
+    "@babel/core": "^7.16.7",
+    "@babel/preset-env": "^7.16.7",
+    "@babel/preset-react": "^7.16.7",
+    "eslint": "^8.10.0",
+    "eslint-plugin-react": "^7.28.0"
+  }
+}
