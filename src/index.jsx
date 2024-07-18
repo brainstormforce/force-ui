@@ -20,7 +20,7 @@ const Button = (
 	const buttonSize = isSmall ? 'small' : 'base';
 	const variantClassNames = {
 		primary:
-			'text-white bg-blue-500 hover:bg-blue-600 focus-visible:ring-blue-500 border border-solid border-blue-500',
+			'text-white bg-primary-900 hover:bg-blue-600 focus-visible:ring-blue-500 border border-solid border-blue-500',
 		white: 'text-blue-500 bg-white border border-solid border-blue-500 focus-visible:ring-blue-500',
 		dark: 'text-white border border-white bg-transparent border-solid',
 		link: 'underline border-0 bg-transparent',
