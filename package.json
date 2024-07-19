@@ -34,6 +34,7 @@
     "@material-tailwind/react": "^2.1.9",
     "clsx": "^2.1.1",
     "deepmerge": "^4.3.1",
+    "lodash.merge": "^4.6.2",
     "tailwind-merge": "^2.4.0"
   },
   "exports": {
