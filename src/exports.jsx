@@ -70,19 +70,19 @@ const Button = (
 	return (
 		<button
 			type={ type }
-			// className={ twMerge(
-			// 	'px-4 py-3 h-11',
-			// 	variantClassNames[ variant ],
-			// 	! hasPrefixIcon &&
-			// 		! hasSuffixIcon &&
-			// 		sizeClassNames[ buttonSize ].default,
-			// 	hasPrefixIcon && sizeClassNames[ buttonSize ].hasPrefixIcon,
-			// 	hasSuffixIcon && sizeClassNames[ buttonSize ].hasSuffixIcon,
-			// 	typographyClassNames[ buttonSize ],
-			// 	borderRadiusClassNames[ buttonSize ],
-			// 	className
-			// ) }
-			className='px-4 py-3 h-11'
+			className={ twMerge(
+				'px-4 py-3 h-11',
+				variantClassNames[ variant ],
+				! hasPrefixIcon &&
+					! hasSuffixIcon &&
+					sizeClassNames[ buttonSize ].default,
+				hasPrefixIcon && sizeClassNames[ buttonSize ].hasPrefixIcon,
+				hasSuffixIcon && sizeClassNames[ buttonSize ].hasSuffixIcon,
+				typographyClassNames[ buttonSize ],
+				borderRadiusClassNames[ buttonSize ],
+				className
+			) }
+			// className='px-4 py-3 h-11'
 			onClick={ handleOnClick }
 			disabled={ disabled }
 			{ ...( id && { id } ) }
