@@ -34,14 +34,14 @@
 
 // export default config;
 
-const merge = require('lodash.merge');
+// const merge = require('lodash.merge');
 // const customConfig = require('../surerank/tailwind.config.js');
 const customConfig = {};
 
-module.exports = merge({}, {
-    content: [
-      "./src/**/*.{js,jsx}",
-    ],
+module.exports = {
+    // content: [
+    //   "./src/**/*.{js,jsx}",
+    // ],
     theme: {
       extend: {
         colors: {
@@ -56,6 +56,10 @@ module.exports = merge({}, {
               800: "#7d637d",
               900: "#6d536d",
             },
+            danger:{
+              100: "red",
+              200:"#712ED8"
+            }
           }
       },
     },
@@ -63,4 +67,4 @@ module.exports = merge({}, {
     corePlugins: {
       preflight: false,
     }
-  }, customConfig);
+  };

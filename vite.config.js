@@ -17,14 +17,14 @@ const app = async () => {
 
     return defineConfig({
         plugins: [
-            react(),
-            cssInjectedByJsPlugin(),
+            // react(),
+            // cssInjectedByJsPlugin(),
         ],
-        css: {
-            postcss: {
-                plugins: [tailwindcss],
-            },
-        },
+        // css: {
+        //     postcss: {
+        //         plugins: [tailwindcss],
+        //     },
+        // },
         build: {
             lib: {
                 entry: resolve(__dirname, 'src/index.js'),

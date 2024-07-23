@@ -70,19 +70,19 @@ const Button = (
 	return (
 		<button
 			type={ type }
-			className={ twMerge(
-				'group flex items-center justify-center gap-2 rounded-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 transition duration-150 ease-in-out cursor-pointer border-0',
-				variantClassNames[ variant ],
-				! hasPrefixIcon &&
-					! hasSuffixIcon &&
-					sizeClassNames[ buttonSize ].default,
-				hasPrefixIcon && sizeClassNames[ buttonSize ].hasPrefixIcon,
-				hasSuffixIcon && sizeClassNames[ buttonSize ].hasSuffixIcon,
-				typographyClassNames[ buttonSize ],
-				borderRadiusClassNames[ buttonSize ],
-				disabled && 'cursor-not-allowed opacity-70',
-				className
-			) }
+			// className={ twMerge(
+			// 	'px-4 py-3 h-11',
+			// 	variantClassNames[ variant ],
+			// 	! hasPrefixIcon &&
+			// 		! hasSuffixIcon &&
+			// 		sizeClassNames[ buttonSize ].default,
+			// 	hasPrefixIcon && sizeClassNames[ buttonSize ].hasPrefixIcon,
+			// 	hasSuffixIcon && sizeClassNames[ buttonSize ].hasSuffixIcon,
+			// 	typographyClassNames[ buttonSize ],
+			// 	borderRadiusClassNames[ buttonSize ],
+			// 	className
+			// ) }
+			className='px-4 py-3 h-11'
 			onClick={ handleOnClick }
 			disabled={ disabled }
 			{ ...( id && { id } ) }
