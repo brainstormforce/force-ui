@@ -35,7 +35,8 @@
 // export default config;
 
 const merge = require('lodash.merge');
-const customConfig = require('../surerank/tailwind.config.js');
+// const customConfig = require('../surerank/tailwind.config.js');
+const customConfig = {};
 
 module.exports = merge({}, {
     content: [
