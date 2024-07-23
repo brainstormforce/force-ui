@@ -71,7 +71,7 @@ const Button = (
 		<button
 			type={ type }
 			className={ twMerge(
-				'px-4 py-3 h-11',
+				'px-4 py-3 h-9',
 				variantClassNames[ variant ],
 				! hasPrefixIcon &&
 					! hasSuffixIcon &&

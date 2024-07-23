@@ -2381,7 +2381,7 @@ const je = /* @__PURE__ */ me(Te), Le = ({
     {
       type: a,
       className: je(
-        "px-4 py-3 h-11",
+        "px-4 py-3 h-9",
         h[e],
         !o && !t && y[p].default,
         o && y[p].hasPrefixIcon,
