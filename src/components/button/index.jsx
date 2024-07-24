@@ -1,6 +1,4 @@
 import { twMerge } from 'tailwind-merge';
-import './tailwind.css';
-
 
 const Button = (
 	{
@@ -71,7 +69,7 @@ const Button = (
 		<button
 			type={ type }
 			className={ twMerge(
-				'px-4 py-3 h-9',
+				'px-4 py-4',
 				variantClassNames[ variant ],
 				! hasPrefixIcon &&
 					! hasSuffixIcon &&
@@ -82,7 +80,6 @@ const Button = (
 				borderRadiusClassNames[ buttonSize ],
 				className
 			) }
-			// className='px-4 py-3 h-11'
 			onClick={ handleOnClick }
 			disabled={ disabled }
 			{ ...( id && { id } ) }
