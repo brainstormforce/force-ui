@@ -1,30 +1,14 @@
 import { defineConfig } from "vite";
 import { resolve } from "path";
-import react from '@vitejs/plugin-react'
-import tailwindcss from "tailwindcss";
 import { peerDependencies } from "./package.json";
 import { name } from "./package.json";
-import cssInjectedByJsPlugin from "vite-plugin-css-injected-by-js";
 
 
 const app = async () => {    
-    /**
-     * Removes everything before the last
-     * @octocat/library-repo -> library-repo
-     * vite-component-library-template -> vite-component-library-template
-     */
     const formattedName = name.match(/[^/]+$/)?.[0] ?? name;
 
     return defineConfig({
-        plugins: [
-            // react(),
-            // cssInjectedByJsPlugin(),
-        ],
-        // css: {
-        //     postcss: {
-        //         plugins: [tailwindcss],
-        //     },
-        // },
+        plugins: [],
         build: {
             lib: {
                 entry: resolve(__dirname, 'src/index.js'),
