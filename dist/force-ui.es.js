@@ -1,11 +1,11 @@
-const $ = "-";
+const _ = "-";
 function ne(e) {
   const r = ie(e), {
     conflictingClassGroups: t,
     conflictingClassGroupModifiers: o
   } = e;
   function a(s) {
-    const l = s.split($);
+    const l = s.split(_);
     return l[0] === "" && l.length !== 1 && l.shift(), D(l, r) || se(s);
   }
   function n(s, l) {
@@ -25,7 +25,7 @@ function D(e, r) {
     return a;
   if (r.validators.length === 0)
     return;
-  const n = e.join($);
+  const n = e.join(_);
   return r.validators.find(({
     validator: s
   }) => s(n))?.classGroupId;
@@ -47,10 +47,10 @@ function ie(e) {
     validators: []
   };
   return le(Object.entries(e.classGroups), t).forEach(([n, s]) => {
-    _(s, o, n, r);
+    B(s, o, n, r);
   }), o;
 }
-function _(e, r, t, o) {
+function B(e, r, t, o) {
   e.forEach((a) => {
     if (typeof a == "string") {
       const n = a === "" ? r : Y(r, a);
@@ -59,7 +59,7 @@ function _(e, r, t, o) {
     }
     if (typeof a == "function") {
       if (ae(a)) {
-        _(a(o), r, t, o);
+        B(a(o), r, t, o);
         return;
       }
       r.validators.push({
@@ -69,13 +69,13 @@ function _(e, r, t, o) {
       return;
     }
     Object.entries(a).forEach(([n, s]) => {
-      _(s, Y(r, n), t, o);
+      B(s, Y(r, n), t, o);
     });
   });
 }
 function Y(e, r) {
   let t = e;
-  return r.split($).forEach((o) => {
+  return r.split(_).forEach((o) => {
     t.nextPart.has(o) || t.nextPart.set(o, {
       nextPart: /* @__PURE__ */ new Map(),
       validators: []
@@ -124,26 +124,26 @@ function de(e) {
   } = e, o = r.length === 1, a = r[0], n = r.length;
   function s(l) {
     const c = [];
-    let f = 0, b = 0, p;
+    let b = 0, p = 0, f;
     for (let g = 0; g < l.length; g++) {
-      let m = l[g];
-      if (f === 0) {
-        if (m === a && (o || l.slice(g, g + n) === r)) {
-          c.push(l.slice(b, g)), b = g + n;
+      let h = l[g];
+      if (b === 0) {
+        if (h === a && (o || l.slice(g, g + n) === r)) {
+          c.push(l.slice(p, g)), p = g + n;
           continue;
         }
-        if (m === "/") {
-          p = g;
+        if (h === "/") {
+          f = g;
           continue;
         }
       }
-      m === "[" ? f++ : m === "]" && f--;
+      h === "[" ? b++ : h === "]" && b--;
     }
-    const h = c.length === 0 ? l : l.substring(b), y = h.startsWith(ee), k = y ? h.substring(1) : h, x = p && p > b ? p - b : void 0;
+    const m = c.length === 0 ? l : l.substring(p), y = m.startsWith(ee), C = y ? m.substring(1) : m, x = f && f > p ? f - p : void 0;
     return {
       modifiers: c,
       hasImportantModifier: y,
-      baseClassName: k,
+      baseClassName: C,
       maybePostfixModifierPosition: x
     };
   }
@@ -181,30 +181,30 @@ function fe(e, r) {
     const {
       modifiers: l,
       hasImportantModifier: c,
-      baseClassName: f,
-      maybePostfixModifierPosition: b
+      baseClassName: b,
+      maybePostfixModifierPosition: p
     } = t(s);
-    let p = !!b, h = o(p ? f.substring(0, b) : f);
-    if (!h) {
-      if (!p)
+    let f = !!p, m = o(f ? b.substring(0, p) : b);
+    if (!m) {
+      if (!f)
         return {
           isTailwindClass: !1,
           originalClassName: s
         };
-      if (h = o(f), !h)
+      if (m = o(b), !m)
         return {
           isTailwindClass: !1,
           originalClassName: s
         };
-      p = !1;
+      f = !1;
     }
     const y = ue(l).join(":");
     return {
       isTailwindClass: !0,
       modifierId: c ? y + ee : y,
-      classGroupId: h,
+      classGroupId: m,
       originalClassName: s,
-      hasPostfixModifier: p
+      hasPostfixModifier: f
     };
   }).reverse().filter((s) => {
     if (!s.isTailwindClass)
@@ -212,9 +212,9 @@ function fe(e, r) {
     const {
       modifierId: l,
       classGroupId: c,
-      hasPostfixModifier: f
-    } = s, b = l + c;
-    return n.has(b) ? !1 : (n.add(b), a(c, f).forEach((p) => n.add(l + p)), !0);
+      hasPostfixModifier: b
+    } = s, p = l + c;
+    return n.has(p) ? !1 : (n.add(p), a(c, b).forEach((f) => n.add(l + f)), !0);
   }).reverse().map((s) => s.originalClassName).join(" ");
 }
 function ge() {
@@ -234,15 +234,15 @@ function re(e) {
 function me(e, ...r) {
   let t, o, a, n = s;
   function s(c) {
-    const f = r.reduce((b, p) => p(b), e());
-    return t = pe(f), o = t.cache.get, a = t.cache.set, n = l, l(c);
+    const b = r.reduce((p, f) => f(p), e());
+    return t = pe(b), o = t.cache.get, a = t.cache.set, n = l, l(c);
   }
   function l(c) {
-    const f = o(c);
-    if (f)
-      return f;
-    const b = fe(c, t);
-    return a(c, b), b;
+    const b = o(c);
+    if (b)
+      return b;
+    const p = fe(c, t);
+    return a(c, p), p;
   }
   return function() {
     return n(ge.apply(null, arguments));
@@ -252,12 +252,12 @@ function d(e) {
   const r = (t) => t[e] || [];
   return r.isThemeGetter = !0, r;
 }
-const te = /^\[(?:([a-z-]+):)?(.+)\]$/i, he = /^\d+\/\d+$/, ye = /* @__PURE__ */ new Set(["px", "full", "screen"]), xe = /^(\d+(\.\d+)?)?(xs|sm|md|lg|xl)$/, we = /\d+(%|px|r?em|[sdl]?v([hwib]|min|max)|pt|pc|in|cm|mm|cap|ch|ex|r?lh|cq(w|h|i|b|min|max))|\b(calc|min|max|clamp)\(.+\)|^0$/, ve = /^(rgba?|hsla?|hwb|(ok)?(lab|lch))\(.+\)$/, ke = /^(inset_)?-?((\d+)?\.?(\d+)[a-z]+|0)_-?((\d+)?\.?(\d+)[a-z]+|0)/, Ce = /^(url|image|image-set|cross-fade|element|(repeating-)?(linear|radial|conic)-gradient)\(.+\)$/;
+const te = /^\[(?:([a-z-]+):)?(.+)\]$/i, he = /^\d+\/\d+$/, ye = /* @__PURE__ */ new Set(["px", "full", "screen"]), xe = /^(\d+(\.\d+)?)?(xs|sm|md|lg|xl)$/, we = /\d+(%|px|r?em|[sdl]?v([hwib]|min|max)|pt|pc|in|cm|mm|cap|ch|ex|r?lh|cq(w|h|i|b|min|max))|\b(calc|min|max|clamp)\(.+\)|^0$/, ve = /^(rgba?|hsla?|hwb|(ok)?(lab|lch))\(.+\)$/, Ce = /^(inset_)?-?((\d+)?\.?(\d+)[a-z]+|0)_-?((\d+)?\.?(\d+)[a-z]+|0)/, ke = /^(url|image|image-set|cross-fade|element|(repeating-)?(linear|radial|conic)-gradient)\(.+\)$/;
 function v(e) {
   return S(e) || ye.has(e) || he.test(e);
 }
-function C(e) {
-  return A(e, "length", Ge);
+function k(e) {
+  return A(e, "length", Ie);
 }
 function S(e) {
   return !!e && !Number.isNaN(Number(e));
@@ -265,7 +265,7 @@ function S(e) {
 function T(e) {
   return A(e, "number", S);
 }
-function P(e) {
+function R(e) {
   return !!e && Number.isInteger(Number(e));
 }
 function ze(e) {
@@ -284,61 +284,61 @@ function Ae(e) {
 function Me(e) {
   return A(e, "position", oe);
 }
-const Ie = /* @__PURE__ */ new Set(["image", "url"]);
-function Pe(e) {
-  return A(e, Ie, Ee);
-}
+const Pe = /* @__PURE__ */ new Set(["image", "url"]);
 function Re(e) {
-  return A(e, "", Ne);
+  return A(e, Pe, Ne);
 }
-function R() {
+function Ge(e) {
+  return A(e, "", Ee);
+}
+function G() {
   return !0;
 }
 function A(e, r, t) {
   const o = te.exec(e);
   return o ? o[1] ? typeof r == "string" ? o[1] === r : r.has(o[1]) : t(o[2]) : !1;
 }
-function Ge(e) {
+function Ie(e) {
   return we.test(e) && !ve.test(e);
 }
 function oe() {
   return !1;
 }
-function Ne(e) {
-  return ke.test(e);
-}
 function Ee(e) {
   return Ce.test(e);
 }
+function Ne(e) {
+  return ke.test(e);
+}
 function Te() {
-  const e = d("colors"), r = d("spacing"), t = d("blur"), o = d("brightness"), a = d("borderColor"), n = d("borderRadius"), s = d("borderSpacing"), l = d("borderWidth"), c = d("contrast"), f = d("grayscale"), b = d("hueRotate"), p = d("invert"), h = d("gap"), y = d("gradientColorStops"), k = d("gradientColorStopPositions"), x = d("inset"), g = d("margin"), m = d("opacity"), w = d("padding"), B = d("saturate"), j = d("scale"), U = d("sepia"), F = d("skew"), q = d("space"), J = d("translate"), L = () => ["auto", "contain", "none"], W = () => ["auto", "hidden", "clip", "visible", "scroll"], O = () => ["auto", i, r], u = () => [i, r], X = () => ["", v, C], G = () => ["auto", S, i], Z = () => ["bottom", "center", "left", "left-bottom", "left-top", "right", "right-bottom", "right-top", "top"], N = () => ["solid", "dashed", "dotted", "double", "none"], H = () => ["normal", "multiply", "screen", "overlay", "darken", "lighten", "color-dodge", "color-burn", "hard-light", "soft-light", "difference", "exclusion", "hue", "saturation", "color", "luminosity"], V = () => ["start", "end", "center", "between", "around", "evenly", "stretch"], M = () => ["", "0", i], K = () => ["auto", "avoid", "all", "avoid-page", "page", "left", "right", "column"], I = () => [S, T], E = () => [S, i];
+  const e = d("colors"), r = d("spacing"), t = d("blur"), o = d("brightness"), a = d("borderColor"), n = d("borderRadius"), s = d("borderSpacing"), l = d("borderWidth"), c = d("contrast"), b = d("grayscale"), p = d("hueRotate"), f = d("invert"), m = d("gap"), y = d("gradientColorStops"), C = d("gradientColorStopPositions"), x = d("inset"), g = d("margin"), h = d("opacity"), w = d("padding"), $ = d("saturate"), j = d("scale"), U = d("sepia"), F = d("skew"), q = d("space"), J = d("translate"), L = () => ["auto", "contain", "none"], W = () => ["auto", "hidden", "clip", "visible", "scroll"], O = () => ["auto", i, r], u = () => [i, r], X = () => ["", v, k], I = () => ["auto", S, i], Z = () => ["bottom", "center", "left", "left-bottom", "left-top", "right", "right-bottom", "right-top", "top"], E = () => ["solid", "dashed", "dotted", "double", "none"], H = () => ["normal", "multiply", "screen", "overlay", "darken", "lighten", "color-dodge", "color-burn", "hard-light", "soft-light", "difference", "exclusion", "hue", "saturation", "color", "luminosity"], V = () => ["start", "end", "center", "between", "around", "evenly", "stretch"], M = () => ["", "0", i], K = () => ["auto", "avoid", "all", "avoid-page", "page", "left", "right", "column"], P = () => [S, T], N = () => [S, i];
   return {
     cacheSize: 500,
     separator: ":",
     theme: {
-      colors: [R],
-      spacing: [v, C],
+      colors: [G],
+      spacing: [v, k],
       blur: ["none", "", z, i],
-      brightness: I(),
+      brightness: P(),
       borderColor: [e],
       borderRadius: ["none", "", "full", z, i],
       borderSpacing: u(),
       borderWidth: X(),
-      contrast: I(),
+      contrast: P(),
       grayscale: M(),
-      hueRotate: E(),
+      hueRotate: N(),
       invert: M(),
       gap: u(),
       gradientColorStops: [e],
-      gradientColorStopPositions: [ze, C],
+      gradientColorStopPositions: [ze, k],
       inset: O(),
       margin: O(),
-      opacity: I(),
+      opacity: P(),
       padding: u(),
-      saturate: I(),
-      scale: I(),
+      saturate: P(),
+      scale: P(),
       sepia: M(),
-      skew: E(),
+      skew: N(),
       space: u(),
       translate: u()
     },
@@ -556,7 +556,7 @@ function Te() {
        * @see https://tailwindcss.com/docs/z-index
        */
       z: [{
-        z: ["auto", P, i]
+        z: ["auto", R, i]
       }],
       // Flexbox and Grid
       /**
@@ -606,14 +606,14 @@ function Te() {
        * @see https://tailwindcss.com/docs/order
        */
       order: [{
-        order: ["first", "last", "none", P, i]
+        order: ["first", "last", "none", R, i]
       }],
       /**
        * Grid Template Columns
        * @see https://tailwindcss.com/docs/grid-template-columns
        */
       "grid-cols": [{
-        "grid-cols": [R]
+        "grid-cols": [G]
       }],
       /**
        * Grid Column Start / End
@@ -621,7 +621,7 @@ function Te() {
        */
       "col-start-end": [{
         col: ["auto", {
-          span: ["full", P, i]
+          span: ["full", R, i]
         }, i]
       }],
       /**
@@ -629,21 +629,21 @@ function Te() {
        * @see https://tailwindcss.com/docs/grid-column
        */
       "col-start": [{
-        "col-start": G()
+        "col-start": I()
       }],
       /**
        * Grid Column End
        * @see https://tailwindcss.com/docs/grid-column
        */
       "col-end": [{
-        "col-end": G()
+        "col-end": I()
       }],
       /**
        * Grid Template Rows
        * @see https://tailwindcss.com/docs/grid-template-rows
        */
       "grid-rows": [{
-        "grid-rows": [R]
+        "grid-rows": [G]
       }],
       /**
        * Grid Row Start / End
@@ -651,7 +651,7 @@ function Te() {
        */
       "row-start-end": [{
         row: ["auto", {
-          span: [P, i]
+          span: [R, i]
         }, i]
       }],
       /**
@@ -659,14 +659,14 @@ function Te() {
        * @see https://tailwindcss.com/docs/grid-row
        */
       "row-start": [{
-        "row-start": G()
+        "row-start": I()
       }],
       /**
        * Grid Row End
        * @see https://tailwindcss.com/docs/grid-row
        */
       "row-end": [{
-        "row-end": G()
+        "row-end": I()
       }],
       /**
        * Grid Auto Flow
@@ -694,21 +694,21 @@ function Te() {
        * @see https://tailwindcss.com/docs/gap
        */
       gap: [{
-        gap: [h]
+        gap: [m]
       }],
       /**
        * Gap X
        * @see https://tailwindcss.com/docs/gap
        */
       "gap-x": [{
-        "gap-x": [h]
+        "gap-x": [m]
       }],
       /**
        * Gap Y
        * @see https://tailwindcss.com/docs/gap
        */
       "gap-y": [{
-        "gap-y": [h]
+        "gap-y": [m]
       }],
       /**
        * Justify Content
@@ -982,7 +982,7 @@ function Te() {
        * @see https://tailwindcss.com/docs/font-size
        */
       "font-size": [{
-        text: ["base", z, C]
+        text: ["base", z, k]
       }],
       /**
        * Font Smoothing
@@ -1006,7 +1006,7 @@ function Te() {
        * @see https://tailwindcss.com/docs/font-family
        */
       "font-family": [{
-        font: [R]
+        font: [G]
       }],
       /**
        * Font Variant Numeric
@@ -1093,7 +1093,7 @@ function Te() {
        * @see https://tailwindcss.com/docs/placeholder-opacity
        */
       "placeholder-opacity": [{
-        "placeholder-opacity": [m]
+        "placeholder-opacity": [h]
       }],
       /**
        * Text Alignment
@@ -1114,7 +1114,7 @@ function Te() {
        * @see https://tailwindcss.com/docs/text-opacity
        */
       "text-opacity": [{
-        "text-opacity": [m]
+        "text-opacity": [h]
       }],
       /**
        * Text Decoration
@@ -1126,14 +1126,14 @@ function Te() {
        * @see https://tailwindcss.com/docs/text-decoration-style
        */
       "text-decoration-style": [{
-        decoration: [...N(), "wavy"]
+        decoration: [...E(), "wavy"]
       }],
       /**
        * Text Decoration Thickness
        * @see https://tailwindcss.com/docs/text-decoration-thickness
        */
       "text-decoration-thickness": [{
-        decoration: ["auto", "from-font", v, C]
+        decoration: ["auto", "from-font", v, k]
       }],
       /**
        * Text Underline Offset
@@ -1229,7 +1229,7 @@ function Te() {
        * @see https://tailwindcss.com/docs/background-opacity
        */
       "bg-opacity": [{
-        "bg-opacity": [m]
+        "bg-opacity": [h]
       }],
       /**
        * Background Origin
@@ -1268,7 +1268,7 @@ function Te() {
       "bg-image": [{
         bg: ["none", {
           "gradient-to": ["t", "tr", "r", "br", "b", "bl", "l", "tl"]
-        }, Pe]
+        }, Re]
       }],
       /**
        * Background Color
@@ -1282,21 +1282,21 @@ function Te() {
        * @see https://tailwindcss.com/docs/gradient-color-stops
        */
       "gradient-from-pos": [{
-        from: [k]
+        from: [C]
       }],
       /**
        * Gradient Color Stops Via Position
        * @see https://tailwindcss.com/docs/gradient-color-stops
        */
       "gradient-via-pos": [{
-        via: [k]
+        via: [C]
       }],
       /**
        * Gradient Color Stops To Position
        * @see https://tailwindcss.com/docs/gradient-color-stops
        */
       "gradient-to-pos": [{
-        to: [k]
+        to: [C]
       }],
       /**
        * Gradient Color Stops From
@@ -1493,14 +1493,14 @@ function Te() {
        * @see https://tailwindcss.com/docs/border-opacity
        */
       "border-opacity": [{
-        "border-opacity": [m]
+        "border-opacity": [h]
       }],
       /**
        * Border Style
        * @see https://tailwindcss.com/docs/border-style
        */
       "border-style": [{
-        border: [...N(), "hidden"]
+        border: [...E(), "hidden"]
       }],
       /**
        * Divide Width X
@@ -1531,14 +1531,14 @@ function Te() {
        * @see https://tailwindcss.com/docs/divide-opacity
        */
       "divide-opacity": [{
-        "divide-opacity": [m]
+        "divide-opacity": [h]
       }],
       /**
        * Divide Style
        * @see https://tailwindcss.com/docs/divide-style
        */
       "divide-style": [{
-        divide: N()
+        divide: E()
       }],
       /**
        * Border Color
@@ -1601,7 +1601,7 @@ function Te() {
        * @see https://tailwindcss.com/docs/outline-style
        */
       "outline-style": [{
-        outline: ["", ...N()]
+        outline: ["", ...E()]
       }],
       /**
        * Outline Offset
@@ -1615,7 +1615,7 @@ function Te() {
        * @see https://tailwindcss.com/docs/outline-width
        */
       "outline-w": [{
-        outline: [v, C]
+        outline: [v, k]
       }],
       /**
        * Outline Color
@@ -1648,14 +1648,14 @@ function Te() {
        * @see https://tailwindcss.com/docs/ring-opacity
        */
       "ring-opacity": [{
-        "ring-opacity": [m]
+        "ring-opacity": [h]
       }],
       /**
        * Ring Offset Width
        * @see https://tailwindcss.com/docs/ring-offset-width
        */
       "ring-offset-w": [{
-        "ring-offset": [v, C]
+        "ring-offset": [v, k]
       }],
       /**
        * Ring Offset Color
@@ -1670,21 +1670,21 @@ function Te() {
        * @see https://tailwindcss.com/docs/box-shadow
        */
       shadow: [{
-        shadow: ["", "inner", "none", z, Re]
+        shadow: ["", "inner", "none", z, Ge]
       }],
       /**
        * Box Shadow Color
        * @see https://tailwindcss.com/docs/box-shadow-color
        */
       "shadow-color": [{
-        shadow: [R]
+        shadow: [G]
       }],
       /**
        * Opacity
        * @see https://tailwindcss.com/docs/opacity
        */
       opacity: [{
-        opacity: [m]
+        opacity: [h]
       }],
       /**
        * Mix Blend Mode
@@ -1742,28 +1742,28 @@ function Te() {
        * @see https://tailwindcss.com/docs/grayscale
        */
       grayscale: [{
-        grayscale: [f]
+        grayscale: [b]
       }],
       /**
        * Hue Rotate
        * @see https://tailwindcss.com/docs/hue-rotate
        */
       "hue-rotate": [{
-        "hue-rotate": [b]
+        "hue-rotate": [p]
       }],
       /**
        * Invert
        * @see https://tailwindcss.com/docs/invert
        */
       invert: [{
-        invert: [p]
+        invert: [f]
       }],
       /**
        * Saturate
        * @see https://tailwindcss.com/docs/saturate
        */
       saturate: [{
-        saturate: [B]
+        saturate: [$]
       }],
       /**
        * Sepia
@@ -1806,35 +1806,35 @@ function Te() {
        * @see https://tailwindcss.com/docs/backdrop-grayscale
        */
       "backdrop-grayscale": [{
-        "backdrop-grayscale": [f]
+        "backdrop-grayscale": [b]
       }],
       /**
        * Backdrop Hue Rotate
        * @see https://tailwindcss.com/docs/backdrop-hue-rotate
        */
       "backdrop-hue-rotate": [{
-        "backdrop-hue-rotate": [b]
+        "backdrop-hue-rotate": [p]
       }],
       /**
        * Backdrop Invert
        * @see https://tailwindcss.com/docs/backdrop-invert
        */
       "backdrop-invert": [{
-        "backdrop-invert": [p]
+        "backdrop-invert": [f]
       }],
       /**
        * Backdrop Opacity
        * @see https://tailwindcss.com/docs/backdrop-opacity
        */
       "backdrop-opacity": [{
-        "backdrop-opacity": [m]
+        "backdrop-opacity": [h]
       }],
       /**
        * Backdrop Saturate
        * @see https://tailwindcss.com/docs/backdrop-saturate
        */
       "backdrop-saturate": [{
-        "backdrop-saturate": [B]
+        "backdrop-saturate": [$]
       }],
       /**
        * Backdrop Sepia
@@ -1899,7 +1899,7 @@ function Te() {
        * @see https://tailwindcss.com/docs/transition-duration
        */
       duration: [{
-        duration: E()
+        duration: N()
       }],
       /**
        * Transition Timing Function
@@ -1913,7 +1913,7 @@ function Te() {
        * @see https://tailwindcss.com/docs/transition-delay
        */
       delay: [{
-        delay: E()
+        delay: N()
       }],
       /**
        * Animation
@@ -1956,7 +1956,7 @@ function Te() {
        * @see https://tailwindcss.com/docs/rotate
        */
       rotate: [{
-        rotate: [P, i]
+        rotate: [R, i]
       }],
       /**
        * Translate X
@@ -2250,7 +2250,7 @@ function Te() {
        * @see https://tailwindcss.com/docs/stroke-width
        */
       "stroke-w": [{
-        stroke: [v, C, T]
+        stroke: [v, k, T]
       }],
       /**
        * Stroke
@@ -2326,74 +2326,44 @@ function Te() {
     }
   };
 }
-const je = /* @__PURE__ */ me(Te), Le = ({
-  variant: e = "primary",
-  isSmall: r = !1,
-  hasSuffixIcon: t = !1,
-  hasPrefixIcon: o = !1,
-  type: a = "button",
-  className: n,
-  onClick: s,
-  children: l,
-  disabled: c = !1,
-  id: f = "",
-  ...b
-}) => {
-  const p = r ? "small" : "base", h = {
-    primary: "text-white bg-primary-900 hover:bg-blue-600 focus-visible:ring-blue-500 border border-solid border-blue-500",
-    white: "text-blue-500 bg-white border border-solid border-blue-500 focus-visible:ring-blue-500",
-    dark: "text-white border border-white bg-transparent border-solid",
-    link: "underline border-0 bg-transparent",
-    blank: "bg-transparent border-transparent",
-    gray: "bg-transparent border border-solid border-gray-500 hover:bg-gray-200 text-black/50",
-    "gray-selected": "bg-gray-500 text-white",
-    other: "",
-    "gradient-border": "bg-transparent text-zip-app-heading zw-base-bold gradient-border-cover gradient-border-cover-button",
-    gradient: "bg-gradient-to-r from-gradient-color-1 via-46.88 via-gradient-color-2 to-gradient-color-3 text-white zw-base-bold",
-    "border-secondary": "text-app-secondary bg-app-light-background border border-app-secondary shadow-sm"
-  }, y = {
-    base: {
-      default: "px-6 py-3",
-      hasPrefixIcon: "pl-4 pr-6 py-3",
-      hasSuffixIcon: "pl-6 pr-4 py-3"
-    },
-    medium: {
-      default: "px-4 py-3 h-11",
-      hasPrefixIcon: "pl-4 pr-6 py-3",
-      hasSuffixIcon: "pl-6 pr-4 py-3"
-    },
-    small: {
-      default: "px-5 py-2 h-[2.625rem]",
-      hasPrefixIcon: "pl-3 pr-5 py-2 h-[2.625rem]",
-      hasSuffixIcon: "pl-5 pr-3 py-2 h-[2.625rem]"
-    }
-  }, k = {
-    base: "text-base font-medium",
-    small: "text-sm font-medium"
-  }, x = {
-    base: "rounded-md",
-    small: "rounded"
-  }, g = (m) => {
-    s && typeof s == "function" && s(m);
+const je = /* @__PURE__ */ me(Te), Le = (e) => {
+  const {
+    variant: r = "primary",
+    // primary, secondary, outline, ghost, link
+    size: t = "medium",
+    // extraSmall, small, medium, large
+    iconPosition: o = "left",
+    // left, right
+    type: a = "button",
+    className: n,
+    onClick: s,
+    children: l,
+    disabled: c = !1,
+    destructive: b = !1
+    // true, false
+  } = e;
+  console.log("Button props", e);
+  const p = "text-white border border-solid cursor-pointer transition-colors duration-300 ease-in-out", f = {
+    // primary: 'bg-primary-500 hover:bg-primary-600 focus-visible:primary-500 border-primary-500',
+    // secondary: 'bg-secondary-600 hover:bg-secondary-500 focus-visible:secondary-600 border-secondary-600',
+  }, m = {
+    medium: "p-2.5 rounded-md"
+  }, y = (C) => {
+    s && typeof s == "function" && s(C);
   };
   return /* @__PURE__ */ React.createElement(
     "button",
     {
       type: a,
       className: je(
-        "px-4 py-3 h-11",
-        h[e],
-        !o && !t && y[p].default,
-        o && y[p].hasPrefixIcon,
-        t && y[p].hasSuffixIcon,
-        k[p],
-        x[p],
+        p,
+        f[r],
+        m[t],
         n
       ),
-      onClick: g,
+      onClick: y,
       disabled: c,
-      ...f && { id: f },
-      ...b
+      ...e
     },
     l
   );

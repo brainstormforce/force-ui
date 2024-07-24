@@ -1,70 +1,190 @@
-// import {withForceUI} from "./src/index.js";
-
-// // const merge = require('lodash.merge');
-// // const libraryTailwindConfig = require('../surerank/tailwind.config.js');
-
-// // console.log();
-
-// const config = withForceUI({
-//   content: [
-//     "./src/**/*.{js,jsx}",
-//   ],
-//   theme: {
-//     extend: {
-//       colors: {
-//           primary: {
-//             100: "#f7f3f7",
-//             200: "#f0e6f0",
-//             300: "#e9d9e9",
-//             400: "#dcbfd9",
-//             500: "#cfb5cf",
-//             600: "#bfa5bf",
-//             700: "#9e849e",
-//             800: "#7d637d",
-//             900: "#6d536d",
-//           },
-//         }
-//     },
-//   },
-//   plugins: [],
-//   corePlugins: {
-//     preflight: false,
-//   }
-// });
-
-// export default config;
-
-// const merge = require('lodash.merge');
-// const customConfig = require('../surerank/tailwind.config.js');
-const customConfig = {};
-
 module.exports = {
-    // content: [
-    //   "./src/**/*.{js,jsx}",
-    // ],
-    theme: {
-      extend: {
-        colors: {
-            primary: {
-              100: "#f7f3f7",
-              200: "#f0e6f0",
-              300: "#e9d9e9",
-              400: "#dcbfd9",
-              500: "#cfb5cf",
-              600: "#bfa5bf",
-              700: "#9e849e",
-              800: "#7d637d",
-              900: "#6d536d",
-            },
-            danger:{
-              100: "red",
-              200:"#712ED8"
-            }
-          }
+  theme: {
+    extend: {
+      brand: {
+        background50: "#EFF6FF",
+        backgroundHover100: "#DBEAFE",
+        200: "#BFDBFE",
+        border300: "#93C5FD",
+        400: "#60A5FA",
+        500: "#3B82F6",
+        primary600: "#2563EB",
+        hover700: "#1D4ED8",
+        800: "#1E40AF",
+        900: "#1E3A8A",
+        text950: "#172554",
       },
+      background:{
+        primary: "#FFFFFF",
+        secondary: "#F3F4F6",
+        inverse: "#111827",
+        brand: "#2563EB",
+      },
+      field: {
+        primaryBackground: '#F9FAFB',
+        secondaryBackground: '#FFFFFF',
+        primaryHover: '#F3F4F6',
+        secondaryHover: '#F3F4F6',
+        dropzoneBackground: '#FFFFFF',
+        border: '#E5E7EB',
+        dropzoneBackgroundHover: '#F9FAFB',
+        dropzoneColor: '#2563EB',
+        label: '#111827',
+        input: '#111827',
+        helper: '#9CA3AF',
+        backgroundDisabled: '#F9FAFB',
+        colorDisabled: '#D1D5DB',
+        placeholder: '#6B7280',
+        borderDisabled: '#F3F4F6',
+        colorError: '#DC2626',
+        borderError: '#FECACA',
+        backgroundError: '#FEF2F2',
+        required: '#DC2626',
+      },
+      border: {
+        interactive: '#2563EB',
+        subtle: '#E5E7EB',
+        strong: '#6B7280',
+        inverse: '#374151',
+        disabled: '#E5E7EB',
+        muted: '#E5E7EB',
+        error: '#DC2626',
+      },
+      text: {
+        primary: '#111827',
+        secondary: '#4B5563',
+        tertiary: '#9CA3AF',
+        onColor: '#FFFFFF',
+        error: '#DC2626',
+        errorInverse: '#F87171',
+        inverse: '#FFFFFF',
+        disabled: '#D1D5DB',
+        onButtonDisabled: '#9CA3AF',
+      },
+      link: {
+        primary: '#2563EB',
+        primaryHover: '#1D4ED8',
+        inverse: '#38BDF8',
+        visited: '#7C3AED',
+        visitedInverse: '#A78BFA',
+        inverseHover: '#7DD3FC',
+      },
+      icon: {
+        primary: '#111827',
+        secondary: '#4B5563',
+        onColor: '#FFFFFF',
+        inverse: '#FFFFFF',
+        interactive: '#2563EB',
+        onColorDisabled: '#9CA3AF',
+        disabled: '#D1D5DB',
+      },
+      support: {
+        error: '#DC2626',
+        success: '#16A34A',
+        warning: '#EAB308',
+        info: '#0284C7',
+        errorInverse: '#F87171',
+        successInverse: '#4ADE80',
+        warningInverse: '#FDE047',
+        infoInverse: '#38BDF8',
+      },
+      button: {
+        primary: '#2563EB',
+        primaryHover: '#1D4ED8',
+        secondary: '#1F2937',
+        secondaryHover: '#374151',
+        tertiary: '#FFFFFF',
+        tertiaryHover: '#F9FAFB',
+        danger: '#DC2626',
+        dangerSecondary: '#DC2626',
+        dangerHover: '#B91C1C',
+        disabled: '#F3F4F6',
+        tertiaryBorder: '#E5E7EB',
+        tertiaryColor: '#111827',
+      },
+      colors: {
+        focus: {
+          focus: '#2563EB',
+          focusInset: '#FFFFFF',
+          focusInverse: '#38BDF8',
+          focusInverseInset: '#111827',
+          focusError: '#DC2626',
+          focusBorder: '#BFDBFE',
+          focusErrorBorder: '#FECACA',
+        },
+        misc: {
+          highlight: '#BFDBFE',
+          overlay: '#11182780',
+          skeletonBackground: '#F3F4F6',
+          skeletonElement: '#D1D5DB',
+          popupButtonHover: '#1118270D',
+          tabItemHover: '#E5E7EB',
+          dropdownHover: '#F3F4F6',
+          loaderBase: '#1118270D',
+          loaderColor: '#2563EB',
+          progressBackground: '#E5E7EB',
+        },
+        badge: {
+          backgroundGray: '#F9FAFB',
+          colorGray: '#1F2937',
+          hoverGray: '#F3F4F6',
+          borderGray: '#E5E7EB',
+          backgroundRed: '#FEF2F2',
+          colorRed: '#B91C1C',
+          hoverRed: '#FEE2E2',
+          borderRed: '#FECACA',
+          backgroundYellow: '#FEFCE8',
+          colorYellow: '#A16207',
+          hoverYellow: '#FEF9C3',
+          borderYellow: '#FEF08A',
+          hoverGreen: '#DCFCE7',
+          borderGreen: '#BBF7D0',
+          backgroundGreen: '#F0FDF4',
+          colorGreen: '#15803D',
+          backgroundSky: '#F0F9FF',
+          colorSky: '#0369A1',
+          hoverSky: '#E0F2FE',
+          borderSky: '#BAE6FD',
+          backgroundDisabled: '#F3F4F6',
+          colorDisabled: '#D1D5DB',
+          hoverDisabled: '#F3F4F6',
+          borderDisabled: '#E5E7EB',
+        },
+        alert: {
+          backgroundNeutral: "#FFFFFF",
+          borderNeutral: "#E5E7EB",
+          backgroundDanger: "#FEF2F2",
+          borderDanger: "#FECACA",
+          backgroundWarning: "#FEFCE8",
+          borderWarning: "#FEF08A",
+          backgroundGreen: "#F0FDF4",
+          borderGreen: "#BBF7D0",
+          backgroundInfo: "#F0F9FF",
+          borderInfo: "#BAE6FD",
+        },
+        tab: {
+          background: "#F3F4F6",
+          border: "#E5E7EB",
+        },
+        tooltip: {
+          backgroundLight: "#FFFFFF",
+          backgroundDark: "#111827",
+        },
+        toggle: {
+          off: "#E5E7EB",
+          on: "#2563EB",
+          dialBackground: "#FFFFFF",
+          offHover: "#D1D5DB",
+          offBorder: "#D1D5DB",
+          onHover: "#3B82F6",
+          onBorder: "#60A5FA",
+          offDisabled: "#F3F4F6",
+        }
+      }
     },
-    plugins: [],
-    corePlugins: {
-      preflight: false,
-    }
-  };
+  },
+  plugins: [],
+  corePlugins: {
+    preflight: false,
+  }
+};
