@@ -1,91 +1,111 @@
 import { twMerge } from 'tailwind-merge';
 
-const Button = (
-	{
-		variant = 'primary',
-		isSmall = false,
-		hasSuffixIcon = false,
-		hasPrefixIcon = false,
+const Button = ( props ) => {
+
+	const {
+		variant = 'primary', // primary, secondary, outline, ghost, link
+		size = 'medium', // extraSmall, small, medium, large
+		iconPosition = 'left', // left, right
 		type = 'button',
 		className,
 		onClick,
 		children,
 		disabled = false,
-		id = '',
-		...props
-	}
-) => {
-	const buttonSize = isSmall ? 'small' : 'base';
+		destructive = false, // true, false
+	} = props;
+
+	console.log('Button props', props);
+
+	// done things
+	// primary - normal, hover
+	// secondary - normal, hover
+
+	// size - medium
+
+	// todo
+	// outline - normal, hover, focus, disabled
+	// ghost - normal, hover, focus, disabled
+	// link - normal, hover, focus, disabled
+	// primary - focus, disabled
+	// secondary - focus, disabled
+	// sizes - extraSmall, small, large
+
+
+	// colors: {
+    //             primary: {
+    //                 500: "#2563EB",
+    //                 600: "#1D4ED8",
+    //             },
+    //             secondary: {
+    //                 500: "#374151",
+    //                 600: "#1F2937",
+    //             },
+    //         }
+
+	// button with icon - icon position: left, right | gap between icon and text
+
+	const commonClass = "text-white border border-solid cursor-pointer transition-colors duration-300 ease-in-out";
+
 	const variantClassNames = {
-		primary:
-			'text-white bg-primary-900 hover:bg-blue-600 focus-visible:ring-blue-500 border border-solid border-blue-500',
-		white: 'text-blue-500 bg-white border border-solid border-blue-500 focus-visible:ring-blue-500',
-		dark: 'text-white border border-white bg-transparent border-solid',
-		link: 'underline border-0 bg-transparent',
-		blank: 'bg-transparent border-transparent',
-		gray: 'bg-transparent border border-solid border-gray-500 hover:bg-gray-200 text-black/50',
-		'gray-selected': 'bg-gray-500 text-white',
-		other: '',
-		'gradient-border':
-			'bg-transparent text-zip-app-heading zw-base-bold gradient-border-cover gradient-border-cover-button',
-		gradient:
-			'bg-gradient-to-r from-gradient-color-1 via-46.88 via-gradient-color-2 to-gradient-color-3 text-white zw-base-bold',
-		'border-secondary':
-			'text-app-secondary bg-app-light-background border border-app-secondary shadow-sm',
+		// primary: 'bg-primary-500 hover:bg-primary-600 focus-visible:primary-500 border-primary-500',
+		// secondary: 'bg-secondary-600 hover:bg-secondary-500 focus-visible:secondary-600 border-secondary-600',
 	};
+	// box-shadow: 0px 0px 0px 4px #2563EB;
+
+	// box-shadow: 0px 0px 0px 2px #FFFFFF;
+
+	// const sizeClassNames = {
+	// 	base: {
+	// 		default: 'px-6 py-3',
+	// 		hasPrefixIcon: 'pl-4 pr-6 py-3',
+	// 		hasSuffixIcon: 'pl-6 pr-4 py-3',
+	// 	},
+	// 	extraSmall: {
+	// 		default: 'px-5 py-2 h-[2.625rem]',
+	// 		hasPrefixIcon: 'pl-3 pr-5 py-2 h-[2.625rem]',
+	// 		hasSuffixIcon: 'pl-5 pr-3 py-2 h-[2.625rem]',
+	// 	},
+	// 	small: {
+	// 		default: 'px-5 py-2 h-[2.625rem]',
+	// 		hasPrefixIcon: 'pl-3 pr-5 py-2 h-[2.625rem]',
+	// 		hasSuffixIcon: 'pl-5 pr-3 py-2 h-[2.625rem]',
+	// 	},
+	// 	medium: {
+	// 		default: 'px-4 py-3 h-11',
+	// 		hasPrefixIcon: 'pl-4 pr-6 py-3',
+	// 		hasSuffixIcon: 'pl-6 pr-4 py-3',
+	// 	},
+	// 	large: {
+	// 		default: 'px-4 py-3 h-11',
+	// 		hasPrefixIcon: 'pl-4 pr-6 py-3',
+	// 		hasSuffixIcon: 'pl-6 pr-4 py-3',
+	// 	},
+	// };
 	const sizeClassNames = {
-		base: {
-			default: 'px-6 py-3',
-			hasPrefixIcon: 'pl-4 pr-6 py-3',
-			hasSuffixIcon: 'pl-6 pr-4 py-3',
-		},
-		medium: {
-			default: 'px-4 py-3 h-11',
-			hasPrefixIcon: 'pl-4 pr-6 py-3',
-			hasSuffixIcon: 'pl-6 pr-4 py-3',
-		},
-		small: {
-			default: 'px-5 py-2 h-[2.625rem]',
-			hasPrefixIcon: 'pl-3 pr-5 py-2 h-[2.625rem]',
-			hasSuffixIcon: 'pl-5 pr-3 py-2 h-[2.625rem]',
-		},
-	};
-	const typographyClassNames = {
-		base: 'text-base font-medium',
-		small: 'text-sm font-medium',
-	};
-	const borderRadiusClassNames = {
-		base: 'rounded-md',
-		small: 'rounded',
+		medium: 'p-2.5 rounded-md',
 	};
 
-	const handleOnClick = ( event ) => {
-		if ( !! onClick && typeof onClick === 'function' ) {
-			onClick( event );
+
+	const handleOnClick = (event) => {
+		if (!!onClick && typeof onClick === 'function') {
+			onClick(event);
 		}
 	};
 
 	return (
 		<button
-			type={ type }
-			className={ twMerge(
-				'px-4 py-4',
-				variantClassNames[ variant ],
-				! hasPrefixIcon &&
-					! hasSuffixIcon &&
-					sizeClassNames[ buttonSize ].default,
-				hasPrefixIcon && sizeClassNames[ buttonSize ].hasPrefixIcon,
-				hasSuffixIcon && sizeClassNames[ buttonSize ].hasSuffixIcon,
-				typographyClassNames[ buttonSize ],
-				borderRadiusClassNames[ buttonSize ],
+			type={type}
+			className={twMerge(
+				commonClass,
+				variantClassNames[variant],
+				sizeClassNames[size],
 				className
-			) }
-			onClick={ handleOnClick }
-			disabled={ disabled }
-			{ ...( id && { id } ) }
-			{ ...props }
+			)}
+			onClick={handleOnClick}
+			disabled={disabled}
+			{...props}
 		>
-			{ children }
+			{children}
 		</button>
 	);
 };
