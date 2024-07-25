@@ -1,0 +1,66 @@
+{
+  "name": "@bsf/force-ui",
+  "version": "1.0.0",
+  "description": "Library of components for the BSF project",
+  "main": "dist/force-ui.es.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "vite build",
+    "start": "vite build -w",
+    "pretty-fix": "prettier --write .",
+    "pretty-lint": "prettier --check .",
+    "lint": "eslint .",
+    "lint-fix": "eslint --fix ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rahulvarma722/bsf-admin-ui.git"
+  },
+  "volta": {
+    "node": "18.15.0"
+  },
+  "keywords": [
+    "bsf",
+    "components",
+    "library"
+  ],
+  "license": "ISC",
+  "peerDependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "dependencies": {
+    "@material-tailwind/react": "^2.1.9",
+    "clsx": "^2.1.1",
+    "deepmerge": "^4.3.1",
+    "lodash.merge": "^4.6.2",
+    "tailwind-merge": "^2.4.0"
+  },
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "import": "./dist/force-ui.es.js",
+      "require": "./dist/force-ui.umd.js"
+    }
+  },
+  "devDependencies": {
+    "@babel/core": "^7.16.7",
+    "@babel/preset-env": "^7.16.7",
+    "@babel/preset-react": "^7.16.7",
+    "@vitejs/plugin-react": "^4.3.1",
+    "autoprefixer": "^10.4.19",
+    "babel-loader": "^8.2.3",
+    "eslint": "^8.10.0",
+    "eslint-plugin-react": "^7.28.0",
+    "postcss": "^8.4.39",
+    "prettier": "^3.2.5",
+    "prettier-plugin-organize-imports": "^3.2.4",
+    "tailwindcss": "^3.4.6",
+    "vite": "^5.3.4",
+    "vite-plugin-css-injected-by-js": "^3.5.1",
+    "webpack": "^5.69.1",
+    "webpack-cli": "^4.9.2",
+    "webpack-dev-server": "^4.7.4"
+  }
+}
