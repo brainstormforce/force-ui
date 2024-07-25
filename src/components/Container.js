@@ -1,9 +1,9 @@
-import React from "react";
-import { cx, css } from "@emotion/css";
+import React from 'react';
+import { cx, css } from '@emotion/css';
 
-const Container = (props) => {
+const Container = ( props ) => {
   const {
-    containerType = "grid",
+    containerType = 'grid',
     gap = 0,
     columns,
     padding = 0,
@@ -18,58 +18,58 @@ const Container = (props) => {
     extraProps,
   } = props;
 
-  const additionalStyle = style && typeof style === "object" ? style : {};
+  const additionalStyle = style && typeof style === 'object' ? style : {};
 
   const svgCss = {
-    "& svg": {
-      display: "flex",
+    '& svg': {
+      display: 'flex',
     },
   };
 
   let styleObject = {
     display: containerType,
-    gap: gap,
-    padding: padding,
-    justifyContent: justifyContent,
-    alignItems: alignItems,
-    alignContent: alignContent,
-    justifyItems: justifyItems,
+    gap,
+    padding,
+    justifyContent,
+    alignItems,
+    alignContent,
+    justifyItems,
     ...svgCss,
     ...additionalStyle,
   };
 
-  if (props?.gridItemSettings) {
-    props.gridItemSettings.forEach((item, index) => {
+  if ( props?.gridItemSettings ) {
+    props.gridItemSettings.forEach( ( item, index ) => {
       const gridItemStyle = {
-        gridColumn: item.columnSpan ? `span ${item.columnSpan}` : "auto",
+        gridColumn: item.columnSpan ? `span ${ item.columnSpan }` : 'auto',
         ...item.style,
       };
 
-      const objectKey = `& > :nth-child(${index + 1})`;
+      const objectKey = `& > :nth-child(${ index + 1 })`;
 
       styleObject = {
         ...styleObject,
-        [objectKey]: gridItemStyle,
+        [ objectKey ]: gridItemStyle,
       };
-    });
+    } );
   }
 
-  if (columns && typeof columns === "number" && containerType === "grid") {
-    styleObject["gridTemplateColumns"] = `repeat(${columns}, 1fr)`;
+  if ( columns && typeof columns === 'number' && containerType === 'grid' ) {
+    styleObject.gridTemplateColumns = `repeat(${ columns }, 1fr)`;
   }
 
-  if (direction && typeof direction === "string" && containerType === "flex") {
-    styleObject["flexDirection"] = direction;
+  if ( direction && typeof direction === 'string' && containerType === 'flex' ) {
+    styleObject.flexDirection = direction;
   }
 
-  const mainClass = css(styleObject);
+  const mainClass = css( styleObject );
 
   return (
-    <>
-      <div className={cx(mainClass, className)} {...extraProps}>
-        {children}
-      </div>
-    </>
+	<>
+		<div className={ cx( mainClass, className ) } { ...extraProps }>
+			{ children }
+		</div>
+	</>
   );
 };
 

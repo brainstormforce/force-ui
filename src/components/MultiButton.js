@@ -1,26 +1,26 @@
-import React from "react";
-import Container from "./Container";
-import { color as colorsVar, multiButton as multiButtonVars } from "../css-variables";
+import React from 'react';
+import Container from './Container';
+import { color as colorsVar, multiButton as multiButtonVars } from '../css-variables';
 
-const MultiButtonControl = ({
-  controlStyle = "filled",
-  width = "fit-content",
+const MultiButtonControl = ( {
+  controlStyle = 'filled',
+  width = 'fit-content',
   onClick,
   activeItem,
   items,
   backgroundColor = multiButtonVars.background,
   color = multiButtonVars.color,
   hoverColor = multiButtonVars.hoverColor,
-  className = "",
+  className = '',
   containerStyle = {},
   itemStyle = {},
   itemActiveStyle = {},
-}) => {
-  let containerClass = "bsf-multi-button-control";
+} ) => {
+  let containerClass = 'bsf-multi-button-control';
 
   // If the className prop is passed, add it to the containerClass
-  if (className) {
-    containerClass += " " + className;
+  if ( className ) {
+    containerClass += ' ' + className;
   }
 
   let buttonCss = {};
@@ -28,28 +28,28 @@ const MultiButtonControl = ({
   const buttonItemCss = {
     fontWeight: 500,
     fontSize: multiButtonVars.fontSize,
-    cursor: "pointer",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
+    cursor: 'pointer',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
   };
 
-  if (controlStyle === "outline") {
+  if ( controlStyle === 'outline' ) {
     buttonCss = {
       border: multiButtonVars.outlineBorder,
       borderRadius: multiButtonVars.outlineBorderRadius,
-      overflow: "hidden",
+      overflow: 'hidden',
 
-      "& > div": {
+      '& > div': {
         padding: multiButtonVars.outlinePadding,
-        color: color,
+        color,
         borderRight: multiButtonVars.outlineBorder,
         ...buttonItemCss,
         ...itemStyle,
-        "&:last-child": {
-          borderRight: "none",
+        '&:last-child': {
+          borderRight: 'none',
         },
-        "&.active": {
+        '&.active': {
           backgroundColor: multiButtonVars.outlineActiveBackground,
           ...itemActiveStyle,
         },
@@ -59,16 +59,16 @@ const MultiButtonControl = ({
     buttonCss = {
       padding: multiButtonVars.filledPadding,
       borderRadius: multiButtonVars.filledBorderRadius,
-      backgroundColor: backgroundColor,
+      backgroundColor,
 
-      "& > div": {
+      '& > div': {
         padding: multiButtonVars.filledInnerPadding,
-        color: color,
-        backgroundColor: "transparent",
+        color,
+        backgroundColor: 'transparent',
         borderRadius: multiButtonVars.filledBorderRadiusInner,
         ...buttonItemCss,
         ...itemStyle,
-        "&.active": {
+        '&.active': {
           color: hoverColor,
           backgroundColor: colorsVar.background,
           ...itemActiveStyle,
@@ -78,17 +78,17 @@ const MultiButtonControl = ({
   }
 
   buttonCss =
-    width === "full-width"
+    width === 'full-width'
       ? {
           ...buttonCss,
           ...{
-            width: "100%",
+            width: '100%',
           },
         }
       : {
           ...buttonCss,
           ...{
-            width: "fit-content",
+            width: 'fit-content',
           },
         };
 
@@ -97,25 +97,25 @@ const MultiButtonControl = ({
     ...containerStyle,
   };
 
-  const buttonItemClass = (id) =>
-    "bsf-multi-button-control__item" + (activeItem === id ? " active" : "");
+  const buttonItemClass = ( id ) =>
+    'bsf-multi-button-control__item' + ( activeItem === id ? ' active' : '' );
 
   return (
-    <Container
-      columns={items.length}
-      className={containerClass}
-      style={buttonCss}
+	<Container
+		columns={ items.length }
+		className={ containerClass }
+		style={ buttonCss }
     >
-      {items.map((item) => (
-        <div
-          key={item.id}
-          className={buttonItemClass(item.id)}
-          onClick={() => item.id !== activeItem && onClick(item.id)}
+		{ items.map( ( item ) => (
+			<div
+				key={ item.id }
+				className={ buttonItemClass( item.id ) }
+				onClick={ () => item.id !== activeItem && onClick( item.id ) }
         >
-          {item.label}
-        </div>
-      ))}
-    </Container>
+				{ item.label }
+			</div>
+      ) ) }
+	</Container>
   );
 };
 

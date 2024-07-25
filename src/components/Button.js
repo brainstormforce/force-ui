@@ -1,14 +1,14 @@
-import * as React from "react";
-import { useRef, useEffect } from "react";
-import { cx, css } from "@emotion/css";
-import { button as buttonVar } from "../css-variables";
-import Icons from "../utility/icons";
-import { css as reactCss, keyframes } from "@emotion/react";
+import * as React from 'react';
+import { useRef, useEffect } from 'react';
+import { cx, css } from '@emotion/css';
+import { button as buttonVar } from '../css-variables';
+import Icons from '../utility/icons';
+import { css as reactCss, keyframes } from '@emotion/react';
 
-const Button = (props) => {
-  const { children, onClick, style, size = "medium", isLoading = false } = props;
+const Button = ( props ) => {
+  const { children, onClick, style, size = 'medium', isLoading = false } = props;
 
-  const additionalStyle = style && typeof style === "object" ? style : {};
+  const additionalStyle = style && typeof style === 'object' ? style : {};
   const allUnset = css`
     all: unset;
   `;
@@ -16,18 +16,18 @@ const Button = (props) => {
   let fontSize;
   let padding;
   let borderRadius;
-  switch (size) {
-    case "small":
+  switch ( size ) {
+    case 'small':
       fontSize = buttonVar.smallFontSize;
       padding = buttonVar.smallPadding;
       borderRadius = buttonVar.smallBorderRadius;
       break;
-    case "medium":
+    case 'medium':
       fontSize = buttonVar.mediumFontSize;
       padding = buttonVar.mediumPadding;
       borderRadius = buttonVar.mediumBorderRadius;
       break;
-    case "large":
+    case 'large':
       fontSize = buttonVar.largeFontSize;
       padding = buttonVar.largePadding;
       borderRadius = buttonVar.largeBorderRadius;
@@ -39,23 +39,23 @@ const Button = (props) => {
   }
 
   let baseCss = {
-    cursor: "pointer",
+    cursor: 'pointer',
     fontSize,
     padding,
     borderRadius,
     backgroundColor: buttonVar.backgroundColor,
     color: buttonVar.color,
     fontWeight: buttonVar.fontWeight,
-    width: "fit-content",
-    display: "flex",
-    "&:hover": {
+    width: 'fit-content',
+    display: 'flex',
+    '&:hover': {
       backgroundColor: buttonVar.hoverBackgroundColor,
       color: buttonVar.hoverColor,
     },
     ...additionalStyle,
   };
 
-  if (isLoading) {
+  if ( isLoading ) {
     const spin = keyframes`
       to {
         transform: rotate(360deg);
@@ -63,46 +63,46 @@ const Button = (props) => {
     `;
 
     const loadingCss = {
-      position: "absolute",
-      backgroundColor: "#ffffff80",
-      width: "100%",
+      position: 'absolute',
+      backgroundColor: '#ffffff80',
+      width: '100%',
       left: 0,
-      height: "100%",
+      height: '100%',
       top: 0,
       borderRadius,
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center",
-      "& > svg": {
-        animation: `${spin} 1s linear infinite`,
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      '& > svg': {
+        animation: `${ spin } 1s linear infinite`,
       },
     };
 
-    const loadingKey = "& > span";
+    const loadingKey = '& > span';
     baseCss = {
       ...baseCss,
-      position: "relative",
-      cursor: "progress",
+      position: 'relative',
+      cursor: 'progress',
       opacity: 0.7,
-      [loadingKey]: loadingCss,
+      [ loadingKey ]: loadingCss,
     };
   }
 
-  const completeStyle = css(baseCss);
+  const completeStyle = css( baseCss );
 
   const childrenContent = isLoading ? (
-    <>
-      <span>{Icons.LoaderCircle}</span>
-      {children}
-    </>
+	<>
+		<span>{ Icons.LoaderCircle }</span>
+		{ children }
+	</>
   ) : (
     children
   );
 
   return (
-    <button onClick={onClick} className={cx(allUnset, completeStyle)}>
-      {childrenContent}
-    </button>
+	<button onClick={ onClick } className={ cx( allUnset, completeStyle ) }>
+		{ childrenContent }
+	</button>
   );
 };
 

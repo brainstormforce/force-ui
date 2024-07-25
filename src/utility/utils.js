@@ -1,5 +1,5 @@
 function prefix() {
-  return "force-ui-";
+  return 'force-ui-';
 }
 
 export { prefix };

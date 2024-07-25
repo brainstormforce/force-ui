@@ -1,12 +1,12 @@
-import merge from "deepmerge";
+import merge from 'deepmerge';
 
-export default function withForceUI(tailwindConfig) {
+export default function withForceUI( tailwindConfig ) {
   let configObject;
-  if (typeof tailwindConfig === "string") {
-    configObject = import(tailwindConfig);
+  if ( typeof tailwindConfig === 'string' ) {
+    configObject = import( tailwindConfig );
   }
   const forceUIConfig = {
-    content: ["./src/**/*.{js,jsx}"],
+    content: [ './src/**/*.{js,jsx}' ],
     theme: {
       extend: {},
     },
@@ -18,6 +18,6 @@ export default function withForceUI(tailwindConfig) {
 
   return merge(
     forceUIConfig,
-    typeof tailwindConfig === "string" ? configObject : tailwindConfig
+    typeof tailwindConfig === 'string' ? configObject : tailwindConfig
   );
 }

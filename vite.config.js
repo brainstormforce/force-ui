@@ -1,37 +1,36 @@
-import { defineConfig } from "vite";
-import { resolve } from "path";
-import { peerDependencies } from "./package.json";
-import { name } from "./package.json";
+import { defineConfig } from 'vite';
+import { resolve } from 'path';
+import { peerDependencies } from './package.json';
+import { name } from './package.json';
 
+const app = async () => {
+    const formattedName = name.match( /[^/]+$/ )?.[ 0 ] ?? name;
 
-const app = async () => {    
-    const formattedName = name.match(/[^/]+$/)?.[0] ?? name;
-
-    return defineConfig({
+    return defineConfig( {
         plugins: [],
         build: {
             lib: {
-                entry: resolve(__dirname, 'src/index.js'),
+                entry: resolve( __dirname, 'src/index.js' ),
                 name: formattedName,
-                formats: ["es", "umd"],
-                fileName: (format) => `${formattedName}.${format}.js`,
+                formats: [ 'es', 'umd' ],
+                fileName: ( format ) => `${ formattedName }.${ format }.js`,
             },
             rollupOptions: {
-                external: [...Object.keys(peerDependencies)],
+                external: [ ...Object.keys( peerDependencies ) ],
                 output: {
                     manualChunks: undefined,
                     globals: {
-                        react: "React",
-                        "react/jsx-runtime": "react/jsx-runtime",
-                        "react-dom": "ReactDOM",
-                        tailwindcss: "tailwindcss",
+                        react: 'React',
+                        'react/jsx-runtime': 'react/jsx-runtime',
+                        'react-dom': 'ReactDOM',
+                        tailwindcss: 'tailwindcss',
                     },
                 },
             },
-            target: "esnext",
+            target: 'esnext',
             sourcemap: true,
         },
-    });
+    } );
 };
 // https://vitejs.dev/config/
 export default app;
