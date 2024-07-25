@@ -1,0 +1,9 @@
+node_modules
+# ignore dist folder
+dist
+# ignore all files which extension is .json, .md, .log, config.js
+*.json
+*.md
+*.log
+config.js
+
