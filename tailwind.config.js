@@ -167,15 +167,7 @@ module.exports = {
       },
     },
   },
-  plugins: [
-    function ( { addUtilities } ) {
-      addUtilities( {
-        '.primary-btn-focus-shadow:focus': {
-          boxShadow: '0px 0px 0px 2px #FFFFFF, 0px 0px 0px 4px #2563EB',
-        },
-      } );
-    },
-  ],
+  plugins: [],
   corePlugins: {
     preflight: false,
   },
