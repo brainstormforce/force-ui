@@ -6,4 +6,5 @@ dist
 *.md
 *.log
 config.js
-
+# ignoring vite configuration for now
+vite.config.js
