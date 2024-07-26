@@ -1,56 +1,66 @@
 import { twMerge } from "tailwind-merge";
 
-const Button = ({ variant = "primary", isSmall = false, hasSuffixIcon = false, hasPrefixIcon = false, type = "button", className, onClick, children, disabled = false, id = "", ...props }) => {
-  const buttonSize = isSmall ? "small" : "base";
+const Button = (props) => {
+  const {
+    variant = "primary", // primary, secondary, outline, ghost, link
+    size = "md", // xs, sm, md, lg
+    type = "button",
+    tag = "button",
+    className,
+    children,
+    disabled = false,
+    destructive = false, // true, false
+    icon = null, // icon component
+    iconPosition = "left", // left, right
+    ...rest
+  } = props;
+
+  const commonClass = "border border-solid cursor-pointer transition-colors duration-300 ease-in-out text-xs font-semibold focus:ring focus:ring-toggle-on focus:ring-offset-4 disabled:text-text-disabled";
+
   const variantClassNames = {
-    primary: "text-white bg-primary-900 hover:bg-blue-600 focus-visible:ring-blue-500 border border-solid border-blue-500",
-    white: "text-blue-500 bg-white border border-solid border-blue-500 focus-visible:ring-blue-500",
-    dark: "text-white border border-white bg-transparent border-solid",
-    link: "underline border-0 bg-transparent",
-    blank: "bg-transparent border-transparent",
-    gray: "bg-transparent border border-solid border-gray-500 hover:bg-gray-200 text-black/50",
-    "gray-selected": "bg-gray-500 text-white",
-    other: "",
-    "gradient-border": "bg-transparent text-zip-app-heading zw-base-bold gradient-border-cover gradient-border-cover-button",
-    gradient: "bg-gradient-to-r from-gradient-color-1 via-46.88 via-gradient-color-2 to-gradient-color-3 text-white zw-base-bold",
-    "border-secondary": "text-app-secondary bg-app-light-background border border-app-secondary shadow-sm",
-  };
+    primary: "text-text-on-color bg-button-primary hover:bg-button-primary-hover border-button-primary hover:border-button-primary-hover disabled:bg-button-disabled disabled:border-button-disabled",
+    secondary: "text-text-on-color bg-button-secondary hover:bg-button-secondary-hover border-button-secondary hover:border-button-secondary-hover disabled:bg-button-disabled disabled:border-button-disabled",
+    outline: "text-button-tertiary-color border border-border-subtle bg-button-tertiary hover:bg-button-tertiary-hover hover:border-border-subtle disabled:bg-button-tertiary disabled:border-border-disabled",
+    ghost: "text-text-primary bg-transparent border border-transparent hover:bg-button-tertiary-hover",
+    link: "text-link-primary hover:text-link-primary-hover hover:underline p-0 border-0 leading-none",
+  }?.[variant];
+
+  const destructiveClassNames =
+    destructive && !disabled
+      ? {
+          primary: "bg-button-danger hover:bg-button-danger-hover border-button-danger hover:border-button-danger-hover",
+          outline: "text-button-danger border border-button-danger hover:border-button-danger bg-button-tertiary hover:bg-field-background-error",
+          ghost: "text-button-danger hover:bg-field-background-error",
+          link: "text-button-danger hover:text-button-danger-secondary",
+        }?.[variant]
+      : "";
+
   const sizeClassNames = {
-    base: {
-      default: "px-6 py-3",
-      hasPrefixIcon: "pl-4 pr-6 py-3",
-      hasSuffixIcon: "pl-6 pr-4 py-3",
-    },
-    medium: {
-      default: "px-4 py-3 h-11",
-      hasPrefixIcon: "pl-4 pr-6 py-3",
-      hasSuffixIcon: "pl-6 pr-4 py-3",
-    },
-    small: {
-      default: "px-5 py-2 h-[2.625rem]",
-      hasPrefixIcon: "pl-3 pr-5 py-2 h-[2.625rem]",
-      hasSuffixIcon: "pl-5 pr-3 py-2 h-[2.625rem]",
-    },
-  };
-  const typographyClassNames = {
-    base: "text-base font-medium",
-    small: "text-sm font-medium",
-  };
-  const borderRadiusClassNames = {
-    base: "rounded-md",
-    small: "rounded",
-  };
+    xs: "p-1 rounded-sm [&>svg]:h-4 [&>svg]:w-4",
+    sm: "p-2 rounded-sm [&>svg]:h-4 [&>svg]:w-4",
+    md: "p-2.5 rounded-md text-sm [&>svg]:h-5 [&>svg]:w-5",
+    lg: "p-3 rounded-lg text-base [&>svg]:h-6 [&>svg]:w-6",
+  }?.[size];
 
-  const handleOnClick = (event) => {
-    if (!!onClick && typeof onClick === "function") {
-      onClick(event);
+  let iconLeft,
+    iconRight = null;
+  let iconClass = "";
+  if (icon) {
+    iconClass = "flex items-center justify-center gap-1";
+    if (iconPosition === "left") {
+      iconLeft = icon;
+    } else {
+      iconRight = icon;
     }
-  };
+  }
 
+  const Tag = tag;
   return (
-    <button type={type} className={twMerge("px-4 py-4", variantClassNames[variant], !hasPrefixIcon && !hasSuffixIcon && sizeClassNames[buttonSize].default, hasPrefixIcon && sizeClassNames[buttonSize].hasPrefixIcon, hasSuffixIcon && sizeClassNames[buttonSize].hasSuffixIcon, typographyClassNames[buttonSize], borderRadiusClassNames[buttonSize], className)} onClick={handleOnClick} disabled={disabled} {...(id && { id })} {...props}>
+    <Tag type={type} className={twMerge(iconClass, commonClass, sizeClassNames, variantClassNames, destructiveClassNames, className)} disabled={disabled} {...rest}>
+      {iconLeft}
       {children}
-    </button>
+      {iconRight}
+    </Tag>
   );
 };
 
