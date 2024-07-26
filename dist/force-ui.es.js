@@ -2331,8 +2331,8 @@ const We = /* @__PURE__ */ ve(_e), Fe = (e) => {
   const {
     variant: t = "primary",
     // primary, secondary, outline, ghost, link
-    size: r = "m",
-    // xs, s, m, l
+    size: r = "md",
+    // xs, sm, md, lg
     type: n = "button",
     tag: i = "button",
     className: o,
@@ -2345,7 +2345,7 @@ const We = /* @__PURE__ */ ve(_e), Fe = (e) => {
     iconPosition: b = "left",
     // left, right
     ...g
-  } = e, h = "border border-solid cursor-pointer transition-colors duration-300 ease-in-out text-xs font-semibold primary-btn-focus-shadow disabled:text-text-disabled", v = {
+  } = e, h = "border border-solid cursor-pointer transition-colors duration-300 ease-in-out text-xs font-semibold focus:ring focus:ring-toggle-on focus:ring-offset-4 disabled:text-text-disabled", v = {
     primary: "text-text-on-color bg-button-primary hover:bg-button-primary-hover border-button-primary hover:border-button-primary-hover disabled:bg-button-disabled disabled:border-button-disabled",
     secondary: "text-text-on-color bg-button-secondary hover:bg-button-secondary-hover border-button-secondary hover:border-button-secondary-hover disabled:bg-button-disabled disabled:border-button-disabled",
     outline: "text-button-tertiary-color border border-border-subtle bg-button-tertiary hover:bg-button-tertiary-hover hover:border-border-subtle disabled:bg-button-tertiary disabled:border-border-disabled",
@@ -2357,33 +2357,15 @@ const We = /* @__PURE__ */ ve(_e), Fe = (e) => {
     ghost: "text-button-danger hover:bg-field-background-error",
     link: "text-button-danger hover:text-button-danger-secondary"
   }[t] : "", y = {
-    xs: "p-1 rounded-sm [&>svg]:h-[16px] [&>svg]:w-[16px]",
-    s: "p-2 rounded-sm [&>svg]:h-[16px] [&>svg]:w-[16px]",
-    m: "p-2.5 rounded-md text-sm [&>svg]:h-[20px] [&>svg]:w-[20px]",
-    l: "p-3 rounded-lg text-base [&>svg]:h-[24px] [&>svg]:w-[24px]"
+    xs: "p-1 rounded-sm [&>svg]:h-4 [&>svg]:w-4",
+    sm: "p-2 rounded-sm [&>svg]:h-4 [&>svg]:w-4",
+    md: "p-2.5 rounded-md text-sm [&>svg]:h-5 [&>svg]:w-5",
+    lg: "p-3 rounded-lg text-base [&>svg]:h-6 [&>svg]:w-6"
   }[r];
   let f, m = null, x = "";
   p && (x = "flex items-center justify-center gap-1", b === "left" ? f = p : m = p);
   const G = i;
-  return /* @__PURE__ */ React.createElement(
-    G,
-    {
-      type: n,
-      className: We(
-        x,
-        h,
-        y,
-        v,
-        C,
-        o
-      ),
-      disabled: a,
-      ...g
-    },
-    f,
-    s,
-    m
-  );
+  return /* @__PURE__ */ React.createElement(G, { type: n, className: We(x, h, y, v, C, o), disabled: a, ...g }, f, s, m);
 };
 function Ve(e) {
   return e && e.__esModule && Object.prototype.hasOwnProperty.call(e, "default") ? e.default : e;

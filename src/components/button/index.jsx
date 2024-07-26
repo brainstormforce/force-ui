@@ -3,7 +3,7 @@ import { twMerge } from "tailwind-merge";
 const Button = (props) => {
   const {
     variant = "primary", // primary, secondary, outline, ghost, link
-    size = "m", // xs, s, m, l
+    size = "md", // xs, sm, md, lg
     type = "button",
     tag = "button",
     className,
@@ -15,7 +15,7 @@ const Button = (props) => {
     ...rest
   } = props;
 
-  const commonClass = "border border-solid cursor-pointer transition-colors duration-300 ease-in-out text-xs font-semibold primary-btn-focus-shadow disabled:text-text-disabled";
+  const commonClass = "border border-solid cursor-pointer transition-colors duration-300 ease-in-out text-xs font-semibold focus:ring focus:ring-toggle-on focus:ring-offset-4 disabled:text-text-disabled";
 
   const variantClassNames = {
     primary: "text-text-on-color bg-button-primary hover:bg-button-primary-hover border-button-primary hover:border-button-primary-hover disabled:bg-button-disabled disabled:border-button-disabled",
@@ -36,10 +36,10 @@ const Button = (props) => {
       : "";
 
   const sizeClassNames = {
-    xs: "p-1 rounded-sm [&>svg]:h-[16px] [&>svg]:w-[16px]",
-    s: "p-2 rounded-sm [&>svg]:h-[16px] [&>svg]:w-[16px]",
-    m: "p-2.5 rounded-md text-sm [&>svg]:h-[20px] [&>svg]:w-[20px]",
-    l: "p-3 rounded-lg text-base [&>svg]:h-[24px] [&>svg]:w-[24px]",
+    xs: "p-1 rounded-sm [&>svg]:h-4 [&>svg]:w-4",
+    sm: "p-2 rounded-sm [&>svg]:h-4 [&>svg]:w-4",
+    md: "p-2.5 rounded-md text-sm [&>svg]:h-5 [&>svg]:w-5",
+    lg: "p-3 rounded-lg text-base [&>svg]:h-6 [&>svg]:w-6",
   }?.[size];
 
   let iconLeft,
