@@ -2345,12 +2345,12 @@ const Le = /* @__PURE__ */ ye(je), Ve = (e) => {
     iconPosition: f = "left",
     // left, right
     ...c
-  } = e, m = "border border-solid cursor-pointer transition-colors duration-300 ease-in-out text-xs font-semibold focus:ring focus:ring-toggle-on focus:ring-offset-4 disabled:text-text-disabled", x = {
+  } = e, m = "border border-solid cursor-pointer transition-colors duration-300 ease-in-out text-xs font-semibold focus:ring-2 focus:ring-toggle-on focus:ring-offset-2 disabled:text-text-disabled", x = {
     primary: "text-text-on-color bg-button-primary hover:bg-button-primary-hover border-button-primary hover:border-button-primary-hover disabled:bg-button-disabled disabled:border-button-disabled",
     secondary: "text-text-on-color bg-button-secondary hover:bg-button-secondary-hover border-button-secondary hover:border-button-secondary-hover disabled:bg-button-disabled disabled:border-button-disabled",
     outline: "text-button-tertiary-color border border-border-subtle bg-button-tertiary hover:bg-button-tertiary-hover hover:border-border-subtle disabled:bg-button-tertiary disabled:border-border-disabled",
     ghost: "text-text-primary bg-transparent border border-transparent hover:bg-button-tertiary-hover",
-    link: "text-link-primary hover:text-link-primary-hover hover:underline p-0 border-0 leading-none"
+    link: "text-link-primary bg-transparent hover:text-link-primary-hover hover:underline p-0 border-0 leading-none"
   }[r], w = d && !i ? {
     primary: "bg-button-danger hover:bg-button-danger-hover border-button-danger hover:border-button-danger-hover",
     outline: "text-button-danger border border-button-danger hover:border-button-danger bg-button-tertiary hover:bg-field-background-error",
@@ -2377,12 +2377,12 @@ const Le = /* @__PURE__ */ ye(je), Ve = (e) => {
     onChange: s = () => {
     }
   } = e, [i, d] = Q(!1), [p, f] = Q(!1);
-  let c = "rounded p-2 border";
+  let c = "rounded py-2 border bg-field-primary-background font-normal";
   const m = {
-    sm: "w-1/3",
-    md: "w-2/3",
-    lg: "w-full"
-  }, x = "border-field-border bg-field-primary-background", w = "border-field-primary-hover", y = "border-field-primary outline-none", g = "border-field-border-error bg-field-background-error";
+    sm: "px-3 rounded text-xs",
+    md: "px-3 rounded-md text-sm",
+    lg: "px-4 rounded-lg text-base"
+  }, x = "border-field-border", w = "border-strong", y = "border-focus-border focus:ring-2 focus:ring-toggle-on focus:ring-offset-2", g = "border-focus-error-border bg-field-background-error";
   c = a ? `${c} ${o} border-field-border-disabled bg-field-background-disabled cursor-not-allowed` : `${c} ${o}`;
   const v = () => p ? g : i ? y : x;
   return /* @__PURE__ */ se.createElement(

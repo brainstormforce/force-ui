@@ -13,17 +13,17 @@ const TextArea = (props) => {
     const [isFocused, setIsFocused] = useState(false);
     const [hasError, setHasError] = useState(false); // This would normally be controlled by validation logic
 
-    let baseClasses = 'rounded p-2 border';
+    let baseClasses = 'rounded py-2 border bg-field-primary-background font-normal';
     const sizeClasses = {
-        sm: 'w-1/3',
-        md: 'w-2/3',
-        lg: 'w-full',
+        sm: 'px-3 rounded text-xs',
+        md: 'px-3 rounded-md text-sm',
+        lg: 'px-4 rounded-lg text-base',
     };
 
-    const normalClasses = 'border-field-border bg-field-primary-background';
-    const hoverClasses = 'border-field-primary-hover';
-    const focusClasses = 'border-field-primary outline-none';
-    const errorClasses = 'border-field-border-error bg-field-background-error';
+    const normalClasses = 'border-field-border';
+    const hoverClasses = 'border-strong';
+    const focusClasses = 'border-focus-border focus:ring-2 focus:ring-toggle-on focus:ring-offset-2';
+    const errorClasses = 'border-focus-error-border bg-field-background-error';
     const disabledClasses = 'border-field-border-disabled bg-field-background-disabled cursor-not-allowed';
 
     baseClasses = disabled ? `${baseClasses} ${className} ${disabledClasses}` : `${baseClasses} ${className}`;
