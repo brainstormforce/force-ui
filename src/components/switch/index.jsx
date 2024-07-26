@@ -68,72 +68,48 @@
 
 // export default Switch;
 
-import React, { useState } from 'react';
-import classNames from 'classnames';
+import React, { useState } from "react";
+import classNames from "classnames";
 
-const Switch = (
-	{
-		checked = false,
-        onClick,
-        disabled = false,
-        size = "small",
-        onColor = switchVar.onColor,
-        offColor = switchVar.offColor,
-        thumbColor = switchVar.thumbColor,
-        label,
-        labelPosition = "right",
-        labelGap = switchVar.labelGap,
-        description,
-        descriptionGap = switchVar.descriptionGap,
-		...props
-	}
-) => {
+const Switch = ({ checked = false, onClick, disabled = false, size = "small", onColor = switchVar.onColor, offColor = switchVar.offColor, thumbColor = switchVar.thumbColor, label, labelPosition = "right", labelGap = switchVar.labelGap, description, descriptionGap = switchVar.descriptionGap, ...props }) => {
   const [isChecked, setIsChecked] = useState(false);
 
   return (
     <div className="flex items-center space-x-2">
-        <div className="w-12">
-          <label
-            className={classNames(
-              'relative inline-flex items-center cursor-pointer hover:bg-gray-300 focus-within:ring-2 focus-within:ring-blue-500',
-              {
-                'opacity-50 pointer-events-none': disabled,
-              }
-            )}
-          >
-            <input
-              type="checkbox"
-              className={classNames(
-                'sr-only peer',
-                {
-                  'peer-checked:bg-blue-600': !disabled,
-                }
-              )}
-              checked={isChecked}
-              onChange={() => setIsChecked(!isChecked)}
-              disabled={disabled}
-            />
-            <div className={classNames(
-              'w-10 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700',
-              {
-                'peer-checked:bg-blue-600': !disabled
-              }
-            )}></div>
-            <span className={classNames(
-              'absolute left-1 top-1 w-4 h-4 bg-white rounded-full transition-transform transform',
-              {
-                'translate-x-full': isChecked,
-                'translate-x-0': !isChecked,
-                'peer-checked:translate-x-full': !disabled,
-              }
-            )}></span>
-          </label>
-        </div>
-        <div>
-          <p>{label}</p>
-          <p className="text-sm text-gray-500" dangerouslySetInnerHTML={description}></p>
-        </div>
+      <div className="w-12">
+        <label
+          className={classNames("relative inline-flex items-center cursor-pointer hover:bg-gray-300 focus-within:ring-2 focus-within:ring-blue-500", {
+            "opacity-50 pointer-events-none": disabled,
+          })}
+        >
+          <input
+            type="checkbox"
+            className={classNames("sr-only peer", {
+              "peer-checked:bg-blue-600": !disabled,
+            })}
+            checked={isChecked}
+            onChange={() => setIsChecked(!isChecked)}
+            disabled={disabled}
+          />
+          <div
+            className={classNames("w-10 h-6 bg-gray-200 rounded-full peer dark:bg-gray-700", {
+              "peer-checked:bg-blue-600": !disabled,
+            })}
+          ></div>
+          <span
+            className={classNames("absolute left-1 top-1 w-4 h-4 bg-white rounded-full transition-transform transform", {
+              "translate-x-full": isChecked,
+              "translate-x-0": !isChecked,
+              "peer-checked:translate-x-full": !disabled,
+            })}
+          ></span>
+        </label>
       </div>
+      <div>
+        <p>{label}</p>
+        <p className="text-sm text-gray-500" dangerouslySetInnerHTML={description}></p>
+      </div>
+    </div>
   );
 };
 
