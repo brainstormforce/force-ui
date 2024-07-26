@@ -18,12 +18,12 @@ The `Button` component is a versatile, customizable button component built with 
 
 ### `size`
 - **Type:** `string`
-- **Default:** `"m"`
+- **Default:** `"md"`
 - **Description:** Defines the size of the button. Options include:
   - `"xs"`
-  - `"s"`
-  - `"m"`
-  - `"l"`
+  - `"sm"`
+  - `"md"`
+  - `"lg"`
 
 ### `type`
 - **Type:** `string`
