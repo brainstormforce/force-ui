@@ -1,16 +1,19 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useCallback } from 'react';
 import { nanoid } from 'nanoid'
 import { cn } from '../../utility/utils';
 
-const Switch = ({ onChange, value = false, size = 'large', color = 'primary', disabled = false }) => {
-	const [checked, setChecked] = useState(value ? 'on' : '');
+const Switch = ({ onChange, value, defaultValue = false, size = 'large', color = 'primary', disabled = false }) => {
+  const isControlled = useMemo(() => typeof value !== 'undefined', [value]);
   const switchId = useMemo(() => `switch-${nanoid()}`, []);
+	const [checked, setChecked] = useState(defaultValue);
 
-	const handleClick = (event) => {
+  const getValue = useCallback(() => (isControlled ? value : checked), [isControlled, value, checked]);
+
+	const handleChange = (event) => {
     if (disabled) return;
 
 		const newValue = event.target.checked;
-		setChecked(newValue);
+    if (!isControlled) setChecked(newValue);
 
 		if (typeof onChange !== 'function') return;
 		onChange(newValue);
@@ -53,8 +56,8 @@ const Switch = ({ onChange, value = false, size = 'large', color = 'primary', di
             colorClassNames[color].input,
             disabled && disabledClassNames.input,
           )}
-					checked={checked}
-					onChange={handleClick}
+					checked={getValue()}
+					onChange={handleChange}
           disabled={disabled}
 				/>
 				<label
