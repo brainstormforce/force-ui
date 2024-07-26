@@ -1,5 +1,8 @@
-function prefix() {
-  return "force-ui-";
+import { twMerge } from 'tailwind-merge';
+import { clsx } from 'clsx';
+
+export function prefix() {
+	return 'force-ui-';
 }
 
-export { prefix };
+export const cn = (...classNames) => twMerge(clsx(...classNames));
