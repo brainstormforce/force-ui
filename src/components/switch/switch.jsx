@@ -2,7 +2,7 @@ import { useState, useMemo, useCallback } from 'react';
 import { nanoid } from 'nanoid'
 import { cn } from '../../utility/utils';
 
-const Switch = ({ onChange, value, defaultValue = false, size = 'large', color = 'primary', disabled = false }) => {
+const Switch = ({ onChange, value, defaultValue = false, size = 'lg', color = 'primary', disabled = false }) => {
   const isControlled = useMemo(() => typeof value !== 'undefined', [value]);
   const switchId = useMemo(() => `switch-${nanoid()}`, []);
 	const [checked, setChecked] = useState(defaultValue);
@@ -27,11 +27,11 @@ const Switch = ({ onChange, value, defaultValue = false, size = 'large', color =
   }
 
   const sizeClassNames = {
-    large: {
+    lg: {
       container: 'w-11 h-6',
       toggleDial: 'size-4 top-2/4 left-1 -translate-y-2/4 peer-checked:translate-x-5 before:w-10 before:h-10 before:rounded-full before:absolute before:top-2/4 before:left-2/4 before:-translate-y-2/4 before:-translate-x-2/4',
     },
-    small: {
+    sm: {
       container: 'w-9 h-5',
       toggleDial: 'size-3 top-2/4 left-1 -translate-y-2/4 peer-checked:translate-x-4 before:w-10 before:h-10 before:rounded-full before:absolute before:top-2/4 before:left-2/4 before:-translate-y-2/4 before:-translate-x-2/4',
     },
