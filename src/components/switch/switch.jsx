@@ -108,7 +108,7 @@ const Switch = ({
 		<SwitchLabel label={label} switchId={switchId} disabled={disabled}>
 			<div
 				className={cn(
-					'relative inline-block cursor-pointer rounded-full',
+					'relative inline-block cursor-pointer rounded-full shrink-0',
 					sizeClassNames[size].container
 				)}
 			>
