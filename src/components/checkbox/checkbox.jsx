@@ -8,6 +8,7 @@ import {
 import { nanoid } from 'nanoid';
 import { cn } from '../../utility/utils';
 import { CheckMarkIcon, MinusIcon } from '../../utility/icons';
+import { checkbox } from '@material-tailwind/react';
 
 const Checkbox = ({
 	id,
@@ -40,9 +41,15 @@ const Checkbox = ({
 		},
 	};
 	const colorClassNames = {
-		primary: 'border-border-strong hover:border-border-interactive checked:border-border-interactive bg-white checked:bg-toggle-on checked:hover:bg-toggle-on-hover checked:hover:border-toggle-on-hover focus:ring-2 focus:ring-offset-4 focus:ring-focus'
+		primary: {
+			checkbox: 'border-border-strong hover:border-border-interactive checked:border-border-interactive bg-white checked:bg-toggle-on checked:hover:bg-toggle-on-hover checked:hover:border-toggle-on-hover focus:ring-2 focus:ring-offset-4 focus:ring-focus',
+			icon: 'text-white',
+		}
 	};
-	const disabledClassNames = {};
+	const disabledClassNames = {
+		checkbox: 'disabled:bg-white checked:disabled:bg-white disabled:border-border-disabled checked:disabled:border-border-disabled',
+		icon: 'peer-disabled:text-border-disabled',
+	};
 
 	const getValue = useCallback(
 		() => (isControlled ? checked : isChecked),
@@ -96,25 +103,40 @@ const Checkbox = ({
 					type="checkbox"
 					className={cn(
 						"peer relative cursor-pointer appearance-none transition-all m-0 before:content-[''] checked:before:content-[''] checked:before:hidden before:hidden !border-1.5 border-solid",
-						colorClassNames[color],
+						colorClassNames[color].checkbox,
 						sizeClassNames[size].checkbox,
+						disabled && disabledClassNames.checkbox,
 					)}
 					checked={getValue()}
 					onChange={handleChange}
 					disabled={disabled}
 					{...props}
 				/>
-				<span className="pointer-events-none inline-flex items-center absolute top-2/4 left-2/4 -translate-y-2/4 -translate-x-2/4 text-white opacity-0 transition-opacity peer-checked:opacity-100">
-					{
-						indeterminate ? (<MinusIcon className={cn('text-white', sizeClassNames[size]?.icon)} />) : (<CheckMarkIcon className={cn('text-white', sizeClassNames[size]?.icon)} />)
-					}
+				<span className={cn(
+					"pointer-events-none inline-flex items-center absolute top-2/4 left-2/4 -translate-y-2/4 -translate-x-2/4 text-white opacity-0 transition-opacity peer-checked:opacity-100",
+					colorClassNames[color].icon,
+					disabled && disabledClassNames.icon,
+				)}>
+					{indeterminate ? (
+						<MinusIcon
+							className={cn(
+								sizeClassNames[size]?.icon,
+							)}
+						/>
+					) : (
+						<CheckMarkIcon
+							className={cn(
+								sizeClassNames[size]?.icon,
+							)}
+						/>
+					)}
 				</span>
 			</label>
 			{!!label && (
-				<label className={cn(
-					'ml-3',
-					! disabled && "cursor-pointer"
-				)} htmlFor={checkboxId}>
+				<label
+					className={cn('ml-3', !disabled && 'cursor-pointer')}
+					htmlFor={checkboxId}
+				>
 					{renderLabel()}
 				</label>
 			)}
