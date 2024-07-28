@@ -67,14 +67,18 @@ const RadioButton = (
 	{ id, label, value, disabled, size = 'md', color = 'primary', ...props },
 	ref
 ) => {
-	const allValue = useRadioButton()
-	console.log(allValue)
+	const providerValue = useRadioButton()
+
+	if (!providerValue) {
+		throw new Error('RadioButton should be used inside RadioButton Group');
+	}
+
 	const {
 		name,
 		value: selectedValue,
 		by,
 		onChange,
-	} = useRadioButton();
+	} = providerValue;
 	const radioButtonId = useMemo(() => id || `radio-button-${nanoid()}`, [id]);
 	const checked = useMemo(() => {
 		if ( typeof selectedValue !== typeof value ) return false;
@@ -186,7 +190,7 @@ const RadioButton = (
 };
 
 const exports = {
-	Group: forwardRef(RadioButtonGroup),
+	Group: RadioButtonGroup,
 	Button: forwardRef(RadioButton),
 };
 
