@@ -47,7 +47,7 @@ const RadioButtonGroup = ({
 			<RadioButtonContext.Provider
 				value={{
 					name: nameAttr,
-					value: selectedValue,
+					value: isControlled ? value : selectedValue,
 					by,
 					onChange: handleChange,
 					isControlled,
