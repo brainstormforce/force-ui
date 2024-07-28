@@ -7,10 +7,10 @@ import {
 } from 'react';
 import { nanoid } from 'nanoid';
 import { cn } from '../../utility/utils';
+import { CheckMarkIcon, MinusIcon } from '../../utility/icons';
 
 const Checkbox = ({
 	id,
-	name,
 	label,
 	defaultChecked = false,
 	checked,
@@ -18,14 +18,31 @@ const Checkbox = ({
 	value,
 	indeterminate,
 	disabled,
+	size = 'md',
+	color = 'primary',
 	...props
-}) => {
+}, ref) => {
 	const checkboxId = useMemo(() => id || `checkbox-${nanoid()}`, [id]);
 	const isControlled = useMemo(
 		() => typeof checked !== 'undefined',
 		[checked]
 	);
 	const [isChecked, setIsChecked] = useState(defaultChecked || false);
+
+	const sizeClassNames = {
+		sm: {
+			checkbox: 'size-4 rounded-sm',
+			icon: 'size-3',
+		},
+		md: {
+			checkbox: 'size-5 rounded',
+			icon: 'size-4',
+		},
+	};
+	const colorClassNames = {
+		primary: 'border-border-strong hover:border-border-interactive checked:border-border-interactive bg-white checked:bg-toggle-on checked:hover:bg-toggle-on-hover checked:hover:border-toggle-on-hover focus:ring-2 focus:ring-offset-4 focus:ring-focus'
+	};
+	const disabledClassNames = {};
 
 	const getValue = useCallback(
 		() => (isControlled ? checked : isChecked),
@@ -52,10 +69,10 @@ const Checkbox = ({
 		}
 		return (
 			<div className="space-y-1.5">
-				<p className="block font-sans text-base font-medium leading-relaxed text-blue-gray-900 antialiased m-0">
+				<p className="text-text-primary text-base font-medium leading-4 m-0">
 					{label.heading}
 				</p>
-				<p className="block font-sans text-sm font-normal leading-normal text-gray-700 antialiased m-0">
+				<p className="text-text-secondary text-sm font-normal leading-5 m-0">
 					{label.description}
 				</p>
 			</div>
@@ -68,40 +85,36 @@ const Checkbox = ({
 		>
 			<label
 				className={cn(
-					'relative flex items-center rounded-full mt-1',
+					'relative flex items-center rounded-full',
 					!disabled && 'cursor-pointer'
 				)}
 				htmlFor={checkboxId}
 			>
 				<input
+					ref={ref}
 					id={checkboxId}
 					type="checkbox"
-					className="peer relative h-5 w-5 cursor-pointer appearance-none rounded-md border border-solid border-blue-gray-200 transition-all checked:border-gray-900 checked:bg-gray-900 m-0 before:content-[''] checked:before:content-[''] checked:before:hidden before:hidden focus:ring-2 focus:ring-offset-4 focus:ring-focus"
+					className={cn(
+						"peer relative cursor-pointer appearance-none transition-all m-0 before:content-[''] checked:before:content-[''] checked:before:hidden before:hidden !border-1.5 border-solid",
+						colorClassNames[color],
+						sizeClassNames[size].checkbox,
+					)}
 					checked={getValue()}
 					onChange={handleChange}
 					disabled={disabled}
-					name={name}
 					{...props}
 				/>
 				<span className="pointer-events-none inline-flex items-center absolute top-2/4 left-2/4 -translate-y-2/4 -translate-x-2/4 text-white opacity-0 transition-opacity peer-checked:opacity-100">
-					<svg
-						xmlns="http://www.w3.org/2000/svg"
-						className="h-3.5 w-3.5"
-						viewBox="0 0 20 20"
-						fill="currentColor"
-						stroke="currentColor"
-						strokeWidth="1"
-					>
-						<path
-							fillRule="evenodd"
-							d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-							clipRule="evenodd"
-						></path>
-					</svg>
+					{
+						indeterminate ? (<MinusIcon className={cn('text-white', sizeClassNames[size]?.icon)} />) : (<CheckMarkIcon className={cn('text-white', sizeClassNames[size]?.icon)} />)
+					}
 				</span>
 			</label>
 			{!!label && (
-				<label className="cursor-pointer ml-3" htmlFor={checkboxId}>
+				<label className={cn(
+					'ml-3',
+					! disabled && "cursor-pointer"
+				)} htmlFor={checkboxId}>
 					{renderLabel()}
 				</label>
 			)}
