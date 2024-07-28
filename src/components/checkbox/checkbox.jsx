@@ -8,7 +8,6 @@ import {
 import { nanoid } from 'nanoid';
 import { cn } from '../../utility/utils';
 import { CheckMarkIcon, MinusIcon } from '../../utility/icons';
-import { checkbox } from '@material-tailwind/react';
 
 const Checkbox = ({
 	id,
