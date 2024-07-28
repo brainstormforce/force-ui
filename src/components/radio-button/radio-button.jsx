@@ -23,6 +23,7 @@ const RadioButtonGroup = ({
 	as: AsElement = Fragment,
 	onChange,
 	className,
+	disabled = false,
 }) => {
 	const isControlled = useMemo(() => typeof value !== 'undefined', [value]);
 	const nameAttr = useMemo(
@@ -51,6 +52,7 @@ const RadioButtonGroup = ({
 					by,
 					onChange: handleChange,
 					isControlled,
+					disableAll: disabled,
 				}}
 			>
 				{React.Children.map(children, (child) => {
@@ -78,8 +80,10 @@ const RadioButton = (
 		value: selectedValue,
 		by,
 		onChange,
+		disableAll,
 	} = providerValue;
-	const radioButtonId = useMemo(() => id || `radio-button-${nanoid()}`, [id]);
+	const radioButtonId = useMemo(() => id || `radio-button-${nanoid()}`, [id]),
+		isDisabled = useMemo(() => disableAll || disabled, [disableAll, disabled]);
 	const checked = useMemo(() => {
 		if ( typeof selectedValue !== typeof value ) return false;
 		if (typeof selectedValue === 'string') return selectedValue === value;
@@ -141,7 +145,7 @@ const RadioButton = (
 			<label
 				className={cn(
 					'relative flex items-center rounded-full',
-					!disabled && 'cursor-pointer'
+					!isDisabled && 'cursor-pointer'
 				)}
 				htmlFor={radioButtonId}
 			>
@@ -153,20 +157,20 @@ const RadioButton = (
 						"peer relative cursor-pointer appearance-none transition-all m-0 before:content-[''] checked:before:content-[''] checked:before:hidden before:hidden !border-1.5 border-solid rounded-full",
 						colorClassNames[color].checkbox,
 						sizeClassNames[size].checkbox,
-						disabled && disabledClassNames.checkbox
+						isDisabled && disabledClassNames.checkbox
 					)}
 					name={name}
 					value={value}
 					onChange={onChange}
 					checked={checked}
-					disabled={disabled}
+					disabled={isDisabled}
 					{...props}
 				/>
 				<span
 					className={cn(
 						'pointer-events-none inline-flex items-center absolute top-2/4 left-2/4 -translate-y-2/4 -translate-x-2/4 text-white opacity-0 transition-opacity peer-checked:opacity-100',
 						colorClassNames[color].icon,
-						disabled && disabledClassNames.icon
+						isDisabled && disabledClassNames.icon
 					)}
 				>
 					<div
@@ -179,7 +183,7 @@ const RadioButton = (
 			</label>
 			{!!label && (
 				<label
-					className={cn('ml-3', !disabled && 'cursor-pointer')}
+					className={cn('ml-3', !isDisabled && 'cursor-pointer')}
 					htmlFor={radioButtonId}
 				>
 					{renderLabel()}
