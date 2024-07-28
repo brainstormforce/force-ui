@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback } from 'react';
+import { useState, useMemo, useCallback, forwardRef } from 'react';
 import { nanoid } from 'nanoid';
 import { cn } from '../../utility/utils';
 
@@ -61,7 +61,7 @@ const Switch = ({
 	disabled = false,
 	label = { heading: '', description: '' },
 	name,
-}) => {
+}, ref) => {
 	const isControlled = useMemo(() => typeof value !== 'undefined', [value]);
 	const switchId = useMemo(() => id ? id : `switch-${nanoid()}`, []);
 	const [checked, setChecked] = useState(defaultValue);
@@ -115,6 +115,7 @@ const Switch = ({
 				)}
 			>
 				<input
+					ref={ref}
 					id={switchId}
 					type="checkbox"
 					className={cn(
@@ -141,4 +142,4 @@ const Switch = ({
 	);
 };
 
-export default Switch;
+export default forwardRef(Switch);
