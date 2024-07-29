@@ -61,6 +61,7 @@ const Switch = ({
 	disabled = false,
 	label = { heading: '', description: '' },
 	name,
+	...props
 }, ref) => {
 	const isControlled = useMemo(() => typeof value !== 'undefined', [value]);
 	const switchId = useMemo(() => id ? id : `switch-${nanoid()}`, []);
@@ -127,6 +128,7 @@ const Switch = ({
 					onChange={handleChange}
 					disabled={disabled}
 					name={name}
+					{...props}
 				/>
 				<label
 					htmlFor={switchId}
