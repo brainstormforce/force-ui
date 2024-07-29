@@ -81,11 +81,14 @@ const RadioButton = (
 		by,
 		onChange,
 		disableAll,
+		checked,
 	} = providerValue;
 	const color = 'primary';
 	const radioButtonId = useMemo(() => id || `radio-button-${nanoid()}`, [id]),
 		isDisabled = useMemo(() => disableAll || disabled, [disableAll, disabled]);
-	const checked = useMemo(() => {
+	const checkedValue = useMemo(() => {
+		if ( typeof checked !== undefined ) return checked;
+
 		if ( typeof selectedValue !== typeof value ) return false;
 		if (typeof selectedValue === 'string') return selectedValue === value;
 
@@ -94,7 +97,7 @@ const RadioButton = (
 		}
 
 		return selectedValue[by] === value[by];
-	}, [selectedValue, value]);
+	}, [selectedValue, value, checked]);
 
 	const sizeClassNames = {
 		sm: {
@@ -163,7 +166,7 @@ const RadioButton = (
 					name={name}
 					value={value}
 					onChange={onChange}
-					checked={checked}
+					checked={checkedValue}
 					disabled={isDisabled}
 					{...props}
 				/>
