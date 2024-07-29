@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
+import { twMerge } from "tailwind-merge";
 
 const TextArea = (props) => {
     const {
@@ -34,9 +35,11 @@ const TextArea = (props) => {
             return normalClasses;
     };
 
+    const stateClasses = getStateClasses();
+
     return (
         <textarea
-            className={`${baseClasses} ${sizeClasses[size]} ${getStateClasses()}`}
+            className={twMerge( baseClasses, sizeClasses[size], stateClasses )}
             {...inputProps}
             onFocus={() => setIsFocused(true)}
             onBlur={() => setIsFocused(false)}
