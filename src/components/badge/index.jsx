@@ -1,5 +1,9 @@
 import { twMerge } from "tailwind-merge";
-import { X } from 'lucide-react';
+import { X, Info } from 'lucide-react';
+
+/**
+ * Badge component.
+ */
 
 const Badge = (props) => {
     const {
@@ -8,11 +12,16 @@ const Badge = (props) => {
         className = "",
         type = "pill", // pill, rounded
         variant = "neutral", // neutral, red, yellow, green, blue, inverse
-        icon = null,
+        icon = <Info />,
+        disabled = false,
         onClose = () => {},
+        closable = true,
     } = props;
 
-    let baseClasses = 'bg-badge-background-gray hover:bg-badge-hover-gray text-badge-color-gray font-medium border border-badge-border-gray flex gap-x-0.5 items-center';
+    // Base classes. - Mandatory classes.
+    const baseClasses = 'font-medium border border-badge-border-gray flex gap-1 items-center justify-center border border-solid';
+
+    // Size classes - Based on the size prop.
     const sizeClasses = {
         xs: 'py-0.5 px-1 text-xs',
         sm: 'py-1 px-1.5 text-xs',
@@ -20,45 +29,54 @@ const Badge = (props) => {
         lg: 'py-1 px-1.5 text-base',
     };
 
+    // Type classes - Based on the type prop.
     const typeClasses = {
-        sm: 'px-3 py-1.5 rounded text-xs',
-        md: 'px-3 rounded-md text-sm',
-        lg: 'px-4 rounded-lg text-base',
+        pill: 'rounded-full',
+        rounded: 'rounded',
     };
 
+    // Variant classes - Based on the variant prop.
     const variantClasses = {
-        sm: 'px-3 rounded text-xs',
-        md: 'px-3 rounded-md text-sm',
-        lg: 'px-4 rounded-lg text-base',
+        neutral: 'bg-badge-background-gray hover:bg-badge-hover-gray text-badge-color-gray border-badge-border-gray',
+        red: 'bg-badge-background-red hover:bg-badge-hover-red text-badge-color-red border-badge-border-red',
+        yellow: 'bg-badge-background-yellow hover:bg-badge-hover-yellow text-badge-color-yellow border-badge-border-yellow',
+        green: 'bg-badge-background-green hover:bg-badge-hover-green text-badge-color-green border-badge-border-green',
+        blue: 'bg-badge-background-sky hover:bg-badge-hover-sky text-badge-color-sky border-badge-border-sky',
+        inverse: 'bg-background-inverse hover:bg-badge-hover-inverse text-text-inverse border-background-inverse',
+        disabled: 'bg-badge-background-disabled hover:bg-badge-hover-disabled text-badge-color-disabled border-badge-border-disabled disabled cursor-not-allowed',
     };
 
-    const hoverClasses = 'hover:border-strong';
-    const focusClasses = 'focus:border-focus-border focus:ring-2 focus:ring-toggle-on focus:ring-offset-2';
-    // const errorClasses = error ? 'focus:border-focus-error-border focus:ring-field-color-error bg-field-background-error' : "";
-    // const disabledClasses = disabled ? 'border-field-border-disabled bg-field-background-disabled cursor-not-allowed' : '';
+    let filteredClasses = '';
+    let buttonClasses = 'group relative justify-center flex align-center [&>svg]:h-4 [&>svg]:w-4 cursor-pointer';
+
+    if ( disabled ) {
+        filteredClasses = variantClasses['disabled'];
+        buttonClasses += ' cursor-not-allowed disabled';
+    } else {
+        filteredClasses = variantClasses[variant];
+    }
+
+    if ( ! label ) {
+        return null;
+    }
 
     return (
-        <span className={twMerge( baseClasses,  sizeClasses[size]) }>
-            {/* <span className="group relative">
-                <span className="sr-only">Remove</span>
-                <svg viewBox="0 0 14 14" className="">
-                    <path d="M4 4l6 6m0-6l-6 6" />
-                </svg>
-                <span className="absolute -inset-1" />
-            </span> */}
+        <span className={twMerge( baseClasses, sizeClasses[size], typeClasses[type], filteredClasses, className) }>
+            {
+                icon ? <span className="justify-center flex align-center [&>svg]:h-4 [&>svg]:w-4">{icon}</span> : null
+            }
             {label}
-            <span className="group relative -mr-1 h-3.5 w-3.5 rounded-sm hover:bg-gray-500/20">
-                <span className="sr-only">Remove</span>
-                <X />
-                <span className="absolute -inset-1" />
-            </span>
+            { 
+                closable &&
+                (
+                    <span className={ buttonClasses } onClick={ ! disabled ? onClose : null }>
+                        <span className="sr-only">{ `Remove ${label}` }</span>
+                        <X />
+                        <span className="absolute -inset-1" />
+                    </span>
+                )
+            }
         </span>
-        // <div className={twMerge( baseClasses, disabledClasses, sizeClasses[size], focusClasses, hoverClasses, errorClasses, className )}>
-        //     <span>
-
-        //     </span>
-        //     <span>{label}</span>
-        // </div>
     );
 };
 
