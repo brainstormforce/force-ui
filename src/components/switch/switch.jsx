@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback, forwardRef } from 'react';
+import { useState, useMemo, useCallback, forwardRef, isValidElement } from 'react';
 import { nanoid } from 'nanoid';
 import { cn } from '../../utility/utils';
 
@@ -8,8 +8,7 @@ const SwitchLabel = ({ label, switchId, disabled = false, children }) => {
 		return children;
 	}
 
-	const isLabelAnObject = typeof label === 'object';
-	const isLabelAComponent = isLabelAnObject && label.$$typeof;
+	const isLabelAComponent = isValidElement(label);
 
 	const renderLabel = useCallback(() => {
 		if (isLabelAComponent) {
