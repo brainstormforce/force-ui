@@ -19,7 +19,6 @@ const Checkbox = ({
 	indeterminate,
 	disabled,
 	size = 'md',
-	color = 'primary',
 	...props
 }, ref) => {
 	const checkboxId = useMemo(() => id || `checkbox-${nanoid()}`, [id]);
@@ -28,6 +27,7 @@ const Checkbox = ({
 		[checked]
 	);
 	const [isChecked, setIsChecked] = useState(defaultChecked || false);
+	const color = 'primary';
 
 	const sizeClassNames = {
 		sm: {

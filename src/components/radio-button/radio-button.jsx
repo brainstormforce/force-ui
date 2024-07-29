@@ -66,7 +66,7 @@ const RadioButtonGroup = ({
 };
 
 const RadioButton = (
-	{ id, label, value, disabled, size = 'md', color = 'primary', ...props },
+	{ id, label, value, disabled, size = 'md', ...props },
 	ref
 ) => {
 	const providerValue = useRadioButton()
@@ -82,6 +82,7 @@ const RadioButton = (
 		onChange,
 		disableAll,
 	} = providerValue;
+	const color = 'primary';
 	const radioButtonId = useMemo(() => id || `radio-button-${nanoid()}`, [id]),
 		isDisabled = useMemo(() => disableAll || disabled, [disableAll, disabled]);
 	const checked = useMemo(() => {

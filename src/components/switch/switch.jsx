@@ -56,7 +56,6 @@ const Switch = ({
 	value,
 	defaultValue = false,
 	size = 'lg',
-	color = 'primary',
 	disabled = false,
 	label = { heading: '', description: '' },
 	name,
@@ -65,6 +64,7 @@ const Switch = ({
 	const isControlled = useMemo(() => typeof value !== 'undefined', [value]);
 	const switchId = useMemo(() => id ? id : `switch-${nanoid()}`, []);
 	const [checked, setChecked] = useState(defaultValue);
+	const color = 'primary';
 
 	const getValue = useCallback(
 		() => (isControlled ? value : checked),
