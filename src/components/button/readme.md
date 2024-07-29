@@ -64,6 +64,13 @@ The `Button` component is a versatile, customizable button component built with 
   - `"left"`
   - `"right"`
 
+### `loading`
+- **Type:** `boolean`
+- **Default:** `false`
+- **Description:** Determines whether to show the loader icon. If `true`, the loader icon is displayed. The loader is shown only for button variants: `primary`, `secondary`, `outline`, and `ghost`. The loader is not shown if the button is disabled.
+  - `true`: Show the loader icon.
+  - `false`: Hide the loader icon.
+
 ### `...rest`
 - **Type:** `object`
 - **Description:** Any additional props will be spread onto the button element.
