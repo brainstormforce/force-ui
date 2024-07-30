@@ -9,8 +9,10 @@
     "start": "NODE_ENV=development wp-scripts start",
     "pretty-fix": "prettier --write .",
     "pretty-lint": "prettier --check .",
-    "lint": "eslint .",
-    "lint-fix": "eslint --fix ."
+    "lint:js": "wp-scripts lint-js",
+    "lint:js-fix": "wp-scripts lint-js ./src/**/*.{js,jsx} --fix",
+    "lint:style": "wp-scripts lint-style",
+    "lint:style-fix": "wp-scripts lint-style ./src/**/*.{scss,css} --fix"
   },
   "repository": {
     "type": "git",
@@ -44,21 +46,14 @@
     }
   },
   "devDependencies": {
-    "@babel/core": "^7.24.9",
-    "@babel/eslint-parser": "^7.24.8",
-    "@babel/preset-env": "^7.16.7",
-    "@babel/preset-react": "^7.16.7",
-    "@vitejs/plugin-react": "^4.3.1",
+    "@wordpress/eslint-plugin": "^20.1.0",
+    "@wordpress/prettier-config": "^4.4.0",
     "autoprefixer": "^10.4.19",
     "babel-loader": "^8.2.3",
     "eslint": "^8.57.0",
-    "eslint-plugin-react": "^7.28.0",
     "postcss": "^8.4.39",
     "prettier": "^3.2.5",
-    "prettier-plugin-organize-imports": "^3.2.4",
     "tailwindcss": "^3.4.6",
-    "vite": "^5.3.4",
-    "vite-plugin-css-injected-by-js": "^3.5.1",
     "webpack": "^5.69.1",
     "webpack-cli": "^4.9.2",
     "webpack-dev-server": "^4.7.4"

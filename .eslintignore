@@ -6,5 +6,5 @@ dist
 *.md
 *.log
 config.js
-# ignoring vite configuration for now
-vite.config.js
+# ignoring webpack configuration
+webpack.config.js
