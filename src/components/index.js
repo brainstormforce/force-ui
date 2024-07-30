@@ -3,6 +3,7 @@ export { default as Button } from "./button";
 export { default as Switch } from './switch';
 export { default as Checkbox } from './checkbox';
 export { default as RadioButton } from './radio-button';
+export { default as Select } from "./select";
 // export { default as Label } from "./Label";
 // import { InfoCard, InfoCardContent } from "./InfoCard";
 // export { InfoCard, InfoCardContent };
