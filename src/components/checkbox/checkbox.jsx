@@ -7,7 +7,7 @@ import {
 } from 'react';
 import { nanoid } from 'nanoid';
 import { cn } from '../../utility/utils';
-import { CheckMarkIcon, MinusIcon } from '../../utility/icons';
+import { Check, Minus } from 'lucide-react';
 
 const Checkbox = ({
 	id,
@@ -117,13 +117,13 @@ const Checkbox = ({
 					disabled && disabledClassNames.icon,
 				)}>
 					{indeterminate ? (
-						<MinusIcon
+						<Minus
 							className={cn(
 								sizeClassNames[size]?.icon,
 							)}
 						/>
 					) : (
-						<CheckMarkIcon
+						<Check
 							className={cn(
 								sizeClassNames[size]?.icon,
 							)}
