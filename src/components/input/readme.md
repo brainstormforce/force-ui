@@ -1,4 +1,4 @@
-# Text Area
+# Input
 
 ## Description
 
