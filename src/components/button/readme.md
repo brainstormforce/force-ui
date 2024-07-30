@@ -71,6 +71,11 @@ The `Button` component is a versatile, customizable button component built with 
   - `true`: Show the loader icon.
   - `false`: Hide the loader icon.
 
+### `loaderIcon`
+- **Type:** `ReactNode`
+- **Default:** `null`
+- **Description:** The loader icon to be displayed when the button is in the loading state. If not provided, a default loader icon is displayed.
+
 ### `...rest`
 - **Type:** `object`
 - **Description:** Any additional props will be spread onto the button element.

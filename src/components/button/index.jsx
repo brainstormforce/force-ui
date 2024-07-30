@@ -14,6 +14,7 @@ const Button = (props) => {
     icon = null, // icon component
     iconPosition = "left", // left, right
     loading = false, // true, false
+    loaderIcon = null, // loader icon component
     ...rest
   } = props;
 
@@ -62,15 +63,15 @@ const Button = (props) => {
    * Loader is not shown if the button is disabled.
    */
   if (loading && !disabled && ["primary", "secondary", "outline", "ghost"].includes(variant)) {
-    const loaderIcon = <LoaderCircle className="animate-spin" />;
+    const putLoaderIcon = loaderIcon || <LoaderCircle className="animate-spin" />;
     // Adding flex classes to center the loader icon and opacity classes to reduce opacity
     iconClass = ! iconClass ? "flex items-center justify-center gap-1 opacity-50" : iconClass + " opacity-50";
 
     // Position the loader icon based on iconPosition
     if (iconPosition === "right") {
-      iconRight = loaderIcon;
+      iconRight = putLoaderIcon;
     } else {
-      iconLeft = loaderIcon;
+      iconLeft = putLoaderIcon;
     }
 
     // For outline and ghost variants, set loader icon color to primary.
