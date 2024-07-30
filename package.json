@@ -9,9 +9,9 @@
     "start": "NODE_ENV=development wp-scripts start",
     "pretty-fix": "prettier --write .",
     "pretty-lint": "prettier --check .",
-    "lint:js": "wp-scripts lint-js",
+    "lint:js": "wp-scripts lint-js ./src/**/*.{js,jsx}",
     "lint:js-fix": "wp-scripts lint-js ./src/**/*.{js,jsx} --fix",
-    "lint:style": "wp-scripts lint-style",
+    "lint:style": "wp-scripts lint-style ./src/**/*.{scss,css}",
     "lint:style-fix": "wp-scripts lint-style ./src/**/*.{scss,css} --fix"
   },
   "repository": {
