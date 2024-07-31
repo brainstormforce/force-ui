@@ -47,6 +47,8 @@ module.exports = {
         'border-disabled': '#E5E7EB',
         'border-muted': '#E5E7EB',
         'border-error': '#DC2626',
+        'border-white': '#FFFFFF',
+        'border-transparent-subtle': '#37415114', 
         // text
         'text-primary': '#111827',
         'text-secondary': '#4B5563',

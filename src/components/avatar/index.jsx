@@ -1,24 +1,28 @@
 import { twMerge } from "tailwind-merge";
-// import { User } from 'lucide-react';
+import { User } from 'lucide-react';
 
 const Avatar = (props) => {
     const {
-        variant = "white", // white, gray, primary, primary-light, dark
-        size = "md", // xs, sm, md, lg
-        type = "text", // text, icon, image
+        variant = "primary",
+        size = "md",
+        border = "subtle", 
+        type = "icon", 
+        icon = <User />, 
         text,
-        icon,
         imageUrl,
+        className
     } = props;
 
-    const baseClasses = "border border-solid rounded-full overflow-hidden flex items-center justify-center";
+    const effectiveBorder = type === "image" && border === "none" ? "subtle" : border;
+
+    const baseClasses = "rounded-full overflow-hidden flex items-center justify-center";
 
     const variantClasses = {
-        white: "text-text-primary bg-background-primary border-border-subtle",
-        gray: "text-text-primary bg-",
-        primary: "text-text-on-color bg-background-brand border-border-interactive",
-        primaryLight: "",
-        dark: "",
+        white: "text-text-primary bg-background-primary",
+        gray: "text-text-primary bg-background-secondary",
+        primary: "text-text-on-color bg-background-brand",
+        primaryLight: "text-text-primary bg-brand-background-50",
+        dark: "text-text-on-color bg-button-secondary",
     }?.[variant];
 
     const sizeClasses = {
@@ -28,24 +32,27 @@ const Avatar = (props) => {
         lg: "w-10 h-10 [&>svg]:h-6 [&>svg]:w-6 text-lg",
     }?.[size];
 
-    const renderContent = () => {
-        switch (type) {
-            case "text":
-                return <span>{text}</span>;
-            case "icon":
-                return icon || (
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-user"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" /><circle cx="12" cy="7" r="4" /></svg>
-                );
-            case "image":
-                return <img src={imageUrl} alt="avatar" className="w-full h-full object-cover" />;
-            default:
-                return null;
-        }
-    };
+    const borderClasses = {
+        none: "",
+        subtle: "border border-solid border-border-transparent-subtle",
+        ring: "border-4 border-solid border-border-white"
+    }?.[effectiveBorder];
+
+    const contentClasses = type === "image" ? "bg-cover bg-center bg-no-repeat" : "";
 
     return (
-        <div className={twMerge(baseClasses, variantClasses, sizeClasses)}>
-            {renderContent()}
+        <div 
+            className={twMerge(
+                baseClasses, 
+                type !== "image" && variantClasses, 
+                sizeClasses, 
+                borderClasses, 
+                contentClasses, 
+                className)} 
+            style={type === "image" ? { backgroundImage: `url(${imageUrl})` } : {}}
+            >
+                {type === "text" && <span>{text}</span>}
+                {type === "icon" && icon }
         </div>
     )
 }
