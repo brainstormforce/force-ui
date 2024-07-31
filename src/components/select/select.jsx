@@ -1,28 +1,52 @@
 import { useState, useCallback, useMemo, useReducer, useRef } from "react"
+import { cn } from "../../utility/utils";
 
-const Select = ({}) => {
+const Select = ({size = 'md'}) => {
     const inputWrapper = useRef(null);
+    const mainContainer = useRef(null);
 
     const handleChange = useCallback((event) => {
         const value = event.target.value;
         inputWrapper.current.setAttribute('data-value', value);
     }, []);
 
+    const handleClickMainContainer = useCallback((event) => {
+        inputWrapper.current.querySelector('input').focus();
+    }, []);
+
     const sizeClassNames = {
         sm: {
-            icon: 'size-4 pl-1.5 pr-2 py-1.5',
-
+            icon: 'size-3',
+            mainContainer: 'pl-1.5 pr-2 py-1.5 rounded'
         },
-        md: {},
-        lg: {},
+        md: {
+            icon: 'size-3',
+            mainContainer: 'pl-2 pr-2.5 py-2 rounded-md'
+        },
+        lg: {
+            icon: 'size-4',
+            mainContainer: 'pl-3 py-3 pr-3.5 rounded-lg'
+        },
+    }
+
+    const colorClassNames = {
+        mainContainer: 'border border-solid border-field-border [&:hover:not(:focus-within)]:border-border-strong focus-within:border-focus-border focus-within:ring-2 focus-within:ring-offset-4 focus-within:ring-focus'
     }
 
   return (
-    <div className="flex items-center justify-between border border-solid border-field-border hover:border-border-strong focus:border-border-interactive">
+    <div
+        ref={mainContainer} 
+        className={cn(
+            "flex items-center justify-between border border-solid",
+            sizeClassNames[size].mainContainer,
+            colorClassNames.mainContainer,
+        )}
+        onClick={handleClickMainContainer} 
+    >
         {/* Prefix Icon */}
         <div></div>
         {/* Input and selected item container */}
-        <div className="flex-1 flex items-center justify-start">
+        <div className="flex-1 flex items-center justify-start gap-1.5">
             {/* Selected items */}
             <div className="h-full w-auto px-2 py-1.5 bg-background-secondary rounded-sm">
                 Option 1
