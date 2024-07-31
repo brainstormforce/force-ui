@@ -36,13 +36,9 @@ jobs:
             - name: Install dependencies
               run: npm install
 
-            - name: Prettier Check
-              if: always()
-              run: npm run pretty
-
             - name: Lint JS
               if: always()
-              run: npm run lint-js
+              run: npm run lint:js
 
             - name: Lint CSS
               if: always()
