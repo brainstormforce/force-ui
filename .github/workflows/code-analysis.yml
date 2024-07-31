@@ -42,4 +42,4 @@ jobs:
 
             - name: Lint CSS
               if: always()
-              run: npm run lint-css
+              run: npm run lint:css
