@@ -36,6 +36,7 @@
     "deepmerge": "^4.3.1",
     "lodash.merge": "^4.6.2",
     "nanoid": "^5.0.7",
+    "lucide-react": "^0.417.0",
     "tailwind-merge": "^2.4.0"
   },
   "exports": {
@@ -46,13 +47,14 @@
     }
   },
   "devDependencies": {
-    "@babel/core": "^7.16.7",
+    "@babel/core": "^7.24.9",
+    "@babel/eslint-parser": "^7.24.8",
     "@babel/preset-env": "^7.16.7",
     "@babel/preset-react": "^7.16.7",
     "@vitejs/plugin-react": "^4.3.1",
     "autoprefixer": "^10.4.19",
     "babel-loader": "^8.2.3",
-    "eslint": "^8.10.0",
+    "eslint": "^8.57.0",
     "eslint-plugin-react": "^7.28.0",
     "postcss": "^8.4.39",
     "prettier": "^3.2.5",
