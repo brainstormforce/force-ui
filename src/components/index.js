@@ -5,3 +5,4 @@ export { default as RadioButton } from './radio-button/index';
 export { default as Badge } from './badge/index';
 export { default as TextArea } from './textarea/index';
 export { default as Input } from './input/index';
+export { default as Loader } from './loader/index';

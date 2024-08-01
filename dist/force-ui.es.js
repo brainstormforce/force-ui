@@ -1,4 +1,4 @@
-import { forwardRef as L, createElement as oe, useMemo as E, useState as Q, useCallback as G, isValidElement as Y, createContext as xe, Fragment as le, useContext as ye } from "react";
+import { forwardRef as V, createElement as oe, useMemo as E, useState as Y, useCallback as G, isValidElement as ee, createContext as ye, Fragment as le, useContext as xe } from "react";
 const se = "-";
 function ve(e) {
   const r = ke(e), {
@@ -127,18 +127,18 @@ function Ee(e) {
     const i = [];
     let c = 0, d = 0, b;
     for (let p = 0; p < l.length; p++) {
-      let x = l[p];
+      let y = l[p];
       if (c === 0) {
-        if (x === s && (o || l.slice(p, p + n) === r)) {
+        if (y === s && (o || l.slice(p, p + n) === r)) {
           i.push(l.slice(d, p)), d = p + n;
           continue;
         }
-        if (x === "/") {
+        if (y === "/") {
           b = p;
           continue;
         }
       }
-      x === "[" ? c++ : x === "]" && c--;
+      y === "[" ? c++ : y === "]" && c--;
     }
     const g = i.length === 0 ? l : l.substring(d), m = g.startsWith(ue), h = m ? g.substring(1) : g, f = b && b > d ? b - d : void 0;
     return {
@@ -253,9 +253,9 @@ function v(e) {
   const r = (t) => t[e] || [];
   return r.isThemeGetter = !0, r;
 }
-const pe = /^\[(?:([a-z-]+):)?(.+)\]$/i, Ge = /^\d+\/\d+$/, je = /* @__PURE__ */ new Set(["px", "full", "screen"]), Ve = /^(\d+(\.\d+)?)?(xs|sm|md|lg|xl)$/, Le = /\d+(%|px|r?em|[sdl]?v([hwib]|min|max)|pt|pc|in|cm|mm|cap|ch|ex|r?lh|cq(w|h|i|b|min|max))|\b(calc|min|max|clamp)\(.+\)|^0$/, Te = /^(rgba?|hsla?|hwb|(ok)?(lab|lch))\(.+\)$/, Be = /^(inset_)?-?((\d+)?\.?(\d+)[a-z]+|0)_-?((\d+)?\.?(\d+)[a-z]+|0)/, $e = /^(url|image|image-set|cross-fade|element|(repeating-)?(linear|radial|conic)-gradient)\(.+\)$/;
+const pe = /^\[(?:([a-z-]+):)?(.+)\]$/i, Ge = /^\d+\/\d+$/, Le = /* @__PURE__ */ new Set(["px", "full", "screen"]), je = /^(\d+(\.\d+)?)?(xs|sm|md|lg|xl)$/, Ve = /\d+(%|px|r?em|[sdl]?v([hwib]|min|max)|pt|pc|in|cm|mm|cap|ch|ex|r?lh|cq(w|h|i|b|min|max))|\b(calc|min|max|clamp)\(.+\)|^0$/, Te = /^(rgba?|hsla?|hwb|(ok)?(lab|lch))\(.+\)$/, Be = /^(inset_)?-?((\d+)?\.?(\d+)[a-z]+|0)_-?((\d+)?\.?(\d+)[a-z]+|0)/, $e = /^(url|image|image-set|cross-fade|element|(repeating-)?(linear|radial|conic)-gradient)\(.+\)$/;
 function z(e) {
-  return P(e) || je.has(e) || Ge.test(e);
+  return P(e) || Le.has(e) || Ge.test(e);
 }
 function S(e) {
   return T(e, "length", Ze);
@@ -263,7 +263,7 @@ function S(e) {
 function P(e) {
   return !!e && !Number.isNaN(Number(e));
 }
-function H(e) {
+function Q(e) {
   return T(e, "number", P);
 }
 function X(e) {
@@ -276,7 +276,7 @@ function u(e) {
   return pe.test(e);
 }
 function M(e) {
-  return Ve.test(e);
+  return je.test(e);
 }
 const Fe = /* @__PURE__ */ new Set(["length", "size", "percentage"]);
 function Oe(e) {
@@ -300,7 +300,7 @@ function T(e, r, t) {
   return o ? o[1] ? typeof r == "string" ? o[1] === r : r.has(o[1]) : t(o[2]) : !1;
 }
 function Ze(e) {
-  return Le.test(e) && !Te.test(e);
+  return Ve.test(e) && !Te.test(e);
 }
 function ge() {
   return !1;
@@ -312,7 +312,7 @@ function Je(e) {
   return $e.test(e);
 }
 function Ke() {
-  const e = v("colors"), r = v("spacing"), t = v("blur"), o = v("brightness"), s = v("borderColor"), n = v("borderRadius"), a = v("borderSpacing"), l = v("borderWidth"), i = v("contrast"), c = v("grayscale"), d = v("hueRotate"), b = v("invert"), g = v("gap"), m = v("gradientColorStops"), h = v("gradientColorStopPositions"), f = v("inset"), p = v("margin"), x = v("opacity"), w = v("padding"), C = v("saturate"), R = v("scale"), N = v("sepia"), A = v("skew"), I = v("space"), D = v("translate"), B = () => ["auto", "contain", "none"], $ = () => ["auto", "hidden", "clip", "visible", "scroll"], W = () => ["auto", u, r], y = () => [u, r], F = () => ["", z, S], j = () => ["auto", P, u], J = () => ["bottom", "center", "left", "left-bottom", "left-top", "right", "right-bottom", "right-top", "top"], V = () => ["solid", "dashed", "dotted", "double", "none"], O = () => ["normal", "multiply", "screen", "overlay", "darken", "lighten", "color-dodge", "color-burn", "hard-light", "soft-light", "difference", "exclusion", "hue", "saturation", "color", "luminosity"], te = () => ["start", "end", "center", "between", "around", "evenly", "stretch"], _ = () => ["", "0", u], ae = () => ["auto", "avoid", "all", "avoid-page", "page", "left", "right", "column"], U = () => [P, H], K = () => [P, u];
+  const e = v("colors"), r = v("spacing"), t = v("blur"), o = v("brightness"), s = v("borderColor"), n = v("borderRadius"), a = v("borderSpacing"), l = v("borderWidth"), i = v("contrast"), c = v("grayscale"), d = v("hueRotate"), b = v("invert"), g = v("gap"), m = v("gradientColorStops"), h = v("gradientColorStopPositions"), f = v("inset"), p = v("margin"), y = v("opacity"), w = v("padding"), C = v("saturate"), R = v("scale"), N = v("sepia"), A = v("skew"), I = v("space"), J = v("translate"), B = () => ["auto", "contain", "none"], $ = () => ["auto", "hidden", "clip", "visible", "scroll"], W = () => ["auto", u, r], x = () => [u, r], F = () => ["", z, S], L = () => ["auto", P, u], K = () => ["bottom", "center", "left", "left-bottom", "left-top", "right", "right-bottom", "right-top", "top"], j = () => ["solid", "dashed", "dotted", "double", "none"], O = () => ["normal", "multiply", "screen", "overlay", "darken", "lighten", "color-dodge", "color-burn", "hard-light", "soft-light", "difference", "exclusion", "hue", "saturation", "color", "luminosity"], te = () => ["start", "end", "center", "between", "around", "evenly", "stretch"], _ = () => ["", "0", u], ae = () => ["auto", "avoid", "all", "avoid-page", "page", "left", "right", "column"], U = () => [P, Q], H = () => [P, u];
   return {
     cacheSize: 500,
     separator: ":",
@@ -323,25 +323,25 @@ function Ke() {
       brightness: U(),
       borderColor: [e],
       borderRadius: ["none", "", "full", M, u],
-      borderSpacing: y(),
+      borderSpacing: x(),
       borderWidth: F(),
       contrast: U(),
       grayscale: _(),
-      hueRotate: K(),
+      hueRotate: H(),
       invert: _(),
-      gap: y(),
+      gap: x(),
       gradientColorStops: [e],
       gradientColorStopPositions: [We, S],
       inset: W(),
       margin: W(),
       opacity: U(),
-      padding: y(),
+      padding: x(),
       saturate: U(),
       scale: U(),
       sepia: _(),
-      skew: K(),
-      space: y(),
-      translate: y()
+      skew: H(),
+      space: x(),
+      translate: x()
     },
     classGroups: {
       // Layout
@@ -435,7 +435,7 @@ function Ke() {
        * @see https://tailwindcss.com/docs/object-position
        */
       "object-position": [{
-        object: [...J(), u]
+        object: [...K(), u]
       }],
       /**
        * Overflow
@@ -630,14 +630,14 @@ function Ke() {
        * @see https://tailwindcss.com/docs/grid-column
        */
       "col-start": [{
-        "col-start": j()
+        "col-start": L()
       }],
       /**
        * Grid Column End
        * @see https://tailwindcss.com/docs/grid-column
        */
       "col-end": [{
-        "col-end": j()
+        "col-end": L()
       }],
       /**
        * Grid Template Rows
@@ -660,14 +660,14 @@ function Ke() {
        * @see https://tailwindcss.com/docs/grid-row
        */
       "row-start": [{
-        "row-start": j()
+        "row-start": L()
       }],
       /**
        * Grid Row End
        * @see https://tailwindcss.com/docs/grid-row
        */
       "row-end": [{
-        "row-end": j()
+        "row-end": L()
       }],
       /**
        * Grid Auto Flow
@@ -1000,7 +1000,7 @@ function Ke() {
        * @see https://tailwindcss.com/docs/font-weight
        */
       "font-weight": [{
-        font: ["thin", "extralight", "light", "normal", "medium", "semibold", "bold", "extrabold", "black", H]
+        font: ["thin", "extralight", "light", "normal", "medium", "semibold", "bold", "extrabold", "black", Q]
       }],
       /**
        * Font Family
@@ -1051,7 +1051,7 @@ function Ke() {
        * @see https://tailwindcss.com/docs/line-clamp
        */
       "line-clamp": [{
-        "line-clamp": ["none", P, H]
+        "line-clamp": ["none", P, Q]
       }],
       /**
        * Line Height
@@ -1094,7 +1094,7 @@ function Ke() {
        * @see https://tailwindcss.com/docs/placeholder-opacity
        */
       "placeholder-opacity": [{
-        "placeholder-opacity": [x]
+        "placeholder-opacity": [y]
       }],
       /**
        * Text Alignment
@@ -1115,7 +1115,7 @@ function Ke() {
        * @see https://tailwindcss.com/docs/text-opacity
        */
       "text-opacity": [{
-        "text-opacity": [x]
+        "text-opacity": [y]
       }],
       /**
        * Text Decoration
@@ -1127,7 +1127,7 @@ function Ke() {
        * @see https://tailwindcss.com/docs/text-decoration-style
        */
       "text-decoration-style": [{
-        decoration: [...V(), "wavy"]
+        decoration: [...j(), "wavy"]
       }],
       /**
        * Text Decoration Thickness
@@ -1172,7 +1172,7 @@ function Ke() {
        * @see https://tailwindcss.com/docs/text-indent
        */
       indent: [{
-        indent: y()
+        indent: x()
       }],
       /**
        * Vertical Alignment
@@ -1230,7 +1230,7 @@ function Ke() {
        * @see https://tailwindcss.com/docs/background-opacity
        */
       "bg-opacity": [{
-        "bg-opacity": [x]
+        "bg-opacity": [y]
       }],
       /**
        * Background Origin
@@ -1244,7 +1244,7 @@ function Ke() {
        * @see https://tailwindcss.com/docs/background-position
        */
       "bg-position": [{
-        bg: [...J(), _e]
+        bg: [...K(), _e]
       }],
       /**
        * Background Repeat
@@ -1494,14 +1494,14 @@ function Ke() {
        * @see https://tailwindcss.com/docs/border-opacity
        */
       "border-opacity": [{
-        "border-opacity": [x]
+        "border-opacity": [y]
       }],
       /**
        * Border Style
        * @see https://tailwindcss.com/docs/border-style
        */
       "border-style": [{
-        border: [...V(), "hidden"]
+        border: [...j(), "hidden"]
       }],
       /**
        * Divide Width X
@@ -1532,14 +1532,14 @@ function Ke() {
        * @see https://tailwindcss.com/docs/divide-opacity
        */
       "divide-opacity": [{
-        "divide-opacity": [x]
+        "divide-opacity": [y]
       }],
       /**
        * Divide Style
        * @see https://tailwindcss.com/docs/divide-style
        */
       "divide-style": [{
-        divide: V()
+        divide: j()
       }],
       /**
        * Border Color
@@ -1602,7 +1602,7 @@ function Ke() {
        * @see https://tailwindcss.com/docs/outline-style
        */
       "outline-style": [{
-        outline: ["", ...V()]
+        outline: ["", ...j()]
       }],
       /**
        * Outline Offset
@@ -1649,7 +1649,7 @@ function Ke() {
        * @see https://tailwindcss.com/docs/ring-opacity
        */
       "ring-opacity": [{
-        "ring-opacity": [x]
+        "ring-opacity": [y]
       }],
       /**
        * Ring Offset Width
@@ -1685,7 +1685,7 @@ function Ke() {
        * @see https://tailwindcss.com/docs/opacity
        */
       opacity: [{
-        opacity: [x]
+        opacity: [y]
       }],
       /**
        * Mix Blend Mode
@@ -1828,7 +1828,7 @@ function Ke() {
        * @see https://tailwindcss.com/docs/backdrop-opacity
        */
       "backdrop-opacity": [{
-        "backdrop-opacity": [x]
+        "backdrop-opacity": [y]
       }],
       /**
        * Backdrop Saturate
@@ -1900,7 +1900,7 @@ function Ke() {
        * @see https://tailwindcss.com/docs/transition-duration
        */
       duration: [{
-        duration: K()
+        duration: H()
       }],
       /**
        * Transition Timing Function
@@ -1914,7 +1914,7 @@ function Ke() {
        * @see https://tailwindcss.com/docs/transition-delay
        */
       delay: [{
-        delay: K()
+        delay: H()
       }],
       /**
        * Animation
@@ -1964,14 +1964,14 @@ function Ke() {
        * @see https://tailwindcss.com/docs/translate
        */
       "translate-x": [{
-        "translate-x": [D]
+        "translate-x": [J]
       }],
       /**
        * Translate Y
        * @see https://tailwindcss.com/docs/translate
        */
       "translate-y": [{
-        "translate-y": [D]
+        "translate-y": [J]
       }],
       /**
        * Skew X
@@ -2049,126 +2049,126 @@ function Ke() {
        * @see https://tailwindcss.com/docs/scroll-margin
        */
       "scroll-m": [{
-        "scroll-m": y()
+        "scroll-m": x()
       }],
       /**
        * Scroll Margin X
        * @see https://tailwindcss.com/docs/scroll-margin
        */
       "scroll-mx": [{
-        "scroll-mx": y()
+        "scroll-mx": x()
       }],
       /**
        * Scroll Margin Y
        * @see https://tailwindcss.com/docs/scroll-margin
        */
       "scroll-my": [{
-        "scroll-my": y()
+        "scroll-my": x()
       }],
       /**
        * Scroll Margin Start
        * @see https://tailwindcss.com/docs/scroll-margin
        */
       "scroll-ms": [{
-        "scroll-ms": y()
+        "scroll-ms": x()
       }],
       /**
        * Scroll Margin End
        * @see https://tailwindcss.com/docs/scroll-margin
        */
       "scroll-me": [{
-        "scroll-me": y()
+        "scroll-me": x()
       }],
       /**
        * Scroll Margin Top
        * @see https://tailwindcss.com/docs/scroll-margin
        */
       "scroll-mt": [{
-        "scroll-mt": y()
+        "scroll-mt": x()
       }],
       /**
        * Scroll Margin Right
        * @see https://tailwindcss.com/docs/scroll-margin
        */
       "scroll-mr": [{
-        "scroll-mr": y()
+        "scroll-mr": x()
       }],
       /**
        * Scroll Margin Bottom
        * @see https://tailwindcss.com/docs/scroll-margin
        */
       "scroll-mb": [{
-        "scroll-mb": y()
+        "scroll-mb": x()
       }],
       /**
        * Scroll Margin Left
        * @see https://tailwindcss.com/docs/scroll-margin
        */
       "scroll-ml": [{
-        "scroll-ml": y()
+        "scroll-ml": x()
       }],
       /**
        * Scroll Padding
        * @see https://tailwindcss.com/docs/scroll-padding
        */
       "scroll-p": [{
-        "scroll-p": y()
+        "scroll-p": x()
       }],
       /**
        * Scroll Padding X
        * @see https://tailwindcss.com/docs/scroll-padding
        */
       "scroll-px": [{
-        "scroll-px": y()
+        "scroll-px": x()
       }],
       /**
        * Scroll Padding Y
        * @see https://tailwindcss.com/docs/scroll-padding
        */
       "scroll-py": [{
-        "scroll-py": y()
+        "scroll-py": x()
       }],
       /**
        * Scroll Padding Start
        * @see https://tailwindcss.com/docs/scroll-padding
        */
       "scroll-ps": [{
-        "scroll-ps": y()
+        "scroll-ps": x()
       }],
       /**
        * Scroll Padding End
        * @see https://tailwindcss.com/docs/scroll-padding
        */
       "scroll-pe": [{
-        "scroll-pe": y()
+        "scroll-pe": x()
       }],
       /**
        * Scroll Padding Top
        * @see https://tailwindcss.com/docs/scroll-padding
        */
       "scroll-pt": [{
-        "scroll-pt": y()
+        "scroll-pt": x()
       }],
       /**
        * Scroll Padding Right
        * @see https://tailwindcss.com/docs/scroll-padding
        */
       "scroll-pr": [{
-        "scroll-pr": y()
+        "scroll-pr": x()
       }],
       /**
        * Scroll Padding Bottom
        * @see https://tailwindcss.com/docs/scroll-padding
        */
       "scroll-pb": [{
-        "scroll-pb": y()
+        "scroll-pb": x()
       }],
       /**
        * Scroll Padding Left
        * @see https://tailwindcss.com/docs/scroll-padding
        */
       "scroll-pl": [{
-        "scroll-pl": y()
+        "scroll-pl": x()
       }],
       /**
        * Scroll Snap Align
@@ -2251,7 +2251,7 @@ function Ke() {
        * @see https://tailwindcss.com/docs/stroke-width
        */
       "stroke-w": [{
-        stroke: [z, S, H]
+        stroke: [z, S, Q]
       }],
       /**
        * Stroke
@@ -2327,7 +2327,7 @@ function Ke() {
     }
   };
 }
-const ee = /* @__PURE__ */ Pe(Ke);
+const re = /* @__PURE__ */ Pe(Ke);
 /**
  * @license lucide-react v0.417.0 - ISC
  *
@@ -2358,7 +2358,7 @@ var Qe = {
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const Ye = L(
+const Ye = V(
   ({
     color: e = "currentColor",
     size: r = 24,
@@ -2392,8 +2392,8 @@ const Ye = L(
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const re = (e, r) => {
-  const t = L(
+const Z = (e, r) => {
+  const t = V(
     ({ className: o, ...s }, n) => oe(Ye, {
       ref: n,
       iconNode: r,
@@ -2409,14 +2409,14 @@ const re = (e, r) => {
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const er = re("Check", [["path", { d: "M20 6 9 17l-5-5", key: "1gmf2c" }]]);
+const er = Z("Check", [["path", { d: "M20 6 9 17l-5-5", key: "1gmf2c" }]]);
 /**
  * @license lucide-react v0.417.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const rr = re("Info", [
+const rr = Z("Info", [
   ["circle", { cx: "12", cy: "12", r: "10", key: "1mglay" }],
   ["path", { d: "M12 16v-4", key: "1dtifu" }],
   ["path", { d: "M12 8h.01", key: "e9boi3" }]
@@ -2427,17 +2427,26 @@ const rr = re("Info", [
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const tr = re("Minus", [["path", { d: "M5 12h14", key: "1ays0h" }]]);
+const tr = Z("LoaderCircle", [
+  ["path", { d: "M21 12a9 9 0 1 1-6.219-8.56", key: "13zald" }]
+]);
 /**
  * @license lucide-react v0.417.0 - ISC
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
  */
-const or = re("X", [
+const or = Z("Minus", [["path", { d: "M5 12h14", key: "1ays0h" }]]);
+/**
+ * @license lucide-react v0.417.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+const nr = Z("X", [
   ["path", { d: "M18 6 6 18", key: "1bl5f8" }],
   ["path", { d: "m6 6 12 12", key: "d8bk6v" }]
-]), gr = (e) => {
+]), fr = (e) => {
   const {
     variant: r = "primary",
     // primary, secondary, outline, ghost, link
@@ -2472,15 +2481,15 @@ const or = re("X", [
     md: "p-2.5 rounded-md text-sm [&>svg]:h-5 [&>svg]:w-5",
     lg: "p-3 rounded-lg text-base [&>svg]:h-6 [&>svg]:w-6"
   }[t];
-  let p, x = null, w = "";
-  c && (w = "flex items-center justify-center gap-1", d === "left" ? p = c : x = c);
+  let p, y = null, w = "";
+  c && (w = "flex items-center justify-center gap-1", d === "left" ? p = c : y = c);
   const C = s;
-  return /* @__PURE__ */ React.createElement(C, { type: o, className: ee(w, g, f, m, h, n), disabled: l, ...b }, p, a, x);
-}, nr = "useandom-26T198340PX75pxJACKVERYMINDBUSHWOLF_GQZbfghjklqvwyzrict";
-let Z = (e = 21) => {
+  return /* @__PURE__ */ React.createElement(C, { type: o, className: re(w, g, f, m, h, n), disabled: l, ...b }, p, a, y);
+}, sr = "useandom-26T198340PX75pxJACKVERYMINDBUSHWOLF_GQZbfghjklqvwyzrict";
+let D = (e = 21) => {
   let r = "", t = crypto.getRandomValues(new Uint8Array(e));
   for (; e--; )
-    r += nr[t[e] & 63];
+    r += sr[t[e] & 63];
   return r;
 };
 function me(e) {
@@ -2492,15 +2501,15 @@ function me(e) {
   } else for (t in e) e[t] && (o && (o += " "), o += t);
   return o;
 }
-function sr() {
+function ar() {
   for (var e, r, t = 0, o = "", s = arguments.length; t < s; t++) (e = arguments[t]) && (r = me(e)) && (o && (o += " "), o += r);
   return o;
 }
-const k = (...e) => ee(sr(...e)), ar = ({ label: e, switchId: r, disabled: t = !1, children: o }) => {
+const k = (...e) => re(ar(...e)), lr = ({ label: e, switchId: r, disabled: t = !1, children: o }) => {
   const s = !e?.heading || !e?.description;
   if (s)
     return o;
-  const n = Y(e), a = G(() => {
+  const n = ee(e), a = G(() => {
     if (n)
       return e;
     const { heading: l = "", description: i = "" } = e;
@@ -2524,7 +2533,7 @@ const k = (...e) => ee(sr(...e)), ar = ({ label: e, switchId: r, disabled: t = !
       a()
     )
   );
-}, lr = ({
+}, ir = ({
   id: e,
   onChange: r,
   value: t,
@@ -2535,14 +2544,14 @@ const k = (...e) => ee(sr(...e)), ar = ({ label: e, switchId: r, disabled: t = !
   name: l,
   ...i
 }, c) => {
-  const d = E(() => typeof t < "u", [t]), b = E(() => e || `switch-${Z()}`, []), [g, m] = Q(o), h = "primary", f = G(
+  const d = E(() => typeof t < "u", [t]), b = E(() => e || `switch-${D()}`, []), [g, m] = Y(o), h = "primary", f = G(
     () => d ? t : g,
     [d, t, g]
   ), p = (R) => {
     if (n) return;
     const N = R.target.checked;
     d || m(N), typeof r == "function" && r(N);
-  }, x = {
+  }, y = {
     primary: {
       input: "bg-toggle-off hover:bg-toggle-off-hover checked:bg-toggle-on checked:hover:bg-toggle-on-hover focus:ring focus:ring-toggle-on focus:ring-offset-4 border border-solid border-toggle-off-border checked:border-toggle-on-border shadow-toggleContainer focus:outline-none checked:focus:border-toggle-on-border focus:border-toggle-off-border",
       toggleDial: "bg-toggle-dial-background shadow-toggleDial"
@@ -2560,7 +2569,7 @@ const k = (...e) => ee(sr(...e)), ar = ({ label: e, switchId: r, disabled: t = !
     input: "bg-toggle-off-disabled disabled:border-transparent shadow-none disabled:cursor-not-allowed",
     toggleDial: "peer-disabled:cursor-not-allowed"
   };
-  return /* @__PURE__ */ React.createElement(ar, { label: a, switchId: b, disabled: n }, /* @__PURE__ */ React.createElement(
+  return /* @__PURE__ */ React.createElement(lr, { label: a, switchId: b, disabled: n }, /* @__PURE__ */ React.createElement(
     "div",
     {
       className: k(
@@ -2576,7 +2585,7 @@ const k = (...e) => ee(sr(...e)), ar = ({ label: e, switchId: r, disabled: t = !
         type: "checkbox",
         className: k(
           "peer appearance-none absolute bg-blue-gray-100 rounded-full cursor-pointer transition-colors duration-300 h-full w-full  before:content-[''] checked:before:content-[''] m-0",
-          x[h].input,
+          y[h].input,
           n && C.input
         ),
         checked: f(),
@@ -2593,13 +2602,13 @@ const k = (...e) => ee(sr(...e)), ar = ({ label: e, switchId: r, disabled: t = !
         className: k(
           "bg-white border border-blue-gray-100 rounded-full absolute cursor-pointer shadow-md before:content[''] before:transition-opacity before:opacity-0 hover:before:opacity-10 before:hidden border-none transition-all duration-300",
           w[s].toggleDial,
-          x[h].toggleDial,
+          y[h].toggleDial,
           n && C.toggleDial
         )
       }
     )
   ));
-}, fr = L(lr), ir = ({
+}, mr = V(ir), cr = ({
   id: e,
   label: r,
   defaultChecked: t = !1,
@@ -2611,10 +2620,10 @@ const k = (...e) => ee(sr(...e)), ar = ({ label: e, switchId: r, disabled: t = !
   size: i = "md",
   ...c
 }, d) => {
-  const b = E(() => e || `checkbox-${Z()}`, [e]), g = E(
+  const b = E(() => e || `checkbox-${D()}`, [e]), g = E(
     () => typeof o < "u",
     [o]
-  ), [m, h] = Q(t || !1), f = "primary", p = {
+  ), [m, h] = Y(t || !1), f = "primary", p = {
     sm: {
       checkbox: "size-4 rounded-sm",
       icon: "size-3"
@@ -2623,7 +2632,7 @@ const k = (...e) => ee(sr(...e)), ar = ({ label: e, switchId: r, disabled: t = !
       checkbox: "size-5 rounded",
       icon: "size-4"
     }
-  }, x = {
+  }, y = {
     primary: {
       checkbox: "border-border-strong hover:border-border-interactive checked:border-border-interactive bg-white checked:bg-toggle-on checked:hover:bg-toggle-on-hover checked:hover:border-toggle-on-hover focus:ring-2 focus:ring-offset-4 focus:ring-focus",
       icon: "text-white"
@@ -2638,7 +2647,7 @@ const k = (...e) => ee(sr(...e)), ar = ({ label: e, switchId: r, disabled: t = !
     if (l) return;
     const I = A.target.checked;
     g || h(I), typeof s == "function" && s(I);
-  }, N = G(() => Y(r) ? r : !r.heading || !r.description ? null : /* @__PURE__ */ React.createElement("div", { className: "space-y-1.5" }, /* @__PURE__ */ React.createElement("p", { className: "text-text-primary text-base font-medium leading-4 m-0" }, r.heading), /* @__PURE__ */ React.createElement("p", { className: "text-text-secondary text-sm font-normal leading-5 m-0" }, r.description)), [r]);
+  }, N = G(() => ee(r) ? r : !r.heading || !r.description ? null : /* @__PURE__ */ React.createElement("div", { className: "space-y-1.5" }, /* @__PURE__ */ React.createElement("p", { className: "text-text-primary text-base font-medium leading-4 m-0" }, r.heading), /* @__PURE__ */ React.createElement("p", { className: "text-text-secondary text-sm font-normal leading-5 m-0" }, r.description)), [r]);
   return /* @__PURE__ */ React.createElement(
     "div",
     {
@@ -2661,7 +2670,7 @@ const k = (...e) => ee(sr(...e)), ar = ({ label: e, switchId: r, disabled: t = !
           type: "checkbox",
           className: k(
             "peer relative cursor-pointer appearance-none transition-all m-0 before:content-[''] checked:before:content-[''] checked:before:hidden before:hidden !border-1.5 border-solid",
-            x[f].checkbox,
+            y[f].checkbox,
             p[i].checkbox,
             l && w.checkbox
           ),
@@ -2673,10 +2682,10 @@ const k = (...e) => ee(sr(...e)), ar = ({ label: e, switchId: r, disabled: t = !
       ),
       /* @__PURE__ */ React.createElement("span", { className: k(
         "pointer-events-none inline-flex items-center absolute top-2/4 left-2/4 -translate-y-2/4 -translate-x-2/4 text-white opacity-0 transition-opacity peer-checked:opacity-100",
-        x[f].icon,
+        y[f].icon,
         l && w.icon
       ) }, a ? /* @__PURE__ */ React.createElement(
-        tr,
+        or,
         {
           className: k(
             p[i]?.icon
@@ -2700,7 +2709,7 @@ const k = (...e) => ee(sr(...e)), ar = ({ label: e, switchId: r, disabled: t = !
       N()
     )
   );
-}, mr = L(ir), he = xe(), cr = () => ye(he), dr = ({
+}, hr = V(cr), he = ye(), dr = () => xe(he), ur = ({
   children: e,
   name: r,
   value: t,
@@ -2712,9 +2721,9 @@ const k = (...e) => ee(sr(...e)), ar = ({ label: e, switchId: r, disabled: t = !
   disabled: i = !1
 }) => {
   const c = E(() => typeof t < "u", [t]), d = E(
-    () => r || `radio-button-group-${Z()}`,
+    () => r || `radio-button-group-${D()}`,
     [r]
-  ), [b, g] = Q(c ? t : o), m = G(
+  ), [b, g] = Y(c ? t : o), m = G(
     (h) => {
       const f = h.target.value;
       c || g(f), typeof a == "function" && a(f);
@@ -2733,10 +2742,10 @@ const k = (...e) => ee(sr(...e)), ar = ({ label: e, switchId: r, disabled: t = !
         disableAll: i
       }
     },
-    React.Children.map(e, (h) => Y(h) ? h : null)
+    React.Children.map(e, (h) => ee(h) ? h : null)
   ));
-}, ur = ({ id: e, label: r, value: t, disabled: o, size: s = "md", ...n }, a) => {
-  const l = cr();
+}, br = ({ id: e, label: r, value: t, disabled: o, size: s = "md", ...n }, a) => {
+  const l = dr();
   if (!l)
     throw new Error("RadioButton should be used inside RadioButton Group");
   const {
@@ -2746,7 +2755,7 @@ const k = (...e) => ee(sr(...e)), ar = ({ label: e, switchId: r, disabled: t = !
     onChange: b,
     disableAll: g,
     checked: m
-  } = l, h = "primary", f = E(() => e || `radio-button-${Z()}`, [e]), p = E(() => g || o, [g, o]), x = E(() => typeof m !== void 0 ? m : typeof c != typeof t ? !1 : typeof c == "string" ? c === t : Array.isArray(c) ? c.includes(t) : c[d] === t[d], [c, t, m]), w = {
+  } = l, h = "primary", f = E(() => e || `radio-button-${D()}`, [e]), p = E(() => g || o, [g, o]), y = E(() => typeof m !== void 0 ? m : typeof c != typeof t ? !1 : typeof c == "string" ? c === t : Array.isArray(c) ? c.includes(t) : c[d] === t[d], [c, t, m]), w = {
     sm: {
       checkbox: "size-4",
       icon: "size-1.5"
@@ -2763,7 +2772,7 @@ const k = (...e) => ee(sr(...e)), ar = ({ label: e, switchId: r, disabled: t = !
   }, R = {
     checkbox: "disabled:bg-white checked:disabled:bg-white disabled:border-border-disabled checked:disabled:border-border-disabled",
     icon: "peer-disabled:text-border-disabled"
-  }, N = G(() => Y(r) ? r : !r.heading || !r.description ? null : /* @__PURE__ */ React.createElement("div", { className: "space-y-1.5" }, /* @__PURE__ */ React.createElement("p", { className: "text-text-primary text-base font-medium leading-4 m-0" }, r.heading), /* @__PURE__ */ React.createElement("p", { className: "text-text-secondary text-sm font-normal leading-5 m-0" }, r.description)), [r]);
+  }, N = G(() => ee(r) ? r : !r.heading || !r.description ? null : /* @__PURE__ */ React.createElement("div", { className: "space-y-1.5" }, /* @__PURE__ */ React.createElement("p", { className: "text-text-primary text-base font-medium leading-4 m-0" }, r.heading), /* @__PURE__ */ React.createElement("p", { className: "text-text-secondary text-sm font-normal leading-5 m-0" }, r.description)), [r]);
   return /* @__PURE__ */ React.createElement(
     "div",
     {
@@ -2793,7 +2802,7 @@ const k = (...e) => ee(sr(...e)), ar = ({ label: e, switchId: r, disabled: t = !
           name: i,
           value: t,
           onChange: b,
-          checked: x,
+          checked: y,
           disabled: p,
           ...n
         }
@@ -2827,9 +2836,9 @@ const k = (...e) => ee(sr(...e)), ar = ({ label: e, switchId: r, disabled: t = !
       N()
     )
   );
-}, hr = {
-  Group: dr,
-  Button: L(ur)
+}, yr = {
+  Group: ur,
+  Button: V(br)
 }, xr = (e) => {
   const {
     label: r = "",
@@ -2863,8 +2872,8 @@ const k = (...e) => ee(sr(...e)), ar = ({ label: e, switchId: r, disabled: t = !
     disabled: "bg-badge-background-disabled hover:bg-badge-hover-disabled text-badge-color-disabled border-badge-border-disabled disabled cursor-not-allowed"
   };
   let h = "", f = "group relative justify-center flex items-center [&>svg]:h-4 [&>svg]:w-4 cursor-pointer";
-  return l ? (h = m.disabled, f += " cursor-not-allowed disabled") : h = m[n], r ? /* @__PURE__ */ React.createElement("span", { className: ee(d, b[t], g[s], h, o) }, a ? /* @__PURE__ */ React.createElement("span", { className: "justify-center flex items-center [&>svg]:h-4 [&>svg]:w-4" }, a) : null, r, c && /* @__PURE__ */ React.createElement("span", { className: f, onClick: l ? null : i }, /* @__PURE__ */ React.createElement("span", { className: "sr-only" }, `Remove ${r}`), /* @__PURE__ */ React.createElement(or, null), /* @__PURE__ */ React.createElement("span", { className: "absolute -inset-1" }))) : null;
-}, yr = (e) => {
+  return l ? (h = m.disabled, f += " cursor-not-allowed disabled") : h = m[n], r ? /* @__PURE__ */ React.createElement("span", { className: re(d, b[t], g[s], h, o) }, a ? /* @__PURE__ */ React.createElement("span", { className: "justify-center flex items-center [&>svg]:h-4 [&>svg]:w-4" }, a) : null, r, c && /* @__PURE__ */ React.createElement("span", { className: f, onClick: l ? null : i }, /* @__PURE__ */ React.createElement("span", { className: "sr-only" }, `Remove ${r}`), /* @__PURE__ */ React.createElement(nr, null), /* @__PURE__ */ React.createElement("span", { className: "absolute -inset-1" }))) : null;
+}, vr = (e) => {
   const {
     value: r = "",
     size: t = "sm",
@@ -2884,8 +2893,8 @@ const k = (...e) => ee(sr(...e)), ar = ({ label: e, switchId: r, disabled: t = !
     md: "px-3 rounded-md text-sm",
     lg: "px-4 rounded-lg text-base"
   }, b = s ? "hover:border-border-disabled" : "hover:border-border-strong", g = "focus:border-focus-border focus:ring-2 focus:ring-toggle-on focus:ring-offset-2", m = l ? "focus:border-focus-error-border focus:ring-field-color-error bg-field-background-error" : "", h = s ? "border-border-disabled bg-field-background-disabled cursor-not-allowed text-text-disabled" : "";
-  return /* @__PURE__ */ React.createElement("textarea", { className: ee(c, h, d[t], g, b, m, o), ...n, disabled: s, onChange: a, onInvalid: i, value: r });
-}, br = ({
+  return /* @__PURE__ */ React.createElement("textarea", { className: re(c, h, d[t], g, b, m, o), ...n, disabled: s, onChange: a, onInvalid: i, value: r });
+}, pr = ({
   id: e,
   type: r = "text",
   defaultValue: t = "",
@@ -2903,16 +2912,16 @@ const k = (...e) => ee(sr(...e)), ar = ({ label: e, switchId: r, disabled: t = !
   suffix: b = null,
   ...g
 }, m) => {
-  const h = E(() => e || `input-${r}-${Z()}`, [e]), f = E(
+  const h = E(() => e || `input-${r}-${D()}`, [e]), f = E(
     () => typeof o < "u",
     [o]
-  ), [p, x] = Q(t), w = G(
+  ), [p, y] = Y(t), w = G(
     () => f ? o : p,
     [f, o, p]
-  ), C = (V) => {
+  ), C = (j) => {
     if (a) return;
-    const O = V.target.value;
-    f || x(O), typeof l == "function" && l(O);
+    const O = j.target.value;
+    f || y(O), typeof l == "function" && l(O);
   };
   let R = "border border-solid border-border-subtle bg-field-secondary-background font-normal placeholder-text-tertiary text-text-primary";
   const N = {
@@ -2927,12 +2936,12 @@ const k = (...e) => ee(sr(...e)), ar = ({ label: e, switchId: r, disabled: t = !
     sm: d ? "pl-8" : "",
     md: d ? "pl-9" : "",
     lg: d ? "pl-10" : ""
-  }, D = {
+  }, J = {
     sm: b ? "pr-8" : "",
     md: b ? "pr-9" : "",
     lg: b ? "pr-10" : ""
-  }, B = a ? "hover:border-border-disabled" : "hover:border-border-strong", $ = "focus:border-focus-border focus:ring-2 focus:ring-toggle-on focus:ring-offset-2", W = i ? "focus:border-focus-error-border focus:ring-field-color-error bg-field-background-error" : "", y = a ? "border-border-disabled bg-field-background-disabled cursor-not-allowed text-text-disabled" : "", F = "font-normal placeholder-text-tertiary text-text-primary pointer-events-none absolute inset-y-0 flex flex-1 items-center [&>svg]:h-4 [&>svg]:w-4", j = () => d ? /* @__PURE__ */ React.createElement("div", { className: k(F, "left-0 pl-3", A[s]) }, d) : null, J = () => b ? /* @__PURE__ */ React.createElement("div", { className: k(F, "right-0 pr-3", A[s]) }, b) : null;
-  return /* @__PURE__ */ React.createElement("div", { className: k("relative flex focus-within:z-10", n) }, j(), /* @__PURE__ */ React.createElement(
+  }, B = a ? "hover:border-border-disabled" : "hover:border-border-strong", $ = "focus:border-focus-border focus:ring-2 focus:ring-toggle-on focus:ring-offset-2", W = i ? "focus:border-focus-error-border focus:ring-field-color-error bg-field-background-error" : "", x = a ? "border-border-disabled bg-field-background-disabled cursor-not-allowed text-text-disabled" : "", F = "font-normal placeholder-text-tertiary text-text-primary pointer-events-none absolute inset-y-0 flex flex-1 items-center [&>svg]:h-4 [&>svg]:w-4", L = () => d ? /* @__PURE__ */ React.createElement("div", { className: k(F, "left-0 pl-3", A[s]) }, d) : null, K = () => b ? /* @__PURE__ */ React.createElement("div", { className: k(F, "right-0 pr-3", A[s]) }, b) : null;
+  return /* @__PURE__ */ React.createElement("div", { className: k("relative flex focus-within:z-10", n) }, L(), /* @__PURE__ */ React.createElement(
     "input",
     {
       ref: m,
@@ -2940,11 +2949,11 @@ const k = (...e) => ee(sr(...e)), ar = ({ label: e, switchId: r, disabled: t = !
       type: r,
       className: k(
         R,
-        y,
+        x,
         N[s],
         A[s],
         I[s],
-        D[s],
+        J[s],
         $,
         B,
         W
@@ -2955,15 +2964,34 @@ const k = (...e) => ee(sr(...e)), ar = ({ label: e, switchId: r, disabled: t = !
       value: w(),
       ...g
     }
-  ), J());
-}, vr = L(br);
+  ), K());
+}, wr = V(pr), kr = ({
+  variant: e = "primary",
+  // primary, secondary
+  size: r = "md",
+  // sm, md, lg, xl,
+  icon: t = null,
+  className: o = ""
+}) => {
+  const s = {
+    primary: "text-brand-primary-600 bg-background-primary",
+    secondary: "text-background-primary bg-brand-primary-600"
+  }[e], n = {
+    sm: "[&>svg]:h-4 [&>svg]:w-4",
+    md: "[&>svg]:h-5 [&>svg]:w-5",
+    lg: "[&>svg]:h-6 [&>svg]:w-6",
+    xl: "[&>svg]:h-8 [&>svg]:w-8"
+  }[r];
+  return /* @__PURE__ */ React.createElement("span", { className: k("flex", n, s, o) }, t || /* @__PURE__ */ React.createElement(tr, { className: "animate-spin" }));
+};
 export {
   xr as Badge,
-  gr as Button,
-  mr as Checkbox,
-  vr as Input,
-  hr as RadioButton,
-  fr as Switch,
-  yr as TextArea
+  fr as Button,
+  hr as Checkbox,
+  wr as Input,
+  kr as Loader,
+  yr as RadioButton,
+  mr as Switch,
+  vr as TextArea
 };
 //# sourceMappingURL=force-ui.es.js.map
