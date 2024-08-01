@@ -2,15 +2,17 @@
   "name": "@bsf/force-ui",
   "version": "1.0.0",
   "description": "Library of components for the BSF project",
-  "main": "dist/force-ui.es.js",
+  "main": "dist/force-ui.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "vite build",
-    "start": "vite build -w",
+    "build": "NODE_ENV=production wp-scripts build",
+    "start": "NODE_ENV=development wp-scripts start",
     "pretty-fix": "prettier --write .",
     "pretty-lint": "prettier --check .",
-    "lint": "eslint .",
-    "lint-fix": "eslint --fix ."
+    "lint:js": "wp-scripts lint-js ./src/**/*.{js,jsx}",
+    "lint:js-fix": "wp-scripts lint-js ./src/**/*.{js,jsx} --fix",
+    "lint:css": "wp-scripts lint-style ./src/**/*.{scss,css}",
+    "lint:css-fix": "wp-scripts lint-style ./src/**/*.{scss,css} --fix"
   },
   "repository": {
     "type": "git",
@@ -30,39 +32,34 @@
     "react-dom": "^18.3.1"
   },
   "dependencies": {
-    "@material-tailwind/react": "^2.1.9",
     "clsx": "^2.1.1",
-    "deepmerge": "^4.3.1",
-    "lodash.merge": "^4.6.2",
-    "nanoid": "^5.0.7",
     "lucide-react": "^0.417.0",
+    "nanoid": "^5.0.7",
     "tailwind-merge": "^2.4.0"
   },
   "exports": {
     "./package.json": "./package.json",
     ".": {
-      "import": "./dist/force-ui.es.js",
-      "require": "./dist/force-ui.umd.js"
+      "import": "./dist/force-ui.js"
     }
   },
   "devDependencies": {
-    "@babel/core": "^7.24.9",
-    "@babel/eslint-parser": "^7.24.8",
-    "@babel/preset-env": "^7.16.7",
-    "@babel/preset-react": "^7.16.7",
-    "@vitejs/plugin-react": "^4.3.1",
+    "@wordpress/eslint-plugin": "^20.1.0",
+    "@wordpress/prettier-config": "^4.4.0",
+    "@wordpress/scripts": "^28.4.0",
     "autoprefixer": "^10.4.19",
     "babel-loader": "^8.2.3",
     "eslint": "^8.57.0",
-    "eslint-plugin-react": "^7.28.0",
     "postcss": "^8.4.39",
     "prettier": "^3.2.5",
-    "prettier-plugin-organize-imports": "^3.2.4",
     "tailwindcss": "^3.4.6",
-    "vite": "^5.3.4",
-    "vite-plugin-css-injected-by-js": "^3.5.1",
     "webpack": "^5.69.1",
     "webpack-cli": "^4.9.2",
     "webpack-dev-server": "^4.7.4"
-  }
+  },
+  "browserslist": [
+    "last 1 version",
+    "> 1%",
+    "IE 10"
+  ]
 }
