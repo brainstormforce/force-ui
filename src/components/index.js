@@ -6,3 +6,4 @@ export { default as Badge } from './badge/index';
 export { default as TextArea } from './textarea/index';
 export { default as Avatar } from './avatar/index';
 export { default as Input } from './input/index';
+export { default as Label } from './label/index';

@@ -1,82 +1,58 @@
-import { twMerge } from "tailwind-merge";
-import { X, Info } from "lucide-react";
+import { cn } from '../../utility/utils';
 
 /**
  * Badge component.
  */
 
-const Label = (props) => {
-  const {
-    label = "",
-    tag = "label",
-    size = "sm", // xs, sm, md, lg
-    className = "",
-    variant = "normal", // neutral/help/error
-    disabled = false,
-  } = props;
+const Label = ({
+	forId,
+  children = null,
+	tag = "label",
+  size = "sm", // xs, sm, md
+  className = "",
+  variant = "neutral", // neutral/help/error/disabled
+	...props
+}) => {
 
   // Base classes. - Mandatory classes.
-  const baseClasses = "font-medium border border-badge-border-gray flex gap-1 items-center justify-center border border-solid";
+  const baseClasses = "font-medium text-field-label flex items-center gap-0.5";
 
   // Size classes - Based on the size prop.
   const sizeClasses = {
-    xs: "py-0.5 px-1 text-xs",
-    sm: "py-1 px-1.5 text-xs",
-    md: "py-1 px-1.5 text-sm",
-    lg: "py-1 px-1.5 text-base",
-  };
-
-  // Type classes - Based on the type prop.
-  const typeClasses = {
-    pill: "rounded-full",
-    rounded: "rounded",
+    xs: "text-xs [&>*]:text-xs [&>svg]:h-3 [&>svg]:w-3",
+    sm: "text-sm [&>*]:text-sm [&>svg]:h-4 [&>svg]:w-4",
+    md: "text-base [&>*]:text-base [&>svg]:h-5 [&>svg]:w-5",
   };
 
   // Variant classes - Based on the variant prop.
   const variantClasses = {
-    neutral: "bg-badge-background-gray hover:bg-badge-hover-gray text-badge-color-gray border-badge-border-gray",
-    red: "bg-badge-background-red hover:bg-badge-hover-red text-badge-color-red border-badge-border-red",
-    yellow: "bg-badge-background-yellow hover:bg-badge-hover-yellow text-badge-color-yellow border-badge-border-yellow",
-    green: "bg-badge-background-green hover:bg-badge-hover-green text-badge-color-green border-badge-border-green",
-    blue: "bg-badge-background-sky hover:bg-badge-hover-sky text-badge-color-sky border-badge-border-sky",
-    inverse: "bg-background-inverse hover:bg-badge-hover-inverse text-text-inverse border-background-inverse",
-    disabled: "bg-badge-background-disabled hover:bg-badge-hover-disabled text-badge-color-disabled border-badge-border-disabled disabled cursor-not-allowed",
+    neutral: "text-field-label [&>*]:text-field-label",
+    help: "text-field-helper [&>*]:text-field-helper",
+    error: "text-support-error [&>*]:text-support-error",
+    disabled: "text-field-color-disabled disabled cursor-not-allowed [&>*]:text-field-color-disabled",
   };
 
-  let filteredClasses = "";
-  let buttonClasses = "group relative justify-center flex align-center [&>svg]:h-4 [&>svg]:w-4 cursor-pointer";
-
-  if (disabled) {
-    filteredClasses = variantClasses["disabled"];
-    buttonClasses += " cursor-not-allowed disabled";
-  } else {
-    filteredClasses = variantClasses[variant];
-  }
-
-  if (!label) {
+  if (!children) {
     return null;
   }
 
   const Tag = tag;
 
   return (
-    <Tag className={twMerge(baseClasses, sizeClasses[size], typeClasses[type], filteredClasses, className)}>
-      {label}
+    <Tag
+      htmlFor={forId}
+      className={
+        cn(
+          baseClasses,
+          sizeClasses[size],
+          variantClasses[variant],
+          className
+        )
+      }
+      {...props}
+    >
+      {children}
     </Tag>
-  );
-
-  return (
-    <span className={twMerge(baseClasses, sizeClasses[size], typeClasses[type], filteredClasses, className)}>
-      {icon ? <span className="justify-center flex align-center [&>svg]:h-4 [&>svg]:w-4">{icon}</span> : null}
-      {label}
-      {closable && (
-        <span className={buttonClasses} onClick={!disabled ? onClose : null}>
-          <span className="sr-only">{`Remove ${label}`}</span>
-          <X />
-          <span className="absolute -inset-1" />
-        </span>
-      )}
-    </span>
   );
 };
 

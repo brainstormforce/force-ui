@@ -101,9 +101,3 @@ const App = () => (
 
 export default App;
 ```
-## Notes
-
-- Ensure to have Tailwind CSS configured in your project to utilize the styles effectively.
-- This component leverages the `twMerge` utility from `tailwind-merge` to combine Tailwind classes efficiently.
-
-

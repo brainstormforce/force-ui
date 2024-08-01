@@ -1,4 +1,4 @@
-import { twMerge } from 'tailwind-merge';
+import { cn } from '../../utility/utils';
 
 const TextArea = ( props ) => {
 	const {
@@ -24,7 +24,7 @@ const TextArea = ( props ) => {
 	const errorClasses = error ? 'focus:border-focus-error-border focus:ring-field-color-error bg-field-background-error' : '';
 	const disabledClasses = disabled ? 'border-border-disabled bg-field-background-disabled cursor-not-allowed text-text-disabled' : '';
 
-	return <textarea className={ twMerge( baseClasses, disabledClasses, sizeClasses[ size ], focusClasses, hoverClasses, errorClasses, className ) } { ...inputProps } disabled={ disabled } onChange={ onChange } onInvalid={ onError } value={ value } />;
+	return <textarea className={ cn( baseClasses, disabledClasses, sizeClasses[ size ], focusClasses, hoverClasses, errorClasses, className ) } { ...inputProps } disabled={ disabled } onChange={ onChange } onInvalid={ onError } value={ value } />;
 };
 
 export default TextArea;
