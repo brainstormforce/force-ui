@@ -1,19 +1,16 @@
 import { twMerge } from "tailwind-merge";
-import { User } from 'lucide-react';
 
 const Avatar = (props) => {
     const {
         variant = "primary",
         size = "md",
         border = "subtle", 
-        type = "icon", 
-        icon = <User />, 
-        text,
-        imageUrl,
+        url = "",
+        children,
         className
     } = props;
 
-    const effectiveBorder = type === "image" && border === "none" ? "subtle" : border;
+    const effectiveBorder = url && border === "none" ? "subtle" : border;
 
     const baseClasses = "rounded-full overflow-hidden flex items-center justify-center";
 
@@ -38,21 +35,22 @@ const Avatar = (props) => {
         ring: "border-4 border-solid border-border-white"
     }?.[effectiveBorder];
 
-    const contentClasses = type === "image" ? "bg-cover bg-center bg-no-repeat" : "";
+    const contentClasses = url ? "bg-cover bg-center bg-no-repeat" : "";
+
+    const modifiedChildren = typeof children === "string" ? children[0].toUpperCase() : children;
 
     return (
         <div 
             className={twMerge(
                 baseClasses, 
-                type !== "image" && variantClasses, 
+                !url && variantClasses, 
                 sizeClasses, 
                 borderClasses, 
                 contentClasses, 
                 className)} 
-            style={type === "image" ? { backgroundImage: `url(${imageUrl})` } : {}}
+            style={url ? { backgroundImage: `url(${url})` } : {}}
             >
-                {type === "text" && <span>{text}</span>}
-                {type === "icon" && icon }
+            {modifiedChildren}
         </div>
     )
 }

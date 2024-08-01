@@ -33,22 +33,13 @@ The `Avatar` component is a visual representation of a user or entity, typically
   - `"subtle"`
   - `"ring"`
 
-### `type`
+### `url`
 - **Type:** `string`
-- **Default:** `"icon"`
-- **Description:** Defines the `type` attribute for the avatar component. The avatar can be a user's profile picture, an icon, or initials of the user's name. Common values are `"icon"`, `"image"`, and `"text"`.
+- **Description:** URL of image to be used as the background image of the avatar.
 
-### `icon`
-- **Type:** `ReactNode`
-- **Description:** An icon component to be displayed inside the avatar.
-
-### `text`
-- **Type:** `string`
-- **Description:** An initials - letter to be displayed inside the avatar.
-
-### `imageUrl`
-- **Type:** `string`
-- **Description:** URL of image to be used as the background image when `type` prop is set to `"image"`.
+### `children`
+- **Type:** `string` or `ReactNode`
+- **Description:** An icon, string, or image element to be displayed inside the avatar.
 
 ### `className`
 - **Type:** `string`
@@ -65,10 +56,10 @@ import userImg from './user.png';
 
 const App = () => (
   <div>
-    <Avatar size="sm" type="text" text="A" variant="gray" border="ring"/>
-    <Avatar size="xs" icon={<ExampleIcon />} variant="primaryLight"/>
-    <Avatar size="lg" variant="dark" border="none"/>
-    <Avatar type="image" imageUrl={userImg} />
+    <Avatar size="xs" variant="gray" border="ring">username</ Avatar>
+    <Avatar size="sm" variant="primaryLight">{<ExampleIcon />}</ Avatar>
+    <Avatar size="lg" url="https://example.com/my-avatar.jpg"/>
+    <Avatar size="lg" url={userImg}/>
   </div>
 );
 
