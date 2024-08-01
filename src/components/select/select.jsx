@@ -118,11 +118,10 @@ const Select = ({ size: sizeValue = "md", dropdownPortalId = "", dropdownPortalR
 			<div
 				ref={refs.setReference}
 				className={cn(
-                    "flex items-center justify-between border border-solid w-full box-border", 
+                    "flex items-center justify-between border border-solid w-full box-border transition-colors duration-150", 
                     "border border-solid border-field-border",
-                    "focus-within:ring-2 focus-within:ring-offset-4 focus-within:border-focus-border focus-within:ring-focus hover:border-border-strong",
+                    !isOpen && "focus:ring-2 focus:ring-offset-4 focus:border-focus-border focus:ring-focus [&:hover:not(:focus)]:border-border-strong",
                     sizeClassNames[sizeValue].mainContainer,
-                    colorClassNames.mainContainer,
                 )}
 				aria-labelledby="select-label"
 				aria-autocomplete="none"
@@ -154,6 +153,7 @@ const Select = ({ size: sizeValue = "md", dropdownPortalId = "", dropdownPortalR
 			{isOpen && (
 				<FloatingPortal id={dropdownPortalId} root={dropdownPortalRoot}>
 					<FloatingFocusManager context={context} modal={false}>
+                        {/* Dropdown Wrapper */}
 						<div
 							ref={refs.setFloating}
 							className={cn(
@@ -166,6 +166,7 @@ const Select = ({ size: sizeValue = "md", dropdownPortalId = "", dropdownPortalR
 							}}
 							{...getFloatingProps()}
 						>
+                            {/* Searchbox */}
                             { combobox && (
                                 <div className={cn(
                                     sizeClassNames[sizeValue].searchbarWrapper,
@@ -176,15 +177,17 @@ const Select = ({ size: sizeValue = "md", dropdownPortalId = "", dropdownPortalR
                                     )} type="search" name="keyword" placeholder="Search" />
                                 </div>
                             ) }
+                            {/* Dropdown Items Wrapper */}
                             <div className={cn(
                                 "overflow-y-auto",
                                 ! combobox && 'w-full h-full',
                                 sizeClassNames[sizeValue].dropdownItemsWrapper,
                             )}>
+                                {/* Dropdown Items */}
                                 {options.map((value, indx) => (
                                     <div
                                         className={cn(
-                                            'text-text-primary hover:bg-button-tertiary-hover rounded-md',
+                                            'text-text-primary hover:bg-button-tertiary-hover rounded-md transition-all duration-150',
                                             sizeClassNames[sizeValue].dropdownItem,
                                             indx === activeIndex && 'bg-button-tertiary-hover',
                                         )}
@@ -199,6 +202,7 @@ const Select = ({ size: sizeValue = "md", dropdownPortalId = "", dropdownPortalR
                                             // Handle pointer select.
                                             onClick() {
                                                 handleSelect(indx);
+                                                refs.reference.current.focus();
                                             },
                                             // Handle keyboard select.
                                             onKeyDown(event) {
