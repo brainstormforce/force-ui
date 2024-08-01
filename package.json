@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "Library of components for the BSF project",
   "main": "dist/force-ui.es.js",
-  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "vite build",
@@ -35,6 +34,8 @@
     "clsx": "^2.1.1",
     "deepmerge": "^4.3.1",
     "lodash.merge": "^4.6.2",
+    "nanoid": "^5.0.7",
+    "lucide-react": "^0.417.0",
     "tailwind-merge": "^2.4.0"
   },
   "exports": {
