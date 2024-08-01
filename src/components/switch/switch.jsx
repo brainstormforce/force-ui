@@ -4,9 +4,6 @@ import { cn } from '../../utility/utils';
 
 const SwitchLabel = ( { label, switchId, disabled = false, children } ) => {
 	const isEmptyLabel = ! label?.heading || ! label?.description;
-	if ( isEmptyLabel ) {
-		return children;
-	}
 
 	const isLabelAComponent = isValidElement( label );
 
@@ -31,6 +28,10 @@ const SwitchLabel = ( { label, switchId, disabled = false, children } ) => {
 			</div>
 		);
 	}, [ label ] );
+
+	if ( isEmptyLabel ) {
+		return children;
+	}
 
 	return (
 		<div
