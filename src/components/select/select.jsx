@@ -32,7 +32,7 @@ import { createPortal } from "react-dom";
     "White",
   ];
 
-const Select = ({size: sizeValue = 'md', portalId = '', portalRoot = null}) => {
+const Select = ({size: sizeValue = 'md', dropdownPortalId = '', dropdownPortalRoot = null}) => {
     const inputWrapper = useRef(null);
     const mainContainer = useRef(null);
 
@@ -178,7 +178,7 @@ const Select = ({size: sizeValue = 'md', portalId = '', portalRoot = null}) => {
 
         {/* Dropdown */}
         {isOpen && (
-            <FloatingPortal id={portalId} root={portalRoot}>
+            <FloatingPortal id={dropdownPortalId} root={dropdownPortalRoot}>
                 <FloatingFocusManager context={context} modal={false}>
                     <div
                         ref={refs.setFloating}
