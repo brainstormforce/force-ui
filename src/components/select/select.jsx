@@ -1,6 +1,6 @@
 import { useState, useCallback, useMemo, useReducer, useRef } from 'react';
 import { cn } from '../../utility/utils';
-import { ChevronDown } from 'lucide-react';
+import { ChevronDown, ChevronsUpDown } from 'lucide-react';
 import {
 	useFloating,
 	useClick,
@@ -105,23 +105,24 @@ const options = [
 	'Oganesson',
 ];
 
-const dropdownMaxHeightBySize = {
-	sm: 172,
-	md: 216,
-	lg: 216,
-};
-
 const Select = ({
 	size: sizeValue = 'md',
 	dropdownPortalId = '',
 	dropdownPortalRoot = null,
 	placeholder = 'Select an option',
 	combobox = false,
+	icon = null,
 }) => {
 	// Dropdown position related code (Start)
 	const [isOpen, setIsOpen] = useState(false);
 	const [activeIndex, setActiveIndex] = useState(0);
 	const [selectedIndex, setSelectedIndex] = useState(0);
+
+	const dropdownMaxHeightBySize = {
+		sm: combobox ? 256 : 172,
+		md: combobox ? 256 : 216,
+		lg: combobox ? 256 : 216,
+	};
 
 	const { refs, floatingStyles, context } = useFloating({
 		placement: 'bottom-start',
@@ -169,7 +170,13 @@ const Select = ({
 	});
 
 	const { getReferenceProps, getFloatingProps, getItemProps } =
-		useInteractions([dismiss, role, listNav /* typeahead */, , click]);
+		useInteractions([
+			dismiss,
+			role,
+			listNav,
+			click,
+			...(! combobox ? [typeahead] : []),
+		]);
 
 	const handleSelect = (index) => {
 		setSelectedIndex(index);
@@ -183,7 +190,8 @@ const Select = ({
 
 	const sizeClassNames = {
 		sm: {
-			icon: '[&>svg]:size-3',
+			icon: '[&>svg]:size-4',
+			searchIcon: '[&>svg]:size-4',
 			mainContainer:
 				'pl-1.5 pr-2 py-1.5 rounded text-xs font-medium leading-4',
 			selectPlaceholder: 'text-xs font-normal',
@@ -194,7 +202,8 @@ const Select = ({
 			searchbar: 'font-medium text-xs',
 		},
 		md: {
-			icon: '[&>svg]:size-3',
+			icon: '[&>svg]:size-5',
+			searchIcon: '[&>svg]:size-5',
 			mainContainer:
 				'pl-2 pr-2.5 py-2 rounded-md text-xs font-medium leading-4',
 			selectPlaceholder: 'text-sm font-normal',
@@ -205,7 +214,8 @@ const Select = ({
 			searchbar: 'font-medium text-sm',
 		},
 		lg: {
-			icon: '[&>svg]:size-4',
+			icon: '[&>svg]:size-6',
+			searchIcon: '[&>svg]:size-5',
 			mainContainer:
 				'pl-3 py-3 pr-3.5 rounded-lg text-sm font-medium leading-5',
 			selectPlaceholder: 'text-sm font-normal',
@@ -216,6 +226,17 @@ const Select = ({
 			searchbar: 'font-medium text-sm',
 		},
 	};
+
+	// Get icon based on the Select component type and user provided icon.
+	const getIcon = useCallback(() => {
+		if (icon) {
+			return icon;
+		}
+
+		const iconClassNames = "text-field-placeholder";
+
+		return combobox ? <ChevronsUpDown className={iconClassNames} />: <ChevronDown className={iconClassNames} />;
+	}, [icon])
 
 	return (
 		<>
@@ -240,7 +261,7 @@ const Select = ({
 						// 'flex flex-wrap'
 					)}
 				>
-					{/* Selected item/items */}
+					{/* Show Selected item/items (Multiselector) */}
 
 					{/* Placeholder */}
 					<div
@@ -259,7 +280,7 @@ const Select = ({
 						sizeClassNames[sizeValue].icon
 					)}
 				>
-					<ChevronDown className="text-field-placeholder" />
+					{getIcon()}
 				</div>
 			</div>
 
