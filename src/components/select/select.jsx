@@ -1,4 +1,4 @@
-import { useState, useCallback, useMemo, useReducer, useRef } from 'react';
+import { useState, useCallback, useMemo, useRef, createContext, useContext } from 'react';
 import { cn } from '../../utility/utils';
 import { ChevronDown, ChevronsUpDown } from 'lucide-react';
 import {
@@ -105,13 +105,67 @@ const options = [
 	'Oganesson',
 ];
 
+const SelectContext = createContext();
+const useSelectContext = () => useContext(SelectContext);
+
+const SelectItem = ({ value, disabled = false }) => {
+	const {
+		sizeValue,
+		listRef,
+		getItemProps,
+		onKeyDownItem,
+		onClickItem,
+	} = useSelectContext();
+
+	const selectItemClassNames = {
+		sm: 'py-1.5 px-2 text-sm font-normal',
+		md: 'p-2 text-base font-normal',
+		lg: 'p-2 text-base font-normal',
+	};
+
+	return (
+		<div
+			className={cn(
+				'text-text-primary hover:bg-button-tertiary-hover rounded-md transition-all duration-150',
+				selectItemClassNames[sizeValue],
+				// indx === activeIndex && 'bg-button-tertiary-hover'
+			)}
+			ref={(node) => {
+				listRef.current[indx] = node;
+			}}
+			role="option"
+			tabIndex={indx === activeIndex ? 0 : -1}
+			aria-selected={indx === selectedIndex && indx === activeIndex}
+			{...getItemProps({
+				// Handle pointer select.
+				onClick() {
+					onClickItem(indx);
+				},
+				// Handle keyboard select.
+				onKeyDown(event) {
+					onKeyDownItem(event);
+				},
+			})}
+		>
+			{value}
+			<span aria-hidden>{indx === selectedIndex ? ' ✓' : ''}</span>
+		</div>
+	);
+};
+
 const Select = ({
-	size: sizeValue = 'md',
+	size: sizeValue = 'md', // sm, md, lg
 	dropdownPortalId = '',
 	dropdownPortalRoot = null,
 	placeholder = 'Select an option',
-	combobox = false,
+	combobox = false, // If true, it will show a search box.
 	icon = null,
+	value, // Value of the select (for controlled component).
+	defaultValue, // Default value of the select (for uncontrolled component).
+	onChange, // Callback function to handle the change event.
+	multiple, // If true, it will allow multiple selection.
+	disabled = false, // If true, it will disable the select.
+	children,
 }) => {
 	// Dropdown position related code (Start)
 	const [isOpen, setIsOpen] = useState(false);
@@ -180,7 +234,7 @@ const Select = ({
 
 	const handleSelect = (index) => {
 		setSelectedIndex(index);
-		setIsOpen(false);
+		refs.reference.current.focus();
 	};
 
 	const selectedItemLabel =
@@ -197,7 +251,6 @@ const Select = ({
 			selectPlaceholder: 'text-xs font-normal',
 			dropdown: 'rounded-md',
 			dropdownItemsWrapper: 'p-1.5',
-			dropdownItem: 'py-1.5 px-2 text-sm font-normal',
 			searchbarWrapper: 'p-3 flex items-center gap-0.5',
 			searchbar: 'font-medium text-xs',
 		},
@@ -209,7 +262,6 @@ const Select = ({
 			selectPlaceholder: 'text-sm font-normal',
 			dropdown: 'rounded-lg',
 			dropdownItemsWrapper: 'p-2',
-			dropdownItem: 'p-2 text-base font-normal',
 			searchbarWrapper: 'p-2.5 flex items-center gap-1',
 			searchbar: 'font-medium text-sm',
 		},
@@ -221,7 +273,6 @@ const Select = ({
 			selectPlaceholder: 'text-sm font-normal',
 			dropdown: 'rounded-lg',
 			dropdownItemsWrapper: 'p-2',
-			dropdownItem: 'p-2 text-base font-normal',
 			searchbarWrapper: 'p-2.5 flex items-center gap-1',
 			searchbar: 'font-medium text-sm',
 		},
@@ -237,6 +288,22 @@ const Select = ({
 
 		return combobox ? <ChevronsUpDown className={iconClassNames} />: <ChevronDown className={iconClassNames} />;
 	}, [icon])
+
+	const onClickItem = (value) => {
+		handleSelect(value);
+	}
+
+	const onKeyDownItem = (event) => {
+		if (event.key === 'Enter') {
+			event.preventDefault();
+			handleSelect(indx);
+		}
+
+		if (event.key === ' ' && !isTypingRef.current) {
+			event.preventDefault();
+			handleSelect(indx);
+		}
+	}
 
 	return (
 		<>
@@ -284,108 +351,85 @@ const Select = ({
 				</div>
 			</div>
 
-			{/* Dropdown */}
-			{isOpen && (
-				<FloatingPortal id={dropdownPortalId} root={dropdownPortalRoot}>
-					<FloatingFocusManager context={context} modal={false}>
-						{/* Dropdown Wrapper */}
-						<div
-							ref={refs.setFloating}
-							className={cn(
-								'box-border [&_*]:box-border h-full bg-white outline-none shadow-lg border border-solid border-border-subtle overflow-hidden',
-								combobox &&
-									'grid grid-cols-1 grid-rows-[auto_1fr] divide-y divide-x-0 divide-solid divide-border-subtle',
-								sizeClassNames[sizeValue].dropdown
-							)}
-							style={{
-								...floatingStyles,
-							}}
-							{...getFloatingProps()}
-						>
-							{/* Searchbox */}
-							{combobox && (
-								<div
-									className={cn(
-										sizeClassNames[sizeValue]
-											.searchbarWrapper
-									)}
-								>
-									<input
-										className={cn(
-											'w-full',
-											sizeClassNames[sizeValue].searchbar
-										)}
-										type="search"
-										name="keyword"
-										placeholder="Search"
-									/>
-								</div>
-							)}
-							{/* Dropdown Items Wrapper */}
+			<SelectContext.Provider value={{
+				selectedIndex,
+				setSelectedIndex,
+				activeIndex,
+				setActiveIndex,
+				handleSelect,
+				combobox,
+				sizeValue,
+				globalDisabled: disabled,
+				multiple,
+				value,
+				defaultValue,
+				onChange,
+				listRef,
+				isTypingRef,
+				refs,
+				getItemProps,
+				onClickItem,
+				onKeyDownItem,
+			}}>
+				{/* Dropdown */}
+				{isOpen && (
+					<FloatingPortal id={dropdownPortalId} root={dropdownPortalRoot}>
+						<FloatingFocusManager context={context} modal={false}>
+							{/* Dropdown Wrapper */}
 							<div
+								ref={refs.setFloating}
 								className={cn(
-									'overflow-y-auto',
-									!combobox && 'w-full h-full',
-									sizeClassNames[sizeValue]
-										.dropdownItemsWrapper
+									'box-border [&_*]:box-border h-full bg-white outline-none shadow-lg border border-solid border-border-subtle overflow-hidden',
+									combobox &&
+										'grid grid-cols-1 grid-rows-[auto_1fr] divide-y divide-x-0 divide-solid divide-border-subtle',
+									sizeClassNames[sizeValue].dropdown
 								)}
+								style={{
+									...floatingStyles,
+								}}
+								{...getFloatingProps()}
 							>
-								{/* Dropdown Items */}
-								{options.map((value, indx) => (
+								{/* Searchbox */}
+								{combobox && (
 									<div
 										className={cn(
-											'text-text-primary hover:bg-button-tertiary-hover rounded-md transition-all duration-150',
 											sizeClassNames[sizeValue]
-												.dropdownItem,
-											indx === activeIndex &&
-												'bg-button-tertiary-hover'
+												.searchbarWrapper
 										)}
-										key={value}
-										ref={(node) => {
-											listRef.current[indx] = node;
-										}}
-										role="option"
-										tabIndex={indx === activeIndex ? 0 : -1}
-										aria-selected={
-											indx === selectedIndex &&
-											indx === activeIndex
-										}
-										{...getItemProps({
-											// Handle pointer select.
-											onClick() {
-												handleSelect(indx);
-												refs.reference.current.focus();
-											},
-											// Handle keyboard select.
-											onKeyDown(event) {
-												if (event.key === 'Enter') {
-													event.preventDefault();
-													handleSelect(indx);
-												}
-
-												if (
-													event.key === ' ' &&
-													!isTypingRef.current
-												) {
-													event.preventDefault();
-													handleSelect(indx);
-												}
-											},
-										})}
 									>
-										{value}
-										<span aria-hidden>
-											{indx === selectedIndex ? ' ✓' : ''}
-										</span>
+										<input
+											className={cn(
+												'w-full',
+												sizeClassNames[sizeValue].searchbar
+											)}
+											type="search"
+											name="keyword"
+											placeholder="Search"
+										/>
 									</div>
-								))}
+								)}
+								{/* Dropdown Items Wrapper */}
+								<div
+									className={cn(
+										'overflow-y-auto',
+										!combobox && 'w-full h-full',
+										sizeClassNames[sizeValue]
+											.dropdownItemsWrapper
+									)}
+								>
+									{/* Dropdown Items */}
+									{ children }
+								</div>
 							</div>
-						</div>
-					</FloatingFocusManager>
-				</FloatingPortal>
-			)}
+						</FloatingFocusManager>
+					</FloatingPortal>
+				)}
+			</SelectContext.Provider>
 		</>
 	);
 };
 
-export default Select;
+export default {
+	Select,
+	SelectItem,
+};
