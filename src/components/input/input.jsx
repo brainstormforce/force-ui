@@ -1,10 +1,11 @@
 import { twMerge } from "tailwind-merge";
 import { X, Info } from "lucide-react";
+import { useState } from "react";
 
 const Input = (props) => {
 	const {
 		type = "text",
-		value = "",
+		defaultValue = "",
 		size = "sm", // sm, md, lg
 		className = "",
 		disabled = false,
@@ -14,6 +15,13 @@ const Input = (props) => {
 		onError = () => {},
 		icon = null,
 	} = props;
+
+    const [ value, setValue ] = useState( defaultValue );
+
+    const handleChange = ( e ) => {
+        setValue( e.target.value );
+        onChange();
+    };
 
 	let baseClasses = "rounded border border-solid border-border-subtle bg-field-secondary-background font-normal placeholder-text-tertiary text-text-primary";
 	const sizeClasses = {
@@ -36,7 +44,7 @@ const Input = (props) => {
 	return (
 		<div className={twMerge("relative flex focus-within:z-10", className)}>
 			{icon && <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 [&>svg]:h-4 [&>svg]:w-4">{icon}</div>}
-			<input type={type} className={twMerge(baseClasses, disabledClasses, sizeClasses[size], sizeClassesWithIcon[size], focusClasses, hoverClasses, errorClasses)} {...inputProps} disabled={disabled} onChange={onChange} onInvalid={onError} value={value} />
+			<input type={type} className={twMerge(baseClasses, disabledClasses, sizeClasses[size], sizeClassesWithIcon[size], focusClasses, hoverClasses, errorClasses)} {...inputProps} disabled={disabled} onChange={handleChange} onInvalid={onError} value={value} />
 		</div>
 	);
 };
