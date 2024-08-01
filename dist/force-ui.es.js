@@ -1,4 +1,4 @@
-import { forwardRef as V, createElement as oe, useMemo as E, useState as Y, useCallback as G, isValidElement as ee, createContext as xe, Fragment as le, useContext as ye } from "react";
+import { forwardRef as V, createElement as oe, useMemo as E, useState as Q, useCallback as G, isValidElement as Y, createContext as xe, Fragment as le, useContext as ye } from "react";
 const se = "-";
 function ve(e) {
   const r = ke(e), {
@@ -263,7 +263,7 @@ function S(e) {
 function P(e) {
   return !!e && !Number.isNaN(Number(e));
 }
-function Q(e) {
+function H(e) {
   return T(e, "number", P);
 }
 function X(e) {
@@ -312,7 +312,7 @@ function Je(e) {
   return $e.test(e);
 }
 function Ke() {
-  const e = v("colors"), r = v("spacing"), t = v("blur"), o = v("brightness"), s = v("borderColor"), n = v("borderRadius"), a = v("borderSpacing"), l = v("borderWidth"), i = v("contrast"), c = v("grayscale"), d = v("hueRotate"), u = v("invert"), p = v("gap"), m = v("gradientColorStops"), h = v("gradientColorStopPositions"), f = v("inset"), g = v("margin"), x = v("opacity"), w = v("padding"), C = v("saturate"), R = v("scale"), N = v("sepia"), A = v("skew"), I = v("space"), J = v("translate"), B = () => ["auto", "contain", "none"], $ = () => ["auto", "hidden", "clip", "visible", "scroll"], W = () => ["auto", b, r], y = () => [b, r], F = () => ["", z, S], j = () => ["auto", P, b], K = () => ["bottom", "center", "left", "left-bottom", "left-top", "right", "right-bottom", "right-top", "top"], L = () => ["solid", "dashed", "dotted", "double", "none"], O = () => ["normal", "multiply", "screen", "overlay", "darken", "lighten", "color-dodge", "color-burn", "hard-light", "soft-light", "difference", "exclusion", "hue", "saturation", "color", "luminosity"], te = () => ["start", "end", "center", "between", "around", "evenly", "stretch"], _ = () => ["", "0", b], ae = () => ["auto", "avoid", "all", "avoid-page", "page", "left", "right", "column"], U = () => [P, Q], H = () => [P, b];
+  const e = v("colors"), r = v("spacing"), t = v("blur"), o = v("brightness"), s = v("borderColor"), n = v("borderRadius"), a = v("borderSpacing"), l = v("borderWidth"), i = v("contrast"), c = v("grayscale"), d = v("hueRotate"), u = v("invert"), p = v("gap"), m = v("gradientColorStops"), h = v("gradientColorStopPositions"), f = v("inset"), g = v("margin"), x = v("opacity"), w = v("padding"), C = v("saturate"), R = v("scale"), N = v("sepia"), A = v("skew"), I = v("space"), D = v("translate"), B = () => ["auto", "contain", "none"], $ = () => ["auto", "hidden", "clip", "visible", "scroll"], W = () => ["auto", b, r], y = () => [b, r], F = () => ["", z, S], j = () => ["auto", P, b], J = () => ["bottom", "center", "left", "left-bottom", "left-top", "right", "right-bottom", "right-top", "top"], L = () => ["solid", "dashed", "dotted", "double", "none"], O = () => ["normal", "multiply", "screen", "overlay", "darken", "lighten", "color-dodge", "color-burn", "hard-light", "soft-light", "difference", "exclusion", "hue", "saturation", "color", "luminosity"], te = () => ["start", "end", "center", "between", "around", "evenly", "stretch"], _ = () => ["", "0", b], ae = () => ["auto", "avoid", "all", "avoid-page", "page", "left", "right", "column"], U = () => [P, H], K = () => [P, b];
   return {
     cacheSize: 500,
     separator: ":",
@@ -327,7 +327,7 @@ function Ke() {
       borderWidth: F(),
       contrast: U(),
       grayscale: _(),
-      hueRotate: H(),
+      hueRotate: K(),
       invert: _(),
       gap: y(),
       gradientColorStops: [e],
@@ -339,7 +339,7 @@ function Ke() {
       saturate: U(),
       scale: U(),
       sepia: _(),
-      skew: H(),
+      skew: K(),
       space: y(),
       translate: y()
     },
@@ -435,7 +435,7 @@ function Ke() {
        * @see https://tailwindcss.com/docs/object-position
        */
       "object-position": [{
-        object: [...K(), b]
+        object: [...J(), b]
       }],
       /**
        * Overflow
@@ -1000,7 +1000,7 @@ function Ke() {
        * @see https://tailwindcss.com/docs/font-weight
        */
       "font-weight": [{
-        font: ["thin", "extralight", "light", "normal", "medium", "semibold", "bold", "extrabold", "black", Q]
+        font: ["thin", "extralight", "light", "normal", "medium", "semibold", "bold", "extrabold", "black", H]
       }],
       /**
        * Font Family
@@ -1051,7 +1051,7 @@ function Ke() {
        * @see https://tailwindcss.com/docs/line-clamp
        */
       "line-clamp": [{
-        "line-clamp": ["none", P, Q]
+        "line-clamp": ["none", P, H]
       }],
       /**
        * Line Height
@@ -1244,7 +1244,7 @@ function Ke() {
        * @see https://tailwindcss.com/docs/background-position
        */
       "bg-position": [{
-        bg: [...K(), _e]
+        bg: [...J(), _e]
       }],
       /**
        * Background Repeat
@@ -1900,7 +1900,7 @@ function Ke() {
        * @see https://tailwindcss.com/docs/transition-duration
        */
       duration: [{
-        duration: H()
+        duration: K()
       }],
       /**
        * Transition Timing Function
@@ -1914,7 +1914,7 @@ function Ke() {
        * @see https://tailwindcss.com/docs/transition-delay
        */
       delay: [{
-        delay: H()
+        delay: K()
       }],
       /**
        * Animation
@@ -1964,14 +1964,14 @@ function Ke() {
        * @see https://tailwindcss.com/docs/translate
        */
       "translate-x": [{
-        "translate-x": [J]
+        "translate-x": [D]
       }],
       /**
        * Translate Y
        * @see https://tailwindcss.com/docs/translate
        */
       "translate-y": [{
-        "translate-y": [J]
+        "translate-y": [D]
       }],
       /**
        * Skew X
@@ -2251,7 +2251,7 @@ function Ke() {
        * @see https://tailwindcss.com/docs/stroke-width
        */
       "stroke-w": [{
-        stroke: [z, S, Q]
+        stroke: [z, S, H]
       }],
       /**
        * Stroke
@@ -2327,7 +2327,7 @@ function Ke() {
     }
   };
 }
-const Z = /* @__PURE__ */ Pe(Ke);
+const ee = /* @__PURE__ */ Pe(Ke);
 /**
  * @license lucide-react v0.417.0 - ISC
  *
@@ -2475,9 +2475,9 @@ const or = re("X", [
   let g, x = null, w = "";
   c && (w = "flex items-center justify-center gap-1", d === "left" ? g = c : x = c);
   const C = s;
-  return /* @__PURE__ */ React.createElement(C, { type: o, className: Z(w, p, f, m, h, n), disabled: l, ...u }, g, a, x);
+  return /* @__PURE__ */ React.createElement(C, { type: o, className: ee(w, p, f, m, h, n), disabled: l, ...u }, g, a, x);
 }, nr = "useandom-26T198340PX75pxJACKVERYMINDBUSHWOLF_GQZbfghjklqvwyzrict";
-let D = (e = 21) => {
+let Z = (e = 21) => {
   let r = "", t = crypto.getRandomValues(new Uint8Array(e));
   for (; e--; )
     r += nr[t[e] & 63];
@@ -2496,11 +2496,11 @@ function sr() {
   for (var e, r, t = 0, o = "", s = arguments.length; t < s; t++) (e = arguments[t]) && (r = me(e)) && (o && (o += " "), o += r);
   return o;
 }
-const k = (...e) => Z(sr(...e)), ar = ({ label: e, switchId: r, disabled: t = !1, children: o }) => {
+const k = (...e) => ee(sr(...e)), ar = ({ label: e, switchId: r, disabled: t = !1, children: o }) => {
   const s = !e?.heading || !e?.description;
   if (s)
     return o;
-  const n = ee(e), a = G(() => {
+  const n = Y(e), a = G(() => {
     if (n)
       return e;
     const { heading: l = "", description: i = "" } = e;
@@ -2535,7 +2535,7 @@ const k = (...e) => Z(sr(...e)), ar = ({ label: e, switchId: r, disabled: t = !1
   name: l,
   ...i
 }, c) => {
-  const d = E(() => typeof t < "u", [t]), u = E(() => e || `switch-${D()}`, []), [p, m] = Y(o), h = "primary", f = G(
+  const d = E(() => typeof t < "u", [t]), u = E(() => e || `switch-${Z()}`, []), [p, m] = Q(o), h = "primary", f = G(
     () => d ? t : p,
     [d, t, p]
   ), g = (R) => {
@@ -2611,10 +2611,10 @@ const k = (...e) => Z(sr(...e)), ar = ({ label: e, switchId: r, disabled: t = !1
   size: i = "md",
   ...c
 }, d) => {
-  const u = E(() => e || `checkbox-${D()}`, [e]), p = E(
+  const u = E(() => e || `checkbox-${Z()}`, [e]), p = E(
     () => typeof o < "u",
     [o]
-  ), [m, h] = Y(t || !1), f = "primary", g = {
+  ), [m, h] = Q(t || !1), f = "primary", g = {
     sm: {
       checkbox: "size-4 rounded-sm",
       icon: "size-3"
@@ -2638,7 +2638,7 @@ const k = (...e) => Z(sr(...e)), ar = ({ label: e, switchId: r, disabled: t = !1
     if (l) return;
     const I = A.target.checked;
     p || h(I), typeof s == "function" && s(I);
-  }, N = G(() => ee(r) ? r : !r.heading || !r.description ? null : /* @__PURE__ */ React.createElement("div", { className: "space-y-1.5" }, /* @__PURE__ */ React.createElement("p", { className: "text-text-primary text-base font-medium leading-4 m-0" }, r.heading), /* @__PURE__ */ React.createElement("p", { className: "text-text-secondary text-sm font-normal leading-5 m-0" }, r.description)), [r]);
+  }, N = G(() => Y(r) ? r : !r.heading || !r.description ? null : /* @__PURE__ */ React.createElement("div", { className: "space-y-1.5" }, /* @__PURE__ */ React.createElement("p", { className: "text-text-primary text-base font-medium leading-4 m-0" }, r.heading), /* @__PURE__ */ React.createElement("p", { className: "text-text-secondary text-sm font-normal leading-5 m-0" }, r.description)), [r]);
   return /* @__PURE__ */ React.createElement(
     "div",
     {
@@ -2712,9 +2712,9 @@ const k = (...e) => Z(sr(...e)), ar = ({ label: e, switchId: r, disabled: t = !1
   disabled: i = !1
 }) => {
   const c = E(() => typeof t < "u", [t]), d = E(
-    () => r || `radio-button-group-${D()}`,
+    () => r || `radio-button-group-${Z()}`,
     [r]
-  ), [u, p] = Y(c ? t : o), m = G(
+  ), [u, p] = Q(c ? t : o), m = G(
     (h) => {
       const f = h.target.value;
       c || p(f), typeof a == "function" && a(f);
@@ -2733,7 +2733,7 @@ const k = (...e) => Z(sr(...e)), ar = ({ label: e, switchId: r, disabled: t = !1
         disableAll: i
       }
     },
-    React.Children.map(e, (h) => ee(h) ? h : null)
+    React.Children.map(e, (h) => Y(h) ? h : null)
   ));
 }, ur = ({ id: e, label: r, value: t, disabled: o, size: s = "md", ...n }, a) => {
   const l = cr();
@@ -2746,7 +2746,7 @@ const k = (...e) => Z(sr(...e)), ar = ({ label: e, switchId: r, disabled: t = !1
     onChange: u,
     disableAll: p,
     checked: m
-  } = l, h = "primary", f = E(() => e || `radio-button-${D()}`, [e]), g = E(() => p || o, [p, o]), x = E(() => typeof m !== void 0 ? m : typeof c != typeof t ? !1 : typeof c == "string" ? c === t : Array.isArray(c) ? c.includes(t) : c[d] === t[d], [c, t, m]), w = {
+  } = l, h = "primary", f = E(() => e || `radio-button-${Z()}`, [e]), g = E(() => p || o, [p, o]), x = E(() => typeof m !== void 0 ? m : typeof c != typeof t ? !1 : typeof c == "string" ? c === t : Array.isArray(c) ? c.includes(t) : c[d] === t[d], [c, t, m]), w = {
     sm: {
       checkbox: "size-4",
       icon: "size-1.5"
@@ -2763,7 +2763,7 @@ const k = (...e) => Z(sr(...e)), ar = ({ label: e, switchId: r, disabled: t = !1
   }, R = {
     checkbox: "disabled:bg-white checked:disabled:bg-white disabled:border-border-disabled checked:disabled:border-border-disabled",
     icon: "peer-disabled:text-border-disabled"
-  }, N = G(() => ee(r) ? r : !r.heading || !r.description ? null : /* @__PURE__ */ React.createElement("div", { className: "space-y-1.5" }, /* @__PURE__ */ React.createElement("p", { className: "text-text-primary text-base font-medium leading-4 m-0" }, r.heading), /* @__PURE__ */ React.createElement("p", { className: "text-text-secondary text-sm font-normal leading-5 m-0" }, r.description)), [r]);
+  }, N = G(() => Y(r) ? r : !r.heading || !r.description ? null : /* @__PURE__ */ React.createElement("div", { className: "space-y-1.5" }, /* @__PURE__ */ React.createElement("p", { className: "text-text-primary text-base font-medium leading-4 m-0" }, r.heading), /* @__PURE__ */ React.createElement("p", { className: "text-text-secondary text-sm font-normal leading-5 m-0" }, r.description)), [r]);
   return /* @__PURE__ */ React.createElement(
     "div",
     {
@@ -2863,7 +2863,7 @@ const k = (...e) => Z(sr(...e)), ar = ({ label: e, switchId: r, disabled: t = !1
     disabled: "bg-badge-background-disabled hover:bg-badge-hover-disabled text-badge-color-disabled border-badge-border-disabled disabled cursor-not-allowed"
   };
   let h = "", f = "group relative justify-center flex items-center [&>svg]:h-4 [&>svg]:w-4 cursor-pointer";
-  return l ? (h = m.disabled, f += " cursor-not-allowed disabled") : h = m[n], r ? /* @__PURE__ */ React.createElement("span", { className: Z(d, u[t], p[s], h, o) }, a ? /* @__PURE__ */ React.createElement("span", { className: "justify-center flex items-center [&>svg]:h-4 [&>svg]:w-4" }, a) : null, r, c && /* @__PURE__ */ React.createElement("span", { className: f, onClick: l ? null : i }, /* @__PURE__ */ React.createElement("span", { className: "sr-only" }, `Remove ${r}`), /* @__PURE__ */ React.createElement(or, null), /* @__PURE__ */ React.createElement("span", { className: "absolute -inset-1" }))) : null;
+  return l ? (h = m.disabled, f += " cursor-not-allowed disabled") : h = m[n], r ? /* @__PURE__ */ React.createElement("span", { className: ee(d, u[t], p[s], h, o) }, a ? /* @__PURE__ */ React.createElement("span", { className: "justify-center flex items-center [&>svg]:h-4 [&>svg]:w-4" }, a) : null, r, c && /* @__PURE__ */ React.createElement("span", { className: f, onClick: l ? null : i }, /* @__PURE__ */ React.createElement("span", { className: "sr-only" }, `Remove ${r}`), /* @__PURE__ */ React.createElement(or, null), /* @__PURE__ */ React.createElement("span", { className: "absolute -inset-1" }))) : null;
 }, yr = (e) => {
   const {
     value: r = "",
@@ -2884,7 +2884,7 @@ const k = (...e) => Z(sr(...e)), ar = ({ label: e, switchId: r, disabled: t = !1
     md: "px-3 rounded-md text-sm",
     lg: "px-4 rounded-lg text-base"
   }, u = s ? "hover:border-border-disabled" : "hover:border-border-strong", p = "focus:border-focus-border focus:ring-2 focus:ring-toggle-on focus:ring-offset-2", m = l ? "focus:border-focus-error-border focus:ring-field-color-error bg-field-background-error" : "", h = s ? "border-border-disabled bg-field-background-disabled cursor-not-allowed text-text-disabled" : "";
-  return /* @__PURE__ */ React.createElement("textarea", { className: Z(c, h, d[t], p, u, m, o), ...n, disabled: s, onChange: a, onInvalid: i, value: r });
+  return /* @__PURE__ */ React.createElement("textarea", { className: ee(c, h, d[t], p, u, m, o), ...n, disabled: s, onChange: a, onInvalid: i, value: r });
 }, vr = (e) => {
   const {
     variant: r = "primary",
@@ -2908,11 +2908,11 @@ const k = (...e) => Z(sr(...e)), ar = ({ label: e, switchId: r, disabled: t = !1
     none: "",
     subtle: "border border-solid border-border-transparent-subtle",
     ring: "border-4 border-solid border-border-white"
-  }[l], p = s ? "bg-cover bg-center bg-no-repeat" : "", m = typeof n == "string" ? n[0].toUpperCase() : n;
+  }[l], p = s ? "bg-cover bg-center bg-no-repeat" : "", m = () => n ? typeof n == "string" ? n?.[0]?.toUpperCase() : n : null;
   return /* @__PURE__ */ React.createElement(
     "div",
     {
-      className: Z(
+      className: k(
         i,
         !s && c,
         d,
@@ -2922,7 +2922,7 @@ const k = (...e) => Z(sr(...e)), ar = ({ label: e, switchId: r, disabled: t = !1
       ),
       style: s ? { backgroundImage: `url(${s})` } : {}
     },
-    m
+    m()
   );
 }, br = ({
   id: e,
@@ -2942,10 +2942,10 @@ const k = (...e) => Z(sr(...e)), ar = ({ label: e, switchId: r, disabled: t = !1
   suffix: u = null,
   ...p
 }, m) => {
-  const h = E(() => e || `input-${r}-${D()}`, [e]), f = E(
+  const h = E(() => e || `input-${r}-${Z()}`, [e]), f = E(
     () => typeof o < "u",
     [o]
-  ), [g, x] = Y(t), w = G(
+  ), [g, x] = Q(t), w = G(
     () => f ? o : g,
     [f, o, g]
   ), C = (L) => {
@@ -2966,11 +2966,11 @@ const k = (...e) => Z(sr(...e)), ar = ({ label: e, switchId: r, disabled: t = !1
     sm: d ? "pl-8" : "",
     md: d ? "pl-9" : "",
     lg: d ? "pl-10" : ""
-  }, J = {
+  }, D = {
     sm: u ? "pr-8" : "",
     md: u ? "pr-9" : "",
     lg: u ? "pr-10" : ""
-  }, B = a ? "hover:border-border-disabled" : "hover:border-border-strong", $ = "focus:border-focus-border focus:ring-2 focus:ring-toggle-on focus:ring-offset-2", W = i ? "focus:border-focus-error-border focus:ring-field-color-error bg-field-background-error" : "", y = a ? "border-border-disabled bg-field-background-disabled cursor-not-allowed text-text-disabled" : "", F = "font-normal placeholder-text-tertiary text-text-primary pointer-events-none absolute inset-y-0 flex flex-1 items-center [&>svg]:h-4 [&>svg]:w-4", j = () => d ? /* @__PURE__ */ React.createElement("div", { className: k(F, "left-0 pl-3", A[s]) }, d) : null, K = () => u ? /* @__PURE__ */ React.createElement("div", { className: k(F, "right-0 pr-3", A[s]) }, u) : null;
+  }, B = a ? "hover:border-border-disabled" : "hover:border-border-strong", $ = "focus:border-focus-border focus:ring-2 focus:ring-toggle-on focus:ring-offset-2", W = i ? "focus:border-focus-error-border focus:ring-field-color-error bg-field-background-error" : "", y = a ? "border-border-disabled bg-field-background-disabled cursor-not-allowed text-text-disabled" : "", F = "font-normal placeholder-text-tertiary text-text-primary pointer-events-none absolute inset-y-0 flex flex-1 items-center [&>svg]:h-4 [&>svg]:w-4", j = () => d ? /* @__PURE__ */ React.createElement("div", { className: k(F, "left-0 pl-3", A[s]) }, d) : null, J = () => u ? /* @__PURE__ */ React.createElement("div", { className: k(F, "right-0 pr-3", A[s]) }, u) : null;
   return /* @__PURE__ */ React.createElement("div", { className: k("relative flex focus-within:z-10", n) }, j(), /* @__PURE__ */ React.createElement(
     "input",
     {
@@ -2983,7 +2983,7 @@ const k = (...e) => Z(sr(...e)), ar = ({ label: e, switchId: r, disabled: t = !1
         N[s],
         A[s],
         I[s],
-        J[s],
+        D[s],
         $,
         B,
         W
@@ -2994,7 +2994,7 @@ const k = (...e) => Z(sr(...e)), ar = ({ label: e, switchId: r, disabled: t = !1
       value: w(),
       ...p
     }
-  ), K());
+  ), J());
 }, wr = V(br);
 export {
   vr as Avatar,

@@ -1,4 +1,4 @@
-import { twMerge } from "tailwind-merge";
+import { cn } from '../../utility/utils';
 
 const Avatar = (props) => {
     const {
@@ -37,11 +37,19 @@ const Avatar = (props) => {
 
     const contentClasses = url ? "bg-cover bg-center bg-no-repeat" : "";
 
-    const modifiedChildren = typeof children === "string" ? children[0].toUpperCase() : children;
+    const getChildren = () => {
+        if ( ! children ) {
+            return null;
+        }
+        if ( typeof children === "string" ) {
+            return children?.[0]?.toUpperCase();
+        }
+        return children;
+    }
 
     return (
         <div 
-            className={twMerge(
+            className={cn(
                 baseClasses, 
                 !url && variantClasses, 
                 sizeClasses, 
@@ -50,7 +58,7 @@ const Avatar = (props) => {
                 className)} 
             style={url ? { backgroundImage: `url(${url})` } : {}}
             >
-            {modifiedChildren}
+            {getChildren()}
         </div>
     )
 }
