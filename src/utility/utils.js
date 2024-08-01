@@ -7,7 +7,7 @@ export function prefix() {
 
 /**
  * For Conditional classNames and merging TailwindCSS classes.
- * @param  {...any} classNames 
- * @returns  {string}
+ * @param {...any} classNames
+ * @return  {string}
  */
-export const cn = (...classNames) => twMerge(clsx(...classNames));
+export const cn = ( ...classNames ) => twMerge( clsx( ...classNames ) );
