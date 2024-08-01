@@ -1,27 +1,48 @@
-import { twMerge } from "tailwind-merge";
-import { X, Info } from "lucide-react";
-import { useState } from "react";
+import {
+    useState,
+	useCallback,
+	useMemo,
+	forwardRef
+} from "react";
+import { nanoid } from 'nanoid';
+import { cn } from '../../utility/utils';
 
-const Input = (props) => {
-	const {
-		type = "text",
-		defaultValue = "",
-		size = "sm", // sm, md, lg
-		className = "",
-		disabled = false,
-		inputProps,
-		onChange = () => {},
-		error = false,
-		onError = () => {},
-		icon = null,
-	} = props;
+const Input = ({
+	id,
+    type = "text",
+    defaultValue = "",
+    value,
+    size = "sm", // sm, md, lg
+    className = "",
+    disabled = false,
+    onChange = () => {},
+    error = false,
+    onError = () => {},
+    icon = null,
+	...props
+}, ref) => {
+	const inputId = useMemo(() => id || `input-${type}-${nanoid()}`, [id]);
+	const isControlled = useMemo(
+		() => typeof value !== 'undefined',
+		[value]
+	);
+	const [ inputValue, setInputValue ] = useState( defaultValue );
 
-    const [ value, setValue ] = useState( defaultValue );
+    const getValue = useCallback(
+		() => (isControlled ? value : inputValue),
+		[isControlled, value, inputValue]
+	);
 
-    const handleChange = ( e ) => {
-        setValue( e.target.value );
-        onChange();
+    const handleChange = ( event ) => {
+        if (disabled) return;
+
+		const newValue = event.target.value;
+		if (!isControlled) setInputValue(newValue);
+
+		if (typeof onChange !== 'function') return;
+		onChange(newValue);
     };
+    
 
 	let baseClasses = "rounded border border-solid border-border-subtle bg-field-secondary-background font-normal placeholder-text-tertiary text-text-primary";
 	const sizeClasses = {
@@ -42,11 +63,11 @@ const Input = (props) => {
 	const disabledClasses = disabled ? "border-border-disabled bg-field-background-disabled cursor-not-allowed text-text-disabled" : "";
 
 	return (
-		<div className={twMerge("relative flex focus-within:z-10", className)}>
+		<div className={cn("relative flex focus-within:z-10", className)}>
 			{icon && <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 [&>svg]:h-4 [&>svg]:w-4">{icon}</div>}
-			<input type={type} className={twMerge(baseClasses, disabledClasses, sizeClasses[size], sizeClassesWithIcon[size], focusClasses, hoverClasses, errorClasses)} {...inputProps} disabled={disabled} onChange={handleChange} onInvalid={onError} value={value} />
+			<input id={inputId} type={type} className={cn(baseClasses, disabledClasses, sizeClasses[size], sizeClassesWithIcon[size], focusClasses, hoverClasses, errorClasses)} {...props} disabled={disabled} onChange={handleChange} onInvalid={onError} value={getValue()} />
 		</div>
 	);
 };
 
-export default Input;
+export default forwardRef(Input);
