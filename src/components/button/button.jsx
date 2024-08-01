@@ -13,8 +13,6 @@ const Button = ( props ) => {
 		destructive = false, // true, false
 		icon = null, // icon component
 		iconPosition = 'left', // left, right
-		loading = false, // true, false
-		loaderIcon = <LoaderCircle className="animate-spin" />, // loader icon component
 		...rest
 	} = props;
 
@@ -35,7 +33,7 @@ const Button = ( props ) => {
 				outline: 'text-button-danger border border-button-danger hover:border-button-danger bg-button-tertiary hover:bg-field-background-error',
 				ghost: 'text-button-danger hover:bg-field-background-error',
 				link: 'text-button-danger hover:text-button-danger-secondary',
-			  }?.[ variant ]
+			}?.[ variant ]
 			: '';
 
 	const sizeClassNames = {
@@ -54,28 +52,6 @@ const Button = ( props ) => {
 			iconLeft = icon;
 		} else {
 			iconRight = icon;
-		}
-	}
-
-	/**
-	 * Show loader icon if loading is true.
-	 * Loader is shown only for button variants: primary, secondary, outline, ghost.
-	 * Loader is not shown if the button is disabled.
-	 */
-	if ( loading && ! disabled && [ 'primary', 'secondary', 'outline', 'ghost' ].includes( variant ) ) {
-		// Adding flex classes to center the loader icon and opacity classes to reduce opacity
-		iconClass = ! iconClass ? 'flex items-center justify-center gap-1 opacity-50' : iconClass + ' opacity-50';
-
-		// Position the loader icon based on iconPosition
-		if ( iconPosition === 'right' ) {
-			iconRight = loaderIcon;
-		} else {
-			iconLeft = loaderIcon;
-		}
-
-		// For outline and ghost variants, set loader icon color to primary.
-		if ( [ 'outline', 'ghost' ].includes( variant ) ) {
-			iconClass += ' [&>svg]:text-brand-primary-600';
 		}
 	}
 

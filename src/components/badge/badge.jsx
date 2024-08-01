@@ -47,7 +47,7 @@ const Badge = ( props ) => {
 	};
 
 	let filteredClasses = '';
-	let buttonClasses = 'group relative justify-center flex align-center [&>svg]:h-4 [&>svg]:w-4 cursor-pointer';
+	let buttonClasses = 'group relative justify-center flex items-center [&>svg]:h-4 [&>svg]:w-4 cursor-pointer';
 
 	if ( disabled ) {
 		filteredClasses = variantClasses.disabled;
@@ -62,7 +62,7 @@ const Badge = ( props ) => {
 
 	return (
 		<span className={ twMerge( baseClasses, sizeClasses[ size ], typeClasses[ type ], filteredClasses, className ) }>
-			{ icon ? <span className="justify-center flex align-center [&>svg]:h-4 [&>svg]:w-4">{ icon }</span> : null }
+			{ icon ? <span className="justify-center flex items-center [&>svg]:h-4 [&>svg]:w-4">{ icon }</span> : null }
 			{ label }
 			{ closable && (
 				<span className={ buttonClasses } onClick={ ! disabled ? onClose : null }>

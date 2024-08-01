@@ -47,6 +47,8 @@ module.exports = {
         'border-disabled': '#E5E7EB',
         'border-muted': '#E5E7EB',
         'border-error': '#DC2626',
+        'border-white': '#FFFFFF',
+        'border-transparent-subtle': '#37415114', 
         // text
         'text-primary': '#111827',
         'text-secondary': '#4B5563',
@@ -167,11 +169,11 @@ module.exports = {
       },
       boxShadow: {
         toggleContainer: '1px 1px 2px 0px rgba(0, 0, 0, 0.1) inset',
-        toggleDial: '0px 2px 2px 0px rgba(0, 0, 0, 0.06), 0px 4px 3px 0px rgba(0, 0, 0, 0.07)'
+        toggleDial: '0px 2px 2px 0px rgba(0, 0, 0, 0.06), 0px 4px 3px 0px rgba(0, 0, 0, 0.07)',
       },
       borderWidth: {
-        '1.5': '0.09375rem', // 1.5px
-      }
+        1.5: '0.09375rem', // 1.5px
+      },
     },
   },
   plugins: [],
