@@ -93,7 +93,7 @@ const RadioButton = (
 	const radioButtonId = useMemo( () => id || `radio-button-${ nanoid() }`, [ id ] ),
 		isDisabled = useMemo( () => disableAll || disabled, [ disableAll, disabled ] );
 	const checkedValue = useMemo( () => {
-		if ( typeof checked !== undefined ) {
+		if ( typeof checked !== 'undefined' ) {
 			return checked;
 		}
 
