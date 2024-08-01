@@ -12,8 +12,6 @@ const dropdownMaxHeightBySize = {
 };
 
 const Select = ({ size: sizeValue = "md", dropdownPortalId = "", dropdownPortalRoot = null, placeholder = 'Select an option', combobox = false }) => {
-	const inputWrapper = useRef(null);
-
 	// Dropdown position related code (Start)
 	const [isOpen, setIsOpen] = useState(false);
 	const [activeIndex, setActiveIndex] = useState(0);
@@ -75,10 +73,6 @@ const Select = ({ size: sizeValue = "md", dropdownPortalId = "", dropdownPortalR
 
 	// Dropdown position related code (End)
 
-	// const handleChange = useCallback((event) => {
-	//     const value = event.target.value;
-	//     inputWrapper.current.setAttribute('data-value', value);
-	// }, []);
 
 	const sizeClassNames = {
 		sm: {
