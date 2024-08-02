@@ -1,6 +1,6 @@
 import { useState, useCallback, useMemo, useRef, createContext, useContext, Children, cloneElement, isValidElement, useEffect } from 'react';
 import { cn } from '../../utility/utils';
-import { ChevronDown, ChevronsUpDown } from 'lucide-react';
+import { CheckIcon, ChevronDown, ChevronsUpDown } from 'lucide-react';
 import {
 	useFloating,
 	useClick,
@@ -17,11 +17,11 @@ import {
 	FloatingPortal,
 } from '@floating-ui/react';
 
-
+// Context to manage the state of the select component.
 const SelectContext = createContext();
 const useSelectContext = () => useContext(SelectContext);
 
-const SelectItem = ({ value, disabled = false, ...props }) => {
+const SelectItem = ({ value, disabled = false, children, ...props }) => {
 	const {
 		sizeValue,
 		getItemProps,
@@ -38,11 +38,16 @@ const SelectItem = ({ value, disabled = false, ...props }) => {
 		md: 'p-2 text-base font-normal',
 		lg: 'p-2 text-base font-normal',
 	};
+	const selectedIconClassName = {
+		sm: 'size-4',
+		md: 'size-5',
+		lg: 'size-5',
+	};
 
 	return (
 		<div
 			className={cn(
-				'text-text-primary hover:bg-button-tertiary-hover rounded-md transition-all duration-150',
+				'flex items-center justify-between text-text-primary hover:bg-button-tertiary-hover rounded-md transition-all duration-150 truncate cursor-pointer',
 				selectItemClassNames[sizeValue],
 				indx === activeIndex && 'bg-button-tertiary-hover'
 			)}
@@ -63,8 +68,11 @@ const SelectItem = ({ value, disabled = false, ...props }) => {
 				},
 			})}
 		>
-			{value}
-			<span aria-hidden>{indx === selectedIndex ? ' ✓' : ''}</span>
+			<span>{children}</span>
+			{indx === selectedIndex && (<CheckIcon className={cn(
+				'text-icon-on-color-disabled',
+				selectedIconClassName[sizeValue],
+			)} />)}
 		</div>
 	);
 };
