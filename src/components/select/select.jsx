@@ -1,4 +1,4 @@
-import { useState, useCallback, useMemo, useRef, createContext, useContext } from 'react';
+import { useState, useCallback, useMemo, useRef, createContext, useContext, Children, cloneElement, isValidElement } from 'react';
 import { cn } from '../../utility/utils';
 import { ChevronDown, ChevronsUpDown } from 'lucide-react';
 import {
@@ -108,14 +108,17 @@ const options = [
 const SelectContext = createContext();
 const useSelectContext = () => useContext(SelectContext);
 
-const SelectItem = ({ value, disabled = false }) => {
+const SelectItem = ({ value, disabled = false, ...props }) => {
 	const {
 		sizeValue,
 		listRef,
 		getItemProps,
 		onKeyDownItem,
 		onClickItem,
+		activeIndex,
+		selectedIndex,
 	} = useSelectContext();
+	const { index: indx } = props;
 
 	const selectItemClassNames = {
 		sm: 'py-1.5 px-2 text-sm font-normal',
@@ -128,7 +131,7 @@ const SelectItem = ({ value, disabled = false }) => {
 			className={cn(
 				'text-text-primary hover:bg-button-tertiary-hover rounded-md transition-all duration-150',
 				selectItemClassNames[sizeValue],
-				// indx === activeIndex && 'bg-button-tertiary-hover'
+				indx === activeIndex && 'bg-button-tertiary-hover'
 			)}
 			ref={(node) => {
 				listRef.current[indx] = node;
@@ -143,7 +146,7 @@ const SelectItem = ({ value, disabled = false }) => {
 				},
 				// Handle keyboard select.
 				onKeyDown(event) {
-					onKeyDownItem(event);
+					onKeyDownItem(event, indx);
 				},
 			})}
 		>
@@ -163,10 +166,20 @@ const Select = ({
 	value, // Value of the select (for controlled component).
 	defaultValue, // Default value of the select (for uncontrolled component).
 	onChange, // Callback function to handle the change event.
-	multiple, // If true, it will allow multiple selection.
+	multiple = false, // If true, it will allow multiple selection.
 	disabled = false, // If true, it will disable the select.
 	children,
 }) => {
+	const isControlled = useMemo(() => typeof value !== 'undefined', [value]);
+	const [selected, setSelected] = useState(defaultValue);
+
+	const getValues = useCallback(() => {
+		if (isControlled) {
+			return value;
+		}
+		return selected;
+	}, [isControlled, value, selected]);
+
 	// Dropdown position related code (Start)
 	const [isOpen, setIsOpen] = useState(false);
 	const [activeIndex, setActiveIndex] = useState(0);
@@ -293,15 +306,15 @@ const Select = ({
 		handleSelect(value);
 	}
 
-	const onKeyDownItem = (event) => {
+	const onKeyDownItem = (event, index) => {
 		if (event.key === 'Enter') {
 			event.preventDefault();
-			handleSelect(indx);
+			handleSelect(index);
 		}
 
 		if (event.key === ' ' && !isTypingRef.current) {
 			event.preventDefault();
-			handleSelect(indx);
+			handleSelect(index);
 		}
 	}
 
@@ -351,29 +364,32 @@ const Select = ({
 				</div>
 			</div>
 
-			<SelectContext.Provider value={{
-				selectedIndex,
-				setSelectedIndex,
-				activeIndex,
-				setActiveIndex,
-				handleSelect,
-				combobox,
-				sizeValue,
-				globalDisabled: disabled,
-				multiple,
-				value,
-				defaultValue,
-				onChange,
-				listRef,
-				isTypingRef,
-				refs,
-				getItemProps,
-				onClickItem,
-				onKeyDownItem,
-			}}>
+			<SelectContext.Provider
+				value={{
+					selectedIndex,
+					setSelectedIndex,
+					activeIndex,
+					setActiveIndex,
+					handleSelect,
+					combobox,
+					sizeValue,
+					globalDisabled: disabled,
+					multiple,
+					onChange,
+					listRef,
+					isTypingRef,
+					getItemProps,
+					onClickItem,
+					onKeyDownItem,
+					getValues,
+				}}
+			>
 				{/* Dropdown */}
 				{isOpen && (
-					<FloatingPortal id={dropdownPortalId} root={dropdownPortalRoot}>
+					<FloatingPortal
+						id={dropdownPortalId}
+						root={dropdownPortalRoot}
+					>
 						<FloatingFocusManager context={context} modal={false}>
 							{/* Dropdown Wrapper */}
 							<div
@@ -400,7 +416,8 @@ const Select = ({
 										<input
 											className={cn(
 												'w-full',
-												sizeClassNames[sizeValue].searchbar
+												sizeClassNames[sizeValue]
+													.searchbar
 											)}
 											type="search"
 											name="keyword"
@@ -418,7 +435,15 @@ const Select = ({
 									)}
 								>
 									{/* Dropdown Items */}
-									{ children }
+									{Children.map(children, (child, index) => {
+										if (! isValidElement(child)) {
+											return null;
+										}
+										return cloneElement(child, {
+											...child.props,
+											index,
+										});
+									})}
 								</div>
 							</div>
 						</FloatingFocusManager>
@@ -430,6 +455,6 @@ const Select = ({
 };
 
 export default {
-	Select,
-	SelectItem,
+	Button: Select,
+	Option: SelectItem,
 };
