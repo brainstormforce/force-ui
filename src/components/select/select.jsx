@@ -1,4 +1,4 @@
-import { useState, useCallback, useMemo, useRef, createContext, useContext, Children, cloneElement, isValidElement } from 'react';
+import { useState, useCallback, useMemo, useRef, createContext, useContext, Children, cloneElement, isValidElement, useEffect } from 'react';
 import { cn } from '../../utility/utils';
 import { ChevronDown, ChevronsUpDown } from 'lucide-react';
 import {
@@ -17,93 +17,6 @@ import {
 	FloatingPortal,
 } from '@floating-ui/react';
 
-const options = [
-	'Red',
-	'Orange',
-	'Yellow',
-	'Green',
-	'Cyan',
-	'Blue',
-	'Purple',
-	'Pink',
-	'Maroon',
-	'Black',
-	'White',
-	'Gray',
-	'Brown',
-	'Beige',
-	'Magenta',
-	'Teal',
-	'Navy',
-	'Olive',
-	'Lime',
-	'Indigo',
-	'Violet',
-	'Fuchsia',
-	'Silver',
-	'Gold',
-	'Bronze',
-	'Copper',
-	'Platinum',
-	'Titanium',
-	'Steel',
-	'Iron',
-	'Aluminum',
-	'Lead',
-	'Mercury',
-	'Tin',
-	'Nickel',
-	'Zinc',
-	'Cobalt',
-	'Manganese',
-	'Magnesium',
-	'Calcium',
-	'Potassium',
-	'Sodium',
-	'Chlorine',
-	'Fluorine',
-	'Oxygen',
-	'Nitrogen',
-	'Carbon',
-	'Hydrogen',
-	'Helium',
-	'Lithium',
-	'Beryllium',
-	'Boron',
-	'Neon',
-	'Argon',
-	'Krypton',
-	'Xenon',
-	'Radon',
-	'Polonium',
-	'Radium',
-	'Uranium',
-	'Plutonium',
-	'Americium',
-	'Curium',
-	'Berkelium',
-	'Californium',
-	'Einsteinium',
-	'Fermium',
-	'Mendelevium',
-	'Nobelium',
-	'Lawrencium',
-	'Rutherfordium',
-	'Dubnium',
-	'Seaborgium',
-	'Bohrium',
-	'Hassium',
-	'Meitnerium',
-	'Darmstadtium',
-	'Roentgenium',
-	'Copernicium',
-	'Nihonium',
-	'Flerovium',
-	'Moscovium',
-	'Livermorium',
-	'Tennessine',
-	'Oganesson',
-];
 
 const SelectContext = createContext();
 const useSelectContext = () => useContext(SelectContext);
@@ -111,12 +24,12 @@ const useSelectContext = () => useContext(SelectContext);
 const SelectItem = ({ value, disabled = false, ...props }) => {
 	const {
 		sizeValue,
-		listRef,
 		getItemProps,
 		onKeyDownItem,
 		onClickItem,
 		activeIndex,
 		selectedIndex,
+		updateListRef,
 	} = useSelectContext();
 	const { index: indx } = props;
 
@@ -134,7 +47,7 @@ const SelectItem = ({ value, disabled = false, ...props }) => {
 				indx === activeIndex && 'bg-button-tertiary-hover'
 			)}
 			ref={(node) => {
-				listRef.current[indx] = node;
+				updateListRef(indx, node);
 			}}
 			role="option"
 			tabIndex={indx === activeIndex ? 0 : -1}
@@ -172,6 +85,7 @@ const Select = ({
 }) => {
 	const isControlled = useMemo(() => typeof value !== 'undefined', [value]);
 	const [selected, setSelected] = useState(defaultValue);
+	const [searchKeyword, setSearchKeyword] = useState('');
 
 	const getValues = useCallback(() => {
 		if (isControlled) {
@@ -212,7 +126,7 @@ const Select = ({
 	});
 
 	const listRef = useRef([]);
-	const listContentRef = useRef(options);
+	const listContentRef = useRef([]);
 	const isTypingRef = useRef(false);
 
 	const click = useClick(context, { event: 'mousedown' });
@@ -248,10 +162,8 @@ const Select = ({
 	const handleSelect = (index) => {
 		setSelectedIndex(index);
 		refs.reference.current.focus();
+		setIsOpen(false);
 	};
-
-	const selectedItemLabel =
-		selectedIndex !== null ? options[selectedIndex] : undefined;
 
 	// Dropdown position related code (End)
 
@@ -302,6 +214,10 @@ const Select = ({
 		return combobox ? <ChevronsUpDown className={iconClassNames} />: <ChevronDown className={iconClassNames} />;
 	}, [icon])
 
+	const updateListRef = useCallback((index, node) => {
+		listRef.current[index] = node
+	}, []);
+
 	const onClickItem = (value) => {
 		handleSelect(value);
 	}
@@ -317,6 +233,19 @@ const Select = ({
 			handleSelect(index);
 		}
 	}
+
+	// Update the content list reference.
+	useEffect(() => {
+		listContentRef.current = [];
+		Children.forEach(children, (child) => {
+			if (! isValidElement(child)) {
+				return;
+			}
+			if (child.props.value) {
+				listContentRef.current.push(child.props.value);
+			}
+		});
+	}, [searchKeyword]);
 
 	return (
 		<>
@@ -376,12 +305,12 @@ const Select = ({
 					globalDisabled: disabled,
 					multiple,
 					onChange,
-					listRef,
 					isTypingRef,
 					getItemProps,
 					onClickItem,
 					onKeyDownItem,
 					getValues,
+					updateListRef,
 				}}
 			>
 				{/* Dropdown */}
