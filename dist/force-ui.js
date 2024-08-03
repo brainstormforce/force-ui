@@ -207,6 +207,176 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./src/components/button-group/button-group.jsx":
+/*!******************************************************!*\
+  !*** ./src/components/button-group/button-group.jsx ***!
+  \******************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/esm/defineProperty.js");
+/* harmony import */ var _babel_runtime_helpers_objectWithoutProperties__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/objectWithoutProperties */ "./node_modules/@babel/runtime/helpers/esm/objectWithoutProperties.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var tailwind_merge__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! tailwind-merge */ "./node_modules/tailwind-merge/dist/bundle-mjs.mjs");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__);
+
+
+var _excluded = ["slug", "text", "icon", "className", "isFirstChild", "isLastChild"];
+function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
+function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+
+
+
+/**
+ * Context for managing the ButtonGroup state.
+ */
+
+var ButtonGroupContext = (0,react__WEBPACK_IMPORTED_MODULE_2__.createContext)();
+
+/**
+ * Hook to use the ButtonGroup context.
+ * @returns {Object} The context value of the ButtonGroup.
+ */
+var useButtonGroup = function useButtonGroup() {
+  return (0,react__WEBPACK_IMPORTED_MODULE_2__.useContext)(ButtonGroupContext);
+};
+
+/**
+ * ButtonGroup component to wrap Button components.
+ * @param {Object} props - The properties passed to the component.
+ * @param {React.ReactNode} props.children - The children elements, expected to be Button components.
+ * @param {string|null} [props.activeItem=null] - The currently active item in the group.
+ * @param {function} [props.onChange] - Callback when the active item changes.
+ * @param {string} [props.className] - Additional class names for styling.
+ * @param {string} [props.size='md'] - Size of the buttons in the group ('xs', 'sm', 'md').
+ * @param {string} [props.iconPosition='left'] - Position of the icon in the button ('left' or 'right').
+ */
+var ButtonGroup = function ButtonGroup(props) {
+  var children = props.children,
+    _props$activeItem = props.activeItem,
+    activeItem = _props$activeItem === void 0 ? null : _props$activeItem,
+    onChange = props.onChange,
+    className = props.className,
+    _props$size = props.size,
+    size = _props$size === void 0 ? 'md' : _props$size,
+    _props$iconPosition = props.iconPosition,
+    iconPosition = _props$iconPosition === void 0 ? 'left' : _props$iconPosition;
+  var handleChange = (0,react__WEBPACK_IMPORTED_MODULE_2__.useCallback)(function (event, value) {
+    if (onChange) {
+      onChange({
+        event: event,
+        value: value
+      });
+    }
+  }, [onChange]);
+  var groupClassName = (0,tailwind_merge__WEBPACK_IMPORTED_MODULE_4__.twMerge)('box-border flex border border-border-subtle border-solid rounded', className);
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+    className: groupClassName,
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(ButtonGroupContext.Provider, {
+      value: {
+        activeItem: activeItem,
+        onChange: handleChange,
+        size: size,
+        iconPosition: iconPosition
+      },
+      children: react__WEBPACK_IMPORTED_MODULE_2___default().Children.map(children, function (child, index) {
+        if (!(0,react__WEBPACK_IMPORTED_MODULE_2__.isValidElement)(child)) return null;
+        var isFirstChild = index === 0;
+        var isLastChild = index === react__WEBPACK_IMPORTED_MODULE_2___default().Children.count(children) - 1;
+        return react__WEBPACK_IMPORTED_MODULE_2___default().cloneElement(child, {
+          index: index,
+          isFirstChild: isFirstChild,
+          isLastChild: isLastChild
+        });
+      })
+    })
+  });
+};
+
+/**
+ * Button component to be used within a ButtonGroup.
+ * @param {Object} props - The properties passed to the component.
+ * @param {string} props.slug - Unique identifier for the button.
+ * @param {string} props.text - Text to be displayed inside the button.
+ * @param {React.ReactNode} [props.icon] - Optional icon to be displayed inside the button.
+ * @param {string} [props.className] - Additional class names for styling.
+ * @param {boolean} props.isFirstChild - Flag indicating if this button is the first child in the group.
+ * @param {boolean} props.isLastChild - Flag indicating if this button is the last child in the group.
+ * @param {Object} [props.rest] - Other properties to be passed to the button element.
+ * @param {React.Ref} ref - Reference to the button element.
+ */
+var Button = function Button(props, ref) {
+  var providerValue = useButtonGroup();
+  var slug = props.slug,
+    text = props.text,
+    icon = props.icon,
+    className = props.className,
+    isFirstChild = props.isFirstChild,
+    isLastChild = props.isLastChild,
+    rest = (0,_babel_runtime_helpers_objectWithoutProperties__WEBPACK_IMPORTED_MODULE_1__["default"])(props, _excluded);
+  if (!providerValue) {
+    throw new Error('Button should be used inside Button Group');
+  }
+  var activeItem = providerValue.activeItem,
+    onChange = providerValue.onChange,
+    size = providerValue.size,
+    iconPosition = providerValue.iconPosition;
+  var buttonSizes = {
+    xs: 'py-1 px-1 text-sm gap-0.5 [&>svg]:h-4 [&>svg]:w-4',
+    sm: 'py-2 px-2 text-base gap-1 [&>svg]:h-4 [&>svg]:w-4',
+    md: 'py-2.5 px-2.5 text-base gap-1 [&>svg]:h-5 [&>svg]:w-5'
+  };
+  var buttonBaseClasses = 'bg-background-primary text-secondary cursor-pointer flex items-center justify-center hover:bg-button-tertiary-hover';
+  var buttonFirstChildClasses = isFirstChild ? 'rounded-tl rounded-bl border-0 border-r border-border-subtle' : '';
+  var buttonLastChildClasses = isLastChild ? 'rounded-tr rounded-br border-0' : '';
+  var remainingClasses = 'border-0 border-r border-border-subtle border-solid';
+  var buttonActiveClasses = activeItem === slug ? 'bg-button-disabled' : '';
+  var buttonClassName = (0,tailwind_merge__WEBPACK_IMPORTED_MODULE_4__.twMerge)(buttonBaseClasses, buttonSizes[size], remainingClasses, buttonActiveClasses, buttonFirstChildClasses, buttonLastChildClasses, className);
+  var handleClick = function handleClick(event) {
+    onChange(event, {
+      slug: slug,
+      text: text
+    });
+  };
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("button", _objectSpread(_objectSpread({
+    ref: ref,
+    className: buttonClassName,
+    onClick: handleClick
+  }, rest), {}, {
+    children: [iconPosition === 'left' && icon && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+      className: "mr-1",
+      children: icon
+    }), text, iconPosition === 'right' && icon && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+      className: "ml-1",
+      children: icon
+    })]
+  }));
+};
+var exports = {
+  Group: ButtonGroup,
+  Button: (0,react__WEBPACK_IMPORTED_MODULE_2__.forwardRef)(Button)
+};
+/* harmony default export */ __webpack_exports__["default"] = (exports);
+
+/***/ }),
+
+/***/ "./src/components/button-group/index.js":
+/*!**********************************************!*\
+  !*** ./src/components/button-group/index.js ***!
+  \**********************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": function() { return /* reexport safe */ _button_group_jsx__WEBPACK_IMPORTED_MODULE_0__["default"]; }
+/* harmony export */ });
+/* harmony import */ var _button_group_jsx__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./button-group.jsx */ "./src/components/button-group/button-group.jsx");
+
+
+/***/ }),
+
 /***/ "./src/components/button/button.jsx":
 /*!******************************************!*\
   !*** ./src/components/button/button.jsx ***!
@@ -228,6 +398,7 @@ function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t =
 
 var Button = function Button(props) {
   var _primary$secondary$ou, _primary$outline$ghos, _xs$sm$md$lg;
+  return "WW";
   var _props$variant = props.variant,
     variant = _props$variant === void 0 ? 'primary' : _props$variant,
     _props$size = props.size,
@@ -472,6 +643,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   Avatar: function() { return /* reexport safe */ _avatar_index__WEBPACK_IMPORTED_MODULE_6__["default"]; },
 /* harmony export */   Badge: function() { return /* reexport safe */ _badge_index__WEBPACK_IMPORTED_MODULE_4__["default"]; },
 /* harmony export */   Button: function() { return /* reexport safe */ _button_index__WEBPACK_IMPORTED_MODULE_0__["default"]; },
+/* harmony export */   ButtonGroup: function() { return /* reexport safe */ _button_group_index__WEBPACK_IMPORTED_MODULE_10__["default"]; },
 /* harmony export */   Checkbox: function() { return /* reexport safe */ _checkbox_index__WEBPACK_IMPORTED_MODULE_2__["default"]; },
 /* harmony export */   Input: function() { return /* reexport safe */ _input_index__WEBPACK_IMPORTED_MODULE_7__["default"]; },
 /* harmony export */   Loader: function() { return /* reexport safe */ _loader_index__WEBPACK_IMPORTED_MODULE_8__["default"]; },
@@ -490,6 +662,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _input_index__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./input/index */ "./src/components/input/index.js");
 /* harmony import */ var _loader_index__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./loader/index */ "./src/components/loader/index.js");
 /* harmony import */ var _progress_bar_index__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./progress-bar/index */ "./src/components/progress-bar/index.js");
+/* harmony import */ var _button_group_index__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./button-group/index */ "./src/components/button-group/index.js");
+
 
 
 
@@ -4703,6 +4877,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   Avatar: function() { return /* reexport safe */ _components__WEBPACK_IMPORTED_MODULE_0__.Avatar; },
 /* harmony export */   Badge: function() { return /* reexport safe */ _components__WEBPACK_IMPORTED_MODULE_0__.Badge; },
 /* harmony export */   Button: function() { return /* reexport safe */ _components__WEBPACK_IMPORTED_MODULE_0__.Button; },
+/* harmony export */   ButtonGroup: function() { return /* reexport safe */ _components__WEBPACK_IMPORTED_MODULE_0__.ButtonGroup; },
 /* harmony export */   Checkbox: function() { return /* reexport safe */ _components__WEBPACK_IMPORTED_MODULE_0__.Checkbox; },
 /* harmony export */   Input: function() { return /* reexport safe */ _components__WEBPACK_IMPORTED_MODULE_0__.Input; },
 /* harmony export */   Loader: function() { return /* reexport safe */ _components__WEBPACK_IMPORTED_MODULE_0__.Loader; },
