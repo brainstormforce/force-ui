@@ -68,6 +68,7 @@ const ButtonGroup = (props) => {
  * @param {string}          [props.className]  - Additional class names for styling.
  * @param {boolean}         props.isFirstChild - Flag indicating if this button is the first child in the group.
  * @param {boolean}         props.isLastChild  - Flag indicating if this button is the last child in the group.
+ * @param {boolean}         [props.disabled=false] - Flag indicating if the button is disabled.
  * @param {Object}          [props.rest]       - Other properties to be passed to the button element.
  * @param {React.Ref}       ref                - Reference to the button element.
  */
@@ -121,7 +122,7 @@ const Button = (props, ref) => {
     };
 
     return (
-        <button ref={ref} className={buttonClassName} disabled={ disabled } onClick={handleClick} {...rest}>
+        <button ref={ref} className={buttonClassName} disabled={disabled} onClick={handleClick} {...rest}>
             {iconPosition === "left" && icon && <span className="mr-1">{icon}</span>}
             {text}
             {iconPosition === "right" && icon && <span className="ml-1">{icon}</span>}
