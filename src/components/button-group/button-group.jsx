@@ -23,40 +23,40 @@ const useButtonGroup = () => useContext(ButtonGroupContext);
  * @param {string}          [props.iconPosition='left'] - Position of the icon in the button ('left' or 'right').
  */
 const ButtonGroup = (props) => {
-  const { children, activeItem = null, onChange, className, size = "md", iconPosition = "left" } = props;
+    const { children, activeItem = null, onChange, className, size = "md", iconPosition = "left" } = props;
 
-  const handleChange = useCallback(
-    (event, value) => {
-      if (onChange) {
-        onChange({ event, value });
-      }
-    },
-    [onChange],
-  );
+    const handleChange = useCallback(
+        (event, value) => {
+            if (onChange) {
+                onChange({ event, value });
+            }
+        },
+        [onChange],
+    );
 
-  const groupClassName = twMerge("box-border flex border border-border-subtle border-solid rounded", className);
+    const groupClassName = twMerge("box-border flex border border-border-subtle border-solid rounded", className);
 
-  return (
-    <div className={groupClassName}>
-      <ButtonGroupContext.Provider
-        value={{
-          activeItem,
-          onChange: handleChange,
-          size,
-          iconPosition,
-        }}
-      >
-        {React.Children.map(children, (child, index) => {
-          if (!isValidElement(child)) {
-            return null;
-          }
-          const isFirstChild = index === 0;
-          const isLastChild = index === React.Children.count(children) - 1;
-          return React.cloneElement(child, { index, isFirstChild, isLastChild });
-        })}
-      </ButtonGroupContext.Provider>
-    </div>
-  );
+    return (
+        <div className={groupClassName}>
+            <ButtonGroupContext.Provider
+                value={{
+                    activeItem,
+                    onChange: handleChange,
+                    size,
+                    iconPosition,
+                }}
+            >
+                {React.Children.map(children, (child, index) => {
+                    if (!isValidElement(child)) {
+                        return null;
+                    }
+                    const isFirstChild = index === 0;
+                    const isLastChild = index === React.Children.count(children) - 1;
+                    return React.cloneElement(child, { index, isFirstChild, isLastChild });
+                })}
+            </ButtonGroupContext.Provider>
+        </div>
+    );
 };
 
 /**
@@ -72,45 +72,66 @@ const ButtonGroup = (props) => {
  * @param {React.Ref}       ref                - Reference to the button element.
  */
 const Button = (props, ref) => {
-  const providerValue = useButtonGroup();
-  const { slug, text, icon, className, isFirstChild, isLastChild, ...rest } = props;
+    const providerValue = useButtonGroup();
+    const { slug, text, icon, className, disabled = false, isFirstChild, isLastChild, ...rest } = props;
 
-  if (!providerValue) {
-    throw new Error("Button should be used inside Button Group");
-  }
+    if (!providerValue) {
+        throw new Error("Button should be used inside Button Group");
+    }
 
-  const { activeItem, onChange, size, iconPosition } = providerValue;
+    const { activeItem, onChange, size, iconPosition } = providerValue;
 
-  const buttonSizes = {
-    xs: "py-1 px-1 text-sm gap-0.5 [&>svg]:h-4 [&>svg]:w-4",
-    sm: "py-2 px-2 text-base gap-1 [&>svg]:h-4 [&>svg]:w-4",
-    md: "py-2.5 px-2.5 text-base gap-1 [&>svg]:h-5 [&>svg]:w-5",
-  };
+    const sizes = {
+        xs: "py-1 px-1 text-sm gap-0.5 [&>svg]:h-4 [&>svg]:w-4",
+        sm: "py-2 px-2 text-base gap-1 [&>svg]:h-4 [&>svg]:w-4",
+        md: "py-2.5 px-2.5 text-base gap-1 [&>svg]:h-5 [&>svg]:w-5",
+    };
 
-  const buttonBaseClasses = "bg-background-primary text-secondary cursor-pointer flex items-center justify-center hover:bg-button-tertiary-hover";
-  const buttonFirstChildClasses = isFirstChild ? "rounded-tl rounded-bl border-0 border-r border-border-subtle" : "";
-  const buttonLastChildClasses = isLastChild ? "rounded-tr rounded-br border-0" : "";
-  const remainingClasses = "border-0 border-r border-border-subtle border-solid";
-  const buttonActiveClasses = activeItem === slug ? "bg-button-disabled" : "";
+    const baseClasses = "bg-background-primary text-primary cursor-pointer flex items-center justify-center";
 
-  const buttonClassName = twMerge(buttonBaseClasses, buttonSizes[size], remainingClasses, buttonActiveClasses, buttonFirstChildClasses, buttonLastChildClasses, className);
+    // Button hover classes.
+    const hoverClasses = "hover:bg-button-tertiary-hover";
 
-  const handleClick = (event) => {
-    onChange(event, { slug, text });
-  };
+    // Button focus classes.
+    const focusClasses = "focus:outline-none";
 
-  return (
-    <button ref={ref} className={buttonClassName} onClick={handleClick} {...rest}>
-      {iconPosition === "left" && icon && <span className="mr-1">{icon}</span>}
-      {text}
-      {iconPosition === "right" && icon && <span className="ml-1">{icon}</span>}
-    </button>
-  );
+    // Button disabled classes.
+    const disabledClasses = disabled ? "text-text-disabled cursor-not-allowed" : "";
+
+    const firstChildClasses = isFirstChild ? "rounded-tl rounded-bl border-0 border-r border-border-subtle" : "";
+    const lastChildClasses = isLastChild ? "rounded-tr rounded-br border-0" : "";
+    const borderClasses = "border-0 border-r border-border-subtle border-solid";
+    const activeClasses = activeItem === slug ? "bg-button-disabled" : "";
+
+    const buttonClassName = twMerge(
+        baseClasses,
+        hoverClasses,
+        focusClasses,
+        disabledClasses,
+        sizes[size],
+        borderClasses,
+        activeClasses,
+        firstChildClasses,
+        lastChildClasses,
+        className
+    );
+
+    const handleClick = (event) => {
+        onChange(event, { slug, text });
+    };
+
+    return (
+        <button ref={ref} className={buttonClassName} disabled={ disabled } onClick={handleClick} {...rest}>
+            {iconPosition === "left" && icon && <span className="mr-1">{icon}</span>}
+            {text}
+            {iconPosition === "right" && icon && <span className="ml-1">{icon}</span>}
+        </button>
+    );
 };
 
 const exports = {
-  Group: ButtonGroup,
-  Button: forwardRef(Button),
+    Group: ButtonGroup,
+    Button: forwardRef(Button),
 };
 
 export default exports;
