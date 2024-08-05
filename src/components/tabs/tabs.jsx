@@ -1,29 +1,22 @@
 import React, { useCallback, forwardRef, isValidElement, createContext, useContext } from "react";
 import { twMerge } from "tailwind-merge";
 
-/**
- * Context for managing the ButtonGroup state.
- */
-const ButtonGroupContext = createContext();
+const TabsGroupContext = createContext();
 
-/**
- * Hook to use the ButtonGroup context.
- * @return {Object} The context value of the ButtonGroup.
- */
-const useButtonGroup = () => useContext(ButtonGroupContext);
+const useTabsGroup = () => useContext(TabsGroupContext);
 
-/**
- * ButtonGroup component to wrap Button components.
- * @param {Object}          props                       - The properties passed to the component.
- * @param {React.ReactNode} props.children              - The children elements, expected to be Button components.
- * @param {string|null}     [props.activeItem=null]     - The currently active item in the group.
- * @param {Function}        [props.onChange]            - Callback when the active item changes.
- * @param {string}          [props.className]           - Additional class names for styling.
- * @param {string}          [props.size='md']           - Size of the buttons in the group ('xs', 'sm', 'md').
- * @param {string}          [props.iconPosition='left'] - Position of the icon in the button ('left' or 'right').
- */
-const ButtonGroup = (props) => {
-    const { children, activeItem = null, onChange, className, size = "md", iconPosition = "left" } = props;
+const TabsGroup = (props) => {
+    const {
+        children,
+        activeItem = null,
+        onChange,
+        className,
+        size = "sm",
+        orientation = "horizontal",
+        variant = "pill",
+        iconPosition = "left",
+        width = "auto", // Added width prop for tabs. auto || full
+    } = props;
 
     const handleChange = useCallback(
         (event, value) => {
@@ -34,86 +27,114 @@ const ButtonGroup = (props) => {
         [onChange],
     );
 
-    const groupClassName = twMerge("box-border flex border border-border-subtle border-solid rounded", className);
+    let borderRadius = "rounded-full",
+    padding = "p-1",
+    gap = orientation === "vertical" ? "gap-0.5" : "gap-1",
+    border = "border border-tab-border border-solid";
+
+    if (variant === "rounded" || orientation === "vertical") {
+        borderRadius = "rounded-md";
+    } else if (variant === "underline") {
+        borderRadius = "rounded-none";
+        padding = "p-0";
+        gap = "gap-0";
+        border = "border-none";
+    }
+
+    const widthClasses = "full" === width ? "w-full" : "";
+    const orientationClasses = "vertical" === orientation ? "flex-col" : "";
+
+    let baseClasses = `box-border [&>*]:box-border bg-tab-background flex items-center ${widthClasses} ${orientationClasses}`;
+
+    const groupClassName = twMerge(
+        baseClasses,
+        borderRadius,
+        padding,
+        gap,
+        border,
+        className
+    );
 
     return (
         <div className={groupClassName}>
-            <ButtonGroupContext.Provider
+            <TabsGroupContext.Provider
                 value={{
                     activeItem,
                     onChange: handleChange,
                     size,
+                    variant,
+                    orientation,
                     iconPosition,
+                    width,
                 }}
             >
-                {React.Children.map(children, (child, index) => {
+                {React.Children.map(children, (child) => {
                     if (!isValidElement(child)) {
                         return null;
                     }
-                    const isFirstChild = index === 0;
-                    const isLastChild = index === React.Children.count(children) - 1;
-                    return React.cloneElement(child, { index, isFirstChild, isLastChild });
+                    return React.cloneElement(child);
                 })}
-            </ButtonGroupContext.Provider>
+            </TabsGroupContext.Provider>
         </div>
     );
 };
 
-/**
- * Button component to be used within a ButtonGroup.
- * @param {Object}          props              - The properties passed to the component.
- * @param {string}          props.slug         - Unique identifier for the button.
- * @param {string}          props.text         - Text to be displayed inside the button.
- * @param {React.ReactNode} [props.icon]       - Optional icon to be displayed inside the button.
- * @param {string}          [props.className]  - Additional class names for styling.
- * @param {boolean}         props.isFirstChild - Flag indicating if this button is the first child in the group.
- * @param {boolean}         props.isLastChild  - Flag indicating if this button is the last child in the group.
- * @param {Object}          [props.rest]       - Other properties to be passed to the button element.
- * @param {React.Ref}       ref                - Reference to the button element.
- */
-const Button = (props, ref) => {
-    const providerValue = useButtonGroup();
-    const { slug, text, icon, className, disabled = false, isFirstChild, isLastChild, ...rest } = props;
+const Tab = (props, ref) => {
+    const providerValue = useTabsGroup();
+    const { slug, text, icon, className, disabled = false, badge = null, ...rest } = props;
 
     if (!providerValue) {
-        throw new Error("Button should be used inside Button Group");
+        throw new Error("Tab should be used inside Tabs Group");
     }
 
-    const { activeItem, onChange, size, iconPosition } = providerValue;
+    const { activeItem, onChange, size, variant, orientation, iconPosition, width } = providerValue;
 
     const sizes = {
-        xs: "py-1 px-1 text-sm gap-0.5 [&>svg]:h-4 [&>svg]:w-4",
-        sm: "py-2 px-2 text-base gap-1 [&>svg]:h-4 [&>svg]:w-4",
-        md: "py-2.5 px-2.5 text-base gap-1 [&>svg]:h-5 [&>svg]:w-5",
-    };
+        sm: "p-1 text-sm [&>svg]:h-4 [&>svg]:w-4",
+        md: "p-2 text-base [&>svg]:h-5 [&>svg]:w-5",
+        lg: "p-2.5 text-lg [&>svg]:h-6 [&>svg]:w-6",
+    }?.[size];
 
-    const baseClasses = "bg-background-primary text-primary cursor-pointer flex items-center justify-center";
+    let fullWidth = "full" === width ? "flex-1" : "";
+    let orientationClasses = "vertical" === orientation ? "w-full justify-between" : "";
 
-    // Button hover classes.
-    const hoverClasses = "hover:bg-button-tertiary-hover";
+    let baseClasses = `bg-transparent text-primary cursor-pointer flex items-center justify-center transition-colors duration-200 ${fullWidth} ${orientationClasses}`;
 
-    // Button focus classes.
+    const borderClasses = "border-none";
+
+    let borderBottomClasses = "";
+    let variantClasses = "rounded-full";
+    if (variant === "rounded") {
+        variantClasses = "rounded-md";
+    } else if (variant === "underline") {
+        variantClasses = "rounded-none";
+        borderBottomClasses = "border-t-0 border-r-0  border-l-0 border-b border-solid border-tab-border";
+    }
+
+    const borderActiveInlineClasses = "border-border-interactive";
+
+    const hoverClasses = "hover:bg-misc-tab-item-hover";
     const focusClasses = "focus:outline-none";
-
-    // Button disabled classes.
     const disabledClasses = disabled ? "text-text-disabled cursor-not-allowed" : "";
+    const activeClasses = activeItem === slug ? "bg-background-primary" : "";
 
-    const firstChildClasses = isFirstChild ? "rounded-tl rounded-bl border-0 border-r border-border-subtle" : "";
-    const lastChildClasses = isLastChild ? "rounded-tr rounded-br border-0" : "";
-    const borderClasses = "border-0 border-r border-border-subtle border-solid";
-    const activeClasses = activeItem === slug ? "bg-button-disabled" : "";
-
-    const buttonClassName = twMerge(
+    const tabClassName = twMerge(
+        "full" === width ? "flex-1" : "",
         baseClasses,
+        borderClasses,
+        variantClasses,
+        borderBottomClasses,
+        activeItem === slug && "underline" === variant ? borderActiveInlineClasses : "",
         hoverClasses,
         focusClasses,
         disabledClasses,
-        sizes[size],
-        borderClasses,
+        sizes,
         activeClasses,
-        firstChildClasses,
-        lastChildClasses,
         className
+    );
+
+    const iconParentClasses = twMerge(
+        "flex items-center gap-1",
     );
 
     const handleClick = (event) => {
@@ -121,17 +142,20 @@ const Button = (props, ref) => {
     };
 
     return (
-        <button ref={ref} className={buttonClassName} disabled={ disabled } onClick={handleClick} {...rest}>
-            {iconPosition === "left" && icon && <span className="mr-1">{icon}</span>}
-            {text}
-            {iconPosition === "right" && icon && <span className="ml-1">{icon}</span>}
+        <button ref={ref} className={tabClassName} disabled={disabled} onClick={handleClick} {...rest}>
+            <span className={iconParentClasses}>
+                {iconPosition === "left" && icon && <span className="mr-1">{icon}</span>}
+                {text}
+                {iconPosition === "right" && icon && <span className="ml-1">{icon}</span>}
+            </span>
+            {badge && isValidElement(badge) && badge}
         </button>
     );
 };
 
 const exports = {
-    Group: ButtonGroup,
-    Button: forwardRef(Button),
+    Group: TabsGroup,
+    Tab: forwardRef(Tab),
 };
 
 export default exports;

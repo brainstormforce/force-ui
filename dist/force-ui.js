@@ -306,6 +306,7 @@ var ButtonGroup = function ButtonGroup(props) {
  * @param {string}          [props.className]  - Additional class names for styling.
  * @param {boolean}         props.isFirstChild - Flag indicating if this button is the first child in the group.
  * @param {boolean}         props.isLastChild  - Flag indicating if this button is the last child in the group.
+ * @param {boolean}         [props.disabled=false] - Flag indicating if the button is disabled.
  * @param {Object}          [props.rest]       - Other properties to be passed to the button element.
  * @param {React.Ref}       ref                - Reference to the button element.
  */
@@ -663,6 +664,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   ProgressBar: function() { return /* reexport safe */ _progress_bar_index__WEBPACK_IMPORTED_MODULE_9__["default"]; },
 /* harmony export */   RadioButton: function() { return /* reexport safe */ _radio_button_index__WEBPACK_IMPORTED_MODULE_3__["default"]; },
 /* harmony export */   Switch: function() { return /* reexport safe */ _switch_index__WEBPACK_IMPORTED_MODULE_1__["default"]; },
+/* harmony export */   Tabs: function() { return /* reexport safe */ _tabs_index__WEBPACK_IMPORTED_MODULE_11__["default"]; },
 /* harmony export */   TextArea: function() { return /* reexport safe */ _textarea_index__WEBPACK_IMPORTED_MODULE_5__["default"]; }
 /* harmony export */ });
 /* harmony import */ var _button_index__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./button/index */ "./src/components/button/index.js");
@@ -676,6 +678,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _loader_index__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./loader/index */ "./src/components/loader/index.js");
 /* harmony import */ var _progress_bar_index__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./progress-bar/index */ "./src/components/progress-bar/index.js");
 /* harmony import */ var _button_group_index__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./button-group/index */ "./src/components/button-group/index.js");
+/* harmony import */ var _tabs_index__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./tabs/index */ "./src/components/tabs/index.js");
+
 
 
 
@@ -1350,6 +1354,186 @@ var Switch = function Switch(_ref2, ref) {
   });
 };
 /* harmony default export */ __webpack_exports__["default"] = ((0,react__WEBPACK_IMPORTED_MODULE_3__.forwardRef)(Switch));
+
+/***/ }),
+
+/***/ "./src/components/tabs/index.js":
+/*!**************************************!*\
+  !*** ./src/components/tabs/index.js ***!
+  \**************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": function() { return /* reexport safe */ _tabs_jsx__WEBPACK_IMPORTED_MODULE_0__["default"]; }
+/* harmony export */ });
+/* harmony import */ var _tabs_jsx__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./tabs.jsx */ "./src/components/tabs/tabs.jsx");
+
+
+/***/ }),
+
+/***/ "./src/components/tabs/tabs.jsx":
+/*!**************************************!*\
+  !*** ./src/components/tabs/tabs.jsx ***!
+  \**************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/esm/defineProperty.js");
+/* harmony import */ var _babel_runtime_helpers_objectWithoutProperties__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/objectWithoutProperties */ "./node_modules/@babel/runtime/helpers/esm/objectWithoutProperties.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var tailwind_merge__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! tailwind-merge */ "./node_modules/tailwind-merge/dist/bundle-mjs.mjs");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__);
+
+
+var _excluded = ["slug", "text", "icon", "className", "disabled", "badge"];
+function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
+function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+
+
+
+var TabsGroupContext = (0,react__WEBPACK_IMPORTED_MODULE_2__.createContext)();
+var useTabsGroup = function useTabsGroup() {
+  return (0,react__WEBPACK_IMPORTED_MODULE_2__.useContext)(TabsGroupContext);
+};
+var TabsGroup = function TabsGroup(props) {
+  var children = props.children,
+    _props$activeItem = props.activeItem,
+    activeItem = _props$activeItem === void 0 ? null : _props$activeItem,
+    onChange = props.onChange,
+    className = props.className,
+    _props$size = props.size,
+    size = _props$size === void 0 ? "sm" : _props$size,
+    _props$orientation = props.orientation,
+    orientation = _props$orientation === void 0 ? "horizontal" : _props$orientation,
+    _props$variant = props.variant,
+    variant = _props$variant === void 0 ? "pill" : _props$variant,
+    _props$iconPosition = props.iconPosition,
+    iconPosition = _props$iconPosition === void 0 ? "left" : _props$iconPosition,
+    _props$width = props.width,
+    width = _props$width === void 0 ? "auto" : _props$width;
+  var handleChange = (0,react__WEBPACK_IMPORTED_MODULE_2__.useCallback)(function (event, value) {
+    if (onChange) {
+      onChange({
+        event: event,
+        value: value
+      });
+    }
+  }, [onChange]);
+  var borderRadius = "rounded-full",
+    padding = "p-1",
+    gap = orientation === "vertical" ? "gap-0.5" : "gap-1",
+    border = "border border-tab-border border-solid";
+  if (variant === "rounded" || orientation === "vertical") {
+    borderRadius = "rounded-md";
+  } else if (variant === "underline") {
+    borderRadius = "rounded-none";
+    padding = "p-0";
+    gap = "gap-0";
+    border = "border-none";
+  }
+  var widthClasses = "full" === width ? "w-full" : "";
+  var orientationClasses = "vertical" === orientation ? "flex-col" : "";
+  var baseClasses = "box-border [&>*]:box-border bg-tab-background flex items-center ".concat(widthClasses, " ").concat(orientationClasses);
+  var groupClassName = (0,tailwind_merge__WEBPACK_IMPORTED_MODULE_4__.twMerge)(baseClasses, borderRadius, padding, gap, border, className);
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+    className: groupClassName,
+    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(TabsGroupContext.Provider, {
+      value: {
+        activeItem: activeItem,
+        onChange: handleChange,
+        size: size,
+        variant: variant,
+        orientation: orientation,
+        iconPosition: iconPosition,
+        width: width
+      },
+      children: react__WEBPACK_IMPORTED_MODULE_2___default().Children.map(children, function (child) {
+        if (!(0,react__WEBPACK_IMPORTED_MODULE_2__.isValidElement)(child)) {
+          return null;
+        }
+        return react__WEBPACK_IMPORTED_MODULE_2___default().cloneElement(child);
+      })
+    })
+  });
+};
+var Tab = function Tab(props, ref) {
+  var _sm$md$lg;
+  var providerValue = useTabsGroup();
+  var slug = props.slug,
+    text = props.text,
+    icon = props.icon,
+    className = props.className,
+    _props$disabled = props.disabled,
+    disabled = _props$disabled === void 0 ? false : _props$disabled,
+    _props$badge = props.badge,
+    badge = _props$badge === void 0 ? null : _props$badge,
+    rest = (0,_babel_runtime_helpers_objectWithoutProperties__WEBPACK_IMPORTED_MODULE_1__["default"])(props, _excluded);
+  if (!providerValue) {
+    throw new Error("Tab should be used inside Tabs Group");
+  }
+  var activeItem = providerValue.activeItem,
+    onChange = providerValue.onChange,
+    size = providerValue.size,
+    variant = providerValue.variant,
+    orientation = providerValue.orientation,
+    iconPosition = providerValue.iconPosition,
+    width = providerValue.width;
+  var sizes = (_sm$md$lg = {
+    sm: "p-1 text-sm [&>svg]:h-4 [&>svg]:w-4",
+    md: "p-2 text-base [&>svg]:h-5 [&>svg]:w-5",
+    lg: "p-2.5 text-lg [&>svg]:h-6 [&>svg]:w-6"
+  }) === null || _sm$md$lg === void 0 ? void 0 : _sm$md$lg[size];
+  var fullWidth = "full" === width ? "flex-1" : "";
+  var orientationClasses = "vertical" === orientation ? "w-full justify-between" : "";
+  var baseClasses = "bg-transparent text-primary cursor-pointer flex items-center justify-center transition-colors duration-200 ".concat(fullWidth, " ").concat(orientationClasses);
+  var borderClasses = "border-none";
+  var borderBottomClasses = "";
+  var variantClasses = "rounded-full";
+  if (variant === "rounded") {
+    variantClasses = "rounded-md";
+  } else if (variant === "underline") {
+    variantClasses = "rounded-none";
+    borderBottomClasses = "border-t-0 border-r-0  border-l-0 border-b border-solid border-tab-border";
+  }
+  var borderActiveInlineClasses = "border-border-interactive";
+  var hoverClasses = "hover:bg-misc-tab-item-hover";
+  var focusClasses = "focus:outline-none";
+  var disabledClasses = disabled ? "text-text-disabled cursor-not-allowed" : "";
+  var activeClasses = activeItem === slug ? "bg-background-primary" : "";
+  var tabClassName = (0,tailwind_merge__WEBPACK_IMPORTED_MODULE_4__.twMerge)("full" === width ? "flex-1" : "", baseClasses, borderClasses, variantClasses, borderBottomClasses, activeItem === slug && "underline" === variant ? borderActiveInlineClasses : "", hoverClasses, focusClasses, disabledClasses, sizes, activeClasses, className);
+  var iconParentClasses = (0,tailwind_merge__WEBPACK_IMPORTED_MODULE_4__.twMerge)("flex items-center gap-1");
+  var handleClick = function handleClick(event) {
+    onChange(event, {
+      slug: slug,
+      text: text
+    });
+  };
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("button", _objectSpread(_objectSpread({
+    ref: ref,
+    className: tabClassName,
+    disabled: disabled,
+    onClick: handleClick
+  }, rest), {}, {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("span", {
+      className: iconParentClasses,
+      children: [iconPosition === "left" && icon && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+        className: "mr-1",
+        children: icon
+      }), text, iconPosition === "right" && icon && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
+        className: "ml-1",
+        children: icon
+      })]
+    }), badge && (0,react__WEBPACK_IMPORTED_MODULE_2__.isValidElement)(badge) && badge]
+  }));
+};
+var exports = {
+  Group: TabsGroup,
+  Tab: (0,react__WEBPACK_IMPORTED_MODULE_2__.forwardRef)(Tab)
+};
+/* harmony default export */ __webpack_exports__["default"] = (exports);
 
 /***/ }),
 
@@ -4897,6 +5081,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   ProgressBar: function() { return /* reexport safe */ _components__WEBPACK_IMPORTED_MODULE_0__.ProgressBar; },
 /* harmony export */   RadioButton: function() { return /* reexport safe */ _components__WEBPACK_IMPORTED_MODULE_0__.RadioButton; },
 /* harmony export */   Switch: function() { return /* reexport safe */ _components__WEBPACK_IMPORTED_MODULE_0__.Switch; },
+/* harmony export */   Tabs: function() { return /* reexport safe */ _components__WEBPACK_IMPORTED_MODULE_0__.Tabs; },
 /* harmony export */   TextArea: function() { return /* reexport safe */ _components__WEBPACK_IMPORTED_MODULE_0__.TextArea; }
 /* harmony export */ });
 /* harmony import */ var _components__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./components */ "./src/components/index.js");
