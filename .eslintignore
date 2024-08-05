@@ -8,3 +8,8 @@ dist
 config.js
 # ignoring webpack configuration
 webpack.config.js
+*.cjs
+.github
+.eslintrc.js
+.prettierrc
+.stylelintrc

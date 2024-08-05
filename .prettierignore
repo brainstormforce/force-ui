@@ -7,3 +7,8 @@ dist
 *.log
 config.js
 *.cjs
+.github
+.eslintrc.js
+.prettierrc
+.stylelintrc
+webpack.config.js
