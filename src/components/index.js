@@ -8,3 +8,4 @@ export { default as Avatar } from './avatar/index';
 export { default as Input } from './input/index';
 export { default as Loader } from './loader/index';
 export { default as ProgressBar } from './progress-bar/index';
+export { default as Tooltip } from './tooltip/index';
