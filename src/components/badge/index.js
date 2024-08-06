@@ -1,1 +1,1 @@
-export { default } from "./badge.jsx";
+export { default } from './badge.jsx';
