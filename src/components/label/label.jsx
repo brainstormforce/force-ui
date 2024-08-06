@@ -10,6 +10,7 @@ const Label = ( {
 	size = 'sm', // xs, sm, md
 	className = '',
 	variant = 'neutral', // neutral, help, error, disabled
+	required = false,
 	...props
 } ) => {
 	// Base classes. - Mandatory classes.
@@ -34,6 +35,12 @@ const Label = ( {
 		return null;
 	}
 
+	let requiredClasses = "";
+
+	if ( required ) {
+		requiredClasses = "after:content-['*'] after:text-field-required after:ml-0.5";
+	}
+
 	const Tag = tag;
 
 	return (
@@ -43,6 +50,7 @@ const Label = ( {
 					baseClasses,
 					sizeClasses[ size ],
 					variantClasses[ variant ],
+					requiredClasses,
 					className
 				)
 			}
