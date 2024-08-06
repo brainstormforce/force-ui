@@ -35,7 +35,7 @@ const Label = ( {
 		return null;
 	}
 
-	let requiredClasses = "";
+	let requiredClasses = '';
 
 	if ( required ) {
 		requiredClasses = "after:content-['*'] after:text-field-required after:ml-0.5";
