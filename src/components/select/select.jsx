@@ -16,12 +16,13 @@ import {
 	autoUpdate,
 	FloatingPortal,
 } from '@floating-ui/react';
+import Badge from "../badge"
 
 // Context to manage the state of the select component.
 const SelectContext = createContext();
 const useSelectContext = () => useContext(SelectContext);
 
-const SelectItem = ({ value, disabled = false, children, ...props }) => {
+function SelectItem ({ value, disabled = false, children, ...props }) {
 	const {
 		sizeValue,
 		getItemProps,
@@ -30,6 +31,9 @@ const SelectItem = ({ value, disabled = false, children, ...props }) => {
 		activeIndex,
 		selectedIndex,
 		updateListRef,
+		getValues,
+		by,
+		multiple,
 	} = useSelectContext();
 	const { index: indx } = props;
 
@@ -44,6 +48,24 @@ const SelectItem = ({ value, disabled = false, children, ...props }) => {
 		lg: 'size-5',
 	};
 
+	const multipleChecked = useMemo(() => {
+		if ( ! multiple ) {
+			return false;
+		}
+		const currentValue = getValues();
+		if ( ! currentValue ) {
+			return false;
+		}
+		return currentValue.some((val) => {
+			if ( typeof val === 'object' ) {
+				return val[by] === value[by];
+			}
+			return val === value;
+		} );
+	}, [value, getValues]);
+
+	const isChecked = multiple ? multipleChecked : indx === selectedIndex;
+
 	return (
 		<div
 			className={cn(
@@ -56,7 +78,7 @@ const SelectItem = ({ value, disabled = false, children, ...props }) => {
 			}}
 			role="option"
 			tabIndex={indx === activeIndex ? 0 : -1}
-			aria-selected={indx === selectedIndex && indx === activeIndex}
+			aria-selected={ isChecked && indx === activeIndex}
 			{...getItemProps({
 				// Handle pointer select.
 				onClick() {
@@ -69,7 +91,7 @@ const SelectItem = ({ value, disabled = false, children, ...props }) => {
 			})}
 		>
 			<span className="w-full truncate">{children}</span>
-			{indx === selectedIndex && (
+			{ isChecked && (
 				<CheckIcon
 					className={cn(
 						'text-icon-on-color-disabled',
@@ -83,9 +105,10 @@ const SelectItem = ({ value, disabled = false, children, ...props }) => {
 
 const Select = ({
 	size: sizeValue = 'md', // sm, md, lg
-	dropdownPortalId = '',
-	dropdownPortalRoot = null,
-	placeholder = 'Select an option',
+	dropdownPortalId = '', // Id of the dropdown portal where the dropdown will be rendered.
+	dropdownPortalRoot = null, // Root element where the dropdown will be rendered.
+	placeholder = 'Select an option', // Placeholder text.
+	searchPlaceholder = 'Search...', // Placeholder text for search box.
 	combobox = false, // If true, it will show a search box.
 	icon = null,
 	value, // Value of the select (for controlled component).
@@ -95,6 +118,7 @@ const Select = ({
 	disabled = false, // If true, it will disable the select.
 	by  = 'id', // Used to identify the select component. Default is 'id'.
 	searchBy = 'id', // Used to identify searched value using the key. Default is 'id'.
+	displayBy = 'name', // Used to display the value. Default is 'name'.
 	children,
 }) => {
 	const isControlled = useMemo(() => typeof value !== 'undefined', [value]);
@@ -217,7 +241,37 @@ const Select = ({
 			...(! combobox ? [typeahead] : []),
 		]);
 
+	const handleMultiSelect = (index, newValue) => {
+		const selectedValues = [...(getValues() ?? [])];
+		const selectedIndex = selectedValues.findIndex((value) => {
+			if ( typeof value === 'object' ) {
+				return value[by] === newValue[by];
+			}
+			return value === newValue;
+		});
+
+
+		if (selectedIndex !== -1) {
+			return;
+		}
+		selectedValues.push(newValue);
+
+		if ( ! isControlled ) {
+			setSelected(selectedValues);
+		}
+		setSelectedIndex(index);
+		refs.reference.current.focus();
+		setIsOpen(false);
+		setSearchKeyword('');
+		if ( typeof onChange === 'function' ) {
+			onChange(selectedValues);
+		}
+	};
+
 	const handleSelect = (index, newValue) => {
+		if ( multiple ) {
+			return handleMultiSelect(index, newValue);
+		}
 		setSelectedIndex(index);
 		if ( ! isControlled ) {
 			setSelected(newValue)
@@ -335,15 +389,46 @@ const Select = ({
 		});
 	}, [searchKeyword]);
 
-	const renderSelected = useCallback(() => {
-		if (! value && ! selected) {
-			return null;
-		}
-		if ( isControlled ) {
-			return value;
+	const handleOnCloseItem = (value) => (event) => {
+		event?.preventDefault();
+		event?.stopPropagation();
+
+		const selectedValues = [...(getValues() ?? [])];
+		const selectedIndex = selectedValues.findIndex((val) => {
+			if ( typeof val === 'object' ) {
+				return val[by] === value[by];
+			}
+			return val === value;
+		});
+
+		if (selectedIndex === -1) {
+			return;
 		}
 
-		return selected;
+		selectedValues.splice(selectedIndex, 1);
+
+		if ( ! isControlled ) {
+			setSelected(selectedValues);
+		}
+		if ( typeof onChange === 'function' ) {
+			onChange(selectedValues);
+		}
+	}
+
+	const renderSelected = useCallback(() => {
+		const selectedValue = getValue();
+
+		if ( ! selectedValue ) {
+			return null;
+		}
+
+		if (multiple) {
+			return selectedValue.map((valueItem, index) => (
+				<Badge key={index} size={sizeValue} onClose={handleOnCloseItem(valueItem)} label={typeof valueItem === 'object' ? valueItem[displayBy] : valueItem} />
+			))
+		}
+
+		return typeof value === 'object' ? value[displayBy] : value;
 	}, [selected, value]);
 
 	return (
@@ -365,8 +450,8 @@ const Select = ({
 				{/* Input and selected item container */}
 				<div
 					className={cn(
-						'flex-1 grid items-center justify-start gap-1.5 '
-						// 'flex flex-wrap'
+						'flex-1 grid items-center justify-start gap-1.5 ',
+						getValues() && 'flex flex-wrap'
 					)}
 				>
 					{/* Show Selected item/items (Multiselector) */}
@@ -461,7 +546,7 @@ const Select = ({
 											)}
 											type="search"
 											name="keyword"
-											placeholder="Search..."
+											placeholder={searchPlaceholder}
 											onChange={event => setSearchKeyword(event.target.value)}
 										/>
 									</div>
@@ -494,7 +579,6 @@ const Select = ({
 	);
 };
 
-export default {
-	Button: Select,
-	Option: SelectItem,
-};
+Select.Option = SelectItem
+
+export default Select;

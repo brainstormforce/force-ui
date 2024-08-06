@@ -892,22 +892,23 @@ __webpack_require__.r(__webpack_exports__);
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/toConsumableArray */ "./node_modules/@babel/runtime/helpers/esm/toConsumableArray.js");
-/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/typeof */ "./node_modules/@babel/runtime/helpers/esm/typeof.js");
-/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @babel/runtime/helpers/slicedToArray */ "./node_modules/@babel/runtime/helpers/esm/slicedToArray.js");
-/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/esm/defineProperty.js");
+/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/slicedToArray */ "./node_modules/@babel/runtime/helpers/esm/slicedToArray.js");
+/* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/esm/defineProperty.js");
+/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @babel/runtime/helpers/typeof */ "./node_modules/@babel/runtime/helpers/esm/typeof.js");
 /* harmony import */ var _babel_runtime_helpers_objectWithoutProperties__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @babel/runtime/helpers/objectWithoutProperties */ "./node_modules/@babel/runtime/helpers/esm/objectWithoutProperties.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_5__);
 /* harmony import */ var _utility_utils__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../utility/utils */ "./src/utility/utils.js");
-/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/check.js");
-/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/chevrons-up-down.js");
-/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/chevron-down.js");
-/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/search.js");
-/* harmony import */ var _floating_ui_react__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @floating-ui/react */ "./node_modules/@floating-ui/react/dist/floating-ui.react.mjs");
-/* harmony import */ var _floating_ui_react__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @floating-ui/react */ "./node_modules/@floating-ui/dom/dist/floating-ui.dom.mjs");
-/* harmony import */ var _floating_ui_react__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @floating-ui/react */ "./node_modules/@floating-ui/react-dom/dist/floating-ui.react-dom.mjs");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__);
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/check.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/chevrons-up-down.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/chevron-down.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/search.js");
+/* harmony import */ var _floating_ui_react__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @floating-ui/react */ "./node_modules/@floating-ui/react/dist/floating-ui.react.mjs");
+/* harmony import */ var _floating_ui_react__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @floating-ui/react */ "./node_modules/@floating-ui/dom/dist/floating-ui.dom.mjs");
+/* harmony import */ var _floating_ui_react__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @floating-ui/react */ "./node_modules/@floating-ui/react-dom/dist/floating-ui.react-dom.mjs");
+/* harmony import */ var _badge__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../badge */ "./src/components/badge/index.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__);
 
 
 
@@ -915,7 +916,8 @@ __webpack_require__.r(__webpack_exports__);
 
 var _excluded = ["value", "disabled", "children"];
 function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
-function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_3__["default"])(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_2__["default"])(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+
 
 
 
@@ -927,7 +929,7 @@ var SelectContext = (0,react__WEBPACK_IMPORTED_MODULE_5__.createContext)();
 var useSelectContext = function useSelectContext() {
   return (0,react__WEBPACK_IMPORTED_MODULE_5__.useContext)(SelectContext);
 };
-var SelectItem = function SelectItem(_ref) {
+function SelectItem(_ref) {
   var value = _ref.value,
     _ref$disabled = _ref.disabled,
     disabled = _ref$disabled === void 0 ? false : _ref$disabled,
@@ -940,7 +942,10 @@ var SelectItem = function SelectItem(_ref) {
     onClickItem = _useSelectContext.onClickItem,
     activeIndex = _useSelectContext.activeIndex,
     selectedIndex = _useSelectContext.selectedIndex,
-    updateListRef = _useSelectContext.updateListRef;
+    updateListRef = _useSelectContext.updateListRef,
+    getValues = _useSelectContext.getValues,
+    by = _useSelectContext.by,
+    multiple = _useSelectContext.multiple;
   var indx = props.index;
   var selectItemClassNames = {
     sm: 'py-1.5 px-2 text-sm font-normal',
@@ -952,14 +957,30 @@ var SelectItem = function SelectItem(_ref) {
     md: 'size-5',
     lg: 'size-5'
   };
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", _objectSpread(_objectSpread({
+  var multipleChecked = (0,react__WEBPACK_IMPORTED_MODULE_5__.useMemo)(function () {
+    if (!multiple) {
+      return false;
+    }
+    var currentValue = getValues();
+    if (!currentValue) {
+      return false;
+    }
+    return currentValue.some(function (val) {
+      if ((0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_3__["default"])(val) === 'object') {
+        return val[by] === value[by];
+      }
+      return val === value;
+    });
+  }, [value, getValues]);
+  var isChecked = multiple ? multipleChecked : indx === selectedIndex;
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", _objectSpread(_objectSpread({
     className: (0,_utility_utils__WEBPACK_IMPORTED_MODULE_6__.cn)('w-full flex items-center justify-between text-text-primary hover:bg-button-tertiary-hover rounded-md transition-all duration-150 cursor-pointer', selectItemClassNames[sizeValue], indx === activeIndex && 'bg-button-tertiary-hover'),
     ref: function ref(node) {
       updateListRef(indx, node);
     },
     role: "option",
     tabIndex: indx === activeIndex ? 0 : -1,
-    "aria-selected": indx === selectedIndex && indx === activeIndex
+    "aria-selected": isChecked && indx === activeIndex
   }, getItemProps({
     // Handle pointer select.
     onClick: function onClick() {
@@ -970,14 +991,15 @@ var SelectItem = function SelectItem(_ref) {
       onKeyDownItem(event, indx, value);
     }
   })), {}, {
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("span", {
       className: "w-full truncate",
       children: children
-    }), indx === selectedIndex && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_8__["default"], {
+    }), isChecked && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_9__["default"], {
       className: (0,_utility_utils__WEBPACK_IMPORTED_MODULE_6__.cn)('text-icon-on-color-disabled', selectedIconClassName[sizeValue])
     })]
   }));
-};
+}
+;
 var Select = function Select(_ref2) {
   var _ref2$size = _ref2.size,
     sizeValue = _ref2$size === void 0 ? 'md' : _ref2$size,
@@ -987,6 +1009,8 @@ var Select = function Select(_ref2) {
     dropdownPortalRoot = _ref2$dropdownPortalR === void 0 ? null : _ref2$dropdownPortalR,
     _ref2$placeholder = _ref2.placeholder,
     placeholder = _ref2$placeholder === void 0 ? 'Select an option' : _ref2$placeholder,
+    _ref2$searchPlacehold = _ref2.searchPlaceholder,
+    searchPlaceholder = _ref2$searchPlacehold === void 0 ? 'Search...' : _ref2$searchPlacehold,
     _ref2$combobox = _ref2.combobox,
     combobox = _ref2$combobox === void 0 ? false : _ref2$combobox,
     _ref2$icon = _ref2.icon,
@@ -1002,16 +1026,18 @@ var Select = function Select(_ref2) {
     by = _ref2$by === void 0 ? 'id' : _ref2$by,
     _ref2$searchBy = _ref2.searchBy,
     searchBy = _ref2$searchBy === void 0 ? 'id' : _ref2$searchBy,
+    _ref2$displayBy = _ref2.displayBy,
+    displayBy = _ref2$displayBy === void 0 ? 'name' : _ref2$displayBy,
     children = _ref2.children;
   var isControlled = (0,react__WEBPACK_IMPORTED_MODULE_5__.useMemo)(function () {
     return typeof value !== 'undefined';
   }, [value]);
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_5__.useState)(defaultValue),
-    _useState2 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_2__["default"])(_useState, 2),
+    _useState2 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__["default"])(_useState, 2),
     selected = _useState2[0],
     setSelected = _useState2[1];
   var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_5__.useState)(''),
-    _useState4 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_2__["default"])(_useState3, 2),
+    _useState4 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__["default"])(_useState3, 2),
     searchKeyword = _useState4[0],
     setSearchKeyword = _useState4[1];
   var getValues = (0,react__WEBPACK_IMPORTED_MODULE_5__.useCallback)(function () {
@@ -1029,7 +1055,7 @@ var Select = function Select(_ref2) {
       }
       if (searchKeyword) {
         var valueProp = child.props.value;
-        if ((0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__["default"])(valueProp) === 'object') {
+        if ((0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_3__["default"])(valueProp) === 'object') {
           if (valueProp[searchBy].toLowerCase().indexOf(searchKeyword.toLowerCase()) === -1) {
             return null;
           }
@@ -1050,7 +1076,7 @@ var Select = function Select(_ref2) {
     var indexValue = 0;
     if (currentValue) {
       indexValue = react__WEBPACK_IMPORTED_MODULE_5__.Children.toArray(children).findIndex(function (child) {
-        if ((0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__["default"])(child.props.value) === 'object') {
+        if ((0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_3__["default"])(child.props.value) === 'object') {
           return child.props.value[by] === currentValue[by];
         }
         return child.props.value === currentValue;
@@ -1061,15 +1087,15 @@ var Select = function Select(_ref2) {
 
   // Dropdown position related code (Start)
   var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_5__.useState)(false),
-    _useState6 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_2__["default"])(_useState5, 2),
+    _useState6 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__["default"])(_useState5, 2),
     isOpen = _useState6[0],
     setIsOpen = _useState6[1];
   var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_5__.useState)(initialSelectedValueIndex),
-    _useState8 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_2__["default"])(_useState7, 2),
+    _useState8 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__["default"])(_useState7, 2),
     activeIndex = _useState8[0],
     setActiveIndex = _useState8[1];
   var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_5__.useState)(initialSelectedValueIndex),
-    _useState10 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_2__["default"])(_useState9, 2),
+    _useState10 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__["default"])(_useState9, 2),
     selectedIndex = _useState10[0],
     setSelectedIndex = _useState10[1];
   var dropdownMaxHeightBySize = {
@@ -1077,14 +1103,14 @@ var Select = function Select(_ref2) {
     md: combobox ? 256 : 216,
     lg: combobox ? 256 : 216
   };
-  var _useFloating = (0,_floating_ui_react__WEBPACK_IMPORTED_MODULE_9__.useFloating)({
+  var _useFloating = (0,_floating_ui_react__WEBPACK_IMPORTED_MODULE_10__.useFloating)({
       placement: 'bottom-start',
       open: isOpen,
       onOpenChange: setIsOpen,
-      whileElementsMounted: _floating_ui_react__WEBPACK_IMPORTED_MODULE_10__.autoUpdate,
-      middleware: [(0,_floating_ui_react__WEBPACK_IMPORTED_MODULE_11__.offset)(5), (0,_floating_ui_react__WEBPACK_IMPORTED_MODULE_11__.flip)({
+      whileElementsMounted: _floating_ui_react__WEBPACK_IMPORTED_MODULE_11__.autoUpdate,
+      middleware: [(0,_floating_ui_react__WEBPACK_IMPORTED_MODULE_12__.offset)(5), (0,_floating_ui_react__WEBPACK_IMPORTED_MODULE_12__.flip)({
         padding: 10
-      }), (0,_floating_ui_react__WEBPACK_IMPORTED_MODULE_11__.size)({
+      }), (0,_floating_ui_react__WEBPACK_IMPORTED_MODULE_12__.size)({
         apply: function apply(_ref3) {
           var rects = _ref3.rects,
             elements = _ref3.elements,
@@ -1103,14 +1129,14 @@ var Select = function Select(_ref2) {
   var listRef = (0,react__WEBPACK_IMPORTED_MODULE_5__.useRef)([]);
   var listContentRef = (0,react__WEBPACK_IMPORTED_MODULE_5__.useRef)([]);
   var isTypingRef = (0,react__WEBPACK_IMPORTED_MODULE_5__.useRef)(false);
-  var click = (0,_floating_ui_react__WEBPACK_IMPORTED_MODULE_9__.useClick)(context, {
+  var click = (0,_floating_ui_react__WEBPACK_IMPORTED_MODULE_10__.useClick)(context, {
     event: 'mousedown'
   });
-  var dismiss = (0,_floating_ui_react__WEBPACK_IMPORTED_MODULE_9__.useDismiss)(context);
-  var role = (0,_floating_ui_react__WEBPACK_IMPORTED_MODULE_9__.useRole)(context, {
+  var dismiss = (0,_floating_ui_react__WEBPACK_IMPORTED_MODULE_10__.useDismiss)(context);
+  var role = (0,_floating_ui_react__WEBPACK_IMPORTED_MODULE_10__.useRole)(context, {
     role: 'listbox'
   });
-  var listNav = (0,_floating_ui_react__WEBPACK_IMPORTED_MODULE_9__.useListNavigation)(context, {
+  var listNav = (0,_floating_ui_react__WEBPACK_IMPORTED_MODULE_10__.useListNavigation)(context, {
     listRef: listRef,
     activeIndex: activeIndex,
     selectedIndex: selectedIndex,
@@ -1118,7 +1144,7 @@ var Select = function Select(_ref2) {
     // This is a large list, allow looping.
     loop: true
   });
-  var typeahead = (0,_floating_ui_react__WEBPACK_IMPORTED_MODULE_9__.useTypeahead)(context, {
+  var typeahead = (0,_floating_ui_react__WEBPACK_IMPORTED_MODULE_10__.useTypeahead)(context, {
     listRef: listContentRef,
     activeIndex: activeIndex,
     selectedIndex: selectedIndex,
@@ -1127,11 +1153,38 @@ var Select = function Select(_ref2) {
       isTypingRef.current = isTyping;
     }
   });
-  var _useInteractions = (0,_floating_ui_react__WEBPACK_IMPORTED_MODULE_9__.useInteractions)([dismiss, role, listNav, click].concat((0,_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__["default"])(!combobox ? [typeahead] : []))),
+  var _useInteractions = (0,_floating_ui_react__WEBPACK_IMPORTED_MODULE_10__.useInteractions)([dismiss, role, listNav, click].concat((0,_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__["default"])(!combobox ? [typeahead] : []))),
     getReferenceProps = _useInteractions.getReferenceProps,
     getFloatingProps = _useInteractions.getFloatingProps,
     getItemProps = _useInteractions.getItemProps;
+  var handleMultiSelect = function handleMultiSelect(index, newValue) {
+    var _getValues;
+    var selectedValues = (0,_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__["default"])((_getValues = getValues()) !== null && _getValues !== void 0 ? _getValues : []);
+    var selectedIndex = selectedValues.findIndex(function (value) {
+      if ((0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_3__["default"])(value) === 'object') {
+        return value[by] === newValue[by];
+      }
+      return value === newValue;
+    });
+    if (selectedIndex !== -1) {
+      return;
+    }
+    selectedValues.push(newValue);
+    if (!isControlled) {
+      setSelected(selectedValues);
+    }
+    setSelectedIndex(index);
+    refs.reference.current.focus();
+    setIsOpen(false);
+    setSearchKeyword('');
+    if (typeof onChange === 'function') {
+      onChange(selectedValues);
+    }
+  };
   var handleSelect = function handleSelect(index, newValue) {
+    if (multiple) {
+      return handleMultiSelect(index, newValue);
+    }
     setSelectedIndex(index);
     if (!isControlled) {
       setSelected(newValue);
@@ -1188,9 +1241,9 @@ var Select = function Select(_ref2) {
       return icon;
     }
     var iconClassNames = "text-field-placeholder";
-    return combobox ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_12__["default"], {
+    return combobox ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_13__["default"], {
       className: iconClassNames
-    }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_13__["default"], {
+    }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_14__["default"], {
       className: iconClassNames
     });
   }, [icon]);
@@ -1227,7 +1280,7 @@ var Select = function Select(_ref2) {
       if (child.props.value) {
         if (searchKeyword) {
           var valueProp = child.props.value;
-          if ((0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__["default"])(valueProp) === 'object') {
+          if ((0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_3__["default"])(valueProp) === 'object') {
             if (valueProp[searchBy].toLowerCase().indexOf(searchKeyword.toLowerCase()) === -1) {
               return;
             }
@@ -1241,36 +1294,65 @@ var Select = function Select(_ref2) {
       }
     });
   }, [searchKeyword]);
+  var handleOnCloseItem = function handleOnCloseItem(value) {
+    return function (event) {
+      var _getValues2;
+      event === null || event === void 0 || event.preventDefault();
+      event === null || event === void 0 || event.stopPropagation();
+      var selectedValues = (0,_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__["default"])((_getValues2 = getValues()) !== null && _getValues2 !== void 0 ? _getValues2 : []);
+      var selectedIndex = selectedValues.findIndex(function (val) {
+        if ((0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_3__["default"])(val) === 'object') {
+          return val[by] === value[by];
+        }
+        return val === value;
+      });
+      if (selectedIndex === -1) {
+        return;
+      }
+      selectedValues.splice(selectedIndex, 1);
+      if (!isControlled) {
+        setSelected(selectedValues);
+      }
+      if (typeof onChange === 'function') {
+        onChange(selectedValues);
+      }
+    };
+  };
   var renderSelected = (0,react__WEBPACK_IMPORTED_MODULE_5__.useCallback)(function () {
-    if (!value && !selected) {
+    var selectedValue = getValue();
+    if (!selectedValue) {
       return null;
     }
-    if (isControlled) {
-      return value;
+    if (multiple) {
+      return selectedValue.map(function (valueItem, index) {
+        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_badge__WEBPACK_IMPORTED_MODULE_7__["default"], {
+          size: sizeValue,
+          onClose: handleOnCloseItem(valueItem),
+          label: (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_3__["default"])(valueItem) === 'object' ? valueItem[displayBy] : valueItem
+        }, index);
+      });
     }
-    return selected;
+    return (0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_3__["default"])(value) === 'object' ? value[displayBy] : value;
   }, [selected, value]);
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.Fragment, {
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", _objectSpread(_objectSpread({
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.Fragment, {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", _objectSpread(_objectSpread({
       ref: refs.setReference,
       className: (0,_utility_utils__WEBPACK_IMPORTED_MODULE_6__.cn)('flex items-center justify-between border border-solid w-full box-border transition-colors duration-150', 'border border-solid border-field-border', !isOpen && 'focus:ring-2 focus:ring-offset-4 focus:border-focus-border focus:ring-focus [&:hover:not(:focus)]:border-border-strong', sizeClassNames[sizeValue].mainContainer),
       "aria-labelledby": "select-label",
       "aria-autocomplete": "none",
       tabIndex: 0
     }, getReferenceProps()), {}, {
-      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
-        className: (0,_utility_utils__WEBPACK_IMPORTED_MODULE_6__.cn)('flex-1 grid items-center justify-start gap-1.5 '
-        // 'flex flex-wrap'
-        ),
-        children: [renderSelected(), !getValue() && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
+        className: (0,_utility_utils__WEBPACK_IMPORTED_MODULE_6__.cn)('flex-1 grid items-center justify-start gap-1.5 ', getValues() && 'flex flex-wrap'),
+        children: [renderSelected(), !getValue() && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
           className: (0,_utility_utils__WEBPACK_IMPORTED_MODULE_6__.cn)('[grid-area:1/1/2/3] text-field-input', sizeClassNames[sizeValue].selectPlaceholder),
           children: placeholder
         })]
-      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
         className: (0,_utility_utils__WEBPACK_IMPORTED_MODULE_6__.cn)('flex items-center [&>svg]:shrink-0', sizeClassNames[sizeValue].icon),
         children: getIcon()
       })]
-    })), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(SelectContext.Provider, {
+    })), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(SelectContext.Provider, {
       value: {
         selectedIndex: selectedIndex,
         setSelectedIndex: setSelectedIndex,
@@ -1289,33 +1371,33 @@ var Select = function Select(_ref2) {
         getValues: getValues,
         updateListRef: updateListRef
       },
-      children: isOpen && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_floating_ui_react__WEBPACK_IMPORTED_MODULE_9__.FloatingPortal, {
+      children: isOpen && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_floating_ui_react__WEBPACK_IMPORTED_MODULE_10__.FloatingPortal, {
         id: dropdownPortalId,
         root: dropdownPortalRoot,
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_floating_ui_react__WEBPACK_IMPORTED_MODULE_9__.FloatingFocusManager, {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_floating_ui_react__WEBPACK_IMPORTED_MODULE_10__.FloatingFocusManager, {
           context: context,
           modal: false,
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", _objectSpread(_objectSpread({
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", _objectSpread(_objectSpread({
             ref: refs.setFloating,
             className: (0,_utility_utils__WEBPACK_IMPORTED_MODULE_6__.cn)('box-border [&_*]:box-border h-full w-full bg-white outline-none shadow-lg border border-solid border-border-subtle overflow-hidden', combobox && 'grid grid-cols-1 grid-rows-[auto_1fr] divide-y divide-x-0 divide-solid divide-border-subtle', sizeClassNames[sizeValue].dropdown),
             style: _objectSpread({}, floatingStyles)
           }, getFloatingProps()), {}, {
-            children: [combobox && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+            children: [combobox && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
               className: (0,_utility_utils__WEBPACK_IMPORTED_MODULE_6__.cn)(sizeClassNames[sizeValue].searchbarWrapper),
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_14__["default"], {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(lucide_react__WEBPACK_IMPORTED_MODULE_15__["default"], {
                 className: (0,_utility_utils__WEBPACK_IMPORTED_MODULE_6__.cn)('text-icon-secondary shrink-0', sizeClassNames[sizeValue].searchbarIcon)
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("input", {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("input", {
                 className: (0,_utility_utils__WEBPACK_IMPORTED_MODULE_6__.cn)('px-1 w-full placeholder:text-field-placeholder border-0 focus:outline-none focus:shadow-none', sizeClassNames[sizeValue].searchbar),
                 type: "search",
                 name: "keyword",
-                placeholder: "Search...",
+                placeholder: searchPlaceholder,
                 onChange: function onChange(event) {
                   return setSearchKeyword(event.target.value);
                 }
               })]
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsxs)("div", {
               className: (0,_utility_utils__WEBPACK_IMPORTED_MODULE_6__.cn)('overflow-y-auto', !combobox && 'w-full h-full', sizeClassNames[sizeValue].dropdownItemsWrapper),
-              children: [!!childrenCount && renderChildren, !childrenCount && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+              children: [!!childrenCount && renderChildren, !childrenCount && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)("div", {
                 className: "p-2 text-center text-base font-medium text-field-placeholder",
                 children: "No items found"
               })]
@@ -1326,10 +1408,8 @@ var Select = function Select(_ref2) {
     })]
   });
 };
-/* harmony default export */ __webpack_exports__["default"] = ({
-  Button: Select,
-  Option: SelectItem
-});
+Select.Option = SelectItem;
+/* harmony default export */ __webpack_exports__["default"] = (Select);
 
 /***/ }),
 
