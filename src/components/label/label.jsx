@@ -10,7 +10,7 @@ const Label = ( {
 	tag = 'label',
 	size = 'sm', // xs, sm, md
 	className = '',
-	variant = 'neutral', // neutral/help/error/disabled
+	variant = 'neutral', // neutral, help, error, disabled
 	...props
 } ) => {
 	// Base classes. - Mandatory classes.
