@@ -47,7 +47,7 @@ const SelectItem = ({ value, disabled = false, children, ...props }) => {
 	return (
 		<div
 			className={cn(
-				'flex items-center justify-between text-text-primary hover:bg-button-tertiary-hover rounded-md transition-all duration-150 truncate cursor-pointer',
+				'w-full flex items-center justify-between text-text-primary hover:bg-button-tertiary-hover rounded-md transition-all duration-150 cursor-pointer',
 				selectItemClassNames[sizeValue],
 				indx === activeIndex && 'bg-button-tertiary-hover'
 			)}
@@ -60,19 +60,23 @@ const SelectItem = ({ value, disabled = false, children, ...props }) => {
 			{...getItemProps({
 				// Handle pointer select.
 				onClick() {
-					onClickItem(indx);
+					onClickItem(indx, value);
 				},
 				// Handle keyboard select.
 				onKeyDown(event) {
-					onKeyDownItem(event, indx);
+					onKeyDownItem(event, indx, value);
 				},
 			})}
 		>
-			<span>{children}</span>
-			{indx === selectedIndex && (<CheckIcon className={cn(
-				'text-icon-on-color-disabled',
-				selectedIconClassName[sizeValue],
-			)} />)}
+			<span className="w-full truncate">{children}</span>
+			{indx === selectedIndex && (
+				<CheckIcon
+					className={cn(
+						'text-icon-on-color-disabled',
+						selectedIconClassName[sizeValue]
+					)}
+				/>
+			)}
 		</div>
 	);
 };
@@ -89,6 +93,7 @@ const Select = ({
 	onChange, // Callback function to handle the change event.
 	multiple = false, // If true, it will allow multiple selection.
 	disabled = false, // If true, it will disable the select.
+	by  = '', // Used to identify the select component.
 	children,
 }) => {
 	const isControlled = useMemo(() => typeof value !== 'undefined', [value]);
@@ -125,7 +130,7 @@ const Select = ({
 				apply({ rects, elements, availableHeight }) {
 					Object.assign(elements.floating.style, {
 						maxHeight: `min(${availableHeight}px, ${dropdownMaxHeightBySize[sizeValue]}px)`,
-						minWidth: `${rects.reference.width}px`,
+						maxWidth: `${rects.reference.width}px`,
 					});
 				},
 				padding: 10,
@@ -167,8 +172,9 @@ const Select = ({
 			...(! combobox ? [typeahead] : []),
 		]);
 
-	const handleSelect = (index) => {
+	const handleSelect = (index, newValue) => {
 		setSelectedIndex(index);
+		setSelected(newValue)
 		refs.reference.current.focus();
 		setIsOpen(false);
 	};
@@ -226,19 +232,19 @@ const Select = ({
 		listRef.current[index] = node
 	}, []);
 
-	const onClickItem = (value) => {
-		handleSelect(value);
+	const onClickItem = (index, newValue) => {
+		handleSelect(index, newValue);
 	}
 
-	const onKeyDownItem = (event, index) => {
+	const onKeyDownItem = (event, index, newValue) => {
 		if (event.key === 'Enter') {
 			event.preventDefault();
-			handleSelect(index);
+			handleSelect(index, newValue);
 		}
-
+		
 		if (event.key === ' ' && !isTypingRef.current) {
 			event.preventDefault();
-			handleSelect(index);
+			handleSelect(index, newValue);
 		}
 	}
 
@@ -254,6 +260,17 @@ const Select = ({
 			}
 		});
 	}, [searchKeyword]);
+
+	const renderSelected = useCallback(() => {
+		if (! value && ! selected) {
+			return null;
+		}
+		if ( isControlled ) {
+			return value;
+		}
+
+		return selected;
+	}, [selected, value]);
 
 	return (
 		<>
@@ -279,16 +296,23 @@ const Select = ({
 					)}
 				>
 					{/* Show Selected item/items (Multiselector) */}
+					{
+						renderSelected()
+					}
 
 					{/* Placeholder */}
-					<div
-						className={cn(
-							'[grid-area:1/1/2/3] text-field-input',
-							sizeClassNames[sizeValue].selectPlaceholder
-						)}
-					>
-						{placeholder}
-					</div>
+					{
+						! selected && (
+							<div
+								className={cn(
+									'[grid-area:1/1/2/3] text-field-input',
+									sizeClassNames[sizeValue].selectPlaceholder
+								)}
+							>
+								{placeholder}
+							</div>
+						)
+					}
 				</div>
 				{/* Suffix Icon */}
 				<div
@@ -332,7 +356,7 @@ const Select = ({
 							<div
 								ref={refs.setFloating}
 								className={cn(
-									'box-border [&_*]:box-border h-full bg-white outline-none shadow-lg border border-solid border-border-subtle overflow-hidden',
+									'box-border [&_*]:box-border h-full w-full bg-white outline-none shadow-lg border border-solid border-border-subtle overflow-hidden',
 									combobox &&
 										'grid grid-cols-1 grid-rows-[auto_1fr] divide-y divide-x-0 divide-solid divide-border-subtle',
 									sizeClassNames[sizeValue].dropdown
