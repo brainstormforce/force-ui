@@ -5,7 +5,6 @@ import { cn } from '../../utility/utils';
  */
 
 const Label = ( {
-	forId,
 	children = null,
 	tag = 'label',
 	size = 'sm', // xs, sm, md
@@ -39,7 +38,6 @@ const Label = ( {
 
 	return (
 		<Tag
-			htmlFor={ forId }
 			className={
 				cn(
 					baseClasses,

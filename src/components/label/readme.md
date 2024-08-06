@@ -6,11 +6,6 @@ Labels component - These are the basic atoms used for the form elements with inp
 
 ## Props
 
-### forId
-- **Type:** `string`
-- **Default:** `""`
-- **Description:** Id for the associated HTML element.
-
 ### size
 - **Type:** `string`
 - **Default:** `"sm"`
