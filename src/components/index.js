@@ -10,3 +10,4 @@ export { default as Label } from './label/index';
 export { default as Loader } from './loader/index';
 export { default as ProgressBar } from './progress-bar/index';
 export { default as ButtonGroup } from './button-group/index';
+export { default as Tabs } from './tabs/index';
