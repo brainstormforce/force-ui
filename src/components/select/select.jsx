@@ -1,6 +1,6 @@
 import { useState, useCallback, useMemo, useRef, createContext, useContext, Children, cloneElement, isValidElement, useEffect } from 'react';
 import { cn } from '../../utility/utils';
-import { CheckIcon, ChevronDown, ChevronsUpDown } from 'lucide-react';
+import { CheckIcon, ChevronDown, ChevronsUpDown, Search } from 'lucide-react';
 import {
 	useFloating,
 	useClick,
@@ -93,7 +93,8 @@ const Select = ({
 	onChange, // Callback function to handle the change event.
 	multiple = false, // If true, it will allow multiple selection.
 	disabled = false, // If true, it will disable the select.
-	by  = '', // Used to identify the select component.
+	by  = 'id', // Used to identify the select component. Default is 'id'.
+	searchBy = 'id', // Used to identify searched value using the key. Default is 'id'.
 	children,
 }) => {
 	const isControlled = useMemo(() => typeof value !== 'undefined', [value]);
@@ -192,6 +193,7 @@ const Select = ({
 			dropdownItemsWrapper: 'p-1.5',
 			searchbarWrapper: 'p-3 flex items-center gap-0.5',
 			searchbar: 'font-medium text-xs',
+			searchbarIcon: '[&>svg]:size-4',
 		},
 		md: {
 			icon: '[&>svg]:size-5',
@@ -203,6 +205,7 @@ const Select = ({
 			dropdownItemsWrapper: 'p-2',
 			searchbarWrapper: 'p-2.5 flex items-center gap-1',
 			searchbar: 'font-medium text-sm',
+			searchbarIcon: '[&>svg]:size-5',
 		},
 		lg: {
 			icon: '[&>svg]:size-6',
@@ -214,6 +217,7 @@ const Select = ({
 			dropdownItemsWrapper: 'p-2',
 			searchbarWrapper: 'p-2.5 flex items-center gap-1',
 			searchbar: 'font-medium text-sm',
+			searchbarIcon: '[&>svg]:size-5',
 		},
 	};
 
@@ -271,6 +275,32 @@ const Select = ({
 
 		return selected;
 	}, [selected, value]);
+
+	// Render children based on the search keyword.
+	const renderChildren = useMemo(() => {
+		return Children.map(children, (child, index) => {
+			if (! isValidElement(child)) {
+				return null;
+			}
+			if (searchKeyword) {
+				const valueProp = child.props.value;
+				if ( typeof valueProp === 'object' ) {
+					if (valueProp[searchBy].toLowerCase().indexOf(searchKeyword.toLowerCase()) === -1) {
+						return null;
+					}
+				} else {
+					if (valueProp.toLowerCase().indexOf(searchKeyword.toLowerCase()) === -1) {
+						return null;
+					}
+				}
+			}
+			return cloneElement(child, {
+				...child.props,
+				index,
+			});
+		})
+	}, [searchKeyword, value, selected, activeIndex, selectedIndex, children]);
+	const childrenCount = Children.count(renderChildren);
 
 	return (
 		<>
@@ -374,15 +404,21 @@ const Select = ({
 												.searchbarWrapper
 										)}
 									>
+										<Search className={cn(
+											'text-icon-secondary shrink-0',
+											sizeClassNames[sizeValue]
+												.searchbarIcon
+										)} />
 										<input
 											className={cn(
-												'w-full',
+												'px-1 w-full placeholder:text-field-placeholder border-0 focus:outline-none focus:shadow-none',
 												sizeClassNames[sizeValue]
 													.searchbar
 											)}
 											type="search"
 											name="keyword"
-											placeholder="Search"
+											placeholder="Search..."
+											onChange={event => setSearchKeyword(event.target.value)}
 										/>
 									</div>
 								)}
@@ -396,15 +432,14 @@ const Select = ({
 									)}
 								>
 									{/* Dropdown Items */}
-									{Children.map(children, (child, index) => {
-										if (! isValidElement(child)) {
-											return null;
-										}
-										return cloneElement(child, {
-											...child.props,
-											index,
-										});
-									})}
+									{!! childrenCount && renderChildren}
+
+									{/* No items found */}
+									{! childrenCount && (
+										<div className="p-2 text-center text-base font-medium text-field-placeholder">
+											No items found
+										</div>
+									)}
 								</div>
 							</div>
 						</FloatingFocusManager>
