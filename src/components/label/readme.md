@@ -6,15 +6,10 @@ Labels component - These are the basic atoms used for the form elements with inp
 
 ## Props
 
-### forId
-- **Type:** `string`
-- **Default:** `""`
-- **Description:** Id for the associated HTML element.
-
 ### size
 - **Type:** `string`
 - **Default:** `"sm"`
-- **Description:** Defines the size of the textarea field
+- **Description:** Defines the size of the label field
     - `"xs"`
     - `"sm"`
     - `"md"`

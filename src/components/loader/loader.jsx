@@ -19,11 +19,7 @@ const Loader = ( {
 		xl: '[&>svg]:h-8 [&>svg]:w-8',
 	}?.[ size ];
 
-	return (
-		<span className={ cn( 'flex', sizeClassNames, variantClassNames, className ) }>
-			{ icon ? icon : <LoaderCircle className="animate-spin" /> }
-		</span>
-	);
+	return <span className={ cn( 'flex', sizeClassNames, variantClassNames, className ) }>{ icon ? icon : <LoaderCircle className="animate-spin" /> }</span>;
 };
 
 export default Loader;

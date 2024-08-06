@@ -1,16 +1,16 @@
 import { cn } from '../../utility/utils';
 
 /**
- * Badge component.
+ * Label component.
  */
 
 const Label = ( {
-	forId,
 	children = null,
 	tag = 'label',
 	size = 'sm', // xs, sm, md
 	className = '',
-	variant = 'neutral', // neutral/help/error/disabled
+	variant = 'neutral', // neutral, help, error, disabled
+	required = false,
 	...props
 } ) => {
 	// Base classes. - Mandatory classes.
@@ -35,16 +35,22 @@ const Label = ( {
 		return null;
 	}
 
+	let requiredClasses = '';
+
+	if ( required ) {
+		requiredClasses = "after:content-['*'] after:text-field-required after:ml-0.5";
+	}
+
 	const Tag = tag;
 
 	return (
 		<Tag
-			htmlFor={ forId }
 			className={
 				cn(
 					baseClasses,
 					sizeClasses[ size ],
 					variantClasses[ variant ],
+					requiredClasses,
 					className
 				)
 			}
