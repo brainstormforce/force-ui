@@ -14,7 +14,7 @@ Labels component - These are the basic atoms used for the form elements with inp
 ### size
 - **Type:** `string`
 - **Default:** `"sm"`
-- **Description:** Defines the size of the textarea field
+- **Description:** Defines the size of the label field
     - `"xs"`
     - `"sm"`
     - `"md"`

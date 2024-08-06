@@ -1,7 +1,7 @@
 import { cn } from '../../utility/utils';
 
 /**
- * Badge component.
+ * Label component.
  */
 
 const Label = ( {
