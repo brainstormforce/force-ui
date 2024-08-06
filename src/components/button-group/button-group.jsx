@@ -1,5 +1,5 @@
 import React, { useCallback, forwardRef, isValidElement, createContext, useContext } from 'react';
-import { twMerge } from 'tailwind-merge';
+import { cn } from '../utility/utils';
 
 /**
  * Context for managing the ButtonGroup state.
@@ -34,7 +34,7 @@ const ButtonGroup = ( props ) => {
 		[ onChange ],
 	);
 
-	const groupClassName = twMerge( 'box-border flex border border-border-subtle border-solid rounded', className );
+	const groupClassName = cn( 'box-border flex border border-border-subtle border-solid rounded', className );
 
 	return (
 		<div className={ groupClassName }>
@@ -104,7 +104,7 @@ const Button = ( props, ref ) => {
 	const borderClasses = 'border-0 border-r border-border-subtle border-solid';
 	const activeClasses = activeItem === slug ? 'bg-button-disabled' : '';
 
-	const buttonClassName = twMerge(
+	const buttonClassName = cn(
 		baseClasses,
 		hoverClasses,
 		focusClasses,
