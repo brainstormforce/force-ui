@@ -17,6 +17,7 @@ import {
 	FloatingPortal,
 } from '@floating-ui/react';
 import Badge from "../badge"
+import { nanoid } from 'nanoid';
 
 // Context to manage the state of the select component.
 const SelectContext = createContext();
@@ -104,6 +105,7 @@ function SelectItem ({ value, disabled = false, children, ...props }) {
 };
 
 const Select = ({
+	id,
 	size: sizeValue = 'md', // sm, md, lg
 	dropdownPortalId = '', // Id of the dropdown portal where the dropdown will be rendered.
 	dropdownPortalRoot = null, // Root element where the dropdown will be rendered.
@@ -120,7 +122,9 @@ const Select = ({
 	searchBy = 'id', // Used to identify searched value using the key. Default is 'id'.
 	displayBy = 'name', // Used to display the value. Default is 'name'.
 	children,
+	label,
 }) => {
+	const selectId = useMemo( () => id || `select-${ nanoid() }`, [ id ] );
 	const isControlled = useMemo(() => typeof value !== 'undefined', [value]);
 	const [selected, setSelected] = useState(defaultValue);
 	const [searchKeyword, setSearchKeyword] = useState('');
@@ -292,36 +296,39 @@ const Select = ({
 			searchIcon: '[&>svg]:size-4',
 			mainContainer:
 				'pl-1.5 pr-2 py-1.5 rounded text-xs font-medium leading-4',
-			selectPlaceholder: 'text-xs font-normal',
+			displaySelected: 'text-xs font-normal',
 			dropdown: 'rounded-md',
 			dropdownItemsWrapper: 'p-1.5',
 			searchbarWrapper: 'p-3 flex items-center gap-0.5',
 			searchbar: 'font-medium text-xs',
 			searchbarIcon: '[&>svg]:size-4',
+			label: 'text-xs font-medium',
 		},
 		md: {
 			icon: '[&>svg]:size-5',
 			searchIcon: '[&>svg]:size-5',
 			mainContainer:
 				'pl-2 pr-2.5 py-2 rounded-md text-xs font-medium leading-4',
-			selectPlaceholder: 'text-sm font-normal',
+			displaySelected: 'text-sm font-normal',
 			dropdown: 'rounded-lg',
 			dropdownItemsWrapper: 'p-2',
 			searchbarWrapper: 'p-2.5 flex items-center gap-1',
 			searchbar: 'font-medium text-sm',
 			searchbarIcon: '[&>svg]:size-5',
+			label: 'text-sm font-medium',
 		},
 		lg: {
 			icon: '[&>svg]:size-6',
 			searchIcon: '[&>svg]:size-5',
 			mainContainer:
 				'pl-3 py-3 pr-3.5 rounded-lg text-sm font-medium leading-5',
-			selectPlaceholder: 'text-sm font-normal',
+			displaySelected: 'text-sm font-normal',
 			dropdown: 'rounded-lg',
 			dropdownItemsWrapper: 'p-2',
 			searchbarWrapper: 'p-2.5 flex items-center gap-1',
 			searchbar: 'font-medium text-sm',
 			searchbarIcon: '[&>svg]:size-5',
+			label: 'text-base font-medium',
 		},
 	};
 
@@ -355,13 +362,6 @@ const Select = ({
 			handleSelect(index, newValue);
 		}
 	}
-
-	const getValue = useCallback(() => {
-		if (isControlled) {
-			return value;
-		}
-		return selected;
-	}, [selected, value]);
 
 	// Update the content list reference.
 	useEffect(() => {
@@ -416,7 +416,7 @@ const Select = ({
 	}
 
 	const renderSelected = useCallback(() => {
-		const selectedValue = getValue();
+		const selectedValue = getValues();
 
 		if ( ! selectedValue ) {
 			return null;
@@ -424,64 +424,73 @@ const Select = ({
 
 		if (multiple) {
 			return selectedValue.map((valueItem, index) => (
-				<Badge key={index} size={sizeValue} onClose={handleOnCloseItem(valueItem)} label={typeof valueItem === 'object' ? valueItem[displayBy] : valueItem} />
+				<Badge icon={null} type="rounded" key={index} size={sizeValue} onClose={handleOnCloseItem(valueItem)} label={typeof valueItem === 'object' ? valueItem[displayBy] : valueItem} />
 			))
 		}
 
-		return typeof value === 'object' ? value[displayBy] : value;
-	}, [selected, value]);
+		return <span className={cn(
+			sizeClassNames[sizeValue].displaySelected
+		)}>{typeof selectedValue === 'object' ? selectedValue[displayBy] : selectedValue}</span>;
+	}, [getValues]);
 
 	return (
 		<>
-			<div
-				ref={refs.setReference}
-				className={cn(
-					'flex items-center justify-between border border-solid w-full box-border transition-colors duration-150',
-					'border border-solid border-field-border',
-					!isOpen &&
-						'focus:ring-2 focus:ring-offset-4 focus:border-focus-border focus:ring-focus [&:hover:not(:focus)]:border-border-strong',
-					sizeClassNames[sizeValue].mainContainer
-				)}
-				aria-labelledby="select-label"
-				aria-autocomplete="none"
-				tabIndex={0}
-				{...getReferenceProps()}
-			>
-				{/* Input and selected item container */}
-				<div
+			<div className='flex flex-col items-start gap-1.5'>
+				<label className={cn(
+					sizeClassNames[sizeValue]?.label,
+					"text-field-label"
+				)} htmlFor={selectId}>{label}</label>
+				<button
+					id={selectId}
+					ref={refs.setReference}
 					className={cn(
-						'flex-1 grid items-center justify-start gap-1.5 ',
-						getValues() && 'flex flex-wrap'
+						'flex items-center justify-between border border-solid w-full box-border transition-colors duration-150 bg-white',
+						'border focus-visible:outline-none border-solid border-field-border',
+						!isOpen &&
+							'focus:ring-2 focus:ring-offset-4 focus:border-focus-border focus:ring-focus [&:hover:not(:focus)]:border-border-strong',
+						sizeClassNames[sizeValue].mainContainer
 					)}
+					aria-labelledby="select-label"
+					aria-autocomplete="none"
+					tabIndex={0}
+					{...getReferenceProps()}
 				>
-					{/* Show Selected item/items (Multiselector) */}
-					{
-						renderSelected()
-					}
+					{/* Input and selected item container */}
+					<div
+						className={cn(
+							'flex-1 grid items-center justify-start gap-1.5 ',
+							getValues() && 'flex flex-wrap'
+						)}
+					>
+						{/* Show Selected item/items (Multiselector) */}
+						{
+							renderSelected()
+						}
 
-					{/* Placeholder */}
-					{
-						! getValue() && (
-							<div
-								className={cn(
-									'[grid-area:1/1/2/3] text-field-input',
-									sizeClassNames[sizeValue].selectPlaceholder
-								)}
-							>
-								{placeholder}
-							</div>
-						)
-					}
-				</div>
-				{/* Suffix Icon */}
-				<div
-					className={cn(
-						'flex items-center [&>svg]:shrink-0',
-						sizeClassNames[sizeValue].icon
-					)}
-				>
-					{getIcon()}
-				</div>
+						{/* Placeholder */}
+						{
+							(multiple ? ! getValues()?.length : ! getValues()) && (
+								<div
+									className={cn(
+										'[grid-area:1/1/2/3] text-field-input',
+										sizeClassNames[sizeValue].displaySelected
+									)}
+								>
+									{placeholder}
+								</div>
+							)
+						}
+					</div>
+					{/* Suffix Icon */}
+					<div
+						className={cn(
+							'flex items-center [&>svg]:shrink-0',
+							sizeClassNames[sizeValue].icon
+						)}
+					>
+						{getIcon()}
+					</div>
+				</button>
 			</div>
 
 			<SelectContext.Provider
@@ -548,6 +557,7 @@ const Select = ({
 											name="keyword"
 											placeholder={searchPlaceholder}
 											onChange={event => setSearchKeyword(event.target.value)}
+											autoComplete='off'
 										/>
 									</div>
 								)}
