@@ -108,10 +108,54 @@ const Select = ({
 		return selected;
 	}, [isControlled, value, selected]);
 
+	// Render children based on the search keyword.
+	const renderChildren = useMemo(() => {
+		return Children.map(children, (child, index) => {
+			if (! isValidElement(child)) {
+				return null;
+			}
+			if (searchKeyword) {
+				const valueProp = child.props.value;
+				if ( typeof valueProp === 'object' ) {
+					if (valueProp[searchBy].toLowerCase().indexOf(searchKeyword.toLowerCase()) === -1) {
+						return null;
+					}
+				} else {
+					if (valueProp.toLowerCase().indexOf(searchKeyword.toLowerCase()) === -1) {
+						return null;
+					}
+				}
+			}
+			return cloneElement(child, {
+				...child.props,
+				index,
+			});
+		})
+	}, [searchKeyword, value, selected, children]);
+	const childrenCount = Children.count(renderChildren);
+
+	const initialSelectedValueIndex = useMemo(() => {
+		const currentValue = getValues();
+		let indexValue = 0;
+
+		if (currentValue) {
+			 indexValue = Children.toArray(children).findIndex(
+				(child) => {
+					if ( typeof child.props.value === 'object' ) {
+						return child.props.value[by] === currentValue[by];
+					}
+					return child.props.value === currentValue;
+				}
+			);
+		}
+
+		return indexValue === -1 ? 0 : indexValue;
+	}, [value, selected, children]);
+
 	// Dropdown position related code (Start)
 	const [isOpen, setIsOpen] = useState(false);
-	const [activeIndex, setActiveIndex] = useState(0);
-	const [selectedIndex, setSelectedIndex] = useState(0);
+	const [activeIndex, setActiveIndex] = useState(initialSelectedValueIndex);
+	const [selectedIndex, setSelectedIndex] = useState(initialSelectedValueIndex);
 
 	const dropdownMaxHeightBySize = {
 		sm: combobox ? 256 : 172,
@@ -175,9 +219,15 @@ const Select = ({
 
 	const handleSelect = (index, newValue) => {
 		setSelectedIndex(index);
-		setSelected(newValue)
+		if ( ! isControlled ) {
+			setSelected(newValue)
+		}
 		refs.reference.current.focus();
 		setIsOpen(false);
+		setSearchKeyword('');
+		if ( typeof onChange === 'function' ) {
+			onChange(newValue);
+		}
 	};
 
 	// Dropdown position related code (End)
@@ -252,6 +302,13 @@ const Select = ({
 		}
 	}
 
+	const getValue = useCallback(() => {
+		if (isControlled) {
+			return value;
+		}
+		return selected;
+	}, [selected, value]);
+
 	// Update the content list reference.
 	useEffect(() => {
 		listContentRef.current = [];
@@ -260,6 +317,19 @@ const Select = ({
 				return;
 			}
 			if (child.props.value) {
+				if (searchKeyword) {
+					const valueProp = child.props.value;
+					if ( typeof valueProp === 'object' ) {
+						if (valueProp[searchBy].toLowerCase().indexOf(searchKeyword.toLowerCase()) === -1) {
+							return;
+						}
+					} else {
+						if (valueProp.toLowerCase().indexOf(searchKeyword.toLowerCase()) === -1) {
+							return;
+						}
+					}
+				}
+
 				listContentRef.current.push(child.props.value);
 			}
 		});
@@ -275,32 +345,6 @@ const Select = ({
 
 		return selected;
 	}, [selected, value]);
-
-	// Render children based on the search keyword.
-	const renderChildren = useMemo(() => {
-		return Children.map(children, (child, index) => {
-			if (! isValidElement(child)) {
-				return null;
-			}
-			if (searchKeyword) {
-				const valueProp = child.props.value;
-				if ( typeof valueProp === 'object' ) {
-					if (valueProp[searchBy].toLowerCase().indexOf(searchKeyword.toLowerCase()) === -1) {
-						return null;
-					}
-				} else {
-					if (valueProp.toLowerCase().indexOf(searchKeyword.toLowerCase()) === -1) {
-						return null;
-					}
-				}
-			}
-			return cloneElement(child, {
-				...child.props,
-				index,
-			});
-		})
-	}, [searchKeyword, value, selected, activeIndex, selectedIndex, children]);
-	const childrenCount = Children.count(renderChildren);
 
 	return (
 		<>
@@ -332,7 +376,7 @@ const Select = ({
 
 					{/* Placeholder */}
 					{
-						! selected && (
+						! getValue() && (
 							<div
 								className={cn(
 									'[grid-area:1/1/2/3] text-field-input',

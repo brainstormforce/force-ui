@@ -891,8 +891,8 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/typeof */ "./node_modules/@babel/runtime/helpers/esm/typeof.js");
-/* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/toConsumableArray */ "./node_modules/@babel/runtime/helpers/esm/toConsumableArray.js");
+/* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/toConsumableArray */ "./node_modules/@babel/runtime/helpers/esm/toConsumableArray.js");
+/* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/typeof */ "./node_modules/@babel/runtime/helpers/esm/typeof.js");
 /* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @babel/runtime/helpers/slicedToArray */ "./node_modules/@babel/runtime/helpers/esm/slicedToArray.js");
 /* harmony import */ var _babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @babel/runtime/helpers/defineProperty */ "./node_modules/@babel/runtime/helpers/esm/defineProperty.js");
 /* harmony import */ var _babel_runtime_helpers_objectWithoutProperties__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @babel/runtime/helpers/objectWithoutProperties */ "./node_modules/@babel/runtime/helpers/esm/objectWithoutProperties.js");
@@ -1021,16 +1021,54 @@ var Select = function Select(_ref2) {
     return selected;
   }, [isControlled, value, selected]);
 
+  // Render children based on the search keyword.
+  var renderChildren = (0,react__WEBPACK_IMPORTED_MODULE_5__.useMemo)(function () {
+    return react__WEBPACK_IMPORTED_MODULE_5__.Children.map(children, function (child, index) {
+      if (!(0,react__WEBPACK_IMPORTED_MODULE_5__.isValidElement)(child)) {
+        return null;
+      }
+      if (searchKeyword) {
+        var valueProp = child.props.value;
+        if ((0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__["default"])(valueProp) === 'object') {
+          if (valueProp[searchBy].toLowerCase().indexOf(searchKeyword.toLowerCase()) === -1) {
+            return null;
+          }
+        } else {
+          if (valueProp.toLowerCase().indexOf(searchKeyword.toLowerCase()) === -1) {
+            return null;
+          }
+        }
+      }
+      return (0,react__WEBPACK_IMPORTED_MODULE_5__.cloneElement)(child, _objectSpread(_objectSpread({}, child.props), {}, {
+        index: index
+      }));
+    });
+  }, [searchKeyword, value, selected, children]);
+  var childrenCount = react__WEBPACK_IMPORTED_MODULE_5__.Children.count(renderChildren);
+  var initialSelectedValueIndex = (0,react__WEBPACK_IMPORTED_MODULE_5__.useMemo)(function () {
+    var currentValue = getValues();
+    var indexValue = 0;
+    if (currentValue) {
+      indexValue = react__WEBPACK_IMPORTED_MODULE_5__.Children.toArray(children).findIndex(function (child) {
+        if ((0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__["default"])(child.props.value) === 'object') {
+          return child.props.value[by] === currentValue[by];
+        }
+        return child.props.value === currentValue;
+      });
+    }
+    return indexValue === -1 ? 0 : indexValue;
+  }, [value, selected, children]);
+
   // Dropdown position related code (Start)
   var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_5__.useState)(false),
     _useState6 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_2__["default"])(_useState5, 2),
     isOpen = _useState6[0],
     setIsOpen = _useState6[1];
-  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_5__.useState)(0),
+  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_5__.useState)(initialSelectedValueIndex),
     _useState8 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_2__["default"])(_useState7, 2),
     activeIndex = _useState8[0],
     setActiveIndex = _useState8[1];
-  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_5__.useState)(0),
+  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_5__.useState)(initialSelectedValueIndex),
     _useState10 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_2__["default"])(_useState9, 2),
     selectedIndex = _useState10[0],
     setSelectedIndex = _useState10[1];
@@ -1089,15 +1127,21 @@ var Select = function Select(_ref2) {
       isTypingRef.current = isTyping;
     }
   });
-  var _useInteractions = (0,_floating_ui_react__WEBPACK_IMPORTED_MODULE_9__.useInteractions)([dismiss, role, listNav, click].concat((0,_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_1__["default"])(!combobox ? [typeahead] : []))),
+  var _useInteractions = (0,_floating_ui_react__WEBPACK_IMPORTED_MODULE_9__.useInteractions)([dismiss, role, listNav, click].concat((0,_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__["default"])(!combobox ? [typeahead] : []))),
     getReferenceProps = _useInteractions.getReferenceProps,
     getFloatingProps = _useInteractions.getFloatingProps,
     getItemProps = _useInteractions.getItemProps;
   var handleSelect = function handleSelect(index, newValue) {
     setSelectedIndex(index);
-    setSelected(newValue);
+    if (!isControlled) {
+      setSelected(newValue);
+    }
     refs.reference.current.focus();
     setIsOpen(false);
+    setSearchKeyword('');
+    if (typeof onChange === 'function') {
+      onChange(newValue);
+    }
   };
 
   // Dropdown position related code (End)
@@ -1166,6 +1210,12 @@ var Select = function Select(_ref2) {
       handleSelect(index, newValue);
     }
   };
+  var getValue = (0,react__WEBPACK_IMPORTED_MODULE_5__.useCallback)(function () {
+    if (isControlled) {
+      return value;
+    }
+    return selected;
+  }, [selected, value]);
 
   // Update the content list reference.
   (0,react__WEBPACK_IMPORTED_MODULE_5__.useEffect)(function () {
@@ -1175,6 +1225,18 @@ var Select = function Select(_ref2) {
         return;
       }
       if (child.props.value) {
+        if (searchKeyword) {
+          var valueProp = child.props.value;
+          if ((0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_1__["default"])(valueProp) === 'object') {
+            if (valueProp[searchBy].toLowerCase().indexOf(searchKeyword.toLowerCase()) === -1) {
+              return;
+            }
+          } else {
+            if (valueProp.toLowerCase().indexOf(searchKeyword.toLowerCase()) === -1) {
+              return;
+            }
+          }
+        }
         listContentRef.current.push(child.props.value);
       }
     });
@@ -1188,31 +1250,6 @@ var Select = function Select(_ref2) {
     }
     return selected;
   }, [selected, value]);
-
-  // Render children based on the search keyword.
-  var renderChildren = (0,react__WEBPACK_IMPORTED_MODULE_5__.useMemo)(function () {
-    return react__WEBPACK_IMPORTED_MODULE_5__.Children.map(children, function (child, index) {
-      if (!(0,react__WEBPACK_IMPORTED_MODULE_5__.isValidElement)(child)) {
-        return null;
-      }
-      if (searchKeyword) {
-        var valueProp = child.props.value;
-        if ((0,_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__["default"])(valueProp) === 'object') {
-          if (valueProp[searchBy].toLowerCase().indexOf(searchKeyword.toLowerCase()) === -1) {
-            return null;
-          }
-        } else {
-          if (valueProp.toLowerCase().indexOf(searchKeyword.toLowerCase()) === -1) {
-            return null;
-          }
-        }
-      }
-      return (0,react__WEBPACK_IMPORTED_MODULE_5__.cloneElement)(child, _objectSpread(_objectSpread({}, child.props), {}, {
-        index: index
-      }));
-    });
-  }, [searchKeyword, value, selected, activeIndex, selectedIndex, children]);
-  var childrenCount = react__WEBPACK_IMPORTED_MODULE_5__.Children.count(renderChildren);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.Fragment, {
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", _objectSpread(_objectSpread({
       ref: refs.setReference,
@@ -1225,7 +1262,7 @@ var Select = function Select(_ref2) {
         className: (0,_utility_utils__WEBPACK_IMPORTED_MODULE_6__.cn)('flex-1 grid items-center justify-start gap-1.5 '
         // 'flex flex-wrap'
         ),
-        children: [renderSelected(), !selected && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+        children: [renderSelected(), !getValue() && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
           className: (0,_utility_utils__WEBPACK_IMPORTED_MODULE_6__.cn)('[grid-area:1/1/2/3] text-field-input', sizeClassNames[sizeValue].selectPlaceholder),
           children: placeholder
         })]
