@@ -1311,13 +1311,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var Tooltip = function Tooltip(props) {
-  var _light$dark, _short$long, _top$right$bottom$lef;
+  var _light$dark, _top$topStart$topEn, _top$topStart$topEn2;
   var _props$variant = props.variant,
     variant = _props$variant === void 0 ? 'light' : _props$variant,
     _props$placement = props.placement,
     placement = _props$placement === void 0 ? 'top' : _props$placement,
-    _props$size = props.size,
-    size = _props$size === void 0 ? 'short' : _props$size,
     _props$title = props.title,
     title = _props$title === void 0 ? '' : _props$title,
     _props$description = props.description,
@@ -1337,29 +1335,54 @@ var Tooltip = function Tooltip(props) {
     return setIsVisible(false);
   };
   var baseClasses = 'relative inline-block';
-  var tooltipClasses = 'absolute z-10 p-2 rounded shadow-lg';
+  var tooltipClasses = 'absolute z-10 py-2 px-3 rounded-md soft-shadow-lg text-xs leading-4';
   var variantClasses = (_light$dark = {
-    light: 'bg-white text-black',
-    dark: 'bg-black text-white'
+    light: 'bg-tooltip-background-light text-text-primary',
+    dark: 'bg-tooltip-background-dark text-text-on-color'
   }) === null || _light$dark === void 0 ? void 0 : _light$dark[variant];
-  var sizeClasses = (_short$long = {
-    short: 'w-40',
-    long: 'w-60'
-  }) === null || _short$long === void 0 ? void 0 : _short$long[size];
-  var placementClasses = (_top$right$bottom$lef = {
-    top: 'bottom-full left-1/2 transform -translate-x-1/2 mb-2',
-    right: '',
-    bottom: '',
-    left: ''
-  }) === null || _top$right$bottom$lef === void 0 ? void 0 : _top$right$bottom$lef[placement];
+  var placementClasses = (_top$topStart$topEn = {
+    top: 'bottom-full left-1/2 transform -translate-x-1/2 mb-5',
+    'top-start': 'bottom-full left-0 mb-5',
+    'top-end': 'bottom-full right-0 mb-5',
+    right: 'left-full top-1/2 transform -translate-y-1/2 ml-5',
+    'right-start': 'left-full top-0 ml-5',
+    'right-end': 'left-full bottom-0 ml-5',
+    bottom: 'top-full left-1/2 transform -translate-x-1/2 mt-5',
+    'bottom-start': 'top-full left-0 mt-5',
+    'bottom-end': 'top-full right-0 mt-5',
+    left: 'right-full top-1/2 transform -translate-y-1/2 mr-5',
+    'left-start': 'right-full top-0 mr-5',
+    'left-end': 'right-full bottom-0 mr-5'
+  }) === null || _top$topStart$topEn === void 0 ? void 0 : _top$topStart$topEn[placement];
+  var arrowPlacementClasses = (_top$topStart$topEn2 = {
+    top: 'bottom-0 left-1/2 transform -translate-x-1/2 translate-y-1/2',
+    'top-start': 'bottom-0 left-4 translate-y-1/2',
+    'top-end': 'bottom-0 right-4 translate-y-1/2',
+    right: 'left-0 top-1/2 transform -translate-y-1/2 -translate-x-1/2',
+    'right-start': 'left-0 top-4 -translate-x-1/2',
+    'right-end': 'left-0 bottom-4 -translate-x-1/2',
+    bottom: 'top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2',
+    'bottom-start': 'top-0 left-4 -translate-y-1/2',
+    'bottom-end': 'top-0 right-4 -translate-y-1/2',
+    left: 'right-0 top-1/2 transform -translate-y-1/2 translate-x-1/2',
+    'left-start': 'right-0 top-4 translate-x-1/2',
+    'left-end': 'right-0 bottom-4 translate-x-1/2'
+  }) === null || _top$topStart$topEn2 === void 0 ? void 0 : _top$topStart$topEn2[placement];
+  var arrowBorderClasses = {
+    top: 'border-t-black',
+    bottom: 'border-b-black',
+    left: 'border-l-black',
+    right: 'border-r-black'
+  };
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
     className: (0,_utility_utils__WEBPACK_IMPORTED_MODULE_2__.cn)(baseClasses, className),
     onMouseEnter: showTooltip,
     onMouseLeave: hideTooltip,
     onFocus: showTooltip,
-    children: [children, isVisible && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
-      className: (0,_utility_utils__WEBPACK_IMPORTED_MODULE_2__.cn)(tooltipClasses, variantClasses, sizeClasses, placementClasses),
-      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+    onBlur: hideTooltip,
+    children: [children, isVisible && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+      className: (0,_utility_utils__WEBPACK_IMPORTED_MODULE_2__.cn)(tooltipClasses, variantClasses, placementClasses),
+      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
         className: "flex flex-col",
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
           children: title
@@ -1367,7 +1390,12 @@ var Tooltip = function Tooltip(props) {
           className: "text-sm mt-1",
           children: description
         })]
-      })
+      }), arrow && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+        className: (0,_utility_utils__WEBPACK_IMPORTED_MODULE_2__.cn)('absolute w-3 h-3 transform rotate-45', arrowPlacementClasses, arrowBorderClasses[placement.split('-')[0]]),
+        style: {
+          backgroundColor: variant === 'light' ? 'white' : 'black'
+        }
+      })]
     })]
   });
 };
