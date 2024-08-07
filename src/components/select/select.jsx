@@ -400,7 +400,7 @@ function SelectOptions({
 	);
 }
 
-function SelectItem({ value, disabled = false, children, ...props }) {
+function SelectItem({ value, disabled = false, selected, children, ...props }) {
 	const {
 		sizeValue,
 		getItemProps,
@@ -442,7 +442,17 @@ function SelectItem({ value, disabled = false, children, ...props }) {
 		});
 	}, [value, getValues]);
 
-	const isChecked = multiple ? multipleChecked : indx === selectedIndex;
+	const isChecked = useMemo(() => {
+		if ( typeof selected === 'boolean' ) {
+			return selected;
+		}
+
+		if (multiple) {
+			return multipleChecked;
+		}
+
+		return indx === selectedIndex;
+	} , [multipleChecked, selectedIndex, selected]);
 
 	return (
 		<div

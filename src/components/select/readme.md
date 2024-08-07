@@ -34,16 +34,6 @@ The `Select` component is a versatile, customizable select component built with 
 - **Default:** `"id"`
 - **Description:** Used to identify the selected value when value type is an `object`. Default is `"id"`.
 
-### `dropdownPortalRoot`
-- **Type:** `HTMLElement | null`
-- **Default:** `null`
-- **Description:** Root element where the dropdown will be rendered.
-
-### `dropdownPortalId`
-- **Type:** `string`
-- **Default:** `""`
-- **Description:** Id of the dropdown portal where the dropdown will be rendered.
-
 ### `multiple`
 - **Type:** `boolean`
 - **Default:** `false`
@@ -62,4 +52,98 @@ The `Select` component is a versatile, customizable select component built with 
   - `"md"`
   - `"lg"`
 
-### 
+## `Select.Button` Props
+
+### `icon`
+- **Type:** `ReactNode`
+- **Default:** `null`
+- **Description:** Icon to show in the select button.
+
+### `placeholder`
+- **Type:** `string`
+- **Default:** `"Select an option"`
+- **Description:** Placeholder text when there's no option selected.
+
+### `optionIcon`
+- **Type:** `ReactNode`
+- **Default:** `null`
+- **Description:** Icon to show in the selected option (for multi-select only).
+
+### `displayBy`
+- **Type:** `string`
+- **Default:** `"name"`
+- **Description:** Key that will be used to display the value when selected value is an object. Default is `"name"`.
+
+### `label`
+- **Type:** `string`
+- **Default:** `undefined`
+- **Description:** Label for the select component.
+
+## `Select.Options` Props
+
+### `searchBy`
+- **Type:** `string`
+- **Default:** `"id"`
+- **Description:** The key that will be used to identify searched value using the key. Default is `"id"`.
+
+### `searchPlaceholder`
+- **Type:** `string`
+- **Default:** `"Search..."`
+- **Description:** Placeholder text for search box.
+- **Default:** `"Search..."`
+
+### `dropdownPortalRoot`
+- **Type:** `HTMLElement | null`
+- **Default:** `null`
+- **Description:** Root element where the dropdown will be rendered.
+
+### `dropdownPortalId`
+- **Type:** `string`
+- **Default:** `""`
+- **Description:** Id of the dropdown portal where the dropdown will be rendered.
+
+
+## `Select.Option` Props
+
+### `value`
+- **Type:** `string | number | object`
+- **Default:** `undefined`
+- **Description:** Value of the option.
+
+### `disabled`
+- **Type:** `boolean`
+- **Default:** `false`
+- **Description:** If true, the option will be disabled.
+
+### `selected`
+- **Type:** `boolean | undefined`
+- **Default:** `undefined`
+- **Description:** If true, the option will be selected.
+
+### Basic Example
+
+```jsx
+import Select from './Select';
+
+const App = () => (
+  <div>
+    <Select 
+        label="Color"
+        dropdownPortalId='wpcontent'
+        onChange={(value) => console.log(value)} 
+        combobox
+    >
+        <Select.Button label="Color" />
+        <Select.Options>
+            {
+                options.map((option, index) => (
+                    <Select.Option key={index} value={option}>{option}</Select.Option>
+                ))
+            }
+        </Select.Options>
+    </Select>
+  </div>
+);
+
+export default App;
+```
