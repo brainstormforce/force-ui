@@ -42,6 +42,7 @@ function SelectButton({
 	placeholder = 'Select an option', // Placeholder text.
 	optionIcon = null,  // Icon to show in the selected option.
 	displayBy = 'name', // Used to display the value. Default is 'name'.
+	label, // Label for the select component.
 }) {
 	const {
 		sizeValue,
@@ -50,7 +51,6 @@ function SelectButton({
 		selectId,
 		refs,
 		isOpen,
-		label,
 		multiple,
 		combobox,
 		setSelected,
@@ -484,17 +484,15 @@ function SelectItem({ value, disabled = false, children, ...props }) {
 const Select = ({
 	id,
 	size: sizeValue = 'md', // sm, md, lg
-	dropdownPortalId = '', // Id of the dropdown portal where the dropdown will be rendered.
-	dropdownPortalRoot = null, // Root element where the dropdown will be rendered.
-	combobox = false, // If true, it will show a search box.
 	value, // Value of the select (for controlled component).
 	defaultValue, // Default value of the select (for uncontrolled component).
 	onChange, // Callback function to handle the change event.
-	multiple = false, // If true, it will allow multiple selection.
-	disabled = false, // If true, it will disable the select.
 	by = 'id', // Used to identify the select component. Default is 'id'.
 	children,
-	label,
+	dropdownPortalRoot = null, // Root element where the dropdown will be rendered.
+	dropdownPortalId = '', // Id of the dropdown portal where the dropdown will be rendered.
+	multiple = false, // If true, it will allow multiple selection.
+	combobox = false, // If true, it will show a search box.
 }) => {
 	const selectId = useMemo(() => id || `select-${nanoid()}`, [id]);
 	const isControlled = useMemo(() => typeof value !== 'undefined', [value]);
@@ -648,7 +646,6 @@ const Select = ({
 				handleSelect,
 				combobox,
 				sizeValue,
-				globalDisabled: disabled,
 				multiple,
 				onChange,
 				isTypingRef,
@@ -657,7 +654,6 @@ const Select = ({
 				onKeyDownItem,
 				getValues,
 				selectId,
-				label,
 				getReferenceProps,
 				isOpen,
 				value,
