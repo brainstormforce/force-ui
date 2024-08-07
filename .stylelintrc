@@ -7,7 +7,7 @@
 		"function-url-quotes": "always",
 		"max-line-length": 500,
 		"declaration-property-unit-allowed-list": {
-			"/^line-height/": [ "em", "rem", "px" ]
+			"/^line-height/": ["em", "rem", "px"]
 		},
 		"rule-empty-line-before": null,
 		"comment-empty-line-before": null,

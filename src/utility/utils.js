@@ -10,4 +10,4 @@ export function prefix() {
  * @param {...any} classNames
  * @return  {string} - Merged TailwindCSS classes.
  */
-export const cn = ( ...classNames ) => twMerge( clsx( ...classNames ) );
+export const cn = (...classNames) => twMerge(clsx(...classNames));

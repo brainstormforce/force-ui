@@ -36,11 +36,11 @@ import { disabledClassNames, sizeClassNames } from './component-style';
 const SelectContext = createContext();
 const useSelectContext = () => useContext(SelectContext);
 
-function SelectButton({ 
+function SelectButton({
 	children,
 	icon = null, // Icon to show in the select button.
 	placeholder = 'Select an option', // Placeholder text.
-	optionIcon = null,  // Icon to show in the selected option.
+	optionIcon = null, // Icon to show in the selected option.
 	displayBy = 'name', // Used to display the value. Default is 'name'.
 	label, // Label for the select component.
 }) {
@@ -57,6 +57,7 @@ function SelectButton({
 		onChange,
 		isControlled,
 		disabled,
+		by,
 	} = useSelectContext();
 
 	const badgeSize = {
@@ -71,7 +72,8 @@ function SelectButton({
 			return icon;
 		}
 
-		const iconClassNames = 'text-field-placeholder ' + disabledClassNames.icon;
+		const iconClassNames =
+			'text-field-placeholder ' + disabledClassNames.icon;
 
 		return combobox ? (
 			<ChevronsUpDown className={iconClassNames} />
@@ -87,11 +89,11 @@ function SelectButton({
 			return null;
 		}
 
-		if ( typeof children === 'function' ) {
+		if (typeof children === 'function') {
 			const childProps = {
 				value: selectedValue,
-				...( multiple ? { onClose: handleOnCloseItem } : {} ),
-			}
+				...(multiple ? { onClose: handleOnCloseItem } : {}),
+			};
 			return children(childProps);
 		}
 
@@ -114,10 +116,12 @@ function SelectButton({
 		}
 
 		return (
-			<span className={cn(
-				sizeClassNames[sizeValue].displaySelected,
-				disabledClassNames.text
-			)}>
+			<span
+				className={cn(
+					sizeClassNames[sizeValue].displaySelected,
+					disabledClassNames.text
+				)}
+			>
 				{typeof selectedValue === 'object'
 					? selectedValue[displayBy]
 					: selectedValue}
@@ -175,7 +179,6 @@ function SelectButton({
 					disabledClassNames.selectButton
 				)}
 				aria-labelledby="select-label"
-				aria-autocomplete="none"
 				tabIndex={0}
 				disabled={disabled}
 				{...getReferenceProps()}
@@ -196,7 +199,7 @@ function SelectButton({
 							className={cn(
 								'[grid-area:1/1/2/3] text-field-input',
 								sizeClassNames[sizeValue].displaySelected,
-								disabledClassNames.text,
+								disabledClassNames.text
 							)}
 						>
 							{placeholder}
@@ -218,7 +221,7 @@ function SelectButton({
 }
 
 function SelectOptions({
-	children ,
+	children,
 	searchBy = 'id', // Used to identify searched value using the key. Default is 'id'.
 	searchPlaceholder = 'Search...', // Placeholder text for search box.
 	dropdownPortalRoot = null, // Root element where the dropdown will be rendered.
@@ -240,6 +243,7 @@ function SelectOptions({
 		getValues,
 		searchKeyword,
 		listContentRef,
+		by,
 	} = useSelectContext();
 
 	const initialSelectedValueIndex = useMemo(() => {
@@ -279,14 +283,12 @@ function SelectOptions({
 					) {
 						return null;
 					}
-				} else {
-					if (
-						valueProp
-							.toLowerCase()
-							.indexOf(searchKeyword.toLowerCase()) === -1
-					) {
-						return null;
-					}
+				} else if (
+					valueProp
+						.toLowerCase()
+						.indexOf(searchKeyword.toLowerCase()) === -1
+				) {
+					return null;
 				}
 			}
 			return cloneElement(child, {
@@ -315,14 +317,12 @@ function SelectOptions({
 						) {
 							return;
 						}
-					} else {
-						if (
-							valueProp
-								.toLowerCase()
-								.indexOf(searchKeyword.toLowerCase()) === -1
-						) {
-							return;
-						}
+					} else if (
+						valueProp
+							.toLowerCase()
+							.indexOf(searchKeyword.toLowerCase()) === -1
+					) {
+						return;
 					}
 				}
 
@@ -408,7 +408,7 @@ function SelectOptions({
 	);
 }
 
-function SelectItem({ value, disabled = false, selected, children, ...props }) {
+function SelectItem({ value, selected, children, ...props }) {
 	const {
 		sizeValue,
 		getItemProps,
@@ -451,7 +451,7 @@ function SelectItem({ value, disabled = false, selected, children, ...props }) {
 	}, [value, getValues]);
 
 	const isChecked = useMemo(() => {
-		if ( typeof selected === 'boolean' ) {
+		if (typeof selected === 'boolean') {
 			return selected;
 		}
 
@@ -460,7 +460,7 @@ function SelectItem({ value, disabled = false, selected, children, ...props }) {
 		}
 
 		return indx === selectedIndex;
-	} , [multipleChecked, selectedIndex, selected]);
+	}, [multipleChecked, selectedIndex, selected]);
 
 	return (
 		<div
@@ -590,14 +590,14 @@ const Select = ({
 
 	const handleMultiSelect = (index, newValue) => {
 		const selectedValues = [...(getValues() ?? [])];
-		const selectedIndex = selectedValues.findIndex((value) => {
-			if (typeof value === 'object') {
-				return value[by] === newValue[by];
+		const valueIndex = selectedValues.findIndex((selectedValue) => {
+			if (typeof selectedValue === 'object') {
+				return selectedValue[by] === newValue[by];
 			}
-			return value === newValue;
+			return selectedValue === newValue;
 		});
 
-		if (selectedIndex !== -1) {
+		if (valueIndex !== -1) {
 			return;
 		}
 		selectedValues.push(newValue);
