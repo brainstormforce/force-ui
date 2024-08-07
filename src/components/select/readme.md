@@ -145,19 +145,19 @@ const options = [
 
 const App = () => (
   <div>
-    <Select 
-        label="Color"
-        dropdownPortalId='wpcontent'
-        onChange={(value) => console.log(value)} 
-        combobox
+    <Select
+        onChange={ ( value ) => console.log( value ) }
+        multiple
     >
         <Select.Button label="Color" />
-        <Select.Options>
-            {
-                options.map((option, index) => (
-                    <Select.Option key={index} value={option}>{option}</Select.Option>
-                ))
-            }
+        <Select.Options
+            dropdownPortalId="wpcontent"
+        >
+            { options.map( ( option, index ) => (
+                <Select.Option key={ index } value={ option }>
+                    { option }
+                </Select.Option>
+            ) ) }
         </Select.Options>
     </Select>
   </div>
