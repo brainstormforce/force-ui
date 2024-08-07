@@ -36,20 +36,33 @@ import { sizeClassNames } from './component-style';
 const SelectContext = createContext();
 const useSelectContext = () => useContext(SelectContext);
 
-function SelectButton({ children, icon = null }) {
+function SelectButton({ 
+	children,
+	icon = null, // Icon to show in the select button.
+	placeholder = 'Select an option', // Placeholder text.
+	optionIcon = null,  // Icon to show in the selected option.
+	displayBy = 'name', // Used to display the value. Default is 'name'.
+}) {
 	const {
 		sizeValue,
 		getReferenceProps,
 		getValues,
 		selectId,
-		renderSelected,
-		placeholder,
 		refs,
 		isOpen,
 		label,
 		multiple,
 		combobox,
+		setSelected,
+		onChange,
+		isControlled,
 	} = useSelectContext();
+
+	const badgeSize = {
+		sm: 'xs',
+		md: 'sm',
+		lg: 'md',
+	}?.[sizeValue];
 
 	// Get icon based on the Select component type and user provided icon.
 	const getIcon = useCallback(() => {
@@ -65,6 +78,73 @@ function SelectButton({ children, icon = null }) {
 			<ChevronDown className={iconClassNames} />
 		);
 	}, [icon]);
+
+	const renderSelected = useCallback(() => {
+		const selectedValue = getValues();
+
+		if (!selectedValue) {
+			return null;
+		}
+
+		if ( typeof children === 'function' ) {
+			const childProps = {
+				value: selectedValue,
+				...( multiple ? { onClose: handleOnCloseItem } : {} ),
+			}
+			return children(childProps);
+		}
+
+		if (multiple) {
+			return selectedValue.map((valueItem, index) => (
+				<Badge
+					icon={optionIcon}
+					type="rounded"
+					key={index}
+					size={badgeSize}
+					onMouseDown={handleOnCloseItem(valueItem)}
+					label={
+						typeof valueItem === 'object'
+							? valueItem[displayBy]
+							: valueItem
+					}
+				/>
+			));
+		}
+
+		return (
+			<span className={cn(sizeClassNames[sizeValue].displaySelected)}>
+				{typeof selectedValue === 'object'
+					? selectedValue[displayBy]
+					: selectedValue}
+			</span>
+		);
+	}, [getValues]);
+
+	const handleOnCloseItem = (value) => (event) => {
+		event?.preventDefault();
+		event?.stopPropagation();
+
+		const selectedValues = [...(getValues() ?? [])];
+		const selectedIndex = selectedValues.findIndex((val) => {
+			if (typeof val === 'object') {
+				return val[by] === value[by];
+			}
+			return val === value;
+		});
+
+		if (selectedIndex === -1) {
+			return;
+		}
+
+		selectedValues.splice(selectedIndex, 1);
+
+		if (!isControlled) {
+			setSelected(selectedValues);
+		}
+		if (typeof onChange === 'function') {
+			onChange(selectedValues);
+		}
+	};
 
 	return (
 		<div className="flex flex-col items-start gap-1.5">
@@ -128,7 +208,11 @@ function SelectButton({ children, icon = null }) {
 	);
 }
 
-function SelectOptions({ children }) {
+function SelectOptions({
+	children ,
+	searchBy = 'id', // Used to identify searched value using the key. Default is 'id'.
+	searchPlaceholder = 'Search...', // Placeholder text for search box.
+}) {
 	const {
 		isOpen,
 		dropdownPortalId,
@@ -139,9 +223,7 @@ function SelectOptions({ children }) {
 		floatingStyles,
 		getFloatingProps,
 		sizeValue,
-		searchPlaceholder,
 		setSearchKeyword,
-		searchBy,
 		setActiveIndex,
 		setSelectedIndex,
 		value,
@@ -403,8 +485,6 @@ const Select = ({
 	size: sizeValue = 'md', // sm, md, lg
 	dropdownPortalId = '', // Id of the dropdown portal where the dropdown will be rendered.
 	dropdownPortalRoot = null, // Root element where the dropdown will be rendered.
-	placeholder = 'Select an option', // Placeholder text.
-	searchPlaceholder = 'Search...', // Placeholder text for search box.
 	combobox = false, // If true, it will show a search box.
 	value, // Value of the select (for controlled component).
 	defaultValue, // Default value of the select (for uncontrolled component).
@@ -412,8 +492,6 @@ const Select = ({
 	multiple = false, // If true, it will allow multiple selection.
 	disabled = false, // If true, it will disable the select.
 	by = 'id', // Used to identify the select component. Default is 'id'.
-	searchBy = 'id', // Used to identify searched value using the key. Default is 'id'.
-	displayBy = 'name', // Used to display the value. Default is 'name'.
 	children,
 	label,
 }) => {
@@ -557,65 +635,6 @@ const Select = ({
 		}
 	};
 
-	const handleOnCloseItem = (value) => (event) => {
-		event?.preventDefault();
-		event?.stopPropagation();
-
-		const selectedValues = [...(getValues() ?? [])];
-		const selectedIndex = selectedValues.findIndex((val) => {
-			if (typeof val === 'object') {
-				return val[by] === value[by];
-			}
-			return val === value;
-		});
-
-		if (selectedIndex === -1) {
-			return;
-		}
-
-		selectedValues.splice(selectedIndex, 1);
-
-		if (!isControlled) {
-			setSelected(selectedValues);
-		}
-		if (typeof onChange === 'function') {
-			onChange(selectedValues);
-		}
-	};
-
-	const renderSelected = useCallback(() => {
-		const selectedValue = getValues();
-
-		if (!selectedValue) {
-			return null;
-		}
-
-		if (multiple) {
-			return selectedValue.map((valueItem, index) => (
-				<Badge
-					icon={null}
-					type="rounded"
-					key={index}
-					size={sizeValue}
-					onClose={handleOnCloseItem(valueItem)}
-					label={
-						typeof valueItem === 'object'
-							? valueItem[displayBy]
-							: valueItem
-					}
-				/>
-			));
-		}
-
-		return (
-			<span className={cn(sizeClassNames[sizeValue].displaySelected)}>
-				{typeof selectedValue === 'object'
-					? selectedValue[displayBy]
-					: selectedValue}
-			</span>
-		);
-	}, [getValues]);
-
 	return (
 		<>
 			<SelectContext.Provider
@@ -624,6 +643,8 @@ const Select = ({
 					setSelectedIndex,
 					activeIndex,
 					setActiveIndex,
+					selected,
+					setSelected,
 					handleSelect,
 					combobox,
 					sizeValue,
@@ -639,14 +660,10 @@ const Select = ({
 					label,
 					getReferenceProps,
 					isOpen,
-					renderSelected,
-					placeholder,
 					value,
-					selected,
 					updateListRef,
 					refs,
 					listContentRef,
-					searchBy,
 					by,
 					getFloatingProps,
 					floatingStyles,
