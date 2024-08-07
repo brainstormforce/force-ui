@@ -147,7 +147,7 @@ function SelectButton({
 	};
 
 	return (
-		<div className="flex flex-col items-start gap-1.5">
+		<div className="flex flex-col items-start gap-1.5 [&_*]:box-border box-border">
 			<label
 				className={cn(
 					sizeClassNames[sizeValue]?.label,
@@ -165,7 +165,8 @@ function SelectButton({
 					'border focus-visible:outline-none border-solid border-field-border',
 					!isOpen &&
 						'focus:ring-2 focus:ring-offset-4 focus:border-focus-border focus:ring-focus [&:hover:not(:focus)]:border-border-strong',
-					sizeClassNames[sizeValue].mainContainer
+					sizeClassNames[sizeValue].selectButton,
+					multiple && sizeClassNames[sizeValue].multiSelect
 				)}
 				aria-labelledby="select-label"
 				aria-autocomplete="none"
