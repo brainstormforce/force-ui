@@ -637,47 +637,45 @@ const Select = ({
 	};
 
 	return (
-		<>
-			<SelectContext.Provider
-				value={{
-					selectedIndex,
-					setSelectedIndex,
-					activeIndex,
-					setActiveIndex,
-					selected,
-					setSelected,
-					handleSelect,
-					combobox,
-					sizeValue,
-					globalDisabled: disabled,
-					multiple,
-					onChange,
-					isTypingRef,
-					getItemProps,
-					onClickItem,
-					onKeyDownItem,
-					getValues,
-					selectId,
-					label,
-					getReferenceProps,
-					isOpen,
-					value,
-					updateListRef,
-					refs,
-					listContentRef,
-					by,
-					getFloatingProps,
-					floatingStyles,
-					context,
-					searchKeyword,
-					setSearchKeyword,
-					dropdownPortalId,
-					dropdownPortalRoot,
-				}}
-			>
-				{children}
-			</SelectContext.Provider>
-		</>
+		<SelectContext.Provider
+			value={{
+				selectedIndex,
+				setSelectedIndex,
+				activeIndex,
+				setActiveIndex,
+				selected,
+				setSelected,
+				handleSelect,
+				combobox,
+				sizeValue,
+				globalDisabled: disabled,
+				multiple,
+				onChange,
+				isTypingRef,
+				getItemProps,
+				onClickItem,
+				onKeyDownItem,
+				getValues,
+				selectId,
+				label,
+				getReferenceProps,
+				isOpen,
+				value,
+				updateListRef,
+				refs,
+				listContentRef,
+				by,
+				getFloatingProps,
+				floatingStyles,
+				context,
+				searchKeyword,
+				setSearchKeyword,
+				dropdownPortalId,
+				dropdownPortalRoot,
+			}}
+		>
+			{children}
+		</SelectContext.Provider>
 	);
 };
 
