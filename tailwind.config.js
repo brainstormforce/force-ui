@@ -165,6 +165,9 @@ module.exports = {
 				"toggle-on-border": "#60A5FA",
 				"toggle-off-disabled": "#F3F4F6",
 			},
+            boxShadow: {
+                'soft-shadow-lg': '0px 12px 32px -12px rgba(149, 160, 178, 0.24)',
+            },
 		},
 	},
 	plugins: [],
