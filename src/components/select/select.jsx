@@ -244,6 +244,7 @@ function SelectOptions({
 		searchKeyword,
 		listContentRef,
 		by,
+		multiple,
 	} = useSelectContext();
 
 	const initialSelectedValueIndex = useMemo(() => {
@@ -344,7 +345,8 @@ function SelectOptions({
 								'box-border [&_*]:box-border w-full bg-white outline-none shadow-lg border border-solid border-border-subtle overflow-hidden',
 								combobox &&
 									'grid grid-cols-1 grid-rows-[auto_1fr] divide-y divide-x-0 divide-solid divide-border-subtle',
-								sizeClassNames[sizeValue].dropdown
+								sizeClassNames[sizeValue].dropdown,
+								! combobox && 'h-full'
 							)}
 							style={{
 								...floatingStyles,
