@@ -333,7 +333,7 @@ function SelectOptions({
 						<div
 							ref={refs.setFloating}
 							className={cn(
-								'box-border [&_*]:box-border h-full w-full bg-white outline-none shadow-lg border border-solid border-border-subtle overflow-hidden',
+								'box-border [&_*]:box-border w-full bg-white outline-none shadow-lg border border-solid border-border-subtle overflow-hidden',
 								combobox &&
 									'grid grid-cols-1 grid-rows-[auto_1fr] divide-y divide-x-0 divide-solid divide-border-subtle',
 								sizeClassNames[sizeValue].dropdown
