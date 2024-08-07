@@ -102,12 +102,12 @@ The `Select` component is a versatile, customizable select component built with 
 ### `dropdownPortalRoot`
 - **Type:** `HTMLElement | null`
 - **Default:** `null`
-- **Description:** Root element where the dropdown will be rendered.
+- **Description:** Root element where the dropdown will be rendered. It's helpful when the dropdown is rendered outside the parent container and scopped Tailwind CSS styles.
 
 ### `dropdownPortalId`
 - **Type:** `string`
 - **Default:** `""`
-- **Description:** Id of the dropdown portal where the dropdown will be rendered.
+- **Description:** Id of the dropdown portal where the dropdown will be rendered. It's helpful when the dropdown is rendered outside the parent container and scopped Tailwind CSS styles.
 
 
 ## `Select.Option` Props
