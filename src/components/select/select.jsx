@@ -1,4 +1,16 @@
-import { useState, useCallback, useMemo, useRef, createContext, useContext, Children, cloneElement, isValidElement, useEffect } from 'react';
+import {
+	useState,
+	useCallback,
+	useMemo,
+	useRef,
+	createContext,
+	useContext,
+	Children,
+	cloneElement,
+	isValidElement,
+	useEffect,
+	useLayoutEffect,
+} from 'react';
 import { cn } from '../../utility/utils';
 import { CheckIcon, ChevronDown, ChevronsUpDown, Search } from 'lucide-react';
 import {
@@ -16,14 +28,296 @@ import {
 	autoUpdate,
 	FloatingPortal,
 } from '@floating-ui/react';
-import Badge from "../badge"
+import Badge from '../badge';
 import { nanoid } from 'nanoid';
+import { sizeClassNames } from './component-style';
 
 // Context to manage the state of the select component.
 const SelectContext = createContext();
 const useSelectContext = () => useContext(SelectContext);
 
-function SelectItem ({ value, disabled = false, children, ...props }) {
+function SelectButton({ children, icon = null }) {
+	const {
+		sizeValue,
+		getReferenceProps,
+		getValues,
+		selectId,
+		renderSelected,
+		placeholder,
+		refs,
+		isOpen,
+		label,
+		multiple,
+		combobox,
+	} = useSelectContext();
+
+	// Get icon based on the Select component type and user provided icon.
+	const getIcon = useCallback(() => {
+		if (icon) {
+			return icon;
+		}
+
+		const iconClassNames = 'text-field-placeholder';
+
+		return combobox ? (
+			<ChevronsUpDown className={iconClassNames} />
+		) : (
+			<ChevronDown className={iconClassNames} />
+		);
+	}, [icon]);
+
+	return (
+		<div className="flex flex-col items-start gap-1.5">
+			<label
+				className={cn(
+					sizeClassNames[sizeValue]?.label,
+					'text-field-label'
+				)}
+				htmlFor={selectId}
+			>
+				{label}
+			</label>
+			<button
+				id={selectId}
+				ref={refs.setReference}
+				className={cn(
+					'flex items-center justify-between border border-solid w-full box-border transition-colors duration-150 bg-white',
+					'border focus-visible:outline-none border-solid border-field-border',
+					!isOpen &&
+						'focus:ring-2 focus:ring-offset-4 focus:border-focus-border focus:ring-focus [&:hover:not(:focus)]:border-border-strong',
+					sizeClassNames[sizeValue].mainContainer
+				)}
+				aria-labelledby="select-label"
+				aria-autocomplete="none"
+				tabIndex={0}
+				{...getReferenceProps()}
+			>
+				{/* Input and selected item container */}
+				<div
+					className={cn(
+						'flex-1 grid items-center justify-start gap-1.5 ',
+						getValues() && 'flex flex-wrap'
+					)}
+				>
+					{/* Show Selected item/items (Multiselector) */}
+					{renderSelected()}
+
+					{/* Placeholder */}
+					{(multiple ? !getValues()?.length : !getValues()) && (
+						<div
+							className={cn(
+								'[grid-area:1/1/2/3] text-field-input',
+								sizeClassNames[sizeValue].displaySelected
+							)}
+						>
+							{placeholder}
+						</div>
+					)}
+				</div>
+				{/* Suffix Icon */}
+				<div
+					className={cn(
+						'flex items-center [&>svg]:shrink-0',
+						sizeClassNames[sizeValue].icon
+					)}
+				>
+					{getIcon()}
+				</div>
+			</button>
+		</div>
+	);
+}
+
+function SelectOptions({ children }) {
+	const {
+		isOpen,
+		dropdownPortalId,
+		dropdownPortalRoot,
+		context,
+		refs,
+		combobox,
+		floatingStyles,
+		getFloatingProps,
+		sizeValue,
+		searchPlaceholder,
+		setSearchKeyword,
+		searchBy,
+		setActiveIndex,
+		setSelectedIndex,
+		value,
+		selected,
+		getValues,
+		searchKeyword,
+		listContentRef,
+	} = useSelectContext();
+
+	const initialSelectedValueIndex = useMemo(() => {
+		const currentValue = getValues();
+		let indexValue = 0;
+
+		if (currentValue) {
+			indexValue = Children.toArray(children).findIndex((child) => {
+				if (typeof child.props.value === 'object') {
+					return child.props.value[by] === currentValue[by];
+				}
+				return child.props.value === currentValue;
+			});
+		}
+
+		return indexValue === -1 ? 0 : indexValue;
+	}, [value, selected, children]);
+
+	useLayoutEffect(() => {
+		setActiveIndex(initialSelectedValueIndex);
+		setSelectedIndex(initialSelectedValueIndex);
+	}, []);
+
+	// Render children based on the search keyword.
+	const renderChildren = useMemo(() => {
+		return Children.map(children, (child, index) => {
+			if (!isValidElement(child)) {
+				return null;
+			}
+			if (searchKeyword) {
+				const valueProp = child.props.value;
+				if (typeof valueProp === 'object') {
+					if (
+						valueProp[searchBy]
+							.toLowerCase()
+							.indexOf(searchKeyword.toLowerCase()) === -1
+					) {
+						return null;
+					}
+				} else {
+					if (
+						valueProp
+							.toLowerCase()
+							.indexOf(searchKeyword.toLowerCase()) === -1
+					) {
+						return null;
+					}
+				}
+			}
+			return cloneElement(child, {
+				...child.props,
+				index,
+			});
+		});
+	}, [searchKeyword, value, selected, children]);
+	const childrenCount = Children.count(renderChildren);
+
+	// Update the content list reference.
+	useEffect(() => {
+		listContentRef.current = [];
+		Children.forEach(children, (child) => {
+			if (!isValidElement(child)) {
+				return;
+			}
+			if (child.props.value) {
+				if (searchKeyword) {
+					const valueProp = child.props.value;
+					if (typeof valueProp === 'object') {
+						if (
+							valueProp[searchBy]
+								.toLowerCase()
+								.indexOf(searchKeyword.toLowerCase()) === -1
+						) {
+							return;
+						}
+					} else {
+						if (
+							valueProp
+								.toLowerCase()
+								.indexOf(searchKeyword.toLowerCase()) === -1
+						) {
+							return;
+						}
+					}
+				}
+
+				listContentRef.current.push(child.props.value);
+			}
+		});
+	}, [searchKeyword]);
+
+	return (
+		<>
+			{/* Dropdown */}
+			{isOpen && (
+				<FloatingPortal id={dropdownPortalId} root={dropdownPortalRoot}>
+					<FloatingFocusManager context={context} modal={false}>
+						{/* Dropdown Wrapper */}
+						<div
+							ref={refs.setFloating}
+							className={cn(
+								'box-border [&_*]:box-border h-full w-full bg-white outline-none shadow-lg border border-solid border-border-subtle overflow-hidden',
+								combobox &&
+									'grid grid-cols-1 grid-rows-[auto_1fr] divide-y divide-x-0 divide-solid divide-border-subtle',
+								sizeClassNames[sizeValue].dropdown
+							)}
+							style={{
+								...floatingStyles,
+							}}
+							{...getFloatingProps()}
+						>
+							{/* Searchbox */}
+							{combobox && (
+								<div
+									className={cn(
+										sizeClassNames[sizeValue]
+											.searchbarWrapper
+									)}
+								>
+									<Search
+										className={cn(
+											'text-icon-secondary shrink-0',
+											sizeClassNames[sizeValue]
+												.searchbarIcon
+										)}
+									/>
+									<input
+										className={cn(
+											'px-1 w-full placeholder:text-field-placeholder border-0 focus:outline-none focus:shadow-none',
+											sizeClassNames[sizeValue].searchbar
+										)}
+										type="search"
+										name="keyword"
+										placeholder={searchPlaceholder}
+										onChange={(event) =>
+											setSearchKeyword(event.target.value)
+										}
+										autoComplete="off"
+									/>
+								</div>
+							)}
+							{/* Dropdown Items Wrapper */}
+							<div
+								className={cn(
+									'overflow-y-auto',
+									!combobox && 'w-full h-full',
+									sizeClassNames[sizeValue]
+										.dropdownItemsWrapper
+								)}
+							>
+								{/* Dropdown Items */}
+								{!!childrenCount && renderChildren}
+
+								{/* No items found */}
+								{!childrenCount && (
+									<div className="p-2 text-center text-base font-medium text-field-placeholder">
+										No items found
+									</div>
+								)}
+							</div>
+						</div>
+					</FloatingFocusManager>
+				</FloatingPortal>
+			)}
+		</>
+	);
+}
+
+function SelectItem({ value, disabled = false, children, ...props }) {
 	const {
 		sizeValue,
 		getItemProps,
@@ -50,19 +344,19 @@ function SelectItem ({ value, disabled = false, children, ...props }) {
 	};
 
 	const multipleChecked = useMemo(() => {
-		if ( ! multiple ) {
+		if (!multiple) {
 			return false;
 		}
 		const currentValue = getValues();
-		if ( ! currentValue ) {
+		if (!currentValue) {
 			return false;
 		}
 		return currentValue.some((val) => {
-			if ( typeof val === 'object' ) {
+			if (typeof val === 'object') {
 				return val[by] === value[by];
 			}
 			return val === value;
-		} );
+		});
 	}, [value, getValues]);
 
 	const isChecked = multiple ? multipleChecked : indx === selectedIndex;
@@ -79,7 +373,7 @@ function SelectItem ({ value, disabled = false, children, ...props }) {
 			}}
 			role="option"
 			tabIndex={indx === activeIndex ? 0 : -1}
-			aria-selected={ isChecked && indx === activeIndex}
+			aria-selected={isChecked && indx === activeIndex}
 			{...getItemProps({
 				// Handle pointer select.
 				onClick() {
@@ -92,7 +386,7 @@ function SelectItem ({ value, disabled = false, children, ...props }) {
 			})}
 		>
 			<span className="w-full truncate">{children}</span>
-			{ isChecked && (
+			{isChecked && (
 				<CheckIcon
 					className={cn(
 						'text-icon-on-color-disabled',
@@ -102,7 +396,7 @@ function SelectItem ({ value, disabled = false, children, ...props }) {
 			)}
 		</div>
 	);
-};
+}
 
 const Select = ({
 	id,
@@ -112,19 +406,18 @@ const Select = ({
 	placeholder = 'Select an option', // Placeholder text.
 	searchPlaceholder = 'Search...', // Placeholder text for search box.
 	combobox = false, // If true, it will show a search box.
-	icon = null,
 	value, // Value of the select (for controlled component).
 	defaultValue, // Default value of the select (for uncontrolled component).
 	onChange, // Callback function to handle the change event.
 	multiple = false, // If true, it will allow multiple selection.
 	disabled = false, // If true, it will disable the select.
-	by  = 'id', // Used to identify the select component. Default is 'id'.
+	by = 'id', // Used to identify the select component. Default is 'id'.
 	searchBy = 'id', // Used to identify searched value using the key. Default is 'id'.
 	displayBy = 'name', // Used to display the value. Default is 'name'.
 	children,
 	label,
 }) => {
-	const selectId = useMemo( () => id || `select-${ nanoid() }`, [ id ] );
+	const selectId = useMemo(() => id || `select-${nanoid()}`, [id]);
 	const isControlled = useMemo(() => typeof value !== 'undefined', [value]);
 	const [selected, setSelected] = useState(defaultValue);
 	const [searchKeyword, setSearchKeyword] = useState('');
@@ -136,54 +429,10 @@ const Select = ({
 		return selected;
 	}, [isControlled, value, selected]);
 
-	// Render children based on the search keyword.
-	const renderChildren = useMemo(() => {
-		return Children.map(children, (child, index) => {
-			if (! isValidElement(child)) {
-				return null;
-			}
-			if (searchKeyword) {
-				const valueProp = child.props.value;
-				if ( typeof valueProp === 'object' ) {
-					if (valueProp[searchBy].toLowerCase().indexOf(searchKeyword.toLowerCase()) === -1) {
-						return null;
-					}
-				} else {
-					if (valueProp.toLowerCase().indexOf(searchKeyword.toLowerCase()) === -1) {
-						return null;
-					}
-				}
-			}
-			return cloneElement(child, {
-				...child.props,
-				index,
-			});
-		})
-	}, [searchKeyword, value, selected, children]);
-	const childrenCount = Children.count(renderChildren);
-
-	const initialSelectedValueIndex = useMemo(() => {
-		const currentValue = getValues();
-		let indexValue = 0;
-
-		if (currentValue) {
-			 indexValue = Children.toArray(children).findIndex(
-				(child) => {
-					if ( typeof child.props.value === 'object' ) {
-						return child.props.value[by] === currentValue[by];
-					}
-					return child.props.value === currentValue;
-				}
-			);
-		}
-
-		return indexValue === -1 ? 0 : indexValue;
-	}, [value, selected, children]);
-
 	// Dropdown position related code (Start)
 	const [isOpen, setIsOpen] = useState(false);
-	const [activeIndex, setActiveIndex] = useState(initialSelectedValueIndex);
-	const [selectedIndex, setSelectedIndex] = useState(initialSelectedValueIndex);
+	const [activeIndex, setActiveIndex] = useState();
+	const [selectedIndex, setSelectedIndex] = useState();
 
 	const dropdownMaxHeightBySize = {
 		sm: combobox ? 256 : 172,
@@ -242,152 +491,71 @@ const Select = ({
 			role,
 			listNav,
 			click,
-			...(! combobox ? [typeahead] : []),
+			...(!combobox ? [typeahead] : []),
 		]);
 
 	const handleMultiSelect = (index, newValue) => {
 		const selectedValues = [...(getValues() ?? [])];
 		const selectedIndex = selectedValues.findIndex((value) => {
-			if ( typeof value === 'object' ) {
+			if (typeof value === 'object') {
 				return value[by] === newValue[by];
 			}
 			return value === newValue;
 		});
-
 
 		if (selectedIndex !== -1) {
 			return;
 		}
 		selectedValues.push(newValue);
 
-		if ( ! isControlled ) {
+		if (!isControlled) {
 			setSelected(selectedValues);
 		}
 		setSelectedIndex(index);
 		refs.reference.current.focus();
 		setIsOpen(false);
 		setSearchKeyword('');
-		if ( typeof onChange === 'function' ) {
+		if (typeof onChange === 'function') {
 			onChange(selectedValues);
 		}
 	};
 
 	const handleSelect = (index, newValue) => {
-		if ( multiple ) {
+		if (multiple) {
 			return handleMultiSelect(index, newValue);
 		}
 		setSelectedIndex(index);
-		if ( ! isControlled ) {
-			setSelected(newValue)
+		if (!isControlled) {
+			setSelected(newValue);
 		}
 		refs.reference.current.focus();
 		setIsOpen(false);
 		setSearchKeyword('');
-		if ( typeof onChange === 'function' ) {
+		if (typeof onChange === 'function') {
 			onChange(newValue);
 		}
 	};
-
 	// Dropdown position related code (End)
 
-	const sizeClassNames = {
-		sm: {
-			icon: '[&>svg]:size-4',
-			searchIcon: '[&>svg]:size-4',
-			mainContainer:
-				'pl-1.5 pr-2 py-1.5 rounded text-xs font-medium leading-4',
-			displaySelected: 'text-xs font-normal',
-			dropdown: 'rounded-md',
-			dropdownItemsWrapper: 'p-1.5',
-			searchbarWrapper: 'p-3 flex items-center gap-0.5',
-			searchbar: 'font-medium text-xs',
-			searchbarIcon: '[&>svg]:size-4',
-			label: 'text-xs font-medium',
-		},
-		md: {
-			icon: '[&>svg]:size-5',
-			searchIcon: '[&>svg]:size-5',
-			mainContainer:
-				'pl-2 pr-2.5 py-2 rounded-md text-xs font-medium leading-4',
-			displaySelected: 'text-sm font-normal',
-			dropdown: 'rounded-lg',
-			dropdownItemsWrapper: 'p-2',
-			searchbarWrapper: 'p-2.5 flex items-center gap-1',
-			searchbar: 'font-medium text-sm',
-			searchbarIcon: '[&>svg]:size-5',
-			label: 'text-sm font-medium',
-		},
-		lg: {
-			icon: '[&>svg]:size-6',
-			searchIcon: '[&>svg]:size-5',
-			mainContainer:
-				'pl-3 py-3 pr-3.5 rounded-lg text-sm font-medium leading-5',
-			displaySelected: 'text-sm font-normal',
-			dropdown: 'rounded-lg',
-			dropdownItemsWrapper: 'p-2',
-			searchbarWrapper: 'p-2.5 flex items-center gap-1',
-			searchbar: 'font-medium text-sm',
-			searchbarIcon: '[&>svg]:size-5',
-			label: 'text-base font-medium',
-		},
-	};
-
-	// Get icon based on the Select component type and user provided icon.
-	const getIcon = useCallback(() => {
-		if (icon) {
-			return icon;
-		}
-
-		const iconClassNames = "text-field-placeholder";
-
-		return combobox ? <ChevronsUpDown className={iconClassNames} />: <ChevronDown className={iconClassNames} />;
-	}, [icon])
-
 	const updateListRef = useCallback((index, node) => {
-		listRef.current[index] = node
+		listRef.current[index] = node;
 	}, []);
 
 	const onClickItem = (index, newValue) => {
 		handleSelect(index, newValue);
-	}
+	};
 
 	const onKeyDownItem = (event, index, newValue) => {
 		if (event.key === 'Enter') {
 			event.preventDefault();
 			handleSelect(index, newValue);
 		}
-		
+
 		if (event.key === ' ' && !isTypingRef.current) {
 			event.preventDefault();
 			handleSelect(index, newValue);
 		}
-	}
-
-	// Update the content list reference.
-	useEffect(() => {
-		listContentRef.current = [];
-		Children.forEach(children, (child) => {
-			if (! isValidElement(child)) {
-				return;
-			}
-			if (child.props.value) {
-				if (searchKeyword) {
-					const valueProp = child.props.value;
-					if ( typeof valueProp === 'object' ) {
-						if (valueProp[searchBy].toLowerCase().indexOf(searchKeyword.toLowerCase()) === -1) {
-							return;
-						}
-					} else {
-						if (valueProp.toLowerCase().indexOf(searchKeyword.toLowerCase()) === -1) {
-							return;
-						}
-					}
-				}
-
-				listContentRef.current.push(child.props.value);
-			}
-		});
-	}, [searchKeyword]);
+	};
 
 	const handleOnCloseItem = (value) => (event) => {
 		event?.preventDefault();
@@ -395,7 +563,7 @@ const Select = ({
 
 		const selectedValues = [...(getValues() ?? [])];
 		const selectedIndex = selectedValues.findIndex((val) => {
-			if ( typeof val === 'object' ) {
+			if (typeof val === 'object') {
 				return val[by] === value[by];
 			}
 			return val === value;
@@ -407,92 +575,49 @@ const Select = ({
 
 		selectedValues.splice(selectedIndex, 1);
 
-		if ( ! isControlled ) {
+		if (!isControlled) {
 			setSelected(selectedValues);
 		}
-		if ( typeof onChange === 'function' ) {
+		if (typeof onChange === 'function') {
 			onChange(selectedValues);
 		}
-	}
+	};
 
 	const renderSelected = useCallback(() => {
 		const selectedValue = getValues();
 
-		if ( ! selectedValue ) {
+		if (!selectedValue) {
 			return null;
 		}
 
 		if (multiple) {
 			return selectedValue.map((valueItem, index) => (
-				<Badge icon={null} type="rounded" key={index} size={sizeValue} onClose={handleOnCloseItem(valueItem)} label={typeof valueItem === 'object' ? valueItem[displayBy] : valueItem} />
-			))
+				<Badge
+					icon={null}
+					type="rounded"
+					key={index}
+					size={sizeValue}
+					onClose={handleOnCloseItem(valueItem)}
+					label={
+						typeof valueItem === 'object'
+							? valueItem[displayBy]
+							: valueItem
+					}
+				/>
+			));
 		}
 
-		return <span className={cn(
-			sizeClassNames[sizeValue].displaySelected
-		)}>{typeof selectedValue === 'object' ? selectedValue[displayBy] : selectedValue}</span>;
+		return (
+			<span className={cn(sizeClassNames[sizeValue].displaySelected)}>
+				{typeof selectedValue === 'object'
+					? selectedValue[displayBy]
+					: selectedValue}
+			</span>
+		);
 	}, [getValues]);
 
 	return (
 		<>
-			<div className='flex flex-col items-start gap-1.5'>
-				<label className={cn(
-					sizeClassNames[sizeValue]?.label,
-					"text-field-label"
-				)} htmlFor={selectId}>{label}</label>
-				<button
-					id={selectId}
-					ref={refs.setReference}
-					className={cn(
-						'flex items-center justify-between border border-solid w-full box-border transition-colors duration-150 bg-white',
-						'border focus-visible:outline-none border-solid border-field-border',
-						!isOpen &&
-							'focus:ring-2 focus:ring-offset-4 focus:border-focus-border focus:ring-focus [&:hover:not(:focus)]:border-border-strong',
-						sizeClassNames[sizeValue].mainContainer
-					)}
-					aria-labelledby="select-label"
-					aria-autocomplete="none"
-					tabIndex={0}
-					{...getReferenceProps()}
-				>
-					{/* Input and selected item container */}
-					<div
-						className={cn(
-							'flex-1 grid items-center justify-start gap-1.5 ',
-							getValues() && 'flex flex-wrap'
-						)}
-					>
-						{/* Show Selected item/items (Multiselector) */}
-						{
-							renderSelected()
-						}
-
-						{/* Placeholder */}
-						{
-							(multiple ? ! getValues()?.length : ! getValues()) && (
-								<div
-									className={cn(
-										'[grid-area:1/1/2/3] text-field-input',
-										sizeClassNames[sizeValue].displaySelected
-									)}
-								>
-									{placeholder}
-								</div>
-							)
-						}
-					</div>
-					{/* Suffix Icon */}
-					<div
-						className={cn(
-							'flex items-center [&>svg]:shrink-0',
-							sizeClassNames[sizeValue].icon
-						)}
-					>
-						{getIcon()}
-					</div>
-				</button>
-			</div>
-
 			<SelectContext.Provider
 				value={{
 					selectedIndex,
@@ -510,85 +635,36 @@ const Select = ({
 					onClickItem,
 					onKeyDownItem,
 					getValues,
+					selectId,
+					label,
+					getReferenceProps,
+					isOpen,
+					renderSelected,
+					placeholder,
+					value,
+					selected,
 					updateListRef,
+					refs,
+					listContentRef,
+					searchBy,
+					by,
+					getFloatingProps,
+					floatingStyles,
+					context,
+					searchKeyword,
+					setSearchKeyword,
+					dropdownPortalId,
+					dropdownPortalRoot,
 				}}
 			>
-				{/* Dropdown */}
-				{isOpen && (
-					<FloatingPortal
-						id={dropdownPortalId}
-						root={dropdownPortalRoot}
-					>
-						<FloatingFocusManager context={context} modal={false}>
-							{/* Dropdown Wrapper */}
-							<div
-								ref={refs.setFloating}
-								className={cn(
-									'box-border [&_*]:box-border h-full w-full bg-white outline-none shadow-lg border border-solid border-border-subtle overflow-hidden',
-									combobox &&
-										'grid grid-cols-1 grid-rows-[auto_1fr] divide-y divide-x-0 divide-solid divide-border-subtle',
-									sizeClassNames[sizeValue].dropdown
-								)}
-								style={{
-									...floatingStyles,
-								}}
-								{...getFloatingProps()}
-							>
-								{/* Searchbox */}
-								{combobox && (
-									<div
-										className={cn(
-											sizeClassNames[sizeValue]
-												.searchbarWrapper
-										)}
-									>
-										<Search className={cn(
-											'text-icon-secondary shrink-0',
-											sizeClassNames[sizeValue]
-												.searchbarIcon
-										)} />
-										<input
-											className={cn(
-												'px-1 w-full placeholder:text-field-placeholder border-0 focus:outline-none focus:shadow-none',
-												sizeClassNames[sizeValue]
-													.searchbar
-											)}
-											type="search"
-											name="keyword"
-											placeholder={searchPlaceholder}
-											onChange={event => setSearchKeyword(event.target.value)}
-											autoComplete='off'
-										/>
-									</div>
-								)}
-								{/* Dropdown Items Wrapper */}
-								<div
-									className={cn(
-										'overflow-y-auto',
-										!combobox && 'w-full h-full',
-										sizeClassNames[sizeValue]
-											.dropdownItemsWrapper
-									)}
-								>
-									{/* Dropdown Items */}
-									{!! childrenCount && renderChildren}
-
-									{/* No items found */}
-									{! childrenCount && (
-										<div className="p-2 text-center text-base font-medium text-field-placeholder">
-											No items found
-										</div>
-									)}
-								</div>
-							</div>
-						</FloatingFocusManager>
-					</FloatingPortal>
-				)}
+				{children}
 			</SelectContext.Provider>
 		</>
 	);
 };
 
-Select.Option = SelectItem
+Select.Button = SelectButton;
+Select.Options = SelectOptions;
+Select.Option = SelectItem;
 
 export default Select;
