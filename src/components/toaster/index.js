@@ -71,6 +71,8 @@ const Toaster = ( {
         );
     }
 
+    console.log(props);
+
 	return (
 		<div
 			htmlFor={ forId }

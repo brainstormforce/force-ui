@@ -2,7 +2,7 @@ import { Check, Info, AlertTriangle, Trash2 } from 'lucide-react';
 import { cn } from '../../utility/utils';
 import { Button } from '../button/index';
 
-export const getIcon = ( { icon, theme } ) => {
+export const getIcon = ( { icon, theme, variant } ) => {
     const commonClasses = '[&>svg]:h-5 [&>svg]:w-5';
     let nColor = theme === 'light' ? 'text-icon-secondary' : 'text-icon-inverse';
     if ( icon ) {
