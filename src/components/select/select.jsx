@@ -213,11 +213,11 @@ function SelectOptions({
 	children ,
 	searchBy = 'id', // Used to identify searched value using the key. Default is 'id'.
 	searchPlaceholder = 'Search...', // Placeholder text for search box.
+	dropdownPortalRoot = null, // Root element where the dropdown will be rendered.
+	dropdownPortalId = '', // Id of the dropdown portal where the dropdown will be rendered.
 }) {
 	const {
 		isOpen,
-		dropdownPortalId,
-		dropdownPortalRoot,
 		context,
 		refs,
 		combobox,
@@ -489,8 +489,6 @@ const Select = ({
 	onChange, // Callback function to handle the change event.
 	by = 'id', // Used to identify the select component. Default is 'id'.
 	children,
-	dropdownPortalRoot = null, // Root element where the dropdown will be rendered.
-	dropdownPortalId = '', // Id of the dropdown portal where the dropdown will be rendered.
 	multiple = false, // If true, it will allow multiple selection.
 	combobox = false, // If true, it will show a search box.
 }) => {
@@ -666,8 +664,6 @@ const Select = ({
 				context,
 				searchKeyword,
 				setSearchKeyword,
-				dropdownPortalId,
-				dropdownPortalRoot,
 			}}
 		>
 			{children}
