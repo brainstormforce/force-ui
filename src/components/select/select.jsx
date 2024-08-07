@@ -30,7 +30,7 @@ import {
 } from '@floating-ui/react';
 import Badge from '../badge';
 import { nanoid } from 'nanoid';
-import { sizeClassNames } from './component-style';
+import { disabledClassNames, sizeClassNames } from './component-style';
 
 // Context to manage the state of the select component.
 const SelectContext = createContext();
@@ -56,6 +56,7 @@ function SelectButton({
 		setSelected,
 		onChange,
 		isControlled,
+		disabled,
 	} = useSelectContext();
 
 	const badgeSize = {
@@ -70,7 +71,7 @@ function SelectButton({
 			return icon;
 		}
 
-		const iconClassNames = 'text-field-placeholder';
+		const iconClassNames = 'text-field-placeholder ' + disabledClassNames.icon;
 
 		return combobox ? (
 			<ChevronsUpDown className={iconClassNames} />
@@ -107,12 +108,16 @@ function SelectButton({
 							? valueItem[displayBy]
 							: valueItem
 					}
+					disabled={disabled}
 				/>
 			));
 		}
 
 		return (
-			<span className={cn(sizeClassNames[sizeValue].displaySelected)}>
+			<span className={cn(
+				sizeClassNames[sizeValue].displaySelected,
+				disabledClassNames.text
+			)}>
 				{typeof selectedValue === 'object'
 					? selectedValue[displayBy]
 					: selectedValue}
@@ -164,13 +169,15 @@ function SelectButton({
 					'flex items-center justify-between border border-solid w-full box-border transition-colors duration-150 bg-white',
 					'border focus-visible:outline-none border-solid border-field-border',
 					!isOpen &&
-						'focus:ring-2 focus:ring-offset-4 focus:border-focus-border focus:ring-focus [&:hover:not(:focus)]:border-border-strong',
+						'focus:ring-2 focus:ring-offset-4 focus:border-focus-border focus:ring-focus [&:hover:not(:focus):not(:disabled)]:border-border-strong',
 					sizeClassNames[sizeValue].selectButton,
-					multiple && sizeClassNames[sizeValue].multiSelect
+					multiple && sizeClassNames[sizeValue].multiSelect,
+					disabledClassNames.selectButton
 				)}
 				aria-labelledby="select-label"
 				aria-autocomplete="none"
 				tabIndex={0}
+				disabled={disabled}
 				{...getReferenceProps()}
 			>
 				{/* Input and selected item container */}
@@ -188,7 +195,8 @@ function SelectButton({
 						<div
 							className={cn(
 								'[grid-area:1/1/2/3] text-field-input',
-								sizeClassNames[sizeValue].displaySelected
+								sizeClassNames[sizeValue].displaySelected,
+								disabledClassNames.text,
 							)}
 						>
 							{placeholder}
@@ -501,6 +509,7 @@ const Select = ({
 	children,
 	multiple = false, // If true, it will allow multiple selection.
 	combobox = false, // If true, it will show a search box.
+	disabled = false, // If true, it will disable the select component.
 }) => {
 	const selectId = useMemo(() => id || `select-${nanoid()}`, [id]);
 	const isControlled = useMemo(() => typeof value !== 'undefined', [value]);
@@ -674,6 +683,7 @@ const Select = ({
 				context,
 				searchKeyword,
 				setSearchKeyword,
+				disabled,
 			}}
 		>
 			{children}

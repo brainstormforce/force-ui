@@ -52,6 +52,13 @@ The `Select` component is a versatile, customizable select component built with 
   - `"md"`
   - `"lg"`
 
+### `disabled`
+- **Type:** `boolean`
+- **Default:** `false`
+- **Description:** If true, the select will be disabled.
+- **Default:** `false`
+
+
 ## `Select.Button` Props
 
 ### `icon`

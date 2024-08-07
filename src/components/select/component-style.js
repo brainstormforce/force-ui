@@ -42,3 +42,9 @@ export const sizeClassNames = {
         label: 'text-base font-medium',
     },
 };
+
+export const disabledClassNames = {
+    selectButton: "group disabled:border-field-border-disabled [&:hover:has(:disabled)]:border-field-border-disabled",
+    icon: "group-disabled:text-icon-disabled",
+    text: 'group-disabled:text-field-color-disabled'
+}
