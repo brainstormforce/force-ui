@@ -132,6 +132,17 @@ The `Select` component is a versatile, customizable select component built with 
 ```jsx
 import Select from './Select';
 
+const options = [
+	'Red',
+	'Orange',
+	'Yellow',
+	'Green',
+	'Cyan',
+	'Blue',
+	'Purple',
+	'Pink',
+];
+
 const App = () => (
   <div>
     <Select 
