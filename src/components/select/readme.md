@@ -88,7 +88,7 @@ The `Select` component is a versatile, customizable select component built with 
 
 ## `Select.Options` Props
 
-### `searchBy`
+### `searchBy` 
 - **Type:** `string`
 - **Default:** `"id"`
 - **Description:** The key that will be used to identify searched value using the key. Default is `"id"`.
@@ -116,11 +116,6 @@ The `Select` component is a versatile, customizable select component built with 
 - **Type:** `string | number | object`
 - **Default:** `undefined`
 - **Description:** Value of the option.
-
-### `disabled`
-- **Type:** `boolean`
-- **Default:** `false`
-- **Description:** If true, the option will be disabled.
 
 ### `selected`
 - **Type:** `boolean | undefined`
