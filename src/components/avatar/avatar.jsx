@@ -1,14 +1,7 @@
 import { cn } from '../../utility/utils';
 
-const Avatar = (props) => {
-	const {
-		variant = 'primary',
-		size = 'md',
-		border = 'subtle',
-		url = '',
-		children,
-		className,
-	} = props;
+const Avatar = ( props ) => {
+	const { variant = 'primary', size = 'md', border = 'subtle', url = '', children, className } = props;
 
 	const effectiveBorder = url && border === 'none' ? 'subtle' : border;
 
@@ -49,18 +42,8 @@ const Avatar = (props) => {
 	};
 
 	return (
-		<div
-			className={cn(
-				baseClasses,
-				!url && variantClasses,
-				sizeClasses,
-				borderClasses,
-				contentClasses,
-				className
-			)}
-			style={url ? { backgroundImage: `url(${url})` } : {}}
-		>
-			{getChildren()}
+		<div className={ cn( baseClasses, ! url && variantClasses, sizeClasses, borderClasses, contentClasses, className ) } style={ url ? { backgroundImage: `url(${ url })` } : {} }>
+			{ getChildren() }
 		</div>
 	);
 };

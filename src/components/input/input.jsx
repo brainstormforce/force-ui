@@ -18,16 +18,13 @@ const Input = (
 		suffix = null,
 		...props
 	},
-	ref
+	ref,
 ) => {
-	const inputId = useMemo(() => id || `input-${type}-${nanoid()}`, [id]);
-	const isControlled = useMemo(() => typeof value !== 'undefined', [value]);
-	const [inputValue, setInputValue] = useState(defaultValue);
+	const inputId = useMemo( () => id || `input-${ type }-${ nanoid() }`, [ id ] );
+	const isControlled = useMemo( () => typeof value !== 'undefined', [ value ] );
+	const [ inputValue, setInputValue ] = useState( defaultValue );
 
-	const getValue = useCallback(
-		() => (isControlled ? value : inputValue),
-		[isControlled, value, inputValue]
-	);
+	const getValue = useCallback( () => ( isControlled ? value : inputValue ), [ isControlled, value, inputValue ] );
 
 	const handleChange = (event) => {
 		if (disabled) {
@@ -90,49 +87,21 @@ const Input = (
 		if (!prefix) {
 			return null;
 		}
-		return (
-			<div className={cn(iconClasses, 'left-0 pl-3', textClasses[size])}>
-				{prefix}
-			</div>
-		);
+		return <div className={ cn( iconClasses, 'left-0 pl-3', textClasses[ size ] ) }>{ prefix }</div>;
 	};
 
 	const getSuffix = () => {
 		if (!suffix) {
 			return null;
 		}
-		return (
-			<div className={cn(iconClasses, 'right-0 pr-3', textClasses[size])}>
-				{suffix}
-			</div>
-		);
+		return <div className={ cn( iconClasses, 'right-0 pr-3', textClasses[ size ] ) }>{ suffix }</div>;
 	};
 
 	return (
-		<div className={cn('relative flex focus-within:z-10', className)}>
-			{getPrefix()}
-			<input
-				ref={ref}
-				id={inputId}
-				type={type}
-				className={cn(
-					baseClasses,
-					disabledClasses,
-					sizeClasses[size],
-					textClasses[size],
-					sizeClassesWithPrefix[size],
-					sizeClassesWithSuffix[size],
-					focusClasses,
-					hoverClasses,
-					errorClasses
-				)}
-				disabled={disabled}
-				onChange={handleChange}
-				onInvalid={onError}
-				value={getValue()}
-				{...props}
-			/>
-			{getSuffix()}
+		<div className={ cn( 'relative flex focus-within:z-10', className ) }>
+			{ getPrefix() }
+			<input ref={ ref } id={ inputId } type={ type } className={ cn( baseClasses, disabledClasses, sizeClasses[ size ], textClasses[ size ], sizeClassesWithPrefix[ size ], sizeClassesWithSuffix[ size ], focusClasses, hoverClasses, errorClasses ) } disabled={ disabled } onChange={ handleChange } onInvalid={ onError } value={ getValue() } { ...props } />
+			{ getSuffix() }
 		</div>
 	);
 };

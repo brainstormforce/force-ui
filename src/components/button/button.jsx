@@ -1,4 +1,4 @@
-import { twMerge } from 'tailwind-merge';
+import { cn } from '../../utility/utils';
 
 const Button = (props) => {
 	const {
@@ -64,7 +64,7 @@ const Button = (props) => {
 	return (
 		<Tag
 			type={type}
-			className={twMerge(
+			className={cn(
 				iconClass,
 				commonClass,
 				sizeClassNames,

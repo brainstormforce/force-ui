@@ -1,4 +1,4 @@
-import { twMerge } from 'tailwind-merge';
+import { cn } from '../../utility/utils';
 import { X, Info } from 'lucide-react';
 
 /**
@@ -68,7 +68,7 @@ const Badge = (props) => {
 
 	return (
 		<span
-			className={twMerge(
+			className={cn(
 				baseClasses,
 				sizeClasses[size],
 				typeClasses[type],
