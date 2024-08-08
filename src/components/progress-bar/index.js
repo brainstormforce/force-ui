@@ -1,1 +1,1 @@
-export { default } from "./progress-bar.jsx";
+export { default } from './progress-bar.jsx';
