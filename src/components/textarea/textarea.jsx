@@ -1,35 +1,27 @@
-import {
-	useState,
-	useCallback,
-	useMemo,
-	forwardRef,
-} from 'react';
+import { useState, useCallback, useMemo, forwardRef } from 'react';
 import { nanoid } from 'nanoid';
 import { cn } from '../../utility/utils';
 
-const TextArea = ( {
-	id,
-	defaultValue = '',
-	value,
-	size = 'sm', // sm, md, lg
-	className = '',
-	disabled = false,
-	onChange = () => {},
-	error = false,
-	onError = () => {},
-	...props
-}, ref ) => {
+const TextArea = (
+	{
+		id,
+		defaultValue = '',
+		value,
+		size = 'sm', // sm, md, lg
+		className = '',
+		disabled = false,
+		onChange = () => {},
+		error = false,
+		onError = () => {},
+		...props
+	},
+	ref,
+) => {
 	const inputId = useMemo( () => id || `input-textarea-${ nanoid() }`, [ id ] );
-	const isControlled = useMemo(
-		() => typeof value !== 'undefined',
-		[ value ]
-	);
+	const isControlled = useMemo( () => typeof value !== 'undefined', [ value ] );
 	const [ inputValue, setInputValue ] = useState( defaultValue );
 
-	const getValue = useCallback(
-		() => ( isControlled ? value : inputValue ),
-		[ isControlled, value, inputValue ]
-	);
+	const getValue = useCallback( () => ( isControlled ? value : inputValue ), [ isControlled, value, inputValue ] );
 
 	const handleChange = ( event ) => {
 		if ( disabled ) {
@@ -59,28 +51,7 @@ const TextArea = ( {
 	const errorClasses = error ? 'focus:border-focus-error-border focus:ring-field-color-error bg-field-background-error' : '';
 	const disabledClasses = disabled ? 'border-border-disabled bg-field-background-disabled cursor-not-allowed text-text-disabled' : '';
 
-	return (
-		<textarea
-			ref={ ref }
-			id={ inputId }
-			className={
-				cn(
-					baseClasses,
-					disabledClasses,
-					sizeClasses[ size ],
-					focusClasses,
-					hoverClasses,
-					errorClasses,
-					className
-				)
-			}
-			disabled={ disabled }
-			onChange={ handleChange }
-			onInvalid={ onError }
-			value={ getValue() }
-			{ ...props }
-		/>
-	);
+	return <textarea ref={ ref } id={ inputId } className={ cn( baseClasses, disabledClasses, sizeClasses[ size ], focusClasses, hoverClasses, errorClasses, className ) } disabled={ disabled } onChange={ handleChange } onInvalid={ onError } value={ getValue() } { ...props } />;
 };
 
 export default forwardRef( TextArea );

@@ -1,4 +1,4 @@
-import { twMerge } from 'tailwind-merge';
+import { cn } from '../../utility/utils';
 import { X, Info } from 'lucide-react';
 
 /**
@@ -61,7 +61,7 @@ const Badge = ( props ) => {
 	}
 
 	return (
-		<span className={ twMerge( baseClasses, sizeClasses[ size ], typeClasses[ type ], filteredClasses, className ) }>
+		<span className={ cn( baseClasses, sizeClasses[ size ], typeClasses[ type ], filteredClasses, className ) }>
 			{ icon ? <span className="justify-center flex items-center [&>svg]:h-4 [&>svg]:w-4">{ icon }</span> : null }
 			{ label }
 			{ closable && (
