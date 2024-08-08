@@ -11,8 +11,8 @@
     "pretty-lint": "prettier --check .",
     "lint:js": "wp-scripts lint-js ./src",
     "lint:js-fix": "wp-scripts lint-js ./src --fix",
-    "lint:css": "wp-scripts lint-style ./src",
-    "lint:css-fix": "wp-scripts lint-style ./src --fix"
+    "lint:css": "wp-scripts lint-style ./src/**/*.{scss,css}",
+    "lint:css-fix": "wp-scripts lint-style ./src/**/*.{scss,css} --fix"
   },
   "repository": {
     "type": "git",
