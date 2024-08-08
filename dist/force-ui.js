@@ -1839,6 +1839,7 @@ var Toaster = function Toaster(_ref) {
     warning: 'text-field-color-disabled disabled cursor-not-allowed [&>*]:text-field-color-disabled',
     danger: 'text-field-color-disabled disabled cursor-not-allowed [&>*]:text-field-color-disabled'
   };
+  console.log(props);
   if (design === 'stack') {
     return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
       className: "flex items-center justify-start",
@@ -1867,7 +1868,6 @@ var Toaster = function Toaster(_ref) {
       })]
     });
   }
-  console.log(props);
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", _objectSpread(_objectSpread({
     htmlFor: forId,
     className: (0,_utility_utils__WEBPACK_IMPORTED_MODULE_2__.cn)(baseClasses,

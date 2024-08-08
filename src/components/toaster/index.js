@@ -43,6 +43,8 @@ const Toaster = ( {
         danger: 'text-field-color-disabled disabled cursor-not-allowed [&>*]:text-field-color-disabled',
 	};
 
+    console.log(props);
+
     if ( design === 'stack' ) {
         return (
             <div className='flex items-center justify-start'>
@@ -70,8 +72,6 @@ const Toaster = ( {
             </div>
         );
     }
-
-    console.log(props);
 
 	return (
 		<div
