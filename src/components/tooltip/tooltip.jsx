@@ -5,14 +5,15 @@ const Tooltip = (props) => {
     const {
         variant = 'light', // light, dark
         placement = 'top', // top, top-start, top-end, right, right-start, right-end, bottom, bottom-start, bottom-end, left, left-start, left-end
-        title = '', // Title of Tooltip
-        content, // HTML content
+        title = '', 
+        content, 
         arrow = false,
+        open,
+        onOpen,
+        onClose,
+        focusOnly = false, 
+        children, 
         className,
-        open, // Controlled open state
-        onOpen, // Controlled open event handler
-        onClose, // Controlled close event handler
-        children, // button, icons, links
     } = props;
 
     const [isVisible, setIsVisible] = useState(false);
@@ -48,7 +49,7 @@ const Tooltip = (props) => {
         dark: 'bg-tooltip-background-dark text-text-on-color'
     }?.[variant];
 
-    const widthClasses = content ? 'w-80' : 'w-auto'; // Dynamic width based on content
+    const widthClasses = content ? 'w-80' : 'w-auto';
 
     const placementClasses = {
         top: 'bottom-full left-1/2 transform -translate-x-1/2 mb-5',
@@ -67,25 +68,27 @@ const Tooltip = (props) => {
 
     const arrowPlacementClasses = {
         top: 'bottom-0 left-1/2 transform -translate-x-1/2 translate-y-1/2',
-        'top-start': 'bottom-0 left-5 translate-y-1/2',
-        'top-end': 'bottom-0 right-5 translate-y-1/2',
+        'top-start': 'bottom-0 left-4 translate-y-1/2',
+        'top-end': 'bottom-0 right-4 translate-y-1/2',
         right: 'left-0 top-1/2 transform -translate-y-1/2 -translate-x-1/2',
-        'right-start': 'left-0 top-5 -translate-x-1/2',
-        'right-end': 'left-0 bottom-5 -translate-x-1/2',
+        'right-start': 'left-0 top-4 -translate-x-1/2',
+        'right-end': 'left-0 bottom-4 -translate-x-1/2',
         bottom: 'top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2',
-        'bottom-start': 'top-0 left-5 -translate-y-1/2',
-        'bottom-end': 'top-0 right-5 -translate-y-1/2',
+        'bottom-start': 'top-0 left-4 -translate-y-1/2',
+        'bottom-end': 'top-0 right-4 -translate-y-1/2',
         left: 'right-0 top-1/2 transform -translate-y-1/2 translate-x-1/2',
-        'left-start': 'right-0 top-5 translate-x-1/2',
-        'left-end': 'right-0 bottom-5 translate-x-1/2'
+        'left-start': 'right-0 top-4 translate-x-1/2',
+        'left-end': 'right-0 bottom-4 translate-x-1/2'
     }?.[placement];
 
     return (
         <div
             className={cn(baseClasses, className)}
-            onMouseEnter={!open && !onOpen ? showTooltip : undefined}
-            onMouseLeave={!open && !onClose ? hideTooltip : undefined}
-            onClick={open !== undefined ? (isVisible ? hideTooltip : showTooltip) : undefined}
+            onMouseEnter={!focusOnly && !open && !onOpen ? showTooltip : undefined}
+            onMouseLeave={!focusOnly && !open && !onClose ? hideTooltip : undefined}
+            onClick={!focusOnly &&  open !== undefined ? (isVisible ? hideTooltip : showTooltip) : undefined}
+            onFocus={focusOnly ? showTooltip : undefined}
+            onBlur={focusOnly ? hideTooltip : undefined}
         >
             {children}
             {isVisible && (
