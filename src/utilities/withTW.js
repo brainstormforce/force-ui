@@ -1,9 +1,9 @@
-const deepmerge = require("deepmerge");
+const deepmerge = require( 'deepmerge' );
 
-const libraryConfig = require('../../tailwind.config.js')
+const libraryConfig = require( '../../tailwind.config.js' );
 
-const withTW = (tailwindConfig) => {
-	return deepmerge(libraryConfig, {...tailwindConfig});
+const withTW = ( tailwindConfig ) => {
+	return deepmerge( libraryConfig, { ...tailwindConfig } );
 };
 
 module.exports = withTW;
