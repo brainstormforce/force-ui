@@ -15,6 +15,12 @@ const libConfig = {
 	resolve: {
 		...defaultConfig.resolve,
 		extensions: [".js", ".jsx", "..."],
+		alias: {
+			...defaultConfig.resolve.alias,
+			"@": path.resolve(process.cwd(), "src"),
+			"@/components": path.resolve(process.cwd(), "src/components"),
+			"@/utilities": path.resolve(process.cwd(), "src/utilities"),
+		},
 	},
 	module: {
 		...defaultConfig.module,

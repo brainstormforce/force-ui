@@ -1,4 +1,4 @@
-import { cn } from '../../utility/utils';
+import { cn } from '../../utilities/functions';
 
 const Avatar = ( props ) => {
 	const { variant = 'primary', size = 'md', border = 'subtle', url = '', children, className } = props;

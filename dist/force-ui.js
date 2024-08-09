@@ -19,7 +19,7 @@ return /******/ (function() { // webpackBootstrap
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _utility_utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../utility/utils */ "./src/utility/utils.js");
+/* harmony import */ var _utilities_functions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../utilities/functions */ "./src/utilities/functions.js");
 
 var Avatar = function Avatar(props) {
   var _white$gray$primary$p, _xs$sm$md$lg, _none$subtle$ring;
@@ -65,7 +65,7 @@ var Avatar = function Avatar(props) {
     return children;
   };
   return /*#__PURE__*/React.createElement("div", {
-    className: (0,_utility_utils__WEBPACK_IMPORTED_MODULE_0__.cn)(baseClasses, !url && variantClasses, sizeClasses, borderClasses, contentClasses, className),
+    className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_0__.cn)(baseClasses, !url && variantClasses, sizeClasses, borderClasses, contentClasses, className),
     style: url ? {
       backgroundImage: "url(".concat(url, ")")
     } : {}
@@ -97,7 +97,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _utility_utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../utility/utils */ "./src/utility/utils.js");
+/* harmony import */ var _utilities_functions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../utilities/functions */ "./src/utilities/functions.js");
 /* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lucide-react */ "../../node_modules/lucide-react/dist/esm/icons/info.js");
 /* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lucide-react */ "../../node_modules/lucide-react/dist/esm/icons/x.js");
 
@@ -166,7 +166,7 @@ var Badge = function Badge(props) {
     return null;
   }
   return /*#__PURE__*/React.createElement("span", {
-    className: (0,_utility_utils__WEBPACK_IMPORTED_MODULE_0__.cn)(baseClasses, sizeClasses[size], typeClasses[type], filteredClasses, className)
+    className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_0__.cn)(baseClasses, sizeClasses[size], typeClasses[type], filteredClasses, className)
   }, icon ? /*#__PURE__*/React.createElement("span", {
     className: "justify-center flex items-center [&>svg]:h-4 [&>svg]:w-4"
   }, icon) : null, label, closable && /*#__PURE__*/React.createElement("span", {
@@ -206,7 +206,7 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _utility_utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../utility/utils */ "./src/utility/utils.js");
+/* harmony import */ var _utilities_functions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../utilities/functions */ "./src/utilities/functions.js");
 var _excluded = ["slug", "text", "icon", "className", "disabled", "isFirstChild", "isLastChild"];
 function _extends() {
   _extends = Object.assign ? Object.assign.bind() : function (target) {
@@ -293,7 +293,7 @@ var ButtonGroup = function ButtonGroup(props) {
       });
     }
   }, [onChange]);
-  var groupClassName = (0,_utility_utils__WEBPACK_IMPORTED_MODULE_1__.cn)('box-border flex border border-border-subtle border-solid rounded', className);
+  var groupClassName = (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_1__.cn)('box-border flex border border-border-subtle border-solid rounded', className);
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: groupClassName
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(ButtonGroupContext.Provider, {
@@ -367,7 +367,7 @@ var Button = function Button(props, ref) {
   var lastChildClasses = isLastChild ? 'rounded-tr rounded-br border-0' : '';
   var borderClasses = 'border-0 border-r border-border-subtle border-solid';
   var activeClasses = activeItem === slug ? 'bg-button-disabled' : '';
-  var buttonClassName = (0,_utility_utils__WEBPACK_IMPORTED_MODULE_1__.cn)(baseClasses, hoverClasses, focusClasses, disabledClasses, sizes[size], borderClasses, activeClasses, firstChildClasses, lastChildClasses, className);
+  var buttonClassName = (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_1__.cn)(baseClasses, hoverClasses, focusClasses, disabledClasses, sizes[size], borderClasses, activeClasses, firstChildClasses, lastChildClasses, className);
   var handleClick = function handleClick(event) {
     onChange(event, {
       slug: slug,
@@ -415,7 +415,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _utility_utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../utility/utils */ "./src/utility/utils.js");
+/* harmony import */ var _utilities_functions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../utilities/functions */ "./src/utilities/functions.js");
 var _excluded = ["variant", "size", "type", "tag", "className", "children", "disabled", "destructive", "icon", "iconPosition"];
 function _extends() {
   _extends = Object.assign ? Object.assign.bind() : function (target) {
@@ -514,7 +514,7 @@ var Button = function Button(props) {
   var Tag = tag;
   return /*#__PURE__*/React.createElement(Tag, _extends({
     type: type,
-    className: (0,_utility_utils__WEBPACK_IMPORTED_MODULE_0__.cn)(iconClass, commonClass, sizeClassNames, variantClassNames, destructiveClassNames, className),
+    className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_0__.cn)(iconClass, commonClass, sizeClassNames, variantClassNames, destructiveClassNames, className),
     disabled: disabled
   }, rest), iconLeft, children, iconRight);
 };
@@ -547,7 +547,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var nanoid__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! nanoid */ "./node_modules/nanoid/index.browser.js");
-/* harmony import */ var _utility_utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../utility/utils */ "./src/utility/utils.js");
+/* harmony import */ var _utilities_functions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../utilities/functions */ "./src/utilities/functions.js");
 /* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! lucide-react */ "../../node_modules/lucide-react/dist/esm/icons/minus.js");
 /* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! lucide-react */ "../../node_modules/lucide-react/dist/esm/icons/check.js");
 var _excluded = ["id", "label", "defaultChecked", "checked", "onChange", "value", "indeterminate", "disabled", "size"];
@@ -722,26 +722,26 @@ var Checkbox = function Checkbox(_ref, ref) {
     }, label.description));
   }, [label]);
   return /*#__PURE__*/React.createElement("div", {
-    className: (0,_utility_utils__WEBPACK_IMPORTED_MODULE_1__.cn)('inline-flex items-center', !!label && 'items-start')
+    className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_1__.cn)('inline-flex items-center', !!label && 'items-start')
   }, /*#__PURE__*/React.createElement("label", {
-    className: (0,_utility_utils__WEBPACK_IMPORTED_MODULE_1__.cn)('relative flex items-center rounded-full', !disabled && 'cursor-pointer'),
+    className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_1__.cn)('relative flex items-center rounded-full', !disabled && 'cursor-pointer'),
     htmlFor: checkboxId
   }, /*#__PURE__*/React.createElement("input", _extends({
     ref: ref,
     id: checkboxId,
     type: "checkbox",
-    className: (0,_utility_utils__WEBPACK_IMPORTED_MODULE_1__.cn)("peer relative cursor-pointer appearance-none transition-all m-0 before:content-[''] checked:before:content-[''] checked:before:hidden before:hidden !border-1.5 border-solid", colorClassNames[color].checkbox, sizeClassNames[size].checkbox, disabled && disabledClassNames.checkbox),
+    className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_1__.cn)("peer relative cursor-pointer appearance-none transition-all m-0 before:content-[''] checked:before:content-[''] checked:before:hidden before:hidden !border-1.5 border-solid", colorClassNames[color].checkbox, sizeClassNames[size].checkbox, disabled && disabledClassNames.checkbox),
     checked: getValue(),
     onChange: handleChange,
     disabled: disabled
   }, props)), /*#__PURE__*/React.createElement("span", {
-    className: (0,_utility_utils__WEBPACK_IMPORTED_MODULE_1__.cn)('pointer-events-none inline-flex items-center absolute top-2/4 left-2/4 -translate-y-2/4 -translate-x-2/4 text-white opacity-0 transition-opacity peer-checked:opacity-100', colorClassNames[color].icon, disabled && disabledClassNames.icon)
+    className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_1__.cn)('pointer-events-none inline-flex items-center absolute top-2/4 left-2/4 -translate-y-2/4 -translate-x-2/4 text-white opacity-0 transition-opacity peer-checked:opacity-100', colorClassNames[color].icon, disabled && disabledClassNames.icon)
   }, indeterminate ? /*#__PURE__*/React.createElement(lucide_react__WEBPACK_IMPORTED_MODULE_3__["default"], {
-    className: (0,_utility_utils__WEBPACK_IMPORTED_MODULE_1__.cn)((_sizeClassNames$size = sizeClassNames[size]) === null || _sizeClassNames$size === void 0 ? void 0 : _sizeClassNames$size.icon)
+    className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_1__.cn)((_sizeClassNames$size = sizeClassNames[size]) === null || _sizeClassNames$size === void 0 ? void 0 : _sizeClassNames$size.icon)
   }) : /*#__PURE__*/React.createElement(lucide_react__WEBPACK_IMPORTED_MODULE_4__["default"], {
-    className: (0,_utility_utils__WEBPACK_IMPORTED_MODULE_1__.cn)((_sizeClassNames$size2 = sizeClassNames[size]) === null || _sizeClassNames$size2 === void 0 ? void 0 : _sizeClassNames$size2.icon)
+    className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_1__.cn)((_sizeClassNames$size2 = sizeClassNames[size]) === null || _sizeClassNames$size2 === void 0 ? void 0 : _sizeClassNames$size2.icon)
   }))), !!label && /*#__PURE__*/React.createElement("label", {
-    className: (0,_utility_utils__WEBPACK_IMPORTED_MODULE_1__.cn)('ml-3', !disabled && 'cursor-pointer'),
+    className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_1__.cn)('ml-3', !disabled && 'cursor-pointer'),
     htmlFor: checkboxId
   }, renderLabel()));
 };
@@ -840,7 +840,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var nanoid__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! nanoid */ "./node_modules/nanoid/index.browser.js");
-/* harmony import */ var _utility_utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../utility/utils */ "./src/utility/utils.js");
+/* harmony import */ var _utilities_functions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../utilities/functions */ "./src/utilities/functions.js");
 var _excluded = ["id", "type", "defaultValue", "value", "size", "className", "disabled", "onChange", "error", "onError", "prefix", "suffix"];
 function _extends() {
   _extends = Object.assign ? Object.assign.bind() : function (target) {
@@ -1016,7 +1016,7 @@ var Input = function Input(_ref, ref) {
       return null;
     }
     return /*#__PURE__*/React.createElement("div", {
-      className: (0,_utility_utils__WEBPACK_IMPORTED_MODULE_1__.cn)(iconClasses, 'left-0 pl-3', textClasses[size])
+      className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_1__.cn)(iconClasses, 'left-0 pl-3', textClasses[size])
     }, prefix);
   };
   var getSuffix = function getSuffix() {
@@ -1024,16 +1024,16 @@ var Input = function Input(_ref, ref) {
       return null;
     }
     return /*#__PURE__*/React.createElement("div", {
-      className: (0,_utility_utils__WEBPACK_IMPORTED_MODULE_1__.cn)(iconClasses, 'right-0 pr-3', textClasses[size])
+      className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_1__.cn)(iconClasses, 'right-0 pr-3', textClasses[size])
     }, suffix);
   };
   return /*#__PURE__*/React.createElement("div", {
-    className: (0,_utility_utils__WEBPACK_IMPORTED_MODULE_1__.cn)('relative flex focus-within:z-10', className)
+    className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_1__.cn)('relative flex focus-within:z-10', className)
   }, getPrefix(), /*#__PURE__*/React.createElement("input", _extends({
     ref: ref,
     id: inputId,
     type: type,
-    className: (0,_utility_utils__WEBPACK_IMPORTED_MODULE_1__.cn)(baseClasses, disabledClasses, sizeClasses[size], textClasses[size], sizeClassesWithPrefix[size], sizeClassesWithSuffix[size], focusClasses, hoverClasses, errorClasses),
+    className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_1__.cn)(baseClasses, disabledClasses, sizeClasses[size], textClasses[size], sizeClassesWithPrefix[size], sizeClassesWithSuffix[size], focusClasses, hoverClasses, errorClasses),
     disabled: disabled,
     onChange: handleChange,
     onInvalid: onError,
@@ -1066,7 +1066,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _utility_utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../utility/utils */ "./src/utility/utils.js");
+/* harmony import */ var _utilities_functions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../utilities/functions */ "./src/utilities/functions.js");
 var _excluded = ["children", "tag", "size", "className", "variant", "required"];
 function _extends() {
   _extends = Object.assign ? Object.assign.bind() : function (target) {
@@ -1155,7 +1155,7 @@ var Label = function Label(_ref) {
   }
   var Tag = tag;
   return /*#__PURE__*/React.createElement(Tag, _extends({
-    className: (0,_utility_utils__WEBPACK_IMPORTED_MODULE_0__.cn)(baseClasses, sizeClasses[size], variantClasses[variant], requiredClasses, className)
+    className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_0__.cn)(baseClasses, sizeClasses[size], variantClasses[variant], requiredClasses, className)
   }, props), children);
 };
 /* harmony default export */ __webpack_exports__["default"] = (Label);
@@ -1184,7 +1184,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _utility_utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../utility/utils */ "./src/utility/utils.js");
+/* harmony import */ var _utilities_functions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../utilities/functions */ "./src/utilities/functions.js");
 /* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lucide-react */ "../../node_modules/lucide-react/dist/esm/icons/loader-circle.js");
 
 
@@ -1209,7 +1209,7 @@ var Loader = function Loader(_ref) {
     xl: '[&>svg]:h-8 [&>svg]:w-8'
   }) === null || _sm$md$lg$xl === void 0 ? void 0 : _sm$md$lg$xl[size];
   return /*#__PURE__*/React.createElement("span", {
-    className: (0,_utility_utils__WEBPACK_IMPORTED_MODULE_0__.cn)('flex', sizeClassNames, variantClassNames, className)
+    className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_0__.cn)('flex', sizeClassNames, variantClassNames, className)
   }, icon ? icon : /*#__PURE__*/React.createElement(lucide_react__WEBPACK_IMPORTED_MODULE_1__["default"], {
     className: "animate-spin"
   }));
@@ -1240,7 +1240,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _utility_utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../utility/utils */ "./src/utility/utils.js");
+/* harmony import */ var _utilities_functions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../utilities/functions */ "./src/utilities/functions.js");
 
 var ProgressBar = function ProgressBar(_ref) {
   var _ref$progress = _ref.progress,
@@ -1262,7 +1262,7 @@ var ProgressBar = function ProgressBar(_ref) {
   var translateProperty = "translateX(-".concat(100 - percent, "%)");
   var innerClasses = "h-2 rounded-full bg-background-brand absolute left-0 top-0 w-full bottom-0 origin-left transition-transform duration-".concat(speed, " ease-linear");
   return /*#__PURE__*/React.createElement("div", {
-    className: (0,_utility_utils__WEBPACK_IMPORTED_MODULE_0__.cn)('h-2 rounded-full bg-misc-progress-background overflow-hidden relative', className),
+    className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_0__.cn)('h-2 rounded-full bg-misc-progress-background overflow-hidden relative', className),
     role: "progressbar",
     "aria-valuenow": percent,
     "aria-valuemin": "0",
@@ -1303,7 +1303,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var nanoid__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! nanoid */ "./node_modules/nanoid/index.browser.js");
-/* harmony import */ var _utility_utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../utility/utils */ "./src/utility/utils.js");
+/* harmony import */ var _utilities_functions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../utilities/functions */ "./src/utilities/functions.js");
 var _excluded = ["id", "label", "value", "disabled", "size"];
 function _extends() {
   _extends = Object.assign ? Object.assign.bind() : function (target) {
@@ -1539,26 +1539,26 @@ var RadioButton = function RadioButton(_ref2, ref) {
     }, label.description));
   }, [label]);
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-    className: (0,_utility_utils__WEBPACK_IMPORTED_MODULE_1__.cn)('inline-flex items-center', !!label && 'items-start')
+    className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_1__.cn)('inline-flex items-center', !!label && 'items-start')
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", {
-    className: (0,_utility_utils__WEBPACK_IMPORTED_MODULE_1__.cn)('relative flex items-center rounded-full', !isDisabled && 'cursor-pointer'),
+    className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_1__.cn)('relative flex items-center rounded-full', !isDisabled && 'cursor-pointer'),
     htmlFor: radioButtonId
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", _extends({
     ref: ref,
     id: radioButtonId,
     type: "radio",
-    className: (0,_utility_utils__WEBPACK_IMPORTED_MODULE_1__.cn)("peer relative cursor-pointer appearance-none transition-all m-0 before:content-[''] checked:before:content-[''] checked:before:hidden before:hidden !border-1.5 border-solid rounded-full", colorClassNames[color].checkbox, sizeClassNames[size].checkbox, isDisabled && disabledClassNames.checkbox),
+    className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_1__.cn)("peer relative cursor-pointer appearance-none transition-all m-0 before:content-[''] checked:before:content-[''] checked:before:hidden before:hidden !border-1.5 border-solid rounded-full", colorClassNames[color].checkbox, sizeClassNames[size].checkbox, isDisabled && disabledClassNames.checkbox),
     name: name,
     value: value,
     onChange: onChange,
     checked: checkedValue,
     disabled: isDisabled
   }, props)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", {
-    className: (0,_utility_utils__WEBPACK_IMPORTED_MODULE_1__.cn)('pointer-events-none inline-flex items-center absolute top-2/4 left-2/4 -translate-y-2/4 -translate-x-2/4 text-white opacity-0 transition-opacity peer-checked:opacity-100', colorClassNames[color].icon, isDisabled && disabledClassNames.icon)
+    className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_1__.cn)('pointer-events-none inline-flex items-center absolute top-2/4 left-2/4 -translate-y-2/4 -translate-x-2/4 text-white opacity-0 transition-opacity peer-checked:opacity-100', colorClassNames[color].icon, isDisabled && disabledClassNames.icon)
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-    className: (0,_utility_utils__WEBPACK_IMPORTED_MODULE_1__.cn)('rounded-full bg-current', (_sizeClassNames$size = sizeClassNames[size]) === null || _sizeClassNames$size === void 0 ? void 0 : _sizeClassNames$size.icon)
+    className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_1__.cn)('rounded-full bg-current', (_sizeClassNames$size = sizeClassNames[size]) === null || _sizeClassNames$size === void 0 ? void 0 : _sizeClassNames$size.icon)
   }))), !!label && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", {
-    className: (0,_utility_utils__WEBPACK_IMPORTED_MODULE_1__.cn)('ml-3', !isDisabled && 'cursor-pointer'),
+    className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_1__.cn)('ml-3', !isDisabled && 'cursor-pointer'),
     htmlFor: radioButtonId
   }, renderLabel()));
 };
@@ -1595,7 +1595,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var nanoid__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! nanoid */ "./node_modules/nanoid/index.browser.js");
-/* harmony import */ var _utility_utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../utility/utils */ "./src/utility/utils.js");
+/* harmony import */ var _utilities_functions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../utilities/functions */ "./src/utilities/functions.js");
 var _excluded = ["id", "onChange", "value", "defaultValue", "size", "disabled", "label", "name"];
 function _extends() {
   _extends = Object.assign ? Object.assign.bind() : function (target) {
@@ -1718,10 +1718,10 @@ var SwitchLabel = function SwitchLabel(_ref) {
     return children;
   }
   return /*#__PURE__*/React.createElement("div", {
-    className: (0,_utility_utils__WEBPACK_IMPORTED_MODULE_1__.cn)('inline-flex items-center', !isEmptyLabel && 'items-start')
+    className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_1__.cn)('inline-flex items-center', !isEmptyLabel && 'items-start')
   }, children, /*#__PURE__*/React.createElement("label", {
     htmlFor: switchId,
-    className: (0,_utility_utils__WEBPACK_IMPORTED_MODULE_1__.cn)('ml-3', !disabled && 'cursor-pointer')
+    className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_1__.cn)('ml-3', !disabled && 'cursor-pointer')
   }, renderLabel()));
 };
 var Switch = function Switch(_ref2, ref) {
@@ -1793,19 +1793,19 @@ var Switch = function Switch(_ref2, ref) {
     switchId: switchId,
     disabled: disabled
   }, /*#__PURE__*/React.createElement("div", {
-    className: (0,_utility_utils__WEBPACK_IMPORTED_MODULE_1__.cn)('relative inline-block cursor-pointer rounded-full shrink-0', sizeClassNames[size].container)
+    className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_1__.cn)('relative inline-block cursor-pointer rounded-full shrink-0', sizeClassNames[size].container)
   }, /*#__PURE__*/React.createElement("input", _extends({
     ref: ref,
     id: switchId,
     type: "checkbox",
-    className: (0,_utility_utils__WEBPACK_IMPORTED_MODULE_1__.cn)("peer appearance-none absolute bg-blue-gray-100 rounded-full cursor-pointer transition-colors duration-300 h-full w-full  before:content-[''] checked:before:content-[''] m-0", colorClassNames[color].input, disabled && disabledClassNames.input),
+    className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_1__.cn)("peer appearance-none absolute bg-blue-gray-100 rounded-full cursor-pointer transition-colors duration-300 h-full w-full  before:content-[''] checked:before:content-[''] m-0", colorClassNames[color].input, disabled && disabledClassNames.input),
     checked: getValue(),
     onChange: handleChange,
     disabled: disabled,
     name: name
   }, props)), /*#__PURE__*/React.createElement("label", {
     htmlFor: switchId,
-    className: (0,_utility_utils__WEBPACK_IMPORTED_MODULE_1__.cn)("bg-white border border-blue-gray-100 rounded-full absolute cursor-pointer shadow-md before:content[''] before:transition-opacity before:opacity-0 hover:before:opacity-10 before:hidden border-none transition-all duration-300", sizeClassNames[size].toggleDial, colorClassNames[color].toggleDial, disabled && disabledClassNames.toggleDial)
+    className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_1__.cn)("bg-white border border-blue-gray-100 rounded-full absolute cursor-pointer shadow-md before:content[''] before:transition-opacity before:opacity-0 hover:before:opacity-10 before:hidden border-none transition-all duration-300", sizeClassNames[size].toggleDial, colorClassNames[color].toggleDial, disabled && disabledClassNames.toggleDial)
   })));
 };
 /* harmony default export */ __webpack_exports__["default"] = (/*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.forwardRef)(Switch));
@@ -2072,7 +2072,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var nanoid__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! nanoid */ "./node_modules/nanoid/index.browser.js");
-/* harmony import */ var _utility_utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../utility/utils */ "./src/utility/utils.js");
+/* harmony import */ var _utilities_functions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../utilities/functions */ "./src/utilities/functions.js");
 var _excluded = ["id", "defaultValue", "value", "size", "className", "disabled", "onChange", "error", "onError"];
 function _extends() {
   _extends = Object.assign ? Object.assign.bind() : function (target) {
@@ -2224,7 +2224,7 @@ var TextArea = function TextArea(_ref, ref) {
   return /*#__PURE__*/React.createElement("textarea", _extends({
     ref: ref,
     id: inputId,
-    className: (0,_utility_utils__WEBPACK_IMPORTED_MODULE_1__.cn)(baseClasses, disabledClasses, sizeClasses[size], focusClasses, hoverClasses, errorClasses, className),
+    className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_1__.cn)(baseClasses, disabledClasses, sizeClasses[size], focusClasses, hoverClasses, errorClasses, className),
     disabled: disabled,
     onChange: handleChange,
     onInvalid: onError,
@@ -2235,10 +2235,10 @@ var TextArea = function TextArea(_ref, ref) {
 
 /***/ }),
 
-/***/ "./src/utility/utils.js":
-/*!******************************!*\
-  !*** ./src/utility/utils.js ***!
-  \******************************/
+/***/ "./src/utilities/functions.js":
+/*!************************************!*\
+  !*** ./src/utilities/functions.js ***!
+  \************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 __webpack_require__.r(__webpack_exports__);
@@ -2262,6 +2262,400 @@ function prefix() {
 var cn = function cn() {
   return (0,tailwind_merge__WEBPACK_IMPORTED_MODULE_1__.twMerge)(clsx__WEBPACK_IMPORTED_MODULE_0__.clsx.apply(void 0, arguments));
 };
+
+/***/ }),
+
+/***/ "./src/utilities/withTW.js":
+/*!*********************************!*\
+  !*** ./src/utilities/withTW.js ***!
+  \*********************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var deepmerge__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! deepmerge */ "../../node_modules/deepmerge/dist/cjs.js");
+/* harmony import */ var deepmerge__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(deepmerge__WEBPACK_IMPORTED_MODULE_0__);
+function _typeof(o) {
+  "@babel/helpers - typeof";
+
+  return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) {
+    return typeof o;
+  } : function (o) {
+    return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o;
+  }, _typeof(o);
+}
+function ownKeys(e, r) {
+  var t = Object.keys(e);
+  if (Object.getOwnPropertySymbols) {
+    var o = Object.getOwnPropertySymbols(e);
+    r && (o = o.filter(function (r) {
+      return Object.getOwnPropertyDescriptor(e, r).enumerable;
+    })), t.push.apply(t, o);
+  }
+  return t;
+}
+function _objectSpread(e) {
+  for (var r = 1; r < arguments.length; r++) {
+    var t = null != arguments[r] ? arguments[r] : {};
+    r % 2 ? ownKeys(Object(t), !0).forEach(function (r) {
+      _defineProperty(e, r, t[r]);
+    }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) {
+      Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r));
+    });
+  }
+  return e;
+}
+function _defineProperty(obj, key, value) {
+  key = _toPropertyKey(key);
+  if (key in obj) {
+    Object.defineProperty(obj, key, {
+      value: value,
+      enumerable: true,
+      configurable: true,
+      writable: true
+    });
+  } else {
+    obj[key] = value;
+  }
+  return obj;
+}
+function _toPropertyKey(t) {
+  var i = _toPrimitive(t, "string");
+  return "symbol" == _typeof(i) ? i : String(i);
+}
+function _toPrimitive(t, r) {
+  if ("object" != _typeof(t) || !t) return t;
+  var e = t[Symbol.toPrimitive];
+  if (void 0 !== e) {
+    var i = e.call(t, r || "default");
+    if ("object" != _typeof(i)) return i;
+    throw new TypeError("@@toPrimitive must return a primitive value.");
+  }
+  return ("string" === r ? String : Number)(t);
+}
+
+var libraryConfig = {
+  theme: {
+    extend: {
+      colors: {
+        // brand
+        "brand-background-50": "#EFF6FF",
+        "brand-background-hover-100": "#DBEAFE",
+        "brand-200": "#BFDBFE",
+        "brand-border-300": "#93C5FD",
+        "brand-400": "#60A5FA",
+        "brand-500": "#3B82F6",
+        "brand-primary-600": "#2563EB",
+        "brand-hover-700": "#1D4ED8",
+        "brand-800": "#1E40AF",
+        "brand-900": "#1E3A8A",
+        "brand-text-950": "#172554",
+        // background
+        "background-primary": "#FFFFFF",
+        "background-secondary": "#F3F4F6",
+        "background-inverse": "#111827",
+        "background-brand": "#2563EB",
+        // field
+        "field-primary-background": "#F9FAFB",
+        "field-secondary-background": "#FFFFFF",
+        "field-primary-hover": "#F3F4F6",
+        "field-secondary-hover": "#F3F4F6",
+        "field-dropzone-background": "#FFFFFF",
+        "field-border": "#E5E7EB",
+        "field-dropzone-background-hover": "#F9FAFB",
+        "field-dropzone-color": "#2563EB",
+        "field-label": "#111827",
+        "field-input": "#111827",
+        "field-helper": "#9CA3AF",
+        "field-background-disabled": "#F9FAFB",
+        "field-color-disabled": "#D1D5DB",
+        "field-placeholder": "#6B7280",
+        "field-border-disabled": "#F3F4F6",
+        "field-color-error": "#DC2626",
+        "field-border-error": "#FECACA",
+        "field-background-error": "#FEF2F2",
+        "field-required": "#DC2626",
+        // border
+        "border-interactive": "#2563EB",
+        "border-subtle": "#E5E7EB",
+        "border-strong": "#6B7280",
+        "border-inverse": "#374151",
+        "border-disabled": "#E5E7EB",
+        "border-muted": "#E5E7EB",
+        "border-error": "#DC2626",
+        "border-transparent-subtle": "#37415114",
+        "border-white": "#FFFFFF",
+        // text
+        "text-primary": "#111827",
+        "text-secondary": "#4B5563",
+        "text-tertiary": "#9CA3AF",
+        "text-on-color": "#FFFFFF",
+        "text-error": "#DC2626",
+        "text-error-inverse": "#F87171",
+        "text-inverse": "#FFFFFF",
+        "text-disabled": "#D1D5DB",
+        "text-on-button-disabled": "#9CA3AF",
+        // link
+        "link-primary": "#2563EB",
+        "link-primary-hover": "#1D4ED8",
+        "link-inverse": "#38BDF8",
+        "link-visited": "#7C3AED",
+        "link-visited-inverse": "#A78BFA",
+        "link-inverse-hover": "#7DD3FC",
+        // icon
+        "icon-primary": "#111827",
+        "icon-secondary": "#4B5563",
+        "icon-on-color": "#FFFFFF",
+        "icon-inverse": "#FFFFFF",
+        "icon-interactive": "#2563EB",
+        "icon-on-color-disabled": "#9CA3AF",
+        "icon-disabled": "#D1D5DB",
+        // support
+        "support-error": "#DC2626",
+        "support-success": "#16A34A",
+        "support-warning": "#EAB308",
+        "support-info": "#0284C7",
+        "support-error-inverse": "#F87171",
+        "support-success-inverse": "#4ADE80",
+        "support-warning-inverse": "#FDE047",
+        "support-info-inverse": "#38BDF8",
+        // button
+        "button-primary": "#2563EB",
+        "button-primary-hover": "#1D4ED8",
+        "button-secondary": "#1F2937",
+        "button-secondary-hover": "#374151",
+        "button-tertiary": "#FFFFFF",
+        "button-tertiary-hover": "#F9FAFB",
+        "button-danger": "#DC2626",
+        "button-danger-secondary": "#DC2626",
+        "button-danger-hover": "#B91C1C",
+        "button-disabled": "#F3F4F6",
+        "button-tertiary-border": "#E5E7EB",
+        "button-tertiary-color": "#111827",
+        // focus
+        focus: "#2563EB",
+        "focus-inset": "#FFFFFF",
+        "focus-inverse": "#38BDF8",
+        "focus-inverse-inset": "#111827",
+        "focus-error": "#DC2626",
+        "focus-border": "#BFDBFE",
+        "focus-error-border": "#FECACA",
+        // misc
+        "misc-highlight": "#BFDBFE",
+        "misc-overlay": "#11182780",
+        "misc-skeleton-background": "#F3F4F6",
+        "misc-skeleton-element": "#D1D5DB",
+        "misc-popup-button-hover": "#1118270D",
+        "misc-tab-item-hover": "#E5E7EB",
+        "misc-dropdown-hover": "#F3F4F6",
+        "misc-loader-base": "#1118270D",
+        "misc-loader-color": "#2563EB",
+        "misc-progress-background": "#E5E7EB",
+        // badge
+        "badge-background-gray": "#F9FAFB",
+        "badge-color-gray": "#1F2937",
+        "badge-hover-gray": "#F3F4F6",
+        "badge-border-gray": "#E5E7EB",
+        "badge-background-red": "#FEF2F2",
+        "badge-color-red": "#B91C1C",
+        "badge-hover-red": "#FEE2E2",
+        "badge-border-red": "#FECACA",
+        "badge-background-yellow": "#FEFCE8",
+        "badge-color-yellow": "#A16207",
+        "badge-hover-yellow": "#FEF9C3",
+        "badge-border-yellow": "#FEF08A",
+        "badge-hover-green": "#DCFCE7",
+        "badge-border-green": "#BBF7D0",
+        "badge-background-green": "#F0FDF4",
+        "badge-color-green": "#15803D",
+        "badge-background-sky": "#F0F9FF",
+        "badge-color-sky": "#0369A1",
+        "badge-hover-sky": "#E0F2FE",
+        "badge-border-sky": "#BAE6FD",
+        "badge-background-disabled": "#F3F4F6",
+        "badge-color-disabled": "#D1D5DB",
+        "badge-hover-disabled": "#F3F4F6",
+        "badge-border-disabled": "#E5E7EB",
+        // alert
+        "alert-background-neutral": "#FFFFFF",
+        "alert-border-neutral": "#E5E7EB",
+        "alert-background-danger": "#FEF2F2",
+        "alert-border-danger": "#FECACA",
+        "alert-background-warning": "#FEFCE8",
+        "alert-border-warning": "#FEF08A",
+        "alert-background-green": "#F0FDF4",
+        "alert-border-green": "#BBF7D0",
+        "alert-background-info": "#F0F9FF",
+        "alert-border-info": "#BAE6FD",
+        // tab
+        "tab-background": "#F3F4F6",
+        "tab-border": "#E5E7EB",
+        // tooltip
+        "tooltip-background-light": "#FFFFFF",
+        "tooltip-background-dark": "#111827",
+        // toggle
+        "toggle-off": "#E5E7EB",
+        "toggle-on": "#2563EB",
+        "toggle-dial-background": "#FFFFFF",
+        "toggle-off-hover": "#D1D5DB",
+        "toggle-off-border": "#D1D5DB",
+        "toggle-on-hover": "#3B82F6",
+        "toggle-on-border": "#60A5FA",
+        "toggle-off-disabled": "#F3F4F6"
+      }
+    }
+  },
+  plugins: [],
+  corePlugins: {
+    preflight: false
+  }
+};
+var withTW = function withTW(tailwindConfig) {
+  return deepmerge__WEBPACK_IMPORTED_MODULE_0___default()(tailwindConfig, _objectSpread({}, libraryConfig));
+};
+/* harmony default export */ __webpack_exports__["default"] = (withTW);
+
+/***/ }),
+
+/***/ "../../node_modules/deepmerge/dist/cjs.js":
+/*!************************************************!*\
+  !*** ../../node_modules/deepmerge/dist/cjs.js ***!
+  \************************************************/
+/***/ (function(module) {
+
+
+
+var isMergeableObject = function isMergeableObject(value) {
+	return isNonNullObject(value)
+		&& !isSpecial(value)
+};
+
+function isNonNullObject(value) {
+	return !!value && typeof value === 'object'
+}
+
+function isSpecial(value) {
+	var stringValue = Object.prototype.toString.call(value);
+
+	return stringValue === '[object RegExp]'
+		|| stringValue === '[object Date]'
+		|| isReactElement(value)
+}
+
+// see https://github.com/facebook/react/blob/b5ac963fb791d1298e7f396236383bc955f916c1/src/isomorphic/classic/element/ReactElement.js#L21-L25
+var canUseSymbol = typeof Symbol === 'function' && Symbol.for;
+var REACT_ELEMENT_TYPE = canUseSymbol ? Symbol.for('react.element') : 0xeac7;
+
+function isReactElement(value) {
+	return value.$$typeof === REACT_ELEMENT_TYPE
+}
+
+function emptyTarget(val) {
+	return Array.isArray(val) ? [] : {}
+}
+
+function cloneUnlessOtherwiseSpecified(value, options) {
+	return (options.clone !== false && options.isMergeableObject(value))
+		? deepmerge(emptyTarget(value), value, options)
+		: value
+}
+
+function defaultArrayMerge(target, source, options) {
+	return target.concat(source).map(function(element) {
+		return cloneUnlessOtherwiseSpecified(element, options)
+	})
+}
+
+function getMergeFunction(key, options) {
+	if (!options.customMerge) {
+		return deepmerge
+	}
+	var customMerge = options.customMerge(key);
+	return typeof customMerge === 'function' ? customMerge : deepmerge
+}
+
+function getEnumerableOwnPropertySymbols(target) {
+	return Object.getOwnPropertySymbols
+		? Object.getOwnPropertySymbols(target).filter(function(symbol) {
+			return Object.propertyIsEnumerable.call(target, symbol)
+		})
+		: []
+}
+
+function getKeys(target) {
+	return Object.keys(target).concat(getEnumerableOwnPropertySymbols(target))
+}
+
+function propertyIsOnObject(object, property) {
+	try {
+		return property in object
+	} catch(_) {
+		return false
+	}
+}
+
+// Protects from prototype poisoning and unexpected merging up the prototype chain.
+function propertyIsUnsafe(target, key) {
+	return propertyIsOnObject(target, key) // Properties are safe to merge if they don't exist in the target yet,
+		&& !(Object.hasOwnProperty.call(target, key) // unsafe if they exist up the prototype chain,
+			&& Object.propertyIsEnumerable.call(target, key)) // and also unsafe if they're nonenumerable.
+}
+
+function mergeObject(target, source, options) {
+	var destination = {};
+	if (options.isMergeableObject(target)) {
+		getKeys(target).forEach(function(key) {
+			destination[key] = cloneUnlessOtherwiseSpecified(target[key], options);
+		});
+	}
+	getKeys(source).forEach(function(key) {
+		if (propertyIsUnsafe(target, key)) {
+			return
+		}
+
+		if (propertyIsOnObject(target, key) && options.isMergeableObject(source[key])) {
+			destination[key] = getMergeFunction(key, options)(target[key], source[key], options);
+		} else {
+			destination[key] = cloneUnlessOtherwiseSpecified(source[key], options);
+		}
+	});
+	return destination
+}
+
+function deepmerge(target, source, options) {
+	options = options || {};
+	options.arrayMerge = options.arrayMerge || defaultArrayMerge;
+	options.isMergeableObject = options.isMergeableObject || isMergeableObject;
+	// cloneUnlessOtherwiseSpecified is added to `options` so that custom arrayMerge()
+	// implementations can use it. The caller may not replace it.
+	options.cloneUnlessOtherwiseSpecified = cloneUnlessOtherwiseSpecified;
+
+	var sourceIsArray = Array.isArray(source);
+	var targetIsArray = Array.isArray(target);
+	var sourceAndTargetTypesMatch = sourceIsArray === targetIsArray;
+
+	if (!sourceAndTargetTypesMatch) {
+		return cloneUnlessOtherwiseSpecified(source, options)
+	} else if (sourceIsArray) {
+		return options.arrayMerge(target, source, options)
+	} else {
+		return mergeObject(target, source, options)
+	}
+}
+
+deepmerge.all = function deepmergeAll(array, options) {
+	if (!Array.isArray(array)) {
+		throw new Error('first argument should be an array')
+	}
+
+	return array.reduce(function(prev, next) {
+		return deepmerge(prev, next, options)
+	}, {})
+};
+
+var deepmerge_1 = deepmerge;
+
+module.exports = deepmerge_1;
+
 
 /***/ }),
 
@@ -5380,6 +5774,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   TextArea: function() { return /* reexport safe */ _components__WEBPACK_IMPORTED_MODULE_0__.TextArea; }
 /* harmony export */ });
 /* harmony import */ var _components__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./components */ "./src/components/index.js");
+/* harmony import */ var _utilities_withTW__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./utilities/withTW */ "./src/utilities/withTW.js");
+
 
 }();
 /******/ 	return __webpack_exports__;
