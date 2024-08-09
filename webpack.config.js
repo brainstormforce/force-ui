@@ -14,6 +14,7 @@ const libConfig = {
 			name: "[name].[file].js",
 			type: "umd",
 		},
+		globalObject: `typeof self !== 'undefined' ? self : this`
 	},
 	resolve: {
 		...defaultConfig.resolve,

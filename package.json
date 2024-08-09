@@ -5,8 +5,8 @@
   "main": "dist/force-ui.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "cross-env WP_NO_EXTERNALS=true NODE_ENV=production wp-scripts build",
-    "start": "cross-env WP_NO_EXTERNALS=true NODE_ENV=development wp-scripts start",
+    "build": "cross-env NODE_ENV=production wp-scripts build",
+    "start": "cross-env NODE_ENV=development wp-scripts start",
     "pretty-fix": "prettier --write .",
     "pretty-lint": "prettier --check .",
     "lint:js": "wp-scripts lint-js ./src/**/*.{js,jsx}",
@@ -43,7 +43,7 @@
       "import": "./dist/force-ui.js"
     },
     "./withTW": {
-      "node": "./src/utilities/withTW.js"
+      "node": "./dist/utils/withTW.js"
     }
   },
   "devDependencies": {
