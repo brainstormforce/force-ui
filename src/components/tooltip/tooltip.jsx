@@ -1,114 +1,114 @@
-import React, { useState, useEffect } from 'react';
-import { cn } from '../../utility/utils';
-import {
-    useFloating,
-    autoUpdate,
-    offset,
-    flip,
-    shift,
-    useHover,
-    useFocus,
-    useDismiss,
-    inline,
-    useRole,
-    useInteractions,
-    FloatingPortal,
-    FloatingArrow,
-} from '@floating-ui/react';
-import { autoPlacement } from '@floating-ui/dom';
+// import React, { useState, useEffect } from 'react';
+// import { cn } from '../../utility/utils';
+// import {
+//     useFloating,
+//     autoUpdate,
+//     offset,
+//     flip,
+//     shift,
+//     useHover,
+//     useFocus,
+//     useDismiss,
+//     inline,
+//     useRole,
+//     useInteractions,
+//     FloatingPortal,
+//     FloatingArrow,
+// } from '@floating-ui/react';
+// import { autoPlacement } from '@floating-ui/dom';
 
-const Tooltip = ({
-    variant = 'light',
-    placement = 'top',
-    title = '',
-    content,
-    arrow = false,
-    open,
-    onOpen,
-    onClose,
-    focusOnly = false,
-    children,
-    className,
-    tooltipPortalRoot = null, // Root element where the dropdown will be rendered.
-    tooltipPortalId = '', // Id of the dropdown portal where the dropdown will be rendered.
-}) => {
-    const [isVisible, setIsVisible] = useState(false);
+// const Tooltip = ({
+//     variant = 'light',
+//     placement = 'top',
+//     title = '',
+//     content,
+//     arrow = false,
+//     open,
+//     onOpen,
+//     onClose,
+//     focusOnly = false,
+//     children,
+//     className,
+//     tooltipPortalRoot = null, // Root element where the dropdown will be rendered.
+//     tooltipPortalId = '', // Id of the dropdown portal where the dropdown will be rendered.
+// }) => {
+//     const [isVisible, setIsVisible] = useState(false);
 
-    useEffect(() => {
-        if (open !== undefined) {
-            setIsVisible(open);
-        }
-    }, [open]);
+//     useEffect(() => {
+//         if (open !== undefined) {
+//             setIsVisible(open);
+//         }
+//     }, [open]);
 
-    const { refs, floatingStyles, context } = useFloating({
-        open: isVisible,
-        // strategy: "fixed",
-        onOpenChange: setIsVisible,
-        placement,
-        whileElementsMounted: autoUpdate,
-        middleware: [
-            offset(12),
-            // autoPlacement(),
-            flip(),
-            inline(),
-            shift({ padding: 5 }), // Adjust the position to stay within the viewport
-        ],
-    });
+//     const { refs, floatingStyles, context } = useFloating({
+//         open: isVisible,
+//         // strategy: "fixed",
+//         onOpenChange: setIsVisible,
+//         placement,
+//         whileElementsMounted: autoUpdate,
+//         middleware: [
+//             offset(12),
+//             // autoPlacement(),
+//             flip(),
+//             inline(),
+//             shift({ padding: 5 }), // Adjust the position to stay within the viewport
+//         ],
+//     });
 
-    const hover = useHover(context, { move: false });
-    const focus = useFocus(context);
-    const dismiss = useDismiss(context);
-    const role = useRole(context, { role: 'tooltip' });
+//     const hover = useHover(context, { move: false });
+//     const focus = useFocus(context);
+//     const dismiss = useDismiss(context);
+//     const role = useRole(context, { role: 'tooltip' });
 
-    const { getReferenceProps, getFloatingProps } = useInteractions([
-        hover,
-        focus,
-        dismiss,
-        role,
-    ]);
+//     const { getReferenceProps, getFloatingProps } = useInteractions([
+//         hover,
+//         focus,
+//         dismiss,
+//         role,
+//     ]);
 
-    const baseClasses = 'relative inline-block';
-    const tooltipClasses = 'absolute z-10 py-2 px-3 rounded-md soft-shadow-lg text-xs leading-4 shadow-soft-shadow-lg';
+//     const baseClasses = 'relative inline-block';
+//     const tooltipClasses = 'absolute z-10 py-2 px-3 rounded-md soft-shadow-lg text-xs leading-4 shadow-soft-shadow-lg';
 
-    const variantClasses = {
-        light: 'bg-tooltip-background-light text-text-primary',
-        dark: 'bg-tooltip-background-dark text-text-on-color',
-    }?.[variant];
+//     const variantClasses = {
+//         light: 'bg-tooltip-background-light text-text-primary',
+//         dark: 'bg-tooltip-background-dark text-text-on-color',
+//     }?.[variant];
 
-    const widthClasses = content ? 'w-80' : 'w-auto';
+//     const widthClasses = content ? 'w-80' : 'w-auto';
 
-    return (
-        <>
-            <div
-                className={cn(baseClasses, className)}
-                ref={refs.setReference}
-                {...getReferenceProps()}
-            >
-                {children}
-            </div>
-            <FloatingPortal id={tooltipPortalId} root={tooltipPortalRoot}>
-                {isVisible && (
-                    <div
-                        className={cn(tooltipClasses, variantClasses, widthClasses)}
-                        ref={refs.setFloating}
-                        style={floatingStyles}
-                        {...getFloatingProps()}
-                    >
-                        <div>
-                            <span className="font-semibold">{title}</span>
-                            {content ? <div className="font-normal">{content}</div> : null}
-                        </div>
-                        {arrow && (
-                            <FloatingArrow ref={refs.setArrow} context={context} placement={placement} />
-                        )}
-                    </div>
-                )}
-            </FloatingPortal>
-        </>
-    );
-};
+//     return (
+//         <>
+//             <div
+//                 className={cn(baseClasses, className)}
+//                 ref={refs.setReference}
+//                 {...getReferenceProps()}
+//             >
+//                 {children}
+//             </div>
+//             <FloatingPortal id={tooltipPortalId} root={tooltipPortalRoot}>
+//                 {isVisible && (
+//                     <div
+//                         className={cn(tooltipClasses, variantClasses, widthClasses)}
+//                         ref={refs.setFloating}
+//                         style={floatingStyles}
+//                         {...getFloatingProps()}
+//                     >
+//                         <div>
+//                             <span className="font-semibold">{title}</span>
+//                             {content ? <div className="font-normal">{content}</div> : null}
+//                         </div>
+//                         {arrow && (
+//                             <FloatingArrow ref={refs.setArrow} context={context} placement={placement} />
+//                         )}
+//                     </div>
+//                 )}
+//             </FloatingPortal>
+//         </>
+//     );
+// };
 
-export default Tooltip;
+// export default Tooltip;
 
 
 
@@ -395,3 +395,121 @@ export default Tooltip;
 // };
 
 // export default Tooltip;
+
+
+// 4th APPROACH
+
+import React, { useRef, useState, useEffect } from 'react';
+import { useFloating, autoUpdate, offset, flip, shift, useHover, useFocus, useDismiss, useRole, arrow as floatingArrow, FloatingPortal, FloatingArrow, useInteractions } from '@floating-ui/react';
+import { cn } from '../../utility/utils';
+
+const Tooltip = ({
+    variant = 'light',
+    placement = 'top',
+    title = '',
+    content,
+    arrow = false,
+    open,
+    children,
+    className,
+    tooltipPortalRoot = null,
+    tooltipPortalId = '',
+}) => {
+    const [isVisible, setIsVisible] = useState(false);
+    const arrowRef = useRef(null);
+
+    useEffect(() => {
+        if (open !== undefined) {
+            setIsVisible(open);
+        }
+    }, [open]);
+
+    const { refs, floatingStyles, context } = useFloating({
+        open: isVisible,
+        onOpenChange: setIsVisible,
+        placement,
+        middleware: [
+            offset(12),
+            flip(),
+            shift({ padding: 5 }),
+            floatingArrow({ element: arrowRef }), 
+        ],
+        whileElementsMounted: autoUpdate,
+    });
+
+    const hover = useHover(context, { move: false });
+    const focus = useFocus(context);
+    const dismiss = useDismiss(context);
+    const role = useRole(context, { role: 'tooltip' });
+
+    const { getReferenceProps, getFloatingProps } = useInteractions([
+        hover,
+        focus,
+        dismiss,
+        role,
+    ]);
+
+    const baseClasses = 'relative inline-block';
+    const tooltipClasses = 'absolute z-10 py-2 px-3 rounded-md soft-shadow-lg text-xs leading-4 shadow-soft-shadow-lg';
+
+    const variantClasses = {
+        light: 'bg-tooltip-background-light text-text-primary',
+        dark: 'bg-tooltip-background-dark text-text-on-color',
+    }?.[variant];
+
+    const arrowClasses = variant === 'dark' ? 'text-tooltip-background-dark' : 'text-tooltip-background-light';
+
+    const widthClasses = content ? 'w-80' : 'w-auto';
+
+    return (
+        <>
+            <div
+                className={cn(baseClasses, className)}
+                ref={refs.setReference}
+                {...getReferenceProps()}
+            >
+                {children}
+            </div>
+            <FloatingPortal id={tooltipPortalId} root={tooltipPortalRoot}>
+                {isVisible && (
+                    <div
+                        className={cn(tooltipClasses, variantClasses, widthClasses)}
+                        ref={refs.setFloating}
+                        style={floatingStyles}
+                        {...getFloatingProps()}
+                    >
+                        <div>
+                            <span className="font-semibold">{title}</span>
+                            {content ? <div className="font-normal">{content}</div> : null}
+                        </div>
+                        {arrow && (
+                            <FloatingArrow
+                                ref={arrowRef}
+                                context={context}
+                                placement={placement}
+                                className={cn("fill-current", arrowClasses)}
+                            />
+                        )}
+                    </div>
+                )}
+            </FloatingPortal>
+        </>
+    );
+};
+
+export default Tooltip;
+
+// Usage example:
+
+{/* <Tooltip
+    tooltipPortalId="wpcontent"
+    title="Tooltip Title"
+    content={<span>Detailed description with <strong>HTML</strong> content.</span>}
+    or
+    content="This is the tooltip content."
+    placement="bottom"
+    variant="dark"
+    arrow
+>
+    <button className="btn">Hover me</button>
+</Tooltip> */}

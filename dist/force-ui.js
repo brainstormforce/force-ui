@@ -1795,118 +1795,127 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @babel/runtime/helpers/slicedToArray */ "./node_modules/@babel/runtime/helpers/esm/slicedToArray.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _utility_utils__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../utility/utils */ "./src/utility/utils.js");
 /* harmony import */ var _floating_ui_react__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @floating-ui/react */ "./node_modules/@floating-ui/react/dist/floating-ui.react.mjs");
-/* harmony import */ var _floating_ui_react__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @floating-ui/react */ "./node_modules/@floating-ui/dom/dist/floating-ui.dom.mjs");
-/* harmony import */ var _floating_ui_react__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @floating-ui/react */ "./node_modules/@floating-ui/react-dom/dist/floating-ui.react-dom.mjs");
+/* harmony import */ var _floating_ui_react__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @floating-ui/react */ "./node_modules/@floating-ui/react-dom/dist/floating-ui.react-dom.mjs");
+/* harmony import */ var _floating_ui_react__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @floating-ui/react */ "./node_modules/@floating-ui/dom/dist/floating-ui.dom.mjs");
+/* harmony import */ var _utility_utils__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../utility/utils */ "./src/utility/utils.js");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "react/jsx-runtime");
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__);
 
 
 function ownKeys(e, r) { var t = Object.keys(e); if (Object.getOwnPropertySymbols) { var o = Object.getOwnPropertySymbols(e); r && (o = o.filter(function (r) { return Object.getOwnPropertyDescriptor(e, r).enumerable; })), t.push.apply(t, o); } return t; }
 function _objectSpread(e) { for (var r = 1; r < arguments.length; r++) { var t = null != arguments[r] ? arguments[r] : {}; r % 2 ? ownKeys(Object(t), !0).forEach(function (r) { (0,_babel_runtime_helpers_defineProperty__WEBPACK_IMPORTED_MODULE_0__["default"])(e, r, t[r]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) { Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r)); }); } return e; }
+// import React, { useState, useEffect } from 'react';
+// import { cn } from '../../utility/utils';
+// import {
+//     useFloating,
+//     autoUpdate,
+//     offset,
+//     flip,
+//     shift,
+//     useHover,
+//     useFocus,
+//     useDismiss,
+//     inline,
+//     useRole,
+//     useInteractions,
+//     FloatingPortal,
+//     FloatingArrow,
+// } from '@floating-ui/react';
+// import { autoPlacement } from '@floating-ui/dom';
 
+// const Tooltip = ({
+//     variant = 'light',
+//     placement = 'top',
+//     title = '',
+//     content,
+//     arrow = false,
+//     open,
+//     onOpen,
+//     onClose,
+//     focusOnly = false,
+//     children,
+//     className,
+//     tooltipPortalRoot = null, // Root element where the dropdown will be rendered.
+//     tooltipPortalId = '', // Id of the dropdown portal where the dropdown will be rendered.
+// }) => {
+//     const [isVisible, setIsVisible] = useState(false);
 
+//     useEffect(() => {
+//         if (open !== undefined) {
+//             setIsVisible(open);
+//         }
+//     }, [open]);
 
+//     const { refs, floatingStyles, context } = useFloating({
+//         open: isVisible,
+//         // strategy: "fixed",
+//         onOpenChange: setIsVisible,
+//         placement,
+//         whileElementsMounted: autoUpdate,
+//         middleware: [
+//             offset(12),
+//             // autoPlacement(),
+//             flip(),
+//             inline(),
+//             shift({ padding: 5 }), // Adjust the position to stay within the viewport
+//         ],
+//     });
 
+//     const hover = useHover(context, { move: false });
+//     const focus = useFocus(context);
+//     const dismiss = useDismiss(context);
+//     const role = useRole(context, { role: 'tooltip' });
 
-var Tooltip = function Tooltip(_ref) {
-  var _light$dark;
-  var _ref$variant = _ref.variant,
-    variant = _ref$variant === void 0 ? 'light' : _ref$variant,
-    _ref$placement = _ref.placement,
-    placement = _ref$placement === void 0 ? 'top' : _ref$placement,
-    _ref$title = _ref.title,
-    title = _ref$title === void 0 ? '' : _ref$title,
-    content = _ref.content,
-    _ref$arrow = _ref.arrow,
-    arrow = _ref$arrow === void 0 ? false : _ref$arrow,
-    open = _ref.open,
-    onOpen = _ref.onOpen,
-    onClose = _ref.onClose,
-    _ref$focusOnly = _ref.focusOnly,
-    focusOnly = _ref$focusOnly === void 0 ? false : _ref$focusOnly,
-    children = _ref.children,
-    className = _ref.className,
-    _ref$tooltipPortalRoo = _ref.tooltipPortalRoot,
-    tooltipPortalRoot = _ref$tooltipPortalRoo === void 0 ? null : _ref$tooltipPortalRoo,
-    _ref$tooltipPortalId = _ref.tooltipPortalId,
-    tooltipPortalId = _ref$tooltipPortalId === void 0 ? '' : _ref$tooltipPortalId;
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(false),
-    _useState2 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__["default"])(_useState, 2),
-    isVisible = _useState2[0],
-    setIsVisible = _useState2[1];
-  (0,react__WEBPACK_IMPORTED_MODULE_2__.useEffect)(function () {
-    if (open !== undefined) {
-      setIsVisible(open);
-    }
-  }, [open]);
-  var _useFloating = (0,_floating_ui_react__WEBPACK_IMPORTED_MODULE_5__.useFloating)({
-      open: isVisible,
-      // strategy: "fixed",
-      onOpenChange: setIsVisible,
-      placement: placement,
-      whileElementsMounted: _floating_ui_react__WEBPACK_IMPORTED_MODULE_6__.autoUpdate,
-      middleware: [(0,_floating_ui_react__WEBPACK_IMPORTED_MODULE_7__.offset)(12),
-      // autoPlacement(),
-      (0,_floating_ui_react__WEBPACK_IMPORTED_MODULE_7__.flip)(), (0,_floating_ui_react__WEBPACK_IMPORTED_MODULE_7__.inline)(), (0,_floating_ui_react__WEBPACK_IMPORTED_MODULE_7__.shift)({
-        padding: 5
-      }) // Adjust the position to stay within the viewport
-      ]
-    }),
-    refs = _useFloating.refs,
-    floatingStyles = _useFloating.floatingStyles,
-    context = _useFloating.context;
-  var hover = (0,_floating_ui_react__WEBPACK_IMPORTED_MODULE_5__.useHover)(context, {
-    move: false
-  });
-  var focus = (0,_floating_ui_react__WEBPACK_IMPORTED_MODULE_5__.useFocus)(context);
-  var dismiss = (0,_floating_ui_react__WEBPACK_IMPORTED_MODULE_5__.useDismiss)(context);
-  var role = (0,_floating_ui_react__WEBPACK_IMPORTED_MODULE_5__.useRole)(context, {
-    role: 'tooltip'
-  });
-  var _useInteractions = (0,_floating_ui_react__WEBPACK_IMPORTED_MODULE_5__.useInteractions)([hover, focus, dismiss, role]),
-    getReferenceProps = _useInteractions.getReferenceProps,
-    getFloatingProps = _useInteractions.getFloatingProps;
-  var baseClasses = 'relative inline-block';
-  var tooltipClasses = 'absolute z-10 py-2 px-3 rounded-md soft-shadow-lg text-xs leading-4 shadow-soft-shadow-lg';
-  var variantClasses = (_light$dark = {
-    light: 'bg-tooltip-background-light text-text-primary',
-    dark: 'bg-tooltip-background-dark text-text-on-color'
-  }) === null || _light$dark === void 0 ? void 0 : _light$dark[variant];
-  var widthClasses = content ? 'w-80' : 'w-auto';
-  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.Fragment, {
-    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", _objectSpread(_objectSpread({
-      className: (0,_utility_utils__WEBPACK_IMPORTED_MODULE_3__.cn)(baseClasses, className),
-      ref: refs.setReference
-    }, getReferenceProps()), {}, {
-      children: children
-    })), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_floating_ui_react__WEBPACK_IMPORTED_MODULE_5__.FloatingPortal, {
-      id: tooltipPortalId,
-      root: tooltipPortalRoot,
-      children: isVisible && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", _objectSpread(_objectSpread({
-        className: (0,_utility_utils__WEBPACK_IMPORTED_MODULE_3__.cn)(tooltipClasses, variantClasses, widthClasses),
-        ref: refs.setFloating,
-        style: floatingStyles
-      }, getFloatingProps()), {}, {
-        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
-            className: "font-semibold",
-            children: title
-          }), content ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-            className: "font-normal",
-            children: content
-          }) : null]
-        }), arrow && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_floating_ui_react__WEBPACK_IMPORTED_MODULE_5__.FloatingArrow, {
-          ref: refs.setArrow,
-          context: context,
-          placement: placement
-        })]
-      }))
-    })]
-  });
-};
-/* harmony default export */ __webpack_exports__["default"] = (Tooltip);
+//     const { getReferenceProps, getFloatingProps } = useInteractions([
+//         hover,
+//         focus,
+//         dismiss,
+//         role,
+//     ]);
+
+//     const baseClasses = 'relative inline-block';
+//     const tooltipClasses = 'absolute z-10 py-2 px-3 rounded-md soft-shadow-lg text-xs leading-4 shadow-soft-shadow-lg';
+
+//     const variantClasses = {
+//         light: 'bg-tooltip-background-light text-text-primary',
+//         dark: 'bg-tooltip-background-dark text-text-on-color',
+//     }?.[variant];
+
+//     const widthClasses = content ? 'w-80' : 'w-auto';
+
+//     return (
+//         <>
+//             <div
+//                 className={cn(baseClasses, className)}
+//                 ref={refs.setReference}
+//                 {...getReferenceProps()}
+//             >
+//                 {children}
+//             </div>
+//             <FloatingPortal id={tooltipPortalId} root={tooltipPortalRoot}>
+//                 {isVisible && (
+//                     <div
+//                         className={cn(tooltipClasses, variantClasses, widthClasses)}
+//                         ref={refs.setFloating}
+//                         style={floatingStyles}
+//                         {...getFloatingProps()}
+//                     >
+//                         <div>
+//                             <span className="font-semibold">{title}</span>
+//                             {content ? <div className="font-normal">{content}</div> : null}
+//                         </div>
+//                         {arrow && (
+//                             <FloatingArrow ref={refs.setArrow} context={context} placement={placement} />
+//                         )}
+//                     </div>
+//                 )}
+//             </FloatingPortal>
+//         </>
+//     );
+// };
+
+// export default Tooltip;
 
 // PREVIOUS CREATED TOOLTIP - FIRST VERSION
 
@@ -2189,6 +2198,122 @@ var Tooltip = function Tooltip(_ref) {
 // };
 
 // export default Tooltip;
+
+// 4th APPROACH
+
+
+
+
+
+var Tooltip = function Tooltip(_ref) {
+  var _light$dark;
+  var _ref$variant = _ref.variant,
+    variant = _ref$variant === void 0 ? 'light' : _ref$variant,
+    _ref$placement = _ref.placement,
+    placement = _ref$placement === void 0 ? 'top' : _ref$placement,
+    _ref$title = _ref.title,
+    title = _ref$title === void 0 ? '' : _ref$title,
+    content = _ref.content,
+    _ref$arrow = _ref.arrow,
+    arrow = _ref$arrow === void 0 ? false : _ref$arrow,
+    open = _ref.open,
+    children = _ref.children,
+    className = _ref.className,
+    _ref$tooltipPortalRoo = _ref.tooltipPortalRoot,
+    tooltipPortalRoot = _ref$tooltipPortalRoo === void 0 ? null : _ref$tooltipPortalRoo,
+    _ref$tooltipPortalId = _ref.tooltipPortalId,
+    tooltipPortalId = _ref$tooltipPortalId === void 0 ? '' : _ref$tooltipPortalId;
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_2__.useState)(false),
+    _useState2 = (0,_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_1__["default"])(_useState, 2),
+    isVisible = _useState2[0],
+    setIsVisible = _useState2[1];
+  var arrowRef = (0,react__WEBPACK_IMPORTED_MODULE_2__.useRef)(null);
+  (0,react__WEBPACK_IMPORTED_MODULE_2__.useEffect)(function () {
+    if (open !== undefined) {
+      setIsVisible(open);
+    }
+  }, [open]);
+  var _useFloating = (0,_floating_ui_react__WEBPACK_IMPORTED_MODULE_5__.useFloating)({
+      open: isVisible,
+      onOpenChange: setIsVisible,
+      placement: placement,
+      middleware: [(0,_floating_ui_react__WEBPACK_IMPORTED_MODULE_6__.offset)(12), (0,_floating_ui_react__WEBPACK_IMPORTED_MODULE_6__.flip)(), (0,_floating_ui_react__WEBPACK_IMPORTED_MODULE_6__.shift)({
+        padding: 5
+      }), (0,_floating_ui_react__WEBPACK_IMPORTED_MODULE_6__.arrow)({
+        element: arrowRef
+      })],
+      whileElementsMounted: _floating_ui_react__WEBPACK_IMPORTED_MODULE_7__.autoUpdate
+    }),
+    refs = _useFloating.refs,
+    floatingStyles = _useFloating.floatingStyles,
+    context = _useFloating.context;
+  var hover = (0,_floating_ui_react__WEBPACK_IMPORTED_MODULE_5__.useHover)(context, {
+    move: false
+  });
+  var focus = (0,_floating_ui_react__WEBPACK_IMPORTED_MODULE_5__.useFocus)(context);
+  var dismiss = (0,_floating_ui_react__WEBPACK_IMPORTED_MODULE_5__.useDismiss)(context);
+  var role = (0,_floating_ui_react__WEBPACK_IMPORTED_MODULE_5__.useRole)(context, {
+    role: 'tooltip'
+  });
+  var _useInteractions = (0,_floating_ui_react__WEBPACK_IMPORTED_MODULE_5__.useInteractions)([hover, focus, dismiss, role]),
+    getReferenceProps = _useInteractions.getReferenceProps,
+    getFloatingProps = _useInteractions.getFloatingProps;
+  var baseClasses = 'relative inline-block';
+  var tooltipClasses = 'absolute z-10 py-2 px-3 rounded-md soft-shadow-lg text-xs leading-4 shadow-soft-shadow-lg';
+  var variantClasses = (_light$dark = {
+    light: 'bg-tooltip-background-light text-text-primary',
+    dark: 'bg-tooltip-background-dark text-text-on-color'
+  }) === null || _light$dark === void 0 ? void 0 : _light$dark[variant];
+  var arrowClasses = variant === 'dark' ? 'text-tooltip-background-dark' : 'text-tooltip-background-light';
+  var widthClasses = content ? 'w-80' : 'w-auto';
+  return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.Fragment, {
+    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", _objectSpread(_objectSpread({
+      className: (0,_utility_utils__WEBPACK_IMPORTED_MODULE_3__.cn)(baseClasses, className),
+      ref: refs.setReference
+    }, getReferenceProps()), {}, {
+      children: children
+    })), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_floating_ui_react__WEBPACK_IMPORTED_MODULE_5__.FloatingPortal, {
+      id: tooltipPortalId,
+      root: tooltipPortalRoot,
+      children: isVisible && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", _objectSpread(_objectSpread({
+        className: (0,_utility_utils__WEBPACK_IMPORTED_MODULE_3__.cn)(tooltipClasses, variantClasses, widthClasses),
+        ref: refs.setFloating,
+        style: floatingStyles
+      }, getFloatingProps()), {}, {
+        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
+            className: "font-semibold",
+            children: title
+          }), content ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+            className: "font-normal",
+            children: content
+          }) : null]
+        }), arrow && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(_floating_ui_react__WEBPACK_IMPORTED_MODULE_5__.FloatingArrow, {
+          ref: arrowRef,
+          context: context,
+          placement: placement,
+          className: (0,_utility_utils__WEBPACK_IMPORTED_MODULE_3__.cn)("fill-current", arrowClasses)
+        })]
+      }))
+    })]
+  });
+};
+/* harmony default export */ __webpack_exports__["default"] = (Tooltip);
+
+// Usage example:
+
+{/* <Tooltip
+    tooltipPortalId="wpcontent"
+    title="Tooltip Title"
+    content={<span>Detailed description with <strong>HTML</strong> content.</span>}
+    or
+    content="This is the tooltip content."
+    placement="bottom"
+    variant="dark"
+    arrow
+ >
+    <button className="btn">Hover me</button>
+ </Tooltip> */}
 
 /***/ }),
 
