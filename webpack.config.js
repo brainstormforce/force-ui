@@ -3,12 +3,15 @@ const path = require("path");
 
 const libConfig = {
 	...defaultConfig,
-	entry: path.resolve(process.cwd(), "src/index.js"),
+	entry: {
+		"force-ui": path.resolve(process.cwd(), "src/index.js"),
+		"utils/withTW": path.resolve(process.cwd(), "src/utilities/withTW.js"),
+	},
 	output: {
 		path: path.resolve(process.cwd(), "dist"),
-		filename: "force-ui.js",
+		filename: "[name].js",
 		library: {
-			name: "forceUI",
+			name: "[name].[file].js",
 			type: "umd",
 		},
 	},
