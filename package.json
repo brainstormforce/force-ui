@@ -1,0 +1,71 @@
+{
+  "name": "@bsf/force-ui",
+  "version": "1.0.0",
+  "description": "Library of components for the BSF project",
+  "main": "dist/force-ui.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "cross-env NODE_ENV=production wp-scripts build",
+    "start": "cross-env NODE_ENV=development wp-scripts start",
+    "pretty-fix": "prettier --write .",
+    "pretty-lint": "prettier --check .",
+    "lint:js": "wp-scripts lint-js ./src",
+    "lint:js-fix": "wp-scripts lint-js ./src --fix",
+    "lint:css": "wp-scripts lint-style ./src/**/*.{scss,css}",
+    "lint:css-fix": "wp-scripts lint-style ./src/**/*.{scss,css} --fix"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rahulvarma722/bsf-admin-ui.git"
+  },
+  "volta": {
+    "node": "18.15.0"
+  },
+  "keywords": [
+    "bsf",
+    "components",
+    "library"
+  ],
+  "license": "ISC",
+  "peerDependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "dependencies": {
+    "@floating-ui/react": "^0.26.20",
+    "clsx": "^2.1.1",
+    "deepmerge": "^4.3.1",
+    "lucide-react": "^0.417.0",
+    "nanoid": "^5.0.7",
+    "tailwind-merge": "^2.4.0"
+  },
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "import": "./dist/force-ui.js"
+    },
+    "./withTW": {
+      "node": "./dist/utils/withTW.js"
+    }
+  },
+  "devDependencies": {
+    "@wordpress/eslint-plugin": "^20.1.0",
+    "@wordpress/prettier-config": "^4.4.0",
+    "@wordpress/scripts": "^28.4.0",
+    "autoprefixer": "^10.4.19",
+    "babel-loader": "^8.2.3",
+    "cross-env": "^7.0.3",
+    "eslint": "^8.57.0",
+    "postcss": "^8.4.39",
+    "prettier": "^3.2.5",
+    "tailwindcss": "^3.4.6",
+    "webpack": "^5.69.1",
+    "webpack-cli": "^4.9.2",
+    "webpack-dev-server": "^4.7.4"
+  },
+  "browserslist": [
+    "last 1 version",
+    "> 1%",
+    "IE 10"
+  ]
+}
