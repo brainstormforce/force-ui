@@ -44,18 +44,7 @@ const Label = ( {
 	const Tag = tag;
 
 	return (
-		<Tag
-			className={
-				cn(
-					baseClasses,
-					sizeClasses[ size ],
-					variantClasses[ variant ],
-					requiredClasses,
-					className
-				)
-			}
-			{ ...props }
-		>
+		<Tag className={ cn( baseClasses, sizeClasses[ size ], variantClasses[ variant ], requiredClasses, className ) } { ...props }>
 			{ children }
 		</Tag>
 	);

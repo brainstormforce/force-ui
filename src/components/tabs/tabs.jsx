@@ -28,7 +28,7 @@ const TabsGroup = ( props ) => {
 				onChange( { event, value } );
 			}
 		},
-		[ onChange ]
+		[ onChange ],
 	);
 
 	// Determine styles based on the variant and orientation.
@@ -55,14 +55,7 @@ const TabsGroup = ( props ) => {
 	const baseClasses = `box-border [&>*]:box-border bg-tab-background flex items-center ${ widthClasses } ${ orientationClasses }`;
 
 	// Merge classes.
-	const groupClassName = twMerge(
-		baseClasses,
-		borderRadius,
-		padding,
-		gap,
-		border,
-		className
-	);
+	const groupClassName = twMerge( baseClasses, borderRadius, padding, gap, border, className );
 
 	return (
 		<div className={ groupClassName }>
@@ -133,23 +126,9 @@ const Tab = ( props, ref ) => {
 	const activeClasses = activeItem === slug ? 'bg-background-primary' : '';
 
 	// Merge classes.
-	const tabClassName = twMerge(
-		baseClasses,
-		borderClasses,
-		variantClasses,
-		borderBottomClasses,
-		activeItem === slug && variant === 'underline' ? borderActiveInlineClasses : '',
-		hoverClasses,
-		focusClasses,
-		disabledClasses,
-		sizes,
-		activeClasses,
-		className
-	);
+	const tabClassName = twMerge( baseClasses, borderClasses, variantClasses, borderBottomClasses, activeItem === slug && variant === 'underline' ? borderActiveInlineClasses : '', hoverClasses, focusClasses, disabledClasses, sizes, activeClasses, className );
 
-	const iconParentClasses = twMerge(
-		'flex items-center gap-1'
-	);
+	const iconParentClasses = twMerge( 'flex items-center gap-1' );
 
 	// Handle click event.
 	const handleClick = ( event ) => {
