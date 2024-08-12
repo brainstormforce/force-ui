@@ -1,5 +1,7 @@
 module.exports = {
-	content: ["./src/**/*.{js,ts,jsx,tsx}"],
+	content: [
+		"node_modules/@bsf/force-ui/dist/force-ui.js",
+	],
 	theme: {
 		extend: {
 			colors: {
