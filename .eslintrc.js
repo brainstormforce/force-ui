@@ -1,7 +1,10 @@
 // .eslintrc.mjs
 module.exports = {
 	root: true,
-	extends: ["plugin:@wordpress/eslint-plugin/recommended-with-formatting"],
+	extends: [
+        "plugin:@wordpress/eslint-plugin/recommended-with-formatting",
+        "plugin:storybook/recommended"
+    ],
 	parserOptions: {
 		requireConfigFile: false,
 		babelOptions: {
