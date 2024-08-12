@@ -1,6 +1,6 @@
 import { useState, useCallback, useMemo, forwardRef, isValidElement } from 'react';
 import { nanoid } from 'nanoid';
-import { cn } from '../../utility/utils';
+import { cn } from '../../utilities/functions';
 import { Check, Minus } from 'lucide-react';
 
 const Checkbox = ( { id, label, defaultChecked = false, checked, onChange, value, indeterminate, disabled, size = 'md', ...props }, ref ) => {

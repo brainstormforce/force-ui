@@ -1,4 +1,4 @@
-import { cn } from '../../utility/utils';
+import { cn } from '../../utilities/functions';
 
 /**
  * Label component.
@@ -44,18 +44,7 @@ const Label = ( {
 	const Tag = tag;
 
 	return (
-		<Tag
-			className={
-				cn(
-					baseClasses,
-					sizeClasses[ size ],
-					variantClasses[ variant ],
-					requiredClasses,
-					className
-				)
-			}
-			{ ...props }
-		>
+		<Tag className={ cn( baseClasses, sizeClasses[ size ], variantClasses[ variant ], requiredClasses, className ) } { ...props }>
 			{ children }
 		</Tag>
 	);
