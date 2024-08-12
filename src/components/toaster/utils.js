@@ -1,5 +1,5 @@
 import { Check, Info, AlertTriangle, Trash2 } from 'lucide-react';
-import { cn } from '../../utility/utils';
+import { cn } from '../../utilities/functions';
 import { Button } from '../button/index';
 
 export const getIcon = ( { icon, theme, variant } ) => {

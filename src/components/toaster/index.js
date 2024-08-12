@@ -1,5 +1,5 @@
 import { AlertTriangle, Trash2 } from 'lucide-react';
-import { cn } from '../../utility/utils';
+import { cn } from '../../utilities/functions';
 import { getIcon, getAction, getContent, getTitle } from './utils';
 
 /**
