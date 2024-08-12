@@ -60,10 +60,6 @@ The `Badge` component can show notifications, counts, or status information on n
 - **Type:** `React callback function`
 - **Description:** Callback function that triggers when the cross icon is clicked.
 
-### `onMouseDown`
-- **Type:** `React callback function`
-- **Description:** Callback function that triggers when the cross icon is clicked.
-
 ## Usage
 
 ### Basic Example

@@ -11,4 +11,3 @@ export { default as Loader } from './loader/index';
 export { default as ProgressBar } from './progress-bar/index';
 export { default as ButtonGroup } from './button-group/index';
 export { default as Tabs } from './tabs/index';
-export { default as Select } from './select/index';

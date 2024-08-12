@@ -1,6 +1,6 @@
 import React, { useState, useCallback, useMemo, forwardRef, isValidElement, createContext, useContext, Fragment } from 'react';
 import { nanoid } from 'nanoid';
-import { cn } from '../../utilities/functions';
+import { cn } from '../../utility/utils';
 
 const RadioButtonContext = createContext();
 const useRadioButton = () => useContext( RadioButtonContext );

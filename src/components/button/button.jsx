@@ -1,4 +1,5 @@
-import { cn } from '../../utilities/functions';
+import React from 'react';
+import { cn } from '../../utility/utils';
 
 const Button = ( props ) => {
 	const {

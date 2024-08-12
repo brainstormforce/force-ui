@@ -1,6 +1,6 @@
 import { useState, useCallback, useMemo, forwardRef } from 'react';
 import { nanoid } from 'nanoid';
-import { cn } from '../../utilities/functions';
+import { cn } from '../../utility/utils';
 
 const TextArea = (
 	{

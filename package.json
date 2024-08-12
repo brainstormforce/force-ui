@@ -5,14 +5,16 @@
   "main": "dist/force-ui.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "cross-env NODE_ENV=production wp-scripts build",
-    "start": "cross-env NODE_ENV=development wp-scripts start",
+    "build": "NODE_ENV=production wp-scripts build",
+    "start": "NODE_ENV=development wp-scripts start",
     "pretty-fix": "prettier --write .",
     "pretty-lint": "prettier --check .",
-    "lint:js": "wp-scripts lint-js ./src",
-    "lint:js-fix": "wp-scripts lint-js ./src --fix",
+    "lint:js": "wp-scripts lint-js ./src/**/*.{js,jsx}",
+    "lint:js-fix": "wp-scripts lint-js ./src/**/*.{js,jsx} --fix",
     "lint:css": "wp-scripts lint-style ./src/**/*.{scss,css}",
-    "lint:css-fix": "wp-scripts lint-style ./src/**/*.{scss,css} --fix"
+    "lint:css-fix": "wp-scripts lint-style ./src/**/*.{scss,css} --fix",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
   },
   "repository": {
     "type": "git",
@@ -32,9 +34,7 @@
     "react-dom": "^18.3.1"
   },
   "dependencies": {
-    "@floating-ui/react": "^0.26.20",
     "clsx": "^2.1.1",
-    "deepmerge": "^4.3.1",
     "lucide-react": "^0.417.0",
     "nanoid": "^5.0.7",
     "tailwind-merge": "^2.4.0"
@@ -43,21 +43,30 @@
     "./package.json": "./package.json",
     ".": {
       "import": "./dist/force-ui.js"
-    },
-    "./withTW": {
-      "node": "./dist/utils/withTW.js"
     }
   },
   "devDependencies": {
+    "@chromatic-com/storybook": "^1.6.1",
+    "@storybook/addon-essentials": "^8.2.7",
+    "@storybook/addon-interactions": "^8.2.7",
+    "@storybook/addon-links": "^8.2.7",
+    "@storybook/addon-onboarding": "^8.2.7",
+    "@storybook/addon-webpack5-compiler-swc": "^1.0.5",
+    "@storybook/blocks": "^8.2.7",
+    "@storybook/react": "^8.2.7",
+    "@storybook/react-webpack5": "^8.2.7",
+    "@storybook/test": "^8.2.7",
     "@wordpress/eslint-plugin": "^20.1.0",
     "@wordpress/prettier-config": "^4.4.0",
     "@wordpress/scripts": "^28.4.0",
     "autoprefixer": "^10.4.19",
     "babel-loader": "^8.2.3",
-    "cross-env": "^7.0.3",
     "eslint": "^8.57.0",
+    "eslint-plugin-storybook": "^0.8.0",
     "postcss": "^8.4.39",
     "prettier": "^3.2.5",
+    "prop-types": "^15.8.1",
+    "storybook": "^8.2.7",
     "tailwindcss": "^3.4.6",
     "webpack": "^5.69.1",
     "webpack-cli": "^4.9.2",
