@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { nanoid } from 'nanoid';
-import { AlertTriangle, Trash2 } from 'lucide-react';
+import { AlertTriangle, Trash2, X } from 'lucide-react';
 import { toast, ToastState } from './controller'
 import { cn } from '@/utilities/functions';
 import { getIcon, getAction, getContent, getTitle } from './utils';
@@ -11,13 +11,18 @@ const Toaster = ({
     position = 'top-right', // top-right/top-left/bottom-right/bottom-left
     design = 'stack', // stack/inline
     className = '',
+    autoDismiss = false,
+    dismissAfter = 5000,
 }) => {
     const [toasts, setToasts] = useState([]);
+
+    console.table(toasts);
 
     useEffect(() => {
         ToastState.subscribe((toastItem) => {
             if (toastItem?.dismiss) {
                 setToasts((prevToasts) => prevToasts.map(tItem => tItem.id === toastItem.id ? { ...tItem, dismiss: true } : tItem));
+                console.log('Toast dismissed');
                 return;
             }
 
@@ -39,10 +44,16 @@ const Toaster = ({
         } );
     }, []);
 
+    const removeToast = (id) => {
+        console.log('Removing toast', id);
+        // toast.dismiss(id);
+        setToasts((prevToasts) => prevToasts.filter((t) => t.id !== id));
+    }
+
     return (
         <ul
             className={cn(
-                'fixed flex flex-col list-none z-20 p-10',
+                'fixed flex flex-col list-none z-20 p-10 pointer-events-none [&>li]:pointer-events-auto',
                 positionClassNames[position] ?? positionClassNames['top-right'],
                 containerVariantClassNames[design] ?? containerVariantClassNames.stack,
                 className
@@ -52,12 +63,14 @@ const Toaster = ({
             {toasts.map((toastItem) => (
                 <li key={nanoid()}>
                     <Toast
+                        toastItem={toastItem}
                         title={toastItem.title}
                         content={toastItem?.description}
                         design={design}
-                        onClose={() => {
-                            setToasts((prevToasts) => prevToasts.filter((t) => t.id !== toastItem.id));
-                        }}
+                        autoDismiss={autoDismiss}
+                        dismissAfter={dismissAfter}
+                        removeToast={removeToast}
+                        variant={toastItem.type}
                     />
                 </li>
             ))}
@@ -66,6 +79,7 @@ const Toaster = ({
 };
 
 export const Toast = ( {
+    toastItem,
 	title = null,
     content = null,
     actionLabel = null,
@@ -79,10 +93,13 @@ export const Toast = ( {
     icon = null,
 	className = '',
 	variant = 'neutral', // neutral/info/success/warning/danger
+    removeToast, // Function to remove the toast.
 	...props
 } ) => {
 	// Base classes. - Mandatory classes.
 	const baseClasses = 'text-sm shadow-lg';
+    const closeTimerStart = useRef(0);
+    const lastCloseTimerStart = useRef(0);
 
 	// Size classes - Based on the size prop.
 	// const sizeClasses = {
@@ -94,23 +111,67 @@ export const Toast = ( {
     
 
 	// Variant classes - Based on the variant prop.
-	const variantClasses = {
-		neutral: 'text-field-label [&>*]:text-field-label',
-		info: 'text-field-helper [&>*]:text-field-helper',
-		success: 'text-support-error [&>*]:text-support-error',
-		warning: 'text-field-color-disabled disabled cursor-not-allowed [&>*]:text-field-color-disabled',
-        danger: 'text-field-color-disabled disabled cursor-not-allowed [&>*]:text-field-color-disabled',
+	const variantClassNames = {
+		neutral: 'text-field-label [&>*]:text-field-label border-alert-border-neutral bg-alert-background-neutral',
+		info: 'text-field-helper [&>*]:text-field-helper border-alert-border-info bg-alert-background-info',
+		success: 'text-support-error [&>*]:text-support-error border-alert-border-green bg-alert-background-green',
+		warning: 'text-field-color-disabled disabled cursor-not-allowed [&>*]:text-field-color-disabled border-alert-border-warning bg-alert-background-warning',
+        error: 'text-field-color-disabled disabled cursor-not-allowed [&>*]:text-field-color-disabled border-alert-border-danger bg-alert-background-danger',
 	};
+
+
+    const startTimer = (toastItem, remainingTime = dismissAfter) => {
+        // If auto dismiss is disabled, or the dismissAfter is less than 0, return.
+        if (!autoDismiss || dismissAfter < 0) {
+            return;
+        }
+
+        closeTimerStart.current = new Date().getTime();
+        return setTimeout(() => {
+            removeToast(toastItem.id);
+        }, remainingTime);
+    }
+
+    useEffect(() => {
+        let timeoutId = 0;
+        let remainingTime = dismissAfter;
+
+        timeoutId = startTimer(toastItem, remainingTime);
+
+        // pause timer on mouse enter
+        // pauseTimer();
+        return () => {
+            clearTimeout(timeoutId);
+        }
+    }, []);
+
+    useEffect(() => {
+        if (! toastItem?.dismiss) {
+            return;   
+        }
+        removeToast(toastItem.id);
+    }, [toastItem]);
 
     if ( design === 'stack' ) {
         return (
-            <div className='flex items-center justify-start'>
-                <div>
+            <div className={cn(
+                'flex items-center justify-start p-4 gap-2 relative border border-solid rounded-md',
+                variantClassNames[variant],
+            )}>
+                <div className='self-start flex items-center justify-center [&_svg]:size-5 shrink-0'>
                     { getIcon( {variant, icon, theme} ) }
                 </div>
-                <div>
-                    <div>{ getTitle( {title, theme} ) }</div>
-                    <div>{ getContent( {content, theme} ) }</div>
+                <div className='flex flex-col items-start justify-start gap-0.5'>
+                    { getTitle( {title, theme} ) }
+                    { getContent( {content, theme} ) }
+                </div>
+                {/* <div>
+                    { getAction( {actionLabel, actionType, onAction, theme} ) }
+                </div> */}
+                <div className='absolute right-4 top-4 [&_svg]:size-5'>
+                    <button className='bg-transparent m-0 p-0 border-none focus:outline-none active:outline-none cursor-pointer' onClick={() => removeToast(toastItem.id)}>
+                        <X />
+                    </button>
                 </div>
             </div>
         );
@@ -120,11 +181,11 @@ export const Toast = ( {
         return (
             <div className='flex items-center justify-start'>
                 <div>
-                    { getIcon( props ) }
-                    <div>{ getTitle( props ) }</div>
+                    { getIcon( {variant, icon, theme} ) }
+                    <div>{ getTitle( {title, theme} ) }</div>
                 </div>
                 <div>
-                    <div>{ getContent( props ) }</div>
+                    <div>{ getContent( {content, theme} ) }</div>
                 </div>
             </div>
         );
@@ -137,7 +198,7 @@ export const Toast = ( {
 				cn(
 					baseClasses,
 					// sizeClasses[ size ],
-					variantClasses[ variant ],
+					variantClassNames[ variant ],
 					className
 				)
 			}
