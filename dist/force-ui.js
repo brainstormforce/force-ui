@@ -2915,8 +2915,10 @@ var TextArea = function TextArea(_ref, ref) {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   closeIconClassNames: function() { return /* binding */ closeIconClassNames; },
 /* harmony export */   containerVariantClassNames: function() { return /* binding */ containerVariantClassNames; },
-/* harmony export */   positionClassNames: function() { return /* binding */ positionClassNames; }
+/* harmony export */   positionClassNames: function() { return /* binding */ positionClassNames; },
+/* harmony export */   variantClassNames: function() { return /* binding */ variantClassNames; }
 /* harmony export */ });
 // Available positions: top-left, top-right, bottom-left, bottom-right
 var positionClassNames = {
@@ -2928,6 +2930,21 @@ var positionClassNames = {
 var containerVariantClassNames = {
   stack: 'w-[22.5rem]',
   inline: 'lg:w-[47.5rem] w-full'
+};
+
+// Variant classes - Based on the variant prop.
+var variantClassNames = {
+  neutral: 'text-field-label [&>*]:text-field-label border-alert-border-neutral bg-alert-background-neutral',
+  info: 'text-field-helper [&>*]:text-field-helper border-alert-border-info bg-alert-background-info',
+  success: 'text-support-error [&>*]:text-support-error border-alert-border-green bg-alert-background-green',
+  warning: 'text-field-color-disabled disabled cursor-not-allowed [&>*]:text-field-color-disabled border-alert-border-warning bg-alert-background-warning',
+  error: 'text-field-color-disabled disabled cursor-not-allowed [&>*]:text-field-color-disabled border-alert-border-danger bg-alert-background-danger'
+};
+
+// Close icon class names.
+var closeIconClassNames = {
+  light: 'text-icon-secondary',
+  dark: 'text-icon-inverse'
 };
 
 /***/ }),
@@ -3601,14 +3618,6 @@ var Toast = function Toast(_ref2) {
   // 	md: 'text-base [&>*]:text-base [&>svg]:h-5 [&>svg]:w-5',
   // };
 
-  // Variant classes - Based on the variant prop.
-  var variantClassNames = {
-    neutral: 'text-field-label [&>*]:text-field-label border-alert-border-neutral bg-alert-background-neutral',
-    info: 'text-field-helper [&>*]:text-field-helper border-alert-border-info bg-alert-background-info',
-    success: 'text-support-error [&>*]:text-support-error border-alert-border-green bg-alert-background-green',
-    warning: 'text-field-color-disabled disabled cursor-not-allowed [&>*]:text-field-color-disabled border-alert-border-warning bg-alert-background-warning',
-    error: 'text-field-color-disabled disabled cursor-not-allowed [&>*]:text-field-color-disabled border-alert-border-danger bg-alert-background-danger'
-  };
   var startTimer = function startTimer(toastItem) {
     var remainingTime = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : dismissAfter;
     // If auto dismiss is disabled, or the dismissAfter is less than 0, return.
@@ -3638,8 +3647,9 @@ var Toast = function Toast(_ref2) {
     removeToast(toastItem.id);
   }, [toastItem]);
   if (design === 'stack') {
+    var _closeIconClassNames$;
     return /*#__PURE__*/React.createElement("div", {
-      className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_2__.cn)('flex items-center justify-start p-4 gap-2 relative border border-solid rounded-md', variantClassNames[variant])
+      className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_2__.cn)('flex items-center justify-start p-4 gap-2 relative border border-solid rounded-md', _component_style__WEBPACK_IMPORTED_MODULE_4__.variantClassNames[variant])
     }, /*#__PURE__*/React.createElement("div", {
       className: "self-start flex items-center justify-center [&_svg]:size-5 shrink-0"
     }, (0,_utils__WEBPACK_IMPORTED_MODULE_3__.getIcon)({
@@ -3657,7 +3667,7 @@ var Toast = function Toast(_ref2) {
     })), /*#__PURE__*/React.createElement("div", {
       className: "absolute right-4 top-4 [&_svg]:size-5"
     }, /*#__PURE__*/React.createElement("button", {
-      className: "bg-transparent m-0 p-0 border-none focus:outline-none active:outline-none cursor-pointer",
+      className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_2__.cn)('bg-transparent m-0 p-0 border-none focus:outline-none active:outline-none cursor-pointer', (_closeIconClassNames$ = _component_style__WEBPACK_IMPORTED_MODULE_4__.closeIconClassNames[theme]) !== null && _closeIconClassNames$ !== void 0 ? _closeIconClassNames$ : _component_style__WEBPACK_IMPORTED_MODULE_4__.closeIconClassNames.light),
       onClick: function onClick() {
         return removeToast(toastItem.id);
       }
@@ -3682,7 +3692,7 @@ var Toast = function Toast(_ref2) {
     htmlFor: forId,
     className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_2__.cn)(baseClasses,
     // sizeClasses[ size ],
-    variantClassNames[variant], className)
+    _component_style__WEBPACK_IMPORTED_MODULE_4__.variantClassNames[variant], className)
   }, props), /*#__PURE__*/React.createElement("div", null));
 };
 /* harmony default export */ __webpack_exports__["default"] = (Toaster);

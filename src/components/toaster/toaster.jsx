@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
 import { nanoid } from 'nanoid';
-import { AlertTriangle, Trash2, X } from 'lucide-react';
+import { X } from 'lucide-react';
 import { toast, ToastState } from './controller'
 import { cn } from '@/utilities/functions';
 import { getIcon, getAction, getContent, getTitle } from './utils';
-import { containerVariantClassNames, positionClassNames } from './component-style';
+import { closeIconClassNames, containerVariantClassNames, positionClassNames, variantClassNames } from './component-style';
 import { flushSync } from 'react-dom';
 
 const Toaster = ({
@@ -108,17 +108,6 @@ export const Toast = ( {
 	// 	md: 'text-base [&>*]:text-base [&>svg]:h-5 [&>svg]:w-5',
 	// };
 
-    
-
-	// Variant classes - Based on the variant prop.
-	const variantClassNames = {
-		neutral: 'text-field-label [&>*]:text-field-label border-alert-border-neutral bg-alert-background-neutral',
-		info: 'text-field-helper [&>*]:text-field-helper border-alert-border-info bg-alert-background-info',
-		success: 'text-support-error [&>*]:text-support-error border-alert-border-green bg-alert-background-green',
-		warning: 'text-field-color-disabled disabled cursor-not-allowed [&>*]:text-field-color-disabled border-alert-border-warning bg-alert-background-warning',
-        error: 'text-field-color-disabled disabled cursor-not-allowed [&>*]:text-field-color-disabled border-alert-border-danger bg-alert-background-danger',
-	};
-
 
     const startTimer = (toastItem, remainingTime = dismissAfter) => {
         // If auto dismiss is disabled, or the dismissAfter is less than 0, return.
@@ -169,7 +158,10 @@ export const Toast = ( {
                     { getAction( {actionLabel, actionType, onAction, theme} ) }
                 </div> */}
                 <div className='absolute right-4 top-4 [&_svg]:size-5'>
-                    <button className='bg-transparent m-0 p-0 border-none focus:outline-none active:outline-none cursor-pointer' onClick={() => removeToast(toastItem.id)}>
+                    <button className={cn(
+                        'bg-transparent m-0 p-0 border-none focus:outline-none active:outline-none cursor-pointer',
+                        closeIconClassNames[theme] ?? closeIconClassNames.light
+                    )} onClick={() => removeToast(toastItem.id)}>
                         <X />
                     </button>
                 </div>
