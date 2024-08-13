@@ -3790,6 +3790,9 @@ var getTitle = function getTitle(_ref3) {
     theme = _ref3$theme === void 0 ? DEFAULT_THEME : _ref3$theme,
     _ref3$title = _ref3.title,
     title = _ref3$title === void 0 ? '' : _ref3$title;
+  if (!title && isNaN(title)) {
+    return null;
+  }
   var titleClasses = {
     light: 'text-text-primary',
     dark: 'text-text-inverse'
@@ -3803,6 +3806,9 @@ var getContent = function getContent(_ref4) {
     theme = _ref4$theme === void 0 ? DEFAULT_THEME : _ref4$theme,
     _ref4$content = _ref4.content,
     content = _ref4$content === void 0 ? '' : _ref4$content;
+  if (!content && isNaN(content)) {
+    return null;
+  }
   var contentClasses = {
     light: 'text-text-primary',
     dark: 'text-text-inverse'

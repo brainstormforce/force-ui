@@ -76,6 +76,9 @@ export const getAction = ({
 };
 
 export const getTitle = ({ theme = DEFAULT_THEME, title = '' }) => {
+    if (!title && isNaN(title)) {
+        return null;
+    }
 	const titleClasses = {
 		light: 'text-text-primary',
 		dark: 'text-text-inverse',
@@ -88,6 +91,9 @@ export const getTitle = ({ theme = DEFAULT_THEME, title = '' }) => {
 };
 
 export const getContent = ({ theme = DEFAULT_THEME, content = '' }) => {
+    if (! content && isNaN(content)) {
+        return null;
+    }
 	const contentClasses = {
 		light: 'text-text-primary',
 		dark: 'text-text-inverse',
