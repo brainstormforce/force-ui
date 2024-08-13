@@ -1358,6 +1358,66 @@ var RadioGroup = function RadioGroup(_ref) {
 };
 
 // RadioOption component for simple radios
+// const RadioOption = ({ id, label, disabled = false }) => {
+//     const { value, onChange, size } = useRadioGroup();
+//     const sizes = { 
+//         s: 'h-4 w-4', 
+//         m: 'h-5 w-5' 
+//     };
+
+//     return (
+//         <div className="flex items-center">
+//             <input
+//                 id={id}
+//                 name="radio-group"
+//                 type="radio"
+//                 checked={value === id}
+//                 onChange={() => onChange(id)}
+//                 className={cn(
+//                     sizes[size],
+//                     'appearance-none m-0 border border-gray-300 rounded-full',
+//                     'checked:border-blue-600 checked:bg-blue-600',
+//                     'focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-2',
+//                     disabled && 'cursor-not-allowed opacity-50',
+//                     'relative'
+//                 )}
+//                 disabled={disabled}
+//             />
+//             <label
+//                 htmlFor={id}
+//                 className={cn('ml-2 text-sm font-medium', disabled ? 'text-gray-400' : 'text-gray-900')}
+//             >
+//                 {label}
+//             </label>
+
+//             <style jsx>{`
+//                 input[type="radio"]::before {
+//                 content: none !important; /* Ensure ::before does not interfere */
+//                 }
+
+//                 input[type="radio"]::after {
+//                 content: '';
+//                 position: absolute;
+//                 top: 50%;
+//                 left: 50%;
+//                 transform: translate(-50%, -50%);
+//                 width: 8px; /* Adjust this size for a larger inner circle */
+//                 height: 8px; /* Adjust this size for a larger inner circle */
+//                 border-radius: 50%;
+//                 background-color: white;
+//                 opacity: 0;
+//                 transition: opacity 0.2s ease-in-out;
+//                 }
+
+//                 input[type="radio"]:checked::after {
+//                 opacity: 1;
+//                 }
+
+//             `}</style>
+//         </div>
+//     );
+// };
+
 var RadioOption = function RadioOption(_ref2) {
   var id = _ref2.id,
     label = _ref2.label,
@@ -1367,10 +1427,18 @@ var RadioOption = function RadioOption(_ref2) {
     value = _useRadioGroup.value,
     _onChange = _useRadioGroup.onChange,
     size = _useRadioGroup.size;
-  var sizes = {
-    s: 'h-4 w-4',
-    m: 'h-5 w-5'
+  var styles = {
+    s: {
+      input: 'h-4 w-4 py-0.5 px-0.5 bg-field-secondary checked:bg-toggle-on border-border-strong focus:ring-focus-ring',
+      label: 'text-sm font-medium text-field-label'
+    },
+    m: {
+      input: 'h-5 w-5 py-0.5 px-0.5 bg-field-secondary checked:bg-toggle-on border-border-strong focus:ring-focus-ring',
+      label: 'text-base font-medium text-field-label'
+    }
   };
+  var disabledStyles = 'cursor-not-allowed opacity-50 border-border-disabled';
+  var labelDisabledStyles = 'text-field-label-disabled';
   return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
     className: "flex items-center",
     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
@@ -1381,15 +1449,15 @@ var RadioOption = function RadioOption(_ref2) {
       onChange: function onChange() {
         return _onChange(id);
       },
-      className: (0,_utility_utils__WEBPACK_IMPORTED_MODULE_3__.cn)(sizes[size], 'appearance-none m-0 border border-gray-300 rounded-full', 'checked:border-blue-600 checked:bg-blue-600', 'focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-2', disabled && 'cursor-not-allowed opacity-50', 'relative'),
+      className: (0,_utility_utils__WEBPACK_IMPORTED_MODULE_3__.cn)('appearance-none m-0 rounded-full', styles[size].input, 'checked:border-blue-600 checked:bg-blue-600', 'focus:outline-none focus:ring-2 focus:ring-offset-2', disabled && disabledStyles, 'relative'),
       disabled: disabled
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
       htmlFor: id,
-      className: (0,_utility_utils__WEBPACK_IMPORTED_MODULE_3__.cn)('ml-2 text-sm font-medium', disabled ? 'text-gray-400' : 'text-gray-900'),
+      className: (0,_utility_utils__WEBPACK_IMPORTED_MODULE_3__.cn)('ml-2', styles[size].label, disabled ? labelDisabledStyles : 'text-gray-900'),
       children: label
     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("style", {
       jsx: true,
-      children: "\n                input[type=\"radio\"]::before {\n                content: none !important; /* Ensure ::before does not interfere */\n                }\n\n                input[type=\"radio\"]::after {\n                content: '';\n                position: absolute;\n                top: 50%;\n                left: 50%;\n                transform: translate(-50%, -50%);\n                width: 8px; /* Adjust this size for a larger inner circle */\n                height: 8px; /* Adjust this size for a larger inner circle */\n                border-radius: 50%;\n                background-color: white;\n                opacity: 0;\n                transition: opacity 0.2s ease-in-out;\n                }\n\n                input[type=\"radio\"]:checked::after {\n                opacity: 1;\n                }\n\n            "
+      children: "\n                input[type=\"radio\"]::before {\n                    content: none !important;\n                }\n\n                input[type=\"radio\"]::after {\n                    content: '';\n                    position: absolute;\n                    top: 50%;\n                    left: 50%;\n                    transform: translate(-50%, -50%);\n                    width: ".concat(size === 's' ? '8px' : '10px', ";\n                    height: ").concat(size === 's' ? '8px' : '10px', ";\n                    border-radius: 50%;\n                    background-color: white;\n                    opacity: 0;\n                    transition: opacity 0.2s ease-in-out;\n                }\n\n                input[type=\"radio\"]:checked::after {\n                    opacity: 1;\n                }\n            ")
     })]
   });
 };
@@ -1408,9 +1476,9 @@ var BaseRadioButton = (0,react__WEBPACK_IMPORTED_MODULE_2__.forwardRef)(function
     onChange = _useRadioGroup2.onChange,
     size = _useRadioGroup2.size;
   var sizes = {
-    xs: 'py-1 px-1 text-xs leading-4 font-semibold',
-    sm: 'py-2 px-2 text-sm leading-5 font-semibold',
-    md: 'py-2.5 px-2.5 text-base leading-6 font-semibold'
+    s: 'py-1 px-1 text-xs leading-4 font-semibold',
+    m: 'py-2 px-2 text-sm leading-5 font-semibold',
+    l: 'py-2.5 px-2.5 text-base leading-6 font-semibold'
   };
   var baseClasses = 'bg-background-primary text-primary cursor-pointer flex items-center justify-center';
   var hoverClasses = 'hover:bg-button-tertiary-hover';
