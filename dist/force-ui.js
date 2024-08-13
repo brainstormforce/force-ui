@@ -3562,7 +3562,7 @@ var Toaster = function Toaster(_ref) {
     });
   };
   return /*#__PURE__*/React.createElement("ul", {
-    className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_2__.cn)('fixed flex flex-col list-none z-20 p-10 pointer-events-none [&>li]:pointer-events-auto', (_positionClassNames$p = _component_style__WEBPACK_IMPORTED_MODULE_4__.positionClassNames[position]) !== null && _positionClassNames$p !== void 0 ? _positionClassNames$p : _component_style__WEBPACK_IMPORTED_MODULE_4__.positionClassNames['top-right'], (_containerVariantClas = _component_style__WEBPACK_IMPORTED_MODULE_4__.containerVariantClassNames[design]) !== null && _containerVariantClas !== void 0 ? _containerVariantClas : _component_style__WEBPACK_IMPORTED_MODULE_4__.containerVariantClassNames.stack, className)
+    className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_2__.cn)('fixed flex flex-col list-none z-20 p-10 pointer-events-none [&>li]:pointer-events-auto gap-3', (_positionClassNames$p = _component_style__WEBPACK_IMPORTED_MODULE_4__.positionClassNames[position]) !== null && _positionClassNames$p !== void 0 ? _positionClassNames$p : _component_style__WEBPACK_IMPORTED_MODULE_4__.positionClassNames['top-right'], (_containerVariantClas = _component_style__WEBPACK_IMPORTED_MODULE_4__.containerVariantClassNames[design]) !== null && _containerVariantClas !== void 0 ? _containerVariantClas : _component_style__WEBPACK_IMPORTED_MODULE_4__.containerVariantClassNames.stack, className)
   }, toasts.map(function (toastItem) {
     return /*#__PURE__*/React.createElement("li", {
       key: (0,nanoid__WEBPACK_IMPORTED_MODULE_6__.nanoid)()
@@ -3649,7 +3649,7 @@ var Toast = function Toast(_ref2) {
   if (design === 'stack') {
     var _closeIconClassNames$;
     return /*#__PURE__*/React.createElement("div", {
-      className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_2__.cn)('flex items-center justify-start p-4 gap-2 relative border border-solid rounded-md', _component_style__WEBPACK_IMPORTED_MODULE_4__.variantClassNames[variant])
+      className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_2__.cn)('flex items-center justify-start p-4 gap-2 relative border border-solid rounded-md shadow-lg', _component_style__WEBPACK_IMPORTED_MODULE_4__.variantClassNames[variant])
     }, /*#__PURE__*/React.createElement("div", {
       className: "self-start flex items-center justify-center [&_svg]:size-5 shrink-0"
     }, (0,_utils__WEBPACK_IMPORTED_MODULE_3__.getIcon)({

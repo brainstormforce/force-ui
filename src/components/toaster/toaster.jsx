@@ -53,7 +53,7 @@ const Toaster = ({
     return (
         <ul
             className={cn(
-                'fixed flex flex-col list-none z-20 p-10 pointer-events-none [&>li]:pointer-events-auto',
+                'fixed flex flex-col list-none z-20 p-10 pointer-events-none [&>li]:pointer-events-auto gap-3',
                 positionClassNames[position] ?? positionClassNames['top-right'],
                 containerVariantClassNames[design] ?? containerVariantClassNames.stack,
                 className
@@ -144,7 +144,7 @@ export const Toast = ( {
     if ( design === 'stack' ) {
         return (
             <div className={cn(
-                'flex items-center justify-start p-4 gap-2 relative border border-solid rounded-md',
+                'flex items-center justify-start p-4 gap-2 relative border border-solid rounded-md shadow-lg',
                 variantClassNames[variant],
             )}>
                 <div className='self-start flex items-center justify-center [&_svg]:size-5 shrink-0'>
