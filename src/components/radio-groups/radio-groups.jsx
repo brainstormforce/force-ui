@@ -4,11 +4,12 @@ import { cn } from '../../utilities/functions';
 // Context for RadioGroup state management
 const RadioGroupContext = createContext();
 
-// Hook to use the RadioGroup context
+// Custom Hook to use the RadioGroup context
 const useRadioGroup = () => useContext(RadioGroupContext);
 
 // RadioGroup component
-const RadioGroup = ({ children, value, onChange, className, size = 'md', style = 'simple' }) => {
+const RadioGroup = ({ children, value, onChange, size = 's', style = 'simple', className }) => {
+
     const handleChange = useCallback(
         (newValue) => {
             if (onChange) {
@@ -29,86 +30,25 @@ const RadioGroup = ({ children, value, onChange, className, size = 'md', style =
     );
 };
 
-// RadioOption component for simple radios
-// const RadioOption = ({ id, label, disabled = false }) => {
-//     const { value, onChange, size } = useRadioGroup();
-//     const sizes = { 
-//         s: 'h-4 w-4', 
-//         m: 'h-5 w-5' 
-//     };
-
-//     return (
-//         <div className="flex items-center">
-//             <input
-//                 id={id}
-//                 name="radio-group"
-//                 type="radio"
-//                 checked={value === id}
-//                 onChange={() => onChange(id)}
-//                 className={cn(
-//                     sizes[size],
-//                     'appearance-none m-0 border border-gray-300 rounded-full',
-//                     'checked:border-blue-600 checked:bg-blue-600',
-//                     'focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-2',
-//                     disabled && 'cursor-not-allowed opacity-50',
-//                     'relative'
-//                 )}
-//                 disabled={disabled}
-//             />
-//             <label
-//                 htmlFor={id}
-//                 className={cn('ml-2 text-sm font-medium', disabled ? 'text-gray-400' : 'text-gray-900')}
-//             >
-//                 {label}
-//             </label>
-
-//             <style jsx>{`
-//                 input[type="radio"]::before {
-//                 content: none !important; /* Ensure ::before does not interfere */
-//                 }
-
-//                 input[type="radio"]::after {
-//                 content: '';
-//                 position: absolute;
-//                 top: 50%;
-//                 left: 50%;
-//                 transform: translate(-50%, -50%);
-//                 width: 8px; /* Adjust this size for a larger inner circle */
-//                 height: 8px; /* Adjust this size for a larger inner circle */
-//                 border-radius: 50%;
-//                 background-color: white;
-//                 opacity: 0;
-//                 transition: opacity 0.2s ease-in-out;
-//                 }
-
-//                 input[type="radio"]:checked::after {
-//                 opacity: 1;
-//                 }
-
-//             `}</style>
-//         </div>
-//     );
-// };
-
 const RadioOption = ({ id, label, disabled = false }) => {
     const { value, onChange, size } = useRadioGroup();
 
     const styles = {
         s: {
-            input: 'h-4 w-4 py-0.5 px-0.5 bg-field-secondary checked:bg-toggle-on border-border-strong focus:ring-focus-ring',
-            label: 'text-sm font-medium text-field-label',
+            input: 'h-4 w-4 py-0.5 px-0.5 border-border-strong hover:border-border-interactive checked:border-border-interactive bg-white checked:bg-toggle-on checked:hover:bg-toggle-on-hover checked:hover:border-toggle-on-hover focus:ring-2 focus:ring-offset-2 focus:ring-focus',
+            label: 'text-sm font-medium text-field-label leading-5',
         },
+       
         m: {
-            input: 'h-5 w-5 py-0.5 px-0.5 bg-field-secondary checked:bg-toggle-on border-border-strong focus:ring-focus-ring',
-            label: 'text-base font-medium text-field-label',
+            input: 'h-5 w-5 py-0.5 px-0.5 border-border-strong hover:border-border-interactive checked:border-border-interactive bg-white checked:bg-toggle-on checked:hover:bg-toggle-on-hover checked:hover:border-toggle-on-hover focus:ring-2 focus:ring-offset-4 focus:ring-focus',
+            label: 'text-base font-medium text-field-label leading-6',
         },
     };
 
-    const disabledStyles = 'cursor-not-allowed opacity-50 border-border-disabled';
-    const labelDisabledStyles = 'text-field-label-disabled';
+    const disabledStyles = 'cursor-not-allowed checked:border-border-disabled checked:bg-border-disabled border-border-disabled hover:border-border-disabled hover:checked:border-border-disabled hover:checked:bg-border-disabled';
 
     return (
-        <div className="flex items-center">
+        <div className="flex items-center gap-2">
             <input
                 id={id}
                 name="radio-group"
@@ -116,21 +56,17 @@ const RadioOption = ({ id, label, disabled = false }) => {
                 checked={value === id}
                 onChange={() => onChange(id)}
                 className={cn(
-                    'appearance-none m-0 rounded-full',
+                    'appearance-none m-0 rounded-full relative',
                     styles[size].input,
-                    'checked:border-blue-600 checked:bg-blue-600',
-                    'focus:outline-none focus:ring-2 focus:ring-offset-2',
                     disabled && disabledStyles,
-                    'relative'
                 )}
                 disabled={disabled}
             />
             <label
                 htmlFor={id}
                 className={cn(
-                    'ml-2',
                     styles[size].label,
-                    disabled ? labelDisabledStyles : 'text-gray-900'
+                    disabled ? 'text-field-color-disabled cursor-not-allowed' : 'cursor-pointer'
                 )}
             >
                 {label}
@@ -147,8 +83,8 @@ const RadioOption = ({ id, label, disabled = false }) => {
                     top: 50%;
                     left: 50%;
                     transform: translate(-50%, -50%);
-                    width: ${size === 's' ? '8px' : '10px'};
-                    height: ${size === 's' ? '8px' : '10px'};
+                    width: ${size === 's' ? '6px' : '8px'};
+                    height: ${size === 's' ? '6px' : '8px'};
                     border-radius: 50%;
                     background-color: white;
                     opacity: 0;
@@ -175,9 +111,16 @@ const BaseRadioButton = forwardRef(({ id, label, isFirstChild, isLastChild, disa
     };
 
     const baseClasses = 'bg-background-primary text-primary cursor-pointer flex items-center justify-center';
+
+    // Button hover classes.
     const hoverClasses = 'hover:bg-button-tertiary-hover';
+
+    // Button focus classes.
     const focusClasses = 'focus:outline-none';
+
+    // Button disabled classes.
     const disabledClasses = disabled ? 'text-text-disabled cursor-not-allowed' : '';
+
     const firstChildClasses = isFirstChild ? 'rounded-tl rounded-bl border-0 border-r border-border-subtle' : '';
     const lastChildClasses = isLastChild ? 'rounded-tr rounded-br border-0' : '';
     const borderClasses = 'border-0 border-r border-border-subtle border-solid';
@@ -216,9 +159,9 @@ const RadioIcon = forwardRef(({ id, icon, isFirstChild, isLastChild, disabled = 
     const { value, onChange, size } = useRadioGroup();
 
     const sizes = {
-        xs: 'py-1 px-1 text-xs leading-4 font-semibold [&>svg]:h-4 [&>svg]:w-4 stroke-1',
-        sm: 'py-2 px-2 text-sm leading-5 font-semibold [&>svg]:h-4 [&>svg]:w-4 stroke-1',
-        md: 'py-2.5 px-2.5 text-base leading-6 font-semibold [&>svg]:h-5 [&>svg]:w-5 stroke-1',
+        s: 'py-1 px-1 text-xs leading-4 font-semibold [&>svg]:h-4 [&>svg]:w-4 stroke-1',
+        m: 'py-2 px-2 text-sm leading-5 font-semibold [&>svg]:h-4 [&>svg]:w-4 stroke-1',
+        l: 'py-2.5 px-2.5 text-base leading-6 font-semibold [&>svg]:h-5 [&>svg]:w-5 stroke-1',
     };
 
     const baseClasses = 'bg-background-primary text-primary cursor-pointer flex items-center justify-center';
@@ -257,15 +200,18 @@ const RadioIcon = forwardRef(({ id, icon, isFirstChild, isLastChild, disabled = 
 const RadioGroups = ({ options, value, onChange, size, style }) => {
     return (
         <RadioGroup value={value} onChange={onChange} size={size} style={style}>
-            {options.map((option) =>
-                style === 'simple' ? (
-                    <RadioOption key={option.id} id={option.id} label={option.label} disabled={option.disabled} />
-                ) : style === 'label' ? (
-                    <RadioButton key={option.id} id={option.id} label={option.label} disabled={option.disabled} />
-                ) : (
-                    <RadioIcon key={option.id} id={option.id} icon={option.icon} disabled={option.disabled} />
-                )
-            )}
+            {options.map((option, index) => {
+                const isFirstChild = index === 0;
+                const isLastChild = index === options.length - 1;
+
+                if (style === 'icon') {
+                    return <RadioIcon key={option.id} id={option.id} icon={option.icon} isFirstChild={isFirstChild} isLastChild={isLastChild} disabled={option.disabled} />;
+                } else if (style === 'label') {
+                    return <RadioButton key={option.id} id={option.id} label={option.label} isFirstChild={isFirstChild} isLastChild={isLastChild} disabled={option.disabled} />;
+                } else {
+                    return <RadioOption key={option.id} id={option.id} label={option.label} disabled={option.disabled} />;
+                }
+            })}
         </RadioGroup>
     );
 };

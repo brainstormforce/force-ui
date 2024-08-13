@@ -1568,7 +1568,7 @@ function _objectWithoutPropertiesLoose(r, e) {
 // Context for RadioGroup state management
 var RadioGroupContext = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.createContext)();
 
-// Hook to use the RadioGroup context
+// Custom Hook to use the RadioGroup context
 var useRadioGroup = function useRadioGroup() {
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(RadioGroupContext);
 };
@@ -1578,11 +1578,11 @@ var RadioGroup = function RadioGroup(_ref) {
   var children = _ref.children,
     value = _ref.value,
     onChange = _ref.onChange,
-    className = _ref.className,
     _ref$size = _ref.size,
-    size = _ref$size === void 0 ? 'md' : _ref$size,
+    size = _ref$size === void 0 ? 's' : _ref$size,
     _ref$style = _ref.style,
-    style = _ref$style === void 0 ? 'simple' : _ref$style;
+    style = _ref$style === void 0 ? 'simple' : _ref$style,
+    className = _ref.className;
   var handleChange = (0,react__WEBPACK_IMPORTED_MODULE_0__.useCallback)(function (newValue) {
     if (onChange) {
       onChange(newValue);
@@ -1600,68 +1600,6 @@ var RadioGroup = function RadioGroup(_ref) {
     className: groupClassName
   }, children));
 };
-
-// RadioOption component for simple radios
-// const RadioOption = ({ id, label, disabled = false }) => {
-//     const { value, onChange, size } = useRadioGroup();
-//     const sizes = { 
-//         s: 'h-4 w-4', 
-//         m: 'h-5 w-5' 
-//     };
-
-//     return (
-//         <div className="flex items-center">
-//             <input
-//                 id={id}
-//                 name="radio-group"
-//                 type="radio"
-//                 checked={value === id}
-//                 onChange={() => onChange(id)}
-//                 className={cn(
-//                     sizes[size],
-//                     'appearance-none m-0 border border-gray-300 rounded-full',
-//                     'checked:border-blue-600 checked:bg-blue-600',
-//                     'focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-2',
-//                     disabled && 'cursor-not-allowed opacity-50',
-//                     'relative'
-//                 )}
-//                 disabled={disabled}
-//             />
-//             <label
-//                 htmlFor={id}
-//                 className={cn('ml-2 text-sm font-medium', disabled ? 'text-gray-400' : 'text-gray-900')}
-//             >
-//                 {label}
-//             </label>
-
-//             <style jsx>{`
-//                 input[type="radio"]::before {
-//                 content: none !important; /* Ensure ::before does not interfere */
-//                 }
-
-//                 input[type="radio"]::after {
-//                 content: '';
-//                 position: absolute;
-//                 top: 50%;
-//                 left: 50%;
-//                 transform: translate(-50%, -50%);
-//                 width: 8px; /* Adjust this size for a larger inner circle */
-//                 height: 8px; /* Adjust this size for a larger inner circle */
-//                 border-radius: 50%;
-//                 background-color: white;
-//                 opacity: 0;
-//                 transition: opacity 0.2s ease-in-out;
-//                 }
-
-//                 input[type="radio"]:checked::after {
-//                 opacity: 1;
-//                 }
-
-//             `}</style>
-//         </div>
-//     );
-// };
-
 var RadioOption = function RadioOption(_ref2) {
   var id = _ref2.id,
     label = _ref2.label,
@@ -1673,18 +1611,17 @@ var RadioOption = function RadioOption(_ref2) {
     size = _useRadioGroup.size;
   var styles = {
     s: {
-      input: 'h-4 w-4 py-0.5 px-0.5 bg-field-secondary checked:bg-toggle-on border-border-strong focus:ring-focus-ring',
-      label: 'text-sm font-medium text-field-label'
+      input: 'h-4 w-4 py-0.5 px-0.5 border-border-strong hover:border-border-interactive checked:border-border-interactive bg-white checked:bg-toggle-on checked:hover:bg-toggle-on-hover checked:hover:border-toggle-on-hover focus:ring-2 focus:ring-offset-2 focus:ring-focus',
+      label: 'text-sm font-medium text-field-label leading-5'
     },
     m: {
-      input: 'h-5 w-5 py-0.5 px-0.5 bg-field-secondary checked:bg-toggle-on border-border-strong focus:ring-focus-ring',
-      label: 'text-base font-medium text-field-label'
+      input: 'h-5 w-5 py-0.5 px-0.5 border-border-strong hover:border-border-interactive checked:border-border-interactive bg-white checked:bg-toggle-on checked:hover:bg-toggle-on-hover checked:hover:border-toggle-on-hover focus:ring-2 focus:ring-offset-4 focus:ring-focus',
+      label: 'text-base font-medium text-field-label leading-6'
     }
   };
-  var disabledStyles = 'cursor-not-allowed opacity-50 border-border-disabled';
-  var labelDisabledStyles = 'text-field-label-disabled';
+  var disabledStyles = 'cursor-not-allowed checked:border-border-disabled checked:bg-border-disabled border-border-disabled hover:border-border-disabled hover:checked:border-border-disabled hover:checked:bg-border-disabled';
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-    className: "flex items-center"
+    className: "flex items-center gap-2"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
     id: id,
     name: "radio-group",
@@ -1693,14 +1630,14 @@ var RadioOption = function RadioOption(_ref2) {
     onChange: function onChange() {
       return _onChange(id);
     },
-    className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_1__.cn)('appearance-none m-0 rounded-full', styles[size].input, 'checked:border-blue-600 checked:bg-blue-600', 'focus:outline-none focus:ring-2 focus:ring-offset-2', disabled && disabledStyles, 'relative'),
+    className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_1__.cn)('appearance-none m-0 rounded-full relative', styles[size].input, disabled && disabledStyles),
     disabled: disabled
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", {
     htmlFor: id,
-    className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_1__.cn)('ml-2', styles[size].label, disabled ? labelDisabledStyles : 'text-gray-900')
+    className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_1__.cn)(styles[size].label, disabled ? 'text-field-color-disabled cursor-not-allowed' : 'cursor-pointer')
   }, label), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("style", {
     jsx: true
-  }, "\n                input[type=\"radio\"]::before {\n                    content: none !important;\n                }\n\n                input[type=\"radio\"]::after {\n                    content: '';\n                    position: absolute;\n                    top: 50%;\n                    left: 50%;\n                    transform: translate(-50%, -50%);\n                    width: ".concat(size === 's' ? '8px' : '10px', ";\n                    height: ").concat(size === 's' ? '8px' : '10px', ";\n                    border-radius: 50%;\n                    background-color: white;\n                    opacity: 0;\n                    transition: opacity 0.2s ease-in-out;\n                }\n\n                input[type=\"radio\"]:checked::after {\n                    opacity: 1;\n                }\n            ")));
+  }, "\n                input[type=\"radio\"]::before {\n                    content: none !important;\n                }\n\n                input[type=\"radio\"]::after {\n                    content: '';\n                    position: absolute;\n                    top: 50%;\n                    left: 50%;\n                    transform: translate(-50%, -50%);\n                    width: ".concat(size === 's' ? '6px' : '8px', ";\n                    height: ").concat(size === 's' ? '6px' : '8px', ";\n                    border-radius: 50%;\n                    background-color: white;\n                    opacity: 0;\n                    transition: opacity 0.2s ease-in-out;\n                }\n\n                input[type=\"radio\"]:checked::after {\n                    opacity: 1;\n                }\n            ")));
 };
 
 // Base RadioButton component using ButtonGroup styles
@@ -1722,8 +1659,14 @@ var BaseRadioButton = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.forward
     l: 'py-2.5 px-2.5 text-base leading-6 font-semibold'
   };
   var baseClasses = 'bg-background-primary text-primary cursor-pointer flex items-center justify-center';
+
+  // Button hover classes.
   var hoverClasses = 'hover:bg-button-tertiary-hover';
+
+  // Button focus classes.
   var focusClasses = 'focus:outline-none';
+
+  // Button disabled classes.
   var disabledClasses = disabled ? 'text-text-disabled cursor-not-allowed' : '';
   var firstChildClasses = isFirstChild ? 'rounded-tl rounded-bl border-0 border-r border-border-subtle' : '';
   var lastChildClasses = isLastChild ? 'rounded-tr rounded-br border-0' : '';
@@ -1762,9 +1705,9 @@ var RadioIcon = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.forwardRef)(f
     onChange = _useRadioGroup3.onChange,
     size = _useRadioGroup3.size;
   var sizes = {
-    xs: 'py-1 px-1 text-xs leading-4 font-semibold [&>svg]:h-4 [&>svg]:w-4 stroke-1',
-    sm: 'py-2 px-2 text-sm leading-5 font-semibold [&>svg]:h-4 [&>svg]:w-4 stroke-1',
-    md: 'py-2.5 px-2.5 text-base leading-6 font-semibold [&>svg]:h-5 [&>svg]:w-5 stroke-1'
+    s: 'py-1 px-1 text-xs leading-4 font-semibold [&>svg]:h-4 [&>svg]:w-4 stroke-1',
+    m: 'py-2 px-2 text-sm leading-5 font-semibold [&>svg]:h-4 [&>svg]:w-4 stroke-1',
+    l: 'py-2.5 px-2.5 text-base leading-6 font-semibold [&>svg]:h-5 [&>svg]:w-5 stroke-1'
   };
   var baseClasses = 'bg-background-primary text-primary cursor-pointer flex items-center justify-center';
   var hoverClasses = 'hover:bg-button-tertiary-hover';
@@ -1798,23 +1741,35 @@ var RadioGroups = function RadioGroups(_ref5) {
     onChange: onChange,
     size: size,
     style: style
-  }, options.map(function (option) {
-    return style === 'simple' ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(RadioOption, {
-      key: option.id,
-      id: option.id,
-      label: option.label,
-      disabled: option.disabled
-    }) : style === 'label' ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(RadioButton, {
-      key: option.id,
-      id: option.id,
-      label: option.label,
-      disabled: option.disabled
-    }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(RadioIcon, {
-      key: option.id,
-      id: option.id,
-      icon: option.icon,
-      disabled: option.disabled
-    });
+  }, options.map(function (option, index) {
+    var isFirstChild = index === 0;
+    var isLastChild = index === options.length - 1;
+    if (style === 'icon') {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(RadioIcon, {
+        key: option.id,
+        id: option.id,
+        icon: option.icon,
+        isFirstChild: isFirstChild,
+        isLastChild: isLastChild,
+        disabled: option.disabled
+      });
+    } else if (style === 'label') {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(RadioButton, {
+        key: option.id,
+        id: option.id,
+        label: option.label,
+        isFirstChild: isFirstChild,
+        isLastChild: isLastChild,
+        disabled: option.disabled
+      });
+    } else {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(RadioOption, {
+        key: option.id,
+        id: option.id,
+        label: option.label,
+        disabled: option.disabled
+      });
+    }
   }));
 };
 /* harmony default export */ __webpack_exports__["default"] = (RadioGroups);
