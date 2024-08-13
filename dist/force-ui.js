@@ -750,7 +750,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   Loader: function() { return /* reexport safe */ _loader_index__WEBPACK_IMPORTED_MODULE_9__["default"]; },
 /* harmony export */   ProgressBar: function() { return /* reexport safe */ _progress_bar_index__WEBPACK_IMPORTED_MODULE_10__["default"]; },
 /* harmony export */   RadioButton: function() { return /* reexport safe */ _radio_button_index__WEBPACK_IMPORTED_MODULE_3__["default"]; },
-/* harmony export */   RadioGroups: function() { return /* reexport safe */ _radio_groups_index__WEBPACK_IMPORTED_MODULE_13__["default"]; },
+/* harmony export */   RadioGroup: function() { return /* reexport safe */ _radio_group_index__WEBPACK_IMPORTED_MODULE_13__["default"]; },
 /* harmony export */   Select: function() { return /* reexport safe */ _select_index__WEBPACK_IMPORTED_MODULE_14__["default"]; },
 /* harmony export */   Switch: function() { return /* reexport safe */ _switch_index__WEBPACK_IMPORTED_MODULE_1__["default"]; },
 /* harmony export */   Tabs: function() { return /* reexport safe */ _tabs_index__WEBPACK_IMPORTED_MODULE_12__["default"]; },
@@ -769,7 +769,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _progress_bar_index__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./progress-bar/index */ "./src/components/progress-bar/index.js");
 /* harmony import */ var _button_group_index__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./button-group/index */ "./src/components/button-group/index.js");
 /* harmony import */ var _tabs_index__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./tabs/index */ "./src/components/tabs/index.js");
-/* harmony import */ var _radio_groups_index__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./radio-groups/index */ "./src/components/radio-groups/index.js");
+/* harmony import */ var _radio_group_index__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./radio-group/index */ "./src/components/radio-group/index.js");
 /* harmony import */ var _select_index__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./select/index */ "./src/components/select/index.js");
 
 
@@ -1506,25 +1506,25 @@ var exports = {
 
 /***/ }),
 
-/***/ "./src/components/radio-groups/index.js":
-/*!**********************************************!*\
-  !*** ./src/components/radio-groups/index.js ***!
-  \**********************************************/
+/***/ "./src/components/radio-group/index.js":
+/*!*********************************************!*\
+  !*** ./src/components/radio-group/index.js ***!
+  \*********************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": function() { return /* reexport safe */ _radio_groups_jsx__WEBPACK_IMPORTED_MODULE_0__["default"]; }
+/* harmony export */   "default": function() { return /* reexport safe */ _radio_group_jsx__WEBPACK_IMPORTED_MODULE_0__["default"]; }
 /* harmony export */ });
-/* harmony import */ var _radio_groups_jsx__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./radio-groups.jsx */ "./src/components/radio-groups/radio-groups.jsx");
+/* harmony import */ var _radio_group_jsx__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./radio-group.jsx */ "./src/components/radio-group/radio-group.jsx");
 
 
 /***/ }),
 
-/***/ "./src/components/radio-groups/radio-groups.jsx":
-/*!******************************************************!*\
-  !*** ./src/components/radio-groups/radio-groups.jsx ***!
-  \******************************************************/
+/***/ "./src/components/radio-group/radio-group.jsx":
+/*!****************************************************!*\
+  !*** ./src/components/radio-group/radio-group.jsx ***!
+  \****************************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 __webpack_require__.r(__webpack_exports__);
@@ -1573,8 +1573,8 @@ var useRadioGroup = function useRadioGroup() {
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(RadioGroupContext);
 };
 
-// RadioGroup component
-var RadioGroup = function RadioGroup(_ref) {
+// Internal RadioGroup component (context provider)
+var InternalRadioGroup = function InternalRadioGroup(_ref) {
   var children = _ref.children,
     value = _ref.value,
     onChange = _ref.onChange,
@@ -1639,8 +1639,6 @@ var RadioOption = function RadioOption(_ref2) {
     jsx: true
   }, "\n                input[type=\"radio\"]::before {\n                    content: none !important;\n                }\n\n                input[type=\"radio\"]::after {\n                    content: '';\n                    position: absolute;\n                    top: 50%;\n                    left: 50%;\n                    transform: translate(-50%, -50%);\n                    width: ".concat(size === 's' ? '6px' : '8px', ";\n                    height: ").concat(size === 's' ? '6px' : '8px', ";\n                    border-radius: 50%;\n                    background-color: white;\n                    opacity: 0;\n                    transition: opacity 0.2s ease-in-out;\n                }\n\n                input[type=\"radio\"]:checked::after {\n                    opacity: 1;\n                }\n            ")));
 };
-
-// Base RadioButton component using ButtonGroup styles
 var BaseRadioButton = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.forwardRef)(function (_ref3, ref) {
   var id = _ref3.id,
     label = _ref3.label,
@@ -1659,14 +1657,8 @@ var BaseRadioButton = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.forward
     l: 'py-2.5 px-2.5 text-base leading-6 font-semibold'
   };
   var baseClasses = 'bg-background-primary text-primary cursor-pointer flex items-center justify-center';
-
-  // Button hover classes.
   var hoverClasses = 'hover:bg-button-tertiary-hover';
-
-  // Button focus classes.
   var focusClasses = 'focus:outline-none';
-
-  // Button disabled classes.
   var disabledClasses = disabled ? 'text-text-disabled cursor-not-allowed' : '';
   var firstChildClasses = isFirstChild ? 'rounded-tl rounded-bl border-0 border-r border-border-subtle' : '';
   var lastChildClasses = isLastChild ? 'rounded-tr rounded-br border-0' : '';
@@ -1683,8 +1675,6 @@ var BaseRadioButton = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.forward
     onClick: handleClick
   }, rest), label);
 });
-
-// RadioButton component for label style
 var RadioButton = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.forwardRef)(function (props, ref) {
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(BaseRadioButton, _extends({
     ref: ref
@@ -1729,14 +1719,14 @@ var RadioIcon = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.forwardRef)(f
   }, rest), icon);
 });
 
-// Main RadioGroups component with style handling
-var RadioGroups = function RadioGroups(_ref5) {
+// Main RadioGroup component 
+var RadioGroup = function RadioGroup(_ref5) {
   var options = _ref5.options,
     value = _ref5.value,
     onChange = _ref5.onChange,
     size = _ref5.size,
     style = _ref5.style;
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(RadioGroup, {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(InternalRadioGroup, {
     value: value,
     onChange: onChange,
     size: size,
@@ -1772,7 +1762,7 @@ var RadioGroups = function RadioGroups(_ref5) {
     }
   }));
 };
-/* harmony default export */ __webpack_exports__["default"] = (RadioGroups);
+/* harmony default export */ __webpack_exports__["default"] = (RadioGroup);
 
 /***/ }),
 
@@ -14332,7 +14322,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   Loader: function() { return /* reexport safe */ _components__WEBPACK_IMPORTED_MODULE_0__.Loader; },
 /* harmony export */   ProgressBar: function() { return /* reexport safe */ _components__WEBPACK_IMPORTED_MODULE_0__.ProgressBar; },
 /* harmony export */   RadioButton: function() { return /* reexport safe */ _components__WEBPACK_IMPORTED_MODULE_0__.RadioButton; },
-/* harmony export */   RadioGroups: function() { return /* reexport safe */ _components__WEBPACK_IMPORTED_MODULE_0__.RadioGroups; },
+/* harmony export */   RadioGroup: function() { return /* reexport safe */ _components__WEBPACK_IMPORTED_MODULE_0__.RadioGroup; },
 /* harmony export */   Select: function() { return /* reexport safe */ _components__WEBPACK_IMPORTED_MODULE_0__.Select; },
 /* harmony export */   Switch: function() { return /* reexport safe */ _components__WEBPACK_IMPORTED_MODULE_0__.Switch; },
 /* harmony export */   Tabs: function() { return /* reexport safe */ _components__WEBPACK_IMPORTED_MODULE_0__.Tabs; },

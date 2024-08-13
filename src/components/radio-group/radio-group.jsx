@@ -7,8 +7,8 @@ const RadioGroupContext = createContext();
 // Custom Hook to use the RadioGroup context
 const useRadioGroup = () => useContext(RadioGroupContext);
 
-// RadioGroup component
-const RadioGroup = ({ children, value, onChange, size = 's', style = 'simple', className }) => {
+// Internal RadioGroup component (context provider)
+const InternalRadioGroup = ({ children, value, onChange, size = 's', style = 'simple', className }) => {
 
     const handleChange = useCallback(
         (newValue) => {
@@ -99,8 +99,6 @@ const RadioOption = ({ id, label, disabled = false }) => {
     );
 };
 
-
-// Base RadioButton component using ButtonGroup styles
 const BaseRadioButton = forwardRef(({ id, label, isFirstChild, isLastChild, disabled = false, ...rest }, ref) => {
     const { value, onChange, size } = useRadioGroup();
 
@@ -112,13 +110,10 @@ const BaseRadioButton = forwardRef(({ id, label, isFirstChild, isLastChild, disa
 
     const baseClasses = 'bg-background-primary text-primary cursor-pointer flex items-center justify-center';
 
-    // Button hover classes.
     const hoverClasses = 'hover:bg-button-tertiary-hover';
 
-    // Button focus classes.
     const focusClasses = 'focus:outline-none';
 
-    // Button disabled classes.
     const disabledClasses = disabled ? 'text-text-disabled cursor-not-allowed' : '';
 
     const firstChildClasses = isFirstChild ? 'rounded-tl rounded-bl border-0 border-r border-border-subtle' : '';
@@ -149,7 +144,6 @@ const BaseRadioButton = forwardRef(({ id, label, isFirstChild, isLastChild, disa
     );
 });
 
-// RadioButton component for label style
 const RadioButton = forwardRef((props, ref) => {
     return <BaseRadioButton ref={ref} {...props} />;
 });
@@ -196,10 +190,10 @@ const RadioIcon = forwardRef(({ id, icon, isFirstChild, isLastChild, disabled = 
     );
 });
 
-// Main RadioGroups component with style handling
-const RadioGroups = ({ options, value, onChange, size, style }) => {
+// Main RadioGroup component 
+const RadioGroup = ({ options, value, onChange, size, style }) => {
     return (
-        <RadioGroup value={value} onChange={onChange} size={size} style={style}>
+        <InternalRadioGroup value={value} onChange={onChange} size={size} style={style}>
             {options.map((option, index) => {
                 const isFirstChild = index === 0;
                 const isLastChild = index === options.length - 1;
@@ -212,8 +206,8 @@ const RadioGroups = ({ options, value, onChange, size, style }) => {
                     return <RadioOption key={option.id} id={option.id} label={option.label} disabled={option.disabled} />;
                 }
             })}
-        </RadioGroup>
+        </InternalRadioGroup>
     );
 };
 
-export default RadioGroups;
+export default RadioGroup;
