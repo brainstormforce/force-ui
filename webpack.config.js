@@ -34,7 +34,12 @@ const libConfig = {
                 test: /\.(js|jsx)$/,
                 exclude: /node_modules/,
                 use: ['babel-loader']
-              },
+			},
+			{
+				test: /\.mjs$/,
+				include: /node_modules/,
+				type: 'javascript/auto',
+			},
 		],
 	},
 	externals: {

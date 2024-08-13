@@ -6,12 +6,13 @@ import { cn } from '@/utilities/functions';
 import { getIcon, getAction, getContent, getTitle } from './utils';
 import { closeIconClassNames, containerVariantClassNames, positionClassNames, variantClassNames } from './component-style';
 import { flushSync } from 'react-dom';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const Toaster = ({
     position = 'top-right', // top-right/top-left/bottom-right/bottom-left
     design = 'stack', // stack/inline
     className = '',
-    autoDismiss = false,
+    autoDismiss = true,
     dismissAfter = 5000,
 }) => {
     const [toasts, setToasts] = useState([]);
@@ -60,20 +61,28 @@ const Toaster = ({
             )}
         >
             {/* Main container */}
-            {toasts.map((toastItem) => (
-                <li key={nanoid()}>
-                    <Toast
-                        toastItem={toastItem}
-                        title={toastItem.title}
-                        content={toastItem?.description}
-                        design={design}
-                        autoDismiss={autoDismiss}
-                        dismissAfter={dismissAfter}
-                        removeToast={removeToast}
-                        variant={toastItem.type}
-                    />
-                </li>
-            ))}
+            <AnimatePresence initial={false}>
+                {toasts.map((toastItem) => (
+                    <motion.li key={toastItem.id}
+                        positionTransition
+                        initial={{ opacity: 0, y: 50, scale: 0.7 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, scale: 0.6, transition: { duration: 0.15 } }}
+                        layoutId={toastItem.id}
+                    >
+                        <Toast
+                            toastItem={toastItem}
+                            title={toastItem.title}
+                            content={toastItem?.description}
+                            design={design}
+                            autoDismiss={autoDismiss}
+                            dismissAfter={dismissAfter}
+                            removeToast={removeToast}
+                            variant={toastItem.type}
+                        />
+                    </motion.li>
+                ))}
+            </AnimatePresence>
         </ul>
     )
 };
