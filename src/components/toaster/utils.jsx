@@ -2,7 +2,12 @@ import { Check, Info, AlertTriangle, Trash2 } from 'lucide-react';
 import { cn } from '../../utilities/functions';
 import { Button } from '../button/index';
 
-export const getIcon = ( { icon, theme, variant } ) => {
+const DEFAULT_THEME = 'light';
+const DEFAULT_VARIANT = 'neutral';
+const DEFAULT_ACTION_TYPE = 'button';
+
+
+export const getIcon = ( { icon = null, theme = DEFAULT_THEME, variant = DEFAULT_VARIANT } ) => {
     const commonClasses = '[&>svg]:h-5 [&>svg]:w-5';
     let nColor = theme === 'light' ? 'text-icon-secondary' : 'text-icon-inverse';
     if ( icon ) {
@@ -83,7 +88,7 @@ export const getIcon = ( { icon, theme, variant } ) => {
     }
 };
 
-export const getAction = ( { actionType, onAction, actionLabel } ) => {
+export const getAction = ( { actionType = DEFAULT_ACTION_TYPE, onAction = () => {}, actionLabel = '' } ) => {
     switch( actionType ) {
         case "button":
             return (
@@ -108,24 +113,25 @@ export const getAction = ( { actionType, onAction, actionLabel } ) => {
     }
 };
 
-export const getTitle = ( { theme, title } ) => {
+export const getTitle = ( { theme = DEFAULT_THEME, title = '' } ) => {
     const titleClasses = {
         light: 'text-text-primary',
         dark: 'text-text-inverse',
     };
     return (
-        <label
+        <span
             className={ cn(
+                'block',
                 titleClasses[ theme ],
                 "text-sm"
             )}
         >
             { title }
-        </label>
+        </span>
     );
 };
 
-export const getContent = ( { theme, content } ) => {
+export const getContent = ( { theme = DEFAULT_THEME, content = '' } ) => {
     const contentClasses = {
         light: 'text-text-primary',
         dark: 'text-text-inverse',

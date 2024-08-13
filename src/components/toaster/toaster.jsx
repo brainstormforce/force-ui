@@ -1,13 +1,71 @@
+import { useEffect, useState } from 'react';
+import { nanoid } from 'nanoid';
 import { AlertTriangle, Trash2 } from 'lucide-react';
-import { cn } from '../../utilities/functions';
+import { toast, ToastState } from './controller'
+import { cn } from '@/utilities/functions';
 import { getIcon, getAction, getContent, getTitle } from './utils';
-import { get } from 'grunt';
+import { containerVariantClassNames, positionClassNames } from './component-style';
+import { flushSync } from 'react-dom';
 
-/**
- * Badge component.
- */
+const Toaster = ({
+    position = 'top-right', // top-right/top-left/bottom-right/bottom-left
+    design = 'stack', // stack/inline
+    className = '',
+}) => {
+    const [toasts, setToasts] = useState([]);
 
-const Toaster = ( {
+    useEffect(() => {
+        ToastState.subscribe((toastItem) => {
+            if (toastItem?.dismiss) {
+                setToasts((prevToasts) => prevToasts.map(tItem => tItem.id === toastItem.id ? { ...tItem, dismiss: true } : tItem));
+                return;
+            }
+
+            setTimeout(() => {
+                flushSync(() => setToasts((prevToasts) => {
+                    const itemExists = prevToasts.findIndex((tItem) => tItem.id === toastItem.id);
+                    // Update the existing toast.
+                    if (itemExists !== -1) {
+                        return prevToasts.map((tItem) => {
+                            if (tItem.id === toastItem.id) {
+                                return { ...tItem, ...toastItem };
+                            }
+                            return tItem;
+                        });
+                    }
+                    return [...prevToasts, toastItem];
+                }));
+            });
+        } );
+    }, []);
+
+    return (
+        <ul
+            className={cn(
+                'fixed flex flex-col list-none z-20 p-10',
+                positionClassNames[position] ?? positionClassNames['top-right'],
+                containerVariantClassNames[design] ?? containerVariantClassNames.stack,
+                className
+            )}
+        >
+            {/* Main container */}
+            {toasts.map((toastItem) => (
+                <li key={nanoid()}>
+                    <Toast
+                        title={toastItem.title}
+                        content={toastItem?.description}
+                        design={design}
+                        onClose={() => {
+                            setToasts((prevToasts) => prevToasts.filter((t) => t.id !== toastItem.id));
+                        }}
+                    />
+                </li>
+            ))}
+        </ul>
+    )
+};
+
+export const Toast = ( {
 	title = null,
     content = null,
     actionLabel = null,
@@ -48,11 +106,11 @@ const Toaster = ( {
         return (
             <div className='flex items-center justify-start'>
                 <div>
-                    { getIcon( props ) }
+                    { getIcon( {variant, icon, theme} ) }
                 </div>
                 <div>
-                    <div>{ getTitle( props ) }</div>
-                    <div>{ getContent( props ) }</div>
+                    <div>{ getTitle( {title, theme} ) }</div>
+                    <div>{ getContent( {content, theme} ) }</div>
                 </div>
             </div>
         );
