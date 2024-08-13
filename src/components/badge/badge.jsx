@@ -1,4 +1,4 @@
-import { cn } from '../../utility/utils';
+import { cn } from '../../utilities/functions';
 import { X, Info } from 'lucide-react';
 
 /**
@@ -16,6 +16,7 @@ const Badge = ( props ) => {
 		disabled = false,
 		onClose = () => {},
 		closable = true,
+		onMouseDown = () => {},
 	} = props;
 
 	// Base classes. - Mandatory classes.
@@ -65,7 +66,7 @@ const Badge = ( props ) => {
 			{ icon ? <span className="justify-center flex items-center [&>svg]:h-4 [&>svg]:w-4">{ icon }</span> : null }
 			{ label }
 			{ closable && (
-				<span className={ buttonClasses } onClick={ ! disabled ? onClose : null }>
+				<span className={ buttonClasses } onClick={ ! disabled ? onClose : null } onMouseDown={ onMouseDown } role="button" tabIndex={ 0 }>
 					<span className="sr-only">{ `Remove ${ label }` }</span>
 					<X />
 					<span className="absolute -inset-1" />

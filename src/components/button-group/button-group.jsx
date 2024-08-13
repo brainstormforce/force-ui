@@ -1,5 +1,5 @@
 import React, { useCallback, forwardRef, isValidElement, createContext, useContext } from 'react';
-import { cn } from '../../utility/utils';
+import { cn } from '../../utilities/functions';
 
 /**
  * Context for managing the ButtonGroup state.
@@ -104,18 +104,7 @@ const Button = ( props, ref ) => {
 	const borderClasses = 'border-0 border-r border-border-subtle border-solid';
 	const activeClasses = activeItem === slug ? 'bg-button-disabled' : '';
 
-	const buttonClassName = cn(
-		baseClasses,
-		hoverClasses,
-		focusClasses,
-		disabledClasses,
-		sizes[ size ],
-		borderClasses,
-		activeClasses,
-		firstChildClasses,
-		lastChildClasses,
-		className
-	);
+	const buttonClassName = cn( baseClasses, hoverClasses, focusClasses, disabledClasses, sizes[ size ], borderClasses, activeClasses, firstChildClasses, lastChildClasses, className );
 
 	const handleClick = ( event ) => {
 		onChange( event, { slug, text } );
