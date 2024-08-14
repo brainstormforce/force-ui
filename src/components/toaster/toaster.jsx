@@ -19,7 +19,7 @@ const Toaster = ( {
 	theme = 'light', // light/dark
 	className = '',
 	autoDismiss = true, // Auto dismiss the toast after a certain time.
-	dismissAfter = 5000,
+	dismissAfter = 5000, // Time in milliseconds after which the toast will be dismissed.
 } ) => {
 	const [ toasts, setToasts ] = useState( [] );
 
