@@ -100,7 +100,7 @@ export const getContent = ({ theme = DEFAULT_THEME, content = '' }) => {
 	};
 	return (
 		<span
-			className={cn(contentClasses[theme], 'block [&_*]:text-sm [&_*]:leading-5 font-normal')}
+			className={cn(contentClasses[theme], 'block text-sm [&_*]:text-sm leading-5 [&_*]:leading-5 font-normal')}
 		>
             {content}
         </span>

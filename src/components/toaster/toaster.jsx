@@ -12,7 +12,7 @@ const Toaster = ({
     position = 'top-right', // top-right/top-left/bottom-right/bottom-left
     design = 'stack', // stack/inline
     className = '',
-    autoDismiss = true,
+    autoDismiss = false, // Auto dismiss the toast after a certain time.
     dismissAfter = 5000,
 }) => {
     const [toasts, setToasts] = useState([]);
@@ -56,7 +56,6 @@ const Toaster = ({
             className={cn(
                 'fixed flex flex-col list-none z-20 p-10 pointer-events-none [&>li]:pointer-events-auto gap-3',
                 positionClassNames[position] ?? positionClassNames['top-right'],
-                containerVariantClassNames[design] ?? containerVariantClassNames.stack,
                 className
             )}
         >
@@ -74,9 +73,9 @@ const Toaster = ({
                             toastItem={toastItem}
                             title={toastItem.title}
                             content={toastItem?.description}
-                            design={design}
-                            autoDismiss={autoDismiss}
-                            dismissAfter={dismissAfter}
+                            design={toastItem?.design ?? design}
+                            autoDismiss={toastItem?.autoDismiss ?? autoDismiss}
+                            dismissAfter={toastItem?.dismissAfter ?? dismissAfter}
                             removeToast={removeToast}
                             variant={toastItem.type}
                         />
@@ -98,7 +97,7 @@ export const Toast = ( {
     autoDismiss = true,
     dismissAfter = 5000,
     theme = 'light', // light/dark
-	design = 'inline', // inline/stack
+	design = 'stack', // inline/stack
     icon = null,
 	className = '',
 	variant = 'neutral', // neutral/info/success/warning/danger
@@ -109,13 +108,6 @@ export const Toast = ( {
 	const baseClasses = 'text-sm shadow-lg';
     const closeTimerStart = useRef(0);
     const lastCloseTimerStart = useRef(0);
-
-	// Size classes - Based on the size prop.
-	// const sizeClasses = {
-	// 	xs: 'text-xs [&>*]:text-xs [&>svg]:h-3 [&>svg]:w-3',
-	// 	sm: 'text-sm [&>*]:text-sm [&>svg]:h-4 [&>svg]:w-4',
-	// 	md: 'text-base [&>*]:text-base [&>svg]:h-5 [&>svg]:w-5',
-	// };
 
 
     const startTimer = (toastItem, remainingTime = dismissAfter) => {
@@ -155,6 +147,7 @@ export const Toast = ( {
             <div className={cn(
                 'flex items-center justify-start p-4 gap-2 relative border border-solid rounded-md shadow-lg',
                 variantClassNames[variant],
+                containerVariantClassNames.stack,
             )}>
                 <div className='self-start flex items-center justify-center [&_svg]:size-5 shrink-0'>
                     { getIcon( {variant, icon, theme} ) }
@@ -180,21 +173,41 @@ export const Toast = ( {
     
     if ( design === 'inline' ) {
         return (
-            <div className='flex items-center justify-start'>
-                <div>
-                    { getIcon( {variant, icon, theme} ) }
-                    <div>{ getTitle( {title, theme} ) }</div>
-                </div>
-                <div>
-                    <div>{ getContent( {content, theme} ) }</div>
-                </div>
-            </div>
-        );
+			<div
+				className={cn(
+					'flex items-center justify-start p-3 gap-2 relative border border-solid rounded-md shadow-lg',
+					variantClassNames[variant],
+					containerVariantClassNames.inline
+				)}
+			>
+				<div className="self-start flex items-center justify-center [&_svg]:size-5 shrink-0">
+					{getIcon({ variant, icon, theme })}
+				</div>
+				<div className="flex items-start justify-start gap-1 mr-10 [&>span:first-child]:shrink-0">
+					{getTitle({ title, theme })}
+					{getContent({ content, theme })}
+				</div>
+				{/* <div>
+                { getAction( {actionLabel, actionType, onAction, theme} ) }
+            </div> */}
+				<div className="absolute right-3 top-3 [&_svg]:size-5">
+					<button
+						className={cn(
+							'bg-transparent m-0 p-0 border-none focus:outline-none active:outline-none cursor-pointer',
+							closeIconClassNames[theme] ??
+								closeIconClassNames.light
+						)}
+						onClick={() => removeToast(toastItem.id)}
+					>
+						<X />
+					</button>
+				</div>
+			</div>
+		);
     }
 
 	return (
 		<div
-			htmlFor={ forId }
 			className={
 				cn(
 					baseClasses,

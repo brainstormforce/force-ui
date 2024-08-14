@@ -10856,7 +10856,7 @@ function _arrayWithHoles(r) {
 
 
 var Toaster = function Toaster(_ref) {
-  var _positionClassNames$p, _containerVariantClas;
+  var _positionClassNames$p;
   var _ref$position = _ref.position,
     position = _ref$position === void 0 ? 'top-right' : _ref$position,
     _ref$design = _ref.design,
@@ -10864,7 +10864,7 @@ var Toaster = function Toaster(_ref) {
     _ref$className = _ref.className,
     className = _ref$className === void 0 ? '' : _ref$className,
     _ref$autoDismiss = _ref.autoDismiss,
-    autoDismiss = _ref$autoDismiss === void 0 ? true : _ref$autoDismiss,
+    autoDismiss = _ref$autoDismiss === void 0 ? false : _ref$autoDismiss,
     _ref$dismissAfter = _ref.dismissAfter,
     dismissAfter = _ref$dismissAfter === void 0 ? 5000 : _ref$dismissAfter;
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
@@ -10916,10 +10916,11 @@ var Toaster = function Toaster(_ref) {
     });
   };
   return /*#__PURE__*/React.createElement("ul", {
-    className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_2__.cn)('fixed flex flex-col list-none z-20 p-10 pointer-events-none [&>li]:pointer-events-auto gap-3', (_positionClassNames$p = _component_style__WEBPACK_IMPORTED_MODULE_4__.positionClassNames[position]) !== null && _positionClassNames$p !== void 0 ? _positionClassNames$p : _component_style__WEBPACK_IMPORTED_MODULE_4__.positionClassNames['top-right'], (_containerVariantClas = _component_style__WEBPACK_IMPORTED_MODULE_4__.containerVariantClassNames[design]) !== null && _containerVariantClas !== void 0 ? _containerVariantClas : _component_style__WEBPACK_IMPORTED_MODULE_4__.containerVariantClassNames.stack, className)
+    className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_2__.cn)('fixed flex flex-col list-none z-20 p-10 pointer-events-none [&>li]:pointer-events-auto gap-3', (_positionClassNames$p = _component_style__WEBPACK_IMPORTED_MODULE_4__.positionClassNames[position]) !== null && _positionClassNames$p !== void 0 ? _positionClassNames$p : _component_style__WEBPACK_IMPORTED_MODULE_4__.positionClassNames['top-right'], className)
   }, /*#__PURE__*/React.createElement(framer_motion__WEBPACK_IMPORTED_MODULE_6__.AnimatePresence, {
     initial: false
   }, toasts.map(function (toastItem) {
+    var _toastItem$design, _toastItem$autoDismis, _toastItem$dismissAft;
     return /*#__PURE__*/React.createElement(framer_motion__WEBPACK_IMPORTED_MODULE_7__.motion.li, {
       key: toastItem.id,
       positionTransition: true,
@@ -10945,9 +10946,9 @@ var Toaster = function Toaster(_ref) {
       toastItem: toastItem,
       title: toastItem.title,
       content: toastItem === null || toastItem === void 0 ? void 0 : toastItem.description,
-      design: design,
-      autoDismiss: autoDismiss,
-      dismissAfter: dismissAfter,
+      design: (_toastItem$design = toastItem === null || toastItem === void 0 ? void 0 : toastItem.design) !== null && _toastItem$design !== void 0 ? _toastItem$design : design,
+      autoDismiss: (_toastItem$autoDismis = toastItem === null || toastItem === void 0 ? void 0 : toastItem.autoDismiss) !== null && _toastItem$autoDismis !== void 0 ? _toastItem$autoDismis : autoDismiss,
+      dismissAfter: (_toastItem$dismissAft = toastItem === null || toastItem === void 0 ? void 0 : toastItem.dismissAfter) !== null && _toastItem$dismissAft !== void 0 ? _toastItem$dismissAft : dismissAfter,
       removeToast: removeToast,
       variant: toastItem.type
     }));
@@ -10972,7 +10973,7 @@ var Toast = function Toast(_ref2) {
     _ref2$theme = _ref2.theme,
     theme = _ref2$theme === void 0 ? 'light' : _ref2$theme,
     _ref2$design = _ref2.design,
-    design = _ref2$design === void 0 ? 'inline' : _ref2$design,
+    design = _ref2$design === void 0 ? 'stack' : _ref2$design,
     _ref2$icon = _ref2.icon,
     icon = _ref2$icon === void 0 ? null : _ref2$icon,
     _ref2$className = _ref2.className,
@@ -10985,14 +10986,6 @@ var Toast = function Toast(_ref2) {
   var baseClasses = 'text-sm shadow-lg';
   var closeTimerStart = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(0);
   var lastCloseTimerStart = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(0);
-
-  // Size classes - Based on the size prop.
-  // const sizeClasses = {
-  // 	xs: 'text-xs [&>*]:text-xs [&>svg]:h-3 [&>svg]:w-3',
-  // 	sm: 'text-sm [&>*]:text-sm [&>svg]:h-4 [&>svg]:w-4',
-  // 	md: 'text-base [&>*]:text-base [&>svg]:h-5 [&>svg]:w-5',
-  // };
-
   var startTimer = function startTimer(toastItem) {
     var remainingTime = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : dismissAfter;
     // If auto dismiss is disabled, or the dismissAfter is less than 0, return.
@@ -11024,7 +11017,7 @@ var Toast = function Toast(_ref2) {
   if (design === 'stack') {
     var _closeIconClassNames$;
     return /*#__PURE__*/React.createElement("div", {
-      className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_2__.cn)('flex items-center justify-start p-4 gap-2 relative border border-solid rounded-md shadow-lg', _component_style__WEBPACK_IMPORTED_MODULE_4__.variantClassNames[variant])
+      className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_2__.cn)('flex items-center justify-start p-4 gap-2 relative border border-solid rounded-md shadow-lg', _component_style__WEBPACK_IMPORTED_MODULE_4__.variantClassNames[variant], _component_style__WEBPACK_IMPORTED_MODULE_4__.containerVariantClassNames.stack)
     }, /*#__PURE__*/React.createElement("div", {
       className: "self-start flex items-center justify-center [&_svg]:size-5 shrink-0"
     }, (0,_utils__WEBPACK_IMPORTED_MODULE_3__.getIcon)({
@@ -11049,22 +11042,33 @@ var Toast = function Toast(_ref2) {
     }, /*#__PURE__*/React.createElement(lucide_react__WEBPACK_IMPORTED_MODULE_8__["default"], null))));
   }
   if (design === 'inline') {
+    var _closeIconClassNames$2;
     return /*#__PURE__*/React.createElement("div", {
-      className: "flex items-center justify-start"
-    }, /*#__PURE__*/React.createElement("div", null, (0,_utils__WEBPACK_IMPORTED_MODULE_3__.getIcon)({
+      className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_2__.cn)('flex items-center justify-start p-3 gap-2 relative border border-solid rounded-md shadow-lg', _component_style__WEBPACK_IMPORTED_MODULE_4__.variantClassNames[variant], _component_style__WEBPACK_IMPORTED_MODULE_4__.containerVariantClassNames.inline)
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "self-start flex items-center justify-center [&_svg]:size-5 shrink-0"
+    }, (0,_utils__WEBPACK_IMPORTED_MODULE_3__.getIcon)({
       variant: variant,
       icon: icon,
       theme: theme
-    }), /*#__PURE__*/React.createElement("div", null, (0,_utils__WEBPACK_IMPORTED_MODULE_3__.getTitle)({
+    })), /*#__PURE__*/React.createElement("div", {
+      className: "flex items-start justify-start gap-1 mr-10 [&>span:first-child]:shrink-0"
+    }, (0,_utils__WEBPACK_IMPORTED_MODULE_3__.getTitle)({
       title: title,
       theme: theme
-    }))), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("div", null, (0,_utils__WEBPACK_IMPORTED_MODULE_3__.getContent)({
+    }), (0,_utils__WEBPACK_IMPORTED_MODULE_3__.getContent)({
       content: content,
       theme: theme
-    }))));
+    })), /*#__PURE__*/React.createElement("div", {
+      className: "absolute right-3 top-3 [&_svg]:size-5"
+    }, /*#__PURE__*/React.createElement("button", {
+      className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_2__.cn)('bg-transparent m-0 p-0 border-none focus:outline-none active:outline-none cursor-pointer', (_closeIconClassNames$2 = _component_style__WEBPACK_IMPORTED_MODULE_4__.closeIconClassNames[theme]) !== null && _closeIconClassNames$2 !== void 0 ? _closeIconClassNames$2 : _component_style__WEBPACK_IMPORTED_MODULE_4__.closeIconClassNames.light),
+      onClick: function onClick() {
+        return removeToast(toastItem.id);
+      }
+    }, /*#__PURE__*/React.createElement(lucide_react__WEBPACK_IMPORTED_MODULE_8__["default"], null))));
   }
   return /*#__PURE__*/React.createElement("div", _extends({
-    htmlFor: forId,
     className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_2__.cn)(baseClasses,
     // sizeClasses[ size ],
     _component_style__WEBPACK_IMPORTED_MODULE_4__.variantClassNames[variant], className)
@@ -11199,7 +11203,7 @@ var getContent = function getContent(_ref4) {
     dark: 'text-text-inverse'
   };
   return /*#__PURE__*/React.createElement("span", {
-    className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_0__.cn)(contentClasses[theme], 'block [&_*]:text-sm [&_*]:leading-5 font-normal')
+    className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_0__.cn)(contentClasses[theme], 'block text-sm [&_*]:text-sm leading-5 [&_*]:leading-5 font-normal')
   }, content);
 };
 
