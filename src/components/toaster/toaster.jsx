@@ -19,13 +19,10 @@ const Toaster = ({
 }) => {
     const [toasts, setToasts] = useState([]);
 
-    console.table(toasts);
-
     useEffect(() => {
         ToastState.subscribe((toastItem) => {
             if (toastItem?.dismiss) {
                 setToasts((prevToasts) => prevToasts.map(tItem => tItem.id === toastItem.id ? { ...tItem, dismiss: true } : tItem));
-                console.log('Toast dismissed');
                 return;
             }
 
@@ -48,8 +45,6 @@ const Toaster = ({
     }, []);
 
     const removeToast = (id) => {
-        console.log('Removing toast', id);
-        // toast.dismiss(id);
         setToasts((prevToasts) => prevToasts.filter((t) => t.id !== id));
     }
 
@@ -93,24 +88,17 @@ export const Toast = ( {
     toastItem,
 	title = null,
     content = null,
-    actionLabel = null,
-    actionType = 'button', // button/link/none
-    onAction,
-    onClose,
     autoDismiss = true,
     dismissAfter = 5000,
     theme = 'light', // light/dark
 	design = 'stack', // inline/stack
     icon = null,
-	className = '',
 	variant = 'neutral', // neutral/info/success/warning/danger
     removeToast, // Function to remove the toast.
-	...props
 } ) => {
-	// Base classes. - Mandatory classes.
-	const baseClasses = 'text-sm shadow-lg';
     const closeTimerStart = useRef(0);
     const lastCloseTimerStart = useRef(0);
+    const timeoutId = useRef(0);
 
 
     const startTimer = (toastItem, remainingTime = dismissAfter) => {
@@ -125,16 +113,27 @@ export const Toast = ( {
         }, remainingTime);
     }
 
+    const pauseTimer = () => {
+        clearTimeout(timeoutId.current);
+        lastCloseTimerStart.current = new Date().getTime();
+    }
+
+    const continueTimer = () => {
+        startTimer(
+            toastItem,
+            dismissAfter -
+                (lastCloseTimerStart.current -
+                    closeTimerStart.current)
+        );
+    }
+
+    // Start the timer when the component mounts.
     useEffect(() => {
-        let timeoutId = 0;
         let remainingTime = dismissAfter;
 
-        timeoutId = startTimer(toastItem, remainingTime);
-
-        // pause timer on mouse enter
-        // pauseTimer();
+        timeoutId.current = startTimer(toastItem, remainingTime);
         return () => {
-            clearTimeout(timeoutId);
+            clearTimeout(timeoutId.current);
         }
     }, []);
 
@@ -152,35 +151,50 @@ export const Toast = ( {
     let render = null;
     if ( design === 'stack' ) {
         render = (
-            <div className={cn(
-                'flex items-center justify-start p-4 gap-2 relative border border-solid rounded-md shadow-lg',
-                theme === 'dark' ? variantClassNames.dark : variantClassNames.light?.[variant],
-                containerVariantClassNames.stack,
-            )}>
-                <div className='self-start flex items-center justify-center [&_svg]:size-5 shrink-0'>
-                    { getIcon( {variant, icon, theme} ) }
-                </div>
-                <div className='flex flex-col items-start justify-start gap-0.5'>
-                    { getTitle( {title, theme} ) }
-                    { getContent( {content, theme} ) }
-                    {
-                        toastItem?.action?.label && typeof toastItem?.action?.onClick === 'function' && (
-                            <div className='mt-2.5'>
-                                { getAction( {actionLabel: toastItem?.action?.label, actionType: toastItem?.action?.type ?? 'button', onAction: handleAction, theme} ) }
-                            </div>
-                        )
-                    }
-                </div>
-                <div className='absolute right-4 top-4 [&_svg]:size-5'>
-                    <button className={cn(
-                        'bg-transparent m-0 p-0 border-none focus:outline-none active:outline-none cursor-pointer',
-                        closeIconClassNames[theme] ?? closeIconClassNames.light
-                    )} onClick={() => removeToast(toastItem.id)}>
-                        <X />
-                    </button>
-                </div>
-            </div>
-        );
+			<div
+				className={cn(
+					'flex items-center justify-start p-4 gap-2 relative border border-solid rounded-md shadow-lg',
+					theme === 'dark'
+						? variantClassNames.dark
+						: variantClassNames.light?.[variant],
+					containerVariantClassNames.stack
+				)}
+				onMouseEnter={pauseTimer}
+				onMouseLeave={continueTimer}
+			>
+				<div className="self-start flex items-center justify-center [&_svg]:size-5 shrink-0">
+					{getIcon({ variant, icon, theme })}
+				</div>
+				<div className="flex flex-col items-start justify-start gap-0.5">
+					{getTitle({ title, theme })}
+					{getContent({ content, theme })}
+					{toastItem?.action?.label &&
+						typeof toastItem?.action?.onClick === 'function' && (
+							<div className="mt-2.5">
+								{getAction({
+									actionLabel: toastItem?.action?.label,
+									actionType:
+										toastItem?.action?.type ?? 'button',
+									onAction: handleAction,
+									theme,
+								})}
+							</div>
+						)}
+				</div>
+				<div className="absolute right-4 top-4 [&_svg]:size-5">
+					<button
+						className={cn(
+							'bg-transparent m-0 p-0 border-none focus:outline-none active:outline-none cursor-pointer',
+							closeIconClassNames[theme] ??
+								closeIconClassNames.light
+						)}
+						onClick={() => removeToast(toastItem.id)}
+					>
+						<X />
+					</button>
+				</div>
+			</div>
+		);
     }
     
     if ( design === 'inline' ) {
@@ -199,9 +213,6 @@ export const Toast = ( {
 					{getTitle({ title, theme })}
 					{getContent({ content, theme })}
 				</div>
-				{/* <div>
-                { getAction( {actionLabel, actionType, onAction, theme} ) }
-            </div> */}
 				<div className="absolute right-3 top-3 [&_svg]:size-5">
 					<button
 						className={cn(

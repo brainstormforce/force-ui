@@ -10717,27 +10717,6 @@ function _typeof(o) {
     return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o;
   }, _typeof(o);
 }
-var _excluded = ["toastItem", "title", "content", "actionLabel", "actionType", "onAction", "onClose", "autoDismiss", "dismissAfter", "theme", "design", "icon", "className", "variant", "removeToast"];
-function _objectWithoutProperties(e, t) {
-  if (null == e) return {};
-  var o,
-    r,
-    i = _objectWithoutPropertiesLoose(e, t);
-  if (Object.getOwnPropertySymbols) {
-    var s = Object.getOwnPropertySymbols(e);
-    for (r = 0; r < s.length; r++) o = s[r], t.includes(o) || {}.propertyIsEnumerable.call(e, o) && (i[o] = e[o]);
-  }
-  return i;
-}
-function _objectWithoutPropertiesLoose(r, e) {
-  if (null == r) return {};
-  var t = {};
-  for (var n in r) if ({}.hasOwnProperty.call(r, n)) {
-    if (e.includes(n)) continue;
-    t[n] = r[n];
-  }
-  return t;
-}
 function _toConsumableArray(r) {
   return _arrayWithoutHoles(r) || _iterableToArray(r) || _unsupportedIterableToArray(r) || _nonIterableSpread();
 }
@@ -10869,7 +10848,6 @@ var Toaster = function Toaster(_ref) {
     _useState2 = _slicedToArray(_useState, 2),
     toasts = _useState2[0],
     setToasts = _useState2[1];
-  console.table(toasts);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     _controller__WEBPACK_IMPORTED_MODULE_1__.ToastState.subscribe(function (toastItem) {
       if (toastItem !== null && toastItem !== void 0 && toastItem.dismiss) {
@@ -10880,7 +10858,6 @@ var Toaster = function Toaster(_ref) {
             }) : tItem;
           });
         });
-        console.log('Toast dismissed');
         return;
       }
       setTimeout(function () {
@@ -10905,8 +10882,6 @@ var Toaster = function Toaster(_ref) {
     });
   }, []);
   var removeToast = function removeToast(id) {
-    console.log('Removing toast', id);
-    // toast.dismiss(id);
     setToasts(function (prevToasts) {
       return prevToasts.filter(function (t) {
         return t.id !== id;
@@ -10959,12 +10934,6 @@ var Toast = function Toast(_ref2) {
     title = _ref2$title === void 0 ? null : _ref2$title,
     _ref2$content = _ref2.content,
     content = _ref2$content === void 0 ? null : _ref2$content,
-    _ref2$actionLabel = _ref2.actionLabel,
-    actionLabel = _ref2$actionLabel === void 0 ? null : _ref2$actionLabel,
-    _ref2$actionType = _ref2.actionType,
-    actionType = _ref2$actionType === void 0 ? 'button' : _ref2$actionType,
-    onAction = _ref2.onAction,
-    onClose = _ref2.onClose,
     _ref2$autoDismiss = _ref2.autoDismiss,
     autoDismiss = _ref2$autoDismiss === void 0 ? true : _ref2$autoDismiss,
     _ref2$dismissAfter = _ref2.dismissAfter,
@@ -10975,16 +10944,12 @@ var Toast = function Toast(_ref2) {
     design = _ref2$design === void 0 ? 'stack' : _ref2$design,
     _ref2$icon = _ref2.icon,
     icon = _ref2$icon === void 0 ? null : _ref2$icon,
-    _ref2$className = _ref2.className,
-    className = _ref2$className === void 0 ? '' : _ref2$className,
     _ref2$variant = _ref2.variant,
     variant = _ref2$variant === void 0 ? 'neutral' : _ref2$variant,
-    removeToast = _ref2.removeToast,
-    props = _objectWithoutProperties(_ref2, _excluded);
-  // Base classes. - Mandatory classes.
-  var baseClasses = 'text-sm shadow-lg';
+    removeToast = _ref2.removeToast;
   var closeTimerStart = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(0);
   var lastCloseTimerStart = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(0);
+  var timeoutId = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(0);
   var startTimer = function startTimer(toastItem) {
     var remainingTime = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : dismissAfter;
     // If auto dismiss is disabled, or the dismissAfter is less than 0, return.
@@ -10996,15 +10961,20 @@ var Toast = function Toast(_ref2) {
       removeToast(toastItem.id);
     }, remainingTime);
   };
-  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
-    var timeoutId = 0;
-    var remainingTime = dismissAfter;
-    timeoutId = startTimer(toastItem, remainingTime);
+  var pauseTimer = function pauseTimer() {
+    clearTimeout(timeoutId.current);
+    lastCloseTimerStart.current = new Date().getTime();
+  };
+  var continueTimer = function continueTimer() {
+    startTimer(toastItem, dismissAfter - (lastCloseTimerStart.current - closeTimerStart.current));
+  };
 
-    // pause timer on mouse enter
-    // pauseTimer();
+  // Start the timer when the component mounts.
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    var remainingTime = dismissAfter;
+    timeoutId.current = startTimer(toastItem, remainingTime);
     return function () {
-      clearTimeout(timeoutId);
+      clearTimeout(timeoutId.current);
     };
   }, []);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
@@ -11021,7 +10991,9 @@ var Toast = function Toast(_ref2) {
   if (design === 'stack') {
     var _variantClassNames$li, _toastItem$action2, _toastItem$action3, _toastItem$action4, _toastItem$action$typ, _toastItem$action5, _closeIconClassNames$;
     render = /*#__PURE__*/React.createElement("div", {
-      className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_3__.cn)('flex items-center justify-start p-4 gap-2 relative border border-solid rounded-md shadow-lg', theme === 'dark' ? _component_style__WEBPACK_IMPORTED_MODULE_5__.variantClassNames.dark : (_variantClassNames$li = _component_style__WEBPACK_IMPORTED_MODULE_5__.variantClassNames.light) === null || _variantClassNames$li === void 0 ? void 0 : _variantClassNames$li[variant], _component_style__WEBPACK_IMPORTED_MODULE_5__.containerVariantClassNames.stack)
+      className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_3__.cn)('flex items-center justify-start p-4 gap-2 relative border border-solid rounded-md shadow-lg', theme === 'dark' ? _component_style__WEBPACK_IMPORTED_MODULE_5__.variantClassNames.dark : (_variantClassNames$li = _component_style__WEBPACK_IMPORTED_MODULE_5__.variantClassNames.light) === null || _variantClassNames$li === void 0 ? void 0 : _variantClassNames$li[variant], _component_style__WEBPACK_IMPORTED_MODULE_5__.containerVariantClassNames.stack),
+      onMouseEnter: pauseTimer,
+      onMouseLeave: continueTimer
     }, /*#__PURE__*/React.createElement("div", {
       className: "self-start flex items-center justify-center [&_svg]:size-5 shrink-0"
     }, (0,_utils__WEBPACK_IMPORTED_MODULE_4__.getIcon)({
