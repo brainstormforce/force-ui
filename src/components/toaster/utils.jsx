@@ -1,6 +1,6 @@
 import { Check, Info, AlertTriangle, Trash2 } from 'lucide-react';
-import { cn } from '../../utilities/functions';
-import { Button } from '../button/index';
+import { cn } from '@/utilities/functions';
+import Button from '@/components/button';
 import { isValidElement } from 'react';
 
 const DEFAULT_THEME = 'light';
@@ -58,20 +58,36 @@ export const getAction = ({
 	actionType = DEFAULT_ACTION_TYPE,
 	onAction = () => {},
 	actionLabel = '',
+	theme = DEFAULT_THEME,
 }) => {
+	const commonClassNames = 'focus:ring-0 focus:ring-offset-0 ring-offset-0 focus:outline-none';
+	let classNames = 'text-button-primary border-button-primary hover:border-button-primary hover:text-button-primary-hover';
+	if ( theme === 'dark' ) {
+		classNames = 'text-text-inverse border-text-inverse hover:border-text-inverse hover:text-text-inverse';
+	}
 	switch (actionType) {
 		case 'button':
 			return (
-				<Button variant="outline" size="sm" onClick={onAction}>
+				<Button variant="outline" size="xs" onClick={onAction} className={cn(
+					'rounded',
+					commonClassNames,
+					classNames,
+					theme === 'dark' ? 'bg-transparent hover:bg-transparent' : 'bg-white hover:bg-white',
+				)}>
 					{actionLabel}
 				</Button>
 			);
 		case 'link':
 			return (
-				<Button variant="link" size="sm" onClick={onAction}>
+				<Button variant="link" size="xs" onClick={onAction} className={cn(
+					commonClassNames,
+					classNames,
+				)}>
 					{actionLabel}
 				</Button>
 			);
+		default:
+			return null;
 	}
 };
 

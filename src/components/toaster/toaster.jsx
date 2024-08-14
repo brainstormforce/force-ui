@@ -145,8 +145,13 @@ export const Toast = ( {
         removeToast(toastItem.id);
     }, [toastItem]);
 
+    const handleAction = () => {
+        toastItem?.action?.onClick?.(removeToast);
+    }
+
+    let render = null;
     if ( design === 'stack' ) {
-        return (
+        render = (
             <div className={cn(
                 'flex items-center justify-start p-4 gap-2 relative border border-solid rounded-md shadow-lg',
                 theme === 'dark' ? variantClassNames.dark : variantClassNames.light?.[variant],
@@ -158,10 +163,14 @@ export const Toast = ( {
                 <div className='flex flex-col items-start justify-start gap-0.5'>
                     { getTitle( {title, theme} ) }
                     { getContent( {content, theme} ) }
+                    {
+                        toastItem?.action?.label && typeof toastItem?.action?.onClick === 'function' && (
+                            <div className='mt-2.5'>
+                                { getAction( {actionLabel: toastItem?.action?.label, actionType: toastItem?.action?.type ?? 'button', onAction: handleAction, theme} ) }
+                            </div>
+                        )
+                    }
                 </div>
-                {/* <div>
-                    { getAction( {actionLabel, actionType, onAction, theme} ) }
-                </div> */}
                 <div className='absolute right-4 top-4 [&_svg]:size-5'>
                     <button className={cn(
                         'bg-transparent m-0 p-0 border-none focus:outline-none active:outline-none cursor-pointer',
@@ -175,7 +184,7 @@ export const Toast = ( {
     }
     
     if ( design === 'inline' ) {
-        return (
+        render = (
 			<div
 				className={cn(
 					'flex items-center justify-start p-3 gap-2 relative border border-solid rounded-md shadow-lg',
@@ -209,23 +218,7 @@ export const Toast = ( {
 		);
     }
 
-	return (
-		<div
-			className={
-				cn(
-					baseClasses,
-					// sizeClasses[ size ],
-					variantClassNames[ variant ],
-					className
-				)
-			}
-			{ ...props }
-		>
-			<div>
-                {/*icon*/}
-            </div>
-		</div>
-	);
+	return render;
 };
 
 export default withSingleton(Toaster);

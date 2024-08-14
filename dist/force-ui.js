@@ -10718,15 +10718,6 @@ function _typeof(o) {
   }, _typeof(o);
 }
 var _excluded = ["toastItem", "title", "content", "actionLabel", "actionType", "onAction", "onClose", "autoDismiss", "dismissAfter", "theme", "design", "icon", "className", "variant", "removeToast"];
-function _extends() {
-  return _extends = Object.assign ? Object.assign.bind() : function (n) {
-    for (var e = 1; e < arguments.length; e++) {
-      var t = arguments[e];
-      for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]);
-    }
-    return n;
-  }, _extends.apply(null, arguments);
-}
 function _objectWithoutProperties(e, t) {
   if (null == e) return {};
   var o,
@@ -11022,9 +11013,14 @@ var Toast = function Toast(_ref2) {
     }
     removeToast(toastItem.id);
   }, [toastItem]);
+  var handleAction = function handleAction() {
+    var _toastItem$action, _toastItem$action$onC;
+    toastItem === null || toastItem === void 0 || (_toastItem$action = toastItem.action) === null || _toastItem$action === void 0 || (_toastItem$action$onC = _toastItem$action.onClick) === null || _toastItem$action$onC === void 0 || _toastItem$action$onC.call(_toastItem$action, removeToast);
+  };
+  var render = null;
   if (design === 'stack') {
-    var _variantClassNames$li, _closeIconClassNames$;
-    return /*#__PURE__*/React.createElement("div", {
+    var _variantClassNames$li, _toastItem$action2, _toastItem$action3, _toastItem$action4, _toastItem$action$typ, _toastItem$action5, _closeIconClassNames$;
+    render = /*#__PURE__*/React.createElement("div", {
       className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_3__.cn)('flex items-center justify-start p-4 gap-2 relative border border-solid rounded-md shadow-lg', theme === 'dark' ? _component_style__WEBPACK_IMPORTED_MODULE_5__.variantClassNames.dark : (_variantClassNames$li = _component_style__WEBPACK_IMPORTED_MODULE_5__.variantClassNames.light) === null || _variantClassNames$li === void 0 ? void 0 : _variantClassNames$li[variant], _component_style__WEBPACK_IMPORTED_MODULE_5__.containerVariantClassNames.stack)
     }, /*#__PURE__*/React.createElement("div", {
       className: "self-start flex items-center justify-center [&_svg]:size-5 shrink-0"
@@ -11040,7 +11036,14 @@ var Toast = function Toast(_ref2) {
     }), (0,_utils__WEBPACK_IMPORTED_MODULE_4__.getContent)({
       content: content,
       theme: theme
-    })), /*#__PURE__*/React.createElement("div", {
+    }), (toastItem === null || toastItem === void 0 || (_toastItem$action2 = toastItem.action) === null || _toastItem$action2 === void 0 ? void 0 : _toastItem$action2.label) && typeof (toastItem === null || toastItem === void 0 || (_toastItem$action3 = toastItem.action) === null || _toastItem$action3 === void 0 ? void 0 : _toastItem$action3.onClick) === 'function' && /*#__PURE__*/React.createElement("div", {
+      className: "mt-2.5"
+    }, (0,_utils__WEBPACK_IMPORTED_MODULE_4__.getAction)({
+      actionLabel: toastItem === null || toastItem === void 0 || (_toastItem$action4 = toastItem.action) === null || _toastItem$action4 === void 0 ? void 0 : _toastItem$action4.label,
+      actionType: (_toastItem$action$typ = toastItem === null || toastItem === void 0 || (_toastItem$action5 = toastItem.action) === null || _toastItem$action5 === void 0 ? void 0 : _toastItem$action5.type) !== null && _toastItem$action$typ !== void 0 ? _toastItem$action$typ : 'button',
+      onAction: handleAction,
+      theme: theme
+    }))), /*#__PURE__*/React.createElement("div", {
       className: "absolute right-4 top-4 [&_svg]:size-5"
     }, /*#__PURE__*/React.createElement("button", {
       className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_3__.cn)('bg-transparent m-0 p-0 border-none focus:outline-none active:outline-none cursor-pointer', (_closeIconClassNames$ = _component_style__WEBPACK_IMPORTED_MODULE_5__.closeIconClassNames[theme]) !== null && _closeIconClassNames$ !== void 0 ? _closeIconClassNames$ : _component_style__WEBPACK_IMPORTED_MODULE_5__.closeIconClassNames.light),
@@ -11051,7 +11054,7 @@ var Toast = function Toast(_ref2) {
   }
   if (design === 'inline') {
     var _variantClassNames$li2, _closeIconClassNames$2;
-    return /*#__PURE__*/React.createElement("div", {
+    render = /*#__PURE__*/React.createElement("div", {
       className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_3__.cn)('flex items-center justify-start p-3 gap-2 relative border border-solid rounded-md shadow-lg', theme === 'dark' ? _component_style__WEBPACK_IMPORTED_MODULE_5__.variantClassNames.dark : (_variantClassNames$li2 = _component_style__WEBPACK_IMPORTED_MODULE_5__.variantClassNames.light) === null || _variantClassNames$li2 === void 0 ? void 0 : _variantClassNames$li2[variant], _component_style__WEBPACK_IMPORTED_MODULE_5__.containerVariantClassNames.inline)
     }, /*#__PURE__*/React.createElement("div", {
       className: "self-start flex items-center justify-center [&_svg]:size-5 shrink-0"
@@ -11076,11 +11079,7 @@ var Toast = function Toast(_ref2) {
       }
     }, /*#__PURE__*/React.createElement(lucide_react__WEBPACK_IMPORTED_MODULE_9__["default"], null))));
   }
-  return /*#__PURE__*/React.createElement("div", _extends({
-    className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_3__.cn)(baseClasses,
-    // sizeClasses[ size ],
-    _component_style__WEBPACK_IMPORTED_MODULE_5__.variantClassNames[variant], className)
-  }, props), /*#__PURE__*/React.createElement("div", null));
+  return render;
 };
 /* harmony default export */ __webpack_exports__["default"] = ((0,_hoc__WEBPACK_IMPORTED_MODULE_2__.withSingleton)(Toaster));
 
@@ -11103,8 +11102,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/check.js");
 /* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/triangle-alert.js");
 /* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/trash-2.js");
-/* harmony import */ var _utilities_functions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../utilities/functions */ "./src/utilities/functions.js");
-/* harmony import */ var _button_index__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../button/index */ "./src/components/button/index.js");
+/* harmony import */ var _utilities_functions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/utilities/functions */ "./src/utilities/functions.js");
+/* harmony import */ var _components_button__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/components/button */ "./src/components/button/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
 
@@ -11166,20 +11165,31 @@ var getAction = function getAction(_ref2) {
     _ref2$onAction = _ref2.onAction,
     onAction = _ref2$onAction === void 0 ? function () {} : _ref2$onAction,
     _ref2$actionLabel = _ref2.actionLabel,
-    actionLabel = _ref2$actionLabel === void 0 ? '' : _ref2$actionLabel;
+    actionLabel = _ref2$actionLabel === void 0 ? '' : _ref2$actionLabel,
+    _ref2$theme = _ref2.theme,
+    theme = _ref2$theme === void 0 ? DEFAULT_THEME : _ref2$theme;
+  var commonClassNames = 'focus:ring-0 focus:ring-offset-0 ring-offset-0 focus:outline-none';
+  var classNames = 'text-button-primary border-button-primary hover:border-button-primary hover:text-button-primary-hover';
+  if (theme === 'dark') {
+    classNames = 'text-text-inverse border-text-inverse hover:border-text-inverse hover:text-text-inverse';
+  }
   switch (actionType) {
     case 'button':
-      return /*#__PURE__*/React.createElement(_button_index__WEBPACK_IMPORTED_MODULE_1__.Button, {
+      return /*#__PURE__*/React.createElement(_components_button__WEBPACK_IMPORTED_MODULE_1__["default"], {
         variant: "outline",
-        size: "sm",
-        onClick: onAction
+        size: "xs",
+        onClick: onAction,
+        className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_0__.cn)('rounded', commonClassNames, classNames, theme === 'dark' ? 'bg-transparent hover:bg-transparent' : 'bg-white hover:bg-white')
       }, actionLabel);
     case 'link':
-      return /*#__PURE__*/React.createElement(_button_index__WEBPACK_IMPORTED_MODULE_1__.Button, {
+      return /*#__PURE__*/React.createElement(_components_button__WEBPACK_IMPORTED_MODULE_1__["default"], {
         variant: "link",
-        size: "sm",
-        onClick: onAction
+        size: "xs",
+        onClick: onAction,
+        className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_0__.cn)(commonClassNames, classNames)
       }, actionLabel);
+    default:
+      return null;
   }
 };
 var getTitle = function getTitle(_ref3) {
