@@ -10288,6 +10288,7 @@ var containerVariantClassNames = {
 var variantClassNames = {
   light: {
     neutral: 'border-alert-border-neutral bg-alert-background-neutral',
+    custom: 'border-alert-border-neutral bg-alert-background-neutral',
     info: 'border-alert-border-info bg-alert-background-info',
     success: 'border-alert-border-green bg-alert-background-green',
     warning: 'border-alert-border-warning bg-alert-background-warning',
@@ -10317,6 +10318,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+var _excluded = ["id", "message", "jsx"];
 function _typeof(o) {
   "@babel/helpers - typeof";
 
@@ -10326,7 +10328,6 @@ function _typeof(o) {
     return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o;
   }, _typeof(o);
 }
-var _excluded = ["id", "message"];
 function ownKeys(e, r) {
   var t = Object.keys(e);
   if (Object.getOwnPropertySymbols) {
@@ -10496,8 +10497,10 @@ var ToastController = /*#__PURE__*/function () {
         id = _data$id === void 0 ? undefined : _data$id,
         _data$message = data.message,
         message = _data$message === void 0 ? '' : _data$message,
+        _data$jsx = data.jsx,
+        jsx = _data$jsx === void 0 ? undefined : _data$jsx,
         restData = _objectWithoutProperties(data, _excluded);
-      if (!message) {
+      if (!message && typeof jsx !== 'function') {
         return;
       }
       var toastId = typeof id === 'number' ? id : toastCounter++;
@@ -10509,10 +10512,12 @@ var ToastController = /*#__PURE__*/function () {
         _classPrivateFieldSet(_toasts, this, _classPrivateFieldGet(_toasts, this).map(function (toast) {
           if (toast.id === toastId) {
             _this3.publish(_objectSpread(_objectSpread({}, toast), {}, {
-              title: message
+              title: message,
+              jsx: jsx
             }, restData));
             return _objectSpread(_objectSpread({}, toast), {}, {
-              title: message
+              title: message,
+              jsx: jsx
             }, restData);
           }
           return toast;
@@ -10522,7 +10527,8 @@ var ToastController = /*#__PURE__*/function () {
       // Create a new toast.
       this.add(_objectSpread({
         id: toastId,
-        title: message
+        title: message,
+        jsx: jsx
       }, restData));
       return toastId;
     }
@@ -10532,10 +10538,27 @@ var ToastController = /*#__PURE__*/function () {
     key: "update",
     value: function update(id, data) {
       var _this4 = this;
+      var _data$render = data.render,
+        render = _data$render === void 0 ? undefined : _data$render;
+      var updatedData = data;
+      switch (_typeof(render)) {
+        case 'function':
+          updatedData = _objectSpread({
+            jsx: render
+          }, data);
+          break;
+        case 'string':
+          updatedData = _objectSpread({
+            title: render
+          }, data);
+          break;
+        default:
+          break;
+      }
       _classPrivateFieldSet(_toasts, this, _classPrivateFieldGet(_toasts, this).map(function (toast) {
         if (toast.id === id) {
-          _this4.publish(_objectSpread(_objectSpread({}, toast), data));
-          return _objectSpread(_objectSpread({}, toast), data);
+          _this4.publish(_objectSpread(_objectSpread({}, toast), updatedData));
+          return _objectSpread(_objectSpread({}, toast), updatedData);
         }
         return toast;
       }));
@@ -10638,16 +10661,12 @@ var ToastController = /*#__PURE__*/function () {
   }, {
     key: "custom",
     value: function custom() {
-      var _options$id;
       var jsx = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : function () {};
       var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-      var toastId = (_options$id = options === null || options === void 0 ? void 0 : options.id) !== null && _options$id !== void 0 ? _options$id : toastCounter++;
-      this.create(_objectSpread({
-        id: toastId,
-        jsx: jsx(toastId),
+      return this.create(_objectSpread({
+        jsx: jsx,
         type: 'custom'
       }, options));
-      return toastId;
     }
   }]);
 }();
@@ -10661,7 +10680,8 @@ var toast = Object.seal(Object.assign(defaultToast, {
   warning: ToastState.warning.bind(ToastState),
   info: ToastState.info.bind(ToastState),
   custom: ToastState.custom.bind(ToastState),
-  dismiss: ToastState.dismiss.bind(ToastState)
+  dismiss: ToastState.dismiss.bind(ToastState),
+  update: ToastState.update.bind(ToastState)
 }, {
   getHistory: ToastState.history.bind(ToastState)
 }));
@@ -10985,16 +11005,18 @@ var Toast = function Toast(_ref2) {
   }, [toastItem]);
   var handleAction = function handleAction() {
     var _toastItem$action, _toastItem$action$onC;
-    toastItem === null || toastItem === void 0 || (_toastItem$action = toastItem.action) === null || _toastItem$action === void 0 || (_toastItem$action$onC = _toastItem$action.onClick) === null || _toastItem$action$onC === void 0 || _toastItem$action$onC.call(_toastItem$action, removeToast);
+    toastItem === null || toastItem === void 0 || (_toastItem$action = toastItem.action) === null || _toastItem$action === void 0 || (_toastItem$action$onC = _toastItem$action.onClick) === null || _toastItem$action$onC === void 0 || _toastItem$action$onC.call(_toastItem$action, function () {
+      return removeToast(toastItem.id);
+    });
   };
   var render = null;
   if (design === 'stack') {
-    var _variantClassNames$li, _toastItem$action2, _toastItem$action3, _toastItem$action4, _toastItem$action$typ, _toastItem$action5, _closeIconClassNames$;
+    var _variantClassNames$li, _toastItem$action2, _toastItem$action3, _toastItem$action4, _toastItem$action$typ, _toastItem$action5, _closeIconClassNames$, _toastItem$jsx;
     render = /*#__PURE__*/React.createElement("div", {
       className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_3__.cn)('flex items-center justify-start p-4 gap-2 relative border border-solid rounded-md shadow-lg', theme === 'dark' ? _component_style__WEBPACK_IMPORTED_MODULE_5__.variantClassNames.dark : (_variantClassNames$li = _component_style__WEBPACK_IMPORTED_MODULE_5__.variantClassNames.light) === null || _variantClassNames$li === void 0 ? void 0 : _variantClassNames$li[variant], _component_style__WEBPACK_IMPORTED_MODULE_5__.containerVariantClassNames.stack),
       onMouseEnter: pauseTimer,
       onMouseLeave: continueTimer
-    }, /*#__PURE__*/React.createElement("div", {
+    }, toastItem.type !== 'custom' ? /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", {
       className: "self-start flex items-center justify-center [&_svg]:size-5 shrink-0"
     }, (0,_utils__WEBPACK_IMPORTED_MODULE_4__.getIcon)({
       variant: variant,
@@ -11022,7 +11044,14 @@ var Toast = function Toast(_ref2) {
       onClick: function onClick() {
         return removeToast(toastItem.id);
       }
-    }, /*#__PURE__*/React.createElement(lucide_react__WEBPACK_IMPORTED_MODULE_9__["default"], null))));
+    }, /*#__PURE__*/React.createElement(lucide_react__WEBPACK_IMPORTED_MODULE_9__["default"], null)))) : toastItem === null || toastItem === void 0 || (_toastItem$jsx = toastItem.jsx) === null || _toastItem$jsx === void 0 ? void 0 : _toastItem$jsx.call(toastItem, {
+      close: function close() {
+        return removeToast(toastItem.id);
+      },
+      action: toastItem !== null && toastItem !== void 0 && toastItem.action ? _objectSpread(_objectSpread({}, toastItem === null || toastItem === void 0 ? void 0 : toastItem.action), {}, {
+        onClick: handleAction
+      }) : null
+    }));
   }
   if (design === 'inline') {
     var _variantClassNames$li2, _closeIconClassNames$2;

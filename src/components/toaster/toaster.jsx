@@ -145,8 +145,8 @@ export const Toast = ( {
     }, [toastItem]);
 
     const handleAction = () => {
-        toastItem?.action?.onClick?.(removeToast);
-    }
+		toastItem?.action?.onClick?.(() => removeToast(toastItem.id));
+	};
 
     let render = null;
     if ( design === 'stack' ) {
@@ -162,37 +162,49 @@ export const Toast = ( {
 				onMouseEnter={pauseTimer}
 				onMouseLeave={continueTimer}
 			>
-				<div className="self-start flex items-center justify-center [&_svg]:size-5 shrink-0">
-					{getIcon({ variant, icon, theme })}
-				</div>
-				<div className="flex flex-col items-start justify-start gap-0.5">
-					{getTitle({ title, theme })}
-					{getContent({ content, theme })}
-					{toastItem?.action?.label &&
-						typeof toastItem?.action?.onClick === 'function' && (
-							<div className="mt-2.5">
-								{getAction({
-									actionLabel: toastItem?.action?.label,
-									actionType:
-										toastItem?.action?.type ?? 'button',
-									onAction: handleAction,
-									theme,
-								})}
-							</div>
-						)}
-				</div>
-				<div className="absolute right-4 top-4 [&_svg]:size-5">
-					<button
-						className={cn(
-							'bg-transparent m-0 p-0 border-none focus:outline-none active:outline-none cursor-pointer',
-							closeIconClassNames[theme] ??
-								closeIconClassNames.light
-						)}
-						onClick={() => removeToast(toastItem.id)}
-					>
-						<X />
-					</button>
-				</div>
+				{toastItem.type !== 'custom' ? (
+					<>
+						<div className="self-start flex items-center justify-center [&_svg]:size-5 shrink-0">
+							{getIcon({ variant, icon, theme })}
+						</div>
+						<div className="flex flex-col items-start justify-start gap-0.5">
+							{getTitle({ title, theme })}
+							{getContent({ content, theme })}
+							{toastItem?.action?.label &&
+								typeof toastItem?.action?.onClick ===
+									'function' && (
+									<div className="mt-2.5">
+										{getAction({
+											actionLabel:
+												toastItem?.action?.label,
+											actionType:
+												toastItem?.action?.type ??
+												'button',
+											onAction: handleAction,
+											theme,
+										})}
+									</div>
+								)}
+						</div>
+						<div className="absolute right-4 top-4 [&_svg]:size-5">
+							<button
+								className={cn(
+									'bg-transparent m-0 p-0 border-none focus:outline-none active:outline-none cursor-pointer',
+									closeIconClassNames[theme] ??
+										closeIconClassNames.light
+								)}
+								onClick={() => removeToast(toastItem.id)}
+							>
+								<X />
+							</button>
+						</div>
+					</>
+				) : (
+					toastItem?.jsx?.({
+						close: () => removeToast(toastItem.id),
+						action: toastItem?.action ? {...toastItem?.action, onClick: handleAction} : null,
+					})
+				)}
 			</div>
 		);
     }

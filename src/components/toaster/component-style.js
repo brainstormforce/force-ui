@@ -16,6 +16,8 @@ export const variantClassNames = {
 	light: {
 		neutral:
 		'border-alert-border-neutral bg-alert-background-neutral',
+		custom:
+		'border-alert-border-neutral bg-alert-background-neutral',
 		info: 'border-alert-border-info bg-alert-background-info',
 		success:
 			'border-alert-border-green bg-alert-background-green',

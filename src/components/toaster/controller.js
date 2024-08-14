@@ -50,9 +50,9 @@ class ToastController {
 
 	// Create a new toast.
 	create(data) {
-		const { id = undefined, message = '', ...restData } = data;
+		const { id = undefined, message = '', jsx = undefined, ...restData } = data;
 
-		if (!message) {
+		if (!message && typeof jsx !== 'function') {
 			return;
 		}
 
@@ -63,25 +63,44 @@ class ToastController {
 			// Update the existing toast.
 			this.#toasts = this.#toasts.map((toast) => {
 				if (toast.id === toastId) {
-					this.publish({ ...toast, title: message, ...restData });
-					return { ...toast, title: message, ...restData };
+					this.publish({ ...toast, title: message, jsx, ...restData });
+					return { ...toast, title: message, jsx, ...restData };
 				}
 				return toast;
 			});
 		}
 
 		// Create a new toast.
-		this.add({ id: toastId, title: message, ...restData });
+		this.add({ id: toastId, title: message, jsx, ...restData });
 
 		return toastId;
 	}
 
 	// Update a toast.
 	update(id, data) {
+		const { render = undefined } = data;
+		let updatedData = data;
+		switch (typeof render) {
+			case 'function':
+				updatedData = {
+					jsx: render,
+					...data,
+				};
+				break;
+			case 'string':
+				updatedData = {
+					title: render,
+					...data,
+				};
+				break;
+			default:
+				break;
+		}
+
 		this.#toasts = this.#toasts.map((toast) => {
 			if (toast.id === id) {
-				this.publish({ ...toast, ...data });
-				return { ...toast, ...data };
+				this.publish({ ...toast, ...updatedData });
+				return { ...toast, ...updatedData };
 			}
 			return toast;
 		});
@@ -137,15 +156,11 @@ class ToastController {
 
 	// Custom toast.
 	custom(jsx = () => {}, options = {}) {
-		const toastId = options?.id ?? toastCounter++;
-		this.create({
-			id: toastId,
-			jsx: jsx(toastId),
+		return this.create({
+			jsx: jsx,
 			type: 'custom',
 			...options,
 		});
-
-		return toastId;
 	}
 }
 
@@ -163,6 +178,7 @@ export const toast = Object.seal(
 			info: ToastState.info.bind(ToastState),
 			custom: ToastState.custom.bind(ToastState),
 			dismiss: ToastState.dismiss.bind(ToastState),
+			update: ToastState.update.bind(ToastState),
 		},
 		{
 			getHistory: ToastState.history.bind(ToastState),
