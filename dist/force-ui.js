@@ -10286,11 +10286,14 @@ var containerVariantClassNames = {
 
 // Variant classes - Based on the variant prop.
 var variantClassNames = {
-  neutral: 'text-field-label [&>*]:text-field-label border-alert-border-neutral bg-alert-background-neutral',
-  info: 'text-field-helper [&>*]:text-field-helper border-alert-border-info bg-alert-background-info',
-  success: 'text-support-error [&>*]:text-support-error border-alert-border-green bg-alert-background-green',
-  warning: 'text-field-color-disabled disabled cursor-not-allowed [&>*]:text-field-color-disabled border-alert-border-warning bg-alert-background-warning',
-  error: 'text-field-color-disabled disabled cursor-not-allowed [&>*]:text-field-color-disabled border-alert-border-danger bg-alert-background-danger'
+  light: {
+    neutral: 'border-alert-border-neutral bg-alert-background-neutral',
+    info: 'border-alert-border-info bg-alert-background-info',
+    success: 'border-alert-border-green bg-alert-background-green',
+    warning: 'border-alert-border-warning bg-alert-background-warning',
+    error: 'border-alert-border-danger bg-alert-background-danger'
+  },
+  dark: "bg-background-inverse border-background-inverse"
 };
 
 // Close icon class names.
@@ -10863,6 +10866,8 @@ var Toaster = function Toaster(_ref) {
     position = _ref$position === void 0 ? 'top-right' : _ref$position,
     _ref$design = _ref.design,
     design = _ref$design === void 0 ? 'stack' : _ref$design,
+    _ref$theme = _ref.theme,
+    theme = _ref$theme === void 0 ? 'light' : _ref$theme,
     _ref$className = _ref.className,
     className = _ref$className === void 0 ? '' : _ref$className,
     _ref$autoDismiss = _ref.autoDismiss,
@@ -10922,7 +10927,7 @@ var Toaster = function Toaster(_ref) {
   }, /*#__PURE__*/React.createElement(framer_motion__WEBPACK_IMPORTED_MODULE_7__.AnimatePresence, {
     initial: false
   }, toasts.map(function (toastItem) {
-    var _toastItem$design, _toastItem$autoDismis, _toastItem$dismissAft;
+    var _toastItem$design, _toastItem$autoDismis, _toastItem$dismissAft, _toastItem$theme;
     return /*#__PURE__*/React.createElement(framer_motion__WEBPACK_IMPORTED_MODULE_8__.motion.li, {
       key: toastItem.id,
       positionTransition: true,
@@ -10943,7 +10948,7 @@ var Toaster = function Toaster(_ref) {
           duration: 0.15
         }
       },
-      layoutId: toastItem.id
+      layoutId: "toast-".concat(toastItem.id)
     }, /*#__PURE__*/React.createElement(Toast, {
       toastItem: toastItem,
       title: toastItem.title,
@@ -10952,7 +10957,8 @@ var Toaster = function Toaster(_ref) {
       autoDismiss: (_toastItem$autoDismis = toastItem === null || toastItem === void 0 ? void 0 : toastItem.autoDismiss) !== null && _toastItem$autoDismis !== void 0 ? _toastItem$autoDismis : autoDismiss,
       dismissAfter: (_toastItem$dismissAft = toastItem === null || toastItem === void 0 ? void 0 : toastItem.dismissAfter) !== null && _toastItem$dismissAft !== void 0 ? _toastItem$dismissAft : dismissAfter,
       removeToast: removeToast,
-      variant: toastItem.type
+      variant: toastItem.type,
+      theme: (_toastItem$theme = toastItem === null || toastItem === void 0 ? void 0 : toastItem.theme) !== null && _toastItem$theme !== void 0 ? _toastItem$theme : theme
     }));
   })));
 };
@@ -11017,9 +11023,9 @@ var Toast = function Toast(_ref2) {
     removeToast(toastItem.id);
   }, [toastItem]);
   if (design === 'stack') {
-    var _closeIconClassNames$;
+    var _variantClassNames$li, _closeIconClassNames$;
     return /*#__PURE__*/React.createElement("div", {
-      className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_3__.cn)('flex items-center justify-start p-4 gap-2 relative border border-solid rounded-md shadow-lg', _component_style__WEBPACK_IMPORTED_MODULE_5__.variantClassNames[variant], _component_style__WEBPACK_IMPORTED_MODULE_5__.containerVariantClassNames.stack)
+      className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_3__.cn)('flex items-center justify-start p-4 gap-2 relative border border-solid rounded-md shadow-lg', theme === 'dark' ? _component_style__WEBPACK_IMPORTED_MODULE_5__.variantClassNames.dark : (_variantClassNames$li = _component_style__WEBPACK_IMPORTED_MODULE_5__.variantClassNames.light) === null || _variantClassNames$li === void 0 ? void 0 : _variantClassNames$li[variant], _component_style__WEBPACK_IMPORTED_MODULE_5__.containerVariantClassNames.stack)
     }, /*#__PURE__*/React.createElement("div", {
       className: "self-start flex items-center justify-center [&_svg]:size-5 shrink-0"
     }, (0,_utils__WEBPACK_IMPORTED_MODULE_4__.getIcon)({
@@ -11044,9 +11050,9 @@ var Toast = function Toast(_ref2) {
     }, /*#__PURE__*/React.createElement(lucide_react__WEBPACK_IMPORTED_MODULE_9__["default"], null))));
   }
   if (design === 'inline') {
-    var _closeIconClassNames$2;
+    var _variantClassNames$li2, _closeIconClassNames$2;
     return /*#__PURE__*/React.createElement("div", {
-      className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_3__.cn)('flex items-center justify-start p-3 gap-2 relative border border-solid rounded-md shadow-lg', _component_style__WEBPACK_IMPORTED_MODULE_5__.variantClassNames[variant], _component_style__WEBPACK_IMPORTED_MODULE_5__.containerVariantClassNames.inline)
+      className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_3__.cn)('flex items-center justify-start p-3 gap-2 relative border border-solid rounded-md shadow-lg', theme === 'dark' ? _component_style__WEBPACK_IMPORTED_MODULE_5__.variantClassNames.dark : (_variantClassNames$li2 = _component_style__WEBPACK_IMPORTED_MODULE_5__.variantClassNames.light) === null || _variantClassNames$li2 === void 0 ? void 0 : _variantClassNames$li2[variant], _component_style__WEBPACK_IMPORTED_MODULE_5__.containerVariantClassNames.inline)
     }, /*#__PURE__*/React.createElement("div", {
       className: "self-start flex items-center justify-center [&_svg]:size-5 shrink-0"
     }, (0,_utils__WEBPACK_IMPORTED_MODULE_4__.getIcon)({

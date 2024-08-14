@@ -12,6 +12,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 const Toaster = ({
     position = 'top-right', // top-right/top-left/bottom-right/bottom-left
     design = 'stack', // stack/inline
+    theme = 'light', // light/dark
     className = '',
     autoDismiss = true, // Auto dismiss the toast after a certain time.
     dismissAfter = 5000,
@@ -68,7 +69,7 @@ const Toaster = ({
                         initial={{ opacity: 0, y: 50, scale: 0.7 }}
                         animate={{ opacity: 1, y: 0, scale: 1 }}
                         exit={{ opacity: 0, scale: 0.6, transition: { duration: 0.15 } }}
-                        layoutId={toastItem.id}
+                        layoutId={`toast-${toastItem.id}`}
                     >
                         <Toast
                             toastItem={toastItem}
@@ -79,6 +80,7 @@ const Toaster = ({
                             dismissAfter={toastItem?.dismissAfter ?? dismissAfter}
                             removeToast={removeToast}
                             variant={toastItem.type}
+                            theme={toastItem?.theme ?? theme}
                         />
                     </motion.li>
                 ))}
@@ -147,7 +149,7 @@ export const Toast = ( {
         return (
             <div className={cn(
                 'flex items-center justify-start p-4 gap-2 relative border border-solid rounded-md shadow-lg',
-                variantClassNames[variant],
+                theme === 'dark' ? variantClassNames.dark : variantClassNames.light?.[variant],
                 containerVariantClassNames.stack,
             )}>
                 <div className='self-start flex items-center justify-center [&_svg]:size-5 shrink-0'>
@@ -177,7 +179,7 @@ export const Toast = ( {
 			<div
 				className={cn(
 					'flex items-center justify-start p-3 gap-2 relative border border-solid rounded-md shadow-lg',
-					variantClassNames[variant],
+					theme === 'dark' ? variantClassNames.dark : variantClassNames.light?.[variant],
 					containerVariantClassNames.inline
 				)}
 			>
