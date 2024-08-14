@@ -1,19 +1,17 @@
-import { memo, useRef } from "react";
+import { memo } from 'react';
 
 let hasRendered = false;
 
-const withSingleton = (WrappedComponent) => {
+const withSingleton = ( WrappedComponent ) => {
+	const SingletonComponent = memo( ( props ) => {
+		if ( hasRendered ) {
+			return null; // or return an alternative component
+		}
+		hasRendered = true;
+		return <WrappedComponent { ...props } />;
+	} );
 
-    const SingletonComponent = memo((props) => {
-        if (hasRendered) {
-            return null; // or return an alternative component
-        } else {
-            hasRendered = true;
-            return <WrappedComponent {...props} />;
-        }
-    });
-
-    return SingletonComponent;
+	return SingletonComponent;
 };
 
 export default withSingleton;

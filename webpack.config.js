@@ -1,29 +1,29 @@
-const defaultConfig = require("@wordpress/scripts/config/webpack.config");
-const path = require("path");
+const defaultConfig = require('@wordpress/scripts/config/webpack.config');
+const path = require('path');
 
 const libConfig = {
 	...defaultConfig,
 	entry: {
-		"force-ui": path.resolve(process.cwd(), "src/index.js"),
-		"utils/withTW": path.resolve(process.cwd(), "src/utilities/withTW.js"),
+		'force-ui': path.resolve(process.cwd(), 'src/index.js'),
+		'utils/withTW': path.resolve(process.cwd(), 'src/utilities/withTW.js'),
 	},
 	output: {
-		path: path.resolve(process.cwd(), "dist"),
-		filename: "[name].js",
+		path: path.resolve(process.cwd(), 'dist'),
+		filename: '[name].js',
 		library: {
-			name: "[name].[file].js",
-			type: "umd",
+			name: '[name].[file].js',
+			type: 'umd',
 		},
-		globalObject: `typeof self !== 'undefined' ? self : this`
+		globalObject: `typeof self !== 'undefined' ? self : this`,
 	},
 	resolve: {
 		...defaultConfig.resolve,
-		extensions: [".js", ".jsx", "..."],
+		extensions: ['.js', '.jsx', '...'],
 		alias: {
 			...defaultConfig.resolve.alias,
-			"@": path.resolve(process.cwd(), "src"),
-			"@/components": path.resolve(process.cwd(), "src/components"),
-			"@/utilities": path.resolve(process.cwd(), "src/utilities"),
+			'@': path.resolve(process.cwd(), 'src'),
+			'@/components': path.resolve(process.cwd(), 'src/components'),
+			'@/utilities': path.resolve(process.cwd(), 'src/utilities'),
 		},
 	},
 	module: {
@@ -31,9 +31,9 @@ const libConfig = {
 		rules: [
 			...defaultConfig.module.rules,
 			{
-                test: /\.(js|jsx)$/,
-                exclude: /node_modules/,
-                use: ['babel-loader']
+				test: /\.(js|jsx)$/,
+				exclude: /node_modules/,
+				use: ['babel-loader'],
 			},
 			{
 				test: /\.mjs$/,
@@ -43,8 +43,8 @@ const libConfig = {
 		],
 	},
 	externals: {
-		react: "React",
-		"react-dom": "ReactDOM",
+		react: 'React',
+		'react-dom': 'ReactDOM',
 	},
 };
 

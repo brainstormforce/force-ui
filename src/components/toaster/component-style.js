@@ -14,22 +14,18 @@ export const containerVariantClassNames = {
 // Variant classes - Based on the variant prop.
 export const variantClassNames = {
 	light: {
-		neutral:
-		'border-alert-border-neutral bg-alert-background-neutral',
-		custom:
-		'border-alert-border-neutral bg-alert-background-neutral',
+		neutral: 'border-alert-border-neutral bg-alert-background-neutral',
+		custom: 'border-alert-border-neutral bg-alert-background-neutral',
 		info: 'border-alert-border-info bg-alert-background-info',
-		success:
-			'border-alert-border-green bg-alert-background-green',
-		warning:
-			'border-alert-border-warning bg-alert-background-warning',
+		success: 'border-alert-border-green bg-alert-background-green',
+		warning: 'border-alert-border-warning bg-alert-background-warning',
 		error: 'border-alert-border-danger bg-alert-background-danger',
 	},
-	dark: "bg-background-inverse border-background-inverse",
+	dark: 'bg-background-inverse border-background-inverse',
 };
 
 // Close icon class names.
 export const closeIconClassNames = {
-    light: 'text-icon-secondary',
-    dark: 'text-icon-inverse',
+	light: 'text-icon-secondary',
+	dark: 'text-icon-inverse',
 };
