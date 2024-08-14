@@ -1,7 +1,6 @@
-import { memo, useEffect, useRef, useState } from 'react';
-import { nanoid } from 'nanoid';
+import { useEffect, useRef, useState } from 'react';
 import { X } from 'lucide-react';
-import { toast, ToastState } from './controller'
+import { ToastState } from './controller'
 import { withSingleton } from '@/hoc';
 import { cn } from '@/utilities/functions';
 import { getIcon, getAction, getContent, getTitle } from './utils';
