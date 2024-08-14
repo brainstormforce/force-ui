@@ -1,7 +1,8 @@
-import { useEffect, useRef, useState } from 'react';
+import { memo, useEffect, useRef, useState } from 'react';
 import { nanoid } from 'nanoid';
 import { X } from 'lucide-react';
 import { toast, ToastState } from './controller'
+import { withSingleton } from '@/hoc';
 import { cn } from '@/utilities/functions';
 import { getIcon, getAction, getContent, getTitle } from './utils';
 import { closeIconClassNames, containerVariantClassNames, positionClassNames, variantClassNames } from './component-style';
@@ -225,4 +226,4 @@ export const Toast = ( {
 	);
 };
 
-export default Toaster;
+export default withSingleton(Toaster);

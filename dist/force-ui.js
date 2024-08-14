@@ -10695,15 +10695,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/x.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/x.js");
 /* harmony import */ var _controller__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./controller */ "./src/components/toaster/controller.js");
-/* harmony import */ var _utilities_functions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/utilities/functions */ "./src/utilities/functions.js");
-/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./utils */ "./src/components/toaster/utils.jsx");
-/* harmony import */ var _component_style__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./component-style */ "./src/components/toaster/component-style.js");
-/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-dom */ "react-dom");
-/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var framer_motion__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! framer-motion */ "./node_modules/framer-motion/dist/es/components/AnimatePresence/index.mjs");
-/* harmony import */ var framer_motion__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! framer-motion */ "./node_modules/framer-motion/dist/es/render/dom/motion.mjs");
+/* harmony import */ var _hoc__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/hoc */ "./src/hoc/index.js");
+/* harmony import */ var _utilities_functions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/utilities/functions */ "./src/utilities/functions.js");
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./utils */ "./src/components/toaster/utils.jsx");
+/* harmony import */ var _component_style__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./component-style */ "./src/components/toaster/component-style.js");
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-dom */ "react-dom");
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var framer_motion__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! framer-motion */ "./node_modules/framer-motion/dist/es/components/AnimatePresence/index.mjs");
+/* harmony import */ var framer_motion__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! framer-motion */ "./node_modules/framer-motion/dist/es/render/dom/motion.mjs");
 function _typeof(o) {
   "@babel/helpers - typeof";
 
@@ -10855,6 +10856,7 @@ function _arrayWithHoles(r) {
 
 
 
+
 var Toaster = function Toaster(_ref) {
   var _positionClassNames$p;
   var _ref$position = _ref.position,
@@ -10886,7 +10888,7 @@ var Toaster = function Toaster(_ref) {
         return;
       }
       setTimeout(function () {
-        (0,react_dom__WEBPACK_IMPORTED_MODULE_5__.flushSync)(function () {
+        (0,react_dom__WEBPACK_IMPORTED_MODULE_6__.flushSync)(function () {
           return setToasts(function (prevToasts) {
             var itemExists = prevToasts.findIndex(function (tItem) {
               return tItem.id === toastItem.id;
@@ -10916,12 +10918,12 @@ var Toaster = function Toaster(_ref) {
     });
   };
   return /*#__PURE__*/React.createElement("ul", {
-    className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_2__.cn)('fixed flex flex-col list-none z-20 p-10 pointer-events-none [&>li]:pointer-events-auto gap-3', (_positionClassNames$p = _component_style__WEBPACK_IMPORTED_MODULE_4__.positionClassNames[position]) !== null && _positionClassNames$p !== void 0 ? _positionClassNames$p : _component_style__WEBPACK_IMPORTED_MODULE_4__.positionClassNames['top-right'], className)
-  }, /*#__PURE__*/React.createElement(framer_motion__WEBPACK_IMPORTED_MODULE_6__.AnimatePresence, {
+    className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_3__.cn)('fixed flex flex-col list-none z-20 p-10 pointer-events-none [&>li]:pointer-events-auto gap-3', (_positionClassNames$p = _component_style__WEBPACK_IMPORTED_MODULE_5__.positionClassNames[position]) !== null && _positionClassNames$p !== void 0 ? _positionClassNames$p : _component_style__WEBPACK_IMPORTED_MODULE_5__.positionClassNames['top-right'], className)
+  }, /*#__PURE__*/React.createElement(framer_motion__WEBPACK_IMPORTED_MODULE_7__.AnimatePresence, {
     initial: false
   }, toasts.map(function (toastItem) {
     var _toastItem$design, _toastItem$autoDismis, _toastItem$dismissAft;
-    return /*#__PURE__*/React.createElement(framer_motion__WEBPACK_IMPORTED_MODULE_7__.motion.li, {
+    return /*#__PURE__*/React.createElement(framer_motion__WEBPACK_IMPORTED_MODULE_8__.motion.li, {
       key: toastItem.id,
       positionTransition: true,
       initial: {
@@ -11017,64 +11019,64 @@ var Toast = function Toast(_ref2) {
   if (design === 'stack') {
     var _closeIconClassNames$;
     return /*#__PURE__*/React.createElement("div", {
-      className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_2__.cn)('flex items-center justify-start p-4 gap-2 relative border border-solid rounded-md shadow-lg', _component_style__WEBPACK_IMPORTED_MODULE_4__.variantClassNames[variant], _component_style__WEBPACK_IMPORTED_MODULE_4__.containerVariantClassNames.stack)
+      className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_3__.cn)('flex items-center justify-start p-4 gap-2 relative border border-solid rounded-md shadow-lg', _component_style__WEBPACK_IMPORTED_MODULE_5__.variantClassNames[variant], _component_style__WEBPACK_IMPORTED_MODULE_5__.containerVariantClassNames.stack)
     }, /*#__PURE__*/React.createElement("div", {
       className: "self-start flex items-center justify-center [&_svg]:size-5 shrink-0"
-    }, (0,_utils__WEBPACK_IMPORTED_MODULE_3__.getIcon)({
+    }, (0,_utils__WEBPACK_IMPORTED_MODULE_4__.getIcon)({
       variant: variant,
       icon: icon,
       theme: theme
     })), /*#__PURE__*/React.createElement("div", {
       className: "flex flex-col items-start justify-start gap-0.5"
-    }, (0,_utils__WEBPACK_IMPORTED_MODULE_3__.getTitle)({
+    }, (0,_utils__WEBPACK_IMPORTED_MODULE_4__.getTitle)({
       title: title,
       theme: theme
-    }), (0,_utils__WEBPACK_IMPORTED_MODULE_3__.getContent)({
+    }), (0,_utils__WEBPACK_IMPORTED_MODULE_4__.getContent)({
       content: content,
       theme: theme
     })), /*#__PURE__*/React.createElement("div", {
       className: "absolute right-4 top-4 [&_svg]:size-5"
     }, /*#__PURE__*/React.createElement("button", {
-      className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_2__.cn)('bg-transparent m-0 p-0 border-none focus:outline-none active:outline-none cursor-pointer', (_closeIconClassNames$ = _component_style__WEBPACK_IMPORTED_MODULE_4__.closeIconClassNames[theme]) !== null && _closeIconClassNames$ !== void 0 ? _closeIconClassNames$ : _component_style__WEBPACK_IMPORTED_MODULE_4__.closeIconClassNames.light),
+      className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_3__.cn)('bg-transparent m-0 p-0 border-none focus:outline-none active:outline-none cursor-pointer', (_closeIconClassNames$ = _component_style__WEBPACK_IMPORTED_MODULE_5__.closeIconClassNames[theme]) !== null && _closeIconClassNames$ !== void 0 ? _closeIconClassNames$ : _component_style__WEBPACK_IMPORTED_MODULE_5__.closeIconClassNames.light),
       onClick: function onClick() {
         return removeToast(toastItem.id);
       }
-    }, /*#__PURE__*/React.createElement(lucide_react__WEBPACK_IMPORTED_MODULE_8__["default"], null))));
+    }, /*#__PURE__*/React.createElement(lucide_react__WEBPACK_IMPORTED_MODULE_9__["default"], null))));
   }
   if (design === 'inline') {
     var _closeIconClassNames$2;
     return /*#__PURE__*/React.createElement("div", {
-      className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_2__.cn)('flex items-center justify-start p-3 gap-2 relative border border-solid rounded-md shadow-lg', _component_style__WEBPACK_IMPORTED_MODULE_4__.variantClassNames[variant], _component_style__WEBPACK_IMPORTED_MODULE_4__.containerVariantClassNames.inline)
+      className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_3__.cn)('flex items-center justify-start p-3 gap-2 relative border border-solid rounded-md shadow-lg', _component_style__WEBPACK_IMPORTED_MODULE_5__.variantClassNames[variant], _component_style__WEBPACK_IMPORTED_MODULE_5__.containerVariantClassNames.inline)
     }, /*#__PURE__*/React.createElement("div", {
       className: "self-start flex items-center justify-center [&_svg]:size-5 shrink-0"
-    }, (0,_utils__WEBPACK_IMPORTED_MODULE_3__.getIcon)({
+    }, (0,_utils__WEBPACK_IMPORTED_MODULE_4__.getIcon)({
       variant: variant,
       icon: icon,
       theme: theme
     })), /*#__PURE__*/React.createElement("div", {
       className: "flex items-start justify-start gap-1 mr-10 [&>span:first-child]:shrink-0"
-    }, (0,_utils__WEBPACK_IMPORTED_MODULE_3__.getTitle)({
+    }, (0,_utils__WEBPACK_IMPORTED_MODULE_4__.getTitle)({
       title: title,
       theme: theme
-    }), (0,_utils__WEBPACK_IMPORTED_MODULE_3__.getContent)({
+    }), (0,_utils__WEBPACK_IMPORTED_MODULE_4__.getContent)({
       content: content,
       theme: theme
     })), /*#__PURE__*/React.createElement("div", {
       className: "absolute right-3 top-3 [&_svg]:size-5"
     }, /*#__PURE__*/React.createElement("button", {
-      className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_2__.cn)('bg-transparent m-0 p-0 border-none focus:outline-none active:outline-none cursor-pointer', (_closeIconClassNames$2 = _component_style__WEBPACK_IMPORTED_MODULE_4__.closeIconClassNames[theme]) !== null && _closeIconClassNames$2 !== void 0 ? _closeIconClassNames$2 : _component_style__WEBPACK_IMPORTED_MODULE_4__.closeIconClassNames.light),
+      className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_3__.cn)('bg-transparent m-0 p-0 border-none focus:outline-none active:outline-none cursor-pointer', (_closeIconClassNames$2 = _component_style__WEBPACK_IMPORTED_MODULE_5__.closeIconClassNames[theme]) !== null && _closeIconClassNames$2 !== void 0 ? _closeIconClassNames$2 : _component_style__WEBPACK_IMPORTED_MODULE_5__.closeIconClassNames.light),
       onClick: function onClick() {
         return removeToast(toastItem.id);
       }
-    }, /*#__PURE__*/React.createElement(lucide_react__WEBPACK_IMPORTED_MODULE_8__["default"], null))));
+    }, /*#__PURE__*/React.createElement(lucide_react__WEBPACK_IMPORTED_MODULE_9__["default"], null))));
   }
   return /*#__PURE__*/React.createElement("div", _extends({
-    className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_2__.cn)(baseClasses,
+    className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_3__.cn)(baseClasses,
     // sizeClasses[ size ],
-    _component_style__WEBPACK_IMPORTED_MODULE_4__.variantClassNames[variant], className)
+    _component_style__WEBPACK_IMPORTED_MODULE_5__.variantClassNames[variant], className)
   }, props), /*#__PURE__*/React.createElement("div", null));
 };
-/* harmony default export */ __webpack_exports__["default"] = (Toaster);
+/* harmony default export */ __webpack_exports__["default"] = ((0,_hoc__WEBPACK_IMPORTED_MODULE_2__.withSingleton)(Toaster));
 
 /***/ }),
 
@@ -11206,6 +11208,47 @@ var getContent = function getContent(_ref4) {
     className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_0__.cn)(contentClasses[theme], 'block text-sm [&_*]:text-sm leading-5 [&_*]:leading-5 font-normal')
   }, content);
 };
+
+/***/ }),
+
+/***/ "./src/hoc/index.js":
+/*!**************************!*\
+  !*** ./src/hoc/index.js ***!
+  \**************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   withSingleton: function() { return /* reexport safe */ _withSingleton__WEBPACK_IMPORTED_MODULE_0__["default"]; }
+/* harmony export */ });
+/* harmony import */ var _withSingleton__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./withSingleton */ "./src/hoc/withSingleton.jsx");
+
+
+/***/ }),
+
+/***/ "./src/hoc/withSingleton.jsx":
+/*!***********************************!*\
+  !*** ./src/hoc/withSingleton.jsx ***!
+  \***********************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+
+var hasRendered = false;
+var withSingleton = function withSingleton(WrappedComponent) {
+  var SingletonComponent = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.memo)(function (props) {
+    if (hasRendered) {
+      return null; // or return an alternative component
+    } else {
+      hasRendered = true;
+      return /*#__PURE__*/React.createElement(WrappedComponent, props);
+    }
+  });
+  return SingletonComponent;
+};
+/* harmony default export */ __webpack_exports__["default"] = (withSingleton);
 
 /***/ }),
 
