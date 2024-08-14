@@ -10274,10 +10274,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 // Available positions: top-left, top-right, bottom-left, bottom-right
 var positionClassNames = {
-  'top-left': 'top-0 bottom-0 left-0 justify-start',
-  'top-right': 'top-0 bottom-0 right-0 justify-start',
-  'bottom-left': 'top-0 bottom-0 left-0 justify-end',
-  'bottom-right': 'top-0 bottom-0 right-0 justify-end'
+  'top-left': 'top-0 bottom-0 left-0 justify-start items-start',
+  'top-right': 'top-0 bottom-0 right-0 justify-start items-end',
+  'bottom-left': 'top-0 bottom-0 left-0 justify-end items-start',
+  'bottom-right': 'top-0 bottom-0 right-0 justify-end items-end'
 };
 var containerVariantClassNames = {
   stack: 'w-[22.5rem]',
@@ -10864,7 +10864,7 @@ var Toaster = function Toaster(_ref) {
     _ref$className = _ref.className,
     className = _ref$className === void 0 ? '' : _ref$className,
     _ref$autoDismiss = _ref.autoDismiss,
-    autoDismiss = _ref$autoDismiss === void 0 ? false : _ref$autoDismiss,
+    autoDismiss = _ref$autoDismiss === void 0 ? true : _ref$autoDismiss,
     _ref$dismissAfter = _ref.dismissAfter,
     dismissAfter = _ref$dismissAfter === void 0 ? 5000 : _ref$dismissAfter;
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
