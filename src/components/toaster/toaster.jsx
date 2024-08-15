@@ -193,6 +193,7 @@ export const Toast = ( {
 							{ toastItem?.action?.label &&
 								typeof toastItem?.action?.onClick ===
 									'function' && (
+							/* eslint-disable */
 									<div className="mt-2.5">
 									{ getAction( {
 										actionLabel:
@@ -204,7 +205,9 @@ export const Toast = ( {
 										theme,
 									} ) }
 								</div>
-							) }
+							)
+							/* eslint-enable */
+							}
 						</div>
 						<div className="absolute right-4 top-4 [&_svg]:size-5">
 							<button
