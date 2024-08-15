@@ -15,10 +15,10 @@ const Title = ( {
 } ) => {
 	// Base classes. - Mandatory classes.
 	const iconGap = {
-		xs: 'flex items-center gap-1',
-		sm: 'flex items-center gap-1',
-		md: 'flex items-center gap-1.5',
-		lg: 'flex items-center gap-1.5',
+		xs: 'gap-1',
+		sm: 'gap-1',
+		md: 'gap-1.5',
+		lg: 'gap-1.5',
 	};
 
 	if ( ! title ) {
@@ -53,13 +53,13 @@ const Title = ( {
 			<div className={ className }>
 				<div>
 					{ icon && iconPosition === 'left' && (
-						<div className={ iconGap[ size ] }>
+						<div className={ cn( 'flex items-center', iconGap[ size ] ) }>
 							{ icon }
 							{ getTitle() }
 						</div>
 					) }
 					{ icon && iconPosition === 'right' && (
-						<div className={ iconGap[ size ] }>
+						<div className={ cn( 'flex items-center', iconGap[ size ] ) }>
 							{ getTitle() }
 							{ icon }
 						</div>
@@ -74,13 +74,13 @@ const Title = ( {
 	return (
 		<div className={ className }>
 			{ icon && iconPosition === 'left' && (
-				<div className={ iconGap[ size ] }>
+				<div className={ cn( 'flex items-center', iconGap[ size ] ) }>
 					{ icon }
 					{ getTitle() }
 				</div>
 			) }
 			{ icon && iconPosition === 'right' && (
-				<div className={ iconGap[ size ] }>
+				<div className={ cn( 'flex items-center', iconGap[ size ] ) }>
 					{ getTitle() }
 					{ icon }
 				</div>
