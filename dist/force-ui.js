@@ -750,8 +750,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   Loader: function() { return /* reexport safe */ _loader_index__WEBPACK_IMPORTED_MODULE_9__["default"]; },
 /* harmony export */   ProgressBar: function() { return /* reexport safe */ _progress_bar_index__WEBPACK_IMPORTED_MODULE_10__["default"]; },
 /* harmony export */   RadioButton: function() { return /* reexport safe */ _radio_button_index__WEBPACK_IMPORTED_MODULE_3__["default"]; },
-/* harmony export */   RadioGroup: function() { return /* reexport safe */ _radio_group_index__WEBPACK_IMPORTED_MODULE_13__["default"]; },
-/* harmony export */   Select: function() { return /* reexport safe */ _select_index__WEBPACK_IMPORTED_MODULE_14__["default"]; },
+/* harmony export */   Select: function() { return /* reexport safe */ _select_index__WEBPACK_IMPORTED_MODULE_13__["default"]; },
 /* harmony export */   Switch: function() { return /* reexport safe */ _switch_index__WEBPACK_IMPORTED_MODULE_1__["default"]; },
 /* harmony export */   Tabs: function() { return /* reexport safe */ _tabs_index__WEBPACK_IMPORTED_MODULE_12__["default"]; },
 /* harmony export */   TextArea: function() { return /* reexport safe */ _textarea_index__WEBPACK_IMPORTED_MODULE_5__["default"]; }
@@ -769,9 +768,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _progress_bar_index__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./progress-bar/index */ "./src/components/progress-bar/index.js");
 /* harmony import */ var _button_group_index__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./button-group/index */ "./src/components/button-group/index.js");
 /* harmony import */ var _tabs_index__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./tabs/index */ "./src/components/tabs/index.js");
-/* harmony import */ var _radio_group_index__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./radio-group/index */ "./src/components/radio-group/index.js");
-/* harmony import */ var _select_index__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./select/index */ "./src/components/select/index.js");
-
+/* harmony import */ var _select_index__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./select/index */ "./src/components/select/index.js");
 
 
 
@@ -1253,7 +1250,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var nanoid__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! nanoid */ "./node_modules/nanoid/index.browser.js");
 /* harmony import */ var _utilities_functions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../utilities/functions */ "./src/utilities/functions.js");
-var _excluded = ["id", "label", "value", "disabled", "size"];
+var _excluded = ["id", "label", "value", "children", "disabled", "size"],
+  _excluded2 = ["id", "children", "value", "disabled", "size"];
 function _extends() {
   return _extends = Object.assign ? Object.assign.bind() : function (n) {
     for (var e = 1; e < arguments.length; e++) {
@@ -1358,6 +1356,8 @@ var RadioButtonGroup = function RadioButtonGroup(_ref) {
     AsElement = _ref$as === void 0 ? react__WEBPACK_IMPORTED_MODULE_0__.Fragment : _ref$as,
     onChange = _ref.onChange,
     className = _ref.className,
+    _ref$style = _ref.style,
+    style = _ref$style === void 0 ? 'simple' : _ref$style,
     _ref$disabled = _ref.disabled,
     disabled = _ref$disabled === void 0 ? false : _ref$disabled;
   var isControlled = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(function () {
@@ -1371,7 +1371,12 @@ var RadioButtonGroup = function RadioButtonGroup(_ref) {
     selectedValue = _useState2[0],
     setSelectedValue = _useState2[1];
   var handleChange = (0,react__WEBPACK_IMPORTED_MODULE_0__.useCallback)(function (event) {
-    var newValue = event.target.value;
+    var newValue;
+    if (style === 'tile') {
+      newValue = event;
+    } else {
+      newValue = event.target.value;
+    }
     if (!isControlled) {
       setSelectedValue(newValue);
     }
@@ -1380,7 +1385,25 @@ var RadioButtonGroup = function RadioButtonGroup(_ref) {
     }
     onChange(newValue);
   }, [onChange]);
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(AsElement, AsElement === react__WEBPACK_IMPORTED_MODULE_0__.Fragment ? {} : {
+  var groupClassName = (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_1__.cn)(style === 'tile' ? 'inline-flex border border-border-subtle border-solid rounded shadow-sm' : 'flex gap-6', className);
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, style === 'tile' ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: groupClassName
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(RadioButtonContext.Provider, {
+    value: {
+      name: nameAttr,
+      value: isControlled ? value : selectedValue,
+      by: by,
+      onChange: handleChange,
+      isControlled: isControlled,
+      disableAll: disabled,
+      style: style
+    }
+  }, react__WEBPACK_IMPORTED_MODULE_0___default().Children.map(children, function (child) {
+    if (! /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.isValidElement)(child)) {
+      return null;
+    }
+    return child;
+  }))) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(AsElement, AsElement === react__WEBPACK_IMPORTED_MODULE_0__.Fragment ? {} : {
     className: className
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(RadioButtonContext.Provider, {
     value: {
@@ -1389,28 +1412,27 @@ var RadioButtonGroup = function RadioButtonGroup(_ref) {
       by: by,
       onChange: handleChange,
       isControlled: isControlled,
-      disableAll: disabled
+      disableAll: disabled,
+      style: style
     }
   }, react__WEBPACK_IMPORTED_MODULE_0___default().Children.map(children, function (child) {
     if (! /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.isValidElement)(child)) {
       return null;
     }
     return child;
-  })));
+  }))));
 };
 var RadioButton = function RadioButton(_ref2, ref) {
   var _sizeClassNames$size;
   var id = _ref2.id,
     label = _ref2.label,
     value = _ref2.value,
+    children = _ref2.children,
     disabled = _ref2.disabled,
     _ref2$size = _ref2.size,
     size = _ref2$size === void 0 ? 'md' : _ref2$size,
     props = _objectWithoutProperties(_ref2, _excluded);
   var providerValue = useRadioButton();
-  if (!providerValue) {
-    throw new Error('RadioButton should be used inside RadioButton Group');
-  }
   var name = providerValue.name,
     selectedValue = providerValue.value,
     by = providerValue.by,
@@ -1474,6 +1496,15 @@ var RadioButton = function RadioButton(_ref2, ref) {
       className: "text-text-secondary text-sm font-normal leading-5 m-0"
     }, label.description));
   }, [label]);
+  if (providerValue.style === 'tile') {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(ButtonGroupItem, {
+      id: id,
+      lable: label,
+      value: value,
+      disabled: disabled,
+      size: size
+    }, children);
+  }
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_1__.cn)('inline-flex items-center', !!label && 'items-start')
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", {
@@ -1498,271 +1529,78 @@ var RadioButton = function RadioButton(_ref2, ref) {
     htmlFor: radioButtonId
   }, renderLabel()));
 };
+var ButtonGroupItem = function ButtonGroupItem(_ref3, ref) {
+  var id = _ref3.id,
+    children = _ref3.children,
+    value = _ref3.value,
+    disabled = _ref3.disabled,
+    _ref3$size = _ref3.size,
+    size = _ref3$size === void 0 ? 'md' : _ref3$size,
+    props = _objectWithoutProperties(_ref3, _excluded2);
+  var providerValue = useRadioButton();
+  var _ref4 = providerValue || {},
+    name = _ref4.name,
+    selectedValue = _ref4.value,
+    by = _ref4.by,
+    onChange = _ref4.onChange,
+    disableAll = _ref4.disableAll,
+    checked = _ref4.checked;
+  var radioButtonId = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(function () {
+    return id || "radio-button-".concat((0,nanoid__WEBPACK_IMPORTED_MODULE_2__.nanoid)());
+  }, [id]);
+  var isDisabled = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(function () {
+    return disableAll || disabled;
+  }, [disableAll, disabled]);
+  var checkedValue = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(function () {
+    if (typeof checked !== 'undefined') {
+      return checked;
+    }
+    if (_typeof(selectedValue) !== _typeof(value)) {
+      return false;
+    }
+    if (typeof selectedValue === 'string') {
+      return selectedValue === value;
+    }
+    if (Array.isArray(selectedValue)) {
+      return selectedValue.includes(value);
+    }
+    return selectedValue[by] === value[by];
+  }, [selectedValue, value, checked, by]);
+  var handleClick = function handleClick() {
+    if (onChange) {
+      onChange(value);
+    }
+  };
+  var sizes = {
+    xs: 'py-1 px-1 text-sm gap-0.5 [&>svg]:h-4 [&>svg]:w-4',
+    sm: 'py-2 px-2 text-base gap-1 [&>svg]:h-4 [&>svg]:w-4',
+    md: 'py-2.5 px-2.5 text-base gap-1 [&>svg]:h-5 [&>svg]:w-5'
+  };
+  var baseClasses = 'bg-background-primary text-primary cursor-pointer flex items-center justify-center';
+  var hoverClasses = 'hover:bg-button-tertiary-hover';
+  var focusClasses = 'focus:outline-none';
+  var disabledClasses = isDisabled ? 'text-text-disabled cursor-not-allowed' : '';
+  var borderClasses = 'border-0 border-r border-border-subtle border-solid';
+  var buttonClassName = (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_1__.cn)(baseClasses, hoverClasses, focusClasses, disabledClasses, sizes[size], borderClasses);
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", _extends({
+    type: "button",
+    id: radioButtonId,
+    className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_1__.cn)(buttonClassName, 'first:rounded-tl first:rounded-bl first:border-0 first:border-r first:border-border-subtle last:rounded-tr last:rounded-br last:border-0', checkedValue && 'bg-button-disabled'),
+    onClick: handleClick,
+    disabled: isDisabled
+  }, props), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
+    type: "hidden",
+    value: value,
+    name: name,
+    checked: checkedValue,
+    onChange: onChange
+  }), children));
+};
 var exports = {
   Group: RadioButtonGroup,
   Button: /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.forwardRef)(RadioButton)
 };
 /* harmony default export */ __webpack_exports__["default"] = (exports);
-
-/***/ }),
-
-/***/ "./src/components/radio-group/index.js":
-/*!*********************************************!*\
-  !*** ./src/components/radio-group/index.js ***!
-  \*********************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": function() { return /* reexport safe */ _radio_group_jsx__WEBPACK_IMPORTED_MODULE_0__["default"]; }
-/* harmony export */ });
-/* harmony import */ var _radio_group_jsx__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./radio-group.jsx */ "./src/components/radio-group/radio-group.jsx");
-
-
-/***/ }),
-
-/***/ "./src/components/radio-group/radio-group.jsx":
-/*!****************************************************!*\
-  !*** ./src/components/radio-group/radio-group.jsx ***!
-  \****************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _utilities_functions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../utilities/functions */ "./src/utilities/functions.js");
-var _excluded = ["id", "label", "isFirstChild", "isLastChild", "disabled"],
-  _excluded2 = ["id", "icon", "isFirstChild", "isLastChild", "disabled"];
-function _extends() {
-  return _extends = Object.assign ? Object.assign.bind() : function (n) {
-    for (var e = 1; e < arguments.length; e++) {
-      var t = arguments[e];
-      for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]);
-    }
-    return n;
-  }, _extends.apply(null, arguments);
-}
-function _objectWithoutProperties(e, t) {
-  if (null == e) return {};
-  var o,
-    r,
-    i = _objectWithoutPropertiesLoose(e, t);
-  if (Object.getOwnPropertySymbols) {
-    var s = Object.getOwnPropertySymbols(e);
-    for (r = 0; r < s.length; r++) o = s[r], t.includes(o) || {}.propertyIsEnumerable.call(e, o) && (i[o] = e[o]);
-  }
-  return i;
-}
-function _objectWithoutPropertiesLoose(r, e) {
-  if (null == r) return {};
-  var t = {};
-  for (var n in r) if ({}.hasOwnProperty.call(r, n)) {
-    if (e.includes(n)) continue;
-    t[n] = r[n];
-  }
-  return t;
-}
-
-
-
-// Context for RadioGroup state management
-var RadioGroupContext = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.createContext)();
-
-// Custom Hook to use the RadioGroup context
-var useRadioGroup = function useRadioGroup() {
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(RadioGroupContext);
-};
-
-// Internal RadioGroup component (context provider)
-var InternalRadioGroup = function InternalRadioGroup(_ref) {
-  var children = _ref.children,
-    value = _ref.value,
-    onChange = _ref.onChange,
-    _ref$size = _ref.size,
-    size = _ref$size === void 0 ? 's' : _ref$size,
-    _ref$style = _ref.style,
-    style = _ref$style === void 0 ? 'simple' : _ref$style,
-    className = _ref.className;
-  var handleChange = (0,react__WEBPACK_IMPORTED_MODULE_0__.useCallback)(function (newValue) {
-    if (onChange) {
-      onChange(newValue);
-    }
-  }, [onChange]);
-  var groupClassName = (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_1__.cn)(style !== 'simple' ? 'inline-flex border border-border-subtle border-solid rounded shadow-sm' : 'flex gap-6', className);
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(RadioGroupContext.Provider, {
-    value: {
-      value: value,
-      onChange: handleChange,
-      size: size,
-      style: style
-    }
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-    className: groupClassName
-  }, children));
-};
-var RadioOption = function RadioOption(_ref2) {
-  var id = _ref2.id,
-    label = _ref2.label,
-    _ref2$disabled = _ref2.disabled,
-    disabled = _ref2$disabled === void 0 ? false : _ref2$disabled;
-  var _useRadioGroup = useRadioGroup(),
-    value = _useRadioGroup.value,
-    _onChange = _useRadioGroup.onChange,
-    size = _useRadioGroup.size;
-  var styles = {
-    s: {
-      input: 'h-4 w-4 py-0.5 px-0.5 border-border-strong hover:border-border-interactive checked:border-border-interactive bg-white checked:bg-toggle-on checked:hover:bg-toggle-on-hover checked:hover:border-toggle-on-hover focus:ring-2 focus:ring-offset-2 focus:ring-focus',
-      label: 'text-sm font-medium text-field-label leading-5'
-    },
-    m: {
-      input: 'h-5 w-5 py-0.5 px-0.5 border-border-strong hover:border-border-interactive checked:border-border-interactive bg-white checked:bg-toggle-on checked:hover:bg-toggle-on-hover checked:hover:border-toggle-on-hover focus:ring-2 focus:ring-offset-4 focus:ring-focus',
-      label: 'text-base font-medium text-field-label leading-6'
-    }
-  };
-  var disabledStyles = 'cursor-not-allowed checked:border-border-disabled checked:bg-border-disabled border-border-disabled hover:border-border-disabled hover:checked:border-border-disabled hover:checked:bg-border-disabled';
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-    className: "flex items-center gap-2"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("input", {
-    id: id,
-    name: "radio-group",
-    type: "radio",
-    checked: value === id,
-    onChange: function onChange() {
-      return _onChange(id);
-    },
-    className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_1__.cn)('appearance-none m-0 rounded-full relative', styles[size].input, disabled && disabledStyles),
-    disabled: disabled
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("label", {
-    htmlFor: id,
-    className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_1__.cn)(styles[size].label, disabled ? 'text-field-color-disabled cursor-not-allowed' : 'cursor-pointer')
-  }, label), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("style", {
-    jsx: true
-  }, "\n                input[type=\"radio\"]::before {\n                    content: none !important;\n                }\n\n                input[type=\"radio\"]::after {\n                    content: '';\n                    position: absolute;\n                    top: 50%;\n                    left: 50%;\n                    transform: translate(-50%, -50%);\n                    width: ".concat(size === 's' ? '6px' : '8px', ";\n                    height: ").concat(size === 's' ? '6px' : '8px', ";\n                    border-radius: 50%;\n                    background-color: white;\n                    opacity: 0;\n                    transition: opacity 0.2s ease-in-out;\n                }\n\n                input[type=\"radio\"]:checked::after {\n                    opacity: 1;\n                }\n            ")));
-};
-var BaseRadioButton = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.forwardRef)(function (_ref3, ref) {
-  var id = _ref3.id,
-    label = _ref3.label,
-    isFirstChild = _ref3.isFirstChild,
-    isLastChild = _ref3.isLastChild,
-    _ref3$disabled = _ref3.disabled,
-    disabled = _ref3$disabled === void 0 ? false : _ref3$disabled,
-    rest = _objectWithoutProperties(_ref3, _excluded);
-  var _useRadioGroup2 = useRadioGroup(),
-    value = _useRadioGroup2.value,
-    onChange = _useRadioGroup2.onChange,
-    size = _useRadioGroup2.size;
-  var sizes = {
-    s: 'py-1 px-1 text-xs leading-4 font-semibold',
-    m: 'py-2 px-2 text-sm leading-5 font-semibold',
-    l: 'py-2.5 px-2.5 text-base leading-6 font-semibold'
-  };
-  var baseClasses = 'bg-background-primary text-primary cursor-pointer flex items-center justify-center';
-  var hoverClasses = 'hover:bg-button-tertiary-hover';
-  var focusClasses = 'focus:outline-none';
-  var disabledClasses = disabled ? 'text-text-disabled cursor-not-allowed' : '';
-  var firstChildClasses = isFirstChild ? 'rounded-tl rounded-bl border-0 border-r border-border-subtle' : '';
-  var lastChildClasses = isLastChild ? 'rounded-tr rounded-br border-0' : '';
-  var borderClasses = 'border-0 border-r border-border-subtle border-solid';
-  var activeClasses = value === id ? 'bg-button-disabled' : '';
-  var radioButtonClassName = (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_1__.cn)(baseClasses, hoverClasses, focusClasses, disabledClasses, sizes[size], borderClasses, activeClasses, firstChildClasses, lastChildClasses);
-  var handleClick = function handleClick() {
-    onChange(id);
-  };
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", _extends({
-    ref: ref,
-    className: radioButtonClassName,
-    disabled: disabled,
-    onClick: handleClick
-  }, rest), label);
-});
-var RadioButton = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.forwardRef)(function (props, ref) {
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(BaseRadioButton, _extends({
-    ref: ref
-  }, props));
-});
-
-// RadioIcon component for icon style
-var RadioIcon = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.forwardRef)(function (_ref4, ref) {
-  var id = _ref4.id,
-    icon = _ref4.icon,
-    isFirstChild = _ref4.isFirstChild,
-    isLastChild = _ref4.isLastChild,
-    _ref4$disabled = _ref4.disabled,
-    disabled = _ref4$disabled === void 0 ? false : _ref4$disabled,
-    rest = _objectWithoutProperties(_ref4, _excluded2);
-  var _useRadioGroup3 = useRadioGroup(),
-    value = _useRadioGroup3.value,
-    onChange = _useRadioGroup3.onChange,
-    size = _useRadioGroup3.size;
-  var sizes = {
-    s: 'py-1 px-1 text-xs leading-4 font-semibold [&>svg]:h-4 [&>svg]:w-4 stroke-1',
-    m: 'py-2 px-2 text-sm leading-5 font-semibold [&>svg]:h-4 [&>svg]:w-4 stroke-1',
-    l: 'py-2.5 px-2.5 text-base leading-6 font-semibold [&>svg]:h-5 [&>svg]:w-5 stroke-1'
-  };
-  var baseClasses = 'bg-background-primary text-primary cursor-pointer flex items-center justify-center';
-  var hoverClasses = 'hover:bg-button-tertiary-hover';
-  var focusClasses = 'focus:outline-none';
-  var disabledClasses = disabled ? 'text-text-disabled cursor-not-allowed' : '';
-  var firstChildClasses = isFirstChild ? 'rounded-tl rounded-bl border-0 border-r border-border-subtle' : '';
-  var lastChildClasses = isLastChild ? 'rounded-tr rounded-br border-0' : '';
-  var borderClasses = 'border-0 border-r border-border-subtle border-solid';
-  var activeClasses = value === id ? 'bg-button-disabled' : '';
-  var radioIconClassName = (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_1__.cn)(baseClasses, hoverClasses, focusClasses, disabledClasses, sizes[size], borderClasses, activeClasses, firstChildClasses, lastChildClasses);
-  var handleClick = function handleClick() {
-    onChange(id);
-  };
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", _extends({
-    ref: ref,
-    className: radioIconClassName,
-    disabled: disabled,
-    onClick: handleClick
-  }, rest), icon);
-});
-
-// Main RadioGroup component 
-var RadioGroup = function RadioGroup(_ref5) {
-  var options = _ref5.options,
-    value = _ref5.value,
-    onChange = _ref5.onChange,
-    size = _ref5.size,
-    style = _ref5.style;
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(InternalRadioGroup, {
-    value: value,
-    onChange: onChange,
-    size: size,
-    style: style
-  }, options.map(function (option, index) {
-    var isFirstChild = index === 0;
-    var isLastChild = index === options.length - 1;
-    if (style === 'icon') {
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(RadioIcon, {
-        key: option.id,
-        id: option.id,
-        icon: option.icon,
-        isFirstChild: isFirstChild,
-        isLastChild: isLastChild,
-        disabled: option.disabled
-      });
-    } else if (style === 'label') {
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(RadioButton, {
-        key: option.id,
-        id: option.id,
-        label: option.label,
-        isFirstChild: isFirstChild,
-        isLastChild: isLastChild,
-        disabled: option.disabled
-      });
-    } else {
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(RadioOption, {
-        key: option.id,
-        id: option.id,
-        label: option.label,
-        disabled: option.disabled
-      });
-    }
-  }));
-};
-/* harmony default export */ __webpack_exports__["default"] = (RadioGroup);
 
 /***/ }),
 
@@ -14322,7 +14160,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   Loader: function() { return /* reexport safe */ _components__WEBPACK_IMPORTED_MODULE_0__.Loader; },
 /* harmony export */   ProgressBar: function() { return /* reexport safe */ _components__WEBPACK_IMPORTED_MODULE_0__.ProgressBar; },
 /* harmony export */   RadioButton: function() { return /* reexport safe */ _components__WEBPACK_IMPORTED_MODULE_0__.RadioButton; },
-/* harmony export */   RadioGroup: function() { return /* reexport safe */ _components__WEBPACK_IMPORTED_MODULE_0__.RadioGroup; },
 /* harmony export */   Select: function() { return /* reexport safe */ _components__WEBPACK_IMPORTED_MODULE_0__.Select; },
 /* harmony export */   Switch: function() { return /* reexport safe */ _components__WEBPACK_IMPORTED_MODULE_0__.Switch; },
 /* harmony export */   Tabs: function() { return /* reexport safe */ _components__WEBPACK_IMPORTED_MODULE_0__.Tabs; },
