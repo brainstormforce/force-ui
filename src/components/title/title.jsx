@@ -27,13 +27,13 @@ const Title = ( {
 
 	const getTitle = () => {
 		const Tag = tag;
-		const titleCommonClasses = 'font-semibold';
+		const titleCommonClasses = 'font-semibold p-0 m-0';
 		// Size classes - Based on the size prop.
 		const sizeClasses = {
-			xs: 'text-base [&>*]:text-base [&>svg]:h-3.5 [&>svg]:w-3.5 gap-1 p-0 m-0',
-			sm: 'text-lg [&>*]:text-lg [&>svg]:h-4 [&>svg]:w-4 gap-1 p-0 m-0',
-			md: 'text-xl [&>*]:text-xl [&>svg]:h-5 [&>svg]:w-5 gap-1.5 p-0 m-0',
-			lg: 'text-2xl [&>*]:text-2xl [&>svg]:h-5 [&>svg]:w-5 gap-1.5 p-0 m-0',
+			xs: 'text-base [&>*]:text-base [&>svg]:size-3.5 gap-1',
+			sm: 'text-lg [&>*]:text-lg [&>svg]:size-4 gap-1',
+			md: 'text-xl [&>*]:text-xl [&>svg]:size-5 gap-1.5',
+			lg: 'text-2xl [&>*]:text-2xl [&>svg]:size-5 gap-1.5',
 		};
 		return ( <Tag className={ cn( titleCommonClasses, sizeClasses[ size ] ) }>{ title }</Tag> );
 	};
