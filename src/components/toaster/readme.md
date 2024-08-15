@@ -53,6 +53,7 @@ The `Toaster` component also exposes a `toast` function that can be used to disp
 - **Type:** `object`
 - **Description:** An object containing the following properties:
     - `description`: The description to display in the toast notification.
+    - `icon`: Custom icon for the toast.
     - `theme`: The theme of the toast notification. Possible values are: 
         - `light`
         - `dark`

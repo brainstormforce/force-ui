@@ -89,6 +89,7 @@ const Toaster = ( {
 							toastItem={ toastItem }
 							title={ toastItem.title }
 							content={ toastItem?.description }
+							icon={ toastItem?.icon ?? null }
 							design={ toastItem?.design ?? design }
 							autoDismiss={ toastItem?.autoDismiss ?? autoDismiss }
 							dismissAfter={
