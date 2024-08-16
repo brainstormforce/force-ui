@@ -34,6 +34,11 @@
 - **default value:** undefined
 - **description:** Used to customize the container when as value is not equal to a `Fragment`.
 
+### style
+- **type:** `string`
+- **default value:** `simple`
+- **description:** Defines the style of the radio buttons. It can be set to `simple` for standard radio buttons or `tile` for button-style radio tiles.
+
 ### disabled
 - **type:**`boolean`
 - **default value:** `false`
@@ -74,6 +79,30 @@ The label also accepts a React component.
 - **default value:** `undefined`
 - **description:** For form validation required prop value can be set to true.
 
+## `RadioButton.Button` Props of Style `tile`
+
+### id (optional)
+- **type:** `string`
+- **description:** By default it will generate and assign an id.
+
+### value
+- **type:** `boolean`
+- **default value:** `undefined`
+
+### size
+- **type:** `string`
+- **default value:** `md`
+- **Available sizes:** `xs`, `sm` and `md`.
+
+### disabled
+- **type:**`boolean`
+- **default value:** `false`
+- **description:** The `disabled` prop will disable the component.
+
+### children
+- **Type:** `string` or `ReactNode`
+- **Description:** The children prop can be used to pass additional content, such as icons or custom elements, that will be displayed within the button.
+
 ### Example:
 
 ```
@@ -86,4 +115,16 @@ The label also accepts a React component.
     <RadioButton.Button value="food-2" />
     <RadioButton.Button value="food-3" />
 </RadioButton.Group>
+
+<RadioButton.Group
+    value={selectedValue}   
+    onChange={handleRadioChange}
+    style='tile'
+>
+    <RadioButton.Button value="option1"><Plus /></RadioButton.Button>
+    <RadioButton.Button value="option2"><Plus /></RadioButton.Button>
+    <RadioButton.Button value="option3"><Plus /></RadioButton.Button>
+</RadioButton.Group>
+
+
 ```
