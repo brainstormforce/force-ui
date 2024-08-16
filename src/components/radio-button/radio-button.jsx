@@ -42,36 +42,36 @@ const RadioButtonGroup = ( { children, name, value, defaultValue, by = 'id', as:
 
 	const groupClassName = cn( style === 'tile' ? 'inline-flex border border-border-subtle border-solid rounded shadow-sm' : 'flex gap-6', className );
 
-    const renderRadioButtonContext = () => (
-        <RadioButtonContext.Provider
-            value={{
-                name: nameAttr,
-                value: isControlled ? value : selectedValue,
-                by,
-                onChange: handleChange,
-                isControlled,
-                disableAll: disabled,
-                style,
-            }}
-        >
-            {React.Children.map(children, (child) => {
-                if (!isValidElement(child)) {
-                    return null;
-                }
-                return child;
-            })}
-        </RadioButtonContext.Provider>
-    );
-    
+	const renderRadioButtonContext = () => (
+		<RadioButtonContext.Provider
+			value={ {
+				name: nameAttr,
+				value: isControlled ? value : selectedValue,
+				by,
+				onChange: handleChange,
+				isControlled,
+				disableAll: disabled,
+				style,
+			} }
+		>
+			{ React.Children.map( children, ( child ) => {
+				if ( ! isValidElement( child ) ) {
+					return null;
+				}
+				return child;
+			} ) }
+		</RadioButtonContext.Provider>
+	);
+
 	return (
 		<>
 			{ style === 'tile' ? (
 				<div className={ groupClassName }>
-                    {renderRadioButtonContext()}
+					{ renderRadioButtonContext() }
 				</div>
 			) : (
 				<AsElement { ...( AsElement === Fragment ? {} : { className } ) }>
-                    { renderRadioButtonContext() }
+					{ renderRadioButtonContext() }
 				</AsElement>
 			) }
 		</>
