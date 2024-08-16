@@ -1,7 +1,33 @@
-import { useState, useCallback, useMemo, useRef, createContext, useContext, Children, cloneElement, isValidElement, useEffect, useLayoutEffect } from 'react';
+import {
+	useState,
+	useCallback,
+	useMemo,
+	useRef,
+	createContext,
+	useContext,
+	Children,
+	cloneElement,
+	isValidElement,
+	useEffect,
+	useLayoutEffect,
+} from 'react';
 import { cn } from '../../utilities/functions';
 import { CheckIcon, ChevronDown, ChevronsUpDown, Search } from 'lucide-react';
-import { useFloating, useClick, useDismiss, useRole, useListNavigation, useInteractions, FloatingFocusManager, useTypeahead, offset, flip, size, autoUpdate, FloatingPortal } from '@floating-ui/react';
+import {
+	useFloating,
+	useClick,
+	useDismiss,
+	useRole,
+	useListNavigation,
+	useInteractions,
+	FloatingFocusManager,
+	useTypeahead,
+	offset,
+	flip,
+	size,
+	autoUpdate,
+	FloatingPortal,
+} from '@floating-ui/react';
 import Badge from '../badge';
 import { nanoid } from 'nanoid';
 import { disabledClassNames, sizeClassNames } from './component-style';
@@ -18,7 +44,21 @@ function SelectButton( {
 	displayBy = 'name', // Used to display the value. Default is 'name'.
 	label, // Label for the select component.
 } ) {
-	const { sizeValue, getReferenceProps, getValues, selectId, refs, isOpen, multiple, combobox, setSelected, onChange, isControlled, disabled, by } = useSelectContext();
+	const {
+		sizeValue,
+		getReferenceProps,
+		getValues,
+		selectId,
+		refs,
+		isOpen,
+		multiple,
+		combobox,
+		setSelected,
+		onChange,
+		isControlled,
+		disabled,
+		by,
+	} = useSelectContext();
 
 	const badgeSize = {
 		sm: 'xs',
@@ -32,9 +72,14 @@ function SelectButton( {
 			return icon;
 		}
 
-		const iconClassNames = 'text-field-placeholder ' + disabledClassNames.icon;
+		const iconClassNames =
+			'text-field-placeholder ' + disabledClassNames.icon;
 
-		return combobox ? <ChevronsUpDown className={ iconClassNames } /> : <ChevronDown className={ iconClassNames } />;
+		return combobox ? (
+			<ChevronsUpDown className={ iconClassNames } />
+		) : (
+			<ChevronDown className={ iconClassNames } />
+		);
 	}, [ icon ] );
 
 	const renderSelected = useCallback( () => {
@@ -53,16 +98,42 @@ function SelectButton( {
 		}
 
 		if ( multiple ) {
-			return selectedValue.map( ( valueItem, index ) => <Badge icon={ optionIcon } type="rounded" key={ index } size={ badgeSize } onMouseDown={ handleOnCloseItem( valueItem ) } label={ typeof valueItem === 'object' ? valueItem[ displayBy ] : valueItem } disabled={ disabled } /> );
+			return selectedValue.map( ( valueItem, index ) => (
+				<Badge
+					icon={ optionIcon }
+					type="rounded"
+					key={ index }
+					size={ badgeSize }
+					onMouseDown={ handleOnCloseItem( valueItem ) }
+					label={
+						typeof valueItem === 'object'
+							? valueItem[ displayBy ]
+							: valueItem
+					}
+					disabled={ disabled }
+				/>
+			) );
 		}
 
-		let renderValue = typeof selectedValue === 'object' ? selectedValue[ displayBy ] : selectedValue;
+		let renderValue =
+			typeof selectedValue === 'object'
+				? selectedValue[ displayBy ]
+				: selectedValue;
 
 		if ( isValidElement( children ) ) {
 			renderValue = children;
 		}
 
-		return <span className={ cn( sizeClassNames[ sizeValue ].displaySelected, disabledClassNames.text ) }>{ renderValue }</span>;
+		return (
+			<span
+				className={ cn(
+					sizeClassNames[ sizeValue ].displaySelected,
+					disabledClassNames.text
+				) }
+			>
+				{ renderValue }
+			</span>
+		);
 	}, [ getValues ] );
 
 	const handleOnCloseItem = ( value ) => ( event ) => {
@@ -93,20 +164,64 @@ function SelectButton( {
 
 	return (
 		<div className="flex flex-col items-start gap-1.5 [&_*]:box-border box-border">
-			<label className={ cn( sizeClassNames[ sizeValue ]?.label, 'text-field-label' ) } htmlFor={ selectId }>
+			<label
+				className={ cn(
+					sizeClassNames[ sizeValue ]?.label,
+					'text-field-label'
+				) }
+				htmlFor={ selectId }
+			>
 				{ label }
 			</label>
-			<button id={ selectId } ref={ refs.setReference } className={ cn( 'flex items-center justify-between border border-solid w-full box-border transition-colors duration-150 bg-white', 'border focus-visible:outline-none border-solid border-field-border', ! isOpen && 'focus:ring-2 focus:ring-offset-4 focus:border-focus-border focus:ring-focus [&:hover:not(:focus):not(:disabled)]:border-border-strong', sizeClassNames[ sizeValue ].selectButton, multiple && sizeClassNames[ sizeValue ].multiSelect, disabledClassNames.selectButton ) } aria-labelledby="select-label" tabIndex={ 0 } disabled={ disabled } { ...getReferenceProps() }>
+			<button
+				id={ selectId }
+				ref={ refs.setReference }
+				className={ cn(
+					'flex items-center justify-between border border-solid w-full box-border transition-colors duration-150 bg-white',
+					'border focus-visible:outline-none border-solid border-field-border',
+					! isOpen &&
+						'focus:ring-2 focus:ring-offset-4 focus:border-focus-border focus:ring-focus [&:hover:not(:focus):not(:disabled)]:border-border-strong',
+					sizeClassNames[ sizeValue ].selectButton,
+					multiple && sizeClassNames[ sizeValue ].multiSelect,
+					disabledClassNames.selectButton
+				) }
+				aria-labelledby="select-label"
+				tabIndex={ 0 }
+				disabled={ disabled }
+				{ ...getReferenceProps() }
+			>
 				{ /* Input and selected item container */ }
-				<div className={ cn( 'flex-1 grid items-center justify-start gap-1.5 ', getValues() && 'flex flex-wrap' ) }>
+				<div
+					className={ cn(
+						'flex-1 grid items-center justify-start gap-1.5 ',
+						getValues() && 'flex flex-wrap'
+					) }
+				>
 					{ /* Show Selected item/items (Multiselector) */ }
 					{ renderSelected() }
 
 					{ /* Placeholder */ }
-					{ ( multiple ? ! getValues()?.length : ! getValues() ) && <div className={ cn( '[grid-area:1/1/2/3] text-field-input', sizeClassNames[ sizeValue ].displaySelected, disabledClassNames.text ) }>{ placeholder }</div> }
+					{ ( multiple ? ! getValues()?.length : ! getValues() ) && (
+						<div
+							className={ cn(
+								'[grid-area:1/1/2/3] text-field-input',
+								sizeClassNames[ sizeValue ].displaySelected,
+								disabledClassNames.text
+							) }
+						>
+							{ placeholder }
+						</div>
+					) }
 				</div>
 				{ /* Suffix Icon */ }
-				<div className={ cn( 'flex items-center [&>svg]:shrink-0', sizeClassNames[ sizeValue ].icon ) }>{ getIcon() }</div>
+				<div
+					className={ cn(
+						'flex items-center [&>svg]:shrink-0',
+						sizeClassNames[ sizeValue ].icon
+					) }
+				>
+					{ getIcon() }
+				</div>
 			</button>
 		</div>
 	);
@@ -119,7 +234,24 @@ function SelectOptions( {
 	dropdownPortalRoot = null, // Root element where the dropdown will be rendered.
 	dropdownPortalId = '', // Id of the dropdown portal where the dropdown will be rendered.
 } ) {
-	const { isOpen, context, refs, combobox, floatingStyles, getFloatingProps, sizeValue, setSearchKeyword, setActiveIndex, setSelectedIndex, value, selected, getValues, searchKeyword, listContentRef, by } = useSelectContext();
+	const {
+		isOpen,
+		context,
+		refs,
+		combobox,
+		floatingStyles,
+		getFloatingProps,
+		sizeValue,
+		setSearchKeyword,
+		setActiveIndex,
+		setSelectedIndex,
+		value,
+		selected,
+		getValues,
+		searchKeyword,
+		listContentRef,
+		by,
+	} = useSelectContext();
 
 	const initialSelectedValueIndex = useMemo( () => {
 		const currentValue = getValues();
@@ -151,10 +283,18 @@ function SelectOptions( {
 			if ( searchKeyword ) {
 				const valueProp = child.props.value;
 				if ( typeof valueProp === 'object' ) {
-					if ( valueProp[ searchBy ].toLowerCase().indexOf( searchKeyword.toLowerCase() ) === -1 ) {
+					if (
+						valueProp[ searchBy ]
+							.toLowerCase()
+							.indexOf( searchKeyword.toLowerCase() ) === -1
+					) {
 						return null;
 					}
-				} else if ( valueProp.toLowerCase().indexOf( searchKeyword.toLowerCase() ) === -1 ) {
+				} else if (
+					valueProp
+						.toLowerCase()
+						.indexOf( searchKeyword.toLowerCase() ) === -1
+				) {
 					return null;
 				}
 			}
@@ -177,10 +317,18 @@ function SelectOptions( {
 				if ( searchKeyword ) {
 					const valueProp = child.props.value;
 					if ( typeof valueProp === 'object' ) {
-						if ( valueProp[ searchBy ].toLowerCase().indexOf( searchKeyword.toLowerCase() ) === -1 ) {
+						if (
+							valueProp[ searchBy ]
+								.toLowerCase()
+								.indexOf( searchKeyword.toLowerCase() ) === -1
+						) {
 							return;
 						}
-					} else if ( valueProp.toLowerCase().indexOf( searchKeyword.toLowerCase() ) === -1 ) {
+					} else if (
+						valueProp
+							.toLowerCase()
+							.indexOf( searchKeyword.toLowerCase() ) === -1
+					) {
 						return;
 					}
 				}
@@ -199,7 +347,13 @@ function SelectOptions( {
 						{ /* Dropdown Wrapper */ }
 						<div
 							ref={ refs.setFloating }
-							className={ cn( 'box-border [&_*]:box-border w-full bg-white outline-none shadow-lg border border-solid border-border-subtle overflow-hidden', combobox && 'grid grid-cols-1 grid-rows-[auto_1fr] divide-y divide-x-0 divide-solid divide-border-subtle', sizeClassNames[ sizeValue ].dropdown, ! combobox && 'h-full' ) }
+							className={ cn(
+								'box-border [&_*]:box-border w-full bg-white outline-none shadow-lg border border-solid border-border-subtle overflow-hidden',
+								combobox &&
+									'grid grid-cols-1 grid-rows-[auto_1fr] divide-y divide-x-0 divide-solid divide-border-subtle',
+								sizeClassNames[ sizeValue ].dropdown,
+								! combobox && 'h-full'
+							) }
 							style={ {
 								...floatingStyles,
 							} }
@@ -207,18 +361,52 @@ function SelectOptions( {
 						>
 							{ /* Searchbox */ }
 							{ combobox && (
-								<div className={ cn( sizeClassNames[ sizeValue ].searchbarWrapper ) }>
-									<Search className={ cn( 'text-icon-secondary shrink-0', sizeClassNames[ sizeValue ].searchbarIcon ) } />
-									<input className={ cn( 'px-1 w-full placeholder:text-field-placeholder border-0 focus:outline-none focus:shadow-none', sizeClassNames[ sizeValue ].searchbar ) } type="search" name="keyword" placeholder={ searchPlaceholder } onChange={ ( event ) => setSearchKeyword( event.target.value ) } autoComplete="off" />
+								<div
+									className={ cn(
+										sizeClassNames[ sizeValue ]
+											.searchbarWrapper
+									) }
+								>
+									<Search
+										className={ cn(
+											'text-icon-secondary shrink-0',
+											sizeClassNames[ sizeValue ]
+												.searchbarIcon
+										) }
+									/>
+									<input
+										className={ cn(
+											'px-1 w-full placeholder:text-field-placeholder border-0 focus:outline-none focus:shadow-none',
+											sizeClassNames[ sizeValue ].searchbar
+										) }
+										type="search"
+										name="keyword"
+										placeholder={ searchPlaceholder }
+										onChange={ ( event ) =>
+											setSearchKeyword( event.target.value )
+										}
+										autoComplete="off"
+									/>
 								</div>
 							) }
 							{ /* Dropdown Items Wrapper */ }
-							<div className={ cn( 'overflow-y-auto', ! combobox && 'w-full h-full', sizeClassNames[ sizeValue ].dropdownItemsWrapper ) }>
+							<div
+								className={ cn(
+									'overflow-y-auto',
+									! combobox && 'w-full h-full',
+									sizeClassNames[ sizeValue ]
+										.dropdownItemsWrapper
+								) }
+							>
 								{ /* Dropdown Items */ }
 								{ !! childrenCount && renderChildren }
 
 								{ /* No items found */ }
-								{ ! childrenCount && <div className="p-2 text-center text-base font-medium text-field-placeholder">No items found</div> }
+								{ ! childrenCount && (
+									<div className="p-2 text-center text-base font-medium text-field-placeholder">
+										No items found
+									</div>
+								) }
 							</div>
 						</div>
 					</FloatingFocusManager>
@@ -229,7 +417,18 @@ function SelectOptions( {
 }
 
 function SelectItem( { value, selected, children, ...props } ) {
-	const { sizeValue, getItemProps, onKeyDownItem, onClickItem, activeIndex, selectedIndex, updateListRef, getValues, by, multiple } = useSelectContext();
+	const {
+		sizeValue,
+		getItemProps,
+		onKeyDownItem,
+		onClickItem,
+		activeIndex,
+		selectedIndex,
+		updateListRef,
+		getValues,
+		by,
+		multiple,
+	} = useSelectContext();
 	const { index: indx } = props;
 
 	const selectItemClassNames = {
@@ -273,7 +472,11 @@ function SelectItem( { value, selected, children, ...props } ) {
 
 	return (
 		<div
-			className={ cn( 'w-full flex items-center justify-between text-text-primary hover:bg-button-tertiary-hover rounded-md transition-all duration-150 cursor-pointer', selectItemClassNames[ sizeValue ], indx === activeIndex && 'bg-button-tertiary-hover' ) }
+			className={ cn(
+				'w-full flex items-center justify-between text-text-primary hover:bg-button-tertiary-hover rounded-md transition-all duration-150 cursor-pointer',
+				selectItemClassNames[ sizeValue ],
+				indx === activeIndex && 'bg-button-tertiary-hover'
+			) }
 			ref={ ( node ) => {
 				updateListRef( indx, node );
 			} }
@@ -292,7 +495,14 @@ function SelectItem( { value, selected, children, ...props } ) {
 			} ) }
 		>
 			<span className="w-full truncate">{ children }</span>
-			{ isChecked && <CheckIcon className={ cn( 'text-icon-on-color-disabled', selectedIconClassName[ sizeValue ] ) } /> }
+			{ isChecked && (
+				<CheckIcon
+					className={ cn(
+						'text-icon-on-color-disabled',
+						selectedIconClassName[ sizeValue ]
+					) }
+				/>
+			) }
 		</div>
 	);
 }
@@ -377,7 +587,14 @@ const Select = ( {
 		},
 	} );
 
-	const { getReferenceProps, getFloatingProps, getItemProps } = useInteractions( [ dismiss, role, listNav, click, ...( ! combobox ? [ typeahead ] : [] ) ] );
+	const { getReferenceProps, getFloatingProps, getItemProps } =
+		useInteractions( [
+			dismiss,
+			role,
+			listNav,
+			click,
+			...( ! combobox ? [ typeahead ] : [] ),
+		] );
 
 	const handleMultiSelect = ( index, newValue ) => {
 		const selectedValues = [ ...( getValues() ?? [] ) ];
