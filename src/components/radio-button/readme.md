@@ -79,7 +79,7 @@ The label also accepts a React component.
 - **default value:** `undefined`
 - **description:** For form validation required prop value can be set to true.
 
-## `RadioButton.Button` Props
+## `RadioButton.Button` Props of Style `tile`
 
 ### id (optional)
 - **type:** `string`
