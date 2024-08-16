@@ -15,10 +15,10 @@ const Title = ( {
 } ) => {
 	// Base classes. - Mandatory classes.
 	const iconGap = {
-		xs: 'gap-1',
-		sm: 'gap-1',
-		md: 'gap-1.5',
-		lg: 'gap-1.5',
+		xs: 'gap-1 [&>svg]:size-3.5',
+		sm: 'gap-1 [&>svg]:size-4',
+		md: 'gap-1.5 [&>svg]:size-5',
+		lg: 'gap-1.5 [&>svg]:size-5',
 	};
 
 	if ( ! title ) {
@@ -30,10 +30,10 @@ const Title = ( {
 		const titleCommonClasses = 'font-semibold p-0 m-0';
 		// Size classes - Based on the size prop.
 		const sizeClasses = {
-			xs: 'text-base [&>*]:text-base [&>svg]:size-3.5 gap-1',
-			sm: 'text-lg [&>*]:text-lg [&>svg]:size-4 gap-1',
-			md: 'text-xl [&>*]:text-xl [&>svg]:size-5 gap-1.5',
-			lg: 'text-2xl [&>*]:text-2xl [&>svg]:size-5 gap-1.5',
+			xs: 'text-base [&>*]:text-base gap-1',
+			sm: 'text-lg [&>*]:text-lg gap-1',
+			md: 'text-xl [&>*]:text-xl gap-1.5',
+			lg: 'text-2xl [&>*]:text-2xl gap-1.5',
 		};
 		return ( <Tag className={ cn( titleCommonClasses, sizeClasses[ size ] ) }>{ title }</Tag> );
 	};
