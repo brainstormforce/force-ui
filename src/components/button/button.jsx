@@ -15,12 +15,16 @@ const Button = ( props ) => {
 		...rest
 	} = props;
 
-	const commonClass = 'border border-solid cursor-pointer transition-colors duration-300 ease-in-out text-xs font-semibold focus:ring-2 focus:ring-toggle-on focus:ring-offset-2 disabled:text-text-disabled';
+	const commonClass =
+		'border border-solid cursor-pointer transition-colors duration-300 ease-in-out text-xs font-semibold focus:ring-2 focus:ring-toggle-on focus:ring-offset-2 disabled:text-text-disabled';
 
 	const variantClassNames = {
-		primary: 'text-text-on-color bg-button-primary hover:bg-button-primary-hover border-button-primary hover:border-button-primary-hover disabled:bg-button-disabled disabled:border-button-disabled',
-		secondary: 'text-text-on-color bg-button-secondary hover:bg-button-secondary-hover border-button-secondary hover:border-button-secondary-hover disabled:bg-button-disabled disabled:border-button-disabled',
-		outline: 'text-button-tertiary-color border border-border-subtle bg-button-tertiary hover:bg-button-tertiary-hover hover:border-border-subtle disabled:bg-button-tertiary disabled:border-border-disabled',
+		primary:
+			'text-text-on-color bg-button-primary hover:bg-button-primary-hover border-button-primary hover:border-button-primary-hover disabled:bg-button-disabled disabled:border-button-disabled',
+		secondary:
+			'text-text-on-color bg-button-secondary hover:bg-button-secondary-hover border-button-secondary hover:border-button-secondary-hover disabled:bg-button-disabled disabled:border-button-disabled',
+		outline:
+			'text-button-tertiary-color border border-border-subtle bg-button-tertiary hover:bg-button-tertiary-hover hover:border-border-subtle disabled:bg-button-tertiary disabled:border-border-disabled',
 		ghost: 'text-text-primary bg-transparent border border-transparent hover:bg-button-tertiary-hover',
 		link: 'text-link-primary bg-transparent hover:text-link-primary-hover hover:underline p-0 border-0 leading-none',
 	}?.[ variant ];
@@ -28,8 +32,10 @@ const Button = ( props ) => {
 	const destructiveClassNames =
 		destructive && ! disabled
 			? {
-				primary: 'bg-button-danger hover:bg-button-danger-hover border-button-danger hover:border-button-danger-hover',
-				outline: 'text-button-danger border border-button-danger hover:border-button-danger bg-button-tertiary hover:bg-field-background-error',
+				primary:
+						'bg-button-danger hover:bg-button-danger-hover border-button-danger hover:border-button-danger-hover',
+				outline:
+						'text-button-danger border border-button-danger hover:border-button-danger bg-button-tertiary hover:bg-field-background-error',
 				ghost: 'text-button-danger hover:bg-field-background-error',
 				link: 'text-button-danger hover:text-button-danger-secondary',
 			}?.[ variant ]
@@ -56,7 +62,19 @@ const Button = ( props ) => {
 
 	const Tag = tag;
 	return (
-		<Tag type={ type } className={ cn( iconClass, commonClass, sizeClassNames, variantClassNames, destructiveClassNames, className ) } disabled={ disabled } { ...rest }>
+		<Tag
+			type={ type }
+			className={ cn(
+				iconClass,
+				commonClass,
+				sizeClassNames,
+				variantClassNames,
+				destructiveClassNames,
+				className
+			) }
+			disabled={ disabled }
+			{ ...rest }
+		>
 			{ iconLeft }
 			{ children }
 			{ iconRight }
