@@ -8094,7 +8094,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _utilities_functions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../utilities/functions */ "./src/utilities/functions.js");
-var _excluded = ["grow", "shrink", "basis", "order", "alignSelf", "className", "children"];
+var _excluded = ["grow", "shrink", "order", "alignSelf", "className", "children"];
 function _objectWithoutProperties(e, t) {
   if (null == e) return {};
   var o,
@@ -8129,12 +8129,14 @@ function _extends() {
 var Container = function Container(props) {
   var _flex$grid, _xs$sm$md$lg$xl$2xl, _row$rowReverse$colu, _normal$start$end$cen, _start$end$center$bas, _wrap$wrapReverse$no;
   var _props$containerType = props.containerType,
-    containerType = _props$containerType === void 0 ? "grid" : _props$containerType,
-    _props$gap = props.gap,
-    gap = _props$gap === void 0 ? 0 : _props$gap,
-    direction = props.direction,
-    justify = props.justify,
-    align = props.align,
+    containerType = _props$containerType === void 0 ? 'grid' : _props$containerType,
+    gap = props.gap,
+    _props$direction = props.direction,
+    direction = _props$direction === void 0 ? 'row' : _props$direction,
+    _props$justify = props.justify,
+    justify = _props$justify === void 0 ? 'start' : _props$justify,
+    _props$align = props.align,
+    align = _props$align === void 0 ? 'stretch' : _props$align,
     _props$wrap = props.wrap,
     wrap = _props$wrap === void 0 ? 'nowrap' : _props$wrap,
     className = props.className,
@@ -8145,10 +8147,10 @@ var Container = function Container(props) {
     grid: 'grid'
   }) === null || _flex$grid === void 0 ? void 0 : _flex$grid[containerType];
   var gapClasses = (_xs$sm$md$lg$xl$2xl = {
-    'xs': 'gap-1',
-    'sm': 'gap-2',
-    'md': 'gap-3',
-    'lg': 'gap-4',
+    'xs': 'gap-2',
+    'sm': 'gap-4',
+    'md': 'gap-5',
+    'lg': 'gap-6',
     'xl': 'gap-6',
     '2xl': 'gap-8'
   }) === null || _xs$sm$md$lg$xl$2xl === void 0 ? void 0 : _xs$sm$md$lg$xl$2xl[gap];
@@ -8189,7 +8191,6 @@ var Item = function Item(props) {
   var _$, _$2, _auto$start$end$cente, _$2$3$4$5$6$7$8$9$;
   var grow = props.grow,
     shrink = props.shrink,
-    basis = props.basis,
     order = props.order,
     alignSelf = props.alignSelf,
     className = props.className,

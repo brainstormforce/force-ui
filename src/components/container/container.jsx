@@ -1,13 +1,13 @@
-import React from "react";
+import React from 'react';
 import { cn } from '../../utilities/functions';
 
 const Container = (props) => {
     const {
-        containerType = "grid", // flex, grid
-        gap = 0,
-        direction, // flex directions (row, row-reverse, colum, column reverse)
-        justify, // justify-content
-        align, // align-items
+        containerType = 'grid', // flex, grid
+        gap, // xs, sm, md, lg, xl, 2xl
+        direction = 'row', // row, row-reverse, column, column reverse
+        justify = 'start', // justify-content (normal, start, end, center, between, around, evenly, stretch)
+        align = 'stretch', // align-items (start, end, center, baseline, stretch)
         wrap = 'nowrap', // nowrap, wrap, wrap-reverse
         className, 
         children, 
@@ -20,10 +20,10 @@ const Container = (props) => {
     }?.[containerType];
 
     const gapClasses = {
-        'xs': 'gap-1',
-        'sm': 'gap-2',
-        'md': 'gap-3',
-        'lg': 'gap-4',
+        'xs': 'gap-2',
+        'sm': 'gap-4',
+        'md': 'gap-5',
+        'lg': 'gap-6',
         'xl': 'gap-6',
         '2xl': 'gap-8'
     }?.[gap];
@@ -73,7 +73,6 @@ const Item = (props) => {
     const {
         grow,
         shrink,
-        basis,
         order,
         alignSelf,
         className,
@@ -126,6 +125,5 @@ const Item = (props) => {
 }
 
 Container.Item = Item;
-
 
 export default Container;
