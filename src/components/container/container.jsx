@@ -11,7 +11,7 @@ const Container = ( props ) => {
 		wrap = '', // nowrap, wrap, wrap-reverse
 		className,
 		children,
-		extraProps,
+		...extraProps
 	} = props;
 
 	const containerTypeClass = {

@@ -8094,7 +8094,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _utilities_functions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../utilities/functions */ "./src/utilities/functions.js");
-var _excluded = ["grow", "shrink", "order", "alignSelf", "className", "children"];
+var _excluded = ["containerType", "gap", "direction", "justify", "align", "wrap", "className", "children"],
+  _excluded2 = ["grow", "shrink", "order", "alignSelf", "className", "children"];
+function _extends() {
+  return _extends = Object.assign ? Object.assign.bind() : function (n) {
+    for (var e = 1; e < arguments.length; e++) {
+      var t = arguments[e];
+      for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]);
+    }
+    return n;
+  }, _extends.apply(null, arguments);
+}
 function _objectWithoutProperties(e, t) {
   if (null == e) return {};
   var o,
@@ -8115,15 +8125,6 @@ function _objectWithoutPropertiesLoose(r, e) {
   }
   return t;
 }
-function _extends() {
-  return _extends = Object.assign ? Object.assign.bind() : function (n) {
-    for (var e = 1; e < arguments.length; e++) {
-      var t = arguments[e];
-      for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]);
-    }
-    return n;
-  }, _extends.apply(null, arguments);
-}
 
 
 var Container = function Container(props) {
@@ -8142,7 +8143,7 @@ var Container = function Container(props) {
     wrap = _props$wrap === void 0 ? '' : _props$wrap,
     className = props.className,
     children = props.children,
-    extraProps = props.extraProps;
+    extraProps = _objectWithoutProperties(props, _excluded);
   var containerTypeClass = (_flex$grid = {
     flex: 'flex',
     grid: 'grid'
@@ -8196,7 +8197,7 @@ var Item = function Item(props) {
     alignSelf = props.alignSelf,
     className = props.className,
     children = props.children,
-    extraProps = _objectWithoutProperties(props, _excluded);
+    extraProps = _objectWithoutProperties(props, _excluded2);
   var growClasses = (_$ = {
     0: 'grow-0',
     1: 'grow'
