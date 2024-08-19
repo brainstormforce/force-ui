@@ -3,12 +3,12 @@ import { cn } from '../../utilities/functions';
 
 const Container = ( props ) => {
 	const {
-		containerType = 'grid', // flex, grid
-		gap, // xs, sm, md, lg, xl, 2xl
-		direction = 'row', // row, row-reverse, column, column reverse
-		justify = 'start', // justify-content (normal, start, end, center, between, around, evenly, stretch)
-		align = 'stretch', // align-items (start, end, center, baseline, stretch)
-		wrap = 'nowrap', // nowrap, wrap, wrap-reverse
+		containerType = 'flex', // flex, grid
+		gap = 'sm', // xs, sm, md, lg, xl, 2xl
+		direction = '', // row, row-reverse, column, column reverse
+		justify = '', // justify-content (normal, start, end, center, between, around, evenly, stretch)
+		align = '', // align-items (start, end, center, baseline, stretch)
+		wrap = '', // nowrap, wrap, wrap-reverse
 		className,
 		children,
 		extraProps,

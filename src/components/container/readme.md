@@ -8,13 +8,14 @@ The `Container` component is a flexible layout component that can be used to cre
 
 ### containerType
 - **Type:** `string`
-- **Default:** `"grid"`
+- **Default:** `"flex"`
 - **Description:** Specifies the type of container
     - `"flex"`
     - `"grid"`
 
 ### gap
 - **Type:** `string`
+- **Default:** `"sm"`
 - **Description:** Defines the gap between grid or flex items.
     - `"xs"`
     - `"sm"`
@@ -114,7 +115,7 @@ The `Container` component is a flexible layout component that can be used to cre
 import { Container } from '@bsf/force-ui';
 
 const App = () => (
-    <Container containerType="flex" justify="end" align="start" gap="xs" className="bg-orange-300 h-60">
+    <Container justify="end" align="start" gap="xs" className="bg-orange-300 h-60">
         <Container.Item grow={1}>Item 1</Container.Item>
         <Container.Item>Item 2</Container.Item>
         <Container.Item grow={1}>Item 3</Container.Item>
