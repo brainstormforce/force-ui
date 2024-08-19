@@ -8094,68 +8094,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _utilities_functions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../utilities/functions */ "./src/utilities/functions.js");
-function _typeof(o) {
-  "@babel/helpers - typeof";
-
-  return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) {
-    return typeof o;
-  } : function (o) {
-    return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o;
-  }, _typeof(o);
-}
-var _excluded = ["grow", "shrink", "basis", "order", "className"];
-function _extends() {
-  return _extends = Object.assign ? Object.assign.bind() : function (n) {
-    for (var e = 1; e < arguments.length; e++) {
-      var t = arguments[e];
-      for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]);
-    }
-    return n;
-  }, _extends.apply(null, arguments);
-}
-function ownKeys(e, r) {
-  var t = Object.keys(e);
-  if (Object.getOwnPropertySymbols) {
-    var o = Object.getOwnPropertySymbols(e);
-    r && (o = o.filter(function (r) {
-      return Object.getOwnPropertyDescriptor(e, r).enumerable;
-    })), t.push.apply(t, o);
-  }
-  return t;
-}
-function _objectSpread(e) {
-  for (var r = 1; r < arguments.length; r++) {
-    var t = null != arguments[r] ? arguments[r] : {};
-    r % 2 ? ownKeys(Object(t), !0).forEach(function (r) {
-      _defineProperty(e, r, t[r]);
-    }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(e, Object.getOwnPropertyDescriptors(t)) : ownKeys(Object(t)).forEach(function (r) {
-      Object.defineProperty(e, r, Object.getOwnPropertyDescriptor(t, r));
-    });
-  }
-  return e;
-}
-function _defineProperty(e, r, t) {
-  return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, {
-    value: t,
-    enumerable: !0,
-    configurable: !0,
-    writable: !0
-  }) : e[r] = t, e;
-}
-function _toPropertyKey(t) {
-  var i = _toPrimitive(t, "string");
-  return "symbol" == _typeof(i) ? i : i + "";
-}
-function _toPrimitive(t, r) {
-  if ("object" != _typeof(t) || !t) return t;
-  var e = t[Symbol.toPrimitive];
-  if (void 0 !== e) {
-    var i = e.call(t, r || "default");
-    if ("object" != _typeof(i)) return i;
-    throw new TypeError("@@toPrimitive must return a primitive value.");
-  }
-  return ("string" === r ? String : Number)(t);
-}
+var _excluded = ["grow", "shrink", "basis", "order", "alignSelf", "className", "children"];
 function _objectWithoutProperties(e, t) {
   if (null == e) return {};
   var o,
@@ -8176,52 +8115,124 @@ function _objectWithoutPropertiesLoose(r, e) {
   }
   return t;
 }
+function _extends() {
+  return _extends = Object.assign ? Object.assign.bind() : function (n) {
+    for (var e = 1; e < arguments.length; e++) {
+      var t = arguments[e];
+      for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]);
+    }
+    return n;
+  }, _extends.apply(null, arguments);
+}
 
 
 var Container = function Container(props) {
+  var _flex$grid, _xs$sm$md$lg$xl$2xl, _row$rowReverse$colu, _normal$start$end$cen, _start$end$center$bas, _wrap$wrapReverse$no;
   var _props$containerType = props.containerType,
     containerType = _props$containerType === void 0 ? "grid" : _props$containerType,
     _props$gap = props.gap,
     gap = _props$gap === void 0 ? 0 : _props$gap,
-    spacing = props.spacing,
-    flexWrap = props.flexWrap,
-    columns = props.columns,
-    _props$padding = props.padding,
-    padding = _props$padding === void 0 ? 0 : _props$padding,
-    justifyContent = props.justifyContent,
-    alignItems = props.alignItems,
-    alignContent = props.alignContent,
-    justifyItems = props.justifyItems,
     direction = props.direction,
+    justify = props.justify,
+    align = props.align,
+    _props$wrap = props.wrap,
+    wrap = _props$wrap === void 0 ? 'nowrap' : _props$wrap,
     className = props.className,
     children = props.children,
     extraProps = props.extraProps;
-  var directionToClassMap = {
-    'flex-row': 'flex-row',
-    'flex-row-reverse': 'flex-row-reverse',
-    'flex-column': 'flex-col',
-    'flex-column-reverse': 'flex-col-reverse'
-  };
-  var tailwindClasses = [containerType === "flex" ? "flex" : "grid", justifyContent && "justify-".concat(justifyContent), alignContent && "content-".concat(alignContent), alignItems && "items-".concat(alignItems), direction && directionToClassMap[direction], flexWrap && "flex-".concat(flexWrap)].filter(Boolean);
-  var paddingClass = padding !== 0 ? "p-".concat(padding) : '';
-  var gapClass = gap !== 0 ? "gap-".concat(gap) : '';
-  var combinedClasses = "".concat(tailwindClasses.join(' '), " ").concat(paddingClass, " ").concat(gapClass);
+  var containerTypeClass = (_flex$grid = {
+    flex: 'flex',
+    grid: 'grid'
+  }) === null || _flex$grid === void 0 ? void 0 : _flex$grid[containerType];
+  var gapClasses = (_xs$sm$md$lg$xl$2xl = {
+    'xs': 'gap-1',
+    'sm': 'gap-2',
+    'md': 'gap-3',
+    'lg': 'gap-4',
+    'xl': 'gap-6',
+    '2xl': 'gap-8'
+  }) === null || _xs$sm$md$lg$xl$2xl === void 0 ? void 0 : _xs$sm$md$lg$xl$2xl[gap];
+  var directionClasses = (_row$rowReverse$colu = {
+    'row': 'flex-row',
+    'row-reverse': 'flex-row-reverse',
+    'column': 'flex-col',
+    'column-reverse': 'flex-col-reverse'
+  }) === null || _row$rowReverse$colu === void 0 ? void 0 : _row$rowReverse$colu[direction];
+  var justifyContentClasses = (_normal$start$end$cen = {
+    'normal': 'justify-normal',
+    'start': 'justify-start',
+    'end': 'justify-end',
+    'center': 'justify-center',
+    'between': 'justify-between',
+    'around': 'justify-around',
+    'evenly': 'justify-evenly',
+    'stretch': 'justify-stretch'
+  }) === null || _normal$start$end$cen === void 0 ? void 0 : _normal$start$end$cen[justify];
+  var alignItemsClasses = (_start$end$center$bas = {
+    'start': 'items-start',
+    'end': 'items-end',
+    'center': 'items-center',
+    'baseline': 'items-baseline',
+    'stretch': 'items-stretch'
+  }) === null || _start$end$center$bas === void 0 ? void 0 : _start$end$center$bas[align];
+  var wrapClasses = (_wrap$wrapReverse$no = {
+    'wrap': 'flex-wrap',
+    'wrap-reverse': 'flex-wrap-reverse',
+    'nowrap': 'flex-nowrap'
+  }) === null || _wrap$wrapReverse$no === void 0 ? void 0 : _wrap$wrapReverse$no[wrap];
+  var combinedClasses = (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_1__.cn)(containerTypeClass, gapClasses, directionClasses, justifyContentClasses, alignItemsClasses, wrapClasses, className);
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", _extends({
-    className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_1__.cn)(combinedClasses, className)
-  }, extraProps), react__WEBPACK_IMPORTED_MODULE_0___default().Children.map(children, function (child) {
-    var _child$props = child.props,
-      grow = _child$props.grow,
-      shrink = _child$props.shrink,
-      basis = _child$props.basis,
-      order = _child$props.order,
-      childClassName = _child$props.className,
-      childProps = _objectWithoutProperties(_child$props, _excluded);
-    var childClasses = (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_1__.cn)(grow !== undefined && "grow-".concat(grow), shrink !== undefined && "shrink-".concat(shrink), basis && "basis-".concat(basis), order && "order-".concat(order), childClassName);
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().cloneElement(child, _objectSpread({
-      className: childClasses
-    }, childProps));
-  }));
+    className: combinedClasses
+  }, extraProps), children);
 };
+var Item = function Item(props) {
+  var _$, _$2, _auto$start$end$cente, _$2$3$4$5$6$7$8$9$;
+  var grow = props.grow,
+    shrink = props.shrink,
+    basis = props.basis,
+    order = props.order,
+    alignSelf = props.alignSelf,
+    className = props.className,
+    children = props.children,
+    extraProps = _objectWithoutProperties(props, _excluded);
+  var growClasses = (_$ = {
+    0: 'grow-0',
+    1: 'grow'
+  }) === null || _$ === void 0 ? void 0 : _$[grow];
+  var shrinkClasses = (_$2 = {
+    0: 'shrink-0',
+    1: 'shrink'
+  }) === null || _$2 === void 0 ? void 0 : _$2[shrink];
+  var alignSelfClasses = (_auto$start$end$cente = {
+    auto: 'self-auto',
+    start: 'self-start',
+    end: 'self-end',
+    center: 'self-center',
+    stretch: 'self-stretch',
+    baseline: 'self-baseline'
+  }) === null || _auto$start$end$cente === void 0 ? void 0 : _auto$start$end$cente[alignSelf];
+  var orderClasses = (_$2$3$4$5$6$7$8$9$ = {
+    '1': 'order-1',
+    '2': 'order-2',
+    '3': 'order-3',
+    '4': 'order-4',
+    '5': 'order-5',
+    '6': 'order-6',
+    '7': 'order-7',
+    '8': 'order-8',
+    '9': 'order-9',
+    '10': 'order-10',
+    '11': 'order-11',
+    '12': 'order-12',
+    'first': 'order-first',
+    'last': 'order-last',
+    'none': 'order-none'
+  }) === null || _$2$3$4$5$6$7$8$9$ === void 0 ? void 0 : _$2$3$4$5$6$7$8$9$[order];
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", _extends({
+    className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_1__.cn)(growClasses, shrinkClasses, alignSelfClasses, orderClasses, className)
+  }, extraProps), children);
+};
+Container.Item = Item;
 /* harmony default export */ __webpack_exports__["default"] = (Container);
 
 /***/ }),
