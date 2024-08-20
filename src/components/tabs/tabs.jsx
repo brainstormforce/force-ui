@@ -58,7 +58,7 @@ const TabsGroup = ( props ) => {
 	const orientationClasses = orientation === 'vertical' ? 'flex-col' : '';
 
 	// Base classes for the TabsGroup.
-	const baseClasses = `box-border [&>*]:box-border bg-tab-background flex items-center ${ widthClasses } ${ orientationClasses }`;
+	const baseClasses = `box-border [&>*]:box-border flex items-center ${ widthClasses } ${ orientationClasses }`;
 
 	// Merge classes.
 	const groupClassName = twMerge(
@@ -134,7 +134,7 @@ const Tab = ( props, ref ) => {
 		orientation === 'vertical' ? 'w-full justify-between' : '';
 
 	// Base classes for the Tab.
-	const baseClasses = `bg-transparent text-primary cursor-pointer flex items-center justify-center transition-colors duration-200 ${ fullWidth } ${ orientationClasses }`;
+	const baseClasses = `bg-transparent text-text-tertiary cursor-pointer flex items-center justify-center transition-colors duration-200 ${ fullWidth } ${ orientationClasses }`;
 
 	const borderClasses = 'border-none';
 
@@ -151,12 +151,12 @@ const Tab = ( props, ref ) => {
 	const borderActiveInlineClasses = 'border-border-interactive';
 
 	// Additional classes.
-	const hoverClasses = 'hover:bg-misc-tab-item-hover';
+	const hoverClasses = '';
 	const focusClasses = 'focus:outline-none';
 	const disabledClasses = disabled
 		? 'text-text-disabled cursor-not-allowed'
 		: '';
-	const activeClasses = activeItem === slug ? 'bg-background-primary' : '';
+	const activeClasses = activeItem === slug ? 'bg-background-primary text-text-primary' : '';
 
 	// Merge classes.
 	const tabClassName = twMerge(
