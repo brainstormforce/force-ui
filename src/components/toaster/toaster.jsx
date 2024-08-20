@@ -140,7 +140,7 @@ export const Toast = ( {
 	};
 
 	const continueTimer = () => {
-		startTimer(
+		timeoutId.current = startTimer(
 			toastItem,
 			dismissAfter -
 				( lastCloseTimerStart.current - closeTimerStart.current )
