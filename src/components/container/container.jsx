@@ -1,6 +1,10 @@
 import React from 'react';
 import { cn } from '../../utilities/functions';
 
+function generateTailwindGridClass(baseClassName, value) {
+    return `${baseClassName}${value}`;
+}
+
 const Container = ( props ) => {
 	const {
 		containerType = 'flex', // flex, grid
@@ -9,6 +13,9 @@ const Container = ( props ) => {
 		justify = '', // justify-content (normal, start, end, center, between, around, evenly, stretch)
 		align = '', // align-items (start, end, center, baseline, stretch)
 		wrap = '', // nowrap, wrap, wrap-reverse
+        templateColumns = '', 
+        templateRows = '', 
+        gridFlow = '',
 		className,
 		children,
 		...extraProps
@@ -60,7 +67,18 @@ const Container = ( props ) => {
 		nowrap: 'flex-nowrap',
 	}?.[ wrap ];
 
-	const combinedClasses = cn( containerTypeClass, gapClasses, directionClasses, justifyContentClasses, alignItemsClasses, wrapClasses, className );
+    const templateColumnsClasses = typeof templateColumns === 'number' ? generateTailwindGridClass('grid-cols-', templateColumns) : '';
+    const templateRowsClasses = typeof templateRows === 'number' ? generateTailwindGridClass('grid-rows-', templateRows) : '';
+
+    const gridFlowClasses = {
+        row: 'grid-flow-row',
+        column: 'grid-flow-col',
+        dense: 'grid-flow-dense',
+        'row-dense': 'grid-flow-row-dense',
+        'column-dense': 'grid-flow-col-dense',
+    }?.[gridFlow];
+
+    const combinedClasses = cn(containerTypeClass, gapClasses, directionClasses, justifyContentClasses, alignItemsClasses, wrapClasses, templateColumnsClasses, templateRowsClasses, gridFlowClasses, className );
 
 	return (
 		<div className={ combinedClasses } { ...extraProps }>
@@ -75,6 +93,12 @@ const Item = ( props ) => {
 		shrink,
 		order,
 		alignSelf,
+        gridColumnStart,
+        gridColumnEnd,
+        colSpan,
+        gridRowStart,
+        gridRowEnd,
+        rowSpan,
 		className,
 		children,
 		...extraProps
@@ -117,8 +141,16 @@ const Item = ( props ) => {
 		none: 'order-none',
 	}?.[ order ];
 
+    const gridColumnStartClasses = typeof gridColumnStart === 'number' ? generateTailwindGridClass('col-start-', gridColumnStart) : '';
+    const gridColumnSpanClasses = typeof colSpan === 'number' ? generateTailwindGridClass('col-span-', colSpan) : '';
+    const gridColumnEndClasses = typeof gridColumnEnd === 'number' ? generateTailwindGridClass('col-end-', gridColumnEnd) : '';
+    const gridRowStartClasses = typeof gridRowStart === 'number' ? generateTailwindGridClass('row-start-', gridRowStart) : '';
+    const gridRowSpanClasses = typeof rowSpan === 'number' ? generateTailwindGridClass('row-span-', rowSpan) : '';
+    const gridRowEndClasses = typeof gridRowEnd === 'number' ? generateTailwindGridClass('row-end-', gridRowEnd) : '';
+
+
 	return (
-		<div className={ cn( growClasses, shrinkClasses, alignSelfClasses, orderClasses, className ) } { ...extraProps }>
+        <div className={cn(growClasses, shrinkClasses, alignSelfClasses, orderClasses, gridColumnStartClasses, gridColumnSpanClasses, gridColumnEndClasses, gridRowStartClasses, gridRowSpanClasses, gridRowEndClasses, className ) } { ...extraProps }>
 			{ children }
 		</div>
 	);
