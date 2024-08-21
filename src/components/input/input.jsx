@@ -1,6 +1,7 @@
 import { useState, useCallback, useMemo, forwardRef } from 'react';
 import { nanoid } from 'nanoid';
 import { cn } from '../../utilities/functions';
+import { Upload } from 'lucide-react';
 
 const Input = (
 	{
@@ -34,8 +35,14 @@ const Input = (
 			return;
 		}
 
-		const newValue = event.target.value;
-		if ( ! isControlled ) {
+        let newValue;
+        if ( type === 'file' ) {
+            newValue = event.target.files;
+        } else {
+            newValue = event.target.value;
+        }
+
+		if ( ! isControlled && type !== 'file' ) {
 			setInputValue( newValue );
 		}
 
@@ -79,12 +86,16 @@ const Input = (
 	const errorClasses = error
 		? 'focus:border-focus-error-border focus:ring-field-color-error bg-field-background-error'
 		: '';
+	const errorFileClasses = error
+		? 'focus:border-focus-error-border focus:ring-field-color-error'
+		: '';
 	const disabledClasses = disabled
-		? 'border-border-disabled bg-field-background-disabled cursor-not-allowed text-text-disabled'
+        ? 'border-border-disabled bg-field-background-disabled cursor-not-allowed text-text-disabled file:text-text-tertiary'
 		: '';
 
 	const iconClasses =
 		'font-normal placeholder-text-tertiary text-text-primary pointer-events-none absolute inset-y-0 flex flex-1 items-center [&>svg]:h-4 [&>svg]:w-4';
+        
 
 	const getPrefix = () => {
 		if ( ! prefix ) {
@@ -107,6 +118,35 @@ const Input = (
 			</div>
 		);
 	};
+
+    const fileClasses = "text-text-tertiary file:border-0 file:bg-transparent"
+
+    if (type === 'file') {
+        return (
+            <div className={cn('relative flex focus-within:z-10', className)}>
+                <input
+                    ref={ref}
+                    id={inputId}
+                    type="file"
+                    className={cn(
+                        baseClasses,
+                        disabledClasses,
+                        sizeClasses[ size ],
+                        textClasses[ size ],
+                        focusClasses,
+                        hoverClasses,
+                        errorFileClasses, 
+                        fileClasses
+                    )}
+                    onChange={handleChange}
+                    {...props}
+                />
+                <div className={cn(iconClasses, 'right-0 pr-3', textClasses[size])}>
+                    <Upload />
+                </div>
+            </div>
+        );
+    } 
 
 	return (
 		<div className={ cn( 'relative flex focus-within:z-10', className ) }>
