@@ -24,7 +24,7 @@ const Input = (
 	const inputId = useMemo( () => id || `input-${ type }-${ nanoid() }`, [ id ] );
 	const isControlled = useMemo( () => typeof value !== 'undefined', [ value ] );
 	const [ inputValue, setInputValue ] = useState( defaultValue );
-    const [ selectedFile, setSelectedFile ] = useState(null);
+	const [ selectedFile, setSelectedFile ] = useState( null );
 
 	const getValue = useCallback(
 		() => ( isControlled ? value : inputValue ),
@@ -36,17 +36,17 @@ const Input = (
 			return;
 		}
 
-        let newValue;
-        if ( type === 'file' ) {
-            newValue = event.target.files;
-            if (newValue.length > 0) {
-                setSelectedFile(newValue[0].name);
-            } else {
-                setSelectedFile(null);
-            }
-        } else {
-            newValue = event.target.value;
-        }
+		let newValue;
+		if ( type === 'file' ) {
+			newValue = event.target.files;
+			if ( newValue.length > 0 ) {
+				setSelectedFile( newValue[ 0 ].name );
+			} else {
+				setSelectedFile( null );
+			}
+		} else {
+			newValue = event.target.value;
+		}
 
 		if ( ! isControlled && type !== 'file' ) {
 			setInputValue( newValue );
@@ -93,22 +93,22 @@ const Input = (
 		? 'focus:border-focus-error-border focus:ring-field-color-error'
 		: '';
 	const disabledClasses = disabled
-        ? 'border-border-disabled bg-field-background-disabled cursor-not-allowed text-text-disabled'
+		? 'border-border-disabled bg-field-background-disabled cursor-not-allowed text-text-disabled'
 		: '';
 	const disabledUploadFileClasses = disabled
-        ? 'border-border-disabled cursor-not-allowed text-text-disabled file:text-text-tertiary'
+		? 'border-border-disabled cursor-not-allowed text-text-disabled file:text-text-tertiary'
 		: '';
 	const iconClasses =
 		'font-normal placeholder-text-tertiary text-text-primary pointer-events-none absolute inset-y-0 flex flex-1 items-center [&>svg]:h-4 [&>svg]:w-4';
-    const uploadIconClasses = disabled 
-        ? 'font-normal placeholder-text-tertiary text-icon-disabled pointer-events-none absolute inset-y-0 flex flex-1 items-center' 
-        : 'font-normal placeholder-text-tertiary text-field-placeholder pointer-events-none absolute inset-y-0 flex flex-1 items-center';
-        
+	const uploadIconClasses = disabled
+		? 'font-normal placeholder-text-tertiary text-icon-disabled pointer-events-none absolute inset-y-0 flex flex-1 items-center'
+		: 'font-normal placeholder-text-tertiary text-field-placeholder pointer-events-none absolute inset-y-0 flex flex-1 items-center';
+
 	const uploadIconSizeClasses = {
-        sm: '[&>svg]:h-4 [&>svg]:w-4',
-        md: '[&>svg]:h-5 [&>svg]:w-5',
-        lg: '[&>svg]:h-6 [&>svg]:w-6',
-    }
+		sm: '[&>svg]:h-4 [&>svg]:w-4',
+		md: '[&>svg]:h-5 [&>svg]:w-5',
+		lg: '[&>svg]:h-6 [&>svg]:w-6',
+	};
 
 	const getPrefix = () => {
 		if ( ! prefix ) {
@@ -132,36 +132,36 @@ const Input = (
 		);
 	};
 
-    const fileClasses = selectedFile ? "file:border-0 file:bg-transparent" : "text-text-tertiary file:border-0 file:bg-transparent";
+	const fileClasses = selectedFile ? 'file:border-0 file:bg-transparent' : 'text-text-tertiary file:border-0 file:bg-transparent';
 
-    if (type === 'file') {
-        return (
-            <div className={cn('relative flex focus-within:z-10', className)}>
-                <input
-                    ref={ref}
-                    id={inputId}
-                    type="file"
-                    className={cn(
-                        baseClasses,
-                        disabledUploadFileClasses,
-                        sizeClasses[ size ],
-                        textClasses[ size ],
-                        focusClasses,
-                        hoverClasses,
-                        errorFileClasses, 
-                        fileClasses
-                    )}
-                    disabled={disabled}
-                    onChange={handleChange}
-                    onInvalid={onError}
-                    {...props}
-                />
-                <div className={cn(uploadIconClasses, 'right-0 pr-3', uploadIconSizeClasses[size])}>
-                    <Upload />
-                </div>
-            </div>
-        );
-    } 
+	if ( type === 'file' ) {
+		return (
+			<div className={ cn( 'relative flex focus-within:z-10', className ) }>
+				<input
+					ref={ ref }
+					id={ inputId }
+					type="file"
+					className={ cn(
+						baseClasses,
+						disabledUploadFileClasses,
+						sizeClasses[ size ],
+						textClasses[ size ],
+						focusClasses,
+						hoverClasses,
+						errorFileClasses,
+						fileClasses
+					) }
+					disabled={ disabled }
+					onChange={ handleChange }
+					onInvalid={ onError }
+					{ ...props }
+				/>
+				<div className={ cn( uploadIconClasses, 'right-0 pr-3', uploadIconSizeClasses[ size ] ) }>
+					<Upload />
+				</div>
+			</div>
+		);
+	}
 
 	return (
 		<div className={ cn( 'relative flex focus-within:z-10', className ) }>
