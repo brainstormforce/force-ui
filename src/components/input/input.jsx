@@ -59,7 +59,7 @@ const Input = (
 	};
 
 	const baseClasses =
-		'border border-solid border-border-subtle bg-field-secondary-background font-normal placeholder-text-tertiary text-text-primary';
+		'border border-solid border-border-subtle bg-field-secondary-background font-normal placeholder-text-tertiary text-text-primary w-full';
 	const sizeClasses = {
 		sm: 'px-2 py-2 rounded',
 		md: 'px-2.5 py-2.5 rounded-md',
@@ -136,30 +136,30 @@ const Input = (
 
 	if ( type === 'file' ) {
 		return (
-			<div className={ cn( 'relative flex focus-within:z-10', className ) }>
-				<input
-					ref={ ref }
-					id={ inputId }
-					type="file"
-					className={ cn(
-						baseClasses,
-						disabledUploadFileClasses,
-						sizeClasses[ size ],
-						textClasses[ size ],
-						focusClasses,
-						hoverClasses,
-						errorFileClasses,
-						fileClasses
-					) }
-					disabled={ disabled }
-					onChange={ handleChange }
-					onInvalid={ onError }
-					{ ...props }
-				/>
-				<div className={ cn( uploadIconClasses, 'right-0 pr-3', uploadIconSizeClasses[ size ] ) }>
-					<Upload />
-				</div>
-			</div>
+            <div className={ cn( 'relative flex focus-within:z-10', className ) }>
+                <input
+                    ref={ ref }
+                    id={ inputId }
+                    type="file"
+                    className={ cn(
+                        baseClasses,
+                        disabledUploadFileClasses,
+                        sizeClasses[ size ],
+                        textClasses[ size ],
+                        focusClasses,
+                        hoverClasses,
+                        errorFileClasses,
+                        fileClasses
+                    ) }
+                    disabled={ disabled }
+                    onChange={ handleChange }
+                    onInvalid={ onError }
+                    { ...props }
+                />
+                <div className={ cn( uploadIconClasses, 'right-0 pr-3', uploadIconSizeClasses[ size ] ) }>
+                    <Upload />
+                </div>
+            </div>
 		);
 	}
 
