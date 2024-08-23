@@ -136,30 +136,30 @@ const Input = (
 
 	if ( type === 'file' ) {
 		return (
-            <div className={ cn( 'relative flex focus-within:z-10', className ) }>
-                <input
-                    ref={ ref }
-                    id={ inputId }
-                    type="file"
-                    className={ cn(
-                        baseClasses,
-                        disabledUploadFileClasses,
-                        sizeClasses[ size ],
-                        textClasses[ size ],
-                        focusClasses,
-                        hoverClasses,
-                        errorFileClasses,
-                        fileClasses
-                    ) }
-                    disabled={ disabled }
-                    onChange={ handleChange }
-                    onInvalid={ onError }
-                    { ...props }
-                />
-                <div className={ cn( uploadIconClasses, 'right-0 pr-3', uploadIconSizeClasses[ size ] ) }>
-                    <Upload />
-                </div>
-            </div>
+			<div className={ cn( 'relative flex focus-within:z-10', className ) }>
+				<input
+					ref={ ref }
+					id={ inputId }
+					type="file"
+					className={ cn(
+						baseClasses,
+						disabledUploadFileClasses,
+						sizeClasses[ size ],
+						textClasses[ size ],
+						focusClasses,
+						hoverClasses,
+						errorFileClasses,
+						fileClasses
+					) }
+					disabled={ disabled }
+					onChange={ handleChange }
+					onInvalid={ onError }
+					{ ...props }
+				/>
+				<div className={ cn( uploadIconClasses, 'right-0 pr-3', uploadIconSizeClasses[ size ] ) }>
+					<Upload />
+				</div>
+			</div>
 		);
 	}
 
