@@ -1,1 +1,1 @@
-export { default } from './editor-input';
+export { default } from './editor-input-new';

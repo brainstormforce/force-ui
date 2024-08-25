@@ -11,7 +11,7 @@ import {
 	createBeautifulMentionNode,
 	useBeautifulMentions,
 } from 'lexical-beautiful-mentions';
-import { forwardRef } from 'react';
+import { forwardRef, useCallback, useRef, useState } from 'react';
 import { cn } from '@/utilities/functions';
 import { X } from 'lucide-react';
 
@@ -146,6 +146,61 @@ const CustomMentionComponent = forwardRef(
 	}
 );
 
+/**
+ * Combobox component for the BeautifulMentionsPlugin.
+ */
+export const Combobox = forwardRef(
+	({ optionType, loading, ...other }, ref) => {
+	  if (loading) {
+		return (
+		  <div
+			ref={ref}
+			className="h-full overflow-hidden rounded-b bg-popover p-3 text-sm text-popover-foreground"
+		  >
+			<div className="">Loading...</div>
+		  </div>
+		);
+	  }
+	  if ( optionType.itemType === 'trigger' ) {
+		return false;
+	  }
+	  return (
+		<ul
+		  ref={ref}
+		  style={{
+			scrollbarWidth: "none",
+			msOverflowStyle: "none",
+		  }}
+		  className="m-0 mt-[1px] h-full list-none overflow-scroll overflow-y-scroll rounded-b bg-popover p-[1px] text-popover-foreground"
+		  {...other}
+		/>
+	  );
+	},
+  );
+  Combobox.displayName = "Combobox";
+  
+  /**
+   * ComboboxItem component for the BeautifulMentionsPlugin.
+   */
+  export const ComboboxItem = forwardRef(({ selected, item, ...props }, ref) => (
+	<>
+	  {item.data.dividerTop && (
+		<div className="p-1">
+		  <div className="flex border-b border-muted" />
+		</div>
+	  )}
+	  <li
+		ref={ref}
+		className={cn(
+		  "relative flex cursor-pointer select-none items-center rounded-md px-2 py-1.5 text-sm outline-none",
+		  selected && "bg-accent text-accent-foreground",
+		)}
+		{...props}
+	  />
+	</>
+  ));
+  ComboboxItem.displayName = "ComboboxItem";
+
 const EditorInput = ({
 	value,
 	defaultValue,
@@ -163,9 +218,37 @@ const EditorInput = ({
 		], // 👈 register the mention node
 	};
 
+	const [menuOrComboboxOpen, setMenuOrComboboxOpen] = useState(false);
+	const [comboboxItemSelected, setComboboxItemSelected] = useState(false);
+	const comboboxAnchor = useRef(null);
+
+	const handleMenuOrComboboxOpen = useCallback(() => {
+		setMenuOrComboboxOpen(true);
+	  }, []);
+	
+	  const handleMenuOrComboboxClose = useCallback(() => {
+		setMenuOrComboboxOpen(false);
+	  }, []);
+	
+	  const handleComboboxFocusChange = useCallback(
+		(item) => {
+		  	setComboboxItemSelected(item !== null);
+		},
+		[],
+	  );
+	
+	  const handleComboboxItemSelect = useCallback(
+		(item) => {
+		  if (item.itemType === "additional") {
+			setMenuOrComboboxOpen(false);
+		  }
+		},
+		[],
+	  );
+
 	return (
-		<div className={cn(
-			'[&_*]:text-sm [&_.editor-paragraph]:min-h-6',
+		<div ref={comboboxAnchor} className={cn(
+			'relative [&_*]:text-sm [&_.editor-paragraph]:min-h-6 [&_[itemtype="trigger"]]:hidden',
 			editorCommonClassNames,
 			editorInputClassNames[size]
 		)}>
@@ -184,6 +267,16 @@ const EditorInput = ({
 					items={mentionItems}
 					menuComponent={CustomMenu}
 					menuItemComponent={CustomMenuItem}
+					// 👇 add the combobox component to the mentions plugin
+					combobox
+					comboboxOpen={menuOrComboboxOpen}
+					comboboxAnchor={ comboboxAnchor.current}
+					comboboxComponent={ Combobox}
+					comboboxItemComponent={ ComboboxItem}
+					onComboboxOpen={ handleMenuOrComboboxOpen}
+					onComboboxClose={ handleMenuOrComboboxClose}
+					onComboboxFocusChange={ handleComboboxFocusChange}
+					onComboboxItemSelect={ handleComboboxItemSelect}
 				/>
 			</LexicalComposer>
 		</div>

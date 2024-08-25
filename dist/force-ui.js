@@ -9500,6 +9500,92 @@ function HistoryPlugin({
 
 /***/ }),
 
+/***/ "./node_modules/@lexical/react/LexicalOnChangePlugin.dev.mjs":
+/*!*******************************************************************!*\
+  !*** ./node_modules/@lexical/react/LexicalOnChangePlugin.dev.mjs ***!
+  \*******************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   OnChangePlugin: function() { return /* binding */ OnChangePlugin; }
+/* harmony export */ });
+/* harmony import */ var _lexical_react_LexicalComposerContext__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @lexical/react/LexicalComposerContext */ "./node_modules/@lexical/react/LexicalComposerContext.dev.mjs");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/**
+ * Copyright (c) Meta Platforms, Inc. and affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ */
+
+
+
+
+/**
+ * Copyright (c) Meta Platforms, Inc. and affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ */
+
+const CAN_USE_DOM = typeof window !== 'undefined' && typeof window.document !== 'undefined' && typeof window.document.createElement !== 'undefined';
+
+/**
+ * Copyright (c) Meta Platforms, Inc. and affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ */
+
+
+// This workaround is no longer necessary in React 19,
+// but we currently support React >=17.x
+// https://github.com/facebook/react/pull/26395
+const useLayoutEffectImpl = CAN_USE_DOM ? react__WEBPACK_IMPORTED_MODULE_0__.useLayoutEffect : react__WEBPACK_IMPORTED_MODULE_0__.useEffect;
+
+/**
+ * Copyright (c) Meta Platforms, Inc. and affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ */
+
+function OnChangePlugin({
+  ignoreHistoryMergeTagChange = true,
+  ignoreSelectionChange = false,
+  onChange
+}) {
+  const [editor] = (0,_lexical_react_LexicalComposerContext__WEBPACK_IMPORTED_MODULE_1__.useLexicalComposerContext)();
+  useLayoutEffectImpl(() => {
+    if (onChange) {
+      return editor.registerUpdateListener(({
+        editorState,
+        dirtyElements,
+        dirtyLeaves,
+        prevEditorState,
+        tags
+      }) => {
+        if (ignoreSelectionChange && dirtyElements.size === 0 && dirtyLeaves.size === 0 || ignoreHistoryMergeTagChange && tags.has('history-merge') || prevEditorState.isEmpty()) {
+          return;
+        }
+        onChange(editorState, editor, tags);
+      });
+    }
+  }, [editor, ignoreHistoryMergeTagChange, ignoreSelectionChange, onChange]);
+  return null;
+}
+
+
+
+
+/***/ }),
+
 /***/ "./node_modules/@lexical/react/LexicalPlainTextPlugin.dev.mjs":
 /*!********************************************************************!*\
   !*** ./node_modules/@lexical/react/LexicalPlainTextPlugin.dev.mjs ***!
@@ -10418,96 +10504,6 @@ function subscription(editor) {
  */
 function useLexicalEditable() {
   return useLexicalSubscription(subscription);
-}
-
-
-
-
-/***/ }),
-
-/***/ "./node_modules/@lexical/react/useLexicalNodeSelection.dev.mjs":
-/*!*********************************************************************!*\
-  !*** ./node_modules/@lexical/react/useLexicalNodeSelection.dev.mjs ***!
-  \*********************************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   useLexicalNodeSelection: function() { return /* binding */ useLexicalNodeSelection; }
-/* harmony export */ });
-/* harmony import */ var _lexical_react_LexicalComposerContext__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @lexical/react/LexicalComposerContext */ "./node_modules/@lexical/react/LexicalComposerContext.dev.mjs");
-/* harmony import */ var lexical__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lexical */ "./node_modules/lexical/Lexical.dev.mjs");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/**
- * Copyright (c) Meta Platforms, Inc. and affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- *
- */
-
-
-
-
-
-/**
- * Copyright (c) Meta Platforms, Inc. and affiliates.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- *
- */
-
-function isNodeSelected(editor, key) {
-  return editor.getEditorState().read(() => {
-    const node = (0,lexical__WEBPACK_IMPORTED_MODULE_1__.$getNodeByKey)(key);
-    if (node === null) {
-      return false;
-    }
-    return node.isSelected();
-  });
-}
-function useLexicalNodeSelection(key) {
-  const [editor] = (0,_lexical_react_LexicalComposerContext__WEBPACK_IMPORTED_MODULE_2__.useLexicalComposerContext)();
-  const [isSelected, setIsSelected] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(() => isNodeSelected(editor, key));
-  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-    let isMounted = true;
-    const unregister = editor.registerUpdateListener(() => {
-      if (isMounted) {
-        setIsSelected(isNodeSelected(editor, key));
-      }
-    });
-    return () => {
-      isMounted = false;
-      unregister();
-    };
-  }, [editor, key]);
-  const setSelected = (0,react__WEBPACK_IMPORTED_MODULE_0__.useCallback)(selected => {
-    editor.update(() => {
-      let selection = (0,lexical__WEBPACK_IMPORTED_MODULE_1__.$getSelection)();
-      if (!(0,lexical__WEBPACK_IMPORTED_MODULE_1__.$isNodeSelection)(selection)) {
-        selection = (0,lexical__WEBPACK_IMPORTED_MODULE_1__.$createNodeSelection)();
-        (0,lexical__WEBPACK_IMPORTED_MODULE_1__.$setSelection)(selection);
-      }
-      if ((0,lexical__WEBPACK_IMPORTED_MODULE_1__.$isNodeSelection)(selection)) {
-        if (selected) {
-          selection.add(key);
-        } else {
-          selection.delete(key);
-        }
-      }
-    });
-  }, [editor, key]);
-  const clearSelected = (0,react__WEBPACK_IMPORTED_MODULE_0__.useCallback)(() => {
-    editor.update(() => {
-      const selection = (0,lexical__WEBPACK_IMPORTED_MODULE_1__.$getSelection)();
-      if ((0,lexical__WEBPACK_IMPORTED_MODULE_1__.$isNodeSelection)(selection)) {
-        selection.clear();
-      }
-    });
-  }, [editor]);
-  return [isSelected, setSelected, clearSelected];
 }
 
 
@@ -13631,101 +13627,24 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./src/components/editor-input/editor-input-style.js":
-/*!***********************************************************!*\
-  !*** ./src/components/editor-input/editor-input-style.js ***!
-  \***********************************************************/
+/***/ "./src/components/editor-input/editor-input-new.jsx":
+/*!**********************************************************!*\
+  !*** ./src/components/editor-input/editor-input-new.jsx ***!
+  \**********************************************************/
 /***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   editorCommonClassNames: function() { return /* binding */ editorCommonClassNames; },
-/* harmony export */   editorInputClassNames: function() { return /* binding */ editorInputClassNames; }
-/* harmony export */ });
-var editorCommonClassNames = 'border border-solid focus-within:ring-2 focus-within:ring-offset-2 border-field-border hover:border-border-strong focus-within:!border-focus-border focus-within:ring-focus transition duration-150 ease-in-out';
-var editorInputClassNames = {
-  sm: 'py-1.5 px-2 rounded [&_.editor-paragraph]:leading-6',
-  md: 'py-2 px-2.5 rounded-md [&_.editor-paragraph]:leading-6',
-  lg: 'py-2.5 px-3 rounded-md [&_.editor-paragraph]:leading-6'
-};
-
-/***/ }),
-
-/***/ "./src/components/editor-input/editor-input.jsx":
-/*!******************************************************!*\
-  !*** ./src/components/editor-input/editor-input.jsx ***!
-  \******************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _lexical_react_LexicalAutoFocusPlugin__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @lexical/react/LexicalAutoFocusPlugin */ "./node_modules/@lexical/react/LexicalAutoFocusPlugin.dev.mjs");
-/* harmony import */ var _lexical_react_LexicalComposer__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @lexical/react/LexicalComposer */ "./node_modules/@lexical/react/LexicalComposer.dev.mjs");
-/* harmony import */ var _lexical_react_LexicalPlainTextPlugin__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @lexical/react/LexicalPlainTextPlugin */ "./node_modules/@lexical/react/LexicalPlainTextPlugin.dev.mjs");
-/* harmony import */ var _lexical_react_LexicalContentEditable__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @lexical/react/LexicalContentEditable */ "./node_modules/@lexical/react/LexicalContentEditable.dev.mjs");
-/* harmony import */ var _lexical_react_LexicalHistoryPlugin__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @lexical/react/LexicalHistoryPlugin */ "./node_modules/@lexical/react/LexicalHistoryPlugin.dev.mjs");
-/* harmony import */ var _lexical_react_LexicalErrorBoundary__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @lexical/react/LexicalErrorBoundary */ "./node_modules/@lexical/react/LexicalErrorBoundary.dev.mjs");
-/* harmony import */ var lexical_beautiful_mentions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! lexical-beautiful-mentions */ "./node_modules/lexical-beautiful-mentions/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _utilities_functions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/utilities/functions */ "./src/utilities/functions.js");
-/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/x.js");
-/* harmony import */ var _editor_input_style__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./editor-input-style */ "./src/components/editor-input/editor-input-style.js");
-var _excluded = ["loading"],
-  _excluded2 = ["selected", "item", "className"],
-  _excluded3 = ["trigger", "value", "data", "className", "children"];
-function _toConsumableArray(r) {
-  return _arrayWithoutHoles(r) || _iterableToArray(r) || _unsupportedIterableToArray(r) || _nonIterableSpread();
-}
-function _nonIterableSpread() {
-  throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
-}
-function _unsupportedIterableToArray(r, a) {
-  if (r) {
-    if ("string" == typeof r) return _arrayLikeToArray(r, a);
-    var t = {}.toString.call(r).slice(8, -1);
-    return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0;
-  }
-}
-function _iterableToArray(r) {
-  if ("undefined" != typeof Symbol && null != r[Symbol.iterator] || null != r["@@iterator"]) return Array.from(r);
-}
-function _arrayWithoutHoles(r) {
-  if (Array.isArray(r)) return _arrayLikeToArray(r);
-}
-function _arrayLikeToArray(r, a) {
-  (null == a || a > r.length) && (a = r.length);
-  for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e];
-  return n;
-}
-function _extends() {
-  return _extends = Object.assign ? Object.assign.bind() : function (n) {
-    for (var e = 1; e < arguments.length; e++) {
-      var t = arguments[e];
-      for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]);
-    }
-    return n;
-  }, _extends.apply(null, arguments);
-}
-function _objectWithoutProperties(e, t) {
-  if (null == e) return {};
-  var o,
-    r,
-    i = _objectWithoutPropertiesLoose(e, t);
-  if (Object.getOwnPropertySymbols) {
-    var s = Object.getOwnPropertySymbols(e);
-    for (r = 0; r < s.length; r++) o = s[r], t.includes(o) || {}.propertyIsEnumerable.call(e, o) && (i[o] = e[o]);
-  }
-  return i;
-}
-function _objectWithoutPropertiesLoose(r, e) {
-  if (null == r) return {};
-  var t = {};
-  for (var n in r) if ({}.hasOwnProperty.call(r, n)) {
-    if (e.includes(n)) continue;
-    t[n] = r[n];
-  }
-  return t;
-}
+/* harmony import */ var _lexical_react_LexicalAutoFocusPlugin__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @lexical/react/LexicalAutoFocusPlugin */ "./node_modules/@lexical/react/LexicalAutoFocusPlugin.dev.mjs");
+/* harmony import */ var _lexical_react_LexicalComposer__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @lexical/react/LexicalComposer */ "./node_modules/@lexical/react/LexicalComposer.dev.mjs");
+/* harmony import */ var _lexical_react_LexicalPlainTextPlugin__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @lexical/react/LexicalPlainTextPlugin */ "./node_modules/@lexical/react/LexicalPlainTextPlugin.dev.mjs");
+/* harmony import */ var _lexical_react_LexicalContentEditable__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @lexical/react/LexicalContentEditable */ "./node_modules/@lexical/react/LexicalContentEditable.dev.mjs");
+/* harmony import */ var _lexical_react_LexicalHistoryPlugin__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @lexical/react/LexicalHistoryPlugin */ "./node_modules/@lexical/react/LexicalHistoryPlugin.dev.mjs");
+/* harmony import */ var _lexical_react_LexicalErrorBoundary__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @lexical/react/LexicalErrorBoundary */ "./node_modules/@lexical/react/LexicalErrorBoundary.dev.mjs");
+/* harmony import */ var _lexical_react_LexicalOnChangePlugin__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @lexical/react/LexicalOnChangePlugin */ "./node_modules/@lexical/react/LexicalOnChangePlugin.dev.mjs");
+/* harmony import */ var _utilities_functions__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/utilities/functions */ "./src/utilities/functions.js");
+/* harmony import */ var _editor_input_style__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./editor-input-style */ "./src/components/editor-input/editor-input-style.js");
+/* harmony import */ var _mention_plugin__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./mention-plugin */ "./src/components/editor-input/mention-plugin.jsx");
+/* harmony import */ var _mention_node__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./mention-node */ "./src/components/editor-input/mention-node.jsx");
 
 
 
@@ -13805,8 +13724,7 @@ var theme = {
     tag: 'editor-tokenProperty',
     url: 'editor-tokenOperator',
     variable: 'editor-tokenVariable'
-  },
-  beautifulMentions: beautifulMentionsTheme
+  }
 };
 function onError(error) {
   console.error(error);
@@ -13817,96 +13735,65 @@ var Placeholder = function Placeholder(_ref) {
     className: "pointer-events-none absolute inset-0 flex items-center justify-start text-field-placeholder"
   }, content);
 };
-
-// ...
-var beautifulMentionsTheme = {
-  // 👇 use the trigger name as the key
-  '@': 'px-1 mx-px',
-  // 👇 add the "Focused" suffix to style the focused mention
-  '@Focused': 'outline-none shadow-md'
-};
-var mentionItems = {
-  '@': ['Anton', 'Boris', 'Catherine', 'Dmitri', 'Felix', 'Gina']
-};
-var CustomMenu = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_1__.forwardRef)(function (_ref2, ref) {
-  var loading = _ref2.loading,
-    props = _objectWithoutProperties(_ref2, _excluded);
-  return /*#__PURE__*/React.createElement("ul", _extends({
-    ref: ref,
-    className: "m-0 px-2 py-1 w-fit bg-white shadow rounded border border-solid border-border-subtle"
-  }, props));
-});
-var CustomMenuItem = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_1__.forwardRef)(function (_ref3, ref) {
-  var selected = _ref3.selected,
-    item = _ref3.item,
-    className = _ref3.className,
-    props = _objectWithoutProperties(_ref3, _excluded2);
-  return /*#__PURE__*/React.createElement("li", _extends({
-    ref: ref,
-    className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_2__.cn)('m-0 px-1 py-0.5 rounded-sm flex', selected ? 'bg-background-secondary' : 'bg-white', className)
-  }, props));
-});
-var CustomMentionComponent = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_1__.forwardRef)(function (_ref4, ref) {
-  var trigger = _ref4.trigger,
-    value = _ref4.value,
-    myData = _ref4.data,
-    className = _ref4.className,
-    children = _ref4.children,
-    other = _objectWithoutProperties(_ref4, _excluded3);
-  var _useBeautifulMentions = (0,lexical_beautiful_mentions__WEBPACK_IMPORTED_MODULE_0__.useBeautifulMentions)(),
-    removeMentions = _useBeautifulMentions.removeMentions;
-  return /*#__PURE__*/React.createElement("div", _extends({
-    className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_2__.cn)('inline-flex items-center px-1 py-0.5 bg-background-secondary rounded', className)
-  }, other, {
-    ref: ref,
-    title: trigger + value
-  }), /*#__PURE__*/React.createElement("span", null, value), /*#__PURE__*/React.createElement("span", {
-    onClick: function onClick() {
-      return removeMentions({
-        trigger: trigger,
-        value: value
-      });
-    },
-    className: "cursor-pointer inline-flex items-center"
-  }, /*#__PURE__*/React.createElement(lucide_react__WEBPACK_IMPORTED_MODULE_4__["default"], {
-    className: "size-4 text-icon-secondary"
-  })));
-});
-var EditorInput = function EditorInput(_ref5) {
-  var value = _ref5.value,
-    defaultValue = _ref5.defaultValue,
-    _ref5$placeholder = _ref5.placeholder,
-    placeholder = _ref5$placeholder === void 0 ? 'Enter what you know' : _ref5$placeholder,
-    onChange = _ref5.onChange,
-    _ref5$size = _ref5.size,
-    size = _ref5$size === void 0 ? 'sm' : _ref5$size;
+var mentionItems = ['Anton', 'Boris', 'Catherine', 'Dmitri', 'Felix', 'Gina'];
+var EditorInput = function EditorInput(_ref2) {
+  var value = _ref2.value,
+    defaultValue = _ref2.defaultValue,
+    _ref2$placeholder = _ref2.placeholder,
+    placeholder = _ref2$placeholder === void 0 ? 'Enter what you know' : _ref2$placeholder,
+    onChange = _ref2.onChange,
+    _ref2$size = _ref2.size,
+    size = _ref2$size === void 0 ? 'sm' : _ref2$size;
   var initialConfig = {
     namespace: 'MyEditor',
     theme: theme,
     onError: onError,
-    nodes: [lexical_beautiful_mentions__WEBPACK_IMPORTED_MODULE_0__.BeautifulMentionNode].concat(_toConsumableArray((0,lexical_beautiful_mentions__WEBPACK_IMPORTED_MODULE_0__.createBeautifulMentionNode)(CustomMentionComponent))) // 👈 register the mention node
+    nodes: [_mention_node__WEBPACK_IMPORTED_MODULE_3__["default"]] // 👈 register the mention node
   };
   return /*#__PURE__*/React.createElement("div", {
-    className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_2__.cn)('[&_*]:text-sm [&_.editor-paragraph]:min-h-6', _editor_input_style__WEBPACK_IMPORTED_MODULE_3__.editorCommonClassNames, _editor_input_style__WEBPACK_IMPORTED_MODULE_3__.editorInputClassNames[size])
-  }, /*#__PURE__*/React.createElement(_lexical_react_LexicalComposer__WEBPACK_IMPORTED_MODULE_5__.LexicalComposer, {
+    className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_0__.cn)('relative [&_*]:text-sm [&_.editor-paragraph]:min-h-6 [&_[itemtype="trigger"]]:hidden', _editor_input_style__WEBPACK_IMPORTED_MODULE_1__.editorCommonClassNames, _editor_input_style__WEBPACK_IMPORTED_MODULE_1__.editorInputClassNames[size])
+  }, /*#__PURE__*/React.createElement(_lexical_react_LexicalComposer__WEBPACK_IMPORTED_MODULE_4__.LexicalComposer, {
     initialConfig: initialConfig
   }, /*#__PURE__*/React.createElement("div", {
     className: "relative w-full [&_p]:m-0"
-  }, /*#__PURE__*/React.createElement(_lexical_react_LexicalPlainTextPlugin__WEBPACK_IMPORTED_MODULE_6__.PlainTextPlugin, {
-    contentEditable: /*#__PURE__*/React.createElement(_lexical_react_LexicalContentEditable__WEBPACK_IMPORTED_MODULE_7__.ContentEditable, null),
+  }, /*#__PURE__*/React.createElement(_lexical_react_LexicalPlainTextPlugin__WEBPACK_IMPORTED_MODULE_5__.PlainTextPlugin, {
+    contentEditable: /*#__PURE__*/React.createElement(_lexical_react_LexicalContentEditable__WEBPACK_IMPORTED_MODULE_6__.ContentEditable, null),
     placeholder: /*#__PURE__*/React.createElement(Placeholder, {
       content: placeholder
     }),
-    ErrorBoundary: _lexical_react_LexicalErrorBoundary__WEBPACK_IMPORTED_MODULE_8__.LexicalErrorBoundary
-  })), /*#__PURE__*/React.createElement(_lexical_react_LexicalHistoryPlugin__WEBPACK_IMPORTED_MODULE_9__.HistoryPlugin, null), /*#__PURE__*/React.createElement(_lexical_react_LexicalAutoFocusPlugin__WEBPACK_IMPORTED_MODULE_10__.AutoFocusPlugin, null), /*#__PURE__*/React.createElement(lexical_beautiful_mentions__WEBPACK_IMPORTED_MODULE_0__.BeautifulMentionsPlugin // 👈 add the mentions plugin
-  , {
-    menuAnchorClassName: "surerank-styles",
-    items: mentionItems,
-    menuComponent: CustomMenu,
-    menuItemComponent: CustomMenuItem
+    ErrorBoundary: _lexical_react_LexicalErrorBoundary__WEBPACK_IMPORTED_MODULE_7__.LexicalErrorBoundary
+  })), /*#__PURE__*/React.createElement(_lexical_react_LexicalHistoryPlugin__WEBPACK_IMPORTED_MODULE_8__.HistoryPlugin, null), /*#__PURE__*/React.createElement(_lexical_react_LexicalAutoFocusPlugin__WEBPACK_IMPORTED_MODULE_9__.AutoFocusPlugin, null), /*#__PURE__*/React.createElement(_mention_plugin__WEBPACK_IMPORTED_MODULE_2__["default"], {
+    items: mentionItems
+  }), /*#__PURE__*/React.createElement(_lexical_react_LexicalOnChangePlugin__WEBPACK_IMPORTED_MODULE_10__.OnChangePlugin, {
+    onChange: function onChange() {
+      for (var _len = arguments.length, all = new Array(_len), _key = 0; _key < _len; _key++) {
+        all[_key] = arguments[_key];
+      }
+      return console.log(all);
+    }
   })));
 };
 /* harmony default export */ __webpack_exports__["default"] = (EditorInput);
+
+/***/ }),
+
+/***/ "./src/components/editor-input/editor-input-style.js":
+/*!***********************************************************!*\
+  !*** ./src/components/editor-input/editor-input-style.js ***!
+  \***********************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   editorCommonClassNames: function() { return /* binding */ editorCommonClassNames; },
+/* harmony export */   editorInputClassNames: function() { return /* binding */ editorInputClassNames; }
+/* harmony export */ });
+var editorCommonClassNames = 'border border-solid focus-within:ring-2 focus-within:ring-offset-2 border-field-border hover:border-border-strong focus-within:!border-focus-border focus-within:ring-focus transition duration-150 ease-in-out';
+var editorInputClassNames = {
+  sm: 'py-1.5 px-2 rounded [&_.editor-paragraph]:leading-6',
+  md: 'py-2 px-2.5 rounded-md [&_.editor-paragraph]:leading-6',
+  lg: 'py-2.5 px-3 rounded-md [&_.editor-paragraph]:leading-6'
+};
 
 /***/ }),
 
@@ -13918,10 +13805,544 @@ var EditorInput = function EditorInput(_ref5) {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": function() { return /* reexport safe */ _editor_input__WEBPACK_IMPORTED_MODULE_0__["default"]; }
+/* harmony export */   "default": function() { return /* reexport safe */ _editor_input_new__WEBPACK_IMPORTED_MODULE_0__["default"]; }
 /* harmony export */ });
-/* harmony import */ var _editor_input__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./editor-input */ "./src/components/editor-input/editor-input.jsx");
+/* harmony import */ var _editor_input_new__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./editor-input-new */ "./src/components/editor-input/editor-input-new.jsx");
 
+
+/***/ }),
+
+/***/ "./src/components/editor-input/mention-component.jsx":
+/*!***********************************************************!*\
+  !*** ./src/components/editor-input/mention-component.jsx ***!
+  \***********************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _lexical_react_LexicalComposerContext__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @lexical/react/LexicalComposerContext */ "./node_modules/@lexical/react/LexicalComposerContext.dev.mjs");
+/* harmony import */ var lexical__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lexical */ "./node_modules/lexical/Lexical.dev.mjs");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/x.js");
+function _slicedToArray(r, e) {
+  return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest();
+}
+function _nonIterableRest() {
+  throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+}
+function _unsupportedIterableToArray(r, a) {
+  if (r) {
+    if ("string" == typeof r) return _arrayLikeToArray(r, a);
+    var t = {}.toString.call(r).slice(8, -1);
+    return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0;
+  }
+}
+function _arrayLikeToArray(r, a) {
+  (null == a || a > r.length) && (a = r.length);
+  for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e];
+  return n;
+}
+function _iterableToArrayLimit(r, l) {
+  var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"];
+  if (null != t) {
+    var e,
+      n,
+      i,
+      u,
+      a = [],
+      f = !0,
+      o = !1;
+    try {
+      if (i = (t = t.call(r)).next, 0 === l) {
+        if (Object(t) !== t) return;
+        f = !1;
+      } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0);
+    } catch (r) {
+      o = !0, n = r;
+    } finally {
+      try {
+        if (!f && null != t.return && (u = t.return(), Object(u) !== u)) return;
+      } finally {
+        if (o) throw n;
+      }
+    }
+    return a;
+  }
+}
+function _arrayWithHoles(r) {
+  if (Array.isArray(r)) return r;
+}
+
+
+
+var MentionComponent = function MentionComponent(_ref) {
+  var data = _ref.data,
+    nodeKey = _ref.nodeKey;
+  var _useLexicalComposerCo = (0,_lexical_react_LexicalComposerContext__WEBPACK_IMPORTED_MODULE_0__.useLexicalComposerContext)(),
+    _useLexicalComposerCo2 = _slicedToArray(_useLexicalComposerCo, 1),
+    editor = _useLexicalComposerCo2[0];
+  var removeMention = function removeMention(event) {
+    event.stopPropagation();
+    event.preventDefault();
+    editor.update(function () {
+      var node = (0,lexical__WEBPACK_IMPORTED_MODULE_1__.$getNodeByKey)(nodeKey);
+      if (!node) {
+        return;
+      }
+      node.remove();
+    });
+  };
+  return /*#__PURE__*/React.createElement("span", {
+    className: "inline-flex items-center gap-1 px-1 py-0.5 bg-slate-300"
+  }, /*#__PURE__*/React.createElement("span", null, data.data), /*#__PURE__*/React.createElement("span", {
+    className: "inline-flex items-center justify-center cursor-pointer",
+    onClick: removeMention
+  }, /*#__PURE__*/React.createElement(lucide_react__WEBPACK_IMPORTED_MODULE_2__["default"], {
+    className: "size-4"
+  })));
+};
+/* harmony default export */ __webpack_exports__["default"] = (MentionComponent);
+
+/***/ }),
+
+/***/ "./src/components/editor-input/mention-node.jsx":
+/*!******************************************************!*\
+  !*** ./src/components/editor-input/mention-node.jsx ***!
+  \******************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   $createMentionNode: function() { return /* binding */ $createMentionNode; },
+/* harmony export */   $isMentionNode: function() { return /* binding */ $isMentionNode; }
+/* harmony export */ });
+/* harmony import */ var lexical__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lexical */ "./node_modules/lexical/Lexical.dev.mjs");
+/* harmony import */ var _mention_component__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./mention-component */ "./src/components/editor-input/mention-component.jsx");
+function _typeof(o) {
+  "@babel/helpers - typeof";
+
+  return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) {
+    return typeof o;
+  } : function (o) {
+    return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o;
+  }, _typeof(o);
+}
+function _classCallCheck(a, n) {
+  if (!(a instanceof n)) throw new TypeError("Cannot call a class as a function");
+}
+function _defineProperties(e, r) {
+  for (var t = 0; t < r.length; t++) {
+    var o = r[t];
+    o.enumerable = o.enumerable || !1, o.configurable = !0, "value" in o && (o.writable = !0), Object.defineProperty(e, _toPropertyKey(o.key), o);
+  }
+}
+function _createClass(e, r, t) {
+  return r && _defineProperties(e.prototype, r), t && _defineProperties(e, t), Object.defineProperty(e, "prototype", {
+    writable: !1
+  }), e;
+}
+function _callSuper(t, o, e) {
+  return o = _getPrototypeOf(o), _possibleConstructorReturn(t, _isNativeReflectConstruct() ? Reflect.construct(o, e || [], _getPrototypeOf(t).constructor) : o.apply(t, e));
+}
+function _possibleConstructorReturn(t, e) {
+  if (e && ("object" == _typeof(e) || "function" == typeof e)) return e;
+  if (void 0 !== e) throw new TypeError("Derived constructors may only return object or undefined");
+  return _assertThisInitialized(t);
+}
+function _assertThisInitialized(e) {
+  if (void 0 === e) throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+  return e;
+}
+function _isNativeReflectConstruct() {
+  try {
+    var t = !Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {}));
+  } catch (t) {}
+  return (_isNativeReflectConstruct = function _isNativeReflectConstruct() {
+    return !!t;
+  })();
+}
+function _getPrototypeOf(t) {
+  return _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function (t) {
+    return t.__proto__ || Object.getPrototypeOf(t);
+  }, _getPrototypeOf(t);
+}
+function _inherits(t, e) {
+  if ("function" != typeof e && null !== e) throw new TypeError("Super expression must either be null or a function");
+  t.prototype = Object.create(e && e.prototype, {
+    constructor: {
+      value: t,
+      writable: !0,
+      configurable: !0
+    }
+  }), Object.defineProperty(t, "prototype", {
+    writable: !1
+  }), e && _setPrototypeOf(t, e);
+}
+function _setPrototypeOf(t, e) {
+  return _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function (t, e) {
+    return t.__proto__ = e, t;
+  }, _setPrototypeOf(t, e);
+}
+function _defineProperty(e, r, t) {
+  return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, {
+    value: t,
+    enumerable: !0,
+    configurable: !0,
+    writable: !0
+  }) : e[r] = t, e;
+}
+function _toPropertyKey(t) {
+  var i = _toPrimitive(t, "string");
+  return "symbol" == _typeof(i) ? i : i + "";
+}
+function _toPrimitive(t, r) {
+  if ("object" != _typeof(t) || !t) return t;
+  var e = t[Symbol.toPrimitive];
+  if (void 0 !== e) {
+    var i = e.call(t, r || "default");
+    if ("object" != _typeof(i)) return i;
+    throw new TypeError("@@toPrimitive must return a primitive value.");
+  }
+  return ("string" === r ? String : Number)(t);
+}
+
+
+var MentionNode = /*#__PURE__*/function (_DecoratorNode) {
+  function MentionNode(data, key) {
+    var _this;
+    _classCallCheck(this, MentionNode);
+    _this = _callSuper(this, MentionNode, [key]);
+    _defineProperty(_this, "__data", void 0);
+    _this.__data = data;
+    return _this;
+  }
+  _inherits(MentionNode, _DecoratorNode);
+  return _createClass(MentionNode, [{
+    key: "createDOM",
+    value: function createDOM() {
+      return document.createElement('span');
+    }
+  }, {
+    key: "updateDOM",
+    value: function updateDOM() {
+      return false;
+    }
+  }, {
+    key: "exportDOM",
+    value: function exportDOM() {
+      var element = document.createElement('span');
+      return {
+        element: element
+      };
+    }
+  }, {
+    key: "exportJSON",
+    value: function exportJSON() {
+      return {
+        type: MentionNode.getType(),
+        data: this.__data,
+        version: 1
+      };
+    }
+  }, {
+    key: "decorate",
+    value: function decorate() {
+      return /*#__PURE__*/React.createElement(_mention_component__WEBPACK_IMPORTED_MODULE_0__["default"], {
+        data: this.__data,
+        nodeKey: this.__key
+      });
+    }
+  }], [{
+    key: "getType",
+    value: function getType() {
+      return 'mention';
+    }
+  }, {
+    key: "clone",
+    value: function clone(node) {
+      return new MentionNode(node.__data, node.__key);
+    }
+  }, {
+    key: "importJSON",
+    value: function importJSON(serializeNode) {
+      var node = $createMentionNode(serializeNode.data);
+      return node;
+    }
+  }]);
+}(lexical__WEBPACK_IMPORTED_MODULE_1__.DecoratorNode);
+var $createMentionNode = function $createMentionNode() {
+  var data = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+  return new MentionNode(data);
+};
+var $isMentionNode = function $isMentionNode(node) {
+  return node instanceof MentionNode;
+};
+/* harmony default export */ __webpack_exports__["default"] = (MentionNode);
+
+/***/ }),
+
+/***/ "./src/components/editor-input/mention-plugin.jsx":
+/*!********************************************************!*\
+  !*** ./src/components/editor-input/mention-plugin.jsx ***!
+  \********************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _lexical_react_LexicalComposerContext__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @lexical/react/LexicalComposerContext */ "./node_modules/@lexical/react/LexicalComposerContext.dev.mjs");
+/* harmony import */ var _lexical_react_LexicalTypeaheadMenuPlugin__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @lexical/react/LexicalTypeaheadMenuPlugin */ "./node_modules/@lexical/react/LexicalTypeaheadMenuPlugin.dev.mjs");
+/* harmony import */ var _mention_node__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./mention-node */ "./src/components/editor-input/mention-node.jsx");
+/* harmony import */ var _utilities_functions__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/utilities/functions */ "./src/utilities/functions.js");
+function _typeof(o) {
+  "@babel/helpers - typeof";
+
+  return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) {
+    return typeof o;
+  } : function (o) {
+    return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o;
+  }, _typeof(o);
+}
+function _slicedToArray(r, e) {
+  return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest();
+}
+function _nonIterableRest() {
+  throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+}
+function _unsupportedIterableToArray(r, a) {
+  if (r) {
+    if ("string" == typeof r) return _arrayLikeToArray(r, a);
+    var t = {}.toString.call(r).slice(8, -1);
+    return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0;
+  }
+}
+function _arrayLikeToArray(r, a) {
+  (null == a || a > r.length) && (a = r.length);
+  for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e];
+  return n;
+}
+function _iterableToArrayLimit(r, l) {
+  var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"];
+  if (null != t) {
+    var e,
+      n,
+      i,
+      u,
+      a = [],
+      f = !0,
+      o = !1;
+    try {
+      if (i = (t = t.call(r)).next, 0 === l) {
+        if (Object(t) !== t) return;
+        f = !1;
+      } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0);
+    } catch (r) {
+      o = !0, n = r;
+    } finally {
+      try {
+        if (!f && null != t.return && (u = t.return(), Object(u) !== u)) return;
+      } finally {
+        if (o) throw n;
+      }
+    }
+    return a;
+  }
+}
+function _arrayWithHoles(r) {
+  if (Array.isArray(r)) return r;
+}
+function _classCallCheck(a, n) {
+  if (!(a instanceof n)) throw new TypeError("Cannot call a class as a function");
+}
+function _defineProperties(e, r) {
+  for (var t = 0; t < r.length; t++) {
+    var o = r[t];
+    o.enumerable = o.enumerable || !1, o.configurable = !0, "value" in o && (o.writable = !0), Object.defineProperty(e, _toPropertyKey(o.key), o);
+  }
+}
+function _createClass(e, r, t) {
+  return r && _defineProperties(e.prototype, r), t && _defineProperties(e, t), Object.defineProperty(e, "prototype", {
+    writable: !1
+  }), e;
+}
+function _defineProperty(e, r, t) {
+  return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, {
+    value: t,
+    enumerable: !0,
+    configurable: !0,
+    writable: !0
+  }) : e[r] = t, e;
+}
+function _toPropertyKey(t) {
+  var i = _toPrimitive(t, "string");
+  return "symbol" == _typeof(i) ? i : i + "";
+}
+function _toPrimitive(t, r) {
+  if ("object" != _typeof(t) || !t) return t;
+  var e = t[Symbol.toPrimitive];
+  if (void 0 !== e) {
+    var i = e.call(t, r || "default");
+    if ("object" != _typeof(i)) return i;
+    throw new TypeError("@@toPrimitive must return a primitive value.");
+  }
+  return ("string" === r ? String : Number)(t);
+}
+
+
+
+
+
+
+
+var dummyMentionsData = ['Aayla Secura', 'Admiral Dodd Rancit', 'Aurra Sing', 'BB-8', 'Bo-Katan Kryze', 'Breha Antilles-Organa', 'C-3PO', 'Captain Quarsh Panaka', 'Chewbacca', 'Darth Tyranus', 'Daultay Dofine', 'Dexter Jettster', 'Ebe E. Endocott', 'Eli Vanto', 'Ezra Bridger', 'Faro Argyus', 'Finis Valorum', 'FN-2003', 'Garazeb "Zeb" Orrelios', 'Grand Inquisitor', 'Greeata Jendowanian', 'Hammerhead', 'Han Solo', 'Hevy', 'Hondo Ohnaka', 'Ima-Gun Di', 'Inquisitors', 'Inspector Thanoth', 'Jabba', 'Janus Greejatus', 'Jaxxon', 'K-2SO', 'Kanan Jarrus', 'Kylo Ren', 'L3-37', 'Lieutenant Kaydel Ko Connix', 'Luke Skywalker', 'Mace Windu', 'Maximilian Veers', 'Mother Talzin', 'Nahdar Vebb', 'Nahdonnis Praji', 'Nien Nunb', 'Obi-Wan Kenobi', 'Odd Ball', 'Orrimarko', 'Petty Officer Thanisson', 'Pooja Naberrie', 'PZ-4CO', 'Quarrie', 'Quiggold', 'Quinlan Vos', 'R2-D2', 'Raymus Antilles', 'Ree-Yees', 'Sana Starros', 'Shmi Skywalker', 'Shu Mai', 'Tallissan Lintra', 'Tarfful', 'Thane Kyrell', 'U9-C4', 'Unkar Plutt', 'Val Beckett', 'Vice Admiral Amilyn Holdo', 'Vober Dand', 'WAC-47', 'Wedge Antilles', 'Wicket W. Warrick', 'Xamuel Lennox', 'Yaddle', 'Yarael Poof', 'Yoda', 'Zam Wesell', 'Ziro the Hutt', 'Zuckuss'];
+var PUNCTUATION = '\\.,\\+\\*\\?\\$\\@\\|#{}\\(\\)\\^\\-\\[\\]\\\\/!%\'"~=<>_:;';
+var NAME = '\\b[A-Z][^\\s' + PUNCTUATION + ']';
+var TRIGGERS = ['@'].join('');
+var VALID_CHARS = '[^' + TRIGGERS + PUNCTUATION + '\\s]';
+var VALID_JOINS = '(?:' + '\\.[ |$]|' +
+// E.g. "r. " in "Mr. Smith"
+' |' +
+// E.g. " " in "Josh Duck"
+'[' + PUNCTUATION + ']|' +
+// E.g. "-' in "Salier-Hellendag"
+')';
+var LENGTH_LIMIT = 75;
+var AtSignMentionsRegex = new RegExp('(^|\\s|\\()(' + '[' + TRIGGERS + ']' + '((?:' + VALID_CHARS + VALID_JOINS + '){0,' + LENGTH_LIMIT + '})' + ')$');
+
+// 50 is the longest alias length limit.
+var ALIAS_LENGTH_LIMIT = 50;
+
+// Regex used to match alias.
+var AtSignMentionsRegexAliasRegex = new RegExp('(^|\\s|\\()(' + '[' + TRIGGERS + ']' + '((?:' + VALID_CHARS + '){0,' + ALIAS_LENGTH_LIMIT + '})' + ')$');
+var mentionsCache = new Map();
+var OptionItem = /*#__PURE__*/function () {
+  function OptionItem(data) {
+    _classCallCheck(this, OptionItem);
+    _defineProperty(this, "data", void 0);
+    _defineProperty(this, "ref", {
+      current: null
+    });
+    this.data = data;
+  }
+  return _createClass(OptionItem, [{
+    key: "data",
+    get: function get() {
+      return this.data;
+    }
+  }, {
+    key: "ref",
+    get: function get() {
+      return this.ref.current;
+    },
+    set: function set(ref) {
+      this.ref.current = ref;
+    }
+  }]);
+}();
+function checkForAtSignMentions(text) {
+  var match = AtSignMentionsRegex.exec(text);
+  if (match === null) {
+    match = AtSignMentionsRegexAliasRegex.exec(text);
+  }
+  if (match !== null) {
+    // The strategy ignores leading whitespace but we need to know it's
+    // length to add it to the leadOffset
+    var maybeLeadingWhitespace = match[1];
+    var matchingString = match[3];
+    if (matchingString.length >= 0) {
+      return {
+        leadOffset: match.index + maybeLeadingWhitespace.length,
+        matchingString: matchingString,
+        replaceableString: match[2]
+      };
+    }
+  }
+  return null;
+}
+function useMentionLookupService(mentionString) {
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]),
+    _useState2 = _slicedToArray(_useState, 2),
+    results = _useState2[0],
+    setResults = _useState2[1];
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    var cachedResults = mentionsCache.get(mentionString);
+    if (mentionString == null) {
+      setResults([]);
+      return;
+    }
+    if (cachedResults === null) {
+      return;
+    } else if (cachedResults !== undefined) {
+      setResults(cachedResults);
+      return;
+    }
+    mentionsCache.set(mentionString, null);
+    dummyLookupService.search(mentionString, function (newResults) {
+      mentionsCache.set(mentionString, newResults);
+      setResults(newResults);
+    });
+  }, [mentionString]);
+  return results;
+}
+var dummyLookupService = {
+  search: function search(string, callback) {
+    setTimeout(function () {
+      var results = dummyMentionsData.filter(function (mention) {
+        return mention.toLowerCase().includes(string.toLowerCase());
+      });
+      callback(results);
+    }, 500);
+  }
+};
+var MentionPlugin = function MentionPlugin() {
+  var _useLexicalComposerCo = (0,_lexical_react_LexicalComposerContext__WEBPACK_IMPORTED_MODULE_3__.useLexicalComposerContext)(),
+    _useLexicalComposerCo2 = _slicedToArray(_useLexicalComposerCo, 1),
+    editor = _useLexicalComposerCo2[0];
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
+    _useState4 = _slicedToArray(_useState3, 2),
+    queryString = _useState4[0],
+    setQueryString = _useState4[1];
+  var results = useMentionLookupService(queryString);
+  var onSelectOption = (0,react__WEBPACK_IMPORTED_MODULE_0__.useCallback)(function (selectedOption, nodeToReplace, closeMenu) {
+    editor.update(function () {
+      var mentionNode = (0,_mention_node__WEBPACK_IMPORTED_MODULE_1__.$createMentionNode)(selectedOption);
+      if (nodeToReplace) {
+        nodeToReplace.replace(mentionNode);
+      }
+      closeMenu();
+    });
+  }, [editor]);
+  var options = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(function () {
+    return results.map(function (result) {
+      return new OptionItem(result);
+    });
+  }, [editor, results]);
+  return /*#__PURE__*/React.createElement(_lexical_react_LexicalTypeaheadMenuPlugin__WEBPACK_IMPORTED_MODULE_4__.LexicalTypeaheadMenuPlugin, {
+    onQueryChange: setQueryString,
+    onSelectOption: onSelectOption,
+    triggerFn: checkForAtSignMentions,
+    options: options,
+    menuRenderFn: function menuRenderFn(anchorElementRef, _ref) {
+      var selectedIndex = _ref.selectedIndex,
+        selectOptionAndCleanUp = _ref.selectOptionAndCleanUp,
+        setHighlightedIndex = _ref.setHighlightedIndex;
+      return anchorElementRef.current && /*#__PURE__*/React.createElement("ul", {
+        className: "absolute inset-x-0 top-full mt-2.5 mx-0 mb-0 w-full h-auto max-h-48 overflow-y-auto z-10 bg-white border border-solid border-border-strong shadow-lg rounded-md"
+      }, options.map(function (option, index) {
+        return /*#__PURE__*/React.createElement("li", {
+          ref: option.ref,
+          key: index,
+          className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_2__.cn)('px-3 py-2 cursor-pointer m-0', index === selectedIndex && 'bg-gray-100'),
+          onMouseEnter: function onMouseEnter() {
+            setHighlightedIndex(index);
+          },
+          onClick: function onClick() {
+            return selectOptionAndCleanUp(option);
+          }
+        }, option.data);
+      }));
+    }
+  });
+};
+/* harmony default export */ __webpack_exports__["default"] = (MentionPlugin);
 
 /***/ }),
 
@@ -32188,2320 +32609,6 @@ function resolveMotionValue(value) {
 }
 
 
-
-
-/***/ }),
-
-/***/ "./node_modules/lexical-beautiful-mentions/BeautifulMentionsPlugin.js":
-/*!****************************************************************************!*\
-  !*** ./node_modules/lexical-beautiful-mentions/BeautifulMentionsPlugin.js ***!
-  \****************************************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   BeautifulMentionsPlugin: function() { return /* binding */ BeautifulMentionsPlugin; },
-/* harmony export */   checkForMentions: function() { return /* binding */ checkForMentions; }
-/* harmony export */ });
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-/* harmony import */ var _lexical_react_LexicalComposerContext__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @lexical/react/LexicalComposerContext */ "./node_modules/@lexical/react/LexicalComposerContext.dev.mjs");
-/* harmony import */ var _lexical_react_LexicalTypeaheadMenuPlugin__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @lexical/react/LexicalTypeaheadMenuPlugin */ "./node_modules/@lexical/react/LexicalTypeaheadMenuPlugin.dev.mjs");
-/* harmony import */ var _lexical_utils__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @lexical/utils */ "./node_modules/@lexical/utils/LexicalUtils.dev.mjs");
-/* harmony import */ var lexical__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! lexical */ "./node_modules/lexical/Lexical.dev.mjs");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-dom */ "react-dom");
-/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _ComboboxPlugin__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./ComboboxPlugin */ "./node_modules/lexical-beautiful-mentions/ComboboxPlugin.js");
-/* harmony import */ var _MentionNode__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./MentionNode */ "./node_modules/lexical-beautiful-mentions/MentionNode.js");
-/* harmony import */ var _Menu__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./Menu */ "./node_modules/lexical-beautiful-mentions/Menu.js");
-/* harmony import */ var _environment__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./environment */ "./node_modules/lexical-beautiful-mentions/environment.js");
-/* harmony import */ var _mention_commands__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./mention-commands */ "./node_modules/lexical-beautiful-mentions/mention-commands.js");
-/* harmony import */ var _mention_utils__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./mention-utils */ "./node_modules/lexical-beautiful-mentions/mention-utils.js");
-/* harmony import */ var _useIsFocused__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./useIsFocused */ "./node_modules/lexical-beautiful-mentions/useIsFocused.js");
-/* harmony import */ var _useMentionLookupService__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./useMentionLookupService */ "./node_modules/lexical-beautiful-mentions/useMentionLookupService.js");
-var __rest = (undefined && undefined.__rest) || function (s, e) {
-    var t = {};
-    for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
-        t[p] = s[p];
-    if (s != null && typeof Object.getOwnPropertySymbols === "function")
-        for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
-            if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
-                t[p[i]] = s[p[i]];
-        }
-    return t;
-};
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-class MentionOption extends _Menu__WEBPACK_IMPORTED_MODULE_5__.MenuOption {
-    constructor(trigger, value, displayValue, data) {
-        super(value, displayValue, data);
-        this.trigger = trigger;
-        this.menuItem = {
-            trigger,
-            value,
-            displayValue,
-            data,
-        };
-    }
-}
-// Non-standard series of chars. Each series must be preceded and followed by
-// a valid char.
-const VALID_JOINS = (punctuation) => "(?:" +
-    "\\.[ |$]|" + // E.g. "r. " in "Mr. Smith"
-    "\\s|" + // E.g. " " in "Josh Duck"
-    "[" +
-    punctuation +
-    "]|" + // E.g. "-' in "Salier-Hellendag"
-    ")";
-// Regex used to trigger the mention menu.
-function createMentionsRegex(triggers, preTriggerChars, punctuation, allowSpaces) {
-    return new RegExp((preTriggerChars ? `(^|\\s|${preTriggerChars})(` : "(^|\\s)(") +
-        (0,_mention_utils__WEBPACK_IMPORTED_MODULE_8__.TRIGGERS)(triggers) +
-        "((?:" +
-        (0,_mention_utils__WEBPACK_IMPORTED_MODULE_8__.VALID_CHARS)(triggers, punctuation) +
-        (allowSpaces ? VALID_JOINS(punctuation) : "") +
-        "){0," +
-        _mention_utils__WEBPACK_IMPORTED_MODULE_8__.LENGTH_LIMIT +
-        "})" +
-        ")$");
-}
-function checkForMentions(text, triggers, preTriggerChars, punctuation, allowSpaces) {
-    const match = createMentionsRegex(triggers, preTriggerChars, punctuation, allowSpaces).exec(text);
-    if (match !== null) {
-        // The strategy ignores leading whitespace, but we need to know its
-        // length to add it to the leadOffset
-        const maybeLeadingWhitespace = match[1];
-        const matchingStringWithTrigger = match[2];
-        const matchingString = match[3];
-        if (matchingStringWithTrigger.length >= 1) {
-            return {
-                leadOffset: match.index + maybeLeadingWhitespace.length,
-                matchingString: matchingString,
-                replaceableString: matchingStringWithTrigger,
-            };
-        }
-    }
-    return null;
-}
-/**
- * A plugin that adds mentions to the lexical editor.
- */
-function BeautifulMentionsPlugin(props) {
-    const { items, onSearch, searchDelay = props.onSearch ? 250 : 0, allowSpaces = true, insertOnBlur = true, menuComponent: MenuComponent = "ul", menuItemComponent: MenuItemComponent = "li", emptyComponent: EmptyComponent, menuAnchorClassName, showMentionsOnDelete, showCurrentMentionsAsSuggestions = true, mentionEnclosure, onMenuOpen, onMenuClose, onMenuItemSelect, punctuation = _mention_utils__WEBPACK_IMPORTED_MODULE_8__.DEFAULT_PUNCTUATION, preTriggerChars = _mention_utils__WEBPACK_IMPORTED_MODULE_8__.PRE_TRIGGER_CHARS, } = props;
-    const justSelectedAnOption = (0,react__WEBPACK_IMPORTED_MODULE_1__.useRef)(false);
-    const isEditorFocused = (0,_useIsFocused__WEBPACK_IMPORTED_MODULE_9__.useIsFocused)();
-    const triggers = (0,react__WEBPACK_IMPORTED_MODULE_1__.useMemo)(() => props.triggers || Object.keys(items || {}), [props.triggers, items]);
-    const [editor] = (0,_lexical_react_LexicalComposerContext__WEBPACK_IMPORTED_MODULE_11__.useLexicalComposerContext)();
-    const [queryString, setQueryString] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(null);
-    const [trigger, setTrigger] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(null);
-    const { results, loading, query } = (0,_useMentionLookupService__WEBPACK_IMPORTED_MODULE_10__.useMentionLookupService)({
-        queryString,
-        searchDelay,
-        trigger,
-        items,
-        onSearch,
-        justSelectedAnOption,
-    });
-    const selectedMenuIndexRef = (0,react__WEBPACK_IMPORTED_MODULE_1__.useRef)();
-    const oldSelection = (0,react__WEBPACK_IMPORTED_MODULE_1__.useRef)(null);
-    const creatable = (0,_mention_utils__WEBPACK_IMPORTED_MODULE_8__.getCreatableProp)(props.creatable, trigger);
-    const menuItemLimit = (0,_mention_utils__WEBPACK_IMPORTED_MODULE_8__.getMenuItemLimitProp)(props.menuItemLimit, trigger);
-    const options = (0,react__WEBPACK_IMPORTED_MODULE_1__.useMemo)(() => {
-        if (!trigger) {
-            return [];
-        }
-        // Add options from the lookup service
-        let opt = results.map((result) => {
-            if (typeof result === "string") {
-                return new MentionOption(trigger, result, result);
-            }
-            else {
-                const { value } = result, data = __rest(result, ["value"]);
-                return new MentionOption(trigger, value, value, data);
-            }
-        });
-        // limit the number of menu items
-        if (menuItemLimit !== false && menuItemLimit > 0) {
-            opt = opt.slice(0, menuItemLimit);
-        }
-        // Add mentions from the editor. When a search function is provided, wait for the
-        // delayed search to prevent flickering.
-        const readyToAddCurrentMentions = !onSearch || (!loading && query !== null);
-        if (readyToAddCurrentMentions && showCurrentMentionsAsSuggestions) {
-            editor.getEditorState().read(() => {
-                const mentions = (0,_mention_utils__WEBPACK_IMPORTED_MODULE_8__.$findBeautifulMentionNodes)(editor);
-                for (const mention of mentions) {
-                    const value = mention.getValue();
-                    const data = mention.getData();
-                    // only add the mention if it's not already in the list
-                    if (mention.getTrigger() === trigger &&
-                        (query === null || mention.getValue().startsWith(query)) &&
-                        opt.every((o) => o.value !== value)) {
-                        opt.push(new MentionOption(trigger, value, value, data));
-                    }
-                }
-            });
-        }
-        // Add option to create a new mention
-        if (query && opt.every((o) => o.displayValue !== query)) {
-            const displayValue = typeof creatable === "string"
-                ? creatable.replace("{{name}}", query)
-                : typeof creatable === "undefined" || creatable
-                    ? `Add "${query}"`
-                    : undefined;
-            if (displayValue) {
-                opt.push(new MentionOption(trigger, query, displayValue));
-            }
-        }
-        return opt;
-    }, [
-        results,
-        onSearch,
-        loading,
-        query,
-        editor,
-        trigger,
-        creatable,
-        menuItemLimit,
-        showCurrentMentionsAsSuggestions,
-    ]);
-    const open = !!options.length || loading;
-    const handleClose = (0,react__WEBPACK_IMPORTED_MODULE_1__.useCallback)(() => {
-        setTrigger(null);
-    }, []);
-    const handleSelectOption = (0,react__WEBPACK_IMPORTED_MODULE_1__.useCallback)((selectedOption, nodeToReplace, closeMenu) => {
-        editor.update(() => {
-            if (!trigger) {
-                return;
-            }
-            const newMention = !!creatable && selectedOption.value !== selectedOption.displayValue;
-            const value = newMention && mentionEnclosure && /\s/.test(selectedOption.value)
-                ? // if the value has spaces, wrap it in the enclosure
-                    mentionEnclosure + selectedOption.value + mentionEnclosure
-                : selectedOption.value;
-            const mentionNode = (0,_MentionNode__WEBPACK_IMPORTED_MODULE_4__.$createBeautifulMentionNode)(trigger, value, selectedOption.data);
-            if (nodeToReplace) {
-                nodeToReplace.replace(mentionNode);
-            }
-            closeMenu === null || closeMenu === void 0 ? void 0 : closeMenu();
-            justSelectedAnOption.current = true;
-        });
-    }, [editor, trigger, creatable, mentionEnclosure]);
-    const handleSelectMenuItem = (0,react__WEBPACK_IMPORTED_MODULE_1__.useCallback)((selectedOption, nodeToReplace, closeMenu) => {
-        if (!trigger) {
-            return;
-        }
-        onMenuItemSelect === null || onMenuItemSelect === void 0 ? void 0 : onMenuItemSelect({
-            trigger,
-            value: selectedOption.value,
-            displayValue: selectedOption.displayValue,
-            data: selectedOption.data,
-        });
-        handleSelectOption(selectedOption, nodeToReplace, closeMenu);
-    }, [handleSelectOption, onMenuItemSelect, trigger]);
-    const checkForMentionMatch = (0,react__WEBPACK_IMPORTED_MODULE_1__.useCallback)((text) => {
-        // Don't show the menu if the next character is a word character
-        const selectionInfo = (0,_mention_utils__WEBPACK_IMPORTED_MODULE_8__.$getSelectionInfo)(triggers, punctuation);
-        if ((selectionInfo === null || selectionInfo === void 0 ? void 0 : selectionInfo.isTextNode) && selectionInfo.wordCharAfterCursor) {
-            return null;
-        }
-        const queryMatch = checkForMentions(text, triggers, preTriggerChars, punctuation, allowSpaces);
-        if (queryMatch) {
-            const { replaceableString, matchingString } = queryMatch;
-            const index = replaceableString.lastIndexOf(matchingString);
-            const trigger = index === -1
-                ? replaceableString
-                : replaceableString.substring(0, index) +
-                    replaceableString.substring(index + matchingString.length);
-            setTrigger(trigger || null);
-            if (queryMatch.replaceableString) {
-                return queryMatch;
-            }
-        }
-        else {
-            setTrigger(null);
-        }
-        return null;
-    }, [preTriggerChars, allowSpaces, punctuation, triggers]);
-    const convertTextToMention = (0,react__WEBPACK_IMPORTED_MODULE_1__.useCallback)(() => {
-        const selectedMenuIndex = selectedMenuIndexRef.current;
-        let option = typeof selectedMenuIndex === "number"
-            ? options[selectedMenuIndex]
-            : undefined;
-        const newMention = options.find((o) => o.value !== o.displayValue);
-        if (newMention && (_environment__WEBPACK_IMPORTED_MODULE_6__.IS_MOBILE || option === null)) {
-            option = newMention;
-        }
-        if (!option) {
-            return false;
-        }
-        const selectionInfo = (0,_mention_utils__WEBPACK_IMPORTED_MODULE_8__.$getSelectionInfo)(triggers, punctuation);
-        if (!trigger || !selectionInfo || !selectionInfo.isTextNode) {
-            return false;
-        }
-        const node = selectionInfo.node;
-        const textContent = (0,_mention_utils__WEBPACK_IMPORTED_MODULE_8__.getTextContent)(node);
-        const queryMatch = checkForMentions(textContent, triggers, preTriggerChars, punctuation, false);
-        if (queryMatch === null) {
-            return false;
-        }
-        const textEndIndex = textContent.search(new RegExp(`${queryMatch.replaceableString}\\s?$`));
-        if (textEndIndex === -1) {
-            return false;
-        }
-        const mentionNode = (0,_MentionNode__WEBPACK_IMPORTED_MODULE_4__.$createBeautifulMentionNode)(trigger, option.value, option.data);
-        editor.update(() => {
-            node.setTextContent(textContent.substring(0, textEndIndex));
-            node.insertAfter(mentionNode);
-            mentionNode.selectNext();
-        }, { tag: "history-merge" });
-        return true;
-    }, [editor, options, preTriggerChars, punctuation, trigger, triggers]);
-    const restoreSelection = (0,react__WEBPACK_IMPORTED_MODULE_1__.useCallback)(() => {
-        const selection = (0,lexical__WEBPACK_IMPORTED_MODULE_12__.$getSelection)();
-        if ((!selection || (0,lexical__WEBPACK_IMPORTED_MODULE_12__.$isNodeSelection)(selection)) && oldSelection.current) {
-            const newSelection = oldSelection.current.clone();
-            (0,lexical__WEBPACK_IMPORTED_MODULE_12__.$setSelection)(newSelection);
-        }
-        else if (!selection) {
-            (0,_mention_utils__WEBPACK_IMPORTED_MODULE_8__.$selectEnd)();
-        }
-        if (oldSelection.current) {
-            oldSelection.current = null;
-        }
-    }, []);
-    const handleDeleteMention = (0,react__WEBPACK_IMPORTED_MODULE_1__.useCallback)((event) => {
-        if (!showMentionsOnDelete) {
-            return false;
-        }
-        const selectionInfo = (0,_mention_utils__WEBPACK_IMPORTED_MODULE_8__.$getSelectionInfo)(triggers, punctuation);
-        if (selectionInfo) {
-            const { node, prevNode, offset } = selectionInfo;
-            const mentionNode = (0,_MentionNode__WEBPACK_IMPORTED_MODULE_4__.$isBeautifulMentionNode)(node)
-                ? node
-                : (0,_MentionNode__WEBPACK_IMPORTED_MODULE_4__.$isBeautifulMentionNode)(prevNode) && offset === 0
-                    ? prevNode
-                    : null;
-            if (mentionNode) {
-                const trigger = mentionNode.getTrigger();
-                mentionNode.replace((0,lexical__WEBPACK_IMPORTED_MODULE_12__.$createTextNode)(trigger));
-                event.preventDefault();
-                return true;
-            }
-        }
-        return false;
-    }, [showMentionsOnDelete, triggers, punctuation]);
-    const insertSpaceIfNecessary = (0,react__WEBPACK_IMPORTED_MODULE_1__.useCallback)((startsWithTriggerChar = false) => {
-        const selectionInfo = (0,_mention_utils__WEBPACK_IMPORTED_MODULE_8__.$getSelectionInfo)(triggers, punctuation);
-        if (!selectionInfo) {
-            return;
-        }
-        const { node, offset, type, parentNode, isTextNode, textContent, prevNode, nextNode, wordCharAfterCursor, cursorAtStartOfNode, cursorAtEndOfNode, } = selectionInfo;
-        // [Mention][|][Text]
-        if (isTextNode &&
-            cursorAtStartOfNode &&
-            (0,_MentionNode__WEBPACK_IMPORTED_MODULE_4__.$isBeautifulMentionNode)(prevNode)) {
-            node.insertBefore((0,lexical__WEBPACK_IMPORTED_MODULE_12__.$createTextNode)(" "));
-            return;
-        }
-        // ^[|][Mention]
-        if ((0,_MentionNode__WEBPACK_IMPORTED_MODULE_4__.$isBeautifulMentionNode)(node) &&
-            prevNode === null &&
-            (0,lexical__WEBPACK_IMPORTED_MODULE_12__.$isParagraphNode)(parentNode) &&
-            type === "element" &&
-            offset === 0) {
-            const textNode = (0,lexical__WEBPACK_IMPORTED_MODULE_12__.$createTextNode)(" ");
-            node.insertBefore(textNode);
-            textNode.selectStart();
-            return;
-        }
-        // [Text][|][Mention]
-        if (isTextNode &&
-            cursorAtEndOfNode &&
-            (0,_MentionNode__WEBPACK_IMPORTED_MODULE_4__.$isBeautifulMentionNode)(nextNode)) {
-            node.insertAfter((0,lexical__WEBPACK_IMPORTED_MODULE_12__.$createTextNode)(" "));
-            return;
-        }
-        // [Text][|][Word]
-        if (isTextNode && startsWithTriggerChar && wordCharAfterCursor) {
-            const content = textContent.substring(0, offset) +
-                " " +
-                textContent.substring(offset);
-            node.setTextContent(content);
-            return;
-        }
-        // [Mention][|]
-        if ((0,_MentionNode__WEBPACK_IMPORTED_MODULE_4__.$isBeautifulMentionNode)(node) && nextNode === null) {
-            node.insertAfter((0,lexical__WEBPACK_IMPORTED_MODULE_12__.$createTextNode)(" "));
-        }
-    }, [punctuation, triggers]);
-    const handleKeyDown = (0,react__WEBPACK_IMPORTED_MODULE_1__.useCallback)((event) => {
-        const { key, metaKey, ctrlKey } = event;
-        const simpleKey = (key === null || key === void 0 ? void 0 : key.length) === 1;
-        const isTrigger = triggers.some((trigger) => key === trigger);
-        const wordChar = (0,_mention_utils__WEBPACK_IMPORTED_MODULE_8__.isWordChar)(key, triggers, punctuation);
-        if (!simpleKey || (!wordChar && !isTrigger) || metaKey || ctrlKey) {
-            return false;
-        }
-        insertSpaceIfNecessary(isTrigger);
-        return false;
-    }, [insertSpaceIfNecessary, punctuation, triggers]);
-    const handlePaste = (0,react__WEBPACK_IMPORTED_MODULE_1__.useCallback)((event) => {
-        var _a;
-        const text = (_a = event.clipboardData) === null || _a === void 0 ? void 0 : _a.getData("text/plain");
-        const firstChar = text && text.charAt(0);
-        const isTrigger = triggers.some((trigger) => firstChar === trigger);
-        const isPunctuation = firstChar && new RegExp(`[\\s${punctuation}]`).test(firstChar);
-        if (isTrigger || !isPunctuation) {
-            insertSpaceIfNecessary();
-        }
-        return false; // will be handled by the lexical clipboard module
-    }, [insertSpaceIfNecessary, triggers, punctuation]);
-    (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(() => {
-        if (!editor.hasNodes([_MentionNode__WEBPACK_IMPORTED_MODULE_4__.BeautifulMentionNode])) {
-            throw new Error("BeautifulMentionsPlugin: BeautifulMentionNode not registered on editor");
-        }
-        return (0,_lexical_utils__WEBPACK_IMPORTED_MODULE_13__.mergeRegister)(editor.registerCommand(lexical__WEBPACK_IMPORTED_MODULE_12__.SELECTION_CHANGE_COMMAND, () => {
-            const selection = (0,lexical__WEBPACK_IMPORTED_MODULE_12__.$getSelection)();
-            if (selection && !(0,lexical__WEBPACK_IMPORTED_MODULE_12__.$isNodeSelection)(selection)) {
-                oldSelection.current = selection;
-            }
-            return false;
-        }, lexical__WEBPACK_IMPORTED_MODULE_12__.COMMAND_PRIORITY_LOW), editor.registerCommand(lexical__WEBPACK_IMPORTED_MODULE_12__.KEY_DOWN_COMMAND, handleKeyDown, lexical__WEBPACK_IMPORTED_MODULE_12__.COMMAND_PRIORITY_LOW), editor.registerCommand(lexical__WEBPACK_IMPORTED_MODULE_12__.KEY_BACKSPACE_COMMAND, handleDeleteMention, lexical__WEBPACK_IMPORTED_MODULE_12__.COMMAND_PRIORITY_LOW), editor.registerCommand(lexical__WEBPACK_IMPORTED_MODULE_12__.BLUR_COMMAND, () => {
-            if (insertOnBlur) {
-                return convertTextToMention();
-            }
-            return false;
-        }, lexical__WEBPACK_IMPORTED_MODULE_12__.COMMAND_PRIORITY_LOW), editor.registerCommand(lexical__WEBPACK_IMPORTED_MODULE_12__.KEY_SPACE_COMMAND, () => {
-            if (!allowSpaces && creatable) {
-                return convertTextToMention();
-            }
-            else {
-                return false;
-            }
-        }, lexical__WEBPACK_IMPORTED_MODULE_12__.COMMAND_PRIORITY_LOW), editor.registerCommand(_mention_commands__WEBPACK_IMPORTED_MODULE_7__.INSERT_MENTION_COMMAND, ({ trigger, value, data, focus = true }) => {
-            restoreSelection();
-            const inserted = (0,_mention_commands__WEBPACK_IMPORTED_MODULE_7__.$insertMentionAtSelection)(triggers, punctuation, trigger, value, data);
-            if (!focus) {
-                (0,lexical__WEBPACK_IMPORTED_MODULE_12__.$setSelection)(null);
-            }
-            return inserted;
-        }, lexical__WEBPACK_IMPORTED_MODULE_12__.COMMAND_PRIORITY_LOW), editor.registerCommand(_mention_commands__WEBPACK_IMPORTED_MODULE_7__.REMOVE_MENTIONS_COMMAND, ({ trigger, value, focus }) => (0,_mention_commands__WEBPACK_IMPORTED_MODULE_7__.$removeMention)(trigger, value, focus), lexical__WEBPACK_IMPORTED_MODULE_12__.COMMAND_PRIORITY_LOW), editor.registerCommand(_mention_commands__WEBPACK_IMPORTED_MODULE_7__.RENAME_MENTIONS_COMMAND, ({ trigger, newValue, value, focus }) => (0,_mention_commands__WEBPACK_IMPORTED_MODULE_7__.$renameMention)(trigger, newValue, value, focus), lexical__WEBPACK_IMPORTED_MODULE_12__.COMMAND_PRIORITY_LOW), editor.registerCommand(_mention_commands__WEBPACK_IMPORTED_MODULE_7__.OPEN_MENTION_MENU_COMMAND, ({ trigger }) => {
-            restoreSelection();
-            return (0,_mention_commands__WEBPACK_IMPORTED_MODULE_7__.$insertTriggerAtSelection)(triggers, punctuation, trigger);
-        }, lexical__WEBPACK_IMPORTED_MODULE_12__.COMMAND_PRIORITY_LOW), editor.registerCommand(lexical__WEBPACK_IMPORTED_MODULE_12__.PASTE_COMMAND, handlePaste, lexical__WEBPACK_IMPORTED_MODULE_12__.COMMAND_PRIORITY_LOW));
-    }, [
-        editor,
-        triggers,
-        punctuation,
-        allowSpaces,
-        insertOnBlur,
-        creatable,
-        isEditorFocused,
-        convertTextToMention,
-        handleKeyDown,
-        handleDeleteMention,
-        handlePaste,
-        restoreSelection,
-    ]);
-    (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(() => {
-        if (open && isEditorFocused) {
-            onMenuOpen === null || onMenuOpen === void 0 ? void 0 : onMenuOpen();
-        }
-        else {
-            onMenuClose === null || onMenuClose === void 0 ? void 0 : onMenuClose();
-        }
-        if (open && !isEditorFocused) {
-            handleClose();
-        }
-    }, [onMenuOpen, onMenuClose, open, isEditorFocused, handleClose]);
-    if (!_environment__WEBPACK_IMPORTED_MODULE_6__.CAN_USE_DOM) {
-        return null;
-    }
-    if (props.combobox) {
-        return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_ComboboxPlugin__WEBPACK_IMPORTED_MODULE_3__.ComboboxPlugin, { options: options, loading: loading, onQueryChange: setQueryString, onSelectOption: handleSelectOption, onReset: () => setTrigger(null), triggerFn: checkForMentionMatch, triggers: triggers, punctuation: punctuation, creatable: creatable, comboboxOpen: props.comboboxOpen, comboboxAnchor: props.comboboxAnchor, comboboxAnchorClassName: props.comboboxAnchorClassName, comboboxComponent: props.comboboxComponent, comboboxItemComponent: props.comboboxItemComponent, comboboxAdditionalItems: props.comboboxAdditionalItems, onComboboxOpen: props.onComboboxOpen, onComboboxClose: props.onComboboxClose, onComboboxFocusChange: props.onComboboxFocusChange, onComboboxItemSelect: props.onComboboxItemSelect }));
-    }
-    return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_lexical_react_LexicalTypeaheadMenuPlugin__WEBPACK_IMPORTED_MODULE_14__.LexicalTypeaheadMenuPlugin, { commandPriority: lexical__WEBPACK_IMPORTED_MODULE_12__.COMMAND_PRIORITY_NORMAL, onQueryChange: setQueryString, onSelectOption: handleSelectMenuItem, triggerFn: checkForMentionMatch, options: options, anchorClassName: menuAnchorClassName, onClose: handleClose, menuRenderFn: (anchorElementRef, { selectedIndex, selectOptionAndCleanUp, setHighlightedIndex }) => {
-            selectedMenuIndexRef.current = selectedIndex;
-            if (anchorElementRef.current &&
-                options.length === 0 &&
-                query &&
-                !loading &&
-                isEditorFocused &&
-                EmptyComponent) {
-                return react_dom__WEBPACK_IMPORTED_MODULE_2__.createPortal((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(EmptyComponent, {}), anchorElementRef.current);
-            }
-            return anchorElementRef.current && open
-                ? react_dom__WEBPACK_IMPORTED_MODULE_2__.createPortal((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(MenuComponent, { loading: loading, role: "menu", "aria-label": "Choose a mention", "aria-hidden": !open, "aria-activedescendant": !_environment__WEBPACK_IMPORTED_MODULE_6__.IS_MOBILE &&
-                        selectedIndex !== null &&
-                        !!options[selectedIndex]
-                        ? options[selectedIndex].displayValue
-                        : "", children: options.map((option, i) => ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(MenuItemComponent, Object.assign({ tabIndex: -1, selected: !_environment__WEBPACK_IMPORTED_MODULE_6__.IS_MOBILE && selectedIndex === i, ref: option.setRefElement, role: "menuitem", "aria-selected": !_environment__WEBPACK_IMPORTED_MODULE_6__.IS_MOBILE && selectedIndex === i, "aria-label": `Choose ${option.value}`, item: option.menuItem, itemValue: option.value, label: option.displayValue }, option.data, { onClick: () => {
-                            setHighlightedIndex(i);
-                            selectOptionAndCleanUp(option);
-                        }, onMouseDown: (event) => {
-                            event.preventDefault();
-                        }, onMouseEnter: () => {
-                            setHighlightedIndex(i);
-                        }, children: option.displayValue }), option.key))) }), anchorElementRef.current)
-                : null;
-        } }));
-}
-
-
-/***/ }),
-
-/***/ "./node_modules/lexical-beautiful-mentions/BeautifulMentionsPluginProps.js":
-/*!*********************************************************************************!*\
-  !*** ./node_modules/lexical-beautiful-mentions/BeautifulMentionsPluginProps.js ***!
-  \*********************************************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-__webpack_require__.r(__webpack_exports__);
-
-
-
-/***/ }),
-
-/***/ "./node_modules/lexical-beautiful-mentions/ComboboxPlugin.js":
-/*!*******************************************************************!*\
-  !*** ./node_modules/lexical-beautiful-mentions/ComboboxPlugin.js ***!
-  \*******************************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   ComboboxPlugin: function() { return /* binding */ ComboboxPlugin; },
-/* harmony export */   checkForTriggers: function() { return /* binding */ checkForTriggers; },
-/* harmony export */   useAnchorRef: function() { return /* binding */ useAnchorRef; }
-/* harmony export */ });
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-/* harmony import */ var _lexical_react_LexicalComposerContext__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @lexical/react/LexicalComposerContext */ "./node_modules/@lexical/react/LexicalComposerContext.dev.mjs");
-/* harmony import */ var _lexical_utils__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @lexical/utils */ "./node_modules/@lexical/utils/LexicalUtils.dev.mjs");
-/* harmony import */ var lexical__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! lexical */ "./node_modules/lexical/Lexical.dev.mjs");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-dom */ "react-dom");
-/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _Menu__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Menu */ "./node_modules/lexical-beautiful-mentions/Menu.js");
-/* harmony import */ var _environment__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./environment */ "./node_modules/lexical-beautiful-mentions/environment.js");
-/* harmony import */ var _mention_commands__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./mention-commands */ "./node_modules/lexical-beautiful-mentions/mention-commands.js");
-/* harmony import */ var _mention_utils__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./mention-utils */ "./node_modules/lexical-beautiful-mentions/mention-utils.js");
-/* harmony import */ var _useIsFocused__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./useIsFocused */ "./node_modules/lexical-beautiful-mentions/useIsFocused.js");
-
-
-
-
-
-
-
-
-
-
-
-class ComboboxOption extends _Menu__WEBPACK_IMPORTED_MODULE_3__.MenuOption {
-    constructor(itemType, value, displayValue, data = {}) {
-        super(value, displayValue, data);
-        this.itemType = itemType;
-        this.comboboxItem = {
-            itemType: itemType,
-            value: value,
-            displayValue: displayValue,
-            data: data,
-        };
-        this.menuOption = new _Menu__WEBPACK_IMPORTED_MODULE_3__.MenuOption(value, displayValue, data);
-    }
-}
-function getQueryTextForSearch(editor) {
-    let text = null;
-    editor.getEditorState().read(() => {
-        const selection = (0,lexical__WEBPACK_IMPORTED_MODULE_8__.$getSelection)();
-        if (!(0,lexical__WEBPACK_IMPORTED_MODULE_8__.$isRangeSelection)(selection)) {
-            return;
-        }
-        text = getTextUpToAnchor(selection);
-    });
-    return text;
-}
-function getTextUpToAnchor(selection) {
-    const anchor = selection.anchor;
-    if (anchor.type !== "text") {
-        return null;
-    }
-    const anchorNode = anchor.getNode();
-    if (!anchorNode.isSimpleText()) {
-        return null;
-    }
-    const anchorOffset = anchor.offset;
-    return (0,_mention_utils__WEBPACK_IMPORTED_MODULE_6__.getTextContent)(anchorNode).slice(0, anchorOffset);
-}
-function isCharacterKey(event) {
-    return (event.key.length === 1 &&
-        !event.ctrlKey &&
-        !event.altKey &&
-        !event.metaKey &&
-        !event.repeat);
-}
-function useAnchorRef(render, comboboxAnchor, comboboxAnchorClassName) {
-    const [editor] = (0,_lexical_react_LexicalComposerContext__WEBPACK_IMPORTED_MODULE_9__.useLexicalComposerContext)();
-    const [anchor, setAnchor] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(comboboxAnchor || null);
-    const [anchorChild, setAnchorChild] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(null);
-    (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(() => {
-        if (comboboxAnchor) {
-            setAnchor(comboboxAnchor);
-            return;
-        }
-        return editor.registerRootListener((rootElement) => {
-            if (rootElement) {
-                setAnchor(rootElement.parentElement);
-            }
-        });
-    }, [editor, comboboxAnchor]);
-    (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(() => {
-        if (!anchor) {
-            return;
-        }
-        if (!render) {
-            if (anchorChild) {
-                anchorChild.remove();
-                setAnchorChild(null);
-            }
-            return;
-        }
-        const { height } = anchor.getBoundingClientRect();
-        const newAnchorChild = anchorChild || document.createElement("div");
-        newAnchorChild.style.position = "absolute";
-        newAnchorChild.style.left = "0";
-        newAnchorChild.style.right = "0";
-        newAnchorChild.style.paddingTop = `${height}px`;
-        anchor.prepend(newAnchorChild);
-        if (!anchorChild) {
-            setAnchorChild(newAnchorChild);
-        }
-        const anchorObserver = new ResizeObserver(([entry]) => {
-            newAnchorChild.style.paddingTop = `${entry.contentRect.height}px`;
-        });
-        anchorObserver.observe(anchor);
-        setTimeout(() => {
-            newAnchorChild.className = comboboxAnchorClassName || "";
-        });
-        return () => {
-            anchorObserver.disconnect();
-            anchor.removeChild(newAnchorChild);
-        };
-    }, [anchor, render, anchorChild, comboboxAnchorClassName]);
-    return anchorChild;
-}
-function checkForTriggers(text, triggers) {
-    const last = text.split(/\s/).pop() || text;
-    const offset = text !== last ? text.lastIndexOf(last) : 0;
-    const match = triggers.some((t) => t.startsWith(last) && t !== last);
-    if (match) {
-        return {
-            leadOffset: offset,
-            matchingString: last,
-            replaceableString: last,
-        };
-    }
-    return null;
-}
-function ComboboxPlugin(props) {
-    const { onSelectOption, triggers, punctuation, loading, triggerFn, onQueryChange, onReset, comboboxAnchor, comboboxAnchorClassName, comboboxComponent: ComboboxComponent = "div", comboboxItemComponent: ComboboxItemComponent = "div", onComboboxOpen, onComboboxClose, onComboboxFocusChange, comboboxAdditionalItems = [], onComboboxItemSelect, } = props;
-    const focused = (0,_useIsFocused__WEBPACK_IMPORTED_MODULE_7__.useIsFocused)();
-    const [editor] = (0,_lexical_react_LexicalComposerContext__WEBPACK_IMPORTED_MODULE_9__.useLexicalComposerContext)();
-    const [selectedIndex, setSelectedIndex] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(null);
-    const [triggerMatch, setTriggerMatch] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(null);
-    const [valueMatch, setValueMatch] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(null);
-    const [triggerQueryString, setTriggerQueryString] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(null);
-    const itemType = props.options.length === 0 ? "trigger" : "value";
-    const options = (0,react__WEBPACK_IMPORTED_MODULE_1__.useMemo)(() => {
-        const additionalOptions = comboboxAdditionalItems.map((opt) => new ComboboxOption("additional", opt.value, opt.displayValue, opt.data));
-        if (itemType === "trigger") {
-            const triggerOptions = triggers.map((trigger) => new ComboboxOption("trigger", trigger, trigger));
-            if (!triggerQueryString ||
-                triggerOptions.every((o) => !o.value.startsWith(triggerQueryString))) {
-                return [...triggerOptions, ...additionalOptions];
-            }
-            return [
-                ...triggerOptions.filter((o) => o.value.startsWith(triggerQueryString)),
-                ...additionalOptions,
-            ];
-        }
-        return [
-            ...props.options.map((opt) => new ComboboxOption("value", opt.value, opt.displayValue, opt.data)),
-            ...additionalOptions,
-        ];
-    }, [
-        comboboxAdditionalItems,
-        itemType,
-        props.options,
-        triggers,
-        triggerQueryString,
-    ]);
-    const [open, setOpen] = (0,react__WEBPACK_IMPORTED_MODULE_1__.useState)(props.comboboxOpen || false);
-    const anchor = useAnchorRef(open, comboboxAnchor, comboboxAnchorClassName);
-    const highlightOption = (0,react__WEBPACK_IMPORTED_MODULE_1__.useCallback)((index) => {
-        if (!_environment__WEBPACK_IMPORTED_MODULE_4__.IS_MOBILE) {
-            setSelectedIndex(index);
-        }
-    }, []);
-    const scrollIntoView = (0,react__WEBPACK_IMPORTED_MODULE_1__.useCallback)((index) => {
-        var _a;
-        const option = options[index];
-        const el = (_a = option.ref) === null || _a === void 0 ? void 0 : _a.current;
-        if (el) {
-            el.scrollIntoView({ block: "nearest" });
-        }
-    }, [options]);
-    const handleArrowKeyDown = (0,react__WEBPACK_IMPORTED_MODULE_1__.useCallback)((event, direction) => {
-        if (!focused) {
-            return false;
-        }
-        let newIndex;
-        if (direction === "up") {
-            if (selectedIndex === null) {
-                newIndex = options.length - 1;
-            }
-            else if (selectedIndex === 0) {
-                newIndex = null;
-            }
-            else {
-                newIndex = selectedIndex - 1;
-            }
-        }
-        else {
-            if (selectedIndex === null) {
-                newIndex = 0;
-            }
-            else if (selectedIndex === options.length - 1) {
-                newIndex = null;
-            }
-            else {
-                newIndex = selectedIndex + 1;
-            }
-        }
-        highlightOption(newIndex);
-        if (newIndex) {
-            scrollIntoView(newIndex);
-        }
-        event.preventDefault();
-        event.stopImmediatePropagation();
-        return true;
-    }, [focused, selectedIndex, options.length, scrollIntoView, highlightOption]);
-    const handleMouseEnter = (0,react__WEBPACK_IMPORTED_MODULE_1__.useCallback)((index) => {
-        highlightOption(index);
-        scrollIntoView(index);
-    }, [scrollIntoView, highlightOption]);
-    const handleMouseLeave = (0,react__WEBPACK_IMPORTED_MODULE_1__.useCallback)(() => {
-        highlightOption(null);
-    }, [highlightOption]);
-    const handleSelectValue = (0,react__WEBPACK_IMPORTED_MODULE_1__.useCallback)((index) => {
-        const option = options[index];
-        onComboboxItemSelect === null || onComboboxItemSelect === void 0 ? void 0 : onComboboxItemSelect(option.comboboxItem);
-        if (option.itemType === "additional") {
-            return;
-        }
-        editor.update(() => {
-            const textNode = valueMatch
-                ? (0,_Menu__WEBPACK_IMPORTED_MODULE_3__.$splitNodeContainingQuery)(valueMatch)
-                : null;
-            onSelectOption(option.menuOption, textNode);
-        });
-        setValueMatch(null);
-        onQueryChange(null);
-        setTriggerQueryString(null);
-        highlightOption(null);
-    }, [
-        options,
-        editor,
-        onQueryChange,
-        highlightOption,
-        onComboboxItemSelect,
-        valueMatch,
-        onSelectOption,
-    ]);
-    const handleSelectTrigger = (0,react__WEBPACK_IMPORTED_MODULE_1__.useCallback)((index) => {
-        const option = options[index];
-        onComboboxItemSelect === null || onComboboxItemSelect === void 0 ? void 0 : onComboboxItemSelect(option.comboboxItem);
-        if (option.itemType === "additional") {
-            return;
-        }
-        editor.update(() => {
-            const nodeToReplace = triggerMatch
-                ? (0,_Menu__WEBPACK_IMPORTED_MODULE_3__.$splitNodeContainingQuery)(triggerMatch)
-                : null;
-            if (nodeToReplace) {
-                const textNode = (0,lexical__WEBPACK_IMPORTED_MODULE_8__.$createTextNode)(option.value);
-                nodeToReplace.replace(textNode);
-                textNode.select();
-            }
-            else {
-                (0,_mention_commands__WEBPACK_IMPORTED_MODULE_5__.$insertTriggerAtSelection)(triggers, punctuation, option.value);
-            }
-        });
-        setTriggerMatch(null);
-        setTriggerQueryString(null);
-        highlightOption(0);
-    }, [
-        options,
-        editor,
-        highlightOption,
-        onComboboxItemSelect,
-        triggerMatch,
-        triggers,
-        punctuation,
-    ]);
-    const handleClick = (0,react__WEBPACK_IMPORTED_MODULE_1__.useCallback)((index) => {
-        if (itemType === "trigger") {
-            handleSelectTrigger(index);
-        }
-        if (itemType === "value") {
-            handleSelectValue(index);
-        }
-    }, [itemType, handleSelectTrigger, handleSelectValue]);
-    const handleKeySelect = (0,react__WEBPACK_IMPORTED_MODULE_1__.useCallback)((event) => {
-        if (!focused || selectedIndex === null) {
-            return false;
-        }
-        let handled = false;
-        if (itemType === "trigger") {
-            handled = true;
-            handleSelectTrigger(selectedIndex);
-        }
-        if (itemType === "value") {
-            handled = true;
-            handleSelectValue(selectedIndex);
-        }
-        if (handled) {
-            event.preventDefault();
-            event.stopImmediatePropagation();
-        }
-        return handled;
-    }, [focused, handleSelectValue, handleSelectTrigger, itemType, selectedIndex]);
-    const handleBackspace = (0,react__WEBPACK_IMPORTED_MODULE_1__.useCallback)(() => {
-        const text = getQueryTextForSearch(editor);
-        const newText = text ? text.substring(0, text.length - 1) : undefined;
-        if (!newText || !newText.trim()) {
-            highlightOption(null);
-        }
-        return false;
-    }, [editor, highlightOption]);
-    const handleKeyDown = (0,react__WEBPACK_IMPORTED_MODULE_1__.useCallback)((event) => {
-        setOpen(true);
-        if (!isCharacterKey(event)) {
-            return false;
-        }
-        const text = getQueryTextForSearch(editor);
-        const value = text === null ? event.key : text + event.key;
-        const valueTrimmed = value.trim();
-        if (options.some((o) => o.displayValue.startsWith(valueTrimmed) &&
-            valueTrimmed.length <= o.displayValue.length)) {
-            highlightOption(0);
-        }
-        else if (itemType === "trigger") {
-            highlightOption(null);
-        }
-        return false;
-    }, [editor, options, itemType, highlightOption]);
-    const handleFocus = (0,react__WEBPACK_IMPORTED_MODULE_1__.useCallback)(() => {
-        setOpen(true);
-        return false;
-    }, []);
-    const handleClickOutside = (0,react__WEBPACK_IMPORTED_MODULE_1__.useCallback)(() => {
-        setOpen(false);
-        if (!triggerQueryString) {
-            setTriggerQueryString(null);
-            setTriggerMatch(null);
-            setValueMatch(null);
-        }
-        return false;
-    }, [triggerQueryString]);
-    (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(() => {
-        return (0,_lexical_utils__WEBPACK_IMPORTED_MODULE_10__.mergeRegister)(editor.registerCommand(lexical__WEBPACK_IMPORTED_MODULE_8__.KEY_ARROW_DOWN_COMMAND, (event) => {
-            return handleArrowKeyDown(event, "down");
-        }, lexical__WEBPACK_IMPORTED_MODULE_8__.COMMAND_PRIORITY_LOW), editor.registerCommand(lexical__WEBPACK_IMPORTED_MODULE_8__.KEY_ARROW_UP_COMMAND, (event) => {
-            return handleArrowKeyDown(event, "up");
-        }, lexical__WEBPACK_IMPORTED_MODULE_8__.COMMAND_PRIORITY_LOW), editor.registerCommand(lexical__WEBPACK_IMPORTED_MODULE_8__.KEY_ENTER_COMMAND, handleKeySelect, lexical__WEBPACK_IMPORTED_MODULE_8__.COMMAND_PRIORITY_NORMAL), editor.registerCommand(lexical__WEBPACK_IMPORTED_MODULE_8__.KEY_TAB_COMMAND, handleKeySelect, lexical__WEBPACK_IMPORTED_MODULE_8__.COMMAND_PRIORITY_LOW), editor.registerCommand(lexical__WEBPACK_IMPORTED_MODULE_8__.KEY_BACKSPACE_COMMAND, handleBackspace, lexical__WEBPACK_IMPORTED_MODULE_8__.COMMAND_PRIORITY_LOW), editor.registerCommand(lexical__WEBPACK_IMPORTED_MODULE_8__.KEY_DOWN_COMMAND, handleKeyDown, lexical__WEBPACK_IMPORTED_MODULE_8__.COMMAND_PRIORITY_LOW), editor.registerCommand(lexical__WEBPACK_IMPORTED_MODULE_8__.FOCUS_COMMAND, handleFocus, lexical__WEBPACK_IMPORTED_MODULE_8__.COMMAND_PRIORITY_NORMAL), editor.registerCommand(lexical__WEBPACK_IMPORTED_MODULE_8__.CLICK_COMMAND, () => {
-            if (!open) {
-                setOpen(true);
-            }
-            return false;
-        }, lexical__WEBPACK_IMPORTED_MODULE_8__.COMMAND_PRIORITY_LOW), editor.registerCommand(lexical__WEBPACK_IMPORTED_MODULE_8__.KEY_ESCAPE_COMMAND, () => {
-            setOpen(false);
-            return false;
-        }, lexical__WEBPACK_IMPORTED_MODULE_8__.COMMAND_PRIORITY_LOW));
-    }, [
-        editor,
-        open,
-        handleArrowKeyDown,
-        handleKeySelect,
-        handleBackspace,
-        handleKeyDown,
-        handleFocus,
-    ]);
-    (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(() => {
-        const updateListener = () => {
-            editor.getEditorState().read(() => {
-                const text = getQueryTextForSearch(editor);
-                // reset if no text
-                if (text === null) {
-                    onReset();
-                    setTriggerMatch(null);
-                    setValueMatch(null);
-                    onQueryChange(null);
-                    setTriggerQueryString(null);
-                    return;
-                }
-                // check for triggers
-                const triggerMatch = checkForTriggers(text, triggers);
-                setTriggerMatch(triggerMatch);
-                if (triggerMatch) {
-                    setTriggerQueryString(triggerMatch.matchingString);
-                    setValueMatch(null);
-                    return;
-                }
-                // check for mentions
-                const valueMatch = triggerFn(text, editor);
-                setValueMatch(valueMatch);
-                onQueryChange(valueMatch ? valueMatch.matchingString : null);
-                if (valueMatch && valueMatch.matchingString) {
-                    setTriggerQueryString(valueMatch.matchingString);
-                    return;
-                }
-                setTriggerQueryString(null);
-            });
-        };
-        return editor.registerUpdateListener(updateListener);
-    }, [editor, triggerFn, onQueryChange, onReset, triggers]);
-    (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(() => {
-        setOpen(props.comboboxOpen || false);
-    }, [props.comboboxOpen]);
-    // call open/close callbacks when open state changes
-    (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(() => {
-        if (open) {
-            onComboboxOpen === null || onComboboxOpen === void 0 ? void 0 : onComboboxOpen();
-        }
-        else {
-            setSelectedIndex(null);
-            onComboboxClose === null || onComboboxClose === void 0 ? void 0 : onComboboxClose();
-        }
-    }, [onComboboxOpen, onComboboxClose, open]);
-    // call focus change callback when selected index changes
-    (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(() => {
-        if (selectedIndex !== null && !!options[selectedIndex]) {
-            onComboboxFocusChange === null || onComboboxFocusChange === void 0 ? void 0 : onComboboxFocusChange(options[selectedIndex].comboboxItem);
-        }
-        else {
-            onComboboxFocusChange === null || onComboboxFocusChange === void 0 ? void 0 : onComboboxFocusChange(null);
-        }
-    }, [selectedIndex, options, onComboboxFocusChange]);
-    // close combobox when clicking outside
-    (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(() => {
-        if (!_environment__WEBPACK_IMPORTED_MODULE_4__.CAN_USE_DOM) {
-            return;
-        }
-        const root = editor.getRootElement();
-        const handleMousedown = (event) => {
-            if (anchor &&
-                !anchor.contains(event.target) &&
-                root &&
-                !root.contains(event.target)) {
-                handleClickOutside();
-            }
-        };
-        document.addEventListener("mousedown", handleMousedown);
-        return () => {
-            document.removeEventListener("mousedown", handleMousedown);
-        };
-    }, [anchor, editor, handleClickOutside]);
-    if (!open || !anchor) {
-        return null;
-    }
-    return react_dom__WEBPACK_IMPORTED_MODULE_2__.createPortal((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(ComboboxComponent, { loading: loading, itemType: itemType, role: "menu", "aria-activedescendant": selectedIndex !== null && !!options[selectedIndex]
-            ? options[selectedIndex].displayValue
-            : "", "aria-label": "Choose trigger and value", "aria-hidden": !open, children: options.map((option, index) => ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(ComboboxItemComponent, { selected: index === selectedIndex, role: "menuitem", "aria-selected": selectedIndex === index, "aria-label": `Choose ${option.value}`, item: option.comboboxItem, ref: option.setRefElement, onClick: () => handleClick(index), onMouseEnter: () => handleMouseEnter(index), onMouseLeave: handleMouseLeave, onMouseDown: (e) => e.preventDefault(), children: option.displayValue }, option.key))) }), anchor);
-}
-
-
-/***/ }),
-
-/***/ "./node_modules/lexical-beautiful-mentions/MentionComponent.js":
-/*!*********************************************************************!*\
-  !*** ./node_modules/lexical-beautiful-mentions/MentionComponent.js ***!
-  \*********************************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": function() { return /* binding */ BeautifulMentionComponent; }
-/* harmony export */ });
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-/* harmony import */ var _lexical_react_LexicalComposerContext__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @lexical/react/LexicalComposerContext */ "./node_modules/@lexical/react/LexicalComposerContext.dev.mjs");
-/* harmony import */ var _lexical_react_useLexicalNodeSelection__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @lexical/react/useLexicalNodeSelection */ "./node_modules/@lexical/react/useLexicalNodeSelection.dev.mjs");
-/* harmony import */ var _lexical_utils__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @lexical/utils */ "./node_modules/@lexical/utils/LexicalUtils.dev.mjs");
-/* harmony import */ var lexical__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! lexical */ "./node_modules/lexical/Lexical.dev.mjs");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _MentionNode__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./MentionNode */ "./node_modules/lexical-beautiful-mentions/MentionNode.js");
-/* harmony import */ var _environment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./environment */ "./node_modules/lexical-beautiful-mentions/environment.js");
-/* harmony import */ var _mention_utils__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./mention-utils */ "./node_modules/lexical-beautiful-mentions/mention-utils.js");
-/* harmony import */ var _useIsFocused__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./useIsFocused */ "./node_modules/lexical-beautiful-mentions/useIsFocused.js");
-
-
-
-
-
-
-
-
-
-
-function BeautifulMentionComponent(props) {
-    const { value, trigger, data, className, classNameFocused, classNames, nodeKey, component: Component, } = props;
-    const [editor] = (0,_lexical_react_LexicalComposerContext__WEBPACK_IMPORTED_MODULE_6__.useLexicalComposerContext)();
-    const isEditorFocused = (0,_useIsFocused__WEBPACK_IMPORTED_MODULE_5__.useIsFocused)();
-    const [isSelected, setSelected, clearSelection] = (0,_lexical_react_useLexicalNodeSelection__WEBPACK_IMPORTED_MODULE_7__.useLexicalNodeSelection)(nodeKey);
-    const ref = (0,react__WEBPACK_IMPORTED_MODULE_1__.useRef)(null);
-    const mention = trigger + value;
-    const composedClassNames = (0,react__WEBPACK_IMPORTED_MODULE_1__.useMemo)(() => {
-        if (className) {
-            const classes = [className];
-            if (isSelected && isEditorFocused && classNameFocused) {
-                classes.push(classNameFocused);
-            }
-            return classes.join(" ").trim() || undefined;
-        }
-        return "";
-    }, [isSelected, className, classNameFocused, isEditorFocused]);
-    const onDelete = (0,react__WEBPACK_IMPORTED_MODULE_1__.useCallback)((payload) => {
-        if (isSelected && (0,lexical__WEBPACK_IMPORTED_MODULE_8__.$isNodeSelection)((0,lexical__WEBPACK_IMPORTED_MODULE_8__.$getSelection)())) {
-            payload.preventDefault();
-            const node = (0,lexical__WEBPACK_IMPORTED_MODULE_8__.$getNodeByKey)(nodeKey);
-            if ((0,_MentionNode__WEBPACK_IMPORTED_MODULE_2__.$isBeautifulMentionNode)(node)) {
-                node.remove();
-            }
-        }
-        return false;
-    }, [isSelected, nodeKey]);
-    const onArrowLeftPress = (0,react__WEBPACK_IMPORTED_MODULE_1__.useCallback)((event) => {
-        const node = (0,lexical__WEBPACK_IMPORTED_MODULE_8__.$getNodeByKey)(nodeKey);
-        if (!node || !node.isSelected()) {
-            return false;
-        }
-        let handled = false;
-        const nodeToSelect = (0,_mention_utils__WEBPACK_IMPORTED_MODULE_4__.getPreviousSibling)(node);
-        if ((0,lexical__WEBPACK_IMPORTED_MODULE_8__.$isElementNode)(nodeToSelect)) {
-            nodeToSelect.selectEnd();
-            handled = true;
-        }
-        if ((0,lexical__WEBPACK_IMPORTED_MODULE_8__.$isTextNode)(nodeToSelect)) {
-            nodeToSelect.select();
-            handled = true;
-        }
-        if ((0,lexical__WEBPACK_IMPORTED_MODULE_8__.$isDecoratorNode)(nodeToSelect)) {
-            nodeToSelect.selectNext();
-            handled = true;
-        }
-        if (nodeToSelect === null) {
-            node.selectPrevious();
-            handled = true;
-        }
-        if (handled) {
-            event.preventDefault();
-        }
-        return handled;
-    }, [nodeKey]);
-    const onArrowRightPress = (0,react__WEBPACK_IMPORTED_MODULE_1__.useCallback)((event) => {
-        const node = (0,lexical__WEBPACK_IMPORTED_MODULE_8__.$getNodeByKey)(nodeKey);
-        if (!node || !node.isSelected()) {
-            return false;
-        }
-        let handled = false;
-        const nodeToSelect = (0,_mention_utils__WEBPACK_IMPORTED_MODULE_4__.getNextSibling)(node);
-        if ((0,lexical__WEBPACK_IMPORTED_MODULE_8__.$isElementNode)(nodeToSelect)) {
-            nodeToSelect.selectStart();
-            handled = true;
-        }
-        if ((0,lexical__WEBPACK_IMPORTED_MODULE_8__.$isTextNode)(nodeToSelect)) {
-            nodeToSelect.select(0, 0);
-            handled = true;
-        }
-        if ((0,lexical__WEBPACK_IMPORTED_MODULE_8__.$isDecoratorNode)(nodeToSelect)) {
-            nodeToSelect.selectPrevious();
-            handled = true;
-        }
-        if (nodeToSelect === null) {
-            node.selectNext();
-            handled = true;
-        }
-        if (handled) {
-            event.preventDefault();
-        }
-        return handled;
-    }, [nodeKey]);
-    const onClick = (0,react__WEBPACK_IMPORTED_MODULE_1__.useCallback)((event) => {
-        var _a;
-        if (event.target === ref.current ||
-            ((_a = ref.current) === null || _a === void 0 ? void 0 : _a.contains(event.target))) {
-            if (!event.shiftKey) {
-                clearSelection();
-            }
-            setSelected(true);
-            return true;
-        }
-        return false;
-    }, [clearSelection, setSelected]);
-    const onBlur = (0,react__WEBPACK_IMPORTED_MODULE_1__.useCallback)(() => {
-        const node = (0,lexical__WEBPACK_IMPORTED_MODULE_8__.$getNodeByKey)(nodeKey);
-        if (!node || !node.isSelected()) {
-            return false;
-        }
-        const selection = (0,lexical__WEBPACK_IMPORTED_MODULE_8__.$getSelection)();
-        if (!(0,lexical__WEBPACK_IMPORTED_MODULE_8__.$isNodeSelection)(selection)) {
-            return false;
-        }
-        (0,lexical__WEBPACK_IMPORTED_MODULE_8__.$setSelection)(null);
-        return false;
-    }, [nodeKey]);
-    const onSelectionChange = (0,react__WEBPACK_IMPORTED_MODULE_1__.useCallback)(() => {
-        if (_environment__WEBPACK_IMPORTED_MODULE_3__.IS_IOS && isSelected) {
-            // needed to keep the cursor in the editor when clicking next to a selected mention
-            setSelected(false);
-            return true;
-        }
-        return false;
-    }, [isSelected, setSelected]);
-    (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(() => {
-        const unregister = (0,_lexical_utils__WEBPACK_IMPORTED_MODULE_9__.mergeRegister)(editor.registerCommand(lexical__WEBPACK_IMPORTED_MODULE_8__.CLICK_COMMAND, onClick, lexical__WEBPACK_IMPORTED_MODULE_8__.COMMAND_PRIORITY_LOW), editor.registerCommand(lexical__WEBPACK_IMPORTED_MODULE_8__.KEY_DELETE_COMMAND, onDelete, lexical__WEBPACK_IMPORTED_MODULE_8__.COMMAND_PRIORITY_LOW), editor.registerCommand(lexical__WEBPACK_IMPORTED_MODULE_8__.KEY_BACKSPACE_COMMAND, onDelete, lexical__WEBPACK_IMPORTED_MODULE_8__.COMMAND_PRIORITY_LOW), editor.registerCommand(lexical__WEBPACK_IMPORTED_MODULE_8__.KEY_ARROW_LEFT_COMMAND, onArrowLeftPress, lexical__WEBPACK_IMPORTED_MODULE_8__.COMMAND_PRIORITY_LOW), editor.registerCommand(lexical__WEBPACK_IMPORTED_MODULE_8__.KEY_ARROW_RIGHT_COMMAND, onArrowRightPress, lexical__WEBPACK_IMPORTED_MODULE_8__.COMMAND_PRIORITY_LOW), editor.registerCommand(lexical__WEBPACK_IMPORTED_MODULE_8__.BLUR_COMMAND, onBlur, lexical__WEBPACK_IMPORTED_MODULE_8__.COMMAND_PRIORITY_LOW), editor.registerCommand(lexical__WEBPACK_IMPORTED_MODULE_8__.SELECTION_CHANGE_COMMAND, onSelectionChange, lexical__WEBPACK_IMPORTED_MODULE_8__.COMMAND_PRIORITY_LOW));
-        return () => {
-            unregister();
-        };
-    }, [
-        editor,
-        onArrowLeftPress,
-        onArrowRightPress,
-        onClick,
-        onDelete,
-        onBlur,
-        onSelectionChange,
-    ]);
-    if (Component) {
-        return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(Component
-        // @ts-ignore
-        , { 
-            // @ts-ignore
-            ref: ref, trigger: trigger, value: value, data: data, className: composedClassNames, "data-beautiful-mention": mention, children: mention }));
-    }
-    if (classNames) {
-        return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsxs)("span", { ref: ref, className: isSelected && !!classNames.containerFocused
-                ? classNames.containerFocused
-                : classNames.container, "data-beautiful-mention": mention, children: [(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: classNames.trigger, children: trigger }), (0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { className: classNames.value, children: value })] }));
-    }
-    return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)("span", { ref: ref, className: composedClassNames, "data-beautiful-mention": mention, children: mention }));
-}
-
-
-/***/ }),
-
-/***/ "./node_modules/lexical-beautiful-mentions/MentionNode.js":
-/*!****************************************************************!*\
-  !*** ./node_modules/lexical-beautiful-mentions/MentionNode.js ***!
-  \****************************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   $createBeautifulMentionNode: function() { return /* binding */ $createBeautifulMentionNode; },
-/* harmony export */   $isBeautifulMentionNode: function() { return /* binding */ $isBeautifulMentionNode; },
-/* harmony export */   BeautifulMentionNode: function() { return /* binding */ BeautifulMentionNode; }
-/* harmony export */ });
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-/* harmony import */ var lexical__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lexical */ "./node_modules/lexical/Lexical.dev.mjs");
-/* harmony import */ var _MentionComponent__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./MentionComponent */ "./node_modules/lexical-beautiful-mentions/MentionComponent.js");
-
-
-
-function convertElement(domNode) {
-    const trigger = domNode.getAttribute("data-lexical-beautiful-mention-trigger");
-    const value = domNode.getAttribute("data-lexical-beautiful-mention-value");
-    let data = undefined;
-    const dataStr = domNode.getAttribute("data-lexical-beautiful-mention-data");
-    if (dataStr) {
-        try {
-            data = JSON.parse(dataStr);
-        }
-        catch (e) {
-            console.warn("Failed to parse data attribute of beautiful mention node", e);
-        }
-    }
-    if (trigger != null && value !== null) {
-        const node = $createBeautifulMentionNode(trigger, value, data);
-        return { node };
-    }
-    return null;
-}
-/**
- * This node is used to represent a mention used in the BeautifulMentionPlugin.
- */
-class BeautifulMentionNode extends lexical__WEBPACK_IMPORTED_MODULE_2__.DecoratorNode {
-    static getType() {
-        return "beautifulMention";
-    }
-    static clone(node) {
-        return new BeautifulMentionNode(node.__trigger, node.__value, node.__data, node.__key);
-    }
-    constructor(trigger, value, data, key) {
-        super(key);
-        this.__trigger = trigger;
-        this.__value = value;
-        this.__data = data;
-    }
-    createDOM() {
-        return document.createElement("span");
-    }
-    updateDOM() {
-        return false;
-    }
-    exportDOM() {
-        const element = document.createElement("span");
-        element.setAttribute("data-lexical-beautiful-mention", "true");
-        element.setAttribute("data-lexical-beautiful-mention-trigger", this.__trigger);
-        element.setAttribute("data-lexical-beautiful-mention-value", this.__value);
-        if (this.__data) {
-            element.setAttribute("data-lexical-beautiful-mention-data", JSON.stringify(this.__data));
-        }
-        element.textContent = this.getTextContent();
-        return { element };
-    }
-    static importDOM() {
-        return {
-            span: (domNode) => {
-                if (!domNode.hasAttribute("data-lexical-beautiful-mention")) {
-                    return null;
-                }
-                return {
-                    conversion: convertElement,
-                    priority: 1,
-                };
-            },
-        };
-    }
-    static importJSON(serializedNode) {
-        return $createBeautifulMentionNode(serializedNode.trigger, serializedNode.value, serializedNode.data);
-    }
-    exportJSON() {
-        const data = this.__data;
-        return Object.assign(Object.assign({ trigger: this.__trigger, value: this.__value }, (data ? { data } : {})), { type: "beautifulMention", version: 1 });
-    }
-    getTextContent() {
-        const self = this.getLatest();
-        return self.__trigger + self.__value;
-    }
-    getTrigger() {
-        const self = this.getLatest();
-        return self.__trigger;
-    }
-    getValue() {
-        const self = this.getLatest();
-        return self.__value;
-    }
-    setValue(value) {
-        const self = this.getWritable();
-        self.__value = value;
-    }
-    getData() {
-        const self = this.getLatest();
-        return self.__data;
-    }
-    setData(data) {
-        const self = this.getWritable();
-        self.__data = data;
-    }
-    component() {
-        return null;
-    }
-    decorate(_editor, config) {
-        const { className, classNameFocused, classNames } = this.getCssClassesFromTheme(config);
-        return ((0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_0__.jsx)(_MentionComponent__WEBPACK_IMPORTED_MODULE_1__["default"], { nodeKey: this.getKey(), trigger: this.getTrigger(), value: this.getValue(), data: this.getData(), className: className, classNameFocused: classNameFocused, classNames: classNames, component: this.component() }));
-    }
-    getCssClassesFromTheme(config) {
-        const theme = config.theme.beautifulMentions || {};
-        const themeEntry = Object.entries(theme).find(([trigger]) => new RegExp(trigger).test(this.__trigger));
-        const key = themeEntry && themeEntry[0];
-        const value = themeEntry && themeEntry[1];
-        const className = typeof value === "string" ? value : undefined;
-        const classNameFocused = className && typeof theme[key + "Focused"] === "string"
-            ? theme[key + "Focused"]
-            : undefined;
-        const classNames = themeEntry && typeof value !== "string" ? value : undefined;
-        return {
-            className,
-            classNameFocused,
-            classNames,
-        };
-    }
-}
-function $createBeautifulMentionNode(trigger, value, data) {
-    const mentionNode = new BeautifulMentionNode(trigger, value, data);
-    return (0,lexical__WEBPACK_IMPORTED_MODULE_2__.$applyNodeReplacement)(mentionNode);
-}
-function $isBeautifulMentionNode(node) {
-    return node instanceof BeautifulMentionNode;
-}
-
-
-/***/ }),
-
-/***/ "./node_modules/lexical-beautiful-mentions/Menu.js":
-/*!*********************************************************!*\
-  !*** ./node_modules/lexical-beautiful-mentions/Menu.js ***!
-  \*********************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   $splitNodeContainingQuery: function() { return /* binding */ $splitNodeContainingQuery; },
-/* harmony export */   MenuOption: function() { return /* binding */ MenuOption; }
-/* harmony export */ });
-/* harmony import */ var lexical__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lexical */ "./node_modules/lexical/Lexical.dev.mjs");
-/* harmony import */ var _mention_utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./mention-utils */ "./node_modules/lexical-beautiful-mentions/mention-utils.js");
-
-
-class MenuOption {
-    constructor(
-    /**
-     * The menu item value. For example: "John".
-     */
-    value, 
-    /**
-     * The value to be displayed. Normally the same as `value` but can be
-     * used to display a different value. For example: "Add 'John'".
-     */
-    displayValue, 
-    /**
-     * Additional data belonging to the option. For example: `{ id: 1 }`.
-     */
-    data) {
-        this.value = value;
-        this.displayValue = displayValue;
-        this.data = data;
-        this.key = !data ? value : JSON.stringify(Object.assign(Object.assign({}, data), { value }));
-        this.displayValue = displayValue !== null && displayValue !== void 0 ? displayValue : value;
-        this.ref = { current: null };
-        this.setRefElement = this.setRefElement.bind(this);
-    }
-    setRefElement(element) {
-        this.ref = { current: element };
-    }
-}
-/**
- * Split Lexical TextNode and return a new TextNode only containing matched text.
- * Common use cases include: removing the node, replacing with a new node.
- */
-function $splitNodeContainingQuery(match) {
-    const selection = (0,lexical__WEBPACK_IMPORTED_MODULE_1__.$getSelection)();
-    if (!(0,lexical__WEBPACK_IMPORTED_MODULE_1__.$isRangeSelection)(selection) || !selection.isCollapsed()) {
-        return null;
-    }
-    const anchor = selection.anchor;
-    if (anchor.type !== "text") {
-        return null;
-    }
-    const anchorNode = anchor.getNode();
-    if (!anchorNode.isSimpleText()) {
-        return null;
-    }
-    const selectionOffset = anchor.offset;
-    const textContent = (0,_mention_utils__WEBPACK_IMPORTED_MODULE_0__.getTextContent)(anchorNode).slice(0, selectionOffset);
-    const characterOffset = match.replaceableString.length;
-    const queryOffset = getFullMatchOffset(textContent, match.matchingString, characterOffset);
-    const startOffset = selectionOffset - queryOffset;
-    if (startOffset < 0) {
-        return null;
-    }
-    let newNode;
-    if (startOffset === 0) {
-        [newNode] = anchorNode.splitText(selectionOffset);
-    }
-    else {
-        [, newNode] = anchorNode.splitText(startOffset, selectionOffset);
-    }
-    return newNode;
-}
-/**
- * Walk backwards along user input and forward through entity title to try
- * and replace more of the user's text with entity.
- */
-function getFullMatchOffset(documentText, entryText, offset) {
-    let triggerOffset = offset;
-    for (let i = triggerOffset; i <= entryText.length; i++) {
-        if (documentText.substring(-i) === entryText.substring(0, i)) {
-            triggerOffset = i;
-        }
-    }
-    return triggerOffset;
-}
-
-
-/***/ }),
-
-/***/ "./node_modules/lexical-beautiful-mentions/ZeroWidthNode.js":
-/*!******************************************************************!*\
-  !*** ./node_modules/lexical-beautiful-mentions/ZeroWidthNode.js ***!
-  \******************************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   $createZeroWidthNode: function() { return /* binding */ $createZeroWidthNode; },
-/* harmony export */   $isZeroWidthNode: function() { return /* binding */ $isZeroWidthNode; },
-/* harmony export */   ZeroWidthNode: function() { return /* binding */ ZeroWidthNode; }
-/* harmony export */ });
-/* harmony import */ var lexical__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! lexical */ "./node_modules/lexical/Lexical.dev.mjs");
-/* harmony import */ var _ZeroWidthPlugin__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ZeroWidthPlugin */ "./node_modules/lexical-beautiful-mentions/ZeroWidthPlugin.js");
-
-
-function convertZeroWidthElement(domNode) {
-    return null;
-}
-/* eslint @typescript-eslint/no-unused-vars: "off" */
-class ZeroWidthNode extends lexical__WEBPACK_IMPORTED_MODULE_1__.TextNode {
-    static getType() {
-        return "zeroWidth";
-    }
-    static clone(node) {
-        return new ZeroWidthNode(node.__textContent, node.__key);
-    }
-    static importJSON(_) {
-        return $createZeroWidthNode();
-    }
-    constructor(__textContent, key) {
-        super(_ZeroWidthPlugin__WEBPACK_IMPORTED_MODULE_0__.ZERO_WIDTH_CHARACTER, key);
-        this.__textContent = __textContent;
-    }
-    exportJSON() {
-        return Object.assign(Object.assign({}, super.exportJSON()), { text: "", type: "zeroWidth" });
-    }
-    updateDOM() {
-        return false;
-    }
-    static importDOM() {
-        return null;
-    }
-    exportDOM(editor) {
-        return { element: null };
-    }
-    isTextEntity() {
-        return true;
-    }
-    getTextContent() {
-        return this.__textContent;
-    }
-}
-function $createZeroWidthNode(textContent = "") {
-    const zeroWidthNode = new ZeroWidthNode(textContent);
-    // Prevents that a space that is inserted by the user is deleted again
-    // directly after the input.
-    zeroWidthNode.setMode("segmented");
-    return (0,lexical__WEBPACK_IMPORTED_MODULE_1__.$applyNodeReplacement)(zeroWidthNode);
-}
-function $isZeroWidthNode(node) {
-    return node instanceof ZeroWidthNode;
-}
-
-
-/***/ }),
-
-/***/ "./node_modules/lexical-beautiful-mentions/ZeroWidthPlugin.js":
-/*!********************************************************************!*\
-  !*** ./node_modules/lexical-beautiful-mentions/ZeroWidthPlugin.js ***!
-  \********************************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   ZERO_WIDTH_CHARACTER: function() { return /* binding */ ZERO_WIDTH_CHARACTER; },
-/* harmony export */   ZeroWidthPlugin: function() { return /* binding */ ZeroWidthPlugin; }
-/* harmony export */ });
-/* harmony import */ var _lexical_react_LexicalComposerContext__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @lexical/react/LexicalComposerContext */ "./node_modules/@lexical/react/LexicalComposerContext.dev.mjs");
-/* harmony import */ var _lexical_utils__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @lexical/utils */ "./node_modules/@lexical/utils/LexicalUtils.dev.mjs");
-/* harmony import */ var lexical__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! lexical */ "./node_modules/lexical/Lexical.dev.mjs");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _ZeroWidthNode__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ZeroWidthNode */ "./node_modules/lexical-beautiful-mentions/ZeroWidthNode.js");
-
-
-
-
-
-const ZERO_WIDTH_CHARACTER = "​"; // 🚨 contains a zero-width space (U+200B)
-/**
- * This plugin serves as a patch to fix an incorrect cursor position in Safari.
- * It also ensures that the cursor is correctly aligned with the line height in
- * all browsers.
- * {@link https://github.com/facebook/lexical/issues/4487}.
- */
-function ZeroWidthPlugin({ textContent }) {
-    const [editor] = (0,_lexical_react_LexicalComposerContext__WEBPACK_IMPORTED_MODULE_2__.useLexicalComposerContext)();
-    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-        return (0,_lexical_utils__WEBPACK_IMPORTED_MODULE_3__.mergeRegister)(editor.registerUpdateListener(() => {
-            // add a zero-width space node at the end if the last node is a decorator node
-            editor.update(() => {
-                const root = (0,lexical__WEBPACK_IMPORTED_MODULE_4__.$getRoot)();
-                const last = root.getLastDescendant();
-                // add ZeroWidthNode at the end of the editor
-                if ((0,lexical__WEBPACK_IMPORTED_MODULE_4__.$isDecoratorNode)(last)) {
-                    (0,lexical__WEBPACK_IMPORTED_MODULE_4__.$nodesOfType)(_ZeroWidthNode__WEBPACK_IMPORTED_MODULE_1__.ZeroWidthNode).forEach((node) => node.remove()); // cleanup
-                    last.insertAfter((0,_ZeroWidthNode__WEBPACK_IMPORTED_MODULE_1__.$createZeroWidthNode)(textContent));
-                }
-                // add ZeroWidthNode before each line break
-                (0,lexical__WEBPACK_IMPORTED_MODULE_4__.$nodesOfType)(lexical__WEBPACK_IMPORTED_MODULE_4__.LineBreakNode).forEach((node) => {
-                    const prev = node.getPreviousSibling();
-                    if ((0,lexical__WEBPACK_IMPORTED_MODULE_4__.$isDecoratorNode)(prev)) {
-                        node.insertBefore((0,_ZeroWidthNode__WEBPACK_IMPORTED_MODULE_1__.$createZeroWidthNode)(textContent));
-                    }
-                });
-            }, 
-            // merge with previous history entry to allow undoing
-            { tag: "history-merge" });
-        }), editor.registerCommand(lexical__WEBPACK_IMPORTED_MODULE_4__.KEY_DOWN_COMMAND, (event) => {
-            // prevent the unnecessary removal of the zero-width space, since this
-            // would lead to the insertion of another zero-width space and thus break
-            // undo with Ctrl+z
-            if (event.ctrlKey || event.metaKey || event.altKey) {
-                return false;
-            }
-            // remove the zero-width space if the user starts typing
-            const selection = (0,lexical__WEBPACK_IMPORTED_MODULE_4__.$getSelection)();
-            if ((0,lexical__WEBPACK_IMPORTED_MODULE_4__.$isRangeSelection)(selection)) {
-                const node = selection.anchor.getNode();
-                if ((0,_ZeroWidthNode__WEBPACK_IMPORTED_MODULE_1__.$isZeroWidthNode)(node)) {
-                    node.remove();
-                }
-            }
-            return false;
-        }, lexical__WEBPACK_IMPORTED_MODULE_4__.COMMAND_PRIORITY_HIGH), editor.registerCommand(lexical__WEBPACK_IMPORTED_MODULE_4__.SELECTION_CHANGE_COMMAND, () => {
-            // select the previous node to avoid an error that occurs when the
-            // user tries to insert a node directly after the zero-width space
-            const selection = (0,lexical__WEBPACK_IMPORTED_MODULE_4__.$getSelection)();
-            if ((0,lexical__WEBPACK_IMPORTED_MODULE_4__.$isRangeSelection)(selection) && selection.isCollapsed()) {
-                const node = selection.anchor.getNode();
-                if ((0,_ZeroWidthNode__WEBPACK_IMPORTED_MODULE_1__.$isZeroWidthNode)(node)) {
-                    node.selectPrevious();
-                }
-            }
-            return false;
-        }, lexical__WEBPACK_IMPORTED_MODULE_4__.COMMAND_PRIORITY_HIGH));
-    }, [editor, textContent]);
-    return null;
-}
-
-
-/***/ }),
-
-/***/ "./node_modules/lexical-beautiful-mentions/createMentionNode.js":
-/*!**********************************************************************!*\
-  !*** ./node_modules/lexical-beautiful-mentions/createMentionNode.js ***!
-  \**********************************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   CustomBeautifulMentionNode: function() { return /* binding */ CustomBeautifulMentionNode; },
-/* harmony export */   createBeautifulMentionNode: function() { return /* binding */ createBeautifulMentionNode; },
-/* harmony export */   setCustomBeautifulMentionNode: function() { return /* binding */ setCustomBeautifulMentionNode; }
-/* harmony export */ });
-/* harmony import */ var _MentionNode__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./MentionNode */ "./node_modules/lexical-beautiful-mentions/MentionNode.js");
-
-let CustomBeautifulMentionNode;
-function setCustomBeautifulMentionNode(BeautifulMentionNodeClass) {
-    CustomBeautifulMentionNode = BeautifulMentionNodeClass;
-}
-/**
- * Instead of using the default `BeautifulMentionNode` class, you can
- * extend it and use the mention component of your choice.
- */
-function createBeautifulMentionNode(mentionComponent) {
-    CustomBeautifulMentionNode =
-        CustomBeautifulMentionNode || generateClass(mentionComponent);
-    return [
-        CustomBeautifulMentionNode,
-        {
-            replace: _MentionNode__WEBPACK_IMPORTED_MODULE_0__.BeautifulMentionNode,
-            with: (node) => {
-                return new CustomBeautifulMentionNode(node.getTrigger(), node.getValue(), node.getData());
-            },
-        },
-    ];
-}
-function generateClass(mentionComponent) {
-    return class CustomBeautifulMentionNode extends _MentionNode__WEBPACK_IMPORTED_MODULE_0__.BeautifulMentionNode {
-        static getType() {
-            return "custom-beautifulMention";
-        }
-        static clone(node) {
-            return new CustomBeautifulMentionNode(node.__trigger, node.__value, node.__data, node.__key);
-        }
-        static importJSON(serializedNode) {
-            return new CustomBeautifulMentionNode(serializedNode.trigger, serializedNode.value, serializedNode.data);
-        }
-        exportJSON() {
-            const data = this.__data;
-            return Object.assign(Object.assign({ trigger: this.__trigger, value: this.__value }, (data ? { data } : {})), { type: "custom-beautifulMention", version: 1 });
-        }
-        component() {
-            return mentionComponent;
-        }
-        decorate(editor, config) {
-            return super.decorate(editor, config);
-        }
-    };
-}
-
-
-/***/ }),
-
-/***/ "./node_modules/lexical-beautiful-mentions/environment.js":
-/*!****************************************************************!*\
-  !*** ./node_modules/lexical-beautiful-mentions/environment.js ***!
-  \****************************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   CAN_USE_DOM: function() { return /* binding */ CAN_USE_DOM; },
-/* harmony export */   IS_IOS: function() { return /* binding */ IS_IOS; },
-/* harmony export */   IS_MOBILE: function() { return /* binding */ IS_MOBILE; }
-/* harmony export */ });
-const CAN_USE_DOM = typeof window !== "undefined" &&
-    typeof window.document !== "undefined" &&
-    typeof window.document.createElement !== "undefined";
-const IS_IOS = CAN_USE_DOM &&
-    /iPad|iPhone|iPod/.test(navigator.userAgent) &&
-    // @ts-ignore
-    !window.MSStream;
-const IS_MOBILE = CAN_USE_DOM && window.matchMedia("(pointer: coarse)").matches;
-
-
-/***/ }),
-
-/***/ "./node_modules/lexical-beautiful-mentions/index.js":
-/*!**********************************************************!*\
-  !*** ./node_modules/lexical-beautiful-mentions/index.js ***!
-  \**********************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   $convertToMentionNodes: function() { return /* reexport safe */ _mention_converter__WEBPACK_IMPORTED_MODULE_6__.$convertToMentionNodes; },
-/* harmony export */   $createBeautifulMentionNode: function() { return /* reexport safe */ _MentionNode__WEBPACK_IMPORTED_MODULE_2__.$createBeautifulMentionNode; },
-/* harmony export */   $createZeroWidthNode: function() { return /* reexport safe */ _ZeroWidthNode__WEBPACK_IMPORTED_MODULE_3__.$createZeroWidthNode; },
-/* harmony export */   $isBeautifulMentionNode: function() { return /* reexport safe */ _MentionNode__WEBPACK_IMPORTED_MODULE_2__.$isBeautifulMentionNode; },
-/* harmony export */   $isZeroWidthNode: function() { return /* reexport safe */ _ZeroWidthNode__WEBPACK_IMPORTED_MODULE_3__.$isZeroWidthNode; },
-/* harmony export */   BeautifulMentionNode: function() { return /* reexport safe */ _MentionNode__WEBPACK_IMPORTED_MODULE_2__.BeautifulMentionNode; },
-/* harmony export */   BeautifulMentionsPlugin: function() { return /* reexport safe */ _BeautifulMentionsPlugin__WEBPACK_IMPORTED_MODULE_0__.BeautifulMentionsPlugin; },
-/* harmony export */   CustomBeautifulMentionNode: function() { return /* reexport safe */ _createMentionNode__WEBPACK_IMPORTED_MODULE_5__.CustomBeautifulMentionNode; },
-/* harmony export */   ZERO_WIDTH_CHARACTER: function() { return /* reexport safe */ _ZeroWidthPlugin__WEBPACK_IMPORTED_MODULE_4__.ZERO_WIDTH_CHARACTER; },
-/* harmony export */   ZeroWidthNode: function() { return /* reexport safe */ _ZeroWidthNode__WEBPACK_IMPORTED_MODULE_3__.ZeroWidthNode; },
-/* harmony export */   ZeroWidthPlugin: function() { return /* reexport safe */ _ZeroWidthPlugin__WEBPACK_IMPORTED_MODULE_4__.ZeroWidthPlugin; },
-/* harmony export */   checkForMentions: function() { return /* reexport safe */ _BeautifulMentionsPlugin__WEBPACK_IMPORTED_MODULE_0__.checkForMentions; },
-/* harmony export */   convertToMentionEntries: function() { return /* reexport safe */ _mention_converter__WEBPACK_IMPORTED_MODULE_6__.convertToMentionEntries; },
-/* harmony export */   createBeautifulMentionNode: function() { return /* reexport safe */ _createMentionNode__WEBPACK_IMPORTED_MODULE_5__.createBeautifulMentionNode; },
-/* harmony export */   setCustomBeautifulMentionNode: function() { return /* reexport safe */ _createMentionNode__WEBPACK_IMPORTED_MODULE_5__.setCustomBeautifulMentionNode; },
-/* harmony export */   useBeautifulMentions: function() { return /* reexport safe */ _useBeautifulMentions__WEBPACK_IMPORTED_MODULE_8__.useBeautifulMentions; }
-/* harmony export */ });
-/* harmony import */ var _BeautifulMentionsPlugin__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./BeautifulMentionsPlugin */ "./node_modules/lexical-beautiful-mentions/BeautifulMentionsPlugin.js");
-/* harmony import */ var _BeautifulMentionsPluginProps__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./BeautifulMentionsPluginProps */ "./node_modules/lexical-beautiful-mentions/BeautifulMentionsPluginProps.js");
-/* harmony import */ var _MentionNode__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./MentionNode */ "./node_modules/lexical-beautiful-mentions/MentionNode.js");
-/* harmony import */ var _ZeroWidthNode__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./ZeroWidthNode */ "./node_modules/lexical-beautiful-mentions/ZeroWidthNode.js");
-/* harmony import */ var _ZeroWidthPlugin__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./ZeroWidthPlugin */ "./node_modules/lexical-beautiful-mentions/ZeroWidthPlugin.js");
-/* harmony import */ var _createMentionNode__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./createMentionNode */ "./node_modules/lexical-beautiful-mentions/createMentionNode.js");
-/* harmony import */ var _mention_converter__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./mention-converter */ "./node_modules/lexical-beautiful-mentions/mention-converter.js");
-/* harmony import */ var _theme__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./theme */ "./node_modules/lexical-beautiful-mentions/theme.js");
-/* harmony import */ var _useBeautifulMentions__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./useBeautifulMentions */ "./node_modules/lexical-beautiful-mentions/useBeautifulMentions.js");
-
-
-
-
-
-
-
-
-
-
-
-/***/ }),
-
-/***/ "./node_modules/lexical-beautiful-mentions/mention-commands.js":
-/*!*********************************************************************!*\
-  !*** ./node_modules/lexical-beautiful-mentions/mention-commands.js ***!
-  \*********************************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   $insertMentionAtSelection: function() { return /* binding */ $insertMentionAtSelection; },
-/* harmony export */   $insertTriggerAtSelection: function() { return /* binding */ $insertTriggerAtSelection; },
-/* harmony export */   $removeMention: function() { return /* binding */ $removeMention; },
-/* harmony export */   $renameMention: function() { return /* binding */ $renameMention; },
-/* harmony export */   INSERT_MENTION_COMMAND: function() { return /* binding */ INSERT_MENTION_COMMAND; },
-/* harmony export */   OPEN_MENTION_MENU_COMMAND: function() { return /* binding */ OPEN_MENTION_MENU_COMMAND; },
-/* harmony export */   REMOVE_MENTIONS_COMMAND: function() { return /* binding */ REMOVE_MENTIONS_COMMAND; },
-/* harmony export */   RENAME_MENTIONS_COMMAND: function() { return /* binding */ RENAME_MENTIONS_COMMAND; }
-/* harmony export */ });
-/* harmony import */ var lexical__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lexical */ "./node_modules/lexical/Lexical.dev.mjs");
-/* harmony import */ var _mention_utils__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./mention-utils */ "./node_modules/lexical-beautiful-mentions/mention-utils.js");
-/* harmony import */ var _MentionNode__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./MentionNode */ "./node_modules/lexical-beautiful-mentions/MentionNode.js");
-
-
-
-const INSERT_MENTION_COMMAND = (0,lexical__WEBPACK_IMPORTED_MODULE_2__.createCommand)("INSERT_MENTION_COMMAND");
-const REMOVE_MENTIONS_COMMAND = (0,lexical__WEBPACK_IMPORTED_MODULE_2__.createCommand)("REMOVE_MENTIONS_COMMAND");
-const RENAME_MENTIONS_COMMAND = (0,lexical__WEBPACK_IMPORTED_MODULE_2__.createCommand)("RENAME_MENTIONS_COMMAND");
-const OPEN_MENTION_MENU_COMMAND = (0,lexical__WEBPACK_IMPORTED_MODULE_2__.createCommand)("OPEN_MENTION_MENU_COMMAND");
-function $insertTriggerAtSelection(triggers, punctuation, trigger) {
-    return $insertMentionOrTrigger(triggers, punctuation, trigger);
-}
-function $insertMentionAtSelection(triggers, punctuation, trigger, value, data) {
-    return $insertMentionOrTrigger(triggers, punctuation, trigger, value, data);
-}
-function $insertMentionOrTrigger(triggers, punctuation, trigger, value, data) {
-    const selectionInfo = (0,_mention_utils__WEBPACK_IMPORTED_MODULE_0__.$getSelectionInfo)(triggers, punctuation);
-    if (!selectionInfo) {
-        return false;
-    }
-    const { node, selection, wordCharBeforeCursor, wordCharAfterCursor, cursorAtStartOfNode, cursorAtEndOfNode, prevNode, nextNode, } = selectionInfo;
-    // Insert a mention node or a text node with the trigger to open the mention menu.
-    const mentionNode = value
-        ? (0,_MentionNode__WEBPACK_IMPORTED_MODULE_1__.$createBeautifulMentionNode)(trigger, value, data)
-        : (0,lexical__WEBPACK_IMPORTED_MODULE_2__.$createTextNode)(trigger);
-    // Insert a mention with a leading space
-    if (!((0,lexical__WEBPACK_IMPORTED_MODULE_2__.$isParagraphNode)(node) && cursorAtStartOfNode) && !(0,lexical__WEBPACK_IMPORTED_MODULE_2__.$isTextNode)(node)) {
-        selection.insertNodes([(0,lexical__WEBPACK_IMPORTED_MODULE_2__.$createTextNode)(" "), mentionNode]);
-        return true;
-    }
-    let spaceNode = null;
-    const nodes = [];
-    if (wordCharBeforeCursor ||
-        (cursorAtStartOfNode && prevNode !== null && !(0,lexical__WEBPACK_IMPORTED_MODULE_2__.$isTextNode)(prevNode))) {
-        nodes.push((0,lexical__WEBPACK_IMPORTED_MODULE_2__.$createTextNode)(" "));
-    }
-    nodes.push(mentionNode);
-    if (wordCharAfterCursor ||
-        (cursorAtEndOfNode && nextNode !== null && !(0,lexical__WEBPACK_IMPORTED_MODULE_2__.$isTextNode)(nextNode))) {
-        spaceNode = (0,lexical__WEBPACK_IMPORTED_MODULE_2__.$createTextNode)(" ");
-        nodes.push(spaceNode);
-    }
-    selection.insertNodes(nodes);
-    if (nodes.length > 1) {
-        if ((0,lexical__WEBPACK_IMPORTED_MODULE_2__.$isTextNode)(mentionNode)) {
-            mentionNode.select();
-        }
-        else if (spaceNode) {
-            spaceNode.selectPrevious();
-        }
-    }
-    return true;
-}
-function $removeMention(trigger, value, focus = true) {
-    let removed = false;
-    let prev = null;
-    let next = null;
-    const mentions = (0,_mention_utils__WEBPACK_IMPORTED_MODULE_0__.$findBeautifulMentionNodes)();
-    for (const mention of mentions) {
-        const sameTrigger = mention.getTrigger() === trigger;
-        const sameValue = mention.getValue() === value;
-        if (sameTrigger && (sameValue || !value)) {
-            prev = (0,_mention_utils__WEBPACK_IMPORTED_MODULE_0__.getPreviousSibling)(mention);
-            next = (0,_mention_utils__WEBPACK_IMPORTED_MODULE_0__.getNextSibling)(mention);
-            mention.remove();
-            removed = true;
-            // Prevent double spaces
-            if ((0,lexical__WEBPACK_IMPORTED_MODULE_2__.$isTextNode)(prev) &&
-                (0,_mention_utils__WEBPACK_IMPORTED_MODULE_0__.getTextContent)(prev).endsWith(" ") &&
-                next &&
-                (0,_mention_utils__WEBPACK_IMPORTED_MODULE_0__.getTextContent)(next).startsWith(" ")) {
-                prev.setTextContent((0,_mention_utils__WEBPACK_IMPORTED_MODULE_0__.getTextContent)(prev).slice(0, -1));
-            }
-            // Remove trailing space
-            if (next === null &&
-                (0,lexical__WEBPACK_IMPORTED_MODULE_2__.$isTextNode)(prev) &&
-                (0,_mention_utils__WEBPACK_IMPORTED_MODULE_0__.getTextContent)(prev).endsWith(" ")) {
-                prev.setTextContent((0,_mention_utils__WEBPACK_IMPORTED_MODULE_0__.getTextContent)(prev).trimEnd());
-            }
-        }
-    }
-    if (removed && focus) {
-        focusEditor(prev, next);
-    }
-    else if (!focus) {
-        (0,lexical__WEBPACK_IMPORTED_MODULE_2__.$setSelection)(null);
-    }
-    return removed;
-}
-function $renameMention(trigger, newValue, value, focus = true) {
-    const mentions = (0,_mention_utils__WEBPACK_IMPORTED_MODULE_0__.$findBeautifulMentionNodes)();
-    let renamedMention = null;
-    for (const mention of mentions) {
-        const sameTrigger = mention.getTrigger() === trigger;
-        const sameValue = mention.getValue() === value;
-        if (sameTrigger && (sameValue || !value)) {
-            renamedMention = mention;
-            mention.setValue(newValue);
-        }
-    }
-    if (renamedMention && focus) {
-        const prev = (0,_mention_utils__WEBPACK_IMPORTED_MODULE_0__.getPreviousSibling)(renamedMention);
-        const next = (0,_mention_utils__WEBPACK_IMPORTED_MODULE_0__.getNextSibling)(renamedMention);
-        focusEditor(prev, next);
-        if (next && (0,lexical__WEBPACK_IMPORTED_MODULE_2__.$isTextNode)(next)) {
-            next.select(0, 0);
-        }
-        else {
-            (0,_mention_utils__WEBPACK_IMPORTED_MODULE_0__.$selectEnd)();
-        }
-    }
-    else if (!focus) {
-        (0,lexical__WEBPACK_IMPORTED_MODULE_2__.$setSelection)(null);
-    }
-    return renamedMention !== null;
-}
-function focusEditor(prev, next) {
-    if (next && (0,lexical__WEBPACK_IMPORTED_MODULE_2__.$isTextNode)(next)) {
-        next.select(0, 0);
-    }
-    else if (prev && (0,lexical__WEBPACK_IMPORTED_MODULE_2__.$isTextNode)(prev)) {
-        prev.select();
-    }
-    else {
-        (0,_mention_utils__WEBPACK_IMPORTED_MODULE_0__.$selectEnd)();
-    }
-}
-
-
-/***/ }),
-
-/***/ "./node_modules/lexical-beautiful-mentions/mention-converter.js":
-/*!**********************************************************************!*\
-  !*** ./node_modules/lexical-beautiful-mentions/mention-converter.js ***!
-  \**********************************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   $convertToMentionNodes: function() { return /* binding */ $convertToMentionNodes; },
-/* harmony export */   convertToMentionEntries: function() { return /* binding */ convertToMentionEntries; }
-/* harmony export */ });
-/* harmony import */ var lexical__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lexical */ "./node_modules/lexical/Lexical.dev.mjs");
-/* harmony import */ var _MentionNode__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./MentionNode */ "./node_modules/lexical-beautiful-mentions/MentionNode.js");
-/* harmony import */ var _mention_utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./mention-utils */ "./node_modules/lexical-beautiful-mentions/mention-utils.js");
-
-
-
-function findMentions(text, triggers, punctuation) {
-    const regex = new RegExp("(?<=\\s|^|\\()" +
-        (0,_mention_utils__WEBPACK_IMPORTED_MODULE_1__.TRIGGERS)(triggers) +
-        "((?:" +
-        (0,_mention_utils__WEBPACK_IMPORTED_MODULE_1__.VALID_CHARS)(triggers, punctuation) +
-        "){1," +
-        _mention_utils__WEBPACK_IMPORTED_MODULE_1__.LENGTH_LIMIT +
-        "})", "g");
-    const matches = [];
-    let match;
-    regex.lastIndex = 0;
-    while ((match = regex.exec(text)) !== null) {
-        matches.push({
-            value: match[0],
-            index: match.index,
-        });
-    }
-    return matches;
-}
-function convertToMentionEntries(text, triggers, punctuation) {
-    const matches = findMentions(text, triggers, punctuation);
-    const result = [];
-    let lastIndex = 0;
-    matches.forEach(({ value, index }) => {
-        // Add text before mention
-        if (index > lastIndex) {
-            const textBeforeMention = text.substring(lastIndex, index);
-            result.push({ type: "text", value: textBeforeMention });
-        }
-        // Add mention
-        const triggerRegExp = triggers.find((trigger) => new RegExp(trigger).test(value));
-        const match = triggerRegExp && value.match(new RegExp(triggerRegExp));
-        if (!match) {
-            // should never happen since we only find mentions with the given triggers
-            throw new Error("No trigger found for mention");
-        }
-        const trigger = match[0];
-        result.push({
-            type: "mention",
-            value: value.substring(trigger.length),
-            trigger,
-        });
-        // Update lastIndex
-        lastIndex = index + value.length;
-    });
-    // Add text after last mention
-    if (lastIndex < text.length) {
-        const textAfterMentions = text.substring(lastIndex);
-        result.push({ type: "text", value: textAfterMentions });
-    }
-    return result;
-}
-/**
- * Utility function that takes a string and converts it to a list of mention
- * and text nodes.<br>
- * 🚨 Only works for mentions without spaces. Make sure to disable spaces via
- * the `allowSpaces` prop.
- */
-function $convertToMentionNodes(text, triggers, punctuation = _mention_utils__WEBPACK_IMPORTED_MODULE_1__.DEFAULT_PUNCTUATION) {
-    const entries = convertToMentionEntries(text, triggers, punctuation);
-    const nodes = [];
-    for (const entry of entries) {
-        if (entry.type === "text") {
-            nodes.push((0,lexical__WEBPACK_IMPORTED_MODULE_2__.$createTextNode)(entry.value));
-        }
-        else {
-            nodes.push((0,_MentionNode__WEBPACK_IMPORTED_MODULE_0__.$createBeautifulMentionNode)(entry.trigger, entry.value));
-        }
-    }
-    return nodes;
-}
-
-
-/***/ }),
-
-/***/ "./node_modules/lexical-beautiful-mentions/mention-utils.js":
-/*!******************************************************************!*\
-  !*** ./node_modules/lexical-beautiful-mentions/mention-utils.js ***!
-  \******************************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   $findBeautifulMentionNodes: function() { return /* binding */ $findBeautifulMentionNodes; },
-/* harmony export */   $getSelectionInfo: function() { return /* binding */ $getSelectionInfo; },
-/* harmony export */   $selectEnd: function() { return /* binding */ $selectEnd; },
-/* harmony export */   DEFAULT_PUNCTUATION: function() { return /* binding */ DEFAULT_PUNCTUATION; },
-/* harmony export */   LENGTH_LIMIT: function() { return /* binding */ LENGTH_LIMIT; },
-/* harmony export */   PRE_TRIGGER_CHARS: function() { return /* binding */ PRE_TRIGGER_CHARS; },
-/* harmony export */   TRIGGERS: function() { return /* binding */ TRIGGERS; },
-/* harmony export */   VALID_CHARS: function() { return /* binding */ VALID_CHARS; },
-/* harmony export */   getCreatableProp: function() { return /* binding */ getCreatableProp; },
-/* harmony export */   getMenuItemLimitProp: function() { return /* binding */ getMenuItemLimitProp; },
-/* harmony export */   getNextSibling: function() { return /* binding */ getNextSibling; },
-/* harmony export */   getPreviousSibling: function() { return /* binding */ getPreviousSibling; },
-/* harmony export */   getTextContent: function() { return /* binding */ getTextContent; },
-/* harmony export */   isWordChar: function() { return /* binding */ isWordChar; }
-/* harmony export */ });
-/* harmony import */ var lexical__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! lexical */ "./node_modules/lexical/Lexical.dev.mjs");
-/* harmony import */ var _MentionNode__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./MentionNode */ "./node_modules/lexical-beautiful-mentions/MentionNode.js");
-/* harmony import */ var _ZeroWidthNode__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ZeroWidthNode */ "./node_modules/lexical-beautiful-mentions/ZeroWidthNode.js");
-/* harmony import */ var _createMentionNode__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./createMentionNode */ "./node_modules/lexical-beautiful-mentions/createMentionNode.js");
-
-
-
-
-const DEFAULT_PUNCTUATION = "\\.,\\*\\?\\$\\|#{}\\(\\)\\^\\[\\]\\\\/!%'\"~=<>_:;";
-// Makes it possible to use brackets before the trigger: (@mention)
-const PRE_TRIGGER_CHARS = "\\(";
-// Strings that can trigger the mention menu.
-const TRIGGERS = (triggers) => "(?:" + triggers.join("|") + ")";
-// Chars we expect to see in a mention (non-space, non-punctuation).
-const VALID_CHARS = (triggers, punctuation) => {
-    const lookahead = triggers.length === 0 ? "" : "(?!" + triggers.join("|") + ")";
-    return lookahead + "[^\\s" + punctuation + "]";
-};
-const LENGTH_LIMIT = 75;
-function isWordChar(char, triggers, punctuation) {
-    return new RegExp(VALID_CHARS(triggers, punctuation)).test(char);
-}
-function $getSelectionInfo(triggers, punctuation) {
-    const selection = (0,lexical__WEBPACK_IMPORTED_MODULE_3__.$getSelection)();
-    if (!selection || !(0,lexical__WEBPACK_IMPORTED_MODULE_3__.$isRangeSelection)(selection)) {
-        return;
-    }
-    const anchor = selection.anchor;
-    const focus = selection.focus;
-    const nodes = selection.getNodes();
-    if (anchor.key !== focus.key ||
-        anchor.offset !== focus.offset ||
-        nodes.length === 0) {
-        return;
-    }
-    const [_node] = nodes;
-    const node = (0,_ZeroWidthNode__WEBPACK_IMPORTED_MODULE_1__.$isZeroWidthNode)(_node) ? _node.getPreviousSibling() : _node;
-    if (!node) {
-        return;
-    }
-    const isTextNode = (0,lexical__WEBPACK_IMPORTED_MODULE_3__.$isTextNode)(node) && node.isSimpleText();
-    const type = anchor.type;
-    const offset = anchor.offset;
-    const textContent = getTextContent(node);
-    const cursorAtStartOfNode = offset === 0;
-    const cursorAtEndOfNode = textContent.length === offset;
-    const charBeforeCursor = textContent.charAt(offset - 1);
-    const charAfterCursor = textContent.charAt(offset);
-    const wordCharBeforeCursor = isWordChar(charBeforeCursor, triggers, punctuation);
-    const wordCharAfterCursor = isWordChar(charAfterCursor, triggers, punctuation);
-    const spaceBeforeCursor = /\s/.test(charBeforeCursor);
-    const spaceAfterCursor = /\s/.test(charAfterCursor);
-    const prevNode = getPreviousSibling(node);
-    const nextNode = getNextSibling(node);
-    const parentNode = node.getParent();
-    const props = {
-        node,
-        type,
-        offset,
-        isTextNode,
-        textContent,
-        selection,
-        prevNode,
-        nextNode,
-        parentNode,
-        cursorAtStartOfNode,
-        cursorAtEndOfNode,
-        wordCharBeforeCursor,
-        wordCharAfterCursor,
-        spaceBeforeCursor,
-        spaceAfterCursor,
-    };
-    if (isTextNode) {
-        return Object.assign(Object.assign({}, props), { isTextNode: true, node: node });
-    }
-    else {
-        return Object.assign(Object.assign({}, props), { isTextNode: false, node: node });
-    }
-}
-function getNextSibling(node) {
-    let nextSibling = node.getNextSibling();
-    while (nextSibling !== null && (0,_ZeroWidthNode__WEBPACK_IMPORTED_MODULE_1__.$isZeroWidthNode)(nextSibling)) {
-        nextSibling = nextSibling.getNextSibling();
-    }
-    return nextSibling;
-}
-function getPreviousSibling(node) {
-    let previousSibling = node.getPreviousSibling();
-    while (previousSibling !== null && (0,_ZeroWidthNode__WEBPACK_IMPORTED_MODULE_1__.$isZeroWidthNode)(previousSibling)) {
-        previousSibling = previousSibling.getPreviousSibling();
-    }
-    return previousSibling;
-}
-function getTextContent(node) {
-    if ((0,_ZeroWidthNode__WEBPACK_IMPORTED_MODULE_1__.$isZeroWidthNode)(node)) {
-        return "";
-    }
-    return node.getTextContent();
-}
-function getCreatableProp(creatable, trigger) {
-    if (typeof creatable === "string" || typeof creatable === "boolean") {
-        return creatable;
-    }
-    if (trigger === null) {
-        return false;
-    }
-    if (typeof creatable === "object") {
-        return creatable[trigger];
-    }
-    return false;
-}
-function getMenuItemLimitProp(menuItemLimit, trigger) {
-    if (typeof menuItemLimit === "number" || menuItemLimit === false) {
-        return menuItemLimit;
-    }
-    if (typeof menuItemLimit === "undefined") {
-        return 5;
-    }
-    if (trigger === null) {
-        return false;
-    }
-    if (typeof menuItemLimit === "object") {
-        return menuItemLimit[trigger];
-    }
-    return 5;
-}
-function getLastNode(root) {
-    const descendant = root.getLastDescendant();
-    if ((0,lexical__WEBPACK_IMPORTED_MODULE_3__.$isElementNode)(descendant) || (0,lexical__WEBPACK_IMPORTED_MODULE_3__.$isTextNode)(descendant)) {
-        return descendant;
-    }
-    if ((0,lexical__WEBPACK_IMPORTED_MODULE_3__.$isDecoratorNode)(descendant)) {
-        return descendant.getParent();
-    }
-    return root;
-}
-function $selectEnd() {
-    const root = (0,lexical__WEBPACK_IMPORTED_MODULE_3__.$getRoot)();
-    const lastNode = getLastNode(root);
-    const key = lastNode && lastNode.getKey();
-    const offset = (0,lexical__WEBPACK_IMPORTED_MODULE_3__.$isElementNode)(lastNode)
-        ? lastNode.getChildrenSize()
-        : (0,lexical__WEBPACK_IMPORTED_MODULE_3__.$isTextNode)(lastNode)
-            ? getTextContent(lastNode).length
-            : 0;
-    const type = (0,lexical__WEBPACK_IMPORTED_MODULE_3__.$isElementNode)(lastNode) ? "element" : "text";
-    if (key) {
-        const newSelection = (0,lexical__WEBPACK_IMPORTED_MODULE_3__.$createRangeSelection)();
-        newSelection.anchor.set(key, offset, type);
-        newSelection.focus.set(key, offset, type);
-        (0,lexical__WEBPACK_IMPORTED_MODULE_3__.$setSelection)(newSelection);
-    }
-}
-function $findBeautifulMentionNodes(editor) {
-    editor = editor || (0,lexical__WEBPACK_IMPORTED_MODULE_3__.$getEditor)();
-    if (_createMentionNode__WEBPACK_IMPORTED_MODULE_2__.CustomBeautifulMentionNode &&
-        editor.hasNodes([_createMentionNode__WEBPACK_IMPORTED_MODULE_2__.CustomBeautifulMentionNode])) {
-        return (0,lexical__WEBPACK_IMPORTED_MODULE_3__.$nodesOfType)(_createMentionNode__WEBPACK_IMPORTED_MODULE_2__.CustomBeautifulMentionNode);
-    }
-    return (0,lexical__WEBPACK_IMPORTED_MODULE_3__.$nodesOfType)(_MentionNode__WEBPACK_IMPORTED_MODULE_0__.BeautifulMentionNode);
-}
-
-
-/***/ }),
-
-/***/ "./node_modules/lexical-beautiful-mentions/theme.js":
-/*!**********************************************************!*\
-  !*** ./node_modules/lexical-beautiful-mentions/theme.js ***!
-  \**********************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-__webpack_require__.r(__webpack_exports__);
-
-
-
-/***/ }),
-
-/***/ "./node_modules/lexical-beautiful-mentions/useBeautifulMentions.js":
-/*!*************************************************************************!*\
-  !*** ./node_modules/lexical-beautiful-mentions/useBeautifulMentions.js ***!
-  \*************************************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   useBeautifulMentions: function() { return /* binding */ useBeautifulMentions; }
-/* harmony export */ });
-/* harmony import */ var _lexical_react_LexicalComposerContext__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @lexical/react/LexicalComposerContext */ "./node_modules/@lexical/react/LexicalComposerContext.dev.mjs");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _mention_commands__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./mention-commands */ "./node_modules/lexical-beautiful-mentions/mention-commands.js");
-/* harmony import */ var _mention_utils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./mention-utils */ "./node_modules/lexical-beautiful-mentions/mention-utils.js");
-
-
-
-
-/**
- * Hook that provides access to the BeautifulMentionsPlugin. It allows you to insert,
- * remove and rename mentions from outside the editor.
- */
-function useBeautifulMentions() {
-    const [editor] = (0,_lexical_react_LexicalComposerContext__WEBPACK_IMPORTED_MODULE_3__.useLexicalComposerContext)();
-    /**
-     * Inserts a mention at the current selection.
-     */
-    const insertMention = (0,react__WEBPACK_IMPORTED_MODULE_0__.useCallback)((options) => editor.dispatchCommand(_mention_commands__WEBPACK_IMPORTED_MODULE_1__.INSERT_MENTION_COMMAND, options), [editor]);
-    /**
-     * Removes all mentions that match the given trigger and an optional value.
-     */
-    const removeMentions = (0,react__WEBPACK_IMPORTED_MODULE_0__.useCallback)((options) => editor.dispatchCommand(_mention_commands__WEBPACK_IMPORTED_MODULE_1__.REMOVE_MENTIONS_COMMAND, options), [editor]);
-    /**
-     * Renames all mentions that match the given trigger and an optional value.
-     */
-    const renameMentions = (0,react__WEBPACK_IMPORTED_MODULE_0__.useCallback)((options) => editor.dispatchCommand(_mention_commands__WEBPACK_IMPORTED_MODULE_1__.RENAME_MENTIONS_COMMAND, options), [editor]);
-    /**
-     * Returns `true` if there are mentions that match the given trigger and an optional value.
-     */
-    const hasMentions = (0,react__WEBPACK_IMPORTED_MODULE_0__.useCallback)(({ value, trigger }) => {
-        return editor.getEditorState().read(() => {
-            const mentions = (0,_mention_utils__WEBPACK_IMPORTED_MODULE_2__.$findBeautifulMentionNodes)(editor);
-            if (value) {
-                return mentions.some((mention) => mention.getTrigger() === trigger && mention.getValue() === value);
-            }
-            return mentions.some((mention) => mention.getTrigger() === trigger);
-        });
-    }, [editor]);
-    /**
-     * Opens the mention menu at the current selection.
-     */
-    const openMentionMenu = (0,react__WEBPACK_IMPORTED_MODULE_0__.useCallback)((options) => editor.dispatchCommand(_mention_commands__WEBPACK_IMPORTED_MODULE_1__.OPEN_MENTION_MENU_COMMAND, options), [editor]);
-    /**
-     * Returns all mentions used in the editor.
-     */
-    const getMentions = (0,react__WEBPACK_IMPORTED_MODULE_0__.useCallback)(() => {
-        return editor.getEditorState().read(() => (0,_mention_utils__WEBPACK_IMPORTED_MODULE_2__.$findBeautifulMentionNodes)(editor).map((node) => {
-            const { trigger, value, data } = node.exportJSON();
-            return { trigger, value, data };
-        }));
-    }, [editor]);
-    return {
-        getMentions,
-        insertMention,
-        removeMentions,
-        renameMentions,
-        hasMentions,
-        openMentionMenu,
-    };
-}
-
-
-/***/ }),
-
-/***/ "./node_modules/lexical-beautiful-mentions/useDebounce.js":
-/*!****************************************************************!*\
-  !*** ./node_modules/lexical-beautiful-mentions/useDebounce.js ***!
-  \****************************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   useDebounce: function() { return /* binding */ useDebounce; }
-/* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-
-function useDebounce(value, delay) {
-    const [debouncedValue, setDebouncedValue] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(value);
-    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-        // Update debounced value after delay
-        const handler = setTimeout(() => {
-            setDebouncedValue(value);
-        }, delay);
-        // Cancel the timeout if value changes (also on delay change or unmount)
-        // This is how we prevent debounced value from updating if value is changed
-        // within the delay period. Timeout gets cleared and restarted.
-        return () => clearTimeout(handler);
-    }, [value, delay]);
-    return debouncedValue;
-}
-
-
-/***/ }),
-
-/***/ "./node_modules/lexical-beautiful-mentions/useIsFocused.js":
-/*!*****************************************************************!*\
-  !*** ./node_modules/lexical-beautiful-mentions/useIsFocused.js ***!
-  \*****************************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   useIsFocused: function() { return /* binding */ useIsFocused; }
-/* harmony export */ });
-/* harmony import */ var _lexical_react_LexicalComposerContext__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @lexical/react/LexicalComposerContext */ "./node_modules/@lexical/react/LexicalComposerContext.dev.mjs");
-/* harmony import */ var _lexical_utils__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @lexical/utils */ "./node_modules/@lexical/utils/LexicalUtils.dev.mjs");
-/* harmony import */ var lexical__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! lexical */ "./node_modules/lexical/Lexical.dev.mjs");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _environment__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./environment */ "./node_modules/lexical-beautiful-mentions/environment.js");
-
-
-
-
-
-const useLayoutEffectImpl = _environment__WEBPACK_IMPORTED_MODULE_1__.CAN_USE_DOM
-    ? react__WEBPACK_IMPORTED_MODULE_0__.useLayoutEffect
-    : react__WEBPACK_IMPORTED_MODULE_0__.useEffect;
-const useIsFocused = () => {
-    const [editor] = (0,_lexical_react_LexicalComposerContext__WEBPACK_IMPORTED_MODULE_2__.useLexicalComposerContext)();
-    const [hasFocus, setHasFocus] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(() => _environment__WEBPACK_IMPORTED_MODULE_1__.CAN_USE_DOM ? editor.getRootElement() === document.activeElement : false);
-    useLayoutEffectImpl(() => {
-        return (0,_lexical_utils__WEBPACK_IMPORTED_MODULE_3__.mergeRegister)(editor.registerCommand(lexical__WEBPACK_IMPORTED_MODULE_4__.FOCUS_COMMAND, () => {
-            setHasFocus(true);
-            return false;
-        }, lexical__WEBPACK_IMPORTED_MODULE_4__.COMMAND_PRIORITY_NORMAL), editor.registerCommand(lexical__WEBPACK_IMPORTED_MODULE_4__.BLUR_COMMAND, () => {
-            setHasFocus(false);
-            return false;
-        }, lexical__WEBPACK_IMPORTED_MODULE_4__.COMMAND_PRIORITY_NORMAL));
-    }, [editor]);
-    return hasFocus;
-};
-
-
-/***/ }),
-
-/***/ "./node_modules/lexical-beautiful-mentions/useMentionLookupService.js":
-/*!****************************************************************************!*\
-  !*** ./node_modules/lexical-beautiful-mentions/useMentionLookupService.js ***!
-  \****************************************************************************/
-/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   useMentionLookupService: function() { return /* binding */ useMentionLookupService; }
-/* harmony export */ });
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _useDebounce__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./useDebounce */ "./node_modules/lexical-beautiful-mentions/useDebounce.js");
-
-
-function useMentionLookupService(options) {
-    const { queryString, trigger, searchDelay, items, onSearch, justSelectedAnOption, } = options;
-    const debouncedQueryString = (0,_useDebounce__WEBPACK_IMPORTED_MODULE_1__.useDebounce)(queryString, searchDelay);
-    const [loading, setLoading] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false);
-    const [results, setResults] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)([]);
-    const [query, setQuery] = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null);
-    // lookup in items (no search function)
-    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-        if (!items) {
-            return;
-        }
-        if (trigger === null) {
-            setResults([]);
-            setQuery(null);
-            return;
-        }
-        const mentions = Object.entries(items).find(([key]) => {
-            return new RegExp(key).test(trigger);
-        });
-        if (!mentions) {
-            return;
-        }
-        const result = !queryString
-            ? [...mentions[1]]
-            : mentions[1].filter((item) => {
-                const value = typeof item === "string" ? item : item.value;
-                return value.toLowerCase().includes(queryString.toLowerCase());
-            });
-        setResults(result);
-        setQuery(queryString);
-    }, [items, trigger, queryString]);
-    // lookup by calling onSearch
-    (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(() => {
-        if (!onSearch) {
-            return;
-        }
-        if (trigger === null || debouncedQueryString === null) {
-            setResults([]);
-            setQuery(null);
-            return;
-        }
-        setLoading(true);
-        setQuery(debouncedQueryString);
-        onSearch(trigger, (justSelectedAnOption === null || justSelectedAnOption === void 0 ? void 0 : justSelectedAnOption.current) ? "" : debouncedQueryString)
-            .then((result) => setResults(result))
-            .finally(() => setLoading(false));
-        if (justSelectedAnOption === null || justSelectedAnOption === void 0 ? void 0 : justSelectedAnOption.current) {
-            justSelectedAnOption.current = false;
-        }
-    }, [debouncedQueryString, onSearch, trigger, justSelectedAnOption]);
-    return (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(() => ({ loading, results, query }), [loading, results, query]);
-}
 
 
 /***/ }),
