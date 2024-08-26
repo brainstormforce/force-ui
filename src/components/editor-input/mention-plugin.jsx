@@ -4,10 +4,9 @@ import {
 	LexicalTypeaheadMenuPlugin,
 } from '@lexical/react/LexicalTypeaheadMenuPlugin';
 import { $createMentionNode } from './mention-node';
-import { cn } from '@/utilities/functions';
 import OptionItem from './option-item';
 import useMentionLookupService from './editor-hooks';
-import { comboboxDropdownClassNames, comboboxDropdownCommonClassNames, comboboxItemClassNames, comboboxItemCommonClassNames, comboboxSelectedItemClassNames } from './editor-input-style';
+import EditorCombobox from './mention-combobox';
 
 const PUNCTUATION =
 	'\\.,\\+\\*\\?\\$\\@\\|#{}\\(\\)\\^\\-\\[\\]\\\\/!%\'"~=<>_:;';
@@ -81,7 +80,13 @@ function checkForAtSignMentions( text ) {
 	return null;
 }
 
-const MentionPlugin = ( { optionsArray, by = 'name', size = 'md' } ) => {
+const MentionPlugin = ( {
+	optionsArray,
+	by = 'name',
+	size = 'md',
+	menuComponent: MenuComponent = EditorCombobox,
+	menuItemComponent: MenuItemComponent = EditorCombobox.Item,
+} ) => {
 	const [ editor ] = useLexicalComposerContext();
 	const [ queryString, setQueryString ] = useState( null );
 
@@ -90,7 +95,11 @@ const MentionPlugin = ( { optionsArray, by = 'name', size = 'md' } ) => {
 	const onSelectOption = useCallback(
 		( selectedOption, nodeToReplace, closeMenu ) => {
 			editor.update( () => {
-				const mentionNode = $createMentionNode( selectedOption.data, by, size );
+				const mentionNode = $createMentionNode(
+					selectedOption.data,
+					by,
+					size
+				);
 				if ( nodeToReplace ) {
 					nodeToReplace.replace( mentionNode );
 				}
@@ -101,12 +110,7 @@ const MentionPlugin = ( { optionsArray, by = 'name', size = 'md' } ) => {
 	);
 
 	const options = useMemo( () => {
-		return results.map(
-			( result ) =>
-				new OptionItem(
-					result
-				)
-		);
+		return results.map( ( result ) => new OptionItem( result ) );
 	}, [ editor, results ] );
 
 	return (
@@ -120,21 +124,15 @@ const MentionPlugin = ( { optionsArray, by = 'name', size = 'md' } ) => {
 				{ selectedIndex, selectOptionAndCleanUp, setHighlightedIndex }
 			) => {
 				return (
-					anchorElementRef.current && !! options?.length && (
-						<ul role="menu" className={ cn(
-							comboboxDropdownCommonClassNames,
-							comboboxDropdownClassNames[ size ]
-						) }>
+					anchorElementRef.current &&
+					!! options?.length && (
+						<MenuComponent size={ size }>
 							{ options.map( ( option, index ) => (
-								<li
-									role="option"
-									ref={ option.ref }
+								<MenuItemComponent
 									key={ index }
-									className={ cn(
-										comboboxItemCommonClassNames,
-										comboboxItemClassNames[ size ],
-										index === selectedIndex && comboboxSelectedItemClassNames,
-									) }
+									ref={ option.ref }
+									size={ size }
+									selected={ index === selectedIndex }
 									onMouseEnter={ () => {
 										setHighlightedIndex( index );
 									} }
@@ -142,10 +140,12 @@ const MentionPlugin = ( { optionsArray, by = 'name', size = 'md' } ) => {
 										selectOptionAndCleanUp( option )
 									}
 								>
-									{ typeof option.data === 'string' ? option.data : option.data?.[ by ] }
-								</li>
+									{ typeof option.data === 'string'
+										? option.data
+										: option.data?.[ by ] }
+								</MenuItemComponent>
 							) ) }
-						</ul>
+						</MenuComponent>
 					)
 				);
 			} }
