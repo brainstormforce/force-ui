@@ -4,11 +4,14 @@ import { PlainTextPlugin } from '@lexical/react/LexicalPlainTextPlugin';
 import { ContentEditable } from '@lexical/react/LexicalContentEditable';
 import { HistoryPlugin } from '@lexical/react/LexicalHistoryPlugin';
 import { LexicalErrorBoundary } from '@lexical/react/LexicalErrorBoundary';
-import { OnChangePlugin } from '@lexical/react/LexicalOnChangePlugin'
+import { OnChangePlugin } from '@lexical/react/LexicalOnChangePlugin';
 
 import { cn } from '@/utilities/functions';
 
-import { editorCommonClassNames, editorInputClassNames } from './editor-input-style';
+import {
+	editorCommonClassNames,
+	editorInputClassNames,
+} from './editor-input-style';
 import MentionPlugin from './mention-plugin';
 import MentionNode from './mention-node';
 
@@ -88,10 +91,47 @@ function onError(error) {
 }
 
 const Placeholder = ({ content }) => (
-	<div className="pointer-events-none absolute inset-0 flex items-center justify-start text-field-placeholder">{content}</div>
+	<div className="pointer-events-none absolute inset-0 flex items-center justify-start text-field-placeholder">
+		{content}
+	</div>
 );
 
 const mentionItems = ['Anton', 'Boris', 'Catherine', 'Dmitri', 'Felix', 'Gina'];
+
+function extractTextFromJson(jsonObj) {
+	if (jsonObj && jsonObj.root && jsonObj.root.children) {
+		let text = '';
+		jsonObj.root.children.forEach((paragraph, index) => {
+			if (paragraph.children.length > 0) {
+				paragraph.children.forEach((element) => {
+					switch (element.type) {
+						case 'text':
+							text += element.text;
+							break;
+						case 'mention':
+							text += element.data.data;
+							break;
+						case 'linebreak':
+							text += '\n\n';
+							break;
+					}
+				});
+				if (
+					paragraph.children[paragraph.children.length - 1].type !==
+						'linebreak' &&
+					index !== jsonObj.root.children.length - 1
+				) {
+					text += '\n';
+				}
+			} else {
+				text += '';
+			}
+		});
+		return text;
+	}
+
+	return 'Not found';
+}
 
 const EditorInput = ({
 	value,
@@ -104,17 +144,26 @@ const EditorInput = ({
 		namespace: 'MyEditor',
 		theme,
 		onError,
-		nodes: [
-			MentionNode
-		], // 👈 register the mention node
+		nodes: [MentionNode], // 👈 register the mention node
 	};
 
+	function onChange(editorState, editor) {
+		editor.update(() => {
+			const extractedText = extractTextFromJson(
+				editor.getEditorState().toJSON()
+			);
+			console.log(extractedText);
+		});
+	}
+
 	return (
-		<div className={cn(
-			'relative [&_*]:text-sm [&_.editor-paragraph]:min-h-6 [&_[itemtype="trigger"]]:hidden',
-			editorCommonClassNames,
-			editorInputClassNames[size]
-		)}>
+		<div
+			className={cn(
+				'relative [&_*]:text-sm [&_.editor-paragraph]:min-h-6 [&_[itemtype="trigger"]]:hidden',
+				editorCommonClassNames,
+				editorInputClassNames[size]
+			)}
+		>
 			<LexicalComposer initialConfig={initialConfig}>
 				<div className="relative w-full [&_p]:m-0">
 					<PlainTextPlugin
@@ -125,8 +174,11 @@ const EditorInput = ({
 				</div>
 				<HistoryPlugin />
 				<AutoFocusPlugin />
-                <MentionPlugin items={mentionItems} />
-                <OnChangePlugin onChange={(...all) => console.log(all)} />
+				<MentionPlugin items={mentionItems} />
+				<OnChangePlugin
+					onChange={onChange}
+					ignoreSelectionChange
+				/>
 			</LexicalComposer>
 		</div>
 	);
