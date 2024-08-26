@@ -2,6 +2,8 @@ export const editableContentAreaCommonClassNames = 'w-full min-h-[1.625rem] [&>p
 
 export const editorCommonClassNames = 'border border-solid focus-within:ring-2 focus-within:ring-offset-2 border-field-border hover:border-border-strong focus-within:!border-focus-border focus-within:ring-focus transition duration-150 ease-in-out';
 
+export const editorDisabledClassNames = 'bg-field-secondary-background border-field-border-disabled hover:border-field-border-disabled [&_p]:text-badge-color-disabled cursor-not-allowed';
+
 export const editorInputClassNames = {
 	sm: 'py-1.5 px-2 rounded [&_.editor-content>p]:text-xs [&_.editor-content>p]:font-medium [&_.editor-content>p]:leading-[1.625rem]',
 	md: 'py-2 px-2.5 rounded-md [&_.editor-content>p]:text-xs [&_.editor-content>p]:font-medium [&_.editor-content>p]:leading-[1.625rem]',

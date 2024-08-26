@@ -17,10 +17,15 @@ const mapSizeToBadgeSize = ( size ) => {
 
 const MentionComponent = ( { data, by, size, nodeKey } ) => {
 	const [ editor ] = useLexicalComposerContext();
+	const disabled = ! editor.isEditable();
 
 	const removeMention = ( event ) => {
 		event.stopPropagation();
 		event.preventDefault();
+
+		if ( disabled ) {
+			return;
+		}
 
 		editor.update( () => {
 			const node = $getNodeByKey( nodeKey );
@@ -35,6 +40,7 @@ const MentionComponent = ( { data, by, size, nodeKey } ) => {
 	if ( typeof data === 'object' ) {
 		renderLabel = data[ by ];
 	}
+
 	return (
 		<Badge
 			className="inline-flex"
@@ -43,6 +49,7 @@ const MentionComponent = ( { data, by, size, nodeKey } ) => {
 			label={ renderLabel }
 			icon={ null }
 			onClose={ removeMention }
+			disabled={ disabled }
 		/>
 	);
 };

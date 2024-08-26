@@ -53,7 +53,7 @@ class MentionNode extends DecoratorNode {
 	}
 }
 
-export const $createMentionNode = ( data = {}, by ) => new MentionNode( data, by );
+export const $createMentionNode = ( data, by, size ) => new MentionNode( data, by, size );
 
 export const $isMentionNode = ( node ) => node instanceof MentionNode;
 

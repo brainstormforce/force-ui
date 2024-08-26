@@ -98,6 +98,18 @@ The Editor Input component is a text input field that allows users to input text
     />
 ```
 
+### disabled
+- **Type:** `boolean`
+- **Default:** `false`
+- **Description:** If `true`, the editor input field will be disabled.
+- Example:
+```jsx
+    <EditorInput
+        ...
+        disabled
+    />
+```
+
 ### menuComponent
 - **Type:** `React.ReactNode`
 - **Description:** Custom component to be rendered in the combobox. The function should return a React component.

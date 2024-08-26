@@ -9,6 +9,7 @@ import { cn } from '@/utilities/functions';
 import {
 	editableContentAreaCommonClassNames,
 	editorCommonClassNames,
+	editorDisabledClassNames,
 	editorInputClassNames,
 } from './editor-input-style';
 import MentionPlugin from './mention-plugin/mention-plugin';
@@ -55,6 +56,7 @@ const EditorInput = ( {
 	menuComponent,
 	menuItemComponent,
 	className,
+	disabled = false,
 } ) => {
 	const initialConfig = {
 		namespace: 'Editor',
@@ -62,6 +64,7 @@ const EditorInput = ( {
 		onError,
 		nodes: [ MentionNode ],
 		editorState: defaultValue ? defaultValue : EMPTY_CONTENT,
+		editable: disabled ? false : true,
 	};
 
 	const handleOnChange = ( editorState, editor ) => {
@@ -85,7 +88,8 @@ const EditorInput = ( {
 			className={ cn(
 				'relative w-full',
 				editorCommonClassNames,
-				editorInputClassNames[ size ]
+				editorInputClassNames[ size ],
+				disabled && editorDisabledClassNames,
 			) }
 		>
 			<LexicalComposer initialConfig={ initialConfig }>
@@ -100,12 +104,20 @@ const EditorInput = ( {
 								) }
 							/>
 						}
-						placeholder={ <EditorPlaceholder content={ placeholder } /> }
+						placeholder={
+							<EditorPlaceholder content={ placeholder } />
+						}
 						ErrorBoundary={ LexicalErrorBoundary }
 					/>
 				</div>
 				<HistoryPlugin />
-				<MentionPlugin menuComponent={ menuComponentToUse } menuItemComponent={ menuItemComponentToUse } size={ size } by={ by } optionsArray={ options } />
+				<MentionPlugin
+					menuComponent={ menuComponentToUse }
+					menuItemComponent={ menuItemComponentToUse }
+					size={ size }
+					by={ by }
+					optionsArray={ options }
+				/>
 				<OnChangePlugin
 					onChange={ handleOnChange }
 					ignoreSelectionChange
