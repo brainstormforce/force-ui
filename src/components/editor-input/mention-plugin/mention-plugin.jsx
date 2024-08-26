@@ -4,7 +4,7 @@ import {
 	LexicalTypeaheadMenuPlugin,
 } from '@lexical/react/LexicalTypeaheadMenuPlugin';
 import { $createMentionNode } from './mention-node';
-import OptionItem from './option-item';
+import OptionItem from './mention-option-item';
 import useMentionLookupService from './mention-hooks';
 import EditorCombobox from './mention-combobox';
 
