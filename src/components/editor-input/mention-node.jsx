@@ -2,11 +2,13 @@ import { DecoratorNode } from 'lexical';
 import MentionComponent from './mention-component';
 
 class MentionNode extends DecoratorNode {
-    __data
+    __data;
+    __by;
 
-    constructor(data, key) {
+    constructor(data, by, key) {
         super(key);
         this.__data = data;
+        this.__by = by;
     }
 
     static getType() {
@@ -14,7 +16,7 @@ class MentionNode extends DecoratorNode {
     }
 
     static clone(node) {
-        return new MentionNode(node.__data, node.__key);
+        return new MentionNode(node.__data, node.__by, node.__key);
     }
 
     static importJSON(serializeNode) {
@@ -45,11 +47,11 @@ class MentionNode extends DecoratorNode {
     }
 
     decorate() {
-        return <MentionComponent data={this.__data} nodeKey={this.__key} />;
+        return <MentionComponent data={this.__data} by={this.__by} nodeKey={this.__key} />;
     }
 }
 
-export const $createMentionNode = (data = {}) => new MentionNode(data);
+export const $createMentionNode = (data = {}, by) => new MentionNode(data, by);
 
 export const $isMentionNode = (node) => node instanceof MentionNode;
 

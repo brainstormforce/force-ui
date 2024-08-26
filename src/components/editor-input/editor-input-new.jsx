@@ -53,6 +53,7 @@ const EditorInput = ({
 	size = 'sm',
 	autoFocus = false,
 	options = [],
+	by = 'name',
 }) => {
 	const initialConfig = {
 		namespace: 'Editor',
@@ -86,7 +87,7 @@ const EditorInput = ({
 					/>
 				</div>
 				<HistoryPlugin />
-				<MentionPlugin optionsArray={options} />
+				<MentionPlugin by={by} optionsArray={options} />
 				<OnChangePlugin
 					onChange={handleOnChange}
 					ignoreSelectionChange

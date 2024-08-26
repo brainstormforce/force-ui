@@ -1,10 +1,9 @@
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
-import { $getNodeByKey, $getSelection, $setSelection } from "lexical";
-import { X } from "lucide-react";
+import { $getNodeByKey } from "lexical";
 import { Badge } from "@/components";
 
 
-const MentionComponent = ({ data, nodeKey }) => {
+const MentionComponent = ({ data, by, nodeKey }) => {
     const [editor] = useLexicalComposerContext();
 
     const removeMention = (event) => {
@@ -20,8 +19,13 @@ const MentionComponent = ({ data, nodeKey }) => {
         node.remove();
     } ) }
 
+
+    let renderLabel = data;
+    if ( typeof data === 'object' ) {
+        renderLabel = data[by];
+    }
 	return (
-        <Badge className="inline-flex" type="rounded" size="xs" label={data} icon={null} onClose={removeMention} />
+        <Badge className="inline-flex" type="rounded" size="xs" label={renderLabel} icon={null} onClose={removeMention} />
 	);
 };
 

@@ -59,10 +59,12 @@ const mentionsCache = new Map();
 
 class OptionItem {
 	data;
+	by;
 	ref = { current: null };
 
-	constructor(data) {
+	constructor(data, by = 'name') {
 		this.data = data;
+		this.by = by;
 	}
 
 	get data() {
@@ -101,7 +103,7 @@ function checkForAtSignMentions(text) {
 	return null;
 }
 
-function useMentionLookupService(options, mentionString) {
+function useMentionLookupService(options, mentionString, by = 'name') {
 	const [results, setResults] = useState([]);
 
 	useEffect(() => {
@@ -123,33 +125,42 @@ function useMentionLookupService(options, mentionString) {
 		lookupService.search(options, mentionString, (newResults) => {
 			mentionsCache.set(mentionString, newResults);
 			setResults(newResults);
-		});
+		}, by);
 	}, [mentionString]);
 
 	return results;
 }
 
 const lookupService = {
-	search(options, string, callback) {
+	search(options, string, callback, by) {
 		setTimeout(() => {
-			const results = options.filter((mention) =>
-				mention.toLowerCase().includes(string.toLowerCase())
-			);
+			const results = options.filter((mention) => {
+				if (typeof mention === 'string') {
+					return mention.toLowerCase().includes(string.toLowerCase());
+				}
+				
+				const strValue = mention?.[by]?.toString();
+				if (!strValue) {
+					return false;
+				}
+				console.log(strValue);
+				return strValue.toLowerCase().includes(string.toLowerCase());
+			});
 			callback(results);
 		}, 500);
 	},
 };
 
-const MentionPlugin = ({optionsArray}) => {
+const MentionPlugin = ({optionsArray, by = 'name'}) => {
 	const [editor] = useLexicalComposerContext();
 	const [queryString, setQueryString] = useState(null);
 
-	const results = useMentionLookupService(optionsArray, queryString);
+	const results = useMentionLookupService(optionsArray, queryString, by);
 
 	const onSelectOption = useCallback(
 		(selectedOption, nodeToReplace, closeMenu) => {
 			editor.update(() => {
-				const mentionNode = $createMentionNode(selectedOption.data);
+				const mentionNode = $createMentionNode(selectedOption.data, by);
 				if (nodeToReplace) {
 					nodeToReplace.replace(mentionNode);
 				}
@@ -160,7 +171,13 @@ const MentionPlugin = ({optionsArray}) => {
 	);
 
 	const options = useMemo(() => {
-		return results.map((result) => new OptionItem(result));
+		return results.map(
+			(result) =>
+				new OptionItem(
+					result,
+					by
+				)
+		);
 	}, [editor, results]);
 
 
@@ -192,7 +209,7 @@ const MentionPlugin = ({optionsArray}) => {
 										selectOptionAndCleanUp(option)
 									}
 								>
-									{option.data}
+									{typeof option.data === 'string' ? option.data : option.data?.[by]}
 								</li>
 							))}
 						</ul>
