@@ -14,77 +14,7 @@ import {
 } from './editor-input-style';
 import MentionPlugin from './mention-plugin';
 import MentionNode from './mention-node';
-
-const theme = {
-	ltr: 'ltr',
-	rtl: 'rtl',
-	paragraph: 'editor-paragraph',
-	quote: 'editor-quote',
-	heading: {
-		h1: 'editor-heading-h1',
-		h2: 'editor-heading-h2',
-		h3: 'editor-heading-h3',
-		h4: 'editor-heading-h4',
-		h5: 'editor-heading-h5',
-		h6: 'editor-heading-h6',
-	},
-	list: {
-		nested: {
-			listitem: 'editor-nested-listitem',
-		},
-		ol: 'editor-list-ol',
-		ul: 'editor-list-ul',
-		listitem: 'editor-listItem',
-		listitemChecked: 'editor-listItemChecked',
-		listitemUnchecked: 'editor-listItemUnchecked',
-	},
-	hashtag: 'editor-hashtag',
-	image: 'editor-image',
-	link: 'editor-link',
-	text: {
-		bold: 'editor-textBold',
-		code: 'editor-textCode',
-		italic: 'editor-textItalic',
-		strikethrough: 'editor-textStrikethrough',
-		subscript: 'editor-textSubscript',
-		superscript: 'editor-textSuperscript',
-		underline: 'editor-textUnderline',
-		underlineStrikethrough: 'editor-textUnderlineStrikethrough',
-	},
-	code: 'editor-code',
-	codeHighlight: {
-		atrule: 'editor-tokenAttr',
-		attr: 'editor-tokenAttr',
-		boolean: 'editor-tokenProperty',
-		builtin: 'editor-tokenSelector',
-		cdata: 'editor-tokenComment',
-		char: 'editor-tokenSelector',
-		class: 'editor-tokenFunction',
-		'class-name': 'editor-tokenFunction',
-		comment: 'editor-tokenComment',
-		constant: 'editor-tokenProperty',
-		deleted: 'editor-tokenProperty',
-		doctype: 'editor-tokenComment',
-		entity: 'editor-tokenOperator',
-		function: 'editor-tokenFunction',
-		important: 'editor-tokenVariable',
-		inserted: 'editor-tokenSelector',
-		keyword: 'editor-tokenAttr',
-		namespace: 'editor-tokenVariable',
-		number: 'editor-tokenProperty',
-		operator: 'editor-tokenOperator',
-		prolog: 'editor-tokenComment',
-		property: 'editor-tokenProperty',
-		punctuation: 'editor-tokenPunctuation',
-		regex: 'editor-tokenVariable',
-		selector: 'editor-tokenSelector',
-		string: 'editor-tokenSelector',
-		symbol: 'editor-tokenProperty',
-		tag: 'editor-tokenProperty',
-		url: 'editor-tokenOperator',
-		variable: 'editor-tokenVariable',
-	},
-};
+import editorTheme from './editor-theme';
 
 function onError(error) {
 	console.error(error);
@@ -96,65 +26,43 @@ const Placeholder = ({ content }) => (
 	</div>
 );
 
-const mentionItems = ['Anton', 'Boris', 'Catherine', 'Dmitri', 'Felix', 'Gina'];
-
-function extractTextFromJson(jsonObj) {
-	if (jsonObj && jsonObj.root && jsonObj.root.children) {
-		let text = '';
-		jsonObj.root.children.forEach((paragraph, index) => {
-			if (paragraph.children.length > 0) {
-				paragraph.children.forEach((element) => {
-					switch (element.type) {
-						case 'text':
-							text += element.text;
-							break;
-						case 'mention':
-							text += element.data.data;
-							break;
-						case 'linebreak':
-							text += '\n\n';
-							break;
-					}
-				});
-				if (
-					paragraph.children[paragraph.children.length - 1].type !==
-						'linebreak' &&
-					index !== jsonObj.root.children.length - 1
-				) {
-					text += '\n';
-				}
-			} else {
-				text += '';
-			}
-		});
-		return text;
-	}
-
-	return 'Not found';
-}
+const EMPTY_CONTENT = `{
+    "root": {
+        "children": [
+            {
+                "children": [],
+                "direction": null,
+                "format": "",
+                "indent": 0,
+                "type": "paragraph",
+                "version": 1,
+                "textFormat": 0,
+                "textStyle": ""
+            }
+        ],
+        "direction": null,
+        "format": "",
+        "indent": 0,
+        "type": "root",
+        "version": 1
+    }
+}`;
 
 const EditorInput = ({
-	value,
 	defaultValue,
 	placeholder = 'Enter what you know',
-	onChange,
+	onChange = () => {},
 	size = 'sm',
+	autoFocus = false,
+	options = [],
 }) => {
 	const initialConfig = {
-		namespace: 'MyEditor',
-		theme,
+		namespace: 'Editor',
+		editorTheme,
 		onError,
-		nodes: [MentionNode], // 👈 register the mention node
+		nodes: [MentionNode],
+		editorState: defaultValue ? defaultValue : EMPTY_CONTENT,
 	};
-
-	function onChange(editorState, editor) {
-		editor.update(() => {
-			const extractedText = extractTextFromJson(
-				editor.getEditorState().toJSON()
-			);
-			console.log(extractedText);
-		});
-	}
 
 	return (
 		<div
@@ -173,12 +81,12 @@ const EditorInput = ({
 					/>
 				</div>
 				<HistoryPlugin />
-				<AutoFocusPlugin />
-				<MentionPlugin items={mentionItems} />
+				<MentionPlugin optionsArray={options} />
 				<OnChangePlugin
 					onChange={onChange}
 					ignoreSelectionChange
 				/>
+				{autoFocus && <AutoFocusPlugin />}
 			</LexicalComposer>
 		</div>
 	);

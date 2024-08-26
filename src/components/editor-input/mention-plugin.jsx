@@ -2,16 +2,9 @@ import { useCallback, useState, useEffect, useMemo } from 'react';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import {
 	LexicalTypeaheadMenuPlugin,
-	useBasicTypeaheadTriggerMatch,
 } from '@lexical/react/LexicalTypeaheadMenuPlugin';
-import { mergeRegister } from '@lexical/utils';
 import { $createMentionNode } from './mention-node';
 import { cn } from '@/utilities/functions';
-import {
-	COMMAND_PRIORITY_LOW,
-	KEY_ARROW_DOWN_COMMAND,
-	KEY_ARROW_UP_COMMAND,
-} from 'lexical';
 
 const dummyMentionsData = [
 	'Aayla Secura',
@@ -188,7 +181,7 @@ function checkForAtSignMentions(text) {
 	return null;
 }
 
-function useMentionLookupService(mentionString) {
+function useMentionLookupService(options, mentionString) {
 	const [results, setResults] = useState([]);
 
 	useEffect(() => {
@@ -207,7 +200,7 @@ function useMentionLookupService(mentionString) {
 		}
 
 		mentionsCache.set(mentionString, null);
-		dummyLookupService.search(mentionString, (newResults) => {
+		lookupService.search(options, mentionString, (newResults) => {
 			mentionsCache.set(mentionString, newResults);
 			setResults(newResults);
 		});
@@ -216,10 +209,10 @@ function useMentionLookupService(mentionString) {
 	return results;
 }
 
-const dummyLookupService = {
-	search(string, callback) {
+const lookupService = {
+	search(options, string, callback) {
 		setTimeout(() => {
-			const results = dummyMentionsData.filter((mention) =>
+			const results = options.filter((mention) =>
 				mention.toLowerCase().includes(string.toLowerCase())
 			);
 			callback(results);
@@ -227,11 +220,11 @@ const dummyLookupService = {
 	},
 };
 
-const MentionPlugin = () => {
+const MentionPlugin = ({optionsArray}) => {
 	const [editor] = useLexicalComposerContext();
 	const [queryString, setQueryString] = useState(null);
 
-	const results = useMentionLookupService(queryString);
+	const results = useMentionLookupService(optionsArray, queryString);
 
 	const onSelectOption = useCallback(
 		(selectedOption, nodeToReplace, closeMenu) => {
