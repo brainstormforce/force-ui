@@ -15,6 +15,7 @@ import MentionPlugin from './mention-plugin/mention-plugin';
 import MentionNode from './mention-plugin/mention-node';
 import editorTheme from './editor-theme';
 import EditorPlaceholder from './editor-placeholder';
+import { isValidElement } from 'react';
 
 function onError( error ) {
 	// eslint-disable-next-line no-console
@@ -44,13 +45,15 @@ const EMPTY_CONTENT = `{
 }`;
 
 const EditorInput = ( {
-	defaultValue,
+	defaultValue = '',
 	placeholder = 'Press @ to view variable suggestions',
 	onChange,
 	size = 'md',
 	autoFocus = false,
 	options = [],
 	by = 'name',
+	menuComponent,
+	menuItemComponent,
 } ) => {
 	const initialConfig = {
 		namespace: 'Editor',
@@ -66,6 +69,15 @@ const EditorInput = ( {
 		}
 		onChange( editorState, editor );
 	};
+
+	let menuComponentToUse;
+	let menuItemComponentToUse;
+	if ( isValidElement( menuComponent ) ) {
+		menuComponentToUse = menuComponent;
+	}
+	if ( isValidElement( menuItemComponent ) ) {
+		menuItemComponentToUse = menuItemComponent;
+	}
 
 	return (
 		<div
@@ -91,7 +103,7 @@ const EditorInput = ( {
 					/>
 				</div>
 				<HistoryPlugin />
-				<MentionPlugin size={ size } by={ by } optionsArray={ options } />
+				<MentionPlugin menuComponent={ menuComponentToUse } menuItemComponent={ menuItemComponentToUse } size={ size } by={ by } optionsArray={ options } />
 				<OnChangePlugin
 					onChange={ handleOnChange }
 					ignoreSelectionChange
