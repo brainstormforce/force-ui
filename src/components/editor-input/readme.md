@@ -129,3 +129,45 @@ The Editor Input component is a text input field that allows users to input text
         menuItemComponent={MenuItemComponent}
     />
 ```
+
+#### usage
+```jsx
+import { EditorInput } from '@bsf/force-ui';
+
+const App = () => (
+  <div className="max-w-sm my-10">
+    <EditorInput
+        size="md"
+        by='label'
+        options={ [
+            {
+                id: 1,
+                label: 'Anton'
+            },
+            {
+                id: 2,
+                label: 'Boris'
+            },
+            {
+                id: 3,
+                label: 'Catherine'
+            },
+            {
+                id: 4,
+                label: 'Dmitri'
+            },
+            {
+                id: 5,
+                label: 'Felix'
+            },
+            {
+                id: 5,
+                label: 'Gina'
+            }
+        ] }
+        onChange={ ( editorState ) =>
+            console.log( editorState.toJSON() )
+        }
+    />
+  </div>
+);
