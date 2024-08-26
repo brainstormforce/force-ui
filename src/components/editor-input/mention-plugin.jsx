@@ -6,88 +6,8 @@ import {
 import { $createMentionNode } from './mention-node';
 import { cn } from '@/utilities/functions';
 
-const dummyMentionsData = [
-	'Aayla Secura',
-	'Admiral Dodd Rancit',
-	'Aurra Sing',
-	'BB-8',
-	'Bo-Katan Kryze',
-	'Breha Antilles-Organa',
-	'C-3PO',
-	'Captain Quarsh Panaka',
-	'Chewbacca',
-	'Darth Tyranus',
-	'Daultay Dofine',
-	'Dexter Jettster',
-	'Ebe E. Endocott',
-	'Eli Vanto',
-	'Ezra Bridger',
-	'Faro Argyus',
-	'Finis Valorum',
-	'FN-2003',
-	'Garazeb "Zeb" Orrelios',
-	'Grand Inquisitor',
-	'Greeata Jendowanian',
-	'Hammerhead',
-	'Han Solo',
-	'Hevy',
-	'Hondo Ohnaka',
-	'Ima-Gun Di',
-	'Inquisitors',
-	'Inspector Thanoth',
-	'Jabba',
-	'Janus Greejatus',
-	'Jaxxon',
-	'K-2SO',
-	'Kanan Jarrus',
-	'Kylo Ren',
-	'L3-37',
-	'Lieutenant Kaydel Ko Connix',
-	'Luke Skywalker',
-	'Mace Windu',
-	'Maximilian Veers',
-	'Mother Talzin',
-	'Nahdar Vebb',
-	'Nahdonnis Praji',
-	'Nien Nunb',
-	'Obi-Wan Kenobi',
-	'Odd Ball',
-	'Orrimarko',
-	'Petty Officer Thanisson',
-	'Pooja Naberrie',
-	'PZ-4CO',
-	'Quarrie',
-	'Quiggold',
-	'Quinlan Vos',
-	'R2-D2',
-	'Raymus Antilles',
-	'Ree-Yees',
-	'Sana Starros',
-	'Shmi Skywalker',
-	'Shu Mai',
-	'Tallissan Lintra',
-	'Tarfful',
-	'Thane Kyrell',
-	'U9-C4',
-	'Unkar Plutt',
-	'Val Beckett',
-	'Vice Admiral Amilyn Holdo',
-	'Vober Dand',
-	'WAC-47',
-	'Wedge Antilles',
-	'Wicket W. Warrick',
-	'Xamuel Lennox',
-	'Yaddle',
-	'Yarael Poof',
-	'Yoda',
-	'Zam Wesell',
-	'Ziro the Hutt',
-	'Zuckuss',
-];
-
 const PUNCTUATION =
 	'\\.,\\+\\*\\?\\$\\@\\|#{}\\(\\)\\^\\-\\[\\]\\\\/!%\'"~=<>_:;';
-const NAME = '\\b[A-Z][^\\s' + PUNCTUATION + ']';
 
 const TRIGGERS = ['@'].join('');
 
@@ -229,7 +149,7 @@ const MentionPlugin = ({optionsArray}) => {
 	const onSelectOption = useCallback(
 		(selectedOption, nodeToReplace, closeMenu) => {
 			editor.update(() => {
-				const mentionNode = $createMentionNode(selectedOption);
+				const mentionNode = $createMentionNode(selectedOption.data);
 				if (nodeToReplace) {
 					nodeToReplace.replace(mentionNode);
 				}

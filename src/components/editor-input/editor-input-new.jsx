@@ -5,9 +5,7 @@ import { ContentEditable } from '@lexical/react/LexicalContentEditable';
 import { HistoryPlugin } from '@lexical/react/LexicalHistoryPlugin';
 import { LexicalErrorBoundary } from '@lexical/react/LexicalErrorBoundary';
 import { OnChangePlugin } from '@lexical/react/LexicalOnChangePlugin';
-
 import { cn } from '@/utilities/functions';
-
 import {
 	editorCommonClassNames,
 	editorInputClassNames,
@@ -50,8 +48,8 @@ const EMPTY_CONTENT = `{
 
 const EditorInput = ({
 	defaultValue,
-	placeholder = 'Enter what you know',
-	onChange = () => {},
+	placeholder = 'Press @ to view variable suggestions',
+	onChange,
 	size = 'sm',
 	autoFocus = false,
 	options = [],
@@ -64,10 +62,17 @@ const EditorInput = ({
 		editorState: defaultValue ? defaultValue : EMPTY_CONTENT,
 	};
 
+	const handleOnChange = (editorState, editor) => {
+		if ( typeof onChange !== 'function' ) {
+			return;
+		}
+		onChange(editorState, editor);
+	}
+
 	return (
 		<div
 			className={cn(
-				'relative [&_*]:text-sm [&_.editor-paragraph]:min-h-6 [&_[itemtype="trigger"]]:hidden',
+				'relative',
 				editorCommonClassNames,
 				editorInputClassNames[size]
 			)}
@@ -75,7 +80,7 @@ const EditorInput = ({
 			<LexicalComposer initialConfig={initialConfig}>
 				<div className="relative w-full [&_p]:m-0">
 					<PlainTextPlugin
-						contentEditable={<ContentEditable />}
+						contentEditable={<ContentEditable className='editor-content' />}
 						placeholder={<Placeholder content={placeholder} />}
 						ErrorBoundary={LexicalErrorBoundary}
 					/>
@@ -83,7 +88,7 @@ const EditorInput = ({
 				<HistoryPlugin />
 				<MentionPlugin optionsArray={options} />
 				<OnChangePlugin
-					onChange={onChange}
+					onChange={handleOnChange}
 					ignoreSelectionChange
 				/>
 				{autoFocus && <AutoFocusPlugin />}

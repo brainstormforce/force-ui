@@ -1,6 +1,7 @@
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import { $getNodeByKey, $getSelection, $setSelection } from "lexical";
 import { X } from "lucide-react";
+import { Badge } from "@/components";
 
 
 const MentionComponent = ({ data, nodeKey }) => {
@@ -20,15 +21,7 @@ const MentionComponent = ({ data, nodeKey }) => {
     } ) }
 
 	return (
-		<span className="inline-flex items-center gap-1 px-1 py-0.5 bg-slate-300">
-			<span>{data.data}</span>
-			<span
-				className="inline-flex items-center justify-center cursor-pointer"
-				onClick={removeMention}
-			>
-				<X className="size-4" />
-			</span>
-		</span>
+        <Badge className="inline-flex" type="rounded" size="xs" label={data} icon={null} onClose={removeMention} />
 	);
 };
 
