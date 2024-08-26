@@ -5,6 +5,8 @@ import {
 } from '@lexical/react/LexicalTypeaheadMenuPlugin';
 import { $createMentionNode } from './mention-node';
 import { cn } from '@/utilities/functions';
+import OptionItem from './option-item';
+import useMentionLookupService from './editor-hooks';
 
 const PUNCTUATION =
 	'\\.,\\+\\*\\?\\$\\@\\|#{}\\(\\)\\^\\-\\[\\]\\\\/!%\'"~=<>_:;';
@@ -55,31 +57,6 @@ const AtSignMentionsRegexAliasRegex = new RegExp(
 		')$'
 );
 
-const mentionsCache = new Map();
-
-class OptionItem {
-	data;
-	by;
-	ref = { current: null };
-
-	constructor(data, by = 'name') {
-		this.data = data;
-		this.by = by;
-	}
-
-	get data() {
-		return this.data;
-	}
-
-	get ref() {
-		return this.ref.current;
-	}
-
-	set ref(ref) {
-		this.ref.current = ref;
-	}
-}
-
 function checkForAtSignMentions(text) {
 	let match = AtSignMentionsRegex.exec(text);
 
@@ -103,53 +80,6 @@ function checkForAtSignMentions(text) {
 	return null;
 }
 
-function useMentionLookupService(options, mentionString, by = 'name') {
-	const [results, setResults] = useState([]);
-
-	useEffect(() => {
-		const cachedResults = mentionsCache.get(mentionString);
-
-		if (mentionString == null) {
-			setResults([]);
-			return;
-		}
-
-		if (cachedResults === null) {
-			return;
-		} else if (cachedResults !== undefined) {
-			setResults(cachedResults);
-			return;
-		}
-
-		mentionsCache.set(mentionString, null);
-		lookupService.search(options, mentionString, (newResults) => {
-			mentionsCache.set(mentionString, newResults);
-			setResults(newResults);
-		}, by);
-	}, [mentionString]);
-
-	return results;
-}
-
-const lookupService = {
-	search(options, string, callback, by) {
-		setTimeout(() => {
-			const results = options.filter((mention) => {
-				if (typeof mention === 'string') {
-					return mention.toLowerCase().includes(string.toLowerCase());
-				}
-				
-				const strValue = mention?.[by]?.toString();
-				if (!strValue) {
-					return false;
-				}
-				console.log(strValue);
-				return strValue.toLowerCase().includes(string.toLowerCase());
-			});
-			callback(results);
-		}, 500);
-	},
-};
 
 const MentionPlugin = ({optionsArray, by = 'name'}) => {
 	const [editor] = useLexicalComposerContext();
