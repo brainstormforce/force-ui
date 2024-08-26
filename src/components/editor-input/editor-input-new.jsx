@@ -7,6 +7,7 @@ import { LexicalErrorBoundary } from '@lexical/react/LexicalErrorBoundary';
 import { OnChangePlugin } from '@lexical/react/LexicalOnChangePlugin';
 import { cn } from '@/utilities/functions';
 import {
+	editableContentAreaCommonClassNames,
 	editorCommonClassNames,
 	editorInputClassNames,
 } from './editor-input-style';
@@ -50,7 +51,7 @@ const EditorInput = ({
 	defaultValue,
 	placeholder = 'Press @ to view variable suggestions',
 	onChange,
-	size = 'sm',
+	size = 'md',
 	autoFocus = false,
 	options = [],
 	by = 'name',
@@ -81,13 +82,20 @@ const EditorInput = ({
 			<LexicalComposer initialConfig={initialConfig}>
 				<div className="relative w-full [&_p]:m-0">
 					<PlainTextPlugin
-						contentEditable={<ContentEditable className='editor-content' />}
+						contentEditable={
+							<ContentEditable
+								className={cn(
+									'editor-content',
+									editableContentAreaCommonClassNames
+								)}
+							/>
+						}
 						placeholder={<Placeholder content={placeholder} />}
 						ErrorBoundary={LexicalErrorBoundary}
 					/>
 				</div>
 				<HistoryPlugin />
-				<MentionPlugin by={by} optionsArray={options} />
+				<MentionPlugin size={size} by={by} optionsArray={options} />
 				<OnChangePlugin
 					onChange={handleOnChange}
 					ignoreSelectionChange

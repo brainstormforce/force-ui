@@ -1,4 +1,4 @@
-import { useCallback, useState, useEffect, useMemo } from 'react';
+import { useCallback, useState, useMemo } from 'react';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import {
 	LexicalTypeaheadMenuPlugin,
@@ -7,6 +7,7 @@ import { $createMentionNode } from './mention-node';
 import { cn } from '@/utilities/functions';
 import OptionItem from './option-item';
 import useMentionLookupService from './editor-hooks';
+import { comboboxDropdownClassNames, comboboxDropdownCommonClassNames, comboboxItemClassNames, comboboxItemCommonClassNames, comboboxSelectedItemClassNames } from './editor-input-style';
 
 const PUNCTUATION =
 	'\\.,\\+\\*\\?\\$\\@\\|#{}\\(\\)\\^\\-\\[\\]\\\\/!%\'"~=<>_:;';
@@ -81,7 +82,7 @@ function checkForAtSignMentions(text) {
 }
 
 
-const MentionPlugin = ({optionsArray, by = 'name'}) => {
+const MentionPlugin = ({optionsArray, by = 'name', size = 'md'}) => {
 	const [editor] = useLexicalComposerContext();
 	const [queryString, setQueryString] = useState(null);
 
@@ -90,7 +91,7 @@ const MentionPlugin = ({optionsArray, by = 'name'}) => {
 	const onSelectOption = useCallback(
 		(selectedOption, nodeToReplace, closeMenu) => {
 			editor.update(() => {
-				const mentionNode = $createMentionNode(selectedOption.data, by);
+				const mentionNode = $createMentionNode(selectedOption.data, by, size);
 				if (nodeToReplace) {
 					nodeToReplace.replace(mentionNode);
 				}
@@ -104,8 +105,7 @@ const MentionPlugin = ({optionsArray, by = 'name'}) => {
 		return results.map(
 			(result) =>
 				new OptionItem(
-					result,
-					by
+					result
 				)
 		);
 	}, [editor, results]);
@@ -123,14 +123,18 @@ const MentionPlugin = ({optionsArray, by = 'name'}) => {
 			) => {
 				return (
 					anchorElementRef.current && !! options?.length && (
-						<ul className="absolute inset-x-0 top-full mt-2.5 mx-0 mb-0 w-full h-auto max-h-48 overflow-y-auto z-10 bg-white border border-solid border-border-strong shadow-lg rounded-md">
+						<ul className={cn(
+							comboboxDropdownCommonClassNames,
+							comboboxDropdownClassNames[size]
+						)}>
 							{options.map((option, index) => (
 								<li
 									ref={option.ref}
 									key={index}
 									className={cn(
-										'px-3 py-2 cursor-pointer m-0',
-										index === selectedIndex && 'bg-gray-100'
+										comboboxItemCommonClassNames,
+										comboboxItemClassNames[size],
+										index === selectedIndex && comboboxSelectedItemClassNames,
 									)}
 									onMouseEnter={() => {
 										setHighlightedIndex(index)

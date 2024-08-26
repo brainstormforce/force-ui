@@ -1,11 +1,9 @@
 class OptionItem {
 	data;
-	by;
 	ref = { current: null };
 
-	constructor(data, by = 'name') {
+	constructor(data) {
 		this.data = data;
-		this.by = by;
 	}
 
 	get data() {

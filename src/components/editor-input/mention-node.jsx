@@ -4,11 +4,13 @@ import MentionComponent from './mention-component';
 class MentionNode extends DecoratorNode {
     __data;
     __by;
+    __size;
 
-    constructor(data, by, key) {
+    constructor(data, by, size, key) {
         super(key);
         this.__data = data;
         this.__by = by;
+        this.__size = size;
     }
 
     static getType() {
@@ -16,7 +18,7 @@ class MentionNode extends DecoratorNode {
     }
 
     static clone(node) {
-        return new MentionNode(node.__data, node.__by, node.__key);
+        return new MentionNode(node.__data, node.__by, node.__size, node.__key);
     }
 
     static importJSON(serializeNode) {
@@ -47,7 +49,7 @@ class MentionNode extends DecoratorNode {
     }
 
     decorate() {
-        return <MentionComponent data={this.__data} by={this.__by} nodeKey={this.__key} />;
+        return <MentionComponent data={this.__data} by={this.__by} size={this.__size} nodeKey={this.__key} />;
     }
 }
 
