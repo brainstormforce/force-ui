@@ -10,19 +10,18 @@ const tailwindGapToRem = (gapClass) => {
         'gap-6': '1.5rem',
         'gap-8': '2rem',
     };
-
     return gapMap[gapClass] || '1rem'; // Default to 1rem if not found
 };
 
 
 const Container = (props) => {
     const {
-        containerType = 'flex', // flex, grid
+        containerType = 'flex', // flex, (grid - functionality not implemented)
         gap = 'sm', // xs, sm, md, lg, xl, 2xl
         direction = '', // row, row-reverse, column, column reverse
         justify = '', // justify-content (normal, start, end, center, between, around, evenly, stretch)
         align = '', // align-items (start, end, center, baseline, stretch)
-        wrap = 'wrap', // nowrap, wrap, wrap-reverse
+        wrap, // nowrap, wrap, wrap-reverse
         cols = '',
         tabCols = '',
         mCols = '',
@@ -30,6 +29,8 @@ const Container = (props) => {
         children,
         ...extraProps
     } = props;
+
+    const wrapClass = wrap !== undefined ? wrap : (cols || tabCols || mCols ? 'wrap' : '');
 
     const containerTypeClass = {
         flex: 'flex',
@@ -75,13 +76,14 @@ const Container = (props) => {
         wrap: 'flex-wrap',
         'wrap-reverse': 'flex-wrap-reverse',
         nowrap: 'flex-nowrap',
-    }?.[wrap];
+    }?.[wrapClass];
 
     const combinedClasses = cn(containerTypeClass, gapClasses, directionClasses, justifyContentClasses, alignItemsClasses, wrapClasses, className);
 
     const calculateFlex = (columns) => {
+        if (!columns) return; 
         const gapSize = tailwindGapToRem(gapClasses);
-        return columns ? `calc(${100 / columns}% - (${gapSize} - (${gapSize} / ${columns})))` : '100%';
+        return `calc(${100 / columns}% - (${gapSize} - (${gapSize} / ${columns})))`;
     };
 
     return (
@@ -94,24 +96,31 @@ const Container = (props) => {
                     ),
                 })
             )}
+            {/* Conditionally render media queries if cols is set */}
             <style jsx>{`
-                @media only screen and (max-width: 640px) {
-                .flex-item {
-                    flex: 0 0 ${calculateFlex(mCols)};
-                    max-width: ${calculateFlex(mCols)};
+                ${mCols && 
+                    `@media only screen and (max-width: 640px) {
+                        .flex-item {
+                            flex: 0 0 ${calculateFlex(mCols)};
+                            max-width: ${calculateFlex(mCols)};
+                        }
+                    }`
                 }
+                ${tabCols && 
+                    `@media only screen and (min-width: 641px) and (max-width: 1023px) {
+                        .flex-item {
+                            flex: 0 0 ${calculateFlex(tabCols)};
+                            max-width: ${calculateFlex(tabCols)};
+                        }
+                    }`
                 }
-                @media only screen and (min-width: 641px) and (max-width: 1023px) {
-                .flex-item {
-                    flex: 0 0 ${calculateFlex(tabCols)};
-                    max-width: ${calculateFlex(tabCols)};
-                }
-                }
-                @media only screen and (min-width: 1024px) {
-                .flex-item {
-                    flex: 0 0 ${calculateFlex(cols)};
-                    max-width: ${calculateFlex(cols)};
-                }
+                ${cols && 
+                    `@media only screen and (min-width: 1024px) {
+                        .flex-item {
+                            flex: 0 0 ${calculateFlex(cols)};
+                            max-width: ${calculateFlex(cols)};
+                        }
+                    }`
                 }
             `}</style>
         </div>
