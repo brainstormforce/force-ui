@@ -11,8 +11,8 @@ import {
 	editorCommonClassNames,
 	editorInputClassNames,
 } from './editor-input-style';
-import MentionPlugin from './mention-plugin';
-import MentionNode from './mention-node';
+import MentionPlugin from './mention-plugin/mention-plugin';
+import MentionNode from './mention-plugin/mention-node';
 import editorTheme from './editor-theme';
 import EditorPlaceholder from './editor-placeholder';
 

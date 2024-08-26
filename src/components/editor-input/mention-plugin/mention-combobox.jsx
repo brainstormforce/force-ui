@@ -5,7 +5,7 @@ import {
 	comboboxItemClassNames,
 	comboboxItemCommonClassNames,
 	comboboxSelectedItemClassNames,
-} from './editor-input-style';
+} from '../editor-input-style';
 import { forwardRef } from 'react';
 
 const EditorComboboxWrapper = ( { size, className, children } ) => (

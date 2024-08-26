@@ -5,7 +5,7 @@ import {
 } from '@lexical/react/LexicalTypeaheadMenuPlugin';
 import { $createMentionNode } from './mention-node';
 import OptionItem from './option-item';
-import useMentionLookupService from './editor-hooks';
+import useMentionLookupService from './mention-hooks';
 import EditorCombobox from './mention-combobox';
 
 const PUNCTUATION =
