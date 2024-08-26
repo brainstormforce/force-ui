@@ -86,6 +86,18 @@ The Editor Input component is a text input field that allows users to input text
 - **Default:** `false`
 - **Description:** If `true`, the editor input field will be focused when the component is mounted.
 
+### className
+- **Type:** `string`
+- **Default:** `""`
+- **Description:** Additional classes to be added to the editor input field.
+- Example:
+```jsx
+    <EditorInput
+        ...
+        className="..."
+    />
+```
+
 ### menuComponent
 - **Type:** `React.ReactNode`
 - **Description:** Custom component to be rendered in the combobox. The function should return a React component.

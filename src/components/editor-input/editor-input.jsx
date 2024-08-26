@@ -54,6 +54,7 @@ const EditorInput = ( {
 	by = 'name',
 	menuComponent,
 	menuItemComponent,
+	className,
 } ) => {
 	const initialConfig = {
 		namespace: 'Editor',
@@ -94,7 +95,8 @@ const EditorInput = ( {
 							<ContentEditable
 								className={ cn(
 									'editor-content',
-									editableContentAreaCommonClassNames
+									editableContentAreaCommonClassNames,
+									className
 								) }
 							/>
 						}
