@@ -83,7 +83,7 @@ const EditorInput = ( {
 	return (
 		<div
 			className={ cn(
-				'relative',
+				'relative w-full',
 				editorCommonClassNames,
 				editorInputClassNames[ size ]
 			) }
