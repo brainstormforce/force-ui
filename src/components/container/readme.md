@@ -26,7 +26,7 @@ The `Container` component is a flexible layout component that can be used to cre
 
 ### direction
 - **Type:** `string`
-- **Default:** `"row"`
+- **Default:** `""`
 - **Description:** Defines the direction of flex items (applicable only for flex containers).
     - `"row"`
     - `"row-reverse"`
@@ -35,7 +35,7 @@ The `Container` component is a flexible layout component that can be used to cre
 
 ### justify
 - **Type:** `string`
-- **Default:** `"start"`
+- **Default:** `""`
 - **Description:** Specifies how flex items are aligned along the main axis.
     - `"normal"`
     - `"start"`
@@ -48,7 +48,7 @@ The `Container` component is a flexible layout component that can be used to cre
 
 ### align
 - **Type:** `string`
-- **Default:** `"stretch"`
+- **Default:** `""`
 - **Description:** Specifies how flex items are aligned along the cross axis.
     - `"start"`
     - `"end"`
@@ -58,7 +58,6 @@ The `Container` component is a flexible layout component that can be used to cre
 
 ### wrap
 - **Type:** `string`
-- **Default:** `""`
 - **Description:** Defines how flex items should wrap in the container. If no wrap is specified, it will automatically wrap if any column props (cols, tabCols, mCols) are provided.
     - `"nowrap"`
     - `"wrap"`
