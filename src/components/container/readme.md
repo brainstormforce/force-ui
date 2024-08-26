@@ -58,11 +58,26 @@ The `Container` component is a flexible layout component that can be used to cre
 
 ### wrap
 - **Type:** `string`
-- **Default:** `nowrap`
-- **Description:** Defines how flex items should wrap in the container.
+- **Default:** `""`
+- **Description:** Defines how flex items should wrap in the container. If no wrap is specified, it will automatically wrap if any column props (cols, tabCols, mCols) are provided.
     - `"nowrap"`
     - `"wrap"`
     - `"wrap-reverse"`
+
+### cols
+- **Type:** `string`
+- **Default:** `""`
+- **Description:** Specifies the number of columns for desktop view (applies to flexbox layouts). The column width is dynamically calculated based on the number of columns and the gap size.
+
+### tabCols
+- **Type:** `string`
+- **Default:** `""`
+- **Description:** Specifies the number of columns for tablet view (applies to flexbox layouts). The column width is dynamically calculated based on the number of columns and the gap size.
+
+### mCols
+- **Type:** `string`
+- **Default:** `""`
+- **Description:** Specifies the number of columns for mobile view (applies to flexbox layouts). The column width is dynamically calculated based on the number of columns and the gap size.
 
 ### className
 - **Type:** `string`
@@ -115,11 +130,22 @@ The `Container` component is a flexible layout component that can be used to cre
 import { Container } from '@bsf/force-ui';
 
 const App = () => (
-    <Container justify="end" align="start" gap="xs" className="bg-orange-300 h-60">
-        <Container.Item grow={1}>Item 1</Container.Item>
-        <Container.Item>Item 2</Container.Item>
-        <Container.Item grow={1}>Item 3</Container.Item>
-    </Container>
+    <>
+        {/* Default Flex Behavior */}
+        <Container justify="end" align="start" gap="xs" className="bg-orange-300 h-60">
+            <Container.Item grow={1}>Item 1</Container.Item>
+            <Container.Item>Item 2</Container.Item>
+            <Container.Item grow={1}>Item 3</Container.Item>
+        </Container>
+
+        {/* Responsive Behavior */}
+        <Container cols={4} tabCols={2} mCols={1} gap="md" className="bg-pink-200 p-4">
+            <Container.Item className="bg-red-500 p-4">Item 1</Container.Item>
+            <Container.Item className="bg-green-500 p-4">Item 2</Container.Item>
+            <Container.Item className="bg-blue-500 p-4">Item 3</Container.Item>
+            <Container.Item className="bg-yellow-500 p-4">Item 4</Container.Item>
+        </Container>
+    </>
 );
 
 export default App;
