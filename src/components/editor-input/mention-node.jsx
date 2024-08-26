@@ -2,59 +2,59 @@ import { DecoratorNode } from 'lexical';
 import MentionComponent from './mention-component';
 
 class MentionNode extends DecoratorNode {
-    __data;
-    __by;
-    __size;
+	__data;
+	__by;
+	__size;
 
-    constructor(data, by, size, key) {
-        super(key);
-        this.__data = data;
-        this.__by = by;
-        this.__size = size;
-    }
+	constructor( data, by, size, key ) {
+		super( key );
+		this.__data = data;
+		this.__by = by;
+		this.__size = size;
+	}
 
-    static getType() {
-        return 'mention';
-    }
+	static getType() {
+		return 'mention';
+	}
 
-    static clone(node) {
-        return new MentionNode(node.__data, node.__by, node.__size, node.__key);
-    }
+	static clone( node ) {
+		return new MentionNode( node.__data, node.__by, node.__size, node.__key );
+	}
 
-    static importJSON(serializeNode) {
-        const node = $createMentionNode(serializeNode.data);
-        return node;
-    }
+	static importJSON( serializeNode ) {
+		const node = $createMentionNode( serializeNode.data );
+		return node;
+	}
 
-    createDOM() {
-        return document.createElement('span');
-    }
+	createDOM() {
+		return document.createElement( 'span' );
+	}
 
-    updateDOM() {
-        return false;
-    }
+	updateDOM() {
+		return false;
+	}
 
-    exportDOM() {
-        const element = document.createElement('span');
+	exportDOM() {
+		const element = document.createElement( 'span' );
 
-        return { element };
-    }
+		return { element };
+	}
 
-    exportJSON() {
-        return {
-            type: MentionNode.getType(),
-            data: this.__data,
-            version: 1,
-        };
-    }
+	exportJSON() {
+		return {
+			type: MentionNode.getType(),
+			data: this.__data,
+			version: 1,
+		};
+	}
 
-    decorate() {
-        return <MentionComponent data={this.__data} by={this.__by} size={this.__size} nodeKey={this.__key} />;
-    }
+	decorate() {
+		return <MentionComponent data={ this.__data } by={ this.__by } size={ this.__size } nodeKey={ this.__key } />;
+	}
 }
 
-export const $createMentionNode = (data = {}, by) => new MentionNode(data, by);
+export const $createMentionNode = ( data = {}, by ) => new MentionNode( data, by );
 
-export const $isMentionNode = (node) => node instanceof MentionNode;
+export const $isMentionNode = ( node ) => node instanceof MentionNode;
 
 export default MentionNode;

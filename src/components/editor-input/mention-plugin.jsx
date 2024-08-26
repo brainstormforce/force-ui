@@ -12,7 +12,7 @@ import { comboboxDropdownClassNames, comboboxDropdownCommonClassNames, comboboxI
 const PUNCTUATION =
 	'\\.,\\+\\*\\?\\$\\@\\|#{}\\(\\)\\^\\-\\[\\]\\\\/!%\'"~=<>_:;';
 
-const TRIGGERS = ['@'].join('');
+const TRIGGERS = [ '@' ].join( '' );
 
 const VALID_CHARS = '[^' + TRIGGERS + PUNCTUATION + '\\s]';
 
@@ -58,98 +58,97 @@ const AtSignMentionsRegexAliasRegex = new RegExp(
 		')$'
 );
 
-function checkForAtSignMentions(text) {
-	let match = AtSignMentionsRegex.exec(text);
+function checkForAtSignMentions( text ) {
+	let match = AtSignMentionsRegex.exec( text );
 
-	if (match === null) {
-		match = AtSignMentionsRegexAliasRegex.exec(text);
+	if ( match === null ) {
+		match = AtSignMentionsRegexAliasRegex.exec( text );
 	}
-	if (match !== null) {
+	if ( match !== null ) {
 		// The strategy ignores leading whitespace but we need to know it's
 		// length to add it to the leadOffset
-		const maybeLeadingWhitespace = match[1];
+		const maybeLeadingWhitespace = match[ 1 ];
 
-		const matchingString = match[3];
-		if (matchingString.length >= 0) {
+		const matchingString = match[ 3 ];
+		if ( matchingString.length >= 0 ) {
 			return {
 				leadOffset: match.index + maybeLeadingWhitespace.length,
 				matchingString,
-				replaceableString: match[2],
+				replaceableString: match[ 2 ],
 			};
 		}
 	}
 	return null;
 }
 
+const MentionPlugin = ( { optionsArray, by = 'name', size = 'md' } ) => {
+	const [ editor ] = useLexicalComposerContext();
+	const [ queryString, setQueryString ] = useState( null );
 
-const MentionPlugin = ({optionsArray, by = 'name', size = 'md'}) => {
-	const [editor] = useLexicalComposerContext();
-	const [queryString, setQueryString] = useState(null);
-
-	const results = useMentionLookupService(optionsArray, queryString, by);
+	const results = useMentionLookupService( optionsArray, queryString, by );
 
 	const onSelectOption = useCallback(
-		(selectedOption, nodeToReplace, closeMenu) => {
-			editor.update(() => {
-				const mentionNode = $createMentionNode(selectedOption.data, by, size);
-				if (nodeToReplace) {
-					nodeToReplace.replace(mentionNode);
+		( selectedOption, nodeToReplace, closeMenu ) => {
+			editor.update( () => {
+				const mentionNode = $createMentionNode( selectedOption.data, by, size );
+				if ( nodeToReplace ) {
+					nodeToReplace.replace( mentionNode );
 				}
 				closeMenu();
-			});
+			} );
 		},
-		[editor]
+		[ editor ]
 	);
 
-	const options = useMemo(() => {
+	const options = useMemo( () => {
 		return results.map(
-			(result) =>
+			( result ) =>
 				new OptionItem(
 					result
 				)
 		);
-	}, [editor, results]);
-
+	}, [ editor, results ] );
 
 	return (
 		<LexicalTypeaheadMenuPlugin
-			onQueryChange={setQueryString}
-			onSelectOption={onSelectOption}
-			triggerFn={checkForAtSignMentions}
-			options={options}
-			menuRenderFn={(
+			onQueryChange={ setQueryString }
+			onSelectOption={ onSelectOption }
+			triggerFn={ checkForAtSignMentions }
+			options={ options }
+			menuRenderFn={ (
 				anchorElementRef,
 				{ selectedIndex, selectOptionAndCleanUp, setHighlightedIndex }
 			) => {
 				return (
 					anchorElementRef.current && !! options?.length && (
-						<ul className={cn(
+						<ul role="menu" className={ cn(
 							comboboxDropdownCommonClassNames,
-							comboboxDropdownClassNames[size]
-						)}>
-							{options.map((option, index) => (
+							comboboxDropdownClassNames[ size ]
+						) }>
+							{ options.map( ( option, index ) => (
 								<li
-									ref={option.ref}
-									key={index}
-									className={cn(
+									role="option"
+									ref={ option.ref }
+									key={ index }
+									className={ cn(
 										comboboxItemCommonClassNames,
-										comboboxItemClassNames[size],
+										comboboxItemClassNames[ size ],
 										index === selectedIndex && comboboxSelectedItemClassNames,
-									)}
-									onMouseEnter={() => {
-										setHighlightedIndex(index)
-                                    }}
-									onClick={() =>
-										selectOptionAndCleanUp(option)
+									) }
+									onMouseEnter={ () => {
+										setHighlightedIndex( index );
+									} }
+									onClick={ () =>
+										selectOptionAndCleanUp( option )
 									}
 								>
-									{typeof option.data === 'string' ? option.data : option.data?.[by]}
+									{ typeof option.data === 'string' ? option.data : option.data?.[ by ] }
 								</li>
-							))}
+							) ) }
 						</ul>
 					)
 				);
-			}}
+			} }
 		/>
 	);
 };

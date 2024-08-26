@@ -14,16 +14,12 @@ import {
 import MentionPlugin from './mention-plugin';
 import MentionNode from './mention-node';
 import editorTheme from './editor-theme';
+import EditorPlaceholder from './editor-placeholder';
 
-function onError(error) {
-	console.error(error);
+function onError( error ) {
+	// eslint-disable-next-line no-console
+	console.error( error );
 }
-
-const Placeholder = ({ content }) => (
-	<div className="pointer-events-none absolute inset-0 flex items-center justify-start text-field-placeholder">
-		{content}
-	</div>
-);
 
 const EMPTY_CONTENT = `{
     "root": {
@@ -47,7 +43,7 @@ const EMPTY_CONTENT = `{
     }
 }`;
 
-const EditorInput = ({
+const EditorInput = ( {
 	defaultValue,
 	placeholder = 'Press @ to view variable suggestions',
 	onChange,
@@ -55,52 +51,52 @@ const EditorInput = ({
 	autoFocus = false,
 	options = [],
 	by = 'name',
-}) => {
+} ) => {
 	const initialConfig = {
 		namespace: 'Editor',
 		editorTheme,
 		onError,
-		nodes: [MentionNode],
+		nodes: [ MentionNode ],
 		editorState: defaultValue ? defaultValue : EMPTY_CONTENT,
 	};
 
-	const handleOnChange = (editorState, editor) => {
+	const handleOnChange = ( editorState, editor ) => {
 		if ( typeof onChange !== 'function' ) {
 			return;
 		}
-		onChange(editorState, editor);
-	}
+		onChange( editorState, editor );
+	};
 
 	return (
 		<div
-			className={cn(
+			className={ cn(
 				'relative',
 				editorCommonClassNames,
-				editorInputClassNames[size]
-			)}
+				editorInputClassNames[ size ]
+			) }
 		>
-			<LexicalComposer initialConfig={initialConfig}>
+			<LexicalComposer initialConfig={ initialConfig }>
 				<div className="relative w-full [&_p]:m-0">
 					<PlainTextPlugin
 						contentEditable={
 							<ContentEditable
-								className={cn(
+								className={ cn(
 									'editor-content',
 									editableContentAreaCommonClassNames
-								)}
+								) }
 							/>
 						}
-						placeholder={<Placeholder content={placeholder} />}
-						ErrorBoundary={LexicalErrorBoundary}
+						placeholder={ <EditorPlaceholder content={ placeholder } /> }
+						ErrorBoundary={ LexicalErrorBoundary }
 					/>
 				</div>
 				<HistoryPlugin />
-				<MentionPlugin size={size} by={by} optionsArray={options} />
+				<MentionPlugin size={ size } by={ by } optionsArray={ options } />
 				<OnChangePlugin
-					onChange={handleOnChange}
+					onChange={ handleOnChange }
 					ignoreSelectionChange
 				/>
-				{autoFocus && <AutoFocusPlugin />}
+				{ autoFocus && <AutoFocusPlugin /> }
 			</LexicalComposer>
 		</div>
 	);
