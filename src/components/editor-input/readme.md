@@ -9,7 +9,8 @@ The Editor Input component is a text input field that allows users to input text
 - **Type:** `json string`
 - **Default:** `""`
 - Description: The default value of the editor input field. The value should be a JSON string.
-- Example: ```json
+- Example:
+```json
 {
     "root": {
         "children": [
@@ -50,6 +51,7 @@ The Editor Input component is a text input field that allows users to input text
     }
 }
 ```
+
 
 ### onChange
 - **Type:** `function`
