@@ -262,7 +262,7 @@ const MentionPlugin = () => {
 				{ selectedIndex, selectOptionAndCleanUp, setHighlightedIndex }
 			) => {
 				return (
-					anchorElementRef.current && (
+					anchorElementRef.current && !! options?.length && (
 						<ul className="absolute inset-x-0 top-full mt-2.5 mx-0 mb-0 w-full h-auto max-h-48 overflow-y-auto z-10 bg-white border border-solid border-border-strong shadow-lg rounded-md">
 							{options.map((option, index) => (
 								<li
