@@ -12249,7 +12249,7 @@ function _arrayWithHoles(r) {
 var Tooltip = function Tooltip(_ref) {
   var _light$dark;
   var _ref$variant = _ref.variant,
-    variant = _ref$variant === void 0 ? 'light' : _ref$variant,
+    variant = _ref$variant === void 0 ? 'dark' : _ref$variant,
     _ref$placement = _ref.placement,
     placement = _ref$placement === void 0 ? 'bottom' : _ref$placement,
     _ref$title = _ref.title,
@@ -12286,10 +12286,8 @@ var Tooltip = function Tooltip(_ref) {
       placement: placement,
       strategy: strategy,
       middleware: [(0,_floating_ui_react__WEBPACK_IMPORTED_MODULE_4__.offset)(offsetValue), (0,_floating_ui_react__WEBPACK_IMPORTED_MODULE_4__.flip)({
-        padding: 8,
         boundary: boundary
       }), (0,_floating_ui_react__WEBPACK_IMPORTED_MODULE_4__.shift)({
-        padding: 8,
         boundary: boundary
       }), (0,_floating_ui_react__WEBPACK_IMPORTED_MODULE_4__.arrow)({
         element: arrowRef
@@ -12310,7 +12308,7 @@ var Tooltip = function Tooltip(_ref) {
   var _useInteractions = (0,_floating_ui_react__WEBPACK_IMPORTED_MODULE_3__.useInteractions)([hover, focus, dismiss, role]),
     getReferenceProps = _useInteractions.getReferenceProps,
     getFloatingProps = _useInteractions.getFloatingProps;
-  var tooltipClasses = 'absolute z-20 py-2 px-3 rounded-md soft-shadow-lg text-xs leading-4 shadow-soft-shadow-lg';
+  var tooltipClasses = 'absolute z-20 py-2 px-3 rounded-md text-xs leading-4 shadow-soft-shadow-lg';
   var variantClasses = (_light$dark = {
     light: 'bg-tooltip-background-light text-text-primary',
     dark: 'bg-tooltip-background-dark text-text-on-color'

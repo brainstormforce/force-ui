@@ -405,7 +405,7 @@ import { cn } from '@/utilities/functions';
 import { mergeRefs } from '../toaster/utils';
 
 const Tooltip = ({
-    variant = 'light',
+    variant = 'dark', // 'light' | 'dark';
     placement = 'bottom', //  | 'top' | 'top-start' | 'top-end' | 'right' | 'right-start' | 'right-end' | 'bottom' | 'bottom-start' | 'bottom-end' | 'left' | 'left-start' | 'left-end';
     title = '',
     content,
@@ -429,21 +429,22 @@ const Tooltip = ({
     }, [open]);
 
     const { refs, floatingStyles, context } = useFloating({
-        open: isVisible,
-        onOpenChange: setIsVisible,
-        placement,
-        strategy,
-        middleware: [
-            offset(offsetValue),
-            flip({
-                padding: 8,
-                boundary,
+		open: isVisible,
+		onOpenChange: setIsVisible,
+		placement,
+		strategy,
+		middleware: [
+			offset(offsetValue),
+			flip({
+				boundary,
+			}),
+			shift({ 
+                boundary 
             }),
-            shift({ padding: 8, boundary }),
-            floatingArrow({ element: arrowRef }), 
-        ],
-        whileElementsMounted: autoUpdate,
-    });
+			floatingArrow({ element: arrowRef }),
+		],
+		whileElementsMounted: autoUpdate,
+	});
 
     const hover = useHover(context, { move: false });
     const focus = useFocus(context);
@@ -457,7 +458,7 @@ const Tooltip = ({
         role,
     ]);
 
-    const tooltipClasses = 'absolute z-20 py-2 px-3 rounded-md soft-shadow-lg text-xs leading-4 shadow-soft-shadow-lg';
+    const tooltipClasses = 'absolute z-20 py-2 px-3 rounded-md text-xs leading-4 shadow-soft-shadow-lg';
 
     const variantClasses = {
         light: 'bg-tooltip-background-light text-text-primary',
