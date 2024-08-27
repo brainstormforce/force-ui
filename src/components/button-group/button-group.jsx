@@ -1,5 +1,11 @@
-import React, { useCallback, forwardRef, isValidElement, createContext, useContext } from 'react';
-import { cn } from '../../utility/utils';
+import React, {
+	useCallback,
+	forwardRef,
+	isValidElement,
+	createContext,
+	useContext,
+} from 'react';
+import { cn } from '../../utilities/functions';
 
 /**
  * Context for managing the ButtonGroup state.
@@ -23,7 +29,14 @@ const useButtonGroup = () => useContext( ButtonGroupContext );
  * @param {string}          [props.iconPosition='left'] - Position of the icon in the button ('left' or 'right').
  */
 const ButtonGroup = ( props ) => {
-	const { children, activeItem = null, onChange, className, size = 'md', iconPosition = 'left' } = props;
+	const {
+		children,
+		activeItem = null,
+		onChange,
+		className,
+		size = 'md',
+		iconPosition = 'left',
+	} = props;
 
 	const handleChange = useCallback(
 		( event, value ) => {
@@ -31,10 +44,13 @@ const ButtonGroup = ( props ) => {
 				onChange( { event, value } );
 			}
 		},
-		[ onChange ],
+		[ onChange ]
 	);
 
-	const groupClassName = cn( 'box-border flex border border-border-subtle border-solid rounded', className );
+	const groupClassName = cn(
+		'box-border flex border border-border-subtle border-solid rounded',
+		className
+	);
 
 	return (
 		<div className={ groupClassName }>
@@ -51,8 +67,13 @@ const ButtonGroup = ( props ) => {
 						return null;
 					}
 					const isFirstChild = index === 0;
-					const isLastChild = index === React.Children.count( children ) - 1;
-					return React.cloneElement( child, { index, isFirstChild, isLastChild } );
+					const isLastChild =
+						index === React.Children.count( children ) - 1;
+					return React.cloneElement( child, {
+						index,
+						isFirstChild,
+						isLastChild,
+					} );
 				} ) }
 			</ButtonGroupContext.Provider>
 		</div>
@@ -74,7 +95,16 @@ const ButtonGroup = ( props ) => {
  */
 const Button = ( props, ref ) => {
 	const providerValue = useButtonGroup();
-	const { slug, text, icon, className, disabled = false, isFirstChild, isLastChild, ...rest } = props;
+	const {
+		slug,
+		text,
+		icon,
+		className,
+		disabled = false,
+		isFirstChild,
+		isLastChild,
+		...rest
+	} = props;
 
 	if ( ! providerValue ) {
 		throw new Error( 'Button should be used inside Button Group' );
@@ -88,7 +118,8 @@ const Button = ( props, ref ) => {
 		md: 'py-2.5 px-2.5 text-base gap-1 [&>svg]:h-5 [&>svg]:w-5',
 	};
 
-	const baseClasses = 'bg-background-primary text-primary cursor-pointer flex items-center justify-center';
+	const baseClasses =
+		'bg-background-primary text-primary cursor-pointer flex items-center justify-center';
 
 	// Button hover classes.
 	const hoverClasses = 'hover:bg-button-tertiary-hover';
@@ -97,10 +128,16 @@ const Button = ( props, ref ) => {
 	const focusClasses = 'focus:outline-none';
 
 	// Button disabled classes.
-	const disabledClasses = disabled ? 'text-text-disabled cursor-not-allowed' : '';
+	const disabledClasses = disabled
+		? 'text-text-disabled cursor-not-allowed'
+		: '';
 
-	const firstChildClasses = isFirstChild ? 'rounded-tl rounded-bl border-0 border-r border-border-subtle' : '';
-	const lastChildClasses = isLastChild ? 'rounded-tr rounded-br border-0' : '';
+	const firstChildClasses = isFirstChild
+		? 'rounded-tl rounded-bl border-0 border-r border-border-subtle'
+		: '';
+	const lastChildClasses = isLastChild
+		? 'rounded-tr rounded-br border-0'
+		: '';
 	const borderClasses = 'border-0 border-r border-border-subtle border-solid';
 	const activeClasses = activeItem === slug ? 'bg-button-disabled' : '';
 
@@ -122,10 +159,20 @@ const Button = ( props, ref ) => {
 	};
 
 	return (
-		<button ref={ ref } className={ buttonClassName } disabled={ disabled } onClick={ handleClick } { ...rest }>
-			{ iconPosition === 'left' && icon && <span className="mr-1">{ icon }</span> }
+		<button
+			ref={ ref }
+			className={ buttonClassName }
+			disabled={ disabled }
+			onClick={ handleClick }
+			{ ...rest }
+		>
+			{ iconPosition === 'left' && icon && (
+				<span className="mr-1">{ icon }</span>
+			) }
 			{ text }
-			{ iconPosition === 'right' && icon && <span className="ml-1">{ icon }</span> }
+			{ iconPosition === 'right' && icon && (
+				<span className="ml-1">{ icon }</span>
+			) }
 		</button>
 	);
 };

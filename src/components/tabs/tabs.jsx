@@ -1,4 +1,10 @@
-import React, { useCallback, forwardRef, isValidElement, createContext, useContext } from 'react';
+import React, {
+	useCallback,
+	forwardRef,
+	isValidElement,
+	createContext,
+	useContext,
+} from 'react';
 import { twMerge } from 'tailwind-merge';
 
 // Context for managing the TabsGroup state.
@@ -52,7 +58,7 @@ const TabsGroup = ( props ) => {
 	const orientationClasses = orientation === 'vertical' ? 'flex-col' : '';
 
 	// Base classes for the TabsGroup.
-	const baseClasses = `box-border [&>*]:box-border bg-tab-background flex items-center ${ widthClasses } ${ orientationClasses }`;
+	const baseClasses = `box-border [&>*]:box-border flex items-center ${ widthClasses } ${ orientationClasses }`;
 
 	// Merge classes.
 	const groupClassName = twMerge(
@@ -91,13 +97,29 @@ const TabsGroup = ( props ) => {
 // Tab component to be used within a TabsGroup.
 const Tab = ( props, ref ) => {
 	const providerValue = useTabsGroup();
-	const { slug, text, icon, className, disabled = false, badge = null, ...rest } = props;
+	const {
+		slug,
+		text,
+		icon,
+		className,
+		disabled = false,
+		badge = null,
+		...rest
+	} = props;
 
 	if ( ! providerValue ) {
 		throw new Error( 'Tab should be used inside Tabs Group' );
 	}
 
-	const { activeItem, onChange, size, variant, orientation, iconPosition, width } = providerValue;
+	const {
+		activeItem,
+		onChange,
+		size,
+		variant,
+		orientation,
+		iconPosition,
+		width,
+	} = providerValue;
 
 	// Determine size classes.
 	const sizes = {
@@ -108,10 +130,11 @@ const Tab = ( props, ref ) => {
 
 	// Determine width and orientation classes for tabs.
 	const fullWidth = width === 'full' ? 'flex-1' : '';
-	const orientationClasses = orientation === 'vertical' ? 'w-full justify-between' : '';
+	const orientationClasses =
+		orientation === 'vertical' ? 'w-full justify-between' : '';
 
 	// Base classes for the Tab.
-	const baseClasses = `bg-transparent text-primary cursor-pointer flex items-center justify-center transition-colors duration-200 ${ fullWidth } ${ orientationClasses }`;
+	const baseClasses = `bg-transparent text-text-tertiary cursor-pointer flex items-center justify-center transition-colors duration-200 ${ fullWidth } ${ orientationClasses }`;
 
 	const borderClasses = 'border-none';
 
@@ -121,16 +144,19 @@ const Tab = ( props, ref ) => {
 		variantClasses = 'rounded-md';
 	} else if ( variant === 'underline' ) {
 		variantClasses = 'rounded-none';
-		borderBottomClasses = 'border-t-0 border-r-0 border-l-0 border-b border-solid border-tab-border';
+		borderBottomClasses =
+			'border-t-0 border-r-0 border-l-0 border-b border-solid border-tab-border';
 	}
 
 	const borderActiveInlineClasses = 'border-border-interactive';
 
 	// Additional classes.
-	const hoverClasses = 'hover:bg-misc-tab-item-hover';
+	const hoverClasses = '';
 	const focusClasses = 'focus:outline-none';
-	const disabledClasses = disabled ? 'text-text-disabled cursor-not-allowed' : '';
-	const activeClasses = activeItem === slug ? 'bg-background-primary' : '';
+	const disabledClasses = disabled
+		? 'text-text-disabled cursor-not-allowed'
+		: '';
+	const activeClasses = activeItem === slug ? 'bg-background-primary text-text-primary' : '';
 
 	// Merge classes.
 	const tabClassName = twMerge(
@@ -138,7 +164,9 @@ const Tab = ( props, ref ) => {
 		borderClasses,
 		variantClasses,
 		borderBottomClasses,
-		activeItem === slug && variant === 'underline' ? borderActiveInlineClasses : '',
+		activeItem === slug && variant === 'underline'
+			? borderActiveInlineClasses
+			: '',
 		hoverClasses,
 		focusClasses,
 		disabledClasses,
@@ -147,9 +175,7 @@ const Tab = ( props, ref ) => {
 		className
 	);
 
-	const iconParentClasses = twMerge(
-		'flex items-center gap-1'
-	);
+	const iconParentClasses = twMerge( 'flex items-center gap-1' );
 
 	// Handle click event.
 	const handleClick = ( event ) => {
@@ -157,11 +183,21 @@ const Tab = ( props, ref ) => {
 	};
 
 	return (
-		<button ref={ ref } className={ tabClassName } disabled={ disabled } onClick={ handleClick } { ...rest }>
+		<button
+			ref={ ref }
+			className={ tabClassName }
+			disabled={ disabled }
+			onClick={ handleClick }
+			{ ...rest }
+		>
 			<span className={ iconParentClasses }>
-				{ iconPosition === 'left' && icon && <span className="mr-1">{ icon }</span> }
+				{ iconPosition === 'left' && icon && (
+					<span className="mr-1">{ icon }</span>
+				) }
 				{ text }
-				{ iconPosition === 'right' && icon && <span className="ml-1">{ icon }</span> }
+				{ iconPosition === 'right' && icon && (
+					<span className="ml-1">{ icon }</span>
+				) }
 			</span>
 			{ badge && isValidElement( badge ) && badge }
 		</button>

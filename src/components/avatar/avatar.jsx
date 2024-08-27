@@ -1,11 +1,19 @@
-import { cn } from '../../utility/utils';
+import { cn } from '../../utilities/functions';
 
 const Avatar = ( props ) => {
-	const { variant = 'primary', size = 'md', border = 'subtle', url = '', children, className } = props;
+	const {
+		variant = 'primary',
+		size = 'md',
+		border = 'subtle',
+		url = '',
+		children,
+		className,
+	} = props;
 
 	const effectiveBorder = url && border === 'none' ? 'subtle' : border;
 
-	const baseClasses = 'rounded-full overflow-hidden flex items-center justify-center';
+	const baseClasses =
+		'rounded-full overflow-hidden flex items-center justify-center';
 
 	const variantClasses = {
 		white: 'text-text-primary bg-background-primary',
@@ -41,7 +49,17 @@ const Avatar = ( props ) => {
 	};
 
 	return (
-		<div className={ cn( baseClasses, ! url && variantClasses, sizeClasses, borderClasses, contentClasses, className ) } style={ url ? { backgroundImage: `url(${ url })` } : {} }>
+		<div
+			className={ cn(
+				baseClasses,
+				! url && variantClasses,
+				sizeClasses,
+				borderClasses,
+				contentClasses,
+				className
+			) }
+			style={ url ? { backgroundImage: `url(${ url })` } : {} }
+		>
 			{ getChildren() }
 		</div>
 	);
