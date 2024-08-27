@@ -49,13 +49,30 @@ The `Tooltips` are small, interactive pop-up boxes that provide brief, informati
 - **Type:** `boolean`
 - **Description:** Controls the open state of the tooltip. When provided, it manages the visibility of the tooltip.
 
-### `onOpen`
+### `setOpen`
 - **Type:** `function`
-- **Description:** Event handler for when the tooltip is opened.
+- **Description:** Event handler for setting the open state of the tooltip.
 
-### `onClose`
-- **Type:** `function`
-- **Description:** Event handler for when the tooltip is closed.
+### `boundary`
+- **Type:** `HTMLElement`
+- default: `clippingAncestors`
+- **Description:** The element that the tooltip is positioned relative to. When provided, the tooltip will be positioned within the boundary of the element.
+- **Example:** `boundary={document.getElementById('boundary')}`
+
+### `strategy`
+- **Type:** `string`
+- **Default:** `"fixed"`
+- **Description:** Defines the positioning strategy of the tooltip. Options include:
+  - `"absolute"` 
+  - `"fixed"`
+- **Note:** The `"fixed"` strategy is recommended for most use cases.
+
+### `offset`
+- **Type:** `number` | `object`
+- **Description:** Defines the offset of the tooltip from the target element. The offset can be set as a number or an object with the following properties:
+  - mainAxis?: number;
+  - crossAxis?: number;
+  - alignmentAxis?: number | null;
 
 ### `focusOnly`
 - **Type:** `boolean`
