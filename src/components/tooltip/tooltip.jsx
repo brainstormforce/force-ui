@@ -1,118 +1,121 @@
-import React, { useState, useEffect } from 'react';
-import { cn } from '../../utility/utils';
+import React, { useRef, useState, isValidElement, cloneElement, useMemo } from 'react';
+import { useFloating, autoUpdate, offset, flip, shift, useHover, useFocus, useDismiss, useRole, arrow as floatingArrow, FloatingPortal, FloatingArrow, useInteractions, useTransitionStyles } from '@floating-ui/react';
+import { cn } from '@/utilities/functions';
+import { mergeRefs } from '../toaster/utils';
 
-const Tooltip = ( props ) => {
-	const {
-		variant = 'light', // light, dark
-		placement = 'top', // top, top-start, top-end, right, right-start, right-end, bottom, bottom-start, bottom-end, left, left-start, left-end
-		title = '',
-		content,
-		arrow = false,
-		open,
-		onOpen,
-		onClose,
-		focusOnly = false,
-		children,
-		className,
-	} = props;
+const Tooltip = ( {
+	variant = 'dark', // 'light' | 'dark';
+	placement = 'bottom', //  | 'top' | 'top-start' | 'top-end' | 'right' | 'right-start' | 'right-end' | 'bottom' | 'bottom-start' | 'bottom-end' | 'left' | 'left-start' | 'left-end';
+	title = '',
+	content,
+	arrow = false,
+	open,
+	setOpen,
+	children,
+	className,
+	tooltipPortalRoot = null, // Root element where the dropdown will be rendered.
+	tooltipPortalId = '', // Id of the dropdown portal where the dropdown will be rendered.
+	boundary = 'clippingAncestors',
+	strategy = 'fixed', // 'fixed' | 'absolute';
+	offset: offsetValue = 8, // Offset option or number value. Default is 8.
+} ) => {
+	const isControlled = useMemo( () => typeof open === 'boolean' && typeof setOpen === 'function', [ open, setOpen ] );
 
-	const [ isVisible, setIsVisible ] = useState( false );
+	const [ isOpen, setIsOpen ] = useState( false );
+	const arrowRef = useRef( null );
 
-	useEffect( () => {
-		if ( open !== undefined ) {
-			setIsVisible( open );
-		}
-	}, [ open ] );
+	const { refs, floatingStyles, context } = useFloating( {
+		open: isControlled ? open : isOpen,
+		onOpenChange: isControlled ? setOpen : setIsOpen,
+		placement,
+		strategy,
+		middleware: [
+			offset( offsetValue ),
+			flip( {
+				boundary,
+			} ),
+			shift( {
+				boundary,
+			} ),
+			floatingArrow( { element: arrowRef } ),
+		],
+		whileElementsMounted: autoUpdate,
+	} );
 
-	const showTooltip = () => {
-		if ( onOpen ) {
-			onOpen();
-		} else {
-			setIsVisible( true );
-		}
-	};
+	const hover = useHover( context, { move: false } );
+	const focus = useFocus( context );
+	const dismiss = useDismiss( context );
+	const role = useRole( context, { role: 'tooltip' } );
 
-	const hideTooltip = () => {
-		if ( onClose ) {
-			onClose();
-		} else {
-			setIsVisible( false );
-		}
-	};
+	const { getReferenceProps, getFloatingProps } = useInteractions( [
+		hover,
+		focus,
+		dismiss,
+		role,
+	] );
 
-	const baseClasses = 'relative inline-block';
+	// Fade-in and fade-out transition.
+	const { isMounted, styles } = useTransitionStyles( context, {
+		duration: 150,
+		initial: { opacity: 0 },
+		open: { opacity: 1 },
+		close: { opacity: 0 },
+	} );
 
-	const tooltipClasses = 'absolute z-10 py-2 px-3 rounded-md soft-shadow-lg text-xs leading-4 shadow-soft-shadow-lg';
+	const tooltipClasses = 'absolute z-20 py-2 px-3 rounded-md text-xs leading-4 shadow-soft-shadow-lg';
 
 	const variantClasses = {
 		light: 'bg-tooltip-background-light text-text-primary',
 		dark: 'bg-tooltip-background-dark text-text-on-color',
 	}?.[ variant ];
 
-	const widthClasses = content ? 'w-80' : 'w-auto';
+	const arrowClasses = variant === 'dark' ? 'text-tooltip-background-dark' : 'text-tooltip-background-light';
 
-	const placementClasses = {
-		top: 'bottom-full left-1/2 transform -translate-x-1/2 mb-5',
-		'top-start': 'bottom-full left-0 mb-5',
-		'top-end': 'bottom-full right-0 mb-5',
-		right: 'left-full top-1/2 transform -translate-y-1/2 ml-5',
-		'right-start': 'left-full top-0 ml-5',
-		'right-end': 'left-full bottom-0 ml-5',
-		bottom: 'top-full left-1/2 transform -translate-x-1/2 mt-5',
-		'bottom-start': 'top-full left-0 mt-5',
-		'bottom-end': 'top-full right-0 mt-5',
-		left: 'right-full top-1/2 transform -translate-y-1/2 mr-5',
-		'left-start': 'right-full top-0 mr-5',
-		'left-end': 'right-full bottom-0 mr-5',
-	}?.[ placement ];
-
-	const arrowPlacementClasses = {
-		top: 'bottom-0 left-1/2 transform -translate-x-1/2 translate-y-1/2',
-		'top-start': 'bottom-0 left-4 translate-y-1/2',
-		'top-end': 'bottom-0 right-4 translate-y-1/2',
-		right: 'left-0 top-1/2 transform -translate-y-1/2 -translate-x-1/2',
-		'right-start': 'left-0 top-4 -translate-x-1/2',
-		'right-end': 'left-0 bottom-4 -translate-x-1/2',
-		bottom: 'top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2',
-		'bottom-start': 'top-0 left-4 -translate-y-1/2',
-		'bottom-end': 'top-0 right-4 -translate-y-1/2',
-		left: 'right-0 top-1/2 transform -translate-y-1/2 translate-x-1/2',
-		'left-start': 'right-0 top-4 translate-x-1/2',
-		'left-end': 'right-0 bottom-4 translate-x-1/2',
-	}?.[ placement ];
-
-	const getOnClick = () => {
-		return isVisible ? hideTooltip : showTooltip;
-	};
+	const widthClasses = 'max-w-80 w-fit';
 
 	return (
-		<div
-			className={ cn( baseClasses, className ) }
-			onMouseEnter={ ! focusOnly && ! open && ! onOpen ? showTooltip : undefined }
-			onMouseLeave={ ! focusOnly && ! open && ! onClose ? hideTooltip : undefined }
-			onClick={ ! focusOnly && open !== undefined ? getOnClick : undefined }
-			onFocus={ focusOnly ? showTooltip : undefined }
-			onBlur={ focusOnly ? hideTooltip : undefined }
-		>
-			{ children }
-			{ isVisible && (
-				<div className={ cn( tooltipClasses, variantClasses, placementClasses, widthClasses ) }>
-					<div>
-						<span className="font-semibold">{ title }</span>
-						{ content ? <div className="font-normal">{ content }</div> : null }
-					</div>
-					{ arrow && (
-						<div
-							className={ cn(
-								'absolute w-3 h-3 transform rotate-45',
-								arrowPlacementClasses,
-								variant === 'light' ? 'bg-tooltip-background-light' : 'bg-tooltip-background-dark'
+		<>
+			{ isValidElement( children ) &&
+				cloneElement( children, {
+					...children.props,
+					ref: mergeRefs( children.ref, refs.setReference ),
+					className: cn( children.props.className ),
+					...getReferenceProps(),
+				} ) }
+			<FloatingPortal id={ tooltipPortalId } root={ tooltipPortalRoot }>
+				{ isMounted && (
+					<div
+						className={ cn(
+							tooltipClasses,
+							variantClasses,
+							widthClasses,
+							className,
+						) }
+						ref={ refs.setFloating }
+						style={ {
+							...floatingStyles,
+							...styles,
+						} }
+						{ ...getFloatingProps() }
+					>
+						<div>
+							{ !! title && ( <span className="font-semibold">{ title }</span> ) }
+							{ !! content && (
+								<div className="font-normal">{ content }</div>
 							) }
-						/>
-					) }
-				</div>
-			) }
-		</div>
+						</div>
+						{ arrow && (
+							<FloatingArrow
+								ref={ arrowRef }
+								context={ context }
+								placement={ placement }
+								className={ cn( 'fill-current', arrowClasses ) }
+							/>
+						) }
+					</div>
+				) }
+			</FloatingPortal>
+		</>
 	);
 };
 
