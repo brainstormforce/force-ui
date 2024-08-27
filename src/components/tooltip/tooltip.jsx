@@ -399,21 +399,25 @@
 
 // 4th APPROACH
 
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect, isValidElement, cloneElement } from 'react';
 import { useFloating, autoUpdate, offset, flip, shift, useHover, useFocus, useDismiss, useRole, arrow as floatingArrow, FloatingPortal, FloatingArrow, useInteractions } from '@floating-ui/react';
-import { cn } from '../../utility/utils';
+import { cn } from '@/utilities/functions';
+import { mergeRefs } from '../toaster/utils';
 
 const Tooltip = ({
     variant = 'light',
-    placement = 'top',
+    placement = 'bottom', //  | 'top' | 'top-start' | 'top-end' | 'right' | 'right-start' | 'right-end' | 'bottom' | 'bottom-start' | 'bottom-end' | 'left' | 'left-start' | 'left-end';
     title = '',
     content,
     arrow = false,
     open,
     children,
     className,
-    tooltipPortalRoot = null,
-    tooltipPortalId = '',
+    tooltipPortalRoot = null, // Root element where the dropdown will be rendered.
+    tooltipPortalId = '', // Id of the dropdown portal where the dropdown will be rendered.
+    boundary = 'clippingAncestors',
+    strategy = 'fixed', // 'fixed' | 'absolute';
+    offset: offsetValue = 8, // Offset option or number value. Default is 8.
 }) => {
     const [isVisible, setIsVisible] = useState(false);
     const arrowRef = useRef(null);
@@ -428,10 +432,14 @@ const Tooltip = ({
         open: isVisible,
         onOpenChange: setIsVisible,
         placement,
+        strategy,
         middleware: [
-            offset(12),
-            flip(),
-            shift({ padding: 5 }),
+            offset(offsetValue),
+            flip({
+                padding: 8,
+                boundary,
+            }),
+            shift({ padding: 8, boundary }),
             floatingArrow({ element: arrowRef }), 
         ],
         whileElementsMounted: autoUpdate,
@@ -449,8 +457,7 @@ const Tooltip = ({
         role,
     ]);
 
-    const baseClasses = 'relative inline-block';
-    const tooltipClasses = 'absolute z-10 py-2 px-3 rounded-md soft-shadow-lg text-xs leading-4 shadow-soft-shadow-lg';
+    const tooltipClasses = 'absolute z-20 py-2 px-3 rounded-md soft-shadow-lg text-xs leading-4 shadow-soft-shadow-lg';
 
     const variantClasses = {
         light: 'bg-tooltip-background-light text-text-primary',
@@ -459,42 +466,49 @@ const Tooltip = ({
 
     const arrowClasses = variant === 'dark' ? 'text-tooltip-background-dark' : 'text-tooltip-background-light';
 
-    const widthClasses = content ? 'w-80' : 'w-auto';
+    const widthClasses = 'max-w-80 w-fit';
 
     return (
-        <>
-            <div
-                className={cn(baseClasses, className)}
-                ref={refs.setReference}
-                {...getReferenceProps()}
-            >
-                {children}
-            </div>
-            <FloatingPortal id={tooltipPortalId} root={tooltipPortalRoot}>
-                {isVisible && (
-                    <div
-                        className={cn(tooltipClasses, variantClasses, widthClasses)}
-                        ref={refs.setFloating}
-                        style={floatingStyles}
-                        {...getFloatingProps()}
-                    >
-                        <div>
-                            <span className="font-semibold">{title}</span>
-                            {content ? <div className="font-normal">{content}</div> : null}
-                        </div>
-                        {arrow && (
-                            <FloatingArrow
-                                ref={arrowRef}
-                                context={context}
-                                placement={placement}
-                                className={cn("fill-current", arrowClasses)}
-                            />
-                        )}
-                    </div>
-                )}
-            </FloatingPortal>
-        </>
-    );
+		<>
+			{isValidElement(children) &&
+				cloneElement(children, {
+					...children.props,
+					ref: mergeRefs(children.ref, refs.setReference),
+					className: cn(children.props.className),
+					...getReferenceProps(),
+				})}
+			<FloatingPortal id={tooltipPortalId} root={tooltipPortalRoot}>
+				{isVisible && (
+					<div
+						className={cn(
+							tooltipClasses,
+							variantClasses,
+							widthClasses,
+                            className,
+						)}
+						ref={refs.setFloating}
+						style={floatingStyles}
+						{...getFloatingProps()}
+					>
+						<div>
+							{!! title && (<span className="font-semibold">{title}</span>)}
+							{!! content && (
+								<div className="font-normal">{content}</div>
+							)}
+						</div>
+						{arrow && (
+							<FloatingArrow
+								ref={arrowRef}
+								context={context}
+								placement={placement}
+								className={cn('fill-current', arrowClasses)}
+							/>
+						)}
+					</div>
+				)}
+			</FloatingPortal>
+		</>
+	);
 };
 
 export default Tooltip;
