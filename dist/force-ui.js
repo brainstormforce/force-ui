@@ -11911,6 +11911,22 @@ var Tooltip = function Tooltip(_ref) {
   var _useInteractions = (0,_floating_ui_react__WEBPACK_IMPORTED_MODULE_3__.useInteractions)([hover, focus, dismiss, role]),
     getReferenceProps = _useInteractions.getReferenceProps,
     getFloatingProps = _useInteractions.getFloatingProps;
+
+  // Fade-in and fade-out transition.
+  var _useTransitionStyles = (0,_floating_ui_react__WEBPACK_IMPORTED_MODULE_3__.useTransitionStyles)(context, {
+      duration: 150,
+      initial: {
+        opacity: 0
+      },
+      open: {
+        opacity: 1
+      },
+      close: {
+        opacity: 0
+      }
+    }),
+    isMounted = _useTransitionStyles.isMounted,
+    styles = _useTransitionStyles.styles;
   var tooltipClasses = 'absolute z-20 py-2 px-3 rounded-md text-xs leading-4 shadow-soft-shadow-lg';
   var variantClasses = (_light$dark = {
     light: 'bg-tooltip-background-light text-text-primary',
@@ -11918,19 +11934,16 @@ var Tooltip = function Tooltip(_ref) {
   }) === null || _light$dark === void 0 ? void 0 : _light$dark[variant];
   var arrowClasses = variant === 'dark' ? 'text-tooltip-background-dark' : 'text-tooltip-background-light';
   var widthClasses = 'max-w-80 w-fit';
-  var openStatus = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(function () {
-    return isControlled ? open : isOpen;
-  }, [isControlled, open, isOpen]);
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/ /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.isValidElement)(children) && /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.cloneElement)(children, _objectSpread(_objectSpread({}, children.props), {}, {
     ref: (0,_toaster_utils__WEBPACK_IMPORTED_MODULE_2__.mergeRefs)(children.ref, refs.setReference),
     className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_1__.cn)(children.props.className)
   }, getReferenceProps())), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_floating_ui_react__WEBPACK_IMPORTED_MODULE_3__.FloatingPortal, {
     id: tooltipPortalId,
     root: tooltipPortalRoot
-  }, openStatus && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", _extends({
+  }, isMounted && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", _extends({
     className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_1__.cn)(tooltipClasses, variantClasses, widthClasses, className),
     ref: refs.setFloating,
-    style: floatingStyles
+    style: _objectSpread(_objectSpread({}, floatingStyles), styles)
   }, getFloatingProps()), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null, !!title && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", {
     className: "font-semibold"
   }, title), !!content && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {

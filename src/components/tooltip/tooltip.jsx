@@ -1,5 +1,5 @@
 import React, { useRef, useState, isValidElement, cloneElement, useMemo } from 'react';
-import { useFloating, autoUpdate, offset, flip, shift, useHover, useFocus, useDismiss, useRole, arrow as floatingArrow, FloatingPortal, FloatingArrow, useInteractions } from '@floating-ui/react';
+import { useFloating, autoUpdate, offset, flip, shift, useHover, useFocus, useDismiss, useRole, arrow as floatingArrow, FloatingPortal, FloatingArrow, useInteractions , useTransitionStyles} from '@floating-ui/react';
 import { cn } from '@/utilities/functions';
 import { mergeRefs } from '../toaster/utils';
 
@@ -54,6 +54,14 @@ const Tooltip = ({
         role,
     ]);
 
+    // Fade-in and fade-out transition.
+    const {isMounted, styles} = useTransitionStyles(context, {
+        duration: 150,
+        initial: { opacity: 0 },
+        open: { opacity: 1 },
+        close: { opacity: 0 },
+    });
+
     const tooltipClasses = 'absolute z-20 py-2 px-3 rounded-md text-xs leading-4 shadow-soft-shadow-lg';
 
     const variantClasses = {
@@ -65,8 +73,6 @@ const Tooltip = ({
 
     const widthClasses = 'max-w-80 w-fit';
 
-    const openStatus = useMemo(() => isControlled ? open : isOpen, [isControlled, open, isOpen]);
-
     return (
 		<>
 			{isValidElement(children) &&
@@ -77,7 +83,7 @@ const Tooltip = ({
 					...getReferenceProps(),
 				})}
 			<FloatingPortal id={tooltipPortalId} root={tooltipPortalRoot}>
-				{ openStatus && (
+				{ isMounted && (
 					<div
 						className={cn(
 							tooltipClasses,
@@ -86,7 +92,10 @@ const Tooltip = ({
                             className,
 						)}
 						ref={refs.setFloating}
-						style={floatingStyles}
+						style={{
+                            ...floatingStyles,
+                            ...styles,
+                        }}
 						{...getFloatingProps()}
 					>
 						<div>
