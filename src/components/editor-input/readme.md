@@ -187,7 +187,7 @@ const App = () => (
                 label: 'Felix'
             },
             {
-                id: 5,
+                id: 6,
                 label: 'Gina'
             }
         ] }
