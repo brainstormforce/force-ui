@@ -143,3 +143,21 @@ export const getContent = ( { theme = DEFAULT_THEME, content = '' } ) => {
 		</span>
 	);
 };
+
+/**
+ * Merge all refs into a single function.
+ * @param {...Function} refs
+ *
+ * @return {Function} A function that will call all refs with the node.
+ */
+export const mergeRefs = ( ...refs ) => {
+	return ( node ) => {
+		refs.forEach( ( ref ) => {
+			if ( typeof ref === 'function' ) {
+				ref( node );
+			} else if ( ref ) {
+				ref.current = node;
+			}
+		} );
+	};
+};
