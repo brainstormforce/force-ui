@@ -146,9 +146,9 @@ export const getContent = ( { theme = DEFAULT_THEME, content = '' } ) => {
 
 /**
  * Merge all refs into a single function.
- * @param  {...Function} refs
- * 
- * @returns {Function}
+ * @param {...Function} refs
+ *
+ * @return {Function} A function that will call all refs with the node.
  */
 export const mergeRefs = ( ...refs ) => {
 	return ( node ) => {
@@ -160,4 +160,4 @@ export const mergeRefs = ( ...refs ) => {
 			}
 		} );
 	};
-}
+};
