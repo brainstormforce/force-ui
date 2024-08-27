@@ -16,3 +16,4 @@ export { default as Tabs } from './tabs/index';
 export { default as Select } from './select/index';
 export * from './toaster/index';
 export { default as Container } from './container/index';
+export { default as EditorInput } from './editor-input/index';

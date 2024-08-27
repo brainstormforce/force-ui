@@ -1,3 +1,4 @@
+import { forwardRef } from 'react';
 import { cn } from '../../utilities/functions';
 import { X, Info } from 'lucide-react';
 
@@ -5,7 +6,7 @@ import { X, Info } from 'lucide-react';
  * Badge component.
  */
 
-const Badge = ( props ) => {
+const Badge = ( props, ref ) => {
 	const {
 		label = '',
 		size = 'sm', // xs, sm, md, lg
@@ -75,6 +76,7 @@ const Badge = ( props ) => {
 				filteredClasses,
 				className
 			) }
+			ref={ ref }
 		>
 			{ icon ? (
 				<span className="justify-center flex items-center [&>svg]:h-4 [&>svg]:w-4">
@@ -99,4 +101,4 @@ const Badge = ( props ) => {
 	);
 };
 
-export default Badge;
+export default forwardRef( Badge );
