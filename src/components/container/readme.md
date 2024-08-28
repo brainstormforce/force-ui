@@ -138,11 +138,13 @@ const App = () => (
         </Container>
 
         {/* Responsive Behavior */}
-        <Container cols={4} tabCols={2} mCols={1} gap="md" className="bg-pink-200 p-4">
+        <Container cols={5} tabCols={3} mCols={1} className="bg-pink-200 p-4 gap-0">
             <Container.Item className="bg-red-500 p-4">Item 1</Container.Item>
             <Container.Item className="bg-green-500 p-4">Item 2</Container.Item>
             <Container.Item className="bg-blue-500 p-4">Item 3</Container.Item>
             <Container.Item className="bg-yellow-500 p-4">Item 4</Container.Item>
+            <Container.Item className="bg-purple-500 p-4">Item 5</Container.Item>
+            <Container.Item className="bg-pink-500 p-4">Item 6</Container.Item>
         </Container>
     </>
 );

@@ -1,18 +1,6 @@
 import React from 'react';
 import { cn } from '../../utilities/functions';
 
-// Helper function to convert Tailwind gap classes to rem values
-const tailwindGapToRem = ( gapClass ) => {
-	const gapMap = {
-		'gap-2': '0.5rem',
-		'gap-4': '1rem',
-		'gap-5': '1.25rem',
-		'gap-6': '1.5rem',
-		'gap-8': '2rem',
-	};
-	return gapMap[ gapClass ] || '1rem'; // Default to 1rem if not found
-};
-
 const Container = ( props ) => {
 	const {
 		containerType = 'flex', // flex, (grid - functionality not implemented)
@@ -29,7 +17,6 @@ const Container = ( props ) => {
 		...extraProps
 	} = props;
 
-	// const wrapClass = wrap !== undefined ? wrap : ( cols || tabCols || mCols ? 'wrap' : '' );
 	let wrapClass = '';
 	if ( wrap !== undefined ) {
 		wrapClass = wrap;
@@ -85,51 +72,61 @@ const Container = ( props ) => {
 
 	const combinedClasses = cn( containerTypeClass, gapClasses, directionClasses, justifyContentClasses, alignItemsClasses, wrapClasses, className );
 
-	const calculateFlex = ( columns ) => {
-		if ( ! columns ) {
-			return;
-		}
-		const gapSize = tailwindGapToRem( gapClasses );
-		return `calc(${ 100 / columns }% - (${ gapSize } - (${ gapSize } / ${ columns })))`;
-	};
+    const mColumnClassName = {
+        1: 'w-full',
+        2: 'w-1/2',
+        3: 'w-1/3',
+        4: 'w-1/4',
+        5: 'w-1/5',
+        6: 'w-1/6',
+        7: 'w-1/7',
+        8: 'w-1/8',
+        9: 'w-1/9',
+        10: 'w-1/10',
+        11: 'w-1/11',
+        12: 'w-1/12',
+    }?.[mCols] ?? 'w-full';
+
+    const tabColumnClassName = {
+        1: 'md:w-full',
+        2: 'md:w-1/2',
+        3: 'md:w-1/3',
+        4: 'md:w-1/4',
+        5: 'md:w-1/5',
+        6: 'md:w-1/6',
+        7: 'md:w-1/7',
+        8: 'md:w-1/8',
+        9: 'md:w-1/9',
+        10: 'md:w-1/10',
+        11: 'md:w-1/11',
+        12: 'md:w-1/12',
+    }?.[tabCols] ?? 'w-1/2';
+
+    const columnClassName = {
+        1: 'lg:w-full',
+        2: 'lg:w-1/2',
+        3: 'lg:w-1/3',
+        4: 'lg:w-1/4',
+        5: 'lg:w-1/5',
+        6: 'lg:w-1/6',
+        7: 'lg:w-1/7',
+        8: 'lg:w-1/8',
+        9: 'lg:w-1/9',
+        10: 'lg:w-1/10',
+        11: 'lg:w-1/11',
+        12: 'lg:w-1/12',
+    }?.[cols] ?? 'w-1/4';
 
 	return (
 		<div className={ combinedClasses } { ...extraProps }>
-			{ React.Children.map( children, ( child ) =>
-				React.cloneElement( child, {
-					className: cn(
-						'flex-item',
-						child.props.className
-					),
-				} )
-			) }
-			{ /* Conditionally render media queries if cols is set */ }
-			<style>{ `
-                ${ mCols &&
-                    `@media only screen and (max-width: 640px) {
-                        .flex-item {
-                            flex: 0 0 ${ calculateFlex( mCols ) };
-                            max-width: ${ calculateFlex( mCols ) };
-                        }
-                    }`
-		}
-                ${ tabCols &&
-                    `@media only screen and (min-width: 641px) and (max-width: 1023px) {
-                        .flex-item {
-                            flex: 0 0 ${ calculateFlex( tabCols ) };
-                            max-width: ${ calculateFlex( tabCols ) };
-                        }
-                    }`
-		}
-                ${ cols &&
-                    `@media only screen and (min-width: 1024px) {
-                        .flex-item {
-                            flex: 0 0 ${ calculateFlex( cols ) };
-                            max-width: ${ calculateFlex( cols ) };
-                        }
-                    }`
-		}
-            ` }</style>
+            {React.Children.map(children, (child) => 
+                React.cloneElement(child, {
+                    className: cn(
+                        mColumnClassName, tabColumnClassName, columnClassName,
+                        child.props.className
+                    ),
+                })
+            )}
 		</div>
 	);
 };
