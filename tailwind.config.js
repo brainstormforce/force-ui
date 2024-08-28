@@ -1,5 +1,5 @@
 module.exports = {
-	content: [ 'node_modules/@bsf/force-ui/dist/force-ui.js' ],
+	content: ['node_modules/@bsf/force-ui/dist/force-ui.js'],
 	theme: {
 		extend: {
 			colors: {
@@ -176,6 +176,14 @@ module.exports = {
                 '1/11': '9.0909091%',    
                 '1/12': '8.3333333%', 
             },
+			boxShadow: {
+				'soft-shadow-sm': '0px 6px 32px -12px rgba(149, 160, 178, 0.12)',
+				'soft-shadow': '0px 8px 32px -12px rgba(149, 160, 178, 0.16)',
+				'soft-shadow-md': '0px 10px 32px -12px rgba(149, 160, 178, 0.2)',
+				'soft-shadow-lg': '0px 12px 32px -12px rgba(149, 160, 178, 0.24)',
+				'soft-shadow-xl': '0px 16px 32px -12px rgba(149, 160, 178, 0.32)',
+				'soft-shadow-2xl': '0px 24px 64px -12px rgba(149, 160, 178, 0.32)',
+			},
 		},
 	},
 	plugins: [],
