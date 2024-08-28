@@ -100,7 +100,7 @@ const Container = ( props ) => {
 		10: 'md:w-1/10',
 		11: 'md:w-1/11',
 		12: 'md:w-1/12',
-	}?.[ tabCols ] ?? 'w-1/2';
+	}?.[ tabCols ] ?? 'md:w-1/2';
 
 	const columnClassName = {
 		1: 'lg:w-full',
@@ -115,7 +115,7 @@ const Container = ( props ) => {
 		10: 'lg:w-1/10',
 		11: 'lg:w-1/11',
 		12: 'lg:w-1/12',
-	}?.[ cols ] ?? 'w-1/4';
+	}?.[ cols ] ?? 'lg:w-1/4';
 
 	return (
 		<div className={ combinedClasses } { ...extraProps }>
