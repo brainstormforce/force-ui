@@ -74,12 +74,15 @@ The `Tooltips` are small, interactive pop-up boxes that provide brief, informati
   - crossAxis?: number;
   - alignmentAxis?: number | null;
 
-### `focusOnly`
-- **Type:** `boolean`
-- **Default:** `false`
-- **Description:** When true, the tooltip is displayed only on focus. Options include:
-  - `"false"` 
-  - `"true"`
+### `tooltipPortalRoot`
+- **Type:** `HTMLElement | null`
+- **Default:** `null`
+- **Description:** Root element where the tooltip will be rendered. It's helpful when the tooltip is rendered outside the parent container and scopped Tailwind CSS styles.
+
+### `tooltipPortalId`
+- **Type:** `string`
+- **Default:** `""`
+- **Description:** Id of the tooltip portal where the tooltip will be rendered. It's helpful when the tooltip is rendered outside the parent container and scopped Tailwind CSS styles.
 
 ### `children`
 - **Type:** `ReactNode`
@@ -106,7 +109,7 @@ const App = () => (
             <button>Click me</button>
         </Tooltip>
 
-        <Tooltip focusOnly title="Tooltip" content={<span><strong>Tooltips</strong> are used to describe or identify an element. In most scenarios, tooltips help the user understand meaning, function or alt-text.</span>} placement="right" arrow>
+        <Tooltip title="Tooltip" content={<span><strong>Tooltips</strong> are used to describe or identify an element. In most scenarios, tooltips help the user understand meaning, function or alt-text.</span>} placement="right" arrow>
             <button>Focus me</button>
         </Tooltip>
     </div>
