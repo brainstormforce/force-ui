@@ -168,6 +168,14 @@ module.exports = {
 				'toggle-on-border': '#60A5FA',
 				'toggle-off-disabled': '#F3F4F6',
 			},
+            width: {
+                '1/7': '14.2857143%',
+                '1/8': '12.5%',         
+                '1/9': '11.1111111%',    
+                '1/10': '10%',          
+                '1/11': '9.0909091%',    
+                '1/12': '8.3333333%', 
+            },
 			boxShadow: {
 				'soft-shadow-sm': '0px 6px 32px -12px rgba(149, 160, 178, 0.12)',
 				'soft-shadow': '0px 8px 32px -12px rgba(149, 160, 178, 0.16)',

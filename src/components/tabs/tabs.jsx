@@ -131,7 +131,7 @@ const Tab = ( props, ref ) => {
 	// Determine width and orientation classes for tabs.
 	const fullWidth = width === 'full' ? 'flex-1' : '';
 	const orientationClasses =
-		orientation === 'vertical' ? 'w-full justify-between' : '';
+        orientation === 'vertical' ? 'w-full justify-between' : '';
 
 	// Base classes for the Tab.
 	const baseClasses = `bg-transparent text-text-tertiary cursor-pointer flex items-center justify-center transition-colors duration-200 ${ fullWidth } ${ orientationClasses }`;
@@ -145,7 +145,7 @@ const Tab = ( props, ref ) => {
 	} else if ( variant === 'underline' ) {
 		variantClasses = 'rounded-none';
 		borderBottomClasses =
-			'border-t-0 border-r-0 border-l-0 border-b border-solid border-tab-border';
+            'border-t-0 border-r-0 border-l-0 border-b border-solid border-tab-border';
 	}
 
 	const borderActiveInlineClasses = 'border-border-interactive';

@@ -12,9 +12,9 @@ const Input = (
 		size = 'sm', // sm, md, lg
 		className = '',
 		disabled = false,
-		onChange = () => {},
+		onChange = () => { },
 		error = false,
-		onError = () => {},
+		onError = () => { },
 		prefix = null,
 		suffix = null,
 		...props
@@ -59,7 +59,7 @@ const Input = (
 	};
 
 	const baseClasses =
-		'border border-solid border-border-subtle bg-field-secondary-background font-normal placeholder-text-tertiary text-text-primary w-full';
+        'border border-solid border-border-subtle bg-field-secondary-background font-normal placeholder-text-tertiary text-text-primary w-full';
 	const sizeClasses = {
 		sm: 'px-2 py-2 rounded',
 		md: 'px-2.5 py-2.5 rounded-md',
@@ -85,7 +85,7 @@ const Input = (
 		? 'hover:border-border-disabled'
 		: 'hover:border-border-strong';
 	const focusClasses =
-		'focus:border-focus-border focus:ring-2 focus:ring-toggle-on focus:ring-offset-2';
+        'focus:border-focus-border focus:ring-2 focus:ring-toggle-on focus:ring-offset-2';
 	const errorClasses = error
 		? 'focus:border-focus-error-border focus:ring-field-color-error bg-field-background-error'
 		: '';
@@ -99,7 +99,7 @@ const Input = (
 		? 'border-border-disabled cursor-not-allowed text-text-disabled file:text-text-tertiary'
 		: '';
 	const iconClasses =
-		'font-normal placeholder-text-tertiary text-text-primary pointer-events-none absolute inset-y-0 flex flex-1 items-center [&>svg]:h-4 [&>svg]:w-4';
+        'font-normal placeholder-text-tertiary text-text-primary pointer-events-none absolute inset-y-0 flex flex-1 items-center [&>svg]:h-4 [&>svg]:w-4';
 	const uploadIconClasses = disabled
 		? 'font-normal placeholder-text-tertiary text-icon-disabled pointer-events-none absolute inset-y-0 flex flex-1 items-center'
 		: 'font-normal placeholder-text-tertiary text-field-placeholder pointer-events-none absolute inset-y-0 flex flex-1 items-center';
