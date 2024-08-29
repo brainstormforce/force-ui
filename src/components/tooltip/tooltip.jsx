@@ -1,5 +1,5 @@
 import React, { useRef, useState, isValidElement, cloneElement, useMemo } from 'react';
-import { useFloating, autoUpdate, offset, flip, shift, useHover, useFocus, useDismiss, useRole, arrow as floatingArrow, FloatingPortal, FloatingArrow, useInteractions, useTransitionStyles } from '@floating-ui/react';
+import { useFloating, autoUpdate, offset, flip, shift, useHover, useFocus, useDismiss, useClick, safePolygon, useRole, arrow as floatingArrow, FloatingPortal, FloatingArrow, useInteractions, useTransitionStyles } from '@floating-ui/react';
 import { cn } from '@/utilities/functions';
 import { mergeRefs } from '../toaster/utils';
 
@@ -18,6 +18,8 @@ const Tooltip = ( {
 	boundary = 'clippingAncestors',
 	strategy = 'fixed', // 'fixed' | 'absolute';
 	offset: offsetValue = 8, // Offset option or number value. Default is 8.
+	triggers = [ 'hover', 'focus' ], // 'click' | 'hover' | 'focus';
+	interactive = false,
 } ) => {
 	const isControlled = useMemo( () => typeof open === 'boolean' && typeof setOpen === 'function', [ open, setOpen ] );
 
@@ -42,12 +44,22 @@ const Tooltip = ( {
 		whileElementsMounted: autoUpdate,
 	} );
 
-	const hover = useHover( context, { move: false } );
-	const focus = useFocus( context );
+	const click = useClick( context, {
+		enabled: ! isControlled && triggers.includes( 'click' ),
+	} );
+	const hover = useHover( context, {
+		move: false,
+		enabled: ! isControlled && triggers.includes( 'hover' ),
+		...( interactive && { handleClose: safePolygon() } ),
+	} );
+	const focus = useFocus( context, {
+		enabled: ! isControlled && triggers.includes( 'focus' ),
+	} );
 	const dismiss = useDismiss( context );
 	const role = useRole( context, { role: 'tooltip' } );
 
 	const { getReferenceProps, getFloatingProps } = useInteractions( [
+		click,
 		hover,
 		focus,
 		dismiss,
