@@ -74,6 +74,16 @@ The `Tooltips` are small, interactive pop-up boxes that provide brief, informati
   - crossAxis?: number;
   - alignmentAxis?: number | null;
 
+### `tooltipPortalRoot`
+- **Type:** `HTMLElement | null`
+- **Default:** `null`
+- **Description:** Root element where the tooltip will be rendered. It's helpful when the tooltip is rendered outside the parent container and scopped Tailwind CSS styles.
+
+### `tooltipPortalId`
+- **Type:** `string`
+- **Default:** `""`
+- **Description:** Id of the tooltip portal where the tooltip will be rendered. It's helpful when the tooltip is rendered outside the parent container and scopped Tailwind CSS styles.
+
 ### `triggers`
 - **Type:** `string[]`
 - **Default:** `["hover", "focus"]`
@@ -131,7 +141,7 @@ const App = () => (
 			triggers={['click']}
 			arrow
 		>
-			<button>Hover over me</button>
+			<button>Click me</button>
 		</Tooltip>
 
 		{/* Interactive Tooltip */}
