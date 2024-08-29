@@ -74,12 +74,28 @@ The `Tooltips` are small, interactive pop-up boxes that provide brief, informati
   - crossAxis?: number;
   - alignmentAxis?: number | null;
 
-### `focusOnly`
+### `tooltipPortalRoot`
+- **Type:** `HTMLElement | null`
+- **Default:** `null`
+- **Description:** Root element where the tooltip will be rendered. It's helpful when the tooltip is rendered outside the parent container and scopped Tailwind CSS styles.
+
+### `tooltipPortalId`
+- **Type:** `string`
+- **Default:** `""`
+- **Description:** Id of the tooltip portal where the tooltip will be rendered. It's helpful when the tooltip is rendered outside the parent container and scopped Tailwind CSS styles.
+
+### `triggers`
+- **Type:** `string[]`
+- **Default:** `["hover", "focus"]`
+- **Description:** Defines the events that trigger the tooltip. Options include:
+  - `"hover"` 
+  - `"focus"`
+  - `"click"`
+
+### `interactive`
 - **Type:** `boolean`
 - **Default:** `false`
-- **Description:** When true, the tooltip is displayed only on focus. Options include:
-  - `"false"` 
-  - `"true"`
+- **Description:** When true, the tooltip is interactive and will not close when the user hovers away from the tooltip.
 
 ### `children`
 - **Type:** `ReactNode`
@@ -97,19 +113,72 @@ The `Tooltips` are small, interactive pop-up boxes that provide brief, informati
 import { Tooltip } from '@bsf/force-ui';
 
 const App = () => (
-    <div>
-        <Tooltip title="Tooltip Title" content={<span><strong>Tooltips</strong> are used to describe or identify an element. In most scenarios, tooltips help the user understand meaning, function or alt-text.</span>} placement="bottom" variant="dark" arrow>
-            <button>Hover over me</button>
-        </Tooltip>
+	<div>
+		<Tooltip
+			title="Tooltip Title"
+			content={
+				<span>
+					<strong>Tooltips</strong> are used to describe or identify
+					an element. In most scenarios, tooltips help the user
+					understand meaning, function or alt-text.
+				</span>
+			}
+			arrow
+		>
+			<button>Hover over me</button>
+		</Tooltip>
 
-        <Tooltip title="Tooltip Info" placement="top-start" variant="dark" open={open} onOpen={handleOpen} onClose={handleClose} arrow>
-            <button>Click me</button>
-        </Tooltip>
+		{/* Click only mode */}
+		<Tooltip
+			title="Tooltip Title"
+			content={
+				<span>
+					<strong>Tooltips</strong> are used to describe or identify
+					an element. In most scenarios, tooltips help the user
+					understand meaning, function or alt-text.
+				</span>
+			}
+			triggers={['click']}
+			arrow
+		>
+			<button>Click me</button>
+		</Tooltip>
 
-        <Tooltip focusOnly title="Tooltip" content={<span><strong>Tooltips</strong> are used to describe or identify an element. In most scenarios, tooltips help the user understand meaning, function or alt-text.</span>} placement="right" arrow>
-            <button>Focus me</button>
-        </Tooltip>
-    </div>
+		{/* Interactive Tooltip */}
+		<Tooltip
+			title="Tooltip Title"
+			content={
+				<span>
+					<strong>Tooltips</strong> are used to describe or identify
+					an element. In most scenarios, tooltips help the user
+					understand meaning, function or alt-text.
+				</span>
+			}
+			arrow
+			interactive
+		>
+			<button>Hover over me</button>
+		</Tooltip>
+		{/* Controlled tooltip */}
+		<Tooltip
+			title="Tooltip Title"
+			content={
+				<span>
+					<strong>Tooltips</strong> are used to describe or identify
+					an element. In most scenarios, tooltips help the user
+					understand meaning, function or alt-text.
+				</span>
+			}
+			arrow
+			interactive
+			placement="top-start"
+			variant="dark"
+			open={open}
+			setOpen={handleOpen}
+		>
+			<button>Hover over me</button>
+		</Tooltip>
+	</div>
 );
 
 export default App;
