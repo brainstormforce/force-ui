@@ -8,7 +8,7 @@ The `Skeleton` component can be used as an alternative loading indicator to the 
 
 ### `variant`
 - **Type:** `string`
-- **Default:** `"rectengular"`
+- **Default:** `"rectangular"`
 - **Description:** Defines the style variant of the skeleton. Options include:
   - `"rectengular"` 
   - `"circular"`
