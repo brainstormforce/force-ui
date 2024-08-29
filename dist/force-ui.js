@@ -15458,6 +15458,15 @@ function _objectWithoutPropertiesLoose(r, e) {
 
 /**
  * ProgressSteps Component
+ *
+ * @param {Object}                    props               - Component props.
+ * @param {'dot' | 'number' | 'icon'} props.variant       - The type of step indicator.
+ * @param {'sm' | 'md' | 'lg'}        props.size          - The size of the step indicator.
+ * @param {'inline' | 'stack'}        props.type          - The layout type of the steps.
+ * @param {number}                    props.currentStep   - The current active step.
+ * @param {React.Element}             [props.variantIcon] - Custom icon for the 'icon' variant.
+ * @param {React.ReactNode}           props.children      - The steps to be rendered.
+ * @param {string}                    [props.className]   - Additional class names for the component.
  */
 var ProgressSteps = function ProgressSteps(_ref) {
   var _ref$variant = _ref.variant,
@@ -15499,43 +15508,68 @@ var ProgressSteps = function ProgressSteps(_ref) {
   var steps = react__WEBPACK_IMPORTED_MODULE_0___default().Children.toArray(children).map(function (child, index) {
     var isCompleted = index + 1 < currentStep;
     var isCurrent = index + 1 === currentStep;
-    var stepContent = variant === 'dot' ? isCompleted ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(lucide_react__WEBPACK_IMPORTED_MODULE_2__["default"], {
-      className: "w-full h-full rounded-full text-brand-primary-600 transition-colors duration-300"
-    }) : isCurrent ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", {
-      className: "relative flex items-center rounded-full justify-center ring-1 ring-brand-primary-600 ".concat(sizeClasses[size].ring, " transition-colors duration-500")
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", {
-      className: "absolute ".concat(sizeClasses[size].dot, " bg-brand-primary-600 rounded-full transition-colors duration-500")
-    })) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", {
-      className: "relative flex items-center rounded-full ring-1 ring-gray-400 justify-center ".concat(sizeClasses[size].ring, " transition-colors duration-300")
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", {
-      className: "absolute ".concat(sizeClasses[size].dot, " bg-gray-400 rounded-full")
-    })) : variant === 'number' ? isCompleted ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(lucide_react__WEBPACK_IMPORTED_MODULE_2__["default"], {
-      className: "w-full h-full text-brand-primary-600 ".concat(sizeClasses[size].numberIcon, " transition-colors duration-300")
-    }) : isCurrent ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", {
-      className: "relative flex items-center rounded-full justify-center ring-1 ring-brand-primary-600 ".concat(sizeClasses[size].ring, " transition-colors duration-500")
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", {
-      className: "absolute ".concat(sizeClasses[size].dot, " text-brand-primary-600 rounded-full flex items-center justify-center transition-colors duration-500")
-    }, index + 1)) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", {
-      className: "relative flex items-center rounded-full justify-center ring-1 ring-gray-400 ".concat(sizeClasses[size].ring, " transition-colors duration-300")
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", {
-      className: "absolute ".concat(sizeClasses[size].dot, " text-gray-400 rounded-full flex items-center justify-center")
-    }, index + 1)) : variant === 'icon' && variantIcon ? isCompleted ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", {
-      className: "flex items-center rounded-full justify-center text-brand-primary-600 ".concat(sizeClasses[size].icon, " transition-colors duration-300")
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(lucide_react__WEBPACK_IMPORTED_MODULE_2__["default"], {
-      className: "w-full h-full"
-    })) : isCurrent ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", {
-      className: "relative flex rounded-full items-center justify-center ring-1 ring-brand-primary-600 ".concat(sizeClasses[size].ring, " transition-colors duration-500")
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", {
-      className: "absolute text-brand-primary-600 flex items-center justify-center transition-colors duration-500"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().cloneElement(variantIcon, {
-      className: 'w-full h-full'
-    }))) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", {
-      className: "relative flex rounded-full items-center justify-center ring-1 ring-gray-400 ".concat(sizeClasses[size].ring, " transition-colors duration-300")
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", {
-      className: "absolute text-gray-400 flex items-center justify-center"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().cloneElement(variantIcon, {
-      className: 'w-full h-full'
-    }))) : null;
+    var stepContent;
+    if (variant === 'dot') {
+      if (isCompleted) {
+        stepContent = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(lucide_react__WEBPACK_IMPORTED_MODULE_2__["default"], {
+          className: "w-full h-full rounded-full text-brand-primary-600 transition-colors duration-300"
+        });
+      } else if (isCurrent) {
+        stepContent = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", {
+          className: "relative flex items-center rounded-full justify-center ring-1 ring-brand-primary-600 ".concat(sizeClasses[size].ring, " transition-colors duration-500")
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", {
+          className: "absolute ".concat(sizeClasses[size].dot, " bg-brand-primary-600 rounded-full transition-colors duration-500")
+        }));
+      } else {
+        stepContent = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", {
+          className: "relative flex items-center rounded-full ring-1 ring-gray-400 justify-center ".concat(sizeClasses[size].ring, " transition-colors duration-300")
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", {
+          className: "absolute ".concat(sizeClasses[size].dot, " bg-gray-400 rounded-full")
+        }));
+      }
+    } else if (variant === 'number') {
+      if (isCompleted) {
+        stepContent = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(lucide_react__WEBPACK_IMPORTED_MODULE_2__["default"], {
+          className: "w-full h-full text-brand-primary-600 ".concat(sizeClasses[size].numberIcon, " transition-colors duration-300")
+        });
+      } else if (isCurrent) {
+        stepContent = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", {
+          className: "relative flex items-center rounded-full justify-center ring-1 ring-brand-primary-600 ".concat(sizeClasses[size].ring, " transition-colors duration-500")
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", {
+          className: "absolute ".concat(sizeClasses[size].dot, " text-brand-primary-600 rounded-full flex items-center justify-center transition-colors duration-500")
+        }, index + 1));
+      } else {
+        stepContent = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", {
+          className: "relative flex items-center rounded-full justify-center ring-1 ring-gray-400 ".concat(sizeClasses[size].ring, " transition-colors duration-300")
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", {
+          className: "absolute ".concat(sizeClasses[size].dot, " text-gray-400 rounded-full flex items-center justify-center")
+        }, index + 1));
+      }
+    } else if (variant === 'icon' && variantIcon) {
+      if (isCompleted) {
+        stepContent = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", {
+          className: "flex items-center rounded-full justify-center text-brand-primary-600 ".concat(sizeClasses[size].icon, " transition-colors duration-300")
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(lucide_react__WEBPACK_IMPORTED_MODULE_2__["default"], {
+          className: "w-full h-full"
+        }));
+      } else if (isCurrent) {
+        stepContent = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", {
+          className: "relative flex rounded-full items-center justify-center ring-1 ring-brand-primary-600 ".concat(sizeClasses[size].ring, " transition-colors duration-500")
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", {
+          className: "absolute text-brand-primary-600 flex items-center justify-center transition-colors duration-500"
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().cloneElement(variantIcon, {
+          className: 'w-full h-full'
+        })));
+      } else {
+        stepContent = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", {
+          className: "relative flex rounded-full items-center justify-center ring-1 ring-gray-400 ".concat(sizeClasses[size].ring, " transition-colors duration-300")
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", {
+          className: "absolute text-gray-400 flex items-center justify-center"
+        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().cloneElement(variantIcon, {
+          className: 'w-full h-full'
+        })));
+      }
+    }
     var stepClasses = (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_1__.cn)('relative rounded-full flex items-center justify-center', sizeClasses[size].ring, 'transition-colors duration-500', isCurrent ? 'ring-brand-primary-600' : 'ring-gray-400');
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), {
       key: index
@@ -15558,8 +15592,18 @@ var ProgressSteps = function ProgressSteps(_ref) {
 };
 
 /**
- * ProgressStep Component
+ * ProgressSteps Component
+ *
+ * @param {Object}                    props               - Component props.
+ * @param {'dot' | 'number' | 'icon'} props.variant       - The type of step indicator.
+ * @param {'sm' | 'md' | 'lg'}        props.size          - The size of the step indicator.
+ * @param {'inline' | 'stack'}        props.type          - The layout type of the steps.
+ * @param {number}                    props.currentStep   - The current active step.
+ * @param {React.Element}             [props.variantIcon] - Custom icon for the 'icon' variant.
+ * @param {React.ReactNode}           props.children      - The steps to be rendered.
+ * @param {string}                    [props.className]   - Additional class names for the component.
  */
+
 var ProgressStep = function ProgressStep(_ref2) {
   var labelText = _ref2.labelText,
     stepContent = _ref2.stepContent,
