@@ -29,25 +29,25 @@ const ProgressSteps = ( {
 
 	const sizeClasses = {
 		sm: {
-			dot: 'w-2.5 h-2.5',
-			ring: 'w-5 h-5',
-			numberIcon: 'w-5 h-5 text-[10px]',
+			dot: 'size-2.5',
+			ring: 'size-5',
+			numberIcon: 'size-5 text-[10px]',
 			line: type === 'stack' ? 'h-0.5' : 'h-0.5 mx-2',
-			icon: 'w-5 h-5',
+			icon: 'size-5',
 		},
 		md: {
-			dot: 'w-3 h-3',
-			ring: 'w-6 h-6',
-			numberIcon: 'w-6 h-6 text-[12px]',
+			dot: 'size-3',
+			ring: 'size-6',
+			numberIcon: 'size-6 text-[12px]',
 			line: type === 'stack' ? 'h-0.5' : 'h-0.5 mx-3',
-			icon: 'w-6 h-6',
+			icon: 'size-6',
 		},
 		lg: {
-			dot: 'w-3.5 h-3.5',
-			ring: 'w-7 h-7',
-			numberIcon: 'w-7 h-7 text-[14px]',
+			dot: 'size-3.5',
+			ring: 'size-7',
+			numberIcon: 'size-7 text-[14px]',
 			line: type === 'stack' ? 'h-0.5' : 'h-0.5 mx-2',
-			icon: 'w-7 h-7',
+			icon: 'size-7',
 		},
 	};
 
