@@ -59,18 +59,18 @@ const ProgressSteps = ( {
 
 		let stepRingClass;
 
-		if (isCurrent) {
+		if ( isCurrent ) {
 			stepRingClass = 'ring-1 ring-brand-primary-600';
-		} else if (isCompleted) {
+		} else if ( isCompleted ) {
 			stepRingClass = ''; // No ring for completed steps (based on the original logic)
 		} else {
 			stepRingClass = 'ring-1 ring-gray-400';
 		}
-		
+
 		const stepClasses = cn(
 			'relative rounded-full flex items-center justify-center transition-colors duration-500',
 			stepRingClass,
-			sizeClasses[size].ring
+			sizeClasses[ size ].ring
 		);
 
 		return (
