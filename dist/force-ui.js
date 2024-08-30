@@ -15419,7 +15419,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _utilities_functions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../utilities/functions */ "./src/utilities/functions.js");
+/* harmony import */ var _utilities_functions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/utilities/functions */ "./src/utilities/functions.js");
 /* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/check.js");
 var _excluded = ["variant", "size", "type", "currentStep", "variantIcon", "children", "className"],
   _excluded2 = ["labelText", "stepContent", "stepClasses", "isCurrent", "isCompleted", "totalSteps", "className", "type", "index"];
@@ -15457,6 +15457,80 @@ function _objectWithoutPropertiesLoose(r, e) {
 
 
 /**
+ * Helper function to create a span element with common classes.
+ *
+ * @param {string}          classes    - The CSS classes to apply.
+ * @param {React.ReactNode} [children] - Optional children to render inside the span.
+ * @return {JSX.Element} The span element.
+ */
+var createSpanContent = function createSpanContent(classes) {
+  var children = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", {
+    className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_1__.cn)(classes)
+  }, children);
+};
+
+/**
+ * Helper function for the 'dot' variant.
+ *
+ * @param {boolean}            isCompleted - Whether the step is completed.
+ * @param {boolean}            isCurrent   - Whether the step is the current step.
+ * @param {Object}             sizeClasses - The size classes for different step sizes.
+ * @param {'sm' | 'md' | 'lg'} size        - The size of the step indicator.
+ * @return {JSX.Element} The step content for the 'dot' variant.
+ */
+var createDotContent = function createDotContent(isCompleted, isCurrent, sizeClasses, size) {
+  if (isCompleted) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(lucide_react__WEBPACK_IMPORTED_MODULE_2__["default"], {
+      className: "w-full h-full rounded-full text-brand-primary-600 transition-colors duration-300"
+    });
+  }
+  return createSpanContent("relative flex items-center rounded-full justify-center ring-1 ".concat(isCurrent ? 'ring-brand-primary-600' : 'ring-gray-400', " ").concat(sizeClasses[size].ring, " transition-colors duration-500"), createSpanContent("absolute ".concat(sizeClasses[size].dot, " ").concat(isCurrent ? 'bg-brand-primary-600' : 'bg-gray-400', " rounded-full transition-colors duration-500")));
+};
+
+/**
+ * Helper function for the 'number' variant.
+ *
+ * @param {boolean}            isCompleted - Whether the step is completed.
+ * @param {boolean}            isCurrent   - Whether the step is the current step.
+ * @param {Object}             sizeClasses - The size classes for different step sizes.
+ * @param {'sm' | 'md' | 'lg'} size        - The size of the step indicator.
+ * @param {number}             index       - The index of the step.
+ * @return {JSX.Element} The step content for the 'number' variant.
+ */
+var createNumberContent = function createNumberContent(isCompleted, isCurrent, sizeClasses, size, index) {
+  if (isCompleted) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(lucide_react__WEBPACK_IMPORTED_MODULE_2__["default"], {
+      className: "w-full h-full text-brand-primary-600 ".concat(sizeClasses[size].numberIcon, " transition-colors duration-300")
+    });
+  }
+  return createSpanContent("relative flex items-center rounded-full justify-center ring-1 ".concat(isCurrent ? 'ring-brand-primary-600' : 'ring-gray-400', " ").concat(sizeClasses[size].ring, " transition-colors duration-500"), createSpanContent("absolute ".concat(sizeClasses[size].dot, " ").concat(isCurrent ? 'text-brand-primary-600' : 'text-gray-400', " rounded-full flex items-center justify-center transition-colors duration-500"), index + 1));
+};
+
+/**
+ * Helper function for the 'icon' variant.
+ *
+ * @param {boolean}            isCompleted - Whether the step is completed.
+ * @param {boolean}            isCurrent   - Whether the step is the current step.
+ * @param {Object}             sizeClasses - The size classes for different step sizes.
+ * @param {'sm' | 'md' | 'lg'} size        - The size of the step indicator.
+ * @param {React.Element}      variantIcon - The custom icon component for the 'icon' variant.
+ * @return {JSX.Element} The step content for the 'icon' variant.
+ */
+var createIconContent = function createIconContent(isCompleted, isCurrent, sizeClasses, size, variantIcon) {
+  if (isCompleted) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", {
+      className: "flex items-center rounded-full justify-center text-brand-primary-600 ".concat(sizeClasses[size].icon, " transition-colors duration-300")
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(lucide_react__WEBPACK_IMPORTED_MODULE_2__["default"], {
+      className: "w-full h-full"
+    }));
+  }
+  return createSpanContent("relative flex rounded-full items-center justify-center ring-1 ".concat(isCurrent ? 'ring-brand-primary-600' : 'ring-gray-400', " ").concat(sizeClasses[size].ring, " transition-colors duration-500"), createSpanContent("absolute ".concat(isCurrent ? 'text-brand-primary-600' : 'text-gray-400', " flex items-center justify-center transition-colors duration-500"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().cloneElement(variantIcon, {
+    className: 'w-full h-full'
+  })));
+};
+
+/**
  * ProgressSteps Component
  *
  * @param {Object}                    props               - Component props.
@@ -15468,6 +15542,7 @@ function _objectWithoutPropertiesLoose(r, e) {
  * @param {React.ReactNode}           props.children      - The steps to be rendered.
  * @param {string}                    [props.className]   - Additional class names for the component.
  */
+
 var ProgressSteps = function ProgressSteps(_ref) {
   var _ref$variant = _ref.variant,
     variant = _ref$variant === void 0 ? 'dot' : _ref$variant,
@@ -15510,65 +15585,11 @@ var ProgressSteps = function ProgressSteps(_ref) {
     var isCurrent = index + 1 === currentStep;
     var stepContent;
     if (variant === 'dot') {
-      if (isCompleted) {
-        stepContent = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(lucide_react__WEBPACK_IMPORTED_MODULE_2__["default"], {
-          className: "w-full h-full rounded-full text-brand-primary-600 transition-colors duration-300"
-        });
-      } else if (isCurrent) {
-        stepContent = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", {
-          className: "relative flex items-center rounded-full justify-center ring-1 ring-brand-primary-600 ".concat(sizeClasses[size].ring, " transition-colors duration-500")
-        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", {
-          className: "absolute ".concat(sizeClasses[size].dot, " bg-brand-primary-600 rounded-full transition-colors duration-500")
-        }));
-      } else {
-        stepContent = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", {
-          className: "relative flex items-center rounded-full ring-1 ring-gray-400 justify-center ".concat(sizeClasses[size].ring, " transition-colors duration-300")
-        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", {
-          className: "absolute ".concat(sizeClasses[size].dot, " bg-gray-400 rounded-full")
-        }));
-      }
+      stepContent = createDotContent(isCompleted, isCurrent, sizeClasses, size);
     } else if (variant === 'number') {
-      if (isCompleted) {
-        stepContent = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(lucide_react__WEBPACK_IMPORTED_MODULE_2__["default"], {
-          className: "w-full h-full text-brand-primary-600 ".concat(sizeClasses[size].numberIcon, " transition-colors duration-300")
-        });
-      } else if (isCurrent) {
-        stepContent = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", {
-          className: "relative flex items-center rounded-full justify-center ring-1 ring-brand-primary-600 ".concat(sizeClasses[size].ring, " transition-colors duration-500")
-        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", {
-          className: "absolute ".concat(sizeClasses[size].dot, " text-brand-primary-600 rounded-full flex items-center justify-center transition-colors duration-500")
-        }, index + 1));
-      } else {
-        stepContent = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", {
-          className: "relative flex items-center rounded-full justify-center ring-1 ring-gray-400 ".concat(sizeClasses[size].ring, " transition-colors duration-300")
-        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", {
-          className: "absolute ".concat(sizeClasses[size].dot, " text-gray-400 rounded-full flex items-center justify-center")
-        }, index + 1));
-      }
+      stepContent = createNumberContent(isCompleted, isCurrent, sizeClasses, size, index);
     } else if (variant === 'icon' && variantIcon) {
-      if (isCompleted) {
-        stepContent = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", {
-          className: "flex items-center rounded-full justify-center text-brand-primary-600 ".concat(sizeClasses[size].icon, " transition-colors duration-300")
-        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(lucide_react__WEBPACK_IMPORTED_MODULE_2__["default"], {
-          className: "w-full h-full"
-        }));
-      } else if (isCurrent) {
-        stepContent = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", {
-          className: "relative flex rounded-full items-center justify-center ring-1 ring-brand-primary-600 ".concat(sizeClasses[size].ring, " transition-colors duration-500")
-        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", {
-          className: "absolute text-brand-primary-600 flex items-center justify-center transition-colors duration-500"
-        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().cloneElement(variantIcon, {
-          className: 'w-full h-full'
-        })));
-      } else {
-        stepContent = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", {
-          className: "relative flex rounded-full items-center justify-center ring-1 ring-gray-400 ".concat(sizeClasses[size].ring, " transition-colors duration-300")
-        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", {
-          className: "absolute text-gray-400 flex items-center justify-center"
-        }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().cloneElement(variantIcon, {
-          className: 'w-full h-full'
-        })));
-      }
+      stepContent = createIconContent(isCompleted, isCurrent, sizeClasses, size, variantIcon);
     }
     var stepClasses = (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_1__.cn)('relative rounded-full flex items-center justify-center', sizeClasses[size].ring, 'transition-colors duration-500', isCurrent ? 'ring-brand-primary-600' : 'ring-gray-400');
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), {
@@ -15592,16 +15613,18 @@ var ProgressSteps = function ProgressSteps(_ref) {
 };
 
 /**
- * ProgressSteps Component
+ * ProgressStep Component
  *
- * @param {Object}                    props               - Component props.
- * @param {'dot' | 'number' | 'icon'} props.variant       - The type of step indicator.
- * @param {'sm' | 'md' | 'lg'}        props.size          - The size of the step indicator.
- * @param {'inline' | 'stack'}        props.type          - The layout type of the steps.
- * @param {number}                    props.currentStep   - The current active step.
- * @param {React.Element}             [props.variantIcon] - Custom icon for the 'icon' variant.
- * @param {React.ReactNode}           props.children      - The steps to be rendered.
- * @param {string}                    [props.className]   - Additional class names for the component.
+ * @param {Object}             props             - Component props.
+ * @param {string}             props.labelText   - The label text for the step.
+ * @param {JSX.Element}        props.stepContent - The content for the step.
+ * @param {string}             props.stepClasses - The CSS classes for the step.
+ * @param {boolean}            props.isCurrent   - Whether the step is the current step.
+ * @param {boolean}            props.isCompleted - Whether the step is completed.
+ * @param {number}             props.totalSteps  - The total number of steps.
+ * @param {string}             [props.className] - Additional class names for the step.
+ * @param {'inline' | 'stack'} props.type        - The layout type of the step.
+ * @param {number}             props.index       - The index of the step.
  */
 
 var ProgressStep = function ProgressStep(_ref2) {
