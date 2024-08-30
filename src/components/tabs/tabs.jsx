@@ -6,7 +6,7 @@ import React, {
 	useContext,
 } from 'react';
 // import { twMerge } from 'tailwind-merge';
-import { cn } from '@/utilities/functions';;
+import { cn } from '@/utilities/functions';
 
 // Context for managing the TabsGroup state.
 const TabsGroupContext = createContext();
@@ -41,18 +41,18 @@ const TabsGroup = ( props ) => {
 	// Determine styles based on the variant and orientation.
 	let borderRadius = 'rounded-full',
 		padding = 'p-1',
-        gap,
+		gap,
 		border = 'border border-tab-border border-solid';
-    
-    if (orientation === 'vertical') {
-        gap = 'gap-0.5';
-    } else if (variant === 'rounded' || variant === 'pill') {
-        if (size === 'xs' || size === 'sm') {
-            gap = 'gap-0.5';
-        } else if (size === 'md' || size === 'lg') {
-            gap = 'gap-1';
-        }
-    }
+
+	if ( orientation === 'vertical' ) {
+		gap = 'gap-0.5';
+	} else if ( variant === 'rounded' || variant === 'pill' ) {
+		if ( size === 'xs' || size === 'sm' ) {
+			gap = 'gap-0.5';
+		} else if ( size === 'md' || size === 'lg' ) {
+			gap = 'gap-1';
+		}
+	}
 
 	if ( variant === 'rounded' || orientation === 'vertical' ) {
 		borderRadius = 'rounded-md';
@@ -60,15 +60,14 @@ const TabsGroup = ( props ) => {
 		borderRadius = 'rounded-none';
 		padding = 'p-0';
 		border = 'border-none';
-        if (size === 'xs') {
-            gap = 'gap-0';
-        } else if (size === 'sm') {
-            gap = 'gap-2.5';
-        } else if (size === 'md' || size === 'lg') {
-            gap = 'gap-3';
-        }
+		if ( size === 'xs' ) {
+			gap = 'gap-0';
+		} else if ( size === 'sm' ) {
+			gap = 'gap-2.5';
+		} else if ( size === 'md' || size === 'lg' ) {
+			gap = 'gap-3';
+		}
 	}
-
 
 	// Determine width classes.
 	const widthClasses = width === 'full' ? 'w-full' : '';
@@ -141,10 +140,10 @@ const Tab = ( props, ref ) => {
 
 	// Determine size classes.
 	const sizes = {
-        xs: 'px-1.5 py-0.5 text-xs [&>svg]:h-3 [&>svg]:w-3',
-        sm: variant === 'underline' ? 'py-1.5 text-sm [&>svg]:h-4 [&>svg]:w-4' : 'px-3 py-1.5 text-sm [&>svg]:h-4 [&>svg]:w-4',
-        md: variant === 'underline' ? 'py-2 text-base [&>svg]:h-5 [&>svg]:w-5' : 'px-3.5 py-1.5 text-base [&>svg]:h-5 [&>svg]:w-5',
-        lg: variant === 'underline' ? 'p-2.5 text-lg [&>svg]:h-6 [&>svg]:w-6' : 'px-3.5 py-1.5 text-lg [&>svg]:h-6 [&>svg]:w-6',
+		xs: 'px-1.5 py-0.5 text-xs [&>svg]:h-3 [&>svg]:w-3',
+		sm: variant === 'underline' ? 'py-1.5 text-sm [&>svg]:h-4 [&>svg]:w-4' : 'px-3 py-1.5 text-sm [&>svg]:h-4 [&>svg]:w-4',
+		md: variant === 'underline' ? 'py-2 text-base [&>svg]:h-5 [&>svg]:w-5' : 'px-3.5 py-1.5 text-base [&>svg]:h-5 [&>svg]:w-5',
+		lg: variant === 'underline' ? 'p-2.5 text-lg [&>svg]:h-6 [&>svg]:w-6' : 'px-3.5 py-1.5 text-lg [&>svg]:h-6 [&>svg]:w-6',
 	}[ size ];
 
 	// Determine width and orientation classes for tabs.
