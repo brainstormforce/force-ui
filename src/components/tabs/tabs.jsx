@@ -5,7 +5,8 @@ import React, {
 	createContext,
 	useContext,
 } from 'react';
-import { twMerge } from 'tailwind-merge';
+// import { twMerge } from 'tailwind-merge';
+import { cn } from '@/utilities/functions';;
 
 // Context for managing the TabsGroup state.
 const TabsGroupContext = createContext();
@@ -20,7 +21,7 @@ const TabsGroup = ( props ) => {
 		activeItem = null, // The currently active item in the group.
 		onChange, // Callback when the active item changes.
 		className, // Additional class names for styling.
-		size = 'sm', // Size of the tabs in the group ('sm', 'md', 'lg').
+		size = 'sm', // Size of the tabs in the group ('xs', 'sm', 'md', 'lg').
 		orientation = 'horizontal', // Orientation of the tabs ('horizontal', 'vertical').
 		variant = 'pill', // Style variant of the tabs ('pill', 'rounded', 'underline').
 		iconPosition = 'left', // Position of the icon in the tab ('left' or 'right').
@@ -40,17 +41,34 @@ const TabsGroup = ( props ) => {
 	// Determine styles based on the variant and orientation.
 	let borderRadius = 'rounded-full',
 		padding = 'p-1',
-		gap = orientation === 'vertical' ? 'gap-0.5' : 'gap-1',
+        gap,
 		border = 'border border-tab-border border-solid';
+    
+    if (orientation === 'vertical') {
+        gap = 'gap-0.5';
+    } else if (variant === 'rounded' || variant === 'pill') {
+        if (size === 'xs' || size === 'sm') {
+            gap = 'gap-0.5';
+        } else if (size === 'md' || size === 'lg') {
+            gap = 'gap-1';
+        }
+    }
 
 	if ( variant === 'rounded' || orientation === 'vertical' ) {
 		borderRadius = 'rounded-md';
 	} else if ( variant === 'underline' ) {
 		borderRadius = 'rounded-none';
 		padding = 'p-0';
-		gap = 'gap-0';
 		border = 'border-none';
+        if (size === 'xs') {
+            gap = 'gap-0';
+        } else if (size === 'sm') {
+            gap = 'gap-2.5';
+        } else if (size === 'md' || size === 'lg') {
+            gap = 'gap-3';
+        }
 	}
+
 
 	// Determine width classes.
 	const widthClasses = width === 'full' ? 'w-full' : '';
@@ -61,7 +79,7 @@ const TabsGroup = ( props ) => {
 	const baseClasses = `box-border [&>*]:box-border flex items-center ${ widthClasses } ${ orientationClasses }`;
 
 	// Merge classes.
-	const groupClassName = twMerge(
+	const groupClassName = cn(
 		baseClasses,
 		borderRadius,
 		padding,
@@ -123,9 +141,10 @@ const Tab = ( props, ref ) => {
 
 	// Determine size classes.
 	const sizes = {
-		sm: 'p-1 text-sm [&>svg]:h-4 [&>svg]:w-4',
-		md: 'p-2 text-base [&>svg]:h-5 [&>svg]:w-5',
-		lg: 'p-2.5 text-lg [&>svg]:h-6 [&>svg]:w-6',
+        xs: 'px-1.5 py-0.5 text-xs [&>svg]:h-3 [&>svg]:w-3',
+        sm: variant === 'underline' ? 'py-1.5 text-sm [&>svg]:h-4 [&>svg]:w-4' : 'px-3 py-1.5 text-sm [&>svg]:h-4 [&>svg]:w-4',
+        md: variant === 'underline' ? 'py-2 text-base [&>svg]:h-5 [&>svg]:w-5' : 'px-3.5 py-1.5 text-base [&>svg]:h-5 [&>svg]:w-5',
+        lg: variant === 'underline' ? 'p-2.5 text-lg [&>svg]:h-6 [&>svg]:w-6' : 'px-3.5 py-1.5 text-lg [&>svg]:h-6 [&>svg]:w-6',
 	}[ size ];
 
 	// Determine width and orientation classes for tabs.
@@ -159,7 +178,7 @@ const Tab = ( props, ref ) => {
 	const activeClasses = activeItem === slug ? 'bg-background-primary text-text-primary' : '';
 
 	// Merge classes.
-	const tabClassName = twMerge(
+	const tabClassName = cn(
 		baseClasses,
 		borderClasses,
 		variantClasses,
@@ -175,7 +194,7 @@ const Tab = ( props, ref ) => {
 		className
 	);
 
-	const iconParentClasses = twMerge( 'flex items-center gap-1' );
+	const iconParentClasses = cn( 'flex items-center gap-1' );
 
 	// Handle click event.
 	const handleClick = ( event ) => {
