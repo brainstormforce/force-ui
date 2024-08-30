@@ -19,3 +19,4 @@ export { default as Container } from './container/index';
 export { default as Alert } from './alert/index';
 export { default as EditorInput } from './editor-input/index';
 export { ProgressSteps, ProgressStep } from './progress-steps/index';
+export { default as Skeleton } from './skeleton/index';
