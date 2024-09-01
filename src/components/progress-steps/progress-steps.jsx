@@ -6,24 +6,22 @@ import { getVariantClasses, completedStepCommonClasses, stepWrapperClasses } fro
 /**
  * ProgressSteps Component
  *
- * @param {Object}                    props               - Component props.
- * @param {'dot' | 'number' | 'icon'} props.variant       - The type of step indicator.
- * @param {'sm' | 'md' | 'lg'}        props.size          - The size of the step indicator.
- * @param {'inline' | 'stack'}        props.type          - The layout type of the steps.
- * @param {number}                    props.currentStep   - The current active step.
- * @param {React.Element}             [props.variantIcon] - Custom icon for the 'icon' variant.
- * @param {React.ReactNode}           props.children      - The steps to be rendered.
- * @param {string}                    [props.className]   - Additional class names for the component.
+ * @param {Object}                    props             - Component props.
+ * @param {'dot' | 'number' | 'icon'} props.variant     - The type of step indicator.
+ * @param {'sm' | 'md' | 'lg'}        props.size        - The size of the step indicator.
+ * @param {'inline' | 'stack'}        props.type        - The layout type of the steps.
+ * @param {number}                    props.currentStep - The current active step.
+ * @param {React.ReactNode}           props.children    - The steps to be rendered.
+ * @param {string}                    [props.className] - Additional class names for the component.
  */
 const ProgressSteps = ( {
 	variant = 'dot',
 	size = 'sm',
 	type = 'inline',
 	currentStep = 1,
-	variantIcon,
 	children,
 	className,
-	...props
+	...rest
 } ) => {
 	const totalSteps = React.Children.count( children );
 
@@ -34,71 +32,58 @@ const ProgressSteps = ( {
 			numberIcon: 'size-5 text-[10px]',
 			line: type === 'stack' ? 'h-0.5' : 'h-0.5 mx-2',
 			icon: 'size-5',
+			label: 'text-xs',
 		},
 		md: {
 			dot: 'size-3',
-			ring: 'size-6',
-			numberIcon: 'size-6 text-[12px]',
-			line: type === 'stack' ? 'h-0.5' : 'h-0.5 mx-3',
-			icon: 'size-6',
+			ring: 'w-6 h-6',
+			numberIcon: 'w-6 h-6 text-[12px]',
+			line: type === 'stack' ? 'h-0.5' : 'h-0.5 mx-2',
+			icon: 'w-6 h-6',
+			label: 'text-sm',
 		},
 		lg: {
-			dot: 'size-3.5',
-			ring: 'size-7',
-			numberIcon: 'size-7 text-[14px]',
+			dot: 'w-3.5 h-3.5',
+			ring: 'w-7 h-7',
+			numberIcon: 'w-7 h-7 text-[14px]',
 			line: type === 'stack' ? 'h-0.5' : 'h-0.5 mx-2',
-			icon: 'size-7',
+			icon: 'w-7 h-7',
+			label: 'text-sm',
 		},
 	};
 
-	const steps = React.Children.toArray( children ).map( ( child, index ) => {
+	const steps = React.Children.map( children, ( child, index ) => {
 		const isCompleted = index + 1 < currentStep;
 		const isCurrent = index + 1 === currentStep;
 
-		const stepContent = createStepContent( variant, isCompleted, isCurrent, sizeClasses, size, index, variantIcon );
-
-		let stepRingClass;
-
-		if ( isCurrent ) {
-			stepRingClass = 'ring-1 ring-brand-primary-600';
-		} else if ( isCompleted ) {
-			stepRingClass = ''; // No ring for completed steps (based on the original logic)
-		} else {
-			stepRingClass = 'ring-1 ring-gray-400';
-		}
-
-		const stepClasses = cn(
-			'relative rounded-full flex items-center justify-center transition-colors duration-500',
-			stepRingClass,
-			sizeClasses[ size ].ring
-		);
+		const stepProps = {
+			isCompleted,
+			isCurrent,
+			sizeClasses,
+			size,
+			variant,
+			type,
+		};
 
 		return (
-			<React.Fragment key={ index }>
-				{ React.cloneElement( child, {
-					stepContent,
-					stepClasses,
-					isCurrent,
-					isCompleted,
-					totalSteps,
-					type,
-				} ) }
+			<>
+				{ React.cloneElement( child, stepProps ) }
 				{ index < totalSteps - 1 && (
 					<div
-						className={ `flex-1 ${ sizeClasses[ size ].line } transition-colors duration-500 ${
-							( isCompleted ) ? 'bg-brand-primary-600' : 'bg-gray-300'
-						}` }
+						className={ cn(
+							'flex-1 transition-colors duration-500',
+							sizeClasses[ size ].line,
+							isCompleted ? 'bg-brand-primary-600' : 'bg-gray-300'
+						) }
 					></div>
 				) }
-			</React.Fragment>
+			</>
 		);
 	} );
 
 	return (
-		<div className={ cn( 'flex flex-col items-center', className ) } { ...props }>
-			<div className="flex w-full items-center justify-between mb-6">
-				{ steps }
-			</div>
+		<div className={ cn( 'flex w-full items-center mb-16 justify-between', className ) } { ...rest }>
+			{ steps }
 		</div>
 	);
 };
@@ -106,55 +91,45 @@ const ProgressSteps = ( {
 /**
  * ProgressStep Component
  *
- * @param {Object}             props             - Component props.
- * @param {string}             props.labelText   - The label text for the step.
- * @param {JSX.Element}        props.stepContent - The content for the step.
- * @param {string}             props.stepClasses - The CSS classes for the step.
- * @param {boolean}            props.isCurrent   - Whether the step is the current step.
- * @param {boolean}            props.isCompleted - Whether the step is completed.
- * @param {number}             props.totalSteps  - The total number of steps.
- * @param {string}             [props.className] - Additional class names for the step.
- * @param {'inline' | 'stack'} props.type        - The layout type of the step.
- * @param {number}             props.index       - The index of the step.
+ * @param {Object}                    props             - Component props.
+ * @param {string}                    props.labelText   - The label text for the step.
+ * @param {JSX.Element}               props.icon        - The icon to display for the step.
+ * @param {string}                    props.stepClasses - The CSS classes for the step.
+ * @param {boolean}                   props.isCurrent   - Whether the step is the current step.
+ * @param {boolean}                   props.isCompleted - Whether the step is completed.
+ * @param {string}                    [props.className] - Additional class names for the step.
+ * @param {'inline' | 'stack'}        props.type        - The layout type of the step.
+ * @param {'dot' | 'number' | 'icon'} props.variant     - The type of step indicator.
+ * @param {Object}                    props.sizeClasses - The size classes for different step sizes.
+ * @param {'sm' | 'md' | 'lg'}        props.size        - The size of the step indicator.
  */
 const ProgressStep = ( {
 	labelText,
-	stepContent,
+	icon,
 	stepClasses,
 	isCurrent,
 	isCompleted,
-	totalSteps,
 	className,
 	type,
-	index,
-	...props
+	variant,
+	sizeClasses,
+	size,
+	...rest
 } ) => {
-	const wrapperClasses = [ 'flex items-center', className ];
-	const labelClasses = [ 'text-gray-400' ];
-	const labelStyle = {};
-
-	if ( isCurrent || isCompleted ) {
-		labelClasses.push( 'text-brand-primary-600' );
-	} else {
-		labelClasses.push( 'text-gray-400' );
-	}
-
-	if ( type === 'stack' ) {
-		labelClasses.push( 'mt-2', 'text-center', 'absolute', 'left-1/2', 'transform', '-translate-x-1/2', 'whitespace-nowrap' );
-		wrapperClasses.push( 'relative' );
-		labelStyle.top = 'calc(100% + 8px)';
-	} else {
-		labelClasses.push( 'ml-2' );
-	}
+	const stepContent = createStepContent( variant, isCompleted, isCurrent, sizeClasses, size, icon );
 
 	return (
-		<div className={ cn( ...wrapperClasses ) } { ...props }>
-			<div className={ cn( 'flex items-center', type === 'stack' && 'z-10' ) }>
-				<div className={ stepClasses }>{ stepContent }</div>
-			</div>
-
+		<div className={ cn( 'flex items-center', type === 'stack' && 'relative', className ) } { ...rest }>
+			{ stepContent }
 			{ labelText && (
-				<span className={ cn( ...labelClasses ) } style={ labelStyle }>
+				<span
+					className={ cn(
+						sizeClasses[ size ].label, // Apply the label size
+						'text-gray-400',
+						isCurrent || isCompleted ? 'text-brand-primary-600' : '',
+						type === 'stack' ? 'mt-2 text-center absolute left-1/2 transform -translate-x-1/2 w-full top-full' : 'ml-2'
+					) }
+				>
 					{ labelText }
 				</span>
 			) }
@@ -170,14 +145,12 @@ const ProgressStep = ( {
  * @param {boolean}                   isCurrent   - Whether the step is the current step.
  * @param {Object}                    sizeClasses - The size classes for different step sizes.
  * @param {'sm' | 'md' | 'lg'}        size        - The size of the step indicator.
- * @param {number}                    index       - The index of the step.
- * @param {React.Element}             variantIcon - Custom icon for the 'icon' variant.
- * @return {React.Element} The step content.
+ * @param {JSX.Element}               icon        - The icon to display for the step.
+ * @return {JSX.Element} The JSX element representing the step content.
  */
-
-const createStepContent = ( variant, isCompleted, isCurrent, sizeClasses, size, index, variantIcon ) => {
+const createStepContent = ( variant, isCompleted, isCurrent, sizeClasses, size, icon ) => {
 	if ( isCompleted ) {
-		return <Check className={ completedStepCommonClasses() } />;
+		return <Check className={ completedStepCommonClasses( sizeClasses, size ) } />;
 	}
 
 	const commonClasses = stepWrapperClasses( { isCurrent, sizeClasses, size } );
@@ -185,17 +158,14 @@ const createStepContent = ( variant, isCompleted, isCurrent, sizeClasses, size, 
 
 	let content = null;
 	if ( variant === 'number' ) {
-		content = index + 1;
-	}
-	if ( variant === 'icon' && variantIcon ) {
-		content = React.cloneElement( variantIcon, { className: 'w-full h-full' } );
+		content = size;
+	} else if ( variant === 'icon' && icon ) {
+		content = React.cloneElement( icon, { className: 'w-full h-full' } );
 	}
 
 	return (
 		<span className={ commonClasses }>
-			<span className={ variantClasses }>
-				{ content }
-			</span>
+			<span className={ variantClasses }>{ content }</span>
 		</span>
 	);
 };

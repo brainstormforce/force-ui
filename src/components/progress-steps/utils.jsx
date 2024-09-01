@@ -9,9 +9,8 @@ import { cn } from '@/utilities/functions';
  * @param {'sm' | 'md' | 'lg'}        size        - The size of the step indicator.
  * @return {string} The combined class names.
  */
-
-export const getVariantClasses = ( { variant, isCurrent, sizeClasses, size } ) => {
-	const baseClass = `absolute rounded-full transition-colors duration-500`;
+export const getVariantClasses = ( variant, isCurrent, sizeClasses, size ) => {
+	const baseClass = `absolute rounded-full transition-colors duration-500 ${ sizeClasses[ size ].dot }`;
 
 	if ( variant === 'dot' ) {
 		return cn( baseClass, sizeClasses[ size ].dot, isCurrent ? 'bg-brand-primary-600' : 'bg-gray-400' );
@@ -36,8 +35,7 @@ export const getVariantClasses = ( { variant, isCurrent, sizeClasses, size } ) =
  * @param {'sm' | 'md' | 'lg'} size        - The size of the step indicator.
  * @return {string} The combined class names.
  */
-
-export const stepWrapperClasses = ( { isCurrent, sizeClasses, size } ) => {
+export const stepWrapperClasses = ( isCurrent, sizeClasses, size ) => {
 	return cn(
 		'relative flex items-center rounded-full justify-center transition-colors duration-500 ring-1',
 		isCurrent ? 'ring-brand-primary-600' : 'ring-gray-400',
@@ -48,9 +46,10 @@ export const stepWrapperClasses = ( { isCurrent, sizeClasses, size } ) => {
 /**
  * Helper function to generate common classes for completed steps.
  *
+ * @param {Object}             sizeClasses - The size classes for different step sizes.
+ * @param {'sm' | 'md' | 'lg'} size        - The size of the step indicator.
  * @return {string} The combined class names.
  */
-
-export const completedStepCommonClasses = () => {
-	return cn( 'w-full h-full rounded-full text-brand-primary-600 transition-colors duration-300' );
+export const completedStepCommonClasses = ( sizeClasses, size ) => {
+	return cn( 'rounded-full text-brand-primary-600 transition-colors duration-300', sizeClasses[ size ].dot, sizeClasses[ size ].ring );
 };
