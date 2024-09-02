@@ -200,8 +200,7 @@ const Tab = ( props, ref ) => {
 		>
 			{
 				activeItem === slug && variant === 'underline'
-					?
-                    <span className="absolute right-0 left-0 -bottom-[1px] h-[1px] bg-border-interactive"></span>
+					? <span className="absolute right-0 left-0 -bottom-[1px] h-[1px] bg-border-interactive"></span>
 					: ''
 			}
 			<span className={ iconParentClasses }>
