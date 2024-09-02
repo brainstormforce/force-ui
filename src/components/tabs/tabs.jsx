@@ -58,7 +58,7 @@ const TabsGroup = ( props ) => {
 	} else if ( variant === 'underline' ) {
 		borderRadius = 'rounded-none';
 		padding = 'p-0';
-        border = 'border-t-0 border-r-0 border-l-0 border-b border-solid border-tab-border';
+		border = 'border-t-0 border-r-0 border-l-0 border-b border-solid border-tab-border';
 		if ( size === 'xs' ) {
 			gap = 'gap-0';
 		} else if ( size === 'sm' ) {
@@ -139,10 +139,10 @@ const Tab = ( props, ref ) => {
 
 	// Determine size classes.
 	const sizes = {
-		xs: 'px-1.5 py-0.5 text-xs [&>svg]:h-3 [&>svg]:w-3',
-		sm: variant === 'underline' ? 'py-1.5 text-sm [&>svg]:h-4 [&>svg]:w-4' : 'px-3 py-1.5 text-sm [&>svg]:h-4 [&>svg]:w-4',
-		md: variant === 'underline' ? 'py-2 text-base [&>svg]:h-5 [&>svg]:w-5' : 'px-3.5 py-1.5 text-base [&>svg]:h-5 [&>svg]:w-5',
-		lg: variant === 'underline' ? 'p-2.5 text-lg [&>svg]:h-6 [&>svg]:w-6' : 'px-3.5 py-1.5 text-lg [&>svg]:h-6 [&>svg]:w-6',
+		xs: 'px-1.5 py-0.5 text-xs [&>svg]:size-3',
+		sm: variant === 'underline' ? 'py-1.5 text-sm [&>svg]:size-4' : 'px-3 py-1.5 text-sm [&>svg]:size-4',
+		md: variant === 'underline' ? 'py-2 text-base [&>svg]:size-5' : 'px-3.5 py-1.5 text-base [&>svg]:size-5',
+		lg: variant === 'underline' ? 'p-2.5 text-lg [&>svg]:size-6' : 'px-3.5 py-1.5 text-lg [&>svg]:size-6',
 	}[ size ];
 
 	// Determine width and orientation classes for tabs.
@@ -151,11 +151,10 @@ const Tab = ( props, ref ) => {
         orientation === 'vertical' ? 'w-full justify-between' : '';
 
 	// Base classes for the Tab.
-	const baseClasses = `bg-transparent text-text-tertiary cursor-pointer flex items-center justify-center transition-colors duration-200 ${ fullWidth } ${ orientationClasses }`;
+	const baseClasses = `relative border-none bg-transparent text-text-tertiary cursor-pointer flex items-center justify-center transition-colors duration-200 ${ fullWidth } ${ orientationClasses }`;
 
 	const borderClasses = 'border-none';
 
-	let borderBottomClasses = '';
 	let variantClasses = 'rounded-full';
 	if ( variant === 'rounded' ) {
 		variantClasses = 'rounded-md';
@@ -181,7 +180,6 @@ const Tab = ( props, ref ) => {
 		disabledClasses,
 		sizes,
 		activeClasses,
-        'relative border-none',
 		className
 	);
 
@@ -200,12 +198,12 @@ const Tab = ( props, ref ) => {
 			onClick={ handleClick }
 			{ ...rest }
 		>
-            {
-                activeItem === slug && variant === 'underline'
-                ? 
-                <span className='absolute right-0 left-0 -bottom-[1px] h-[1px] bg-border-interactive'></span>
-                : ''
-            }
+			{
+				activeItem === slug && variant === 'underline'
+					?
+                    <span className="absolute right-0 left-0 -bottom-[1px] h-[1px] bg-border-interactive"></span>
+					: ''
+			}
 			<span className={ iconParentClasses }>
 				{ iconPosition === 'left' && icon && (
 					<span className="mr-1">{ icon }</span>
