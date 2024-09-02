@@ -5,7 +5,6 @@ import React, {
 	createContext,
 	useContext,
 } from 'react';
-// import { twMerge } from 'tailwind-merge';
 import { cn } from '@/utilities/functions';
 
 // Context for managing the TabsGroup state.
@@ -59,7 +58,7 @@ const TabsGroup = ( props ) => {
 	} else if ( variant === 'underline' ) {
 		borderRadius = 'rounded-none';
 		padding = 'p-0';
-		border = 'border-none';
+        border = 'border-t-0 border-r-0 border-l-0 border-b border-solid border-tab-border';
 		if ( size === 'xs' ) {
 			gap = 'gap-0';
 		} else if ( size === 'sm' ) {
@@ -162,11 +161,7 @@ const Tab = ( props, ref ) => {
 		variantClasses = 'rounded-md';
 	} else if ( variant === 'underline' ) {
 		variantClasses = 'rounded-none';
-		borderBottomClasses =
-            'border-t-0 border-r-0 border-l-0 border-b border-solid border-tab-border';
 	}
-
-	const borderActiveInlineClasses = 'border-border-interactive';
 
 	// Additional classes.
 	const hoverClasses = '';
@@ -181,15 +176,12 @@ const Tab = ( props, ref ) => {
 		baseClasses,
 		borderClasses,
 		variantClasses,
-		borderBottomClasses,
-		activeItem === slug && variant === 'underline'
-			? borderActiveInlineClasses
-			: '',
 		hoverClasses,
 		focusClasses,
 		disabledClasses,
 		sizes,
 		activeClasses,
+        'relative border-none',
 		className
 	);
 
@@ -208,6 +200,12 @@ const Tab = ( props, ref ) => {
 			onClick={ handleClick }
 			{ ...rest }
 		>
+            {
+                activeItem === slug && variant === 'underline'
+                ? 
+                <span className='absolute right-0 left-0 -bottom-[1px] h-[1px] bg-border-interactive'></span>
+                : ''
+            }
 			<span className={ iconParentClasses }>
 				{ iconPosition === 'left' && icon && (
 					<span className="mr-1">{ icon }</span>
