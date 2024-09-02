@@ -1,1 +1,1 @@
-export { ProgressSteps, ProgressStep } from './progress-steps.jsx';
+export { default } from './progress-steps.jsx';

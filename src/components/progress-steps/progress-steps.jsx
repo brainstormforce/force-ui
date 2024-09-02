@@ -1,19 +1,8 @@
 import React from 'react';
 import { cn } from '@/utilities/functions';
-import { Check } from 'lucide-react';
+import { Plus, Check } from 'lucide-react';
 import { getVariantClasses, completedStepCommonClasses, stepWrapperClasses } from './utils';
 
-/**
- * ProgressSteps Component
- *
- * @param {Object}                    props             - Component props.
- * @param {'dot' | 'number' | 'icon'} props.variant     - The type of step indicator.
- * @param {'sm' | 'md' | 'lg'}        props.size        - The size of the step indicator.
- * @param {'inline' | 'stack'}        props.type        - The layout type of the steps.
- * @param {number}                    props.currentStep - The current active step.
- * @param {React.ReactNode}           props.children    - The steps to be rendered.
- * @param {string}                    [props.className] - Additional class names for the component.
- */
 const ProgressSteps = ( {
 	variant = 'dot',
 	size = 'sm',
@@ -88,24 +77,10 @@ const ProgressSteps = ( {
 	);
 };
 
-/**
- * ProgressStep Component
- *
- * @param {Object}                    props             - Component props.
- * @param {string}                    props.labelText   - The label text for the step.
- * @param {JSX.Element}               props.icon        - The icon to display for the step.
- * @param {string}                    props.stepClasses - The CSS classes for the step.
- * @param {boolean}                   props.isCurrent   - Whether the step is the current step.
- * @param {boolean}                   props.isCompleted - Whether the step is completed.
- * @param {string}                    [props.className] - Additional class names for the step.
- * @param {'inline' | 'stack'}        props.type        - The layout type of the step.
- * @param {'dot' | 'number' | 'icon'} props.variant     - The type of step indicator.
- * @param {Object}                    props.sizeClasses - The size classes for different step sizes.
- * @param {'sm' | 'md' | 'lg'}        props.size        - The size of the step indicator.
- */
+// ProgressStep component as {ProgressSteps.Step}
 const ProgressStep = ( {
 	labelText,
-	icon,
+	icon = <Plus />,
 	stepClasses,
 	isCurrent,
 	isCompleted,
@@ -124,7 +99,7 @@ const ProgressStep = ( {
 			{ labelText && (
 				<span
 					className={ cn(
-						sizeClasses[ size ].label, // Apply the label size
+						sizeClasses[ size ].label, 
 						'text-gray-400',
 						isCurrent || isCompleted ? 'text-brand-primary-600' : '',
 						type === 'stack' ? 'mt-2 absolute transform w-24 top-full break-words' : 'ml-2'
@@ -138,37 +113,30 @@ const ProgressStep = ( {
 	);
 };
 
-/**
- * Helper function to create step content based on variant.
- *
- * @param {'dot' | 'number' | 'icon'} variant     - The type of step indicator.
- * @param {boolean}                   isCompleted - Whether the step is completed.
- * @param {boolean}                   isCurrent   - Whether the step is the current step.
- * @param {Object}                    sizeClasses - The size classes for different step sizes.
- * @param {'sm' | 'md' | 'lg'}        size        - The size of the step indicator.
- * @param {JSX.Element}               icon        - The icon to display for the step.
- * @return {JSX.Element} The JSX element representing the step content.
- */
-const createStepContent = ( variant, isCompleted, isCurrent, sizeClasses, size, icon ) => {
-	if ( isCompleted ) {
-		return <Check className={ completedStepCommonClasses( sizeClasses, size ) } />;
-	}
+//create step content
+const createStepContent = (variant, isCompleted, isCurrent, sizeClasses, size, icon) => {
+    if (isCompleted) {
+        return <Check className={completedStepCommonClasses(sizeClasses, size)} />;
+    }
 
-	const commonClasses = stepWrapperClasses( isCurrent, sizeClasses, size );
-	const variantClasses = getVariantClasses( variant, isCurrent, sizeClasses, size );
+    const commonClasses = stepWrapperClasses(isCurrent, sizeClasses, size);
+    const variantClasses = getVariantClasses(variant, isCurrent, sizeClasses, size);
 
-	let content = null;
-	if ( variant === 'number' ) {
-		content = size;
-	} else if ( variant === 'icon' && icon ) {
-		content = React.cloneElement( icon, { className: 'w-full h-full' } );
-	}
+    let content = null;
+    if (variant === 'number') {
+        content = icon ? React.cloneElement(icon, { className: 'w-full h-full' }) : size;  // Check for icon first
+    } else if (variant === 'icon' && icon) {
+        content = React.cloneElement(icon, { className: 'w-full h-full' });
+    }
 
-	return (
-		<span className={ commonClasses }>
-			<span className={ variantClasses }>{ content }</span>
-		</span>
-	);
+    return (
+        <span className={commonClasses}>
+            <span className={variantClasses}>{content}</span>
+        </span>
+    );
 };
 
-export { ProgressSteps, ProgressStep };
+ProgressSteps.Step = ProgressStep;
+
+export default ProgressSteps;
+
