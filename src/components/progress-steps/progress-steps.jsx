@@ -36,18 +36,18 @@ const ProgressSteps = ( {
 		},
 		md: {
 			dot: 'size-3',
-			ring: 'w-6 h-6',
-			numberIcon: 'w-6 h-6 text-[12px]',
+			ring: 'size-6',
+			numberIcon: 'size-6 text-[12px]',
 			line: type === 'stack' ? 'h-0.5' : 'h-0.5 mx-2',
-			icon: 'w-6 h-6',
+			icon: 'size-6',
 			label: 'text-sm',
 		},
 		lg: {
-			dot: 'w-3.5 h-3.5',
-			ring: 'w-7 h-7',
-			numberIcon: 'w-7 h-7 text-[14px]',
+			dot: 'size-3.5',
+			ring: 'size-7',
+			numberIcon: 'size-7 text-[14px]',
 			line: type === 'stack' ? 'h-0.5' : 'h-0.5 mx-2',
-			icon: 'w-7 h-7',
+			icon: 'size-7',
 			label: 'text-sm',
 		},
 	};
@@ -123,17 +123,18 @@ const ProgressStep = ( {
 			{ stepContent }
 			{ labelText && (
 				<span
-					className={ cn(
-						sizeClasses[ size ].label, // Apply the label size
-						'text-gray-400',
-						isCurrent || isCompleted ? 'text-brand-primary-600' : '',
-						type === 'stack' ? 'mt-2 text-center absolute left-1/2 transform -translate-x-1/2 w-full top-full' : 'ml-2'
-					) }
+				className={ cn(
+					sizeClasses[ size ].label, // Apply the label size
+					'text-gray-400',
+					isCurrent || isCompleted ? 'text-brand-primary-600' : '',
+					type === 'stack' ? 'mt-2 absolute transform w-24 top-full break-words' : 'ml-2'
+				) }
 				>
-					{ labelText }
+				{ labelText }
 				</span>
 			) }
 		</div>
+
 	);
 };
 
@@ -153,8 +154,8 @@ const createStepContent = ( variant, isCompleted, isCurrent, sizeClasses, size, 
 		return <Check className={ completedStepCommonClasses( sizeClasses, size ) } />;
 	}
 
-	const commonClasses = stepWrapperClasses( { isCurrent, sizeClasses, size } );
-	const variantClasses = getVariantClasses( { variant, isCurrent, sizeClasses, size } );
+	const commonClasses = stepWrapperClasses( isCurrent, sizeClasses, size );
+	const variantClasses = getVariantClasses( variant, isCurrent, sizeClasses, size );
 
 	let content = null;
 	if ( variant === 'number' ) {
