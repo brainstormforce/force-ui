@@ -123,14 +123,14 @@ const ProgressStep = ( {
 			{ stepContent }
 			{ labelText && (
 				<span
-				className={ cn(
-					sizeClasses[ size ].label, // Apply the label size
-					'text-gray-400',
-					isCurrent || isCompleted ? 'text-brand-primary-600' : '',
-					type === 'stack' ? 'mt-2 absolute transform w-24 top-full break-words' : 'ml-2'
-				) }
+					className={ cn(
+						sizeClasses[ size ].label, // Apply the label size
+						'text-gray-400',
+						isCurrent || isCompleted ? 'text-brand-primary-600' : '',
+						type === 'stack' ? 'mt-2 absolute transform w-24 top-full break-words' : 'ml-2'
+					) }
 				>
-				{ labelText }
+					{ labelText }
 				</span>
 			) }
 		</div>
