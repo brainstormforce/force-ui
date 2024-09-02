@@ -99,7 +99,7 @@ const ProgressStep = ( {
 			{ labelText && (
 				<span
 					className={ cn(
-						sizeClasses[ size ].label, 
+						sizeClasses[ size ].label,
 						'text-gray-400',
 						isCurrent || isCompleted ? 'text-brand-primary-600' : '',
 						type === 'stack' ? 'mt-2 absolute transform w-24 top-full break-words' : 'ml-2'
@@ -114,26 +114,26 @@ const ProgressStep = ( {
 };
 
 //create step content
-const createStepContent = (variant, isCompleted, isCurrent, sizeClasses, size, icon) => {
-    if (isCompleted) {
-        return <Check className={completedStepCommonClasses(sizeClasses, size)} />;
-    }
+const createStepContent = ( variant, isCompleted, isCurrent, sizeClasses, size, icon ) => {
+	if ( isCompleted ) {
+		return <Check className={ completedStepCommonClasses( sizeClasses, size ) } />;
+	}
 
-    const commonClasses = stepWrapperClasses(isCurrent, sizeClasses, size);
-    const variantClasses = getVariantClasses(variant, isCurrent, sizeClasses, size);
+	const commonClasses = stepWrapperClasses( isCurrent, sizeClasses, size );
+	const variantClasses = getVariantClasses( variant, isCurrent, sizeClasses, size );
 
-    let content = null;
-    if (variant === 'number') {
-        content = icon ? React.cloneElement(icon, { className: 'w-full h-full' }) : size;  // Check for icon first
-    } else if (variant === 'icon' && icon) {
-        content = React.cloneElement(icon, { className: 'w-full h-full' });
-    }
+	let content = null;
+	if ( variant === 'number' ) {
+		content = icon ? React.cloneElement( icon, { className: 'w-full h-full' } ) : size; // Check for icon first
+	} else if ( variant === 'icon' && icon ) {
+		content = React.cloneElement( icon, { className: 'w-full h-full' } );
+	}
 
-    return (
-        <span className={commonClasses}>
-            <span className={variantClasses}>{content}</span>
-        </span>
-    );
+	return (
+		<span className={ commonClasses }>
+			<span className={ variantClasses }>{ content }</span>
+		</span>
+	);
 };
 
 ProgressSteps.Step = ProgressStep;
