@@ -184,6 +184,9 @@ module.exports = {
 				'soft-shadow-xl': '0px 16px 32px -12px rgba(149, 160, 178, 0.32)',
 				'soft-shadow-2xl': '0px 24px 64px -12px rgba(149, 160, 178, 0.32)',
 			},
+			fontSize: {
+				'tiny': '0.625rem',
+			},
 		},
 	},
 	plugins: [],

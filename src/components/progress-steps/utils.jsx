@@ -37,8 +37,8 @@ export const getVariantClasses = ( variant, isCurrent, sizeClasses, size ) => {
  */
 export const stepWrapperClasses = ( isCurrent, sizeClasses, size ) => {
 	return cn(
-		'relative flex items-center rounded-full justify-center transition-colors duration-500 ring-1',
-		isCurrent ? 'ring-brand-primary-600' : 'ring-gray-400',
+		'relative flex items-center rounded-full justify-center transition-colors z-10 duration-500 ring-1',
+		isCurrent ? 'brand-border-300' : 'ring-gray-400',
 		sizeClasses[ size ].ring
 	);
 };
