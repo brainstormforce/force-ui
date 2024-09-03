@@ -25,6 +25,7 @@ The `Tabs` component is a flexible and customizable component built with Tailwin
 - **Type:** `string`
 - **Default:** `"sm"`
 - **Description:** Defines the size of the tabs. Options include:
+  - `"xs"`
   - `"sm"`
   - `"md"`
   - `"lg"`
