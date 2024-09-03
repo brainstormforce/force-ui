@@ -6,7 +6,7 @@ import React, {
 	useContext,
 } from 'react';
 import { cn } from '@/utilities/functions';
-import { motion } from "framer-motion"; 
+import { motion } from 'framer-motion';
 
 // Context for managing the TabsGroup state.
 const TabsGroupContext = createContext();
@@ -199,12 +199,12 @@ const Tab = ( props, ref ) => {
 			onClick={ handleClick }
 			{ ...rest }
 		>
-            {activeItem === slug && variant === "underline" && (
-                <motion.span
-                layoutId="underline"
-                className="absolute right-0 left-0 -bottom-px h-px bg-border-interactive"
-                />
-            )}
+			{ activeItem === slug && variant === 'underline' && (
+				<motion.span
+					layoutId="underline"
+					className="absolute right-0 left-0 -bottom-px h-px bg-border-interactive"
+				/>
+			) }
 			<span className={ iconParentClasses }>
 				{ iconPosition === 'left' && icon && (
 					<span className="mr-1">{ icon }</span>
