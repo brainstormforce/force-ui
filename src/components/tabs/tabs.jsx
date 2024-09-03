@@ -151,7 +151,7 @@ const Tab = ( props, ref ) => {
         orientation === 'vertical' ? 'w-full justify-between' : '';
 
 	// Base classes for the Tab.
-	const baseClasses = `relative border-none bg-transparent text-text-tertiary cursor-pointer flex items-center justify-center transition-colors duration-200 ${ fullWidth } ${ orientationClasses }`;
+	const baseClasses = cn( 'relative border-none bg-transparent text-text-tertiary cursor-pointer flex items-center justify-center transition-colors duration-200', fullWidth, orientationClasses );
 
 	const borderClasses = 'border-none';
 
@@ -183,7 +183,7 @@ const Tab = ( props, ref ) => {
 		className
 	);
 
-	const iconParentClasses = cn( 'flex items-center gap-1' );
+	const iconParentClasses = 'flex items-center gap-1';
 
 	// Handle click event.
 	const handleClick = ( event ) => {
@@ -200,7 +200,7 @@ const Tab = ( props, ref ) => {
 		>
 			{
 				activeItem === slug && variant === 'underline'
-					? <span className="absolute right-0 left-0 -bottom-[1px] h-[1px] bg-border-interactive"></span>
+					? <span className="absolute right-0 left-0 -bottom-px h-px bg-border-interactive"></span>
 					: ''
 			}
 			<span className={ iconParentClasses }>
