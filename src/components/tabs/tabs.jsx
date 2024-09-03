@@ -152,7 +152,7 @@ const Tab = ( props, ref ) => {
         orientation === 'vertical' ? 'w-full justify-between' : '';
 
 	// Base classes for the Tab.
-	const baseClasses = cn( 'relative border-none bg-transparent text-text-tertiary cursor-pointer flex items-center justify-center transition-colors duration-200', fullWidth, orientationClasses );
+    const baseClasses = cn( 'relative border-none bg-transparent text-text-secondary cursor-pointer flex items-center justify-center transition-colors duration-200', fullWidth, orientationClasses );
 
 	const borderClasses = 'border-none';
 
