@@ -156,6 +156,28 @@ The Editor Input component is a text input field that allows users to input text
     />
 ```
 
+### Access editor ref
+To access the editor ref, you can use the `useRef` hook. The editor ref can be accessed using the `current` property of the ref object.
+
+```jsx
+import { useRef } from 'react';
+import { EditorInput } from '@bsf/force-ui';
+
+const App = () => {
+    const editorRef = useRef();
+
+    return (
+        <div className="max-w-sm my-10">
+            <EditorInput
+                ref={ editorRef }
+                ...
+            />
+        </div>
+    );
+};
+```
+
+
 #### usage
 ```jsx
 import { EditorInput } from '@bsf/force-ui';
