@@ -22,7 +22,7 @@ class MentionNode extends DecoratorNode {
 	}
 
 	static importJSON( serializeNode ) {
-		const node = $createMentionNode( serializeNode.data );
+		const node = $createMentionNode( serializeNode.data, serializeNode.by, serializeNode.size );
 		return node;
 	}
 
@@ -44,6 +44,8 @@ class MentionNode extends DecoratorNode {
 		return {
 			type: MentionNode.getType(),
 			data: this.__data,
+			by: this.__by,
+			size: this.__size,
 			version: 1,
 		};
 	}
