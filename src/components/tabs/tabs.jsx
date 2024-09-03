@@ -160,7 +160,7 @@ const Tab = ( props, ref ) => {
 	if ( variant === 'rounded' ) {
 		variantClasses = 'rounded-md';
 	} else if ( variant === 'underline' ) {
-		variantClasses = 'rounded-none';
+        variantClasses = 'rounded-none w-fit max-w-fit';
 	}
 
 	// Additional classes.
