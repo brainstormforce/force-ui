@@ -17,7 +17,7 @@ import MentionPlugin from './mention-plugin/mention-plugin';
 import MentionNode from './mention-plugin/mention-node';
 import editorTheme from './editor-theme';
 import EditorPlaceholder from './editor-placeholder';
-import { forwardRef, isValidElement, useEffect } from 'react';
+import { forwardRef, isValidElement } from 'react';
 
 function onError( error ) {
 	// eslint-disable-next-line no-console
@@ -123,11 +123,11 @@ const EditorInput = ( {
 					onChange={ handleOnChange }
 					ignoreSelectionChange
 				/>
-				{ ref && (<EditorRefPlugin editorRef={ref} />)}
+				{ ref && ( <EditorRefPlugin editorRef={ ref } /> ) }
 				{ autoFocus && <AutoFocusPlugin /> }
 			</LexicalComposer>
 		</div>
 	);
 };
 
-export default forwardRef(EditorInput);
+export default forwardRef( EditorInput );
