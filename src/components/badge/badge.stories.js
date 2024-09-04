@@ -1,4 +1,5 @@
 import Badge from './badge.jsx';
+import { fn } from '@storybook/test';
 
 // Badge component story configuration
 export default {
@@ -69,6 +70,80 @@ export const Neutral = {
 		type: 'pill',
 		size: 'sm',
 		label: 'Badge',
+		onClose: fn(),
+		onMouseDown: fn()
 	},
 };
 
+export const Disabled = {
+	args: {
+		variant: 'neutral',
+		children: 'Badge',
+		type: 'pill',
+		size: 'sm',
+		label: 'Badge',
+		onClose: fn(),
+		onMouseDown: fn(),
+		disabled: true,
+	},
+};
+
+export const Red = {
+	args: {
+		variant: 'red',
+		children: 'Badge',
+		type: 'rounded',
+		size: 'sm',
+		label: 'Badge',
+		onClose: fn(),
+		onMouseDown: fn()
+	},
+};
+
+export const Yellow = {
+	args: {
+		variant: 'yellow',
+		children: 'Badge',
+		type: 'rounded',
+		size: 'sm',
+		label: 'Badge',
+		onClose: fn(),
+		onMouseDown: fn()
+	},
+};
+
+export const Green = {
+	args: {
+		variant: 'green',
+		children: 'Badge',
+		type: 'rounded',
+		size: 'sm',
+		label: 'Badge',
+		onClose: fn(),
+		onMouseDown: fn()
+	},
+};
+
+export const Blue = {
+	args: {
+		variant: 'blue',
+		children: 'Badge',
+		type: 'rounded',
+		size: 'sm',
+		label: 'Badge',
+		onClose: fn(),
+		onMouseDown: fn()
+	},
+};
+
+export const Inverse = {
+	args: {
+		variant: 'inverse',
+		children: 'Badge',
+		type: 'rounded',
+		size: 'sm',
+		label: 'Badge',
+		onClose: fn(),
+		onMouseDown: fn()
+	},
+};
