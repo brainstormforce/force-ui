@@ -13,7 +13,7 @@ export default {
 			name: 'Variant',
 			description: 'Defines the style variant of the badge.',
 			control: 'select',
-			options: [ "neutral", "red", "yellow", "green", "blue", "inverse" ],
+			options: [ 'neutral', 'red', 'yellow', 'green', 'blue', 'inverse' ],
 			table: {
 				type: { summary: 'string' },
 				defaultValue: { summary: 'neutral' },
