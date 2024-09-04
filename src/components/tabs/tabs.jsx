@@ -1,5 +1,12 @@
-import React, { useCallback, forwardRef, isValidElement, createContext, useContext } from 'react';
-import { twMerge } from 'tailwind-merge';
+import React, {
+	useCallback,
+	forwardRef,
+	isValidElement,
+	createContext,
+	useContext,
+} from 'react';
+import { cn } from '@/utilities/functions';
+import { motion } from 'framer-motion';
 
 // Context for managing the TabsGroup state.
 const TabsGroupContext = createContext();
@@ -14,7 +21,7 @@ const TabsGroup = ( props ) => {
 		activeItem = null, // The currently active item in the group.
 		onChange, // Callback when the active item changes.
 		className, // Additional class names for styling.
-		size = 'sm', // Size of the tabs in the group ('sm', 'md', 'lg').
+		size = 'sm', // Size of the tabs in the group ('xs', 'sm', 'md', 'lg').
 		orientation = 'horizontal', // Orientation of the tabs ('horizontal', 'vertical').
 		variant = 'pill', // Style variant of the tabs ('pill', 'rounded', 'underline').
 		iconPosition = 'left', // Position of the icon in the tab ('left' or 'right').
@@ -28,22 +35,38 @@ const TabsGroup = ( props ) => {
 				onChange( { event, value } );
 			}
 		},
-		[ onChange ],
+		[ onChange ]
 	);
 
 	// Determine styles based on the variant and orientation.
 	let borderRadius = 'rounded-full',
 		padding = 'p-1',
-		gap = orientation === 'vertical' ? 'gap-0.5' : 'gap-1',
+		gap,
 		border = 'border border-tab-border border-solid';
+
+	if ( orientation === 'vertical' ) {
+		gap = 'gap-0.5';
+	} else if ( variant === 'rounded' || variant === 'pill' ) {
+		if ( size === 'xs' || size === 'sm' ) {
+			gap = 'gap-0.5';
+		} else if ( size === 'md' || size === 'lg' ) {
+			gap = 'gap-1';
+		}
+	}
 
 	if ( variant === 'rounded' || orientation === 'vertical' ) {
 		borderRadius = 'rounded-md';
 	} else if ( variant === 'underline' ) {
 		borderRadius = 'rounded-none';
 		padding = 'p-0';
-		gap = 'gap-0';
-		border = 'border-none';
+		border = 'border-t-0 border-r-0 border-l-0 border-b border-solid border-tab-border';
+		if ( size === 'xs' ) {
+			gap = 'gap-0';
+		} else if ( size === 'sm' ) {
+			gap = 'gap-2.5';
+		} else if ( size === 'md' || size === 'lg' ) {
+			gap = 'gap-3';
+		}
 	}
 
 	// Determine width classes.
@@ -52,10 +75,17 @@ const TabsGroup = ( props ) => {
 	const orientationClasses = orientation === 'vertical' ? 'flex-col' : '';
 
 	// Base classes for the TabsGroup.
-	const baseClasses = `box-border [&>*]:box-border bg-tab-background flex items-center ${ widthClasses } ${ orientationClasses }`;
+	const baseClasses = `box-border [&>*]:box-border flex items-center ${ widthClasses } ${ orientationClasses }`;
 
 	// Merge classes.
-	const groupClassName = twMerge( baseClasses, borderRadius, padding, gap, border, className );
+	const groupClassName = cn(
+		baseClasses,
+		borderRadius,
+		padding,
+		gap,
+		border,
+		className
+	);
 
 	return (
 		<div className={ groupClassName }>
@@ -84,51 +114,77 @@ const TabsGroup = ( props ) => {
 // Tab component to be used within a TabsGroup.
 const Tab = ( props, ref ) => {
 	const providerValue = useTabsGroup();
-	const { slug, text, icon, className, disabled = false, badge = null, ...rest } = props;
+	const {
+		slug,
+		text,
+		icon,
+		className,
+		disabled = false,
+		badge = null,
+		...rest
+	} = props;
 
 	if ( ! providerValue ) {
 		throw new Error( 'Tab should be used inside Tabs Group' );
 	}
 
-	const { activeItem, onChange, size, variant, orientation, iconPosition, width } = providerValue;
+	const {
+		activeItem,
+		onChange,
+		size,
+		variant,
+		orientation,
+		iconPosition,
+		width,
+	} = providerValue;
 
 	// Determine size classes.
 	const sizes = {
-		sm: 'p-1 text-sm [&>svg]:h-4 [&>svg]:w-4',
-		md: 'p-2 text-base [&>svg]:h-5 [&>svg]:w-5',
-		lg: 'p-2.5 text-lg [&>svg]:h-6 [&>svg]:w-6',
+		xs: 'px-1.5 py-0.5 text-xs [&>svg]:size-3',
+		sm: variant === 'underline' ? 'py-1.5 text-sm [&>svg]:size-4' : 'px-3 py-1.5 text-sm [&>svg]:size-4',
+		md: variant === 'underline' ? 'py-2 text-base [&>svg]:size-5' : 'px-3.5 py-1.5 text-base [&>svg]:size-5',
+		lg: variant === 'underline' ? 'p-2.5 text-lg [&>svg]:size-6' : 'px-3.5 py-1.5 text-lg [&>svg]:size-6',
 	}[ size ];
 
 	// Determine width and orientation classes for tabs.
 	const fullWidth = width === 'full' ? 'flex-1' : '';
-	const orientationClasses = orientation === 'vertical' ? 'w-full justify-between' : '';
+	const orientationClasses =
+        orientation === 'vertical' ? 'w-full justify-between' : '';
 
 	// Base classes for the Tab.
-	const baseClasses = `bg-transparent text-primary cursor-pointer flex items-center justify-center transition-colors duration-200 ${ fullWidth } ${ orientationClasses }`;
+	const baseClasses = cn( 'relative border-none bg-transparent text-text-secondary cursor-pointer flex items-center justify-center transition-colors duration-200', fullWidth, orientationClasses );
 
 	const borderClasses = 'border-none';
 
-	let borderBottomClasses = '';
 	let variantClasses = 'rounded-full';
 	if ( variant === 'rounded' ) {
 		variantClasses = 'rounded-md';
 	} else if ( variant === 'underline' ) {
-		variantClasses = 'rounded-none';
-		borderBottomClasses = 'border-t-0 border-r-0 border-l-0 border-b border-solid border-tab-border';
+		variantClasses = 'rounded-none w-fit max-w-fit';
 	}
 
-	const borderActiveInlineClasses = 'border-border-interactive';
-
 	// Additional classes.
-	const hoverClasses = 'hover:bg-misc-tab-item-hover';
+	const hoverClasses = '';
 	const focusClasses = 'focus:outline-none';
-	const disabledClasses = disabled ? 'text-text-disabled cursor-not-allowed' : '';
-	const activeClasses = activeItem === slug ? 'bg-background-primary' : '';
+	const disabledClasses = disabled
+		? 'text-text-disabled cursor-not-allowed'
+		: '';
+	const activeClasses = activeItem === slug ? 'bg-background-primary text-text-primary' : '';
 
 	// Merge classes.
-	const tabClassName = twMerge( baseClasses, borderClasses, variantClasses, borderBottomClasses, activeItem === slug && variant === 'underline' ? borderActiveInlineClasses : '', hoverClasses, focusClasses, disabledClasses, sizes, activeClasses, className );
+	const tabClassName = cn(
+		baseClasses,
+		borderClasses,
+		variantClasses,
+		hoverClasses,
+		focusClasses,
+		disabledClasses,
+		sizes,
+		activeClasses,
+		className
+	);
 
-	const iconParentClasses = twMerge( 'flex items-center gap-1' );
+	const iconParentClasses = 'flex items-center gap-1';
 
 	// Handle click event.
 	const handleClick = ( event ) => {
@@ -136,11 +192,27 @@ const Tab = ( props, ref ) => {
 	};
 
 	return (
-		<button ref={ ref } className={ tabClassName } disabled={ disabled } onClick={ handleClick } { ...rest }>
+		<button
+			ref={ ref }
+			className={ tabClassName }
+			disabled={ disabled }
+			onClick={ handleClick }
+			{ ...rest }
+		>
+			{ activeItem === slug && variant === 'underline' && (
+				<motion.span
+					layoutId="underline"
+					className="absolute right-0 left-0 -bottom-px h-px bg-border-interactive"
+				/>
+			) }
 			<span className={ iconParentClasses }>
-				{ iconPosition === 'left' && icon && <span className="mr-1">{ icon }</span> }
+				{ iconPosition === 'left' && icon && (
+					<span className="mr-1">{ icon }</span>
+				) }
 				{ text }
-				{ iconPosition === 'right' && icon && <span className="ml-1">{ icon }</span> }
+				{ iconPosition === 'right' && icon && (
+					<span className="ml-1">{ icon }</span>
+				) }
 			</span>
 			{ badge && isValidElement( badge ) && badge }
 		</button>

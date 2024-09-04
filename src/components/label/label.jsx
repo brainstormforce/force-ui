@@ -14,7 +14,8 @@ const Label = ( {
 	...props
 } ) => {
 	// Base classes. - Mandatory classes.
-	const baseClasses = 'font-medium text-field-label flex items-center gap-0.5';
+	const baseClasses =
+		'font-medium text-field-label flex items-center gap-0.5';
 
 	// Size classes - Based on the size prop.
 	const sizeClasses = {
@@ -28,7 +29,8 @@ const Label = ( {
 		neutral: 'text-field-label [&>*]:text-field-label',
 		help: 'text-field-helper [&>*]:text-field-helper',
 		error: 'text-support-error [&>*]:text-support-error',
-		disabled: 'text-field-color-disabled disabled cursor-not-allowed [&>*]:text-field-color-disabled',
+		disabled:
+			'text-field-color-disabled disabled cursor-not-allowed [&>*]:text-field-color-disabled',
 	};
 
 	if ( ! children ) {
@@ -38,13 +40,23 @@ const Label = ( {
 	let requiredClasses = '';
 
 	if ( required ) {
-		requiredClasses = "after:content-['*'] after:text-field-required after:ml-0.5";
+		requiredClasses =
+			"after:content-['*'] after:text-field-required after:ml-0.5";
 	}
 
 	const Tag = tag;
 
 	return (
-		<Tag className={ cn( baseClasses, sizeClasses[ size ], variantClasses[ variant ], requiredClasses, className ) } { ...props }>
+		<Tag
+			className={ cn(
+				baseClasses,
+				sizeClasses[ size ],
+				variantClasses[ variant ],
+				requiredClasses,
+				className
+			) }
+			{ ...props }
+		>
 			{ children }
 		</Tag>
 	);
