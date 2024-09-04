@@ -1,4 +1,4 @@
-import Badge from './button.jsx';
+import Badge from './badge.jsx';
 
 // Badge component story configuration
 export default {
