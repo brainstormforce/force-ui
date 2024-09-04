@@ -62,10 +62,13 @@ export default {
 };
 
 // More on writing stories with args: https://storybook.js.org/docs/writing-stories/args
-export const Primary = {
+export const Neutral = {
 	args: {
-		variant: 'primary',
+		variant: 'neutral',
 		children: 'Badge',
+		type: 'pill',
+		size: 'sm',
+		label: 'Badge',
 	},
 };
 
