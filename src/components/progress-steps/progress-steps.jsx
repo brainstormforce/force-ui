@@ -104,9 +104,10 @@ const ProgressStep = ( {
 		if ( labelText ) {
 			const labelClasses = cn(
 				sizeClasses[ size ].label,
-				'text-gray-400',
+				'text-text-tertiary',
 				isCurrent ? 'text-brand-primary-600' : '',
-				type === 'stack' ? 'mt-2 transform' : 'mx-2 break-all max-w-xs'
+				'break-word', // max width for inline and stack
+				type === 'stack' ? 'mt-2 transform max-w-xs' : 'mx-2 max-w-32'
 			);
 			return <span className={ labelClasses }>{ labelText }</span>;
 		}
@@ -117,7 +118,7 @@ const ProgressStep = ( {
 		if ( ! isLast ) {
 			const lineClasses = cn(
 				'block',
-				isCompleted ? 'border-brand-primary-600' : 'border-gray-300'
+				isCompleted ? 'border-brand-primary-600' : 'border-border-subtle'
 			);
 
 			if ( type === 'stack' ) {
@@ -128,7 +129,7 @@ const ProgressStep = ( {
 						'border-solid',
 						'border-y',
 						'absolute',
-						isCompleted ? 'border-brand-primary-600' : 'border-gray-300',
+						isCompleted ? 'border-brand-primary-600' : 'border-border-subtle',
 						topClass[ size ],
 						stackSizeOffset[ size ]
 					) }>

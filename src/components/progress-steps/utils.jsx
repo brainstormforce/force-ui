@@ -13,15 +13,15 @@ export const getVariantClasses = ( variant, isCurrent, sizeClasses, size ) => {
 	const baseClass = `absolute rounded-full transition-colors duration-500 ${ sizeClasses[ size ].dot }`;
 
 	if ( variant === 'dot' ) {
-		return cn( baseClass, sizeClasses[ size ].dot, isCurrent ? 'bg-brand-primary-600' : 'bg-gray-400' );
+		return cn( baseClass, sizeClasses[ size ].dot, isCurrent ? 'bg-brand-primary-600' : 'bg-text-tertiary' );
 	}
 
 	if ( variant === 'number' ) {
-		return cn( baseClass, sizeClasses[ size ].dot, isCurrent ? 'text-brand-primary-600' : 'text-gray-400', 'flex items-center justify-center' );
+		return cn( baseClass, sizeClasses[ size ].dot, isCurrent ? 'text-brand-primary-600' : 'text-text-tertiary', 'flex items-center justify-center' );
 	}
 
 	if ( variant === 'icon' ) {
-		return cn( baseClass, isCurrent ? 'text-brand-primary-600' : 'text-gray-400', 'flex items-center justify-center' );
+		return cn( baseClass, isCurrent ? 'text-brand-primary-600' : 'text-text-tertiary', 'flex items-center justify-center' );
 	}
 
 	return '';
@@ -38,7 +38,7 @@ export const getVariantClasses = ( variant, isCurrent, sizeClasses, size ) => {
 export const stepWrapperClasses = ( isCurrent, sizeClasses, size ) => {
 	return cn(
 		'relative flex items-center rounded-full justify-center transition-colors z-10 duration-500 ring-1',
-		isCurrent ? 'brand-border-300' : 'ring-gray-400',
+		isCurrent ? 'ring-brand-primary-600' : 'ring-border-subtle',
 		sizeClasses[ size ].ring
 	);
 };
