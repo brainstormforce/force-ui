@@ -5,6 +5,7 @@ import { ContentEditable } from '@lexical/react/LexicalContentEditable';
 import { HistoryPlugin } from '@lexical/react/LexicalHistoryPlugin';
 import { LexicalErrorBoundary } from '@lexical/react/LexicalErrorBoundary';
 import { OnChangePlugin } from '@lexical/react/LexicalOnChangePlugin';
+import { EditorRefPlugin } from '@lexical/react/LexicalEditorRefPlugin';
 import { cn } from '@/utilities/functions';
 import {
 	editableContentAreaCommonClassNames,
@@ -16,7 +17,7 @@ import MentionPlugin from './mention-plugin/mention-plugin';
 import MentionNode from './mention-plugin/mention-node';
 import editorTheme from './editor-theme';
 import EditorPlaceholder from './editor-placeholder';
-import { isValidElement } from 'react';
+import { forwardRef, isValidElement } from 'react';
 
 function onError( error ) {
 	// eslint-disable-next-line no-console
@@ -57,7 +58,7 @@ const EditorInput = ( {
 	menuItemComponent,
 	className,
 	disabled = false,
-} ) => {
+}, ref ) => {
 	const initialConfig = {
 		namespace: 'Editor',
 		editorTheme,
@@ -122,10 +123,11 @@ const EditorInput = ( {
 					onChange={ handleOnChange }
 					ignoreSelectionChange
 				/>
+				{ ref && ( <EditorRefPlugin editorRef={ ref } /> ) }
 				{ autoFocus && <AutoFocusPlugin /> }
 			</LexicalComposer>
 		</div>
 	);
 };
 
-export default EditorInput;
+export default forwardRef( EditorInput );
