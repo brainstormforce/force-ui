@@ -9,12 +9,12 @@ Easily create input with different styles using this component based on React an
 ### type
 - **Type:** `string`
 - **Default:** `"text"`
-- **Description:** Type of the input input field - tel/number/url/email/text/password
+- **Description:** Type of the input field - tel/number/url/email/text/password/file
 
 ### value
 - **Type:** `string`
 - **Default:** `""`
-- **Description:** Value of the input input field
+- **Description:** The value of the input field. Not applicable for `type="file"`.
 
 ### size
 - **Type:** `string`
@@ -31,9 +31,26 @@ Easily create input with different styles using this component based on React an
 ### disabled
 - **Type:** `boolean`
 - **Default:** `false`
-- **Description:** Disabled State of the text area
+- **Description:** Disabled State of the input field
     - `true`
     - `false`
+
+### onChange
+- **Type:** `function`
+- **Description:** Callback function triggered when the input value changes. For `type="file"`, it returns the selected file(s).
+
+### error
+- **Type:** `boolean`
+- **Default:** `false`
+- **Description:** If true, applies error styles to the input.
+
+### prefix
+- **Type:** `ReactNode`
+- **Description:** A prefix icon or element that appears inside the input field.
+
+### suffix
+- **Type:** `ReactNode`
+- **Description:** A suffix icon or element that appears inside the input field.
 
 ### inputProps
 - **Type:** `object`
@@ -42,6 +59,12 @@ Easily create input with different styles using this component based on React an
     - `placeholder`
     - `cols`
     - `rows`
+
+## File Input Behavior
+- When `type="file"` is specified:
+- The default text "No file chosen" is replaced with the name of the selected file.
+- The text color changes when a file is selected.
+- The component handles file selection, and the onChange callback returns the selected file(s).
 
 ## Usage
 
@@ -59,9 +82,9 @@ const App = () => (
         }} size="sm"/>
     <Input size="lg" value={textval} onChange={((e)=>{console.log(e.target.value)})}/>
     <Input disabled={ true } size="md"/>
+    <Input type="file" size="md" onChange={handleFileChange} />
   </div>
 );
 
 export default App;
 ```
-
