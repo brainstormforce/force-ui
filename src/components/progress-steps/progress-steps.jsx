@@ -19,7 +19,6 @@ const ProgressSteps = ( {
 			dot: 'size-2.5',
 			ring: 'size-5',
 			numberIcon: 'size-5 text-tiny',
-			line: type === 'stack' ? 'h-0.5' : 'h-0.5 mx-2',
 			icon: 'size-5',
 			label: 'text-xs',
 		},
@@ -27,7 +26,6 @@ const ProgressSteps = ( {
 			dot: 'size-3',
 			ring: 'size-6',
 			numberIcon: 'size-6 text-sm',
-			line: type === 'stack' ? 'h-0.5' : 'h-0.5 mx-2',
 			icon: 'size-6',
 			label: 'text-sm',
 		},
@@ -35,7 +33,6 @@ const ProgressSteps = ( {
 			dot: 'size-3.5',
 			ring: 'size-7',
 			numberIcon: 'size-7 text-md',
-			line: type === 'stack' ? 'h-0.5' : 'h-0.5 mx-2',
 			icon: 'size-7',
 			label: 'text-sm',
 		},
@@ -44,7 +41,7 @@ const ProgressSteps = ( {
 	const steps = React.Children.map( children, ( child, index ) => {
 		const isCompleted = index + 1 < currentStep;
 		const isCurrent = index + 1 === currentStep;
-		const isLast = index + 1 === totalSteps; // Check if this is the last step
+		const isLast = index + 1 === totalSteps;
 
 		const stepProps = {
 			isCompleted,
@@ -53,7 +50,7 @@ const ProgressSteps = ( {
 			size,
 			variant,
 			type,
-			isLast, // Pass the isLast prop
+			isLast,
 			index,
 		};
 
@@ -92,38 +89,40 @@ const ProgressStep = ( {
 	const stepContent = createStepContent( variant, isCompleted, isCurrent, sizeClasses, size, icon, index );
 
 	const stackSizeOffset = {
-		lg: type === 'stack' ? 'left-[calc(50%+14px)] right-[calc(-50%+14px)] ' : 'left-1/2 right-3.5',
-		md: type === 'stack' ? 'left-[calc(50%+12px)] right-[calc(-50%+12px)] ' : 'left-1/2 right-3 ',
-		sm: type === 'stack' ? 'left-[calc(50%+10px)] right-[calc(-50%+10px)] ' : 'left-1/2 right-2.5 ',
+		lg: 'left-[calc(50%+14px)] right-[calc(-50%+14px)]',
+		md: 'left-[calc(50%+12px)] right-[calc(-50%+12px)]',
+		sm: 'left-[calc(50%+10px)] right-[calc(-50%+10px)]',
 	};
 
 	const topClass = {
-		lg: type === 'stack' ? 'top-3.5' : 'top-1/2',
-		md: type === 'stack' ? 'top-3' : 'top-1/2',
-		sm: type === 'stack' ? 'top-2.5' : 'top-1/2',
+		lg: 'top-3.5',
+		md: 'top-3',
+		sm: 'top-2.5',
 	};
 
-	return (
-		<div className="relative  flex-1 justify-center">
-			<div className={ cn( 'flex items-center', type === 'stack' && 'flex-col', className ) } { ...rest }>
-				{ stepContent }
-				{ labelText && (
-					<span
-						className={ cn(
-							sizeClasses[ size ].label,
-							'text-gray-400',
-							isCurrent ? 'text-brand-primary-600' : '',
-							type === 'stack' ? 'mt-2 transform ' : 'ml-2 w-12'
-						) }
-					>
-						{ labelText }
-					</span>
-				) }
-			</div>
+	const renderLabel = () => {
+		if ( labelText ) {
+			const labelClasses = cn(
+				sizeClasses[ size ].label,
+				'text-gray-400',
+				isCurrent ? 'text-brand-primary-600' : '',
+				type === 'stack' ? 'mt-2 transform' : 'mx-2 break-all max-w-xs'
+			);
+			return <span className={ labelClasses }>{ labelText }</span>;
+		}
+		return null;
+	};
 
-			{ ! isLast && (
-				<div
-					className={ cn(
+	const renderConnectingLine = () => {
+		if ( ! isLast ) {
+			const lineClasses = cn(
+				'block',
+				isCompleted ? 'border-brand-primary-600' : 'border-gray-300'
+			);
+
+			if ( type === 'stack' ) {
+				return (
+					<div className={ cn(
 						'relative',
 						'flex',
 						'border-solid',
@@ -131,13 +130,41 @@ const ProgressStep = ( {
 						'absolute',
 						isCompleted ? 'border-brand-primary-600' : 'border-gray-300',
 						topClass[ size ],
-						stackSizeOffset[ size ],
-					) }
-				>
-					<span className="block"></span>
+						stackSizeOffset[ size ]
+					) }>
+						<span className="block"></span>
+					</div>
+				);
+			}
+			return (
+				<div className="flex-1">
+					<span className={ cn( lineClasses, 'mr-2', 'border-y border-solid' ) }></span>
 				</div>
-			) }
-		</div>
+			);
+		}
+		return null;
+	};
+
+	// Main return logic based on type
+	if ( type === 'stack' ) {
+		return (
+			<div className="relative flex-1 justify-center">
+				<div className={ cn( 'flex items-center flex-col', className ) } { ...rest }>
+					{ stepContent }
+					{ renderLabel() }
+				</div>
+				{ renderConnectingLine() }
+			</div>
+		);
+	}
+	return (
+		<>
+			<div className={ cn( 'flex items-center', className ) } { ...rest }>
+				{ stepContent }
+				{ renderLabel() }
+			</div>
+			{ renderConnectingLine() }
+		</>
 	);
 };
 
@@ -154,7 +181,7 @@ const createStepContent = ( variant, isCompleted, isCurrent, sizeClasses, size, 
 	if ( variant === 'number' ) {
 		content = index + 1;
 	} else if ( variant === 'icon' && icon ) {
-		content = React.cloneElement( icon, { className: 'w-full h-full' } );
+		content = icon;
 	}
 
 	return (
