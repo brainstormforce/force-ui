@@ -71,7 +71,7 @@ export const Neutral = {
 		size: 'sm',
 		label: 'Badge',
 		onClose: fn(),
-		onMouseDown: fn()
+		onMouseDown: fn(),
 	},
 };
 
@@ -96,7 +96,7 @@ export const Red = {
 		size: 'sm',
 		label: 'Badge',
 		onClose: fn(),
-		onMouseDown: fn()
+		onMouseDown: fn(),
 	},
 };
 
@@ -108,7 +108,7 @@ export const Yellow = {
 		size: 'sm',
 		label: 'Badge',
 		onClose: fn(),
-		onMouseDown: fn()
+		onMouseDown: fn(),
 	},
 };
 
@@ -120,7 +120,7 @@ export const Green = {
 		size: 'sm',
 		label: 'Badge',
 		onClose: fn(),
-		onMouseDown: fn()
+		onMouseDown: fn(),
 	},
 };
 
@@ -132,7 +132,7 @@ export const Blue = {
 		size: 'sm',
 		label: 'Badge',
 		onClose: fn(),
-		onMouseDown: fn()
+		onMouseDown: fn(),
 	},
 };
 
@@ -144,6 +144,6 @@ export const Inverse = {
 		size: 'sm',
 		label: 'Badge',
 		onClose: fn(),
-		onMouseDown: fn()
+		onMouseDown: fn(),
 	},
 };
