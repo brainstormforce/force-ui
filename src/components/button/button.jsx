@@ -1,3 +1,4 @@
+import React from 'react';
 import { cn } from '../../utilities/functions';
 
 const Button = ( props ) => {
