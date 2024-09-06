@@ -38,6 +38,7 @@ const EditorComboboxItem = forwardRef(
 		</li>
 	)
 );
+EditorComboboxItem.displayName = 'Item';
 
 const EditorCombobox = Object.seal(
 	Object.assign( EditorComboboxWrapper, {

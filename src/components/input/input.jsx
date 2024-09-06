@@ -3,7 +3,7 @@ import { nanoid } from 'nanoid';
 import { cn } from '../../utilities/functions';
 import { Upload } from 'lucide-react';
 
-const Input = (
+const InputComponent = (
 	{
 		id,
 		type = 'text',
@@ -191,5 +191,7 @@ const Input = (
 		</div>
 	);
 };
+const Input = forwardRef( InputComponent );
+Input.displayName = 'Input';
 
-export default forwardRef( Input );
+export default Input;

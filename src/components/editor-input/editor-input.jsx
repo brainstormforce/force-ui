@@ -46,7 +46,7 @@ const EMPTY_CONTENT = `{
     }
 }`;
 
-const EditorInput = ( {
+const EditorInputComponent = ( {
 	defaultValue = '',
 	placeholder = 'Press @ to view variable suggestions',
 	onChange,
@@ -129,5 +129,7 @@ const EditorInput = ( {
 		</div>
 	);
 };
+const EditorInput = forwardRef( EditorInputComponent );
+EditorInput.displayName = 'EditorInput';
 
-export default forwardRef( EditorInput );
+export default EditorInput;
