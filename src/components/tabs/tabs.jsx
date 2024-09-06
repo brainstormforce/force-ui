@@ -112,7 +112,7 @@ const TabsGroup = ( props ) => {
 };
 
 // Tab component to be used within a TabsGroup.
-const Tab = ( props, ref ) => {
+const TabComponent = ( props, ref ) => {
 	const providerValue = useTabsGroup();
 	const {
 		slug,
@@ -218,10 +218,12 @@ const Tab = ( props, ref ) => {
 		</button>
 	);
 };
+const Tab = forwardRef( TabComponent );
+Tab.displayName = 'Tab';
 
 const exports = {
 	Group: TabsGroup,
-	Tab: forwardRef( Tab ),
+	Tab: Tab,
 };
 
 export default exports;

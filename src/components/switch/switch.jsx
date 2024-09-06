@@ -57,7 +57,7 @@ const SwitchLabel = ( { label, switchId, disabled = false, children } ) => {
 	);
 };
 
-const Switch = (
+const SwitchComponent = (
 	{
 		id,
 		onChange,
@@ -158,5 +158,7 @@ const Switch = (
 		</SwitchLabel>
 	);
 };
+const Switch = forwardRef( SwitchComponent );
+Switch.displayName = 'Switch';
 
-export default forwardRef( Switch );
+export default Switch;

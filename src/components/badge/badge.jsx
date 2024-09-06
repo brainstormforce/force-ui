@@ -1,12 +1,12 @@
 import { forwardRef } from 'react';
-import { cn } from '../../utilities/functions';
+import { cn } from '@/utilities/functions';
 import { X, Info } from 'lucide-react';
 
 /**
  * Badge component.
  */
 
-const Badge = ( props, ref ) => {
+const BadgeComponent = ( props, ref ) => {
 	const {
 		label = '',
 		size = 'sm', // xs, sm, md, lg
@@ -22,7 +22,7 @@ const Badge = ( props, ref ) => {
 
 	// Base classes. - Mandatory classes.
 	const baseClasses =
-		'font-medium border border-badge-border-gray flex gap-1 items-center justify-center border border-solid';
+		'font-medium border-badge-border-gray flex gap-1 items-center justify-center border border-solid';
 
 	// Size classes - Based on the size prop.
 	const sizeClasses = {
@@ -101,4 +101,7 @@ const Badge = ( props, ref ) => {
 	);
 };
 
-export default forwardRef( Badge );
+const Badge = forwardRef( BadgeComponent );
+Badge.displayName = 'Badge';
+
+export default Badge;

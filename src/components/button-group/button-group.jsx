@@ -93,7 +93,7 @@ const ButtonGroup = ( props ) => {
  * @param {Object}          [props.rest]           - Other properties to be passed to the button element.
  * @param {React.Ref}       ref                    - Reference to the button element.
  */
-const Button = ( props, ref ) => {
+const ButtonComponent = ( props, ref ) => {
 	const providerValue = useButtonGroup();
 	const {
 		slug,
@@ -176,10 +176,12 @@ const Button = ( props, ref ) => {
 		</button>
 	);
 };
+const Button = forwardRef( ButtonComponent );
+Button.displayName = 'Button';
 
 const exports = {
 	Group: ButtonGroup,
-	Button: forwardRef( Button ),
+	Button: Button,
 };
 
 export default exports;
