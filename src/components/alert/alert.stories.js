@@ -1,6 +1,4 @@
 import Alert from './alert.jsx';
-import { fn } from '@storybook/test';
-import { Plus } from 'lucide-react';
 
 // Alert component story configuration
 export default {
@@ -133,7 +131,7 @@ export const WithAction = {
 			label: 'My Action',
 			onClick: () => {},
 			type: 'button',
-		}
+		},
 	},
 };
 
@@ -145,6 +143,6 @@ export const WithCustomIcon = {
 			label: 'My Action',
 			onClick: () => {},
 			type: 'button',
-		}
+		},
 	},
 };
