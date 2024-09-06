@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { X } from 'lucide-react';
 import { ToastState } from './controller';
 import { withSingleton } from '@/hoc';
-import { cn } from '@/utilities/functions';
+import { cn } from '../../utilities/functions';
 import { getIcon, getAction, getContent, getTitle } from './utils';
 import {
 	closeIconClassNames,

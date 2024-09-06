@@ -1,10 +1,10 @@
-import Badge from './badge.jsx';
+import Alert from './alert.jsx';
 import { fn } from '@storybook/test';
 
-// Badge component story configuration
+// Alert component story configuration
 export default {
-	title: 'Atoms/Badge',
-	component: Badge,
+	title: 'Components/Alert',
+	component: Alert,
 	parameters: {
 		layout: 'centered',
 	},
