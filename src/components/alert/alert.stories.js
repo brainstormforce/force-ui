@@ -1,9 +1,10 @@
 import Alert from './alert.jsx';
 import { fn } from '@storybook/test';
+import { Plus } from 'lucide-react';
 
 // Alert component story configuration
 export default {
-	title: 'Components/Alert',
+	title: 'Atoms/Alert',
 	component: Alert,
 	parameters: {
 		layout: 'centered',
@@ -12,53 +13,69 @@ export default {
 	argTypes: {
 		variant: {
 			name: 'Variant',
-			description: 'Defines the style variant of the badge.',
+			description: 'Defines the style variant of the alert.',
 			control: 'select',
-			options: [ 'neutral', 'red', 'yellow', 'green', 'blue', 'inverse' ],
+			options: [ 'neutral', 'info', 'warning', 'error', 'success', 'inverse' ],
 			table: {
 				type: { summary: 'string' },
 				defaultValue: { summary: 'neutral' },
 			},
 		},
-		size: {
-			name: 'Size',
-			description: 'Defines the size of the badge.',
+		theme: {
+			name: 'Theme',
+			description: 'Defines the theme of the alert.',
 			control: 'select',
-			options: [ 'xs', 'sm', 'md', 'lg' ],
+			options: [ 'light', 'dark' ],
 			table: {
 				type: { summary: 'string' },
-				defaultValue: { summary: 'md' },
+				defaultValue: { summary: 'light' },
 			},
 		},
-		type: {
-			name: 'Type',
-			description: 'Defines the type of the badge.',
+		design: {
+			name: 'Design',
+			description: 'Defines the design of the alert.',
 			control: 'select',
-			options: [ 'pill', 'rounded' ],
+			options: [ 'inline', 'stack' ],
 			table: {
 				type: { summary: 'string' },
-				defaultValue: { summary: 'pill' },
+				defaultValue: { summary: 'inline' },
 			},
 		},
-		disabled: {
-			name: 'Disabled',
-			description: 'Defines if the badge is disabled.',
-			control: 'boolean',
+		title: {
+			name: 'Title',
+			description: 'Defines the title of the alert.',
+			control: 'text',
+			defaultValue: 'Title',
+		},
+		content: {
+			name: 'Content',
+			description: 'Defines the content of the alert.',
+			control: 'text',
+			defaultValue: 'This is a description',
+		},
+		className: {
+			name: 'Classname',
+			description: 'Defines the extra classes',
+			control: 'select',
+			options: [ 'inline', 'stack' ],
 			table: {
-				type: { summary: 'boolean' },
-				defaultValue: { summary: 'false' },
+				type: { summary: 'string' },
+				defaultValue: { summary: 'inline' },
 			},
 		},
-		closable: {
-			name: 'Clasable',
-			description: 'Defines if the badge is closable.',
-			control: 'boolean',
+		action: {
+			name: 'Action',
+			description: 'Defines the icon of the alert.',
+			control: 'object',
 			table: {
-				type: { summary: 'boolean' },
-				defaultValue: { summary: 'true' },
+				type: { summary: 'object' },
+				defaultValue: {
+					label: 'Action',
+					onClick: () => {},
+					type: 'link',
+				},
 			},
 		},
-		label: { control: 'text', defaultValue: 'Badge' },
 	},
 };
 
@@ -66,84 +83,68 @@ export default {
 export const Neutral = {
 	args: {
 		variant: 'neutral',
-		children: 'Badge',
-		type: 'pill',
-		size: 'sm',
-		label: 'Badge',
-		onClose: fn(),
-		onMouseDown: fn(),
 	},
 };
 
-export const Disabled = {
+export const Info = {
 	args: {
-		variant: 'neutral',
-		children: 'Badge',
-		type: 'pill',
-		size: 'sm',
-		label: 'Badge',
-		onClose: fn(),
-		onMouseDown: fn(),
+		variant: 'info',
 		disabled: true,
 	},
 };
 
-export const Red = {
+export const Warning = {
 	args: {
-		variant: 'red',
-		children: 'Badge',
-		type: 'rounded',
-		size: 'sm',
-		label: 'Badge',
-		onClose: fn(),
-		onMouseDown: fn(),
+		variant: 'warning',
 	},
 };
 
-export const Yellow = {
+export const Error = {
 	args: {
-		variant: 'yellow',
-		children: 'Badge',
-		type: 'rounded',
-		size: 'sm',
-		label: 'Badge',
-		onClose: fn(),
-		onMouseDown: fn(),
+		variant: 'error',
 	},
 };
 
-export const Green = {
+export const Success = {
 	args: {
-		variant: 'green',
-		children: 'Badge',
-		type: 'rounded',
-		size: 'sm',
-		label: 'Badge',
-		onClose: fn(),
-		onMouseDown: fn(),
+		variant: 'success',
 	},
 };
 
-export const Blue = {
+export const Stack = {
 	args: {
-		variant: 'blue',
-		children: 'Badge',
-		type: 'rounded',
-		size: 'sm',
-		label: 'Badge',
-		onClose: fn(),
-		onMouseDown: fn(),
+		variant: 'info',
+		design: 'stack',
 	},
 };
 
-export const Inverse = {
+export const Dark = {
 	args: {
-		variant: 'inverse',
-		children: 'Badge',
-		type: 'rounded',
-		size: 'sm',
-		label: 'Badge',
-		onClose: fn(),
-		onMouseDown: fn(),
+		variant: 'error',
+		theme: 'dark',
+	},
+};
+
+export const WithAction = {
+	args: {
+		variant: 'info',
+		design: 'stack',
+		action: {
+			label: 'My Action',
+			onClick: () => {},
+			type: 'button',
+		}
+	},
+};
+
+export const WithCustomIcon = {
+	args: {
+		variant: 'info',
+		// icon: <Plus />,
+		action: {
+			label: 'My Action',
+			onClick: () => {},
+			type: 'button',
+		}
 	},
 };
