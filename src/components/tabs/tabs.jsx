@@ -223,7 +223,7 @@ Tab.displayName = 'Tab';
 
 const exports = {
 	Group: TabsGroup,
-	Tab: Tab,
+	Tab,
 };
 
 export default exports;

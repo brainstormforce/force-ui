@@ -181,7 +181,7 @@ Button.displayName = 'Button';
 
 const exports = {
 	Group: ButtonGroup,
-	Button: Button,
+	Button,
 };
 
 export default exports;
