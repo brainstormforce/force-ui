@@ -9,7 +9,7 @@ import React, {
 	Fragment,
 } from 'react';
 import { nanoid } from 'nanoid';
-import { cn } from '../../utilities/functions';
+import { cn } from '@/utilities/functions';
 
 const RadioButtonContext = createContext();
 const useRadioButton = () => useContext( RadioButtonContext );

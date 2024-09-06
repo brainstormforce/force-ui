@@ -5,7 +5,7 @@ import React, {
 	createContext,
 	useContext,
 } from 'react';
-import { cn } from '../../utilities/functions';
+import { cn } from '@/utilities/functions';
 
 /**
  * Context for managing the ButtonGroup state.

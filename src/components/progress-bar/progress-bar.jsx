@@ -1,4 +1,4 @@
-import { cn } from '../../utilities/functions';
+import { cn } from '@/utilities/functions';
 
 const ProgressBar = ( {
 	progress = 0, // 0-100
