@@ -124,12 +124,12 @@ const Alert = ( {
 					{ getContent( { content, theme } ) }
 				</div>
 			</div>
-			<div className="flex items-center justify-start gap-4">
+			<div className="flex items-center justify-start gap-4 [&_svg]:size-5">
 				{ action?.label &&
                     typeof action?.onClick ===
                         'function' && (
 				/* eslint-disable */
-                        <div>
+                        <div className='flex'>
                         { getAction( {
                             actionLabel:
                                     action?.label,

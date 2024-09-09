@@ -1,8 +1,9 @@
 import Button from './button.jsx';
+import { Plus } from 'lucide-react';
 
 // Button component story configuration
 export default {
-	title: 'Components/Button',
+	title: 'Atoms/Button',
 	component: Button,
 	parameters: {
 		layout: 'centered',
@@ -87,6 +88,42 @@ export const Primary = {
 	args: {
 		variant: 'primary',
 		children: 'Button',
+		icon: <Plus />,
+		iconPosition: 'left',
 	},
 };
 
+export const Disabled = {
+	args: {
+		...Primary.args,
+		disabled: true,
+	},
+};
+
+export const Secondary = {
+	args: {
+		...Primary.args,
+		variant: 'secondary',
+	},
+};
+
+export const Ghost = {
+	args: {
+		...Primary.args,
+		variant: 'ghost',
+	},
+};
+
+export const Outline = {
+	args: {
+		...Primary.args,
+		variant: 'outline',
+	},
+};
+
+export const Link = {
+	args: {
+		...Primary.args,
+		variant: 'link',
+	},
+};

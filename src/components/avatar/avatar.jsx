@@ -1,4 +1,4 @@
-import { cn } from '../../utilities/functions';
+import { cn } from '@/utilities/functions';
 
 const Avatar = ( props ) => {
 	const {
