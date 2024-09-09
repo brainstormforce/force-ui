@@ -6,7 +6,7 @@ import {
 	isValidElement,
 } from 'react';
 import { nanoid } from 'nanoid';
-import { cn } from '../../utilities/functions';
+import { cn } from '@/utilities/functions';
 
 const SwitchLabel = ( { label, switchId, disabled = false, children } ) => {
 	const isEmptyLabel = ! label?.heading || ! label?.description;
@@ -57,7 +57,7 @@ const SwitchLabel = ( { label, switchId, disabled = false, children } ) => {
 	);
 };
 
-const Switch = (
+const SwitchComponent = (
 	{
 		id,
 		onChange,
@@ -160,5 +160,7 @@ const Switch = (
 		</SwitchLabel>
 	);
 };
+const Switch = forwardRef( SwitchComponent );
+Switch.displayName = 'Switch';
 
-export default forwardRef( Switch );
+export default Switch;

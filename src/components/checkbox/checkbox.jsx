@@ -6,10 +6,10 @@ import {
 	isValidElement,
 } from 'react';
 import { nanoid } from 'nanoid';
-import { cn } from '../../utilities/functions';
+import { cn } from '@/utilities/functions';
 import { Check, Minus } from 'lucide-react';
 
-const Checkbox = (
+const CheckboxComponent = (
 	{
 		id,
 		label,
@@ -148,4 +148,7 @@ const Checkbox = (
 	);
 };
 
-export default forwardRef( Checkbox );
+const Checkbox = forwardRef( CheckboxComponent );
+Checkbox.displayName = 'Checkbox';
+
+export default Checkbox;

@@ -9,7 +9,7 @@ import React, {
 	Fragment,
 } from 'react';
 import { nanoid } from 'nanoid';
-import { cn } from '../../utilities/functions';
+import { cn } from '@/utilities/functions';
 
 const RadioButtonContext = createContext();
 const useRadioButton = () => useContext( RadioButtonContext );
@@ -78,7 +78,7 @@ const RadioButtonGroup = ( { children, name, value, defaultValue, by = 'id', as:
 	);
 };
 
-const RadioButton = ( { id, label, value, children, disabled, size = 'md', ...props }, ref ) => {
+const RadioButtonComponent = ( { id, label, value, children, disabled, size = 'md', ...props }, ref ) => {
 	const providerValue = useRadioButton();
 
 	const { name, value: selectedValue, by, onChange, disableAll, checked } = providerValue;
@@ -163,6 +163,8 @@ const RadioButton = ( { id, label, value, children, disabled, size = 'md', ...pr
 		</div>
 	);
 };
+const RadioButton = forwardRef( RadioButtonComponent );
+RadioButton.displayName = 'RadioButton';
 
 const ButtonGroupItem = ( { id, children, value, disabled, size = 'md', ...props } ) => {
 	const providerValue = useRadioButton();
@@ -232,7 +234,7 @@ const ButtonGroupItem = ( { id, children, value, disabled, size = 'md', ...props
 
 const exports = {
 	Group: RadioButtonGroup,
-	Button: forwardRef( RadioButton ),
+	Button: RadioButton,
 };
 
 export default exports;

@@ -3,7 +3,7 @@ import { fn } from '@storybook/test';
 
 // Badge component story configuration
 export default {
-	title: 'Components/Badge',
+	title: 'Atoms/Badge',
 	component: Badge,
 	parameters: {
 		layout: 'centered',

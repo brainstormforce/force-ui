@@ -11,7 +11,7 @@ import {
 	useEffect,
 	useLayoutEffect,
 } from 'react';
-import { cn } from '../../utilities/functions';
+import { cn } from '@/utilities/functions';
 import { CheckIcon, ChevronDown, ChevronsUpDown, Search } from 'lucide-react';
 import {
 	useFloating,
