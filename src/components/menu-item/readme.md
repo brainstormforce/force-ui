@@ -84,21 +84,21 @@ The `Menu.Item` component represents an individual clickable item in the Menu.Li
 
 ```jsx
 import { Menu } from '@bsf/force-ui';
-import { ReactComponent as ExampleIcon } from './icons/example.svg';
+import { User, Store, CreditCard } from 'lucide-react';
 
 const App = () => (
     <Menu>
         <Menu.List heading="Store" open={true} arrow={true}>
             <Menu.Item>
-                <ProfileIcon />
+                <User />
                 <div>Profile</div>
             </Menu.Item>
             <Menu.Item active={true}>
-                <StoreIcon />
+                <Store />
                 <div>Store Settings</div>
             </Menu.Item>
             <Menu.Item>
-                <CardIcon />
+                <CreditCard />
                 <div>Payment Processors</div>
             </Menu.Item>
         </Menu.List>
