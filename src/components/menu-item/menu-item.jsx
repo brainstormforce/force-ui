@@ -109,21 +109,21 @@ const MenuItem = ({ disabled = false, active, onClick, children, className }) =>
     );
 };
 
-const MenuSeparator = ({ borderStyle = "solid", className }) => {
+const MenuSeparator = ({ variant = "solid", className }) => {
 
-    const borderStyleClasses = {
+    const variantClasses = {
         solid: 'border-solid',
         dashed: 'border-dashed',
         dotted: 'border-dotted',
         double: 'border-double',
         hidden: 'border-hidden',
         none: 'border-none'
-    }?.[borderStyle];
+    }?.[variant];
 
     return (
         <div>
             <hr
-                className={cn('border-t border-border-subtle', borderStyleClasses, className)}
+                className={cn('border-t border-border-subtle', variantClasses, className)}
             />
         </div>
     );
