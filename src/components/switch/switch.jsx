@@ -6,7 +6,7 @@ import {
 	isValidElement,
 } from 'react';
 import { nanoid } from 'nanoid';
-import { cn } from '../../utilities/functions';
+import { cn } from '@/utilities/functions';
 
 const SwitchLabel = ( { label, switchId, disabled = false, children } ) => {
 	const isEmptyLabel = ! label?.heading || ! label?.description;
@@ -57,7 +57,7 @@ const SwitchLabel = ( { label, switchId, disabled = false, children } ) => {
 	);
 };
 
-const Switch = (
+const SwitchComponent = (
 	{
 		id,
 		onChange,
@@ -67,6 +67,7 @@ const Switch = (
 		disabled = false,
 		label = { heading: '', description: '' },
 		name,
+		className,
 		...props
 	},
 	ref
@@ -127,7 +128,8 @@ const Switch = (
 			<div
 				className={ cn(
 					'relative inline-block cursor-pointer rounded-full shrink-0',
-					sizeClassNames[ size ].container
+					sizeClassNames[ size ].container,
+					className
 				) }
 			>
 				<input
@@ -135,7 +137,7 @@ const Switch = (
 					id={ switchId }
 					type="checkbox"
 					className={ cn(
-						"peer appearance-none absolute bg-blue-gray-100 rounded-full cursor-pointer transition-colors duration-300 h-full w-full  before:content-[''] checked:before:content-[''] m-0",
+						"peer appearance-none absolute bg-blue-gray-100 rounded-full cursor-pointer transition-colors duration-300 h-full w-full  before:content-[''] checked:before:content-[''] m-0 checked:[background-image:none]",
 						colorClassNames[ color ].input,
 						disabled && disabledClassNames.input
 					) }
@@ -158,5 +160,7 @@ const Switch = (
 		</SwitchLabel>
 	);
 };
+const Switch = forwardRef( SwitchComponent );
+Switch.displayName = 'Switch';
 
-export default forwardRef( Switch );
+export default Switch;

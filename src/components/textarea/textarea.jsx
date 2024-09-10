@@ -1,8 +1,8 @@
 import { useState, useCallback, useMemo, forwardRef } from 'react';
 import { nanoid } from 'nanoid';
-import { cn } from '../../utilities/functions';
+import { cn } from '@/utilities/functions';
 
-const TextArea = (
+const TextAreaComponent = (
 	{
 		id,
 		defaultValue = '',
@@ -83,5 +83,7 @@ const TextArea = (
 		/>
 	);
 };
+const TextArea = forwardRef( TextAreaComponent );
+TextArea.displayName = 'TextArea';
 
-export default forwardRef( TextArea );
+export default TextArea;

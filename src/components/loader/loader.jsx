@@ -1,4 +1,4 @@
-import { cn } from '../../utilities/functions';
+import { cn } from '@/utilities/functions';
 import { LoaderCircle } from 'lucide-react';
 
 const Loader = ( {

@@ -1,6 +1,6 @@
 const deepmerge = require( 'deepmerge' );
 
-const libraryConfig = require( '../../tailwind.config.js' );
+const libraryConfig = require( '../theme/default-config' );
 
 const withTW = ( tailwindConfig ) => {
 	return deepmerge( libraryConfig, { ...tailwindConfig } );

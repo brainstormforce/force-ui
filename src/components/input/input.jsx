@@ -1,9 +1,9 @@
 import { useState, useCallback, useMemo, forwardRef } from 'react';
 import { nanoid } from 'nanoid';
-import { cn } from '../../utilities/functions';
+import { cn } from '@/utilities/functions';
 import { Upload } from 'lucide-react';
 
-const Input = (
+const InputComponent = (
 	{
 		id,
 		type = 'text',
@@ -59,7 +59,7 @@ const Input = (
 	};
 
 	const baseClasses =
-        'border border-solid border-border-subtle bg-field-secondary-background font-normal placeholder-text-tertiary text-text-primary w-full';
+        'border border-solid border-border-subtle bg-field-secondary-background font-normal placeholder-text-tertiary text-text-primary w-full focus:outline-none';
 	const sizeClasses = {
 		sm: 'px-2 py-2 rounded',
 		md: 'px-2.5 py-2.5 rounded-md',
@@ -191,5 +191,7 @@ const Input = (
 		</div>
 	);
 };
+const Input = forwardRef( InputComponent );
+Input.displayName = 'Input';
 
-export default forwardRef( Input );
+export default Input;

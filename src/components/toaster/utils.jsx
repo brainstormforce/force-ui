@@ -1,7 +1,7 @@
 import { cloneElement, isValidElement } from 'react';
 import { Check, Info, AlertTriangle, Trash2 } from 'lucide-react';
 import { cn } from '@/utilities/functions';
-import Button from '@/components/button';
+import Button from '../button/button.jsx';
 
 const DEFAULT_THEME = 'light';
 const DEFAULT_VARIANT = 'neutral';
