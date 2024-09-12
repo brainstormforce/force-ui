@@ -4,7 +4,7 @@
 
 The `Menu` component provides container for displaying a list of navigational or interactive items. It is used in combination with the Menu.List, Menu.Item, and Menu.Separator components to build sidebars, or any other menu-based user interface.
 
-## Props
+## `Menu` Props
 
 ### `size`
 - **Type:** `string`
