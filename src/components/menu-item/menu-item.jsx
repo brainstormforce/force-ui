@@ -36,8 +36,8 @@ const MenuList = ( {
 		md: 'text-sm',
 	}?.[ size ];
 	const iconSizeClasses = {
-        sm: '[&>svg]:size-4',
-        md: '[&>svg]:size-5',
+		sm: '[&>svg]:size-4',
+		md: '[&>svg]:size-5',
 	}?.[ size ];
 
 	const handleToggle = () => {
@@ -54,7 +54,7 @@ const MenuList = ( {
 				tabIndex="0"
 				onClick={ handleToggle }
 				onKeyPress={ ( event ) => {
-                    if (event.key === 'Enter' || event.key === ' ' ) {
+					if ( event.key === 'Enter' || event.key === ' ' ) {
 						handleToggle();
 					}
 				} }
@@ -67,9 +67,9 @@ const MenuList = ( {
 						initial={ { rotate: 0 } }
 						animate={ { rotate: isOpen ? 180 : 0 } }
 						transition={ { duration: 0.15 } }
-                        className={cn('flex items-center text-border-strong', iconSizeClasses)}
+						className={ cn( 'flex items-center text-border-strong', iconSizeClasses ) }
 					>
-						<ChevronDown  />
+						<ChevronDown />
 					</motion.span>
 				) }
 			</div>
@@ -98,8 +98,8 @@ const MenuItem = ( { disabled = false, active, onClick, children, className } ) 
 
 	const baseClasses = 'flex p-1 gap-1 items-center bg-transparent w-full border-none rounded text-text-secondary cursor-pointer m-0';
 	const sizeClasses = {
-        sm: '[&>svg]:size-4 [&>svg]:m-1 [&>*:not(svg)]:mx-1 [&>*:not(svg)]:my-0.5 text-sm',
-        md: '[&>svg]:size-5 [&>svg]:m-1.5 [&>*:not(svg)]:m-1 text-base',
+		sm: '[&>svg]:size-4 [&>svg]:m-1 [&>*:not(svg)]:mx-1 [&>*:not(svg)]:my-0.5 text-sm',
+		md: '[&>svg]:size-5 [&>svg]:m-1.5 [&>*:not(svg)]:m-1 text-base',
 	}?.[ size ];
 	const hoverClasses = 'hover:bg-background-secondary hover:text-text-primary';
 	const disabledClasses = disabled ? 'text-text-disabled hover:text-text-disabled cursor-not-allowed hover:bg-transparent' : '';
@@ -111,7 +111,7 @@ const MenuItem = ( { disabled = false, active, onClick, children, className } ) 
 			tabIndex="0"
 			onClick={ onClick }
 			onKeyPress={ ( event ) => {
-                if (event.key === 'Enter' || event.key === ' ' ) {
+				if ( event.key === 'Enter' || event.key === ' ' ) {
 					onClick();
 				}
 			} }
@@ -135,7 +135,7 @@ const MenuSeparator = ( { variant = 'solid', className } ) => {
 	return (
 		<>
 			<hr
-                className={cn( 'w-full border-0 border-t border-border-subtle', variantClasses, className ) }
+				className={ cn( 'w-full border-0 border-t border-border-subtle', variantClasses, className ) }
 			/>
 		</>
 	);
