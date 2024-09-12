@@ -47,6 +47,16 @@ const MenuList = ( {
 		}
 	};
 
+    const arrowAnimationVariants = {
+        open: { rotate: 180 },
+        closed: { rotate: 0 },
+    };
+
+    const listAnimationVariants = {
+        open: { height: 'auto', opacity: 1 },
+        closed: { height: 0, opacity: 0 },
+    };
+
 	return (
 		<div className="p-2">
 			<div
@@ -64,8 +74,8 @@ const MenuList = ( {
 				<span className="text-text-tertiary">{ heading }</span>
 				{ arrow && (
 					<motion.span
-						initial={ { rotate: 0 } }
-						animate={ { rotate: isOpen ? 180 : 0 } }
+                        variants={arrowAnimationVariants}
+                        animate={isOpen ? 'open' : 'closed'}
 						transition={ { duration: 0.15 } }
 						className={ cn( 'flex items-center text-border-strong', iconSizeClasses ) }
 					>
@@ -77,9 +87,10 @@ const MenuList = ( {
 			<AnimatePresence initial={ false }>
 				{ isOpen && (
 					<motion.ul
-						initial={ { height: 0, opacity: 0 } }
-						animate={ { height: 'auto', opacity: 1 } }
-						exit={ { height: 0, opacity: 0 } }
+                        variants={listAnimationVariants}
+                        initial="closed"
+                        animate="open"
+                        exit="closed"
 						transition={ { duration: 0.3, ease: 'easeInOut' } }
 						className="overflow-hidden flex flex-col m-0 bg-white rounded-md"
 					>
