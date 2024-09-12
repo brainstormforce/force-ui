@@ -1,24 +1,24 @@
 import Switch from './switch.jsx';
 
 export default {
-    title: 'Atoms/Switch',
-    component: Switch,
-    parameters: {
-        layout: 'centered',
-    },
-    tags: [ 'autodocs' ],
-    argTypes: {
-        size: {
-            name: 'Size',
-            description: 'Defines the size of the switch.',
-            control: 'radio',
-            options: [ 'sm', 'lg' ],
-            table: {
+	title: 'Atoms/Switch',
+	component: Switch,
+	parameters: {
+		layout: 'centered',
+	},
+	tags: [ 'autodocs' ],
+	argTypes: {
+		size: {
+			name: 'Size',
+			description: 'Defines the size of the switch.',
+			control: 'radio',
+			options: [ 'sm', 'lg' ],
+			table: {
 				type: { summary: 'string' },
 				defaultValue: { summary: 'lg' },
 			},
-        },
-        disabled: {
+		},
+		disabled: {
 			name: 'disabled',
 			description: 'Defines if the switch is disabled.',
 			control: 'boolean',
@@ -27,65 +27,65 @@ export default {
 				defaultValue: { summary: 'false' },
 			},
 		},
-        label: {
+		label: {
 			name: 'Label',
 			description: 'Defines the label and description of the switch. Can be an object or a React element.',
 			table: {
 				type: { summary: 'object | ReactNode' },
 			},
 		},
-        name: {
+		name: {
 			name: 'name',
 			description: 'Name attribute of the input element.',
 			control: 'text',
-            table: {
+			table: {
 				type: { summary: 'string' },
 			},
 		},
-        onChange: {
+		onChange: {
 			name: 'onChange',
 			description: 'Callback function fired when the switch state changes.',
-            table: {
+			table: {
 				type: { summary: 'function' },
 			},
 		},
-        defaultValue: {
+		defaultValue: {
 			name: 'defaultValue',
 			description: 'Default value for uncontrolled switch (true/false).',
-            control: 'boolean',
+			control: 'boolean',
 			table: {
 				type: { summary: 'boolean' },
 				defaultValue: { summary: 'false' },
 			},
 		},
-    }
-}
+	},
+};
 
 export const Basic = {
-    args: {
-        size: 'lg',
-        defaultValue: false,
-    }
-}
+	args: {
+		size: 'lg',
+		defaultValue: false,
+	},
+};
 
 export const WithLabel = {
-    args: {
-        ...Basic.args,
-        label: {
-            heading: 'Switch Label',
-            description: 'Switch Description',
-	    },
-        defaultValue: true,
-    }
-}
+	args: {
+		...Basic.args,
+		label: {
+			heading: 'Switch Label',
+			description: 'Switch Description',
+		},
+		defaultValue: true,
+	},
+};
 
 export const Disabled = {
-    args: {
-        ...Basic.args,
-        label: {
-            heading: 'Disabled Switch',
-            description: 'This switch is disabled and cannot be changed.',
-	    },
+	args: {
+		...Basic.args,
+		label: {
+			heading: 'Disabled Switch',
+			description: 'This switch is disabled and cannot be changed.',
+		},
 		disabled: true,
-    }
+	},
 };
