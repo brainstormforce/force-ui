@@ -140,7 +140,7 @@ const SwitchComponent = (
 						"peer appearance-none absolute bg-blue-gray-100 rounded-full cursor-pointer transition-colors duration-300 h-full w-full  before:content-[''] checked:before:content-[''] m-0 checked:[background-image:none]",
 						colorClassNames[ color ].input,
 						disabled && disabledClassNames.input,
-                        !disabled && 'hover:bg-toggle-off-hover checked:hover:bg-toggle-on-hover'
+						! disabled && 'hover:bg-toggle-off-hover checked:hover:bg-toggle-on-hover'
 					) }
 					checked={ getValue() }
 					onChange={ handleChange }
@@ -155,7 +155,7 @@ const SwitchComponent = (
 						sizeClassNames[ size ].toggleDial,
 						colorClassNames[ color ].toggleDial,
 						disabled && disabledClassNames.toggleDial,
-                        !disabled && 'hover:before:opacity-10'
+						! disabled && 'hover:before:opacity-10'
 					) }
 				/>
 			</div>
