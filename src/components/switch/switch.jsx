@@ -100,7 +100,7 @@ const SwitchComponent = (
 
 	const colorClassNames = {
 		primary: {
-			input: 'bg-toggle-off hover:bg-toggle-off-hover checked:bg-toggle-on checked:hover:bg-toggle-on-hover focus:ring focus:ring-toggle-on focus:ring-offset-4 border border-solid border-toggle-off-border checked:border-toggle-on-border shadow-toggleContainer focus:outline-none checked:focus:border-toggle-on-border focus:border-toggle-off-border',
+			input: 'bg-toggle-off checked:bg-toggle-on focus:ring focus:ring-toggle-on focus:ring-offset-4 border border-solid border-toggle-off-border checked:border-toggle-on-border shadow-toggleContainer focus:outline-none checked:focus:border-toggle-on-border focus:border-toggle-off-border',
 			toggleDial: 'bg-toggle-dial-background shadow-toggleDial',
 		},
 	};
@@ -139,7 +139,8 @@ const SwitchComponent = (
 					className={ cn(
 						"peer appearance-none absolute bg-blue-gray-100 rounded-full cursor-pointer transition-colors duration-300 h-full w-full  before:content-[''] checked:before:content-[''] m-0 checked:[background-image:none]",
 						colorClassNames[ color ].input,
-						disabled && disabledClassNames.input
+						disabled && disabledClassNames.input,
+                        !disabled && 'hover:bg-toggle-off-hover checked:hover:bg-toggle-on-hover'
 					) }
 					checked={ getValue() }
 					onChange={ handleChange }
@@ -150,10 +151,11 @@ const SwitchComponent = (
 				<label
 					htmlFor={ switchId }
 					className={ cn(
-						"bg-white border border-blue-gray-100 rounded-full absolute cursor-pointer shadow-md before:content[''] before:transition-opacity before:opacity-0 hover:before:opacity-10 before:hidden border-none transition-all duration-300",
+						"bg-white border border-blue-gray-100 rounded-full absolute cursor-pointer shadow-md before:content[''] before:transition-opacity before:opacity-0 before:hidden border-none transition-all duration-300",
 						sizeClassNames[ size ].toggleDial,
 						colorClassNames[ color ].toggleDial,
-						disabled && disabledClassNames.toggleDial
+						disabled && disabledClassNames.toggleDial,
+                        !disabled && 'hover:before:opacity-10'
 					) }
 				/>
 			</div>
