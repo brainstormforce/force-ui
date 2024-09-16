@@ -94,7 +94,7 @@ const MenuList = ( {
 						transition={ { duration: 0.3, ease: 'easeInOut' } }
 						className="overflow-hidden flex gap-0.5 flex-col m-0 bg-white rounded-md"
 					>
-                        { children }
+						{ children }
 					</motion.ul>
 				) }
 			</AnimatePresence>
@@ -105,7 +105,7 @@ const MenuList = ( {
 const MenuItem = ( { disabled = false, active, onClick, children, className } ) => {
 	const { size } = useMenuContext();
 
-    const baseClasses = 'flex p-1 gap-1 items-center bg-transparent w-full border-none rounded text-text-secondary cursor-pointer m-0';
+	const baseClasses = 'flex p-1 gap-1 items-center bg-transparent w-full border-none rounded text-text-secondary cursor-pointer m-0';
 	const sizeClasses = {
 		sm: '[&>svg]:size-4 [&>svg]:m-1 [&>*:not(svg)]:mx-1 [&>*:not(svg)]:my-0.5 text-sm',
 		md: '[&>svg]:size-5 [&>svg]:m-1.5 [&>*:not(svg)]:m-1 text-base',
@@ -113,7 +113,7 @@ const MenuItem = ( { disabled = false, active, onClick, children, className } ) 
 	const hoverClasses = 'hover:bg-background-secondary hover:text-text-primary';
 	const disabledClasses = disabled ? 'text-text-disabled hover:text-text-disabled cursor-not-allowed hover:bg-transparent' : '';
 	const activeClasses = active ? 'text-icon-primary [&>svg]:text-icon-interactive bg-background-secondary' : '';
-    const transitionClasses = 'transition-colors duration-300 ease-in-out'; 
+	const transitionClasses = 'transition-colors duration-300 ease-in-out';
 
 	return (
 		<li
@@ -125,7 +125,7 @@ const MenuItem = ( { disabled = false, active, onClick, children, className } ) 
 					onClick();
 				}
 			} }
-            className={cn(baseClasses, sizeClasses, hoverClasses, disabledClasses, activeClasses, transitionClasses, className ) }
+			className={ cn( baseClasses, sizeClasses, hoverClasses, disabledClasses, activeClasses, transitionClasses, className ) }
 		>
 			{ children }
 		</li>
