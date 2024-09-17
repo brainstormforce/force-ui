@@ -1,18 +1,33 @@
-import React, { useState, useCallback, useMemo, forwardRef, isValidElement, createContext, useContext, Fragment } from 'react';
+import React, {
+	useState,
+	useCallback,
+	useMemo,
+	forwardRef,
+	isValidElement,
+	createContext,
+	useContext,
+	Fragment,
+} from 'react';
 import { nanoid } from 'nanoid';
-import { cn } from '../../utilities/functions';
+import { cn } from '@/utilities/functions';
 
 const RadioButtonContext = createContext();
 const useRadioButton = () => useContext( RadioButtonContext );
 
-const RadioButtonGroup = ( { children, name, value, defaultValue, by = 'id', as: AsElement = Fragment, onChange, className, disabled = false } ) => {
+const RadioButtonGroup = ( { children, name, value, defaultValue, by = 'id', as: AsElement = Fragment, onChange, className, style = 'simple', disabled = false } ) => {
 	const isControlled = useMemo( () => typeof value !== 'undefined', [ value ] );
 	const nameAttr = useMemo( () => name || `radio-button-group-${ nanoid() }`, [ name ] );
 	const [ selectedValue, setSelectedValue ] = useState( isControlled ? value : defaultValue );
 
 	const handleChange = useCallback(
 		( event ) => {
-			const newValue = event.target.value;
+			let newValue;
+			if ( style === 'tile' ) {
+				newValue = event;
+			} else {
+				newValue = event.target.value;
+			}
+
 			if ( ! isControlled ) {
 				setSelectedValue( newValue );
 			}
@@ -25,36 +40,46 @@ const RadioButtonGroup = ( { children, name, value, defaultValue, by = 'id', as:
 		[ onChange ],
 	);
 
-	return (
-		<AsElement { ...( AsElement === Fragment ? {} : { className } ) }>
-			<RadioButtonContext.Provider
-				value={ {
-					name: nameAttr,
-					value: isControlled ? value : selectedValue,
-					by,
-					onChange: handleChange,
-					isControlled,
-					disableAll: disabled,
-				} }
-			>
-				{ React.Children.map( children, ( child ) => {
-					if ( ! isValidElement( child ) ) {
-						return null;
-					}
+	const groupClassName = cn( style === 'tile' ? 'inline-flex border border-border-subtle border-solid rounded shadow-sm' : 'flex gap-6', className );
 
-					return child;
-				} ) }
-			</RadioButtonContext.Provider>
-		</AsElement>
+	const renderRadioButtonContext = () => (
+		<RadioButtonContext.Provider
+			value={ {
+				name: nameAttr,
+				value: isControlled ? value : selectedValue,
+				by,
+				onChange: handleChange,
+				isControlled,
+				disableAll: disabled,
+				style,
+			} }
+		>
+			{ React.Children.map( children, ( child ) => {
+				if ( ! isValidElement( child ) ) {
+					return null;
+				}
+				return child;
+			} ) }
+		</RadioButtonContext.Provider>
+	);
+
+	return (
+		<>
+			{ style === 'tile' ? (
+				<div className={ groupClassName }>
+					{ renderRadioButtonContext() }
+				</div>
+			) : (
+				<AsElement { ...( AsElement === Fragment ? {} : { className } ) }>
+					{ renderRadioButtonContext() }
+				</AsElement>
+			) }
+		</>
 	);
 };
 
-const RadioButton = ( { id, label, value, disabled, size = 'md', ...props }, ref ) => {
+const RadioButtonComponent = ( { id, label, value, children, disabled, size = 'md', ...props }, ref ) => {
 	const providerValue = useRadioButton();
-
-	if ( ! providerValue ) {
-		throw new Error( 'RadioButton should be used inside RadioButton Group' );
-	}
 
 	const { name, value: selectedValue, by, onChange, disableAll, checked } = providerValue;
 	const color = 'primary';
@@ -116,6 +141,12 @@ const RadioButton = ( { id, label, value, disabled, size = 'md', ...props }, ref
 		);
 	}, [ label ] );
 
+	if ( providerValue.style === 'tile' ) {
+		return <ButtonGroupItem id={ id } lable={ label } value={ value } disabled={ disabled } size={ size } >
+			{ children }
+		</ButtonGroupItem>;
+	}
+
 	return (
 		<div className={ cn( 'inline-flex items-center', !! label && 'items-start' ) }>
 			<label className={ cn( 'relative flex items-center rounded-full', ! isDisabled && 'cursor-pointer' ) } htmlFor={ radioButtonId }>
@@ -132,10 +163,78 @@ const RadioButton = ( { id, label, value, disabled, size = 'md', ...props }, ref
 		</div>
 	);
 };
+const RadioButton = forwardRef( RadioButtonComponent );
+RadioButton.displayName = 'RadioButton';
+
+const ButtonGroupItem = ( { id, children, value, disabled, size = 'md', ...props } ) => {
+	const providerValue = useRadioButton();
+
+	const { name, value: selectedValue, by, onChange, disableAll, checked } = providerValue || {};
+	const radioButtonId = useMemo( () => id || `radio-button-${ nanoid() }`, [ id ] );
+	const isDisabled = useMemo( () => disableAll || disabled, [ disableAll, disabled ] );
+
+	const checkedValue = useMemo( () => {
+		if ( typeof checked !== 'undefined' ) {
+			return checked;
+		}
+
+		if ( typeof selectedValue !== typeof value ) {
+			return false;
+		}
+		if ( typeof selectedValue === 'string' ) {
+			return selectedValue === value;
+		}
+
+		if ( Array.isArray( selectedValue ) ) {
+			return selectedValue.includes( value );
+		}
+
+		return selectedValue[ by ] === value[ by ];
+	}, [ selectedValue, value, checked, by ] );
+
+	const handleClick = () => {
+		if ( onChange ) {
+			onChange( value );
+		}
+	};
+
+	const sizes = {
+		xs: 'py-1 px-1 text-sm gap-0.5 [&>svg]:h-4 [&>svg]:w-4',
+		sm: 'py-2 px-2 text-base gap-1 [&>svg]:h-4 [&>svg]:w-4',
+		md: 'py-2.5 px-2.5 text-base gap-1 [&>svg]:h-5 [&>svg]:w-5',
+	};
+
+	const baseClasses = 'bg-background-primary text-primary cursor-pointer flex items-center justify-center';
+	const hoverClasses = 'hover:bg-button-tertiary-hover';
+	const focusClasses = 'focus:outline-none';
+	const disabledClasses = isDisabled ? 'text-text-disabled cursor-not-allowed' : '';
+	const borderClasses = 'border-0 border-r border-border-subtle border-solid';
+	const buttonClassName = cn( baseClasses, hoverClasses, focusClasses, disabledClasses, sizes[ size ], borderClasses );
+
+	return (
+		<>
+			<button
+				type="button"
+				id={ radioButtonId }
+				className={ cn(
+					buttonClassName,
+					'first:rounded-tl first:rounded-bl first:border-0 first:border-r first:border-border-subtle last:rounded-tr last:rounded-br last:border-0',
+					checkedValue && 'bg-button-disabled'
+				) }
+				onClick={ handleClick }
+				disabled={ isDisabled }
+				{ ...props }
+			>
+				<input type="hidden" value={ value } name={ name } checked={ checkedValue } onChange={ onChange } />
+				{ children }
+			</button>
+		</>
+	);
+};
 
 const exports = {
 	Group: RadioButtonGroup,
-	Button: forwardRef( RadioButton ),
+	Button: RadioButton,
 };
 
 export default exports;

@@ -1,4 +1,4 @@
-import { cn } from '../../utilities/functions';
+import { cn } from '@/utilities/functions';
 
 const ProgressBar = ( {
 	progress = 0, // 0-100
@@ -20,7 +20,16 @@ const ProgressBar = ( {
 	const innerClasses = `h-2 rounded-full bg-background-brand absolute left-0 top-0 w-full bottom-0 origin-left transition-transform duration-${ speed } ease-linear`;
 
 	return (
-		<div className={ cn( 'h-2 rounded-full bg-misc-progress-background overflow-hidden relative', className ) } role="progressbar" aria-valuenow={ percent } aria-valuemin="0" aria-valuemax="100">
+		<div
+			className={ cn(
+				'h-2 rounded-full bg-misc-progress-background overflow-hidden relative',
+				className
+			) }
+			role="progressbar"
+			aria-valuenow={ percent }
+			aria-valuemin="0"
+			aria-valuemax="100"
+		>
 			<div
 				className={ innerClasses }
 				style={ {
