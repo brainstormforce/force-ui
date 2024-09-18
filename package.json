@@ -47,7 +47,8 @@
     "nanoid": "^5.0.7",
     "styled-components": "^6.1.12",
     "tailwind-merge": "^2.4.0",
-    "tailwindcss-scoped-preflight": "^3.4.3"
+    "tailwindcss-scoped-preflight": "^3.4.3",
+    "wp-scripts": "^0.0.1-security"
   },
   "exports": {
     "./package.json": "./package.json",
