@@ -260,7 +260,8 @@ const RadioButtonComponent = (
 				'inline-flex items-center relative',
 				!! label && 'items-start justify-between min-w-[180px] ',
 				borderOn &&
-					'border border-border-subtle border-solid rounded-md shadow-sm px-3 py-3 hover:ring-2 hover:ring-border-interactive'
+					'border border-border-subtle border-solid rounded-md shadow-sm hover:ring-2 hover:ring-border-interactive',
+					size==='sm' ? 'px-3 py-3': 'px-4 py-4',
 			) }
 		>
 			{ !! label && (
