@@ -62,48 +62,48 @@ export default {
 	},
 };
 
-const Template = ({ defaultValue, size, ...args }) => {
-  const [checked, setChecked] = useState(defaultValue);
+const Template = ( { defaultValue, size, ...args } ) => {
+	const [ checked, setChecked ] = useState( defaultValue );
 
-  useEffect(() => {
-    setChecked(defaultValue);
-  }, [defaultValue]);
+	useEffect( () => {
+		setChecked( defaultValue );
+	}, [ defaultValue ] );
 
-  const handleChange = (newValue) => {
-    setChecked(newValue);
-    if (args.onChange) {
-      args.onChange(newValue);
-    }
-  };
+	const handleChange = ( newValue ) => {
+		setChecked( newValue );
+		if ( args.onChange ) {
+			args.onChange( newValue );
+		}
+	};
 
-  return (
-    <Switch
-      {...args}
-      size={size} 
-      value={checked} 
-      onChange={handleChange} 
-    />
-  );
+	return (
+		<Switch
+			{ ...args }
+			size={ size }
+			value={ checked }
+			onChange={ handleChange }
+		/>
+	);
 };
 
-export const Basic = (args) => Template({ ...args});
+export const Basic = ( args ) => Template( { ...args } );
 Basic.args = {
-  defaultValue: false,
-  size: 'lg',
-  disabled: false,
+	defaultValue: false,
+	size: 'lg',
+	disabled: false,
 };
 
-export const WithLabel = (args) => Template({ ...args});
+export const WithLabel = ( args ) => Template( { ...args } );
 WithLabel.args = {
-  defaultValue: true,
-  size: 'lg',
-  disabled: false,
-  label: { heading: 'Switch Label', description: 'Switch Description' },
+	defaultValue: true,
+	size: 'lg',
+	disabled: false,
+	label: { heading: 'Switch Label', description: 'Switch Description' },
 };
 
-export const Disabled = (args) => Template({ ...args});
+export const Disabled = ( args ) => Template( { ...args } );
 Disabled.args = {
-  size: 'lg',
-  disabled: true,
-  label: { heading: 'Disabled Switch', description: 'This switch is disabled.' },
+	size: 'lg',
+	disabled: true,
+	label: { heading: 'Disabled Switch', description: 'This switch is disabled.' },
 };
