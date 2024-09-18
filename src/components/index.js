@@ -20,3 +20,4 @@ export { default as Alert } from './alert/index';
 export { default as EditorInput } from './editor-input/index';
 export { default as ProgressSteps } from './progress-steps/index';
 export { default as Skeleton } from './skeleton/index';
+export { default as Menu } from './menu-item/index';

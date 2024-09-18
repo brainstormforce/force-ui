@@ -54,6 +54,7 @@ const EditorInputComponent = ( {
 	autoFocus = false,
 	options = [],
 	by = 'name',
+	trigger = '@',
 	menuComponent,
 	menuItemComponent,
 	className,
@@ -118,6 +119,7 @@ const EditorInputComponent = ( {
 					size={ size }
 					by={ by }
 					optionsArray={ options }
+					trigger={ trigger }
 				/>
 				<OnChangePlugin
 					onChange={ handleOnChange }
