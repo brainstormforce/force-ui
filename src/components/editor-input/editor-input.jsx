@@ -54,6 +54,7 @@ const EditorInputComponent = ( {
 	autoFocus = false,
 	options = [],
 	by = 'name',
+	trigger = '@',
 	menuComponent,
 	menuItemComponent,
 	className,
@@ -99,7 +100,7 @@ const EditorInputComponent = ( {
 						contentEditable={
 							<ContentEditable
 								className={ cn(
-									'editor-content',
+									'editor-content focus-visible:outline-none outline-none',
 									editableContentAreaCommonClassNames,
 									className
 								) }
@@ -118,6 +119,7 @@ const EditorInputComponent = ( {
 					size={ size }
 					by={ by }
 					optionsArray={ options }
+					trigger={ trigger }
 				/>
 				<OnChangePlugin
 					onChange={ handleOnChange }

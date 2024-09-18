@@ -12,12 +12,15 @@ const Button = ( props ) => {
 		disabled = false,
 		destructive = false, // true, false
 		icon = null, // icon component
-		iconPosition = 'left', // left, right
+		iconPosition = 'left', // left, right,
+		loading = false,
 		...rest
 	} = props;
 
 	const commonClass =
 		'border border-solid cursor-pointer transition-colors duration-300 ease-in-out text-xs font-semibold focus:ring-2 focus:ring-toggle-on focus:ring-offset-2 disabled:text-text-disabled';
+
+	const loadingClass = loading ? 'opacity-50 disabled:cursor-not-allowed' : '';
 
 	const variantClassNames = {
 		primary:
@@ -71,6 +74,7 @@ const Button = ( props ) => {
 				sizeClassNames,
 				variantClassNames,
 				destructiveClassNames,
+				loadingClass,
 				className
 			) }
 			disabled={ disabled }
