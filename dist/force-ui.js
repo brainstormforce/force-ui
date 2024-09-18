@@ -16404,7 +16404,6 @@ var RadioButtonGroup = function RadioButtonGroup(_ref) {
       onChange(newValue);
     }
   }, [onChange]);
-  // className = cn('flex flex-wrap gap-2', vertical && 'flex-col', className);
   className = (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_1__.cn)("grid grid-cols-4 gap-2", (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_1__.getGridColsClass)(columns), vertical && 'grid-cols-1', className);
   var groupClassName = (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_1__.cn)(style === 'tile' ? 'border border-border-subtle border-solid rounded-md shadow-sm' : 'gap-6', className);
   var renderRadioButtonContext = function renderRadioButtonContext() {
@@ -16513,7 +16512,7 @@ var RadioButtonComponent = function RadioButtonComponent(_ref2, ref) {
       return null;
     }
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-      className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_1__.cn)('space-y-1.5', reversePosition && 'ml-8')
+      className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_1__.cn)('space-y-1.5 mt-[2px]', reversePosition && 'ml-8')
     }, boxIcon && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", null, boxIcon, " "), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", {
       className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_1__.cn)('text-text-primary text-sm font-medium leading-4 m-0', boxIcon && 'mt-1')
     }, label.heading), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", {
@@ -16539,7 +16538,7 @@ var RadioButtonComponent = function RadioButtonComponent(_ref2, ref) {
     htmlFor: radioButtonId
   }, !!badgeItem && badgeItem, !hideSelection && (useSwitch ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_switch__WEBPACK_IMPORTED_MODULE_2__["default"], {
     defaultValue: false,
-    size: "sm",
+    size: size === 'md' ? 'lg' : 'sm',
     onChange: function onChange() {
       _onChange(value);
     }
@@ -16562,7 +16561,7 @@ var RadioButtonComponent = function RadioButtonComponent(_ref2, ref) {
   }, multiSelection ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(lucide_react__WEBPACK_IMPORTED_MODULE_4__["default"], {
     className: "size-3"
   }) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-    className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_1__.cn)('rounded-full bg-current', (_sizeClassNames$size = sizeClassNames[size]) === null || _sizeClassNames$size === void 0 ? void 0 : _sizeClassNames$size.icon)
+    className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_1__.cn)('rounded-full bg-current', size === 'sm' && 'mt-[1px]', (_sizeClassNames$size = sizeClassNames[size]) === null || _sizeClassNames$size === void 0 ? void 0 : _sizeClassNames$size.icon)
   }))))));
 };
 var RadioButton = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.forwardRef)(RadioButtonComponent);

@@ -73,7 +73,6 @@ const RadioButtonGroup = ({
 		},
 		[onChange]
 	);
-	// className = cn('flex flex-wrap gap-2', vertical && 'flex-col', className);
 	className = cn(
 		`grid grid-cols-4 gap-2`,
 		getGridColsClass(columns),
@@ -217,7 +216,12 @@ const RadioButtonComponent = (
 			return null;
 		}
 		return (
-			<div className={cn('space-y-1.5', reversePosition && 'ml-8')}>
+			<div
+				className={cn(
+					'space-y-1.5 mt-[2px]',
+					reversePosition && 'ml-8'
+				)}
+			>
 				{boxIcon && <span>{boxIcon} </span>}
 				<p
 					className={cn(
@@ -278,7 +282,7 @@ const RadioButtonComponent = (
 					(useSwitch ? (
 						<Switch
 							defaultValue={false}
-							size="sm"
+							size={size === 'md' ? 'lg' : 'sm'}
 							onChange={() => {
 								onChange(value);
 							}}
@@ -316,6 +320,7 @@ const RadioButtonComponent = (
 									<div
 										className={cn(
 											'rounded-full bg-current',
+											size === 'sm' && 'mt-[1px]',
 											sizeClassNames[size]?.icon
 										)}
 									/>
