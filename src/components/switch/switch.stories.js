@@ -1,3 +1,4 @@
+import React, { useState, useEffect } from 'react';
 import Switch from './switch.jsx';
 
 export default {
@@ -61,31 +62,48 @@ export default {
 	},
 };
 
-export const Basic = {
-	args: {
-		size: 'lg',
-		defaultValue: false,
-	},
+const Template = ({ defaultValue, size, ...args }) => {
+  const [checked, setChecked] = useState(defaultValue);
+
+  useEffect(() => {
+    setChecked(defaultValue);
+  }, [defaultValue]);
+
+  const handleChange = (newValue) => {
+    setChecked(newValue);
+    if (args.onChange) {
+      args.onChange(newValue);
+    }
+  };
+
+  return (
+    <Switch
+      {...args}
+      size={size} 
+      value={checked} 
+      onChange={handleChange} 
+    />
+  );
 };
 
-export const WithLabel = {
-	args: {
-		...Basic.args,
-		label: {
-			heading: 'Switch Label',
-			description: 'Switch Description',
-		},
-		defaultValue: true,
-	},
+export const Basic = (args) => Template({ ...args});
+Basic.args = {
+  defaultValue: false,
+  size: 'lg',
+  disabled: false,
 };
 
-export const Disabled = {
-	args: {
-		...Basic.args,
-		label: {
-			heading: 'Disabled Switch',
-			description: 'This switch is disabled and cannot be changed.',
-		},
-		disabled: true,
-	},
+export const WithLabel = (args) => Template({ ...args});
+WithLabel.args = {
+  defaultValue: true,
+  size: 'lg',
+  disabled: false,
+  label: { heading: 'Switch Label', description: 'Switch Description' },
+};
+
+export const Disabled = (args) => Template({ ...args});
+Disabled.args = {
+  size: 'lg',
+  disabled: true,
+  label: { heading: 'Disabled Switch', description: 'This switch is disabled.' },
 };
