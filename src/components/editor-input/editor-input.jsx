@@ -100,7 +100,7 @@ const EditorInputComponent = ( {
 						contentEditable={
 							<ContentEditable
 								className={ cn(
-									'editor-content',
+									'editor-content focus-visible:outline-none outline-none',
 									editableContentAreaCommonClassNames,
 									className
 								) }
