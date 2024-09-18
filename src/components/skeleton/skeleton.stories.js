@@ -19,14 +19,11 @@ export default {
 	},
 }
 
-export const RectangularText = (args) => (
-    <Skeleton variant="rectangular" style={ { width: '700px', height: '10px' } }/>
-);
-export const RectangularPhoto = (args) => (
-    <Skeleton variant="rectangular" style={ { width: '300px', height: '150px' } } />
+export const Rectangular = (args) => (
+    <Skeleton variant="rectangular"/>
 );
 
 export const Circular = (args) => (
-  <Skeleton variant="circular" style={ { width: '40px', height: '40px' } } />
+  <Skeleton variant="circular"/>
 );
 
