@@ -11,6 +11,12 @@ export default {
 		variant: {
 			name: 'Variant',
 			description: 'Defines the style variant of the skeleton.',
+            control: 'select',
+			options: [ 'rectangular', 'circular' ],
+			table: {
+				type: { summary: 'string' },
+				defaultValue: { summary: 'rectangular' },
+			},
 		},
 		className: {
 			description: 'Allows you to pass custom classes to control the size and styles',
@@ -19,11 +25,18 @@ export default {
 	},
 };
 
-export const Rectangular = () => (
-	<Skeleton variant="rectangular" />
+export const Rectangular = (args) => (
+  <Skeleton {...args} />
 );
 
-export const Circular = () => (
-	<Skeleton variant="circular" />
+Rectangular.args = {
+  variant: 'rectangular', 
+};
+
+export const Circular = (args) => (
+  <Skeleton {...args} />
 );
 
+Circular.args = {
+  variant: 'circular', 
+};
