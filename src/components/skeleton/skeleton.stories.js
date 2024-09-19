@@ -11,7 +11,7 @@ export default {
 		variant: {
 			name: 'Variant',
 			description: 'Defines the style variant of the skeleton.',
-            control: 'select',
+			control: 'select',
 			options: [ 'rectangular', 'circular' ],
 			table: {
 				type: { summary: 'string' },
@@ -25,18 +25,18 @@ export default {
 	},
 };
 
-export const Rectangular = (args) => (
-  <Skeleton {...args} />
+export const Rectangular = ( args ) => (
+	<Skeleton { ...args } />
 );
 
 Rectangular.args = {
-  variant: 'rectangular', 
+	variant: 'rectangular',
 };
 
-export const Circular = (args) => (
-  <Skeleton {...args} />
+export const Circular = ( args ) => (
+	<Skeleton { ...args } />
 );
 
 Circular.args = {
-  variant: 'circular', 
+	variant: 'circular',
 };

@@ -14,7 +14,7 @@ export default {
 			description: 'Specifies the size of the Menu Item components inside Menu',
 			control: { type: 'select' },
 			options: [ 'sm', 'md' ],
-            table: {
+			table: {
 				type: { summary: 'string' },
 				defaultValue: { summary: 'md' },
 			},
