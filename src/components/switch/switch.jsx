@@ -9,16 +9,21 @@ import { nanoid } from 'nanoid';
 import { cn } from '@/utilities/functions';
 
 const SwitchLabel = ( { label, switchId, disabled = false, children } ) => {
-	const isEmptyLabel = ! label?.heading || ! label?.description;
-
+	// Check if label is a valid JSX element (custom JSX)
 	const isLabelAComponent = isValidElement( label );
-
-	const renderLabel = useCallback( () => {
-		if ( isLabelAComponent ) {
+	if ( isLabelAComponent ) {
+		return (
+			<div className={ cn( 'inline-flex items-center', 'items-start' ) }>
+				{ children }
+				{ label }
+			</div>
+		);
+	}
+	const renderLabel = () => {
+		if ( isValidElement( label ) ) {
 			return label;
 		}
-
-		const { heading = '', description = '' } = label;
+		const { heading = '', description = '' } = label || {};
 		return (
 			<div className="space-y-1.5">
 				{ heading && (
@@ -33,19 +38,16 @@ const SwitchLabel = ( { label, switchId, disabled = false, children } ) => {
 				) }
 			</div>
 		);
-	}, [ label ] );
+	};
+
+	const isEmptyLabel = ! label?.heading && ! label?.description;
 
 	if ( isEmptyLabel ) {
 		return children;
 	}
 
 	return (
-		<div
-			className={ cn(
-				'inline-flex items-center',
-				! isEmptyLabel && 'items-start'
-			) }
-		>
+		<div className={ cn( 'inline-flex items-center', 'items-start' ) }>
 			{ children }
 			<label
 				htmlFor={ switchId }
