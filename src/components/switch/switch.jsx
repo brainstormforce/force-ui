@@ -41,13 +41,14 @@ const SwitchLabel = ( { label, switchId, disabled = false, children } ) => {
 	};
 
 	const isEmptyLabel = ! label?.heading && ! label?.description;
+	const alignmentClass = ! label?.heading || ! label?.description ? 'items-center' : 'items-start';
 
 	if ( isEmptyLabel ) {
 		return children;
 	}
 
 	return (
-		<div className={ cn( 'inline-flex items-center', 'items-start' ) }>
+		<div className={ cn( 'inline-flex', alignmentClass ) }>
 			{ children }
 			<label
 				htmlFor={ switchId }
