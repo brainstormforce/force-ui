@@ -12,33 +12,17 @@ export function prefix() {
  */
 export const cn = ( ...classNames ) => twMerge( clsx( ...classNames ) );
 
-export const getGridColsClass = ( columns ) => {
-	switch ( columns ) {
-		case 1:
-			return 'grid-cols-1';
-		case 2:
-			return 'grid-cols-2';
-		case 3:
-			return 'grid-cols-3';
-		case 4:
-			return 'grid-cols-4';
-		case 5:
-			return 'grid-cols-5';
-		case 6:
-			return 'grid-cols-6';
-		case 7:
-			return 'grid-cols-7';
-		case 8:
-			return 'grid-cols-8';
-		case 9:
-			return 'grid-cols-9';
-		case 10:
-			return 'grid-cols-10';
-		case 11:
-			return 'grid-cols-11';
-		case 12:
-			return 'grid-cols-12';
-		default:
-			return 'grid-cols-1'; // Fallback to 1 column if an invalid number is provided
-	}
+export const columnClasses = {
+	1: 'grid-cols-1',
+	2: 'grid-cols-2',
+	3: 'grid-cols-3',
+	4: 'grid-cols-4',
+	5: 'grid-cols-5',
+	6: 'grid-cols-6',
+	7: 'grid-cols-7',
+	8: 'grid-cols-8',
+	9: 'grid-cols-9',
+	10: 'grid-cols-10',
+	11: 'grid-cols-11',
+	12: 'grid-cols-12',
 };

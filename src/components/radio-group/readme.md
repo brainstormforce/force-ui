@@ -1,6 +1,6 @@
-# Radio Button
+# Radio Group
 
-## `RadioButton.Group` Props
+## `RadioGroup.Group` Props
 - **Description:** Wrapper for the button group.  
 
 ### name (optional)
@@ -44,7 +44,23 @@
 - **default value:** `false`
 - **description:** The `disabled` prop will disable the component.
 
-## `RadioButton.Button` Props
+### vertical
+- **type:**`boolean`
+- **default value:** `false`
+- **description:** The `vertical` prop arranges radio buttons in a vertical layout when `true`.
+
+### columns
+- **type:**`number`
+- **default value:** `4`
+- **description:** The `columns` prop sets the number of columns for arranging the radio buttons.
+
+### multiSelection
+- **type:**`boolean`
+- **default value:** `false`
+- **description:** The `multiSelection` prop allows selecting more than one option when set to `true`.
+
+
+## `RadioGroup.Button` Props
 
 ### id (optional)
 - **type:** `string`
@@ -77,9 +93,44 @@ The label also accepts a React component.
 ### required (optional)
 - **type:** `boolean`
 - **default value:** `undefined`
-- **description:** For form validation required prop value can be set to true.
+- **description:** For form validation required prop value can be set to `true`.
 
-## `RadioButton.Button` Props of Style `tile`
+### icon
+- **type:** `String` or `ReactNode`
+- **default value:** `null`
+- **description:** Sets an icon to display on top of the label.
+
+### inlineIcon
+- **type:** `boolean`
+- **default value:** `false`
+- **description:** Sets icon position inline with the lable when `true`.
+
+### hideSelection
+- **type:** `boolean`
+- **default value:** `false`
+- **description:** Hides the radio selection when set to `true`.
+
+### reversePosition
+- **type:** `boolean`
+- **default value:** `false`
+- **description:** Switches the positions of the label and the radio button when set to `true`.
+
+### borderOn
+- **type:** `boolean`
+- **default value:** `false`
+- **description:** Adds a border to the radio button when set to `true`.
+
+### badgeItem
+- **type:** `String` or `ReactNode`
+- **default value:** `null`
+- **description:** Sets a badge to display for the radio button.
+
+### useSwitch
+- **type:** `boolean`
+- **default value:** `false`
+- **description:** Used Switch as radio button when set to `true`.
+
+## `RadioGroup.Button` Props of Style `tile`
 
 ### id (optional)
 - **type:** `string`
@@ -106,25 +157,25 @@ The label also accepts a React component.
 ### Example:
 
 ```
-<RadioButton.Group
+<RadioGroup.Group
     name="food"
     defaultValue="food-1"
     onChange={ ( value ) => console.log( value ) }
 >
-    <RadioButton.Button value="food-1" />
-    <RadioButton.Button value="food-2" />
-    <RadioButton.Button value="food-3" />
-</RadioButton.Group>
+    <RadioGroup.Button value="food-1" />
+    <RadioGroup.Button value="food-2" />
+    <RadioGroup.Button value="food-3" />
+</RadioGroup.Group>
 
-<RadioButton.Group
+<RadioGroup.Group
     value={selectedValue}   
     onChange={handleRadioChange}
     style='tile'
 >
-    <RadioButton.Button value="option1"><Plus /></RadioButton.Button>
-    <RadioButton.Button value="option2"><Plus /></RadioButton.Button>
-    <RadioButton.Button value="option3"><Plus /></RadioButton.Button>
-</RadioButton.Group>
+    <RadioGroup.Button value="option1"><Plus /></RadioGroup.Button>
+    <RadioGroup.Button value="option2"><Plus /></RadioGroup.Button>
+    <RadioGroup.Button value="option3"><Plus /></RadioGroup.Button>
+</RadioGroup.Group>
 
 
 ```

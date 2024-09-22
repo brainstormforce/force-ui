@@ -11,7 +11,7 @@ import React, {
 import { nanoid } from 'nanoid';
 import { Check } from 'lucide-react';
 
-import { cn, getGridColsClass } from '@/utilities/functions';
+import { cn, columnClasses } from '@/utilities/functions';
 import Switch from '../switch';
 
 const RadioButtonContext = createContext();
@@ -78,7 +78,8 @@ const RadioButtonGroup = ( {
 	);
 	className = cn(
 		`grid grid-cols-4 gap-2`,
-		getGridColsClass( columns ),
+		columnClasses[ columns ],
+		style === 'tile' && 'gap-0',
 		vertical && 'grid-cols-1',
 		className
 	);
@@ -133,15 +134,16 @@ const RadioButtonComponent = (
 		id,
 		label,
 		value,
-		boxIcon,
-		hideSelection,
-		reversePosition = false,
-		borderOn = false,
-		badgeItem,
-		useSwitch = false,
 		children,
 		disabled,
 		size = 'md',
+		icon = null,
+		inlineIcon = false,
+		hideSelection = false,
+		reversePosition = false,
+		borderOn = false,
+		badgeItem = null,
+		useSwitch = false,
 		...props
 	},
 	ref
@@ -206,8 +208,8 @@ const RadioButtonComponent = (
 	};
 	const disabledClassNames = {
 		checkbox:
-			'disabled:bg-white checked:disabled:bg-white disabled:border-border-disabled checked:disabled:border-border-disabled',
-		icon: 'peer-disabled:text-border-disabled',
+			'disabled:bg-white checked:disabled:bg-white disabled:border-border-disabled checked:disabled:border-border-disabled cursor-not-allowed',
+		icon: 'peer-disabled:text-border-disabled cursor-not-allowed',
 	};
 
 	const renderLabel = useCallback( () => {
@@ -221,22 +223,27 @@ const RadioButtonComponent = (
 		return (
 			<div
 				className={ cn(
-					'space-y-1.5 mt-[2px]',
-					reversePosition && 'ml-8'
+					! inlineIcon && 'space-y-1.5 mt-[2px]',
+					reversePosition && ( useSwitch ? 'ml-10' : 'ml-4' ),
+					inlineIcon && 'flex gap-2'
 				) }
 			>
-				{ boxIcon && <span>{ boxIcon } </span> }
-				<p
-					className={ cn(
-						'text-text-primary text-sm font-medium leading-4 m-0',
-						boxIcon && 'mt-1'
+				{ icon && <span>{ icon } </span> }
+				<div className={ cn( 'space-y-1.5' ) }>
+					<p
+						className={ cn(
+							'text-text-primary text-sm font-medium leading-4 m-0',
+							icon && 'mt-1'
+						) }
+					>
+						{ label.heading }
+					</p>
+					{ label.description && (
+						<p className="text-text-tertiary text-sm font-normal leading-5 m-0">
+							{ label.description }
+						</p>
 					) }
-				>
-					{ label.heading }
-				</p>
-				<p className="text-text-tertiary text-sm font-normal leading-5 m-0">
-					{ label.description }
-				</p>
+				</div>
 			</div>
 		);
 	}, [ label ] );
@@ -261,12 +268,18 @@ const RadioButtonComponent = (
 				!! label && 'items-start justify-between min-w-[180px] ',
 				borderOn &&
 					'border border-border-subtle border-solid rounded-md shadow-sm hover:ring-2 hover:ring-border-interactive',
-				size === 'sm' ? 'px-3 py-3' : 'px-4 py-4'
+				borderOn && checkedValue && 'ring-2 ring-border-interactive',
+				size === 'sm' ? 'px-3 py-3' : 'px-4 py-4',
+				'pr-12',
+				isDisabled && 'cursor-not-allowed'
 			) }
 		>
 			{ !! label && (
 				<label
-					className={ cn( ! isDisabled && 'cursor-pointer' ) }
+					className={ cn(
+						'cursor-pointer',
+						isDisabled && 'cursor-not-allowed'
+					) }
 					htmlFor={ radioButtonId }
 				>
 					{ renderLabel() }
@@ -274,10 +287,9 @@ const RadioButtonComponent = (
 			) }
 			<label
 				className={ cn(
-					'absolute right-3 flex items-center rounded-full',
+					'absolute mr-[2px] right-3 flex items-center cursor-pointer rounded-full',
 					reversePosition && 'left-0',
-
-					! isDisabled && 'cursor-pointer'
+					isDisabled && 'cursor-not-allowed'
 				) }
 				htmlFor={ radioButtonId }
 			>
@@ -295,7 +307,7 @@ const RadioButtonComponent = (
 						<span className="relative">
 							<input
 								ref={ ref }
-								id={ multiSelection ? '' : radioButtonId }
+								id={ radioButtonId }
 								type={ multiSelection ? 'checkbox' : 'radio' }
 								className={ cn(
 									"peer relative cursor-pointer appearance-none transition-all m-0 before:content-[''] checked:before:content-[''] checked:before:hidden before:hidden !border-1.5 border-solid",
@@ -304,7 +316,7 @@ const RadioButtonComponent = (
 									sizeClassNames[ size ].checkbox,
 									isDisabled && disabledClassNames.checkbox
 								) }
-								name={ multiSelection ? '' : name }
+								name={ name }
 								value={ value }
 								onChange={ ( e ) => onChange( e.target.value ) }
 								checked={ checkedValue }
@@ -319,12 +331,16 @@ const RadioButtonComponent = (
 								) }
 							>
 								{ multiSelection ? (
-									<Check className="size-3" />
+									<Check
+										className={
+											size === 'sm' ? 'size-3' : 'size-4'
+										}
+									/>
 								) : (
 									<div
 										className={ cn(
 											'rounded-full bg-current',
-											size === 'sm' && 'mt-[1px]',
+											size === 'sm' && 'mt-[2px]',
 											sizeClassNames[ size ]?.icon
 										) }
 									/>

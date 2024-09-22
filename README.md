@@ -73,7 +73,7 @@ git checkout fui-setup
 
 ```bash
 
-cd forceui
+cd force-ui
 
 ```
 
