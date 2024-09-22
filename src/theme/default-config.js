@@ -167,15 +167,6 @@ const defaultTheme = {
 				'toggle-on-hover': '#3B82F6',
 				'toggle-on-border': '#60A5FA',
 				'toggle-off-disabled': '#F3F4F6',
-				// radio-group
-				'radio-button-background': '#FFFFFF',
-				'radio-button-border': '#E5E7EB',
-				'radio-button-hover': '#F3F4F6',
-				'radio-button-selected': '#2563EB',
-				'radio-button-selected-hover': '#1D4ED8',
-				'radio-button-disabled': '#F9FAFB',
-				'radio-button-disabled-border': '#E5E7EB',
-				'radio-button-disabled-background': '#F9FAFB',
 
 			},
 			width: {
