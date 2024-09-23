@@ -15544,10 +15544,11 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var framer_motion__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! framer-motion */ "./node_modules/framer-motion/dist/es/render/components/motion/proxy.mjs");
-/* harmony import */ var framer_motion__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! framer-motion */ "./node_modules/framer-motion/dist/es/components/AnimatePresence/index.mjs");
-/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/chevron-down.js");
+/* harmony import */ var framer_motion__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! framer-motion */ "./node_modules/framer-motion/dist/es/render/components/motion/proxy.mjs");
+/* harmony import */ var framer_motion__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! framer-motion */ "./node_modules/framer-motion/dist/es/components/AnimatePresence/index.mjs");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/chevron-down.js");
 /* harmony import */ var _utilities_functions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/utilities/functions */ "./src/utilities/functions.js");
+/* harmony import */ var _tooltip__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../tooltip */ "./src/components/tooltip/index.js");
 function _slicedToArray(r, e) {
   return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest();
 }
@@ -15600,6 +15601,7 @@ function _arrayWithHoles(r) {
 
 
 
+
 var MenuContext = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.createContext)();
 var useMenuContext = function useMenuContext() {
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(MenuContext);
@@ -15608,14 +15610,17 @@ var Menu = function Menu(_ref) {
   var _ref$size = _ref.size,
     size = _ref$size === void 0 ? 'md' : _ref$size,
     children = _ref.children,
-    className = _ref.className;
+    className = _ref.className,
+    _ref$collapsed = _ref.collapsed,
+    collapsed = _ref$collapsed === void 0 ? false : _ref$collapsed;
   var baseClasses = 'w-64 flex flex-col bg-background-primary p-2';
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(MenuContext.Provider, {
     value: {
-      size: size
+      size: size,
+      collapsed: collapsed
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-    className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_1__.cn)(baseClasses, className)
+    className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_1__.cn)(baseClasses, collapsed && 'w-max	p-0', className)
   }, children));
 };
 var MenuList = function MenuList(_ref2) {
@@ -15633,7 +15638,8 @@ var MenuList = function MenuList(_ref2) {
     isOpen = _useState2[0],
     setIsOpen = _useState2[1];
   var _useMenuContext = useMenuContext(),
-    size = _useMenuContext.size;
+    size = _useMenuContext.size,
+    collapsed = _useMenuContext.collapsed;
   var baseClasses = 'text-text-primary bg-transparent cursor-pointer flex justify-between items-center p-1 gap-1';
   var sizeClasses = (_sm$md = {
     sm: 'text-xs',
@@ -15668,7 +15674,7 @@ var MenuList = function MenuList(_ref2) {
     }
   };
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-    className: "p-2"
+    className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_1__.cn)(!collapsed && 'p-2')
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     role: "button",
     tabIndex: "0",
@@ -15678,20 +15684,20 @@ var MenuList = function MenuList(_ref2) {
         handleToggle();
       }
     },
-    className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_1__.cn)(baseClasses, sizeClasses, className),
-    "aria-expanded": isOpen
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", {
+    className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_1__.cn)(baseClasses, collapsed && 'p-0', sizeClasses, className),
+    "aria-expanded": isOpen || collapsed
+  }, !collapsed && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", {
     className: "text-text-tertiary"
-  }, heading), arrow && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(framer_motion__WEBPACK_IMPORTED_MODULE_2__.motion.span, {
+  }, heading), arrow && !collapsed && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(framer_motion__WEBPACK_IMPORTED_MODULE_3__.motion.span, {
     variants: arrowAnimationVariants,
-    animate: isOpen ? 'open' : 'closed',
+    animate: isOpen || collapsed ? 'open' : 'closed',
     transition: {
       duration: 0.15
     },
     className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_1__.cn)('flex items-center text-border-strong', iconSizeClasses)
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(lucide_react__WEBPACK_IMPORTED_MODULE_3__["default"], null))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(framer_motion__WEBPACK_IMPORTED_MODULE_4__.AnimatePresence, {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(lucide_react__WEBPACK_IMPORTED_MODULE_4__["default"], null))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(framer_motion__WEBPACK_IMPORTED_MODULE_5__.AnimatePresence, {
     initial: false
-  }, isOpen && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(framer_motion__WEBPACK_IMPORTED_MODULE_2__.motion.ul, {
+  }, (isOpen || collapsed) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(framer_motion__WEBPACK_IMPORTED_MODULE_3__.motion.ul, {
     variants: listAnimationVariants,
     initial: "closed",
     animate: "open",
@@ -15712,7 +15718,8 @@ var MenuItem = function MenuItem(_ref3) {
     children = _ref3.children,
     className = _ref3.className;
   var _useMenuContext2 = useMenuContext(),
-    size = _useMenuContext2.size;
+    size = _useMenuContext2.size,
+    collapsed = _useMenuContext2.collapsed;
   var baseClasses = 'flex p-1 gap-1 items-center bg-transparent w-full border-none rounded text-text-secondary cursor-pointer m-0';
   var sizeClasses = (_sm$md3 = {
     sm: '[&>svg]:size-4 [&>svg]:m-1 [&>*:not(svg)]:mx-1 [&>*:not(svg)]:my-0.5 text-sm',
@@ -17267,8 +17274,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _utilities_functions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/utilities/functions */ "./src/utilities/functions.js");
-/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/panel-left-close.js");
-var _excluded = ["children", "className"];
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/panel-left-open.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/panel-left-close.js");
+/* harmony import */ var _tooltip__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../tooltip */ "./src/components/tooltip/index.js");
+var _excluded = ["children", "className", "onCollapseChange"];
 function _extends() {
   return _extends = Object.assign ? Object.assign.bind() : function (n) {
     for (var e = 1; e < arguments.length; e++) {
@@ -17277,6 +17286,54 @@ function _extends() {
     }
     return n;
   }, _extends.apply(null, arguments);
+}
+function _slicedToArray(r, e) {
+  return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest();
+}
+function _nonIterableRest() {
+  throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+}
+function _unsupportedIterableToArray(r, a) {
+  if (r) {
+    if ("string" == typeof r) return _arrayLikeToArray(r, a);
+    var t = {}.toString.call(r).slice(8, -1);
+    return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0;
+  }
+}
+function _arrayLikeToArray(r, a) {
+  (null == a || a > r.length) && (a = r.length);
+  for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e];
+  return n;
+}
+function _iterableToArrayLimit(r, l) {
+  var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"];
+  if (null != t) {
+    var e,
+      n,
+      i,
+      u,
+      a = [],
+      f = !0,
+      o = !1;
+    try {
+      if (i = (t = t.call(r)).next, 0 === l) {
+        if (Object(t) !== t) return;
+        f = !1;
+      } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0);
+    } catch (r) {
+      o = !0, n = r;
+    } finally {
+      try {
+        if (!f && null != t.return && (u = t.return(), Object(u) !== u)) return;
+      } finally {
+        if (o) throw n;
+      }
+    }
+    return a;
+  }
+}
+function _arrayWithHoles(r) {
+  if (Array.isArray(r)) return r;
 }
 function _objectWithoutProperties(e, t) {
   if (null == e) return {};
@@ -17301,13 +17358,62 @@ function _objectWithoutPropertiesLoose(r, e) {
 
 
 
+
+var SidebarContext = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.createContext)();
 var Sidebar = function Sidebar(_ref) {
   var children = _ref.children,
     className = _ref.className,
+    onCollapseChange = _ref.onCollapseChange,
     props = _objectWithoutProperties(_ref, _excluded);
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", _extends({
-    className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_1__.cn)('h-screen overflow-auto p-4 gap-4 flex flex-col bg-background-primary border-0 border-r border-solid border-gray-300', className)
-  }, props), children);
+  var sideBarRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(function () {
+      var storedState = localStorage.getItem('sidebar-collapsed');
+      var isSmallScreen = window.innerWidth < 1280;
+      if (storedState) {
+        return JSON.parse(storedState);
+      }
+      return isSmallScreen;
+    }),
+    _useState2 = _slicedToArray(_useState, 2),
+    isCollapsed = _useState2[0],
+    setIsCollapsed = _useState2[1];
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    if (onCollapseChange) {
+      onCollapseChange(isCollapsed);
+    }
+  }, [isCollapsed, onCollapseChange]);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    var handleScreenResize = function handleScreenResize() {
+      var isSmallScreen = window.innerWidth < 1280;
+      if (isSmallScreen) {
+        setIsCollapsed(true);
+        localStorage.setItem("sidebar-collapsed", JSON.stringify(true));
+      } else {
+        var storedState = localStorage.getItem("sidebar-collapsed");
+        setIsCollapsed(storedState ? JSON.parse(storedState) : false);
+      }
+
+      // Height update logic
+      if (sideBarRef.current) {
+        sideBarRef.current.style.height = "".concat(window.innerHeight, "px");
+      }
+    };
+    window.addEventListener("resize", handleScreenResize);
+    handleScreenResize(); // Set the initial state based on the current screen size
+
+    return function () {
+      window.removeEventListener("resize", handleScreenResize);
+    };
+  }, []);
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(SidebarContext.Provider, {
+    value: {
+      isCollapsed: isCollapsed,
+      setIsCollapsed: setIsCollapsed
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", _extends({
+    ref: sideBarRef,
+    className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_1__.cn)('h-screen overflow-auto w-72 px-4 py-4 gap-4 flex flex-col bg-background-primary border-0 border-r border-solid border-gray-300', 'transition-all duration-200', isCollapsed && 'w-16 px-2', className)
+  }, props), children));
 };
 var Header = function Header(_ref2) {
   var children = _ref2.children;
@@ -17323,11 +17429,25 @@ var Body = function Body(_ref3) {
 };
 var Footer = function Footer(_ref4) {
   var children = _ref4.children;
+  var _useContext = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(SidebarContext),
+    isCollapsed = _useContext.isCollapsed,
+    setIsCollapsed = _useContext.setIsCollapsed;
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-    className: "space-y-2"
-  }, children, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(lucide_react__WEBPACK_IMPORTED_MODULE_2__["default"], {
-    size: "24"
-  })));
+    className: "space-y-4"
+  }, children, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", {
+    className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_1__.cn)('flex items-center gap-2 text-base cursor-pointer', isCollapsed && 'justify-center'),
+    onClick: function onClick() {
+      setIsCollapsed(!isCollapsed);
+      localStorage.setItem("sidebar-collapsed", JSON.stringify(!isCollapsed));
+    }
+  }, isCollapsed ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_tooltip__WEBPACK_IMPORTED_MODULE_2__["default"], {
+    title: "Expand",
+    placement: "right"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(lucide_react__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    className: "w-5 h-5"
+  }))) : /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(lucide_react__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    className: "w-5 h-5"
+  }), " Collapse")));
 };
 var Item = function Item(_ref5) {
   var children = _ref5.children,
@@ -45021,6 +45141,38 @@ const PanelLeftClose = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["def
 
 
 //# sourceMappingURL=panel-left-close.js.map
+
+
+/***/ }),
+
+/***/ "./node_modules/lucide-react/dist/esm/icons/panel-left-open.js":
+/*!*********************************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/icons/panel-left-open.js ***!
+  \*********************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": function() { return /* binding */ PanelLeftOpen; }
+/* harmony export */ });
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../createLucideIcon.js */ "./node_modules/lucide-react/dist/esm/createLucideIcon.js");
+/**
+ * @license lucide-react v0.417.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+
+const PanelLeftOpen = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["default"])("PanelLeftOpen", [
+  ["rect", { width: "18", height: "18", x: "3", y: "3", rx: "2", key: "afitv7" }],
+  ["path", { d: "M9 3v18", key: "fh3hqa" }],
+  ["path", { d: "m14 9 3 3-3 3", key: "8010ee" }]
+]);
+
+
+//# sourceMappingURL=panel-left-open.js.map
 
 
 /***/ }),

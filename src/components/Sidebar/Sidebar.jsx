@@ -1,33 +1,120 @@
-import React from 'react';
+import React, {
+	createContext,
+	useContext,
+	useState,
+	useRef,
+	useEffect,
+} from 'react';
 import { cn } from '@/utilities/functions';
-import { PanelLeftClose } from 'lucide-react';
+import { PanelLeftClose, PanelLeftOpen } from 'lucide-react';
+import Tooltip from '../tooltip';
+const SidebarContext = createContext();
 
-const Sidebar = ( { children, className, ...props } ) => {
+const Sidebar = ({ children, className, onCollapseChange, ...props }) => {
+	const sideBarRef = useRef(null);
+	const [isCollapsed, setIsCollapsed] = useState(() => {
+		const storedState = localStorage.getItem('sidebar-collapsed');
+		const isSmallScreen = window.innerWidth < 1280;
+		if (storedState) {
+			return JSON.parse(storedState);
+		}
+		return isSmallScreen;
+	});
+
+	useEffect(() => {
+		if (onCollapseChange) {
+			onCollapseChange(isCollapsed);
+		}
+	}, [isCollapsed, onCollapseChange]);
+
+	useEffect(() => {
+		const handleScreenResize = () => {
+		  const isSmallScreen = window.innerWidth < 1280;
+		  if (isSmallScreen) {
+			setIsCollapsed(true);
+			localStorage.setItem("sidebar-collapsed", JSON.stringify(true));
+		  } else {
+			const storedState = localStorage.getItem("sidebar-collapsed");
+			setIsCollapsed(storedState ? JSON.parse(storedState) : false);
+		  }
+	
+		  // Height update logic
+		  if (sideBarRef.current) {
+			sideBarRef.current.style.height = `${window.innerHeight}px`;
+		  }
+		};
+	
+		window.addEventListener("resize", handleScreenResize);
+		handleScreenResize(); // Set the initial state based on the current screen size
+	
+		return () => {
+		  window.removeEventListener("resize", handleScreenResize);
+		};
+	  }, []);
+
 	return (
-		<div className={ cn( 'h-screen overflow-auto p-4 gap-4 flex flex-col bg-background-primary border-0 border-r border-solid border-gray-300', className ) } { ...props }>
-			{ children }
+		<SidebarContext.Provider value={{ isCollapsed, setIsCollapsed }}>
+			<div
+				ref={sideBarRef}
+				className={cn(
+					'h-screen overflow-auto w-72 px-4 py-4 gap-4 flex flex-col bg-background-primary border-0 border-r border-solid border-gray-300',
+					'transition-all duration-200',
+					isCollapsed && 'w-16 px-2',
+					className
+				)}
+				{...props}
+			>
+				{children}
+			</div>
+		</SidebarContext.Provider>
+	);
+};
+
+const Header = ({ children }) => {
+	return <div className="space-y-2">{children}</div>;
+};
+
+const Body = ({ children }) => {
+	return <div className={cn('space-y-2 grow items-start')}>{children}</div>;
+};
+
+const Footer = ({ children }) => {
+	const { isCollapsed, setIsCollapsed } = useContext(SidebarContext);
+	return (
+		<div className="space-y-4">
+			{children}
+			<span
+				className={cn(
+					'flex items-center gap-2 text-base cursor-pointer',
+					isCollapsed && 'justify-center'
+				)}
+				
+				onClick={() => {
+					setIsCollapsed(!isCollapsed);
+					localStorage.setItem(
+					  "sidebar-collapsed",
+					  JSON.stringify(!isCollapsed)
+					);
+				  }}
+			>
+				{isCollapsed ? (
+					<>
+						<Tooltip title="Expand" placement="right">
+							<PanelLeftOpen className="w-5 h-5" />
+						</Tooltip>
+					</>
+				) : (
+					<>
+						<PanelLeftClose className="w-5 h-5" /> Collapse
+					</>
+				)}
+			</span>
 		</div>
 	);
 };
 
-const Header = ( { children } ) => {
-	return <div className="space-y-2">{ children }</div>;
-};
-
-const Body = ( { children } ) => {
-	return <div className={ cn( 'space-y-2 grow items-start' ) }>{ children }</div>;
-};
-
-const Footer = ( { children } ) => {
-	return <div className="space-y-2">{ children }
-	<span>
-		<PanelLeftClose size="24" />
-	</span>
-	</div>;
-};
-
-const Item = ( { children, className } ) => {
-	return <div className={ cn('w-full', className ) }>{ children }</div>;
+const Item = ({ children, className }) => {
+	return <div className={cn('w-full', className)}>{children}</div>;
 };
 
 Sidebar.Header = Header;
