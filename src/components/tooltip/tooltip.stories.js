@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Tooltip from './tooltip.jsx';
 import { CircleHelp } from 'lucide-react'; 
+import Label from '../label/label.jsx';
 
 export default {
   title: 'Molecules/Tooltip',
@@ -132,4 +133,45 @@ DefaultTooltip.args = {
   arrow: true,
   triggers: ['hover', 'focus'],
   interactive: false,
+};
+
+
+export const DarkTooltipWithIcon = (args) => (
+  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '10px', justifyContent: 'center', padding: '20px' }}>
+    {['top-end', 'top', 'top-start', 'left', 'bottom', 'right'].map((placement) => (
+        <div style={{ display: 'flex', justifyContent: 'center', padding: '30px' }}>
+                <Tooltip key={placement} {...args} placement={placement}>
+                <CircleHelp style={{ fontSize: '2rem', cursor: 'pointer' }} />
+            </Tooltip>
+        </div>
+    ))}
+  </div>
+);
+
+DarkTooltipWithIcon.storyName = 'Tooltip with icon';
+
+DarkTooltipWithIcon.args = {
+  variant: 'dark',
+  title: 'Tooltip',
+  arrow: true,
+};
+
+export const DarkTooltipWithLabel = (args) => (
+  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '10px', justifyContent: 'center', padding: '20px' }}>
+    {['top-end', 'top', 'top-start', 'left', 'bottom', 'right'].map((placement) => (
+        <div style={{ display: 'flex', justifyContent: 'center', padding: '30px' }}>
+            <Tooltip key={placement} {...args} placement={placement}>
+                <Label size="md">Label</Label>
+            </Tooltip>
+        </div>
+    ))}
+  </div>
+);
+
+DarkTooltipWithLabel.storyName = 'Tooltip with label';
+
+DarkTooltipWithLabel.args = {
+  variant: 'dark',
+  title: 'Tooltip',
+  arrow: true,
 };

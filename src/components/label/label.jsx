@@ -1,10 +1,11 @@
 import { cn } from '@/utilities/functions';
+import React, { forwardRef } from 'react';
 
 /**
  * Label component.
  */
 
-const Label = ( {
+const Label = forwardRef(( {
 	children = null,
 	tag = 'label',
 	size = 'sm', // xs, sm, md
@@ -12,7 +13,7 @@ const Label = ( {
 	variant = 'neutral', // neutral, help, error, disabled
 	required = false,
 	...props
-} ) => {
+}, ref ) => {
 	// Base classes. - Mandatory classes.
 	const baseClasses =
 		'font-medium text-field-label flex items-center gap-0.5';
@@ -48,6 +49,7 @@ const Label = ( {
 
 	return (
 		<Tag
+            ref={ref}
 			className={ cn(
 				baseClasses,
 				sizeClasses[ size ],
@@ -60,6 +62,6 @@ const Label = ( {
 			{ children }
 		</Tag>
 	);
-};
+});
 
 export default Label;
