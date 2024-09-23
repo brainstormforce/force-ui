@@ -50,7 +50,7 @@ export default {
 			},
 		},
 		closable: {
-			name: 'Clasable',
+			name: 'Closable',
 			description: 'Defines if the badge is closable.',
 			control: 'boolean',
 			table: {
