@@ -92,7 +92,7 @@ const MenuList = ( {
 						animate="open"
 						exit="closed"
 						transition={ { duration: 0.3, ease: 'easeInOut' } }
-						className="overflow-hidden flex gap-0.5 flex-col m-0 bg-white rounded-md"
+						className="overflow-hidden flex gap-0.5 flex-col m-0 bg-white rounded-md p-0"
 					>
 						{ children }
 					</motion.ul>
