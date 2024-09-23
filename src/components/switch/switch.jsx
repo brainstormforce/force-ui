@@ -13,16 +13,13 @@ const SwitchLabel = ( { label, switchId, disabled = false, children } ) => {
 	const isLabelAComponent = isValidElement( label );
 	if ( isLabelAComponent ) {
 		return (
-			<div className={ cn( 'inline-flex items-center', 'items-start' ) }>
+			<div className={ cn( 'inline-flex items-center gap-3', 'items-start' ) }>
 				{ children }
 				{ label }
 			</div>
 		);
 	}
 	const renderLabel = () => {
-		if ( isValidElement( label ) ) {
-			return label;
-		}
 		const { heading = '', description = '' } = label || {};
 		return (
 			<div className="space-y-1.5">
@@ -48,11 +45,11 @@ const SwitchLabel = ( { label, switchId, disabled = false, children } ) => {
 	}
 
 	return (
-		<div className={ cn( 'inline-flex', alignmentClass ) }>
+		<div className={ cn( 'inline-flex', alignmentClass, 'gap-3' ) }>
 			{ children }
 			<label
 				htmlFor={ switchId }
-				className={ cn( 'ml-3', ! disabled && 'cursor-pointer' ) }
+				className={ cn( ! disabled && 'cursor-pointer' ) }
 			>
 				{ renderLabel() }
 			</label>
