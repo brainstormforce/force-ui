@@ -5,7 +5,7 @@ import React, { forwardRef } from 'react';
  * Label component.
  */
 
-const Label = forwardRef(( {
+const Label = forwardRef( ( {
 	children = null,
 	tag = 'label',
 	size = 'sm', // xs, sm, md
@@ -49,7 +49,7 @@ const Label = forwardRef(( {
 
 	return (
 		<Tag
-            ref={ref}
+			ref={ ref }
 			className={ cn(
 				baseClasses,
 				sizeClasses[ size ],
@@ -62,6 +62,6 @@ const Label = forwardRef(( {
 			{ children }
 		</Tag>
 	);
-});
+} );
 
 export default Label;
