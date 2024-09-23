@@ -15039,6 +15039,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   ProgressSteps: function() { return /* reexport safe */ _progress_steps_index__WEBPACK_IMPORTED_MODULE_20__["default"]; },
 /* harmony export */   RadioButton: function() { return /* reexport safe */ _radio_button_index__WEBPACK_IMPORTED_MODULE_3__["default"]; },
 /* harmony export */   Select: function() { return /* reexport safe */ _select_index__WEBPACK_IMPORTED_MODULE_15__["default"]; },
+/* harmony export */   Sidebar: function() { return /* reexport safe */ _sidebar_index__WEBPACK_IMPORTED_MODULE_23__["default"]; },
 /* harmony export */   Skeleton: function() { return /* reexport safe */ _skeleton_index__WEBPACK_IMPORTED_MODULE_21__["default"]; },
 /* harmony export */   Switch: function() { return /* reexport safe */ _switch_index__WEBPACK_IMPORTED_MODULE_1__["default"]; },
 /* harmony export */   Tabs: function() { return /* reexport safe */ _tabs_index__WEBPACK_IMPORTED_MODULE_14__["default"]; },
@@ -15071,6 +15072,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _progress_steps_index__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./progress-steps/index */ "./src/components/progress-steps/index.js");
 /* harmony import */ var _skeleton_index__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./skeleton/index */ "./src/components/skeleton/index.js");
 /* harmony import */ var _menu_item_index__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./menu-item/index */ "./src/components/menu-item/index.js");
+/* harmony import */ var _sidebar_index__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./sidebar/index */ "./src/components/sidebar/index.js");
+
 
 
 
@@ -17236,6 +17239,108 @@ Select.Button = SelectButton;
 Select.Options = SelectOptions;
 Select.Option = SelectItem;
 /* harmony default export */ __webpack_exports__["default"] = (Select);
+
+/***/ }),
+
+/***/ "./src/components/sidebar/index.js":
+/*!*****************************************!*\
+  !*** ./src/components/sidebar/index.js ***!
+  \*****************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": function() { return /* reexport safe */ _sidebar_jsx__WEBPACK_IMPORTED_MODULE_0__["default"]; }
+/* harmony export */ });
+/* harmony import */ var _sidebar_jsx__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./sidebar.jsx */ "./src/components/sidebar/sidebar.jsx");
+
+
+/***/ }),
+
+/***/ "./src/components/sidebar/sidebar.jsx":
+/*!********************************************!*\
+  !*** ./src/components/sidebar/sidebar.jsx ***!
+  \********************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _utilities_functions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/utilities/functions */ "./src/utilities/functions.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/panel-left-close.js");
+var _excluded = ["children", "className"];
+function _extends() {
+  return _extends = Object.assign ? Object.assign.bind() : function (n) {
+    for (var e = 1; e < arguments.length; e++) {
+      var t = arguments[e];
+      for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]);
+    }
+    return n;
+  }, _extends.apply(null, arguments);
+}
+function _objectWithoutProperties(e, t) {
+  if (null == e) return {};
+  var o,
+    r,
+    i = _objectWithoutPropertiesLoose(e, t);
+  if (Object.getOwnPropertySymbols) {
+    var s = Object.getOwnPropertySymbols(e);
+    for (r = 0; r < s.length; r++) o = s[r], t.includes(o) || {}.propertyIsEnumerable.call(e, o) && (i[o] = e[o]);
+  }
+  return i;
+}
+function _objectWithoutPropertiesLoose(r, e) {
+  if (null == r) return {};
+  var t = {};
+  for (var n in r) if ({}.hasOwnProperty.call(r, n)) {
+    if (e.includes(n)) continue;
+    t[n] = r[n];
+  }
+  return t;
+}
+
+
+
+var Sidebar = function Sidebar(_ref) {
+  var children = _ref.children,
+    className = _ref.className,
+    props = _objectWithoutProperties(_ref, _excluded);
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", _extends({
+    className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_1__.cn)('h-screen overflow-auto p-4 gap-4 flex flex-col bg-background-primary border-0 border-r border-solid border-gray-300', className)
+  }, props), children);
+};
+var Header = function Header(_ref2) {
+  var children = _ref2.children;
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "space-y-2"
+  }, children);
+};
+var Body = function Body(_ref3) {
+  var children = _ref3.children;
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_1__.cn)('space-y-2 grow items-start')
+  }, children);
+};
+var Footer = function Footer(_ref4) {
+  var children = _ref4.children;
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "space-y-2"
+  }, children, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(lucide_react__WEBPACK_IMPORTED_MODULE_2__["default"], {
+    size: "24"
+  })));
+};
+var Item = function Item(_ref5) {
+  var children = _ref5.children,
+    className = _ref5.className;
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_1__.cn)('w-full', className)
+  }, children);
+};
+Sidebar.Header = Header;
+Sidebar.Body = Body;
+Sidebar.Footer = Footer;
+Sidebar.Item = Item;
+/* harmony default export */ __webpack_exports__["default"] = (Sidebar);
 
 /***/ }),
 
@@ -44888,6 +44993,38 @@ const Minus = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["default"])("
 
 /***/ }),
 
+/***/ "./node_modules/lucide-react/dist/esm/icons/panel-left-close.js":
+/*!**********************************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/icons/panel-left-close.js ***!
+  \**********************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": function() { return /* binding */ PanelLeftClose; }
+/* harmony export */ });
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../createLucideIcon.js */ "./node_modules/lucide-react/dist/esm/createLucideIcon.js");
+/**
+ * @license lucide-react v0.417.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+
+const PanelLeftClose = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["default"])("PanelLeftClose", [
+  ["rect", { width: "18", height: "18", x: "3", y: "3", rx: "2", key: "afitv7" }],
+  ["path", { d: "M9 3v18", key: "fh3hqa" }],
+  ["path", { d: "m16 15-3-3 3-3", key: "14y99z" }]
+]);
+
+
+//# sourceMappingURL=panel-left-close.js.map
+
+
+/***/ }),
+
 /***/ "./node_modules/lucide-react/dist/esm/icons/plus.js":
 /*!**********************************************************!*\
   !*** ./node_modules/lucide-react/dist/esm/icons/plus.js ***!
@@ -49824,6 +49961,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   ProgressSteps: function() { return /* reexport safe */ _components__WEBPACK_IMPORTED_MODULE_1__.ProgressSteps; },
 /* harmony export */   RadioButton: function() { return /* reexport safe */ _components__WEBPACK_IMPORTED_MODULE_1__.RadioButton; },
 /* harmony export */   Select: function() { return /* reexport safe */ _components__WEBPACK_IMPORTED_MODULE_1__.Select; },
+/* harmony export */   Sidebar: function() { return /* reexport safe */ _components__WEBPACK_IMPORTED_MODULE_1__.Sidebar; },
 /* harmony export */   Skeleton: function() { return /* reexport safe */ _components__WEBPACK_IMPORTED_MODULE_1__.Skeleton; },
 /* harmony export */   Switch: function() { return /* reexport safe */ _components__WEBPACK_IMPORTED_MODULE_1__.Switch; },
 /* harmony export */   Tabs: function() { return /* reexport safe */ _components__WEBPACK_IMPORTED_MODULE_1__.Tabs; },
