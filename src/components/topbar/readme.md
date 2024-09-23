@@ -10,6 +10,19 @@ The `Topbar` is a flexible navigation bar component that provides three sections
 - **Type:** `ReactNode`
 - **Description:** Elements to render inside the Topbar container, typically the `Topbar.Left`, `Topbar.Middle`, and `Topbar.Right` components.
 
+### gap
+- **Type:** `string`
+- **Default:** `"lg"`
+- **Description:** Defines the gap between Topbar sections.
+    - `"0"`
+    - `"xxs"`
+    - `"xs"`
+    - `"sm"`
+    - `"md"`
+    - `"lg"`
+    - `"xl"`
+    - `"2xl"`
+
 ### `className`
 - **Type:** `string`
 - **Description:** Additional classes to customize the Topbar container's styles.
@@ -19,6 +32,19 @@ The `Topbar` is a flexible navigation bar component that provides three sections
 ### `children`
 - **Type:** `ReactNode`
 - **Description:** Elements to render inside the `Topbar.Left` container, usually icons, logos, or navigation items.
+
+### gap
+- **Type:** `string`
+- **Default:** `"sm"`
+- **Description:** Defines the gap between Topbar.Left items.
+    - `"0"`
+    - `"xxs"`
+    - `"xs"`
+    - `"sm"`
+    - `"md"`
+    - `"lg"`
+    - `"xl"`
+    - `"2xl"`
 
 ## `Topbar.Middle` Props
 
@@ -34,11 +60,37 @@ The `Topbar` is a flexible navigation bar component that provides three sections
 - **Type:** `ReactNode`
 - **Description:** Elements to render inside the `Topbar.Middle` container, usually navigation links, buttons, or other interactive elements.
 
+### gap
+- **Type:** `string`
+- **Default:** `"md"`
+- **Description:** Defines the gap between Topbar.Middle items.
+    - `"0"`
+    - `"xxs"`
+    - `"xs"`
+    - `"sm"`
+    - `"md"`
+    - `"lg"`
+    - `"xl"`
+    - `"2xl"`
+
 ## `Topbar.Right` Props
 
 ### `children`
 - **Type:** `ReactNode`
 - **Description:** Elements to render inside the `Topbar.Right` container, typically icons, user profile, badges, or help buttons.
+
+### gap
+- **Type:** `string`
+- **Default:** `"sm"`
+- **Description:** Defines the gap between Topbar.Right items.
+    - `"0"`
+    - `"xxs"`
+    - `"xs"`
+    - `"sm"`
+    - `"md"`
+    - `"lg"`
+    - `"xl"`
+    - `"2xl"`
 
 ## `Topbar.Item` Props
 
