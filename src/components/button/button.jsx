@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import { cn } from '@/utilities/functions';
 
-const Button = ( props ) => {
+const Button = forwardRef( ( props, ref ) => {
 	const {
 		variant = 'primary', // primary, secondary, outline, ghost, link
 		size = 'md', // xs, sm, md, lg
@@ -67,6 +67,7 @@ const Button = ( props ) => {
 	const Tag = tag;
 	return (
 		<Tag
+			ref={ ref }
 			type={ type }
 			className={ cn(
 				iconClass,
@@ -85,6 +86,6 @@ const Button = ( props ) => {
 			{ iconRight }
 		</Tag>
 	);
-};
+} );
 
 export default Button;
