@@ -9,7 +9,6 @@ import { nanoid } from 'nanoid';
 import { cn } from '@/utilities/functions';
 
 const SwitchLabel = ( { label, switchId, disabled = false, children } ) => {
-
 	const isLabelAComponent = isValidElement( label );
 	if ( isLabelAComponent ) {
 		return (
