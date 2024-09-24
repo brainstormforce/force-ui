@@ -81,17 +81,22 @@ const CheckboxComponent = (
 			return label;
 		}
 
-		if ( ! label.heading || ! label.description ) {
+		if ( ! label.heading && ! label.description ) {
 			return null;
 		}
+
 		return (
 			<div className="space-y-1.5">
-				<p className="text-text-primary text-base font-medium leading-4 m-0">
-					{ label.heading }
-				</p>
-				<p className="text-text-secondary text-sm font-normal leading-5 m-0">
-					{ label.description }
-				</p>
+				{ label.heading && (
+					<p className="text-text-primary text-base font-medium leading-4 m-0">
+						{ label.heading }
+					</p>
+				) }
+				{ label.description && (
+					<p className="text-text-secondary text-sm font-normal leading-5 m-0">
+						{ label.description }
+					</p>
+				) }
 			</div>
 		);
 	}, [ label ] );
