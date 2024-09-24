@@ -10,7 +10,14 @@ import { PanelLeftClose, PanelLeftOpen } from 'lucide-react';
 import Tooltip from '../tooltip';
 const SidebarContext = createContext();
 
-const Sidebar = ({ children, className, onCollapseChange, ...props }) => {
+const Sidebar = ({
+	children,
+	className,
+	onCollapseChange,
+	screenHeight = true,
+	borderOn = true,
+	...props
+}) => {
 	const sideBarRef = useRef(null);
 	const [isCollapsed, setIsCollapsed] = useState(() => {
 		const storedState = localStorage.getItem('sidebar-collapsed');
@@ -29,35 +36,40 @@ const Sidebar = ({ children, className, onCollapseChange, ...props }) => {
 
 	useEffect(() => {
 		const handleScreenResize = () => {
-		  const isSmallScreen = window.innerWidth < 1280;
-		  if (isSmallScreen) {
-			setIsCollapsed(true);
-			localStorage.setItem("sidebar-collapsed", JSON.stringify(true));
-		  } else {
-			const storedState = localStorage.getItem("sidebar-collapsed");
-			setIsCollapsed(storedState ? JSON.parse(storedState) : false);
-		  }
-	
-		  // Height update logic
-		  if (sideBarRef.current) {
-			sideBarRef.current.style.height = `${window.innerHeight}px`;
-		  }
+			const isSmallScreen = window.innerWidth < 1280;
+			if (isSmallScreen) {
+				setIsCollapsed(true);
+				localStorage.setItem('sidebar-collapsed', JSON.stringify(true));
+			} else {
+				const storedState = localStorage.getItem('sidebar-collapsed');
+				setIsCollapsed(storedState ? JSON.parse(storedState) : false);
+			}
+
+			if (sideBarRef.current) {
+				if (!!screenHeight) {
+					sideBarRef.current.style.height = `${window.innerHeight}px`; 
+				} else {
+					sideBarRef.current.style.height = 'auto'; 
+				}
+			}
 		};
-	
-		window.addEventListener("resize", handleScreenResize);
-		handleScreenResize(); // Set the initial state based on the current screen size
-	
+
+		window.addEventListener('resize', handleScreenResize);
+		handleScreenResize(); 
+
 		return () => {
-		  window.removeEventListener("resize", handleScreenResize);
+			window.removeEventListener('resize', handleScreenResize);
 		};
-	  }, []);
+	}, []);
 
 	return (
 		<SidebarContext.Provider value={{ isCollapsed, setIsCollapsed }}>
 			<div
 				ref={sideBarRef}
 				className={cn(
-					'h-screen overflow-auto w-72 px-4 py-4 gap-4 flex flex-col bg-background-primary border-0 border-r border-solid border-gray-300',
+					'overflow-auto w-72 px-4 py-4 gap-4 flex flex-col bg-background-primary',
+					borderOn && 'border-0 border-r border-solid border-border-subtle',
+					!!screenHeight && 'h-screen',
 					'transition-all duration-200',
 					isCollapsed && 'w-16 px-2',
 					className
@@ -75,7 +87,7 @@ const Header = ({ children }) => {
 };
 
 const Body = ({ children }) => {
-	return <div className={cn('space-y-2 grow items-start')}>{children}</div>;
+	return <div className={cn('space-y-4 grow items-start')}>{children}</div>;
 };
 
 const Footer = ({ children }) => {
@@ -88,14 +100,13 @@ const Footer = ({ children }) => {
 					'flex items-center gap-2 text-base cursor-pointer',
 					isCollapsed && 'justify-center'
 				)}
-				
 				onClick={() => {
 					setIsCollapsed(!isCollapsed);
 					localStorage.setItem(
-					  "sidebar-collapsed",
-					  JSON.stringify(!isCollapsed)
+						'sidebar-collapsed',
+						JSON.stringify(!isCollapsed)
 					);
-				  }}
+				}}
 			>
 				{isCollapsed ? (
 					<>

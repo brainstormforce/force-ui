@@ -21,6 +21,11 @@ The `Menu` component provides container for displaying a list of navigational or
 - **Type:** `string`
 - **Description:** Additional custom classes to style the Menu.
 
+### `collapsed`
+- **Type:** `boolean`
+- **Default:** `false`
+- **Description:** Controls whether the Menu is collapsed, displaying only icons or alternate content. This is useful for saving space and providing a cleaner interface when detailed navigation is not required. For example, when used inside a `Sidebar`.
+
 
 The `Menu.List` component organizes Menu.Item components under a heading. It supports collapsible sections with an optional arrow, which can be toggled to show or hide the list of items.
 

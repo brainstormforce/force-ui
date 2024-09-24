@@ -2,7 +2,7 @@
 
 ## Description
 
-The `Sidebar` is a flexible navigation bar component that provides three sections: `Header`, `Body`, and `Footer`. It allows easy alignment and placement of items within each section.
+The `Sidebar`  component is a flexible left panel that enhances user navigation, featuring a `Header` for titles, a `Body` for interactive elements, and a `Footer` for additional actions. Customizable with props like `className` and `screenHeight`, it adapts to various screen sizes, ensuring optimal usability on both desktop and mobile devices.
 
 ## `Sidebar` Props
 
@@ -14,6 +14,20 @@ The `Sidebar` is a flexible navigation bar component that provides three section
 - **Type:** `string`
 - **Description:** Additional classes to customize the Sidebar container's styles.
 
+### `onCollapseChange`
+- **Type:** `(collapsed: boolean) => void`
+- **Description:** Callback function triggered when the Sidebar's collapse state changes. Use this to handle custom logic based on whether the Sidebar is collapsed or expanded.
+
+### `screenHeight`
+- **Type:** `boolean`
+- **default value:** `true`
+- **Description:** Controls whether the Sidebar should take up the full screen height. If `true`, the Sidebar will have a height equal to the viewport.
+
+### `borderOn`
+- **Type:** `boolean`
+- **default value:** `true`
+- **Description:** Controls whether the Sidebar should have border. If `true`, the Sidebar will have a border on the right.
+
 ## `Sidebar.Header` Props
 
 ### `children`
@@ -21,14 +35,6 @@ The `Sidebar` is a flexible navigation bar component that provides three section
 - **Description:** Elements to render inside the `Sidebar.Header` container, usually icons, logos, or navigation items.
 
 ## `Sidebar.Body` Props
-
-### `align`
-- **Type:** `string`
-- **Default:** `"center"`
-- **Description:** Defines how the content inside the Body section is aligned. Options include:
-  - `"Header"`
-  - `"center"`
-  - `"Footer"`
 
 ### `children`
 - **Type:** `ReactNode`
@@ -74,10 +80,6 @@ The `Sidebar` is a flexible navigation bar component that provides three section
         <Sidebar.Footer>
             <Sidebar.Item>
                 <Badge  />
-            </Sidebar.Item>
-            <Sidebar.Item className='flex gap-2'>
-                <CircleHelp />
-                <Megaphone />
             </Sidebar.Item>
             <Sidebar.Item>
                 <Avatar />

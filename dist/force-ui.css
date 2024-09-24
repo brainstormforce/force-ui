@@ -1061,6 +1061,10 @@
     --tw-border-opacity: 1;
     border-color: rgb(255 255 255 / var(--tw-border-opacity))
 }
+.border-background-secondary {
+    --tw-border-opacity: 1;
+    border-color: rgb(243 244 246 / var(--tw-border-opacity))
+}
 .bg-alert-background-danger {
     --tw-bg-opacity: 1;
     background-color: rgb(254 242 242 / var(--tw-bg-opacity))
@@ -1672,9 +1676,6 @@
     transition-property: transform, -webkit-transform;
     transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     transition-duration: 150ms
-}
-.duration-100 {
-    transition-duration: 100ms
 }
 .duration-150 {
     transition-duration: 150ms

@@ -17277,7 +17277,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/panel-left-open.js");
 /* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/panel-left-close.js");
 /* harmony import */ var _tooltip__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../tooltip */ "./src/components/tooltip/index.js");
-var _excluded = ["children", "className", "onCollapseChange"];
+var _excluded = ["children", "className", "onCollapseChange", "screenHeight", "borderOn"];
 function _extends() {
   return _extends = Object.assign ? Object.assign.bind() : function (n) {
     for (var e = 1; e < arguments.length; e++) {
@@ -17364,6 +17364,10 @@ var Sidebar = function Sidebar(_ref) {
   var children = _ref.children,
     className = _ref.className,
     onCollapseChange = _ref.onCollapseChange,
+    _ref$screenHeight = _ref.screenHeight,
+    screenHeight = _ref$screenHeight === void 0 ? true : _ref$screenHeight,
+    _ref$borderOn = _ref.borderOn,
+    borderOn = _ref$borderOn === void 0 ? true : _ref$borderOn,
     props = _objectWithoutProperties(_ref, _excluded);
   var sideBarRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(function () {
@@ -17387,22 +17391,23 @@ var Sidebar = function Sidebar(_ref) {
       var isSmallScreen = window.innerWidth < 1280;
       if (isSmallScreen) {
         setIsCollapsed(true);
-        localStorage.setItem("sidebar-collapsed", JSON.stringify(true));
+        localStorage.setItem('sidebar-collapsed', JSON.stringify(true));
       } else {
-        var storedState = localStorage.getItem("sidebar-collapsed");
+        var storedState = localStorage.getItem('sidebar-collapsed');
         setIsCollapsed(storedState ? JSON.parse(storedState) : false);
       }
-
-      // Height update logic
       if (sideBarRef.current) {
-        sideBarRef.current.style.height = "".concat(window.innerHeight, "px");
+        if (!!screenHeight) {
+          sideBarRef.current.style.height = "".concat(window.innerHeight, "px");
+        } else {
+          sideBarRef.current.style.height = 'auto';
+        }
       }
     };
-    window.addEventListener("resize", handleScreenResize);
-    handleScreenResize(); // Set the initial state based on the current screen size
-
+    window.addEventListener('resize', handleScreenResize);
+    handleScreenResize();
     return function () {
-      window.removeEventListener("resize", handleScreenResize);
+      window.removeEventListener('resize', handleScreenResize);
     };
   }, []);
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(SidebarContext.Provider, {
@@ -17412,7 +17417,7 @@ var Sidebar = function Sidebar(_ref) {
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", _extends({
     ref: sideBarRef,
-    className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_1__.cn)('h-screen overflow-auto w-72 px-4 py-4 gap-4 flex flex-col bg-background-primary border-0 border-r border-solid border-gray-300', 'transition-all duration-200', isCollapsed && 'w-16 px-2', className)
+    className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_1__.cn)('overflow-auto w-72 px-4 py-4 gap-4 flex flex-col bg-background-primary', borderOn && 'border-0 border-r border-solid border-border-subtle', !!screenHeight && 'h-screen', 'transition-all duration-200', isCollapsed && 'w-16 px-2', className)
   }, props), children));
 };
 var Header = function Header(_ref2) {
@@ -17424,7 +17429,7 @@ var Header = function Header(_ref2) {
 var Body = function Body(_ref3) {
   var children = _ref3.children;
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-    className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_1__.cn)('space-y-2 grow items-start')
+    className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_1__.cn)('space-y-4 grow items-start')
   }, children);
 };
 var Footer = function Footer(_ref4) {
@@ -17438,7 +17443,7 @@ var Footer = function Footer(_ref4) {
     className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_1__.cn)('flex items-center gap-2 text-base cursor-pointer', isCollapsed && 'justify-center'),
     onClick: function onClick() {
       setIsCollapsed(!isCollapsed);
-      localStorage.setItem("sidebar-collapsed", JSON.stringify(!isCollapsed));
+      localStorage.setItem('sidebar-collapsed', JSON.stringify(!isCollapsed));
     }
   }, isCollapsed ? /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_tooltip__WEBPACK_IMPORTED_MODULE_2__["default"], {
     title: "Expand",
