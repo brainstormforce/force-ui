@@ -1,27 +1,16 @@
 import React from 'react';
-import { cn } from '@/utilities/functions';
-
-const gapClasses = {
-	0: 'gap-0',
-	xxs: 'gap-1',
-	xs: 'gap-2',
-	sm: 'gap-3',
-	md: 'gap-4',
-	lg: 'gap-5',
-	xl: 'gap-6',
-	'2xl': 'gap-8',
-};
+import { cn, getGapClass } from '@/utilities/functions';
 
 const Topbar = ( { children, gap = 'lg', className, ...props } ) => {
 	return (
-		<div className={ cn( 'w-full flex items-center justify-between bg-background-primary p-5', gapClasses[ gap ], className ) } { ...props }>
+        <div className={cn( 'w-full flex items-center justify-between bg-background-primary p-5 min-h-16', getGapClass(gap), className ) } { ...props }>
 			{ children }
 		</div>
 	);
 };
 
 const Left = ( { gap = 'sm', children } ) => {
-	return <div className={ cn( 'flex items-center', gapClasses[ gap ] ) }>{ children }</div>;
+	return <div className={ cn( 'flex items-center', getGapClass(gap) ) }>{ children }</div>;
 };
 
 const Middle = ( { gap = 'md', children, align = 'center' } ) => {
@@ -31,11 +20,11 @@ const Middle = ( { gap = 'md', children, align = 'center' } ) => {
 		right: 'justify-end',
 	}?.[ align ];
 
-	return <div className={ cn( 'flex items-center grow', gapClasses[ gap ], alignmentClass ) }>{ children }</div>;
+	return <div className={ cn( 'flex items-center grow', getGapClass(gap), alignmentClass ) }>{ children }</div>;
 };
 
 const Right = ( { gap = 'sm', children } ) => {
-	return <div className={ cn( 'flex items-center', gapClasses[ gap ] ) }>{ children }</div>;
+	return <div className={ cn( 'flex items-center', getGapClass(gap) ) }>{ children }</div>;
 };
 
 const Item = ( { children, className } ) => {
