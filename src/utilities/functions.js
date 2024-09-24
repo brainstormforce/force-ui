@@ -12,7 +12,7 @@ export function prefix() {
  */
 export const cn = ( ...classNames ) => twMerge( clsx( ...classNames ) );
 
-export const getGapClass = (gap) => {
+export const getGapClass = ( gap ) => {
 	const gapClasses = {
 		0: 'gap-0',
 		xxs: 'gap-1',
@@ -24,5 +24,5 @@ export const getGapClass = (gap) => {
 		'2xl': 'gap-8',
 	};
 
-	return gapClasses[gap] || gapClasses['md']; 
+	return gapClasses[ gap ] || gapClasses.md;
 };
