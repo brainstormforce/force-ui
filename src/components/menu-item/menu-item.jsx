@@ -12,7 +12,7 @@ const Menu = ( { size = 'md', children, className, collapsed = false } ) => {
 	return (
 		<MenuContext.Provider value={ { size, collapsed } }>
 			<div
-				className={ cn( baseClasses, collapsed && 'w-max	p-0', className ) }
+				className={ cn( baseClasses, collapsed && 'w-max p-0', className ) }
 			>
 				{ children }
 			</div>
