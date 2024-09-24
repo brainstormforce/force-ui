@@ -8,14 +8,14 @@ The `Tooltips` are small, interactive pop-up boxes that provide brief, informati
 
 ### `variant`
 - **Type:** `string`
-- **Default:** `"light"`
+- **Default:** `"dark"`
 - **Description:** Defines the style variant of the tooltip. Options include:
   - `"light"` 
   - `"dark"`
 
 ### `placement`
 - **Type:** `string`
-- **Default:** `"top"`
+- **Default:** `"bottom"`
 - **Description:** Defines the position of the tooltip. Options include:
   - `"top"`
   - `"top-start"`
