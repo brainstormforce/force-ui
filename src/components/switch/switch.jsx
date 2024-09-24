@@ -9,7 +9,8 @@ import { nanoid } from 'nanoid';
 import { cn } from '@/utilities/functions';
 
 const SwitchLabel = ( { label, switchId, disabled = false, children } ) => {
-	// Check if label is a valid JSX element (custom JSX)
+	const isEmptyLabel = ! label?.heading || ! label?.description;
+
 	const isLabelAComponent = isValidElement( label );
 	if ( isLabelAComponent ) {
 		return (
