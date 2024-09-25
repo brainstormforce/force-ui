@@ -14123,7 +14123,7 @@ var animationVariants = {
 };
 
 // Dialog component.
-var Dialog = function Dialog(_ref) {
+var _Dialog = function Dialog(_ref) {
   var open = _ref.open,
     setOpen = _ref.setOpen,
     children = _ref.children,
@@ -14186,6 +14186,27 @@ var Dialog = function Dialog(_ref) {
       window.removeEventListener('keydown', handleKeyDown);
     };
   }, [openState]);
+
+  // Prevent scrolling when dialog is open.
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    if (openState) {
+      document.querySelector('html').style.overflow = 'hidden';
+    }
+    return function () {
+      document.querySelector('html').style.overflow = '';
+    };
+  }, [openState]);
+
+  // Find the backdrop component.
+  var backdrop = react__WEBPACK_IMPORTED_MODULE_0__.Children.toArray(children).find(function (child) {
+    return (child === null || child === void 0 ? void 0 : child.type) === _Dialog.Backdrop;
+  });
+  // Filter out the backdrop component from the children.
+  var filteredChildren = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(function () {
+    return react__WEBPACK_IMPORTED_MODULE_0__.Children.toArray(children).filter(function (child) {
+      return (child === null || child === void 0 ? void 0 : child.type) !== _Dialog.Backdrop;
+    });
+  }, [children]);
   return /*#__PURE__*/React.createElement(React.Fragment, null, renderTrigger(), /*#__PURE__*/React.createElement(DialogContext.Provider, {
     value: {
       open: openState,
@@ -14195,36 +14216,27 @@ var Dialog = function Dialog(_ref) {
       exitOnClickOutside: exitOnClickOutside
     }
   }, /*#__PURE__*/React.createElement(framer_motion__WEBPACK_IMPORTED_MODULE_2__.AnimatePresence, null, openState && /*#__PURE__*/React.createElement(framer_motion__WEBPACK_IMPORTED_MODULE_3__.motion.div, {
+    className: "relative z-999999",
     initial: "exit",
     animate: "open",
     exit: "exit",
     variants: animationVariants,
-    className: "fixed inset-0 z-999999 grid grid-cols-1 grid-rows-1 place-items-center",
     role: "dialog"
+  }, !!backdrop && backdrop, /*#__PURE__*/React.createElement("div", {
+    className: "fixed inset-0 overflow-y-auto"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "flex items-center justify-center min-h-full"
   }, /*#__PURE__*/React.createElement("div", {
     className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_1__.cn)('flex flex-col gap-6 w-120 h-fit bg-background-primary border border-border-subtle rounded-xl p-5 shadow-soft-shadow-2xl', className)
-  }, children)))));
+  }, filteredChildren)))))));
 };
 
 // Backdrop for the dialog.
 var DialogBackdrop = function DialogBackdrop(_ref2) {
-  var children = _ref2.children,
-    className = _ref2.className;
-  var _useDialogState = useDialogState(),
-    handleClose = _useDialogState.handleClose,
-    exitOnClickOutside = _useDialogState.exitOnClickOutside;
-  var handleBackdropClick = function handleBackdropClick(event) {
-    event.preventDefault();
-    event.stopPropagation();
-    if (!exitOnClickOutside) {
-      return;
-    }
-    handleClose();
-  };
+  var className = _ref2.className;
   return /*#__PURE__*/React.createElement("div", {
-    className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_1__.cn)('absolute inset-0 -z-10 bg-background-inverse/90 backdrop-blur-sm', className),
-    onClick: handleBackdropClick
-  }, children);
+    className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_1__.cn)('fixed inset-0 -z-10 bg-background-inverse/90 backdrop-blur-sm', className)
+  });
 };
 var DialogHeader = function DialogHeader(_ref3) {
   var children = _ref3.children,
@@ -14242,7 +14254,7 @@ var DialogTitle = function DialogTitle(_ref4) {
     className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_1__.cn)('text-base font-semibold text-text-primary m-0 p-0', className)
   }, children);
 };
-var DialogSubtitle = function DialogSubtitle(_ref5) {
+var DialogDescription = function DialogDescription(_ref5) {
   var children = _ref5.children,
     _ref5$as = _ref5.as,
     Tag = _ref5$as === void 0 ? 'p' : _ref5$as,
@@ -14269,8 +14281,8 @@ var DialogCloseButton = function DialogCloseButton(_ref7) {
     Tag = _ref7$as === void 0 ? react__WEBPACK_IMPORTED_MODULE_0__.Fragment : _ref7$as,
     onClick = _ref7.onClick,
     props = _objectWithoutProperties(_ref7, _excluded2);
-  var _useDialogState2 = useDialogState(),
-    handleClose = _useDialogState2.handleClose;
+  var _useDialogState = useDialogState(),
+    handleClose = _useDialogState.handleClose;
   if (! /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.isValidElement)(children)) {
     return /*#__PURE__*/React.createElement(DefaultCloseButton, _extends({
       onClick: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_1__.callAll)(handleClose, onClick)
@@ -14302,10 +14314,10 @@ var DialogFooter = function DialogFooter(_ref9) {
     className: ""
   }, children);
 };
-/* harmony default export */ __webpack_exports__["default"] = (Object.assign(Dialog, {
+/* harmony default export */ __webpack_exports__["default"] = (Object.assign(_Dialog, {
   Backdrop: DialogBackdrop,
   Title: DialogTitle,
-  Subtitle: DialogSubtitle,
+  Description: DialogDescription,
   CloseButton: DialogCloseButton,
   Header: DialogHeader,
   Body: DialogBody,

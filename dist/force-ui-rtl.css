@@ -529,6 +529,9 @@
 .min-h-\[3rem\] {
     min-height: 3rem
 }
+.min-h-full {
+    min-height: 100%
+}
 .w-1\/10 {
     width: 10%
 }
@@ -868,6 +871,9 @@
 .self-baseline {
     -ms-flex-item-align: baseline;
         align-self: baseline
+}
+.overflow-auto {
+    overflow: auto
 }
 .overflow-hidden {
     overflow: hidden

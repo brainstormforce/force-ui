@@ -1,4 +1,4 @@
-import { cloneElement, createContext, Fragment, isValidElement, useCallback, useContext, useEffect, useMemo, useState } from 'react';
+import { cloneElement, createContext, Fragment, isValidElement, useCallback, useContext, useEffect, useMemo, useState, Children } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { callAll, cn } from '@/utilities/functions';
 import { X } from 'lucide-react';
@@ -93,6 +93,26 @@ const Dialog = ({
 		};
 	}, [ openState ]);
 
+	// Prevent scrolling when dialog is open.
+	useEffect(() => {
+		if ( openState ) {
+			document.querySelector( 'html' ).style.overflow = 'hidden';
+		}
+
+		return () => {
+			document.querySelector( 'html' ).style.overflow = '';
+		};
+	}, [openState]);
+
+	// Find the backdrop component.
+	const backdrop = Children.toArray(children).find(
+		(child) => child?.type === Dialog.Backdrop
+	);
+	// Filter out the backdrop component from the children.
+	const filteredChildren = useMemo( () => (Children.toArray(children).filter(
+		(child) => child?.type !== Dialog.Backdrop
+	)), [children]);
+
 	return (
 		<>
 			{renderTrigger()}
@@ -108,20 +128,25 @@ const Dialog = ({
 				<AnimatePresence>
 					{openState && (
 						<motion.div
+							className="relative z-999999"
 							initial="exit"
 							animate="open"
 							exit="exit"
 							variants={animationVariants}
-							className="fixed inset-0 z-999999 grid grid-cols-1 grid-rows-1 place-items-center"
 							role="dialog"
 						>
-							<div
-								className={cn(
-									'flex flex-col gap-6 w-120 h-fit bg-background-primary border border-border-subtle rounded-xl p-5 shadow-soft-shadow-2xl',
-									className
-								)}
-							>
-								{children}
+							{!!backdrop && backdrop}
+							<div className="fixed inset-0 overflow-y-auto">
+								<div className='flex items-center justify-center min-h-full'>
+									<div
+										className={cn(
+											'flex flex-col gap-6 w-120 h-fit bg-background-primary border border-border-subtle rounded-xl p-5 shadow-soft-shadow-2xl',
+											className
+										)}
+									>
+										{filteredChildren}
+									</div>
+								</div>
 							</div>
 						</motion.div>
 					)}
@@ -132,29 +157,14 @@ const Dialog = ({
 };
 
 // Backdrop for the dialog.
-const DialogBackdrop = ({ children, className }) => {
-	const { handleClose, exitOnClickOutside } = useDialogState();
-
-	const handleBackdropClick = ( event ) => {
-		event.preventDefault();
-		event.stopPropagation();
-
-		if ( ! exitOnClickOutside ) {
-			return;
-		}
-		handleClose();
-	}
-
+const DialogBackdrop = ({ className }) => {
 	return (
 		<div
 			className={cn(
-				'absolute inset-0 -z-10 bg-background-inverse/90 backdrop-blur-sm',
+				'fixed inset-0 -z-10 bg-background-inverse/90 backdrop-blur-sm',
 				className
 			)}
-			onClick={handleBackdropClick}
-		>
-			{children}
-		</div>
+		/>
 	);
 };
 
@@ -179,7 +189,7 @@ const DialogTitle = ({ children, as: Tag = 'h3', className }) => {
 	);
 };
 
-const DialogSubtitle = ({ children, as: Tag = 'p', className }) => {
+const DialogDescription = ({ children, as: Tag = 'p', className }) => {
 	return (
 		<Tag
 			className={cn(
@@ -239,7 +249,7 @@ const DialogFooter = ({ children }) => {
 export default Object.assign(Dialog, {
 	Backdrop: DialogBackdrop,
 	Title: DialogTitle,
-	Subtitle: DialogSubtitle,
+	Description: DialogDescription,
 	CloseButton: DialogCloseButton,
 	Header: DialogHeader,
 	Body: DialogBody,
