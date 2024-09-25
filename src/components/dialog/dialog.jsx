@@ -16,7 +16,7 @@ import { callAll, cn } from '@/utilities/functions';
 import { X } from 'lucide-react';
 
 const DialogContext = createContext();
-const useDialogState = () => useContext(DialogContext);
+const useDialogState = () => useContext( DialogContext );
 
 const animationVariants = {
 	open: {
@@ -34,7 +34,7 @@ const animationVariants = {
 };
 
 // Dialog component.
-const Dialog = ({
+const Dialog = ( {
 	open,
 	setOpen,
 	children,
@@ -43,54 +43,54 @@ const Dialog = ({
 	exitOnClickOutside = false,
 	pressEscToExit = true,
 	design = 'simple',
-}) => {
+} ) => {
 	const isControlled = open !== undefined && setOpen !== undefined;
-	const [isOpen, setIsOpen] = useState(false);
-	const dialogRef = useRef(null);
+	const [ isOpen, setIsOpen ] = useState( false );
+	const dialogRef = useRef( null );
 
 	const openState = useMemo(
-		() => (isControlled ? open : isOpen),
-		[open, isOpen]
+		() => ( isControlled ? open : isOpen ),
+		[ open, isOpen ]
 	);
 	const setOpenState = useMemo(
-		() => (isControlled ? setOpen : setIsOpen),
-		[setIsOpen, setIsOpen]
+		() => ( isControlled ? setOpen : setIsOpen ),
+		[ setIsOpen, setIsOpen ]
 	);
 
 	const handleOpen = () => {
-		if (openState) {
+		if ( openState ) {
 			return;
 		}
 
-		setOpenState(true);
+		setOpenState( true );
 	};
 
 	const handleClose = () => {
-		if (!openState) {
+		if ( ! openState ) {
 			return;
 		}
 
-		setOpenState(false);
+		setOpenState( false );
 	};
 
-	const renderTrigger = useCallback(() => {
-		if (isValidElement(trigger)) {
-			return cloneElement(trigger, {
-				onClick: callAll(handleOpen, trigger.props.onClick),
-			});
+	const renderTrigger = useCallback( () => {
+		if ( isValidElement( trigger ) ) {
+			return cloneElement( trigger, {
+				onClick: callAll( handleOpen, trigger.props.onClick ),
+			} );
 		}
 
-		if (typeof trigger === 'function') {
-			return trigger({ onClick: handleOpen });
+		if ( typeof trigger === 'function' ) {
+			return trigger( { onClick: handleOpen } );
 		}
 
 		return null;
-	}, [trigger, handleOpen, handleClose]);
+	}, [ trigger, handleOpen, handleClose ] );
 
-	const handleKeyDown = (event) => {
-		switch (event.key) {
+	const handleKeyDown = ( event ) => {
+		switch ( event.key ) {
 			case 'Escape':
-				if (pressEscToExit) {
+				if ( pressEscToExit ) {
 					handleClose();
 				}
 				break;
@@ -99,89 +99,89 @@ const Dialog = ({
 		}
 	};
 
-	const handleClickOutside = (event) => {
+	const handleClickOutside = ( event ) => {
 		if (
 			exitOnClickOutside &&
 			dialogRef.current &&
-			!dialogRef.current.contains(event.target)
+			! dialogRef.current.contains( event.target )
 		) {
 			handleClose();
 		}
 	};
 
-	useEffect(() => {
-		window.addEventListener('keydown', handleKeyDown);
-		document.addEventListener('mousedown', handleClickOutside);
+	useEffect( () => {
+		window.addEventListener( 'keydown', handleKeyDown );
+		document.addEventListener( 'mousedown', handleClickOutside );
 
 		return () => {
-			window.removeEventListener('keydown', handleKeyDown);
-			document.removeEventListener('mousedown', handleClickOutside);
+			window.removeEventListener( 'keydown', handleKeyDown );
+			document.removeEventListener( 'mousedown', handleClickOutside );
 		};
-	}, [openState]);
+	}, [ openState ] );
 
 	// Prevent scrolling when dialog is open.
-	useEffect(() => {
-		if (openState) {
-			document.querySelector('html').style.overflow = 'hidden';
+	useEffect( () => {
+		if ( openState ) {
+			document.querySelector( 'html' ).style.overflow = 'hidden';
 		}
 
 		return () => {
-			document.querySelector('html').style.overflow = '';
+			document.querySelector( 'html' ).style.overflow = '';
 		};
-	}, [openState]);
+	}, [ openState ] );
 
 	// Find the backdrop component.
-	const backdrop = Children.toArray(children).find(
-		(child) => child?.type === Dialog.Backdrop
+	const backdrop = Children.toArray( children ).find(
+		( child ) => child?.type === Dialog.Backdrop
 	);
 	// Filter out the backdrop component from the children.
 	const filteredChildren = useMemo(
 		() =>
-			Children.toArray(children).filter(
-				(child) => child?.type !== Dialog.Backdrop
+			Children.toArray( children ).filter(
+				( child ) => child?.type !== Dialog.Backdrop
 			),
-		[children]
+		[ children ]
 	);
 
 	return (
 		<>
-			{renderTrigger()}
+			{ renderTrigger() }
 			<DialogContext.Provider
-				value={{
+				value={ {
 					open: openState,
 					setOpen: setOpenState,
 					handleOpen,
 					handleClose,
 					exitOnClickOutside,
 					design,
-				}}
+				} }
 			>
 				<AnimatePresence>
-					{openState && (
+					{ openState && (
 						<motion.div
 							className="relative z-999999"
 							initial="exit"
 							animate="open"
 							exit="exit"
-							variants={animationVariants}
+							variants={ animationVariants }
 							role="dialog"
 						>
-							{!!backdrop && backdrop}
+							{ !! backdrop && backdrop }
 							<div className="fixed inset-0 overflow-y-auto">
 								<div className="flex items-center justify-center min-h-full">
 									<div
-										ref={dialogRef}
-										className={cn(
+										ref={ dialogRef }
+										className={ cn(
 											'flex flex-col gap-5 w-120 h-fit bg-background-primary border border-solid border-border-subtle rounded-xl shadow-soft-shadow-2xl my-5 overflow-hidden',
 											className
-										)}
+										) }
 									>
-										{filteredChildren}
+										{ filteredChildren }
 									</div>
 								</div>
 							</div>
 						</motion.div>
-					)}
+					) }
 				</AnimatePresence>
 			</DialogContext.Provider>
 		</>
@@ -189,56 +189,56 @@ const Dialog = ({
 };
 
 // Backdrop for the dialog.
-const DialogBackdrop = ({ className }) => {
+const DialogBackdrop = ( { className } ) => {
 	return (
 		<div
-			className={cn(
+			className={ cn(
 				'fixed inset-0 -z-10 bg-background-inverse/90 backdrop-blur-sm',
 				className
-			)}
+			) }
 		/>
 	);
 };
 
-const DialogHeader = ({ children, className }) => {
-	return <div className={cn('space-y-2 px-5 pt-5 pb-1', className)}>{children}</div>;
+const DialogHeader = ( { children, className } ) => {
+	return <div className={ cn( 'space-y-2 px-5 pt-5 pb-1', className ) }>{ children }</div>;
 };
 
-const DialogTitle = ({ children, as: Tag = 'h3', className }) => {
+const DialogTitle = ( { children, as: Tag = 'h3', className } ) => {
 	return (
 		<Tag
-			className={cn(
+			className={ cn(
 				'text-base font-semibold text-text-primary m-0 p-0',
 				className
-			)}
+			) }
 		>
-			{children}
+			{ children }
 		</Tag>
 	);
 };
 
-const DialogDescription = ({ children, as: Tag = 'p', className }) => {
+const DialogDescription = ( { children, as: Tag = 'p', className } ) => {
 	return (
 		<Tag
-			className={cn(
+			className={ cn(
 				'text-sm font-normal text-text-secondary my-0 ml-0 mr-1 p-0',
 				className
-			)}
+			) }
 		>
-			{children}
+			{ children }
 		</Tag>
 	);
 };
 
-const DefaultCloseButton = ({ className, ...props }) => {
+const DefaultCloseButton = ( { className, ...props } ) => {
 	return (
 		<button
-			className={cn(
+			className={ cn(
 				'bg-transparent inline-flex justify-center items-center border-0 p-1 m-0 cursor-pointer focus:outline-none outline-none shadow-none',
 				className
-			)}
+			) }
 			aria-label="Close dialog"
-			{...props}
+			{ ...props }
 		>
 			<X className="size-4 text-text-primary shrink-0" />
 		</button>
@@ -246,57 +246,57 @@ const DefaultCloseButton = ({ className, ...props }) => {
 };
 
 // Close button for the dialog.
-const DialogCloseButton = ({
+const DialogCloseButton = ( {
 	children,
 	as: Tag = Fragment,
 	...props
-}) => {
+} ) => {
 	const { handleClose } = useDialogState();
 
-	if (!isValidElement(children) || !children) {
+	if ( ! isValidElement( children ) || ! children ) {
 		return (
 			<DefaultCloseButton
-				onClick={callAll(handleClose)}
-				{...props}
+				onClick={ callAll( handleClose ) }
+				{ ...props }
 			/>
 		);
 	}
 
-	if (Tag === Fragment) {
-		if (typeof children.type === 'function') {
-			return children({ close: handleClose });
+	if ( Tag === Fragment ) {
+		if ( typeof children.type === 'function' ) {
+			return children( { close: handleClose } );
 		}
 
-		return cloneElement(children, {
+		return cloneElement( children, {
 			onClick: handleClose,
-		});
+		} );
 	}
 
 	return (
-		<Tag {...props} onClick={callAll(handleClose)}>
-			{children}
+		<Tag { ...props } onClick={ callAll( handleClose ) }>
+			{ children }
 		</Tag>
 	);
 };
 
-const DialogBody = ({ children, className, ...props }) => {
+const DialogBody = ( { children, className, ...props } ) => {
 	return (
-		<div className={cn('px-5', className)} {...props}>
-			{children}
+		<div className={ cn( 'px-5', className ) } { ...props }>
+			{ children }
 		</div>
 	);
 };
 
-const DialogFooter = ({ children, className }) => {
-	const { design } = useDialogState();
+const DialogFooter = ( { children, className } ) => {
+	const { design, handleClose } = useDialogState();
 
 	const renderChildren = () => {
-		if (! children || Children.count(children) === 0) {
+		if ( ! children || Children.count( children ) === 0 ) {
 			return null;
 		}
 
-		if (typeof children.type === 'function') {
-			return children({ close: handleClose });
+		if ( typeof children.type === 'function' ) {
+			return children( { close: handleClose } );
 		}
 
 		return children;
@@ -304,20 +304,20 @@ const DialogFooter = ({ children, className }) => {
 
 	return (
 		<div
-			className={cn(
+			className={ cn(
 				'p-4 flex justify-end gap-3',
 				{
 					'bg-background-secondary': design === 'footer-divided',
 				},
 				className
-			)}
+			) }
 		>
-			{renderChildren()}
+			{ renderChildren() }
 		</div>
 	);
 };
 
-export default Object.assign(Dialog, {
+export default Object.assign( Dialog, {
 	Backdrop: DialogBackdrop,
 	Title: DialogTitle,
 	Description: DialogDescription,
@@ -325,4 +325,4 @@ export default Object.assign(Dialog, {
 	Header: DialogHeader,
 	Body: DialogBody,
 	Footer: DialogFooter,
-});
+} );

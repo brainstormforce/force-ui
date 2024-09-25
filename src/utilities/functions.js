@@ -15,8 +15,8 @@ export const cn = ( ...classNames ) => twMerge( clsx( ...classNames ) );
 /**
  * Call provided functions with the given arguments.
  * @param {...Function} fns
- * @return {Function}
+ * @return {Function} - Function that calls all provided functions.
  */
 export const callAll = ( ...fns ) => {
-	return ( ...args ) => fns.forEach( fn => fn?.( ...args ) );
-}
+	return ( ...args ) => fns.forEach( ( fn ) => fn?.( ...args ) );
+};
