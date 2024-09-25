@@ -187,6 +187,12 @@ const defaultTheme = {
 			fontSize: {
 				tiny: '0.625rem',
 			},
+			spacing: {
+				'120': '30rem', // 480px
+			},
+			zIndex: {
+				999999: '999999',
+			}
 		},
 	},
 	plugins: [],
