@@ -9,16 +9,17 @@ import { nanoid } from 'nanoid';
 import { cn } from '@/utilities/functions';
 
 const SwitchLabel = ( { label, switchId, disabled = false, children } ) => {
-	const isEmptyLabel = ! label?.heading || ! label?.description;
-
 	const isLabelAComponent = isValidElement( label );
-
-	const renderLabel = useCallback( () => {
-		if ( isLabelAComponent ) {
-			return label;
-		}
-
-		const { heading = '', description = '' } = label;
+	if ( isLabelAComponent ) {
+		return (
+			<div className={ cn( 'inline-flex items-center gap-3', 'items-start' ) }>
+				{ children }
+				{ label }
+			</div>
+		);
+	}
+	const renderLabel = () => {
+		const { heading = '', description = '' } = label || {};
 		return (
 			<div className="space-y-1.5">
 				{ heading && (
@@ -33,23 +34,21 @@ const SwitchLabel = ( { label, switchId, disabled = false, children } ) => {
 				) }
 			</div>
 		);
-	}, [ label ] );
+	};
+
+	const isEmptyLabel = ! label?.heading && ! label?.description;
+	const alignmentClass = ! label?.heading || ! label?.description ? 'items-center' : 'items-start';
 
 	if ( isEmptyLabel ) {
 		return children;
 	}
 
 	return (
-		<div
-			className={ cn(
-				'inline-flex items-center',
-				! isEmptyLabel && 'items-start'
-			) }
-		>
+		<div className={ cn( 'inline-flex', alignmentClass, 'gap-3' ) }>
 			{ children }
 			<label
 				htmlFor={ switchId }
-				className={ cn( 'ml-3', ! disabled && 'cursor-pointer' ) }
+				className={ cn( ! disabled && 'cursor-pointer' ) }
 			>
 				{ renderLabel() }
 			</label>
