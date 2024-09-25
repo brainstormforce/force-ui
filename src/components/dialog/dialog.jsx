@@ -263,7 +263,7 @@ const DialogCloseButton = ( {
 	}
 
 	if ( Tag === Fragment ) {
-		if ( typeof children.type === 'function' ) {
+		if ( typeof children === 'function' ) {
 			return children( { close: handleClose } );
 		}
 
@@ -291,11 +291,11 @@ const DialogFooter = ( { children, className } ) => {
 	const { design, handleClose } = useDialogState();
 
 	const renderChildren = () => {
-		if ( ! children || Children.count( children ) === 0 ) {
+		if ( ! children ) {
 			return null;
 		}
 
-		if ( typeof children.type === 'function' ) {
+		if ( typeof children === 'function' ) {
 			return children( { close: handleClose } );
 		}
 
