@@ -14021,7 +14021,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _utilities_functions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/utilities/functions */ "./src/utilities/functions.js");
 /* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/x.js");
 var _excluded = ["className"],
-  _excluded2 = ["children", "as", "onClick"],
+  _excluded2 = ["children", "as"],
   _excluded3 = ["children", "className"];
 function _extends() {
   return _extends = Object.assign ? Object.assign.bind() : function (n) {
@@ -14292,13 +14292,12 @@ var DialogCloseButton = function DialogCloseButton(_ref7) {
   var children = _ref7.children,
     _ref7$as = _ref7.as,
     Tag = _ref7$as === void 0 ? react__WEBPACK_IMPORTED_MODULE_0__.Fragment : _ref7$as,
-    onClick = _ref7.onClick,
     props = _objectWithoutProperties(_ref7, _excluded2);
   var _useDialogState = useDialogState(),
     handleClose = _useDialogState.handleClose;
-  if (! /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.isValidElement)(children)) {
+  if (! /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.isValidElement)(children) || !children) {
     return /*#__PURE__*/React.createElement(DefaultCloseButton, _extends({
-      onClick: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_1__.callAll)(handleClose, onClick)
+      onClick: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_1__.callAll)(handleClose)
     }, props));
   }
   if (Tag === react__WEBPACK_IMPORTED_MODULE_0__.Fragment) {
@@ -14308,12 +14307,12 @@ var DialogCloseButton = function DialogCloseButton(_ref7) {
       });
     }
     return /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.cloneElement)(children, {
-      onClick: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_1__.callAll)(handleClose, children.props.onClick)
+      onClick: handleClose
     });
   }
-  return /*#__PURE__*/React.createElement(Tag, _extends({
-    onClick: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_1__.callAll)(handleClose, onClick)
-  }, props), children);
+  return /*#__PURE__*/React.createElement(Tag, _extends({}, props, {
+    onClick: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_1__.callAll)(handleClose)
+  }), children);
 };
 var DialogBody = function DialogBody(_ref8) {
   var children = _ref8.children,

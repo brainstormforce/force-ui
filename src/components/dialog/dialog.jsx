@@ -249,15 +249,14 @@ const DefaultCloseButton = ({ className, ...props }) => {
 const DialogCloseButton = ({
 	children,
 	as: Tag = Fragment,
-	onClick,
 	...props
 }) => {
 	const { handleClose } = useDialogState();
 
-	if (!isValidElement(children)) {
+	if (!isValidElement(children) || !children) {
 		return (
 			<DefaultCloseButton
-				onClick={callAll(handleClose, onClick)}
+				onClick={callAll(handleClose)}
 				{...props}
 			/>
 		);
@@ -269,12 +268,12 @@ const DialogCloseButton = ({
 		}
 
 		return cloneElement(children, {
-			onClick: callAll(handleClose, children.props.onClick),
+			onClick: handleClose,
 		});
 	}
 
 	return (
-		<Tag onClick={callAll(handleClose, onClick)} {...props}>
+		<Tag {...props} onClick={callAll(handleClose)}>
 			{children}
 		</Tag>
 	);
