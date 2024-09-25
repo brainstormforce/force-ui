@@ -39,10 +39,10 @@ export const BreadcrumbItem = ( { children } ) => {
 	return <li className="m-0 inline-flex items-center gap-2">{ children }</li>;
 };
 
-export const BreadcrumbLink = ( { href, children, className } ) => {
+export const BreadcrumbLink = ( { href, children, className, as: AsElement = 'a', ...props } ) => {
 	const { sizes } = useContext( BreadcrumbContext );
 	return (
-		<a
+		<AsElement
 			href={ href }
 			className={ cn(
 				sizes.text,
@@ -51,9 +51,10 @@ export const BreadcrumbLink = ( { href, children, className } ) => {
 				'transition-all duration-200',
 				className
 			) }
+			{ ...props }
 		>
 			{ children }
-		</a>
+		</AsElement>
 	);
 };
 

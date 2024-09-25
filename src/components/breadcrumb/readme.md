@@ -41,6 +41,11 @@
 - **type:** `string`
 - **description:** Additional classes to customize the link styles.
 
+### as (optional)
+- **type:** `string` or `ReactComponent`
+- **default value:** `a`
+- **description:** Used as a wrapper for breadcrumb links. Defaults to an anchor `('a')`, but can be customized with components like `Link` from React Router.
+
 ## `Breadcrumb.Separator` Props
 - **Description:** Separator used between breadcrumb items.
 
