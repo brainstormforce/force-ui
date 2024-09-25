@@ -1,4 +1,16 @@
-import { cloneElement, createContext, Fragment, isValidElement, useCallback, useContext, useEffect, useMemo, useState, Children } from 'react';
+import {
+	cloneElement,
+	createContext,
+	Fragment,
+	isValidElement,
+	useCallback,
+	useContext,
+	useEffect,
+	useMemo,
+	useRef,
+	useState,
+	Children,
+} from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { callAll, cn } from '@/utilities/functions';
 import { X } from 'lucide-react';
@@ -28,11 +40,12 @@ const Dialog = ({
 	children,
 	trigger,
 	className,
-	exitOnClickOutside = true,
+	exitOnClickOutside = false,
 	pressEscToExit = true,
 }) => {
 	const isControlled = open !== undefined && setOpen !== undefined;
 	const [isOpen, setIsOpen] = useState(false);
+	const dialogRef = useRef(null);
 
 	const openState = useMemo(
 		() => (isControlled ? open : isOpen),
@@ -52,7 +65,7 @@ const Dialog = ({
 	};
 
 	const handleClose = () => {
-		if (! openState) {
+		if (!openState) {
 			return;
 		}
 
@@ -73,34 +86,46 @@ const Dialog = ({
 		return null;
 	}, [trigger, handleOpen, handleClose]);
 
-	const handleKeyDown = ( event ) => {
-		switch ( event.key ) {
+	const handleKeyDown = (event) => {
+		switch (event.key) {
 			case 'Escape':
-				if ( pressEscToExit ) {
+				if (pressEscToExit) {
 					handleClose();
 				}
 				break;
 			default:
 				break;
 		}
-	}
+	};
+
+	const handleClickOutside = (event) => {
+		if (
+			exitOnClickOutside &&
+			dialogRef.current &&
+			!dialogRef.current.contains(event.target)
+		) {
+			handleClose();
+		}
+	};
 
 	useEffect(() => {
 		window.addEventListener('keydown', handleKeyDown);
+		document.addEventListener('mousedown', handleClickOutside);
 
 		return () => {
 			window.removeEventListener('keydown', handleKeyDown);
+			document.removeEventListener('mousedown', handleClickOutside);
 		};
-	}, [ openState ]);
+	}, [openState]);
 
 	// Prevent scrolling when dialog is open.
 	useEffect(() => {
-		if ( openState ) {
-			document.querySelector( 'html' ).style.overflow = 'hidden';
+		if (openState) {
+			document.querySelector('html').style.overflow = 'hidden';
 		}
 
 		return () => {
-			document.querySelector( 'html' ).style.overflow = '';
+			document.querySelector('html').style.overflow = '';
 		};
 	}, [openState]);
 
@@ -109,9 +134,13 @@ const Dialog = ({
 		(child) => child?.type === Dialog.Backdrop
 	);
 	// Filter out the backdrop component from the children.
-	const filteredChildren = useMemo( () => (Children.toArray(children).filter(
-		(child) => child?.type !== Dialog.Backdrop
-	)), [children]);
+	const filteredChildren = useMemo(
+		() =>
+			Children.toArray(children).filter(
+				(child) => child?.type !== Dialog.Backdrop
+			),
+		[children]
+	);
 
 	return (
 		<>
@@ -137,8 +166,9 @@ const Dialog = ({
 						>
 							{!!backdrop && backdrop}
 							<div className="fixed inset-0 overflow-y-auto">
-								<div className='flex items-center justify-center min-h-full'>
+								<div className="flex items-center justify-center min-h-full">
 									<div
+										ref={dialogRef}
 										className={cn(
 											'flex flex-col gap-6 w-120 h-fit bg-background-primary border border-border-subtle rounded-xl p-5 shadow-soft-shadow-2xl',
 											className
@@ -169,11 +199,7 @@ const DialogBackdrop = ({ className }) => {
 };
 
 const DialogHeader = ({ children, className }) => {
-	return (
-		<div className={cn('space-y-2', className)}>
-			{children}
-		</div>
-	);
+	return <div className={cn('space-y-2', className)}>{children}</div>;
 };
 
 const DialogTitle = ({ children, as: Tag = 'h3', className }) => {
@@ -193,7 +219,7 @@ const DialogDescription = ({ children, as: Tag = 'p', className }) => {
 	return (
 		<Tag
 			className={cn(
-				'text-sm font-normal text-text-secondary m-0 p-0',
+				'text-sm font-normal text-text-secondary my-0 ml-0 mr-1 p-0',
 				className
 			)}
 		>
@@ -202,7 +228,7 @@ const DialogDescription = ({ children, as: Tag = 'p', className }) => {
 	);
 };
 
-const DefaultCloseButton = ({className, ...props}) => {
+const DefaultCloseButton = ({ className, ...props }) => {
 	return (
 		<button
 			className={cn(
@@ -215,19 +241,29 @@ const DefaultCloseButton = ({className, ...props}) => {
 			<X className="size-4 text-text-primary shrink-0" />
 		</button>
 	);
-}
+};
 
 // Close button for the dialog.
-const DialogCloseButton = ({ children, as: Tag = Fragment, onClick, ...props }) => {
+const DialogCloseButton = ({
+	children,
+	as: Tag = Fragment,
+	onClick,
+	...props
+}) => {
 	const { handleClose } = useDialogState();
 
-	if ( ! isValidElement( children ) ) {
-		return <DefaultCloseButton onClick={callAll(handleClose, onClick)} {...props} />;
+	if (!isValidElement(children)) {
+		return (
+			<DefaultCloseButton
+				onClick={callAll(handleClose, onClick)}
+				{...props}
+			/>
+		);
 	}
 
-	if ( Tag === Fragment ) {
-		if ( typeof children.type === 'function' ) {
-			return children({onClick: handleClose});
+	if (Tag === Fragment) {
+		if (typeof children.type === 'function') {
+			return children({ onClick: handleClose });
 		}
 
 		return cloneElement(children, {
@@ -235,8 +271,12 @@ const DialogCloseButton = ({ children, as: Tag = Fragment, onClick, ...props }) 
 		});
 	}
 
-	return <Tag onClick={callAll(handleClose, onClick)} {...props}>{children}</Tag>;
-}
+	return (
+		<Tag onClick={callAll(handleClose, onClick)} {...props}>
+			{children}
+		</Tag>
+	);
+};
 
 const DialogBody = ({ children }) => {
 	return <div className="">{children}</div>;

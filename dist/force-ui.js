@@ -14130,7 +14130,7 @@ var _Dialog = function Dialog(_ref) {
     trigger = _ref.trigger,
     className = _ref.className,
     _ref$exitOnClickOutsi = _ref.exitOnClickOutside,
-    exitOnClickOutside = _ref$exitOnClickOutsi === void 0 ? true : _ref$exitOnClickOutsi,
+    exitOnClickOutside = _ref$exitOnClickOutsi === void 0 ? false : _ref$exitOnClickOutsi,
     _ref$pressEscToExit = _ref.pressEscToExit,
     pressEscToExit = _ref$pressEscToExit === void 0 ? true : _ref$pressEscToExit;
   var isControlled = open !== undefined && setOpen !== undefined;
@@ -14138,6 +14138,7 @@ var _Dialog = function Dialog(_ref) {
     _useState2 = _slicedToArray(_useState, 2),
     isOpen = _useState2[0],
     setIsOpen = _useState2[1];
+  var dialogRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
   var openState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(function () {
     return isControlled ? open : isOpen;
   }, [open, isOpen]);
@@ -14180,10 +14181,17 @@ var _Dialog = function Dialog(_ref) {
         break;
     }
   };
+  var handleClickOutside = function handleClickOutside(event) {
+    if (exitOnClickOutside && dialogRef.current && !dialogRef.current.contains(event.target)) {
+      handleClose();
+    }
+  };
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     window.addEventListener('keydown', handleKeyDown);
+    document.addEventListener('mousedown', handleClickOutside);
     return function () {
       window.removeEventListener('keydown', handleKeyDown);
+      document.removeEventListener('mousedown', handleClickOutside);
     };
   }, [openState]);
 
@@ -14227,6 +14235,7 @@ var _Dialog = function Dialog(_ref) {
   }, /*#__PURE__*/React.createElement("div", {
     className: "flex items-center justify-center min-h-full"
   }, /*#__PURE__*/React.createElement("div", {
+    ref: dialogRef,
     className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_1__.cn)('flex flex-col gap-6 w-120 h-fit bg-background-primary border border-border-subtle rounded-xl p-5 shadow-soft-shadow-2xl', className)
   }, filteredChildren)))))));
 };
@@ -14260,7 +14269,7 @@ var DialogDescription = function DialogDescription(_ref5) {
     Tag = _ref5$as === void 0 ? 'p' : _ref5$as,
     className = _ref5.className;
   return /*#__PURE__*/React.createElement(Tag, {
-    className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_1__.cn)('text-sm font-normal text-text-secondary m-0 p-0', className)
+    className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_1__.cn)('text-sm font-normal text-text-secondary my-0 ml-0 mr-1 p-0', className)
   }, children);
 };
 var DefaultCloseButton = function DefaultCloseButton(_ref6) {

@@ -380,6 +380,10 @@
     margin-left: 0.5rem;
     margin-right: 0.5rem
 }
+.my-0 {
+    margin-top: 0px;
+    margin-bottom: 0px
+}
 .mb-0 {
     margin-bottom: 0px
 }
@@ -403,6 +407,18 @@
 }
 .mt-2\.5 {
     margin-top: 0.625rem
+}
+.ml-0 {
+    margin-left: 0px
+}
+.mr-12 {
+    margin-right: 3rem
+}
+.mr-5 {
+    margin-right: 1.25rem
+}
+.mr-6 {
+    margin-right: 1.5rem
 }
 .box-border {
     box-sizing: border-box
