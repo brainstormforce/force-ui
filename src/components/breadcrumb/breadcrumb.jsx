@@ -1,13 +1,33 @@
-import React from 'react';
+import React, { createContext, useContext } from 'react';
 import { cn } from '@/utilities/functions';
+import { ChevronRight, Ellipsis } from 'lucide-react';
 
-export const Breadcrumb = ({ children }) => {
+const BreadcrumbContext = createContext();
+
+const sizeClasses = {
+	sm: {
+		text: 'text-sm',
+		separator: 'text-sm',
+		separatorIconSize: 16,
+	},
+	md: {
+		text: 'text-base',
+		separator: 'text-base',
+		separatorIconSize: 18,
+	},
+};
+
+export const Breadcrumb = ({ children, size = 'sm' }) => {
+	const sizes = sizeClasses[size] || sizeClasses['sm'];
+
 	return (
-		<nav className="flex" aria-label="Breadcrumb">
-			<ol className="inline-flex items-center space-x-1 md:space-x-3">
-				{children}
-			</ol>
-		</nav>
+		<BreadcrumbContext.Provider value={{ sizes }}>
+			<nav className="flex m-0" aria-label="Breadcrumb">
+				<ul className="m-0 inline-flex items-center space-x-1 md:space-x-1">
+					{children}
+				</ul>
+			</nav>
+		</BreadcrumbContext.Provider>
 	);
 };
 
@@ -16,36 +36,59 @@ export const BreadcrumbList = ({ children }) => {
 };
 
 export const BreadcrumbItem = ({ children }) => {
-	return <li className="inline-flex items-center">{children}</li>;
+	return <li className="m-0 inline-flex items-center gap-2">{children}</li>;
 };
 
-export const BreadcrumbLink = ({ href, children }) => {
+export const BreadcrumbLink = ({ href, children, className }) => {
+	const { sizes } = useContext(BreadcrumbContext);
 	return (
 		<a
 			href={href}
-			className="text-sm font-medium text-gray-700 hover:text-blue-600"
+			className={cn(
+				sizes.text,
+				'px-1 font-medium no-underline text-text-tertiary hover:text-text-primary hover:underline',
+				'focus:outline-none focus:ring-1 focus:ring-border-interactive focus:border-border-interactive focus:rounded-sm',
+				'transition-all duration-200',
+				className
+			)}
 		>
 			{children}
 		</a>
 	);
 };
 
-export const BreadcrumbSeparator = () => {
+export const BreadcrumbSeparator = ({ type }) => {
+	const { sizes } = useContext(BreadcrumbContext);
+	const separatorIcons = {
+		slash: <span className={cn('mx-1', sizes.separator)}>/</span>,
+		arrow: <ChevronRight size={sizes.separatorIconSize} />,
+	};
+
 	return (
-		<li className="text-gray-500">
-			<svg
-				className="w-4 h-4"
-				fill="currentColor"
-				xmlns="http://www.w3.org/2000/svg"
-				viewBox="0 0 20 20"
-			>
-				<path
-					fillRule="evenodd"
-					d="M6.293 9.293a1 1 0 011.414 0L10 11.586l2.293-2.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z"
-					clipRule="evenodd"
-				/>
-			</svg>
-		</li>
+		<span className="flex items-center text-text-tertiary mx-2">
+			{separatorIcons[type] || separatorIcons['arrow']}
+		</span>
+	);
+};
+
+export const BreadcrumbEllipsis = () => {
+	const { sizes } = useContext(BreadcrumbContext);
+
+	return (
+		<Ellipsis
+			className="mt-[2px] cursor-pointer text-text-tertiary hover:text-text-primary"
+			size={sizes.separatorIconSize + 4}
+		/>
+	);
+};
+
+export const BreadcrumbPage = ({ children }) => {
+	const { sizes } = useContext(BreadcrumbContext);
+
+	return (
+		<span className={cn(sizes.text, 'font-medium text-text-primary')}>
+			{children}
+		</span>
 	);
 };
 
@@ -53,5 +96,7 @@ Breadcrumb.List = BreadcrumbList;
 Breadcrumb.Item = BreadcrumbItem;
 Breadcrumb.Link = BreadcrumbLink;
 Breadcrumb.Separator = BreadcrumbSeparator;
+Breadcrumb.Ellipsis = BreadcrumbEllipsis;
+Breadcrumb.Page = BreadcrumbPage;
 
 export default Breadcrumb;

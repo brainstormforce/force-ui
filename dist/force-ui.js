@@ -13238,6 +13238,137 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./src/components/breadcrumb/breadcrumb.jsx":
+/*!**************************************************!*\
+  !*** ./src/components/breadcrumb/breadcrumb.jsx ***!
+  \**************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   Breadcrumb: function() { return /* binding */ Breadcrumb; },
+/* harmony export */   BreadcrumbEllipsis: function() { return /* binding */ BreadcrumbEllipsis; },
+/* harmony export */   BreadcrumbItem: function() { return /* binding */ BreadcrumbItem; },
+/* harmony export */   BreadcrumbLink: function() { return /* binding */ BreadcrumbLink; },
+/* harmony export */   BreadcrumbList: function() { return /* binding */ BreadcrumbList; },
+/* harmony export */   BreadcrumbPage: function() { return /* binding */ BreadcrumbPage; },
+/* harmony export */   BreadcrumbSeparator: function() { return /* binding */ BreadcrumbSeparator; }
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _utilities_functions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/utilities/functions */ "./src/utilities/functions.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/chevron-right.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/ellipsis.js");
+
+
+
+var BreadcrumbContext = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.createContext)();
+var sizeClasses = {
+  sm: {
+    text: 'text-sm',
+    separator: 'text-sm',
+    separatorIconSize: 16
+  },
+  md: {
+    text: 'text-base',
+    separator: 'text-base',
+    separatorIconSize: 18
+  }
+};
+var Breadcrumb = function Breadcrumb(_ref) {
+  var children = _ref.children,
+    _ref$size = _ref.size,
+    size = _ref$size === void 0 ? 'sm' : _ref$size;
+  var sizes = sizeClasses[size] || sizeClasses['sm'];
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(BreadcrumbContext.Provider, {
+    value: {
+      sizes: sizes
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("nav", {
+    className: "flex m-0",
+    "aria-label": "Breadcrumb"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("ul", {
+    className: "m-0 inline-flex items-center space-x-1 md:space-x-1"
+  }, children)));
+};
+var BreadcrumbList = function BreadcrumbList(_ref2) {
+  var children = _ref2.children;
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, children);
+};
+var BreadcrumbItem = function BreadcrumbItem(_ref3) {
+  var children = _ref3.children;
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("li", {
+    className: "m-0 inline-flex items-center gap-2"
+  }, children);
+};
+var BreadcrumbLink = function BreadcrumbLink(_ref4) {
+  var href = _ref4.href,
+    children = _ref4.children,
+    className = _ref4.className;
+  var _useContext = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(BreadcrumbContext),
+    sizes = _useContext.sizes;
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("a", {
+    href: href,
+    className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_1__.cn)(sizes.text, 'px-1 font-medium no-underline text-text-tertiary hover:text-text-primary hover:underline', 'focus:outline-none focus:ring-1 focus:ring-border-interactive focus:border-border-interactive focus:rounded-sm', 'transition-all duration-200', className)
+  }, children);
+};
+var BreadcrumbSeparator = function BreadcrumbSeparator(_ref5) {
+  var type = _ref5.type;
+  var _useContext2 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(BreadcrumbContext),
+    sizes = _useContext2.sizes;
+  var separatorIcons = {
+    slash: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", {
+      className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_1__.cn)('mx-1', sizes.separator)
+    }, "/"),
+    arrow: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(lucide_react__WEBPACK_IMPORTED_MODULE_2__["default"], {
+      size: sizes.separatorIconSize
+    })
+  };
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", {
+    className: "flex items-center text-text-tertiary mx-2"
+  }, separatorIcons[type] || separatorIcons['arrow']);
+};
+var BreadcrumbEllipsis = function BreadcrumbEllipsis() {
+  var _useContext3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(BreadcrumbContext),
+    sizes = _useContext3.sizes;
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(lucide_react__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    className: "mt-[2px] cursor-pointer text-text-tertiary hover:text-text-primary",
+    size: sizes.separatorIconSize + 4
+  });
+};
+var BreadcrumbPage = function BreadcrumbPage(_ref6) {
+  var children = _ref6.children;
+  var _useContext4 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(BreadcrumbContext),
+    sizes = _useContext4.sizes;
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", {
+    className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_1__.cn)(sizes.text, 'font-medium text-text-primary')
+  }, children);
+};
+Breadcrumb.List = BreadcrumbList;
+Breadcrumb.Item = BreadcrumbItem;
+Breadcrumb.Link = BreadcrumbLink;
+Breadcrumb.Separator = BreadcrumbSeparator;
+Breadcrumb.Ellipsis = BreadcrumbEllipsis;
+Breadcrumb.Page = BreadcrumbPage;
+/* harmony default export */ __webpack_exports__["default"] = (Breadcrumb);
+
+/***/ }),
+
+/***/ "./src/components/breadcrumb/index.js":
+/*!********************************************!*\
+  !*** ./src/components/breadcrumb/index.js ***!
+  \********************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": function() { return /* reexport safe */ _breadcrumb_jsx__WEBPACK_IMPORTED_MODULE_0__["default"]; }
+/* harmony export */ });
+/* harmony import */ var _breadcrumb_jsx__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./breadcrumb.jsx */ "./src/components/breadcrumb/breadcrumb.jsx");
+
+
+/***/ }),
+
 /***/ "./src/components/button-group/button-group.jsx":
 /*!******************************************************!*\
   !*** ./src/components/button-group/button-group.jsx ***!
@@ -15027,6 +15158,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   Alert: function() { return /* reexport safe */ _alert_index__WEBPACK_IMPORTED_MODULE_18__["default"]; },
 /* harmony export */   Avatar: function() { return /* reexport safe */ _avatar_index__WEBPACK_IMPORTED_MODULE_6__["default"]; },
 /* harmony export */   Badge: function() { return /* reexport safe */ _badge_index__WEBPACK_IMPORTED_MODULE_4__["default"]; },
+/* harmony export */   Breadcrumb: function() { return /* reexport safe */ _breadcrumb_index__WEBPACK_IMPORTED_MODULE_23__["default"]; },
 /* harmony export */   Button: function() { return /* reexport safe */ _button_index__WEBPACK_IMPORTED_MODULE_0__["default"]; },
 /* harmony export */   ButtonGroup: function() { return /* reexport safe */ _button_group_index__WEBPACK_IMPORTED_MODULE_13__["default"]; },
 /* harmony export */   Checkbox: function() { return /* reexport safe */ _checkbox_index__WEBPACK_IMPORTED_MODULE_2__["default"]; },
@@ -15072,6 +15204,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _progress_steps_index__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./progress-steps/index */ "./src/components/progress-steps/index.js");
 /* harmony import */ var _skeleton_index__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./skeleton/index */ "./src/components/skeleton/index.js");
 /* harmony import */ var _menu_item_index__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./menu-item/index */ "./src/components/menu-item/index.js");
+/* harmony import */ var _breadcrumb_index__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./breadcrumb/index */ "./src/components/breadcrumb/index.js");
+
 
 
 
@@ -44776,6 +44910,36 @@ const ChevronDown = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["defaul
 
 /***/ }),
 
+/***/ "./node_modules/lucide-react/dist/esm/icons/chevron-right.js":
+/*!*******************************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/icons/chevron-right.js ***!
+  \*******************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": function() { return /* binding */ ChevronRight; }
+/* harmony export */ });
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../createLucideIcon.js */ "./node_modules/lucide-react/dist/esm/createLucideIcon.js");
+/**
+ * @license lucide-react v0.417.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+
+const ChevronRight = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["default"])("ChevronRight", [
+  ["path", { d: "m9 18 6-6-6-6", key: "mthhwq" }]
+]);
+
+
+//# sourceMappingURL=chevron-right.js.map
+
+
+/***/ }),
+
 /***/ "./node_modules/lucide-react/dist/esm/icons/chevrons-up-down.js":
 /*!**********************************************************************!*\
   !*** ./node_modules/lucide-react/dist/esm/icons/chevrons-up-down.js ***!
@@ -44803,6 +44967,38 @@ const ChevronsUpDown = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["def
 
 
 //# sourceMappingURL=chevrons-up-down.js.map
+
+
+/***/ }),
+
+/***/ "./node_modules/lucide-react/dist/esm/icons/ellipsis.js":
+/*!**************************************************************!*\
+  !*** ./node_modules/lucide-react/dist/esm/icons/ellipsis.js ***!
+  \**************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": function() { return /* binding */ Ellipsis; }
+/* harmony export */ });
+/* harmony import */ var _createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../createLucideIcon.js */ "./node_modules/lucide-react/dist/esm/createLucideIcon.js");
+/**
+ * @license lucide-react v0.417.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+
+const Ellipsis = (0,_createLucideIcon_js__WEBPACK_IMPORTED_MODULE_0__["default"])("Ellipsis", [
+  ["circle", { cx: "12", cy: "12", r: "1", key: "41hilf" }],
+  ["circle", { cx: "19", cy: "12", r: "1", key: "1wjl8i" }],
+  ["circle", { cx: "5", cy: "12", r: "1", key: "1pcz8c" }]
+]);
+
+
+//# sourceMappingURL=ellipsis.js.map
 
 
 /***/ }),
@@ -49820,6 +50016,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   Alert: function() { return /* reexport safe */ _components__WEBPACK_IMPORTED_MODULE_1__.Alert; },
 /* harmony export */   Avatar: function() { return /* reexport safe */ _components__WEBPACK_IMPORTED_MODULE_1__.Avatar; },
 /* harmony export */   Badge: function() { return /* reexport safe */ _components__WEBPACK_IMPORTED_MODULE_1__.Badge; },
+/* harmony export */   Breadcrumb: function() { return /* reexport safe */ _components__WEBPACK_IMPORTED_MODULE_1__.Breadcrumb; },
 /* harmony export */   Button: function() { return /* reexport safe */ _components__WEBPACK_IMPORTED_MODULE_1__.Button; },
 /* harmony export */   ButtonGroup: function() { return /* reexport safe */ _components__WEBPACK_IMPORTED_MODULE_1__.ButtonGroup; },
 /* harmony export */   Checkbox: function() { return /* reexport safe */ _components__WEBPACK_IMPORTED_MODULE_1__.Checkbox; },

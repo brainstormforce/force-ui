@@ -1,130 +1,77 @@
-# Radio Button
+# Breadcrumb Component
 
-## `RadioButton.Group` Props
-- **Description:** Wrapper for the button group.  
-
-### name (optional)
-- **type:** `string`
-- **description:** The name prop will be used for form.
-
-### value (For controlled component)
-- **type:** `boolean`
-- **default value:** `undefined`
-
-### defaultValue (For uncontrolled component)
-- **type:** `boolean`
-- **default value:** `false`
-
-### by (for comparing checked value)
-- **type:** `string`
-- **default value:** `id`
-- **description:** If value used in the component is an object that time for comparing checked value `by` will be used to check object property for the comparison.
-
-### as (optional)
-- **type:** `string` or `ReactComponent`
-- **default value:** `Fragment`
-- **description:** It will be used as a container for button groups. But by default it will not create any `div` or other wrapper since the default value is set to `Fragment`.
-
-###	onChange `(value) => void`
-- **type:** `function`
-- **description:** Event handler function to listen to the change. 
-
-### className
-- **type:** `string`
-- **default value:** undefined
-- **description:** Used to customize the container when as value is not equal to a `Fragment`.
-
-### style
-- **type:** `string`
-- **default value:** `simple`
-- **description:** Defines the style of the radio buttons. It can be set to `simple` for standard radio buttons or `tile` for button-style radio tiles.
-
-### disabled
-- **type:**`boolean`
-- **default value:** `false`
-- **description:** The `disabled` prop will disable the component.
-
-## `RadioButton.Button` Props
-
-### id (optional)
-- **type:** `string`
-- **description:** By default it will generate and assign an id.
-
-### label (optional)
-- **type:** `object` || `ReactComponent`
-- **Object properties/format:** `{heading: 'Label heading', description:** 'Label description'}`
-The label also accepts a React component.
-
-### checked (optional)
-- **type:** `boolean`
-- **default value:** `undefined`
-- **description:** For manual comparison.
-
-### size
-- **type:** `string`
-- **default value:** `md`
-- **Available sizes:** `sm` and `md`.
-
-### value
-- **type:** `boolean`
-- **default value:** `undefined`
-
-### disabled
-- **type:**`boolean`
-- **default value:** `false`
-- **description:** The `disabled` prop will disable the component.
-
-### required (optional)
-- **type:** `boolean`
-- **default value:** `undefined`
-- **description:** For form validation required prop value can be set to true.
-
-## `RadioButton.Button` Props of Style `tile`
-
-### id (optional)
-- **type:** `string`
-- **description:** By default it will generate and assign an id.
-
-### value
-- **type:** `boolean`
-- **default value:** `undefined`
-
-### size
-- **type:** `string`
-- **default value:** `md`
-- **Available sizes:** `xs`, `sm` and `md`.
-
-### disabled
-- **type:**`boolean`
-- **default value:** `false`
-- **description:** The `disabled` prop will disable the component.
+## `Breadcrumb` Props
+- **Description:** Wrapper for breadcrumb items.  
 
 ### children
-- **Type:** `string` or `ReactNode`
-- **Description:** The children prop can be used to pass additional content, such as icons or custom elements, that will be displayed within the button.
+- **type:** `ReactNode`
+- **description:** The breadcrumb items to be displayed inside the breadcrumb navigation.
+
+### size (optional)
+- **type:** `string`
+- **default value:** `sm`
+- **description:** The size of the breadcrumb, can be `sm` or `md`.
+
+## `Breadcrumb.List` Props
+- **Description:** Wrapper for the breadcrumb list.  
+
+### children
+- **type:** `ReactNode`
+- **description:** The child items to be rendered as a list of breadcrumb items.
+
+## `Breadcrumb.Item` Props
+- **Description:** Represents a single breadcrumb item.  
+
+### children
+- **type:** `ReactNode`
+- **description:** The content for the breadcrumb item, usually containing a link or static text.
+
+## `Breadcrumb.Link` Props
+- **Description:** The clickable link within a breadcrumb item.
+
+### href (required)
+- **type:** `string`
+- **description:** The URL the breadcrumb item will link to.
+
+### children
+- **type:** `ReactNode`
+- **description:** The content to be displayed as the breadcrumb link.
+
+### className (optional)
+- **type:** `string`
+- **description:** Additional classes to customize the link styles.
+
+## `Breadcrumb.Separator` Props
+- **Description:** Separator used between breadcrumb items.
+
+### type (optional)
+- **type:** `string`
+- **default value:** `arrow`
+- **description:** The type of separator between breadcrumb items, can be either `slash` ("/") or `arrow` (">").
+
+## `Breadcrumb.Ellipsis` Props
+- **Description:** Displays an ellipsis when the breadcrumb list is too long, or represents hidden items.
+
+## `Breadcrumb.Page` Props
+- **Description:** Represents the current page in the breadcrumb trail, displayed as static text instead of a link.
+
+### children
+- **type:** `ReactNode`
+- **description:** The content representing the current page.
 
 ### Example:
 
-```
-<RadioButton.Group
-    name="food"
-    defaultValue="food-1"
-    onChange={ ( value ) => console.log( value ) }
->
-    <RadioButton.Button value="food-1" />
-    <RadioButton.Button value="food-2" />
-    <RadioButton.Button value="food-3" />
-</RadioButton.Group>
-
-<RadioButton.Group
-    value={selectedValue}   
-    onChange={handleRadioChange}
-    style='tile'
->
-    <RadioButton.Button value="option1"><Plus /></RadioButton.Button>
-    <RadioButton.Button value="option2"><Plus /></RadioButton.Button>
-    <RadioButton.Button value="option3"><Plus /></RadioButton.Button>
-</RadioButton.Group>
-
-
-```
+```jsx
+<Breadcrumb>
+    <Breadcrumb.Item>
+        <Breadcrumb.Link href="/home">Home</Breadcrumb.Link>
+    </Breadcrumb.Item>
+    <Breadcrumb.Separator type="slash" />
+    <Breadcrumb.Item>
+        <Breadcrumb.Link href="/category">Category</Breadcrumb.Link>
+    </Breadcrumb.Item>
+    <Breadcrumb.Separator />
+    <Breadcrumb.Item>
+        <Breadcrumb.Page>Current Page</Breadcrumb.Page>
+    </Breadcrumb.Item>
+</Breadcrumb>
