@@ -42,6 +42,7 @@ const Dialog = ({
 	className,
 	exitOnClickOutside = false,
 	pressEscToExit = true,
+	design = 'simple',
 }) => {
 	const isControlled = open !== undefined && setOpen !== undefined;
 	const [isOpen, setIsOpen] = useState(false);
@@ -152,6 +153,7 @@ const Dialog = ({
 					handleOpen,
 					handleClose,
 					exitOnClickOutside,
+					design,
 				}}
 			>
 				<AnimatePresence>
@@ -170,7 +172,7 @@ const Dialog = ({
 									<div
 										ref={dialogRef}
 										className={cn(
-											'flex flex-col gap-6 w-120 h-fit bg-background-primary border border-border-subtle rounded-xl p-5 shadow-soft-shadow-2xl',
+											'flex flex-col gap-6 w-120 h-fit bg-background-primary border border-solid border-border-subtle rounded-xl p-5 shadow-soft-shadow-2xl my-5',
 											className
 										)}
 									>
@@ -263,7 +265,7 @@ const DialogCloseButton = ({
 
 	if (Tag === Fragment) {
 		if (typeof children.type === 'function') {
-			return children({ onClick: handleClose });
+			return children({ close: handleClose });
 		}
 
 		return cloneElement(children, {
@@ -278,12 +280,34 @@ const DialogCloseButton = ({
 	);
 };
 
-const DialogBody = ({ children }) => {
-	return <div className="">{children}</div>;
+const DialogBody = ({ children, ...props }) => {
+	return <div {...props}>{children}</div>;
 };
 
 const DialogFooter = ({ children }) => {
-	return <div className="">{children}</div>;
+	const { design } = useDialogState();
+
+	const renderChildren = () => {
+		if (!isValidElement(children)) {
+			return null;
+		}
+
+		if (typeof children.type === 'function') {
+			return children({ close: handleClose });
+		}
+
+		return children;
+	};
+
+	return (
+		<div
+			className={cn('p-4 flex justify-end gap-3', {
+				'bg-background-secondary': design === 'footer-divided',
+			})}
+		>
+			{renderChildren()}
+		</div>
+	);
 };
 
 export default Object.assign(Dialog, {

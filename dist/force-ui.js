@@ -14021,7 +14021,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _utilities_functions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/utilities/functions */ "./src/utilities/functions.js");
 /* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/x.js");
 var _excluded = ["className"],
-  _excluded2 = ["children", "as", "onClick"];
+  _excluded2 = ["children", "as", "onClick"],
+  _excluded3 = ["children"];
 function _extends() {
   return _extends = Object.assign ? Object.assign.bind() : function (n) {
     for (var e = 1; e < arguments.length; e++) {
@@ -14132,7 +14133,9 @@ var _Dialog = function Dialog(_ref) {
     _ref$exitOnClickOutsi = _ref.exitOnClickOutside,
     exitOnClickOutside = _ref$exitOnClickOutsi === void 0 ? false : _ref$exitOnClickOutsi,
     _ref$pressEscToExit = _ref.pressEscToExit,
-    pressEscToExit = _ref$pressEscToExit === void 0 ? true : _ref$pressEscToExit;
+    pressEscToExit = _ref$pressEscToExit === void 0 ? true : _ref$pressEscToExit,
+    _ref$design = _ref.design,
+    design = _ref$design === void 0 ? 'simple' : _ref$design;
   var isControlled = open !== undefined && setOpen !== undefined;
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
     _useState2 = _slicedToArray(_useState, 2),
@@ -14221,7 +14224,8 @@ var _Dialog = function Dialog(_ref) {
       setOpen: setOpenState,
       handleOpen: handleOpen,
       handleClose: handleClose,
-      exitOnClickOutside: exitOnClickOutside
+      exitOnClickOutside: exitOnClickOutside,
+      design: design
     }
   }, /*#__PURE__*/React.createElement(framer_motion__WEBPACK_IMPORTED_MODULE_2__.AnimatePresence, null, openState && /*#__PURE__*/React.createElement(framer_motion__WEBPACK_IMPORTED_MODULE_3__.motion.div, {
     className: "relative z-999999",
@@ -14236,7 +14240,7 @@ var _Dialog = function Dialog(_ref) {
     className: "flex items-center justify-center min-h-full"
   }, /*#__PURE__*/React.createElement("div", {
     ref: dialogRef,
-    className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_1__.cn)('flex flex-col gap-6 w-120 h-fit bg-background-primary border border-border-subtle rounded-xl p-5 shadow-soft-shadow-2xl', className)
+    className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_1__.cn)('flex flex-col gap-6 w-120 h-fit bg-background-primary border border-solid border-border-subtle rounded-xl p-5 shadow-soft-shadow-2xl my-5', className)
   }, filteredChildren)))))));
 };
 
@@ -14300,7 +14304,7 @@ var DialogCloseButton = function DialogCloseButton(_ref7) {
   if (Tag === react__WEBPACK_IMPORTED_MODULE_0__.Fragment) {
     if (typeof children.type === 'function') {
       return children({
-        onClick: handleClose
+        close: handleClose
       });
     }
     return /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.cloneElement)(children, {
@@ -14312,16 +14316,30 @@ var DialogCloseButton = function DialogCloseButton(_ref7) {
   }, props), children);
 };
 var DialogBody = function DialogBody(_ref8) {
-  var children = _ref8.children;
-  return /*#__PURE__*/React.createElement("div", {
-    className: ""
-  }, children);
+  var children = _ref8.children,
+    props = _objectWithoutProperties(_ref8, _excluded3);
+  return /*#__PURE__*/React.createElement("div", props, children);
 };
 var DialogFooter = function DialogFooter(_ref9) {
   var children = _ref9.children;
+  var _useDialogState2 = useDialogState(),
+    design = _useDialogState2.design;
+  var renderChildren = function renderChildren() {
+    if (! /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.isValidElement)(children)) {
+      return null;
+    }
+    if (typeof children.type === 'function') {
+      return children({
+        close: handleClose
+      });
+    }
+    return children;
+  };
   return /*#__PURE__*/React.createElement("div", {
-    className: ""
-  }, children);
+    className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_1__.cn)('p-4 flex justify-end gap-3', {
+      'bg-background-secondary': design === 'footer-divided'
+    })
+  }, renderChildren());
 };
 /* harmony default export */ __webpack_exports__["default"] = (Object.assign(_Dialog, {
   Backdrop: DialogBackdrop,
