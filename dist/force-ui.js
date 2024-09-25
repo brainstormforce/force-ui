@@ -14022,7 +14022,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/x.js");
 var _excluded = ["className"],
   _excluded2 = ["children", "as", "onClick"],
-  _excluded3 = ["children"];
+  _excluded3 = ["children", "className"];
 function _extends() {
   return _extends = Object.assign ? Object.assign.bind() : function (n) {
     for (var e = 1; e < arguments.length; e++) {
@@ -14240,7 +14240,7 @@ var _Dialog = function Dialog(_ref) {
     className: "flex items-center justify-center min-h-full"
   }, /*#__PURE__*/React.createElement("div", {
     ref: dialogRef,
-    className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_1__.cn)('flex flex-col gap-6 w-120 h-fit bg-background-primary border border-solid border-border-subtle rounded-xl p-5 shadow-soft-shadow-2xl my-5', className)
+    className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_1__.cn)('flex flex-col gap-5 w-120 h-fit bg-background-primary border border-solid border-border-subtle rounded-xl shadow-soft-shadow-2xl my-5 overflow-hidden', className)
   }, filteredChildren)))))));
 };
 
@@ -14255,7 +14255,7 @@ var DialogHeader = function DialogHeader(_ref3) {
   var children = _ref3.children,
     className = _ref3.className;
   return /*#__PURE__*/React.createElement("div", {
-    className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_1__.cn)('space-y-2', className)
+    className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_1__.cn)('space-y-2 px-5 pt-5 pb-1', className)
   }, children);
 };
 var DialogTitle = function DialogTitle(_ref4) {
@@ -14317,15 +14317,19 @@ var DialogCloseButton = function DialogCloseButton(_ref7) {
 };
 var DialogBody = function DialogBody(_ref8) {
   var children = _ref8.children,
+    className = _ref8.className,
     props = _objectWithoutProperties(_ref8, _excluded3);
-  return /*#__PURE__*/React.createElement("div", props, children);
+  return /*#__PURE__*/React.createElement("div", _extends({
+    className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_1__.cn)('px-5', className)
+  }, props), children);
 };
 var DialogFooter = function DialogFooter(_ref9) {
-  var children = _ref9.children;
+  var children = _ref9.children,
+    className = _ref9.className;
   var _useDialogState2 = useDialogState(),
     design = _useDialogState2.design;
   var renderChildren = function renderChildren() {
-    if (! /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.isValidElement)(children)) {
+    if (!children || react__WEBPACK_IMPORTED_MODULE_0__.Children.count(children) === 0) {
       return null;
     }
     if (typeof children.type === 'function') {
@@ -14338,7 +14342,7 @@ var DialogFooter = function DialogFooter(_ref9) {
   return /*#__PURE__*/React.createElement("div", {
     className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_1__.cn)('p-4 flex justify-end gap-3', {
       'bg-background-secondary': design === 'footer-divided'
-    })
+    }, className)
   }, renderChildren());
 };
 /* harmony default export */ __webpack_exports__["default"] = (Object.assign(_Dialog, {

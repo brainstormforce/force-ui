@@ -172,7 +172,7 @@ const Dialog = ({
 									<div
 										ref={dialogRef}
 										className={cn(
-											'flex flex-col gap-6 w-120 h-fit bg-background-primary border border-solid border-border-subtle rounded-xl p-5 shadow-soft-shadow-2xl my-5',
+											'flex flex-col gap-5 w-120 h-fit bg-background-primary border border-solid border-border-subtle rounded-xl shadow-soft-shadow-2xl my-5 overflow-hidden',
 											className
 										)}
 									>
@@ -201,7 +201,7 @@ const DialogBackdrop = ({ className }) => {
 };
 
 const DialogHeader = ({ children, className }) => {
-	return <div className={cn('space-y-2', className)}>{children}</div>;
+	return <div className={cn('space-y-2 px-5 pt-5 pb-1', className)}>{children}</div>;
 };
 
 const DialogTitle = ({ children, as: Tag = 'h3', className }) => {
@@ -280,15 +280,19 @@ const DialogCloseButton = ({
 	);
 };
 
-const DialogBody = ({ children, ...props }) => {
-	return <div {...props}>{children}</div>;
+const DialogBody = ({ children, className, ...props }) => {
+	return (
+		<div className={cn('px-5', className)} {...props}>
+			{children}
+		</div>
+	);
 };
 
-const DialogFooter = ({ children }) => {
+const DialogFooter = ({ children, className }) => {
 	const { design } = useDialogState();
 
 	const renderChildren = () => {
-		if (!isValidElement(children)) {
+		if (! children || Children.count(children) === 0) {
 			return null;
 		}
 
@@ -301,9 +305,13 @@ const DialogFooter = ({ children }) => {
 
 	return (
 		<div
-			className={cn('p-4 flex justify-end gap-3', {
-				'bg-background-secondary': design === 'footer-divided',
-			})}
+			className={cn(
+				'p-4 flex justify-end gap-3',
+				{
+					'bg-background-secondary': design === 'footer-divided',
+				},
+				className
+			)}
 		>
 			{renderChildren()}
 		</div>
