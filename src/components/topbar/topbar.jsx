@@ -9,22 +9,22 @@ const Topbar = ( { children, gap = 'lg', className, ...props } ) => {
 	);
 };
 
-const Left = ( { gap = 'sm', children } ) => {
-	return <div className={ cn( 'flex items-center', getGapClass( gap ) ) }>{ children }</div>;
+const Left = ( { gap = 'sm', children, className } ) => {
+    return <div className={cn('flex items-center', getGapClass(gap), className ) }>{ children }</div>;
 };
 
-const Middle = ( { gap = 'md', children, align = 'center' } ) => {
+const Middle = ({ gap = 'md', children, align = 'center', className } ) => {
 	const alignmentClass = {
 		left: 'justify-start',
 		center: 'justify-center',
 		right: 'justify-end',
 	}?.[ align ];
 
-	return <div className={ cn( 'flex items-center grow', getGapClass( gap ), alignmentClass ) }>{ children }</div>;
+    return <div className={cn('flex items-center grow', getGapClass(gap), alignmentClass, className ) }>{ children }</div>;
 };
 
-const Right = ( { gap = 'sm', children } ) => {
-	return <div className={ cn( 'flex items-center', getGapClass( gap ) ) }>{ children }</div>;
+const Right = ({ gap = 'sm', children, className } ) => {
+    return <div className={cn('flex items-center', getGapClass(gap), className ) }>{ children }</div>;
 };
 
 const Item = ( { children, className } ) => {
