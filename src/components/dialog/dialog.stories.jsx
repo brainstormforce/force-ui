@@ -135,22 +135,22 @@ Controlled.args = {
 
 const UncontrolledTemplate = ( args ) => (
 	<Dialog { ...args }>
-		<Dialog.Header>
-			<div className="flex items-center justify-between">
-				<Dialog.Title>Dialog Title</Dialog.Title>
-				<Dialog.CloseButton />
-			</div>
-			<Dialog.Description>
-				Lorem ipsum dolor sit amet consectetur. Aliquam sed scelerisque
-				et arcu nibh a massa.
-			</Dialog.Description>
-		</Dialog.Header>
-		<Dialog.Body>
-			<h1 className="m-0">Dialog Content</h1>
-		</Dialog.Body>
-		<Dialog.Footer>
-			{ ( { close } ) => (
-				<>
+		{ ( { close } ) => (
+			<>
+				<Dialog.Header>
+					<div className="flex items-center justify-between">
+						<Dialog.Title>Dialog Title</Dialog.Title>
+						<Dialog.CloseButton />
+					</div>
+					<Dialog.Description>
+						Lorem ipsum dolor sit amet consectetur. Aliquam sed scelerisque
+						et arcu nibh a massa.
+					</Dialog.Description>
+				</Dialog.Header>
+				<Dialog.Body>
+					<h1 className="m-0">Dialog Content</h1>
+				</Dialog.Body>
+				<Dialog.Footer>
 					<div className="mr-auto inline-flex items-center">
 						Other option
 					</div>
@@ -159,10 +159,10 @@ const UncontrolledTemplate = ( args ) => (
 						Cancel
 					</Button>
 					<Button variant="primary">Save</Button>
-				</>
-			) }
-		</Dialog.Footer>
-		<Dialog.Backdrop />
+				</Dialog.Footer>
+				<Dialog.Backdrop />
+			</>
+		) }
 	</Dialog>
 );
 
