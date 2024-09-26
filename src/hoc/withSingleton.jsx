@@ -4,7 +4,8 @@ let hasRendered = false;
 
 const withSingleton = ( WrappedComponent ) => {
 	const SingletonComponent = memo( ( props ) => {
-		if ( hasRendered ) {
+		const isSingleTon = props.singleTon; // singleTon is a prop passed to the component to check if it is a singleton component
+		if ( hasRendered && isSingleTon ) {
 			return null; // or return an alternative component
 		}
 		hasRendered = true;
