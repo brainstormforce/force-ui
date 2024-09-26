@@ -203,7 +203,7 @@ const DialogBackdrop = ( { className, ...props } ) => {
 
 // Dialog header wrapper.
 const DialogHeader = ( { children, className, ...props } ) => {
-	return <div className={ cn( 'space-y-2 px-5 pt-5 pb-1', className ) } {...props}>{ children }</div>;
+	return <div className={ cn( 'space-y-2 px-5 pt-5 pb-1', className ) } { ...props }>{ children }</div>;
 };
 
 // Dialog title.
