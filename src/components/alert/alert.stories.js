@@ -51,16 +51,6 @@ export default {
 			control: 'text',
 			defaultValue: 'This is a description',
 		},
-		className: {
-			name: 'Classname',
-			description: 'Defines the extra classes',
-			control: 'select',
-			options: [ 'inline', 'stack' ],
-			table: {
-				type: { summary: 'string' },
-				defaultValue: { summary: 'inline' },
-			},
-		},
 		action: {
 			name: 'Action',
 			description: 'Defines the icon of the alert.',
@@ -73,6 +63,12 @@ export default {
 					type: 'link',
 				},
 			},
+		},
+		className: {
+			name: 'Classname',
+			description: 'Defines the extra classes',
+			control: 'text',
+			defaultValue: '',
 		},
 	},
 };
