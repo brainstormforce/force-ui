@@ -12,6 +12,15 @@ export function prefix() {
  */
 export const cn = ( ...classNames ) => twMerge( clsx( ...classNames ) );
 
+/**
+ * Call provided functions with the given arguments.
+ * @param {...Function} fns
+ * @return {Function} - Function that calls all provided functions.
+ */
+export const callAll = ( ...fns ) => {
+	return ( ...args ) => fns.forEach( ( fn ) => fn?.( ...args ) );
+};
+
 export const getGapClass = ( gap ) => {
 	const gapClasses = {
 		0: 'gap-0',
