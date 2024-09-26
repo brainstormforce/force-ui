@@ -2,7 +2,7 @@ import ProgressSteps from './progress-steps';
 import { Check } from 'lucide-react';
 
 export default {
-	title: 'Components/ProgressSteps',
+	title: 'Atoms/ProgressSteps',
 	component: ProgressSteps,
 	parameters: {
 		layout: 'centered',
