@@ -3,7 +3,7 @@ import Dialog from './dialog';
 import Button from '../button';
 
 export default {
-	title: 'Organism/Dialog',
+	title: 'Organisms/Dialog',
 	component: Dialog,
 	parameters: {
 		layout: 'fullscreen',
