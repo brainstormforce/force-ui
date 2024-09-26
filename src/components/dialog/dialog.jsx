@@ -41,7 +41,7 @@ const Dialog = ( {
 	trigger,
 	className,
 	exitOnClickOutside = false,
-	pressEscToExit = true,
+	exitOnEsc = true,
 	design = 'simple',
 } ) => {
 	const isControlled = open !== undefined && setOpen !== undefined;
@@ -90,7 +90,7 @@ const Dialog = ( {
 	const handleKeyDown = ( event ) => {
 		switch ( event.key ) {
 			case 'Escape':
-				if ( pressEscToExit ) {
+				if ( exitOnEsc ) {
 					handleClose();
 				}
 				break;
@@ -189,30 +189,32 @@ const Dialog = ( {
 };
 
 // Backdrop for the dialog.
-const DialogBackdrop = ( { className } ) => {
+const DialogBackdrop = ( { className, ...props } ) => {
 	return (
 		<div
 			className={ cn(
 				'fixed inset-0 -z-10 bg-background-inverse/90 backdrop-blur-sm',
 				className
 			) }
+			{ ...props }
 		/>
 	);
 };
 
 // Dialog header wrapper.
-const DialogHeader = ( { children, className } ) => {
-	return <div className={ cn( 'space-y-2 px-5 pt-5 pb-1', className ) }>{ children }</div>;
+const DialogHeader = ( { children, className, ...props } ) => {
+	return <div className={ cn( 'space-y-2 px-5 pt-5 pb-1', className ) } {...props}>{ children }</div>;
 };
 
 // Dialog title.
-const DialogTitle = ( { children, as: Tag = 'h3', className } ) => {
+const DialogTitle = ( { children, as: Tag = 'h3', className, ...props } ) => {
 	return (
 		<Tag
 			className={ cn(
 				'text-base font-semibold text-text-primary m-0 p-0',
 				className
 			) }
+			{ ...props }
 		>
 			{ children }
 		</Tag>
@@ -220,13 +222,14 @@ const DialogTitle = ( { children, as: Tag = 'h3', className } ) => {
 };
 
 // Dialog description.
-const DialogDescription = ( { children, as: Tag = 'p', className } ) => {
+const DialogDescription = ( { children, as: Tag = 'p', className, ...props } ) => {
 	return (
 		<Tag
 			className={ cn(
 				'text-sm font-normal text-text-secondary my-0 ml-0 mr-1 p-0',
 				className
 			) }
+			{ ...props }
 		>
 			{ children }
 		</Tag>
