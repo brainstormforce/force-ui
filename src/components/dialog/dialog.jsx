@@ -159,7 +159,7 @@ const Dialog = ( {
 				<AnimatePresence>
 					{ openState && (
 						<motion.div
-							className="relative z-999999"
+							className="fixed z-999999"
 							initial="exit"
 							animate="open"
 							exit="exit"
@@ -200,10 +200,12 @@ const DialogBackdrop = ( { className } ) => {
 	);
 };
 
+// Dialog header wrapper.
 const DialogHeader = ( { children, className } ) => {
 	return <div className={ cn( 'space-y-2 px-5 pt-5 pb-1', className ) }>{ children }</div>;
 };
 
+// Dialog title.
 const DialogTitle = ( { children, as: Tag = 'h3', className } ) => {
 	return (
 		<Tag
@@ -217,6 +219,7 @@ const DialogTitle = ( { children, as: Tag = 'h3', className } ) => {
 	);
 };
 
+// Dialog description.
 const DialogDescription = ( { children, as: Tag = 'p', className } ) => {
 	return (
 		<Tag
@@ -230,6 +233,7 @@ const DialogDescription = ( { children, as: Tag = 'p', className } ) => {
 	);
 };
 
+// Default close button for the dialog.
 const DefaultCloseButton = ( { className, ...props } ) => {
 	return (
 		<button
@@ -279,6 +283,7 @@ const DialogCloseButton = ( {
 	);
 };
 
+// Dialog body.
 const DialogBody = ( { children, className, ...props } ) => {
 	return (
 		<div className={ cn( 'px-5', className ) } { ...props }>
@@ -287,6 +292,7 @@ const DialogBody = ( { children, className, ...props } ) => {
 	);
 };
 
+// Dialog footer.
 const DialogFooter = ( { children, className } ) => {
 	const { design, handleClose } = useDialogState();
 
