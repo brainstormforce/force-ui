@@ -2,24 +2,13 @@ import React from 'react';
 import Container from './container.jsx';
 
 export default {
-	title: 'Atoms/Container',
+	title: 'Atoms/Container/Container',
 	component: Container,
 	parameters: {
 		layout: 'centered',
 	},
 	tags: [ 'autodocs' ],
 	argTypes: {
-		containerType: {
-			name: 'Container Type',
-			description: 'Specifies the type of container',
-			control: 'select',
-			options: [ 'flex', 'grid' ],
-			defaultValue: 'flex',
-			table: {
-				type: { summary: 'string' },
-				defaultValue: { summary: 'flex' },
-			},
-		},
 		gap: {
 			name: 'Gap',
 			description: 'Defines the gap between items.',
@@ -94,10 +83,8 @@ export default {
 	},
 };
 
-// Basic Flexbox Container Story
 export const BasicFlexbox = {
 	args: {
-		containerType: 'flex',
 		gap: 'sm',
 		direction: 'row',
 		justify: 'start',
@@ -129,22 +116,6 @@ export const ResponsiveColumns = {
 			<Container.Item className="bg-green-500 p-4">Item 2</Container.Item>
 			<Container.Item className="bg-blue-500 p-4">Item 3</Container.Item>
 			<Container.Item className="bg-yellow-500 p-4 ">Item 4</Container.Item>
-		</Container>
-	),
-};
-
-export const GridContainer = {
-	args: {
-		containerType: 'grid',
-		gap: 'lg',
-		cols: 3,
-		className: 'bg-gray-100 p-4',
-	},
-	render: ( args ) => (
-		<Container { ...args } className={ `grid grid-cols-${ args.cols } gap-6 ${ args.className }` }>
-			<Container.Item className="bg-red-500 p-4 md:w-full lg:w-full">Grid Item 1</Container.Item>
-			<Container.Item className="bg-green-500 p-4 md:w-full lg:w-full">Grid Item 2</Container.Item>
-			<Container.Item className="bg-blue-500 p-4 md:w-full lg:w-full">Grid Item 3</Container.Item>
 		</Container>
 	),
 };
