@@ -9,7 +9,6 @@ import {
 	useMemo,
 	useRef,
 	useState,
-	Children,
 } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { callAll, cn } from '@/utilities/functions';
@@ -130,19 +129,6 @@ const Dialog = ( {
 		};
 	}, [ openState ] );
 
-	// Find the backdrop component.
-	const backdrop = Children.toArray( children ).find(
-		( child ) => child?.type === Dialog.Backdrop
-	);
-	// Filter out the backdrop component from the children.
-	const filteredChildren = useMemo(
-		() =>
-			Children.toArray( children ).filter(
-				( child ) => child?.type !== Dialog.Backdrop
-			),
-		[ children ]
-	);
-
 	return (
 		<>
 			{ renderTrigger() }
@@ -166,7 +152,6 @@ const Dialog = ( {
 							variants={ animationVariants }
 							role="dialog"
 						>
-							{ !! backdrop && backdrop }
 							<div className="fixed inset-0 overflow-y-auto">
 								<div className="flex items-center justify-center min-h-full">
 									<div
@@ -176,7 +161,9 @@ const Dialog = ( {
 											className
 										) }
 									>
-										{ filteredChildren }
+										{ typeof children === 'function'
+											? children( { close: handleClose } )
+											: children }
 									</div>
 								</div>
 							</div>

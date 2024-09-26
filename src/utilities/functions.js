@@ -19,7 +19,7 @@ export const cn = ( ...classNames ) => twMerge( clsx( ...classNames ) );
  */
 export const callAll = ( ...fns ) => {
 	return ( ...args ) => fns.forEach( ( fn ) => fn?.( ...args ) );
-}
+};
 
 export const getGapClass = ( gap ) => {
 	const gapClasses = {
