@@ -263,7 +263,7 @@ const DialogCloseButton = ( {
 	if ( ! isValidElement( children ) || ! children ) {
 		return (
 			<DefaultCloseButton
-				onClick={ callAll( handleClose ) }
+				onClick={ handleClose }
 				{ ...props }
 			/>
 		);
@@ -280,7 +280,7 @@ const DialogCloseButton = ( {
 	}
 
 	return (
-		<Tag { ...props } onClick={ callAll( handleClose ) }>
+		<Tag { ...props } onClick={ handleClose }>
 			{ children }
 		</Tag>
 	);
