@@ -110,6 +110,7 @@ export default {
 export const Neutral = {
 	args: {
 		variant: 'neutral',
+		icon: <Info />,
 		type: 'pill',
 		size: 'sm',
 		label: 'Badge',

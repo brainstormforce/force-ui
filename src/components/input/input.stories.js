@@ -73,6 +73,33 @@ export default {
 				type: { summary: 'ReactNode' },
 			},
 		},
+		className: {
+			name: 'Classname',
+			description: 'Defines the extra classes',
+			control: 'text',
+			table: {
+				type: { summary: 'string' },
+				defaultValue: { summary: '' },
+			},
+		},
+		onChange: {
+			name: 'On Change Event',
+			description: 'Callback function for change event',
+			control: 'function',
+			table: {
+				type: { summary: 'function' },
+				defaultValue: { summary: '() => {}' },
+			},
+		},
+		onError: {
+			name: 'On Error Event',
+			description: 'Callback function for error event',
+			control: 'function',
+			table: {
+				type: { summary: 'function' },
+				defaultValue: { summary: '() => {}' },
+			},
+		},
 	},
 };
 

@@ -38,6 +38,15 @@ export default {
 				type: { summary: 'ReactNode' },
 			},
 		},
+		className: {
+			name: 'Classname',
+			description: 'Defines the extra classes',
+			control: 'text',
+			table: {
+				type: { summary: 'string' },
+				defaultValue: { summary: '' },
+			},
+		},
 	},
 };
 

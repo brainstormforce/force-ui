@@ -74,6 +74,15 @@ export default {
 				defaultValue: { summary: 'md' },
 			},
 		},
+		defaultValue: {
+			name: 'Default Value',
+			description: 'Default value for the editor input field.',
+			control: 'text',
+			table: {
+				type: { summary: 'string' },
+				defaultValue: { summary: '' },
+			},
+		},
 		placeholder: {
 			name: 'Placeholder',
 			description: 'Placeholder text for the editor input field.',
@@ -81,6 +90,15 @@ export default {
 			table: {
 				type: { summary: 'string' },
 				defaultValue: { summary: 'Press @ to view variable suggestions' },
+			},
+		},
+		trigger: {
+			name: 'Trigger',
+			description: 'Trigger text for the editor input field.',
+			control: 'text',
+			table: {
+				type: { summary: 'string' },
+				defaultValue: { summary: '@' },
 			},
 		},
 		className: {
@@ -93,6 +111,13 @@ export default {
 			},
 		},
 	},
+	decorators: [
+		( Story ) => (
+			<div style={ { width: '900px', height: '200px' } }>
+				<Story />
+			</div>
+		),
+	],
 };
 
 const options = [
@@ -108,37 +133,25 @@ const options = [
 
 // More on writing stories with args: https://storybook.js.org/docs/writing-stories/args
 export const Small = {
-	render: () => (
-		<div style={ { width: '900px', height: '200px' } }>
-			<EditorInput
-				size="sm"
-				options={ options }
-				onChange={ ( editorState ) => editorState.toJSON() }
-			/>
-		</div>
-	),
+	args: {
+		size: 'sm',
+		options,
+		onChange: ( editorState ) => editorState.toJSON(),
+	},
 };
 
 export const Medium = {
-	render: () => (
-		<div style={ { width: '900px', height: '200px' } }>
-			<EditorInput
-				size="md"
-				options={ options }
-				onChange={ ( editorState ) => editorState.toJSON() }
-			/>
-		</div>
-	),
+	args: {
+		size: 'md',
+		options,
+		onChange: ( editorState ) => editorState.toJSON(),
+	},
 };
 
 export const Large = {
-	render: () => (
-		<div style={ { width: '900px', height: '200px' } }>
-			<EditorInput
-				size="lg"
-				options={ options }
-				onChange={ ( editorState ) => editorState.toJSON() }
-			/>
-		</div>
-	),
+	args: {
+		size: 'lg',
+		options,
+		onChange: ( editorState ) => editorState.toJSON(),
+	},
 };
