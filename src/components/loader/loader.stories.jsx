@@ -39,7 +39,7 @@ export default {
 			},
 		},
 		className: {
-			name: 'Classname',
+			name: 'Class Name',
 			description: 'Defines the extra classes',
 			control: 'text',
 			table: {

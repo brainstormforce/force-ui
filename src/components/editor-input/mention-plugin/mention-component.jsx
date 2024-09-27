@@ -48,6 +48,7 @@ const MentionComponent = ( { data, by, size, nodeKey } ) => {
 			size={ mapSizeToBadgeSize( size ) }
 			label={ renderLabel }
 			icon={ null }
+			closable={ true }
 			onClose={ removeMention }
 			disabled={ disabled }
 		/>
