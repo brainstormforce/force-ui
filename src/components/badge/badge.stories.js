@@ -1,5 +1,5 @@
 import Badge from './badge.jsx';
-import { fn } from '@storybook/test';
+import { Info } from 'lucide-react';
 
 // Badge component story configuration
 export default {
@@ -58,7 +58,51 @@ export default {
 				defaultValue: { summary: 'true' },
 			},
 		},
-		label: { control: 'text', defaultValue: 'Badge' },
+		label: {
+			control: 'text',
+			name: 'Label',
+			description: 'Defines the Label of the badge.',
+			table: {
+				type: { summary: 'string' },
+				defaultValue: { summary: 'Badge' },
+			},
+		},
+		className: {
+			name: 'Classname',
+			description: 'Defines the extra classes',
+			control: 'text',
+			table: {
+				type: { summary: 'string' },
+				defaultValue: { summary: '' },
+			},
+		},
+		onClose: {
+			name: 'On Close Event',
+			description: 'Callback function for close event',
+			control: 'function',
+			table: {
+				type: { summary: 'function' },
+				defaultValue: { summary: '() => {}' },
+			},
+		},
+		onMouseDown: {
+			name: 'On Mouse Down Event',
+			description: 'Callback function for mouse down event',
+			control: 'function',
+			table: {
+				type: { summary: 'function' },
+				defaultValue: { summary: '() => {}' },
+			},
+		},
+		icon: {
+			name: 'Icon',
+			description: 'Custom Icon for the badge.',
+			control: 'object',
+			table: {
+				type: { summary: 'object' },
+				defaultValue: { summary: <Info /> },
+			},
+		},
 	},
 };
 
@@ -66,24 +110,18 @@ export default {
 export const Neutral = {
 	args: {
 		variant: 'neutral',
-		children: 'Badge',
 		type: 'pill',
 		size: 'sm',
 		label: 'Badge',
-		onClose: fn(),
-		onMouseDown: fn(),
 	},
 };
 
 export const Disabled = {
 	args: {
 		variant: 'neutral',
-		children: 'Badge',
 		type: 'pill',
 		size: 'sm',
 		label: 'Badge',
-		onClose: fn(),
-		onMouseDown: fn(),
 		disabled: true,
 	},
 };
@@ -91,59 +129,44 @@ export const Disabled = {
 export const Red = {
 	args: {
 		variant: 'red',
-		children: 'Badge',
 		type: 'rounded',
 		size: 'sm',
 		label: 'Badge',
-		onClose: fn(),
-		onMouseDown: fn(),
 	},
 };
 
 export const Yellow = {
 	args: {
 		variant: 'yellow',
-		children: 'Badge',
 		type: 'rounded',
 		size: 'sm',
 		label: 'Badge',
-		onClose: fn(),
-		onMouseDown: fn(),
 	},
 };
 
 export const Green = {
 	args: {
 		variant: 'green',
-		children: 'Badge',
 		type: 'rounded',
 		size: 'sm',
 		label: 'Badge',
-		onClose: fn(),
-		onMouseDown: fn(),
 	},
 };
 
 export const Blue = {
 	args: {
 		variant: 'blue',
-		children: 'Badge',
 		type: 'rounded',
 		size: 'sm',
 		label: 'Badge',
-		onClose: fn(),
-		onMouseDown: fn(),
 	},
 };
 
 export const Inverse = {
 	args: {
 		variant: 'inverse',
-		children: 'Badge',
 		type: 'rounded',
 		size: 'sm',
 		label: 'Badge',
-		onClose: fn(),
-		onMouseDown: fn(),
 	},
 };
