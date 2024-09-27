@@ -13,13 +13,12 @@ import {
 import { AnimatePresence, motion } from 'framer-motion';
 import { callAll, cn } from '@/utilities/functions';
 import { X } from 'lucide-react';
-import { nanoid } from 'nanoid';
 import { createPortal } from 'react-dom';
 
 const DrawerContext = createContext();
 const useDrawerState = () => useContext( DrawerContext );
 
-const TRANSITION = {duration: 0.3};
+const TRANSITION = {duration: 0.2};
 
 const animationVariants = {
     left: {
@@ -159,44 +158,48 @@ const Drawer = ( {
 					exitOnClickOutside,
 					design,
 					position,
-                    drawerContainerRef,
+					drawerContainerRef,
 				}}
 			>
 				<div
-					className="fixed z-999999 pointer-events-none"
+					className="fixed z-999999 w-0 h-0 overflow-visible"
 					role="drawer"
+					ref={drawerContainerRef}
 				>
 					<AnimatePresence>
-						<div
-                            ref={drawerContainerRef}
-							className="fixed inset-0"
-						>
+						{openState && (
 							<div
-								className={cn(
-									'flex items-center justify-center h-full',
-									{
-										'justify-start': position === 'left',
-										'justify-end': position === 'right',
-									}
-								)}
+								className="fixed inset-0"
 							>
-								<motion.div
-									ref={drawerRef}
+								<div
 									className={cn(
-										'flex flex-col gap-5 w-120 h-full bg-background-primary border border-solid border-border-subtle shadow-soft-shadow-2xl my-5 pointer-events-auto',
-										className
+										'flex items-center justify-center h-full',
+										{
+											'justify-start':
+												position === 'left',
+											'justify-end': position === 'right',
+										}
 									)}
-									initial="exit"
-									animate={openState ? 'open' : 'exit'}
-									variants={animationVariants[position]}
-									transition={TRANSITION}
 								>
-									{typeof children === 'function'
-										? children({ close: handleClose })
-										: children}
-								</motion.div>
+									<motion.div
+										ref={drawerRef}
+										className={cn(
+											'flex flex-col gap-5 w-120 h-full bg-background-primary shadow-2xl my-5 overflow-hidden',
+											className
+										)}
+										initial="exit"
+										animate="open"
+										exit="exit"
+										variants={animationVariants[position]}
+										transition={TRANSITION}
+									>
+										{typeof children === 'function'
+											? children({ close: handleClose })
+											: children}
+									</motion.div>
+								</div>
 							</div>
-						</div>
+						)}
 					</AnimatePresence>
 				</div>
 			</DrawerContext.Provider>
@@ -211,17 +214,22 @@ const DrawerBackdrop = ( { className, ...props } ) => {
 	return (
 		drawerContainerRef.current &&
 		createPortal(
-			<motion.div
-				className={cn(
-					'fixed inset-0 -z-10 bg-background-inverse/90 backdrop-blur-sm pointer-events-none',
-					className
+			<AnimatePresence>
+				{open && (
+					<motion.div
+						className={cn(
+							'fixed inset-0 -z-10 bg-background-inverse/90 backdrop-blur-sm',
+							className
+						)}
+						{...props}
+						initial="exit"
+						animate="open"
+						exit="exit"
+						variants={backdropAnimationVariants}
+						transition={TRANSITION}
+					/>
 				)}
-				{...props}
-				initial="exit"
-				animate={open ? 'open' : 'exit'}
-				variants={backdropAnimationVariants}
-				transition={TRANSITION}
-			/>,
+			</AnimatePresence>,
 			drawerContainerRef.current
 		)
 	);
@@ -315,7 +323,7 @@ const DrawerCloseButton = ( {
 // Drawer body.
 const DrawerBody = ( { children, className, ...props } ) => {
 	return (
-		<div className={ cn( 'px-5', className ) } { ...props }>
+		<div className={ cn( 'px-5 flex flex-col flex-1 overflow-y-auto', className ) } { ...props }>
 			{ children }
 		</div>
 	);
@@ -340,7 +348,7 @@ const DrawerFooter = ( { children, className } ) => {
 	return (
 		<div
 			className={ cn(
-				'p-4 flex justify-end gap-3',
+				'p-4 flex justify-end gap-3 mt-auto',
 				{
 					'bg-background-secondary': design === 'footer-divided',
 				},
