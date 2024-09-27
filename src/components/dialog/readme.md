@@ -63,6 +63,32 @@ The `Dialog` component is a versatile, customizable dialog component built with 
 - **Default:** `true`
 - **Note:** When the dialog is open, the body will be locked, and scrolling will be disabled.
 
+## `Dialog.Panel` Props
+
+### `className`
+-   **Type:** `string`
+-  **Description:** Additional custom classes to be added to the panel.
+- **Default:** `""`
+- **Note:** The panel is the main container of the dialog. To change the width, height, or other styles of the dialog, you can add custom classes to the panel.
+
+### `children`
+
+-   **Type:** `ReactNode`
+-   **Description:** The content to be displayed inside the dialog.
+
+## `Dialog.Header` Props
+
+### `className`
+
+-   **Type:** `string`
+-   **Description:** Additional custom classes to be added to the header.
+-   **Default:** `""`
+
+### `children`
+
+-   **Type:** `ReactNode`
+-   **Description:** The content to be displayed inside the header.
+
 ## `Dialog.Header` Props
 
 ### `className`
