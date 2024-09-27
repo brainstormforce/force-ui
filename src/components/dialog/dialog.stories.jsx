@@ -133,9 +133,9 @@ export const Controlled = ControlledTemplate.bind( {} );
 Controlled.args = {
 };
 
-const UncontrolledTemplate = ( args ) => (
-	<Dialog { ...args }>
-		{ ( { close } ) => (
+const UncontrolledTemplate = (args) => (
+	<Dialog {...args}>
+		{({ close }) => (
 			<>
 				<Dialog.Header>
 					<div className="flex items-center justify-between">
@@ -143,8 +143,8 @@ const UncontrolledTemplate = ( args ) => (
 						<Dialog.CloseButton />
 					</div>
 					<Dialog.Description>
-						Lorem ipsum dolor sit amet consectetur. Aliquam sed scelerisque
-						et arcu nibh a massa.
+						Lorem ipsum dolor sit amet consectetur. Aliquam sed
+						scelerisque et arcu nibh a massa.
 					</Dialog.Description>
 				</Dialog.Header>
 				<Dialog.Body>
@@ -155,20 +155,23 @@ const UncontrolledTemplate = ( args ) => (
 						Other option
 					</div>
 					<Button variant="ghost">Details</Button>
-					<Button onClick={ close } variant="outline">
+					<Button onClick={close} variant="outline">
 						Cancel
 					</Button>
 					<Button variant="primary">Save</Button>
 				</Dialog.Footer>
 				<Dialog.Backdrop />
 			</>
-		) }
+		)}
 	</Dialog>
 );
 
 export const Uncontrolled = UncontrolledTemplate.bind( {} );
 Uncontrolled.args = {
 	trigger: <Button>Open Uncontrolled Dialog</Button>,
+};
+Uncontrolled.parameters = {
+	docs: { source: { type: 'code' } },
 };
 
 export const Simple = Template.bind( {} );
