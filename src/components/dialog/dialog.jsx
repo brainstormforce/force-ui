@@ -42,6 +42,7 @@ const Dialog = ( {
 	exitOnClickOutside = false,
 	exitOnEsc = true,
 	design = 'simple',
+	scrollLock = true,
 } ) => {
 	const isControlled = open !== undefined && setOpen !== undefined;
 	const [ isOpen, setIsOpen ] = useState( false );
@@ -120,6 +121,9 @@ const Dialog = ( {
 
 	// Prevent scrolling when dialog is open.
 	useEffect( () => {
+		if ( ! scrollLock ) {
+			return;
+		}
 		if ( openState ) {
 			document.querySelector( 'html' ).style.overflow = 'hidden';
 		}

@@ -19,8 +19,25 @@ export default {
 		),
 	],
 	argTypes: {
+		open: {
+			name: 'Open',
+			description: 'Control the dialog open state. If not provided, the dialog will be controlled internally.',
+			control: 'none',
+			table: {
+				type: { summary: 'boolean' },
+			},
+		},
+		setOpen: {
+			name: 'Set Open',
+			description: 'Control the dialog open state. If not provided, the dialog will be controlled internally.',
+			control: 'none',
+			table: {
+				type: { summary: 'function' },
+			},
+		},
 		design: {
 			name: 'Design',
+			description: 'Design of the dialog.',
 			control: 'select',
 			options: [ 'simple', 'footer-divided' ],
 			table: {
@@ -30,6 +47,7 @@ export default {
 		},
 		exitOnEsc: {
 			name: 'Exit on Esc',
+			description: 'Close the dialog on pressing the escape key.',
 			control: 'boolean',
 			table: {
 				type: { summary: 'boolean' },
@@ -38,6 +56,7 @@ export default {
 		},
 		exitOnClickOutside: {
 			name: 'Exit on Click Outside',
+			description: 'Close the dialog on clicking outside the dialog.',
 			control: 'boolean',
 			table: {
 				type: { summary: 'boolean' },
@@ -46,11 +65,21 @@ export default {
 		},
 		trigger: {
 			name: 'Trigger Button',
+			description: 'Button to trigger the dialog.',
 			control: 'none',
 			table: {
 				type: { summary: 'node' },
 			},
 			defaultValue: <Button>Open Dialog</Button>,
+		},
+		scrollLock: {
+			name: 'Scroll Lock',
+			description: 'Lock the scroll when the dialog is open.',
+			control: 'boolean',
+			table: {
+				type: { summary: 'boolean' },
+				defaultValue: { summary: 'true' },
+			},
 		},
 	},
 };

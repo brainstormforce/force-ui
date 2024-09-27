@@ -57,6 +57,12 @@ The `Dialog` component is a versatile, customizable dialog component built with 
 -   **Type:** `ReactNode`
 -   **Description:** The content to be displayed inside the dialog.
 
+### `scrollLock`
+-  **Type:** `boolean`
+- **Description:** Defines whether the body should be locked when the dialog is open.
+- **Default:** `true`
+- **Note:** When the dialog is open, the body will be locked, and scrolling will be disabled.
+
 ## `Dialog.Header` Props
 
 ### `className`

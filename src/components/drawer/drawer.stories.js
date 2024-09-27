@@ -20,6 +20,22 @@ export default {
 		),
 	],
 	argTypes: {
+        open: {
+			name: 'Open',
+			description: 'Control the drawer open state. If not provided, the drawer will be controlled internally.',
+			control: 'none',
+			table: {
+				type: { summary: 'boolean' },
+			},
+		},
+		setOpen: {
+			name: 'Set Open',
+			description: 'Control the drawer open state. If not provided, the drawer will be controlled internally.',
+			control: 'none',
+			table: {
+				type: { summary: 'function' },
+			},
+		},
 		design: {
 			name: 'Design',
             description: 'The design of the drawer.',
@@ -84,7 +100,7 @@ export default {
                 type: { summary: 'boolean' },
                 defaultValue: { summary: 'true' },
             },
-        }
+        },
 	},
 };
 
