@@ -1,8 +1,11 @@
 import React from 'react';
 import Container from './container.jsx';
 
+Container.displayName = 'Container';
+Container.Item.displayName = 'Container.Item';
+
 export default {
-	title: 'Atoms/Container/Container',
+	title: 'Atoms/Container',
 	component: Container,
 	parameters: {
 		layout: 'centered',
@@ -53,69 +56,96 @@ export default {
 				defaultValue: { summary: 'stretch' },
 			},
 		},
-		cols: {
-			name: 'Columns (Desktop)',
-			description: 'Defines the number of columns for desktop view.',
-			control: 'number',
+		itemGrow: {
+			name: 'Container.Item: Grow',
+			description: 'Specifies how much a flex item should grow relative to the rest of the flex items. (This will apply for first item only for demo)',
+			control: 'select',
+			options: [ 0, 1 ],
+			defaultValue: 0,
 			table: {
 				type: { summary: 'number' },
-				defaultValue: { summary: '' },
+				defaultValue: { summary: 0 },
 			},
 		},
-		tabCols: {
-			name: 'Columns (Tablet)',
-			description: 'Defines the number of columns for tablet view.',
-			control: 'number',
+		itemShrink: {
+			name: 'Container.Item: Shrink',
+			description: 'Specifies how much a flex item should shrink relative to the rest of the flex items.',
+			control: 'select',
+			options: [ 0, 1 ],
+			defaultValue: 1,
 			table: {
 				type: { summary: 'number' },
-				defaultValue: { summary: '' },
+				defaultValue: { summary: 1 },
 			},
 		},
-		mCols: {
-			name: 'Columns (Mobile)',
-			description: 'Defines the number of columns for mobile view.',
-			control: 'number',
+		itemOrder: {
+			name: 'Container.Item: Order',
+			description: 'Defines the order of the flex item in the container.',
+			control: 'select',
+			options: [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 'first', 'last', 'none' ],
+			defaultValue: 'none',
 			table: {
-				type: { summary: 'number' },
-				defaultValue: { summary: '' },
+				type: { summary: 'string' },
+				defaultValue: { summary: 'none' },
+			},
+		},
+		itemAlignSelf: {
+			name: 'Container.Item: Align Self',
+			description: 'Allows the default alignment to be overridden for individual flex items.',
+			control: 'select',
+			options: [ 'auto', 'start', 'end', 'center', 'stretch', 'baseline' ],
+			defaultValue: 'auto',
+			table: {
+				type: { summary: 'string' },
+				defaultValue: { summary: 'auto' },
 			},
 		},
 	},
 };
 
-export const BasicFlexbox = {
+export const ResponsiveFlex = {
 	args: {
 		gap: 'sm',
 		direction: 'row',
 		justify: 'start',
 		align: 'stretch',
 		className: 'bg-gray-200 p-4',
+		itemGrow: 0,
+		itemShrink: 1,
+		itemOrder: 'none',
+		itemAlignSelf: 'auto',
 	},
-	render: ( args ) => (
-		<Container { ...args }>
-			<Container.Item className="bg-red-500 p-4 md:w-full lg:w-full">Item 1</Container.Item>
-			<Container.Item className="bg-green-500 p-4 md:w-full lg:w-full">Item 2</Container.Item>
-			<Container.Item className="bg-blue-500 p-4 md:w-full lg:w-full">Item 3</Container.Item>
-		</Container>
-	),
+	render: ( args ) => {
+		const containerStyle = args.direction === 'row' ? { height: '8rem' } : { width: '8rem' };
+		const itemStyle = args.direction === 'row' ? { height: '4rem' } : { width: '4rem' };
+
+		return (
+			<Container
+				gap={ args.gap }
+				direction={ args.direction }
+				justify={ args.justify }
+				align={ args.align }
+				className={ args.className }
+				style={ containerStyle }
+			>
+				<Container.Item
+					grow={ args.itemGrow }
+					shrink={ args.itemShrink }
+					order={ args.itemOrder }
+					alignSelf={ args.itemAlignSelf }
+					className="bg-red-500 p-4 text-wrap"
+					style={ itemStyle }
+				>
+					Item 1
+				</Container.Item>
+				<Container.Item className="bg-green-500 p-4" style={ itemStyle }>
+					Item 2
+				</Container.Item>
+				<Container.Item className="bg-blue-500 p-4" style={ itemStyle }>
+					Item 3
+				</Container.Item>
+			</Container>
+		);
+	},
 };
 
-// Responsive Columns Story
-export const ResponsiveColumns = {
-	args: {
-		containerType: 'flex',
-		gap: 'md',
-		cols: '4',
-		tabCols: '3',
-		mCols: '2',
-		className: 'bg-gray-200 p-4',
-	},
-	render: ( args ) => (
-		<Container { ...args }>
-			<Container.Item className="bg-red-500 p-4">Item 1</Container.Item>
-			<Container.Item className="bg-green-500 p-4">Item 2</Container.Item>
-			<Container.Item className="bg-blue-500 p-4">Item 3</Container.Item>
-			<Container.Item className="bg-yellow-500 p-4 ">Item 4</Container.Item>
-		</Container>
-	),
-};
