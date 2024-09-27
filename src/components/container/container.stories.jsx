@@ -103,34 +103,6 @@ export default {
 	},
 };
 
-export const BasicFlexbox = {
-	args: {
-		gap: 'sm',
-		direction: 'row',
-		justify: 'start',
-		align: 'stretch',
-		className: 'bg-gray-200 p-4',
-	},
-	render: ( args ) => {
-		const containerStyle = args.direction === 'row' ? { height: '7rem' } : { width: '7rem' };
-		const itemStyle = args.direction === 'row' ? { height: '4rem' } : { width: '4rem' };
-
-		return (
-			<Container { ...args } style={ containerStyle } className={ args.className }>
-				<Container.Item className="bg-red-500 p-4 text-wrap" style={ itemStyle }>
-					Item 1
-				</Container.Item>
-				<Container.Item className="bg-green-500 p-4" style={ itemStyle }>
-					Item 2
-				</Container.Item>
-				<Container.Item className="bg-blue-500 p-4" style={ itemStyle }>
-					Item 3
-				</Container.Item>
-			</Container>
-		);
-	},
-};
-
 export const ResponsiveFlex = {
 	args: {
 		gap: 'sm',
