@@ -59,6 +59,7 @@ const DrawerPanel = ( { children, className } ) => {
 		</AnimatePresence>
 	);
 };
-DrawerPanel.displayName = 'Drawer.Panel';
 
-export default DrawerPanel;
+export default Object.assign(DrawerPanel, {
+    displayName: 'Drawer.Panel',
+});

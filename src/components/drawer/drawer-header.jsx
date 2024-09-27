@@ -5,6 +5,6 @@ const DrawerHeader = ( { children, className, ...props } ) => {
 	return <div className={ cn( 'space-y-2 px-5 pt-5 pb-1', className ) } { ...props }>{ children }</div>;
 };
 
-DrawerHeader.displayName = 'Drawer.Header';
-
-export default DrawerHeader;
+export default Object.assign(DrawerHeader, {
+    displayName: 'Drawer.Header',
+});

@@ -14,6 +14,7 @@ const DrawerDescription = ( { children, as: Tag = 'p', className, ...props } ) =
 		</Tag>
 	);
 };
-DrawerDescription.displayName = 'Drawer.Description';
 
-export default DrawerDescription;
+export default Object.assign(DrawerDescription, {
+    displayName: 'Drawer.Description',
+});

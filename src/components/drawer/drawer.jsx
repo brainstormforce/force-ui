@@ -145,6 +145,7 @@ const Drawer = ( {
 		</>
 	);
 };
-Drawer.displayName = 'Drawer';
 
-export default Drawer;
+export default Object.assign(Drawer, {
+	displayName: 'Drawer',
+});

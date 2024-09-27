@@ -31,6 +31,7 @@ const DrawerFooter = ( { children, className } ) => {
 		</div>
 	);
 };
-DrawerFooter.displayName = 'Drawer.Footer';
 
-export default DrawerFooter;
+export default Object.assign(DrawerFooter, {
+    displayName: 'Drawer.Footer',
+});

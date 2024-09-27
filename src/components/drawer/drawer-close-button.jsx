@@ -52,6 +52,7 @@ const DrawerCloseButton = ( {
 		</Tag>
 	);
 };
-DrawerCloseButton.displayName = 'Drawer.CloseButton';
 
-export default DrawerCloseButton;
+export default Object.assign(DrawerCloseButton, {
+    displayName: 'Drawer.CloseButton',
+});

@@ -39,6 +39,7 @@ const DrawerBackdrop = ( { className, ...props } ) => {
 		)
 	);
 };
-DrawerBackdrop.displayName = 'Drawer.Backdrop';
 
-export default DrawerBackdrop;
+export default Object.assign(DrawerBackdrop, {
+	displayName: 'Drawer.Backdrop',
+});
