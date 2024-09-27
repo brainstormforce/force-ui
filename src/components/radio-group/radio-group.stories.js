@@ -8,7 +8,7 @@ export default {
 	parameters: {
 		layout: 'centered',
 	},
-	tags: ['autodocs'],
+	tags: [ 'autodocs' ],
 	argTypes: {
 		name: {
 			description: 'The name prop used for form control.',
@@ -18,14 +18,14 @@ export default {
 		},
 		style: {
 			description: 'Defines the style of the RadioGroup group. Options are "simple" and "tile".',
-			options: ['simple', 'tile'],
+			options: [ 'simple', 'tile' ],
 			table: {
 				defaultValue: { summary: 'simple' },
 			},
 		},
 		size: {
 			control: { type: 'select' },
-			options: ['sm', 'md'],
+			options: [ 'sm', 'md' ],
 			description: 'Defines the size of the Select component.',
 			defaultValue: 'md',
 		},
@@ -103,7 +103,7 @@ export default {
 				type: { summary: 'string' },
 			},
 		},
-		
+
 		'RadioGroup.Button label': {
 			description: 'The label object containing heading and description for the button.',
 			control: 'object',
@@ -122,7 +122,7 @@ export default {
 		'RadioGroup.Button children': {
 			description: 'Content such as icons or text inside the RadioGroup.Button.',
 		},
-		'borderOn': {
+		borderOn: {
 			description: 'Adds a border around the button.',
 			control: 'boolean',
 			table: {
@@ -130,7 +130,7 @@ export default {
 				defaultValue: { summary: 'false' },
 			},
 		},
-		'useSwitch': {
+		useSwitch: {
 			description: 'Uses a switch for selection.',
 			control: 'boolean',
 			table: {
@@ -148,38 +148,38 @@ export default {
 	},
 };
 
-const Template = (args) => {
-	const [value, setValue] = useState(args.value || args.defaultValue);
+const Template = ( args ) => {
+	const [ value, setValue ] = useState( args.value || args.defaultValue );
 
 	return (
 		<RadioGroup.Group
-			{...args}
-			value={value}
-			columns={args.columns ?? 3}
-			onChange={(val) => {
-				setValue(val);
-				args.onChange(val);
-			}}
+			{ ...args }
+			value={ value }
+			columns={ args.columns ?? 3 }
+			onChange={ ( val ) => {
+				setValue( val );
+				args.onChange( val );
+			} }
 		>
-			{[1, 2, 3, 4, 5, 6].map((num) => (
+			{ [ 1, 2, 3, 4, 5, 6 ].map( ( num ) => (
 				<RadioGroup.Button
-					key={num}
-					value={`option${num}`}
-					label={{
-						heading: `Option ${num}`,
-						description: `Description ${num}`,
-					}}
-					borderOn={args.borderOn}
-					useSwitch={args.useSwitch}
-					icon={args.icon ? <Smile /> : null}
+					key={ num }
+					value={ `option${ num }` }
+					label={ {
+						heading: `Option ${ num }`,
+						description: `Description ${ num }`,
+					} }
+					borderOn={ args.borderOn }
+					useSwitch={ args.useSwitch }
+					icon={ args.icon ? <Smile /> : null }
 
 				/>
-			))}
+			) ) }
 		</RadioGroup.Group>
 	);
 };
 
-export const SimpleRadiomd = (args) => Template({ ...args });
+export const SimpleRadiomd = ( args ) => Template( { ...args } );
 SimpleRadiomd.args = {
 	style: 'simple',
 	defaultValue: 'option1',
@@ -187,33 +187,32 @@ SimpleRadiomd.args = {
 		<>
 			<RadioGroup.Button
 
-
 				value="option1"
-				label={{
+				label={ {
 					heading: 'Option 1',
 					description: 'Description 1',
-				}}
+				} }
 			/>
 			<RadioGroup.Button
 				value="option2"
-				label={{
+				label={ {
 					heading: 'Option 2',
 					description: 'Description 2',
-				}}
+				} }
 			/>
 			<RadioGroup.Button
 				value="option3"
-				label={{
+				label={ {
 					heading: 'Option 3',
 					description: 'Description 3',
-				}}
+				} }
 			/>
 			<RadioGroup.Button
 				value="option4"
-				label={{
+				label={ {
 					heading: 'Option 4',
 					description: 'Description 4',
-				}}
+				} }
 			/>
 		</>
 	),
@@ -221,7 +220,7 @@ SimpleRadiomd.args = {
 
 SimpleRadiomd.storyName = 'Simple Radio Size - md';
 
-export const SimpleRadiosm = (args) => Template({ ...args });
+export const SimpleRadiosm = ( args ) => Template( { ...args } );
 SimpleRadiosm.args = {
 	style: 'simple',
 	defaultValue: 'option1',
@@ -229,37 +228,36 @@ SimpleRadiosm.args = {
 		<>
 			<RadioGroup.Button
 
-
 				size="sm"
 				value="option1"
-				label={{
+				label={ {
 					heading: 'Option 1',
 					description: 'Description 1',
-				}}
+				} }
 			/>
 			<RadioGroup.Button
 				size="sm"
 				value="option2"
-				label={{
+				label={ {
 					heading: 'Option 2',
 					description: 'Description 2',
-				}}
+				} }
 			/>
 			<RadioGroup.Button
 				size="sm"
 				value="option3"
-				label={{
+				label={ {
 					heading: 'Option 3',
 					description: 'Description 3',
-				}}
+				} }
 			/>
 			<RadioGroup.Button
 				size="sm"
 				value="option4"
-				label={{
+				label={ {
 					heading: 'Option 4',
 					description: 'Description 4',
-				}}
+				} }
 			/>
 		</>
 	),
@@ -267,7 +265,7 @@ SimpleRadiosm.args = {
 
 SimpleRadiosm.storyName = 'Simple Radio Size - sm';
 
-export const TileRadiomd = (args) => Template({ ...args });
+export const TileRadiomd = ( args ) => Template( { ...args } );
 TileRadiomd.args = {
 	style: 'tile',
 	defaultValue: 'item1',
@@ -304,7 +302,7 @@ TileRadiomd.args = {
 
 TileRadiomd.storyName = 'Tile Radio Size - md';
 
-export const TileRadiosm = (args) => Template({ ...args });
+export const TileRadiosm = ( args ) => Template( { ...args } );
 TileRadiosm.args = {
 	style: 'tile',
 	defaultValue: 'item1',
@@ -340,7 +338,7 @@ TileRadiosm.args = {
 
 TileRadiosm.storyName = 'Tile Radio Size - sm';
 
-export const TileRadioxs = (args) => Template({ ...args });
+export const TileRadioxs = ( args ) => Template( { ...args } );
 TileRadioxs.args = {
 	style: 'tile',
 	defaultValue: 'item1',
@@ -376,7 +374,7 @@ TileRadioxs.args = {
 
 TileRadioxs.storyName = 'Tile Radio Size - xs';
 
-export const TileRadioWithIcons = (args) => Template({ ...args });
+export const TileRadioWithIcons = ( args ) => Template( { ...args } );
 TileRadioWithIcons.args = {
 	style: 'tile',
 	defaultValue: 'option1',
@@ -406,7 +404,7 @@ TileRadioWithIcons.args = {
 	),
 };
 
-export const DisabledSingleButton = (args) => Template({ ...args });
+export const DisabledSingleButton = ( args ) => Template( { ...args } );
 DisabledSingleButton.args = {
 	style: 'simple',
 	defaultValue: 'option1',
@@ -414,39 +412,39 @@ DisabledSingleButton.args = {
 		<>
 			<RadioGroup.Button
 				value="option1"
-				label={{
+				label={ {
 					heading: 'Disabled Option 1',
 					description: 'Description for disabled option 1',
-				}}
+				} }
 			/>
 			<RadioGroup.Button
 				value="option2"
-				label={{
+				label={ {
 					heading: 'Disabled Option 2',
 					description: 'Description for disabled option 2',
-				}}
+				} }
 			/>
 			<RadioGroup.Button
 				value="option3"
-				label={{
+				label={ {
 					heading: 'Disabled Option 3',
 					description: 'Description for disabled option 3',
-				}}
+				} }
 				disabled
 			/>
 			<RadioGroup.Button
 
 				value="option4"
-				label={{
+				label={ {
 					heading: 'Disabled Option 4',
 					description: 'Description for disabled option 4',
-				}}
+				} }
 			/>
 		</>
 	),
 };
 
-export const DisabledAllButtons = (args) => Template({ ...args });
+export const DisabledAllButtons = ( args ) => Template( { ...args } );
 DisabledAllButtons.args = {
 	style: 'simple',
 	defaultValue: 'option1',
@@ -456,31 +454,31 @@ DisabledAllButtons.args = {
 			<RadioGroup.Button
 
 				value="option1"
-				label={{
+				label={ {
 					heading: 'Disabled Option 1',
 					description: 'Description for disabled option 1',
-				}}
+				} }
 			/>
 			<RadioGroup.Button
 				value="option2"
-				label={{
+				label={ {
 					heading: 'Disabled Option 2',
 					description: 'Description for disabled option 2',
-				}}
+				} }
 			/>
 			<RadioGroup.Button
 				value="option3"
-				label={{
+				label={ {
 					heading: 'Disabled Option 3',
 					description: 'Description for disabled option 3',
-				}}
+				} }
 			/>
 			<RadioGroup.Button
 				value="option4"
-				label={{
+				label={ {
 					heading: 'Disabled Option 4',
 					description: 'Description for disabled option 4',
-				}}
+				} }
 			/>
 		</>
 	),

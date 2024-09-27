@@ -12,7 +12,6 @@ export function prefix() {
  */
 export const cn = ( ...classNames ) => twMerge( clsx( ...classNames ) );
 
-
 /**
  * Call provided functions with the given arguments.
  * @param {...Function} fns
@@ -50,4 +49,4 @@ export const columnClasses = {
 	10: 'grid-cols-10',
 	11: 'grid-cols-11',
 	12: 'grid-cols-12',
-}
+};
