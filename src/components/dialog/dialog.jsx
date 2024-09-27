@@ -174,6 +174,7 @@ const Dialog = ( {
 		</>
 	);
 };
+Dialog.displayName = 'Dialog';
 
 // Backdrop for the dialog.
 const DialogBackdrop = ( { className, ...props } ) => {
@@ -187,11 +188,13 @@ const DialogBackdrop = ( { className, ...props } ) => {
 		/>
 	);
 };
+DialogBackdrop.displayName = 'Dialog.Backdrop';
 
 // Dialog header wrapper.
 const DialogHeader = ( { children, className, ...props } ) => {
 	return <div className={ cn( 'space-y-2 px-5 pt-5 pb-1', className ) } { ...props }>{ children }</div>;
 };
+DialogHeader.displayName = 'Dialog.Header';
 
 // Dialog title.
 const DialogTitle = ( { children, as: Tag = 'h3', className, ...props } ) => {
@@ -207,6 +210,7 @@ const DialogTitle = ( { children, as: Tag = 'h3', className, ...props } ) => {
 		</Tag>
 	);
 };
+DialogTitle.displayName = 'Dialog.Title';
 
 // Dialog description.
 const DialogDescription = ( { children, as: Tag = 'p', className, ...props } ) => {
@@ -222,6 +226,7 @@ const DialogDescription = ( { children, as: Tag = 'p', className, ...props } ) =
 		</Tag>
 	);
 };
+DialogDescription.displayName = 'Dialog.Description';
 
 // Default close button for the dialog.
 const DefaultCloseButton = ( { className, ...props } ) => {
@@ -272,6 +277,7 @@ const DialogCloseButton = ( {
 		</Tag>
 	);
 };
+DialogCloseButton.displayName = 'Dialog.CloseButton';
 
 // Dialog body.
 const DialogBody = ( { children, className, ...props } ) => {
@@ -281,6 +287,7 @@ const DialogBody = ( { children, className, ...props } ) => {
 		</div>
 	);
 };
+DialogBody.displayName = 'Dialog.Body';
 
 // Dialog footer.
 const DialogFooter = ( { children, className } ) => {
@@ -312,6 +319,7 @@ const DialogFooter = ( { children, className } ) => {
 		</div>
 	);
 };
+DialogFooter.displayName = 'Dialog.Footer';
 
 export default Object.assign( Dialog, {
 	Backdrop: DialogBackdrop,
