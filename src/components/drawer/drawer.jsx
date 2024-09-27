@@ -28,6 +28,7 @@ const Drawer = ( {
 	design = 'simple',
 	position = 'right',
 	transitionDuration = TRANSITION_DURATION,
+	scrollLock = true,
 } ) => {
 	const isControlled = open !== undefined && setOpen !== undefined;
 	const [ isOpen, setIsOpen ] = useState( false );
@@ -107,6 +108,10 @@ const Drawer = ( {
 
 	// Prevent scrolling when drawer is open.
 	useEffect( () => {
+		if ( ! scrollLock ) {
+			return;
+		}
+
 		if ( openState ) {
 			document.querySelector( 'html' ).style.overflow = 'hidden';
 		}

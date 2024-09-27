@@ -66,6 +66,12 @@ The `Drawer` component is a versatile, customizable drawer component built with 
 - **Default:** `"200ms"`
 - **Note:** The default duration of the transition is 200ms.
 
+### `scrollLock`
+-  **Type:** `boolean`
+- **Description:** Defines whether the body should be locked when the drawer is open.
+- **Default:** `true`
+- **Note:** When the drawer is open, the body will be locked, and scrolling will be disabled.
+
 ## `Drawer.Panel` Props
 
 ### `className`

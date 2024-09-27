@@ -22,6 +22,7 @@ export default {
 	argTypes: {
 		design: {
 			name: 'Design',
+            description: 'The design of the drawer.',
 			control: 'select',
 			options: [ 'simple', 'footer-divided' ],
 			table: {
@@ -31,6 +32,7 @@ export default {
 		},
 		exitOnEsc: {
 			name: 'Exit on Esc',
+            description: 'Whether to close the drawer when the escape key is pressed.',
 			control: 'boolean',
 			table: {
 				type: { summary: 'boolean' },
@@ -39,6 +41,7 @@ export default {
 		},
 		exitOnClickOutside: {
 			name: 'Exit on Click Outside',
+            description: 'Whether to close the drawer when clicked outside.',
 			control: 'boolean',
 			table: {
 				type: { summary: 'boolean' },
@@ -47,6 +50,7 @@ export default {
 		},
 		trigger: {
 			name: 'Trigger Button',
+            description: 'The trigger button to open the drawer.',
 			control: 'none',
 			table: {
 				type: { summary: 'node' },
@@ -55,6 +59,7 @@ export default {
 		},
         position: {
             name: 'Position',
+            description: 'From which side the drawer should appear.',
             control: 'select',
             options: [ 'left', 'right' ],
             table: {
@@ -64,12 +69,22 @@ export default {
         },
         transitionDuration: {
             name: 'Transition Duration',
+            description: 'The duration of drawer opening and closing animation.',
             control: 'number',
             table: {
                 type: { summary: 'number' },
                 defaultValue: { summary: '0.2' },
             },
         },
+        scrollLock: {
+            name: 'Scroll Lock',
+            description: 'Whether to lock the window scroll when the drawer is open.',
+            control: 'boolean',
+            table: {
+                type: { summary: 'boolean' },
+                defaultValue: { summary: 'true' },
+            },
+        }
 	},
 };
 
@@ -143,6 +158,7 @@ Default.args = {
     transitionDuration: 0.2,
     exitOnClickOutside: false,
     exitOnEsc: true,
+    scrollLock: true,
 };
 
 export const LogoInPlaceOfTheTitle = Template({
@@ -156,11 +172,7 @@ LogoInPlaceOfTheTitle.args = {
     transitionDuration: 0.2,
     exitOnClickOutside: false,
     exitOnEsc: true,
-};
-
-LogoInPlaceOfTheTitle.argTypes = {
-    title: { table: { disable: true } },
-    titleTag: { table: { disable: true } },
+    scrollLock: false,
 };
 
 const ControlledTemplate = ( args ) => {
@@ -210,6 +222,7 @@ const ControlledTemplate = ( args ) => {
 
 export const Controlled = ControlledTemplate.bind( {} );
 Controlled.args = {
+    scrollLock: false,
 };
 
 const UncontrolledTemplate = ( args ) => (
@@ -252,6 +265,7 @@ const UncontrolledTemplate = ( args ) => (
 export const Uncontrolled = UncontrolledTemplate.bind( {} );
 Uncontrolled.args = {
 	trigger: <Button>Open Uncontrolled Drawer</Button>,
+    scrollLock: false,
 };
 Uncontrolled.parameters = {
 	docs: { source: { type: 'code' } },
