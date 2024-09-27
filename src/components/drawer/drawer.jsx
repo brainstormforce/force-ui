@@ -21,31 +21,31 @@ const useDrawerState = () => useContext( DrawerContext );
 const TRANSITION_DURATION = 0.2;
 
 const animationVariants = {
-    left: {
-        open: {
-            x: 0,
-        },
-        exit: {
-            x: '-100%',
-        },
-    },
-    right: {
-        open: {
-            x: 0,
-        },
-        exit: {
-            x: '100%',
-        },
-    },
+	left: {
+		open: {
+			x: 0,
+		},
+		exit: {
+			x: '-100%',
+		},
+	},
+	right: {
+		open: {
+			x: 0,
+		},
+		exit: {
+			x: '100%',
+		},
+	},
 };
 const backdropAnimationVariants = {
-    open: {
-        opacity: 1,
-    },
-    exit: {
-        opacity: 0,
-    },
-}
+	open: {
+		opacity: 1,
+	},
+	exit: {
+		opacity: 0,
+	},
+};
 
 // Drawer component.
 const Drawer = ( {
@@ -57,13 +57,13 @@ const Drawer = ( {
 	exitOnClickOutside = false,
 	exitOnEsc = true,
 	design = 'simple',
-    position = 'right',
+	position = 'right',
 	transitionDuration = TRANSITION_DURATION,
 } ) => {
 	const isControlled = open !== undefined && setOpen !== undefined;
 	const [ isOpen, setIsOpen ] = useState( false );
 	const drawerRef = useRef( null );
-    const drawerContainerRef = useRef( null );
+	const drawerContainerRef = useRef( null );
 
 	const openState = useMemo(
 		() => ( isControlled ? open : isOpen ),
@@ -149,9 +149,9 @@ const Drawer = ( {
 
 	return (
 		<>
-			{renderTrigger()}
+			{ renderTrigger() }
 			<DrawerContext.Provider
-				value={{
+				value={ {
 					open: openState,
 					setOpen: setOpenState,
 					handleClose,
@@ -160,84 +160,84 @@ const Drawer = ( {
 					drawerContainerRef,
 					drawerRef,
 					transitionDuration: { duration: transitionDuration },
-				}}
+				} }
 			>
 				<div
-					className={cn(
+					className={ cn(
 						'fixed z-999999 w-0 h-0 overflow-visible',
 						className
-					)}
-					role="drawer"
-					ref={drawerContainerRef}
+					) }
+					role="dialog"
+					ref={ drawerContainerRef }
 				>
-					{children}
+					{ children }
 				</div>
 			</DrawerContext.Provider>
 		</>
 	);
 };
 
-const DrawerPanel = ({ children, className }) => {
+const DrawerPanel = ( { children, className } ) => {
 	const { open, position, handleClose, drawerRef, transitionDuration } = useDrawerState();
 
 	return (
 		<AnimatePresence>
-			{open && (
+			{ open && (
 				<div className="fixed inset-0">
 					<div
-						className={cn(
+						className={ cn(
 							'flex items-center justify-center h-full',
 							{
 								'justify-start': position === 'left',
 								'justify-end': position === 'right',
 							}
-						)}
+						) }
 					>
 						<motion.div
-							ref={drawerRef}
-							className={cn(
+							ref={ drawerRef }
+							className={ cn(
 								'flex flex-col gap-5 w-120 h-full bg-background-primary shadow-2xl my-5 overflow-hidden',
 								className
-							)}
+							) }
 							initial="exit"
 							animate="open"
 							exit="exit"
-							variants={animationVariants[position]}
-							transition={transitionDuration}
+							variants={ animationVariants[ position ] }
+							transition={ transitionDuration }
 						>
-							{typeof children === 'function'
-								? children({ close: handleClose })
-								: children}
+							{ typeof children === 'function'
+								? children( { close: handleClose } )
+								: children }
 						</motion.div>
 					</div>
 				</div>
-			)}
+			) }
 		</AnimatePresence>
 	);
 };
 
 // Backdrop for the drawer.
 const DrawerBackdrop = ( { className, ...props } ) => {
-    const { open, drawerContainerRef, transitionDuration } = useDrawerState();
+	const { open, drawerContainerRef, transitionDuration } = useDrawerState();
 
 	return (
 		drawerContainerRef.current &&
 		createPortal(
 			<AnimatePresence>
-				{open && (
+				{ open && (
 					<motion.div
-						className={cn(
+						className={ cn(
 							'fixed inset-0 -z-10 bg-background-inverse/90 backdrop-blur-sm',
 							className
-						)}
-						{...props}
+						) }
+						{ ...props }
 						initial="exit"
 						animate="open"
 						exit="exit"
-						variants={backdropAnimationVariants}
-						transition={transitionDuration}
+						variants={ backdropAnimationVariants }
+						transition={ transitionDuration }
 					/>
-				)}
+				) }
 			</AnimatePresence>,
 			drawerContainerRef.current
 		)

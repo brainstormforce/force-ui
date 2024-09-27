@@ -1,1 +1,1 @@
-export {default} from './drawer.jsx';
+export { default } from './drawer.jsx';

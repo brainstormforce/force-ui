@@ -133,9 +133,9 @@ export const Controlled = ControlledTemplate.bind( {} );
 Controlled.args = {
 };
 
-const UncontrolledTemplate = (args) => (
-	<Dialog {...args}>
-		{({ close }) => (
+const UncontrolledTemplate = ( args ) => (
+	<Dialog { ...args }>
+		{ ( { close } ) => (
 			<>
 				<Dialog.Header>
 					<div className="flex items-center justify-between">
@@ -155,14 +155,14 @@ const UncontrolledTemplate = (args) => (
 						Other option
 					</div>
 					<Button variant="ghost">Details</Button>
-					<Button onClick={close} variant="outline">
+					<Button onClick={ close } variant="outline">
 						Cancel
 					</Button>
 					<Button variant="primary">Save</Button>
 				</Dialog.Footer>
 				<Dialog.Backdrop />
 			</>
-		)}
+		) }
 	</Dialog>
 );
 
