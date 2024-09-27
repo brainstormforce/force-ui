@@ -7,11 +7,16 @@ const MenuContext = createContext();
 const useMenuContext = () => useContext( MenuContext );
 
 const Menu = ( { size = 'md', children, className } ) => {
-	const baseClasses = 'w-64 flex flex-col bg-background-primary p-2';
+	const baseClasses = 'flex flex-col bg-background-primary p-2';
+
+    const sizeClasses = {
+        sm: 'w-[200px]',
+        md: 'w-60',
+    }?.[size];
 
 	return (
 		<MenuContext.Provider value={ { size } }>
-			<div className={ cn( baseClasses, className ) }>
+            <div className={cn(baseClasses, sizeClasses, className ) }>
 				{ children }
 			</div>
 		</MenuContext.Provider>
@@ -21,7 +26,7 @@ const Menu = ( { size = 'md', children, className } ) => {
 const MenuList = ( {
 	heading,
 	arrow = false,
-	open: initialOpen = false,
+	open: initialOpen = true,
 	onClick,
 	children,
 	className,
@@ -58,7 +63,7 @@ const MenuList = ( {
 	};
 
 	return (
-		<div className="p-2">
+		<div>
 			<div
 				role="button"
 				tabIndex="0"
