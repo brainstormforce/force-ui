@@ -88,9 +88,9 @@ const Template = ( args ) => {
 	const [ open, setOpen ] = useState( false );
 
 	return (
-		<>
-			<Dialog { ...args } open={ open } setOpen={ setOpen }>
-				<Dialog.Backdrop />
+		<Dialog { ...args } open={ open } setOpen={ setOpen }>
+			<Dialog.Backdrop />
+			<Dialog.Panel>
 				<Dialog.Header>
 					<div className="flex items-center justify-between">
 						<Dialog.Title>Dialog Title</Dialog.Title>
@@ -107,14 +107,18 @@ const Template = ( args ) => {
 				<Dialog.Footer>
 					<Button onClick={ () => setOpen( false ) }>Close</Button>
 				</Dialog.Footer>
-			</Dialog>
-		</>
+			</Dialog.Panel>
+		</Dialog>
 	);
 };
 
 export const Default = Template.bind( {} );
 Default.args = {
 	trigger: <Button>Open Dialog</Button>,
+	exitOnEsc: true,
+	exitOnClickOutside: false,
+	scrollLock: true,
+	design: 'simple',
 };
 
 const ControlledTemplate = ( args ) => {
@@ -126,32 +130,34 @@ const ControlledTemplate = ( args ) => {
 				Open Controlled Dialog
 			</Button>
 			<Dialog open={ open } setOpen={ setOpen } { ...args }>
-				<Dialog.Header>
-					<div className="flex items-center justify-between">
-						<Dialog.Title>Dialog Title</Dialog.Title>
-						<Dialog.CloseButton />
-					</div>
-					<Dialog.Description>
-						Lorem ipsum dolor sit amet consectetur. Aliquam sed
-						scelerisque et arcu nibh a massa.
-					</Dialog.Description>
-				</Dialog.Header>
-				<Dialog.Body>
-					<h1 className="m-0">Dialog Content</h1>
-				</Dialog.Body>
-				<Dialog.Footer>
-					<div className="mr-auto inline-flex items-center">
-						Other option
-					</div>
-					<Button variant="ghost">Details</Button>
-					<Button
-						onClick={ () => setOpen( false ) }
-						variant="outline"
-					>
-						Cancel
-					</Button>
-					<Button variant="primary">Save</Button>
-				</Dialog.Footer>
+				<Dialog.Panel>
+					<Dialog.Header>
+						<div className="flex items-center justify-between">
+							<Dialog.Title>Dialog Title</Dialog.Title>
+							<Dialog.CloseButton />
+						</div>
+						<Dialog.Description>
+							Lorem ipsum dolor sit amet consectetur. Aliquam sed
+							scelerisque et arcu nibh a massa.
+						</Dialog.Description>
+					</Dialog.Header>
+					<Dialog.Body>
+						<h1 className="m-0">Dialog Content</h1>
+					</Dialog.Body>
+					<Dialog.Footer>
+						<div className="mr-auto inline-flex items-center">
+							Other option
+						</div>
+						<Button variant="ghost">Details</Button>
+						<Button
+							onClick={ () => setOpen( false ) }
+							variant="outline"
+						>
+							Cancel
+						</Button>
+						<Button variant="primary">Save</Button>
+					</Dialog.Footer>
+				</Dialog.Panel>
 				<Dialog.Backdrop />
 			</Dialog>
 		</>
@@ -164,34 +170,36 @@ Controlled.args = {
 
 const UncontrolledTemplate = ( args ) => (
 	<Dialog { ...args }>
-		{ ( { close } ) => (
-			<>
-				<Dialog.Header>
-					<div className="flex items-center justify-between">
-						<Dialog.Title>Dialog Title</Dialog.Title>
-						<Dialog.CloseButton />
-					</div>
-					<Dialog.Description>
-						Lorem ipsum dolor sit amet consectetur. Aliquam sed
-						scelerisque et arcu nibh a massa.
-					</Dialog.Description>
-				</Dialog.Header>
-				<Dialog.Body>
-					<h1 className="m-0">Dialog Content</h1>
-				</Dialog.Body>
-				<Dialog.Footer>
-					<div className="mr-auto inline-flex items-center">
-						Other option
-					</div>
-					<Button variant="ghost">Details</Button>
-					<Button onClick={ close } variant="outline">
-						Cancel
-					</Button>
-					<Button variant="primary">Save</Button>
-				</Dialog.Footer>
-				<Dialog.Backdrop />
-			</>
-		) }
+		<Dialog.Panel>
+			{ ( { close } ) => (
+				<>
+					<Dialog.Header>
+						<div className="flex items-center justify-between">
+							<Dialog.Title>Dialog Title</Dialog.Title>
+							<Dialog.CloseButton />
+						</div>
+						<Dialog.Description>
+							Lorem ipsum dolor sit amet consectetur. Aliquam sed
+							scelerisque et arcu nibh a massa.
+						</Dialog.Description>
+					</Dialog.Header>
+					<Dialog.Body>
+						<h1 className="m-0">Dialog Content</h1>
+					</Dialog.Body>
+					<Dialog.Footer>
+						<div className="mr-auto inline-flex items-center">
+							Other option
+						</div>
+						<Button variant="ghost">Details</Button>
+						<Button onClick={ close } variant="outline">
+							Cancel
+						</Button>
+						<Button variant="primary">Save</Button>
+					</Dialog.Footer>
+					<Dialog.Backdrop />
+				</>
+			) }
+		</Dialog.Panel>
 	</Dialog>
 );
 
