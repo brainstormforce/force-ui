@@ -7,7 +7,7 @@ export default {
 	component: Drawer,
 	parameters: {
 		layout: 'fullscreen',
-        controls: { expanded: true },
+		controls: { expanded: true },
 	},
 	tags: [ 'autodocs' ],
 	decorators: [
@@ -20,7 +20,7 @@ export default {
 		),
 	],
 	argTypes: {
-        open: {
+		open: {
 			name: 'Open',
 			description: 'Control the drawer open state. If not provided, the drawer will be controlled internally.',
 			control: 'none',
@@ -38,7 +38,7 @@ export default {
 		},
 		design: {
 			name: 'Design',
-            description: 'The design of the drawer.',
+			description: 'The design of the drawer.',
 			control: 'select',
 			options: [ 'simple', 'footer-divided' ],
 			table: {
@@ -48,7 +48,7 @@ export default {
 		},
 		exitOnEsc: {
 			name: 'Exit on Esc',
-            description: 'Whether to close the drawer when the escape key is pressed.',
+			description: 'Whether to close the drawer when the escape key is pressed.',
 			control: 'boolean',
 			table: {
 				type: { summary: 'boolean' },
@@ -57,7 +57,7 @@ export default {
 		},
 		exitOnClickOutside: {
 			name: 'Exit on Click Outside',
-            description: 'Whether to close the drawer when clicked outside.',
+			description: 'Whether to close the drawer when clicked outside.',
 			control: 'boolean',
 			table: {
 				type: { summary: 'boolean' },
@@ -66,54 +66,54 @@ export default {
 		},
 		trigger: {
 			name: 'Trigger Button',
-            description: 'The trigger button to open the drawer.',
+			description: 'The trigger button to open the drawer.',
 			control: 'none',
 			table: {
 				type: { summary: 'node' },
 			},
 			defaultValue: <Button>Open Drawer</Button>,
 		},
-        position: {
-            name: 'Position',
-            description: 'From which side the drawer should appear.',
-            control: 'select',
-            options: [ 'left', 'right' ],
-            table: {
-                type: { summary: 'string' },
-                defaultValue: { summary: 'right' },
-            },
-        },
-        transitionDuration: {
-            name: 'Transition Duration',
-            description: 'The duration of drawer opening and closing animation.',
-            control: 'number',
-            table: {
-                type: { summary: 'number' },
-                defaultValue: { summary: '0.2' },
-            },
-        },
-        scrollLock: {
-            name: 'Scroll Lock',
-            description: 'Whether to lock the window scroll when the drawer is open.',
-            control: 'boolean',
-            table: {
-                type: { summary: 'boolean' },
-                defaultValue: { summary: 'true' },
-            },
-        },
+		position: {
+			name: 'Position',
+			description: 'From which side the drawer should appear.',
+			control: 'select',
+			options: [ 'left', 'right' ],
+			table: {
+				type: { summary: 'string' },
+				defaultValue: { summary: 'right' },
+			},
+		},
+		transitionDuration: {
+			name: 'Transition Duration',
+			description: 'The duration of drawer opening and closing animation.',
+			control: 'number',
+			table: {
+				type: { summary: 'number' },
+				defaultValue: { summary: '0.2' },
+			},
+		},
+		scrollLock: {
+			name: 'Scroll Lock',
+			description: 'Whether to lock the window scroll when the drawer is open.',
+			control: 'boolean',
+			table: {
+				type: { summary: 'boolean' },
+				defaultValue: { summary: 'true' },
+			},
+		},
 	},
 };
 
-const Logo = ({className}) => (
+const Logo = ( { className } ) => (
 	<svg
 		width="116"
 		height="24"
 		viewBox="0 0 116 24"
 		fill="none"
 		xmlns="http://www.w3.org/2000/svg"
-        className={className}
+		className={ className }
 	>
-		<g clip-path="url(#clip0_6645_69725)">
+		<g clipPath="url(#clip0_6645_69725)">
 			<path
 				d="M12.0002 24C18.6278 24 24.0002 18.6276 24.0002 12V3.6C24.0002 2.64522 23.621 1.72955 22.9458 1.05442C22.2707 0.379285 21.355 0 20.4002 0L12.6002 0V5.2644C12.6002 6.4656 12.6734 7.71 13.3034 8.7324C13.7545 9.46513 14.3578 10.0923 15.0725 10.5713C15.7873 11.0503 16.5967 11.37 17.4458 11.5086L17.6756 11.5458C17.7704 11.5782 17.8526 11.6394 17.9109 11.7208C17.9691 11.8023 18.0004 11.8999 18.0004 12C18.0004 12.1001 17.9691 12.1977 17.9109 12.2792C17.8526 12.3606 17.7704 12.4218 17.6756 12.4542L17.4458 12.4914C16.2052 12.6941 15.0595 13.2813 14.1705 14.1703C13.2816 15.0592 12.6943 16.2049 12.4916 17.4456L12.4544 17.6754C12.4221 17.7701 12.3609 17.8524 12.2794 17.9106C12.198 17.9688 12.1004 18.0002 12.0002 18.0002C11.9001 18.0002 11.8025 17.9688 11.7211 17.9106C11.6396 17.8524 11.5784 17.7701 11.546 17.6754L11.5088 17.4456C11.3702 16.5965 11.0505 15.7871 10.5715 15.0723C10.0925 14.3576 9.46535 13.7542 8.73265 13.3032C7.71025 12.6732 6.46585 12.6 5.26465 12.6H0.0146484C0.328448 18.9486 5.57425 24 12.0002 24Z"
 				fill="#9333EA"
@@ -139,11 +139,11 @@ const Template = ( props ) => ( args ) => {
 	const [ open, setOpen ] = useState( false );
 
 	return (
-		<Drawer {...args} open={open} setOpen={setOpen}>
+		<Drawer { ...args } open={ open } setOpen={ setOpen }>
 			<Drawer.Panel>
 				<Drawer.Header>
 					<div className="flex items-center justify-between">
-						<Drawer.Title as={props?.titleTag} >{ props?.title ?? 'Drawer Title' }</Drawer.Title>
+						<Drawer.Title as={ props?.titleTag } >{ props?.title ?? 'Drawer Title' }</Drawer.Title>
 						<Drawer.CloseButton />
 					</div>
 					<Drawer.Description>
@@ -152,13 +152,13 @@ const Template = ( props ) => ( args ) => {
 					</Drawer.Description>
 				</Drawer.Header>
 				<Drawer.Body className="overflow-x-hidden">
-                    <div className='w-full h-full mx-5 flex items-center justify-center border border-border-subtle border-dashed rounded-md bg-background-secondary'>
-					    <p className="m-0 text-text-secondary">Body content</p>
-                    </div>
+					<div className="w-full h-full mx-5 flex items-center justify-center border border-border-subtle border-dashed rounded-md bg-background-secondary">
+						<p className="m-0 text-text-secondary">Body content</p>
+					</div>
 				</Drawer.Body>
 				<Drawer.Footer>
-					<Button variant="outline" onClick={() => setOpen(false)}>Close</Button>
-					<Button onClick={() => setOpen(false)}>Save</Button>
+					<Button variant="outline" onClick={ () => setOpen( false ) }>Close</Button>
+					<Button onClick={ () => setOpen( false ) }>Save</Button>
 				</Drawer.Footer>
 			</Drawer.Panel>
 			<Drawer.Backdrop />
@@ -169,26 +169,26 @@ const Template = ( props ) => ( args ) => {
 export const Default = Template().bind( {} );
 Default.args = {
 	trigger: <Button>Open Drawer</Button>,
-    design: 'simple',
-    position: 'right',
-    transitionDuration: 0.2,
-    exitOnClickOutside: false,
-    exitOnEsc: true,
-    scrollLock: true,
+	design: 'simple',
+	position: 'right',
+	transitionDuration: 0.2,
+	exitOnClickOutside: false,
+	exitOnEsc: true,
+	scrollLock: true,
 };
 
-export const LogoInPlaceOfTheTitle = Template({
+export const LogoInPlaceOfTheTitle = Template( {
 	title: <Logo className="w-24 h-6" />,
 	titleTag: Fragment,
-}).bind({});
+} ).bind( {} );
 LogoInPlaceOfTheTitle.args = {
-    trigger: <Button>Open Drawer</Button>,
-    design: 'simple',
-    position: 'right',
-    transitionDuration: 0.2,
-    exitOnClickOutside: false,
-    exitOnEsc: true,
-    scrollLock: false,
+	trigger: <Button>Open Drawer</Button>,
+	design: 'simple',
+	position: 'right',
+	transitionDuration: 0.2,
+	exitOnClickOutside: false,
+	exitOnEsc: true,
+	scrollLock: false,
 };
 
 const ControlledTemplate = ( args ) => {
@@ -196,10 +196,10 @@ const ControlledTemplate = ( args ) => {
 
 	return (
 		<>
-			<Button onClick={() => setOpen(true)}>
+			<Button onClick={ () => setOpen( true ) }>
 				Open Controlled Drawer
 			</Button>
-			<Drawer open={open} setOpen={setOpen} {...args}>
+			<Drawer open={ open } setOpen={ setOpen } { ...args }>
 				<Drawer.Panel>
 					<Drawer.Header>
 						<div className="flex items-center justify-between">
@@ -212,17 +212,17 @@ const ControlledTemplate = ( args ) => {
 						</Drawer.Description>
 					</Drawer.Header>
 					<Drawer.Body className="overflow-x-hidden">
-                        <div className='w-full h-full mx-5 flex items-center justify-center border border-border-subtle border-dashed rounded-md bg-background-secondary'>
-                            <p className="m-0 text-text-secondary">Body content</p>
-                        </div>
-                    </Drawer.Body>
+						<div className="w-full h-full mx-5 flex items-center justify-center border border-border-subtle border-dashed rounded-md bg-background-secondary">
+							<p className="m-0 text-text-secondary">Body content</p>
+						</div>
+					</Drawer.Body>
 					<Drawer.Footer>
 						<div className="mr-auto inline-flex items-center">
 							Other option
 						</div>
 						<Button variant="ghost">Details</Button>
 						<Button
-							onClick={() => setOpen(false)}
+							onClick={ () => setOpen( false ) }
 							variant="outline"
 						>
 							Cancel
@@ -238,50 +238,50 @@ const ControlledTemplate = ( args ) => {
 
 export const Controlled = ControlledTemplate.bind( {} );
 Controlled.args = {
-    scrollLock: false,
+	scrollLock: false,
 };
 
 const UncontrolledTemplate = ( args ) => (
 	<Drawer { ...args }>
-        <Drawer.Panel>
-            { ( { close } ) => (
-                <>
-                    <Drawer.Header>
-                        <div className="flex items-center justify-between">
-                            <Drawer.Title>Drawer Title</Drawer.Title>
-                            <Drawer.CloseButton />
-                        </div>
-                        <Drawer.Description>
-                            Lorem ipsum dolor sit amet consectetur. Aliquam sed
-                            scelerisque et arcu nibh a massa.
-                        </Drawer.Description>
-                    </Drawer.Header>
-                    <Drawer.Body className="overflow-x-hidden">
-                        <div className='w-full h-full mx-5 flex items-center justify-center border border-border-subtle border-dashed rounded-md bg-background-secondary'>
-                            <p className="m-0 text-text-secondary">Body content</p>
-                        </div>
-                    </Drawer.Body>
-                    <Drawer.Footer>
-                        <div className="mr-auto inline-flex items-center">
-                            Other option
-                        </div>
-                        <Button variant="ghost">Details</Button>
-                        <Button onClick={ close } variant="outline">
-                            Cancel
-                        </Button>
-                        <Button variant="primary">Save</Button>
-                    </Drawer.Footer>
-                </>
-            ) }
-        </Drawer.Panel>
-        <Drawer.Backdrop />
+		<Drawer.Panel>
+			{ ( { close } ) => (
+				<>
+					<Drawer.Header>
+						<div className="flex items-center justify-between">
+							<Drawer.Title>Drawer Title</Drawer.Title>
+							<Drawer.CloseButton />
+						</div>
+						<Drawer.Description>
+							Lorem ipsum dolor sit amet consectetur. Aliquam sed
+							scelerisque et arcu nibh a massa.
+						</Drawer.Description>
+					</Drawer.Header>
+					<Drawer.Body className="overflow-x-hidden">
+						<div className="w-full h-full mx-5 flex items-center justify-center border border-border-subtle border-dashed rounded-md bg-background-secondary">
+							<p className="m-0 text-text-secondary">Body content</p>
+						</div>
+					</Drawer.Body>
+					<Drawer.Footer>
+						<div className="mr-auto inline-flex items-center">
+							Other option
+						</div>
+						<Button variant="ghost">Details</Button>
+						<Button onClick={ close } variant="outline">
+							Cancel
+						</Button>
+						<Button variant="primary">Save</Button>
+					</Drawer.Footer>
+				</>
+			) }
+		</Drawer.Panel>
+		<Drawer.Backdrop />
 	</Drawer>
 );
 
 export const Uncontrolled = UncontrolledTemplate.bind( {} );
 Uncontrolled.args = {
 	trigger: <Button>Open Uncontrolled Drawer</Button>,
-    scrollLock: false,
+	scrollLock: false,
 };
 Uncontrolled.parameters = {
 	docs: { source: { type: 'code' } },

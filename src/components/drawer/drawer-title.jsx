@@ -1,4 +1,4 @@
-import { cn } from "@/utilities/functions";
+import { cn } from '@/utilities/functions';
 
 // Drawer title.
 const DrawerTitle = ( { children, as: Tag = 'h3', className, ...props } ) => {
@@ -15,6 +15,6 @@ const DrawerTitle = ( { children, as: Tag = 'h3', className, ...props } ) => {
 	);
 };
 
-export default Object.assign(DrawerTitle, {
-    displayName: 'Drawer.Title',
-});
+export default Object.assign( DrawerTitle, {
+	displayName: 'Drawer.Title',
+} );

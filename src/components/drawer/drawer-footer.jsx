@@ -1,5 +1,5 @@
-import { cn } from "@/utilities/functions";
-import { useDrawerState } from "./drawer";
+import { cn } from '@/utilities/functions';
+import { useDrawerState } from './drawer';
 
 // Drawer footer.
 const DrawerFooter = ( { children, className } ) => {
@@ -32,6 +32,6 @@ const DrawerFooter = ( { children, className } ) => {
 	);
 };
 
-export default Object.assign(DrawerFooter, {
-    displayName: 'Drawer.Footer',
-});
+export default Object.assign( DrawerFooter, {
+	displayName: 'Drawer.Footer',
+} );

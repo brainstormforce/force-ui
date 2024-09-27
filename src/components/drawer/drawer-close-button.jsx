@@ -1,7 +1,7 @@
-import { cloneElement, Fragment, isValidElement } from "react";
-import { useDrawerState } from "./drawer";
-import { cn } from "@/utilities/functions";
-import { X } from "lucide-react";
+import { cloneElement, Fragment, isValidElement } from 'react';
+import { useDrawerState } from './drawer';
+import { cn } from '@/utilities/functions';
+import { X } from 'lucide-react';
 
 // Default close button for the drawer.
 const DefaultCloseButton = ( { className, ...props } ) => {
@@ -53,6 +53,6 @@ const DrawerCloseButton = ( {
 	);
 };
 
-export default Object.assign(DrawerCloseButton, {
-    displayName: 'Drawer.CloseButton',
-});
+export default Object.assign( DrawerCloseButton, {
+	displayName: 'Drawer.CloseButton',
+} );

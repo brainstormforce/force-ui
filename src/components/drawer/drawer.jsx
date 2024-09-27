@@ -151,6 +151,6 @@ const Drawer = ( {
 	);
 };
 
-export default Object.assign(Drawer, {
+export default Object.assign( Drawer, {
 	displayName: 'Drawer',
-});
+} );

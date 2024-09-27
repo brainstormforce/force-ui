@@ -1,4 +1,4 @@
-import { cn } from "@/utilities/functions";
+import { cn } from '@/utilities/functions';
 
 // Drawer body.
 const DrawerBody = ( { children, className, ...props } ) => {
@@ -9,6 +9,6 @@ const DrawerBody = ( { children, className, ...props } ) => {
 	);
 };
 
-export default Object.assign(DrawerBody, {
-    displayName: 'Drawer.Body',
-});
+export default Object.assign( DrawerBody, {
+	displayName: 'Drawer.Body',
+} );

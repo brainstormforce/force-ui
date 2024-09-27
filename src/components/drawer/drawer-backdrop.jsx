@@ -1,7 +1,7 @@
-import { AnimatePresence, motion } from "framer-motion";
-import { useDrawerState } from "./drawer";
-import { createPortal } from "react-dom";
-import { cn } from "@/utilities/functions";
+import { AnimatePresence, motion } from 'framer-motion';
+import { useDrawerState } from './drawer';
+import { createPortal } from 'react-dom';
+import { cn } from '@/utilities/functions';
 
 const backdropAnimationVariants = {
 	open: {
@@ -40,6 +40,6 @@ const DrawerBackdrop = ( { className, ...props } ) => {
 	);
 };
 
-export default Object.assign(DrawerBackdrop, {
+export default Object.assign( DrawerBackdrop, {
 	displayName: 'Drawer.Backdrop',
-});
+} );

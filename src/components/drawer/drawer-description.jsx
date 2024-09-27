@@ -1,4 +1,4 @@
-import { cn } from "@/utilities/functions";
+import { cn } from '@/utilities/functions';
 
 // Drawer description.
 const DrawerDescription = ( { children, as: Tag = 'p', className, ...props } ) => {
@@ -15,6 +15,6 @@ const DrawerDescription = ( { children, as: Tag = 'p', className, ...props } ) =
 	);
 };
 
-export default Object.assign(DrawerDescription, {
-    displayName: 'Drawer.Description',
-});
+export default Object.assign( DrawerDescription, {
+	displayName: 'Drawer.Description',
+} );

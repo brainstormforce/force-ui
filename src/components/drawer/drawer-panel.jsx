@@ -60,6 +60,6 @@ const DrawerPanel = ( { children, className } ) => {
 	);
 };
 
-export default Object.assign(DrawerPanel, {
-    displayName: 'Drawer.Panel',
-});
+export default Object.assign( DrawerPanel, {
+	displayName: 'Drawer.Panel',
+} );
