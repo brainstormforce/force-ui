@@ -3,7 +3,7 @@ import { CreditCard,
 	Store, PenTool, ShoppingBag, ShoppingCart, Truck, MousePointer, ChartNoAxesColumnIncreasing, Layers, CloudUpload, Bell } from 'lucide-react';
 
 export default {
-	title: 'Molecules/Menu',
+	title: 'Molecules/Menu/Menu',
 	component: Menu,
 	parameters: {
 		layout: 'centered',

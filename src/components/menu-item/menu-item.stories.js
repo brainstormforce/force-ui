@@ -2,7 +2,7 @@ import Menu from './menu-item.jsx';
 import { Store } from 'lucide-react';
 
 export default {
-	title: 'Molecules/Menu Item',
+	title: 'Molecules/Menu/Menu Item',
 	component: Menu.Item,
 	parameters: {
 		layout: 'centered',
