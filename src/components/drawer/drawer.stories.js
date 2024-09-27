@@ -152,7 +152,7 @@ const Template = ( props ) => ( args ) => {
 					</Drawer.Description>
 				</Drawer.Header>
 				<Drawer.Body className="overflow-x-hidden">
-					<div className="w-full h-full mx-5 flex items-center justify-center border border-border-subtle border-dashed rounded-md bg-background-secondary">
+					<div className="w-full h-full flex items-center justify-center border border-border-subtle border-dashed rounded-md bg-background-secondary">
 						<p className="m-0 text-text-secondary">Body content</p>
 					</div>
 				</Drawer.Body>
