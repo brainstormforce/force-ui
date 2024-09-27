@@ -4,9 +4,6 @@ import EditorInput from './editor-input.jsx';
 export default {
 	title: 'Atoms/EditorInput',
 	component: EditorInput,
-	parameters: {
-		layout: 'centered',
-	},
 	tags: [ 'autodocs' ],
 	argTypes: {
 		by: {
@@ -113,7 +110,7 @@ export default {
 	},
 	decorators: [
 		( Story ) => (
-			<div style={ { width: '900px', height: '200px' } }>
+			<div style={ { maxWidth: '900px', height: '200px' } }>
 				<Story />
 			</div>
 		),
