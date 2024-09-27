@@ -19,7 +19,7 @@ export const getIcon = ( {
 		const updatedIcon = cloneElement( icon, {
 			className: cn( commonClasses, nColor, icon.props.className ),
 		} );
-		return { updatedIcon };
+		return updatedIcon;
 	}
 
 	switch ( variant ) {
