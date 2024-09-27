@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import RadioGroup from './radio-group.jsx';
-import { Plus, Minus, Check } from 'lucide-react';
+import { Plus, Minus, Check, Smile } from 'lucide-react';
 
 export default {
 	title: 'Atoms/RadioGroup',
@@ -23,8 +23,21 @@ export default {
 				defaultValue: { summary: 'simple' },
 			},
 		},
+		size: {
+			control: { type: 'select' },
+			options: ['sm', 'md'],
+			description: 'Defines the size of the Select component.',
+			defaultValue: 'md',
+		},
 		as: {
-			description: 'Specifies the wrapper element for the radio button group. For the `simple` style, it defaults to `Fragment`, meaning no wrapper will be created. For the `tile` style, the default is `div`, wrapping the group in a `div` element.',
+			description: 'Specifies the wrapper element for the radio button group.',
+			control: {
+				type: 'text',
+			},
+			table: {
+				type: { summary: 'string | React.ElementType' },
+				defaultValue: { summary: 'div' },
+			},
 		},
 		value: {
 			description: 'The currently selected value in the RadioGroup group.',
@@ -90,17 +103,7 @@ export default {
 				type: { summary: 'string' },
 			},
 		},
-		'RadioGroup.Button size': {
-			description: 'Size of the RadioGroup.Button. Options for simple style are "xs", "sm", "md". Options for tile style are "sm", "md". ',
-			control: {
-				type: 'select',
-				options: ['xs', 'sm', 'md'],
-			},
-			table: {
-				type: { summary: 'string' },
-				defaultValue: { summary: 'md' },
-			},
-		},
+		
 		'RadioGroup.Button label': {
 			description: 'The label object containing heading and description for the button.',
 			control: 'object',
@@ -119,13 +122,28 @@ export default {
 		'RadioGroup.Button children': {
 			description: 'Content such as icons or text inside the RadioGroup.Button.',
 		},
-		'RadioGroup.Button borderOn': {
+		'borderOn': {
 			description: 'Adds a border around the button.',
 			control: 'boolean',
 			table: {
 				type: { summary: 'boolean' },
 				defaultValue: { summary: 'false' },
 			},
+		},
+		'useSwitch': {
+			description: 'Uses a switch for selection.',
+			control: 'boolean',
+			table: {
+				type: { summary: 'boolean' },
+				defaultValue: { summary: 'false' },
+			},
+		},
+		icon: {
+			description: 'Custom icon component to be displayed.',
+			control: {
+				type: 'text', // Use text input for the component name
+			},
+			defaultValue: null, // Set default value to null
 		},
 	},
 };
@@ -137,12 +155,26 @@ const Template = (args) => {
 		<RadioGroup.Group
 			{...args}
 			value={value}
+			columns={args.columns ?? 3}
 			onChange={(val) => {
 				setValue(val);
 				args.onChange(val);
 			}}
 		>
-			{args.children}
+			{[1, 2, 3, 4, 5, 6].map((num) => (
+				<RadioGroup.Button
+					key={num}
+					value={`option${num}`}
+					label={{
+						heading: `Option ${num}`,
+						description: `Description ${num}`,
+					}}
+					borderOn={args.borderOn}
+					useSwitch={args.useSwitch}
+					icon={args.icon ? <Smile /> : null}
+
+				/>
+			))}
 		</RadioGroup.Group>
 	);
 };
@@ -154,31 +186,33 @@ SimpleRadiomd.args = {
 	children: (
 		<>
 			<RadioGroup.Button
+
+
 				value="option1"
 				label={{
 					heading: 'Option 1',
-					description: 'Description for option 1',
+					description: 'Description 1',
 				}}
 			/>
 			<RadioGroup.Button
 				value="option2"
 				label={{
 					heading: 'Option 2',
-					description: 'Description for option 2',
+					description: 'Description 2',
 				}}
 			/>
 			<RadioGroup.Button
 				value="option3"
 				label={{
 					heading: 'Option 3',
-					description: 'Description for option 3',
+					description: 'Description 3',
 				}}
 			/>
 			<RadioGroup.Button
 				value="option4"
 				label={{
 					heading: 'Option 4',
-					description: 'Description for option 4',
+					description: 'Description 4',
 				}}
 			/>
 		</>
@@ -194,11 +228,13 @@ SimpleRadiosm.args = {
 	children: (
 		<>
 			<RadioGroup.Button
+
+
 				size="sm"
 				value="option1"
 				label={{
 					heading: 'Option 1',
-					description: 'Description for option 1',
+					description: 'Description 1',
 				}}
 			/>
 			<RadioGroup.Button
@@ -206,7 +242,7 @@ SimpleRadiosm.args = {
 				value="option2"
 				label={{
 					heading: 'Option 2',
-					description: 'Description for option 2',
+					description: 'Description 2',
 				}}
 			/>
 			<RadioGroup.Button
@@ -214,7 +250,7 @@ SimpleRadiosm.args = {
 				value="option3"
 				label={{
 					heading: 'Option 3',
-					description: 'Description for option 3',
+					description: 'Description 3',
 				}}
 			/>
 			<RadioGroup.Button
@@ -222,7 +258,7 @@ SimpleRadiosm.args = {
 				value="option4"
 				label={{
 					heading: 'Option 4',
-					description: 'Description for option 4',
+					description: 'Description 4',
 				}}
 			/>
 		</>
@@ -399,6 +435,7 @@ DisabledSingleButton.args = {
 				disabled
 			/>
 			<RadioGroup.Button
+
 				value="option4"
 				label={{
 					heading: 'Disabled Option 4',
@@ -417,6 +454,7 @@ DisabledAllButtons.args = {
 	children: (
 		<>
 			<RadioGroup.Button
+
 				value="option1"
 				label={{
 					heading: 'Disabled Option 1',

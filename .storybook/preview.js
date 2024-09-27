@@ -9,6 +9,13 @@ const preview = {
       },
     },
   },
+  decorators: [
+    (Story) => (
+      <div style={{ fontFamily: 'Figtree, sans-serif' }}>
+        <Story />
+      </div>
+    ),
+  ],
 };
 
 export default preview;

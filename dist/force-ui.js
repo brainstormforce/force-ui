@@ -14007,6 +14007,382 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./src/components/dialog/dialog.jsx":
+/*!******************************************!*\
+  !*** ./src/components/dialog/dialog.jsx ***!
+  \******************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var framer_motion__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! framer-motion */ "./node_modules/framer-motion/dist/es/components/AnimatePresence/index.mjs");
+/* harmony import */ var framer_motion__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! framer-motion */ "./node_modules/framer-motion/dist/es/render/components/motion/proxy.mjs");
+/* harmony import */ var _utilities_functions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/utilities/functions */ "./src/utilities/functions.js");
+/* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/x.js");
+var _excluded = ["className"],
+  _excluded2 = ["children", "className"],
+  _excluded3 = ["children", "as", "className"],
+  _excluded4 = ["children", "as", "className"],
+  _excluded5 = ["className"],
+  _excluded6 = ["children", "as"],
+  _excluded7 = ["children", "className"];
+function _extends() {
+  return _extends = Object.assign ? Object.assign.bind() : function (n) {
+    for (var e = 1; e < arguments.length; e++) {
+      var t = arguments[e];
+      for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]);
+    }
+    return n;
+  }, _extends.apply(null, arguments);
+}
+function _objectWithoutProperties(e, t) {
+  if (null == e) return {};
+  var o,
+    r,
+    i = _objectWithoutPropertiesLoose(e, t);
+  if (Object.getOwnPropertySymbols) {
+    var s = Object.getOwnPropertySymbols(e);
+    for (r = 0; r < s.length; r++) o = s[r], t.includes(o) || {}.propertyIsEnumerable.call(e, o) && (i[o] = e[o]);
+  }
+  return i;
+}
+function _objectWithoutPropertiesLoose(r, e) {
+  if (null == r) return {};
+  var t = {};
+  for (var n in r) if ({}.hasOwnProperty.call(r, n)) {
+    if (e.includes(n)) continue;
+    t[n] = r[n];
+  }
+  return t;
+}
+function _slicedToArray(r, e) {
+  return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest();
+}
+function _nonIterableRest() {
+  throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+}
+function _unsupportedIterableToArray(r, a) {
+  if (r) {
+    if ("string" == typeof r) return _arrayLikeToArray(r, a);
+    var t = {}.toString.call(r).slice(8, -1);
+    return "Object" === t && r.constructor && (t = r.constructor.name), "Map" === t || "Set" === t ? Array.from(r) : "Arguments" === t || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t) ? _arrayLikeToArray(r, a) : void 0;
+  }
+}
+function _arrayLikeToArray(r, a) {
+  (null == a || a > r.length) && (a = r.length);
+  for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e];
+  return n;
+}
+function _iterableToArrayLimit(r, l) {
+  var t = null == r ? null : "undefined" != typeof Symbol && r[Symbol.iterator] || r["@@iterator"];
+  if (null != t) {
+    var e,
+      n,
+      i,
+      u,
+      a = [],
+      f = !0,
+      o = !1;
+    try {
+      if (i = (t = t.call(r)).next, 0 === l) {
+        if (Object(t) !== t) return;
+        f = !1;
+      } else for (; !(f = (e = i.call(t)).done) && (a.push(e.value), a.length !== l); f = !0);
+    } catch (r) {
+      o = !0, n = r;
+    } finally {
+      try {
+        if (!f && null != t.return && (u = t.return(), Object(u) !== u)) return;
+      } finally {
+        if (o) throw n;
+      }
+    }
+    return a;
+  }
+}
+function _arrayWithHoles(r) {
+  if (Array.isArray(r)) return r;
+}
+
+
+
+
+var DialogContext = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.createContext)();
+var useDialogState = function useDialogState() {
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(DialogContext);
+};
+var animationVariants = {
+  open: {
+    opacity: 1,
+    transition: {
+      duration: 0.2
+    }
+  },
+  exit: {
+    opacity: 0,
+    transition: {
+      duration: 0.2
+    }
+  }
+};
+
+// Dialog component.
+var Dialog = function Dialog(_ref) {
+  var open = _ref.open,
+    setOpen = _ref.setOpen,
+    children = _ref.children,
+    trigger = _ref.trigger,
+    className = _ref.className,
+    _ref$exitOnClickOutsi = _ref.exitOnClickOutside,
+    exitOnClickOutside = _ref$exitOnClickOutsi === void 0 ? false : _ref$exitOnClickOutsi,
+    _ref$exitOnEsc = _ref.exitOnEsc,
+    exitOnEsc = _ref$exitOnEsc === void 0 ? true : _ref$exitOnEsc,
+    _ref$design = _ref.design,
+    design = _ref$design === void 0 ? 'simple' : _ref$design;
+  var isControlled = open !== undefined && setOpen !== undefined;
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+    _useState2 = _slicedToArray(_useState, 2),
+    isOpen = _useState2[0],
+    setIsOpen = _useState2[1];
+  var dialogRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
+  var openState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(function () {
+    return isControlled ? open : isOpen;
+  }, [open, isOpen]);
+  var setOpenState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(function () {
+    return isControlled ? setOpen : setIsOpen;
+  }, [setIsOpen, setIsOpen]);
+  var handleOpen = function handleOpen() {
+    if (openState) {
+      return;
+    }
+    setOpenState(true);
+  };
+  var handleClose = function handleClose() {
+    if (!openState) {
+      return;
+    }
+    setOpenState(false);
+  };
+  var renderTrigger = (0,react__WEBPACK_IMPORTED_MODULE_0__.useCallback)(function () {
+    if (/*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.isValidElement)(trigger)) {
+      return /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.cloneElement)(trigger, {
+        onClick: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_1__.callAll)(handleOpen, trigger.props.onClick)
+      });
+    }
+    if (typeof trigger === 'function') {
+      return trigger({
+        onClick: handleOpen
+      });
+    }
+    return null;
+  }, [trigger, handleOpen, handleClose]);
+  var handleKeyDown = function handleKeyDown(event) {
+    switch (event.key) {
+      case 'Escape':
+        if (exitOnEsc) {
+          handleClose();
+        }
+        break;
+      default:
+        break;
+    }
+  };
+  var handleClickOutside = function handleClickOutside(event) {
+    if (exitOnClickOutside && dialogRef.current && !dialogRef.current.contains(event.target)) {
+      handleClose();
+    }
+  };
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    window.addEventListener('keydown', handleKeyDown);
+    document.addEventListener('mousedown', handleClickOutside);
+    return function () {
+      window.removeEventListener('keydown', handleKeyDown);
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [openState]);
+
+  // Prevent scrolling when dialog is open.
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    if (openState) {
+      document.querySelector('html').style.overflow = 'hidden';
+    }
+    return function () {
+      document.querySelector('html').style.overflow = '';
+    };
+  }, [openState]);
+  return /*#__PURE__*/React.createElement(React.Fragment, null, renderTrigger(), /*#__PURE__*/React.createElement(DialogContext.Provider, {
+    value: {
+      open: openState,
+      setOpen: setOpenState,
+      handleOpen: handleOpen,
+      handleClose: handleClose,
+      exitOnClickOutside: exitOnClickOutside,
+      design: design
+    }
+  }, /*#__PURE__*/React.createElement(framer_motion__WEBPACK_IMPORTED_MODULE_2__.AnimatePresence, null, openState && /*#__PURE__*/React.createElement(framer_motion__WEBPACK_IMPORTED_MODULE_3__.motion.div, {
+    className: "fixed z-999999",
+    initial: "exit",
+    animate: "open",
+    exit: "exit",
+    variants: animationVariants,
+    role: "dialog"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "fixed inset-0 overflow-y-auto"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "flex items-center justify-center min-h-full"
+  }, /*#__PURE__*/React.createElement("div", {
+    ref: dialogRef,
+    className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_1__.cn)('flex flex-col gap-5 w-120 h-fit bg-background-primary border border-solid border-border-subtle rounded-xl shadow-soft-shadow-2xl my-5 overflow-hidden', className)
+  }, typeof children === 'function' ? children({
+    close: handleClose
+  }) : children)))))));
+};
+
+// Backdrop for the dialog.
+var DialogBackdrop = function DialogBackdrop(_ref2) {
+  var className = _ref2.className,
+    props = _objectWithoutProperties(_ref2, _excluded);
+  return /*#__PURE__*/React.createElement("div", _extends({
+    className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_1__.cn)('fixed inset-0 -z-10 bg-background-inverse/90 backdrop-blur-sm', className)
+  }, props));
+};
+
+// Dialog header wrapper.
+var DialogHeader = function DialogHeader(_ref3) {
+  var children = _ref3.children,
+    className = _ref3.className,
+    props = _objectWithoutProperties(_ref3, _excluded2);
+  return /*#__PURE__*/React.createElement("div", _extends({
+    className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_1__.cn)('space-y-2 px-5 pt-5 pb-1', className)
+  }, props), children);
+};
+
+// Dialog title.
+var DialogTitle = function DialogTitle(_ref4) {
+  var children = _ref4.children,
+    _ref4$as = _ref4.as,
+    Tag = _ref4$as === void 0 ? 'h3' : _ref4$as,
+    className = _ref4.className,
+    props = _objectWithoutProperties(_ref4, _excluded3);
+  return /*#__PURE__*/React.createElement(Tag, _extends({
+    className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_1__.cn)('text-base font-semibold text-text-primary m-0 p-0', className)
+  }, props), children);
+};
+
+// Dialog description.
+var DialogDescription = function DialogDescription(_ref5) {
+  var children = _ref5.children,
+    _ref5$as = _ref5.as,
+    Tag = _ref5$as === void 0 ? 'p' : _ref5$as,
+    className = _ref5.className,
+    props = _objectWithoutProperties(_ref5, _excluded4);
+  return /*#__PURE__*/React.createElement(Tag, _extends({
+    className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_1__.cn)('text-sm font-normal text-text-secondary my-0 ml-0 mr-1 p-0', className)
+  }, props), children);
+};
+
+// Default close button for the dialog.
+var DefaultCloseButton = function DefaultCloseButton(_ref6) {
+  var className = _ref6.className,
+    props = _objectWithoutProperties(_ref6, _excluded5);
+  return /*#__PURE__*/React.createElement("button", _extends({
+    className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_1__.cn)('bg-transparent inline-flex justify-center items-center border-0 p-1 m-0 cursor-pointer focus:outline-none outline-none shadow-none', className),
+    "aria-label": "Close dialog"
+  }, props), /*#__PURE__*/React.createElement(lucide_react__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    className: "size-4 text-text-primary shrink-0"
+  }));
+};
+
+// Close button for the dialog.
+var DialogCloseButton = function DialogCloseButton(_ref7) {
+  var children = _ref7.children,
+    _ref7$as = _ref7.as,
+    Tag = _ref7$as === void 0 ? react__WEBPACK_IMPORTED_MODULE_0__.Fragment : _ref7$as,
+    props = _objectWithoutProperties(_ref7, _excluded6);
+  var _useDialogState = useDialogState(),
+    handleClose = _useDialogState.handleClose;
+  if (! /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.isValidElement)(children) || !children) {
+    return /*#__PURE__*/React.createElement(DefaultCloseButton, _extends({
+      onClick: handleClose
+    }, props));
+  }
+  if (Tag === react__WEBPACK_IMPORTED_MODULE_0__.Fragment) {
+    if (typeof children === 'function') {
+      return children({
+        close: handleClose
+      });
+    }
+    return /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.cloneElement)(children, {
+      onClick: handleClose
+    });
+  }
+  return /*#__PURE__*/React.createElement(Tag, _extends({}, props, {
+    onClick: handleClose
+  }), children);
+};
+
+// Dialog body.
+var DialogBody = function DialogBody(_ref8) {
+  var children = _ref8.children,
+    className = _ref8.className,
+    props = _objectWithoutProperties(_ref8, _excluded7);
+  return /*#__PURE__*/React.createElement("div", _extends({
+    className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_1__.cn)('px-5', className)
+  }, props), children);
+};
+
+// Dialog footer.
+var DialogFooter = function DialogFooter(_ref9) {
+  var children = _ref9.children,
+    className = _ref9.className;
+  var _useDialogState2 = useDialogState(),
+    design = _useDialogState2.design,
+    handleClose = _useDialogState2.handleClose;
+  var renderChildren = function renderChildren() {
+    if (!children) {
+      return null;
+    }
+    if (typeof children === 'function') {
+      return children({
+        close: handleClose
+      });
+    }
+    return children;
+  };
+  return /*#__PURE__*/React.createElement("div", {
+    className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_1__.cn)('p-4 flex justify-end gap-3', {
+      'bg-background-secondary': design === 'footer-divided'
+    }, className)
+  }, renderChildren());
+};
+/* harmony default export */ __webpack_exports__["default"] = (Object.assign(Dialog, {
+  Backdrop: DialogBackdrop,
+  Title: DialogTitle,
+  Description: DialogDescription,
+  CloseButton: DialogCloseButton,
+  Header: DialogHeader,
+  Body: DialogBody,
+  Footer: DialogFooter
+}));
+
+/***/ }),
+
+/***/ "./src/components/dialog/index.js":
+/*!****************************************!*\
+  !*** ./src/components/dialog/index.js ***!
+  \****************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": function() { return /* reexport safe */ _dialog_jsx__WEBPACK_IMPORTED_MODULE_0__["default"]; }
+/* harmony export */ });
+/* harmony import */ var _dialog_jsx__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./dialog.jsx */ "./src/components/dialog/dialog.jsx");
+
+
+/***/ }),
+
 /***/ "./src/components/editor-input/editor-input-style.js":
 /*!***********************************************************!*\
   !*** ./src/components/editor-input/editor-input-style.js ***!
@@ -15031,6 +15407,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   ButtonGroup: function() { return /* reexport safe */ _button_group_index__WEBPACK_IMPORTED_MODULE_13__["default"]; },
 /* harmony export */   Checkbox: function() { return /* reexport safe */ _checkbox_index__WEBPACK_IMPORTED_MODULE_2__["default"]; },
 /* harmony export */   Container: function() { return /* reexport safe */ _container_index__WEBPACK_IMPORTED_MODULE_17__["default"]; },
+/* harmony export */   Dialog: function() { return /* reexport safe */ _dialog_index__WEBPACK_IMPORTED_MODULE_23__["default"]; },
 /* harmony export */   EditorInput: function() { return /* reexport safe */ _editor_input_index__WEBPACK_IMPORTED_MODULE_19__["default"]; },
 /* harmony export */   Input: function() { return /* reexport safe */ _input_index__WEBPACK_IMPORTED_MODULE_7__["default"]; },
 /* harmony export */   Label: function() { return /* reexport safe */ _label_index__WEBPACK_IMPORTED_MODULE_8__["default"]; },
@@ -15047,6 +15424,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   Title: function() { return /* reexport safe */ _title_index__WEBPACK_IMPORTED_MODULE_9__["default"]; },
 /* harmony export */   Toaster: function() { return /* reexport safe */ _toaster_index__WEBPACK_IMPORTED_MODULE_16__.Toaster; },
 /* harmony export */   Tooltip: function() { return /* reexport safe */ _tooltip_index__WEBPACK_IMPORTED_MODULE_12__["default"]; },
+/* harmony export */   Topbar: function() { return /* reexport safe */ _topbar_index__WEBPACK_IMPORTED_MODULE_24__["default"]; },
 /* harmony export */   toast: function() { return /* reexport safe */ _toaster_index__WEBPACK_IMPORTED_MODULE_16__.toast; }
 /* harmony export */ });
 /* harmony import */ var _button_index__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./button/index */ "./src/components/button/index.js");
@@ -15072,6 +15450,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _progress_steps_index__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ./progress-steps/index */ "./src/components/progress-steps/index.js");
 /* harmony import */ var _skeleton_index__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ./skeleton/index */ "./src/components/skeleton/index.js");
 /* harmony import */ var _menu_item_index__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ./menu-item/index */ "./src/components/menu-item/index.js");
+/* harmony import */ var _dialog_index__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ./dialog/index */ "./src/components/dialog/index.js");
+/* harmony import */ var _topbar_index__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ./topbar/index */ "./src/components/topbar/index.js");
+
+
 
 
 
@@ -16129,7 +16511,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var lucide_react__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! lucide-react */ "./node_modules/lucide-react/dist/esm/icons/check.js");
 /* harmony import */ var _utilities_functions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/utilities/functions */ "./src/utilities/functions.js");
 /* harmony import */ var _switch__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../switch */ "./src/components/switch/index.js");
-var _excluded = ["id", "label", "value", "children", "disabled", "size", "icon", "inlineIcon", "hideSelection", "reversePosition", "borderOn", "badgeItem", "useSwitch"],
+var _excluded = ["id", "label", "value", "children", "disabled", "icon", "inlineIcon", "hideSelection", "reversePosition", "borderOn", "badgeItem", "useSwitch"],
   _excluded2 = ["id", "children", "value", "disabled", "size"];
 function _extends() {
   return _extends = Object.assign ? Object.assign.bind() : function (n) {
@@ -16246,7 +16628,7 @@ var RadioButtonGroup = function RadioButtonGroup(_ref) {
     _ref$by = _ref.by,
     by = _ref$by === void 0 ? 'id' : _ref$by,
     _ref$as = _ref.as,
-    AsElement = _ref$as === void 0 ? react__WEBPACK_IMPORTED_MODULE_0__.Fragment : _ref$as,
+    AsElement = _ref$as === void 0 ? 'div' : _ref$as,
     onChange = _ref.onChange,
     className = _ref.className,
     _ref$style = _ref.style,
@@ -16258,7 +16640,9 @@ var RadioButtonGroup = function RadioButtonGroup(_ref) {
     _ref$columns = _ref.columns,
     columns = _ref$columns === void 0 ? 4 : _ref$columns,
     _ref$multiSelection = _ref.multiSelection,
-    multiSelection = _ref$multiSelection === void 0 ? false : _ref$multiSelection;
+    multiSelection = _ref$multiSelection === void 0 ? false : _ref$multiSelection,
+    _ref$size = _ref.size,
+    size = _ref$size === void 0 ? 'md' : _ref$size;
   var isControlled = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(function () {
     return typeof value !== 'undefined';
   }, [value]);
@@ -16314,7 +16698,8 @@ var RadioButtonGroup = function RadioButtonGroup(_ref) {
         disableAll: disabled,
         style: style,
         columns: columns,
-        multiSelection: multiSelection
+        multiSelection: multiSelection,
+        size: size
       }
     }, react__WEBPACK_IMPORTED_MODULE_0___default().Children.map(children, function (child) {
       if (! /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.isValidElement)(child)) {
@@ -16336,8 +16721,6 @@ var RadioButtonComponent = function RadioButtonComponent(_ref2, ref) {
     value = _ref2.value,
     children = _ref2.children,
     disabled = _ref2.disabled,
-    _ref2$size = _ref2.size,
-    size = _ref2$size === void 0 ? 'md' : _ref2$size,
     _ref2$icon = _ref2.icon,
     icon = _ref2$icon === void 0 ? null : _ref2$icon,
     _ref2$inlineIcon = _ref2.inlineIcon,
@@ -16360,7 +16743,8 @@ var RadioButtonComponent = function RadioButtonComponent(_ref2, ref) {
     _onChange = providerValue.onChange,
     disableAll = providerValue.disableAll,
     checked = providerValue.checked,
-    multiSelection = providerValue.multiSelection;
+    multiSelection = providerValue.multiSelection,
+    size = providerValue.size;
   var color = 'primary';
   var radioButtonId = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(function () {
       return id || "radio-button-".concat((0,nanoid__WEBPACK_IMPORTED_MODULE_3__.nanoid)());
@@ -17509,16 +17893,18 @@ var SwitchLabel = function SwitchLabel(_ref) {
     _ref$disabled = _ref.disabled,
     disabled = _ref$disabled === void 0 ? false : _ref$disabled,
     children = _ref.children;
-  var isEmptyLabel = !(label !== null && label !== void 0 && label.heading) || !(label !== null && label !== void 0 && label.description);
   var isLabelAComponent = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.isValidElement)(label);
-  var renderLabel = (0,react__WEBPACK_IMPORTED_MODULE_0__.useCallback)(function () {
-    if (isLabelAComponent) {
-      return label;
-    }
-    var _label$heading = label.heading,
-      heading = _label$heading === void 0 ? '' : _label$heading,
-      _label$description = label.description,
-      description = _label$description === void 0 ? '' : _label$description;
+  if (isLabelAComponent) {
+    return /*#__PURE__*/React.createElement("div", {
+      className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_1__.cn)('inline-flex items-center gap-3', 'items-start')
+    }, children, label);
+  }
+  var renderLabel = function renderLabel() {
+    var _ref2 = label || {},
+      _ref2$heading = _ref2.heading,
+      heading = _ref2$heading === void 0 ? '' : _ref2$heading,
+      _ref2$description = _ref2.description,
+      description = _ref2$description === void 0 ? '' : _ref2$description;
     return /*#__PURE__*/React.createElement("div", {
       className: "space-y-1.5"
     }, heading && /*#__PURE__*/React.createElement("p", {
@@ -17526,35 +17912,37 @@ var SwitchLabel = function SwitchLabel(_ref) {
     }, heading), description && /*#__PURE__*/React.createElement("p", {
       className: "text-text-secondary text-sm font-normal leading-5 m-0"
     }, description));
-  }, [label]);
+  };
+  var isEmptyLabel = !(label !== null && label !== void 0 && label.heading) && !(label !== null && label !== void 0 && label.description);
+  var alignmentClass = !(label !== null && label !== void 0 && label.heading) || !(label !== null && label !== void 0 && label.description) ? 'items-center' : 'items-start';
   if (isEmptyLabel) {
     return children;
   }
   return /*#__PURE__*/React.createElement("div", {
-    className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_1__.cn)('inline-flex items-center', !isEmptyLabel && 'items-start')
+    className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_1__.cn)('inline-flex', alignmentClass, 'gap-3')
   }, children, /*#__PURE__*/React.createElement("label", {
     htmlFor: switchId,
-    className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_1__.cn)('ml-3', !disabled && 'cursor-pointer')
+    className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_1__.cn)(!disabled && 'cursor-pointer')
   }, renderLabel()));
 };
-var SwitchComponent = function SwitchComponent(_ref2, ref) {
-  var id = _ref2.id,
-    onChange = _ref2.onChange,
-    value = _ref2.value,
-    _ref2$defaultValue = _ref2.defaultValue,
-    defaultValue = _ref2$defaultValue === void 0 ? false : _ref2$defaultValue,
-    _ref2$size = _ref2.size,
-    size = _ref2$size === void 0 ? 'lg' : _ref2$size,
-    _ref2$disabled = _ref2.disabled,
-    disabled = _ref2$disabled === void 0 ? false : _ref2$disabled,
-    _ref2$label = _ref2.label,
-    label = _ref2$label === void 0 ? {
+var SwitchComponent = function SwitchComponent(_ref3, ref) {
+  var id = _ref3.id,
+    onChange = _ref3.onChange,
+    value = _ref3.value,
+    _ref3$defaultValue = _ref3.defaultValue,
+    defaultValue = _ref3$defaultValue === void 0 ? false : _ref3$defaultValue,
+    _ref3$size = _ref3.size,
+    size = _ref3$size === void 0 ? 'lg' : _ref3$size,
+    _ref3$disabled = _ref3.disabled,
+    disabled = _ref3$disabled === void 0 ? false : _ref3$disabled,
+    _ref3$label = _ref3.label,
+    label = _ref3$label === void 0 ? {
       heading: '',
       description: ''
-    } : _ref2$label,
-    name = _ref2.name,
-    className = _ref2.className,
-    props = _objectWithoutProperties(_ref2, _excluded);
+    } : _ref3$label,
+    name = _ref3.name,
+    className = _ref3.className,
+    props = _objectWithoutProperties(_ref3, _excluded);
   var isControlled = (0,react__WEBPACK_IMPORTED_MODULE_0__.useMemo)(function () {
     return typeof value !== 'undefined';
   }, [value]);
@@ -19405,6 +19793,123 @@ var Tooltip = function Tooltip(_ref) {
 
 /***/ }),
 
+/***/ "./src/components/topbar/index.js":
+/*!****************************************!*\
+  !*** ./src/components/topbar/index.js ***!
+  \****************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": function() { return /* reexport safe */ _topbar_jsx__WEBPACK_IMPORTED_MODULE_0__["default"]; }
+/* harmony export */ });
+/* harmony import */ var _topbar_jsx__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./topbar.jsx */ "./src/components/topbar/topbar.jsx");
+
+
+/***/ }),
+
+/***/ "./src/components/topbar/topbar.jsx":
+/*!******************************************!*\
+  !*** ./src/components/topbar/topbar.jsx ***!
+  \******************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _utilities_functions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/utilities/functions */ "./src/utilities/functions.js");
+var _excluded = ["children", "gap", "className"];
+function _extends() {
+  return _extends = Object.assign ? Object.assign.bind() : function (n) {
+    for (var e = 1; e < arguments.length; e++) {
+      var t = arguments[e];
+      for (var r in t) ({}).hasOwnProperty.call(t, r) && (n[r] = t[r]);
+    }
+    return n;
+  }, _extends.apply(null, arguments);
+}
+function _objectWithoutProperties(e, t) {
+  if (null == e) return {};
+  var o,
+    r,
+    i = _objectWithoutPropertiesLoose(e, t);
+  if (Object.getOwnPropertySymbols) {
+    var s = Object.getOwnPropertySymbols(e);
+    for (r = 0; r < s.length; r++) o = s[r], t.includes(o) || {}.propertyIsEnumerable.call(e, o) && (i[o] = e[o]);
+  }
+  return i;
+}
+function _objectWithoutPropertiesLoose(r, e) {
+  if (null == r) return {};
+  var t = {};
+  for (var n in r) if ({}.hasOwnProperty.call(r, n)) {
+    if (e.includes(n)) continue;
+    t[n] = r[n];
+  }
+  return t;
+}
+
+
+var Topbar = function Topbar(_ref) {
+  var children = _ref.children,
+    _ref$gap = _ref.gap,
+    gap = _ref$gap === void 0 ? 'lg' : _ref$gap,
+    className = _ref.className,
+    props = _objectWithoutProperties(_ref, _excluded);
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", _extends({
+    className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_1__.cn)('w-full flex items-center justify-between bg-background-primary p-5 min-h-16', (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_1__.getGapClass)(gap), className)
+  }, props), children);
+};
+var Left = function Left(_ref2) {
+  var _ref2$gap = _ref2.gap,
+    gap = _ref2$gap === void 0 ? 'sm' : _ref2$gap,
+    children = _ref2.children,
+    className = _ref2.className;
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_1__.cn)('flex items-center', (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_1__.getGapClass)(gap), className)
+  }, children);
+};
+var Middle = function Middle(_ref3) {
+  var _left$center$right;
+  var _ref3$gap = _ref3.gap,
+    gap = _ref3$gap === void 0 ? 'md' : _ref3$gap,
+    children = _ref3.children,
+    _ref3$align = _ref3.align,
+    align = _ref3$align === void 0 ? 'center' : _ref3$align,
+    className = _ref3.className;
+  var alignmentClass = (_left$center$right = {
+    left: 'justify-start',
+    center: 'justify-center',
+    right: 'justify-end'
+  }) === null || _left$center$right === void 0 ? void 0 : _left$center$right[align];
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_1__.cn)('flex items-center grow', (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_1__.getGapClass)(gap), alignmentClass, className)
+  }, children);
+};
+var Right = function Right(_ref4) {
+  var _ref4$gap = _ref4.gap,
+    gap = _ref4$gap === void 0 ? 'sm' : _ref4$gap,
+    children = _ref4.children,
+    className = _ref4.className;
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_1__.cn)('flex items-center', (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_1__.getGapClass)(gap), className)
+  }, children);
+};
+var Item = function Item(_ref5) {
+  var children = _ref5.children,
+    className = _ref5.className;
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_1__.cn)('flex items-center [&>svg]:block h-full', className)
+  }, children);
+};
+Topbar.Left = Left;
+Topbar.Middle = Middle;
+Topbar.Right = Right;
+Topbar.Item = Item;
+/* harmony default export */ __webpack_exports__["default"] = (Topbar);
+
+/***/ }),
+
 /***/ "./src/hoc/index.js":
 /*!**************************!*\
   !*** ./src/hoc/index.js ***!
@@ -19433,7 +19938,8 @@ __webpack_require__.r(__webpack_exports__);
 var hasRendered = false;
 var withSingleton = function withSingleton(WrappedComponent) {
   var SingletonComponent = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.memo)(function (props) {
-    if (hasRendered) {
+    var isSingleTon = props.singleTon; // singleTon is a prop passed to the component to check if it is a singleton component
+    if (hasRendered && isSingleTon) {
       return null; // or return an alternative component
     }
     hasRendered = true;
@@ -19453,8 +19959,10 @@ var withSingleton = function withSingleton(WrappedComponent) {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   callAll: function() { return /* binding */ callAll; },
 /* harmony export */   cn: function() { return /* binding */ cn; },
 /* harmony export */   columnClasses: function() { return /* binding */ columnClasses; },
+/* harmony export */   getGapClass: function() { return /* binding */ getGapClass; },
 /* harmony export */   prefix: function() { return /* binding */ prefix; }
 /* harmony export */ });
 /* harmony import */ var tailwind_merge__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! tailwind-merge */ "./node_modules/tailwind-merge/dist/bundle-mjs.mjs");
@@ -19472,6 +19980,38 @@ function prefix() {
  */
 var cn = function cn() {
   return (0,tailwind_merge__WEBPACK_IMPORTED_MODULE_1__.twMerge)(clsx__WEBPACK_IMPORTED_MODULE_0__.clsx.apply(void 0, arguments));
+};
+
+/**
+ * Call provided functions with the given arguments.
+ * @param {...Function} fns
+ * @return {Function} - Function that calls all provided functions.
+ */
+var callAll = function callAll() {
+  for (var _len = arguments.length, fns = new Array(_len), _key = 0; _key < _len; _key++) {
+    fns[_key] = arguments[_key];
+  }
+  return function () {
+    for (var _len2 = arguments.length, args = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+      args[_key2] = arguments[_key2];
+    }
+    return fns.forEach(function (fn) {
+      return fn === null || fn === void 0 ? void 0 : fn.apply(void 0, args);
+    });
+  };
+};
+var getGapClass = function getGapClass(gap) {
+  var gapClasses = {
+    0: 'gap-0',
+    xxs: 'gap-1',
+    xs: 'gap-2',
+    sm: 'gap-3',
+    md: 'gap-4',
+    lg: 'gap-5',
+    xl: 'gap-6',
+    '2xl': 'gap-8'
+  };
+  return gapClasses[gap] || gapClasses.md;
 };
 var columnClasses = {
   1: 'grid-cols-1',
@@ -49912,6 +50452,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   ButtonGroup: function() { return /* reexport safe */ _components__WEBPACK_IMPORTED_MODULE_1__.ButtonGroup; },
 /* harmony export */   Checkbox: function() { return /* reexport safe */ _components__WEBPACK_IMPORTED_MODULE_1__.Checkbox; },
 /* harmony export */   Container: function() { return /* reexport safe */ _components__WEBPACK_IMPORTED_MODULE_1__.Container; },
+/* harmony export */   Dialog: function() { return /* reexport safe */ _components__WEBPACK_IMPORTED_MODULE_1__.Dialog; },
 /* harmony export */   EditorInput: function() { return /* reexport safe */ _components__WEBPACK_IMPORTED_MODULE_1__.EditorInput; },
 /* harmony export */   Input: function() { return /* reexport safe */ _components__WEBPACK_IMPORTED_MODULE_1__.Input; },
 /* harmony export */   Label: function() { return /* reexport safe */ _components__WEBPACK_IMPORTED_MODULE_1__.Label; },
@@ -49928,6 +50469,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   Title: function() { return /* reexport safe */ _components__WEBPACK_IMPORTED_MODULE_1__.Title; },
 /* harmony export */   Toaster: function() { return /* reexport safe */ _components__WEBPACK_IMPORTED_MODULE_1__.Toaster; },
 /* harmony export */   Tooltip: function() { return /* reexport safe */ _components__WEBPACK_IMPORTED_MODULE_1__.Tooltip; },
+/* harmony export */   Topbar: function() { return /* reexport safe */ _components__WEBPACK_IMPORTED_MODULE_1__.Topbar; },
 /* harmony export */   toast: function() { return /* reexport safe */ _components__WEBPACK_IMPORTED_MODULE_1__.toast; }
 /* harmony export */ });
 /* harmony import */ var _tailwind_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./tailwind.css */ "./src/tailwind.css");
