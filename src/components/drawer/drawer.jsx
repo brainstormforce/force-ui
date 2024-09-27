@@ -18,7 +18,7 @@ import { createPortal } from 'react-dom';
 const DrawerContext = createContext();
 const useDrawerState = () => useContext( DrawerContext );
 
-const TRANSITION = {duration: 0.2};
+const TRANSITION_DURATION = 0.2;
 
 const animationVariants = {
     left: {
@@ -58,6 +58,7 @@ const Drawer = ( {
 	exitOnEsc = true,
 	design = 'simple',
     position = 'right',
+	transitionDuration = TRANSITION_DURATION,
 } ) => {
 	const isControlled = open !== undefined && setOpen !== undefined;
 	const [ isOpen, setIsOpen ] = useState( false );
@@ -153,13 +154,12 @@ const Drawer = ( {
 				value={{
 					open: openState,
 					setOpen: setOpenState,
-					handleOpen,
 					handleClose,
-					exitOnClickOutside,
 					design,
 					position,
 					drawerContainerRef,
 					drawerRef,
+					transitionDuration: { duration: transitionDuration },
 				}}
 			>
 				<div
@@ -178,7 +178,7 @@ const Drawer = ( {
 };
 
 const DrawerPanel = ({ children, className }) => {
-	const { open, position, handleClose, drawerRef } = useDrawerState();
+	const { open, position, handleClose, drawerRef, transitionDuration } = useDrawerState();
 
 	return (
 		<AnimatePresence>
@@ -203,7 +203,7 @@ const DrawerPanel = ({ children, className }) => {
 							animate="open"
 							exit="exit"
 							variants={animationVariants[position]}
-							transition={TRANSITION}
+							transition={transitionDuration}
 						>
 							{typeof children === 'function'
 								? children({ close: handleClose })
@@ -218,7 +218,7 @@ const DrawerPanel = ({ children, className }) => {
 
 // Backdrop for the drawer.
 const DrawerBackdrop = ( { className, ...props } ) => {
-    const { open, drawerContainerRef } = useDrawerState();
+    const { open, drawerContainerRef, transitionDuration } = useDrawerState();
 
 	return (
 		drawerContainerRef.current &&
@@ -235,7 +235,7 @@ const DrawerBackdrop = ( { className, ...props } ) => {
 						animate="open"
 						exit="exit"
 						variants={backdropAnimationVariants}
-						transition={TRANSITION}
+						transition={transitionDuration}
 					/>
 				)}
 			</AnimatePresence>,
