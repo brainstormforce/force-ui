@@ -357,7 +357,7 @@ const DrawerFooter = ( { children, className } ) => {
 	return (
 		<div
 			className={ cn(
-				'p-4 flex justify-end gap-3 mt-auto',
+				'p-5 flex justify-end gap-3 mt-auto',
 				{
 					'bg-background-secondary': design === 'footer-divided',
 				},
