@@ -159,51 +159,60 @@ const Drawer = ( {
 					design,
 					position,
 					drawerContainerRef,
+					drawerRef,
 				}}
 			>
 				<div
-					className="fixed z-999999 w-0 h-0 overflow-visible"
+					className={cn(
+						'fixed z-999999 w-0 h-0 overflow-visible',
+						className
+					)}
 					role="drawer"
 					ref={drawerContainerRef}
 				>
-					<AnimatePresence>
-						{openState && (
-							<div
-								className="fixed inset-0"
-							>
-								<div
-									className={cn(
-										'flex items-center justify-center h-full',
-										{
-											'justify-start':
-												position === 'left',
-											'justify-end': position === 'right',
-										}
-									)}
-								>
-									<motion.div
-										ref={drawerRef}
-										className={cn(
-											'flex flex-col gap-5 w-120 h-full bg-background-primary shadow-2xl my-5 overflow-hidden',
-											className
-										)}
-										initial="exit"
-										animate="open"
-										exit="exit"
-										variants={animationVariants[position]}
-										transition={TRANSITION}
-									>
-										{typeof children === 'function'
-											? children({ close: handleClose })
-											: children}
-									</motion.div>
-								</div>
-							</div>
-						)}
-					</AnimatePresence>
+					{children}
 				</div>
 			</DrawerContext.Provider>
 		</>
+	);
+};
+
+const DrawerPanel = ({ children, className }) => {
+	const { open, position, handleClose, drawerRef } = useDrawerState();
+
+	return (
+		<AnimatePresence>
+			{open && (
+				<div className="fixed inset-0">
+					<div
+						className={cn(
+							'flex items-center justify-center h-full',
+							{
+								'justify-start': position === 'left',
+								'justify-end': position === 'right',
+							}
+						)}
+					>
+						<motion.div
+							ref={drawerRef}
+							className={cn(
+								'flex flex-col gap-5 w-120 h-full bg-background-primary shadow-2xl my-5 overflow-hidden',
+								className
+							)}
+							initial="exit"
+							animate="open"
+							exit="exit"
+							variants={animationVariants[position]}
+							transition={TRANSITION}
+						>
+							{typeof children === 'function'
+								? children({ close: handleClose })
+								: children}
+						</motion.div>
+					</div>
+				</div>
+			)}
+		</AnimatePresence>
 	);
 };
 
@@ -361,11 +370,12 @@ const DrawerFooter = ( { children, className } ) => {
 };
 
 export default Object.assign( Drawer, {
-	Backdrop: DrawerBackdrop,
+	Panel: DrawerPanel,
+	Header: DrawerHeader,
 	Title: DrawerTitle,
 	Description: DrawerDescription,
-	CloseButton: DrawerCloseButton,
-	Header: DrawerHeader,
 	Body: DrawerBody,
+	CloseButton: DrawerCloseButton,
 	Footer: DrawerFooter,
+	Backdrop: DrawerBackdrop,
 } );
