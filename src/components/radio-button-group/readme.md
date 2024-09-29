@@ -1,6 +1,6 @@
-# Radio Group
+# Radio Button Group
 
-## `RadioGroup.Group` Props
+## `RadioButtonGroup` Props
 - **Description:** Wrapper for the button group.  
 
 ### name (optional)
@@ -39,10 +39,15 @@
 - **default value:** `simple`
 - **description:** Defines the style of the radio buttons. It can be set to `simple` for standard radio buttons or `tile` for button-style radio tiles.
 
-### disabled
+### size
+- **type:** `string`
+- **default value:** `md`
+- **Available sizes:** `sm` and `md`.
+
+### disableGroup
 - **type:**`boolean`
 - **default value:** `false`
-- **description:** The `disabled` prop will disable the component.
+- **description:** The `disableGroup` prop will disable the component.
 
 ### vertical
 - **type:**`boolean`
@@ -60,7 +65,7 @@
 - **description:** The `multiSelection` prop allows selecting more than one option when set to `true`.
 
 
-## `RadioGroup.Button` Props
+## `RadioButton` Props
 
 ### id (optional)
 - **type:** `string`
@@ -76,10 +81,6 @@ The label also accepts a React component.
 - **default value:** `undefined`
 - **description:** For manual comparison.
 
-### size
-- **type:** `string`
-- **default value:** `md`
-- **Available sizes:** `sm` and `md`.
 
 ### value
 - **type:** `boolean`
@@ -130,7 +131,7 @@ The label also accepts a React component.
 - **default value:** `false`
 - **description:** Used Switch as radio button when set to `true`.
 
-## `RadioGroup.Button` Props of Style `tile`
+## `RadioButton` Props of Style `tile`
 
 ### id (optional)
 - **type:** `string`
@@ -157,25 +158,25 @@ The label also accepts a React component.
 ### Example:
 
 ```
-<RadioGroup.Group
+<RadioButtonGroup
     name="food"
     defaultValue="food-1"
     onChange={ ( value ) => console.log( value ) }
 >
-    <RadioGroup.Button value="food-1" />
-    <RadioGroup.Button value="food-2" />
-    <RadioGroup.Button value="food-3" />
-</RadioGroup.Group>
+    <RadioButton value="food-1" />
+    <RadioButton value="food-2" />
+    <RadioButton value="food-3" />
+</RadioButtonGroup>
 
-<RadioGroup.Group
+<RadioButtonGroup
     value={selectedValue}   
     onChange={handleRadioChange}
     style='tile'
 >
-    <RadioGroup.Button value="option1"><Plus /></RadioGroup.Button>
-    <RadioGroup.Button value="option2"><Plus /></RadioGroup.Button>
-    <RadioGroup.Button value="option3"><Plus /></RadioGroup.Button>
-</RadioGroup.Group>
+    <RadioButton value="option1"><Plus /></RadioButton>
+    <RadioButton value="option2"><Plus /></RadioButton>
+    <RadioButton value="option3"><Plus /></RadioButton>
+</RadioButtonGroup>
 
 
 ```

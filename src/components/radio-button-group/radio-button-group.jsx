@@ -13,6 +13,7 @@ import { Check } from 'lucide-react';
 
 import { cn, columnClasses } from '@/utilities/functions';
 import Switch from '../switch';
+import { colorClassNames, disabledClassNames, sizeClassNames, sizes, borderClasses, baseClasses, hoverClasses, focusClasses } from './styles';
 
 const RadioButtonContext = createContext();
 const useRadioButton = () => useContext( RadioButtonContext );
@@ -20,18 +21,18 @@ const useRadioButton = () => useContext( RadioButtonContext );
 const RadioButtonGroup = ( {
 	children,
 	name,
+	style = 'simple',
+	size = 'md',
 	value,
 	defaultValue,
 	by = 'id',
 	as: AsElement = 'div',
 	onChange,
 	className,
-	style = 'simple',
-	disabled = false,
+	disableGroup = false,
 	vertical = false,
 	columns = 4,
 	multiSelection = false,
-	size = 'md',
 } ) => {
 	const isControlled = useMemo( () => typeof value !== 'undefined', [ value ] );
 	const nameAttr = useMemo(
@@ -100,7 +101,7 @@ const RadioButtonGroup = ( {
 				by,
 				onChange: handleChange,
 				isControlled,
-				disableAll: disabled,
+				disableAll: disableGroup,
 				style,
 				columns,
 				multiSelection,
@@ -191,29 +192,6 @@ const RadioButtonComponent = (
 		return selectedValue[ by ] === value[ by ];
 	}, [ selectedValue, value, checked ] );
 
-	const sizeClassNames = {
-		sm: {
-			checkbox: 'size-4',
-			icon: 'size-1.5',
-		},
-		md: {
-			checkbox: 'size-5',
-			icon: 'size-2',
-		},
-	};
-	const colorClassNames = {
-		primary: {
-			checkbox:
-				'border-border-strong hover:border-border-interactive checked:border-border-interactive bg-white checked:bg-toggle-on checked:hover:bg-toggle-on-hover checked:hover:border-toggle-on-hover focus:ring-2 focus:ring-offset-4 focus:ring-focus',
-			icon: 'text-white',
-		},
-	};
-	const disabledClassNames = {
-		checkbox:
-			'disabled:bg-white checked:disabled:bg-white disabled:border-border-disabled checked:disabled:border-border-disabled cursor-not-allowed',
-		icon: 'peer-disabled:text-border-disabled cursor-not-allowed',
-	};
-
 	const renderLabel = useCallback( () => {
 		if ( isValidElement( label ) ) {
 			return label;
@@ -263,6 +241,18 @@ const RadioButtonComponent = (
 			</ButtonGroupItem>
 		);
 	}
+	const handleLabelClick = () => {
+		if ( ! isDisabled ) {
+		  if ( multiSelection ) {
+			// In multi-selection, toggle each individual selection
+				onChange( value, ! checkedValue ); // Pass the toggled value
+		  } else {
+			// In single selection, only one can be selected
+				onChange( value ); // Trigger onChange with the selected value
+		  }
+		}
+	  };
+
 	return (
 		<label
 			className={ cn(
@@ -276,6 +266,7 @@ const RadioButtonComponent = (
 				isDisabled && 'cursor-not-allowed'
 			) }
 			htmlFor={ radioButtonId }
+			onClick={ handleLabelClick } // Toggle switch when label is clicked
 		>
 			{ !! label && (
 				<label
@@ -283,6 +274,7 @@ const RadioButtonComponent = (
 						'cursor-pointer',
 						isDisabled && 'cursor-not-allowed'
 					) }
+					htmlFor={ radioButtonId }
 				>
 					{ renderLabel() }
 				</label>
@@ -301,8 +293,15 @@ const RadioButtonComponent = (
 							defaultValue={ false }
 							size={ size === 'md' ? 'lg' : 'sm' }
 							onChange={ () => {
-								onChange( value );
-							} }
+								if ( ! multiSelection ) {
+								  // In single selection, only one can be on
+								  onChange( value ); // Update the state to select this option
+								} else {
+								  // In multi-selection, toggle the current state
+								  onChange( value, ! checkedValue );
+								}
+							  } }
+							checked={ checkedValue }
 						/>
 					) : (
 						<span className="relative">
@@ -311,7 +310,7 @@ const RadioButtonComponent = (
 								id={ radioButtonId }
 								type={ multiSelection ? 'checkbox' : 'radio' }
 								className={ cn(
-									"peer relative cursor-pointer appearance-none transition-all m-0 before:content-[''] checked:before:content-[''] checked:before:hidden before:hidden !border-1.5 border-solid",
+									"peer flex relative cursor-pointer appearance-none transition-all m-0 before:content-[''] checked:before:content-[''] checked:before:hidden before:hidden !border-1.5 border-solid",
 									! multiSelection && 'rounded-full',
 									colorClassNames[ color ].checkbox,
 									sizeClassNames[ size ].checkbox,
@@ -326,7 +325,7 @@ const RadioButtonComponent = (
 							/>
 							<span
 								className={ cn(
-									'pointer-events-none inline-flex items-center absolute top-2/4 left-2/4 -translate-y-2/4 -translate-x-2/4 text-white opacity-0 transition-opacity peer-checked:opacity-100',
+									'inline-flex items-center absolute top-2/4 left-2/4 -translate-y-2/4 -translate-x-2/4 text-white opacity-0 transition-opacity peer-checked:opacity-100',
 									colorClassNames[ color ].icon,
 									isDisabled && disabledClassNames.icon
 								) }
@@ -406,20 +405,9 @@ const ButtonGroupItem = ( {
 		}
 	};
 
-	const sizes = {
-		xs: 'py-1 px-1 text-sm gap-0.5 [&>svg]:h-4 [&>svg]:w-4',
-		sm: 'py-2 px-2 text-base gap-1 [&>svg]:h-4 [&>svg]:w-4',
-		md: 'py-2.5 px-2.5 text-base gap-1 [&>svg]:h-5 [&>svg]:w-5',
-	};
-
-	const baseClasses =
-		'bg-background-primary text-primary cursor-pointer flex items-center justify-center';
-	const hoverClasses = 'hover:bg-button-tertiary-hover';
-	const focusClasses = 'focus:outline-none';
 	const disabledClasses = isDisabled
 		? 'text-text-disabled cursor-not-allowed'
 		: '';
-	const borderClasses = 'border-0 border-r border-border-subtle border-solid';
 	const buttonClassName = cn(
 		baseClasses,
 		hoverClasses,
@@ -456,9 +444,4 @@ const ButtonGroupItem = ( {
 	);
 };
 
-const exports = {
-	Group: RadioButtonGroup,
-	Button: RadioButton,
-};
-
-export default exports;
+export { RadioButtonGroup, RadioButton };
