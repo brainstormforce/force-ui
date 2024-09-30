@@ -30,3 +30,5 @@ export {
     BreadcrumbEllipsis,
     BreadcrumbPage,
 } from './breadcrumb/index';
+export { default as Dialog } from './dialog/index';
+export { default as Topbar } from './topbar/index';
