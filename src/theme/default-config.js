@@ -190,6 +190,9 @@ const defaultTheme = {
 			},
 			spacing: {
 				120: '30rem', // 480px
+				95: '23.75rem', // 380px
+				141.5: '35.375rem', // 566px
+				188: '47rem', // 752px
 			},
 			zIndex: {
 				999999: '999999',
