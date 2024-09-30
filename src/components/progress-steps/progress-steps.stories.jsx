@@ -12,17 +12,21 @@ export default {
 		variant: {
 			control: 'select',
 			options: [ 'dot', 'number', 'icon' ],
+			description: 'Defines the style of the step indicator. Choose between "dot", "number", or "icon".',
 		},
 		size: {
 			control: 'select',
 			options: [ 'sm', 'md', 'lg' ],
+			description: 'Sets the size of the step indicator. Options are "small", "medium", or "large".',
 		},
 		type: {
 			control: 'select',
 			options: [ 'inline', 'stack' ],
+			description: 'Defines the layout of the steps. "inline" places them horizontally, "stack" places them vertically.',
 		},
 		currentStep: {
 			control: { type: 'number', min: 1, max: 5 },
+			description: 'Indicates the active step (1-based index). The step number will be highlighted.',
 		},
 	},
 	decorators: [

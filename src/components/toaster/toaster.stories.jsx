@@ -13,20 +13,53 @@ export default {
 		position: {
 			control: 'select',
 			options: [ 'top-right', 'top-left', 'bottom-right', 'bottom-left' ],
+			description: 'The position of the toast notification.',
+			table: {
+				type: { summary: 'string' },
+				defaultValue: { summary: 'top-right' },
+			},
 		},
 		design: {
 			control: 'select',
 			options: [ 'stack', 'inline' ],
+			description: 'The design layout of the toast notification.',
+			table: {
+				type: { summary: 'string' },
+				defaultValue: { summary: 'stack' },
+			},
 		},
 		theme: {
 			control: 'select',
 			options: [ 'light', 'dark' ],
+			description: 'The theme of the toast notification.',
+			table: {
+				type: { summary: 'string' },
+				defaultValue: { summary: 'light' },
+			},
 		},
 		autoDismiss: {
 			control: 'boolean',
+			description: 'Whether the toast notification should automatically dismiss after a certain time.',
+			table: {
+				type: { summary: 'boolean' },
+				defaultValue: { summary: 'true' },
+			},
 		},
 		dismissAfter: {
 			control: { type: 'number', min: 1000, max: 10000, step: 500 },
+			description: 'The time in milliseconds after which the toast notification will be dismissed.',
+			table: {
+				type: { summary: 'number' },
+				defaultValue: { summary: '5000' },
+			},
+		},
+		className: {
+			control: 'text',
+			description: 'Additional CSS class names to apply to the toast notification.',
+			table: {
+				type: { summary: 'string' },
+				defaultValue: { summary: '' },
+			},
 		},
 	},
 	decorators: [
@@ -37,10 +70,10 @@ export default {
 		),
 	],
 };
+
 const Template = ( args ) => {
 	return (
 		<div>
-
 			<Toaster { ...args } key={ args.position } />
 			<div
 				style={ {
