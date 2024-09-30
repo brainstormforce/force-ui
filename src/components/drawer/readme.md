@@ -1,82 +1,91 @@
-# Dialog Component Documentation
+# Drawer Component Documentation
 
 ## Description
 
-The `Dialog` component is a versatile, customizable dialog component built with Tailwind CSS. It supports various design, customization and additional properties to suit different use cases.
+The `Drawer` component is a versatile, customizable drawer component built with Tailwind CSS. It supports various design, customization and additional properties to suit different use cases. The drawer can be used in controlled or uncontrolled mode, and can be triggered by a button, link, or any other element.
 
-## `Dialog` Props
+## `Drawer` Props
 
-### `open` (Required for controlled dialog)
+### `open` (Required for controlled drawer)
 
 -   **Type:** `boolean`
 -   **Default:** `false`
--   **Description:** Defines whether the dialog is open or closed.
--   **Note:** This prop is required when using the dialog in controlled mode.
+-   **Description:** Defines whether the drawer is open or closed.
+-   **Note:** This prop is required when using the drawer in controlled mode.
 
-### `setOpen` (Required for controlled dialog)
+### `setOpen` (Required for controlled drawer)
 
 -   **Type:** `function`
--   **Description:** A function to set the `open` state of the dialog.
--   **Note:** This prop is required when using the dialog in controlled mode.
+-   **Description:** A function to set the `open` state of the drawer.
+-   **Note:** This prop is required when using the drawer in controlled mode.
 -   **Example:** `(isOpen) => setOpen(isOpen)`
 
-### `trigger` (Required for uncontrolled dialog)
+### `trigger` (Required for uncontrolled drawer)
 
 -   **Type:** `ReactNode`
--   **Description:** The element that triggers the dialog to open when clicked. This can be a button, link, or any other element.
--   **Note:** If the setOpen and open props are not provided, the dialog will be uncontrolled and will open when the trigger element is clicked. The onClick handler will be automatically added to the trigger element.
--   **Example:** `<button>Open Dialog</button>`
+-   **Description:** The element that triggers the drawer to open when clicked. This can be a button, link, or any other element.
+-   **Note:** If the setOpen and open props are not provided, the drawer will be uncontrolled and will open when the trigger element is clicked. The onClick handler will be automatically added to the trigger element.
+-   **Example:** `<button>Open Drawer</button>`
 
 ### `className`
 
 -   **Type:** `string`
--   **Description:** Additional custom classes to be added to the dialog.
+-   **Description:** Additional custom classes to be added to the drawer.
 -   **Default:** `""`
 
 ### `exitOnClickOutside`
 
 -   **Type:** `boolean`
--   **Description:** Defines whether the dialog should close when clicked outside the dialog.
+-   **Description:** Defines whether the drawer should close when clicked outside the drawer.
 -   **Default:** `false`
 
 ### `exitOnEsc`
 
 -   **Type:** `boolean`
--   **Description:** Defines whether the dialog should close when the `Esc` key is pressed.
+-   **Description:** Defines whether the drawer should close when the `Esc` key is pressed.
 -   **Default:** `true`
 
 ### `design`
 
 -   **Type:** `string`
--   **Description:** Defines the design of the dialog. Options include:
-    -   `"simple"`: A simple dialog with a white background and shadow.
-    -   `"footer-divided"`: A dialog with a footer that has a background color different from the main dialog.
+-   **Description:** Defines the design of the drawer. Options include:
+    -   `"simple"`: A simple drawer with a white background and shadow.
+    -   `"footer-divided"`: A drawer with a footer that has a background color different from the main drawer.
 
-### `children`
+### `position`
+-   **Type:** `string`
+-  **Description:** Defines the position of the drawer. Options include:
+	-   `"left"`: The drawer will be positioned on the left side of the screen.
+	-   `"right"`: The drawer will be positioned on the right side of the screen.
+-   **Default:** `"right"`
+-  **Note:** The default position of the drawer is on the right side of the screen.
 
--   **Type:** `ReactNode`
--   **Description:** The content to be displayed inside the dialog.
+### `transitionDuration`
+-  **Type:** `string`
+- **Description:** Defines the duration of the transition when the drawer opens or closes.
+- **Default:** `"200ms"`
+- **Note:** The default duration of the transition is 200ms.
 
 ### `scrollLock`
 -  **Type:** `boolean`
-- **Description:** Defines whether the body should be locked when the dialog is open.
+- **Description:** Defines whether the body should be locked when the drawer is open.
 - **Default:** `true`
-- **Note:** When the dialog is open, the body will be locked, and scrolling will be disabled.
+- **Note:** When the drawer is open, the body will be locked, and scrolling will be disabled.
 
-## `Dialog.Panel` Props
+## `Drawer.Panel` Props
 
 ### `className`
 -   **Type:** `string`
 -  **Description:** Additional custom classes to be added to the panel.
 - **Default:** `""`
-- **Note:** The panel is the main container of the dialog. To change the width, height, or other styles of the dialog, you can add custom classes to the panel.
+- **Note:** The panel is the main container of the drawer. To change the width, height, or other styles of the drawer, you can add custom classes to the panel.
 
 ### `children`
 
 -   **Type:** `ReactNode`
--   **Description:** The content to be displayed inside the dialog.
+-   **Description:** The content to be displayed inside the drawer.
 
-## `Dialog.Header` Props
+## `Drawer.Header` Props
 
 ### `className`
 
@@ -89,20 +98,7 @@ The `Dialog` component is a versatile, customizable dialog component built with 
 -   **Type:** `ReactNode`
 -   **Description:** The content to be displayed inside the header.
 
-## `Dialog.Header` Props
-
-### `className`
-
--   **Type:** `string`
--   **Description:** Additional custom classes to be added to the header.
--   **Default:** `""`
-
-### `children`
-
--   **Type:** `ReactNode`
--   **Description:** The content to be displayed inside the header.
-
-## `Dialog.Title` Props
+## `Drawer.Title` Props
 
 ### `as` (Optional)
 
@@ -111,7 +107,7 @@ The `Dialog` component is a versatile, customizable dialog component built with 
 -   **Description:** The HTML tag or React component to be used for the title.
 -   **Example:** `"h1"`, `"h2"`, `CustomComponent`
 -   **Note:** The title is usually rendered as an `h3` element by default.
--   **Example:** `<Dialog.Title as="h1">Dialog Title</Dialog.Title>`
+-   **Example:** `<Drawer.Title as="h1">Drawer Title</Drawer.Title>`
 
 ### `className`
 
@@ -123,16 +119,16 @@ The `Dialog` component is a versatile, customizable dialog component built with 
 
 -   **Type:** `ReactNode`
 -   **Description:** The content to be displayed inside the title.
--   **Example:** `"Dialog Title"`
+-   **Example:** `"Drawer Title"`
 
-## `Dialog.Description` Props
+## `Drawer.Description` Props
 
 ### `as` (Optional)
 
 -   **Type:** `string` | `React.ElementType`
 -   **Default:** `"p"`
 -   **Description:** The HTML tag or React component to be used for the description.
--   **Example:** `<Dialog.Description as="h1">Dialog Title</Dialog.Description>`
+-   **Example:** `<Drawer.Description as="h1">Drawer Title</Drawer.Description>`
 
 ### `className`
 
@@ -146,7 +142,7 @@ The `Dialog` component is a versatile, customizable dialog component built with 
 -   **Description:** The content to be displayed inside the description.
 -   **Example:** `"This is a description."`
 
-## `Dialog.CloseButton` Props (Can be used for controlled and uncontrolled dialogs)
+## `Drawer.CloseButton` Props (Can be used for controlled and uncontrolled drawers)
 
 ### `className`
 
@@ -167,7 +163,7 @@ The `Dialog` component is a versatile, customizable dialog component built with 
 -   **Example:** `"button"`, `"a"`, `CustomComponent`
 -   **Note:** The close button is usually rendered as a `button` element by default.
 
-## `Dialog.Body` Props
+## `Drawer.Body` Props
 
 ### `className`
 
@@ -180,7 +176,7 @@ The `Dialog` component is a versatile, customizable dialog component built with 
 -   **Type:** `ReactNode`
 -   **Description:** The content to be displayed inside the body.
 
-## `Dialog.Footer`
+## `Drawer.Footer`
 
 ### `className`
 
@@ -194,7 +190,7 @@ The `Dialog` component is a versatile, customizable dialog component built with 
 -   **Description:** The content to be displayed inside the body.
 -   Note: close
 
-## `Dialog.Backdrop`
+## `Drawer.Backdrop`
 
 ### `className`
 
@@ -204,38 +200,38 @@ The `Dialog` component is a versatile, customizable dialog component built with 
 
 ## Usage
 
-### Controlled Dialog
+### Controlled Drawer
 
 ```jsx
 import React, { useState } from 'react';
-import { Dialog } from '@force-ai/ui';
+import { Drawer } from '@force-ai/ui';
 
 const MyComponent = () => {
-  const [openDialog, setOpenDialog] = useState(false);
+  const [openDrawer, setOpenDrawer] = useState(false);
 
   return (
 			<div className="flex items-center gap-10">
 				<div className="space-y-2">
-					<div>Dialog with trigger button (Uncontrolled)</div>
-					<Dialog
-						trigger={ <Button>Open Dialog</Button> }
+					<div>Drawer with trigger button (Uncontrolled)</div>
+					<Drawer
+						trigger={ <Button>Open Drawer</Button> }
 						exitOnClickOutside={ false }
 						design="footer-divided"
 					>
-						<Dialog.Header>
+						<Drawer.Header>
 							<div className="flex items-center justify-between">
-								<Dialog.Title>Dialog Title</Dialog.Title>
-								<Dialog.CloseButton />
+								<Drawer.Title>Drawer Title</Drawer.Title>
+								<Drawer.CloseButton />
 							</div>
-							<Dialog.Description>
+							<Drawer.Description>
 								Lorem ipsum dolor sit amet consectetur. Aliquam
 								sed scelerisque et arcu nibh a massa.
-							</Dialog.Description>
-						</Dialog.Header>
-						<Dialog.Body>
-							<h1 className="m-0">Dialog Content</h1>
-						</Dialog.Body>
-						<Dialog.Footer>
+							</Drawer.Description>
+						</Drawer.Header>
+						<Drawer.Body>
+							<h1 className="m-0">Drawer Content</h1>
+						</Drawer.Body>
+						<Drawer.Footer>
 							{ ( { close } ) => (
 								<>
 									<div className="mr-auto inline-flex items-center">
@@ -248,55 +244,55 @@ const MyComponent = () => {
 									<Button variant="primary">Save</Button>
 								</>
 							) }
-						</Dialog.Footer>
-						<Dialog.Backdrop />
-					</Dialog>
+						</Drawer.Footer>
+						<Drawer.Backdrop />
+					</Drawer>
 				</div>
         { /* Another Example */ }
 				<div className="space-y-2">
-					<div>Dialog (Controlled)</div>
+					<div>Drawer (Controlled)</div>
 					<Button
 						onClick={ () => {
-							setOpenDialog( true );
+							setOpenDrawer( true );
 						} }
 					>
-						Open Dialog
+						Open Drawer
 					</Button>
-					<Dialog
-						open={ openDialog }
-						setOpen={ setOpenDialog }
+					<Drawer
+						open={ openDrawer }
+						setOpen={ setOpenDrawer }
 						exitOnClickOutside={ false }
 						exitOnEsc={ false }
 						design="footer-divided"
 					>
-						<Dialog.Header>
+						<Drawer.Header>
 							<div className="flex items-center justify-between">
-								<Dialog.Title>Dialog Title</Dialog.Title>
-								<Dialog.CloseButton />
+								<Drawer.Title>Drawer Title</Drawer.Title>
+								<Drawer.CloseButton />
 							</div>
-							<Dialog.Description>
+							<Drawer.Description>
 								Lorem ipsum dolor sit amet consectetur. Aliquam
 								sed scelerisque et arcu nibh a massa.
-							</Dialog.Description>
-						</Dialog.Header>
-						<Dialog.Body>
-							<h1 className="m-0">Dialog Content</h1>
-						</Dialog.Body>
-						<Dialog.Footer>
+							</Drawer.Description>
+						</Drawer.Header>
+						<Drawer.Body>
+							<h1 className="m-0">Drawer Content</h1>
+						</Drawer.Body>
+						<Drawer.Footer>
 							<div className="mr-auto inline-flex items-center">
 								Other option
 							</div>
 							<Button variant="ghost">Details</Button>
 							<Button
-								onClick={ () => setOpenDialog( false ) }
+								onClick={ () => setOpenDrawer( false ) }
 								variant="outline"
 							>
 								Cancel
 							</Button>
 							<Button variant="primary">Save</Button>
-						</Dialog.Footer>
-						<Dialog.Backdrop />
-					</Dialog>
+						</Drawer.Footer>
+						<Drawer.Backdrop />
+					</Drawer>
 				</div>
   );
 };

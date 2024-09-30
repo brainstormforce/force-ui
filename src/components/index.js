@@ -32,3 +32,4 @@ export {
 } from './breadcrumb/index';
 export { default as Dialog } from './dialog/index';
 export { default as Topbar } from './topbar/index';
+export { default as Drawer } from './drawer/index';
