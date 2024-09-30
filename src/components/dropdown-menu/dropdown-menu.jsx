@@ -3,13 +3,13 @@ import { useFloating, offset, flip, shift, autoUpdate } from '@floating-ui/react
 import { motion, AnimatePresence } from 'framer-motion';
 
 const DropdownMenu = ({ 
-    children, 
     placement = 'bottom', 
-    offsetValue = 8, 
+    offset: offsetValue = 10,
     boundary = 'clippingAncestors', 
+    children, 
 }) => {
-    const [isOpen, setIsOpen] = useState(false);
-    const { x, y, strategy, refs } = useFloating({
+    const [isOpen, setIsOpen] = useState(false); 
+    const { x, y, strategy, refs } = useFloating({  
         placement,
         middleware: [
             offset(offsetValue), 
