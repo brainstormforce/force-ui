@@ -11,6 +11,7 @@ export default {
 	tags: [ 'autodocs' ],
 	argTypes: {
 		size: {
+			name: 'Size',
 			description: 'Defines the size variant of the select',
 			control: { type: 'select' },
 			options: [ 'sm', 'md', 'lg' ],
@@ -20,6 +21,7 @@ export default {
 			},
 		},
 		multiple: {
+			name: 'Multiple',
 			description: 'If true, it will allow multiple selection.',
 			control: 'boolean',
 			table: {
@@ -27,6 +29,7 @@ export default {
 			},
 		},
 		combobox: {
+			name: 'Combobox',
 			description: 'If true, it will show a search box.',
 			control: 'boolean',
 			table: {
@@ -34,25 +37,28 @@ export default {
 			},
 		},
 		id: {
+			name: 'ID',
 			description: 'The `id` attribute of the select element.',
 			table: {
 				type: { summary: 'string' },
 			},
 		},
 		onChange: {
+			name: 'On Change Event',
 			description: 'Callback function to handle the change event.',
 			table: {
 				type: { summary: 'function' },
 			},
 		},
 		by: {
-			description:
-				'Used to identify the selected value when value type is an `object`. Default is `"id"`.',
+			name: 'By',
+			description: 'Used to identify the selected value when value type is an `object`. Default is `"id"`.',
 			table: {
 				type: { summary: 'string' },
 			},
 		},
 		disabled: {
+			name: 'Disabled',
 			description: 'If true, the select will be disabled.',
 			table: {
 				type: { summary: 'boolean' },

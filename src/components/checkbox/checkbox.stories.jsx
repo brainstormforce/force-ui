@@ -19,7 +19,7 @@ export default {
 			},
 		},
 		label: {
-			name: 'Name',
+			name: 'Label',
 			description: 'Defines the label of the checkbox',
 			control: 'object',
 			table: {

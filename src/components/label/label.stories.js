@@ -37,11 +37,34 @@ export default {
 				defaultValue: { summary: 'false' },
 			},
 		},
+		tag: {
+			name: 'Tag',
+			description: 'Defines the tag of the button.',
+			control: 'select',
+			// Add 6 to 10 closable tags
+			options: [ 'label', 'p' ],
+			table: {
+				type: { summary: 'string' },
+				defaultValue: { summary: 'label' },
+			},
+		},
 		children: {
-			name: 'Text',
+			name: 'Children',
 			description: 'The label text or content.',
+			control: 'object',
+			table: {
+				type: { summary: 'onject' },
+				defaultValue: { summary: 'Label Text' },
+			},
+		},
+		className: {
+			name: 'Class Name',
+			description: 'Defines the extra classes',
 			control: 'text',
-			defaultValue: 'Label Text',
+			table: {
+				type: { summary: 'string' },
+				defaultValue: { summary: '' },
+			},
 		},
 	},
 };

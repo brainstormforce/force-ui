@@ -19,9 +19,13 @@ export default {
 			},
 		},
 		className: {
-			description:
-				'Allows you to pass custom classes to control the size and styles',
+			name: 'Class Name',
+			description: 'Allows you to pass custom classes to control the size and styles',
 			control: 'text',
+			table: {
+				type: { summary: 'string' },
+				defaultValue: { summary: '' },
+			},
 		},
 	},
 };

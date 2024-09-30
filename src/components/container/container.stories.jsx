@@ -129,6 +129,15 @@ export default {
 				defaultValue: { summary: 'auto' },
 			},
 		},
+		className: {
+			name: 'Class Name',
+			description: 'Defines the extra classes',
+			control: 'text',
+			table: {
+				type: { summary: 'string' },
+				defaultValue: { summary: '' },
+			},
+		},
 	},
 };
 

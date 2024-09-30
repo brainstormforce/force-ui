@@ -90,7 +90,23 @@ export default {
 				defaultValue: { summary: 'false' },
 			},
 		},
-		children: { control: 'text', defaultValue: 'Button' },
+		icon: {
+			name: 'Icon',
+			description: 'Custom Icon for the button.',
+			control: 'object',
+			table: {
+				type: { summary: 'object' },
+				defaultValue: { summary: 'null' },
+			},
+		},
+		children: {
+			name: 'Children',
+			control: 'object',
+			table: {
+				type: { summary: 'string' },
+				defaultValue: { summary: '' },
+			},
+		},
 	},
 };
 
