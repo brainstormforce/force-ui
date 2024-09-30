@@ -25,9 +25,15 @@ import {
 	gapYClassNames,
 	gapYMediumClassNames,
 	gapYLargeClassNames,
-    gridFlowClassNames,
-    gridFlowLargeClassNames,
-    gridFlowMediumClassNames,
+	gridFlowClassNames,
+	gridFlowLargeClassNames,
+	gridFlowMediumClassNames,
+	alignSelfClassNames,
+	alignSelfLargeClassNames,
+	alignSelfMediumClassNames,
+	justifySelfClassNames,
+	justifySelfLargeClassNames,
+	justifySelfMediumClassNames,
 } from './grid-container-styles.js';
 
 const getClassNames = (valueKeys, classNames, defaultValueKeys, defaultScreenSize = 'sm') => {
@@ -83,9 +89,9 @@ const GridContainer = ({
 	gapY,
 	align,
 	justify,
+    gridFlow = '',
 	colsSubGrid = false,
     rowsSubGrid = false,
-    gridFlow = '',
     autoRows = false,
     autoCols = false,
 	children,
@@ -182,6 +188,8 @@ export const GridItem = ({
 	children,
 	colSpan,
 	colStart,
+    alignSelf,
+    justifySelf,
 	...props
 }) => {
 	const colSpanClassName = getClassNames(
@@ -202,9 +210,34 @@ export const GridItem = ({
 		},
 		0
 	);
+    const alignSelfClassName = getClassNames(
+        alignSelf,
+        {
+            sm: alignSelfClassNames,
+            md: alignSelfMediumClassNames,
+            lg: alignSelfLargeClassNames,
+        },
+        ''
+    );
+    const justifySelfClassName = getClassNames(
+        justifySelf,
+        {
+            sm: justifySelfClassNames,
+            md: justifySelfMediumClassNames,
+            lg: justifySelfLargeClassNames,
+        },
+        ''
+    );
+
 	return (
 		<div
-			className={cn(colSpanClassName, colStartClassName, className)}
+			className={cn(
+				colSpanClassName,
+				colStartClassName,
+				alignSelfClassName,
+				justifySelfClassName,
+				className
+			)}
 			{...props}
 		>
 			{children}

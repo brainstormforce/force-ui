@@ -285,3 +285,51 @@ export const gridFlowLargeClassNames = {
     'row-dense': 'lg:grid-flow-row-dense',
     'column-dense': 'lg:grid-flow-col-dense',
 }
+
+export const alignSelfClassNames = {
+    start: 'self-start',
+    end: 'self-end',
+    center: 'self-center',
+    baseline: 'self-baseline',
+    stretch: 'self-stretch',
+}
+
+export const alignSelfMediumClassNames = {
+    start: 'md:self-start',
+    end: 'md:self-end',
+    center: 'md:self-center',
+    baseline: 'md:self-baseline',
+    stretch: 'md:self-stretch',
+}
+
+export const alignSelfLargeClassNames = {
+    start: 'lg:self-start',
+    end: 'lg:self-end',
+    center: 'lg:self-center',
+    baseline: 'lg:self-baseline',
+    stretch: 'lg:self-stretch',
+}
+
+export const justifySelfClassNames = {
+    start: 'justify-self-start',
+    end: 'justify-self-end',
+    center: 'justify-self-center',
+    baseline: 'justify-self-baseline',
+    stretch: 'justify-self-stretch',
+}
+
+export const justifySelfMediumClassNames = {
+    start: 'md:justify-self-start',
+    end: 'md:justify-self-end',
+    center: 'md:justify-self-center',
+    baseline: 'md:justify-self-baseline',
+    stretch: 'md:justify-self-stretch',
+}
+
+export const justifySelfLargeClassNames = {
+    start: 'lg:justify-self-start',
+    end: 'lg:justify-self-end',
+    center: 'lg:justify-self-center',
+    baseline: 'lg:justify-self-baseline',
+    stretch: 'lg:justify-self-stretch',
+}
