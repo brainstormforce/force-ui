@@ -49,11 +49,12 @@ The `Badge` component can show notifications, counts, or status information on n
 
 ### `closable`
 - **Type:** `boolean`
-- **Default:** `true`
+- **Default:** `false`
 - **Description:** Defines whether the badge is closable or not. This parameter will decide if the cross icon is shown or not.
 
 ### `icon`
 - **Type:** `ReactNode`
+- **Default:** null
 - **Description:** An icon component to be displayed left of the Badge.
 
 ### `onClose`

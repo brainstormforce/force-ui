@@ -20,7 +20,7 @@ export default {
 			},
 		},
 		disabled: {
-			name: 'disabled',
+			name: 'Sisabled',
 			description: 'Defines if the switch is disabled.',
 			control: 'boolean',
 			table: {
@@ -36,7 +36,7 @@ export default {
 			},
 		},
 		name: {
-			name: 'name',
+			name: 'Name',
 			description: 'Name attribute of the input element.',
 			control: 'text',
 			table: {
@@ -44,19 +44,28 @@ export default {
 			},
 		},
 		onChange: {
-			name: 'onChange',
+			name: 'On Change Event',
 			description: 'Callback function fired when the switch state changes.',
 			table: {
 				type: { summary: 'function' },
 			},
 		},
 		defaultValue: {
-			name: 'defaultValue',
+			name: 'Default Value',
 			description: 'Default value for uncontrolled switch (true/false).',
 			control: 'boolean',
 			table: {
 				type: { summary: 'boolean' },
 				defaultValue: { summary: 'false' },
+			},
+		},
+		className: {
+			name: 'Class Name',
+			description: 'Defines the extra classes',
+			control: 'text',
+			table: {
+				type: { summary: 'string' },
+				defaultValue: { summary: '' },
 			},
 		},
 	},
