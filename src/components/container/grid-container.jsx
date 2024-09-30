@@ -25,6 +25,9 @@ import {
 	gapYClassNames,
 	gapYMediumClassNames,
 	gapYLargeClassNames,
+    gridFlowClassNames,
+    gridFlowLargeClassNames,
+    gridFlowMediumClassNames,
 } from './grid-container-styles.js';
 
 const getClassNames = (valueKeys, classNames, defaultValueKeys, defaultScreenSize = 'sm') => {
@@ -47,7 +50,8 @@ const getClassNames = (valueKeys, classNames, defaultValueKeys, defaultScreenSiz
 				}
 			}
 		}
-		default: {
+        case 'string':
+        case 'number': {
 			const screenSize = defaultScreenSize;
 			classNamesArray.push(
 				classNames?.[screenSize]?.[valueKeys] ??
@@ -57,6 +61,15 @@ const getClassNames = (valueKeys, classNames, defaultValueKeys, defaultScreenSiz
 					''
 			);
 		}
+		default: {
+            classNamesArray.push(
+                classNames?.[defaultScreenSize]?.[valueKeys] ??
+                classNames?.[defaultScreenSize]?.[
+                    defaultValueKeys?.[defaultScreenSize]
+                ] ??
+                ''
+            );
+        }
 	}
 
 	return classNamesArray.join(' ');
@@ -72,6 +85,7 @@ const GridContainer = ({
 	justify,
 	colsSubGrid = false,
     rowsSubGrid = false,
+    gridFlow = '',
 	children,
 	...props
 }) => {
@@ -125,6 +139,15 @@ const GridContainer = ({
 		},
 		''
 	);
+    const gridFlowClassName = getClassNames(
+        gridFlow,
+        {
+            sm: gridFlowClassNames,
+            md: gridFlowMediumClassNames,
+            lg: gridFlowLargeClassNames,
+        },
+        ''
+    );
 
 	return (
 		<div
@@ -138,6 +161,7 @@ const GridContainer = ({
 				gapYClassName,
 				alignClassName,
 				justifyClassName,
+                gridFlowClassName,
 				className
 			)}
 			{...props}

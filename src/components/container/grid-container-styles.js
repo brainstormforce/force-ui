@@ -265,3 +265,23 @@ export const alignLargeClassNames = {
     stretch: 'lg:items-stretch',
 }
 
+export const gridFlowClassNames = {
+    row: 'grid-flow-row',
+    column: 'grid-flow-col',
+    'row-dense': 'grid-flow-row-dense',
+    'column-dense': 'grid-flow-col-dense',
+}
+
+export const gridFlowMediumClassNames = {
+    row: 'md:grid-flow-row',
+    column: 'md:grid-flow-col',
+    'row-dense': 'md:grid-flow-row-dense',
+    'column-dense': 'md:grid-flow-col-dense',
+}
+
+export const gridFlowLargeClassNames = {
+    row: 'lg:grid-flow-row',
+    column: 'lg:grid-flow-col',
+    'row-dense': 'lg:grid-flow-row-dense',
+    'column-dense': 'lg:grid-flow-col-dense',
+}
