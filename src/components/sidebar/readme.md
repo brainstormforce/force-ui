@@ -8,7 +8,7 @@ The `Sidebar`  component is a flexible left panel that enhances user navigation,
 
 ### `children`
 - **Type:** `ReactNode`
-- **Description:** Elements to render inside the Sidebar container, typically the `Sidebar.Header`, `Sidebar.Body`, and `Sidebar.Footer` components.
+- **Description:** Elements to render inside the Sidebar container, typically the `SidebarHeader`, `SidebarBody`, and `SidebarFooter` components.
 
 ### `className`
 - **Type:** `string`
@@ -28,29 +28,34 @@ The `Sidebar`  component is a flexible left panel that enhances user navigation,
 - **default value:** `true`
 - **Description:** Controls whether the Sidebar should have border. If `true`, the Sidebar will have a border on the right.
 
-## `Sidebar.Header` Props
+### `collapsible`
+- **Type:** `boolean`
+- **default value:** `true`
+- **Description:** Controls whether the Sidebar should collapsible. If `true`, the Sidebar will have a collapse button.
+
+## `SidebarHeader` Props
 
 ### `children`
 - **Type:** `ReactNode`
-- **Description:** Elements to render inside the `Sidebar.Header` container, usually icons, logos, or navigation items.
+- **Description:** Elements to render inside the `SidebarHeader` container, usually icons, logos, or navigation items.
 
-## `Sidebar.Body` Props
-
-### `children`
-- **Type:** `ReactNode`
-- **Description:** Elements to render inside the `Sidebar.Body` container, usually navigation links, buttons, or other interactive elements.
-
-## `Sidebar.Footer` Props
+## `SidebarBody` Props
 
 ### `children`
 - **Type:** `ReactNode`
-- **Description:** Elements to render inside the `Sidebar.Footer` container, typically icons, user profile, badges, or help buttons.
+- **Description:** Elements to render inside the `SidebarBody` container, usually navigation links, buttons, or other interactive elements.
 
-## `Sidebar.Item` Props
+## `SidebarFooter` Props
 
 ### `children`
 - **Type:** `ReactNode`
-- **Description:** Content or components to render inside the `Sidebar.Item`.
+- **Description:** Elements to render inside the `SidebarFooter` container, typically icons, user profile, badges, or help buttons.
+
+## `SidebarItem` Props
+
+### `children`
+- **Type:** `ReactNode`
+- **Description:** Content or components to render inside the `SidebarItem`.
 
 ### `className`
 - **Type:** `string`
@@ -58,32 +63,32 @@ The `Sidebar`  component is a flexible left panel that enhances user navigation,
 
 ```jsx
     <Sidebar>
-        <Sidebar.Header>
-            <Sidebar.Item>
+        <SidebarHeader>
+            <SidebarItem>
                 <Logo />
-            </Sidebar.Item>
-        </Sidebar.Header>
+            </SidebarItem>
+        </SidebarHeader>
 
-        <Sidebar.Body align="Header">
-            <Sidebar.Item>
+        <SidebarBody align="Header">
+            <SidebarItem>
                 <div className='flex gap-2'>
                     <div>Nav Item 1</div>
                     <div>Nav item 2</div>
                     <div>Nav Item 3</div>
                 </div>
-            </Sidebar.Item>
-            <Sidebar.Item>
+            </SidebarItem>
+            <SidebarItem>
                 <Button>Upgrade to Pro</Button>
-            </Sidebar.Item>
-        </Sidebar.Body>
+            </SidebarItem>
+        </SidebarBody>
 
-        <Sidebar.Footer>
-            <Sidebar.Item>
+        <SidebarFooter>
+            <SidebarItem>
                 <Badge  />
-            </Sidebar.Item>
-            <Sidebar.Item>
+            </SidebarItem>
+            <SidebarItem>
                 <Avatar />
-            </Sidebar.Item>
-        </Sidebar.Footer>
+            </SidebarItem>
+        </SidebarFooter>
     </Sidebar>
 ```
