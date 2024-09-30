@@ -243,15 +243,15 @@ const RadioButtonComponent = (
 	}
 	const handleLabelClick = () => {
 		if ( ! isDisabled ) {
-		  if ( multiSelection ) {
+			if ( multiSelection ) {
 			// In multi-selection, toggle each individual selection
 				onChange( value, ! checkedValue ); // Pass the toggled value
-		  } else {
-			// In single selection, only one can be selected
+			} else {
+				// In single selection, only one can be selected
 				onChange( value ); // Trigger onChange with the selected value
-		  }
+			}
 		}
-	  };
+	};
 
 	return (
 		<label
@@ -266,6 +266,7 @@ const RadioButtonComponent = (
 				isDisabled && 'cursor-not-allowed'
 			) }
 			htmlFor={ radioButtonId }
+			/** js */
 			onClick={ handleLabelClick } // Toggle switch when label is clicked
 		>
 			{ !! label && (
@@ -294,13 +295,13 @@ const RadioButtonComponent = (
 							size={ size === 'md' ? 'lg' : 'sm' }
 							onChange={ () => {
 								if ( ! multiSelection ) {
-								  // In single selection, only one can be on
-								  onChange( value ); // Update the state to select this option
+									// In single selection, only one can be on
+									onChange( value ); // Update the state to select this option
 								} else {
-								  // In multi-selection, toggle the current state
-								  onChange( value, ! checkedValue );
+									// In multi-selection, toggle the current state
+									onChange( value, ! checkedValue );
 								}
-							  } }
+							} }
 							checked={ checkedValue }
 						/>
 					) : (
