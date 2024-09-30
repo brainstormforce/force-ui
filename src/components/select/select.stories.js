@@ -46,7 +46,8 @@ export default {
 			},
 		},
 		by: {
-			description: 'Used to identify the selected value when value type is an `object`. Default is `"id"`.',
+			description:
+				'Used to identify the selected value when value type is an `object`. Default is `"id"`.',
 			table: {
 				type: { summary: 'string' },
 			},
@@ -73,11 +74,7 @@ const Template = ( args ) => {
 
 	return (
 		<div style={ { width: '260px' } }>
-			<Select
-				{ ...args }
-				onChange={ setSelected }
-				selected={ selected }
-			>
+			<Select { ...args } onChange={ setSelected } selected={ selected }>
 				<Select.Button label="Label" />
 				<Select.Options dropdownPortalId="surerank-dashboard">
 					{ options.map( ( option, index ) => (
@@ -87,7 +84,10 @@ const Template = ( args ) => {
 					) ) }
 				</Select.Options>
 			</Select>
-			<Label size="sm" variant="help">Hint text can be added here.<a href="https://example.com">Link</a>.</Label>
+			<Label size="sm" variant="help">
+				Hint text can be added here.
+				<a href="https://example.com">Link</a>.
+			</Label>
 		</div>
 	);
 };

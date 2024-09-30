@@ -13,7 +13,16 @@ import { Check } from 'lucide-react';
 
 import { cn, columnClasses } from '@/utilities/functions';
 import Switch from '../switch';
-import { colorClassNames, disabledClassNames, sizeClassNames, sizes, borderClasses, baseClasses, hoverClasses, focusClasses } from './styles';
+import {
+	colorClassNames,
+	disabledClassNames,
+	sizeClassNames,
+	sizes,
+	borderClasses,
+	baseClasses,
+	hoverClasses,
+	focusClasses,
+} from './styles';
 
 const RadioButtonContext = createContext();
 const useRadioButton = () => useContext( RadioButtonContext );
@@ -244,7 +253,7 @@ const RadioButtonComponent = (
 	const handleLabelClick = () => {
 		if ( ! isDisabled ) {
 			if ( multiSelection ) {
-			// In multi-selection, toggle each individual selection
+				// In multi-selection, toggle each individual selection
 				onChange( value, ! checkedValue ); // Pass the toggled value
 			} else {
 				// In single selection, only one can be selected

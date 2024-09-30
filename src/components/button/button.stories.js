@@ -45,7 +45,18 @@ export default {
 			description: 'Defines the tag of the button.',
 			control: 'select',
 			// Add 6 to 10 closable tags
-			options: [ 'button', 'a', 'div', 'span', 'p', 'h1', 'h2', 'h3', 'h4', 'h5' ],
+			options: [
+				'button',
+				'a',
+				'div',
+				'span',
+				'p',
+				'h1',
+				'h2',
+				'h3',
+				'h4',
+				'h5',
+			],
 			table: {
 				type: { summary: 'string' },
 				defaultValue: { summary: 'button' },

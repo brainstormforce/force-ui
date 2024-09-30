@@ -52,7 +52,8 @@ export default {
 		},
 		defaultValue: {
 			control: { type: 'text' },
-			description: 'Default value for the select (for uncontrolled component).',
+			description:
+				'Default value for the select (for uncontrolled component).',
 			defaultValue: undefined,
 		},
 		placeholder: {
@@ -71,9 +72,7 @@ export default {
 // Single Select Story
 export const SingleSelect = ( args ) => (
 	<div style={ { width: '300px' } }>
-		<Select
-			{ ...args }
-		>
+		<Select { ...args }>
 			<Select.Button label={ args.label } />
 			<Select.Options dropdownPortalId="wpcontent">
 				{ options.map( ( option ) => (
@@ -99,10 +98,7 @@ SingleSelect.args = {
 // Multi-select Story
 export const MultiSelect = ( args ) => (
 	<div style={ { width: '300px' } }>
-		<Select
-			{ ...args }
-			multiple
-		>
+		<Select { ...args } multiple>
 			<Select.Button label={ args.label } />
 			<Select.Options dropdownPortalId="wpcontent">
 				{ options.map( ( option ) => (
@@ -127,12 +123,13 @@ MultiSelect.args = {
 
 export const SelectWithSearch = ( args ) => (
 	<div style={ { width: '300px' } }>
-		<Select
-			{ ...args }
-			combobox
-		>
+		<Select { ...args } combobox>
 			<Select.Button label={ args.label } />
-			<Select.Options searchBy="name" dropdownPortalId="wpcontent" searchPlaceholder={ args.placeholder }>
+			<Select.Options
+				searchBy="name"
+				dropdownPortalId="wpcontent"
+				searchPlaceholder={ args.placeholder }
+			>
 				{ options.map( ( option ) => (
 					<Select.Option key={ option.id } value={ option }>
 						{ option.name }

@@ -1,7 +1,11 @@
 import React from 'react';
 import { cn } from '@/utilities/functions';
 import { Plus, Check } from 'lucide-react';
-import { getVariantClasses, completedStepCommonClasses, stepWrapperClasses } from './utils';
+import {
+	getVariantClasses,
+	completedStepCommonClasses,
+	stepWrapperClasses,
+} from './utils';
 
 const ProgressSteps = ( {
 	variant = 'dot',
@@ -62,9 +66,14 @@ const ProgressSteps = ( {
 	} );
 
 	return (
-		<div className={ cn( 'flex w-full', className,
-			type === 'inline' ? 'items-center justify-between' : ''
-		) } { ...rest }>
+		<div
+			className={ cn(
+				'flex w-full',
+				className,
+				type === 'inline' ? 'items-center justify-between' : ''
+			) }
+			{ ...rest }
+		>
 			{ steps }
 		</div>
 	);
@@ -86,7 +95,15 @@ const ProgressStep = ( {
 	index,
 	...rest
 } ) => {
-	const stepContent = createStepContent( variant, isCompleted, isCurrent, sizeClasses, size, icon, index );
+	const stepContent = createStepContent(
+		variant,
+		isCompleted,
+		isCurrent,
+		sizeClasses,
+		size,
+		icon,
+		index
+	);
 
 	const stackSizeOffset = {
 		lg: 'left-[calc(50%+14px)] right-[calc(-50%+14px)]',
@@ -118,28 +135,40 @@ const ProgressStep = ( {
 		if ( ! isLast ) {
 			const lineClasses = cn(
 				'block',
-				isCompleted ? 'border-brand-primary-600' : 'border-border-subtle'
+				isCompleted
+					? 'border-brand-primary-600'
+					: 'border-border-subtle'
 			);
 
 			if ( type === 'stack' ) {
 				return (
-					<div className={ cn(
-						'relative',
-						'flex',
-						'border-solid',
-						'border-y',
-						'absolute',
-						isCompleted ? 'border-brand-primary-600' : 'border-border-subtle',
-						topClass[ size ],
-						stackSizeOffset[ size ]
-					) }>
+					<div
+						className={ cn(
+							'relative',
+							'flex',
+							'border-solid',
+							'border-y',
+							'absolute',
+							isCompleted
+								? 'border-brand-primary-600'
+								: 'border-border-subtle',
+							topClass[ size ],
+							stackSizeOffset[ size ]
+						) }
+					>
 						<span className="block"></span>
 					</div>
 				);
 			}
 			return (
 				<div className="flex-1">
-					<span className={ cn( lineClasses, 'mr-2', 'border-y border-solid' ) }></span>
+					<span
+						className={ cn(
+							lineClasses,
+							'mr-2',
+							'border-y border-solid'
+						) }
+					></span>
 				</div>
 			);
 		}
@@ -150,7 +179,10 @@ const ProgressStep = ( {
 	if ( type === 'stack' ) {
 		return (
 			<div className="relative flex-1 justify-center">
-				<div className={ cn( 'flex items-center flex-col', className ) } { ...rest }>
+				<div
+					className={ cn( 'flex items-center flex-col', className ) }
+					{ ...rest }
+				>
 					{ stepContent }
 					{ renderLabel() }
 				</div>
@@ -170,13 +202,28 @@ const ProgressStep = ( {
 };
 
 // Create step content
-const createStepContent = ( variant, isCompleted, isCurrent, sizeClasses, size, icon, index ) => {
+const createStepContent = (
+	variant,
+	isCompleted,
+	isCurrent,
+	sizeClasses,
+	size,
+	icon,
+	index
+) => {
 	if ( isCompleted ) {
-		return <Check className={ completedStepCommonClasses( sizeClasses, size ) } />;
+		return (
+			<Check className={ completedStepCommonClasses( sizeClasses, size ) } />
+		);
 	}
 
 	const commonClasses = stepWrapperClasses( isCurrent, sizeClasses, size );
-	const variantClasses = getVariantClasses( variant, isCurrent, sizeClasses, size );
+	const variantClasses = getVariantClasses(
+		variant,
+		isCurrent,
+		sizeClasses,
+		size
+	);
 
 	let content = null;
 	if ( variant === 'number' ) {

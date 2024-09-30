@@ -1,5 +1,28 @@
-import React, { useRef, useState, isValidElement, cloneElement, useMemo } from 'react';
-import { useFloating, autoUpdate, offset, flip, shift, useHover, useFocus, useDismiss, useClick, safePolygon, useRole, arrow as floatingArrow, FloatingPortal, FloatingArrow, useInteractions, useTransitionStyles } from '@floating-ui/react';
+import React, {
+	useRef,
+	useState,
+	isValidElement,
+	cloneElement,
+	useMemo,
+} from 'react';
+import {
+	useFloating,
+	autoUpdate,
+	offset,
+	flip,
+	shift,
+	useHover,
+	useFocus,
+	useDismiss,
+	useClick,
+	safePolygon,
+	useRole,
+	arrow as floatingArrow,
+	FloatingPortal,
+	FloatingArrow,
+	useInteractions,
+	useTransitionStyles,
+} from '@floating-ui/react';
 import { cn } from '@/utilities/functions';
 import { mergeRefs } from '../toaster/utils';
 
@@ -21,7 +44,10 @@ const Tooltip = ( {
 	triggers = [ 'hover', 'focus' ], // 'click' | 'hover' | 'focus';
 	interactive = false,
 } ) => {
-	const isControlled = useMemo( () => typeof open === 'boolean' && typeof setOpen === 'function', [ open, setOpen ] );
+	const isControlled = useMemo(
+		() => typeof open === 'boolean' && typeof setOpen === 'function',
+		[ open, setOpen ]
+	);
 
 	const [ isOpen, setIsOpen ] = useState( false );
 	const arrowRef = useRef( null );
@@ -74,14 +100,18 @@ const Tooltip = ( {
 		close: { opacity: 0 },
 	} );
 
-	const tooltipClasses = 'absolute z-20 py-2 px-3 rounded-md text-xs leading-4 shadow-soft-shadow-lg';
+	const tooltipClasses =
+		'absolute z-20 py-2 px-3 rounded-md text-xs leading-4 shadow-soft-shadow-lg';
 
 	const variantClasses = {
 		light: 'bg-tooltip-background-light text-text-primary',
 		dark: 'bg-tooltip-background-dark text-text-on-color',
 	}?.[ variant ];
 
-	const arrowClasses = variant === 'dark' ? 'text-tooltip-background-dark' : 'text-tooltip-background-light';
+	const arrowClasses =
+		variant === 'dark'
+			? 'text-tooltip-background-dark'
+			: 'text-tooltip-background-light';
 
 	const widthClasses = 'max-w-80 w-fit';
 
@@ -101,7 +131,7 @@ const Tooltip = ( {
 							tooltipClasses,
 							variantClasses,
 							widthClasses,
-							className,
+							className
 						) }
 						ref={ refs.setFloating }
 						style={ {
@@ -111,7 +141,9 @@ const Tooltip = ( {
 						{ ...getFloatingProps() }
 					>
 						<div>
-							{ !! title && ( <span className="font-semibold">{ title }</span> ) }
+							{ !! title && (
+								<span className="font-semibold">{ title }</span>
+							) }
 							{ !! content && (
 								<div className="font-normal">{ content }</div>
 							) }

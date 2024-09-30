@@ -58,7 +58,7 @@ const Alert = ( {
 						? variantClassNames.dark
 						: variantClassNames.light?.[ variant ],
 					containerVariantClassNames.inline,
-					className,
+					className
 				) }
 			>
 				<>
@@ -68,22 +68,20 @@ const Alert = ( {
 					<div className="flex flex-col items-start justify-start gap-0.5">
 						{ getTitle( { title, theme } ) }
 						{ getContent( { content, theme } ) }
-						{ action?.label &&
-								typeof action?.onClick ===
-									'function' && (
+						{
+							action?.label &&
+								typeof action?.onClick === 'function' && (
 							/* eslint-disable */
 									<div className="mt-2.5">
-									{ getAction( {
-										actionLabel:
-												action?.label,
-										actionType:
-												action?.type ??
-												'button',
-										onAction: handleAction,
-										theme,
-									} ) }
-								</div>
-							)
+										{getAction({
+											actionLabel: action?.label,
+											actionType:
+												action?.type ?? 'button',
+											onAction: handleAction,
+											theme,
+										})}
+									</div>
+								)
 							/* eslint-enable */
 						}
 					</div>
@@ -92,7 +90,7 @@ const Alert = ( {
 							className={ cn(
 								'bg-transparent m-0 p-0 border-none focus:outline-none active:outline-none cursor-pointer',
 								closeIconClassNames[ theme ] ??
-										closeIconClassNames.light
+									closeIconClassNames.light
 							) }
 							onClick={ () => closeAlert() }
 						>
@@ -112,7 +110,7 @@ const Alert = ( {
 					? variantClassNames.dark
 					: variantClassNames.light?.[ variant ],
 				containerVariantClassNames.inline,
-				className,
+				className
 			) }
 		>
 			<div className="flex items-center justify-start gap-2">
@@ -125,29 +123,24 @@ const Alert = ( {
 				</div>
 			</div>
 			<div className="flex items-center justify-start gap-4 [&_svg]:size-5">
-				{ action?.label &&
-                    typeof action?.onClick ===
-                        'function' && (
-				/* eslint-disable */
-                        <div className='flex'>
-                        { getAction( {
-                            actionLabel:
-                                    action?.label,
-                            actionType:
-                                    action?.type ??
-                                    'button',
-                            onAction: handleAction,
-                            theme,
-                        } ) }
-                    </div>
-                )
-                /* eslint-enable */
+				{
+					action?.label && typeof action?.onClick === 'function' && (
+						/* eslint-disable */
+						<div className="flex">
+							{getAction({
+								actionLabel: action?.label,
+								actionType: action?.type ?? 'button',
+								onAction: handleAction,
+								theme,
+							})}
+						</div>
+					)
+					/* eslint-enable */
 				}
 				<button
 					className={ cn(
 						'bg-transparent m-0 p-0 border-none focus:outline-none active:outline-none cursor-pointer',
-						closeIconClassNames[ theme ] ??
-                            closeIconClassNames.light
+						closeIconClassNames[ theme ] ?? closeIconClassNames.light
 					) }
 					onClick={ () => closeAlert() }
 				>
