@@ -1,1 +1,9 @@
-export { default } from './breadcrumb.jsx';
+export {
+    Breadcrumb,
+    BreadcrumbList,
+    BreadcrumbItem,
+    BreadcrumbLink,
+    BreadcrumbSeparator,
+    BreadcrumbEllipsis,
+    BreadcrumbPage,
+} from './breadcrumb.jsx';

@@ -12,21 +12,21 @@
 - **default value:** `sm`
 - **description:** The size of the breadcrumb, can be `sm` or `md`.
 
-## `Breadcrumb.List` Props
+## `BreadcrumbList` Props
 - **Description:** Wrapper for the breadcrumb list.  
 
 ### children
 - **type:** `ReactNode`
 - **description:** The child items to be rendered as a list of breadcrumb items.
 
-## `Breadcrumb.Item` Props
+## `BreadcrumbItem` Props
 - **Description:** Represents a single breadcrumb item.  
 
 ### children
 - **type:** `ReactNode`
 - **description:** The content for the breadcrumb item, usually containing a link or static text.
 
-## `Breadcrumb.Link` Props
+## `BreadcrumbLink` Props
 - **Description:** The clickable link within a breadcrumb item.
 
 ### href (required)
@@ -46,7 +46,7 @@
 - **default value:** `a`
 - **description:** Used as a wrapper for breadcrumb links. Defaults to an anchor `('a')`, but can be customized with components like `Link` from React Router.
 
-## `Breadcrumb.Separator` Props
+## `BreadcrumbSeparator` Props
 - **Description:** Separator used between breadcrumb items.
 
 ### type (optional)
@@ -54,10 +54,10 @@
 - **default value:** `arrow`
 - **description:** The type of separator between breadcrumb items, can be either `slash` ("/") or `arrow` (">").
 
-## `Breadcrumb.Ellipsis` Props
+## `BreadcrumbEllipsis` Props
 - **Description:** Displays an ellipsis when the breadcrumb list is too long, or represents hidden items.
 
-## `Breadcrumb.Page` Props
+## `BreadcrumbPage` Props
 - **Description:** Represents the current page in the breadcrumb trail, displayed as static text instead of a link.
 
 ### children
@@ -68,15 +68,15 @@
 
 ```jsx
 <Breadcrumb>
-    <Breadcrumb.Item>
-        <Breadcrumb.Link href="/home">Home</Breadcrumb.Link>
-    </Breadcrumb.Item>
-    <Breadcrumb.Separator type="slash" />
-    <Breadcrumb.Item>
-        <Breadcrumb.Link href="/category">Category</Breadcrumb.Link>
-    </Breadcrumb.Item>
-    <Breadcrumb.Separator />
-    <Breadcrumb.Item>
-        <Breadcrumb.Page>Current Page</Breadcrumb.Page>
-    </Breadcrumb.Item>
+    <BreadcrumbItem>
+        <BreadcrumbLink href="/home">Home</BreadcrumbLink>
+    </BreadcrumbItem>
+    <BreadcrumbSeparator type="slash" />
+    <BreadcrumbItem>
+        <BreadcrumbLink href="/category">Category</BreadcrumbLink>
+    </BreadcrumbItem>
+    <BreadcrumbSeparator />
+    <BreadcrumbItem>
+        <BreadcrumbPage>Current Page</BreadcrumbPage>
+    </BreadcrumbItem>
 </Breadcrumb>
