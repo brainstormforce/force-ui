@@ -86,6 +86,8 @@ const GridContainer = ({
 	colsSubGrid = false,
     rowsSubGrid = false,
     gridFlow = '',
+    autoRows = false,
+    autoCols = false,
 	children,
 	...props
 }) => {
@@ -152,16 +154,20 @@ const GridContainer = ({
 	return (
 		<div
 			className={cn(
-				'grid auto-rows-auto',
-                { 'grid-cols-subgrid': colsSubGrid },
-                { 'grid-rows-subgrid': rowsSubGrid },
+				'grid',
+				{
+					'grid-cols-subgrid': colsSubGrid,
+					'grid-rows-subgrid': rowsSubGrid,
+					'auto-cols-auto': autoCols,
+					'auto-rows-auto': autoRows,
+				},
 				columnClassName,
 				gapClassName,
 				gapXClassName,
 				gapYClassName,
 				alignClassName,
 				justifyClassName,
-                gridFlowClassName,
+				gridFlowClassName,
 				className
 			)}
 			{...props}
