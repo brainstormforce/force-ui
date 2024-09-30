@@ -30,7 +30,8 @@ export default {
 		},
 		label: {
 			name: 'Label',
-			description: 'Defines the label and description of the switch. Can be an object or a React element.',
+			description:
+				'Defines the label and description of the switch. Can be an object or a React element.',
 			table: {
 				type: { summary: 'object | ReactNode' },
 			},
@@ -45,7 +46,8 @@ export default {
 		},
 		onChange: {
 			name: 'onChange',
-			description: 'Callback function fired when the switch state changes.',
+			description:
+				'Callback function fired when the switch state changes.',
 			table: {
 				type: { summary: 'function' },
 			},
@@ -77,12 +79,7 @@ const Template = ( { defaultValue, size, ...args } ) => {
 	};
 
 	return (
-		<Switch
-			{ ...args }
-			size={ size }
-			value={ checked }
-			onChange={ handleChange }
-		/>
+		<Switch { ...args } size={ size } value={ checked } onChange={ handleChange } />
 	);
 };
 
@@ -105,5 +102,8 @@ export const Disabled = ( args ) => Template( { ...args } );
 Disabled.args = {
 	size: 'lg',
 	disabled: true,
-	label: { heading: 'Disabled Switch', description: 'This switch is disabled.' },
+	label: {
+		heading: 'Disabled Switch',
+		description: 'This switch is disabled.',
+	},
 };

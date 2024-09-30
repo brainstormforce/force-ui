@@ -11,9 +11,7 @@ export default {
 	tags: [ 'autodocs' ],
 	decorators: [
 		( Story ) => (
-			<div
-				className="font-sans [&_*]:font-sans h-[600px] flex items-center justify-center"
-			>
+			<div className="font-sans [&_*]:font-sans h-[600px] flex items-center justify-center">
 				<Story />
 			</div>
 		),
@@ -21,7 +19,8 @@ export default {
 	argTypes: {
 		open: {
 			name: 'Open',
-			description: 'Control the dialog open state. If not provided, the dialog will be controlled internally.',
+			description:
+				'Control the dialog open state. If not provided, the dialog will be controlled internally.',
 			control: 'none',
 			table: {
 				type: { summary: 'boolean' },
@@ -29,7 +28,8 @@ export default {
 		},
 		setOpen: {
 			name: 'Set Open',
-			description: 'Control the dialog open state. If not provided, the dialog will be controlled internally.',
+			description:
+				'Control the dialog open state. If not provided, the dialog will be controlled internally.',
 			control: 'none',
 			table: {
 				type: { summary: 'function' },
@@ -165,8 +165,7 @@ const ControlledTemplate = ( args ) => {
 };
 
 export const Controlled = ControlledTemplate.bind( {} );
-Controlled.args = {
-};
+Controlled.args = {};
 
 const UncontrolledTemplate = ( args ) => (
 	<Dialog { ...args }>

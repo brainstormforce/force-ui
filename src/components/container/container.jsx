@@ -70,59 +70,72 @@ const Container = ( props ) => {
 		nowrap: 'flex-nowrap',
 	}?.[ wrapClass ];
 
-	const combinedClasses = cn( containerTypeClass, gapClasses, directionClasses, justifyContentClasses, alignItemsClasses, wrapClasses, className );
+	const combinedClasses = cn(
+		containerTypeClass,
+		gapClasses,
+		directionClasses,
+		justifyContentClasses,
+		alignItemsClasses,
+		wrapClasses,
+		className
+	);
 
-	const mColumnClassName = {
-		1: 'w-full',
-		2: 'w-1/2',
-		3: 'w-1/3',
-		4: 'w-1/4',
-		5: 'w-1/5',
-		6: 'w-1/6',
-		7: 'w-1/7',
-		8: 'w-1/8',
-		9: 'w-1/9',
-		10: 'w-1/10',
-		11: 'w-1/11',
-		12: 'w-1/12',
-	}?.[ mCols ] ?? 'w-full';
+	const mColumnClassName =
+		{
+			1: 'w-full',
+			2: 'w-1/2',
+			3: 'w-1/3',
+			4: 'w-1/4',
+			5: 'w-1/5',
+			6: 'w-1/6',
+			7: 'w-1/7',
+			8: 'w-1/8',
+			9: 'w-1/9',
+			10: 'w-1/10',
+			11: 'w-1/11',
+			12: 'w-1/12',
+		}?.[ mCols ] ?? 'w-full';
 
-	const tabColumnClassName = {
-		1: 'md:w-full',
-		2: 'md:w-1/2',
-		3: 'md:w-1/3',
-		4: 'md:w-1/4',
-		5: 'md:w-1/5',
-		6: 'md:w-1/6',
-		7: 'md:w-1/7',
-		8: 'md:w-1/8',
-		9: 'md:w-1/9',
-		10: 'md:w-1/10',
-		11: 'md:w-1/11',
-		12: 'md:w-1/12',
-	}?.[ tabCols ] ?? 'md:w-1/2';
+	const tabColumnClassName =
+		{
+			1: 'md:w-full',
+			2: 'md:w-1/2',
+			3: 'md:w-1/3',
+			4: 'md:w-1/4',
+			5: 'md:w-1/5',
+			6: 'md:w-1/6',
+			7: 'md:w-1/7',
+			8: 'md:w-1/8',
+			9: 'md:w-1/9',
+			10: 'md:w-1/10',
+			11: 'md:w-1/11',
+			12: 'md:w-1/12',
+		}?.[ tabCols ] ?? 'md:w-1/2';
 
-	const columnClassName = {
-		1: 'lg:w-full',
-		2: 'lg:w-1/2',
-		3: 'lg:w-1/3',
-		4: 'lg:w-1/4',
-		5: 'lg:w-1/5',
-		6: 'lg:w-1/6',
-		7: 'lg:w-1/7',
-		8: 'lg:w-1/8',
-		9: 'lg:w-1/9',
-		10: 'lg:w-1/10',
-		11: 'lg:w-1/11',
-		12: 'lg:w-1/12',
-	}?.[ cols ] ?? 'lg:w-1/4';
+	const columnClassName =
+		{
+			1: 'lg:w-full',
+			2: 'lg:w-1/2',
+			3: 'lg:w-1/3',
+			4: 'lg:w-1/4',
+			5: 'lg:w-1/5',
+			6: 'lg:w-1/6',
+			7: 'lg:w-1/7',
+			8: 'lg:w-1/8',
+			9: 'lg:w-1/9',
+			10: 'lg:w-1/10',
+			11: 'lg:w-1/11',
+			12: 'lg:w-1/12',
+		}?.[ cols ] ?? 'lg:w-1/4';
 
 	return (
 		<div className={ combinedClasses } { ...extraProps }>
 			{ React.Children.map( children, ( child ) =>
 				React.cloneElement( child, {
 					className: cn(
-						mColumnClassName, tabColumnClassName, columnClassName,
+						mColumnClassName,
+						tabColumnClassName,
+						columnClassName,
 						child.props.className
 					),
 				} )
@@ -180,7 +193,17 @@ const Item = ( props ) => {
 	}?.[ order ];
 
 	return (
-		<div className={ cn( growClasses, shrinkClasses, alignSelfClasses, orderClasses, 'box-border', className ) } { ...extraProps }>
+		<div
+			className={ cn(
+				growClasses,
+				shrinkClasses,
+				alignSelfClasses,
+				orderClasses,
+				'box-border',
+				className
+			) }
+			{ ...extraProps }
+		>
 			{ children }
 		</div>
 	);

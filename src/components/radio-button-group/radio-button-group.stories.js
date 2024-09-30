@@ -18,7 +18,8 @@ export default {
 			},
 		},
 		style: {
-			description: 'Defines the style of the RadioGroup group. Options are "simple" and "tile".',
+			description:
+				'Defines the style of the RadioGroup group. Options are "simple" and "tile".',
 			control: { type: 'select' },
 			options: [ 'simple', 'tile' ],
 			table: {
@@ -32,7 +33,8 @@ export default {
 			defaultValue: 'md',
 		},
 		as: {
-			description: 'Specifies the wrapper element for the radio button group.',
+			description:
+				'Specifies the wrapper element for the radio button group.',
 			control: {
 				type: 'text',
 			},
@@ -42,13 +44,15 @@ export default {
 			},
 		},
 		value: {
-			description: 'The currently selected value in the RadioGroup group.',
+			description:
+				'The currently selected value in the RadioGroup group.',
 			table: {
 				type: { summary: 'string' },
 			},
 		},
 		defaultValue: {
-			description: 'The default value to be selected in the RadioGroup group.',
+			description:
+				'The default value to be selected in the RadioGroup group.',
 			table: {
 				type: { summary: 'string' },
 			},
@@ -77,7 +81,8 @@ export default {
 			},
 		},
 		columns: {
-			description: 'Sets the number of columns for arranging the radio buttons.',
+			description:
+				'Sets the number of columns for arranging the radio buttons.',
 			control: 'number',
 			table: {
 				type: { summary: 'number' },
@@ -100,7 +105,8 @@ export default {
 			},
 		},
 		label: {
-			description: '`RadioButton` : Object containing heading and description for each RadioButton.',
+			description:
+				'`RadioButton` : Object containing heading and description for each RadioButton.',
 			control: {
 				type: 'object',
 			},
@@ -110,7 +116,9 @@ export default {
 			},
 			table: {
 				type: { summary: 'object' },
-				defaultValue: { summary: `{ heading: 'Option', description: 'Description' }` },
+				defaultValue: {
+					summary: `{ heading: 'Option', description: 'Description' }`,
+				},
 			},
 		},
 		borderOn: {
@@ -130,7 +138,8 @@ export default {
 			},
 		},
 		icon: {
-			description: '`RadioButton` :Custom icon component to be displayed.',
+			description:
+				'`RadioButton` :Custom icon component to be displayed.',
 			control: {
 				type: 'text',
 			},
@@ -185,25 +194,31 @@ const Template = ( args ) => {
 		<RadioButtonGroup
 			{ ...args }
 			value={ value }
-			columns={ args.columns ?? args.style === 'tile' ? 6 : 3 }
+			columns={ ( args.columns ?? args.style === 'tile' ) ? 6 : 3 }
 			onChange={ ( val ) => {
 				setValue( val );
 				args.onChange( val );
 			} }
 		>
-			{ [ 1, 2, 3, 4, 5, 6 ].map( ( num ) => (
-				args.style === 'tile'
-					? <RadioButton
+			{ [ 1, 2, 3, 4, 5, 6 ].map( ( num ) =>
+				args.style === 'tile' ? (
+					<RadioButton
 						value={ `option${ num }` }
 						key={ num }
 						disabled={ args.disabled }
 					>
 						<Plus />
 					</RadioButton>
-					: <RadioButton
+				) : (
+					<RadioButton
 						key={ num }
 						value={ `option${ num }` }
-						label={ args.label ?? { heading: `Option ${ num }`, description: `Description ${ num }` } }
+						label={
+							args.label ?? {
+								heading: `Option ${ num }`,
+								description: `Description ${ num }`,
+							}
+						}
 						borderOn={ args.borderOn }
 						disabled={ args.disabled }
 						useSwitch={ args.useSwitch }
@@ -211,25 +226,28 @@ const Template = ( args ) => {
 						inlineIcon={ args.inlineIcon }
 						hideSelection={ args.hideSelection }
 						reversePosition={ args.reversePosition }
-						badgeItem={ args.badgeItem
-							? <Badge
-								type="rounded"
-								label={ args.badgeItem }
-								icon={ null }
-								className="mr-2"
-								size="sm"
-								variant="green"
-								closable={ false }
-							/> : null }
+						badgeItem={
+							args.badgeItem ? (
+								<Badge
+									type="rounded"
+									label={ args.badgeItem }
+									icon={ null }
+									className="mr-2"
+									size="sm"
+									variant="green"
+									closable={ false }
+								/>
+							) : null
+						}
 					/>
-			) ) }
+				)
+			) }
 		</RadioButtonGroup>
 	);
 };
 
 export const SimpleRadioMd = ( args ) => <Template { ...args } />;
-SimpleRadioMd.args = {
-};
+SimpleRadioMd.args = {};
 SimpleRadioMd.storyName = 'Simple Radio Group - size md';
 
 export const SimpleRadioMulti = ( args ) => <Template { ...args } />;
@@ -253,7 +271,6 @@ SimpleRadioSwitch.args = {
 	borderOn: true,
 	useSwitch: true,
 	multiSelection: true,
-
 };
 SimpleRadioSwitch.storyName = 'Switch Selection';
 
@@ -264,6 +281,5 @@ SimpleRadioInline.args = {
 	inlineIcon: true,
 	label: { heading: 'Option' },
 	multiSelection: true,
-
 };
 SimpleRadioInline.storyName = 'Inline Icon';

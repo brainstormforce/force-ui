@@ -13,7 +13,14 @@ export default {
 			name: 'Variant',
 			description: 'Defines the style variant of the alert.',
 			control: 'select',
-			options: [ 'neutral', 'info', 'warning', 'error', 'success', 'inverse' ],
+			options: [
+				'neutral',
+				'info',
+				'warning',
+				'error',
+				'success',
+				'inverse',
+			],
 			table: {
 				type: { summary: 'string' },
 				defaultValue: { summary: 'neutral' },
