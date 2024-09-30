@@ -5,17 +5,17 @@ export default {
     title: 'Organism/Sidebar',
     component: Sidebar,
     parameters: {
-		layout: 'centered',
+		layout: 'left',
 	},
 	tags: [ 'autodocs' ],
     argTypes: {
         children: {
             description: 'Content to render inside the Sidebar. This typically includes `SidebarHeader`, `SidebarBody`, and `SidebarFooter` components.',
-            control: { type: 'none' },  // children cannot be controlled via Storybook UI
+            control: { type: 'none' },   
         },
         onCollapseChange: {
             description: 'Callback function triggered when the Sidebar collapse state changes. Use this to handle logic based on collapse/expand states.',
-            action: 'onCollapseChange', // This will show up in Storybook Actions Panel
+            action: 'onCollapseChange',  
         },
         screenHeight: {
             description: 'Determines whether the Sidebar should occupy the full screen height.',
@@ -91,16 +91,7 @@ DefaultSidebar.args = {
     collapsible: true,
 };
 
-export const NonCollapsibleSidebar = Template.bind({});
-NonCollapsibleSidebar.args = {
-    screenHeight: true,
-    borderOn: true,
-    collapsible: false,
-};
+DefaultSidebar.storyName = 'Sidebar';
 
-export const WithoutFullHeight = Template.bind({});
-WithoutFullHeight.args = {
-    screenHeight: false,
-    borderOn: true,
-    collapsible: true,
-};
+
+ 
