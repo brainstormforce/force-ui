@@ -64,7 +64,7 @@ const Sidebar = ({
 		return () => {
 			window.removeEventListener('resize', handleScreenResize);
 		};
-	}, []);
+	}, [screenHeight]);
 
 	return (
 		<SidebarContext.Provider value={{ isCollapsed, setIsCollapsed, collapsible }}>

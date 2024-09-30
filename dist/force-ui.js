@@ -17431,7 +17431,7 @@ var Sidebar = function Sidebar(_ref) {
     return function () {
       window.removeEventListener('resize', handleScreenResize);
     };
-  }, []);
+  }, [screenHeight]);
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(SidebarContext.Provider, {
     value: {
       isCollapsed: isCollapsed,

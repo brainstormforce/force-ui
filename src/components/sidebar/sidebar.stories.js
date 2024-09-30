@@ -5,25 +5,19 @@ export default {
     title: 'Organism/Sidebar',
     component: Sidebar,
     parameters: {
-		layout: 'left',
-	},
-	tags: [ 'autodocs' ],
+        layout: 'left',
+    },
+    tags: ['autodocs'],
     argTypes: {
         children: {
             description: 'Content to render inside the Sidebar. This typically includes `SidebarHeader`, `SidebarBody`, and `SidebarFooter` components.',
-            control: { type: 'none' },   
+            control: { type: 'none' },
         },
-        onCollapseChange: {
-            description: 'Callback function triggered when the Sidebar collapse state changes. Use this to handle logic based on collapse/expand states.',
-            action: 'onCollapseChange',  
-        },
-        screenHeight: {
-            description: 'Determines whether the Sidebar should occupy the full screen height.',
-            control: { type: 'boolean' },
-            defaultValue: true,
+        className: {
+            description: 'Optional custom CSS classes to apply to the Sidebar container for styling.',
+            control: { type: 'text' },
             table: {
-                type: { summary: 'boolean' },
-                defaultValue: { summary: true },
+                type: { summary: 'string' },
             },
         },
         borderOn: {
@@ -44,23 +38,29 @@ export default {
                 defaultValue: { summary: true },
             },
         },
-        className: {
-            description: 'Optional custom CSS classes to apply to the Sidebar container for styling.',
-            control: { type: 'text' },
+        screenHeight: {
+            description: 'Determines whether the Sidebar should occupy the full screen height.',
+            control: { type: 'boolean' },
+            defaultValue: true,
             table: {
-                type: { summary: 'string' },
+                type: { summary: 'boolean' },
+                defaultValue: { summary: true },
             },
+        },
+        onCollapseChange: {
+            description: 'Callback function triggered when the Sidebar collapse state changes. Use this to handle logic based on collapse/expand states.',
+            action: 'onCollapseChange',
         },
     },
 };
 
 const Template = (args) => (
-    <Sidebar {...args} 
+    <Sidebar {...args}
     >
         <SidebarHeader>
             <SidebarItem>
                 <img
-                    width="180px"
+                    width="240px"
                     alt="Logo"
                     src="https://upload.wikimedia.org/wikipedia/commons/4/44/Hyundai_Motor_Company_logo.svg"
                 />
@@ -69,16 +69,17 @@ const Template = (args) => (
         <SidebarBody>
             <SidebarItem>
                 <div className="flex flex-col gap-2">
-                    <div>Nav Item</div>
-                    <div>Nav Item</div>
-                    <div>Nav Item</div>
+                    {[1, 2, 3, 4, 5, 6].map((num) => (
+                        <div>Nav Item</div>
+                    ))}
                 </div>
+
             </SidebarItem>
-          
+
         </SidebarBody>
         <SidebarFooter>
             <Button className="w-full">
-               Pro
+                Pro
             </Button>
         </SidebarFooter>
     </Sidebar>
@@ -94,4 +95,4 @@ DefaultSidebar.args = {
 DefaultSidebar.storyName = 'Sidebar';
 
 
- 
+
