@@ -9,14 +9,14 @@ const useMenuContext = () => useContext( MenuContext );
 const Menu = ( { size = 'md', children, className } ) => {
 	const baseClasses = 'flex flex-col bg-background-primary p-2';
 
-    const sizeClasses = {
-        sm: 'w-[200px]',
-        md: 'w-60',
-    }?.[size];
+	const sizeClasses = {
+		sm: 'w-[200px]',
+		md: 'w-60',
+	}?.[ size ];
 
 	return (
 		<MenuContext.Provider value={ { size } }>
-            <div className={cn(baseClasses, sizeClasses, className ) }>
+			<div className={ cn( baseClasses, sizeClasses, className ) }>
 				{ children }
 			</div>
 		</MenuContext.Provider>
