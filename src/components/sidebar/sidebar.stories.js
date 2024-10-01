@@ -1,4 +1,4 @@
-import { Sidebar, SidebarHeader, SidebarBody, SidebarFooter, SidebarItem } from './sidebar';
+import Sidebar from './sidebar';
 import Button from '../button';
 
 export default {
@@ -10,7 +10,7 @@ export default {
 	tags: [ 'autodocs' ],
 	argTypes: {
 		children: {
-			description: 'Content to render inside the Sidebar. This typically includes `SidebarHeader`, `SidebarBody`, and `SidebarFooter` components.',
+			description: 'Content to render inside the Sidebar. This typically includes `Sidebar.Header`, `Sidebar.Body`, and `Sidebar.Footer` components.',
 			control: { type: 'none' },
 		},
 		className: {
@@ -57,31 +57,31 @@ export default {
 const Template = ( args ) => (
 	<Sidebar { ...args }
 	>
-		<SidebarHeader>
-			<SidebarItem>
+		<Sidebar.Header>
+			<Sidebar.Item>
 				<img
 					width="240px"
 					alt="Logo"
 					src="https://upload.wikimedia.org/wikipedia/commons/4/44/Hyundai_Motor_Company_logo.svg"
 				/>
-			</SidebarItem>
-		</SidebarHeader>
-		<SidebarBody>
-			<SidebarItem>
+			</Sidebar.Item>
+		</Sidebar.Header>
+		<Sidebar.Body>
+			<Sidebar.Item>
 				<div className="flex flex-col gap-2">
 					{ [ 1, 2, 3, 4, 5, 6 ].map( ( num ) => (
 						<div key={ num }>Nav Item</div>
 					) ) }
 				</div>
 
-			</SidebarItem>
+			</Sidebar.Item>
 
-		</SidebarBody>
-		<SidebarFooter>
+		</Sidebar.Body>
+		<Sidebar.Footer>
 			<Button className="w-full">
 				Pro
 			</Button>
-		</SidebarFooter>
+		</Sidebar.Footer>
 	</Sidebar>
 );
 
