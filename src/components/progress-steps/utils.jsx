@@ -13,15 +13,28 @@ export const getVariantClasses = ( variant, isCurrent, sizeClasses, size ) => {
 	const baseClass = `absolute rounded-full transition-colors duration-500 ${ sizeClasses[ size ].dot }`;
 
 	if ( variant === 'dot' ) {
-		return cn( baseClass, sizeClasses[ size ].dot, isCurrent ? 'bg-brand-primary-600' : 'bg-text-tertiary' );
+		return cn(
+			baseClass,
+			sizeClasses[ size ].dot,
+			isCurrent ? 'bg-brand-primary-600' : 'bg-text-tertiary'
+		);
 	}
 
 	if ( variant === 'number' ) {
-		return cn( baseClass, sizeClasses[ size ].dot, isCurrent ? 'text-brand-primary-600' : 'text-text-tertiary', 'flex items-center justify-center' );
+		return cn(
+			baseClass,
+			sizeClasses[ size ].dot,
+			isCurrent ? 'text-brand-primary-600' : 'text-text-tertiary',
+			'flex items-center justify-center'
+		);
 	}
 
 	if ( variant === 'icon' ) {
-		return cn( baseClass, isCurrent ? 'text-brand-primary-600' : 'text-text-tertiary', 'flex items-center justify-center' );
+		return cn(
+			baseClass,
+			isCurrent ? 'text-brand-primary-600' : 'text-text-tertiary',
+			'flex items-center justify-center'
+		);
 	}
 
 	return '';
@@ -51,5 +64,9 @@ export const stepWrapperClasses = ( isCurrent, sizeClasses, size ) => {
  * @return {string} The combined class names.
  */
 export const completedStepCommonClasses = ( sizeClasses, size ) => {
-	return cn( 'rounded-full text-brand-primary-600 transition-colors duration-300', sizeClasses[ size ].dot, sizeClasses[ size ].ring );
+	return cn(
+		'rounded-full text-brand-primary-600 transition-colors duration-300',
+		sizeClasses[ size ].dot,
+		sizeClasses[ size ].ring
+	);
 };

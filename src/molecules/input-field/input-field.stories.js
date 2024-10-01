@@ -11,8 +11,8 @@ export const InputField = {
 				<Label size="md">Label</Label>
 				<Input type="text" placeholder="Placeholder" />
 				<Label size="xs" variant="help">
-					<Info /> Help label with a <a href="https://example.com">link</a>
-					.
+					<Info /> Help label with a{ ' ' }
+					<a href="https://example.com">link</a>.
 				</Label>
 			</Container>
 		</div>
@@ -26,8 +26,8 @@ export const TextAreaField = {
 				<Label size="md">Label</Label>
 				<TextArea size="md" placeholder="Placeholder" />
 				<Label size="xs" variant="help">
-					<Info /> Help label with a <a href="https://example.com">link</a>
-					.
+					<Info /> Help label with a{ ' ' }
+					<a href="https://example.com">link</a>.
 				</Label>
 			</Container>
 		</div>
@@ -42,8 +42,8 @@ export const InputFileField = {
 				<Label size="md">Label</Label>
 				<Input type="file" />
 				<Label size="xs" variant="help">
-					<Info /> Help label with a <a href="https://example.com">link</a>
-					.
+					<Info /> Help label with a{ ' ' }
+					<a href="https://example.com">link</a>.
 				</Label>
 			</Container>
 		</div>

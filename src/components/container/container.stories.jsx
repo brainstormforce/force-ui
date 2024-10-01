@@ -36,9 +36,18 @@ export default {
 		},
 		justify: {
 			name: 'Justify Content',
-			description: 'Specifies how flex items are aligned along the main axis.',
+			description:
+				'Specifies how flex items are aligned along the main axis.',
 			control: 'select',
-			options: [ 'start', 'center', 'end', 'between', 'around', 'evenly', 'stretch' ],
+			options: [
+				'start',
+				'center',
+				'end',
+				'between',
+				'around',
+				'evenly',
+				'stretch',
+			],
 			defaultValue: 'start',
 			table: {
 				type: { summary: 'string' },
@@ -47,7 +56,8 @@ export default {
 		},
 		align: {
 			name: 'Align Items',
-			description: 'Specifies how flex items are aligned along the cross axis.',
+			description:
+				'Specifies how flex items are aligned along the cross axis.',
 			control: 'select',
 			options: [ 'start', 'center', 'end', 'stretch' ],
 			defaultValue: 'stretch',
@@ -58,7 +68,8 @@ export default {
 		},
 		itemGrow: {
 			name: 'Container.Item: Grow',
-			description: 'Specifies how much a flex item should grow relative to the rest of the flex items. (This will apply for first item only for demo)',
+			description:
+				'Specifies how much a flex item should grow relative to the rest of the flex items. (This will apply for first item only for demo)',
 			control: 'select',
 			options: [ 0, 1 ],
 			defaultValue: 0,
@@ -69,7 +80,8 @@ export default {
 		},
 		itemShrink: {
 			name: 'Container.Item: Shrink',
-			description: 'Specifies how much a flex item should shrink relative to the rest of the flex items.',
+			description:
+				'Specifies how much a flex item should shrink relative to the rest of the flex items.',
 			control: 'select',
 			options: [ 0, 1 ],
 			defaultValue: 1,
@@ -82,7 +94,23 @@ export default {
 			name: 'Container.Item: Order',
 			description: 'Defines the order of the flex item in the container.',
 			control: 'select',
-			options: [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 'first', 'last', 'none' ],
+			options: [
+				1,
+				2,
+				3,
+				4,
+				5,
+				6,
+				7,
+				8,
+				9,
+				10,
+				11,
+				12,
+				'first',
+				'last',
+				'none',
+			],
 			defaultValue: 'none',
 			table: {
 				type: { summary: 'string' },
@@ -91,13 +119,23 @@ export default {
 		},
 		itemAlignSelf: {
 			name: 'Container.Item: Align Self',
-			description: 'Allows the default alignment to be overridden for individual flex items.',
+			description:
+				'Allows the default alignment to be overridden for individual flex items.',
 			control: 'select',
 			options: [ 'auto', 'start', 'end', 'center', 'stretch', 'baseline' ],
 			defaultValue: 'auto',
 			table: {
 				type: { summary: 'string' },
 				defaultValue: { summary: 'auto' },
+			},
+		},
+		className: {
+			name: 'Class Name',
+			description: 'Defines the extra classes',
+			control: 'text',
+			table: {
+				type: { summary: 'string' },
+				defaultValue: { summary: '' },
 			},
 		},
 	},
@@ -116,8 +154,10 @@ export const ResponsiveFlex = {
 		itemAlignSelf: 'auto',
 	},
 	render: ( args ) => {
-		const containerStyle = args.direction === 'row' ? { height: '8rem' } : { width: '8rem' };
-		const itemStyle = args.direction === 'row' ? { height: '4rem' } : { width: '4rem' };
+		const containerStyle =
+			args.direction === 'row' ? { height: '8rem' } : { width: '8rem' };
+		const itemStyle =
+			args.direction === 'row' ? { height: '4rem' } : { width: '4rem' };
 
 		return (
 			<Container
@@ -148,4 +188,3 @@ export const ResponsiveFlex = {
 		);
 	},
 };
-

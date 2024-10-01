@@ -1,6 +1,21 @@
 import Menu from './menu-item.jsx';
-import { Store, PenTool, ShoppingBag, ShoppingCart, Truck, CreditCard, MousePointer, ChartNoAxesColumnIncreasing, Layers, CloudUpload, Bell } from 'lucide-react';
+import {
+	Store,
+	PenTool,
+	ShoppingBag,
+	ShoppingCart,
+	Truck,
+	CreditCard,
+	MousePointer,
+	ChartNoAxesColumnIncreasing,
+	Layers,
+	CloudUpload,
+	Bell,
+} from 'lucide-react';
 
+Menu.displayName = 'Menu';
+Menu.List.displayName = 'Menu.List';
+Menu.Item.displayName = 'Menu.Item';
 export default {
 	title: 'Molecules/Menu',
 	component: Menu,
@@ -10,7 +25,9 @@ export default {
 	tags: [ 'autodocs' ],
 	argTypes: {
 		size: {
-			description: 'Specifies the size of the Menu Item components inside Menu',
+			name: 'Size',
+			description:
+				'Specifies the size of the Menu Item components inside Menu',
 			control: { type: 'select' },
 			options: [ 'sm', 'md' ],
 			table: {
@@ -19,14 +36,19 @@ export default {
 			},
 		},
 		menuItemActive: {
-			description: 'Controls if the Menu Item is active. (This will apply to "Store Settings" item only for demo)',
+			name: 'Menu.Item: Active',
+			description:
+				'Controls if the Menu Item is active. (This will apply to "Store Settings" item only for demo)',
 			control: { type: 'boolean' },
 		},
 		menuItemDisabled: {
-			description: 'Disables the Menu Item. (This will apply to "Store Settings" item only for demo)',
+			name: 'Menu.Item: Disabled',
+			description:
+				'Disables the Menu Item. (This will apply to "Store Settings" item only for demo)',
 			control: { type: 'boolean' },
 		},
 		menuItemContent: {
+			name: 'Menu.Item: Content',
 			description: 'Content inside the Menu Item',
 			control: { type: 'text' },
 		},
@@ -36,7 +58,10 @@ export default {
 const Template = ( args ) => (
 	<Menu size={ args.size }>
 		<Menu.List heading="Store" open={ true } arrow={ true }>
-			<Menu.Item active={ args.menuItemActive } disabled={ args.menuItemDisabled }>
+			<Menu.Item
+				active={ args.menuItemActive }
+				disabled={ args.menuItemDisabled }
+			>
 				<Store />
 				<div>{ args.menuItemContent || 'Store Settings' }</div>
 			</Menu.Item>

@@ -84,7 +84,15 @@ const Container = ( props ) => {
 		nowrap: 'flex-nowrap',
 	}?.[ wrapClass ] ?? '';
 
-	const combinedClasses = cn( containerTypeClass, gapClasses, directionClasses, justifyContentClasses, alignItemsClasses, wrapClasses, className );
+	const combinedClasses = cn(
+		containerTypeClass,
+		gapClasses,
+		directionClasses,
+		justifyContentClasses,
+		alignItemsClasses,
+		wrapClasses,
+		className
+	);
 
 	const mColumnClassName = {
 		1: 'w-full',
@@ -138,7 +146,9 @@ const Container = ( props ) => {
 			{ React.Children.map( children, ( child ) =>
 				React.cloneElement( child, {
 					className: cn(
-						mColumnClassName, tabColumnClassName, columnClassName,
+						mColumnClassName,
+						tabColumnClassName,
+						columnClassName,
 						child.props.className
 					),
 				} )
@@ -202,7 +212,17 @@ const Item = ( props ) => {
 	}?.[ order ];
 
 	return (
-		<div className={ cn( growClasses, shrinkClasses, alignSelfClasses, orderClasses, 'box-border', className ) } { ...extraProps }>
+		<div
+			className={ cn(
+				growClasses,
+				shrinkClasses,
+				alignSelfClasses,
+				orderClasses,
+				'box-border',
+				className
+			) }
+			{ ...extraProps }
+		>
 			{ children }
 		</div>
 	);

@@ -11,6 +11,7 @@ export default {
 	tags: [ 'autodocs' ],
 	argTypes: {
 		size: {
+			name: 'Size',
 			description: 'Defines the size variant of the select',
 			control: { type: 'select' },
 			options: [ 'sm', 'md', 'lg' ],
@@ -20,6 +21,7 @@ export default {
 			},
 		},
 		multiple: {
+			name: 'Multiple',
 			description: 'If true, it will allow multiple selection.',
 			control: 'boolean',
 			table: {
@@ -27,6 +29,7 @@ export default {
 			},
 		},
 		combobox: {
+			name: 'Combobox',
 			description: 'If true, it will show a search box.',
 			control: 'boolean',
 			table: {
@@ -34,24 +37,28 @@ export default {
 			},
 		},
 		id: {
+			name: 'ID',
 			description: 'The `id` attribute of the select element.',
 			table: {
 				type: { summary: 'string' },
 			},
 		},
 		onChange: {
+			name: 'On Change Event',
 			description: 'Callback function to handle the change event.',
 			table: {
 				type: { summary: 'function' },
 			},
 		},
 		by: {
+			name: 'By',
 			description: 'Used to identify the selected value when value type is an `object`. Default is `"id"`.',
 			table: {
 				type: { summary: 'string' },
 			},
 		},
 		disabled: {
+			name: 'Disabled',
 			description: 'If true, the select will be disabled.',
 			table: {
 				type: { summary: 'boolean' },
@@ -73,11 +80,7 @@ const Template = ( args ) => {
 
 	return (
 		<div style={ { width: '260px' } }>
-			<Select
-				{ ...args }
-				onChange={ setSelected }
-				selected={ selected }
-			>
+			<Select { ...args } onChange={ setSelected } selected={ selected }>
 				<Select.Button label="Label" />
 				<Select.Options dropdownPortalId="surerank-dashboard">
 					{ options.map( ( option, index ) => (
@@ -87,7 +90,10 @@ const Template = ( args ) => {
 					) ) }
 				</Select.Options>
 			</Select>
-			<Label size="sm" variant="help">Hint text can be added here.<a href="https://example.com">Link</a>.</Label>
+			<Label size="sm" variant="help">
+				Hint text can be added here.
+				<a href="https://example.com">Link</a>.
+			</Label>
 		</div>
 	);
 };
