@@ -14695,7 +14695,7 @@ var Item = function Item(props) {
   var growClassName = (0,_container_utils__WEBPACK_IMPORTED_MODULE_3__.getClassNames)(grow, _container_styles__WEBPACK_IMPORTED_MODULE_4__.flexGrowClassNames, 0);
   var shrinkClassName = (0,_container_utils__WEBPACK_IMPORTED_MODULE_3__.getClassNames)(shrink, _container_styles__WEBPACK_IMPORTED_MODULE_4__.flexShrinkClassNames, 0);
   var orderClassName = (0,_container_utils__WEBPACK_IMPORTED_MODULE_3__.getClassNames)(order, _container_styles__WEBPACK_IMPORTED_MODULE_4__.flexOrderClassNames, 0);
-  var columnClassName = (0,_container_utils__WEBPACK_IMPORTED_MODULE_3__.getClassNames)(cols, _container_styles__WEBPACK_IMPORTED_MODULE_4__.flexColumnClassNames, '');
+  var columnClassName = (0,_container_utils__WEBPACK_IMPORTED_MODULE_3__.getClassNames)(cols, _container_styles__WEBPACK_IMPORTED_MODULE_4__.flexColumnClassNames, 1);
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", _extends({
     className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_1__.cn)('box-border', growClassName, shrinkClassName, orderClassName, alignSelfClassName, justifySelfClassName, columnClassName, className)
   }, extraProps), children);
@@ -14775,11 +14775,7 @@ var GridContainer = function GridContainer(_ref) {
     autoCols = _ref$autoCols === void 0 ? false : _ref$autoCols,
     children = _ref.children,
     props = _objectWithoutProperties(_ref, _excluded);
-  var columnClassName = (0,_container_utils_js__WEBPACK_IMPORTED_MODULE_3__.getClassNames)(cols, _container_styles_js__WEBPACK_IMPORTED_MODULE_2__.gridColumnClassNames, {
-    sm: 1,
-    md: 1,
-    lg: 1
-  });
+  var columnClassName = (0,_container_utils_js__WEBPACK_IMPORTED_MODULE_3__.getClassNames)(cols, _container_styles_js__WEBPACK_IMPORTED_MODULE_2__.gridColumnClassNames, 1);
   var gapClassName = (0,_container_utils_js__WEBPACK_IMPORTED_MODULE_3__.getClassNames)(gap, _container_styles_js__WEBPACK_IMPORTED_MODULE_2__.gapClassNames, 'sm');
   var gapXClassName = (0,_container_utils_js__WEBPACK_IMPORTED_MODULE_3__.getClassNames)(gapX, _container_styles_js__WEBPACK_IMPORTED_MODULE_2__.gapXClassNames, '');
   var gapYClassName = (0,_container_utils_js__WEBPACK_IMPORTED_MODULE_3__.getClassNames)(gapY, _container_styles_js__WEBPACK_IMPORTED_MODULE_2__.gapYClassNames, '');

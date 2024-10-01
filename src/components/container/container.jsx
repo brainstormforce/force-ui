@@ -133,7 +133,7 @@ const Item = (props) => {
 	const growClassName = getClassNames(grow, flexGrowClassNames, 0);
 	const shrinkClassName = getClassNames(shrink, flexShrinkClassNames, 0);
 	const orderClassName = getClassNames(order, flexOrderClassNames, 0);
-	const columnClassName = getClassNames(cols, flexColumnClassNames, '');
+	const columnClassName = getClassNames(cols, flexColumnClassNames, 1);
 
 	return (
 		<div

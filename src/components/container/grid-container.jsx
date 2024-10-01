@@ -34,7 +34,7 @@ const GridContainer = ({
 	const columnClassName = getClassNames(
 		cols,
 		gridColumnClassNames,
-		{ sm: 1, md: 1, lg: 1 }
+		1
 	);
 	const gapClassName = getClassNames(
 		gap,
