@@ -1,5 +1,9 @@
-import React from 'react';
+import React, { createContext, useContext } from 'react';
 import { cn } from '@/utilities/functions';
+import GridContainer from './grid-container';
+
+const ContainerContext = createContext();
+const useContainerState = () => useContext( ContainerContext );
 
 const Container = ( props ) => {
 	const {
@@ -17,6 +21,17 @@ const Container = ( props ) => {
 		...extraProps
 	} = props;
 
+	if ( containerType === 'grid' ) {
+		const { containerType: type, ...rest } = props;
+		return (
+			<ContainerContext.Provider value={ {
+				containerType: type,
+			} }>
+				<GridContainer {...rest} />
+			</ContainerContext.Provider>
+		);
+	}
+
 	let wrapClass = '';
 	if ( wrap !== undefined ) {
 		wrapClass = wrap;
@@ -26,8 +41,7 @@ const Container = ( props ) => {
 
 	const containerTypeClass = {
 		flex: 'flex',
-		grid: 'grid',
-	}?.[ containerType ];
+	}?.[ containerType ] ?? 'flex';
 
 	const gapClasses = {
 		xs: 'gap-2',
@@ -36,14 +50,14 @@ const Container = ( props ) => {
 		lg: 'gap-6',
 		xl: 'gap-6',
 		'2xl': 'gap-8',
-	}?.[ gap ];
+	}?.[ gap ] ?? '';
 
 	const directionClasses = {
 		row: 'flex-row',
 		'row-reverse': 'flex-row-reverse',
 		column: 'flex-col',
 		'column-reverse': 'flex-col-reverse',
-	}?.[ direction ];
+	}?.[ direction ] ?? '';
 
 	const justifyContentClasses = {
 		normal: 'justify-normal',
@@ -54,7 +68,7 @@ const Container = ( props ) => {
 		around: 'justify-around',
 		evenly: 'justify-evenly',
 		stretch: 'justify-stretch',
-	}?.[ justify ];
+	}?.[ justify ] ?? '';
 
 	const alignItemsClasses = {
 		start: 'items-start',
@@ -62,13 +76,13 @@ const Container = ( props ) => {
 		center: 'items-center',
 		baseline: 'items-baseline',
 		stretch: 'items-stretch',
-	}?.[ align ];
+	}?.[ align ] ?? '';
 
 	const wrapClasses = {
 		wrap: 'flex-wrap',
 		'wrap-reverse': 'flex-wrap-reverse',
 		nowrap: 'flex-nowrap',
-	}?.[ wrapClass ];
+	}?.[ wrapClass ] ?? '';
 
 	const combinedClasses = cn( containerTypeClass, gapClasses, directionClasses, justifyContentClasses, alignItemsClasses, wrapClasses, className );
 
@@ -85,7 +99,7 @@ const Container = ( props ) => {
 		10: 'w-1/10',
 		11: 'w-1/11',
 		12: 'w-1/12',
-	}?.[ mCols ] ?? 'w-full';
+	}?.[ mCols ] ?? '';
 
 	const tabColumnClassName = {
 		1: 'md:w-full',
@@ -100,7 +114,7 @@ const Container = ( props ) => {
 		10: 'md:w-1/10',
 		11: 'md:w-1/11',
 		12: 'md:w-1/12',
-	}?.[ tabCols ] ?? 'md:w-1/2';
+	}?.[ tabCols ] ?? '';
 
 	const columnClassName = {
 		1: 'lg:w-full',
@@ -115,7 +129,9 @@ const Container = ( props ) => {
 		10: 'lg:w-1/10',
 		11: 'lg:w-1/11',
 		12: 'lg:w-1/12',
-	}?.[ cols ] ?? 'lg:w-1/4';
+	}?.[ cols ] ?? 'w-full';
+
+
 
 	return (
 		<div className={ combinedClasses } { ...extraProps }>
@@ -141,6 +157,12 @@ const Item = ( props ) => {
 		children,
 		...extraProps
 	} = props;
+	const { containerType } = useContainerState();
+
+	if ( containerType === 'grid' ) {
+		const { ...rest } = props;
+		return <GridContainer.Item {...rest} />;
+	}
 
 	const growClasses = {
 		0: 'grow-0',
