@@ -55,23 +55,9 @@ const DropdownMenu = ( {
 		close: { opacity: 0, scale: 0.95 },
 	} );
 
-	useEffect( () => {
-		const handleClickOutside = ( event ) => {
-			if (
-				refs.floating.current &&
-				! refs.floating.current.contains( event.target ) &&
-				! refs.reference.current.contains( event.target )
-			) {
-				setIsOpen( false );
-			}
-		};
-		document.addEventListener( 'mousedown', handleClickOutside );
-		return () => {
-			document.removeEventListener( 'mousedown', handleClickOutside );
-		};
-	}, [ refs ] );
-
 	const toggleMenu = () => setIsOpen( ( prev ) => ! prev );
+
+    const handleClose = () => setIsOpen(false);
 
 	return (
 		<div className={ cn( 'relative inline-block', className ) }>
@@ -103,7 +89,7 @@ const DropdownMenu = ( {
 					>
 						{ React.Children.map( children, ( child ) => {
 							if ( child.type === DropdownMenu.Content ) {
-								return React.cloneElement( child );
+                                return React.cloneElement(child, { onClick: handleClose });
 							}
 							return null;
 						} ) }
@@ -124,9 +110,10 @@ const DropdownMenuTrigger = React.forwardRef( ( { children, className }, ref ) =
 
 DropdownMenuTrigger.displayName = 'DropdownMenu.Trigger';
 
-const DropdownMenuContent = ( { children, className } ) => {
+const DropdownMenuContent = ({ children, onClick , className } ) => {
 	return (
 		<div
+            onClick={onClick}
 			className={ cn(
 				'border border-solid border-border-subtle rounded-md shadow-lg overflow-hidden',
 				className

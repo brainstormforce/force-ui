@@ -30,7 +30,7 @@ const MenuList = ( {
 	const { size } = useMenuContext();
 
 	const baseClasses =
-		'text-text-primary bg-transparent cursor-pointer flex justify-between items-center p-1 gap-1';
+		'text-text-primary bg-transparent cursor-pointer flex justify-between items-center gap-1';
 
 	const sizeClasses = {
 		sm: 'text-xs',
@@ -69,7 +69,12 @@ const MenuList = ( {
 						handleToggle();
 					}
 				} }
-				className={ cn( baseClasses, sizeClasses, className ) }
+				className={ cn( 
+                    baseClasses, 
+                    sizeClasses,
+                    heading ? 'p-1' : 'p-0',
+                    className 
+                ) }
 				aria-expanded={ isOpen }
 			>
 				<span className="text-text-tertiary">{ heading }</span>
