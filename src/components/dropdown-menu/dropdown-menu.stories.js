@@ -10,7 +10,7 @@ export default {
 	parameters: {
 		layout: 'centered',
 	},
-	tags: ['autodocs'],
+	tags: [ 'autodocs' ],
 	argTypes: {
 		placement: {
 			description:
@@ -60,8 +60,8 @@ export default {
 	},
 };
 
-export const ButtonTrigger = (args) => (
-	<DropdownMenu {...args} placement={args.placement}>
+export const ButtonTrigger = ( args ) => (
+	<DropdownMenu { ...args } placement={ args.placement }>
 		<DropdownMenu.Trigger>
 			<Button>Dropdown</Button>
 		</DropdownMenu.Trigger>
@@ -79,8 +79,8 @@ export const ButtonTrigger = (args) => (
 	</DropdownMenu>
 );
 
-export const AvatarTrigger = (args) => (
-	<DropdownMenu {...args} placement="bottom-start">
+export const AvatarTrigger = ( args ) => (
+	<DropdownMenu { ...args } placement="bottom-start">
 		<DropdownMenu.Trigger>
 			<Avatar>John</Avatar>
 		</DropdownMenu.Trigger>
@@ -99,8 +99,8 @@ export const AvatarTrigger = (args) => (
 	</DropdownMenu>
 );
 
-export const IconTrigger = (args) => (
-	<DropdownMenu {...args} placement="bottom-end">
+export const IconTrigger = ( args ) => (
+	<DropdownMenu { ...args } placement="bottom-end">
 		<DropdownMenu.Trigger>
 			<House />
 		</DropdownMenu.Trigger>
