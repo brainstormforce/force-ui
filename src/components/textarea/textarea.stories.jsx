@@ -54,11 +54,28 @@ export default {
 			},
 		},
 		onChange: {
-			name: 'onChange',
+			name: 'On Change Event',
 			description: 'Callback when the value changes.',
 			action: 'changed',
 			table: {
 				type: { summary: 'function' },
+			},
+		},
+		onError: {
+			name: 'On Error Event',
+			description: 'Callback when error occurs.',
+			action: 'changed',
+			table: {
+				type: { summary: 'function' },
+			},
+		},
+		className: {
+			name: 'Class Name',
+			description: 'Defines the extra classes',
+			control: 'string',
+			table: {
+				type: { summary: 'string' },
+				defaultValue: { summary: '' },
 			},
 		},
 	},
