@@ -6,16 +6,12 @@ import { cn } from '@/utilities/functions';
 const MenuContext = createContext();
 const useMenuContext = () => useContext( MenuContext );
 
-const Menu = ( { size = 'md', children, className, collapsed = false } ) => {
+const Menu = ( { size = 'md', children, className } ) => {
 	const baseClasses = 'w-64 flex flex-col bg-background-primary p-2';
 
 	return (
-		<MenuContext.Provider value={ { size, collapsed } }>
-			<div
-				className={ cn( baseClasses, collapsed && 'w-max p-0', className ) }
-			>
-				{ children }
-			</div>
+		<MenuContext.Provider value={ { size } }>
+			<div className={ cn( baseClasses, className ) }>{ children }</div>
 		</MenuContext.Provider>
 	);
 };
@@ -29,7 +25,7 @@ const MenuList = ( {
 	className,
 } ) => {
 	const [ isOpen, setIsOpen ] = useState( initialOpen );
-	const { size, collapsed } = useMenuContext();
+	const { size } = useMenuContext();
 
 	const baseClasses =
 		'text-text-primary bg-transparent cursor-pointer flex justify-between items-center p-1 gap-1';
@@ -61,7 +57,7 @@ const MenuList = ( {
 	};
 
 	return (
-		<div className={ cn( ! collapsed && 'p-2' ) }>
+		<div>
 			<div
 				role="button"
 				tabIndex="0"
@@ -71,21 +67,15 @@ const MenuList = ( {
 						handleToggle();
 					}
 				} }
-				className={ cn(
-					baseClasses,
-					collapsed && 'p-0',
-					sizeClasses,
-					className
-				) }
-				aria-expanded={ isOpen || collapsed }
+				className={ cn( baseClasses, sizeClasses, className ) }
+				aria-expanded={ isOpen }
 			>
-				{ ! collapsed && (
-					<span className="text-text-tertiary">{ heading }</span>
-				) }
-				{ arrow && ! collapsed && (
+				<span className="text-text-tertiary">{ heading }</span>
+
+				{ arrow && (
 					<motion.span
 						variants={ arrowAnimationVariants }
-						animate={ isOpen || collapsed ? 'open' : 'closed' }
+						animate={ isOpen ? 'open' : 'closed' }
 						transition={ { duration: 0.15 } }
 						className={ cn(
 							'flex items-center text-border-strong',
@@ -98,7 +88,7 @@ const MenuList = ( {
 			</div>
 
 			<AnimatePresence initial={ false }>
-				{ ( isOpen || collapsed ) && (
+				{ isOpen && (
 					<motion.ul
 						variants={ listAnimationVariants }
 						initial="closed"
