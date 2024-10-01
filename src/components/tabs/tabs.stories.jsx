@@ -60,6 +60,24 @@ export default {
 				defaultValue: { summary: 'left' },
 			},
 		},
+		defaultValue: {
+			name: 'Default Value',
+			description: 'Default value for Tab (true/false).',
+			control: 'string',
+			table: {
+				type: { summary: 'string' },
+				defaultValue: { summary: '' },
+			},
+		},
+		className: {
+			name: 'Class Name',
+			description: 'Defines the extra classes',
+			control: 'string',
+			table: {
+				type: { summary: 'string' },
+				defaultValue: { summary: '' },
+			},
+		},
 	},
 };
 

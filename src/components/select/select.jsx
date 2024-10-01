@@ -110,6 +110,7 @@ function SelectButton( {
 							? valueItem[ displayBy ]
 							: valueItem
 					}
+					closable={ true }
 					disabled={ disabled }
 				/>
 			) );
