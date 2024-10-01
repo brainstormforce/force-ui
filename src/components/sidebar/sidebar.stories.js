@@ -15,7 +15,7 @@ import {
 } from 'lucide-react';
 
 export default {
-	title: 'Organism/Sidebar',
+	title: 'Organisms/Sidebar',
 	component: Sidebar,
 	parameters: {
 		layout: 'left',
