@@ -143,7 +143,7 @@ export const Toast = ( {
 		timeoutId.current = startTimer(
 			toastItem,
 			dismissAfter -
-            ( lastCloseTimerStart.current - closeTimerStart.current )
+				( lastCloseTimerStart.current - closeTimerStart.current )
 		);
 	};
 
@@ -190,23 +190,24 @@ export const Toast = ( {
 						<div className="flex flex-col items-start justify-start gap-0.5">
 							{ getTitle( { title, theme } ) }
 							{ getContent( { content, theme } ) }
-							{ toastItem?.action?.label &&
-                                typeof toastItem?.action?.onClick ===
-                                'function' && (
-							/* eslint-disable */
-                                    <div className="mt-2.5">
-                                        {getAction({
-                                            actionLabel:
-                                                toastItem?.action?.label,
-                                            actionType:
-                                                toastItem?.action?.type ??
-                                                'button',
-                                            onAction: handleAction,
-                                            theme,
-                                        })}
-                                    </div>
-                                )
-                                /* eslint-enable */
+							{
+								toastItem?.action?.label &&
+									typeof toastItem?.action?.onClick ===
+										'function' && (
+								/* eslint-disable */
+										<div className="mt-2.5">
+											{getAction({
+												actionLabel:
+													toastItem?.action?.label,
+												actionType:
+													toastItem?.action?.type ??
+													'button',
+												onAction: handleAction,
+												theme,
+											})}
+										</div>
+									)
+								/* eslint-enable */
 							}
 						</div>
 						<div className="absolute right-4 top-4 [&_svg]:size-5">
@@ -214,7 +215,7 @@ export const Toast = ( {
 								className={ cn(
 									'bg-transparent m-0 p-0 border-none focus:outline-none active:outline-none cursor-pointer',
 									closeIconClassNames[ theme ] ??
-                                    closeIconClassNames.light
+										closeIconClassNames.light
 								) }
 								onClick={ () => removeToast( toastItem.id ) }
 							>
@@ -257,7 +258,7 @@ export const Toast = ( {
 						className={ cn(
 							'bg-transparent m-0 p-0 border-none focus:outline-none active:outline-none cursor-pointer',
 							closeIconClassNames[ theme ] ??
-                            closeIconClassNames.light
+								closeIconClassNames.light
 						) }
 						onClick={ () => removeToast( toastItem.id ) }
 					>

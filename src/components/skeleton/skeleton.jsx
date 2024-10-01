@@ -17,7 +17,15 @@ const Skeleton = ( {
 	}?.[ variant ];
 
 	return (
-		<div className={ cn( variantClasses, 'animate-pulse', defaultWidth, className ) } { ...props }></div>
+		<div
+			className={ cn(
+				variantClasses,
+				'animate-pulse',
+				defaultWidth,
+				className
+			) }
+			{ ...props }
+		></div>
 	);
 };
 

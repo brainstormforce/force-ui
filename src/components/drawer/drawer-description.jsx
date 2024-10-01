@@ -1,7 +1,12 @@
 import { cn } from '@/utilities/functions';
 
 // Drawer description.
-const DrawerDescription = ( { children, as: Tag = 'p', className, ...props } ) => {
+const DrawerDescription = ( {
+	children,
+	as: Tag = 'p',
+	className,
+	...props
+} ) => {
 	return (
 		<Tag
 			className={ cn(

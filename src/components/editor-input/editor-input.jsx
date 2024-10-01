@@ -46,20 +46,23 @@ const EMPTY_CONTENT = `{
     }
 }`;
 
-const EditorInputComponent = ( {
-	defaultValue = '',
-	placeholder = 'Press @ to view variable suggestions',
-	onChange,
-	size = 'md',
-	autoFocus = false,
-	options = [],
-	by = 'name',
-	trigger = '@',
-	menuComponent,
-	menuItemComponent,
-	className,
-	disabled = false,
-}, ref ) => {
+const EditorInputComponent = (
+	{
+		defaultValue = '',
+		placeholder = 'Press @ to view variable suggestions',
+		onChange,
+		size = 'md',
+		autoFocus = false,
+		options = [],
+		by = 'name',
+		trigger = '@',
+		menuComponent,
+		menuItemComponent,
+		className,
+		disabled = false,
+	},
+	ref
+) => {
 	const initialConfig = {
 		namespace: 'Editor',
 		editorTheme,
@@ -91,7 +94,7 @@ const EditorInputComponent = ( {
 				'relative w-full',
 				editorCommonClassNames,
 				editorInputClassNames[ size ],
-				disabled && editorDisabledClassNames,
+				disabled && editorDisabledClassNames
 			) }
 		>
 			<LexicalComposer initialConfig={ initialConfig }>
@@ -125,7 +128,7 @@ const EditorInputComponent = ( {
 					onChange={ handleOnChange }
 					ignoreSelectionChange
 				/>
-				{ ref && ( <EditorRefPlugin editorRef={ ref } /> ) }
+				{ ref && <EditorRefPlugin editorRef={ ref } /> }
 				{ autoFocus && <AutoFocusPlugin /> }
 			</LexicalComposer>
 		</div>

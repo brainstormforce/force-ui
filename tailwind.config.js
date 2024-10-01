@@ -1,5 +1,5 @@
-const withTW = require("./src/utilities/withTW");
+const withTW = require('./src/utilities/withTW');
 
 module.exports = withTW({
-	content: ['./src/**/*.{js,jsx}'],	
+	content: ['./src/**/*.{js,jsx}'],
 });
