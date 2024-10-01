@@ -7,13 +7,13 @@ export default {
 	parameters: {
 		layout: 'centered',
 	},
-	tags: ['autodocs'],
+	tags: [ 'autodocs' ],
 	argTypes: {
 		containerType: {
 			name: 'Container Type',
 			description: 'Defines the type of container.',
 			control: 'select',
-			options: ['flex', 'grid'],
+			options: [ 'flex', 'grid' ],
 			defaultValue: 'flex',
 			table: {
 				type: { summary: 'string' },
@@ -24,7 +24,7 @@ export default {
 			name: 'Columns',
 			description: 'Defines the number of columns in the grid.',
 			control: 'select',
-			options: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+			options: [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 ],
 			defaultValue: 3,
 			table: {
 				type: { summary: 'number' },
@@ -80,7 +80,7 @@ export default {
 			name: 'Grid Auto Flow',
 			description: 'Defines the grid auto flow in the grid.',
 			control: 'select',
-			options: ['row', 'column', 'row-dense', 'column-dense'],
+			options: [ 'row', 'column', 'row-dense', 'column-dense' ],
 			defaultValue: 'row',
 			table: {
 				type: { summary: 'string' },
@@ -92,17 +92,13 @@ export default {
 			name: 'Gap',
 			description: 'Defines the gap between items.',
 			control: 'select',
-			options: [
-				'xs',
-				'sm',
-				'md',
-				'lg',
-				'xl',
-				'2xl',
-			],
+			options: [ 'xs', 'sm', 'md', 'lg', 'xl', '2xl' ],
 			defaultValue: 'sm',
 			table: {
-				type: { summary: 'string', detail: 'xs | sm | md | lg | xl | 2xl' },
+				type: {
+					summary: 'string',
+					detail: 'xs | sm | md | lg | xl | 2xl',
+				},
 				defaultValue: { summary: 'sm' },
 			},
 		},
@@ -110,7 +106,7 @@ export default {
 			name: 'Direction',
 			description: 'Defines the direction of flex items.',
 			control: 'select',
-			options: ['row', 'row-reverse', 'column', 'column-reverse'],
+			options: [ 'row', 'row-reverse', 'column', 'column-reverse' ],
 			defaultValue: 'row',
 			table: {
 				type: { summary: 'string' },
@@ -143,7 +139,7 @@ export default {
 			description:
 				'Specifies how flex items are aligned along the cross axis.',
 			control: 'select',
-			options: ['start', 'center', 'end', 'stretch'],
+			options: [ 'start', 'center', 'end', 'stretch' ],
 			defaultValue: 'stretch',
 			table: {
 				type: { summary: 'string' },
@@ -155,7 +151,7 @@ export default {
 			description:
 				'Specifies how much a flex item should grow relative to the rest of the flex items. (This will apply for first item only for demo)',
 			control: 'select',
-			options: [0, 1],
+			options: [ 0, 1 ],
 			defaultValue: 0,
 			table: {
 				type: { summary: 'number' },
@@ -168,7 +164,7 @@ export default {
 			description:
 				'Specifies how much a flex item should shrink relative to the rest of the flex items.',
 			control: 'select',
-			options: [0, 1],
+			options: [ 0, 1 ],
 			defaultValue: 1,
 			table: {
 				type: { summary: 'number' },
@@ -209,7 +205,7 @@ export default {
 			description:
 				'Allows the default alignment to be overridden for individual flex items.',
 			control: 'select',
-			options: ['auto', 'start', 'end', 'center', 'stretch', 'baseline'],
+			options: [ 'auto', 'start', 'end', 'center', 'stretch', 'baseline' ],
 			defaultValue: 'auto',
 			table: {
 				type: { summary: 'string' },
@@ -250,7 +246,7 @@ export const ResponsiveFlex = {
 	render: ( args ) => {
 		let containerStyle;
 		if ( args.containerType === 'grid' ) {
-			containerStyle = { width: `${+args.cols * 6}rem`, height: '8rem' };
+			containerStyle = { width: `${ +args.cols * 6 }rem`, height: '8rem' };
 		} else if ( args.direction === 'row' ) {
 			containerStyle = { height: '8rem' };
 		} else {
