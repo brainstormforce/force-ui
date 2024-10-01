@@ -32,4 +32,7 @@ module.exports = {
 		'jsx-a11y/label-has-associated-control': 'off',
 		'jsx-a11y/no-noninteractive-element-interactions': 'off',
 	},
+	globals: {
+		localStorage: 'readonly',
+	  },
 };

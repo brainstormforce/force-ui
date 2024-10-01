@@ -57,7 +57,7 @@ const MenuList = ( {
 	};
 
 	return (
-		<div className="p-2">
+		<div>
 			<div
 				role="button"
 				tabIndex="0"
@@ -71,6 +71,7 @@ const MenuList = ( {
 				aria-expanded={ isOpen }
 			>
 				<span className="text-text-tertiary">{ heading }</span>
+
 				{ arrow && (
 					<motion.span
 						variants={ arrowAnimationVariants }
