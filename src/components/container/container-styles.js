@@ -237,28 +237,34 @@ export const gridFlowClassNames = {
 
 export const justifyClassNames = {
     sm: {
+        normal: 'justify-normal',
         start: 'justify-start',
         end: 'justify-end',
         center: 'justify-center',
         between: 'justify-between',
         around: 'justify-around',
         evenly: 'justify-evenly',
+        stretch: 'justify-stretch',
     },
     md: {
+        normal: 'md:justify-normal',
         start: 'md:justify-start',
         end: 'md:justify-end',
         center: 'md:justify-center',
         between: 'md:justify-between',
         around: 'md:justify-around',
         evenly: 'md:justify-evenly',
+        stretch: 'md:justify-stretch',
     },
     lg: {
+        normal: 'lg:justify-normal',
         start: 'lg:justify-start',
         end: 'lg:justify-end',
         center: 'lg:justify-center',
         between: 'lg:justify-between',
         around: 'lg:justify-around',
         evenly: 'lg:justify-evenly',
+        stretch: 'lg:justify-stretch',
     },
 }
 
@@ -312,6 +318,7 @@ export const alignSelfClassNames = {
 
 export const justifySelfClassNames = {
     sm: {
+        auto: 'justify-self-auto',
         start: 'justify-self-start',
         end: 'justify-self-end',
         center: 'justify-self-center',
@@ -319,6 +326,7 @@ export const justifySelfClassNames = {
         stretch: 'justify-self-stretch',
     },
     md: {
+        auto: 'md:justify-self-auto',
         start: 'md:justify-self-start',
         end: 'md:justify-self-end',
         center: 'md:justify-self-center',
@@ -326,6 +334,7 @@ export const justifySelfClassNames = {
         stretch: 'md:justify-self-stretch',
     },
     lg: {
+        auto: 'lg:justify-self-auto',
         start: 'lg:justify-self-start',
         end: 'lg:justify-self-end',
         center: 'lg:justify-self-center',
@@ -333,3 +342,171 @@ export const justifySelfClassNames = {
         stretch: 'lg:justify-self-stretch',
     },
 }
+
+export const flexDirectionClassNames = {
+    sm: {
+        row: 'flex-row',
+        'row-reverse': 'flex-row-reverse',
+        column: 'flex-col',
+        'column-reverse': 'flex-col-reverse',
+    },
+    md: {
+        row: 'md:flex-row',
+        'row-reverse': 'md:flex-row-reverse',
+        column: 'md:flex-col',
+        'column-reverse': 'md:flex-col-reverse',
+    },
+    lg: {
+        row: 'lg:flex-row',
+        'row-reverse': 'lg:flex-row-reverse',
+        column: 'lg:flex-col',
+        'column-reverse': 'lg:flex-col-reverse',
+    },
+};
+
+export const flexWrapClassNames = {
+	sm: {
+		wrap: 'flex-wrap',
+		'wrap-reverse': 'flex-wrap-reverse',
+		nowrap: 'flex-nowrap',
+	},
+	md: {
+		wrap: 'md:flex-wrap',
+		'wrap-reverse': 'md:flex-wrap-reverse',
+		nowrap: 'md:flex-nowrap',
+	},
+	lg: {
+		wrap: 'lg:flex-wrap',
+		'wrap-reverse': 'lg:flex-wrap-reverse',
+		nowrap: 'lg:flex-nowrap',
+	},
+};
+
+export const flexColumnClassNames = {
+	sm: {
+		1: 'w-full',
+		2: 'w-1/2',
+		3: 'w-1/3',
+		4: 'w-1/4',
+		5: 'w-1/5',
+		6: 'w-1/6',
+		7: 'w-1/7',
+		8: 'w-1/8',
+		9: 'w-1/9',
+		10: 'w-1/10',
+		11: 'w-1/11',
+		12: 'w-1/12',
+	},
+	md: {
+		1: 'md:w-full',
+		2: 'md:w-1/2',
+		3: 'md:w-1/3',
+		4: 'md:w-1/4',
+		5: 'md:w-1/5',
+		6: 'md:w-1/6',
+		7: 'md:w-1/7',
+		8: 'md:w-1/8',
+		9: 'md:w-1/9',
+		10: 'md:w-1/10',
+		11: 'md:w-1/11',
+		12: 'md:w-1/12',
+	},
+	lg: {
+		1: 'lg:w-full',
+		2: 'lg:w-1/2',
+		3: 'lg:w-1/3',
+		4: 'lg:w-1/4',
+		5: 'lg:w-1/5',
+		6: 'lg:w-1/6',
+		7: 'lg:w-1/7',
+		8: 'lg:w-1/8',
+		9: 'lg:w-1/9',
+		10: 'lg:w-1/10',
+		11: 'lg:w-1/11',
+		12: 'lg:w-1/12',
+	},
+};
+
+export const flexOrderClassNames = {
+    sm: {
+        1: 'order-1',
+        2: 'order-2',
+        3: 'order-3',
+        4: 'order-4',
+        5: 'order-5',
+        6: 'order-6',
+        7: 'order-7',
+        8: 'order-8',
+        9: 'order-9',
+        10: 'order-10',
+        11: 'order-11',
+        12: 'order-12',
+        first: 'order-first',
+        last: 'order-last',
+        none: 'order-none',
+    },
+    md: {
+        1: 'md:order-1',
+        2: 'md:order-2',
+        3: 'md:order-3',
+        4: 'md:order-4',
+        5: 'md:order-5',
+        6: 'md:order-6',
+        7: 'md:order-7',
+        8: 'md:order-8',
+        9: 'md:order-9',
+        10: 'md:order-10',
+        11: 'md:order-11',
+        12: 'md:order-12',
+        first: 'md:order-first',
+        last: 'md:order-last',
+        none: 'md:order-none',
+    },
+    lg: {
+        1: 'lg:order-1',
+        2: 'lg:order-2',
+        3: 'lg:order-3',
+        4: 'lg:order-4',
+        5: 'lg:order-5',
+        6: 'lg:order-6',
+        7: 'lg:order-7',
+        8: 'lg:order-8',
+        9: 'lg:order-9',
+        10: 'lg:order-10',
+        11: 'lg:order-11',
+        12: 'lg:order-12',
+        first: 'lg:order-first',
+        last: 'lg:order-last',
+        none: 'lg:order-none',
+    },
+}
+
+export const flexGrowClassNames = {
+    sm: {
+        0: 'grow-0',
+        1: 'grow',
+    },
+    md: {
+        0: 'md:grow-0',
+        1: 'md:grow',
+    },
+    lg: {
+        0: 'lg:grow-0',
+        1: 'lg:grow',
+    },
+}
+
+export const flexShrinkClassNames = {
+    sm: {
+        0: 'shrink-0',
+        1: 'shrink',
+    },
+    md: {
+        0: 'md:shrink-0',
+        1: 'md:shrink',
+    },
+    lg: {
+        0: 'lg:shrink-0',
+        1: 'lg:shrink',
+    },
+};

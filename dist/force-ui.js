@@ -13952,6 +13952,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   alignClassNames: function() { return /* binding */ alignClassNames; },
 /* harmony export */   alignSelfClassNames: function() { return /* binding */ alignSelfClassNames; },
+/* harmony export */   flexColumnClassNames: function() { return /* binding */ flexColumnClassNames; },
+/* harmony export */   flexDirectionClassNames: function() { return /* binding */ flexDirectionClassNames; },
+/* harmony export */   flexGrowClassNames: function() { return /* binding */ flexGrowClassNames; },
+/* harmony export */   flexOrderClassNames: function() { return /* binding */ flexOrderClassNames; },
+/* harmony export */   flexShrinkClassNames: function() { return /* binding */ flexShrinkClassNames; },
+/* harmony export */   flexWrapClassNames: function() { return /* binding */ flexWrapClassNames; },
 /* harmony export */   gapClassNames: function() { return /* binding */ gapClassNames; },
 /* harmony export */   gapXClassNames: function() { return /* binding */ gapXClassNames; },
 /* harmony export */   gapYClassNames: function() { return /* binding */ gapYClassNames; },
@@ -14194,28 +14200,34 @@ var gridFlowClassNames = {
 };
 var justifyClassNames = {
   sm: {
+    normal: 'justify-normal',
     start: 'justify-start',
     end: 'justify-end',
     center: 'justify-center',
     between: 'justify-between',
     around: 'justify-around',
-    evenly: 'justify-evenly'
+    evenly: 'justify-evenly',
+    stretch: 'justify-stretch'
   },
   md: {
+    normal: 'md:justify-normal',
     start: 'md:justify-start',
     end: 'md:justify-end',
     center: 'md:justify-center',
     between: 'md:justify-between',
     around: 'md:justify-around',
-    evenly: 'md:justify-evenly'
+    evenly: 'md:justify-evenly',
+    stretch: 'md:justify-stretch'
   },
   lg: {
+    normal: 'lg:justify-normal',
     start: 'lg:justify-start',
     end: 'lg:justify-end',
     center: 'lg:justify-center',
     between: 'lg:justify-between',
     around: 'lg:justify-around',
-    evenly: 'lg:justify-evenly'
+    evenly: 'lg:justify-evenly',
+    stretch: 'lg:justify-stretch'
   }
 };
 var alignClassNames = {
@@ -14266,6 +14278,7 @@ var alignSelfClassNames = {
 };
 var justifySelfClassNames = {
   sm: {
+    auto: 'justify-self-auto',
     start: 'justify-self-start',
     end: 'justify-self-end',
     center: 'justify-self-center',
@@ -14273,6 +14286,7 @@ var justifySelfClassNames = {
     stretch: 'justify-self-stretch'
   },
   md: {
+    auto: 'md:justify-self-auto',
     start: 'md:justify-self-start',
     end: 'md:justify-self-end',
     center: 'md:justify-self-center',
@@ -14280,11 +14294,174 @@ var justifySelfClassNames = {
     stretch: 'md:justify-self-stretch'
   },
   lg: {
+    auto: 'lg:justify-self-auto',
     start: 'lg:justify-self-start',
     end: 'lg:justify-self-end',
     center: 'lg:justify-self-center',
     baseline: 'lg:justify-self-baseline',
     stretch: 'lg:justify-self-stretch'
+  }
+};
+var flexDirectionClassNames = {
+  sm: {
+    row: 'flex-row',
+    'row-reverse': 'flex-row-reverse',
+    column: 'flex-col',
+    'column-reverse': 'flex-col-reverse'
+  },
+  md: {
+    row: 'md:flex-row',
+    'row-reverse': 'md:flex-row-reverse',
+    column: 'md:flex-col',
+    'column-reverse': 'md:flex-col-reverse'
+  },
+  lg: {
+    row: 'lg:flex-row',
+    'row-reverse': 'lg:flex-row-reverse',
+    column: 'lg:flex-col',
+    'column-reverse': 'lg:flex-col-reverse'
+  }
+};
+var flexWrapClassNames = {
+  sm: {
+    wrap: 'flex-wrap',
+    'wrap-reverse': 'flex-wrap-reverse',
+    nowrap: 'flex-nowrap'
+  },
+  md: {
+    wrap: 'md:flex-wrap',
+    'wrap-reverse': 'md:flex-wrap-reverse',
+    nowrap: 'md:flex-nowrap'
+  },
+  lg: {
+    wrap: 'lg:flex-wrap',
+    'wrap-reverse': 'lg:flex-wrap-reverse',
+    nowrap: 'lg:flex-nowrap'
+  }
+};
+var flexColumnClassNames = {
+  sm: {
+    1: 'w-full',
+    2: 'w-1/2',
+    3: 'w-1/3',
+    4: 'w-1/4',
+    5: 'w-1/5',
+    6: 'w-1/6',
+    7: 'w-1/7',
+    8: 'w-1/8',
+    9: 'w-1/9',
+    10: 'w-1/10',
+    11: 'w-1/11',
+    12: 'w-1/12'
+  },
+  md: {
+    1: 'md:w-full',
+    2: 'md:w-1/2',
+    3: 'md:w-1/3',
+    4: 'md:w-1/4',
+    5: 'md:w-1/5',
+    6: 'md:w-1/6',
+    7: 'md:w-1/7',
+    8: 'md:w-1/8',
+    9: 'md:w-1/9',
+    10: 'md:w-1/10',
+    11: 'md:w-1/11',
+    12: 'md:w-1/12'
+  },
+  lg: {
+    1: 'lg:w-full',
+    2: 'lg:w-1/2',
+    3: 'lg:w-1/3',
+    4: 'lg:w-1/4',
+    5: 'lg:w-1/5',
+    6: 'lg:w-1/6',
+    7: 'lg:w-1/7',
+    8: 'lg:w-1/8',
+    9: 'lg:w-1/9',
+    10: 'lg:w-1/10',
+    11: 'lg:w-1/11',
+    12: 'lg:w-1/12'
+  }
+};
+var flexOrderClassNames = {
+  sm: {
+    1: 'order-1',
+    2: 'order-2',
+    3: 'order-3',
+    4: 'order-4',
+    5: 'order-5',
+    6: 'order-6',
+    7: 'order-7',
+    8: 'order-8',
+    9: 'order-9',
+    10: 'order-10',
+    11: 'order-11',
+    12: 'order-12',
+    first: 'order-first',
+    last: 'order-last',
+    none: 'order-none'
+  },
+  md: {
+    1: 'md:order-1',
+    2: 'md:order-2',
+    3: 'md:order-3',
+    4: 'md:order-4',
+    5: 'md:order-5',
+    6: 'md:order-6',
+    7: 'md:order-7',
+    8: 'md:order-8',
+    9: 'md:order-9',
+    10: 'md:order-10',
+    11: 'md:order-11',
+    12: 'md:order-12',
+    first: 'md:order-first',
+    last: 'md:order-last',
+    none: 'md:order-none'
+  },
+  lg: {
+    1: 'lg:order-1',
+    2: 'lg:order-2',
+    3: 'lg:order-3',
+    4: 'lg:order-4',
+    5: 'lg:order-5',
+    6: 'lg:order-6',
+    7: 'lg:order-7',
+    8: 'lg:order-8',
+    9: 'lg:order-9',
+    10: 'lg:order-10',
+    11: 'lg:order-11',
+    12: 'lg:order-12',
+    first: 'lg:order-first',
+    last: 'lg:order-last',
+    none: 'lg:order-none'
+  }
+};
+var flexGrowClassNames = {
+  sm: {
+    0: 'grow-0',
+    1: 'grow'
+  },
+  md: {
+    0: 'md:grow-0',
+    1: 'md:grow'
+  },
+  lg: {
+    0: 'lg:grow-0',
+    1: 'lg:grow'
+  }
+};
+var flexShrinkClassNames = {
+  sm: {
+    0: 'shrink-0',
+    1: 'shrink'
+  },
+  md: {
+    0: 'md:shrink-0',
+    1: 'md:shrink'
+  },
+  lg: {
+    0: 'lg:shrink-0',
+    1: 'lg:shrink'
   }
 };
 
@@ -14398,9 +14575,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _utilities_functions__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/utilities/functions */ "./src/utilities/functions.js");
 /* harmony import */ var _grid_container__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./grid-container */ "./src/components/container/grid-container.jsx");
-var _excluded = ["containerType", "gap", "direction", "justify", "align", "wrap", "cols", "tabCols", "mCols", "className", "children"],
+/* harmony import */ var _container_utils__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./container-utils */ "./src/components/container/container-utils.js");
+/* harmony import */ var _container_styles__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./container-styles */ "./src/components/container/container-styles.js");
+var _excluded = ["containerType", "gap", "gapX", "gapY", "direction", "justify", "align", "wrap", "cols", "className", "children"],
   _excluded2 = ["containerType"],
-  _excluded3 = ["grow", "shrink", "order", "alignSelf", "className", "children"];
+  _excluded3 = ["grow", "shrink", "order", "alignSelf", "justifySelf", "className", "children"];
 function _objectDestructuringEmpty(t) {
   if (null == t) throw new TypeError("Cannot destructure " + t);
 }
@@ -14436,16 +14615,21 @@ function _objectWithoutPropertiesLoose(r, e) {
 
 
 
+
+
 var ContainerContext = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.createContext)();
 var useContainerState = function useContainerState() {
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(ContainerContext);
 };
 var Container = function Container(props) {
-  var _flex$containerType, _flex, _xs$sm$md$lg$xl$2xl$g, _xs$sm$md$lg$xl$2xl, _row$rowReverse$colu, _row$rowReverse$colu2, _normal$start$end$cen, _normal$start$end$cen2, _start$end$center$bas, _start$end$center$bas2, _wrap$wrapReverse$no, _wrap$wrapReverse$no2, _$2$3$4$5$6$7$8$9$, _$2$3$4$5$6$7$8$9$2, _$2$3$4$5$6$7$8$9$3, _$2$3$4$5$6$7$8$9$4, _$2$3$4$5$6$7$8$9$5, _$2$3$4$5$6$7$8$9$6;
   var _props$containerType = props.containerType,
     containerType = _props$containerType === void 0 ? 'flex' : _props$containerType,
     _props$gap = props.gap,
     gap = _props$gap === void 0 ? 'sm' : _props$gap,
+    _props$gapX = props.gapX,
+    gapX = _props$gapX === void 0 ? '' : _props$gapX,
+    _props$gapY = props.gapY,
+    gapY = _props$gapY === void 0 ? '' : _props$gapY,
     _props$direction = props.direction,
     direction = _props$direction === void 0 ? '' : _props$direction,
     _props$justify = props.justify,
@@ -14455,10 +14639,6 @@ var Container = function Container(props) {
     wrap = props.wrap,
     _props$cols = props.cols,
     cols = _props$cols === void 0 ? '' : _props$cols,
-    _props$tabCols = props.tabCols,
-    tabCols = _props$tabCols === void 0 ? '' : _props$tabCols,
-    _props$mCols = props.mCols,
-    mCols = _props$mCols === void 0 ? '' : _props$mCols,
     className = props.className,
     children = props.children,
     extraProps = _objectWithoutProperties(props, _excluded);
@@ -14471,152 +14651,53 @@ var Container = function Container(props) {
       }
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_grid_container__WEBPACK_IMPORTED_MODULE_2__["default"], rest));
   }
-  var wrapClass = '';
-  if (wrap !== undefined) {
-    wrapClass = wrap;
-  } else if (cols || tabCols || mCols) {
-    wrapClass = 'wrap';
-  }
-  var containerTypeClass = (_flex$containerType = (_flex = {
-    flex: 'flex'
-  }) === null || _flex === void 0 ? void 0 : _flex[containerType]) !== null && _flex$containerType !== void 0 ? _flex$containerType : 'flex';
-  var gapClasses = (_xs$sm$md$lg$xl$2xl$g = (_xs$sm$md$lg$xl$2xl = {
-    xs: 'gap-2',
-    sm: 'gap-4',
-    md: 'gap-5',
-    lg: 'gap-6',
-    xl: 'gap-6',
-    '2xl': 'gap-8'
-  }) === null || _xs$sm$md$lg$xl$2xl === void 0 ? void 0 : _xs$sm$md$lg$xl$2xl[gap]) !== null && _xs$sm$md$lg$xl$2xl$g !== void 0 ? _xs$sm$md$lg$xl$2xl$g : '';
-  var directionClasses = (_row$rowReverse$colu = (_row$rowReverse$colu2 = {
-    row: 'flex-row',
-    'row-reverse': 'flex-row-reverse',
-    column: 'flex-col',
-    'column-reverse': 'flex-col-reverse'
-  }) === null || _row$rowReverse$colu2 === void 0 ? void 0 : _row$rowReverse$colu2[direction]) !== null && _row$rowReverse$colu !== void 0 ? _row$rowReverse$colu : '';
-  var justifyContentClasses = (_normal$start$end$cen = (_normal$start$end$cen2 = {
-    normal: 'justify-normal',
-    start: 'justify-start',
-    end: 'justify-end',
-    center: 'justify-center',
-    between: 'justify-between',
-    around: 'justify-around',
-    evenly: 'justify-evenly',
-    stretch: 'justify-stretch'
-  }) === null || _normal$start$end$cen2 === void 0 ? void 0 : _normal$start$end$cen2[justify]) !== null && _normal$start$end$cen !== void 0 ? _normal$start$end$cen : '';
-  var alignItemsClasses = (_start$end$center$bas = (_start$end$center$bas2 = {
-    start: 'items-start',
-    end: 'items-end',
-    center: 'items-center',
-    baseline: 'items-baseline',
-    stretch: 'items-stretch'
-  }) === null || _start$end$center$bas2 === void 0 ? void 0 : _start$end$center$bas2[align]) !== null && _start$end$center$bas !== void 0 ? _start$end$center$bas : '';
-  var wrapClasses = (_wrap$wrapReverse$no = (_wrap$wrapReverse$no2 = {
-    wrap: 'flex-wrap',
-    'wrap-reverse': 'flex-wrap-reverse',
-    nowrap: 'flex-nowrap'
-  }) === null || _wrap$wrapReverse$no2 === void 0 ? void 0 : _wrap$wrapReverse$no2[wrapClass]) !== null && _wrap$wrapReverse$no !== void 0 ? _wrap$wrapReverse$no : '';
-  var combinedClasses = (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_1__.cn)(containerTypeClass, gapClasses, directionClasses, justifyContentClasses, alignItemsClasses, wrapClasses, className);
-  var mColumnClassName = (_$2$3$4$5$6$7$8$9$ = (_$2$3$4$5$6$7$8$9$2 = {
-    1: 'w-full',
-    2: 'w-1/2',
-    3: 'w-1/3',
-    4: 'w-1/4',
-    5: 'w-1/5',
-    6: 'w-1/6',
-    7: 'w-1/7',
-    8: 'w-1/8',
-    9: 'w-1/9',
-    10: 'w-1/10',
-    11: 'w-1/11',
-    12: 'w-1/12'
-  }) === null || _$2$3$4$5$6$7$8$9$2 === void 0 ? void 0 : _$2$3$4$5$6$7$8$9$2[mCols]) !== null && _$2$3$4$5$6$7$8$9$ !== void 0 ? _$2$3$4$5$6$7$8$9$ : '';
-  var tabColumnClassName = (_$2$3$4$5$6$7$8$9$3 = (_$2$3$4$5$6$7$8$9$4 = {
-    1: 'md:w-full',
-    2: 'md:w-1/2',
-    3: 'md:w-1/3',
-    4: 'md:w-1/4',
-    5: 'md:w-1/5',
-    6: 'md:w-1/6',
-    7: 'md:w-1/7',
-    8: 'md:w-1/8',
-    9: 'md:w-1/9',
-    10: 'md:w-1/10',
-    11: 'md:w-1/11',
-    12: 'md:w-1/12'
-  }) === null || _$2$3$4$5$6$7$8$9$4 === void 0 ? void 0 : _$2$3$4$5$6$7$8$9$4[tabCols]) !== null && _$2$3$4$5$6$7$8$9$3 !== void 0 ? _$2$3$4$5$6$7$8$9$3 : '';
-  var columnClassName = (_$2$3$4$5$6$7$8$9$5 = (_$2$3$4$5$6$7$8$9$6 = {
-    1: 'lg:w-full',
-    2: 'lg:w-1/2',
-    3: 'lg:w-1/3',
-    4: 'lg:w-1/4',
-    5: 'lg:w-1/5',
-    6: 'lg:w-1/6',
-    7: 'lg:w-1/7',
-    8: 'lg:w-1/8',
-    9: 'lg:w-1/9',
-    10: 'lg:w-1/10',
-    11: 'lg:w-1/11',
-    12: 'lg:w-1/12'
-  }) === null || _$2$3$4$5$6$7$8$9$6 === void 0 ? void 0 : _$2$3$4$5$6$7$8$9$6[cols]) !== null && _$2$3$4$5$6$7$8$9$5 !== void 0 ? _$2$3$4$5$6$7$8$9$5 : 'w-full';
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", _extends({
-    className: combinedClasses
-  }, extraProps), react__WEBPACK_IMPORTED_MODULE_0___default().Children.map(children, function (child) {
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().cloneElement(child, {
-      className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_1__.cn)(mColumnClassName, tabColumnClassName, columnClassName, child.props.className)
-    });
-  }));
+  var wrapClassName = (0,_container_utils__WEBPACK_IMPORTED_MODULE_3__.getClassNames)(wrap, _container_styles__WEBPACK_IMPORTED_MODULE_4__.flexWrapClassNames, '');
+  var gapClassName = (0,_container_utils__WEBPACK_IMPORTED_MODULE_3__.getClassNames)(gap, _container_styles__WEBPACK_IMPORTED_MODULE_4__.gapClassNames, 'sm');
+  var gapXClassName = (0,_container_utils__WEBPACK_IMPORTED_MODULE_3__.getClassNames)(gapX, _container_styles__WEBPACK_IMPORTED_MODULE_4__.gapXClassNames, '');
+  var gapYClassName = (0,_container_utils__WEBPACK_IMPORTED_MODULE_3__.getClassNames)(gapY, _container_styles__WEBPACK_IMPORTED_MODULE_4__.gapYClassNames, '');
+  var directionClassName = (0,_container_utils__WEBPACK_IMPORTED_MODULE_3__.getClassNames)(direction, _container_styles__WEBPACK_IMPORTED_MODULE_4__.flexDirectionClassNames, '');
+  var justifyContentClassName = (0,_container_utils__WEBPACK_IMPORTED_MODULE_3__.getClassNames)(justify, _container_styles__WEBPACK_IMPORTED_MODULE_4__.justifyClassNames, '');
+  var alignItemsClassName = (0,_container_utils__WEBPACK_IMPORTED_MODULE_3__.getClassNames)(align, _container_styles__WEBPACK_IMPORTED_MODULE_4__.alignClassNames, '');
+  var combinedClasses = (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_1__.cn)('flex', wrapClassName, gapClassName, gapXClassName, gapYClassName, directionClassName, justifyContentClassName, alignItemsClassName, className);
+  var renderContainerBasedOnType = function renderContainerBasedOnType() {
+    if (containerType === 'grid') {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_grid_container__WEBPACK_IMPORTED_MODULE_2__["default"], props);
+    }
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", _extends({
+      className: combinedClasses
+    }, extraProps), children);
+  };
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(ContainerContext.Provider, {
+    value: {
+      containerType: containerType,
+      cols: cols
+    }
+  }, renderContainerBasedOnType());
 };
 var Item = function Item(props) {
-  var _$, _$2, _auto$start$end$cente, _$2$3$4$5$6$7$8$9$7;
   var grow = props.grow,
     shrink = props.shrink,
     order = props.order,
     alignSelf = props.alignSelf,
+    justifySelf = props.justifySelf,
     className = props.className,
     children = props.children,
     extraProps = _objectWithoutProperties(props, _excluded3);
   var _useContainerState = useContainerState(),
-    containerType = _useContainerState.containerType;
+    containerType = _useContainerState.containerType,
+    cols = _useContainerState.cols;
   if (containerType === 'grid') {
     var rest = _extends({}, (_objectDestructuringEmpty(props), props));
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_grid_container__WEBPACK_IMPORTED_MODULE_2__["default"].Item, rest);
   }
-  var growClasses = (_$ = {
-    0: 'grow-0',
-    1: 'grow'
-  }) === null || _$ === void 0 ? void 0 : _$[grow];
-  var shrinkClasses = (_$2 = {
-    0: 'shrink-0',
-    1: 'shrink'
-  }) === null || _$2 === void 0 ? void 0 : _$2[shrink];
-  var alignSelfClasses = (_auto$start$end$cente = {
-    auto: 'self-auto',
-    start: 'self-start',
-    end: 'self-end',
-    center: 'self-center',
-    stretch: 'self-stretch',
-    baseline: 'self-baseline'
-  }) === null || _auto$start$end$cente === void 0 ? void 0 : _auto$start$end$cente[alignSelf];
-  var orderClasses = (_$2$3$4$5$6$7$8$9$7 = {
-    1: 'order-1',
-    2: 'order-2',
-    3: 'order-3',
-    4: 'order-4',
-    5: 'order-5',
-    6: 'order-6',
-    7: 'order-7',
-    8: 'order-8',
-    9: 'order-9',
-    10: 'order-10',
-    11: 'order-11',
-    12: 'order-12',
-    first: 'order-first',
-    last: 'order-last',
-    none: 'order-none'
-  }) === null || _$2$3$4$5$6$7$8$9$7 === void 0 ? void 0 : _$2$3$4$5$6$7$8$9$7[order];
+  var alignSelfClassName = (0,_container_utils__WEBPACK_IMPORTED_MODULE_3__.getClassNames)(alignSelf, _container_styles__WEBPACK_IMPORTED_MODULE_4__.alignSelfClassNames, '');
+  var justifySelfClassName = (0,_container_utils__WEBPACK_IMPORTED_MODULE_3__.getClassNames)(justifySelf, _container_styles__WEBPACK_IMPORTED_MODULE_4__.justifySelfClassNames, '');
+  var growClassName = (0,_container_utils__WEBPACK_IMPORTED_MODULE_3__.getClassNames)(grow, _container_styles__WEBPACK_IMPORTED_MODULE_4__.flexGrowClassNames, 0);
+  var shrinkClassName = (0,_container_utils__WEBPACK_IMPORTED_MODULE_3__.getClassNames)(shrink, _container_styles__WEBPACK_IMPORTED_MODULE_4__.flexShrinkClassNames, 0);
+  var orderClassName = (0,_container_utils__WEBPACK_IMPORTED_MODULE_3__.getClassNames)(order, _container_styles__WEBPACK_IMPORTED_MODULE_4__.flexOrderClassNames, 0);
+  var columnClassName = (0,_container_utils__WEBPACK_IMPORTED_MODULE_3__.getClassNames)(cols, _container_styles__WEBPACK_IMPORTED_MODULE_4__.flexColumnClassNames, '');
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", _extends({
-    className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_1__.cn)(growClasses, shrinkClasses, alignSelfClasses, orderClasses, 'box-border', className)
+    className: (0,_utilities_functions__WEBPACK_IMPORTED_MODULE_1__.cn)('box-border', growClassName, shrinkClassName, orderClassName, alignSelfClassName, justifySelfClassName, columnClassName, className)
   }, extraProps), children);
 };
 Container.Item = Item;
