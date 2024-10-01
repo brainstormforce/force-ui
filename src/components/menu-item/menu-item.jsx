@@ -69,12 +69,12 @@ const MenuList = ( {
 						handleToggle();
 					}
 				} }
-				className={ cn( 
-                    baseClasses, 
-                    sizeClasses,
-                    heading ? 'p-1' : 'p-0',
-                    className 
-                ) }
+				className={ cn(
+					baseClasses,
+					sizeClasses,
+					heading ? 'p-1' : 'p-0',
+					className
+				) }
 				aria-expanded={ isOpen }
 			>
 				<span className="text-text-tertiary">{ heading }</span>

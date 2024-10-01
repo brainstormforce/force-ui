@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
 	useFloating,
 	autoUpdate,
@@ -57,7 +57,7 @@ const DropdownMenu = ( {
 
 	const toggleMenu = () => setIsOpen( ( prev ) => ! prev );
 
-    const handleClose = () => setIsOpen(false);
+	const handleClose = () => setIsOpen( false );
 
 	return (
 		<div className={ cn( 'relative inline-block', className ) }>
@@ -89,7 +89,9 @@ const DropdownMenu = ( {
 					>
 						{ React.Children.map( children, ( child ) => {
 							if ( child.type === DropdownMenu.Content ) {
-                                return React.cloneElement(child, { onClick: handleClose });
+								return React.cloneElement( child, {
+									onClick: handleClose,
+								} );
 							}
 							return null;
 						} ) }
@@ -103,17 +105,19 @@ const DropdownMenu = ( {
 DropdownMenu.displayName = 'DropdownMenu';
 
 const DropdownMenuTrigger = React.forwardRef( ( { children, className }, ref ) => (
-	<div ref={ ref } className={ className }>
+	<div ref={ ref } role="button" tabIndex={ 0 } className={ className }>
 		{ children }
 	</div>
 ) );
 
 DropdownMenuTrigger.displayName = 'DropdownMenu.Trigger';
 
-const DropdownMenuContent = ({ children, onClick , className } ) => {
+const DropdownMenuContent = ( { children, onClick, className } ) => {
 	return (
 		<div
-            onClick={onClick}
+			role="menu"
+			tabIndex={ 0 }
+			onClick={ onClick }
 			className={ cn(
 				'border border-solid border-border-subtle rounded-md shadow-lg overflow-hidden',
 				className
