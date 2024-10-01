@@ -12,7 +12,9 @@ const SwitchLabel = ( { label, switchId, disabled = false, children } ) => {
 	const isLabelAComponent = isValidElement( label );
 	if ( isLabelAComponent ) {
 		return (
-			<div className={ cn( 'inline-flex items-center gap-3', 'items-start' ) }>
+			<div
+				className={ cn( 'inline-flex items-center gap-3', 'items-start' ) }
+			>
 				{ children }
 				{ label }
 			</div>
@@ -37,7 +39,8 @@ const SwitchLabel = ( { label, switchId, disabled = false, children } ) => {
 	};
 
 	const isEmptyLabel = ! label?.heading && ! label?.description;
-	const alignmentClass = ! label?.heading || ! label?.description ? 'items-center' : 'items-start';
+	const alignmentClass =
+		! label?.heading || ! label?.description ? 'items-center' : 'items-start';
 
 	if ( isEmptyLabel ) {
 		return children;

@@ -39,7 +39,8 @@ export default {
 		},
 		autoDismiss: {
 			control: 'boolean',
-			description: 'Whether the toast notification should automatically dismiss after a certain time.',
+			description:
+				'Whether the toast notification should automatically dismiss after a certain time.',
 			table: {
 				type: { summary: 'boolean' },
 				defaultValue: { summary: 'true' },
@@ -47,7 +48,8 @@ export default {
 		},
 		dismissAfter: {
 			control: { type: 'number', min: 1000, max: 10000, step: 500 },
-			description: 'The time in milliseconds after which the toast notification will be dismissed.',
+			description:
+				'The time in milliseconds after which the toast notification will be dismissed.',
 			table: {
 				type: { summary: 'number' },
 				defaultValue: { summary: '5000' },
@@ -55,7 +57,8 @@ export default {
 		},
 		className: {
 			control: 'text',
-			description: 'Additional CSS class names to apply to the toast notification.',
+			description:
+				'Additional CSS class names to apply to the toast notification.',
 			table: {
 				type: { summary: 'string' },
 				defaultValue: { summary: '' },
@@ -64,7 +67,14 @@ export default {
 	},
 	decorators: [
 		( Story ) => (
-			<div style={ { width: '900px', height: '500px', position: 'relative', margin: '0 auto' } }>
+			<div
+				style={ {
+					width: '900px',
+					height: '500px',
+					position: 'relative',
+					margin: '0 auto',
+				} }
+			>
 				<Story />
 			</div>
 		),
@@ -87,28 +97,36 @@ const Template = ( args ) => {
 				<div className="flex gap-2">
 					<button
 						onClick={ () =>
-							toast.success( 'Success toast!', { description: 'This is a success message' } )
+							toast.success( 'Success toast!', {
+								description: 'This is a success message',
+							} )
 						}
 					>
 						Show Success Toast
 					</button>
 					<button
 						onClick={ () =>
-							toast.error( 'Error toast!', { description: 'This is an error message' } )
+							toast.error( 'Error toast!', {
+								description: 'This is an error message',
+							} )
 						}
 					>
 						Show Error Toast
 					</button>
 					<button
 						onClick={ () =>
-							toast.info( 'Info toast!', { description: 'This is an info message' } )
+							toast.info( 'Info toast!', {
+								description: 'This is an info message',
+							} )
 						}
 					>
 						Show Info Toast
 					</button>
 					<button
 						onClick={ () =>
-							toast.warning( 'Warning toast!', { description: 'This is a warning message' } )
+							toast.warning( 'Warning toast!', {
+								description: 'This is a warning message',
+							} )
 						}
 					>
 						Show Warning Toast

@@ -15,7 +15,8 @@ const MentionPlugin = ( {
 	menuItemComponent: MenuItemComponent = EditorCombobox.Item,
 } ) => {
 	// Define PUNCTUATION and other necessary variables inside the component
-	const PUNCTUATION = '\\.,\\+\\*\\?\\$\\@\\|#{}\\(\\)\\^\\-\\[\\]\\\\/!%\'"~=<>_:;';
+	const PUNCTUATION =
+		'\\.,\\+\\*\\?\\$\\@\\|#{}\\(\\)\\^\\-\\[\\]\\\\/!%\'"~=<>_:;';
 
 	const TRIGGERS = [ trigger ].join( '' ); // Use the trigger prop dynamically
 
