@@ -24,7 +24,12 @@ export default {
 			control: 'object',
 			table: {
 				type: { summary: 'object' },
-				defaultValue: { summary: { heading: 'Checkbox Label', descriptio: 'Checkbox Description' } },
+				defaultValue: {
+					summary: {
+						heading: 'Checkbox Label',
+						descriptio: 'Checkbox Description',
+					},
+				},
 			},
 		},
 		defaultChecked: {
@@ -51,9 +56,11 @@ export default {
 			control: 'function',
 			table: {
 				type: { summary: 'object' },
-				defaultValue: { summary: ( value ) => {
-					return value;
-				} },
+				defaultValue: {
+					summary: ( value ) => {
+						return value;
+					},
+				},
 			},
 		},
 		indeterminate: {
@@ -77,7 +84,8 @@ export default {
 		size: {
 			name: 'Size',
 			description: 'Defines the sizes of the checkbox.',
-			control: 'select', options: [ 'sm', 'md' ],
+			control: 'select',
+			options: [ 'sm', 'md' ],
 			table: {
 				type: { summary: 'string' },
 				defaultValue: { summary: 'md' },

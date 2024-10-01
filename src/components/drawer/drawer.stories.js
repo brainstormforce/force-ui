@@ -12,9 +12,7 @@ export default {
 	tags: [ 'autodocs' ],
 	decorators: [
 		( Story ) => (
-			<div
-				className="font-sans [&_*]:font-sans h-[600px] flex items-center justify-center"
-			>
+			<div className="font-sans [&_*]:font-sans h-[600px] flex items-center justify-center">
 				<Story />
 			</div>
 		),
@@ -22,7 +20,8 @@ export default {
 	argTypes: {
 		open: {
 			name: 'Open',
-			description: 'Control the drawer open state. If not provided, the drawer will be controlled internally.',
+			description:
+				'Control the drawer open state. If not provided, the drawer will be controlled internally.',
 			control: 'none',
 			table: {
 				type: { summary: 'boolean' },
@@ -30,7 +29,8 @@ export default {
 		},
 		setOpen: {
 			name: 'Set Open',
-			description: 'Control the drawer open state. If not provided, the drawer will be controlled internally.',
+			description:
+				'Control the drawer open state. If not provided, the drawer will be controlled internally.',
 			control: 'none',
 			table: {
 				type: { summary: 'function' },
@@ -48,7 +48,8 @@ export default {
 		},
 		exitOnEsc: {
 			name: 'Exit on Esc',
-			description: 'Whether to close the drawer when the escape key is pressed.',
+			description:
+				'Whether to close the drawer when the escape key is pressed.',
 			control: 'boolean',
 			table: {
 				type: { summary: 'boolean' },
@@ -85,7 +86,8 @@ export default {
 		},
 		transitionDuration: {
 			name: 'Transition Duration',
-			description: 'The duration of drawer opening and closing animation.',
+			description:
+				'The duration of drawer opening and closing animation.',
 			control: 'number',
 			table: {
 				type: { summary: 'number' },
@@ -94,7 +96,8 @@ export default {
 		},
 		scrollLock: {
 			name: 'Scroll Lock',
-			description: 'Whether to lock the window scroll when the drawer is open.',
+			description:
+				'Whether to lock the window scroll when the drawer is open.',
 			control: 'boolean',
 			table: {
 				type: { summary: 'boolean' },
@@ -143,7 +146,9 @@ const Template = ( props ) => ( args ) => {
 			<Drawer.Panel>
 				<Drawer.Header>
 					<div className="flex items-center justify-between">
-						<Drawer.Title as={ props?.titleTag } >{ props?.title ?? 'Drawer Title' }</Drawer.Title>
+						<Drawer.Title as={ props?.titleTag }>
+							{ props?.title ?? 'Drawer Title' }
+						</Drawer.Title>
 						<Drawer.CloseButton />
 					</div>
 					<Drawer.Description>
@@ -157,7 +162,9 @@ const Template = ( props ) => ( args ) => {
 					</div>
 				</Drawer.Body>
 				<Drawer.Footer>
-					<Button variant="outline" onClick={ () => setOpen( false ) }>Close</Button>
+					<Button variant="outline" onClick={ () => setOpen( false ) }>
+						Close
+					</Button>
 					<Button onClick={ () => setOpen( false ) }>Save</Button>
 				</Drawer.Footer>
 			</Drawer.Panel>
@@ -213,7 +220,9 @@ const ControlledTemplate = ( args ) => {
 					</Drawer.Header>
 					<Drawer.Body className="overflow-x-hidden">
 						<div className="w-full h-full mx-5 flex items-center justify-center border border-border-subtle border-dashed rounded-md bg-background-secondary">
-							<p className="m-0 text-text-secondary">Body content</p>
+							<p className="m-0 text-text-secondary">
+								Body content
+							</p>
 						</div>
 					</Drawer.Body>
 					<Drawer.Footer>
@@ -258,7 +267,9 @@ const UncontrolledTemplate = ( args ) => (
 					</Drawer.Header>
 					<Drawer.Body className="overflow-x-hidden">
 						<div className="w-full h-full mx-5 flex items-center justify-center border border-border-subtle border-dashed rounded-md bg-background-secondary">
-							<p className="m-0 text-text-secondary">Body content</p>
+							<p className="m-0 text-text-secondary">
+								Body content
+							</p>
 						</div>
 					</Drawer.Body>
 					<Drawer.Footer>

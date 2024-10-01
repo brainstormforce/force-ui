@@ -224,7 +224,11 @@ DialogBackdrop.displayName = 'Dialog.Backdrop';
 
 // Dialog header wrapper.
 const DialogHeader = ( { children, className, ...props } ) => {
-	return <div className={ cn( 'space-y-2 px-5 pt-5 pb-1', className ) } { ...props }>{ children }</div>;
+	return (
+		<div className={ cn( 'space-y-2 px-5 pt-5 pb-1', className ) } { ...props }>
+			{ children }
+		</div>
+	);
 };
 DialogHeader.displayName = 'Dialog.Header';
 
@@ -245,7 +249,12 @@ const DialogTitle = ( { children, as: Tag = 'h3', className, ...props } ) => {
 DialogTitle.displayName = 'Dialog.Title';
 
 // Dialog description.
-const DialogDescription = ( { children, as: Tag = 'p', className, ...props } ) => {
+const DialogDescription = ( {
+	children,
+	as: Tag = 'p',
+	className,
+	...props
+} ) => {
 	return (
 		<Tag
 			className={ cn(
@@ -277,20 +286,11 @@ const DefaultCloseButton = ( { className, ...props } ) => {
 };
 
 // Close button for the dialog.
-const DialogCloseButton = ( {
-	children,
-	as: Tag = Fragment,
-	...props
-} ) => {
+const DialogCloseButton = ( { children, as: Tag = Fragment, ...props } ) => {
 	const { handleClose } = useDialogState();
 
 	if ( ! isValidElement( children ) || ! children ) {
-		return (
-			<DefaultCloseButton
-				onClick={ handleClose }
-				{ ...props }
-			/>
-		);
+		return <DefaultCloseButton onClick={ handleClose } { ...props } />;
 	}
 
 	if ( Tag === Fragment ) {

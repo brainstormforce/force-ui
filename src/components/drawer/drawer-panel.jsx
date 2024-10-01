@@ -22,7 +22,8 @@ const animationVariants = {
 };
 
 const DrawerPanel = ( { children, className } ) => {
-	const { open, position, handleClose, drawerRef, transitionDuration } = useDrawerState();
+	const { open, position, handleClose, drawerRef, transitionDuration } =
+		useDrawerState();
 
 	return (
 		<AnimatePresence>

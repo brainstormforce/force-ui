@@ -20,10 +20,15 @@ function useMentionLookupService( options, mentionString, by = 'name' ) {
 		}
 
 		mentionsCache.set( mentionString, null );
-		lookupService.search( options, mentionString, ( newResults ) => {
-			mentionsCache.set( mentionString, newResults );
-			setResults( newResults );
-		}, by );
+		lookupService.search(
+			options,
+			mentionString,
+			( newResults ) => {
+				mentionsCache.set( mentionString, newResults );
+				setResults( newResults );
+			},
+			by
+		);
 	}, [ mentionString ] );
 
 	return results;

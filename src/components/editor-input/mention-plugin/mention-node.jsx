@@ -22,7 +22,11 @@ class MentionNode extends DecoratorNode {
 	}
 
 	static importJSON( serializeNode ) {
-		const node = $createMentionNode( serializeNode.data, serializeNode.by, serializeNode.size );
+		const node = $createMentionNode(
+			serializeNode.data,
+			serializeNode.by,
+			serializeNode.size
+		);
 		return node;
 	}
 
@@ -51,11 +55,19 @@ class MentionNode extends DecoratorNode {
 	}
 
 	decorate() {
-		return <MentionComponent data={ this.__data } by={ this.__by } size={ this.__size } nodeKey={ this.__key } />;
+		return (
+			<MentionComponent
+				data={ this.__data }
+				by={ this.__by }
+				size={ this.__size }
+				nodeKey={ this.__key }
+			/>
+		);
 	}
 }
 
-export const $createMentionNode = ( data, by, size ) => new MentionNode( data, by, size );
+export const $createMentionNode = ( data, by, size ) =>
+	new MentionNode( data, by, size );
 
 export const $isMentionNode = ( node ) => node instanceof MentionNode;
 

@@ -59,7 +59,8 @@ const TabsGroup = ( props ) => {
 	} else if ( variant === 'underline' ) {
 		borderRadius = 'rounded-none';
 		padding = 'p-0';
-		border = 'border-t-0 border-r-0 border-l-0 border-b border-solid border-tab-border';
+		border =
+			'border-t-0 border-r-0 border-l-0 border-b border-solid border-tab-border';
 		if ( size === 'xs' ) {
 			gap = 'gap-0';
 		} else if ( size === 'sm' ) {
@@ -78,7 +79,8 @@ const TabsGroup = ( props ) => {
 	const baseClasses = `box-border [&>*]:box-border flex items-center ${ widthClasses } ${ orientationClasses }`;
 
 	// Container background color.
-	const backgroundColorClass = variant !== 'underline' ? 'bg-tab-background' : '';
+	const backgroundColorClass =
+		variant !== 'underline' ? 'bg-tab-background' : '';
 
 	// Merge classes.
 	const groupClassName = cn(
@@ -145,18 +147,31 @@ const TabComponent = ( props, ref ) => {
 	// Determine size classes.
 	const sizes = {
 		xs: 'px-1.5 py-0.5 text-xs [&_svg]:size-3',
-		sm: variant === 'underline' ? 'py-1.5 text-sm [&_svg]:size-4' : 'px-3 py-1.5 text-sm [&_svg]:size-4',
-		md: variant === 'underline' ? 'py-2 text-base [&_svg]:size-5' : 'px-3.5 py-1.5 text-base [&_svg]:size-5',
-		lg: variant === 'underline' ? 'p-2.5 text-lg [&_svg]:size-6' : 'px-3.5 py-1.5 text-lg [&_svg]:size-6',
+		sm:
+			variant === 'underline'
+				? 'py-1.5 text-sm [&_svg]:size-4'
+				: 'px-3 py-1.5 text-sm [&_svg]:size-4',
+		md:
+			variant === 'underline'
+				? 'py-2 text-base [&_svg]:size-5'
+				: 'px-3.5 py-1.5 text-base [&_svg]:size-5',
+		lg:
+			variant === 'underline'
+				? 'p-2.5 text-lg [&_svg]:size-6'
+				: 'px-3.5 py-1.5 text-lg [&_svg]:size-6',
 	}[ size ];
 
 	// Determine width and orientation classes for tabs.
 	const fullWidth = width === 'full' ? 'flex-1' : '';
 	const orientationClasses =
-        orientation === 'vertical' ? 'w-full justify-between' : '';
+		orientation === 'vertical' ? 'w-full justify-between' : '';
 
 	// Base classes for the Tab.
-	const baseClasses = cn( 'relative border-none bg-transparent text-text-secondary cursor-pointer flex items-center justify-center transition-[box-shadow,color,background-color] duration-200', fullWidth, orientationClasses );
+	const baseClasses = cn(
+		'relative border-none bg-transparent text-text-secondary cursor-pointer flex items-center justify-center transition-[box-shadow,color,background-color] duration-200',
+		fullWidth,
+		orientationClasses
+	);
 
 	const borderClasses = 'border-none';
 
@@ -173,7 +188,10 @@ const TabComponent = ( props, ref ) => {
 	const disabledClasses = disabled
 		? 'text-text-disabled cursor-not-allowed'
 		: '';
-	const activeClasses = activeItem === slug ? 'bg-background-primary text-text-primary shadow-sm' : '';
+	const activeClasses =
+		activeItem === slug
+			? 'bg-background-primary text-text-primary shadow-sm'
+			: '';
 
 	// Merge classes.
 	const tabClassName = cn(
@@ -211,11 +229,15 @@ const TabComponent = ( props, ref ) => {
 			) }
 			<span className={ iconParentClasses }>
 				{ iconPosition === 'left' && icon && (
-					<span className="mr-1 contents center-center group-hover:text-text-primary">{ icon }</span>
+					<span className="mr-1 contents center-center group-hover:text-text-primary">
+						{ icon }
+					</span>
 				) }
 				{ text }
 				{ iconPosition === 'right' && icon && (
-					<span className="ml-1 contents center-center group-hover:text-text-primary">{ icon }</span>
+					<span className="ml-1 contents center-center group-hover:text-text-primary">
+						{ icon }
+					</span>
 				) }
 			</span>
 			{ badge && isValidElement( badge ) && badge }
