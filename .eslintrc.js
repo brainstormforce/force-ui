@@ -28,4 +28,7 @@ module.exports = {
 		'react-hooks/exhaustive-deps': 'off',
 		'jsx-a11y/label-has-associated-control': 'off',
 	},
+	globals: {
+		localStorage: 'readonly',
+	  },
 };

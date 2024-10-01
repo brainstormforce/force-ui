@@ -21,7 +21,6 @@ const Sidebar = ( {
 } ) => {
 	const sideBarRef = useRef( null );
 	const [ isCollapsed, setIsCollapsed ] = useState( () => {
-		// eslint-disable-next-line no-undef
 		const storedState = localStorage.getItem( 'sidebar-collapsed' );
 		const isSmallScreen = window.innerWidth < 1280;
 		if ( storedState ) {
@@ -41,10 +40,9 @@ const Sidebar = ( {
 			const isSmallScreen = window.innerWidth < 1280;
 			if ( isSmallScreen ) {
 				setIsCollapsed( true );
-				// eslint-disable-next-line no-undef
+
 				localStorage.setItem( 'sidebar-collapsed', JSON.stringify( true ) );
 			} else {
-				// eslint-disable-next-line no-undef
 				const storedState = localStorage.getItem( 'sidebar-collapsed' );
 				setIsCollapsed( storedState ? JSON.parse( storedState ) : false );
 			}
@@ -109,7 +107,7 @@ const SidebarFooter = ( { children } ) => {
 					) }
 					onClick={ () => {
 						setIsCollapsed( ! isCollapsed );
-						// eslint-disable-next-line no-undef
+
 						localStorage.setItem(
 							'sidebar-collapsed',
 							JSON.stringify( ! isCollapsed )
