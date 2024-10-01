@@ -65,7 +65,9 @@ const Sidebar = ( {
 	}, [ screenHeight ] );
 
 	return (
-		<SidebarContext.Provider value={ { isCollapsed, setIsCollapsed, collapsible } }>
+		<SidebarContext.Provider
+			value={ { isCollapsed, setIsCollapsed, collapsible } }
+		>
 			<div
 				ref={ sideBarRef }
 				className={ cn(
@@ -84,14 +86,17 @@ const Sidebar = ( {
 		</SidebarContext.Provider>
 	);
 };
+Sidebar.displayName = 'Sidebar';
 
 const SidebarHeader = ( { children } ) => {
 	return <div className="space-y-2">{ children }</div>;
 };
+SidebarHeader.displayName = 'Sidebar.Header';
 
 const SidebarBody = ( { children } ) => {
 	return <div className={ cn( 'space-y-4 grow items-start' ) }>{ children }</div>;
 };
+SidebarBody.displayName = 'Sidebar.Body';
 
 const SidebarFooter = ( { children } ) => {
 	const { isCollapsed, setIsCollapsed, collapsible } =
@@ -133,9 +138,16 @@ const SidebarFooter = ( { children } ) => {
 		</div>
 	);
 };
+SidebarFooter.displayName = 'Sidebar.Footer';
 
 const SidebarItem = ( { children, className } ) => {
 	return <div className={ cn( 'w-full', className ) }>{ children }</div>;
 };
+SidebarItem.displayName = 'Sidebar.Item';
 
-export { Sidebar, SidebarHeader, SidebarBody, SidebarFooter, SidebarItem };
+export default Object.assign( Sidebar, {
+	Header: SidebarHeader,
+	Body: SidebarBody,
+	Footer: SidebarFooter,
+	Item: SidebarItem,
+} );
