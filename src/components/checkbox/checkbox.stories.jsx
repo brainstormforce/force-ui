@@ -7,7 +7,7 @@ export default {
 	parameters: {
 		layout: 'centered',
 	},
-	tags: [ 'autodocs' ],
+	tags: ['autodocs'],
 	argTypes: {
 		id: {
 			name: 'ID',
@@ -57,7 +57,7 @@ export default {
 			table: {
 				type: { summary: 'object' },
 				defaultValue: {
-					summary: ( value ) => {
+					summary: (value) => {
 						return value;
 					},
 				},
@@ -85,7 +85,7 @@ export default {
 			name: 'Size',
 			description: 'Defines the sizes of the checkbox.',
 			control: 'select',
-			options: [ 'sm', 'md' ],
+			options: ['sm', 'md'],
 			table: {
 				type: { summary: 'string' },
 				defaultValue: { summary: 'md' },

@@ -7,7 +7,7 @@ import {
 	stepWrapperClasses,
 } from './utils';
 
-const ProgressSteps = ( {
+const ProgressSteps = ({
 	variant = 'dot',
 	size = 'sm',
 	type = 'inline',
@@ -15,8 +15,8 @@ const ProgressSteps = ( {
 	children,
 	className,
 	...rest
-} ) => {
-	const totalSteps = React.Children.count( children );
+}) => {
+	const totalSteps = React.Children.count(children);
 
 	const sizeClasses = {
 		sm: {
@@ -42,7 +42,7 @@ const ProgressSteps = ( {
 		},
 	};
 
-	const steps = React.Children.map( children, ( child, index ) => {
+	const steps = React.Children.map(children, (child, index) => {
 		const isCompleted = index + 1 < currentStep;
 		const isCurrent = index + 1 === currentStep;
 		const isLast = index + 1 === totalSteps;
@@ -59,28 +59,28 @@ const ProgressSteps = ( {
 		};
 
 		return (
-			<React.Fragment key={ index }>
-				{ React.cloneElement( child, stepProps ) }
+			<React.Fragment key={index}>
+				{React.cloneElement(child, stepProps)}
 			</React.Fragment>
 		);
-	} );
+	});
 
 	return (
 		<div
-			className={ cn(
+			className={cn(
 				'flex w-full',
 				className,
 				type === 'inline' ? 'items-center justify-between' : ''
-			) }
-			{ ...rest }
+			)}
+			{...rest}
 		>
-			{ steps }
+			{steps}
 		</div>
 	);
 };
 
 // ProgressStep component as {ProgressSteps.Step}
-const ProgressStep = ( {
+const ProgressStep = ({
 	labelText,
 	icon = <Plus />,
 	stepClasses,
@@ -94,7 +94,7 @@ const ProgressStep = ( {
 	isLast,
 	index,
 	...rest
-} ) => {
+}) => {
 	const stepContent = createStepContent(
 		variant,
 		isCompleted,
@@ -118,21 +118,21 @@ const ProgressStep = ( {
 	};
 
 	const renderLabel = () => {
-		if ( labelText ) {
+		if (labelText) {
 			const labelClasses = cn(
-				sizeClasses[ size ].label,
+				sizeClasses[size].label,
 				'text-text-tertiary',
 				isCurrent ? 'text-brand-primary-600' : '',
 				'break-word', // max width for inline and stack
 				type === 'stack' ? 'mt-2 transform max-w-xs' : 'mx-2 max-w-32'
 			);
-			return <span className={ labelClasses }>{ labelText }</span>;
+			return <span className={labelClasses}>{labelText}</span>;
 		}
 		return null;
 	};
 
 	const renderConnectingLine = () => {
-		if ( ! isLast ) {
+		if (!isLast) {
 			const lineClasses = cn(
 				'block',
 				isCompleted
@@ -140,10 +140,10 @@ const ProgressStep = ( {
 					: 'border-border-subtle'
 			);
 
-			if ( type === 'stack' ) {
+			if (type === 'stack') {
 				return (
 					<div
-						className={ cn(
+						className={cn(
 							'relative',
 							'flex',
 							'border-solid',
@@ -152,9 +152,9 @@ const ProgressStep = ( {
 							isCompleted
 								? 'border-brand-primary-600'
 								: 'border-border-subtle',
-							topClass[ size ],
-							stackSizeOffset[ size ]
-						) }
+							topClass[size],
+							stackSizeOffset[size]
+						)}
 					>
 						<span className="block"></span>
 					</div>
@@ -163,11 +163,11 @@ const ProgressStep = ( {
 			return (
 				<div className="flex-1">
 					<span
-						className={ cn(
+						className={cn(
 							lineClasses,
 							'mr-2',
 							'border-y border-solid'
-						) }
+						)}
 					></span>
 				</div>
 			);
@@ -176,27 +176,27 @@ const ProgressStep = ( {
 	};
 
 	// Main return logic based on type
-	if ( type === 'stack' ) {
+	if (type === 'stack') {
 		return (
 			<div className="relative flex-1 justify-center">
 				<div
-					className={ cn( 'flex items-center flex-col', className ) }
-					{ ...rest }
+					className={cn('flex items-center flex-col', className)}
+					{...rest}
 				>
-					{ stepContent }
-					{ renderLabel() }
+					{stepContent}
+					{renderLabel()}
 				</div>
-				{ renderConnectingLine() }
+				{renderConnectingLine()}
 			</div>
 		);
 	}
 	return (
 		<>
-			<div className={ cn( 'flex items-center', className ) } { ...rest }>
-				{ stepContent }
-				{ renderLabel() }
+			<div className={cn('flex items-center', className)} {...rest}>
+				{stepContent}
+				{renderLabel()}
 			</div>
-			{ renderConnectingLine() }
+			{renderConnectingLine()}
 		</>
 	);
 };
@@ -211,13 +211,13 @@ const createStepContent = (
 	icon,
 	index
 ) => {
-	if ( isCompleted ) {
+	if (isCompleted) {
 		return (
-			<Check className={ completedStepCommonClasses( sizeClasses, size ) } />
+			<Check className={completedStepCommonClasses(sizeClasses, size)} />
 		);
 	}
 
-	const commonClasses = stepWrapperClasses( isCurrent, sizeClasses, size );
+	const commonClasses = stepWrapperClasses(isCurrent, sizeClasses, size);
 	const variantClasses = getVariantClasses(
 		variant,
 		isCurrent,
@@ -226,15 +226,15 @@ const createStepContent = (
 	);
 
 	let content = null;
-	if ( variant === 'number' ) {
+	if (variant === 'number') {
 		content = index + 1;
-	} else if ( variant === 'icon' && icon ) {
+	} else if (variant === 'icon' && icon) {
 		content = icon;
 	}
 
 	return (
-		<span className={ commonClasses }>
-			<span className={ variantClasses }>{ content }</span>
+		<span className={commonClasses}>
+			<span className={variantClasses}>{content}</span>
 		</span>
 	);
 };

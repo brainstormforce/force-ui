@@ -8,13 +8,13 @@ export default {
 	parameters: {
 		layout: 'centered',
 	},
-	tags: [ 'autodocs' ],
+	tags: ['autodocs'],
 	argTypes: {
 		variant: {
 			name: 'Variant',
 			description: 'Defines the variant style of the loader.',
 			control: 'select',
-			options: [ 'primary', 'secondary' ],
+			options: ['primary', 'secondary'],
 			table: {
 				type: { summary: 'string' },
 				defaultValue: { summary: 'primary' },
@@ -24,7 +24,7 @@ export default {
 			name: 'Size',
 			description: 'Defines the size of the loader.',
 			control: 'select',
-			options: [ 'sm', 'md', 'lg', 'xl' ],
+			options: ['sm', 'md', 'lg', 'xl'],
 			table: {
 				type: { summary: 'string' },
 				defaultValue: { summary: 'md' },

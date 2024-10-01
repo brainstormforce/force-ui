@@ -1,20 +1,20 @@
 import { cn } from '@/utilities/functions';
 
 // Drawer title.
-const DrawerTitle = ( { children, as: Tag = 'h3', className, ...props } ) => {
+const DrawerTitle = ({ children, as: Tag = 'h3', className, ...props }) => {
 	return (
 		<Tag
-			className={ cn(
+			className={cn(
 				'text-base font-semibold text-text-primary m-0 p-0',
 				className
-			) }
-			{ ...props }
+			)}
+			{...props}
 		>
-			{ children }
+			{children}
 		</Tag>
 	);
 };
 
-export default Object.assign( DrawerTitle, {
+export default Object.assign(DrawerTitle, {
 	displayName: 'Drawer.Title',
-} );
+});

@@ -22,14 +22,14 @@ export default {
 	parameters: {
 		layout: 'centered',
 	},
-	tags: [ 'autodocs' ],
+	tags: ['autodocs'],
 	argTypes: {
 		size: {
 			name: 'Size',
 			description:
 				'Specifies the size of the Menu Item components inside Menu',
 			control: { type: 'select' },
-			options: [ 'sm', 'md' ],
+			options: ['sm', 'md'],
 			table: {
 				type: { summary: 'string' },
 				defaultValue: { summary: 'md' },
@@ -55,22 +55,22 @@ export default {
 	},
 };
 
-const Template = ( args ) => (
-	<Menu size={ args.size }>
-		<Menu.List heading="Store" open={ true } arrow={ true }>
+const Template = (args) => (
+	<Menu size={args.size}>
+		<Menu.List heading="Store" open={true} arrow={true}>
 			<Menu.Item
-				active={ args.menuItemActive }
-				disabled={ args.menuItemDisabled }
+				active={args.menuItemActive}
+				disabled={args.menuItemDisabled}
 			>
 				<Store />
-				<div>{ args.menuItemContent || 'Store Settings' }</div>
+				<div>{args.menuItemContent || 'Store Settings'}</div>
 			</Menu.Item>
 			<Menu.Item disabled>
 				<PenTool />
 				<div>Design & Branding</div>
 			</Menu.Item>
 		</Menu.List>
-		<Menu.List heading="Orders & Sales" open={ true } arrow={ true }>
+		<Menu.List heading="Orders & Sales" open={true} arrow={true}>
 			<Menu.Item>
 				<ShoppingBag />
 				<div>Orders & Receipts</div>
@@ -89,7 +89,7 @@ const Template = ( args ) => (
 			</Menu.Item>
 		</Menu.List>
 		<Menu.Separator />
-		<Menu.List heading="Customers" open={ true } arrow={ true }>
+		<Menu.List heading="Customers" open={true} arrow={true}>
 			<Menu.Item>
 				<MousePointer />
 				<div>Affiliates</div>
@@ -99,7 +99,7 @@ const Template = ( args ) => (
 				<div>Subscriptions Saver</div>
 			</Menu.Item>
 		</Menu.List>
-		<Menu.List heading="Others" open={ true } arrow={ true }>
+		<Menu.List heading="Others" open={true} arrow={true}>
 			<Menu.Item>
 				<Layers />
 				<div>Data Export</div>
@@ -116,7 +116,7 @@ const Template = ( args ) => (
 	</Menu>
 );
 
-export const CombinedMenu = Template.bind( {} );
+export const CombinedMenu = Template.bind({});
 
 CombinedMenu.args = {
 	size: 'md',

@@ -8,13 +8,13 @@ export default {
 	parameters: {
 		layout: 'centered',
 	},
-	tags: [ 'autodocs' ],
+	tags: ['autodocs'],
 	argTypes: {
 		size: {
 			name: 'Size',
 			description: 'Defines the size variant of the select',
 			control: { type: 'select' },
-			options: [ 'sm', 'md', 'lg' ],
+			options: ['sm', 'md', 'lg'],
 			table: {
 				type: { summary: 'string' },
 				defaultValue: { summary: 'md' },
@@ -52,7 +52,8 @@ export default {
 		},
 		by: {
 			name: 'By',
-			description: 'Used to identify the selected value when value type is an `object`. Default is `"id"`.',
+			description:
+				'Used to identify the selected value when value type is an `object`. Default is `"id"`.',
 			table: {
 				type: { summary: 'string' },
 			},
@@ -75,19 +76,19 @@ const options = [
 	'Select Item 5',
 ];
 
-const Template = ( args ) => {
-	const [ selected, setSelected ] = useState( args.multiple ? [] : '' );
+const Template = (args) => {
+	const [selected, setSelected] = useState(args.multiple ? [] : '');
 
 	return (
-		<div style={ { width: '260px' } }>
-			<Select { ...args } onChange={ setSelected } selected={ selected }>
+		<div style={{ width: '260px' }}>
+			<Select {...args} onChange={setSelected} selected={selected}>
 				<Select.Button label="Label" />
 				<Select.Options dropdownPortalId="surerank-dashboard">
-					{ options.map( ( option, index ) => (
-						<Select.Option key={ index } value={ option }>
-							{ option }
+					{options.map((option, index) => (
+						<Select.Option key={index} value={option}>
+							{option}
 						</Select.Option>
-					) ) }
+					))}
 				</Select.Options>
 			</Select>
 			<Label size="sm" variant="help">
@@ -98,26 +99,26 @@ const Template = ( args ) => {
 	);
 };
 
-export const BasicSelect = ( args ) => Template( { ...args } );
+export const BasicSelect = (args) => Template({ ...args });
 BasicSelect.args = {
 	size: 'md',
 	multiple: false,
 };
 
-export const Combobox = ( args ) => Template( { ...args } );
+export const Combobox = (args) => Template({ ...args });
 Combobox.args = {
 	size: 'md',
 	combobox: true,
 	multiple: false,
 };
 
-export const Multiselect = ( args ) => Template( { ...args } );
+export const Multiselect = (args) => Template({ ...args });
 Multiselect.args = {
 	size: 'md',
 	multiple: true,
 };
 
-export const MultiselectCombobox = ( args ) => Template( { ...args } );
+export const MultiselectCombobox = (args) => Template({ ...args });
 MultiselectCombobox.args = {
 	size: 'md',
 	multiple: true,

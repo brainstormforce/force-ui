@@ -9,7 +9,7 @@ export default {
 	parameters: {
 		layout: 'centered',
 	},
-	tags: [ 'autodocs' ],
+	tags: ['autodocs'],
 	argTypes: {
 		variant: {
 			name: 'Variant',
@@ -32,7 +32,7 @@ export default {
 			name: 'Theme',
 			description: 'Defines the theme of the alert.',
 			control: 'select',
-			options: [ 'light', 'dark' ],
+			options: ['light', 'dark'],
 			table: {
 				type: { summary: 'string' },
 				defaultValue: { summary: 'light' },
@@ -42,7 +42,7 @@ export default {
 			name: 'Design',
 			description: 'Defines the design of the alert.',
 			control: 'select',
-			options: [ 'inline', 'stack' ],
+			options: ['inline', 'stack'],
 			table: {
 				type: { summary: 'string' },
 				defaultValue: { summary: 'inline' },

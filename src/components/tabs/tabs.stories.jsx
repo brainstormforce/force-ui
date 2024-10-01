@@ -8,13 +8,13 @@ export default {
 	parameters: {
 		layout: 'centered',
 	},
-	tags: [ 'autodocs' ],
+	tags: ['autodocs'],
 	argTypes: {
 		size: {
 			name: 'Size',
 			description: 'Defines the size of the tabs.',
 			control: 'select',
-			options: [ 'xs', 'sm', 'md', 'lg' ],
+			options: ['xs', 'sm', 'md', 'lg'],
 			table: {
 				type: { summary: 'string' },
 				defaultValue: { summary: 'sm' },
@@ -24,7 +24,7 @@ export default {
 			name: 'Variant',
 			description: 'Defines the style variant of the tabs.',
 			control: 'select',
-			options: [ 'pill', 'rounded', 'underline' ],
+			options: ['pill', 'rounded', 'underline'],
 			table: {
 				type: { summary: 'string' },
 				defaultValue: { summary: 'pill' },
@@ -34,7 +34,7 @@ export default {
 			name: 'Orientation',
 			description: 'Defines the orientation of the tabs.',
 			control: 'select',
-			options: [ 'horizontal', 'vertical' ],
+			options: ['horizontal', 'vertical'],
 			table: {
 				type: { summary: 'string' },
 				defaultValue: { summary: 'horizontal' },
@@ -44,7 +44,7 @@ export default {
 			name: 'Width',
 			description: 'Defines the width of the tabs.',
 			control: 'select',
-			options: [ 'auto', 'full' ],
+			options: ['auto', 'full'],
 			table: {
 				type: { summary: 'string' },
 				defaultValue: { summary: 'auto' },
@@ -54,7 +54,7 @@ export default {
 			name: 'Icon Position',
 			description: 'Defines the position of the icon.',
 			control: 'select',
-			options: [ 'left', 'right' ],
+			options: ['left', 'right'],
 			table: {
 				type: { summary: 'string' },
 				defaultValue: { summary: 'left' },
@@ -81,29 +81,29 @@ export default {
 	},
 };
 
-const Template = ( args ) => {
-	const [ activeTab, setActiveTab ] = useState( args.defaultValue || 'tab1' );
+const Template = (args) => {
+	const [activeTab, setActiveTab] = useState(args.defaultValue || 'tab1');
 
-	const handleTabChange = ( data ) => {
+	const handleTabChange = (data) => {
 		const activeSlugName = data?.value?.slug || 'tab1';
-		if ( data && activeSlugName ) {
-			setActiveTab( activeSlugName );
-			if ( args.onChange ) {
-				args.onChange( activeSlugName );
+		if (data && activeSlugName) {
+			setActiveTab(activeSlugName);
+			if (args.onChange) {
+				args.onChange(activeSlugName);
 			}
 		}
 	};
 
 	return (
-		<Tabs.Group { ...args } activeItem={ activeTab } onChange={ handleTabChange }>
-			<Tabs.Tab slug="tab1" text="Tab 1" icon={ <House /> } />
-			<Tabs.Tab slug="tab2" text="Tab 2" icon={ <House /> } />
-			<Tabs.Tab slug="tab3" text="Tab 3" icon={ <House /> } />
+		<Tabs.Group {...args} activeItem={activeTab} onChange={handleTabChange}>
+			<Tabs.Tab slug="tab1" text="Tab 1" icon={<House />} />
+			<Tabs.Tab slug="tab2" text="Tab 2" icon={<House />} />
+			<Tabs.Tab slug="tab3" text="Tab 3" icon={<House />} />
 		</Tabs.Group>
 	);
 };
 
-export const Default = Template.bind( {} );
+export const Default = Template.bind({});
 Default.args = {
 	size: 'sm',
 	variant: 'pill',

@@ -6,13 +6,13 @@ export default {
 	parameters: {
 		layout: 'centered',
 	},
-	tags: [ 'autodocs' ],
+	tags: ['autodocs'],
 	argTypes: {
 		variant: {
 			name: 'Variant',
 			description: 'Defines the style variant of the skeleton.',
 			control: 'select',
-			options: [ 'rectangular', 'circular' ],
+			options: ['rectangular', 'circular'],
 			table: {
 				type: { summary: 'string' },
 				defaultValue: { summary: 'rectangular' },
@@ -20,7 +20,8 @@ export default {
 		},
 		className: {
 			name: 'Class Name',
-			description: 'Allows you to pass custom classes to control the size and styles',
+			description:
+				'Allows you to pass custom classes to control the size and styles',
 			control: 'text',
 			table: {
 				type: { summary: 'string' },
@@ -30,13 +31,13 @@ export default {
 	},
 };
 
-export const Rectangular = ( args ) => <Skeleton { ...args } />;
+export const Rectangular = (args) => <Skeleton {...args} />;
 
 Rectangular.args = {
 	variant: 'rectangular',
 };
 
-export const Circular = ( args ) => <Skeleton { ...args } />;
+export const Circular = (args) => <Skeleton {...args} />;
 
 Circular.args = {
 	variant: 'circular',

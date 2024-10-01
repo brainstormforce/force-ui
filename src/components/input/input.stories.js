@@ -8,13 +8,13 @@ export default {
 	parameters: {
 		layout: 'centered',
 	},
-	tags: [ 'autodocs' ],
+	tags: ['autodocs'],
 	argTypes: {
 		type: {
 			name: 'Type',
 			description: 'Defines the input type.',
 			control: 'select',
-			options: [ 'text', 'password', 'email', 'file' ],
+			options: ['text', 'password', 'email', 'file'],
 			table: {
 				type: { summary: 'string' },
 				defaultValue: { summary: 'text' },
@@ -24,7 +24,7 @@ export default {
 			name: 'Size',
 			description: 'Defines the size of the input.',
 			control: 'select',
-			options: [ 'sm', 'md', 'lg' ],
+			options: ['sm', 'md', 'lg'],
 			table: {
 				type: { summary: 'string' },
 				defaultValue: { summary: 'sm' },

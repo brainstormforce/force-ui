@@ -6,7 +6,7 @@ export default {
 	parameters: {
 		layout: 'centered',
 	},
-	tags: [ 'autodocs' ],
+	tags: ['autodocs'],
 	argTypes: {
 		progress: {
 			name: 'Progress',
@@ -37,8 +37,8 @@ export default {
 		},
 	},
 	decorators: [
-		( Story ) => (
-			<div style={ { width: '400px' } }>
+		(Story) => (
+			<div style={{ width: '400px' }}>
 				<Story />
 			</div>
 		),

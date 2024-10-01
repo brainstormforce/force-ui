@@ -2,7 +2,7 @@ class OptionItem {
 	data;
 	ref = { current: null };
 
-	constructor( data ) {
+	constructor(data) {
 		this.data = data;
 	}
 }

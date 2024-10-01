@@ -18,11 +18,11 @@ export default {
 	parameters: {
 		layout: 'centered',
 	},
-	tags: [ 'atoms', 'autodocs' ],
+	tags: ['atoms', 'autodocs'],
 	argTypes: {
 		size: {
 			control: { type: 'radio' },
-			options: [ 'sm', 'md', 'lg' ],
+			options: ['sm', 'md', 'lg'],
 			description: 'Defines the size of the Select component.',
 			defaultValue: 'md',
 		},
@@ -70,16 +70,16 @@ export default {
 };
 
 // Single Select Story
-export const SingleSelect = ( args ) => (
-	<div style={ { width: '300px' } }>
-		<Select { ...args }>
-			<Select.Button label={ args.label } />
+export const SingleSelect = (args) => (
+	<div style={{ width: '300px' }}>
+		<Select {...args}>
+			<Select.Button label={args.label} />
 			<Select.Options dropdownPortalId="wpcontent">
-				{ options.map( ( option ) => (
-					<Select.Option key={ option.id } value={ option }>
-						{ option.name }
+				{options.map((option) => (
+					<Select.Option key={option.id} value={option}>
+						{option.name}
 					</Select.Option>
-				) ) }
+				))}
 			</Select.Options>
 		</Select>
 	</div>
@@ -96,16 +96,16 @@ SingleSelect.args = {
 };
 
 // Multi-select Story
-export const MultiSelect = ( args ) => (
-	<div style={ { width: '300px' } }>
-		<Select { ...args } multiple>
-			<Select.Button label={ args.label } />
+export const MultiSelect = (args) => (
+	<div style={{ width: '300px' }}>
+		<Select {...args} multiple>
+			<Select.Button label={args.label} />
 			<Select.Options dropdownPortalId="wpcontent">
-				{ options.map( ( option ) => (
-					<Select.Option key={ option.id } value={ option }>
-						{ option.name }
+				{options.map((option) => (
+					<Select.Option key={option.id} value={option}>
+						{option.name}
 					</Select.Option>
-				) ) }
+				))}
 			</Select.Options>
 		</Select>
 	</div>
@@ -121,20 +121,20 @@ MultiSelect.args = {
 	label: 'Select Multiple Colors',
 };
 
-export const SelectWithSearch = ( args ) => (
-	<div style={ { width: '300px' } }>
-		<Select { ...args } combobox>
-			<Select.Button label={ args.label } />
+export const SelectWithSearch = (args) => (
+	<div style={{ width: '300px' }}>
+		<Select {...args} combobox>
+			<Select.Button label={args.label} />
 			<Select.Options
 				searchBy="name"
 				dropdownPortalId="wpcontent"
-				searchPlaceholder={ args.placeholder }
+				searchPlaceholder={args.placeholder}
 			>
-				{ options.map( ( option ) => (
-					<Select.Option key={ option.id } value={ option }>
-						{ option.name }
+				{options.map((option) => (
+					<Select.Option key={option.id} value={option}>
+						{option.name}
 					</Select.Option>
-				) ) }
+				))}
 			</Select.Options>
 		</Select>
 	</div>

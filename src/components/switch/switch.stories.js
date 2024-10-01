@@ -7,13 +7,13 @@ export default {
 	parameters: {
 		layout: 'centered',
 	},
-	tags: [ 'autodocs' ],
+	tags: ['autodocs'],
 	argTypes: {
 		size: {
 			name: 'Size',
 			description: 'Defines the size of the switch.',
 			control: 'radio',
-			options: [ 'sm', 'lg' ],
+			options: ['sm', 'lg'],
 			table: {
 				type: { summary: 'string' },
 				defaultValue: { summary: 'lg' },
@@ -46,7 +46,8 @@ export default {
 		},
 		onChange: {
 			name: 'On Change Event',
-			description: 'Callback function fired when the switch state changes.',
+			description:
+				'Callback function fired when the switch state changes.',
 			table: {
 				type: { summary: 'function' },
 			},
@@ -72,33 +73,33 @@ export default {
 	},
 };
 
-const Template = ( { defaultValue, size, ...args } ) => {
-	const [ checked, setChecked ] = useState( defaultValue );
+const Template = ({ defaultValue, size, ...args }) => {
+	const [checked, setChecked] = useState(defaultValue);
 
-	useEffect( () => {
-		setChecked( defaultValue );
-	}, [ defaultValue ] );
+	useEffect(() => {
+		setChecked(defaultValue);
+	}, [defaultValue]);
 
-	const handleChange = ( newValue ) => {
-		setChecked( newValue );
-		if ( args.onChange ) {
-			args.onChange( newValue );
+	const handleChange = (newValue) => {
+		setChecked(newValue);
+		if (args.onChange) {
+			args.onChange(newValue);
 		}
 	};
 
 	return (
-		<Switch { ...args } size={ size } value={ checked } onChange={ handleChange } />
+		<Switch {...args} size={size} value={checked} onChange={handleChange} />
 	);
 };
 
-export const Basic = ( args ) => Template( { ...args } );
+export const Basic = (args) => Template({ ...args });
 Basic.args = {
 	defaultValue: false,
 	size: 'lg',
 	disabled: false,
 };
 
-export const WithLabel = ( args ) => Template( { ...args } );
+export const WithLabel = (args) => Template({ ...args });
 WithLabel.args = {
 	defaultValue: true,
 	size: 'lg',
@@ -106,7 +107,7 @@ WithLabel.args = {
 	label: { heading: 'Switch Label', description: 'Switch Description' },
 };
 
-export const Disabled = ( args ) => Template( { ...args } );
+export const Disabled = (args) => Template({ ...args });
 Disabled.args = {
 	size: 'lg',
 	disabled: true,

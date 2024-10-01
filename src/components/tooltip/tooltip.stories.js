@@ -9,12 +9,12 @@ export default {
 	parameters: {
 		layout: 'centered',
 	},
-	tags: [ 'autodocs' ],
+	tags: ['autodocs'],
 	argTypes: {
 		variant: {
 			description: 'Defines the style variant of the tooltip.',
 			control: { type: 'select' },
-			options: [ 'light', 'dark' ],
+			options: ['light', 'dark'],
 			table: {
 				type: { summary: 'string' },
 			},
@@ -74,7 +74,7 @@ export default {
 		triggers: {
 			description: 'Triggers to open the tooltip (hover, focus, click).',
 			control: { type: 'select' },
-			options: [ 'click', 'hover', 'focus' ],
+			options: ['click', 'hover', 'focus'],
 			table: {
 				type: { summary: 'string' },
 			},
@@ -126,15 +126,15 @@ export default {
 	},
 };
 
-export const DefaultTooltip = ( args ) => {
-	const [ isOpen, setIsOpen ] = useState( false );
+export const DefaultTooltip = (args) => {
+	const [isOpen, setIsOpen] = useState(false);
 
 	return (
 		<div>
 			<Tooltip
-				{ ...args }
-				open={ args.open !== undefined ? args.open : isOpen }
-				setOpen={ args.open !== undefined ? setIsOpen : undefined }
+				{...args}
+				open={args.open !== undefined ? args.open : isOpen}
+				setOpen={args.open !== undefined ? setIsOpen : undefined}
 			>
 				<CircleHelp />
 			</Tooltip>
@@ -148,38 +148,38 @@ DefaultTooltip.args = {
 	title: 'Tooltip Title',
 	content: 'This is the content of the tooltip.',
 	arrow: true,
-	triggers: [ 'hover', 'focus' ],
+	triggers: ['hover', 'focus'],
 	interactive: false,
 };
 
-export const DarkTooltipWithIcon = ( args ) => (
+export const DarkTooltipWithIcon = (args) => (
 	<div
-		style={ {
+		style={{
 			display: 'grid',
 			gridTemplateColumns: '1fr 1fr 1fr',
 			gap: '10px',
 			justifyContent: 'center',
 			padding: '20px',
-		} }
+		}}
 	>
-		{ [ 'top-end', 'top', 'top-start', 'left', 'bottom', 'right' ].map(
-			( placement ) => (
+		{['top-end', 'top', 'top-start', 'left', 'bottom', 'right'].map(
+			(placement) => (
 				<div
-					style={ {
+					style={{
 						display: 'flex',
 						justifyContent: 'center',
 						padding: '30px',
-					} }
-					key={ placement }
+					}}
+					key={placement}
 				>
-					<Tooltip key={ placement } { ...args } placement={ placement }>
+					<Tooltip key={placement} {...args} placement={placement}>
 						<CircleHelp
-							style={ { fontSize: '2rem', cursor: 'pointer' } }
+							style={{ fontSize: '2rem', cursor: 'pointer' }}
 						/>
 					</Tooltip>
 				</div>
 			)
-		) }
+		)}
 	</div>
 );
 
@@ -191,32 +191,32 @@ DarkTooltipWithIcon.args = {
 	arrow: true,
 };
 
-export const DarkTooltipWithLabel = ( args ) => (
+export const DarkTooltipWithLabel = (args) => (
 	<div
-		style={ {
+		style={{
 			display: 'grid',
 			gridTemplateColumns: '1fr 1fr 1fr',
 			gap: '10px',
 			justifyContent: 'center',
 			padding: '20px',
-		} }
+		}}
 	>
-		{ [ 'top-end', 'top', 'top-start', 'left', 'bottom', 'right' ].map(
-			( placement ) => (
+		{['top-end', 'top', 'top-start', 'left', 'bottom', 'right'].map(
+			(placement) => (
 				<div
-					style={ {
+					style={{
 						display: 'flex',
 						justifyContent: 'center',
 						padding: '30px',
-					} }
-					key={ placement }
+					}}
+					key={placement}
 				>
-					<Tooltip key={ placement } { ...args } placement={ placement }>
+					<Tooltip key={placement} {...args} placement={placement}>
 						<Label size="md">Label</Label>
 					</Tooltip>
 				</div>
 			)
-		) }
+		)}
 	</div>
 );
 

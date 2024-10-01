@@ -7,23 +7,23 @@ export default {
 	parameters: {
 		layout: 'centered',
 	},
-	tags: [ 'autodocs' ],
+	tags: ['autodocs'],
 	argTypes: {
 		variant: {
 			control: 'select',
-			options: [ 'dot', 'number', 'icon' ],
+			options: ['dot', 'number', 'icon'],
 			description:
 				'Defines the style of the step indicator. Choose between "dot", "number", or "icon".',
 		},
 		size: {
 			control: 'select',
-			options: [ 'sm', 'md', 'lg' ],
+			options: ['sm', 'md', 'lg'],
 			description:
 				'Sets the size of the step indicator. Options are "small", "medium", or "large".',
 		},
 		type: {
 			control: 'select',
-			options: [ 'inline', 'stack' ],
+			options: ['inline', 'stack'],
 			description:
 				'Defines the layout of the steps. "inline" places them horizontally, "stack" places them vertically.',
 		},
@@ -34,16 +34,16 @@ export default {
 		},
 	},
 	decorators: [
-		( Story ) => (
-			<div style={ { width: '700px', margin: '0 auto' } }>
+		(Story) => (
+			<div style={{ width: '700px', margin: '0 auto' }}>
 				<Story />
 			</div>
 		),
 	],
 };
 
-const Template = ( args ) => (
-	<ProgressSteps { ...args }>
+const Template = (args) => (
+	<ProgressSteps {...args}>
 		<ProgressSteps.Step labelText="Step 1" />
 		<ProgressSteps.Step labelText="Step 2" />
 		<ProgressSteps.Step labelText="Step 3" />
@@ -52,7 +52,7 @@ const Template = ( args ) => (
 	</ProgressSteps>
 );
 
-export const Default = Template.bind( {} );
+export const Default = Template.bind({});
 Default.args = {
 	variant: 'dot',
 	size: 'md',
@@ -60,7 +60,7 @@ Default.args = {
 	currentStep: 2,
 };
 
-export const NumberVariant = Template.bind( {} );
+export const NumberVariant = Template.bind({});
 NumberVariant.args = {
 	variant: 'number',
 	size: 'md',
@@ -68,7 +68,7 @@ NumberVariant.args = {
 	currentStep: 3,
 };
 
-export const IconVariant = Template.bind( {} );
+export const IconVariant = Template.bind({});
 IconVariant.args = {
 	variant: 'icon',
 	size: 'md',
@@ -77,7 +77,7 @@ IconVariant.args = {
 	icon: <Check />,
 };
 
-export const StackType = Template.bind( {} );
+export const StackType = Template.bind({});
 StackType.args = {
 	variant: 'dot',
 	size: 'md',

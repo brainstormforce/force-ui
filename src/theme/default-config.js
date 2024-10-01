@@ -1,5 +1,5 @@
 const defaultTheme = {
-	content: [ 'node_modules/@bsf/force-ui/dist/force-ui.js' ],
+	content: ['node_modules/@bsf/force-ui/dist/force-ui.js'],
 	theme: {
 		extend: {
 			colors: {

@@ -7,13 +7,13 @@ export default {
 	parameters: {
 		layout: 'centered',
 	},
-	tags: [ 'autodocs' ],
+	tags: ['autodocs'],
 	argTypes: {
 		size: {
 			name: 'Size',
 			description: 'Defines the size of the title.',
 			control: 'select',
-			options: [ 'xs', 'sm', 'md', 'lg' ],
+			options: ['xs', 'sm', 'md', 'lg'],
 			table: {
 				type: { summary: 'string' },
 				defaultValue: { summary: 'sm' },
@@ -23,7 +23,7 @@ export default {
 			name: 'Tag',
 			description: 'Defines the HTML tag used for the title.',
 			control: 'select',
-			options: [ 'h1', 'h2', 'h3', 'h4', 'h5', 'h6' ],
+			options: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'],
 			table: {
 				type: { summary: 'string' },
 				defaultValue: { summary: 'h2' },
@@ -57,7 +57,7 @@ export default {
 			name: 'Icon Position',
 			description: 'Position of the icon relative to the title.',
 			control: 'select',
-			options: [ 'left', 'right' ],
+			options: ['left', 'right'],
 			table: {
 				type: { summary: 'string' },
 				defaultValue: { summary: 'right' },

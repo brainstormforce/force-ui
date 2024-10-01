@@ -4,7 +4,7 @@ import EditorInput from './editor-input.jsx';
 export default {
 	title: 'Atoms/EditorInput',
 	component: EditorInput,
-	tags: [ 'autodocs' ],
+	tags: ['autodocs'],
 	argTypes: {
 		by: {
 			name: 'By',
@@ -64,7 +64,7 @@ export default {
 			table: {
 				type: { summary: 'object' },
 				defaultValue: {
-					summary: ( value ) => {
+					summary: (value) => {
 						return value;
 					},
 				},
@@ -74,7 +74,7 @@ export default {
 			name: 'Size',
 			description: 'Defines the sizes of the editor input.',
 			control: 'select',
-			options: [ 'sm', 'md', 'lg' ],
+			options: ['sm', 'md', 'lg'],
 			table: {
 				type: { summary: 'string' },
 				defaultValue: { summary: 'md' },
@@ -120,8 +120,8 @@ export default {
 		},
 	},
 	decorators: [
-		( Story ) => (
-			<div style={ { maxWidth: '900px', height: '200px' } }>
+		(Story) => (
+			<div style={{ maxWidth: '900px', height: '200px' }}>
 				<Story />
 			</div>
 		),
@@ -144,7 +144,7 @@ export const Small = {
 	args: {
 		size: 'sm',
 		options,
-		onChange: ( editorState ) => editorState.toJSON(),
+		onChange: (editorState) => editorState.toJSON(),
 	},
 };
 
@@ -152,7 +152,7 @@ export const Medium = {
 	args: {
 		size: 'md',
 		options,
-		onChange: ( editorState ) => editorState.toJSON(),
+		onChange: (editorState) => editorState.toJSON(),
 	},
 };
 
@@ -160,6 +160,6 @@ export const Large = {
 	args: {
 		size: 'lg',
 		options,
-		onChange: ( editorState ) => editorState.toJSON(),
+		onChange: (editorState) => editorState.toJSON(),
 	},
 };

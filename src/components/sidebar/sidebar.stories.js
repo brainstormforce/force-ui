@@ -1,8 +1,18 @@
 import Sidebar from './sidebar';
 import Button from '../button';
 import { useState } from 'react';
-import { Store, PenTool, ShoppingBag, ShoppingCart, Tag, Truck, CreditCard, MousePointer, RefreshCcw, ChartNoAxesColumnIncreasing } from 'lucide-react';
-
+import {
+	Store,
+	PenTool,
+	ShoppingBag,
+	ShoppingCart,
+	Tag,
+	Truck,
+	CreditCard,
+	MousePointer,
+	RefreshCcw,
+	ChartNoAxesColumnIncreasing,
+} from 'lucide-react';
 
 export default {
 	title: 'Organism/Sidebar',
@@ -13,18 +23,21 @@ export default {
 	tags: ['autodocs'],
 	argTypes: {
 		children: {
-			description: 'Content to render inside the Sidebar. This typically includes `Sidebar.Header`, `Sidebar.Body`, and `Sidebar.Footer` components.',
+			description:
+				'Content to render inside the Sidebar. This typically includes `Sidebar.Header`, `Sidebar.Body`, and `Sidebar.Footer` components.',
 			control: { type: 'none' },
 		},
 		className: {
-			description: 'Optional custom CSS classes to apply to the Sidebar container for styling.',
+			description:
+				'Optional custom CSS classes to apply to the Sidebar container for styling.',
 			control: { type: 'text' },
 			table: {
 				type: { summary: 'string' },
 			},
 		},
 		borderOn: {
-			description: 'Controls whether a border should appear on the right of the Sidebar.',
+			description:
+				'Controls whether a border should appear on the right of the Sidebar.',
 			control: { type: 'boolean' },
 			defaultValue: true,
 			table: {
@@ -33,7 +46,8 @@ export default {
 			},
 		},
 		collapsible: {
-			description: 'Determines if the Sidebar can be collapsed or not. If `true`, a collapse button is shown.',
+			description:
+				'Determines if the Sidebar can be collapsed or not. If `true`, a collapse button is shown.',
 			control: { type: 'boolean' },
 			defaultValue: true,
 			table: {
@@ -42,7 +56,8 @@ export default {
 			},
 		},
 		screenHeight: {
-			description: 'Determines whether the Sidebar should occupy the full screen height.',
+			description:
+				'Determines whether the Sidebar should occupy the full screen height.',
 			control: { type: 'boolean' },
 			defaultValue: true,
 			table: {
@@ -51,7 +66,8 @@ export default {
 			},
 		},
 		onCollapseChange: {
-			description: 'Callback function triggered when the Sidebar collapse state changes. Use this to handle logic based on collapse/expand states.',
+			description:
+				'Callback function triggered when the Sidebar collapse state changes. Use this to handle logic based on collapse/expand states.',
 			action: 'onCollapseChange',
 		},
 	},
@@ -63,7 +79,11 @@ const Template = (args) => {
 			heading: 'Store',
 			items: [
 				{ icon: <Store size={20} />, label: 'Store Settings' },
-				{ icon: <PenTool size={20} />, label: 'Design & Branding', disabled: true },
+				{
+					icon: <PenTool size={20} />,
+					label: 'Design & Branding',
+					disabled: true,
+				},
 			],
 		},
 		{
@@ -94,17 +114,24 @@ const Template = (args) => {
 	];
 	const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
 	return (
-		<Sidebar {...args}
+		<Sidebar
+			{...args}
 			onCollapseChange={(isCollapsed) => {
 				setSidebarCollapsed(isCollapsed);
 			}}
 		>
 			<Sidebar.Header>
-				<Sidebar.Item className={sidebarCollapsed && 'flex justify-center'}>
+				<Sidebar.Item
+					className={sidebarCollapsed && 'flex justify-center'}
+				>
 					<img
-						width={sidebarCollapsed ? '40px' : "180px"}
+						width={sidebarCollapsed ? '40px' : '180px'}
 						alt="Logo"
-						src={sidebarCollapsed ? 'https://avatars.githubusercontent.com/u/4979824?s=200&v=4' : "https://wordpress.org/five-for-the-future/files/2019/09/bsf-logo-.png"}
+						src={
+							sidebarCollapsed
+								? 'https://avatars.githubusercontent.com/u/4979824?s=200&v=4'
+								: 'https://wordpress.org/five-for-the-future/files/2019/09/bsf-logo-.png'
+						}
 					/>
 				</Sidebar.Item>
 			</Sidebar.Header>
@@ -113,12 +140,23 @@ const Template = (args) => {
 					<div className="flex flex-col gap-2">
 						{menuData.map((section, sectionIndex) => (
 							<div key={sectionIndex}>
-								<p className='text-slate-500'>{!sidebarCollapsed && section.heading}</p>
+								<p className="text-slate-500">
+									{!sidebarCollapsed && section.heading}
+								</p>
 								<div>
 									{section.items.map((item, itemIndex) => (
-										<div key={itemIndex} className={`px-2 py-1 flex items-center gap-2 cursor-pointer rounded-md hover:bg-slate-100 ${sidebarCollapsed && 'justify-center'}`}>
-											<span className='mt-[4px]'>{item.icon}</span>
-											{!sidebarCollapsed && <span className='text-base'>{item.label}</span>}
+										<div
+											key={itemIndex}
+											className={`px-2 py-1 flex items-center gap-2 cursor-pointer rounded-md hover:bg-slate-100 ${sidebarCollapsed && 'justify-center'}`}
+										>
+											<span className="mt-[4px]">
+												{item.icon}
+											</span>
+											{!sidebarCollapsed && (
+												<span className="text-base">
+													{item.label}
+												</span>
+											)}
 										</div>
 									))}
 								</div>
@@ -135,8 +173,7 @@ const Template = (args) => {
 				</Sidebar.Item>
 			</Sidebar.Footer>
 		</Sidebar>
-
-	)
+	);
 };
 
 export const DefaultSidebar = Template.bind({});
@@ -147,4 +184,3 @@ DefaultSidebar.args = {
 };
 
 DefaultSidebar.storyName = 'Sidebar';
-

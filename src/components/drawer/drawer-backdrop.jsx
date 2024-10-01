@@ -13,33 +13,33 @@ const backdropAnimationVariants = {
 };
 
 // Backdrop for the drawer.
-const DrawerBackdrop = ( { className, ...props } ) => {
+const DrawerBackdrop = ({ className, ...props }) => {
 	const { open, drawerContainerRef, transitionDuration } = useDrawerState();
 
 	return (
 		drawerContainerRef.current &&
 		createPortal(
 			<AnimatePresence>
-				{ open && (
+				{open && (
 					<motion.div
-						className={ cn(
+						className={cn(
 							'fixed inset-0 -z-10 bg-background-inverse/90 backdrop-blur-sm',
 							className
-						) }
-						{ ...props }
+						)}
+						{...props}
 						initial="exit"
 						animate="open"
 						exit="exit"
-						variants={ backdropAnimationVariants }
-						transition={ transitionDuration }
+						variants={backdropAnimationVariants}
+						transition={transitionDuration}
 					/>
-				) }
+				)}
 			</AnimatePresence>,
 			drawerContainerRef.current
 		)
 	);
 };
 
-export default Object.assign( DrawerBackdrop, {
+export default Object.assign(DrawerBackdrop, {
 	displayName: 'Drawer.Backdrop',
-} );
+});

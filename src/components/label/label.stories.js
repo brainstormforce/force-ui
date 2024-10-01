@@ -6,13 +6,13 @@ export default {
 	parameters: {
 		layout: 'centered',
 	},
-	tags: [ 'autodocs' ],
+	tags: ['autodocs'],
 	argTypes: {
 		size: {
 			name: 'Size',
 			description: 'Defines the size of the label.',
 			control: 'select',
-			options: [ 'xs', 'sm', 'md' ],
+			options: ['xs', 'sm', 'md'],
 			table: {
 				type: { summary: 'string' },
 				defaultValue: { summary: 'sm' },
@@ -22,7 +22,7 @@ export default {
 			name: 'Variant',
 			description: 'Defines the style variant of the label.',
 			control: 'select',
-			options: [ 'neutral', 'help', 'error', 'disabled' ],
+			options: ['neutral', 'help', 'error', 'disabled'],
 			table: {
 				type: { summary: 'string' },
 				defaultValue: { summary: 'neutral' },
@@ -42,7 +42,7 @@ export default {
 			description: 'Defines the tag of the button.',
 			control: 'select',
 			// Add 6 to 10 closable tags
-			options: [ 'label', 'p' ],
+			options: ['label', 'p'],
 			table: {
 				type: { summary: 'string' },
 				defaultValue: { summary: 'label' },

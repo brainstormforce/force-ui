@@ -1,7 +1,7 @@
 import React from 'react';
 import { cn } from '@/utilities/functions';
 
-const Container = ( props ) => {
+const Container = (props) => {
 	const {
 		containerType = 'flex', // flex, (grid - functionality not implemented)
 		gap = 'sm', // xs, sm, md, lg, xl, 2xl
@@ -18,16 +18,16 @@ const Container = ( props ) => {
 	} = props;
 
 	let wrapClass = '';
-	if ( wrap !== undefined ) {
+	if (wrap !== undefined) {
 		wrapClass = wrap;
-	} else if ( cols || tabCols || mCols ) {
+	} else if (cols || tabCols || mCols) {
 		wrapClass = 'wrap';
 	}
 
 	const containerTypeClass = {
 		flex: 'flex',
 		grid: 'grid',
-	}?.[ containerType ];
+	}?.[containerType];
 
 	const gapClasses = {
 		xs: 'gap-2',
@@ -36,14 +36,14 @@ const Container = ( props ) => {
 		lg: 'gap-6',
 		xl: 'gap-6',
 		'2xl': 'gap-8',
-	}?.[ gap ];
+	}?.[gap];
 
 	const directionClasses = {
 		row: 'flex-row',
 		'row-reverse': 'flex-row-reverse',
 		column: 'flex-col',
 		'column-reverse': 'flex-col-reverse',
-	}?.[ direction ];
+	}?.[direction];
 
 	const justifyContentClasses = {
 		normal: 'justify-normal',
@@ -54,7 +54,7 @@ const Container = ( props ) => {
 		around: 'justify-around',
 		evenly: 'justify-evenly',
 		stretch: 'justify-stretch',
-	}?.[ justify ];
+	}?.[justify];
 
 	const alignItemsClasses = {
 		start: 'items-start',
@@ -62,13 +62,13 @@ const Container = ( props ) => {
 		center: 'items-center',
 		baseline: 'items-baseline',
 		stretch: 'items-stretch',
-	}?.[ align ];
+	}?.[align];
 
 	const wrapClasses = {
 		wrap: 'flex-wrap',
 		'wrap-reverse': 'flex-wrap-reverse',
 		nowrap: 'flex-nowrap',
-	}?.[ wrapClass ];
+	}?.[wrapClass];
 
 	const combinedClasses = cn(
 		containerTypeClass,
@@ -94,7 +94,7 @@ const Container = ( props ) => {
 			10: 'w-1/10',
 			11: 'w-1/11',
 			12: 'w-1/12',
-		}?.[ mCols ] ?? 'w-full';
+		}?.[mCols] ?? 'w-full';
 
 	const tabColumnClassName =
 		{
@@ -110,7 +110,7 @@ const Container = ( props ) => {
 			10: 'md:w-1/10',
 			11: 'md:w-1/11',
 			12: 'md:w-1/12',
-		}?.[ tabCols ] ?? 'md:w-1/2';
+		}?.[tabCols] ?? 'md:w-1/2';
 
 	const columnClassName =
 		{
@@ -126,25 +126,25 @@ const Container = ( props ) => {
 			10: 'lg:w-1/10',
 			11: 'lg:w-1/11',
 			12: 'lg:w-1/12',
-		}?.[ cols ] ?? 'lg:w-1/4';
+		}?.[cols] ?? 'lg:w-1/4';
 
 	return (
-		<div className={ combinedClasses } { ...extraProps }>
-			{ React.Children.map( children, ( child ) =>
-				React.cloneElement( child, {
+		<div className={combinedClasses} {...extraProps}>
+			{React.Children.map(children, (child) =>
+				React.cloneElement(child, {
 					className: cn(
 						mColumnClassName,
 						tabColumnClassName,
 						columnClassName,
 						child.props.className
 					),
-				} )
-			) }
+				})
+			)}
 		</div>
 	);
 };
 
-const Item = ( props ) => {
+const Item = (props) => {
 	const {
 		grow,
 		shrink,
@@ -158,12 +158,12 @@ const Item = ( props ) => {
 	const growClasses = {
 		0: 'grow-0',
 		1: 'grow',
-	}?.[ grow ];
+	}?.[grow];
 
 	const shrinkClasses = {
 		0: 'shrink-0',
 		1: 'shrink',
-	}?.[ shrink ];
+	}?.[shrink];
 
 	const alignSelfClasses = {
 		auto: 'self-auto',
@@ -172,7 +172,7 @@ const Item = ( props ) => {
 		center: 'self-center',
 		stretch: 'self-stretch',
 		baseline: 'self-baseline',
-	}?.[ alignSelf ];
+	}?.[alignSelf];
 
 	const orderClasses = {
 		1: 'order-1',
@@ -190,21 +190,21 @@ const Item = ( props ) => {
 		first: 'order-first',
 		last: 'order-last',
 		none: 'order-none',
-	}?.[ order ];
+	}?.[order];
 
 	return (
 		<div
-			className={ cn(
+			className={cn(
 				growClasses,
 				shrinkClasses,
 				alignSelfClasses,
 				orderClasses,
 				'box-border',
 				className
-			) }
-			{ ...extraProps }
+			)}
+			{...extraProps}
 		>
-			{ children }
+			{children}
 		</div>
 	);
 };
