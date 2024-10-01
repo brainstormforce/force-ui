@@ -188,6 +188,45 @@ The `Container` component is a flexible layout component that can be used to cre
     }
     ```
 
+## `Container` Grid Props
+
+### `gridFlow`
+- **Type:** `string` | `object`
+- **Default:** `""`
+- **Description:** Specifies the direction of the grid items.
+- Available options:
+    - `"row"`
+    - `"column"`
+    - `"row-dense"`
+    - `"column-dense"`
+- Object format:
+    ```jsx
+    {
+        sm: "row",
+        md: "column",
+        lg: "row-dense",
+    }
+    ```
+### `colsSubGrid`
+- **Type:** `boolean` 
+- **Default:** `false`
+- **Description:** Specifies whether the grid items should be placed in a subgrid.
+
+### `rowsSubGrid`
+- **Type:** `boolean`
+- **Default:** `false`
+- **Description:** Specifies whether the grid items should be placed in a subgrid.
+
+### `autoRows`
+- **Type:** `boolean`
+- **Default:** `false`
+- **Description:** Specifies whether the grid should automatically generate rows.
+
+### `autoCols`
+- **Type:** `boolean`
+- **Default:** `false`
+- **Description:** Specifies whether the grid should automatically generate columns.
+
 ## `Container.Item` Props
 
 ### alignSelf
@@ -273,6 +312,58 @@ The `Container` component is a flexible layout component that can be used to cre
         sm: "first",
         md: 2,
         lg: "last",
+    }
+    ```
+
+## `Container.Item` Grid Props
+
+### `colSpan`
+- **Type:** `number` | `object`
+- **Description:** Specifies the number of columns the grid item should span.
+- Available options:
+    - `1`
+    - `2`
+    - `3`
+    - `4`
+    - `5`
+    - `6`
+    - `7`
+    - `8`
+    - `9`
+    - `10`
+    - `11`
+    - `12`
+- Object format:
+    ```jsx
+    {
+        sm: 1,
+        md: 2,
+        lg: 3,
+    }
+    ```
+
+### `colStart`
+- **Type:** `number` | `object`
+- **Description:** Specifies the column line the grid item should start at.
+- Available options:
+    - `1`
+    - `2`
+    - `3`
+    - `4`
+    - `5`
+    - `6`
+    - `7`
+    - `8`
+    - `9`
+    - `10`
+    - `11`
+    - `12`
+- Object format:
+    ```jsx
+    {
+        sm: 1,
+        md: 2,
+        lg: 3,
     }
     ```
 
