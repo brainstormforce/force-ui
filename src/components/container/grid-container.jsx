@@ -2,77 +2,18 @@ import React from 'react';
 import { cn } from '@/utilities/functions';
 import {
 	gridColumnClassNames,
-	gridColumnMediumClassNames,
-	gridColumnLargeClassNames,
-	alignClassNames,
-	alignMediumClassNames,
-	alignLargeClassNames,
-	justifyClassNames,
-	justifyMediumClassNames,
-	justifyLargeClassNames,
-	colSpanClassNames,
-	colSpanMediumClassNames,
-	colSpanLargeClassNames,
-	colStartClassNames,
-	colStartMediumClassNames,
-	colStartLargeClassNames,
+	gridColSpanClassNames,
+	gridColStartClassNames,
 	gapClassNames,
-	gapMediumClassNames,
-	gapLargeClassNames,
 	gapXClassNames,
-	gapXMediumClassNames,
-	gapXLargeClassNames,
 	gapYClassNames,
-	gapYMediumClassNames,
-	gapYLargeClassNames,
 	gridFlowClassNames,
-	gridFlowLargeClassNames,
-	gridFlowMediumClassNames,
+	alignClassNames,
+	justifyClassNames,
 	alignSelfClassNames,
-	alignSelfLargeClassNames,
-	alignSelfMediumClassNames,
 	justifySelfClassNames,
-	justifySelfLargeClassNames,
-	justifySelfMediumClassNames,
-} from './grid-container-styles.js';
-
-const getClassNames = (valueKeys, classNames, defaultValueKeys, defaultScreenSize = 'sm') => {
-	const classNamesArray = [];
-
-	switch (typeof valueKeys) {
-		case 'object': 
-			for (const [screenSize, valueKey] of Object.entries(valueKeys)) {
-				if (classNames[screenSize]) {
-					classNamesArray.push(
-						classNames?.[screenSize]?.[valueKey] ??
-							classNames?.[screenSize]?.[
-								defaultValueKeys?.[screenSize]
-							] ??
-							''
-					);
-				}
-			}
-			break;
-        case 'string':
-        case 'number':
-			const screenSize = defaultScreenSize;
-			classNamesArray.push(
-				classNames?.[screenSize]?.[valueKeys] ??
-					classNames?.[screenSize]?.[
-						defaultValueKeys?.[screenSize]
-					] ??
-					''
-			);
-			break
-		default:
-			classNamesArray.push(
-				classNames?.[defaultScreenSize]?.[defaultValueKeys] ?? ''
-			);
-			break;
-	}
-
-	return classNamesArray.join(' ');
-};
+} from './container-styles.js';
+import { getClassNames } from './container-utils.js'
 
 const GridContainer = ({
 	className,
@@ -92,61 +33,37 @@ const GridContainer = ({
 }) => {
 	const columnClassName = getClassNames(
 		cols,
-		{
-			sm: gridColumnClassNames,
-			md: gridColumnMediumClassNames,
-			lg: gridColumnLargeClassNames,
-		},
+		gridColumnClassNames,
 		{ sm: 1, md: 1, lg: 1 }
 	);
 	const gapClassName = getClassNames(
 		gap,
-		{ sm: gapClassNames, md: gapMediumClassNames, lg: gapLargeClassNames },
+		gapClassNames,
 		'sm'
 	);
 	const gapXClassName = getClassNames(
 		gapX,
-		{
-			sm: gapXClassNames,
-			md: gapXMediumClassNames,
-			lg: gapXLargeClassNames,
-		},
+		gapXClassNames,
 		''
 	);
 	const gapYClassName = getClassNames(
 		gapY,
-		{
-			sm: gapYClassNames,
-			md: gapYMediumClassNames,
-			lg: gapYLargeClassNames,
-		},
+		gapYClassNames,
 		''
 	);
 	const alignClassName = getClassNames(
 		align,
-		{
-			sm: alignClassNames,
-			md: alignMediumClassNames,
-			lg: alignLargeClassNames,
-		},
+		alignClassNames,
 		''
 	);
 	const justifyClassName = getClassNames(
 		justify,
-		{
-			sm: justifyClassNames,
-			md: justifyMediumClassNames,
-			lg: justifyLargeClassNames,
-		},
+		justifyClassNames,
 		''
 	);
     const gridFlowClassName = getClassNames(
         gridFlow,
-        {
-            sm: gridFlowClassNames,
-            md: gridFlowMediumClassNames,
-            lg: gridFlowLargeClassNames,
-        },
+		gridFlowClassNames,
         ''
     );
 
@@ -187,40 +104,24 @@ export const GridItem = ({
 }) => {
 	const colSpanClassName = getClassNames(
 		colSpan,
-		{
-			sm: colSpanClassNames,
-			md: colSpanMediumClassNames,
-			lg: colSpanLargeClassNames,
-		},
+		gridColSpanClassNames,
 		0
 	);
 	const colStartClassName = getClassNames(
 		colStart,
-		{
-			sm: colStartClassNames,
-			md: colStartMediumClassNames,
-			lg: colStartLargeClassNames,
-		},
+		gridColStartClassNames,
 		0
 	);
     const alignSelfClassName = getClassNames(
         alignSelf,
-        {
-            sm: alignSelfClassNames,
-            md: alignSelfMediumClassNames,
-            lg: alignSelfLargeClassNames,
-        },
+        alignSelfClassNames,
         ''
     );
     const justifySelfClassName = getClassNames(
-        justifySelf,
-        {
-            sm: justifySelfClassNames,
-            md: justifySelfMediumClassNames,
-            lg: justifySelfLargeClassNames,
-        },
-        ''
-    );
+		justifySelf,
+		justifySelfClassNames,
+		''
+	);
 
 	return (
 		<div
