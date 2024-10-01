@@ -8,13 +8,13 @@ export default {
 	parameters: {
 		layout: 'centered',
 	},
-	tags: ['autodocs'],
+	tags: [ 'autodocs' ],
 	argTypes: {
 		variant: {
 			name: 'Variant',
 			description: 'Defines the style variant of the badge.',
 			control: 'select',
-			options: ['neutral', 'red', 'yellow', 'green', 'blue', 'inverse'],
+			options: [ 'neutral', 'red', 'yellow', 'green', 'blue', 'inverse' ],
 			table: {
 				type: { summary: 'string' },
 				defaultValue: { summary: 'neutral' },
@@ -24,7 +24,7 @@ export default {
 			name: 'Size',
 			description: 'Defines the size of the badge.',
 			control: 'select',
-			options: ['xs', 'sm', 'md', 'lg'],
+			options: [ 'xs', 'sm', 'md', 'lg' ],
 			table: {
 				type: { summary: 'string' },
 				defaultValue: { summary: 'md' },
@@ -34,7 +34,7 @@ export default {
 			name: 'Type',
 			description: 'Defines the type of the badge.',
 			control: 'select',
-			options: ['pill', 'rounded'],
+			options: [ 'pill', 'rounded' ],
 			table: {
 				type: { summary: 'string' },
 				defaultValue: { summary: 'pill' },

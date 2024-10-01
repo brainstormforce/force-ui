@@ -8,13 +8,13 @@ export default {
 	parameters: {
 		layout: 'centered',
 	},
-	tags: ['autodocs'],
+	tags: [ 'autodocs' ],
 	argTypes: {
 		variant: {
 			name: 'Variant',
 			description: 'Defines the style variant of the avatar.',
 			control: 'select',
-			options: ['primary', 'dark', 'primaryLight', 'white', 'gray'],
+			options: [ 'primary', 'dark', 'primaryLight', 'white', 'gray' ],
 			table: {
 				type: { summary: 'string' },
 				defaultValue: { summary: 'primary' },
@@ -24,7 +24,7 @@ export default {
 			name: 'Size',
 			description: 'Defines the size of the avatar.',
 			control: 'select',
-			options: ['xs', 'sm', 'md', 'lg'],
+			options: [ 'xs', 'sm', 'md', 'lg' ],
 			table: {
 				type: { summary: 'string' },
 				defaultValue: { summary: 'md' },
@@ -34,7 +34,7 @@ export default {
 			name: 'Border',
 			description: 'Defines the border of the avatar.',
 			control: 'select',
-			options: ['subtle', 'none', 'ring'],
+			options: [ 'subtle', 'none', 'ring' ],
 			table: {
 				type: { summary: 'string' },
 				defaultValue: { summary: 'subtle' },

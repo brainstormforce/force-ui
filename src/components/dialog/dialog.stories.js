@@ -8,9 +8,9 @@ export default {
 	parameters: {
 		layout: 'fullscreen',
 	},
-	tags: ['autodocs'],
+	tags: [ 'autodocs' ],
 	decorators: [
-		(Story) => (
+		( Story ) => (
 			<div className="font-sans [&_*]:font-sans h-[600px] flex items-center justify-center">
 				<Story />
 			</div>
@@ -39,7 +39,7 @@ export default {
 			name: 'Design',
 			description: 'Design of the dialog.',
 			control: 'select',
-			options: ['simple', 'footer-divided'],
+			options: [ 'simple', 'footer-divided' ],
 			table: {
 				type: { summary: 'string' },
 				defaultValue: { summary: 'simple' },
@@ -84,11 +84,11 @@ export default {
 	},
 };
 
-const Template = (args) => {
-	const [open, setOpen] = useState(false);
+const Template = ( args ) => {
+	const [ open, setOpen ] = useState( false );
 
 	return (
-		<Dialog {...args} open={open} setOpen={setOpen}>
+		<Dialog { ...args } open={ open } setOpen={ setOpen }>
 			<Dialog.Backdrop />
 			<Dialog.Panel>
 				<Dialog.Header>
@@ -105,14 +105,14 @@ const Template = (args) => {
 					<p className="m-0 text-text-secondary">Body content</p>
 				</Dialog.Body>
 				<Dialog.Footer>
-					<Button onClick={() => setOpen(false)}>Close</Button>
+					<Button onClick={ () => setOpen( false ) }>Close</Button>
 				</Dialog.Footer>
 			</Dialog.Panel>
 		</Dialog>
 	);
 };
 
-export const Default = Template.bind({});
+export const Default = Template.bind( {} );
 Default.args = {
 	trigger: <Button>Open Dialog</Button>,
 	exitOnEsc: true,
@@ -121,15 +121,15 @@ Default.args = {
 	design: 'simple',
 };
 
-const ControlledTemplate = (args) => {
-	const [open, setOpen] = useState(false);
+const ControlledTemplate = ( args ) => {
+	const [ open, setOpen ] = useState( false );
 
 	return (
 		<>
-			<Button onClick={() => setOpen(true)}>
+			<Button onClick={ () => setOpen( true ) }>
 				Open Controlled Dialog
 			</Button>
-			<Dialog open={open} setOpen={setOpen} {...args}>
+			<Dialog open={ open } setOpen={ setOpen } { ...args }>
 				<Dialog.Panel>
 					<Dialog.Header>
 						<div className="flex items-center justify-between">
@@ -150,7 +150,7 @@ const ControlledTemplate = (args) => {
 						</div>
 						<Button variant="ghost">Details</Button>
 						<Button
-							onClick={() => setOpen(false)}
+							onClick={ () => setOpen( false ) }
 							variant="outline"
 						>
 							Cancel
@@ -164,13 +164,13 @@ const ControlledTemplate = (args) => {
 	);
 };
 
-export const Controlled = ControlledTemplate.bind({});
+export const Controlled = ControlledTemplate.bind( {} );
 Controlled.args = {};
 
-const UncontrolledTemplate = (args) => (
-	<Dialog {...args}>
+const UncontrolledTemplate = ( args ) => (
+	<Dialog { ...args }>
 		<Dialog.Panel>
-			{({ close }) => (
+			{ ( { close } ) => (
 				<>
 					<Dialog.Header>
 						<div className="flex items-center justify-between">
@@ -190,19 +190,19 @@ const UncontrolledTemplate = (args) => (
 							Other option
 						</div>
 						<Button variant="ghost">Details</Button>
-						<Button onClick={close} variant="outline">
+						<Button onClick={ close } variant="outline">
 							Cancel
 						</Button>
 						<Button variant="primary">Save</Button>
 					</Dialog.Footer>
 					<Dialog.Backdrop />
 				</>
-			)}
+			) }
 		</Dialog.Panel>
 	</Dialog>
 );
 
-export const Uncontrolled = UncontrolledTemplate.bind({});
+export const Uncontrolled = UncontrolledTemplate.bind( {} );
 Uncontrolled.args = {
 	trigger: <Button>Open Uncontrolled Dialog</Button>,
 };
@@ -210,13 +210,13 @@ Uncontrolled.parameters = {
 	docs: { source: { type: 'code' } },
 };
 
-export const Simple = Template.bind({});
+export const Simple = Template.bind( {} );
 Simple.args = {
 	trigger: <Button>Open Dialog</Button>,
 	design: 'simple',
 };
 
-export const FooterDivided = Template.bind({});
+export const FooterDivided = Template.bind( {} );
 FooterDivided.args = {
 	trigger: <Button>Open Dialog</Button>,
 	design: 'footer-divided',

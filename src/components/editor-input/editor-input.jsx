@@ -19,9 +19,9 @@ import editorTheme from './editor-theme';
 import EditorPlaceholder from './editor-placeholder';
 import { forwardRef, isValidElement } from 'react';
 
-function onError(error) {
+function onError( error ) {
 	// eslint-disable-next-line no-console
-	console.error(error);
+	console.error( error );
 }
 
 const EMPTY_CONTENT = `{
@@ -67,74 +67,74 @@ const EditorInputComponent = (
 		namespace: 'Editor',
 		editorTheme,
 		onError,
-		nodes: [MentionNode],
+		nodes: [ MentionNode ],
 		editorState: defaultValue ? defaultValue : EMPTY_CONTENT,
 		editable: disabled ? false : true,
 	};
 
-	const handleOnChange = (editorState, editor) => {
-		if (typeof onChange !== 'function') {
+	const handleOnChange = ( editorState, editor ) => {
+		if ( typeof onChange !== 'function' ) {
 			return;
 		}
-		onChange(editorState, editor);
+		onChange( editorState, editor );
 	};
 
 	let menuComponentToUse;
 	let menuItemComponentToUse;
-	if (isValidElement(menuComponent)) {
+	if ( isValidElement( menuComponent ) ) {
 		menuComponentToUse = menuComponent;
 	}
-	if (isValidElement(menuItemComponent)) {
+	if ( isValidElement( menuItemComponent ) ) {
 		menuItemComponentToUse = menuItemComponent;
 	}
 
 	return (
 		<div
-			className={cn(
+			className={ cn(
 				'relative w-full',
 				editorCommonClassNames,
-				editorInputClassNames[size],
+				editorInputClassNames[ size ],
 				disabled && editorDisabledClassNames
-			)}
+			) }
 		>
-			<LexicalComposer initialConfig={initialConfig}>
+			<LexicalComposer initialConfig={ initialConfig }>
 				<div className="relative w-full [&_p]:m-0">
 					<PlainTextPlugin
 						contentEditable={
 							<ContentEditable
-								className={cn(
+								className={ cn(
 									'editor-content focus-visible:outline-none outline-none',
 									editableContentAreaCommonClassNames,
 									className
-								)}
+								) }
 							/>
 						}
 						placeholder={
-							<EditorPlaceholder content={placeholder} />
+							<EditorPlaceholder content={ placeholder } />
 						}
-						ErrorBoundary={LexicalErrorBoundary}
+						ErrorBoundary={ LexicalErrorBoundary }
 					/>
 				</div>
 				<HistoryPlugin />
 				<MentionPlugin
-					menuComponent={menuComponentToUse}
-					menuItemComponent={menuItemComponentToUse}
-					size={size}
-					by={by}
-					optionsArray={options}
-					trigger={trigger}
+					menuComponent={ menuComponentToUse }
+					menuItemComponent={ menuItemComponentToUse }
+					size={ size }
+					by={ by }
+					optionsArray={ options }
+					trigger={ trigger }
 				/>
 				<OnChangePlugin
-					onChange={handleOnChange}
+					onChange={ handleOnChange }
 					ignoreSelectionChange
 				/>
-				{ref && <EditorRefPlugin editorRef={ref} />}
-				{autoFocus && <AutoFocusPlugin />}
+				{ ref && <EditorRefPlugin editorRef={ ref } /> }
+				{ autoFocus && <AutoFocusPlugin /> }
 			</LexicalComposer>
 		</div>
 	);
 };
-const EditorInput = forwardRef(EditorInputComponent);
+const EditorInput = forwardRef( EditorInputComponent );
 EditorInput.displayName = 'EditorInput';
 
 export default EditorInput;

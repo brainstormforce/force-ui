@@ -17,29 +17,29 @@ const TextAreaComponent = (
 	},
 	ref
 ) => {
-	const inputId = useMemo(() => id || `input-textarea-${nanoid()}`, [id]);
-	const isControlled = useMemo(() => typeof value !== 'undefined', [value]);
-	const [inputValue, setInputValue] = useState(defaultValue);
+	const inputId = useMemo( () => id || `input-textarea-${ nanoid() }`, [ id ] );
+	const isControlled = useMemo( () => typeof value !== 'undefined', [ value ] );
+	const [ inputValue, setInputValue ] = useState( defaultValue );
 
 	const getValue = useCallback(
-		() => (isControlled ? value : inputValue),
-		[isControlled, value, inputValue]
+		() => ( isControlled ? value : inputValue ),
+		[ isControlled, value, inputValue ]
 	);
 
-	const handleChange = (event) => {
-		if (disabled) {
+	const handleChange = ( event ) => {
+		if ( disabled ) {
 			return;
 		}
 
 		const newValue = event.target.value;
-		if (!isControlled) {
-			setInputValue(newValue);
+		if ( ! isControlled ) {
+			setInputValue( newValue );
 		}
 
-		if (typeof onChange !== 'function') {
+		if ( typeof onChange !== 'function' ) {
 			return;
 		}
-		onChange(newValue);
+		onChange( newValue );
 	};
 
 	const baseClasses =
@@ -64,26 +64,26 @@ const TextAreaComponent = (
 
 	return (
 		<textarea
-			ref={ref}
-			id={inputId}
-			className={cn(
+			ref={ ref }
+			id={ inputId }
+			className={ cn(
 				baseClasses,
 				disabledClasses,
-				sizeClasses[size],
+				sizeClasses[ size ],
 				focusClasses,
 				hoverClasses,
 				errorClasses,
 				className
-			)}
-			disabled={disabled}
-			onChange={handleChange}
-			onInvalid={onError}
-			value={getValue()}
-			{...props}
+			) }
+			disabled={ disabled }
+			onChange={ handleChange }
+			onInvalid={ onError }
+			value={ getValue() }
+			{ ...props }
 		/>
 	);
 };
-const TextArea = forwardRef(TextAreaComponent);
+const TextArea = forwardRef( TextAreaComponent );
 TextArea.displayName = 'TextArea';
 
 export default TextArea;

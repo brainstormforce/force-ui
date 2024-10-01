@@ -17,84 +17,84 @@ const sizeClasses = {
 	},
 };
 
-const Breadcrumb = ({ children, size = 'sm' }) => {
-	const sizes = sizeClasses[size] || sizeClasses.sm;
+const Breadcrumb = ( { children, size = 'sm' } ) => {
+	const sizes = sizeClasses[ size ] || sizeClasses.sm;
 
 	return (
-		<BreadcrumbContext.Provider value={{ sizes }}>
+		<BreadcrumbContext.Provider value={ { sizes } }>
 			<nav className="flex m-0" aria-label="Breadcrumb">
 				<ul className="m-0 inline-flex items-center space-x-1 md:space-x-1">
-					{children}
+					{ children }
 				</ul>
 			</nav>
 		</BreadcrumbContext.Provider>
 	);
 };
 
-const BreadcrumbList = ({ children }) => {
-	return <>{children}</>;
+const BreadcrumbList = ( { children } ) => {
+	return <>{ children }</>;
 };
 
-const BreadcrumbItem = ({ children }) => {
-	return <li className="m-0 inline-flex items-center gap-2">{children}</li>;
+const BreadcrumbItem = ( { children } ) => {
+	return <li className="m-0 inline-flex items-center gap-2">{ children }</li>;
 };
 
-const BreadcrumbLink = ({
+const BreadcrumbLink = ( {
 	href,
 	children,
 	className,
 	as: AsElement = 'a',
 	...props
-}) => {
-	const { sizes } = useContext(BreadcrumbContext);
+} ) => {
+	const { sizes } = useContext( BreadcrumbContext );
 	return (
 		<AsElement
-			href={href}
-			className={cn(
+			href={ href }
+			className={ cn(
 				sizes.text,
 				'px-1 font-medium no-underline text-text-tertiary hover:text-text-primary hover:underline',
 				'focus:outline-none focus:ring-1 focus:ring-border-interactive focus:border-border-interactive focus:rounded-sm',
 				'transition-all duration-200',
 				className
-			)}
-			{...props}
+			) }
+			{ ...props }
 		>
-			{children}
+			{ children }
 		</AsElement>
 	);
 };
 
-const BreadcrumbSeparator = ({ type }) => {
-	const { sizes } = useContext(BreadcrumbContext);
+const BreadcrumbSeparator = ( { type } ) => {
+	const { sizes } = useContext( BreadcrumbContext );
 	const separatorIcons = {
-		slash: <span className={cn('mx-1', sizes.separator)}>/</span>,
-		arrow: <ChevronRight size={sizes.separatorIconSize} />,
+		slash: <span className={ cn( 'mx-1', sizes.separator ) }>/</span>,
+		arrow: <ChevronRight size={ sizes.separatorIconSize } />,
 	};
 
 	return (
 		<span className="flex items-center text-text-tertiary mx-2">
-			{separatorIcons[type] || separatorIcons.arrow}
+			{ separatorIcons[ type ] || separatorIcons.arrow }
 		</span>
 	);
 };
 
 const BreadcrumbEllipsis = () => {
-	const { sizes } = useContext(BreadcrumbContext);
+	const { sizes } = useContext( BreadcrumbContext );
 
 	return (
 		<Ellipsis
 			className="mt-[2px] cursor-pointer text-text-tertiary hover:text-text-primary"
-			size={sizes.separatorIconSize + 4}
+			size={ sizes.separatorIconSize + 4 }
 		/>
 	);
 };
 
-const BreadcrumbPage = ({ children }) => {
-	const { sizes } = useContext(BreadcrumbContext);
+const BreadcrumbPage = ( { children } ) => {
+	const { sizes } = useContext( BreadcrumbContext );
 
 	return (
-		<span className={cn(sizes.text, 'font-medium text-text-primary')}>
-			{children}
+		<span className={ cn( sizes.text, 'font-medium text-text-primary' ) }>
+			{ children }
 		</span>
 	);
 };

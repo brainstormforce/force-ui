@@ -1,6 +1,6 @@
 import { cn } from '@/utilities/functions';
 
-const Avatar = (props) => {
+const Avatar = ( props ) => {
 	const {
 		variant = 'primary',
 		size = 'md',
@@ -21,46 +21,46 @@ const Avatar = (props) => {
 		primary: 'text-text-on-color bg-background-brand',
 		primaryLight: 'text-text-primary bg-brand-background-50',
 		dark: 'text-text-on-color bg-button-secondary',
-	}?.[variant];
+	}?.[ variant ];
 
 	const sizeClasses = {
 		xs: 'w-5 h-5 [&>svg]:h-3 [&>svg]:w-3 text-xs',
 		sm: 'w-6 h-6 [&>svg]:h-4 [&>svg]:w-4 text-sm',
 		md: 'w-8 h-8 [&>svg]:h-5 [&>svg]:w-5 text-base',
 		lg: 'w-10 h-10 [&>svg]:h-6 [&>svg]:w-6 text-lg',
-	}?.[size];
+	}?.[ size ];
 
 	const borderClasses = {
 		none: '',
 		subtle: 'border border-solid border-border-transparent-subtle',
 		ring: 'border-4 border-solid border-border-white',
-	}?.[effectiveBorder];
+	}?.[ effectiveBorder ];
 
 	const contentClasses = url ? 'bg-cover bg-center bg-no-repeat' : '';
 
 	const getChildren = () => {
-		if (!children) {
+		if ( ! children ) {
 			return null;
 		}
-		if (typeof children === 'string') {
-			return children?.[0]?.toUpperCase();
+		if ( typeof children === 'string' ) {
+			return children?.[ 0 ]?.toUpperCase();
 		}
 		return children;
 	};
 
 	return (
 		<div
-			className={cn(
+			className={ cn(
 				baseClasses,
-				!url && variantClasses,
+				! url && variantClasses,
 				sizeClasses,
 				borderClasses,
 				contentClasses,
 				className
-			)}
-			style={url ? { backgroundImage: `url(${url})` } : {}}
+			) }
+			style={ url ? { backgroundImage: `url(${ url })` } : {} }
 		>
-			{getChildren()}
+			{ getChildren() }
 		</div>
 	);
 };

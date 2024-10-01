@@ -6,7 +6,7 @@ import { X } from 'lucide-react';
  * Badge component.
  */
 
-const BadgeComponent = (props, ref) => {
+const BadgeComponent = ( props, ref ) => {
 	const {
 		label = '',
 		size = 'sm', // xs, sm, md, lg
@@ -56,52 +56,52 @@ const BadgeComponent = (props, ref) => {
 	let buttonClasses =
 		'group relative justify-center flex items-center [&>svg]:h-4 [&>svg]:w-4 cursor-pointer';
 
-	if (disabled) {
+	if ( disabled ) {
 		filteredClasses = variantClasses.disabled;
 		buttonClasses += ' cursor-not-allowed disabled';
 	} else {
-		filteredClasses = variantClasses[variant];
+		filteredClasses = variantClasses[ variant ];
 	}
 
-	if (!label) {
+	if ( ! label ) {
 		return null;
 	}
 
 	return (
 		<span
-			className={cn(
+			className={ cn(
 				baseClasses,
-				sizeClasses[size],
-				typeClasses[type],
+				sizeClasses[ size ],
+				typeClasses[ type ],
 				filteredClasses,
 				className
-			)}
-			ref={ref}
+			) }
+			ref={ ref }
 		>
-			{icon ? (
+			{ icon ? (
 				<span className="justify-center flex items-center [&>svg]:h-4 [&>svg]:w-4">
-					{icon}
+					{ icon }
 				</span>
-			) : null}
-			{label}
-			{closable && (
+			) : null }
+			{ label }
+			{ closable && (
 				<span
-					className={buttonClasses}
-					onClick={!disabled ? onClose : null}
-					onMouseDown={onMouseDown}
+					className={ buttonClasses }
+					onClick={ ! disabled ? onClose : null }
+					onMouseDown={ onMouseDown }
 					role="button"
-					tabIndex={0}
+					tabIndex={ 0 }
 				>
-					<span className="sr-only">{`Remove ${label}`}</span>
+					<span className="sr-only">{ `Remove ${ label }` }</span>
 					<X />
 					<span className="absolute -inset-1" />
 				</span>
-			)}
+			) }
 		</span>
 	);
 };
 
-const Badge = forwardRef(BadgeComponent);
+const Badge = forwardRef( BadgeComponent );
 Badge.displayName = 'Badge';
 
 export default Badge;

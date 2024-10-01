@@ -24,12 +24,12 @@ const CheckboxComponent = (
 	},
 	ref
 ) => {
-	const checkboxId = useMemo(() => id || `checkbox-${nanoid()}`, [id]);
+	const checkboxId = useMemo( () => id || `checkbox-${ nanoid() }`, [ id ] );
 	const isControlled = useMemo(
 		() => typeof checked !== 'undefined',
-		[checked]
+		[ checked ]
 	);
-	const [isChecked, setIsChecked] = useState(defaultChecked || false);
+	const [ isChecked, setIsChecked ] = useState( defaultChecked || false );
 	const color = 'primary';
 
 	const sizeClassNames = {
@@ -56,104 +56,104 @@ const CheckboxComponent = (
 	};
 
 	const getValue = useCallback(
-		() => (isControlled ? checked : isChecked),
-		[isControlled, checked, isChecked]
+		() => ( isControlled ? checked : isChecked ),
+		[ isControlled, checked, isChecked ]
 	);
 
-	const handleChange = (event) => {
-		if (disabled) {
+	const handleChange = ( event ) => {
+		if ( disabled ) {
 			return;
 		}
 
 		const newValue = event.target.checked;
-		if (!isControlled) {
-			setIsChecked(newValue);
+		if ( ! isControlled ) {
+			setIsChecked( newValue );
 		}
 
-		if (typeof onChange !== 'function') {
+		if ( typeof onChange !== 'function' ) {
 			return;
 		}
-		onChange(newValue);
+		onChange( newValue );
 	};
 
-	const renderLabel = useCallback(() => {
-		if (isValidElement(label)) {
+	const renderLabel = useCallback( () => {
+		if ( isValidElement( label ) ) {
 			return label;
 		}
 
-		if (!label.heading && !label.description) {
+		if ( ! label.heading && ! label.description ) {
 			return null;
 		}
 
 		return (
 			<div className="space-y-1.5">
-				{label.heading && (
+				{ label.heading && (
 					<p className="text-text-primary text-base font-medium leading-4 m-0">
-						{label.heading}
+						{ label.heading }
 					</p>
-				)}
-				{label.description && (
+				) }
+				{ label.description && (
 					<p className="text-text-secondary text-sm font-normal leading-5 m-0">
-						{label.description}
+						{ label.description }
 					</p>
-				)}
+				) }
 			</div>
 		);
-	}, [label]);
+	}, [ label ] );
 
 	return (
 		<div
-			className={cn('inline-flex items-center', !!label && 'items-start')}
+			className={ cn( 'inline-flex items-center', !! label && 'items-start' ) }
 		>
 			<label
-				className={cn(
+				className={ cn(
 					'relative flex items-center rounded-full',
-					!disabled && 'cursor-pointer'
-				)}
-				htmlFor={checkboxId}
+					! disabled && 'cursor-pointer'
+				) }
+				htmlFor={ checkboxId }
 			>
 				<input
-					ref={ref}
-					id={checkboxId}
+					ref={ ref }
+					id={ checkboxId }
 					type="checkbox"
-					className={cn(
+					className={ cn(
 						"peer relative cursor-pointer appearance-none transition-all m-0 before:content-[''] checked:before:content-[''] checked:before:hidden before:hidden !border-1.5 border-solid",
-						colorClassNames[color].checkbox,
-						sizeClassNames[size].checkbox,
+						colorClassNames[ color ].checkbox,
+						sizeClassNames[ size ].checkbox,
 						disabled && disabledClassNames.checkbox
-					)}
-					checked={getValue()}
-					onChange={handleChange}
-					disabled={disabled}
-					{...props}
+					) }
+					checked={ getValue() }
+					onChange={ handleChange }
+					disabled={ disabled }
+					{ ...props }
 				/>
 				<span
-					className={cn(
+					className={ cn(
 						'pointer-events-none inline-flex items-center absolute top-2/4 left-2/4 -translate-y-2/4 -translate-x-2/4 text-white opacity-0 transition-opacity peer-checked:opacity-100',
-						colorClassNames[color].icon,
+						colorClassNames[ color ].icon,
 						disabled && disabledClassNames.icon
-					)}
+					) }
 				>
-					{indeterminate ? (
-						<Minus className={cn(sizeClassNames[size]?.icon)} />
+					{ indeterminate ? (
+						<Minus className={ cn( sizeClassNames[ size ]?.icon ) } />
 					) : (
-						<Check className={cn(sizeClassNames[size]?.icon)} />
-					)}
+						<Check className={ cn( sizeClassNames[ size ]?.icon ) } />
+					) }
 				</span>
 			</label>
-			{!!label && (
+			{ !! label && (
 				<label
-					className={cn('ml-3', !disabled && 'cursor-pointer')}
-					htmlFor={checkboxId}
+					className={ cn( 'ml-3', ! disabled && 'cursor-pointer' ) }
+					htmlFor={ checkboxId }
 				>
-					{renderLabel()}
+					{ renderLabel() }
 				</label>
-			)}
+			) }
 		</div>
 	);
 };
 
-const Checkbox = forwardRef(CheckboxComponent);
+const Checkbox = forwardRef( CheckboxComponent );
 Checkbox.displayName = 'Checkbox';
 
 export default Checkbox;

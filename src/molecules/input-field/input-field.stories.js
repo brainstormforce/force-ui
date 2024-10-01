@@ -6,12 +6,12 @@ import { Info } from 'lucide-react';
 
 export const InputField = {
 	render: () => (
-		<div style={{ width: '800px' }}>
+		<div style={ { width: '800px' } }>
 			<Container direction="column" gap="xs">
 				<Label size="md">Label</Label>
 				<Input type="text" placeholder="Placeholder" />
 				<Label size="xs" variant="help">
-					<Info /> Help label with a{' '}
+					<Info /> Help label with a{ ' ' }
 					<a href="https://example.com">link</a>.
 				</Label>
 			</Container>
@@ -21,12 +21,12 @@ export const InputField = {
 
 export const TextAreaField = {
 	render: () => (
-		<div style={{ width: '800px' }}>
+		<div style={ { width: '800px' } }>
 			<Container direction="column" gap="xs">
 				<Label size="md">Label</Label>
 				<TextArea size="md" placeholder="Placeholder" />
 				<Label size="xs" variant="help">
-					<Info /> Help label with a{' '}
+					<Info /> Help label with a{ ' ' }
 					<a href="https://example.com">link</a>.
 				</Label>
 			</Container>
@@ -37,12 +37,12 @@ export const TextAreaField = {
 // Badge component story configuration
 export const InputFileField = {
 	render: () => (
-		<div style={{ width: '800px' }}>
+		<div style={ { width: '800px' } }>
 			<Container direction="column" gap="xs">
 				<Label size="md">Label</Label>
 				<Input type="file" />
 				<Label size="xs" variant="help">
-					<Info /> Help label with a{' '}
+					<Info /> Help label with a{ ' ' }
 					<a href="https://example.com">link</a>.
 				</Label>
 			</Container>
@@ -57,5 +57,5 @@ export default {
 	parameters: {
 		layout: 'centered',
 	},
-	tags: ['autodocs'],
+	tags: [ 'autodocs' ],
 };

@@ -2,16 +2,16 @@ import { cn } from '@/utilities/functions';
 import { useDrawerState } from './drawer';
 
 // Drawer footer.
-const DrawerFooter = ({ children, className }) => {
+const DrawerFooter = ( { children, className } ) => {
 	const { design, handleClose } = useDrawerState();
 
 	const renderChildren = () => {
-		if (!children) {
+		if ( ! children ) {
 			return null;
 		}
 
-		if (typeof children === 'function') {
-			return children({ close: handleClose });
+		if ( typeof children === 'function' ) {
+			return children( { close: handleClose } );
 		}
 
 		return children;
@@ -19,19 +19,19 @@ const DrawerFooter = ({ children, className }) => {
 
 	return (
 		<div
-			className={cn(
+			className={ cn(
 				'p-5 flex justify-end gap-3 mt-auto',
 				{
 					'bg-background-secondary': design === 'footer-divided',
 				},
 				className
-			)}
+			) }
 		>
-			{renderChildren()}
+			{ renderChildren() }
 		</div>
 	);
 };
 
-export default Object.assign(DrawerFooter, {
+export default Object.assign( DrawerFooter, {
 	displayName: 'Drawer.Footer',
-});
+} );

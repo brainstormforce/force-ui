@@ -10,18 +10,18 @@ export function prefix() {
  * @param {...any} classNames
  * @return  {string} - Merged TailwindCSS classes.
  */
-export const cn = (...classNames) => twMerge(clsx(...classNames));
+export const cn = ( ...classNames ) => twMerge( clsx( ...classNames ) );
 
 /**
  * Call provided functions with the given arguments.
  * @param {...Function} fns
  * @return {Function} - Function that calls all provided functions.
  */
-export const callAll = (...fns) => {
-	return (...args) => fns.forEach((fn) => fn?.(...args));
+export const callAll = ( ...fns ) => {
+	return ( ...args ) => fns.forEach( ( fn ) => fn?.( ...args ) );
 };
 
-export const getGapClass = (gap) => {
+export const getGapClass = ( gap ) => {
 	const gapClasses = {
 		0: 'gap-0',
 		xxs: 'gap-1',
@@ -33,7 +33,7 @@ export const getGapClass = (gap) => {
 		'2xl': 'gap-8',
 	};
 
-	return gapClasses[gap] || gapClasses.md;
+	return gapClasses[ gap ] || gapClasses.md;
 };
 
 export const columnClasses = {

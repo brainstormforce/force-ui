@@ -8,13 +8,13 @@ export default {
 	parameters: {
 		layout: 'centered',
 	},
-	tags: ['autodocs'],
+	tags: [ 'autodocs' ],
 	argTypes: {
 		variant: {
 			name: 'Variant',
 			description: 'Defines the style variant of the button.',
 			control: 'select',
-			options: ['primary', 'secondary', 'outline', 'ghost', 'link'],
+			options: [ 'primary', 'secondary', 'outline', 'ghost', 'link' ],
 			table: {
 				type: { summary: 'string' },
 				defaultValue: { summary: 'primary' },
@@ -24,7 +24,7 @@ export default {
 			name: 'Size',
 			description: 'Defines the size of the button.',
 			control: 'select',
-			options: ['xs', 'sm', 'md', 'lg'],
+			options: [ 'xs', 'sm', 'md', 'lg' ],
 			table: {
 				type: { summary: 'string' },
 				defaultValue: { summary: 'md' },
@@ -34,7 +34,7 @@ export default {
 			name: 'Type',
 			description: 'Defines the type of the button.',
 			control: 'select',
-			options: ['button', 'submit', 'reset'],
+			options: [ 'button', 'submit', 'reset' ],
 			table: {
 				type: { summary: 'string' },
 				defaultValue: { summary: 'button' },
@@ -66,7 +66,7 @@ export default {
 			name: 'Icon Position',
 			description: 'Defines the position of the icon.',
 			control: 'select',
-			options: ['left', 'right'],
+			options: [ 'left', 'right' ],
 			table: {
 				type: { summary: 'string' },
 				defaultValue: { summary: 'left' },

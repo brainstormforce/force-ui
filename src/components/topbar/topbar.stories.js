@@ -14,12 +14,12 @@ Topbar.Item.displayName = 'Topbar.Item';
 export default {
 	title: 'Organisms/Topbar',
 	component: Topbar,
-	tags: ['autodocs'],
+	tags: [ 'autodocs' ],
 	argTypes: {
 		gap: {
 			description: 'Defines the gap between Topbar sections.',
 			control: { type: 'select' },
-			options: ['0', 'xxs', 'xs', 'sm', 'md', 'lg', 'xl', '2xl'],
+			options: [ '0', 'xxs', 'xs', 'sm', 'md', 'lg', 'xl', '2xl' ],
 			table: {
 				type: { summary: 'string' },
 				defaultValue: { summary: 'lg' },
@@ -30,7 +30,7 @@ export default {
 			description:
 				'Defines the gap between Topbar items in Topbar.Left sections',
 			control: { type: 'select' },
-			options: ['0', 'xxs', 'xs', 'sm', 'md', 'lg', 'xl', '2xl'],
+			options: [ '0', 'xxs', 'xs', 'sm', 'md', 'lg', 'xl', '2xl' ],
 			table: {
 				type: { summary: 'string' },
 				defaultValue: { summary: 'sm' },
@@ -41,7 +41,7 @@ export default {
 			description:
 				'Defines the gap between Topbar items in Topbar.Middle sections',
 			control: { type: 'select' },
-			options: ['0', 'xxs', 'xs', 'sm', 'md', 'lg', 'xl', '2xl'],
+			options: [ '0', 'xxs', 'xs', 'sm', 'md', 'lg', 'xl', '2xl' ],
 			table: {
 				type: { summary: 'string' },
 				defaultValue: { summary: 'md' },
@@ -52,7 +52,7 @@ export default {
 			description:
 				'Defines the gap between Topbar items in Topbar.Right sections',
 			control: { type: 'select' },
-			options: ['0', 'xxs', 'xs', 'sm', 'md', 'lg', 'xl', '2xl'],
+			options: [ '0', 'xxs', 'xs', 'sm', 'md', 'lg', 'xl', '2xl' ],
 			table: {
 				type: { summary: 'string' },
 				defaultValue: { summary: 'sm' },
@@ -63,7 +63,7 @@ export default {
 			description:
 				'Defines how the content inside the Middle section is aligned.',
 			control: { type: 'select' },
-			options: ['left', 'center', 'right'],
+			options: [ 'left', 'center', 'right' ],
 			table: {
 				type: { summary: 'string' },
 				defaultValue: { summary: 'center' },
@@ -72,9 +72,9 @@ export default {
 	},
 };
 
-export const WithMiddleAlignment = (args) => (
-	<Topbar gap={args.gap}>
-		<Topbar.Left gap={args.topbarLeftGap}>
+export const WithMiddleAlignment = ( args ) => (
+	<Topbar gap={ args.gap }>
+		<Topbar.Left gap={ args.topbarLeftGap }>
 			<Topbar.Item>
 				<svg
 					width="25"
@@ -94,8 +94,8 @@ export const WithMiddleAlignment = (args) => (
 		</Topbar.Left>
 
 		<Topbar.Middle
-			align={args.topbarMiddleAlign}
-			gap={args.topbarMiddleGap}
+			align={ args.topbarMiddleAlign }
+			gap={ args.topbarMiddleGap }
 		>
 			<Topbar.Item>
 				<div className="flex gap-2">
@@ -107,7 +107,7 @@ export const WithMiddleAlignment = (args) => (
 			<Topbar.Item>
 				<Button
 					variant="ghost"
-					icon={<ArrowUpRight />}
+					icon={ <ArrowUpRight /> }
 					iconPosition="right"
 				>
 					Upgrade to Pro
@@ -115,13 +115,13 @@ export const WithMiddleAlignment = (args) => (
 			</Topbar.Item>
 		</Topbar.Middle>
 
-		<Topbar.Right gap={args.topbarRightGap}>
+		<Topbar.Right gap={ args.topbarRightGap }>
 			<Topbar.Item>
 				<Badge
 					label="V 0.0 2"
 					size="xs"
 					variant="neutral"
-					closable={false}
+					closable={ false }
 				/>
 			</Topbar.Item>
 			<Topbar.Item className="gap-2">
@@ -139,9 +139,9 @@ export const WithMiddleAlignment = (args) => (
 
 WithMiddleAlignment.storyName = 'Topbar with Center-Aligned Middle Section';
 
-export const WithLeftAlignment = (args) => (
-	<Topbar gap={args.gap}>
-		<Topbar.Left gap={args.topbarLeftGap}>
+export const WithLeftAlignment = ( args ) => (
+	<Topbar gap={ args.gap }>
+		<Topbar.Left gap={ args.topbarLeftGap }>
 			<Topbar.Item>
 				<svg
 					width="25"
@@ -160,7 +160,7 @@ export const WithLeftAlignment = (args) => (
 			</Topbar.Item>
 		</Topbar.Left>
 
-		<Topbar.Middle align="left" gap={args.topbarMiddleGap}>
+		<Topbar.Middle align="left" gap={ args.topbarMiddleGap }>
 			<Topbar.Item>
 				<div className="flex gap-2">
 					<div>Nav Item 1</div>
@@ -171,7 +171,7 @@ export const WithLeftAlignment = (args) => (
 			<Topbar.Item>
 				<Button
 					variant="ghost"
-					icon={<ArrowUpRight />}
+					icon={ <ArrowUpRight /> }
 					iconPosition="right"
 				>
 					Upgrade to Pro
@@ -179,13 +179,13 @@ export const WithLeftAlignment = (args) => (
 			</Topbar.Item>
 		</Topbar.Middle>
 
-		<Topbar.Right gap={args.topbarRightGap}>
+		<Topbar.Right gap={ args.topbarRightGap }>
 			<Topbar.Item>
 				<Badge
 					label="V 0.0 2"
 					size="xs"
 					variant="neutral"
-					closable={false}
+					closable={ false }
 				/>
 			</Topbar.Item>
 			<Topbar.Item className="gap-2">
@@ -203,8 +203,8 @@ export const WithLeftAlignment = (args) => (
 
 WithLeftAlignment.storyName = 'Topbar with Left-Aligned Middle Section';
 
-export const WithRightAlignment = (args) => (
-	<Topbar gap={args.gap}>
+export const WithRightAlignment = ( args ) => (
+	<Topbar gap={ args.gap }>
 		<Topbar.Left>
 			<Topbar.Item>
 				<svg
@@ -235,7 +235,7 @@ export const WithRightAlignment = (args) => (
 			<Topbar.Item>
 				<Button
 					variant="ghost"
-					icon={<ArrowUpRight />}
+					icon={ <ArrowUpRight /> }
 					iconPosition="right"
 				>
 					Upgrade to Pro
@@ -249,7 +249,7 @@ export const WithRightAlignment = (args) => (
 					label="V 0.0 2"
 					size="xs"
 					variant="neutral"
-					closable={false}
+					closable={ false }
 				/>
 			</Topbar.Item>
 			<Topbar.Item className="gap-2">

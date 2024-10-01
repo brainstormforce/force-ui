@@ -38,13 +38,13 @@ const Label = forwardRef(
 				'text-field-color-disabled disabled cursor-not-allowed [&>*]:text-field-color-disabled',
 		};
 
-		if (!children) {
+		if ( ! children ) {
 			return null;
 		}
 
 		let requiredClasses = '';
 
-		if (required) {
+		if ( required ) {
 			requiredClasses =
 				"after:content-['*'] after:text-field-required after:ml-0.5";
 		}
@@ -53,17 +53,17 @@ const Label = forwardRef(
 
 		return (
 			<Tag
-				ref={ref}
-				className={cn(
+				ref={ ref }
+				className={ cn(
 					baseClasses,
-					sizeClasses[size],
-					variantClasses[variant],
+					sizeClasses[ size ],
+					variantClasses[ variant ],
 					requiredClasses,
 					className
-				)}
-				{...props}
+				) }
+				{ ...props }
 			>
-				{children}
+				{ children }
 			</Tag>
 		);
 	}

@@ -20,7 +20,7 @@ export default {
 	parameters: {
 		layout: 'left',
 	},
-	tags: ['autodocs'],
+	tags: [ 'autodocs' ],
 	argTypes: {
 		children: {
 			description:
@@ -73,14 +73,14 @@ export default {
 	},
 };
 
-const Template = (args) => {
+const Template = ( args ) => {
 	const menuData = [
 		{
 			heading: 'Store',
 			items: [
-				{ icon: <Store size={20} />, label: 'Store Settings' },
+				{ icon: <Store size={ 20 } />, label: 'Store Settings' },
 				{
-					icon: <PenTool size={20} />,
+					icon: <PenTool size={ 20 } />,
 					label: 'Design & Branding',
 					disabled: true,
 				},
@@ -89,43 +89,43 @@ const Template = (args) => {
 		{
 			heading: 'Orders & Sales',
 			items: [
-				{ icon: <ShoppingBag size={20} />, label: 'Orders & Receipts' },
+				{ icon: <ShoppingBag size={ 20 } />, label: 'Orders & Receipts' },
 				{
-					icon: <ShoppingCart size={20} />,
+					icon: <ShoppingCart size={ 20 } />,
 					label: 'Abandoned Checkout',
 					active: true,
 				},
-				{ icon: <Tag size={20} />, label: 'Taxes' },
-				{ icon: <Truck size={20} />, label: 'Shipping' },
-				{ icon: <CreditCard size={20} />, label: 'Payment Processors' },
+				{ icon: <Tag size={ 20 } />, label: 'Taxes' },
+				{ icon: <Truck size={ 20 } />, label: 'Shipping' },
+				{ icon: <CreditCard size={ 20 } />, label: 'Payment Processors' },
 			],
 		},
 		{
 			heading: 'Customers',
 			items: [
-				{ icon: <MousePointer size={20} />, label: 'Affiliates' },
-				{ icon: <RefreshCcw size={20} />, label: 'Subscriptions' },
+				{ icon: <MousePointer size={ 20 } />, label: 'Affiliates' },
+				{ icon: <RefreshCcw size={ 20 } />, label: 'Subscriptions' },
 				{
-					icon: <ChartNoAxesColumnIncreasing size={20} />,
+					icon: <ChartNoAxesColumnIncreasing size={ 20 } />,
 					label: 'Subscriptions Saver',
 				},
 			],
 		},
 	];
-	const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+	const [ sidebarCollapsed, setSidebarCollapsed ] = useState( false );
 	return (
 		<Sidebar
-			{...args}
-			onCollapseChange={(isCollapsed) => {
-				setSidebarCollapsed(isCollapsed);
-			}}
+			{ ...args }
+			onCollapseChange={ ( isCollapsed ) => {
+				setSidebarCollapsed( isCollapsed );
+			} }
 		>
 			<Sidebar.Header>
 				<Sidebar.Item
-					className={sidebarCollapsed && 'flex justify-center'}
+					className={ sidebarCollapsed && 'flex justify-center' }
 				>
 					<img
-						width={sidebarCollapsed ? '40px' : '180px'}
+						width={ sidebarCollapsed ? '40px' : '180px' }
 						alt="Logo"
 						src={
 							sidebarCollapsed
@@ -138,37 +138,37 @@ const Template = (args) => {
 			<Sidebar.Body>
 				<Sidebar.Item>
 					<div className="flex flex-col gap-2">
-						{menuData.map((section, sectionIndex) => (
-							<div key={sectionIndex}>
+						{ menuData.map( ( section, sectionIndex ) => (
+							<div key={ sectionIndex }>
 								<p className="text-slate-500">
-									{!sidebarCollapsed && section.heading}
+									{ ! sidebarCollapsed && section.heading }
 								</p>
 								<div>
-									{section.items.map((item, itemIndex) => (
+									{ section.items.map( ( item, itemIndex ) => (
 										<div
-											key={itemIndex}
-											className={`px-2 py-1 flex items-center gap-2 cursor-pointer rounded-md hover:bg-slate-100 ${sidebarCollapsed && 'justify-center'}`}
+											key={ itemIndex }
+											className={ `px-2 py-1 flex items-center gap-2 cursor-pointer rounded-md hover:bg-slate-100 ${ sidebarCollapsed && 'justify-center' }` }
 										>
 											<span className="mt-[4px]">
-												{item.icon}
+												{ item.icon }
 											</span>
-											{!sidebarCollapsed && (
+											{ ! sidebarCollapsed && (
 												<span className="text-base">
-													{item.label}
+													{ item.label }
 												</span>
-											)}
+											) }
 										</div>
-									))}
+									) ) }
 								</div>
 							</div>
-						))}
+						) ) }
 					</div>
 				</Sidebar.Item>
 			</Sidebar.Body>
 			<Sidebar.Footer>
 				<Sidebar.Item>
 					<Button className="w-full">
-						{sidebarCollapsed ? 'Pro' : 'Pro Version'}
+						{ sidebarCollapsed ? 'Pro' : 'Pro Version' }
 					</Button>
 				</Sidebar.Item>
 			</Sidebar.Footer>
@@ -176,7 +176,7 @@ const Template = (args) => {
 	);
 };
 
-export const DefaultSidebar = Template.bind({});
+export const DefaultSidebar = Template.bind( {} );
 DefaultSidebar.args = {
 	screenHeight: true,
 	borderOn: true,

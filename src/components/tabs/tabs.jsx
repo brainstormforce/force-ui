@@ -12,10 +12,10 @@ import { motion } from 'framer-motion';
 const TabsGroupContext = createContext();
 
 // Hook to use the TabsGroup context.
-const useTabsGroup = () => useContext(TabsGroupContext);
+const useTabsGroup = () => useContext( TabsGroupContext );
 
 // TabsGroup component to wrap Tab components.
-const TabsGroup = (props) => {
+const TabsGroup = ( props ) => {
 	const {
 		children,
 		activeItem = null, // The currently active item in the group.
@@ -30,12 +30,12 @@ const TabsGroup = (props) => {
 
 	// Handle change event.
 	const handleChange = useCallback(
-		(event, value) => {
-			if (onChange) {
-				onChange({ event, value });
+		( event, value ) => {
+			if ( onChange ) {
+				onChange( { event, value } );
 			}
 		},
-		[onChange]
+		[ onChange ]
 	);
 
 	// Determine styles based on the variant and orientation.
@@ -44,28 +44,28 @@ const TabsGroup = (props) => {
 		gap,
 		border = 'border border-tab-border border-solid';
 
-	if (orientation === 'vertical') {
+	if ( orientation === 'vertical' ) {
 		gap = 'gap-0.5';
-	} else if (variant === 'rounded' || variant === 'pill') {
-		if (size === 'xs' || size === 'sm') {
+	} else if ( variant === 'rounded' || variant === 'pill' ) {
+		if ( size === 'xs' || size === 'sm' ) {
 			gap = 'gap-0.5';
-		} else if (size === 'md' || size === 'lg') {
+		} else if ( size === 'md' || size === 'lg' ) {
 			gap = 'gap-1';
 		}
 	}
 
-	if (variant === 'rounded' || orientation === 'vertical') {
+	if ( variant === 'rounded' || orientation === 'vertical' ) {
 		borderRadius = 'rounded-md';
-	} else if (variant === 'underline') {
+	} else if ( variant === 'underline' ) {
 		borderRadius = 'rounded-none';
 		padding = 'p-0';
 		border =
 			'border-t-0 border-r-0 border-l-0 border-b border-solid border-tab-border';
-		if (size === 'xs') {
+		if ( size === 'xs' ) {
 			gap = 'gap-0';
-		} else if (size === 'sm') {
+		} else if ( size === 'sm' ) {
 			gap = 'gap-2.5';
-		} else if (size === 'md' || size === 'lg') {
+		} else if ( size === 'md' || size === 'lg' ) {
 			gap = 'gap-3';
 		}
 	}
@@ -76,7 +76,7 @@ const TabsGroup = (props) => {
 	const orientationClasses = orientation === 'vertical' ? 'flex-col' : '';
 
 	// Base classes for the TabsGroup.
-	const baseClasses = `box-border [&>*]:box-border flex items-center ${widthClasses} ${orientationClasses}`;
+	const baseClasses = `box-border [&>*]:box-border flex items-center ${ widthClasses } ${ orientationClasses }`;
 
 	// Container background color.
 	const backgroundColorClass =
@@ -94,9 +94,9 @@ const TabsGroup = (props) => {
 	);
 
 	return (
-		<div className={groupClassName}>
+		<div className={ groupClassName }>
 			<TabsGroupContext.Provider
-				value={{
+				value={ {
 					activeItem,
 					onChange: handleChange,
 					size,
@@ -104,21 +104,21 @@ const TabsGroup = (props) => {
 					orientation,
 					iconPosition,
 					width,
-				}}
+				} }
 			>
-				{React.Children.map(children, (child) => {
-					if (!isValidElement(child)) {
+				{ React.Children.map( children, ( child ) => {
+					if ( ! isValidElement( child ) ) {
 						return null;
 					}
-					return React.cloneElement(child);
-				})}
+					return React.cloneElement( child );
+				} ) }
 			</TabsGroupContext.Provider>
 		</div>
 	);
 };
 
 // Tab component to be used within a TabsGroup.
-const TabComponent = (props, ref) => {
+const TabComponent = ( props, ref ) => {
 	const providerValue = useTabsGroup();
 	const {
 		slug,
@@ -130,8 +130,8 @@ const TabComponent = (props, ref) => {
 		...rest
 	} = props;
 
-	if (!providerValue) {
-		throw new Error('Tab should be used inside Tabs Group');
+	if ( ! providerValue ) {
+		throw new Error( 'Tab should be used inside Tabs Group' );
 	}
 
 	const {
@@ -159,7 +159,7 @@ const TabComponent = (props, ref) => {
 			variant === 'underline'
 				? 'p-2.5 text-lg [&_svg]:size-6'
 				: 'px-3.5 py-1.5 text-lg [&_svg]:size-6',
-	}[size];
+	}[ size ];
 
 	// Determine width and orientation classes for tabs.
 	const fullWidth = width === 'full' ? 'flex-1' : '';
@@ -176,9 +176,9 @@ const TabComponent = (props, ref) => {
 	const borderClasses = 'border-none';
 
 	let variantClasses = 'rounded-full';
-	if (variant === 'rounded') {
+	if ( variant === 'rounded' ) {
 		variantClasses = 'rounded-md';
-	} else if (variant === 'underline') {
+	} else if ( variant === 'underline' ) {
 		variantClasses = 'rounded-none';
 	}
 
@@ -209,42 +209,42 @@ const TabComponent = (props, ref) => {
 	const iconParentClasses = 'flex items-center gap-1';
 
 	// Handle click event.
-	const handleClick = (event) => {
-		onChange(event, { slug, text });
+	const handleClick = ( event ) => {
+		onChange( event, { slug, text } );
 	};
 
 	return (
 		<button
-			ref={ref}
-			className={tabClassName}
-			disabled={disabled}
-			onClick={handleClick}
-			{...rest}
+			ref={ ref }
+			className={ tabClassName }
+			disabled={ disabled }
+			onClick={ handleClick }
+			{ ...rest }
 		>
-			{activeItem === slug && variant === 'underline' && (
+			{ activeItem === slug && variant === 'underline' && (
 				<motion.span
 					layoutId="underline"
 					className="absolute right-0 left-0 -bottom-px h-px bg-border-interactive"
 				/>
-			)}
-			<span className={iconParentClasses}>
-				{iconPosition === 'left' && icon && (
+			) }
+			<span className={ iconParentClasses }>
+				{ iconPosition === 'left' && icon && (
 					<span className="mr-1 contents center-center group-hover:text-text-primary">
-						{icon}
+						{ icon }
 					</span>
-				)}
-				{text}
-				{iconPosition === 'right' && icon && (
+				) }
+				{ text }
+				{ iconPosition === 'right' && icon && (
 					<span className="ml-1 contents center-center group-hover:text-text-primary">
-						{icon}
+						{ icon }
 					</span>
-				)}
+				) }
 			</span>
-			{badge && isValidElement(badge) && badge}
+			{ badge && isValidElement( badge ) && badge }
 		</button>
 	);
 };
-const Tab = forwardRef(TabComponent);
+const Tab = forwardRef( TabComponent );
 Tab.displayName = 'Tab';
 
 const exports = {

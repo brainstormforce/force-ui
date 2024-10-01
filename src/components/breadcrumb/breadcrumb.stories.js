@@ -16,38 +16,38 @@ export default {
 	parameters: {
 		layout: 'centered',
 	},
-	tags: ['autodocs'],
+	tags: [ 'autodocs' ],
 	argTypes: {
 		size: {
 			control: { type: 'select' },
-			options: ['sm', 'md'],
+			options: [ 'sm', 'md' ],
 			description: 'Size of the breadcrumb component',
 			defaultValue: 'sm',
 		},
 		separatorType: {
 			control: { type: 'select' },
-			options: ['arrow', 'slash'],
+			options: [ 'arrow', 'slash' ],
 			description: 'Type of separator between breadcrumb items',
 			defaultValue: 'arrow',
 		},
 	},
 };
 
-const Template = (args) => (
-	<Breadcrumb size={args.size}>
+const Template = ( args ) => (
+	<Breadcrumb size={ args.size }>
 		<BreadcrumbList>
 			<BreadcrumbItem>
 				<BreadcrumbLink href="#">Home</BreadcrumbLink>
 			</BreadcrumbItem>
-			<BreadcrumbSeparator type={args.separatorType} />
+			<BreadcrumbSeparator type={ args.separatorType } />
 			<BreadcrumbItem>
 				<BreadcrumbEllipsis />
 			</BreadcrumbItem>
-			<BreadcrumbSeparator type={args.separatorType} />
+			<BreadcrumbSeparator type={ args.separatorType } />
 			<BreadcrumbItem>
 				<BreadcrumbLink href="#">Category</BreadcrumbLink>
 			</BreadcrumbItem>
-			<BreadcrumbSeparator type={args.separatorType} />
+			<BreadcrumbSeparator type={ args.separatorType } />
 			<BreadcrumbItem>
 				<BreadcrumbPage>Current Page</BreadcrumbPage>
 			</BreadcrumbItem>
@@ -55,13 +55,13 @@ const Template = (args) => (
 	</Breadcrumb>
 );
 
-export const Basic = Template.bind({});
+export const Basic = Template.bind( {} );
 Basic.args = {
 	size: 'sm',
 	separatorType: 'arrow',
 };
 
-export const MediumSizeWithSlashSeparator = Template.bind({});
+export const MediumSizeWithSlashSeparator = Template.bind( {} );
 MediumSizeWithSlashSeparator.args = {
 	size: 'md',
 	separatorType: 'slash',

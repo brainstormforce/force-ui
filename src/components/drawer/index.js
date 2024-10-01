@@ -8,7 +8,7 @@ import DrawerFooter from './drawer-footer';
 import DrawerCloseButton from './drawer-close-button';
 import DrawerBackdrop from './drawer-backdrop';
 
-export default Object.assign(Drawer, {
+export default Object.assign( Drawer, {
 	Panel: DrawerPanel,
 	Header: DrawerHeader,
 	Title: DrawerTitle,
@@ -17,4 +17,4 @@ export default Object.assign(Drawer, {
 	CloseButton: DrawerCloseButton,
 	Footer: DrawerFooter,
 	Backdrop: DrawerBackdrop,
-});
+} );
