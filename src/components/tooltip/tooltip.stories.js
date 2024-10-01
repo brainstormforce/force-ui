@@ -23,10 +23,18 @@ export default {
 			description: 'The placement of the tooltip relative to the target.',
 			control: { type: 'select' },
 			options: [
-				'top', 'top-start', 'top-end',
-				'bottom', 'bottom-start', 'bottom-end',
-				'right', 'right-start', 'right-end',
-				'left', 'left-start', 'left-end',
+				'top',
+				'top-start',
+				'top-end',
+				'bottom',
+				'bottom-start',
+				'bottom-end',
+				'right',
+				'right-start',
+				'right-end',
+				'left',
+				'left-start',
+				'left-end',
 			],
 			table: {
 				type: { summary: 'string' },
@@ -40,21 +48,24 @@ export default {
 			},
 		},
 		content: {
-			description: 'Content of tooltip - description of tooltip in more detail.',
+			description:
+				'Content of tooltip - description of tooltip in more detail.',
 			control: { type: 'text' },
 			table: {
 				type: { summary: 'string' },
 			},
 		},
 		arrow: {
-			description: 'Defines whether the tooltip is displayed with an arrow or not.',
+			description:
+				'Defines whether the tooltip is displayed with an arrow or not.',
 			control: { type: 'boolean' },
 			table: {
 				type: { summary: 'boolean' },
 			},
 		},
 		open: {
-			description: 'Controls the open state when controlled mode is used.',
+			description:
+				'Controls the open state when controlled mode is used.',
 			control: { type: 'boolean' },
 			table: {
 				type: { summary: 'boolean' },
@@ -69,39 +80,45 @@ export default {
 			},
 		},
 		interactive: {
-			description: 'If set to true, the tooltip is interactive and will not close when the user hovers over the tooltip.',
+			description:
+				'If set to true, the tooltip is interactive and will not close when the user hovers over the tooltip.',
 			control: { type: 'boolean' },
 			table: {
 				type: { summary: 'boolean' },
 			},
 		},
 		offset: {
-			description: 'Defines the offset of the tooltip from the target element.',
+			description:
+				'Defines the offset of the tooltip from the target element.',
 			control: { type: 'number' },
 			table: {
 				type: { summary: 'number' },
 			},
 		},
 		tooltipPortalRoot: {
-			description: "Root element where the tooltip will be rendered. It's helpful when the tooltip is rendered outside the parent container and scopped Tailwind CSS styles.",
+			description:
+				"Root element where the tooltip will be rendered. It's helpful when the tooltip is rendered outside the parent container and scopped Tailwind CSS styles.",
 			table: {
 				type: { summary: 'HTMLElement | null' },
 			},
 		},
 		tooltipPortalId: {
-			description: "Root element where the tooltip will be rendered. It's helpful when the tooltip is rendered outside the parent container and scopped Tailwind CSS styles.",
+			description:
+				"Root element where the tooltip will be rendered. It's helpful when the tooltip is rendered outside the parent container and scopped Tailwind CSS styles.",
 			table: {
 				type: { summary: 'HTMLElement | null' },
 			},
 		},
 		boundary: {
-			description: 'The element that the tooltip is positioned relative to. When provided, the tooltip will be positioned within the boundary of the element.',
+			description:
+				'The element that the tooltip is positioned relative to. When provided, the tooltip will be positioned within the boundary of the element.',
 			table: {
 				type: { summary: 'HTMLElement' },
 			},
 		},
 		strategy: {
-			description: 'Defines the positioning strategy of the tooltip. Options include: `absolute` and `fixed`. The `fixed` strategy is recommended for most use cases.',
+			description:
+				'Defines the positioning strategy of the tooltip. Options include: `absolute` and `fixed`. The `fixed` strategy is recommended for most use cases.',
 			table: {
 				type: { summary: 'string' },
 			},
@@ -136,14 +153,33 @@ DefaultTooltip.args = {
 };
 
 export const DarkTooltipWithIcon = ( args ) => (
-	<div style={ { display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '10px', justifyContent: 'center', padding: '20px' } }>
-		{ [ 'top-end', 'top', 'top-start', 'left', 'bottom', 'right' ].map( ( placement ) => (
-			<div style={ { display: 'flex', justifyContent: 'center', padding: '30px' } } key={ placement }>
-				<Tooltip key={ placement } { ...args } placement={ placement }>
-					<CircleHelp style={ { fontSize: '2rem', cursor: 'pointer' } } />
-				</Tooltip>
-			</div>
-		) ) }
+	<div
+		style={ {
+			display: 'grid',
+			gridTemplateColumns: '1fr 1fr 1fr',
+			gap: '10px',
+			justifyContent: 'center',
+			padding: '20px',
+		} }
+	>
+		{ [ 'top-end', 'top', 'top-start', 'left', 'bottom', 'right' ].map(
+			( placement ) => (
+				<div
+					style={ {
+						display: 'flex',
+						justifyContent: 'center',
+						padding: '30px',
+					} }
+					key={ placement }
+				>
+					<Tooltip key={ placement } { ...args } placement={ placement }>
+						<CircleHelp
+							style={ { fontSize: '2rem', cursor: 'pointer' } }
+						/>
+					</Tooltip>
+				</div>
+			)
+		) }
 	</div>
 );
 
@@ -156,14 +192,31 @@ DarkTooltipWithIcon.args = {
 };
 
 export const DarkTooltipWithLabel = ( args ) => (
-	<div style={ { display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: '10px', justifyContent: 'center', padding: '20px' } }>
-		{ [ 'top-end', 'top', 'top-start', 'left', 'bottom', 'right' ].map( ( placement ) => (
-			<div style={ { display: 'flex', justifyContent: 'center', padding: '30px' } } key={ placement }>
-				<Tooltip key={ placement } { ...args } placement={ placement }>
-					<Label size="md">Label</Label>
-				</Tooltip>
-			</div>
-		) ) }
+	<div
+		style={ {
+			display: 'grid',
+			gridTemplateColumns: '1fr 1fr 1fr',
+			gap: '10px',
+			justifyContent: 'center',
+			padding: '20px',
+		} }
+	>
+		{ [ 'top-end', 'top', 'top-start', 'left', 'bottom', 'right' ].map(
+			( placement ) => (
+				<div
+					style={ {
+						display: 'flex',
+						justifyContent: 'center',
+						padding: '30px',
+					} }
+					key={ placement }
+				>
+					<Tooltip key={ placement } { ...args } placement={ placement }>
+						<Label size="md">Label</Label>
+					</Tooltip>
+				</div>
+			)
+		) }
 	</div>
 );
 

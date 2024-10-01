@@ -20,20 +20,11 @@ const DefaultCloseButton = ( { className, ...props } ) => {
 };
 
 // Close button for the drawer.
-const DrawerCloseButton = ( {
-	children,
-	as: Tag = Fragment,
-	...props
-} ) => {
+const DrawerCloseButton = ( { children, as: Tag = Fragment, ...props } ) => {
 	const { handleClose } = useDrawerState();
 
 	if ( ! isValidElement( children ) || ! children ) {
-		return (
-			<DefaultCloseButton
-				onClick={ handleClose }
-				{ ...props }
-			/>
-		);
+		return <DefaultCloseButton onClick={ handleClose } { ...props } />;
 	}
 
 	if ( Tag === Fragment ) {

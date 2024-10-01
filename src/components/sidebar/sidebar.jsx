@@ -125,12 +125,12 @@ const SidebarFooter = ( { children } ) => {
 					{ isCollapsed ? (
 						<>
 							<Tooltip title="Expand" placement="right">
-								<PanelLeftOpen className="w-5 h-5" />
+								<PanelLeftOpen className="size-5" />
 							</Tooltip>
 						</>
 					) : (
 						<>
-							<PanelLeftClose className="w-5 h-5" /> Collapse
+							<PanelLeftClose className="size-5" /> Collapse
 						</>
 					) }
 				</button>
