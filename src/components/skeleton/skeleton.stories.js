@@ -20,7 +20,8 @@ export default {
 		},
 		className: {
 			name: 'Class Name',
-			description: 'Allows you to pass custom classes to control the size and styles',
+			description:
+				'Allows you to pass custom classes to control the size and styles',
 			control: 'text',
 			table: {
 				type: { summary: 'string' },

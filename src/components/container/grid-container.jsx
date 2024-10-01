@@ -13,9 +13,9 @@ import {
 	alignSelfClassNames,
 	justifySelfClassNames,
 } from './container-styles.js';
-import { getClassNames } from './container-utils.js'
+import { getClassNames } from './container-utils.js';
 
-const GridContainer = ({
+const GridContainer = ( {
 	className,
 	cols,
 	gap,
@@ -23,53 +23,25 @@ const GridContainer = ({
 	gapY,
 	align,
 	justify,
-    gridFlow = '',
+	gridFlow = '',
 	colsSubGrid = false,
-    rowsSubGrid = false,
-    autoRows = false,
-    autoCols = false,
+	rowsSubGrid = false,
+	autoRows = false,
+	autoCols = false,
 	children,
 	...props
-}) => {
-	const columnClassName = getClassNames(
-		cols,
-		gridColumnClassNames,
-		1
-	);
-	const gapClassName = getClassNames(
-		gap,
-		gapClassNames,
-		'sm'
-	);
-	const gapXClassName = getClassNames(
-		gapX,
-		gapXClassNames,
-		''
-	);
-	const gapYClassName = getClassNames(
-		gapY,
-		gapYClassNames,
-		''
-	);
-	const alignClassName = getClassNames(
-		align,
-		alignClassNames,
-		''
-	);
-	const justifyClassName = getClassNames(
-		justify,
-		justifyClassNames,
-		''
-	);
-    const gridFlowClassName = getClassNames(
-        gridFlow,
-		gridFlowClassNames,
-        ''
-    );
+} ) => {
+	const columnClassName = getClassNames( cols, gridColumnClassNames, 1 );
+	const gapClassName = getClassNames( gap, gapClassNames, 'sm' );
+	const gapXClassName = getClassNames( gapX, gapXClassNames, '' );
+	const gapYClassName = getClassNames( gapY, gapYClassNames, '' );
+	const alignClassName = getClassNames( align, alignClassNames, '' );
+	const justifyClassName = getClassNames( justify, justifyClassNames, '' );
+	const gridFlowClassName = getClassNames( gridFlow, gridFlowClassNames, '' );
 
 	return (
 		<div
-			className={cn(
+			className={ cn(
 				'grid',
 				{
 					'grid-cols-subgrid': colsSubGrid,
@@ -85,39 +57,35 @@ const GridContainer = ({
 				justifyClassName,
 				gridFlowClassName,
 				className
-			)}
-			{...props}
+			) }
+			{ ...props }
 		>
-			{children}
+			{ children }
 		</div>
 	);
 };
 
-export const GridItem = ({
+export const GridItem = ( {
 	className,
 	children,
 	colSpan,
 	colStart,
-    alignSelf,
-    justifySelf,
+	alignSelf,
+	justifySelf,
 	...props
-}) => {
-	const colSpanClassName = getClassNames(
-		colSpan,
-		gridColSpanClassNames,
-		0
-	);
+} ) => {
+	const colSpanClassName = getClassNames( colSpan, gridColSpanClassNames, 0 );
 	const colStartClassName = getClassNames(
 		colStart,
 		gridColStartClassNames,
 		0
 	);
-    const alignSelfClassName = getClassNames(
-        alignSelf,
-        alignSelfClassNames,
-        ''
-    );
-    const justifySelfClassName = getClassNames(
+	const alignSelfClassName = getClassNames(
+		alignSelf,
+		alignSelfClassNames,
+		''
+	);
+	const justifySelfClassName = getClassNames(
 		justifySelf,
 		justifySelfClassNames,
 		''
@@ -125,20 +93,20 @@ export const GridItem = ({
 
 	return (
 		<div
-			className={cn(
+			className={ cn(
 				colSpanClassName,
 				colStartClassName,
 				alignSelfClassName,
 				justifySelfClassName,
 				className
-			)}
-			{...props}
+			) }
+			{ ...props }
 		>
-			{children}
+			{ children }
 		</div>
 	);
 };
 
-Object.assign(GridContainer, { Item: GridItem });
+Object.assign( GridContainer, { Item: GridItem } );
 
 export default GridContainer;

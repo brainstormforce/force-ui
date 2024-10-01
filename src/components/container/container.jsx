@@ -19,9 +19,9 @@ import {
 } from './container-styles';
 
 const ContainerContext = createContext();
-const useContainerState = () => useContext(ContainerContext);
+const useContainerState = () => useContext( ContainerContext );
 
-const Container = (props) => {
+const Container = ( props ) => {
 	const {
 		containerType = 'flex', // flex, (grid - functionality not implemented)
 		gap = 'sm', // xs, sm, md, lg, xl, 2xl
@@ -37,23 +37,23 @@ const Container = (props) => {
 		...extraProps
 	} = props;
 
-	if (containerType === 'grid') {
+	if ( containerType === 'grid' ) {
 		const { containerType: type, ...rest } = props;
 		return (
 			<ContainerContext.Provider
-				value={{
+				value={ {
 					containerType: type,
-				}}
+				} }
 			>
-				<GridContainer {...rest} />
+				<GridContainer { ...rest } />
 			</ContainerContext.Provider>
 		);
 	}
 
-	const wrapClassName = getClassNames( wrap, flexWrapClassNames, '');
-	const gapClassName = getClassNames(gap, gapClassNames, 'sm');
-	const gapXClassName = getClassNames(gapX, gapXClassNames, '');
-	const gapYClassName = getClassNames(gapY, gapYClassNames, '');
+	const wrapClassName = getClassNames( wrap, flexWrapClassNames, '' );
+	const gapClassName = getClassNames( gap, gapClassNames, 'sm' );
+	const gapXClassName = getClassNames( gapX, gapXClassNames, '' );
+	const gapYClassName = getClassNames( gapY, gapYClassNames, '' );
 	const directionClassName = getClassNames(
 		direction,
 		flexDirectionClassNames,
@@ -64,7 +64,7 @@ const Container = (props) => {
 		justifyClassNames,
 		''
 	);
-	const alignItemsClassName = getClassNames(align, alignClassNames, '');
+	const alignItemsClassName = getClassNames( align, alignClassNames, '' );
 
 	const combinedClasses = cn(
 		'flex',
@@ -79,30 +79,30 @@ const Container = (props) => {
 	);
 
 	const renderContainerBasedOnType = () => {
-		if (containerType === 'grid') {
-			return <GridContainer {...props} />;
+		if ( containerType === 'grid' ) {
+			return <GridContainer { ...props } />;
 		}
 
 		return (
-			<div className={combinedClasses} {...extraProps}>
-				{children}
+			<div className={ combinedClasses } { ...extraProps }>
+				{ children }
 			</div>
 		);
 	};
 
 	return (
 		<ContainerContext.Provider
-			value={{
+			value={ {
 				containerType,
 				cols,
-			}}
+			} }
 		>
-			{renderContainerBasedOnType()}
+			{ renderContainerBasedOnType() }
 		</ContainerContext.Provider>
 	);
 };
 
-const Item = (props) => {
+const Item = ( props ) => {
 	const {
 		grow,
 		shrink,
@@ -115,9 +115,9 @@ const Item = (props) => {
 	} = props;
 	const { containerType, cols } = useContainerState();
 
-	if (containerType === 'grid') {
+	if ( containerType === 'grid' ) {
 		const { ...rest } = props;
-		return <GridContainer.Item {...rest} />;
+		return <GridContainer.Item { ...rest } />;
 	}
 
 	const alignSelfClassName = getClassNames(
@@ -130,14 +130,14 @@ const Item = (props) => {
 		justifySelfClassNames,
 		''
 	);
-	const growClassName = getClassNames(grow, flexGrowClassNames, 0);
-	const shrinkClassName = getClassNames(shrink, flexShrinkClassNames, 0);
-	const orderClassName = getClassNames(order, flexOrderClassNames, 0);
-	const columnClassName = getClassNames(cols, flexColumnClassNames, 1);
+	const growClassName = getClassNames( grow, flexGrowClassNames, 0 );
+	const shrinkClassName = getClassNames( shrink, flexShrinkClassNames, 0 );
+	const orderClassName = getClassNames( order, flexOrderClassNames, 0 );
+	const columnClassName = getClassNames( cols, flexColumnClassNames, 1 );
 
 	return (
 		<div
-			className={cn(
+			className={ cn(
 				'box-border',
 				growClassName,
 				shrinkClassName,
@@ -146,10 +146,10 @@ const Item = (props) => {
 				justifySelfClassName,
 				columnClassName,
 				className
-			)}
-			{...extraProps}
+			) }
+			{ ...extraProps }
 		>
-			{children}
+			{ children }
 		</div>
 	);
 };
