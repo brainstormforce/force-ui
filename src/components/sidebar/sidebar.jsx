@@ -125,7 +125,7 @@ const SidebarFooter = ( { children } ) => {
 						</>
 					) : (
 						<>
-							<PanelLeftClose className="w-5 h-5" /> Collapse
+							<PanelLeftClose className="size-5" /> Collapse
 						</>
 					) }
 				</button>
