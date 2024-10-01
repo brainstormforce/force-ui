@@ -156,4 +156,7 @@ const Item = ( props ) => {
 
 Container.Item = Item;
 
+Container.displayName = 'Container';
+Container.Item.displayName = 'Container.Item';
+
 export default Container;
