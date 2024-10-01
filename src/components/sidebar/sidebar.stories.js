@@ -2,7 +2,7 @@ import { Sidebar, SidebarHeader, SidebarBody, SidebarFooter, SidebarItem } from 
 import Button from '../button';
 
 export default {
-	title: 'Organism/Sidebar',
+	title: 'Organisms/Sidebar',
 	component: Sidebar,
 	parameters: {
 		layout: 'left',
