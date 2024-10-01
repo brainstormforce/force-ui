@@ -37,13 +37,10 @@ import {
 } from './grid-container-styles.js';
 
 const getClassNames = (valueKeys, classNames, defaultValueKeys, defaultScreenSize = 'sm') => {
-	if (!valueKeys) {
-		return;
-	}
 	const classNamesArray = [];
 
 	switch (typeof valueKeys) {
-		case 'object': {
+		case 'object': 
 			for (const [screenSize, valueKey] of Object.entries(valueKeys)) {
 				if (classNames[screenSize]) {
 					classNamesArray.push(
@@ -55,9 +52,9 @@ const getClassNames = (valueKeys, classNames, defaultValueKeys, defaultScreenSiz
 					);
 				}
 			}
-		}
+			break;
         case 'string':
-        case 'number': {
+        case 'number':
 			const screenSize = defaultScreenSize;
 			classNamesArray.push(
 				classNames?.[screenSize]?.[valueKeys] ??
@@ -66,16 +63,12 @@ const getClassNames = (valueKeys, classNames, defaultValueKeys, defaultScreenSiz
 					] ??
 					''
 			);
-		}
-		default: {
-            classNamesArray.push(
-                classNames?.[defaultScreenSize]?.[valueKeys] ??
-                classNames?.[defaultScreenSize]?.[
-                    defaultValueKeys?.[defaultScreenSize]
-                ] ??
-                ''
-            );
-        }
+			break
+		default:
+			classNamesArray.push(
+				classNames?.[defaultScreenSize]?.[defaultValueKeys] ?? ''
+			);
+			break;
 	}
 
 	return classNamesArray.join(' ');
