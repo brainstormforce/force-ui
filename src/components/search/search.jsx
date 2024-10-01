@@ -12,7 +12,7 @@ const SearchBox = ( props ) => {
 		variant = 'primary', // primary, secondary, ghost
 		disabled = false,
 		size = 'sm', // sm, md, lg
-		loading = true,
+		loading = false,
 		loadingIcon = <Loader />, // Default loading icon
 		searchResult = [],
 		additionalResult = [],
