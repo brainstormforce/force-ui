@@ -34,5 +34,5 @@ module.exports = {
 	},
 	globals: {
 		localStorage: 'readonly',
-	  },
+	},
 };

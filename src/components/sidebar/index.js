@@ -1,1 +1,1 @@
-export { Sidebar, SidebarHeader, SidebarBody, SidebarFooter, SidebarItem } from './sidebar.jsx';
+export { default } from './sidebar.jsx';
