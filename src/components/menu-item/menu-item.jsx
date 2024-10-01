@@ -73,6 +73,7 @@ const MenuList = ( {
 				aria-expanded={ isOpen }
 			>
 				<span className="text-text-tertiary">{ heading }</span>
+
 				{ arrow && (
 					<motion.span
 						variants={ arrowAnimationVariants }
