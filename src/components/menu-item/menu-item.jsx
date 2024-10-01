@@ -9,19 +9,16 @@ const useMenuContext = () => useContext( MenuContext );
 const Menu = ( { size = 'md', children, className } ) => {
 	const baseClasses = 'flex flex-col bg-background-primary p-2';
 
-	const sizeClasses = {
-		sm: 'w-[200px]',
-		md: 'w-60',
-	}?.[ size ];
-
 	return (
 		<MenuContext.Provider value={ { size } }>
-			<div className={ cn( baseClasses, sizeClasses, className ) }>
+			<div className={ cn( baseClasses, className ) }>
 				{ children }
 			</div>
 		</MenuContext.Provider>
 	);
 };
+
+Menu.displayName = 'Menu';
 
 const MenuList = ( {
 	heading,
@@ -107,6 +104,8 @@ const MenuList = ( {
 	);
 };
 
+MenuList.displayName = 'Menu.List';
+
 const MenuItem = ( { disabled = false, active, onClick, children, className } ) => {
 	const { size } = useMenuContext();
 
@@ -137,6 +136,8 @@ const MenuItem = ( { disabled = false, active, onClick, children, className } ) 
 	);
 };
 
+MenuItem.displayName = 'Menu.Item';
+
 const MenuSeparator = ( { variant = 'solid', className } ) => {
 	const variantClasses = {
 		solid: 'border-solid',
@@ -156,8 +157,10 @@ const MenuSeparator = ( { variant = 'solid', className } ) => {
 	);
 };
 
-Menu.List = MenuList;
-Menu.Item = MenuItem;
-Menu.Separator = MenuSeparator;
+MenuSeparator.displayName = 'Menu.Separator';
 
-export default Menu;
+export default Object.assign(Menu, {
+    List: MenuList,
+    Item: MenuItem,
+    Separator: MenuSeparator,
+});

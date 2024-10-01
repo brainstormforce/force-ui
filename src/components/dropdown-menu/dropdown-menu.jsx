@@ -64,10 +64,13 @@ const DropdownMenu = ( {
 				className="cursor-pointer"
 			>
 				{ React.Children.map( children, ( child ) => {
-					if ( child.type === DropdownMenu.Trigger ) {
+                    if (child.type === DropdownMenu.Trigger ) {
 						return React.cloneElement( child );
-					}
-					return null;
+					} 
+                    if (child.type !== DropdownMenu.Trigger && child.type !== DropdownMenu.Content) {
+                        console.error("Error: DropdownMenu only accepts children of type DropdownMenu.Trigger or DropdownMenu.Content." );
+                        return null;
+                    } 
 				} ) }
 			</div>
 
@@ -80,13 +83,15 @@ const DropdownMenu = ( {
 							...styles,
 						} }
 						{ ...getFloatingProps() }
-						className="z-20"
 					>
 						{ React.Children.map( children, ( child ) => {
-							if ( child.type === DropdownMenu.Content ) {
+                            if (child.type === DropdownMenu.Content ) {
 								return React.cloneElement( child );
 							}
-							return null;
+                            if (child.type !== DropdownMenu.Trigger && child.type !== DropdownMenu.Content) {
+                                console.error("Error: DropdownMenu only accepts children of type DropdownMenu.Trigger or DropdownMenu.Content.");
+                                return null;
+                            } 
 						} ) }
 					</div>
 				</FloatingPortal>
@@ -95,11 +100,16 @@ const DropdownMenu = ( {
 	);
 };
 
+DropdownMenu.displayName = 'DropdownMenu';
+
 const DropdownMenuTrigger = React.forwardRef( ( { children, className }, ref ) => (
 	<div ref={ ref } className={ className }>
 		{ children }
 	</div>
 ) );
+
+DropdownMenuTrigger.displayName = 'DropdownMenu.Trigger';
+
 
 const DropdownMenuContent = ( { children, className } ) => {
 	return (
@@ -109,7 +119,9 @@ const DropdownMenuContent = ( { children, className } ) => {
 	);
 };
 
-DropdownMenu.Trigger = DropdownMenuTrigger;
-DropdownMenu.Content = DropdownMenuContent;
+DropdownMenuContent.displayName = 'DropdownMenu.Content';
 
-export default DropdownMenu;
+export default Object.assign(DropdownMenu, {
+    Trigger: DropdownMenuTrigger,
+    Content: DropdownMenuContent,
+});

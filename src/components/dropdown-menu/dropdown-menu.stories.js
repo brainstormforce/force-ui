@@ -4,14 +4,6 @@ import Menu from '../menu-item/menu-item.jsx';
 import Button from '../button/button.jsx';
 import { House } from 'lucide-react';
 
-DropdownMenu.displayName = 'DropdownMenu';
-DropdownMenu.Trigger.displayName = 'DropdownMenu.Trigger';
-DropdownMenu.Content.displayName = 'DropdownMenu.Content';
-
-Menu.displayName = 'Menu';
-Menu.List.displayName = 'Menu.List';
-Menu.Item.displayName = 'Menu.Item';
-
 export default {
 	title: 'Molecules/DropdownMenu',
 	component: DropdownMenu,
@@ -67,7 +59,7 @@ export const ButtonTrigger = ( args ) => (
 			<Button>Dropdown</Button>
 		</DropdownMenu.Trigger>
 		<DropdownMenu.Content>
-			<Menu>
+			<Menu className='w-60'>
 				<Menu.List>
 					<Menu.Item>Menu Item 1</Menu.Item>
 					<Menu.Item>Menu Item 2</Menu.Item>
@@ -85,14 +77,15 @@ export const AvatarTrigger = ( args ) => (
 		placement="bottom-start"
 	>
 		<DropdownMenu.Trigger>
-			<Avatar>JD</Avatar>
+			<Avatar>John</Avatar>
 		</DropdownMenu.Trigger>
-		<DropdownMenu.Content>
-			<Menu>
+		<DropdownMenu.Content className='w-60'>
+			<Menu className='w-60'>
 				<Menu.List>
 					<Menu.Item>Menu Item 1</Menu.Item>
 					<Menu.Item>Menu Item 2</Menu.Item>
 					<Menu.Item>Menu Item 3</Menu.Item>
+                    <Menu.Separator />
 					<Menu.Item>Menu Item 4</Menu.Item>
 					<Menu.Item>Menu Item 5</Menu.Item>
 				</Menu.List>
@@ -108,8 +101,8 @@ export const IconTrigger = ( args ) => (
 		<DropdownMenu.Trigger>
 			<House />
 		</DropdownMenu.Trigger>
-		<DropdownMenu.Content>
-			<Menu>
+		<DropdownMenu.Content className='w-60'>
+			<Menu className='w-60'>
 				<Menu.List>
 					<Menu.Item>Menu Item 1</Menu.Item>
 					<Menu.Item>Menu Item 2</Menu.Item>
