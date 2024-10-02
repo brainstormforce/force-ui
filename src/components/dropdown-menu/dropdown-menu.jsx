@@ -14,36 +14,42 @@ import {
 } from '@floating-ui/react';
 import { callAll, cn } from '@/utilities/functions';
 
-const isMenuItem = (child) => {
-    return child.type?.displayName === 'Menu.Item';
-}
+const isMenuItem = ( child ) => {
+	return child.type?.displayName === 'Menu.Item';
+};
 
-const attachMenuItemClickHandler = (children, handleClose) => {
-    return React.Children.map(children, (child) => {
-        if (React.isValidElement(child)) {
-            return cloneElement(child, {
-                children: React.Children.map(child.props.children, (child1) => {
-                    if (React.isValidElement(child1)) {
-                        return cloneElement(child1, {
-                            children: React.Children.map(child.props.children.props.children, (child2) => {
-                                if (React.isValidElement(child2)) {
-                                    if (isMenuItem(child2)) {
-                                        return cloneElement(child2, {
-                                            onClick: callAll(handleClose, child2.props.onClick),
-                                        })
-                                    }
-                                }
-                                return child2;
-                            })
-                        }) 
-                    }
-                    return child1;
-                })
-            })
-        }
-        return child;
-    });
-}
+const attachMenuItemClickHandler = ( children, handleClose ) => {
+	return React.Children.map( children, ( child ) => {
+		if ( React.isValidElement( child ) ) {
+			return cloneElement( child, {
+				children: React.Children.map( child.props.children, ( child1 ) => {
+					if ( React.isValidElement( child1 ) ) {
+						return cloneElement( child1, {
+							children: React.Children.map(
+								child.props.children.props.children,
+								( child2 ) => {
+									if ( React.isValidElement( child2 ) ) {
+										if ( isMenuItem( child2 ) ) {
+											return cloneElement( child2, {
+												onClick: callAll(
+													handleClose,
+													child2.props.onClick
+												),
+											} );
+										}
+									}
+									return child2;
+								}
+							),
+						} );
+					}
+					return child1;
+				} ),
+			} );
+		}
+		return child;
+	} );
+};
 
 const DropdownMenu = ( {
 	placement = 'bottom',
@@ -101,7 +107,7 @@ const DropdownMenu = ( {
 				className="cursor-pointer"
 			>
 				{ React.Children.map( children, ( child ) => {
-                    if (child.type?.displayName === 'DropdownMenu.Trigger' ) {
+					if ( child.type?.displayName === 'DropdownMenu.Trigger' ) {
 						return child;
 					}
 					return null;
@@ -119,10 +125,16 @@ const DropdownMenu = ( {
 						{ ...getFloatingProps() }
 					>
 						{ React.Children.map( children, ( child ) => {
-                            if (child.type?.displayName === 'DropdownMenu.Content' ) {
-                                return React.cloneElement(child, {
-                                    children: attachMenuItemClickHandler(child.props.children, handleClose)
-                                });
+							if (
+								child.type?.displayName ===
+								'DropdownMenu.Content'
+							) {
+								return React.cloneElement( child, {
+									children: attachMenuItemClickHandler(
+										child.props.children,
+										handleClose
+									),
+								} );
 							}
 							return null;
 						} ) }
