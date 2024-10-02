@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { cloneElement, useState } from 'react';
 import {
 	useFloating,
 	autoUpdate,
@@ -12,7 +12,38 @@ import {
 	useInteractions,
 	useTransitionStyles,
 } from '@floating-ui/react';
-import { cn } from '@/utilities/functions';
+import { callAll, cn } from '@/utilities/functions';
+
+const isMenuItem = (child) => {
+    return child.type?.displayName === 'Menu.Item';
+}
+
+const attachMenuItemClickHandler = (children, handleClose) => {
+    return React.Children.map(children, (child) => {
+        if (React.isValidElement(child)) {
+            return cloneElement(child, {
+                children: React.Children.map(child.props.children, (child1) => {
+                    if (React.isValidElement(child1)) {
+                        return cloneElement(child1, {
+                            children: React.Children.map(child.props.children.props.children, (child2) => {
+                                if (React.isValidElement(child2)) {
+                                    if (isMenuItem(child2)) {
+                                        return cloneElement(child2, {
+                                            onClick: callAll(handleClose, child2.props.onClick),
+                                        })
+                                    }
+                                }
+                                return child2;
+                            })
+                        }) 
+                    }
+                    return child1;
+                })
+            })
+        }
+        return child;
+    });
+}
 
 const DropdownMenu = ( {
 	placement = 'bottom',
@@ -70,8 +101,8 @@ const DropdownMenu = ( {
 				className="cursor-pointer"
 			>
 				{ React.Children.map( children, ( child ) => {
-					if ( child.type === DropdownMenu.Trigger ) {
-						return React.cloneElement( child );
+                    if (child.type?.displayName === 'DropdownMenu.Trigger' ) {
+						return child;
 					}
 					return null;
 				} ) }
@@ -88,10 +119,10 @@ const DropdownMenu = ( {
 						{ ...getFloatingProps() }
 					>
 						{ React.Children.map( children, ( child ) => {
-							if ( child.type === DropdownMenu.Content ) {
-								return React.cloneElement( child, {
-									onClick: handleClose,
-								} );
+                            if (child.type?.displayName === 'DropdownMenu.Content' ) {
+                                return React.cloneElement(child, {
+                                    children: attachMenuItemClickHandler(child.props.children, handleClose)
+                                });
 							}
 							return null;
 						} ) }
@@ -112,12 +143,11 @@ const DropdownMenuTrigger = React.forwardRef( ( { children, className }, ref ) =
 
 DropdownMenuTrigger.displayName = 'DropdownMenu.Trigger';
 
-const DropdownMenuContent = ( { children, onClick, className } ) => {
+const DropdownMenuContent = ( { children, className } ) => {
 	return (
 		<div
 			role="menu"
 			tabIndex={ 0 }
-			onClick={ onClick }
 			className={ cn(
 				'border border-solid border-border-subtle rounded-md shadow-lg overflow-hidden',
 				className

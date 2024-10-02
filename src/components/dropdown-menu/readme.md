@@ -23,9 +23,10 @@ The `DropdownMenu` component provides a dropdown interface for navigation or int
 - **Description:** Controls the distance between the trigger element and the dropdown content.
 
 ### `boundary`
-- **Type:** `string`
+- **Type:** `HTMLElement`
 - **Default:** `"clippingAncestors"`
 - **Description:** The element that the DropdownMenu is positioned relative to. When provided, the DropdownMenu will be positioned within the boundary of the element.
+- **Example:** `boundary={document.getElementById('boundary')}`
 
 ### `dropdownPortalRoot`
 - **Type:** `HTMLElement | null`
@@ -41,6 +42,7 @@ The `DropdownMenu` component provides a dropdown interface for navigation or int
 - **Type:** `ReactNode`
 - **Description:** Accepts the `DropdownMenu.Trigger`, `DropdownMenu.Content`, or any other custom components to be rendered within the dropdown.
 
+### `className`
 - **Type:** `string`
 - **Description:** Additional custom class names to style the DropdownMenu container.
 
@@ -50,6 +52,7 @@ The `DropdownMenu` component provides a dropdown interface for navigation or int
 - **Type:** `ReactNode`
 - **Description:** The trigger element that displays the dropdown when clicked, such as a button or an avatar.
 
+### `className`
 - **Type:** `string`
 - **Description:** Additional custom class names to style the DropdownMenu.Trigger.
 
@@ -59,6 +62,7 @@ The `DropdownMenu` component provides a dropdown interface for navigation or int
 - **Type:** `ReactNode`
 - **Description:** The content of the dropdown, which can include menu items, buttons, icons, or any other custom elements.
 
+### `className`
 - **Type:** `string`
 - **Description:** Additional custom class names to style the DropdownMenu.Content.
 
