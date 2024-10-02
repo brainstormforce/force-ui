@@ -50,3 +50,11 @@ export const columnClasses = {
 	11: 'grid-cols-11',
 	12: 'grid-cols-12',
 };
+
+// Utility function to convert bytes to a more readable format
+export const formatFileSize = (size) => {
+	if (size < 1024) return `${size} bytes`;
+	if (size < 1024 * 1024) return `${(size / 1024).toFixed(2)} KB`;
+	if (size < 1024 * 1024 * 1024) return `${(size / (1024 * 1024)).toFixed(2)} MB`;
+	return `${(size / (1024 * 1024 * 1024)).toFixed(2)} GB`; // Format size to GB
+};
