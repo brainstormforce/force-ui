@@ -122,7 +122,8 @@ export default {
 			},
 		},
 		borderOn: {
-			description: '`RadioButton.Button` : Adds a border around the button.',
+			description:
+				'`RadioButton.Button` : Adds a border around the button.',
 			control: 'boolean',
 			table: {
 				type: { summary: 'boolean' },
@@ -146,7 +147,8 @@ export default {
 			defaultValue: null,
 		},
 		inlineIcon: {
-			description: '`RadioButton.Button` : Positions icon inline to the label.',
+			description:
+				'`RadioButton.Button` : Positions icon inline to the label.',
 			control: 'boolean',
 			table: {
 				type: { summary: 'boolean' },
@@ -154,7 +156,8 @@ export default {
 			},
 		},
 		hideSelection: {
-			description: '`RadioButton.Button` : Positions icon inline to the label.',
+			description:
+				'`RadioButton.Button` : Positions icon inline to the label.',
 			control: 'boolean',
 			table: {
 				type: { summary: 'boolean' },
@@ -162,7 +165,8 @@ export default {
 			},
 		},
 		reversePosition: {
-			description: '`RadioButton.Button` : Positions icon inline to the label.',
+			description:
+				'`RadioButton.Button` : Positions icon inline to the label.',
 			control: 'boolean',
 			table: {
 				type: { summary: 'boolean' },

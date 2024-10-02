@@ -112,5 +112,5 @@ export default Object.assign( Breadcrumb, {
 	Link: BreadcrumbLink,
 	Separator: BreadcrumbSeparator,
 	Ellipsis: BreadcrumbEllipsis,
-	Page: BreadcrumbPage
+	Page: BreadcrumbPage,
 } );
