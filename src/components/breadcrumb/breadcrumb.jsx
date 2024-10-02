@@ -30,14 +30,17 @@ const Breadcrumb = ( { children, size = 'sm' } ) => {
 		</BreadcrumbContext.Provider>
 	);
 };
+Breadcrumb.displayName = 'Breadcrumb';
 
 const BreadcrumbList = ( { children } ) => {
 	return <>{ children }</>;
 };
+BreadcrumbList.displayName = 'Breadcrumb.List';
 
 const BreadcrumbItem = ( { children } ) => {
 	return <li className="m-0 inline-flex items-center gap-2">{ children }</li>;
 };
+BreadcrumbItem.displayName = 'Breadcrumb.Item';
 
 const BreadcrumbLink = ( {
 	href,
@@ -63,6 +66,7 @@ const BreadcrumbLink = ( {
 		</AsElement>
 	);
 };
+BreadcrumbLink.displayName = 'Breadcrumb.Link';
 
 const BreadcrumbSeparator = ( { type } ) => {
 	const { sizes } = useContext( BreadcrumbContext );
@@ -77,6 +81,7 @@ const BreadcrumbSeparator = ( { type } ) => {
 		</span>
 	);
 };
+BreadcrumbSeparator.displayName = 'Breadcrumb.Separator';
 
 const BreadcrumbEllipsis = () => {
 	const { sizes } = useContext( BreadcrumbContext );
@@ -88,6 +93,7 @@ const BreadcrumbEllipsis = () => {
 		/>
 	);
 };
+BreadcrumbEllipsis.displayName = 'Breadcrumb.Ellipsis';
 
 const BreadcrumbPage = ( { children } ) => {
 	const { sizes } = useContext( BreadcrumbContext );
@@ -98,13 +104,13 @@ const BreadcrumbPage = ( { children } ) => {
 		</span>
 	);
 };
+BreadcrumbPage.displayName = 'Breadcrumb.Page';
 
-export {
-	Breadcrumb,
-	BreadcrumbList,
-	BreadcrumbItem,
-	BreadcrumbLink,
-	BreadcrumbSeparator,
-	BreadcrumbEllipsis,
-	BreadcrumbPage,
-};
+export default Object.assign( Breadcrumb, {
+	List: BreadcrumbList,
+	Item: BreadcrumbItem,
+	Link: BreadcrumbLink,
+	Separator: BreadcrumbSeparator,
+	Ellipsis: BreadcrumbEllipsis,
+	Page: BreadcrumbPage
+} );

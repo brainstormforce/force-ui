@@ -140,6 +140,7 @@ const RadioButtonGroup = ( {
 		</>
 	);
 };
+RadioButtonGroup.displayName = 'RadioButton.Group';
 
 const RadioButtonComponent = (
 	{
@@ -363,7 +364,7 @@ const RadioButtonComponent = (
 	);
 };
 const RadioButton = forwardRef( RadioButtonComponent );
-RadioButton.displayName = 'RadioButton';
+RadioButton.displayName = 'RadioButton.Button';
 
 const ButtonGroupItem = ( {
 	id,
@@ -454,4 +455,7 @@ const ButtonGroupItem = ( {
 	);
 };
 
-export { RadioButtonGroup, RadioButton };
+export default Object.assign( RadioButton, {
+	Group: RadioButtonGroup,
+	Button: RadioButton,
+} );
