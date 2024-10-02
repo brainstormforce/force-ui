@@ -1,172 +1,176 @@
+import { useState, forwardRef, useRef, createContext, useContext } from 'react';
 import { cn } from '@/utilities/functions';
 import { File, Folder, Search, SquareSlash } from 'lucide-react';
-import { useState, useEffect } from 'react';
 import { Label } from '..';
 import Loader from '../loader';
+import {
+	textSizeClassNames,
+	variantClassNames,
+	hoverClassNames,
+	focusClassNames,
+	disabledClassNames,
+	baseClassNames,
+	inputPaddingClassNames,
+	IconClasses,
+	sizeClassNames
+} from './styles';
+// Create a context for size
+const SizeContext = createContext();
 
-const SearchBox = ( props ) => {
-	const {
-		onChange = () => { },
-		handleResultClick = () => { },
-		placeholder = 'Search',
-		variant = 'primary', // primary, secondary, ghost
-		disabled = false,
-		size = 'sm', // sm, md, lg
-		loading = false,
-		loadingIcon = <Loader />, // Default loading icon
-		searchResult = [],
-		additionalResult = [],
-		searchResultIcon = <File />,
-		additionalResultLabel = 'Category',
-		additionalResultIcon = <Folder />,
-		className,
-		children,
-	} = props;
+const useSize = () => {
+	return useContext(SizeContext);
+};
 
-	const [ isOpen, setIsOpen ] = useState( false );
+// Update your SearchBox component to use this context
+const SearchBox = forwardRef(({ className, size = 'sm', ...props }, ref) => {
+	return (
+		<SizeContext.Provider value={size}>
+			<div className={cn('searchbox-wrapper relative w-full', className)}
+				{...props} ref={ref} />
+		</SizeContext.Provider>
+	);
+});
+SearchBox.displayName = 'SearchBox';
+const SearchBoxInput = forwardRef(({
+	className,
+	type = "search",
+	placeholder = 'Search',
+	variant = 'primary',
+	disabled = false,
+	value,
+	defaultValue,
+	onChange,
+	...props
+}, ref) => {
+	const [internalValue, setInternalValue] = useState(defaultValue || '');
+	const isControlled = useRef(value !== undefined);
+	const size = useSize();
 
-	// Close dropdown on click outside
-	useEffect( () => {
-		const handleClickOutside = ( event ) => {
-			if ( ! event.target.closest( '.searchbox-wrapper' ) ) {
-				setIsOpen( false );
-			}
-		};
-		document.addEventListener( 'mousedown', handleClickOutside );
-		return () => {
-			document.removeEventListener( 'mousedown', handleClickOutside );
-		};
-	}, [] );
-
-	const commonClass = 'relative w-full focus-within:z-10';
-	const baseClasses = 'font-normal placeholder-text-tertiary text-text-secondary w-full focus:outline-none';
-
-	const sizeClasses = {
-		sm: 'p-1 rounded-md text-xs [&>svg]:h-4 [&>svg]:w-4',
-		md: 'p-1.5 rounded-md text-sm [&>svg]:h-5 [&>svg]:w-5',
-		lg: 'p-2 rounded-lg text-base [&>svg]:h-6 [&>svg]:w-6',
-	}[ size ];
-
-	const inputPaddingClasses = {
-		xs: 'pl-8',
-		sm: 'pl-8',
-		md: 'pl-10',
-		lg: 'pl-12',
-	}[ size ];
-
-	const variantClasses = {
-		primary: 'border border-solid border-border-subtle bg-field-primary-background',
-		secondary: 'border border-solid border-border-subtle bg-field-secondary-background',
-		ghost: 'text-text-secondary bg-transparent border border-transparent',
-	}[ variant ];
-
-	const hoverClasses = disabled
-		? 'hover:border-border-disabled'
-		: 'hover:border-border-strong text-text-primary';
-	const focusClasses = 'focus:border-focus-border focus:ring-2 focus:ring-toggle-on focus:ring-offset-2';
-	const iconClasses = 'pointer-events-none absolute inset-y-0 flex flex-1 items-center';
-
-	const disabledClasses = disabled
-		? 'border-border-disabled bg-field-background-disabled cursor-not-allowed text-text-disabled'
-		: '';
-
-	const handleSearchChange = ( e ) => {
-		setIsOpen( true );
-		onChange( e.target.value );
+	const handleChange = (event) => {
+		const newValue = event.target.value;
+		if (!isControlled.current) {
+			setInternalValue(newValue);
+		}
+		onChange?.(newValue, event);
 	};
+
+	const inputValue = isControlled.current ? value : internalValue;
+
+	return (
+		<div className={cn("w-full no-clear-button group relative flex justify-center items-center gap-1 focus-within:z-10",
+			baseClassNames,
+			variantClassNames[variant],
+			sizeClassNames[size],
+			textSizeClassNames[size],
+			disabled ? hoverClassNames.disabled : hoverClassNames.enabled,
+			disabled ? disabledClassNames : "",
+			focusClassNames,)
+		}>
+			<span className={cn(textSizeClassNames[size], "flex justify-center items-center")}>
+				<Search />
+			</span>
+			<input
+				type={type}
+				ref={ref}
+				className={cn(
+					// baseClasses,
+					// variantClasses,
+					// disabledClasses,
+					// sizeClasses,
+					// inputPaddingClasses,
+					// focusClasses,
+					// hoverClasses,
+					// inputPaddingClassNames[size],
+					textSizeClassNames[size],
+					'flex-grow bg-transparent border-none outline-none border-transparent focus:ring-0',
+					className
+				)}
+				disabled={disabled}
+				value={inputValue}
+				onChange={handleChange}
+				placeholder={placeholder}
+				{...props}
+			/>
+			<span className={cn(textSizeClassNames[size], "flex justify-center items-center")}>
+				<SquareSlash className='bg-field-secondary-background rounded-md' />
+			</span>
+		</div >
+	);
+});
+SearchBoxInput.displayName = 'SearchBoxInput';
+
+const SearchBoxContent = forwardRef(({ className, ...props }, ref) => (
+	<div
+		ref={ref}
+		className={cn(
+			'absolute bg-background-primary rounded-md p-2 mt-2 w-full left-0 z-50 border-border-strong shadow-lg max-h-60 overflow-y-auto',
+			className
+		)}
+		{...props}
+	/>
+));
+SearchBoxContent.displayName = 'SearchBoxContent';
+
+const SearchBoxLoading = ({ loadingIcon = <Loader /> }) => (
+	<div className="justify-center p-4">
+		{loadingIcon}
+	</div>
+);
+
+const SearchBoxResults = forwardRef(({ className, children, ...props }, ref) => (
+	<div ref={ref} className={cn('space-y-1', className)} {...props}>
+		{children}
+	</div>
+));
+SearchBoxResults.displayName = 'SearchBoxResults';
+
+const SearchBoxResultTitle = forwardRef(({ className, children, ...props }, ref) => {
+	const size = useSize();
 
 	return (
 		<div
-			className={ cn(
-				'searchbox-wrapper', // Unique class for outside click detection
-				commonClass,
-				sizeClasses,
+			ref={ref}
+			className={cn(
+				'flex p-1',
 				className
-			) }
+			)}
+			{...props}
 		>
-			<div className={ cn( 'w-full no-clear-button group relative flex focus-within:z-10' ) }>
-				<span className={ cn( iconClasses, sizeClasses, 'left-0 z-20 text-gray-500 group-hover:text-text-primary' ) }>
-					<Search />
-				</span>
-				<input
-					type="search"
-					placeholder={ placeholder }
-					className={ cn(
-						baseClasses,
-						variantClasses,
-						disabledClasses,
-						sizeClasses,
-						inputPaddingClasses,
-						focusClasses,
-						hoverClasses,
-						variant === 'ghost' && 'hover:border-transparent',
-						'no-clear-button' // Custom tailwind to remove default clear icon in search input
-					) }
-					disabled={ disabled }
-					onChange={ handleSearchChange }
-				/>
-				<span className={ cn( iconClasses, sizeClasses, 'bg-field-secondary-background right-0 m-0.5 z-20 text-gray-500 group-hover:text-text-primary' ) }>
-					<SquareSlash />
-				</span>
-			</div>
-			{ isOpen && (
-				<div
-					className={ cn(
-						'absolute bg-background-primary rounded-md p-2 mt-2 w-full left-0 z-50 border-border-strong shadow-lg max-h-60 overflow-y-auto',
-						sizeClasses
-					) }
-				>
-					{ loading ? (
-						<div className="justify-center p-4">
-							{ loadingIcon }
-						</div>
-					) : (
-						<>
-							{ /* Search results */ }
-							<Label className={ cn( sizeClasses ) }>Results</Label>
-							{ searchResult.length > 0 ? (
-								searchResult.map( ( item, index ) => (
-									<div
-										key={ index }
-										className={ cn( 'flex items-center gap-1 p-1 text-gray-500 hover:bg-gray-200 cursor-pointer', sizeClasses ) }
-										onClick={ handleResultClick }
-									>
-										{ searchResultIcon }
-										<Label className={ cn( sizeClasses, 'w-full' ) }>{ item }</Label>
-									</div>
-								) )
-							) : (
-								<div className={ cn( sizeClasses, 'text-text-secondary text-center' ) }>
-									No Results found
-								</div>
-							) }
-							{ /* Additional categories */ }
-							{ ( additionalResultLabel ) && (
-								<>
-									<hr className="w-full text-text-tertiary" />
-									<Label className={ cn( sizeClasses ) }>{ additionalResultLabel }</Label>
-									{ ( additionalResult.length > 0 ) ? ( additionalResult.map( ( item, index ) => (
-										<div
-											key={ index }
-											className={ cn( 'flex items-center gap-1 p-1 hover:bg-gray-200 cursor-pointer', sizeClasses ) }
-											onClick={ handleResultClick }
-										>
-											{ additionalResultIcon }
-											<Label className={ cn( sizeClasses ) }>{ item }</Label>
-										</div>
-									) ) )
-										: ( <div className={ cn( sizeClasses, 'text-text-secondary text-center' ) }>
-											No { additionalResultLabel } found
-										</div> ) }
-								</>
-							) }
-						</>
-					) }
-				</div>
-			) }
-			{ children }
+			<Label className={cn("w-full text-text-secondary")}>{children}</Label>
 		</div>
-	);
-};
+	)
+});
+SearchBoxResultTitle.displayName = 'SearchBoxResultTitle';
 
-export default SearchBox;
+const SearchBoxResultItem = forwardRef(({ className, children, icon, ...props }, ref) => {
+	const size = useSize();
+	return (<div
+		ref={ref}
+		className={cn(
+			'flex items-center gap-1 p-1 hover:bg-gray-200 cursor-pointer',
+			textSizeClassNames[size],
+			className
+		)}
+		{...props}
+	>
+		{icon}
+		<Label className={cn("w-full text-text-secondary")}>{children}</Label>
+	</div>)
+});
+SearchBoxResultItem.displayName = 'SearchBoxResultItem';
+
+const SearchBoxSeparator = forwardRef(({ className, ...props }, ref) => (
+	<hr ref={ref} className={cn('w-full text-text-tertiary', className)} {...props} />
+));
+SearchBoxSeparator.displayName = 'SearchBoxSeparator';
+
+export {
+	SearchBox,
+	SearchBoxInput,
+	SearchBoxContent,
+	SearchBoxLoading,
+	SearchBoxResults,
+	SearchBoxResultTitle,
+	SearchBoxResultItem,
+	SearchBoxSeparator,
+};
