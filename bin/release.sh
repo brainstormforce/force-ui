@@ -18,7 +18,7 @@ if [[ -d "$BUILD_DIR" ]]; then
 fi
 
 COMMIT=$(git rev-parse HEAD)
-VERSION=$(grep 'Version: ' $PWD/ai-builder.php | grep -oEi '[0-9\.a-z\+-]+$')
+VERSION=$(grep '"force-ui": " ' $PWD/version.json | grep -oEi '[0-9\.a-z\+-]+$"')
 
 # Check if the tag exists in the remote GitHub repository.
 TAG_EXISTS=$(git ls-remote --tags origin | grep -c "refs/tags/$VERSION")
