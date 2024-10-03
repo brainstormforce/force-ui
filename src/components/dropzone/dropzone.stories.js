@@ -35,13 +35,10 @@ export default {
 			description: 'Disable the dropzone component',
 			defaultValue: false,
 		},
-		
 	},
 };
 
-const Template = ( args ) => (
-	<Dropzone {...args} />
-);
+const Template = ( args ) => <Dropzone { ...args } />;
 
 export const Basic = Template.bind( {} );
 Basic.args = {};
