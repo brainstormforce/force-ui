@@ -10,10 +10,9 @@ import {
 	focusClassNames,
 	disabledClassNames,
 	baseClassNames,
-	inputPaddingClassNames,
-	IconClasses,
 	sizeClassNames
 } from './styles';
+import { autoUpdate, useFloating } from '@floating-ui/react';
 // Create a context for size
 const SizeContext = createContext();
 
@@ -22,9 +21,12 @@ const useSize = () => {
 };
 
 // Update your SearchBox component to use this context
-const SearchBox = forwardRef(({ className, size = 'sm', ...props }, ref) => {
+const SearchBox = forwardRef(({ className, size = 'sm', open = false, onOpenChange = () => { }, ...props }, ref) => {
+	const { refs, floatingStyles } = useFloating({
+		whileElementsMounted: autoUpdate,
+	});
 	return (
-		<SizeContext.Provider value={size}>
+		<SizeContext.Provider value={{ size, open, onOpenChange, refs, floatingStyles }}>
 			<div className={cn('searchbox-wrapper relative w-full', className)}
 				{...props} ref={ref} />
 		</SizeContext.Provider>
@@ -33,8 +35,8 @@ const SearchBox = forwardRef(({ className, size = 'sm', ...props }, ref) => {
 SearchBox.displayName = 'SearchBox';
 const SearchBoxInput = forwardRef(({
 	className,
-	type = "search",
-	placeholder = 'Search',
+	type = "text",
+	placeholder = 'Search...',
 	variant = 'primary',
 	disabled = false,
 	value,
@@ -44,7 +46,7 @@ const SearchBoxInput = forwardRef(({
 }, ref) => {
 	const [internalValue, setInternalValue] = useState(defaultValue || '');
 	const isControlled = useRef(value !== undefined);
-	const size = useSize();
+	const { size, open, onOpenChange, refs } = useSize();
 
 	const handleChange = (event) => {
 		const newValue = event.target.value;
@@ -52,6 +54,13 @@ const SearchBoxInput = forwardRef(({
 			setInternalValue(newValue);
 		}
 		onChange?.(newValue, event);
+		if (typeof onOpenChange === 'function') {
+			if (newValue.trim()) {
+				onOpenChange(true); // Open the dropdown
+			} else {
+				onOpenChange(false); // Close the dropdown
+			}
+		}
 	};
 
 	const inputValue = isControlled.current ? value : internalValue;
@@ -71,16 +80,9 @@ const SearchBoxInput = forwardRef(({
 			</span>
 			<input
 				type={type}
-				ref={ref}
+				// ref={ref}
+				ref={refs.setReference}
 				className={cn(
-					// baseClasses,
-					// variantClasses,
-					// disabledClasses,
-					// sizeClasses,
-					// inputPaddingClasses,
-					// focusClasses,
-					// hoverClasses,
-					// inputPaddingClassNames[size],
 					textSizeClassNames[size],
 					'flex-grow bg-transparent border-none outline-none border-transparent focus:ring-0',
 					className
@@ -99,16 +101,24 @@ const SearchBoxInput = forwardRef(({
 });
 SearchBoxInput.displayName = 'SearchBoxInput';
 
-const SearchBoxContent = forwardRef(({ className, ...props }, ref) => (
-	<div
-		ref={ref}
-		className={cn(
-			'absolute bg-background-primary rounded-md p-2 mt-2 w-full left-0 z-50 border-border-strong shadow-lg max-h-60 overflow-y-auto',
-			className
-		)}
-		{...props}
-	/>
-));
+const SearchBoxContent = forwardRef(({ className, isOpen, setIsOpen, ...props }, ref) => {
+	const { size, open, onOpenChange, refs, floatingStyles } = useSize();
+	// Use conditional rendering
+	if (!open) return null;
+
+	return (
+		<div
+			// ref={ref}
+			ref={refs.setFloating}
+			style={floatingStyles}
+			className={cn(
+				'bg-background-primary rounded-md p-2 mt-2 w-full left-0 z-50 border-border-strong shadow-lg max-h-60 overflow-y-auto',
+				className
+			)}
+			{...props}
+		/>
+	);
+});
 SearchBoxContent.displayName = 'SearchBoxContent';
 
 const SearchBoxLoading = ({ loadingIcon = <Loader /> }) => (
@@ -125,7 +135,7 @@ const SearchBoxResults = forwardRef(({ className, children, ...props }, ref) => 
 SearchBoxResults.displayName = 'SearchBoxResults';
 
 const SearchBoxResultTitle = forwardRef(({ className, children, ...props }, ref) => {
-	const size = useSize();
+	const { size } = useSize();
 
 	return (
 		<div
@@ -136,25 +146,25 @@ const SearchBoxResultTitle = forwardRef(({ className, children, ...props }, ref)
 			)}
 			{...props}
 		>
-			<Label className={cn("w-full text-text-secondary")}>{children}</Label>
+			<label className={cn("w-full text-text-secondary", textSizeClassNames[size])}>{children}</label>
 		</div>
 	)
 });
 SearchBoxResultTitle.displayName = 'SearchBoxResultTitle';
 
 const SearchBoxResultItem = forwardRef(({ className, children, icon, ...props }, ref) => {
-	const size = useSize();
+	const { size } = useSize();
 	return (<div
 		ref={ref}
 		className={cn(
-			'flex items-center gap-1 p-1 hover:bg-gray-200 cursor-pointer',
+			'flex items-center gap-2 p-1 hover:bg-gray-200 cursor-pointer',
 			textSizeClassNames[size],
 			className
 		)}
 		{...props}
 	>
 		{icon}
-		<Label className={cn("w-full text-text-secondary")}>{children}</Label>
+		<label className={cn("w-full text-text-secondary", textSizeClassNames[size])}>{children}</label>
 	</div>)
 });
 SearchBoxResultItem.displayName = 'SearchBoxResultItem';

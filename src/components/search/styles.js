@@ -12,7 +12,7 @@ export const sizeClassNames = {
 export const variantClassNames = {
     primary: 'border border-solid border-border-subtle bg-field-primary-background',
     secondary: 'border border-solid border-border-subtle bg-field-secondary-background',
-    ghost: 'text-text-secondary bg-transparent border border-transparent hover:border-border-strong text-text-primary',
+    ghost: 'text-text-secondary bg-transparent border border-transparent',
 };
 
 export const IconClasses = 'z-20 pointer-events-none absolute inset-y-0 flex flex-1 items-center justify-center bg-field-secondary-background text-text-secondary group-hover:text-text-primary'

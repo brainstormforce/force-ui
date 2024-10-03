@@ -1,164 +1,138 @@
-import React from 'react';
-import SearchBox from './search.jsx';
-import { Search, File, Folder, Slash } from 'lucide-react';
+import React, { useState } from 'react';
+import {
+    SearchBox,
+    SearchBoxInput,
+    SearchBoxContent,
+    SearchBoxLoading,
+    SearchBoxResults,
+    SearchBoxResultTitle,
+    SearchBoxResultItem,
+    SearchBoxSeparator,
+} from './search.jsx';
+import { File, Folder } from 'lucide-react';
 
 export default {
-	title: 'Molecules/SearchBox',
-	component: SearchBox,
-	parameters: {
-		layout: 'centered',
-	},
-	tags: [ 'autodocs' ],
-	argTypes: {
-		placeholder: {
-			name: 'Placeholder',
-			description: 'The placeholder text for the search input.',
-			control: 'text',
-			table: {
-				type: { summary: 'string' },
-				defaultValue: { summary: 'Search' },
-			},
-		},
-		variant: {
-			name: 'Variant',
-			description: 'The style variant of the search box.',
-			control: 'select',
-			options: [ 'primary', 'secondary', 'ghost' ],
-			table: {
-				type: { summary: 'string' },
-				defaultValue: { summary: 'secondary' },
-			},
-		},
-		size: {
-			name: 'Size',
-			description: 'The size of the search box.',
-			control: 'select',
-			options: [ 'sm', 'md', 'lg' ],
-			table: {
-				type: { summary: 'string' },
-				defaultValue: { summary: 'sm' },
-			},
-		},
-		disabled: {
-			name: 'Disabled',
-			description: 'Disables the search box input.',
-			control: 'boolean',
-			table: {
-				type: { summary: 'boolean' },
-				defaultValue: { summary: false },
-			},
-		},
-		loading: {
-			name: 'Loading',
-			description: 'Displays the loading state.',
-			control: 'boolean',
-			table: {
-				type: { summary: 'boolean' },
-				defaultValue: { summary: false },
-			},
-		},
-		loadingIcon: {
-			name: 'Loading Icon',
-			description: 'Icon displayed during the loading state.',
-			control: 'select',
-			options: [ <Slash />, 'None' ],
-			table: {
-				type: { summary: 'ReactNode' },
-			},
-		},
-		searchResult: {
-			name: 'Search Results',
-			description: 'Results shown in the dropdown list.',
-			control: 'array',
-			table: {
-				type: { summary: 'array' },
-				defaultValue: { summary: [] },
-			},
-		},
-		additionalResult: {
-			name: 'Additional Results (Categories)',
-			description: 'Category results shown in the dropdown list.',
-			control: 'array',
-			table: {
-				type: { summary: 'array' },
-				defaultValue: { summary: [] },
-			},
-		},
-		searchResultIcon: {
-			name: 'Search Result Icon',
-			description: 'Icon displayed next to each search result.',
-			control: 'select',
-			options: [ <File />, 'None' ],
-			table: {
-				type: { summary: 'ReactNode' },
-			},
-		},
-		additionalResultIcon: {
-			name: 'Additional Result Icon',
-			description: 'Icon displayed next to each category result.',
-			control: 'select',
-			options: [ <Folder />, 'None' ],
-			table: {
-				type: { summary: 'ReactNode' },
-			},
-		},
-	},
+    title: 'Molecules/SearchBox',
+    component: SearchBox,
+    parameters: {
+        layout: 'centered',
+    },
+    tags: ['autodocs'],
+    argTypes: {
+        size: {
+            description: 'Defines the size variant of the search box',
+            control: { type: 'select' },
+            options: ['sm', 'md', 'lg'],
+            table: {
+                type: { summary: 'string' },
+                defaultValue: { summary: 'sm' },
+            },
+        },
+        variant: {
+            description: 'Defines the visual style of the search box',
+            control: { type: 'select' },
+            options: ['primary', 'secondary', 'ghost'],
+            table: {
+                type: { summary: 'string' },
+                defaultValue: { summary: 'primary' },
+            },
+        },
+        disabled: {
+            description: 'If true, the search box will be disabled',
+            control: 'boolean',
+            table: {
+                type: { summary: 'boolean' },
+            },
+        },
+        placeholder: {
+            description: 'Placeholder text for the search input',
+            control: 'text',
+            table: {
+                type: { summary: 'string' },
+            },
+        },
+    },
 };
 
-// Basic SearchBox
-export const Basic = {
-	args: {
-		placeholder: 'Search...',
-		variant: 'secondary',
-		size: 'sm',
-		disabled: false,
-		loading: false,
-		loadingIcon: <Slash />,
-		searchResult: [ 'Result 1', 'Result 2', 'Result 3' ],
-		additionalResult: [ 'Category 1', 'Category 2' ],
-		searchResultIcon: <File />,
-		additionalResultIcon: <Folder />,
-	},
+const mockResults = [
+    { type: 'file', name: 'document.pdf' },
+    { type: 'file', name: 'image.jpg' },
+    { type: 'folder', name: 'Project Files' },
+    { type: 'file', name: 'report.docx' },
+    { type: 'folder', name: 'Archive' },
+];
+
+const Template = (args) => {
+    const [open, setOpen] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const [results, setResults] = useState([]);
+
+    const handleSearch = (value) => {
+        setLoading(true);
+        setTimeout(() => {
+            const filteredResults = mockResults.filter(item =>
+                item.name.toLowerCase().includes(value.toLowerCase())
+            );
+            setResults(filteredResults);
+            setLoading(false);
+        }, 1000);
+    };
+
+    return (
+        <div style={{ width: '300px' }}>
+            <SearchBox {...args} open={open} onOpenChange={setOpen}>
+                <SearchBoxInput
+                    placeholder={args.placeholder}
+                    onChange={(value) => {
+                        handleSearch(value);
+                    }}
+                    variant={args.variant}
+                />
+                <SearchBoxContent>
+                    {loading ? (
+                        <SearchBoxLoading />
+                    ) : (
+                        <SearchBoxResults>
+                            <SearchBoxResultTitle>Search Results</SearchBoxResultTitle>
+                            {results.map((item, index) => (
+                                <React.Fragment key={index}>
+                                    <SearchBoxResultItem
+                                        icon={item.type === 'file' ? <File size={16} /> : <Folder size={16} />}
+                                    >
+                                        {item.name}
+                                    </SearchBoxResultItem>
+                                </React.Fragment>
+                            ))}
+                        </SearchBoxResults>
+                    )}
+                </SearchBoxContent>
+            </SearchBox>
+        </div>
+    );
 };
 
-// Loading State
-export const Loading = {
-	args: {
-		placeholder: 'Search...',
-		variant: 'secondary',
-		size: 'sm',
-		disabled: false,
-		loading: true,
-		loadingIcon: <Slash />,
-		searchResult: [],
-		additionalResult: [],
-	},
+export const BasicSearchBox = Template.bind({});
+BasicSearchBox.args = {
+    size: 'sm',
+    variant: 'primary',
+    disabled: false,
+    placeholder: 'Search...',
 };
 
-// Disabled State
-export const Disabled = {
-	args: {
-		placeholder: 'Search...',
-		variant: 'secondary',
-		size: 'md',
-		disabled: true,
-		loading: false,
-		searchResult: [],
-		additionalResult: [],
-	},
+export const LargeSearchBox = Template.bind({});
+LargeSearchBox.args = {
+    ...BasicSearchBox.args,
+    size: 'lg',
 };
 
-// SearchBox with Results and Categories
-export const WithResultsAndCategories = {
-	args: {
-		placeholder: 'Search...',
-		variant: 'primary',
-		size: 'sm',
-		disabled: false,
-		loading: false,
-		searchResult: [ 'App 1', 'App 2', 'App 3' ],
-		additionalResult: [ 'Integration 1', 'Integration 2' ],
-		searchResultIcon: <File />,
-		additionalResultIcon: <Folder />,
-	},
+export const DisabledSearchBox = Template.bind({});
+DisabledSearchBox.args = {
+    ...BasicSearchBox.args,
+    disabled: true,
+};
+
+export const SecondaryVariant = Template.bind({});
+SecondaryVariant.args = {
+    ...BasicSearchBox.args,
+    variant: 'secondary',
 };
