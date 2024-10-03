@@ -1,6 +1,5 @@
 import DropdownMenu from './dropdown-menu.jsx';
 import Avatar from '../avatar/avatar.jsx';
-import Menu from '../menu-item/menu-item.jsx';
 import Button from '../button/button.jsx';
 import { House } from 'lucide-react';
 
@@ -65,16 +64,14 @@ export const ButtonTrigger = ( args ) => (
 		<DropdownMenu.Trigger>
 			<Button>Dropdown</Button>
 		</DropdownMenu.Trigger>
-		<DropdownMenu.Content>
-			<Menu className="w-60">
-				<Menu.List>
-					<Menu.Item>Menu Item 1</Menu.Item>
-					<Menu.Item>Menu Item 2</Menu.Item>
-					<Menu.Item>Menu Item 3</Menu.Item>
-					<Menu.Item>Menu Item 4</Menu.Item>
-					<Menu.Item>Menu Item 5</Menu.Item>
-				</Menu.List>
-			</Menu>
+		<DropdownMenu.Content className="w-60">
+			<DropdownMenu.List>
+                <DropdownMenu.Item>Menu Item 1</DropdownMenu.Item>
+                <DropdownMenu.Item>Menu Item 2</DropdownMenu.Item>
+                <DropdownMenu.Item>Menu Item 3</DropdownMenu.Item>
+                <DropdownMenu.Item>Menu Item 4</DropdownMenu.Item>
+                <DropdownMenu.Item>Menu Item 5</DropdownMenu.Item>
+			</DropdownMenu.List>
 		</DropdownMenu.Content>
 	</DropdownMenu>
 );
@@ -85,16 +82,13 @@ export const AvatarTrigger = ( args ) => (
 			<Avatar>John</Avatar>
 		</DropdownMenu.Trigger>
 		<DropdownMenu.Content className="w-60">
-			<Menu className="w-60">
-				<Menu.List>
-					<Menu.Item>Menu Item 1</Menu.Item>
-					<Menu.Item>Menu Item 2</Menu.Item>
-					<Menu.Item>Menu Item 3</Menu.Item>
-					<Menu.Separator />
-					<Menu.Item>Menu Item 4</Menu.Item>
-					<Menu.Item>Menu Item 5</Menu.Item>
-				</Menu.List>
-			</Menu>
+			<DropdownMenu.List>
+                <DropdownMenu.Item>Menu Item 1</DropdownMenu.Item>
+                <DropdownMenu.Item>Menu Item 2</DropdownMenu.Item>
+                <DropdownMenu.Item>Menu Item 3</DropdownMenu.Item>
+                <DropdownMenu.Item>Menu Item 4</DropdownMenu.Item>
+                <DropdownMenu.Item>Menu Item 5</DropdownMenu.Item>
+			</DropdownMenu.List>
 		</DropdownMenu.Content>
 	</DropdownMenu>
 );
@@ -105,15 +99,13 @@ export const IconTrigger = ( args ) => (
 			<House />
 		</DropdownMenu.Trigger>
 		<DropdownMenu.Content className="w-60">
-			<Menu className="w-60">
-				<Menu.List>
-					<Menu.Item>Menu Item 1</Menu.Item>
-					<Menu.Item>Menu Item 2</Menu.Item>
-					<Menu.Item>Menu Item 3</Menu.Item>
-					<Menu.Item>Menu Item 4</Menu.Item>
-					<Menu.Item>Menu Item 5</Menu.Item>
-				</Menu.List>
-			</Menu>
+			<DropdownMenu.List>
+                <DropdownMenu.Item>Menu Item 1</DropdownMenu.Item>
+                <DropdownMenu.Item>Menu Item 2</DropdownMenu.Item>
+                <DropdownMenu.Item>Menu Item 3</DropdownMenu.Item>
+                <DropdownMenu.Item>Menu Item 4</DropdownMenu.Item>
+                <DropdownMenu.Item>Menu Item 5</DropdownMenu.Item>
+			</DropdownMenu.List>
 		</DropdownMenu.Content>
 	</DropdownMenu>
 );

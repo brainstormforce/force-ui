@@ -1,4 +1,4 @@
-import React, { cloneElement, useState } from 'react';
+import React, { useState, createContext, useContext, cloneElement, Fragment,  isValidElement } from 'react';
 import {
 	useFloating,
 	autoUpdate,
@@ -13,43 +13,10 @@ import {
 	useTransitionStyles,
 } from '@floating-ui/react';
 import { callAll, cn } from '@/utilities/functions';
+import Menu from '../menu-item/menu-item';
 
-const isMenuItem = ( child ) => {
-	return child.type?.displayName === 'Menu.Item';
-};
-
-const attachMenuItemClickHandler = ( children, handleClose ) => {
-	return React.Children.map( children, ( child ) => {
-		if ( React.isValidElement( child ) ) {
-			return cloneElement( child, {
-				children: React.Children.map( child.props.children, ( child1 ) => {
-					if ( React.isValidElement( child1 ) ) {
-						return cloneElement( child1, {
-							children: React.Children.map(
-								child.props.children.props.children,
-								( child2 ) => {
-									if ( React.isValidElement( child2 ) ) {
-										if ( isMenuItem( child2 ) ) {
-											return cloneElement( child2, {
-												onClick: callAll(
-													handleClose,
-													child2.props.onClick
-												),
-											} );
-										}
-									}
-									return child2;
-								}
-							),
-						} );
-					}
-					return child1;
-				} ),
-			} );
-		}
-		return child;
-	} );
-};
+const DropdownMenuContext = createContext();
+const useDropdownMenuContext = () => useContext(DropdownMenuContext);
 
 const DropdownMenu = ( {
 	placement = 'bottom',
@@ -97,6 +64,7 @@ const DropdownMenu = ( {
 	const handleClose = () => setIsOpen( false );
 
 	return (
+        <DropdownMenuContext.Provider value={{ handleClose }}>
 		<div className={ cn( 'relative inline-block', className ) }>
 			<div
 				ref={ refs.setReference }
@@ -107,7 +75,7 @@ const DropdownMenu = ( {
 				className="cursor-pointer"
 			>
 				{ React.Children.map( children, ( child ) => {
-					if ( child.type?.displayName === 'DropdownMenu.Trigger' ) {
+                    if (child.type?.displayName === 'DropdownMenu.Trigger' ) {
 						return child;
 					}
 					return null;
@@ -125,16 +93,8 @@ const DropdownMenu = ( {
 						{ ...getFloatingProps() }
 					>
 						{ React.Children.map( children, ( child ) => {
-							if (
-								child.type?.displayName ===
-								'DropdownMenu.Content'
-							) {
-								return React.cloneElement( child, {
-									children: attachMenuItemClickHandler(
-										child.props.children,
-										handleClose
-									),
-								} );
+                            if (child.type?.displayName === 'DropdownMenu.Content' ) {
+                                return child;
 							}
 							return null;
 						} ) }
@@ -142,6 +102,7 @@ const DropdownMenu = ( {
 				</FloatingPortal>
 			) }
 		</div>
+        </DropdownMenuContext.Provider>
 	);
 };
 
@@ -155,24 +116,75 @@ const DropdownMenuTrigger = React.forwardRef( ( { children, className }, ref ) =
 
 DropdownMenuTrigger.displayName = 'DropdownMenu.Trigger';
 
-const DropdownMenuContent = ( { children, className } ) => {
+const DropdownMenuContent = ({ children, className, ...props } ) => {
 	return (
-		<div
-			role="menu"
-			tabIndex={ 0 }
-			className={ cn(
-				'border border-solid border-border-subtle rounded-md shadow-lg overflow-hidden',
-				className
-			) }
-		>
-			{ children }
-		</div>
+        <div className={cn('border border-solid border-border-subtle rounded-md shadow-lg overflow-hidden', className )}>
+            <Menu {...props}>
+                {children}
+            </Menu>
+        </div>
 	);
 };
-
 DropdownMenuContent.displayName = 'DropdownMenu.Content';
+
+const DropdownMenuList = ({ children, ...props }) => {
+    const { handleClose } = useDropdownMenuContext();
+
+    return (
+        <Menu.List {...props}>
+            {React.Children.map(children, (child) => {
+                if (React.isValidElement(child)) {
+                    return React.cloneElement(child, {
+                        onClick: callAll(child.props?.onClick, handleClose),
+                    });
+                }
+                return child;
+            })}
+        </Menu.List>
+    );
+};
+
+DropdownMenuList.displayName = 'DropdownMenu.List';
+
+const DropdownMenuItem = ({ children, as: Tag = Fragment, ...props }) => {
+    const { handleClose } = useDropdownMenuContext();
+
+    if (!isValidElement(children) || !children) {
+        return (
+            <Menu.Item
+                {...props}
+                onClick={callAll(handleClose, props.onClick)}
+            >
+                {children}
+            </Menu.Item>
+        );
+    }
+
+    if (Tag === Fragment) {
+        return cloneElement(children, {
+            onClick: callAll(children.props?.onClick, handleClose),
+        });
+    }
+
+    return (
+        <Tag {...props} onClick={callAll(props.onClick, handleClose)}>
+            {children}
+        </Tag>
+    );
+};
+
+DropdownMenuItem.displayName = 'DropdownMenu.Item';
+
+const DropdownMenuSeparator = ({...props}) => {
+    return <Menu.Separator {...props}/>
+}
+
+DropdownMenuSeparator.displayName = 'DropdownMenu.Separator';
 
 export default Object.assign( DropdownMenu, {
 	Trigger: DropdownMenuTrigger,
-	Content: DropdownMenuContent,
+    Content: DropdownMenuContent,
+    List: DropdownMenuList,
+	Item: DropdownMenuItem,
+    Separator: DropdownMenuSeparator
 } );
