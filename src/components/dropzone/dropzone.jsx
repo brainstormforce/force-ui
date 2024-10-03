@@ -3,17 +3,26 @@ import { X, CloudUpload, File } from 'lucide-react';
 import { cn, formatFileSize } from '@/utilities/functions';
 
 // Create a context to share file data between Dropzone and FilePreview
-const FileContext = createContext();
+const FileUploadContext = createContext();
 
-const useFileContext = () => useContext(FileContext);
+const useFileUploadContext = () => useContext(FileUploadContext);
 
 // Dropzone Component with embedded FilePreview subcomponent
-const Dropzone = ({ onFileUpload, inlineIcon = false, label, helpText }) => {
+const Dropzone = ({
+	onFileUpload,
+	inlineIcon = false,
+	label = 'Drag and drop or browse files',
+	helpText = 'Help Text',
+	size = 'sm',
+	disabled = false,
+}) => {
 	const [isLoading, setIsLoading] = useState(false);
 	console.log(isLoading);
 	const [file, setFile] = useState(null);
 	const [isDragging, setIsDragging] = useState(false);
+
 	const handleDrop = (e) => {
+		if (disabled) return;
 		setIsLoading(true);
 		e.preventDefault();
 		e.stopPropagation();
@@ -29,15 +38,19 @@ const Dropzone = ({ onFileUpload, inlineIcon = false, label, helpText }) => {
 	};
 
 	const handleDragOver = (e) => {
+		if (disabled) return;
 		e.preventDefault();
 		setIsDragging(true);
 	};
 
 	const handleDragLeave = () => {
-		setIsDragging(false);
+		if (!disabled) {
+			setIsDragging(false);
+		}
 	};
 
 	const handleFileChange = (e) => {
+		if (disabled) return; 
 		setIsLoading(true);
 		const selectedFile = e.target.files[0];
 		if (selectedFile) {
@@ -52,43 +65,73 @@ const Dropzone = ({ onFileUpload, inlineIcon = false, label, helpText }) => {
 	const removeFile = () => {
 		setFile(null);
 	};
+	const sizeClasses = {
+		sm: {
+			label: 'text-sm',
+			helpText: 'text-xs',
+			icon: 'w-5 h-5',
+		},
+		md: {
+			label: 'text-sm',
+			helpText: 'text-xs',
+			icon: 'w-5 h-5',
+		},
+		lg: {
+			label: 'text-base',
+			helpText: 'text-sm',
+			icon: 'w-6 h-6',
+		},
+	};
 
 	return (
-		<FileContext.Provider value={{ file, removeFile, isLoading }}>
-			<div className="w-full max-w-md mx-auto">
+		<FileUploadContext.Provider value={{ file, removeFile, isLoading }}>
+			<div>
+			<label htmlFor="fui-file-upload">
 				<div
 					className={cn(
-						'w-72 mx-auto p-4 border-dotted border-2 rounded-md text-center',
-						isDragging ? 'border-blue-500' : 'border-gray-300'
+						'min-w-80 cursor-pointer p-4 mx-auto border-dotted border-2 rounded-md text-center hover:border-field-dropzone-color hover:bg-field-dropzone-background-hover',
+						isDragging
+							? 'border-field-dropzone-color bg-field-dropzone-background-hover'
+							: 'border-field-border',
+							disabled && 'border-field-border bg-field-background-disabled cursor-not-allowed hover:border-field-border'
 					)}
 					onDragOver={handleDragOver}
 					onDragLeave={handleDragLeave}
 					onDrop={handleDrop}
 				>
-					<label htmlFor="file-upload" className="cursor-pointer">
 						<div
 							className={cn(
 								'flex flex-col items-center justify-center',
-								inlineIcon && 'flex-row'
+								inlineIcon && 'flex-row items-start gap-4'
 							)}
 						>
 							<div>
-								<CloudUpload className="w-6 h-6" />
+								<CloudUpload
+									className={cn(
+										'text-field-dropzone-color w-6 h-6',
+										sizeClasses[size].icon,
+										disabled && 'text-field-color-disabled'
+									)}
+								/>
 							</div>
 							<div className="flex flex-col">
 								<span
 									className={cn(
-										'mt-2 text-center text-sm font-medium text-gray-500',
-										inlineIcon && 'text-left'
+										'mt-1 text-center font-medium text-field-label',
+										inlineIcon && 'text-left mt-0',
+										sizeClasses[size].label,
+										disabled && 'text-field-color-disabled'
 									)}
 								>
-									{label ?? 'Drag &amp; drop or browse files'}
+									{label}
 								</span>
 								{helpText && (
 									<span
 										className={cn(
-											'mt-2 text-center text-sm font-medium text-gray-500',
-											inlineIcon && 'text-left'
+											'mt-1 text-center font-medium text-field-helper',
+											inlineIcon && 'text-left',
+											sizeClasses[size].helpText,
+											disabled && 'text-field-color-disabled'
 										)}
 									>
 										{helpText}
@@ -96,31 +139,34 @@ const Dropzone = ({ onFileUpload, inlineIcon = false, label, helpText }) => {
 								)}
 							</div>
 						</div>
-					</label>
 					<input
-						id="file-upload"
+						id="fui-file-upload"
 						type="file"
 						className="sr-only"
 						onChange={handleFileChange}
+						disabled={disabled}
 					/>
+
 				</div>
+				</label>
+
 
 				<FilePreview />
 			</div>
-		</FileContext.Provider>
+		</FileUploadContext.Provider>
 	);
 };
 Dropzone.displayName = 'Dropzone';
 
 const FilePreview = () => {
-	const { file, removeFile, isLoading } = useFileContext();
+	const { file, removeFile, isLoading } = useFileUploadContext();
 
 	if (!file) {
 		return null;
 	}
 
 	return (
-		<div className="flex items-center justify-between mt-4">
+		<div className="flex items-center justify-between mt-4 bg-field-primary-background">
 			<div className="flex items-center space-x-2">
 				{isLoading ? (
 					<span>Loading...</span>

@@ -30,6 +30,11 @@ export default {
 			control: { type: 'text' },
 			description: 'Help text for the dropzone component',
 		},
+		disabled: {
+			control: { type: 'boolean' },
+			description: 'Disable the dropzone component',
+			defaultValue: false,
+		},
 		
 	},
 };
