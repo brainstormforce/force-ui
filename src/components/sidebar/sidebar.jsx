@@ -38,13 +38,23 @@ const Sidebar = ( {
 	useEffect( () => {
 		const handleScreenResize = () => {
 			const isSmallScreen = window.innerWidth < 1280;
-			if ( isSmallScreen ) {
-				setIsCollapsed( true );
-
-				localStorage.setItem( 'sidebar-collapsed', JSON.stringify( true ) );
+			if (!collapsible) {
+				setIsCollapsed(false);
+				localStorage.removeItem('sidebar-collapsed');
 			} else {
-				const storedState = localStorage.getItem( 'sidebar-collapsed' );
-				setIsCollapsed( storedState ? JSON.parse( storedState ) : false );
+				if (isSmallScreen) {
+					setIsCollapsed(true);
+					localStorage.setItem(
+						'sidebar-collapsed',
+						JSON.stringify(true)
+					);
+				} else {
+					const storedState =
+						localStorage.getItem('sidebar-collapsed');
+					setIsCollapsed(
+						storedState ? JSON.parse(storedState) : false
+					);
+				}
 			}
 
 			if ( sideBarRef.current ) {
@@ -62,7 +72,7 @@ const Sidebar = ( {
 		return () => {
 			window.removeEventListener( 'resize', handleScreenResize );
 		};
-	}, [ screenHeight ] );
+	}, [ screenHeight, collapsible ] );
 
 	return (
 		<SidebarContext.Provider
