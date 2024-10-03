@@ -66,11 +66,11 @@ export const ButtonTrigger = ( args ) => (
 		</DropdownMenu.Trigger>
 		<DropdownMenu.Content className="w-60">
 			<DropdownMenu.List>
-                <DropdownMenu.Item>Menu Item 1</DropdownMenu.Item>
-                <DropdownMenu.Item>Menu Item 2</DropdownMenu.Item>
-                <DropdownMenu.Item>Menu Item 3</DropdownMenu.Item>
-                <DropdownMenu.Item>Menu Item 4</DropdownMenu.Item>
-                <DropdownMenu.Item>Menu Item 5</DropdownMenu.Item>
+				<DropdownMenu.Item>Menu Item 1</DropdownMenu.Item>
+				<DropdownMenu.Item>Menu Item 2</DropdownMenu.Item>
+				<DropdownMenu.Item>Menu Item 3</DropdownMenu.Item>
+				<DropdownMenu.Item>Menu Item 4</DropdownMenu.Item>
+				<DropdownMenu.Item>Menu Item 5</DropdownMenu.Item>
 			</DropdownMenu.List>
 		</DropdownMenu.Content>
 	</DropdownMenu>
@@ -83,11 +83,11 @@ export const AvatarTrigger = ( args ) => (
 		</DropdownMenu.Trigger>
 		<DropdownMenu.Content className="w-60">
 			<DropdownMenu.List>
-                <DropdownMenu.Item>Menu Item 1</DropdownMenu.Item>
-                <DropdownMenu.Item>Menu Item 2</DropdownMenu.Item>
-                <DropdownMenu.Item>Menu Item 3</DropdownMenu.Item>
-                <DropdownMenu.Item>Menu Item 4</DropdownMenu.Item>
-                <DropdownMenu.Item>Menu Item 5</DropdownMenu.Item>
+				<DropdownMenu.Item>Menu Item 1</DropdownMenu.Item>
+				<DropdownMenu.Item>Menu Item 2</DropdownMenu.Item>
+				<DropdownMenu.Item>Menu Item 3</DropdownMenu.Item>
+				<DropdownMenu.Item>Menu Item 4</DropdownMenu.Item>
+				<DropdownMenu.Item>Menu Item 5</DropdownMenu.Item>
 			</DropdownMenu.List>
 		</DropdownMenu.Content>
 	</DropdownMenu>
@@ -100,11 +100,11 @@ export const IconTrigger = ( args ) => (
 		</DropdownMenu.Trigger>
 		<DropdownMenu.Content className="w-60">
 			<DropdownMenu.List>
-                <DropdownMenu.Item>Menu Item 1</DropdownMenu.Item>
-                <DropdownMenu.Item>Menu Item 2</DropdownMenu.Item>
-                <DropdownMenu.Item>Menu Item 3</DropdownMenu.Item>
-                <DropdownMenu.Item>Menu Item 4</DropdownMenu.Item>
-                <DropdownMenu.Item>Menu Item 5</DropdownMenu.Item>
+				<DropdownMenu.Item>Menu Item 1</DropdownMenu.Item>
+				<DropdownMenu.Item>Menu Item 2</DropdownMenu.Item>
+				<DropdownMenu.Item>Menu Item 3</DropdownMenu.Item>
+				<DropdownMenu.Item>Menu Item 4</DropdownMenu.Item>
+				<DropdownMenu.Item>Menu Item 5</DropdownMenu.Item>
 			</DropdownMenu.List>
 		</DropdownMenu.Content>
 	</DropdownMenu>
