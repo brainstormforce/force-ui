@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import AdminSettingsPageMDX from './admin-settings-1.mdx';
-import { Avatar, Badge, Button, Container, Topbar } from '@/components';
-import { ArrowUpRight, CircleHelp, Megaphone, User } from 'lucide-react';
+import { Avatar, Badge, Button, Container, Sidebar, Tabs, Title, Topbar } from '@/components';
+import { ArrowUpRight, ChartNoAxesColumnIncreasing, ChevronRight, ChevronsLeft, ChevronsRight, CircleHelp, CreditCard, Dot, Megaphone, MousePointer, PenTool, RefreshCcw, ShoppingBag, ShoppingCart, Store, Tag, Truck, User } from 'lucide-react';
+
 
 export default {
 	title: 'Templates/Admin Settings 1',
@@ -18,13 +18,49 @@ export default {
 	tags: [ 'autodocs' ],
 };
 
+const TABS = [
+	{
+		label: 'General',
+		slug: 'general',
+	},
+	{
+		label: 'Social',
+		slug: 'social',
+	},
+	{
+		label: 'Advanced',
+		slug: 'advanced',
+	},
+]
+
+const SEPARATORS = [
+	{ id: '-', label: '-' },
+	{ id: '—', label: '—' },
+	{ id: '»', label: <ChevronsRight /> },
+	{ id: '›', label: <ChevronRight /> },
+	{ id: '|', label: '|' },
+	{ id: '•', label: <Dot /> },
+	{ id: '«', label: <ChevronsLeft /> },
+];
+
 const Template = () => {
+	const [ activeTab, setActiveTab ] = useState( TABS[0].slug );
+
+	const handleChangeTab = ( { event, value: { slug } } ) => {
+		event.preventDefault();
+		event.stopPropagation();
+
+		setActiveTab( slug );
+	}
 
 	return (
-		<Container containerType="flex" direction="column">
+		<Container containerType="flex" direction="column" gap={0}>
 			<Container.Item>
 				{/* Navigation Bar */}
-				<Topbar className="w-auto min-h-[unset] h-16 shadow-sm p-0">
+				<Topbar
+					gap={0}
+					className="w-auto min-h-[unset] h-16 shadow-sm p-0"
+				>
 					<Topbar.Left className="p-5">
 						<Topbar.Item>
 							<svg
@@ -43,7 +79,7 @@ const Template = () => {
 							</svg>
 						</Topbar.Item>
 					</Topbar.Left>
-					<Topbar.Left className="mr-auto h-full">
+					<Topbar.Middle align="left" className="h-full">
 						<Topbar.Item className="h-full gap-4">
 							<button className="h-full py-0 px-1 m-0 bg-transparent outline-none shadow-none border-0 focus:outline-none text-text-tertiary text-sm font-medium cursor-pointer">
 								Dashboard
@@ -62,10 +98,13 @@ const Template = () => {
 								variant="ghost"
 							>
 								<span>Upgrade to Pro</span>
-								<ArrowUpRight className="size-5" strokeWidth='1.5' />
+								<ArrowUpRight
+									className="size-5"
+									strokeWidth="1.5"
+								/>
 							</button>
 						</Topbar.Item>
-					</Topbar.Left>
+					</Topbar.Middle>
 					<Topbar.Right className="p-5">
 						<Topbar.Item>
 							<Badge
@@ -75,16 +114,189 @@ const Template = () => {
 							/>
 						</Topbar.Item>
 						<Topbar.Item className="gap-2">
-							<CircleHelp strokeWidth='1.5' />
-							<Megaphone strokeWidth='1.5' />
+							<CircleHelp strokeWidth="1.5" />
+							<Megaphone strokeWidth="1.5" />
 						</Topbar.Item>
 						<Topbar.Item>
-							<Avatar size="sm" className="bg-brand-background-50 text-icon-primary">
-								<User strokeWidth='1.5' />
+							<Avatar
+								size="sm"
+								className="bg-brand-background-50 text-icon-primary"
+							>
+								<User strokeWidth="1.5" />
 							</Avatar>
 						</Topbar.Item>
 					</Topbar.Right>
 				</Topbar>
+			</Container.Item>
+			{/* Sidebar & the content section */}
+			<Container.Item className="grid grid-cols-[16rem_1fr] bg-background-secondary">
+				<div className="h-full w-full">
+					<Sidebar borderOn collapsible={false} screenHeight={false}>
+						<Sidebar.Header>
+							<Sidebar.Item>
+								<img
+									alt="Logo"
+									src="https://wordpress.org/five-for-the-future/files/2019/09/bsf-logo-.png"
+									width="180px"
+								/>
+							</Sidebar.Item>
+						</Sidebar.Header>
+						<Sidebar.Body>
+							<Sidebar.Item>
+								<div className="flex flex-col gap-2">
+									<div>
+										<p className="text-slate-500">Store</p>
+										<div>
+											<div className="px-2 py-1 flex items-center gap-2 cursor-pointer rounded-md hover:bg-slate-100 false">
+												<span className="mt-[4px]">
+													<Store size={20} />
+												</span>
+												<span className="text-base">
+													Store Settings
+												</span>
+											</div>
+											<div className="px-2 py-1 flex items-center gap-2 cursor-pointer rounded-md hover:bg-slate-100 false">
+												<span className="mt-[4px]">
+													<PenTool size={20} />
+												</span>
+												<span className="text-base">
+													Design & Branding
+												</span>
+											</div>
+										</div>
+									</div>
+									<div>
+										<p className="text-slate-500">
+											Orders & Sales
+										</p>
+										<div>
+											<div className="px-2 py-1 flex items-center gap-2 cursor-pointer rounded-md hover:bg-slate-100 false">
+												<span className="mt-[4px]">
+													<ShoppingBag size={20} />
+												</span>
+												<span className="text-base">
+													Orders & Receipts
+												</span>
+											</div>
+											<div className="px-2 py-1 flex items-center gap-2 cursor-pointer rounded-md hover:bg-slate-100 false">
+												<span className="mt-[4px]">
+													<ShoppingCart size={20} />
+												</span>
+												<span className="text-base">
+													Abandoned Checkout
+												</span>
+											</div>
+											<div className="px-2 py-1 flex items-center gap-2 cursor-pointer rounded-md hover:bg-slate-100 false">
+												<span className="mt-[4px]">
+													<Tag size={20} />
+												</span>
+												<span className="text-base">
+													Taxes
+												</span>
+											</div>
+											<div className="px-2 py-1 flex items-center gap-2 cursor-pointer rounded-md hover:bg-slate-100 false">
+												<span className="mt-[4px]">
+													<Truck size={20} />
+												</span>
+												<span className="text-base">
+													Shipping
+												</span>
+											</div>
+											<div className="px-2 py-1 flex items-center gap-2 cursor-pointer rounded-md hover:bg-slate-100 false">
+												<span className="mt-[4px]">
+													<CreditCard size={20} />
+												</span>
+												<span className="text-base">
+													Payment Processors
+												</span>
+											</div>
+										</div>
+									</div>
+									<div>
+										<p className="text-slate-500">
+											Customers
+										</p>
+										<div>
+											<div className="px-2 py-1 flex items-center gap-2 cursor-pointer rounded-md hover:bg-slate-100 false">
+												<span className="mt-[4px]">
+													<MousePointer size={20} />
+												</span>
+												<span className="text-base">
+													Affiliates
+												</span>
+											</div>
+											<div className="px-2 py-1 flex items-center gap-2 cursor-pointer rounded-md hover:bg-slate-100 false">
+												<span className="mt-[4px]">
+													<RefreshCcw size={20} />
+												</span>
+												<span className="text-base">
+													Subscriptions
+												</span>
+											</div>
+											<div className="px-2 py-1 flex items-center gap-2 cursor-pointer rounded-md hover:bg-slate-100 false">
+												<span className="mt-[4px]">
+													<ChartNoAxesColumnIncreasing
+														size={20}
+													/>
+												</span>
+												<span className="text-base">
+													Subscriptions Saver
+												</span>
+											</div>
+										</div>
+									</div>
+								</div>
+							</Sidebar.Item>
+						</Sidebar.Body>
+						<Sidebar.Footer>
+							<Sidebar.Item>
+								<Button className="w-full">Pro Version</Button>
+							</Sidebar.Item>
+						</Sidebar.Footer>
+					</Sidebar>
+				</div>
+				<Container
+					gap="xl"
+					direction="column"
+					className="p-8 w-full max-w-[43.5rem] mx-auto"
+				>
+					<Container justify="between" align="center">
+						<Title
+							title="Home Page"
+							size="md"
+							className="[&_h2]:text-text-primary [&_h2]:leading-[1.875rem]"
+						/>
+						<Button>Save</Button>
+					</Container>
+					{/* Settings */}
+					<Container
+						direction="column"
+						className="bg-background-primary rounded-xl shadow py-4 px-6"
+					>
+						{/* Tabs */}
+						<Container.Item>
+							<Tabs.Group
+								activeItem={activeTab}
+								defaultValue={activeTab}
+								onChange={handleChangeTab}
+								orientation="horizontal"
+								size="md"
+								variant="underline"
+								width="auto"
+							>
+								{
+									TABS.map(({ label, slug }) => (
+										<Tabs.Tab key={label} slug={slug} text={label} />
+									))
+								}
+							</Tabs.Group>
+						</Container.Item>
+						{/* Tab Content */}
+						<Container.Item>
+							
+						</Container.Item>
+					</Container>
+				</Container>
 			</Container.Item>
 		</Container>
 	);
