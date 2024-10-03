@@ -4,7 +4,6 @@ import React, {
 	useContext,
 	cloneElement,
 	Fragment,
-	isValidElement,
 } from 'react';
 import {
 	useFloating,
@@ -146,33 +145,20 @@ const DropdownMenuContent = ( { children, className, ...props } ) => {
 DropdownMenuContent.displayName = 'DropdownMenu.Content';
 
 const DropdownMenuList = ( { children, ...props } ) => {
-	const { handleClose } = useDropdownMenuContext();
-
 	return (
 		<Menu.List { ...props }>
-			{ React.Children.map( children, ( child ) => {
-				if ( React.isValidElement( child ) ) {
-					return React.cloneElement( child, {
-						onClick: callAll( child.props?.onClick, handleClose ),
-					} );
-				}
-				return child;
-			} ) }
+            {children}
 		</Menu.List>
 	);
 };
 
 DropdownMenuList.displayName = 'DropdownMenu.List';
 
-const DropdownMenuItem = ( { children, as: Tag = Fragment, ...props } ) => {
+const DropdownMenuItem = ( { children, as: Tag = Menu.Item, ...props } ) => {
 	const { handleClose } = useDropdownMenuContext();
 
-	if ( ! isValidElement( children ) || ! children ) {
-		return (
-			<Menu.Item { ...props } onClick={ callAll( handleClose, props.onClick ) }>
-				{ children }
-			</Menu.Item>
-		);
+	if ( ! children ) {
+        return null;
 	}
 
 	if ( Tag === Fragment ) {
@@ -180,7 +166,7 @@ const DropdownMenuItem = ( { children, as: Tag = Fragment, ...props } ) => {
 			onClick: callAll( children.props?.onClick, handleClose ),
 		} );
 	}
-
+    
 	return (
 		<Tag { ...props } onClick={ callAll( props.onClick, handleClose ) }>
 			{ children }
