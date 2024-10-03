@@ -7,16 +7,15 @@ export default {
 	title: 'Templates/Admin Settings 1',
 	parameters: {
 		layout: 'fullscreen',
-		// controls: { expanded: true },
 	},
 	decorators: [
 		(Story, parameters) => (
-			<div className="box-border [&_*]:box-border">
+			<div className="box-border [&_*]:box-border w-full">
 				<Story {...parameters} />
 			</div>
 		),
 	],
-	// tags: [ 'autodocs' ],
+	tags: [ 'autodocs' ],
 };
 
 const Template = () => {
@@ -52,13 +51,13 @@ const Template = () => {
 							{/* Active Nav Item */}
 							<button className="relative h-full py-0 px-1 m-0 bg-transparent outline-none shadow-none border-0 focus:outline-none text-text-primary text-sm font-medium cursor-pointer">
 								<span>Settings</span>
-								<span className="absolute bottom-0 left-0 w-full h-px bg-purple-800"></span>
+								<span className="absolute bottom-0 left-0 w-full h-px bg-brand-800"></span>
 							</button>
 							<button className="h-full py-0 px-1 m-0 bg-transparent outline-none shadow-none border-0 focus:outline-none text-text-tertiary text-sm font-medium cursor-pointer">
 								Integrations
 							</button>
 							<button
-								className="h-full inline-flex items-center py-0 px-1 m-0 bg-transparent outline-none shadow-none border-0 focus:outline-none cursor-pointer text-sm font-semibold text-purple-800"
+								className="h-full inline-flex items-center py-0 px-1 m-0 bg-transparent outline-none shadow-none border-0 focus:outline-none cursor-pointer text-sm font-semibold text-brand-800"
 								iconPosition="right"
 								variant="ghost"
 							>
@@ -80,7 +79,7 @@ const Template = () => {
 							<Megaphone strokeWidth='1.5' />
 						</Topbar.Item>
 						<Topbar.Item>
-							<Avatar size="sm">
+							<Avatar size="sm" className="bg-brand-background-50 text-icon-primary">
 								<User strokeWidth='1.5' />
 							</Avatar>
 						</Topbar.Item>
