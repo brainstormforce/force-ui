@@ -1,6 +1,6 @@
 # Radio Button Group
 
-## `RadioButtonGroup` Props
+## `RadioButton.Group` Props
 - **Description:** Wrapper for the button group.  
 
 ### name (optional)
@@ -65,7 +65,7 @@
 - **description:** The `multiSelection` prop allows selecting more than one option when set to `true`.
 
 
-## `RadioButton` Props
+## `RadioButton.Button` Props
 
 ### id (optional)
 - **type:** `string`
@@ -131,7 +131,7 @@ The label also accepts a React component.
 - **default value:** `false`
 - **description:** Used Switch as radio button when set to `true`.
 
-## `RadioButton` Props of Style `tile`
+## `RadioButton.Button` Props of Style `tile`
 
 ### id (optional)
 - **type:** `string`
@@ -158,25 +158,25 @@ The label also accepts a React component.
 ### Example:
 
 ```
-<RadioButtonGroup
+<RadioButton.Group
     name="food"
     defaultValue="food-1"
     onChange={ ( value ) => console.log( value ) }
 >
-    <RadioButton value="food-1" />
-    <RadioButton value="food-2" />
-    <RadioButton value="food-3" />
-</RadioButtonGroup>
+    <RadioButton.Button value="food-1" />
+    <RadioButton.Button value="food-2" />
+    <RadioButton.Button value="food-3" />
+</RadioButton.Group>
 
-<RadioButtonGroup
+<RadioButton.Group
     value={selectedValue}   
     onChange={handleRadioChange}
     style='tile'
 >
-    <RadioButton value="option1"><Plus /></RadioButton>
-    <RadioButton value="option2"><Plus /></RadioButton>
-    <RadioButton value="option3"><Plus /></RadioButton>
-</RadioButtonGroup>
+    <RadioButton.Button value="option1"><Plus /></RadioButton.Button>
+    <RadioButton.Button value="option2"><Plus /></RadioButton.Button>
+    <RadioButton.Button value="option3"><Plus /></RadioButton.Button>
+</RadioButton.Group>
 
 
 ```
