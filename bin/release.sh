@@ -18,7 +18,9 @@ if [[ -d "$BUILD_DIR" ]]; then
 fi
 
 COMMIT=$(git rev-parse HEAD)
-VERSION=$(grep '"force-ui": " ' $PWD/version.json | grep -oEi '[0-9\.a-z\+-]+$"')
+# grep -oP '"force-ui":\s*"\K[^"]+' $PWD/version.json
+
+VERSION=$(grep -oP '"force-ui":\s*"\K[^"]+' $PWD/version.json)
 
 echo "verion $VERSION to $PWD/version.json"
 
