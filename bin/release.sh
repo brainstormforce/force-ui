@@ -18,11 +18,9 @@ if [[ -d "$BUILD_DIR" ]]; then
 fi
 
 COMMIT=$(git rev-parse HEAD)
-# grep -oP '"force-ui":\s*"\K[^"]+' $PWD/version.json
+# grep -oP '"force-ui":\s*"\K[^"]+' $PWD/version.jso
 
 VERSION=$(grep -oP '"force-ui":\s*"\K[^"]+' $PWD/version.json)
-
-echo "verion $VERSION to $PWD/version.json"
 
 # Check if the tag exists in the remote GitHub repository.
 TAG_EXISTS=$(git ls-remote --tags origin | grep -c "refs/tags/$VERSION")
