@@ -1,3 +1,4 @@
+import React, { useState, useEffect } from 'react';
 import Switch from './switch.jsx';
 
 export default {
@@ -19,7 +20,7 @@ export default {
 			},
 		},
 		disabled: {
-			name: 'disabled',
+			name: 'Sisabled',
 			description: 'Defines if the switch is disabled.',
 			control: 'boolean',
 			table: {
@@ -29,13 +30,14 @@ export default {
 		},
 		label: {
 			name: 'Label',
-			description: 'Defines the label and description of the switch. Can be an object or a React element.',
+			description:
+				'Defines the label and description of the switch. Can be an object or a React element.',
 			table: {
 				type: { summary: 'object | ReactNode' },
 			},
 		},
 		name: {
-			name: 'name',
+			name: 'Name',
 			description: 'Name attribute of the input element.',
 			control: 'text',
 			table: {
@@ -43,14 +45,15 @@ export default {
 			},
 		},
 		onChange: {
-			name: 'onChange',
-			description: 'Callback function fired when the switch state changes.',
+			name: 'On Change Event',
+			description:
+				'Callback function fired when the switch state changes.',
 			table: {
 				type: { summary: 'function' },
 			},
 		},
 		defaultValue: {
-			name: 'defaultValue',
+			name: 'Default Value',
 			description: 'Default value for uncontrolled switch (true/false).',
 			control: 'boolean',
 			table: {
@@ -58,34 +61,58 @@ export default {
 				defaultValue: { summary: 'false' },
 			},
 		},
-	},
-};
-
-export const Basic = {
-	args: {
-		size: 'lg',
-		defaultValue: false,
-	},
-};
-
-export const WithLabel = {
-	args: {
-		...Basic.args,
-		label: {
-			heading: 'Switch Label',
-			description: 'Switch Description',
+		className: {
+			name: 'Class Name',
+			description: 'Defines the extra classes',
+			control: 'text',
+			table: {
+				type: { summary: 'string' },
+				defaultValue: { summary: '' },
+			},
 		},
-		defaultValue: true,
 	},
 };
 
-export const Disabled = {
-	args: {
-		...Basic.args,
-		label: {
-			heading: 'Disabled Switch',
-			description: 'This switch is disabled and cannot be changed.',
-		},
-		disabled: true,
+const Template = ( { defaultValue, size, ...args } ) => {
+	const [ checked, setChecked ] = useState( defaultValue );
+
+	useEffect( () => {
+		setChecked( defaultValue );
+	}, [ defaultValue ] );
+
+	const handleChange = ( newValue ) => {
+		setChecked( newValue );
+		if ( args.onChange ) {
+			args.onChange( newValue );
+		}
+	};
+
+	return (
+		<Switch { ...args } size={ size } value={ checked } onChange={ handleChange } />
+	);
+};
+
+export const Basic = ( args ) => Template( { ...args } );
+Basic.args = {
+	defaultValue: false,
+	size: 'lg',
+	disabled: false,
+};
+
+export const WithLabel = ( args ) => Template( { ...args } );
+WithLabel.args = {
+	defaultValue: true,
+	size: 'lg',
+	disabled: false,
+	label: { heading: 'Switch Label', description: 'Switch Description' },
+};
+
+export const Disabled = ( args ) => Template( { ...args } );
+Disabled.args = {
+	size: 'lg',
+	disabled: true,
+	label: {
+		heading: 'Disabled Switch',
+		description: 'This switch is disabled.',
 	},
 };

@@ -9,16 +9,19 @@ import { nanoid } from 'nanoid';
 import { cn } from '@/utilities/functions';
 
 const SwitchLabel = ( { label, switchId, disabled = false, children } ) => {
-	const isEmptyLabel = ! label?.heading || ! label?.description;
-
 	const isLabelAComponent = isValidElement( label );
-
-	const renderLabel = useCallback( () => {
-		if ( isLabelAComponent ) {
-			return label;
-		}
-
-		const { heading = '', description = '' } = label;
+	if ( isLabelAComponent ) {
+		return (
+			<div
+				className={ cn( 'inline-flex items-center gap-3', 'items-start' ) }
+			>
+				{ children }
+				{ label }
+			</div>
+		);
+	}
+	const renderLabel = () => {
+		const { heading = '', description = '' } = label || {};
 		return (
 			<div className="space-y-1.5">
 				{ heading && (
@@ -33,23 +36,22 @@ const SwitchLabel = ( { label, switchId, disabled = false, children } ) => {
 				) }
 			</div>
 		);
-	}, [ label ] );
+	};
+
+	const isEmptyLabel = ! label?.heading && ! label?.description;
+	const alignmentClass =
+		! label?.heading || ! label?.description ? 'items-center' : 'items-start';
 
 	if ( isEmptyLabel ) {
 		return children;
 	}
 
 	return (
-		<div
-			className={ cn(
-				'inline-flex items-center',
-				! isEmptyLabel && 'items-start'
-			) }
-		>
+		<div className={ cn( 'inline-flex', alignmentClass, 'gap-3' ) }>
 			{ children }
 			<label
 				htmlFor={ switchId }
-				className={ cn( 'ml-3', ! disabled && 'cursor-pointer' ) }
+				className={ cn( ! disabled && 'cursor-pointer' ) }
 			>
 				{ renderLabel() }
 			</label>
@@ -100,7 +102,7 @@ const SwitchComponent = (
 
 	const colorClassNames = {
 		primary: {
-			input: 'bg-toggle-off checked:bg-toggle-on focus:ring focus:ring-toggle-on focus:ring-offset-4 border border-solid border-toggle-off-border checked:border-toggle-on-border shadow-toggleContainer focus:outline-none checked:focus:border-toggle-on-border focus:border-toggle-off-border',
+			input: 'bg-toggle-off hover:bg-toggle-off-hover checked:bg-toggle-on checked:hover:bg-toggle-on-hover focus:ring focus:ring-toggle-on focus:ring-offset-4 border border-solid border-toggle-off-border checked:border-toggle-on-border shadow-toggleContainer focus:outline-none checked:focus:border-toggle-on-border focus:border-toggle-off-border',
 			toggleDial: 'bg-toggle-dial-background shadow-toggleDial',
 		},
 	};
@@ -139,8 +141,7 @@ const SwitchComponent = (
 					className={ cn(
 						"peer appearance-none absolute bg-blue-gray-100 rounded-full cursor-pointer transition-colors duration-300 h-full w-full  before:content-[''] checked:before:content-[''] m-0 checked:[background-image:none]",
 						colorClassNames[ color ].input,
-						disabled && disabledClassNames.input,
-						! disabled && 'hover:bg-toggle-off-hover checked:hover:bg-toggle-on-hover'
+						disabled && disabledClassNames.input
 					) }
 					checked={ getValue() }
 					onChange={ handleChange }
@@ -151,11 +152,10 @@ const SwitchComponent = (
 				<label
 					htmlFor={ switchId }
 					className={ cn(
-						"bg-white border border-blue-gray-100 rounded-full absolute cursor-pointer shadow-md before:content[''] before:transition-opacity before:opacity-0 before:hidden border-none transition-all duration-300",
+						"bg-white border border-blue-gray-100 rounded-full absolute cursor-pointer shadow-md before:content[''] before:transition-opacity before:opacity-0 hover:before:opacity-10 before:hidden border-none transition-all duration-300",
 						sizeClassNames[ size ].toggleDial,
 						colorClassNames[ color ].toggleDial,
-						disabled && disabledClassNames.toggleDial,
-						! disabled && 'hover:before:opacity-10'
+						disabled && disabledClassNames.toggleDial
 					) }
 				/>
 			</div>

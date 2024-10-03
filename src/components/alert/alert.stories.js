@@ -1,4 +1,6 @@
 import Alert from './alert.jsx';
+import { fn } from '@storybook/test';
+import { Plus } from 'lucide-react';
 
 // Alert component story configuration
 export default {
@@ -13,7 +15,14 @@ export default {
 			name: 'Variant',
 			description: 'Defines the style variant of the alert.',
 			control: 'select',
-			options: [ 'neutral', 'info', 'warning', 'error', 'success', 'inverse' ],
+			options: [
+				'neutral',
+				'info',
+				'warning',
+				'error',
+				'success',
+				'inverse',
+			],
 			table: {
 				type: { summary: 'string' },
 				defaultValue: { summary: 'neutral' },
@@ -43,27 +52,50 @@ export default {
 			name: 'Title',
 			description: 'Defines the title of the alert.',
 			control: 'text',
-			defaultValue: 'Title',
+			table: {
+				type: { summary: 'string' },
+				defaultValue: { summary: 'Title' },
+			},
 		},
 		content: {
 			name: 'Content',
 			description: 'Defines the content of the alert.',
 			control: 'text',
-			defaultValue: 'This is a description',
-		},
-		className: {
-			name: 'Classname',
-			description: 'Defines the extra classes',
-			control: 'select',
-			options: [ 'inline', 'stack' ],
 			table: {
 				type: { summary: 'string' },
-				defaultValue: { summary: 'inline' },
+				defaultValue: { summary: 'This is a description' },
+			},
+		},
+		className: {
+			name: 'Class Name',
+			description: 'Defines the extra classes',
+			control: 'text',
+			table: {
+				type: { summary: 'string' },
+				defaultValue: { summary: '' },
+			},
+		},
+		onClose: {
+			name: 'On Close Event',
+			description: 'Callback function for close event',
+			control: 'function',
+			table: {
+				type: { summary: 'function' },
+				defaultValue: { summary: '() => {}' },
+			},
+		},
+		icon: {
+			name: 'Icon',
+			description: 'Custom Icon for the alert.',
+			control: 'object',
+			table: {
+				type: { summary: 'object' },
+				defaultValue: { summary: 'null' },
 			},
 		},
 		action: {
 			name: 'Action',
-			description: 'Defines the icon of the alert.',
+			description: 'Defines the description of the alert.',
 			control: 'object',
 			table: {
 				type: { summary: 'object' },
@@ -81,6 +113,7 @@ export default {
 export const Neutral = {
 	args: {
 		variant: 'neutral',
+		onClose: fn(),
 	},
 };
 
@@ -88,24 +121,28 @@ export const Info = {
 	args: {
 		variant: 'info',
 		disabled: true,
+		onClose: fn(),
 	},
 };
 
 export const Warning = {
 	args: {
 		variant: 'warning',
+		onClose: fn(),
 	},
 };
 
 export const Error = {
 	args: {
 		variant: 'error',
+		onClose: fn(),
 	},
 };
 
 export const Success = {
 	args: {
 		variant: 'success',
+		onClose: fn(),
 	},
 };
 
@@ -113,6 +150,7 @@ export const Stack = {
 	args: {
 		variant: 'info',
 		design: 'stack',
+		onClose: fn(),
 	},
 };
 
@@ -120,11 +158,13 @@ export const Dark = {
 	args: {
 		variant: 'error',
 		theme: 'dark',
+		onClose: fn(),
 	},
 };
 
 export const WithAction = {
 	args: {
+		onClose: fn(),
 		variant: 'info',
 		design: 'stack',
 		action: {
@@ -137,8 +177,9 @@ export const WithAction = {
 
 export const WithCustomIcon = {
 	args: {
+		onClose: fn(),
 		variant: 'info',
-		// icon: <Plus />,
+		icon: <Plus />,
 		action: {
 			label: 'My Action',
 			onClick: () => {},

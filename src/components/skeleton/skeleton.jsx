@@ -11,8 +11,21 @@ const Skeleton = ( {
 		rectangular: 'rounded-md bg-gray-200',
 	}?.[ variant ];
 
+	const defaultWidth = {
+		circular: 'size-10',
+		rectangular: 'w-96 h-3',
+	}?.[ variant ];
+
 	return (
-		<div className={ cn( variantClasses, 'animate-pulse', className ) } { ...props }></div>
+		<div
+			className={ cn(
+				variantClasses,
+				'animate-pulse',
+				defaultWidth,
+				className
+			) }
+			{ ...props }
+		></div>
 	);
 };
 

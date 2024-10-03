@@ -40,10 +40,8 @@ const EditorComboboxItem = forwardRef(
 );
 EditorComboboxItem.displayName = 'Item';
 
-const EditorCombobox = Object.seal(
-	Object.assign( EditorComboboxWrapper, {
-		Item: EditorComboboxItem,
-	} )
-);
+const EditorCombobox = Object.assign( EditorComboboxWrapper, {
+	Item: EditorComboboxItem,
+} );
 
 export default EditorCombobox;
