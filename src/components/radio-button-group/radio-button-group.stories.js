@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { RadioButtonGroup, RadioButton } from './radio-button-group.jsx';
+import RadioButton from './radio-button-group.jsx';
 import { Plus, Smile } from 'lucide-react';
 import Badge from '../badge/badge.jsx';
 
 export default {
-	title: 'Atoms/RadioButtonGroup',
-	component: RadioButtonGroup,
+	title: 'Atoms/RadioButton',
+	component: RadioButton.Group,
 	parameters: {
 		layout: 'centered',
 	},
@@ -106,7 +106,7 @@ export default {
 		},
 		label: {
 			description:
-				'`RadioButton` : Object containing heading and description for each RadioButton.',
+				'`RadioButton.Button` : Object containing heading and description for each RadioButton.',
 			control: {
 				type: 'object',
 			},
@@ -122,7 +122,8 @@ export default {
 			},
 		},
 		borderOn: {
-			description: '`RadioButton` : Adds a border around the button.',
+			description:
+				'`RadioButton.Button` : Adds a border around the button.',
 			control: 'boolean',
 			table: {
 				type: { summary: 'boolean' },
@@ -130,7 +131,7 @@ export default {
 			},
 		},
 		useSwitch: {
-			description: '`RadioButton` :Uses a switch for selection.',
+			description: '`RadioButton.Button` :Uses a switch for selection.',
 			control: 'boolean',
 			table: {
 				type: { summary: 'boolean' },
@@ -139,14 +140,15 @@ export default {
 		},
 		icon: {
 			description:
-				'`RadioButton` :Custom icon component to be displayed.',
+				'`RadioButton.Button` :Custom icon component to be displayed.',
 			control: {
 				type: 'text',
 			},
 			defaultValue: null,
 		},
 		inlineIcon: {
-			description: '`RadioButton` : Positions icon inline to the label.',
+			description:
+				'`RadioButton.Button` : Positions icon inline to the label.',
 			control: 'boolean',
 			table: {
 				type: { summary: 'boolean' },
@@ -154,7 +156,8 @@ export default {
 			},
 		},
 		hideSelection: {
-			description: '`RadioButton` : Positions icon inline to the label.',
+			description:
+				'`RadioButton.Button` : Positions icon inline to the label.',
 			control: 'boolean',
 			table: {
 				type: { summary: 'boolean' },
@@ -162,7 +165,8 @@ export default {
 			},
 		},
 		reversePosition: {
-			description: '`RadioButton` : Positions icon inline to the label.',
+			description:
+				'`RadioButton.Button` : Positions icon inline to the label.',
 			control: 'boolean',
 			table: {
 				type: { summary: 'boolean' },
@@ -170,14 +174,14 @@ export default {
 			},
 		},
 		badgeItem: {
-			description: '`RadioButton` : Badge Item to be displayed.',
+			description: '`RadioButton.Button` : Badge Item to be displayed.',
 			control: {
 				type: 'text',
 			},
 			defaultValue: null,
 		},
 		disabled: {
-			description: '`RadioButton` : Disables radio button.',
+			description: '`RadioButton.Button` : Disables radio button.',
 			control: 'boolean',
 			table: {
 				type: { summary: 'boolean' },
@@ -191,7 +195,7 @@ const Template = ( args ) => {
 	const [ value, setValue ] = useState( args.value || args.defaultValue );
 
 	return (
-		<RadioButtonGroup
+		<RadioButton.Group
 			{ ...args }
 			value={ value }
 			columns={ ( args.columns ?? args.style === 'tile' ) ? 6 : 3 }
@@ -202,15 +206,15 @@ const Template = ( args ) => {
 		>
 			{ [ 1, 2, 3, 4, 5, 6 ].map( ( num ) =>
 				args.style === 'tile' ? (
-					<RadioButton
+					<RadioButton.Button
 						value={ `option${ num }` }
 						key={ num }
 						disabled={ args.disabled }
 					>
 						<Plus />
-					</RadioButton>
+					</RadioButton.Button>
 				) : (
-					<RadioButton
+					<RadioButton.Button
 						key={ num }
 						value={ `option${ num }` }
 						label={
@@ -242,7 +246,7 @@ const Template = ( args ) => {
 					/>
 				)
 			) }
-		</RadioButtonGroup>
+		</RadioButton.Group>
 	);
 };
 
