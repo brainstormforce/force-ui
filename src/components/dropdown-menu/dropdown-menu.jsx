@@ -145,11 +145,7 @@ const DropdownMenuContent = ( { children, className, ...props } ) => {
 DropdownMenuContent.displayName = 'DropdownMenu.Content';
 
 const DropdownMenuList = ( { children, ...props } ) => {
-	return (
-		<Menu.List { ...props }>
-            {children}
-		</Menu.List>
-	);
+	return <Menu.List { ...props }>{ children }</Menu.List>;
 };
 
 DropdownMenuList.displayName = 'DropdownMenu.List';
@@ -158,7 +154,7 @@ const DropdownMenuItem = ( { children, as: Tag = Menu.Item, ...props } ) => {
 	const { handleClose } = useDropdownMenuContext();
 
 	if ( ! children ) {
-        return null;
+		return null;
 	}
 
 	if ( Tag === Fragment ) {
@@ -166,7 +162,7 @@ const DropdownMenuItem = ( { children, as: Tag = Menu.Item, ...props } ) => {
 			onClick: callAll( children.props?.onClick, handleClose ),
 		} );
 	}
-    
+
 	return (
 		<Tag { ...props } onClick={ callAll( props.onClick, handleClose ) }>
 			{ children }
