@@ -30,7 +30,10 @@ Thumbs.db
 bin
 composer.lock
 Gruntfile.js
-package.json
+.storybook
+babel.config.js
+jsconfig.json
+postcss.config.js
 package-lock.json
 phpunit.xml
 phpunit.xml.dist
