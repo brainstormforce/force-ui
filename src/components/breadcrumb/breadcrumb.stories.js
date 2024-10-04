@@ -66,4 +66,3 @@ MediumSizeWithSlashSeparator.args = {
 	size: 'md',
 	separatorType: 'slash',
 };
-

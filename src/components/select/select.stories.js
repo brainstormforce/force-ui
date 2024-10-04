@@ -52,7 +52,8 @@ export default {
 		},
 		by: {
 			name: 'By',
-			description: 'Used to identify the selected value when value type is an `object`. Default is `"id"`.',
+			description:
+				'Used to identify the selected value when value type is an `object`. Default is `"id"`.',
 			table: {
 				type: { summary: 'string' },
 			},

@@ -10,18 +10,21 @@ export default {
 	tags: [ 'autodocs' ],
 	argTypes: {
 		children: {
-			description: 'Content to render inside the Sidebar. This typically includes `Sidebar.Header`, `Sidebar.Body`, and `Sidebar.Footer` components.',
+			description:
+				'Content to render inside the Sidebar. This typically includes `Sidebar.Header`, `Sidebar.Body`, and `Sidebar.Footer` components.',
 			control: { type: 'none' },
 		},
 		className: {
-			description: 'Optional custom CSS classes to apply to the Sidebar container for styling.',
+			description:
+				'Optional custom CSS classes to apply to the Sidebar container for styling.',
 			control: { type: 'text' },
 			table: {
 				type: { summary: 'string' },
 			},
 		},
 		borderOn: {
-			description: 'Controls whether a border should appear on the right of the Sidebar.',
+			description:
+				'Controls whether a border should appear on the right of the Sidebar.',
 			control: { type: 'boolean' },
 			defaultValue: true,
 			table: {
@@ -30,7 +33,8 @@ export default {
 			},
 		},
 		collapsible: {
-			description: 'Determines if the Sidebar can be collapsed or not. If `true`, a collapse button is shown.',
+			description:
+				'Determines if the Sidebar can be collapsed or not. If `true`, a collapse button is shown.',
 			control: { type: 'boolean' },
 			defaultValue: true,
 			table: {
@@ -39,7 +43,8 @@ export default {
 			},
 		},
 		screenHeight: {
-			description: 'Determines whether the Sidebar should occupy the full screen height.',
+			description:
+				'Determines whether the Sidebar should occupy the full screen height.',
 			control: { type: 'boolean' },
 			defaultValue: true,
 			table: {
@@ -48,15 +53,15 @@ export default {
 			},
 		},
 		onCollapseChange: {
-			description: 'Callback function triggered when the Sidebar collapse state changes. Use this to handle logic based on collapse/expand states.',
+			description:
+				'Callback function triggered when the Sidebar collapse state changes. Use this to handle logic based on collapse/expand states.',
 			action: 'onCollapseChange',
 		},
 	},
 };
 
 const Template = ( args ) => (
-	<Sidebar { ...args }
-	>
+	<Sidebar { ...args }>
 		<Sidebar.Header>
 			<Sidebar.Item>
 				<img
@@ -73,14 +78,10 @@ const Template = ( args ) => (
 						<div key={ num }>Nav Item</div>
 					) ) }
 				</div>
-
 			</Sidebar.Item>
-
 		</Sidebar.Body>
 		<Sidebar.Footer>
-			<Button className="w-full">
-				Pro
-			</Button>
+			<Button className="w-full">Pro</Button>
 		</Sidebar.Footer>
 	</Sidebar>
 );
@@ -93,4 +94,3 @@ DefaultSidebar.args = {
 };
 
 DefaultSidebar.storyName = 'Sidebar';
-
