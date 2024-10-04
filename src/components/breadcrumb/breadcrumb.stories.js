@@ -1,14 +1,6 @@
 // Breadcrumb.stories.js
 
-import {
-	Breadcrumb,
-	BreadcrumbList,
-	BreadcrumbItem,
-	BreadcrumbLink,
-	BreadcrumbSeparator,
-	BreadcrumbEllipsis,
-	BreadcrumbPage,
-} from './breadcrumb'; // Adjust the import path as needed
+import Breadcrumb from './breadcrumb'; // Adjust the import path as needed
 
 export default {
 	title: 'Atoms/Breadcrumb',
@@ -35,23 +27,23 @@ export default {
 
 const Template = ( args ) => (
 	<Breadcrumb size={ args.size }>
-		<BreadcrumbList>
-			<BreadcrumbItem>
-				<BreadcrumbLink href="#">Home</BreadcrumbLink>
-			</BreadcrumbItem>
-			<BreadcrumbSeparator type={ args.separatorType } />
-			<BreadcrumbItem>
-				<BreadcrumbEllipsis />
-			</BreadcrumbItem>
-			<BreadcrumbSeparator type={ args.separatorType } />
-			<BreadcrumbItem>
-				<BreadcrumbLink href="#">Category</BreadcrumbLink>
-			</BreadcrumbItem>
-			<BreadcrumbSeparator type={ args.separatorType } />
-			<BreadcrumbItem>
-				<BreadcrumbPage>Current Page</BreadcrumbPage>
-			</BreadcrumbItem>
-		</BreadcrumbList>
+		<Breadcrumb.List>
+			<Breadcrumb.Item>
+				<Breadcrumb.Link href="#">Home</Breadcrumb.Link>
+			</Breadcrumb.Item>
+			<Breadcrumb.Separator type={ args.separatorType } />
+			<Breadcrumb.Item>
+				<Breadcrumb.Ellipsis />
+			</Breadcrumb.Item>
+			<Breadcrumb.Separator type={ args.separatorType } />
+			<Breadcrumb.Item>
+				<Breadcrumb.Link href="#">Category</Breadcrumb.Link>
+			</Breadcrumb.Item>
+			<Breadcrumb.Separator type={ args.separatorType } />
+			<Breadcrumb.Item>
+				<Breadcrumb.Page>Current Page</Breadcrumb.Page>
+			</Breadcrumb.Item>
+		</Breadcrumb.List>
 	</Breadcrumb>
 );
 
