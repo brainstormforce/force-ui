@@ -19,7 +19,7 @@ export default {
     },
     tags: ['autodocs'],
     argTypes: {
-        size: {
+        dimension: {
             description: 'Defines the size variant of the search box',
             control: { type: 'select' },
             options: ['sm', 'md', 'lg'],
@@ -87,11 +87,13 @@ const Template = (args) => {
                         handleSearch(value);
                     }}
                     variant={args.variant}
+                    disabled={args.disabled}
                 />
                 <SearchBoxContent>
                     {loading ? (
                         <SearchBoxLoading />
                     ) : (
+                            <>
                         <SearchBoxResults>
                             <SearchBoxResultTitle>Search Results</SearchBoxResultTitle>
                             {results.map((item, index) => (
@@ -104,6 +106,18 @@ const Template = (args) => {
                                 </React.Fragment>
                             ))}
                         </SearchBoxResults>
+                                <SearchBoxSeparator />
+                                <SearchBoxResults>
+                                    <SearchBoxResultTitle>Extra Results</SearchBoxResultTitle>
+                                    {results.map((item, index) => (
+                                        <React.Fragment key={index}>
+                                            <SearchBoxResultItem>
+                                                {item.name}
+                                            </SearchBoxResultItem>
+                                        </React.Fragment>
+                                    ))}
+                                </SearchBoxResults>
+                            </>
                     )}
                 </SearchBoxContent>
             </SearchBox>
@@ -113,8 +127,8 @@ const Template = (args) => {
 
 export const BasicSearchBox = Template.bind({});
 BasicSearchBox.args = {
-    size: 'sm',
-    variant: 'primary',
+    dimension: 'sm',
+    variant: 'secondary',
     disabled: false,
     placeholder: 'Search...',
 };
@@ -122,7 +136,7 @@ BasicSearchBox.args = {
 export const LargeSearchBox = Template.bind({});
 LargeSearchBox.args = {
     ...BasicSearchBox.args,
-    size: 'lg',
+    dimension: 'lg',
 };
 
 export const DisabledSearchBox = Template.bind({});

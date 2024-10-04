@@ -1,7 +1,7 @@
 export const textSizeClassNames = {
-    sm: 'text-xs [&>svg]:h-4 [&>svg]:w-4',
-    md: 'text-sm [&>svg]:h-5 [&>svg]:w-5',
-    lg: 'text-base [&>svg]:h-6 [&>svg]:w-6',
+    sm: 'text-xs [&>svg]:size-4 rounded',
+    md: 'text-sm [&>svg]:size-5 rounded-md',
+    lg: 'text-base [&>svg]:size-6 rounded-md',
 };
 
 export const sizeClassNames = {
@@ -28,9 +28,3 @@ export const focusClassNames =
 export const disabledClassNames = 'border-border-disabled bg-field-background-disabled cursor-not-allowed text-text-disabled';
 
 export const baseClassNames = 'font-normal placeholder-text-tertiary text-text-secondary w-full focus:outline-none';
-
-export const inputPaddingClassNames = {
-    sm: 'pl-8',
-    md: 'pl-10',
-    lg: 'pl-12',
-};
