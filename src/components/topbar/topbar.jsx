@@ -5,7 +5,7 @@ const Topbar = ( { children, gap = 'lg', className, ...props } ) => {
 	return (
 		<div
 			className={ cn(
-				'w-full flex items-center justify-between bg-background-primary p-5 min-h-16',
+				'w-full box-border flex items-center justify-between bg-background-primary p-5 min-h-16',
 				getGapClass( gap ),
 				className
 			) }
