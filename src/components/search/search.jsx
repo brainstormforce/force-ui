@@ -14,14 +14,14 @@ import {
 } from './styles';
 import { autoUpdate, flip, FloatingPortal, offset, size, useDismiss, useFloating, useInteractions } from '@floating-ui/react';
 
-const SizeContext = createContext();
+const SearchContext = createContext();
 
-const useSize = () => {
-	return useContext(SizeContext);
+const useSearchContext = () => {
+	return useContext(SearchContext);
 };
 
 const SearchBox = forwardRef(({ className, dimension = 'sm', open = false, onOpenChange = () => { }, ...props }, ref) => {
-	const [width, setWidth] = useState(0);
+
 	const inputRef = useRef(null);
 
 	const { refs, floatingStyles, context } = useFloating({
@@ -44,12 +44,6 @@ const SearchBox = forwardRef(({ className, dimension = 'sm', open = false, onOpe
 			}),
 		],
 	});
-
-	// const measureWidth = () => {
-	// 	const newWidth = inputRef.current.clientWidth;
-	// 	setWidth(newWidth);
-	// 	console.log(newWidth);
-	// }
 	const dismiss = useDismiss(context);
 
 	const { getReferenceProps, getFloatingProps } = useInteractions([
@@ -57,13 +51,13 @@ const SearchBox = forwardRef(({ className, dimension = 'sm', open = false, onOpe
 	]);
 
 	return (
-		<SizeContext.Provider value={{ dimension, open, onOpenChange, refs, floatingStyles, context, width, getReferenceProps, getFloatingProps }}>
+		<SearchContext.Provider value={{ dimension, open, onOpenChange, refs, floatingStyles, context, getReferenceProps, getFloatingProps }}>
 			<div
 				className={cn('searchbox-wrapper relative w-full', className)}
 				{...props}
 				ref={inputRef}
 			/>
-		</SizeContext.Provider>
+		</SearchContext.Provider>
 	);
 });
 SearchBox.displayName = 'SearchBox';
@@ -81,7 +75,7 @@ const SearchBoxInput = forwardRef(({
 }, ref) => {
 	const [internalValue, setInternalValue] = useState(defaultValue || '');
 	const isControlled = useRef(value !== undefined);
-	const { dimension, open, onOpenChange, refs, getReferenceProps } = useSize();
+	const { dimension, open, onOpenChange, refs, getReferenceProps } = useSearchContext();
 
 	const handleChange = (event) => {
 		const newValue = event.target.value;
@@ -97,10 +91,6 @@ const SearchBoxInput = forwardRef(({
 			}
 		}
 	};
-
-	// const handleWidth = () => {
-	// 	measureWidth();
-	// }	
 
 	const inputValue = isControlled.current ? value : internalValue;
 
@@ -139,7 +129,6 @@ const SearchBoxInput = forwardRef(({
 				onChange={handleChange}
 				placeholder={placeholder}
 				{...props}
-				// onFocus={handleWidth}
 			/>
 			<span
 				className={cn(
@@ -167,7 +156,7 @@ const SearchBoxContent = forwardRef(({
 	dropdownPortalId = '', // Id of the dropdown portal where the dropdown will be rendered.
 	children, ...props
 }, ref) => {
-	const { dimension, open, refs, floatingStyles, context, width, getFloatingProps } = useContext(SizeContext);
+	const { open, refs, floatingStyles, getFloatingProps } = useSearchContext();
 
 	if (!open) return null;
 
@@ -194,7 +183,7 @@ const SearchBoxContent = forwardRef(({
 SearchBoxContent.displayName = 'SearchBoxContent';
 
 const SearchBoxLoading = ({ loadingIcon = <Loader /> }) => {
-	const { dimension } = useContext(SizeContext);
+	const { dimension } = useSearchContext();
 	return (
 		<div className={cn("justify-center p-4", textSizeClassNames[dimension])}>
 		{loadingIcon}
@@ -210,7 +199,7 @@ const SearchBoxResults = forwardRef(({ className, children, ...props }, ref) => 
 SearchBoxResults.displayName = 'SearchBoxResults';
 
 const SearchBoxResultTitle = forwardRef(({ className, children, ...props }, ref) => {
-	const { dimension } = useSize();
+	const { dimension } = useSearchContext();
 
 	return (
 		<div
@@ -228,11 +217,11 @@ const SearchBoxResultTitle = forwardRef(({ className, children, ...props }, ref)
 SearchBoxResultTitle.displayName = 'SearchBoxResultTitle';
 
 const SearchBoxResultItem = forwardRef(({ className, children, icon, ...props }, ref) => {
-	const { dimension } = useSize();
+	const { dimension } = useSearchContext();
 	return (<div
 		ref={ref}
 		className={cn(
-			'flex items-center gap-2 p-1 hover:bg-gray-200 cursor-pointer',
+			'flex items-center gap-2 p-1 hover:bg-gray-200',
 			textSizeClassNames[dimension],
 			!icon && "pl-4",
 			className
@@ -240,7 +229,7 @@ const SearchBoxResultItem = forwardRef(({ className, children, icon, ...props },
 		{...props}
 	>
 		{icon}
-		<label className={cn("w-full text-text-secondary", textSizeClassNames[dimension])}>{children}</label>
+		<label className={cn(textSizeClassNames[dimension], "w-full text-text-secondary cursor-pointer")}>{children}</label>
 	</div>)
 });
 SearchBoxResultItem.displayName = 'SearchBoxResultItem';
