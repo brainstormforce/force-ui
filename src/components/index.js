@@ -26,3 +26,4 @@ export { default as Breadcrumb } from './breadcrumb/index';
 export { default as Dialog } from './dialog/index';
 export { default as Topbar } from './topbar/index';
 export { default as Drawer } from './drawer/index';
+export { default as Onboarding } from './onboarding-connect/index';
