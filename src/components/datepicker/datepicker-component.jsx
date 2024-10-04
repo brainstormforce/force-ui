@@ -28,6 +28,11 @@ const DatePickerComponent = ( {
 	);
 	const numberOfMonths = props.numberOfMonths;
 
+	const currentTimeDot = () => {
+		return (
+			<span className="bg-blue-500 h-1 w-1 absolute rounded-full inline-block bottom-0 left-1/2 right-1/2"></span>
+		);
+	};
 	const formatWeekdayName = ( date ) => {
 		return format( date, 'E' ).slice( 0, 1 ); // Returns only the first letter
 	};
@@ -164,9 +169,7 @@ const DatePickerComponent = ( {
 								className="h-9 w-full text-center font-normal relative"
 							>
 								{ yearValue }
-								{ yearValue === selectedYear && (
-									<span className="bg-blue-500 h-1 w-1 absolute rounded-full inline-block bottom-0 left-1/2 right-1/2"></span>
-								) }
+								{ yearValue === selectedYear && currentTimeDot() }
 							</Button>
 						) ) }
 					</div>
@@ -174,7 +177,7 @@ const DatePickerComponent = ( {
 
 				{ /* Render month grid when showMonthSelect is true */ }
 				{ showMonthSelect && ! showYearSelect && (
-					<div className="grid grid-cols-4 gap-2 my-auto">
+					<div className="grid grid-cols-4 gap-2 my-12">
 						{ Array.from( { length: 12 }, ( _, i ) => (
 							<Button
 								key={ i }
@@ -187,10 +190,8 @@ const DatePickerComponent = ( {
 							>
 								{ format( new Date( 0, i ), 'MMM' ) }
 								{ new Date().getMonth() === i &&
-									new Date().getFullYear() ===
-										selectedYear && (
-										<span className="bg-blue-500 h-1 w-1 absolute rounded-full inline-block bottom-0 left-1/2 right-1/2"></span>
-								) }
+									new Date().getFullYear() === selectedYear &&
+									currentTimeDot() }
 							</Button>
 						) ) }
 					</div>

@@ -22,10 +22,9 @@ const DatePicker = ( {
 	cancelText = '',
 	...props
 } ) => {
-	const [ selectedDates, setSelectedDates ] = useState( {
-		from: null,
-		to: null,
-	} );
+	const [ selectedDates, setSelectedDates ] = useState(
+		mode === 'multiple' ? [] : { from: null, to: null }
+	);
 
 	const defaultPresets = [
 		{
@@ -73,7 +72,7 @@ const DatePicker = ( {
 	};
 
 	const handleCancelClick = () => {
-		setSelectedDates( { from: null, to: null } );
+		setSelectedDates( mode === 'multiple' ? [] : { from: null, to: null } );
 		if ( onCancel ) {
 			onCancel();
 		}
@@ -91,7 +90,7 @@ const DatePicker = ( {
 				{ ...props }
 				mode={ mode }
 				variant={ variant }
-				width="w-[296px] h-[304px]"
+				width="w-[296px]"
 				selectedDates={ selectedDates }
 				setSelectedDates={ setSelectedDates }
 			/>
@@ -142,6 +141,7 @@ const DatePicker = ( {
 					setSelectedDates={ setSelectedDates }
 					variant={ variant }
 					width="w-full"
+					numberOfMonths={ 2 }
 					footer={
 						<div className="flex justify-end p-2 gap-3 border border-solid border-border-subtle border-t-0 rounded-br-md">
 							<Button
