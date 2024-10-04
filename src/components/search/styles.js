@@ -15,7 +15,7 @@ export const variantClassNames = {
     ghost: 'text-text-secondary bg-transparent border border-transparent',
 };
 
-export const IconClasses = 'z-20 pointer-events-none absolute inset-y-0 flex flex-1 items-center justify-center bg-field-secondary-background text-text-secondary group-hover:text-text-primary'
+export const IconClasses = 'text-text-tertiary group-hover:text-text-secondary'
 
 export const hoverClassNames = {
     enabled: 'hover:border-border-strong text-text-primary',

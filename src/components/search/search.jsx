@@ -1,7 +1,6 @@
-import { useState, forwardRef, useRef, createContext, useContext, useEffect } from 'react';
+import { useState, forwardRef, useRef, createContext, useContext } from 'react';
 import { cn } from '@/utilities/functions';
-import { File, Folder, Search, SquareSlash } from 'lucide-react';
-import { Label } from '..';
+import { Search } from 'lucide-react';
 import Loader from '../loader';
 import {
 	textSizeClassNames,
@@ -10,17 +9,17 @@ import {
 	focusClassNames,
 	disabledClassNames,
 	baseClassNames,
-	sizeClassNames
+	sizeClassNames,
+	IconClasses
 } from './styles';
-import { autoUpdate, flip, FloatingFocusManager, FloatingPortal, offset, size, useFloating } from '@floating-ui/react';
-// Create a context for size
+import { autoUpdate, flip, FloatingPortal, offset, size, useDismiss, useFloating, useInteractions } from '@floating-ui/react';
+
 const SizeContext = createContext();
 
 const useSize = () => {
 	return useContext(SizeContext);
 };
 
-// Update your SearchBox component to use this context
 const SearchBox = forwardRef(({ className, dimension = 'sm', open = false, onOpenChange = () => { }, ...props }, ref) => {
 	const [width, setWidth] = useState(0);
 	const inputRef = useRef(null);
@@ -51,9 +50,14 @@ const SearchBox = forwardRef(({ className, dimension = 'sm', open = false, onOpe
 	// 	setWidth(newWidth);
 	// 	console.log(newWidth);
 	// }
+	const dismiss = useDismiss(context);
+
+	const { getReferenceProps, getFloatingProps } = useInteractions([
+		dismiss,
+	]);
 
 	return (
-		<SizeContext.Provider value={{ dimension, open, onOpenChange, refs, floatingStyles, context, width }}>
+		<SizeContext.Provider value={{ dimension, open, onOpenChange, refs, floatingStyles, context, width, getReferenceProps, getFloatingProps }}>
 			<div
 				className={cn('searchbox-wrapper relative w-full', className)}
 				{...props}
@@ -77,7 +81,7 @@ const SearchBoxInput = forwardRef(({
 }, ref) => {
 	const [internalValue, setInternalValue] = useState(defaultValue || '');
 	const isControlled = useRef(value !== undefined);
-	const { dimension, open, onOpenChange, refs } = useSize();
+	const { dimension, open, onOpenChange, refs, getReferenceProps } = useSize();
 
 	const handleChange = (event) => {
 		const newValue = event.target.value;
@@ -110,12 +114,14 @@ const SearchBoxInput = forwardRef(({
 				textSizeClassNames[dimension],
 				disabled ? hoverClassNames.disabled : hoverClassNames.enabled,
 				disabled ? disabledClassNames : '',
-				focusClassNames
+				focusClassNames,
 			)
 
-		}>
+			}
+			{...getReferenceProps}
+		>
 			<span
-				className={cn(textSizeClassNames[dimension], "flex justify-center items-center")}>
+				className={cn(textSizeClassNames[dimension], IconClasses, "flex justify-center items-center")}>
 				<Search />
 			</span>
 			<input
@@ -138,6 +144,7 @@ const SearchBoxInput = forwardRef(({
 			<span
 				className={cn(
 					textSizeClassNames[dimension],
+					IconClasses,
 					'bg-background-primary border border-solid border-border-subtle',
 					dimension === 'sm'
 						? 'px-2 py-0.5'
@@ -160,7 +167,7 @@ const SearchBoxContent = forwardRef(({
 	dropdownPortalId = '', // Id of the dropdown portal where the dropdown will be rendered.
 	children, ...props
 }, ref) => {
-	const { dimension, open, refs, floatingStyles, context, width } = useContext(SizeContext);
+	const { dimension, open, refs, floatingStyles, context, width, getFloatingProps } = useContext(SizeContext);
 
 	if (!open) return null;
 
@@ -175,6 +182,7 @@ const SearchBoxContent = forwardRef(({
 					'bg-background-primary rounded-md p-2 border-border-strong shadow-lg overflow-y-auto',
 					className
 				)}
+				{...getFloatingProps}
 				{...props}
 			>
 				{children}
@@ -226,6 +234,7 @@ const SearchBoxResultItem = forwardRef(({ className, children, icon, ...props },
 		className={cn(
 			'flex items-center gap-2 p-1 hover:bg-gray-200 cursor-pointer',
 			textSizeClassNames[dimension],
+			!icon && "pl-4",
 			className
 		)}
 		{...props}

@@ -51,6 +51,19 @@ export default {
                 type: { summary: 'string' },
             },
         },
+        open: {
+            description: 'State variable to control opening and closing of dropdown',
+            table: {
+                type: { summary: 'boolean' },
+            },
+        },
+        onOpenChange: {
+            description: 'Function to change the open state of dropdown',
+            table: {
+                type: { summary: 'function' },
+            },
+        },
+
     },
 };
 
