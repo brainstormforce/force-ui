@@ -61,19 +61,28 @@ When a preset is selected, the `selectedDates` state is updated to the correspon
 ## Custom Presets
 
 You can pass custom preset time:
-```jsx
+You will need to import date-fns library to use custom presets.
+```npm install date-fns```
 
+```jsx
+  import { subDays } from 'date-fns';
   const customPresets = [
       { label: 'Next 7 Days', range: { from: new Date(), to: subDays(new Date(), -7) } },
       { label: '30 Days', range: { from: subDays(new Date(), 30), to: new Date() } },
   ];
-  return (
-    <DatePicker 
-        mode='range' 
-        variant='presets' 
-        presets={customPresets} 
-    />
-  )
+
+  const Example = () => {
+    return (
+      <DatePicker 
+          mode='range' 
+          variant='presets' 
+          presets={customPresets} 
+      />
+    )
+  }
+
+  export default Example;
+
 ```
 
   

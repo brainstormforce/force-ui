@@ -21,6 +21,7 @@ const DatePickerComponent = ( {
 	onChange,
 	...props
 } ) => {
+	//set state for month and year selection
 	const numberOfMonths = props.numberOfMonths;
 	const [ showMonthSelect, setShowMonthSelect ] = useState( false );
 	const [ showYearSelect, setShowYearSelect ] = useState( false ); // New state for year selection
@@ -29,6 +30,7 @@ const DatePickerComponent = ( {
 		selectedYear - ( selectedYear % 24 )
 	);
 
+	//if selectedDates is null or undefined, set it to an empty array or object
 	if ( selectedDates === null || selectedDates === undefined ) {
 		if ( mode === 'multiple' ) {
 			selectedDates = [];
@@ -39,6 +41,7 @@ const DatePickerComponent = ( {
 		}
 	}
 
+	//custom month caption
 	function CustomMonthCaption( customMonthProps ) {
 		const { goToMonth, nextMonth, previousMonth } = useDayPicker();
 		const yearFormatted = format(
@@ -56,38 +59,33 @@ const DatePickerComponent = ( {
 			return formatWeekdayName( date );
 		} );
 
+		// handle previous and next button click
 		const handlePrevButtonClick = () => {
 			if ( showYearSelect ) {
-				// Navigate to the previous year range (24 years)
-				setYearRangeStart( yearRangeStart - 24 );
+				setYearRangeStart( yearRangeStart - 24 ); // Navigate to the previous year range (24 years)
 			} else if ( showMonthSelect ) {
-				// Navigate to the previous year
 				const prevYear = new Date(
 					selectedYear - 1,
-					customMonthProps.calendarMonth.date.getMonth()
+					customMonthProps.calendarMonth.date.getMonth() // Navigate to the previous year
 				);
 				setSelectedYear( prevYear.getFullYear() );
 				goToMonth( prevYear );
 			} else {
-				// Navigate to the previous month
 				goToMonth( previousMonth );
 			}
 		};
 
 		const handleNextButtonClick = () => {
 			if ( showYearSelect ) {
-				// Navigate to the next year range (24 years)
-				setYearRangeStart( yearRangeStart + 24 );
+				setYearRangeStart( yearRangeStart + 24 ); // Navigate to the next year range (24 years)
 			} else if ( showMonthSelect ) {
-				// Navigate to the next year
 				const nextYear = new Date(
 					selectedYear + 1,
-					customMonthProps.calendarMonth.date.getMonth()
+					customMonthProps.calendarMonth.date.getMonth() // Navigate to the next year
 				);
 				setSelectedYear( nextYear.getFullYear() );
 				goToMonth( nextYear );
 			} else {
-				// Navigate to the next month
 				goToMonth( nextMonth );
 			}
 		};
@@ -183,20 +181,30 @@ const DatePickerComponent = ( {
 				{ /* Render month grid when showMonthSelect is true */ }
 				{ showMonthSelect && ! showYearSelect && (
 					<div className="grid grid-cols-4 gap-2 my-12">
-						{ Array.from( { length: 12 }, ( _, i ) => (
+						{ Array.from( { length: 12 }, ( _, monthIndex ) => (
 							<Button
-								key={ i }
+								key={ monthIndex }
 								variant="ghost"
 								onClick={ () => {
 									setShowMonthSelect( false );
-									goToMonth( new Date( selectedYear, i ) );
+									goToMonth(
+										new Date( selectedYear, monthIndex )
+									);
 								} }
 								className={ cn(
-									'px-1.5 py-2 h-9 w-[70px] text-center font-normal relative'
+									'px-1.5 py-2 h-9 w-[70px] text-center font-normal relative',
+									monthIndex ===
+										customMonthProps.calendarMonth.date.getMonth() &&
+										monthIndex !== new Date().getMonth() &&
+										selectedYear ===
+											customMonthProps.calendarMonth.date.getFullYear() &&
+										customMonthProps.calendarMonth.date.getFullYear() !==
+											new Date().getFullYear() &&
+										'bg-background-brand text-white hover:bg-background-brand hover:text-black'
 								) }
 							>
-								{ format( new Date( 0, i ), 'MMM' ) }
-								{ new Date().getMonth() === i &&
+								{ format( new Date( 0, monthIndex ), 'MMM' ) }
+								{ new Date().getMonth() === monthIndex &&
 									new Date().getFullYear() === selectedYear &&
 									currentTimeDot() }
 							</Button>
@@ -212,6 +220,7 @@ const DatePickerComponent = ( {
 		);
 	}
 
+	//custom month selectors
 	const MonthSelectors = ( { weekdays } ) => {
 		return (
 			<div className="flex gap-1 justify-between">
@@ -227,6 +236,7 @@ const DatePickerComponent = ( {
 		);
 	};
 
+	//custom day button
 	const CustomDayButton = ( { day, modifiers, onSelect } ) => {
 		const isSelected = modifiers.selected;
 		const isToday = modifiers.today;
@@ -268,6 +278,7 @@ const DatePickerComponent = ( {
 		);
 	};
 
+	//custom day
 	const Day = ( dayProps ) => {
 		const { day, modifiers, className, style, onSelect } = dayProps;
 
@@ -282,6 +293,7 @@ const DatePickerComponent = ( {
 		);
 	};
 
+	//custom months
 	const CustomMonths = ( { monthGridProps, onSelect } ) => {
 		return (
 			<div className="flex flex-col">
@@ -306,6 +318,7 @@ const DatePickerComponent = ( {
 		);
 	};
 
+	//handle select
 	const handleSelect = ( selectedDate ) => {
 		if ( mode === 'range' ) {
 			if (
@@ -342,6 +355,7 @@ const DatePickerComponent = ( {
 		}
 	};
 
+	//monrh class name
 	const monthsClassName = cn(
 		'relative bg-white shadow-datepicker-wrapper',
 		width,
@@ -400,24 +414,40 @@ const DatePickerComponent = ( {
 					Months: ( monthsProps ) => (
 						<>
 							<div className={ monthsClassName }>
-								{ monthsProps.children.map( ( months ) => {
-									if ( ! months ) {
-										return null;
+								{ monthsProps.children.map(
+									( months, monthIndex ) => {
+										if ( ! months ) {
+											return null;
+										}
+										return (
+											<React.Fragment key={ monthIndex }>
+												{ ' ' }
+												{ /* Adding unique key here */ }
+												{ months.map(
+													(
+														month,
+														innerMonthIndex
+													) => (
+														<React.Fragment
+															key={
+																innerMonthIndex
+															}
+														>
+															{ ' ' }
+															{ /* Adding unique key here */ }
+															{ innerMonthIndex >
+																0 && (
+																//single line border
+																<div className="border border-solid border-border-subtle border-l-0"></div>
+															) }
+															{ month }
+														</React.Fragment>
+													)
+												) }
+											</React.Fragment>
+										);
 									}
-									return (
-										<>
-											{ months.map( ( month, monthIndex ) => (
-												<>
-													{ monthIndex > 0 && (
-														//single line border
-														<div className="border border-solid border-border-subtle border-l-0"></div>
-													) }
-													{ month }
-												</>
-											) ) }
-										</>
-									);
-								} ) }
+								) }
 							</div>
 						</>
 					),
