@@ -1,9 +1,10 @@
 import { Topbar } from "@/components";
 import { Container } from "@/components";
-import { ArrowUpRight, CircleHelp, Bell, User } from 'lucide-react';
+import { ArrowUpRight, CircleHelp, Bell, CirclePlay } from 'lucide-react';
 import { Button } from "@/components";
 import { Badge } from "@/components";
 import { Avatar } from "@/components";
+import media from "./media.png"
 
 export default {
 	title: 'Templates/Dashboard 1',
@@ -24,8 +25,7 @@ export default {
 export const Dashboard = () => {
     return (
         <>
-            {/* Topbar - just for storybook purpose I need to use style for setting the height*/}
-            <Topbar gap={0} className="min-h-[unset] !important h-24 p-0 shadow-sm bg-yellow-200">
+            <Topbar gap={0} className="h-16 p-0 shadow-sm">
                 <Topbar.Left className="p-5">
                     <Topbar.Item>
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -42,21 +42,21 @@ export const Dashboard = () => {
                 <Topbar.Middle align="left" className="h-full">
                     <Topbar.Item className="gap-4">
                         {/* Active Item underline */}
-                        <button className="relative h-full text-text-primary text-sm font-medium py-0 px-1 m-0 bg-transparent outline-none shadow-none border-0 focus:outline-none cursor-pointer">
+                        <button className="relative h-full text-text-primary text-sm font-medium py-0 px-1 m-0 bg-transparent  shadow-none border-0 cursor-pointer">
                             <span>Dashboard</span>
                             <span className="absolute w-full h-px bg-brand-primary-600 bottom-0 left-0 "></span>
                         </button>
-                        <button className="h-full text-text-tertiary text-sm font-medium py-0 px-1 m-0 bg-transparent outline-none shadow-none border-0 focus:outline-none cursor-pointer">
+                        <button className="h-full text-text-tertiary text-sm font-medium py-0 px-1 m-0 bg-transparent  shadow-none border-0 cursor-pointer">
                             <span>Settings</span>
                         </button>
-                        <button className="h-full text-text-tertiary text-sm font-medium py-0 px-1 m-0 bg-transparent outline-none shadow-none border-0 focus:outline-none cursor-pointer">
+                        <button className="h-full text-text-tertiary text-sm font-medium py-0 px-1 m-0 bg-transparent  shadow-none border-0 cursor-pointer">
                             <span>Starter Templates</span>
                         </button>
                         <Button
                             variant="ghost"
                             icon={ <ArrowUpRight /> }
                             iconPosition="right"
-                            className="h-full inline-flex items-center py-0 px-1 m-0 bg-transparent outline-none shadow-none border-0 focus:outline-none cursor-pointer text-sm font-semibold text-brand-primary-600"
+                            className="h-full inline-flex items-center py-0 px-1 m-0 bg-transparent  shadow-none border-0 cursor-pointer text-sm font-semibold text-brand-primary-600"
                         >
                             Upgrade to Pro
                         </Button>
@@ -82,20 +82,86 @@ export const Dashboard = () => {
                 </Topbar.Right>
             </Topbar>
 
-            {/* <Container containerType="flex" direction="column" gap={0} className="bg-blue-400">
-                <Container.Item>
-                    <Container containerType="flex" gap="2xl" className="p-8">
-                        <Container.Item className="border border-solid bg-yellow-400 p-10">
-                            Welcome Astra
+            <Container containerType="grid" cols={12} gap="2xl" className="bg-background-secondary p-8">
+                {/* First Column */}
+                <Container.Item colSpan={8} className="flex flex-col gap-8">
+                    <Container containerType="grid" cols={2} gap={4} className="bg-background-primary p-6 shadow-sm rounded-2xl">
+                        <Container.Item className="flex flex-col space-y-4">
+                            <h3 className="text-2xl m-0 font-bold">Welcome to Astra</h3>
+                            <p className="text-sm text-text-secondary">
+                            Astra is fast, fully customizable & beautiful WordPress theme suitable for blog, personal portfolio, business website and WooCommerce storefront. It is very lightweight and offers unparalleled speed.
+                            </p>
+                            <div className="flex space-x-4">
+                                <Button>Start Customizing</Button>
+                                <Button
+                                    variant="ghost" 
+                                    icon={ <CirclePlay /> }
+                                >
+                                    Watch a Quick Guide
+                                </Button>
+                            </div>
                         </Container.Item>
-                        <Container.Item>
-                            Integrations
+                    
+                        <Container.Item >
+                            <img
+                            src={media}
+                            alt="Media image"
+                            className="w-full h-full object-cover rounded-lg"
+                            />
                         </Container.Item>
                     </Container>
+
                 </Container.Item>
 
+                {/* Second Column */}
+                <Container.Item colSpan={4} className="grid gap-8">
+                    <Container direction="column" gap="xs" className="p-5 bg-background-primary shadow-sm rounded-2xl">
+                            <Container.Item>
+                                <Container gap="xs" align="center">
+                                    <div>VIP Support</div>
+                                    <Badge
+                                        label={ 'PRO' }
+                                        size="md"
+                                        icon={ null }
+                                        variant="inverse"
+                                        closable={ false }
+                                        className="py-0"
+                                    />
+                                </Container>
+                            </Container.Item>
+                            <Container.Item>
+                                <Container>
+                                    <div className="text-sm text-secondary pb-2">Faster and exclusive support service designed for VIP assistance and benefits.</div>
+                                </Container>
+                            </Container.Item>
+                            <Container.Item>
+                                <Button variant="link">
+                                    Know more
+                                </Button>
+                            </Container.Item>
+                    </Container>
 
-            </Container> */}
+                    <Container direction="column" gap="xs" className="p-5 bg-background-primary shadow-sm rounded-2xl">
+                            <Container.Item>
+                                <Container gap="xs" align="center">
+                                    <div>Join the Community</div>
+                                </Container>
+                            </Container.Item>
+                            <Container.Item>
+                                <Container>
+                                    <div className="text-sm text-secondary pb-2">Got a question about the plugin, want to share your awesome project? Join our wonderful community!</div>
+                                </Container>
+                            </Container.Item>
+                            <Container.Item>
+                                <Button variant="link">
+                                    Join now
+                                </Button>
+                            </Container.Item>
+                    </Container>
+                    
+                </Container.Item>
+            </Container>
+            
         </>
     )
 }
