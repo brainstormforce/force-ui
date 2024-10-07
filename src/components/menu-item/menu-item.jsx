@@ -178,6 +178,11 @@ const MenuSeparator = ( { variant = 'solid', className } ) => {
 	);
 };
 
+Menu.displayName = 'Menu';
+MenuList.displayName = 'Menu.List';
+MenuItem.displayName = 'Menu.Item';
+MenuSeparator.displayName = 'Menu.Separator';
+
 Menu.List = MenuList;
 Menu.Item = MenuItem;
 Menu.Separator = MenuSeparator;

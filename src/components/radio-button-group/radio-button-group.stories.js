@@ -250,11 +250,11 @@ const Template = ( args ) => {
 	);
 };
 
-export const SimpleRadioMd = ( args ) => <Template { ...args } />;
+export const SimpleRadioMd = Template.bind( {} );
 SimpleRadioMd.args = {};
 SimpleRadioMd.storyName = 'Simple Radio Group - size md';
 
-export const SimpleRadioMulti = ( args ) => <Template { ...args } />;
+export const SimpleRadioMulti = Template.bind( {} );
 SimpleRadioMulti.args = {
 	borderOn: true,
 	icon: true,
@@ -263,14 +263,14 @@ SimpleRadioMulti.args = {
 SimpleRadioMulti.storyName = 'Multi Selection';
 
 // Example 2: Tile Radio Group with more options
-export const TileRadio = ( args ) => <Template { ...args } style="tile" />;
+export const TileRadio = Template.bind( {} );
 TileRadio.args = {
 	style: 'tile',
 	columns: 6,
 };
 TileRadio.storyName = 'Tile Radio Group';
 
-export const SimpleRadioSwitch = ( args ) => <Template { ...args } />;
+export const SimpleRadioSwitch = Template.bind( {} );
 SimpleRadioSwitch.args = {
 	borderOn: true,
 	useSwitch: true,
@@ -278,7 +278,7 @@ SimpleRadioSwitch.args = {
 };
 SimpleRadioSwitch.storyName = 'Switch Selection';
 
-export const SimpleRadioInline = ( args ) => <Template { ...args } />;
+export const SimpleRadioInline = Template.bind( {} );
 SimpleRadioInline.args = {
 	borderOn: true,
 	icon: true,

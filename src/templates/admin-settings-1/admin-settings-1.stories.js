@@ -1,7 +1,48 @@
 import React, { useState } from 'react';
-import { Avatar, Badge, Button, Container, Sidebar, Tabs, Title, Topbar } from '@/components';
-import { ArrowUpRight, ChartNoAxesColumnIncreasing, ChevronRight, ChevronsLeft, ChevronsRight, CircleHelp, CreditCard, Dot, Megaphone, MousePointer, PenTool, RefreshCcw, ShoppingBag, ShoppingCart, Store, Tag, Truck, User } from 'lucide-react';
-
+import {
+	Avatar,
+	Badge,
+	Button,
+	Container,
+	Label,
+	Menu,
+	RadioButton,
+	Sidebar,
+	Tabs,
+	Title,
+	Topbar,
+} from '@/components';
+import {
+	ArrowUpRight,
+	Bell,
+	ChartNoAxesColumnIncreasing,
+	ChevronRight,
+	ChevronsLeft,
+	ChevronsRight,
+	CircleHelp,
+	CloudUpload,
+	CreditCard,
+	Dot,
+	Facebook,
+	House,
+	Layers,
+	Megaphone,
+	Monitor,
+	MousePointer,
+	PenTool,
+	RefreshCcw,
+	Settings,
+	Share2,
+	ShoppingBag,
+	ShoppingCart,
+	Smartphone,
+	Store,
+	Tag,
+	Truck,
+	Twitter,
+	Type,
+	User,
+} from 'lucide-react';
 
 export default {
 	title: 'Templates/Admin Settings 1',
@@ -10,12 +51,12 @@ export default {
 	},
 	decorators: [
 		(Story, parameters) => (
-			<div className="box-border [&_*]:box-border w-full">
+			<div className="box-border [&_*]:box-border w-full h-[100dvh]">
 				<Story {...parameters} />
 			</div>
 		),
 	],
-	tags: [ 'autodocs' ],
+	tags: ['autodocs'],
 };
 
 const TABS = [
@@ -31,7 +72,7 @@ const TABS = [
 		label: 'Advanced',
 		slug: 'advanced',
 	},
-]
+];
 
 const SEPARATORS = [
 	{ id: '-', label: '-' },
@@ -44,22 +85,27 @@ const SEPARATORS = [
 ];
 
 const Template = () => {
-	const [ activeTab, setActiveTab ] = useState( TABS[0].slug );
+	const [activeTab, setActiveTab] = useState(TABS[0].slug);
 
-	const handleChangeTab = ( { event, value: { slug } } ) => {
+	const handleChangeTab = ({ event, value: { slug } }) => {
 		event.preventDefault();
 		event.stopPropagation();
 
-		setActiveTab( slug );
-	}
+		setActiveTab(slug);
+	};
 
 	return (
-		<Container containerType="flex" direction="column" gap={0}>
+		<Container
+			containerType="flex"
+			direction="column"
+			gap={0}
+			className="h-full"
+		>
 			<Container.Item>
 				{/* Navigation Bar */}
 				<Topbar
 					gap={0}
-					className="w-auto min-h-[unset] h-16 shadow-sm p-0"
+					className="w-auto min-h-[unset] h-16 shadow-sm p-0 relative z-[1]"
 				>
 					<Topbar.Left className="p-5">
 						<Topbar.Item>
@@ -129,9 +175,14 @@ const Template = () => {
 				</Topbar>
 			</Container.Item>
 			{/* Sidebar & the content section */}
-			<Container.Item className="grid grid-cols-[16rem_1fr] bg-background-secondary">
+			<Container.Item className="grid grid-cols-[16rem_1fr] bg-background-secondary flex-auto">
 				<div className="h-full w-full">
-					<Sidebar borderOn collapsible={false} screenHeight={false}>
+					<Sidebar
+						borderOn
+						collapsible={false}
+						screenHeight={false}
+						className="!h-full w-64"
+					>
 						<Sidebar.Header>
 							<Sidebar.Item>
 								<img
@@ -143,109 +194,60 @@ const Template = () => {
 						</Sidebar.Header>
 						<Sidebar.Body>
 							<Sidebar.Item>
-								<div className="flex flex-col gap-2">
-									<div>
-										<p className="text-slate-500">Store</p>
-										<div>
-											<div className="px-2 py-1 flex items-center gap-2 cursor-pointer rounded-md hover:bg-slate-100 false">
-												<span className="mt-[4px]">
-													<Store size={20} />
-												</span>
-												<span className="text-base">
-													Store Settings
-												</span>
-											</div>
-											<div className="px-2 py-1 flex items-center gap-2 cursor-pointer rounded-md hover:bg-slate-100 false">
-												<span className="mt-[4px]">
-													<PenTool size={20} />
-												</span>
-												<span className="text-base">
-													Design & Branding
-												</span>
-											</div>
-										</div>
-									</div>
-									<div>
-										<p className="text-slate-500">
-											Orders & Sales
-										</p>
-										<div>
-											<div className="px-2 py-1 flex items-center gap-2 cursor-pointer rounded-md hover:bg-slate-100 false">
-												<span className="mt-[4px]">
-													<ShoppingBag size={20} />
-												</span>
-												<span className="text-base">
-													Orders & Receipts
-												</span>
-											</div>
-											<div className="px-2 py-1 flex items-center gap-2 cursor-pointer rounded-md hover:bg-slate-100 false">
-												<span className="mt-[4px]">
-													<ShoppingCart size={20} />
-												</span>
-												<span className="text-base">
-													Abandoned Checkout
-												</span>
-											</div>
-											<div className="px-2 py-1 flex items-center gap-2 cursor-pointer rounded-md hover:bg-slate-100 false">
-												<span className="mt-[4px]">
-													<Tag size={20} />
-												</span>
-												<span className="text-base">
-													Taxes
-												</span>
-											</div>
-											<div className="px-2 py-1 flex items-center gap-2 cursor-pointer rounded-md hover:bg-slate-100 false">
-												<span className="mt-[4px]">
-													<Truck size={20} />
-												</span>
-												<span className="text-base">
-													Shipping
-												</span>
-											</div>
-											<div className="px-2 py-1 flex items-center gap-2 cursor-pointer rounded-md hover:bg-slate-100 false">
-												<span className="mt-[4px]">
-													<CreditCard size={20} />
-												</span>
-												<span className="text-base">
-													Payment Processors
-												</span>
-											</div>
-										</div>
-									</div>
-									<div>
-										<p className="text-slate-500">
-											Customers
-										</p>
-										<div>
-											<div className="px-2 py-1 flex items-center gap-2 cursor-pointer rounded-md hover:bg-slate-100 false">
-												<span className="mt-[4px]">
-													<MousePointer size={20} />
-												</span>
-												<span className="text-base">
-													Affiliates
-												</span>
-											</div>
-											<div className="px-2 py-1 flex items-center gap-2 cursor-pointer rounded-md hover:bg-slate-100 false">
-												<span className="mt-[4px]">
-													<RefreshCcw size={20} />
-												</span>
-												<span className="text-base">
-													Subscriptions
-												</span>
-											</div>
-											<div className="px-2 py-1 flex items-center gap-2 cursor-pointer rounded-md hover:bg-slate-100 false">
-												<span className="mt-[4px]">
-													<ChartNoAxesColumnIncreasing
-														size={20}
-													/>
-												</span>
-												<span className="text-base">
-													Subscriptions Saver
-												</span>
-											</div>
-										</div>
-									</div>
-								</div>
+								<Menu size="md" className="w-full p-0 gap-4">
+									<Menu.List arrow heading="General" open>
+										<Menu.Item>
+											<Type />
+											<div>Titles and Descriptions</div>
+										</Menu.Item>
+										<Menu.Item>
+											<House />
+											<div>Home Page</div>
+										</Menu.Item>
+									</Menu.List>
+									<Menu.List heading="Social" open>
+										<Menu.Item>
+											<Settings />
+											<div>General</div>
+										</Menu.Item>
+										<Menu.Item>
+											<Facebook />
+											<div>Facebook</div>
+										</Menu.Item>
+										<Menu.Item>
+											<Twitter />
+											<div>X (Twitter)</div>
+										</Menu.Item>
+										<Menu.Item>
+											<Share2 />
+											<div>Social Account</div>
+										</Menu.Item>
+									</Menu.List>
+									<Menu.List arrow heading="Advanced">
+										<Menu.Item>
+											<MousePointer />
+											<div>Affiliates</div>
+										</Menu.Item>
+										<Menu.Item>
+											<ChartNoAxesColumnIncreasing />
+											<div>Subscriptions Saver</div>
+										</Menu.Item>
+									</Menu.List>
+									<Menu.List arrow heading="Tools">
+										<Menu.Item>
+											<Layers />
+											<div>Data Export</div>
+										</Menu.Item>
+										<Menu.Item>
+											<CloudUpload />
+											<div>Connection</div>
+										</Menu.Item>
+										<Menu.Item>
+											<Bell />
+											<div>Notification</div>
+										</Menu.Item>
+									</Menu.List>
+								</Menu>
 							</Sidebar.Item>
 						</Sidebar.Body>
 						<Sidebar.Footer>
@@ -274,7 +276,7 @@ const Template = () => {
 						className="bg-background-primary rounded-xl shadow py-4 px-6"
 					>
 						{/* Tabs */}
-						<Container.Item>
+						<Container.Item className="mb-0.5">
 							<Tabs.Group
 								activeItem={activeTab}
 								defaultValue={activeTab}
@@ -284,16 +286,47 @@ const Template = () => {
 								variant="underline"
 								width="auto"
 							>
-								{
-									TABS.map(({ label, slug }) => (
-										<Tabs.Tab key={label} slug={slug} text={label} />
-									))
-								}
+								{TABS.map(({ label, slug }) => (
+									<Tabs.Tab
+										key={label}
+										slug={slug}
+										text={label}
+									/>
+								))}
 							</Tabs.Group>
 						</Container.Item>
 						{/* Tab Content */}
-						<Container.Item>
-							
+						<Container.Item className="flex items-start gap-6">
+							<Container
+								align="center"
+								justify="between"
+								className="w-full"
+							>
+								<Container.Item>
+									<Label>
+										<span>Search Engine Preview</span>
+										<CircleHelp
+											className="size-4"
+											strokeWidth="1.5"
+										/>
+									</Label>
+								</Container.Item>
+								<Container.Item>
+									<RadioButton.Group
+										size="xs"
+										style="tile"
+										columns="2"
+										defaultValue="desktop"
+									>
+										<RadioButton.Button value="desktop">
+											<Monitor className="size-4" />
+										</RadioButton.Button>
+										<RadioButton.Button value="mobile">
+											<Smartphone className="size-4" />
+										</RadioButton.Button>
+									</RadioButton.Group>
+								</Container.Item>
+							</Container>
 						</Container.Item>
 					</Container>
 				</Container>
