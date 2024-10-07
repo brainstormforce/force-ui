@@ -47,7 +47,7 @@ import {
 } from 'lucide-react';
 
 export default {
-	title: 'Templates/Admin Settings 1',
+	title: 'Templates/Admin Settings/Admin Settings 1',
 	parameters: {
 		layout: 'fullscreen',
 	},
