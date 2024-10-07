@@ -11,6 +11,7 @@ import {
 	Tabs,
 	Title,
 	Topbar,
+	EditorInput,
 } from '@/components';
 import {
 	ArrowUpRight,
@@ -44,7 +45,6 @@ import {
 	Type,
 	User,
 } from 'lucide-react';
-import { cn } from '@/utilities/functions';
 
 export default {
 	title: 'Templates/Admin Settings 1',
@@ -86,6 +86,12 @@ const SEPARATORS = [
 	{ id: '«', label: <ChevronsLeft /> },
 ];
 
+const INPUT_SUGGESTIONS = [
+	{ value: '%page-title%', label: 'Page Title' },
+	{ value: '%site-title%', label: 'Site Title' },
+	{ value: '%separator%', label: 'Separator' },
+]
+
 const Logo = (props) => (
 	<svg
 		width="24"
@@ -112,6 +118,78 @@ const Template = () => {
 		event.stopPropagation();
 
 		setActiveTab(slug);
+	};
+
+	const stringValueToFormatJSON = (
+		stringContent,
+		options,
+		optionValueKey = 'value',
+		mentionObjectStructure = {
+			type: 'mention',
+			version: 1,
+			data: {},
+			size: 'md',
+			by: 'label',
+		}
+	) => {
+		const initialValue = {
+			root: {
+				children: [
+					{
+						children: [],
+						direction: null,
+						format: '',
+						indent: 0,
+						type: 'paragraph',
+						version: 1,
+						textFormat: 0,
+						textStyle: '',
+					},
+				],
+				direction: null,
+				format: '',
+				indent: 0,
+				type: 'root',
+				version: 1,
+			},
+		};
+
+		const value = { ...initialValue };
+		const content = stringContent
+			.trim()
+			.split(/(\n|%[\w\-_]+%)/)
+			.filter(Boolean);
+
+		content.forEach((item) => {
+			if (item === '\n') {
+				value.root.children[0].children.push({
+					type: 'linebreak',
+					version: 1,
+				});
+			} else if (item.startsWith('%') && item.endsWith('%')) {
+				const option = options.find(
+					(mentionItem) => mentionItem[optionValueKey] === item.trim()
+				);
+				if (option) {
+					value.root.children[0].children.push({
+						...mentionObjectStructure,
+						data: { ...option },
+					});
+				}
+			} else {
+				value.root.children[0].children.push({
+					detail: 0,
+					format: 0,
+					mode: 'normal',
+					style: '',
+					text: item,
+					type: 'text',
+					version: 1,
+				});
+			}
+		});
+
+		return JSON.stringify(value);
 	};
 
 	return (
@@ -289,7 +367,7 @@ const Template = () => {
 							</Tabs.Group>
 						</Container.Item>
 						{/* Tab Content */}
-						<Container.Item className="flex flex-col items-start gap-6">
+						<Container.Item className="flex flex-col items-start gap-2.5">
 							{/* Search Engine Preview Start */}
 							<Container
 								align="center"
@@ -324,9 +402,9 @@ const Template = () => {
 							{/* Preview */}
 							<div className="p-2 rounded-lg bg-background-secondary">
 								<div className="rounded-md border border-solid border-border-subtle bg-background-primary p-4 space-y-1.5 shadow-sm">
-									{ /* Site logo, title, and URL */ }
+									{/* Site logo, title, and URL */}
 									<div className="grid grid-cols-[1.75rem_1fr] items-center gap-3">
-										{ /* Site logo */ }
+										{/* Site logo */}
 										<Logo className="size-7" />
 										<div className="flex flex-col gap-0.5">
 											<span className="text-text-primary font-semibold">
@@ -334,30 +412,84 @@ const Template = () => {
 											</span>
 											<div className="flex items-center justify-start gap-2">
 												<span className="text-text-secondary">
-													{ /* Site URL */ }
+													{/* Site URL */}
 													https://www.surerank.com/
 												</span>
 												<EllipsisVertical className="size-3.5 text-icon-secondary" />
 											</div>
 										</div>
 									</div>
-									{ /* Page title and description */ }
+									{/* Page title and description */}
 									<div className="space-y-1">
 										<p className="text-xl leading-8 font-normal text-field-label m-0">
-											{ /* Page title */ }
+											{/* Page title */}
 											SureRank
 										</p>
-										<p
-											className='text-sm leading-5 font-medium text-text-secondary m-0'
-										>
-											{ /* Page description */ }
-											Level up your web design skills with our blog. Learn from experts, discover the latest trends, and build beautiful websites.
+										<p className="text-sm leading-5 font-medium text-text-secondary m-0">
+											{/* Page description */}
+											Level up your web design skills with
+											our blog. Learn from experts,
+											discover the latest trends, and
+											build beautiful websites.
 										</p>
 									</div>
 								</div>
 							</div>
 							{/* Search Engine Preview End */}
 						</Container.Item>
+						<Container
+							direction="column"
+							className="w-full gap-1.5"
+						>
+							<Container.Item className="w-full flex items-center gap-1">
+								<Label className="inline-block">
+									<span>Page Title</span>
+								</Label>
+								<span className="inline-block text-xs font-normal text-field-helper">
+									0/60
+								</span>
+							</Container.Item>
+							<Container.Item className="w-full">
+								<EditorInput
+									defaultValue={stringValueToFormatJSON(
+										'%page-title% %separator% %site-title%',
+										INPUT_SUGGESTIONS
+									)}
+									by="label"
+									placeholder="Press # to view variable suggestions"
+									options={INPUT_SUGGESTIONS}
+									trigger="#"
+									size="md"
+								/>
+							</Container.Item>
+							<span className="block text-xs leading-4 font-normal text-field-helper">
+								Type # to view variable suggestions
+							</span>
+						</Container>
+						<Container
+							direction="column"
+							className="w-full gap-1.5"
+						>
+							<Container.Item className="w-full flex items-center gap-1">
+								<Label className="inline-block">
+									<span>Page Description</span>
+								</Label>
+								<span className="inline-block text-xs font-normal text-field-helper">
+									0/60
+								</span>
+							</Container.Item>
+							<EditorInput
+								by="label"
+								className="!min-h-32 [&+div]:items-start [&+div]:pt-1"
+								placeholder="Press # to view variable suggestions"
+								options={INPUT_SUGGESTIONS}
+								trigger="#"
+								size="md"
+							/>
+							<span className="block text-xs leading-4 font-normal text-field-helper">
+								Type # to view variable suggestions
+							</span>
+						</Container>
 					</Container>
 				</Container>
 			</Container.Item>
