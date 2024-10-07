@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
-import RadioButton from './radio-button-group.jsx';
+import RadioButton from './radio-button.jsx';
 import { Plus, Smile } from 'lucide-react';
 import Badge from '../badge/badge.jsx';
 
 export default {
 	title: 'Atoms/RadioButton',
-	component: RadioButton.Group,
+	component: RadioButton,
 	parameters: {
 		layout: 'centered',
 	},
-	tags: [ 'autodocs' ],
+	tags: ['autodocs'],
 	argTypes: {
 		name: {
 			description: 'The name prop used for form control.',
@@ -21,14 +21,14 @@ export default {
 			description:
 				'Defines the style of the RadioGroup group. Options are "simple" and "tile".',
 			control: { type: 'select' },
-			options: [ 'simple', 'tile' ],
+			options: ['simple', 'tile'],
 			table: {
 				defaultValue: { summary: 'simple' },
 			},
 		},
 		size: {
 			control: { type: 'select' },
-			options: [ 'sm', 'md' ],
+			options: ['sm', 'md'],
 			description: 'Defines the size of the Select component.',
 			defaultValue: 'md',
 		},
@@ -191,70 +191,70 @@ export default {
 	},
 };
 
-const Template = ( args ) => {
-	const [ value, setValue ] = useState( args.value || args.defaultValue );
+const Template = (args) => {
+	const [value, setValue] = useState(args.value || args.defaultValue);
 
 	return (
 		<RadioButton.Group
-			{ ...args }
-			value={ value }
-			columns={ ( args.columns ?? args.style === 'tile' ) ? 6 : 3 }
-			onChange={ ( val ) => {
-				setValue( val );
-				args.onChange( val );
-			} }
+			{...args}
+			value={value}
+			columns={(args.columns ?? args.style === 'tile') ? 6 : 3}
+			onChange={(val) => {
+				setValue(val);
+				args.onChange(val);
+			}}
 		>
-			{ [ 1, 2, 3, 4, 5, 6 ].map( ( num ) =>
+			{[1, 2, 3, 4, 5, 6].map((num) =>
 				args.style === 'tile' ? (
 					<RadioButton.Button
-						value={ `option${ num }` }
-						key={ num }
-						disabled={ args.disabled }
+						value={`option${num}`}
+						key={num}
+						disabled={args.disabled}
 					>
 						<Plus />
 					</RadioButton.Button>
 				) : (
 					<RadioButton.Button
-						key={ num }
-						value={ `option${ num }` }
+						key={num}
+						value={`option${num}`}
 						label={
 							args.label ?? {
-								heading: `Option ${ num }`,
-								description: `Description ${ num }`,
+								heading: `Option ${num}`,
+								description: `Description ${num}`,
 							}
 						}
-						borderOn={ args.borderOn }
-						disabled={ args.disabled }
-						useSwitch={ args.useSwitch }
-						icon={ args.icon ? <Smile /> : null }
-						inlineIcon={ args.inlineIcon }
-						hideSelection={ args.hideSelection }
-						reversePosition={ args.reversePosition }
+						borderOn={args.borderOn}
+						disabled={args.disabled}
+						useSwitch={args.useSwitch}
+						icon={args.icon ? <Smile /> : null}
+						inlineIcon={args.inlineIcon}
+						hideSelection={args.hideSelection}
+						reversePosition={args.reversePosition}
 						badgeItem={
 							args.badgeItem ? (
 								<Badge
 									type="rounded"
-									label={ args.badgeItem }
-									icon={ null }
+									label={args.badgeItem}
+									icon={null}
 									className="mr-2"
 									size="sm"
 									variant="green"
-									closable={ false }
+									closable={false}
 								/>
 							) : null
 						}
 					/>
 				)
-			) }
+			)}
 		</RadioButton.Group>
 	);
 };
 
-export const SimpleRadioMd = ( args ) => <Template { ...args } />;
+export const SimpleRadioMd = Template.bind({});
 SimpleRadioMd.args = {};
 SimpleRadioMd.storyName = 'Simple Radio Group - size md';
 
-export const SimpleRadioMulti = ( args ) => <Template { ...args } />;
+export const SimpleRadioMulti = Template.bind({});
 SimpleRadioMulti.args = {
 	borderOn: true,
 	icon: true,
@@ -262,15 +262,14 @@ SimpleRadioMulti.args = {
 };
 SimpleRadioMulti.storyName = 'Multi Selection';
 
-// Example 2: Tile Radio Group with more options
-export const TileRadio = ( args ) => <Template { ...args } style="tile" />;
+export const TileRadio = Template.bind({});
 TileRadio.args = {
 	style: 'tile',
 	columns: 6,
 };
 TileRadio.storyName = 'Tile Radio Group';
 
-export const SimpleRadioSwitch = ( args ) => <Template { ...args } />;
+export const SimpleRadioSwitch = Template.bind({});
 SimpleRadioSwitch.args = {
 	borderOn: true,
 	useSwitch: true,
@@ -278,7 +277,7 @@ SimpleRadioSwitch.args = {
 };
 SimpleRadioSwitch.storyName = 'Switch Selection';
 
-export const SimpleRadioInline = ( args ) => <Template { ...args } />;
+export const SimpleRadioInline = Template.bind({});
 SimpleRadioInline.args = {
 	borderOn: true,
 	icon: true,

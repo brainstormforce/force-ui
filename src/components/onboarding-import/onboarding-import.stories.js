@@ -3,6 +3,8 @@ import ProgressSteps from '../progress-steps';
 import Topbar from '../topbar';
 import OnboardingImport from './onboarding-import';
 import Button from '../button';
+import RadioButton from '../radio-button';
+import Label from '../label';
 
 export default {
 	title: 'Templates/OnboardingImport',
@@ -14,7 +16,7 @@ export default {
 	argTypes: {
 		children: {
 			description:
-				'Content to render inside the Sidebar. This typically includes `Sidebar.Header`, `Sidebar.Body`, and `Sidebar.Footer` components.',
+				'Content to render inside the OnboardingImport.',
 			control: { type: 'none' },
 		},
 	},
@@ -23,7 +25,7 @@ export default {
 const Template = (args) => {
 
 	return (
-		<OnboardingImport {...args} className='bg-gray-100 h-screen w-full pb-10' >
+		<OnboardingImport {...args} className='bg-gray-100 min-h-screen w-full pb-10' >
 
 			<Topbar className='bg-gray-100'>
 				<Topbar.Left>
@@ -62,13 +64,46 @@ const Template = (args) => {
 			</Topbar>
 			<div className='w-8/12 p-6 mx-auto gap-10 border-border-subtle bg-background-primary rounded-md mt-10'>
 				<div>
-					<h2>Import Data From Your Current Plugins</h2>
-					<p>We have deducted few SEO plugins installed on your website. Select the plugin from which you want to import</p>
+					<Label size="md">Import Data From Your Current Plugins</Label>
+					<Label className='w-10/12 text-text-secondary mt-1'>We have deducted few SEO plugins installed on your website. Select the plugin from which you want to import</Label>
 				</div>
-				<div className='flex justify-end items-center gap-6'>
+				<div className='py-6'>
+					<RadioButton.Group
+						vertical={true}
+					>
+						<RadioButton.Button
+							value='seoPress'
+							label={
+								{
+									heading: `SEOPress`,
+								}
+							}
+							borderOn={true}
+						/>
+						<RadioButton.Button
+							value='aioSeo'
+							label={
+								{
+									heading: `AIO SEO`,
+								}
+							}
+							borderOn={true}
+						/>
+						<RadioButton.Button
+							value='youstSeo'
+							label={
+								{
+									heading: `Yoast SEO`,
+								}
+							}
+							borderOn={true}
+						/>
+					</RadioButton.Group>
+				</div>
+				<div className='flex justify-end items-center gap-6 mt-6'>
 					<span>Skip</span>
 					<Button className='flex items-center gap-2'>Next <ChevronRight /></Button>
-					 
+
 				</div>
 			</div>
 		</OnboardingImport>
@@ -78,4 +113,4 @@ const Template = (args) => {
 export const DefaultOnboardingImport = Template.bind({});
 DefaultOnboardingImport.args = {};
 
-DefaultOnboardingImport.storyName = 'Sidebar';
+DefaultOnboardingImport.storyName = 'OnboardingImport';

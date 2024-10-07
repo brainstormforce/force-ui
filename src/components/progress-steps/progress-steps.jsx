@@ -200,6 +200,7 @@ const ProgressStep = ( {
 		</>
 	);
 };
+ProgressStep.displayName = 'ProgressSteps.Step';
 
 // Create step content
 const createStepContent = (

@@ -1,13 +1,13 @@
-import { X } from 'lucide-react';
+import { ChevronRight, ExternalLink, X } from 'lucide-react';
 import ProgressSteps from '../progress-steps';
 import Topbar from '../topbar';
-import OnboardingConnect from './onboarding-connect';
+import OnboardingDone from './onboarding-done';
 import Button from '../button';
 import Label from '../label';
 
 export default {
-	title: 'Templates/OnboardingConnect',
-	component: OnboardingConnect,
+	title: 'Templates/OnboardingDone',
+	component: OnboardingDone,
 	parameters: {
 		layout: 'left',
 	},
@@ -15,7 +15,7 @@ export default {
 	argTypes: {
 		children: {
 			description:
-				'Content to render inside the OnboardingConnect.',
+				'Content to render inside the OnboardingDone.',
 			control: { type: 'none' },
 		},
 	},
@@ -24,8 +24,9 @@ export default {
 const Template = (args) => {
 
 	return (
-		<OnboardingConnect {...args} className='bg-background-secondary h-screen w-full pb-10' >
-			<Topbar className='bg-background-secondary'>
+		<OnboardingDone {...args} className='bg-gray-100 min-h-screen w-full pb-10' >
+
+			<Topbar className='bg-gray-100'>
 				<Topbar.Left>
 					<Topbar.Item>
 						<svg
@@ -46,7 +47,10 @@ const Template = (args) => {
 				</Topbar.Left>
 				<Topbar.Middle>
 					<Topbar.Item>
-						<ProgressSteps>
+						<ProgressSteps
+							currentStep={6}
+							type="inline"
+						>
 							<ProgressSteps.Step labelText="Connect" />
 							<ProgressSteps.Step labelText="Import" />
 							<ProgressSteps.Step labelText="Profile" />
@@ -62,19 +66,37 @@ const Template = (args) => {
 			</Topbar>
 			<div className='flex justify-between items-center w-8/12 p-6 mx-auto gap-10 border-border-subtle bg-background-primary rounded-md mt-10'>
 				<div>
-					<Label size="md" className='text-3xl'>Connect Your Site with SureRank</Label>
-					<Label className='w-10/12 text-text-secondary mt-1 text-sm'>When you connect your free account with SureRank you will get keyword suggestions from Google when entering the keywords. Not only that, you will access to our AI assistant work as a SEO expert and help you get your site ranked.</Label>
-					<Button className='mt-6 px-4'>Connect Now</Button>
+					<Label size="md" className='text-3xl'>Congratulations!</Label>
+					<Label className='w-10/12 text-text-secondary mt-1 text-sm'>You've taken the first step to SEO success. Now, let's optimize your website for search engines. Start by:</Label>
+					<ul className="divide-y divide-gray-200 list-none pl-0 space-y-2">
+						<li className="flex items-center space-x-2 text-field-label text-sm">
+							<ChevronRight name="inbox" className="w-5 h-5" />
+							<span>Analyzing your keywords</span>
+						</li>
+						<li className="flex items-center space-x-2 text-field-label text-sm">
+							<ChevronRight name="folder" className="w-5 h-5" />
+							<span>Optimizing your content</span>
+						</li>
+						<li className="flex items-center space-x-2 text-field-label text-sm">
+							<ChevronRight name="calendar" className="w-5 h-5" />
+							<span>Improving your site's structure</span>
+						</li>
+					</ul>
+					<div className='flex items-center mt-4'>
+						<Button className='mt-4 px-4 w-max'>Go to Dashboard</Button>
+						<Button variant='link' className='mt-4 px-4 flex items-center gap-2'>Documentation <ExternalLink /></Button>
+
+					</div>
 				</div>
 				<div className='max-w-80'>
 					<img className='w-full' src="https://static.vecteezy.com/system/resources/previews/019/019/725/non_2x/male-seo-developer-illustration-illustration-of-a-hand-holding-a-magnifying-glass-and-writing-seo-on-a-computer-screen-free-png.png" alt="placeholder" />
 				</div>
 			</div>
-		</OnboardingConnect>
+		</OnboardingDone>
 	);
 };
 
-export const DefaultOnboardingConnect = Template.bind({});
-DefaultOnboardingConnect.args = {};
+export const DefaultOnboardingDone = Template.bind({});
+DefaultOnboardingDone.args = {};
 
-DefaultOnboardingConnect.storyName = 'OnboardingConnect';
+DefaultOnboardingDone.storyName = 'OnboardingDone';
