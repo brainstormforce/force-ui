@@ -5,7 +5,6 @@ import Container from '../container';
 import Button from '../button';
 import Label from '../label';
 import Badge from '../badge';
-import Avatar from '../avatar';
 import { 
     ArrowUpRight, 
     Ellipsis, 
@@ -19,6 +18,11 @@ import {
     MessageSquare,
     HelpCircle,
     Star,
+    AppWindow,
+    PictureInPicture,
+    Newspaper,
+    ChartNoAxesGantt,
+    PanelLeftClose,
  } from 'lucide-react';
 
 export default {
@@ -86,7 +90,7 @@ const defaultRadioButtonGroupData = [
   {
     id: '5',
     value: 'marketing',
-    icon: <House />,
+    icon: <AppWindow />,
     label: 'Marketing Button',
     description: 'Demo',
     toggleLabel: 'Billing',
@@ -96,7 +100,7 @@ const defaultRadioButtonGroupData = [
   {
     id: '6',
     value: 'modal',
-    icon: <House />,
+    icon: <PictureInPicture />,
     label: 'Modal',
     description: 'Demo',
     toggleLabel: 'modal',
@@ -116,7 +120,7 @@ const defaultRadioButtonGroupData = [
   {
     id: '8',
     value: 'Blockquote',
-    icon: <House />,
+    icon: <Newspaper />,
     label: 'Blockquote',
     description: 'Demo',
     toggleLabel: 'blockquote',
@@ -126,7 +130,7 @@ const defaultRadioButtonGroupData = [
   {
     id: '9',
     value: 'contenttimeline',
-    icon: <House />,
+    icon: <ChartNoAxesGantt />,
     label: 'Content Timeline',
     description: 'Demo',
     toggleLabel: 'contenttimeline',
@@ -157,7 +161,7 @@ const defaultRadioButtonGroupData = [
   {
     id: '12',
     value: 'animations',
-    icon: <House />,
+    icon: <PanelLeftClose />,
     label: 'Animations',
     description: 'Demo',
     toggleLabel: 'animations',
@@ -440,20 +444,34 @@ const astraRadioButtonGroupData = [
         </Container.Item>
   
         {/* Mapping the containerRowButtons array */}
-        {containerRowButtons.map((button) => (
-          <Container.Item key={button.id} className="md:w-full lg:w-full p-1 bg-field-primary-background rounded-lg">
-            <Container className="justify-between gap-2 p-1 bg-background-primary rounded-md shadow-sm">
-              <Container.Item className="flex gap-1 p-1">
-                {button.icon}
-                <Label className="px-1">{button.label}</Label> 
-                {/* Conditionally render badge if it exists */}
-                {button.bagde && (
-                  <Badge size='sm' className='py-0' label={button.bagde.props.label} variant={button.bagde.props.variant} closable={button.bagde.props.closable} />
-                )}
-              </Container.Item>
-            </Container>
-          </Container.Item>
-        ))}
+        <RadioButton.Group
+            as="div"
+            defaultValue={`option-${containerRowButtons[0].id}`}
+            onChange={(value) => {
+                return value;
+            }}
+            vertical={true}
+            className="w-full"
+        >
+            {containerRowButtons.map((option) => (
+                <RadioButton.Button
+                key={`option-${option.id}`}
+                borderOn={true}
+                value={option.value}
+                inlineIcon={true}
+                icon={option.icon}
+                hideSelection={option.hideSelection}
+                toggleLabel={option.toggleLabel}
+                label={{
+                    heading: option.label,
+                }}
+                useSwitch={option.useSwitch}
+                className="px-2"
+                badgeItem={option.bagde}
+                />
+            ))}
+        </RadioButton.Group>
+
       </Container>
     );
   };
