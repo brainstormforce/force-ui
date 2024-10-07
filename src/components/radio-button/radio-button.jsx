@@ -158,6 +158,7 @@ const RadioButtonComponent = (
 		badgeItem = null,
 		useSwitch = false,
 		info = null,
+		minWidth = true,
 		...props
 	},
 	ref
@@ -269,7 +270,8 @@ const RadioButtonComponent = (
 		<label
 			className={ cn(
 				'inline-flex items-center relative cursor-pointer transition-all duration-300',
-				!! label && 'items-start justify-between min-w-[180px] ',
+				!! label && 'items-start justify-between',
+				minWidth && 'min-w-[180px]',
 				borderOn &&
 					'border border-border-subtle border-solid rounded-md shadow-sm hover:ring-2 hover:ring-border-interactive',
 				borderOn && checkedValue && 'ring-2 ring-border-interactive',

@@ -147,6 +147,15 @@ export default {
 				defaultValue: { summary: 'false' },
 			},
 		},
+		minWidth: {
+			description:
+				'`RadioButton.Button` : Adds minimum width to the button.',
+			control: 'boolean',
+			table: {
+				type: { summary: 'boolean' },
+				defaultValue: { summary: 'false' },
+			},
+		},
 		useSwitch: {
 			description: '`RadioButton.Button` :Uses a switch for selection.',
 			control: 'boolean',
@@ -241,6 +250,7 @@ const Template = ( args ) => {
 							}
 						}
 						borderOn={ args.borderOn }
+						minWidth={ args.minWidth }
 						info={ args.info }
 						disabled={ args.disabled }
 						useSwitch={ args.useSwitch }
