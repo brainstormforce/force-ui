@@ -236,28 +236,23 @@ const Template1 = () => {
 			className="md:w-full lg:w-full border border-solid rounded-md border-border-subtle p-4"
 			gap="xs"
 		>
-			<Container.Item className="md:w-full lg:w-full">
+			<Container.Item className="md:w-full p-1 lg:w-full">
 				<Container justify="between" gap="xs">
 					<Container.Item className="">
 						<Label className="font-semibold">Blocks</Label>
 					</Container.Item>
-					<Container.Item
-						containerType="flex"
-						direction="row"
-						className="items-center"
-						gap="xs"
-					>
+					<Container.Item className="items-center flex" gap="xs">
 						<Label>
 							View All <ArrowUpRight />{ ' ' }
 						</Label>
-						<Button variant="ghost" className="p-0">
+						<Button variant="ghost" className="p-0 leading-none	">
 							{ ' ' }
 							<Ellipsis />
 						</Button>
 					</Container.Item>
 				</Container>
 			</Container.Item>
-			<Container.Item className="md:w-full lg:w-full">
+			<Container.Item className="md:w-full lg:w-full p-1 bg-field-primary-background ">
 				<RadioButton.Group
 					as="div"
 					defaultValue={ `option-${ radioButtonGroupData[ 0 ].id }` }
@@ -609,7 +604,7 @@ const Template2 = () => {
 				</Container>
 			</Container.Item>
 			<Container.Item className="md:w-full lg:w-full bg-field-primary-background rounded-lg">
-				<Container className="grid grid-cols-2 p-1 gap-1">
+				<Container className="grid grid-cols-2  p-1 gap-1">
 					{ astraRadioButtonGroupData.map( ( card ) => (
 						<Container.Item
 							key={ card.id }
@@ -642,7 +637,7 @@ const Template2 = () => {
 										<Container.Item>
 											<Button
 												variant="link"
-												className="p-0"
+												className="p-0 text-link-primary"
 												size="sm"
 											>
 												{ card.buttonText }
@@ -718,38 +713,39 @@ const Template3 = () => {
 			className="w-96 border border-solid rounded-xl border-border-subtle p-4"
 			gap="xs"
 		>
-			<Container.Item className="md:w-full lg:w-full">
+			<Container.Item className="md:w-full lg:w-full p-1">
 				<Label className="font-semibold">Quick Access</Label>
 			</Container.Item>
-
-			{ /* Mapping the containerRowButtons array */ }
-			<RadioButton.Group
-				as="div"
-				defaultValue={ `option-${ containerRowButtons[ 0 ].id }` }
-				onChange={ ( value ) => {
-					return value;
-				} }
-				vertical={ true }
-				className="w-full"
-			>
-				{ containerRowButtons.map( ( option ) => (
-					<RadioButton.Button
-						key={ `option-${ option.id }` }
-						borderOn={ true }
-						value={ option.value }
-						inlineIcon={ true }
-						icon={ option.icon }
-						hideSelection={ option.hideSelection }
-						toggleLabel={ option.toggleLabel }
-						label={ {
-							heading: option.label,
-						} }
-						useSwitch={ option.useSwitch }
-						className="px-2"
-						badgeItem={ option.bagde }
-					/>
-				) ) }
-			</RadioButton.Group>
+			<Container.Item className="md:w-full lg:w-full bg-field-primary-background p-1">
+				{ /* Mapping the containerRowButtons array */ }
+				<RadioButton.Group
+					as="div"
+					defaultValue={ `option-${ containerRowButtons[ 0 ].id }` }
+					onChange={ ( value ) => {
+						return value;
+					} }
+					vertical={ true }
+					className="w-full"
+				>
+					{ containerRowButtons.map( ( option ) => (
+						<RadioButton.Button
+							key={ `option-${ option.id }` }
+							borderOn={ true }
+							value={ option.value }
+							inlineIcon={ true }
+							icon={ option.icon }
+							hideSelection={ option.hideSelection }
+							toggleLabel={ option.toggleLabel }
+							label={ {
+								heading: option.label,
+							} }
+							useSwitch={ option.useSwitch }
+							className="px-2"
+							badgeItem={ option.bagde }
+						/>
+					) ) }
+				</RadioButton.Group>
+			</Container.Item>
 		</Container>
 	);
 };
