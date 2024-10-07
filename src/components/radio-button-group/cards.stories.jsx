@@ -613,7 +613,7 @@ const Template2 = () => {
 							<Container
 								containerType="flex"
 								direction="column"
-								className="gap-1 shadow-soft-shadow-inner p-2 rounded-md bg-background-primary"
+								className="flex-1 gap-1 shadow-soft-shadow-inner p-2 rounded-md bg-background-primary"
 							>
 								<Container.Item>
 									<Container className="gap-1 items-center">
@@ -725,7 +725,7 @@ const Template3 = () => {
 						return value;
 					} }
 					vertical={ true }
-					className="w-full"
+					className="w-full gap-1"
 				>
 					{ containerRowButtons.map( ( option ) => (
 						<RadioButton.Button
