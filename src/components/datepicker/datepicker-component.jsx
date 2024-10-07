@@ -5,6 +5,7 @@ import { format } from 'date-fns';
 import { cn } from '@/utilities/functions';
 import 'react-day-picker/style.css';
 import Button from '../button';
+import { currentTimeDot, formatWeekdayName, generateYearRange } from './utils';
 
 const DatePickerComponent = ( {
 	width,
@@ -20,26 +21,23 @@ const DatePickerComponent = ( {
 	onChange,
 	...props
 } ) => {
+	const numberOfMonths = props.numberOfMonths;
 	const [ showMonthSelect, setShowMonthSelect ] = useState( false );
 	const [ showYearSelect, setShowYearSelect ] = useState( false ); // New state for year selection
 	const [ selectedYear, setSelectedYear ] = useState( new Date().getFullYear() );
 	const [ yearRangeStart, setYearRangeStart ] = useState(
 		selectedYear - ( selectedYear % 24 )
 	);
-	const numberOfMonths = props.numberOfMonths;
 
-	const currentTimeDot = () => {
-		return (
-			<span className="bg-blue-500 h-1 w-1 absolute rounded-full inline-block bottom-0 left-1/2 right-1/2"></span>
-		);
-	};
-	const formatWeekdayName = ( date ) => {
-		return format( date, 'E' ).slice( 0, 1 ); // Returns only the first letter
-	};
-
-	const generateYearRange = ( start, count = 24 ) => {
-		return Array.from( { length: count }, ( _, i ) => start + i );
-	};
+	if ( selectedDates === null || selectedDates === undefined ) {
+		if ( mode === 'multiple' ) {
+			selectedDates = [];
+		} else if ( mode === 'range' ) {
+			selectedDates = { from: null, to: null };
+		} else {
+			selectedDates = null;
+		}
+	}
 
 	function CustomMonthCaption( customMonthProps ) {
 		const { goToMonth, nextMonth, previousMonth } = useDayPicker();
@@ -166,10 +164,17 @@ const DatePickerComponent = ( {
 								key={ yearValue }
 								variant="ghost"
 								onClick={ () => handleYearClick( yearValue ) }
-								className="h-9 w-full text-center font-normal relative"
+								className={ cn(
+									'h-9 w-full text-center font-normal relative',
+									yearValue === selectedYear &&
+										yearValue !==
+											new Date().getFullYear() &&
+										'bg-background-brand text-white hover:bg-background-brand hover:text-black'
+								) }
 							>
 								{ yearValue }
-								{ yearValue === selectedYear && currentTimeDot() }
+								{ yearValue === new Date().getFullYear() &&
+									currentTimeDot() }
 							</Button>
 						) ) }
 					</div>
@@ -186,7 +191,9 @@ const DatePickerComponent = ( {
 									setShowMonthSelect( false );
 									goToMonth( new Date( selectedYear, i ) );
 								} }
-								className="px-1.5 py-2 h-9 w-[70px] text-center font-normal relative"
+								className={ cn(
+									'px-1.5 py-2 h-9 w-[70px] text-center font-normal relative'
+								) }
 							>
 								{ format( new Date( 0, i ), 'MMM' ) }
 								{ new Date().getMonth() === i &&

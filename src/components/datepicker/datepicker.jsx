@@ -22,9 +22,14 @@ const DatePicker = ( {
 	cancelText = '',
 	...props
 } ) => {
-	const [ selectedDates, setSelectedDates ] = useState(
-		mode === 'multiple' ? [] : { from: null, to: null }
-	);
+	const [ selectedDates, setSelectedDates ] = useState( () => {
+		if ( mode === 'multiple' ) {
+			return [];
+		} else if ( mode === 'range' ) {
+			return { from: null, to: null };
+		}
+		return null;
+	} );
 
 	const defaultPresets = [
 		{
