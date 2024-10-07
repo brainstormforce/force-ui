@@ -67,7 +67,7 @@ const Template = ( args ) => {
 						Congratulations!
 					</Label>
 					<Label className="w-10/12 text-text-secondary mt-1 text-sm">
-						You&#39ve taken the first step to SEO success. Now,
+						You&#39;ve taken the first step to SEO success. Now,
 						let&#39;s optimize your website for search engines.
 						Start by:
 					</Label>
