@@ -121,6 +121,23 @@ export default {
 				},
 			},
 		},
+		info: {
+			description:
+				'`RadioButton.Button` : Object containing heading and description for each RadioButton Info.',
+			control: {
+				type: 'object',
+			},
+			defaultValue: {
+				heading: 'Info',
+				description: 'Description',
+			},
+			table: {
+				type: { summary: 'object' },
+				defaultValue: {
+					summary: `{ heading: 'Info', description: 'Description' }`,
+				},
+			},
+		},
 		borderOn: {
 			description:
 				'`RadioButton.Button` : Adds a border around the button.',
@@ -224,6 +241,7 @@ const Template = ( args ) => {
 							}
 						}
 						borderOn={ args.borderOn }
+						info={ args.info }
 						disabled={ args.disabled }
 						useSwitch={ args.useSwitch }
 						icon={ args.icon ? <Smile /> : null }
@@ -286,3 +304,11 @@ SimpleRadioInline.args = {
 	multiSelection: true,
 };
 SimpleRadioInline.storyName = 'Inline Icon';
+
+export const SimpleRadioWithInfo = Template.bind( {} );
+SimpleRadioWithInfo.args = {
+	borderOn: true,
+	label: { heading: 'Option', description: 'Description' },
+	info: { heading: 'Info', description: 'Description' },
+};
+SimpleRadioWithInfo.storyName = 'With Info';
