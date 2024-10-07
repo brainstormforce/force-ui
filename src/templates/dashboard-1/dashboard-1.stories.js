@@ -5,6 +5,7 @@ import { Button } from "@/components";
 import { Badge } from "@/components";
 import { Avatar } from "@/components";
 import media from "./media.png"
+import AvatarImage from "./AvatarImage.png"
 
 export default {
 	title: 'Templates/Dashboard 1',
@@ -72,12 +73,12 @@ export const Dashboard = () => {
                         />
                     </Topbar.Item>
                     <Topbar.Item className="gap-2">
-                        <CircleHelp />
-                        <Bell />
+                        <CircleHelp strokeWidth={1.5}/>
+                        <Bell strokeWidth={1.5}/>
                     </Topbar.Item>
                     <Topbar.Item>
                         <Avatar size="sm"  border="none"
-                        url="https://t4.ftcdn.net/jpg/03/83/25/83/360_F_383258331_D8imaEMl8Q3lf7EKU2Pi78Cn0R7KkW9o.jpg"/>
+                        url={AvatarImage}/>
                     </Topbar.Item>
                 </Topbar.Right>
             </Topbar>
@@ -85,8 +86,8 @@ export const Dashboard = () => {
             <Container containerType="grid" cols={12} gap="2xl" className="bg-background-secondary p-8">
                 {/* First Column */}
                 <Container.Item colSpan={8} className="flex flex-col gap-8">
-                    <Container containerType="grid" cols={2} gap={4} className="bg-background-primary p-6 shadow-sm rounded-2xl">
-                        <Container.Item className="flex flex-col space-y-4">
+                    <Container containerType="grid" cols={8} gap={4} className="bg-background-primary p-6 shadow-sm rounded-2xl">
+                        <Container.Item colSpan={5} className="flex flex-col ">
                             <h3 className="text-2xl m-0 font-bold">Welcome to Astra</h3>
                             <p className="text-sm text-text-secondary">
                             Astra is fast, fully customizable & beautiful WordPress theme suitable for blog, personal portfolio, business website and WooCommerce storefront. It is very lightweight and offers unparalleled speed.
@@ -102,7 +103,7 @@ export const Dashboard = () => {
                             </div>
                         </Container.Item>
                     
-                        <Container.Item >
+                        <Container.Item colSpan={3}>
                             <img
                             src={media}
                             alt="Media image"
@@ -121,7 +122,7 @@ export const Dashboard = () => {
                                     <div>VIP Support</div>
                                     <Badge
                                         label={ 'PRO' }
-                                        size="md"
+                                        size="xs"
                                         icon={ null }
                                         variant="inverse"
                                         closable={ false }
