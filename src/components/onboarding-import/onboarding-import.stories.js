@@ -12,22 +12,22 @@ export default {
 	parameters: {
 		layout: 'left',
 	},
-	tags: ['autodocs'],
+	tags: [ 'autodocs' ],
 	argTypes: {
 		children: {
-			description:
-				'Content to render inside the OnboardingImport.',
+			description: 'Content to render inside the OnboardingImport.',
 			control: { type: 'none' },
 		},
 	},
 };
 
-const Template = (args) => {
-
+const Template = ( args ) => {
 	return (
-		<OnboardingImport {...args} className='bg-gray-100 min-h-screen w-full pb-10' >
-
-			<Topbar className='bg-gray-100'>
+		<OnboardingImport
+			{ ...args }
+			className="bg-gray-100 min-h-screen w-full pb-10"
+		>
+			<Topbar className="bg-gray-100">
 				<Topbar.Left>
 					<Topbar.Item>
 						<svg
@@ -48,7 +48,7 @@ const Template = (args) => {
 				</Topbar.Left>
 				<Topbar.Middle>
 					<Topbar.Item>
-						<ProgressSteps currentStep={2}>
+						<ProgressSteps currentStep={ 2 }>
 							<ProgressSteps.Step labelText="Connect" />
 							<ProgressSteps.Step labelText="Import" />
 							<ProgressSteps.Step labelText="Profile" />
@@ -62,55 +62,53 @@ const Template = (args) => {
 					</Topbar.Item>
 				</Topbar.Right>
 			</Topbar>
-			<div className='w-8/12 p-6 mx-auto gap-10 border-border-subtle bg-background-primary rounded-md mt-10'>
+			<div className="w-8/12 p-6 mx-auto gap-10 border-border-subtle bg-background-primary rounded-md mt-10">
 				<div>
-					<Label size="md">Import Data From Your Current Plugins</Label>
-					<Label className='w-10/12 text-text-secondary mt-1'>We have deducted few SEO plugins installed on your website. Select the plugin from which you want to import</Label>
+					<Label size="md">
+						Import Data From Your Current Plugins
+					</Label>
+					<Label className="w-10/12 text-text-secondary mt-1">
+						We have deducted few SEO plugins installed on your
+						website. Select the plugin from which you want to import
+					</Label>
 				</div>
-				<div className='py-6'>
-					<RadioButton.Group
-						vertical={true}
-					>
+				<div className="py-6">
+					<RadioButton.Group vertical={ true }>
 						<RadioButton.Button
-							value='seoPress'
-							label={
-								{
-									heading: `SEOPress`,
-								}
-							}
-							borderOn={true}
+							value="seoPress"
+							label={ {
+								heading: `SEOPress`,
+							} }
+							borderOn={ true }
 						/>
 						<RadioButton.Button
-							value='aioSeo'
-							label={
-								{
-									heading: `AIO SEO`,
-								}
-							}
-							borderOn={true}
+							value="aioSeo"
+							label={ {
+								heading: `AIO SEO`,
+							} }
+							borderOn={ true }
 						/>
 						<RadioButton.Button
-							value='youstSeo'
-							label={
-								{
-									heading: `Yoast SEO`,
-								}
-							}
-							borderOn={true}
+							value="youstSeo"
+							label={ {
+								heading: `Yoast SEO`,
+							} }
+							borderOn={ true }
 						/>
 					</RadioButton.Group>
 				</div>
-				<div className='flex justify-end items-center gap-6 mt-6'>
+				<div className="flex justify-end items-center gap-6 mt-6">
 					<span>Skip</span>
-					<Button className='flex items-center gap-2'>Next <ChevronRight /></Button>
-
+					<Button className="flex items-center gap-2">
+						Next <ChevronRight />
+					</Button>
 				</div>
 			</div>
 		</OnboardingImport>
 	);
 };
 
-export const DefaultOnboardingImport = Template.bind({});
+export const DefaultOnboardingImport = Template.bind( {} );
 DefaultOnboardingImport.args = {};
 
 DefaultOnboardingImport.storyName = 'OnboardingImport';

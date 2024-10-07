@@ -1,8 +1,8 @@
 import React from 'react';
 
-const OnboardingDone = ({ children, ...props }) => {
-	return <div {...props}>{children}</div>;
+const OnboardingDone = ( { children, ...props } ) => {
+	return <div { ...props }>{ children }</div>;
 };
 OnboardingDone.displayName = 'OnboardingDone';
 
-export default Object.assign(OnboardingDone);
+export default Object.assign( OnboardingDone );

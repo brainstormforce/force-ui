@@ -11,22 +11,22 @@ export default {
 	parameters: {
 		layout: 'left',
 	},
-	tags: ['autodocs'],
+	tags: [ 'autodocs' ],
 	argTypes: {
 		children: {
-			description:
-				'Content to render inside the OnboardingDone.',
+			description: 'Content to render inside the OnboardingDone.',
 			control: { type: 'none' },
 		},
 	},
 };
 
-const Template = (args) => {
-
+const Template = ( args ) => {
 	return (
-		<OnboardingDone {...args} className='bg-gray-100 min-h-screen w-full pb-10' >
-
-			<Topbar className='bg-gray-100'>
+		<OnboardingDone
+			{ ...args }
+			className="bg-gray-100 min-h-screen w-full pb-10"
+		>
+			<Topbar className="bg-gray-100">
 				<Topbar.Left>
 					<Topbar.Item>
 						<svg
@@ -47,10 +47,7 @@ const Template = (args) => {
 				</Topbar.Left>
 				<Topbar.Middle>
 					<Topbar.Item>
-						<ProgressSteps
-							currentStep={6}
-							type="inline"
-						>
+						<ProgressSteps currentStep={ 6 } type="inline">
 							<ProgressSteps.Step labelText="Connect" />
 							<ProgressSteps.Step labelText="Import" />
 							<ProgressSteps.Step labelText="Profile" />
@@ -64,10 +61,16 @@ const Template = (args) => {
 					</Topbar.Item>
 				</Topbar.Right>
 			</Topbar>
-			<div className='flex justify-between items-center w-8/12 p-6 mx-auto gap-10 border-border-subtle bg-background-primary rounded-md mt-10'>
+			<div className="flex justify-between items-center w-8/12 p-6 mx-auto gap-10 border-border-subtle bg-background-primary rounded-md mt-10">
 				<div>
-					<Label size="md" className='text-3xl'>Congratulations!</Label>
-					<Label className='w-10/12 text-text-secondary mt-1 text-sm'>You've taken the first step to SEO success. Now, let's optimize your website for search engines. Start by:</Label>
+					<Label size="md" className="text-3xl">
+						Congratulations!
+					</Label>
+					<Label className="w-10/12 text-text-secondary mt-1 text-sm">
+						You&#39ve taken the first step to SEO success. Now,
+						let&#39;s optimize your website for search engines.
+						Start by:
+					</Label>
 					<ul className="divide-y divide-gray-200 list-none pl-0 space-y-2">
 						<li className="flex items-center space-x-2 text-field-label text-sm">
 							<ChevronRight name="inbox" className="w-5 h-5" />
@@ -79,24 +82,34 @@ const Template = (args) => {
 						</li>
 						<li className="flex items-center space-x-2 text-field-label text-sm">
 							<ChevronRight name="calendar" className="w-5 h-5" />
-							<span>Improving your site's structure</span>
+							<span>Improving your site&#39;s structure</span>
 						</li>
 					</ul>
-					<div className='flex items-center mt-4'>
-						<Button className='mt-4 px-4 w-max'>Go to Dashboard</Button>
-						<Button variant='link' className='mt-4 px-4 flex items-center gap-2'>Documentation <ExternalLink /></Button>
-
+					<div className="flex items-center mt-4">
+						<Button className="mt-4 px-4 w-max">
+							Go to Dashboard
+						</Button>
+						<Button
+							variant="link"
+							className="mt-4 px-4 flex items-center gap-2"
+						>
+							Documentation <ExternalLink />
+						</Button>
 					</div>
 				</div>
-				<div className='max-w-80'>
-					<img className='w-full' src="https://static.vecteezy.com/system/resources/previews/019/019/725/non_2x/male-seo-developer-illustration-illustration-of-a-hand-holding-a-magnifying-glass-and-writing-seo-on-a-computer-screen-free-png.png" alt="placeholder" />
+				<div className="max-w-80">
+					<img
+						className="w-full"
+						src="https://static.vecteezy.com/system/resources/previews/019/019/725/non_2x/male-seo-developer-illustration-illustration-of-a-hand-holding-a-magnifying-glass-and-writing-seo-on-a-computer-screen-free-png.png"
+						alt="placeholder"
+					/>
 				</div>
 			</div>
 		</OnboardingDone>
 	);
 };
 
-export const DefaultOnboardingDone = Template.bind({});
+export const DefaultOnboardingDone = Template.bind( {} );
 DefaultOnboardingDone.args = {};
 
 DefaultOnboardingDone.storyName = 'OnboardingDone';
