@@ -23,6 +23,7 @@ import {
 	CloudUpload,
 	CreditCard,
 	Dot,
+	EllipsisVertical,
 	Facebook,
 	House,
 	Layers,
@@ -43,6 +44,7 @@ import {
 	Type,
 	User,
 } from 'lucide-react';
+import { cn } from '@/utilities/functions';
 
 export default {
 	title: 'Templates/Admin Settings 1',
@@ -84,6 +86,24 @@ const SEPARATORS = [
 	{ id: '«', label: <ChevronsLeft /> },
 ];
 
+const Logo = (props) => (
+	<svg
+		width="24"
+		height="24"
+		viewBox="0 0 24 24"
+		fill="none"
+		xmlns="http://www.w3.org/2000/svg"
+		{...props}
+	>
+		<path
+			fillRule="evenodd"
+			clipRule="evenodd"
+			d="M12 24C18.6275 24 24 18.6273 24 11.9999C24 5.37255 18.6275 0 12 0C5.37259 0 0 5.37255 0 11.9999C0 18.6273 5.37259 24 12 24ZM12.0517 5.99996C11.0882 5.99996 9.75474 6.55101 9.0734 7.23073L7.2229 9.07688H16.4465L19.5307 5.99996H12.0517ZM14.9111 16.7692C14.2298 17.4489 12.8964 17.9999 11.9328 17.9999H4.45388L7.53804 14.923H16.7616L14.9111 16.7692ZM17.9089 10.6153H5.68418L5.10673 11.1923C3.73941 12.423 4.14495 13.3846 6.0598 13.3846H18.3176L18.8952 12.8076C20.2492 11.5841 19.8237 10.6153 17.9089 10.6153Z"
+			fill="#6B21A8"
+		/>
+	</svg>
+);
+
 const Template = () => {
 	const [activeTab, setActiveTab] = useState(TABS[0].slug);
 
@@ -109,20 +129,7 @@ const Template = () => {
 				>
 					<Topbar.Left className="p-5">
 						<Topbar.Item>
-							<svg
-								width="24"
-								height="24"
-								viewBox="0 0 24 24"
-								fill="none"
-								xmlns="http://www.w3.org/2000/svg"
-							>
-								<path
-									fillRule="evenodd"
-									clipRule="evenodd"
-									d="M12 24C18.6275 24 24 18.6273 24 11.9999C24 5.37255 18.6275 0 12 0C5.37259 0 0 5.37255 0 11.9999C0 18.6273 5.37259 24 12 24ZM12.0517 5.99996C11.0882 5.99996 9.75474 6.55101 9.0734 7.23073L7.2229 9.07688H16.4465L19.5307 5.99996H12.0517ZM14.9111 16.7692C14.2298 17.4489 12.8964 17.9999 11.9328 17.9999H4.45388L7.53804 14.923H16.7616L14.9111 16.7692ZM17.9089 10.6153H5.68418L5.10673 11.1923C3.73941 12.423 4.14495 13.3846 6.0598 13.3846H18.3176L18.8952 12.8076C20.2492 11.5841 19.8237 10.6153 17.9089 10.6153Z"
-									fill="#6B21A8"
-								/>
-							</svg>
+							<Logo />
 						</Topbar.Item>
 					</Topbar.Left>
 					<Topbar.Middle align="left" className="h-full">
@@ -183,15 +190,6 @@ const Template = () => {
 						screenHeight={false}
 						className="!h-full w-64"
 					>
-						<Sidebar.Header>
-							<Sidebar.Item>
-								<img
-									alt="Logo"
-									src="https://wordpress.org/five-for-the-future/files/2019/09/bsf-logo-.png"
-									width="180px"
-								/>
-							</Sidebar.Item>
-						</Sidebar.Header>
 						<Sidebar.Body>
 							<Sidebar.Item>
 								<Menu size="md" className="w-full p-0 gap-4">
@@ -250,11 +248,6 @@ const Template = () => {
 								</Menu>
 							</Sidebar.Item>
 						</Sidebar.Body>
-						<Sidebar.Footer>
-							<Sidebar.Item>
-								<Button className="w-full">Pro Version</Button>
-							</Sidebar.Item>
-						</Sidebar.Footer>
 					</Sidebar>
 				</div>
 				<Container
@@ -296,7 +289,8 @@ const Template = () => {
 							</Tabs.Group>
 						</Container.Item>
 						{/* Tab Content */}
-						<Container.Item className="flex items-start gap-6">
+						<Container.Item className="flex flex-col items-start gap-6">
+							{/* Search Engine Preview Start */}
 							<Container
 								align="center"
 								justify="between"
@@ -327,6 +321,42 @@ const Template = () => {
 									</RadioButton.Group>
 								</Container.Item>
 							</Container>
+							{/* Preview */}
+							<div className="p-2 rounded-lg bg-background-secondary">
+								<div className="rounded-md border border-solid border-border-subtle bg-background-primary p-4 space-y-1.5 shadow-sm">
+									{ /* Site logo, title, and URL */ }
+									<div className="grid grid-cols-[1.75rem_1fr] items-center gap-3">
+										{ /* Site logo */ }
+										<Logo className="size-7" />
+										<div className="flex flex-col gap-0.5">
+											<span className="text-text-primary font-semibold">
+												SureRank
+											</span>
+											<div className="flex items-center justify-start gap-2">
+												<span className="text-text-secondary">
+													{ /* Site URL */ }
+													https://www.surerank.com/
+												</span>
+												<EllipsisVertical className="size-3.5 text-icon-secondary" />
+											</div>
+										</div>
+									</div>
+									{ /* Page title and description */ }
+									<div className="space-y-1">
+										<p className="text-xl leading-8 font-normal text-field-label m-0">
+											{ /* Page title */ }
+											SureRank
+										</p>
+										<p
+											className='text-sm leading-5 font-medium text-text-secondary m-0'
+										>
+											{ /* Page description */ }
+											Level up your web design skills with our blog. Learn from experts, discover the latest trends, and build beautiful websites.
+										</p>
+									</div>
+								</div>
+							</div>
+							{/* Search Engine Preview End */}
 						</Container.Item>
 					</Container>
 				</Container>
