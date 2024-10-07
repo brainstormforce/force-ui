@@ -230,21 +230,13 @@ const Template1 = () => {
 	const radioButtonGroupData = defaultRadioButtonGroupData;
 
 	return (
-		<Container
-			containerType="flex"
-			direction="column"
-			className="md:w-full lg:w-full border border-solid rounded-md border-border-subtle gap-2 p-4"
-		>
+		<Container containerType="flex" direction="column" className="md:w-full lg:w-full border border-solid rounded-md border-border-subtle gap-2 p-4">
 			<Container.Item className="md:w-full lg:w-full">
 				<Container className="justify-between gap-2">
 					<Container.Item className="">
 						<Label className="font-semibold">Blocks</Label>
 					</Container.Item>
-					<Container.Item
-						containerType="flex"
-						direction="row"
-						className="items-center gap-2"
-					>
+					<Container.Item containerType="flex" direction="row" className="items-center gap-2">
 						<Label>
 							View All <ArrowUpRight />{ ' ' }
 						</Label>
@@ -581,11 +573,7 @@ const astraRadioButtonGroupData = [
 // Template for Type 2
 const Template2 = () => {
 	return (
-		<Container
-			containerType="flex"
-			direction="column"
-			className="w-[475px] border border-solid rounded-md border-border-subtle gap-2 p-4"
-		>
+		<Container containerType="flex" direction="column" className="w-120 border border-solid rounded-md border-border-subtle gap-2 p-4">
 			<Container.Item className="md:w-full lg:w-full">
 				<Container className="justify-between gap-2 p-1">
 					<Container.Item>
@@ -593,11 +581,7 @@ const Template2 = () => {
 							Extend Your Website
 						</Label>
 					</Container.Item>
-					<Container.Item
-						containerType="flex"
-						direction="row"
-						className="items-center gap-2"
-					>
+					<Container.Item containerType="flex" direction="row" className="items-center gap-2">
 						<Button className="p-0" variant="ghost">
 							<ArrowUpRight />
 						</Button>
@@ -609,13 +593,9 @@ const Template2 = () => {
 					{ astraRadioButtonGroupData.map( ( card ) => (
 						<Container.Item
 							key={ card.id }
-							className="md:w-full lg:w-full"
+							className="md:w-full lg:w-full flex"
 						>
-							<Container
-								containerType="flex"
-								direction="column"
-								className="shadow-soft-shadow-inner p-2 rounded-md bg-background-primary"
-							>
+							<Container containerType="flex" direction="column" className="shadow-soft-shadow-inner p-2 rounded-md bg-background-primary">
 								<Container.Item>
 									<Container className="gap-1 items-center">
 										<Container.Item className="flex-1 [&>svg]:size-5">
@@ -703,11 +683,7 @@ const containerRowButtons = [
 
 const Template3 = () => {
 	return (
-		<Container
-			containerType="flex"
-			direction="column"
-			className="w-96 border border-solid rounded-xl border-border-subtle gap-2 p-4"
-		>
+		<Container containerType="flex" direction="column" className="w-96 border border-solid rounded-xl border-border-subtle gap-2 p-4">
 			<Container.Item className="md:w-full lg:w-full">
 				<Label className="font-semibold">Quick Access</Label>
 			</Container.Item>
