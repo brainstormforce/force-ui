@@ -76,16 +76,6 @@ const TABS = [
 	},
 ];
 
-const SEPARATORS = [
-	{ id: '-', label: '-' },
-	{ id: '—', label: '—' },
-	{ id: '»', label: <ChevronsRight /> },
-	{ id: '›', label: <ChevronRight /> },
-	{ id: '|', label: '|' },
-	{ id: '•', label: <Dot /> },
-	{ id: '«', label: <ChevronsLeft /> },
-];
-
 const INPUT_SUGGESTIONS = [
 	{ value: '%page-title%', label: 'Page Title' },
 	{ value: '%site-title%', label: 'Site Title' },

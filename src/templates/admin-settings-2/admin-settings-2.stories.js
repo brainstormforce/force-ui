@@ -319,7 +319,6 @@ const Template = () => {
 											<div>Payment Processors</div>
 										</Menu.Item>
 									</Menu.List>
-									<Menu.Separator />
 									<Menu.List arrow heading="Customers" open>
 										<Menu.Item>
 											<MousePointer />
