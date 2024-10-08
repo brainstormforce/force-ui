@@ -73,9 +73,9 @@ const Item = ( { children, className } ) => {
 
 Item.displayName = 'Topbar.Item';
 
-export default Object.assign(Topbar, {
-    Left: Left,
-    Middle: Middle,
-    Right: Right,
-    Item: Item,
-});
+export default Object.assign( Topbar, {
+	Left,
+	Middle,
+	Right,
+	Item,
+} );

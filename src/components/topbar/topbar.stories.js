@@ -8,7 +8,7 @@ import Avatar from '../avatar/avatar.jsx';
 export default {
 	title: 'Organisms/Topbar',
 	component: Topbar,
-    parameters: {
+	parameters: {
 		layout: 'fullscreen',
 	},
 	tags: [ 'autodocs' ],
