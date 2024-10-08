@@ -46,7 +46,8 @@ export default {
 		},
 		onChange: {
 			name: 'On Change Event',
-			description: 'Callback function fired when the switch state changes.',
+			description:
+				'Callback function fired when the switch state changes.',
 			table: {
 				type: { summary: 'function' },
 			},

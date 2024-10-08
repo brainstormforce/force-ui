@@ -1,6 +1,8 @@
 import ProgressSteps from './progress-steps';
 import { Check } from 'lucide-react';
 
+ProgressSteps.displayName = 'ProgressSteps';
+ProgressSteps.Step.displayName = 'ProgressSteps.Step';
 export default {
 	title: 'Atoms/ProgressSteps',
 	component: ProgressSteps,
