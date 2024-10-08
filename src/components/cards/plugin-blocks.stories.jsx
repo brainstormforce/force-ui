@@ -5,11 +5,7 @@ import Container from '../container';
 import Button from '../button';
 import Label from '../label';
 import Badge from '../badge';
-import { AstraThemeSvg } from '@/globals/svgs/astra';
-import { StartersTemplatesSvg } from '@/globals/svgs/starter-templates';
-import { SureCartSvg } from '@/globals/svgs/surecart';
-import { PrestoPlayerSvg } from '@/globals/svgs/presto-player';
-
+import { Svgs } from '@/globals/svgs';
 import { ArrowUpRight } from 'lucide-react';
 
 export default {
@@ -33,7 +29,7 @@ const astraRadioButtonGroupData = [
 		id: '1',
 		badgeText: 'Free',
 		buttonText: 'Install',
-		svg: <AstraThemeSvg />,
+		svg: <Svgs.AstraThemeSvg />,
 		title: 'Astra Theme',
 		description: 'Free WordPress Page Builder Plugin.',
 	},
@@ -41,7 +37,7 @@ const astraRadioButtonGroupData = [
 		id: '2',
 		badgeText: 'Free',
 		buttonText: 'Activate',
-		svg: <StartersTemplatesSvg />,
+		svg: <Svgs.StartersTemplatesSvg />,
 		title: 'Starters Templates',
 		description: 'Build your dream website in minutes with AI.',
 	},
@@ -49,7 +45,7 @@ const astraRadioButtonGroupData = [
 		id: '3',
 		badgeText: 'Free',
 		buttonText: 'Install',
-		svg: <SureCartSvg />,
+		svg: <Svgs.SureCartSvg />,
 		title: 'SureCart',
 		description: 'The new way to sell on WordPress.',
 	},
@@ -57,7 +53,7 @@ const astraRadioButtonGroupData = [
 		id: '4',
 		badgeText: 'Free',
 		buttonText: 'Install',
-		svg: <PrestoPlayerSvg />,
+		svg: <Svgs.PrestoPlayerSvg />,
 		title: 'Presto Player',
 		description: 'Automate your WordPress setup.',
 	},
