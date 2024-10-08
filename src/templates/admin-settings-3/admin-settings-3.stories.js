@@ -9,8 +9,9 @@ import {
 	Sidebar,
 	Title,
 	Topbar,
-	Alert,
 	Input,
+	RadioButton,
+	Switch,
 } from '@/components';
 import {
 	ArrowUpRight,
@@ -150,7 +151,7 @@ const Template = () => {
 				</Topbar>
 			</Container.Item>
 			{/* Sidebar & the content section */}
-			<Container.Item className="grid grid-cols-[16rem_1fr] bg-background-secondary flex-auto">
+			<Container.Item className="grid grid-cols-[16rem_1fr] bg-background-secondary flex-auto max-h-[calc(100%_-_6rem)]">
 				<div className="h-full w-full">
 					<Sidebar
 						borderOn
@@ -210,121 +211,243 @@ const Template = () => {
 						</Sidebar.Body>
 					</Sidebar>
 				</div>
-				<Container
-					gap="xl"
-					direction="column"
-					className="p-8 w-full max-w-[43.5rem] mx-auto"
-				>
-					<Container justify="between" align="center">
-						<Title
-							title="Editor Options"
-							size="md"
-							className="[&_h2]:text-text-primary [&_h2]:leading-[1.875rem]"
-						/>
-						<Container.Item className="inline-flex items-center gap-3">
-							<Button>Save</Button>
-						</Container.Item>
-					</Container>
-					{/* Settings */}
+				{/* Content Section */}
+				<Container.Item className="w-full h-full overflow-y-auto">
 					<Container
+						gap="xl"
 						direction="column"
-						gap="sm"
-						className="bg-background-primary rounded-xl shadow p-6"
+						className="p-8 w-full max-w-[43.5rem] mx-auto"
 					>
-						{/* Setting Section */}
-						<Container className="mb-0.5" align="center">
-							<Container.Item className="w-full max-w-120 space-y-1">
-								<Label size="md">Default Content Width</Label>
-								<p className="m-0 block text-sm leading-4 font-normal text-field-helper">
-									This setting will apply to Container Block's
-									default Content Width.
-								</p>
-								<p className="m-0 block text-sm leading-4 font-normal text-field-helper italic">
-									The current Content width is applied from
-									Full Site Editor's Global Styles.
-								</p>
-							</Container.Item>
-							<Input
-								defaultValue={1280}
-								suffix={
-									<span className="text-badge-color-gray rounded border border-solid border-border-subtle p-0.5 text-center text-xs font-medium bg-badge-background-gray">
-										PX
-									</span>
-								}
-								type="number"
+						<Container justify="between" align="center">
+							<Title
+								title="Editor Options"
+								size="md"
+								className="[&_h2]:text-text-primary [&_h2]:leading-[1.875rem]"
 							/>
+							<Container.Item className="inline-flex items-center gap-3">
+								<Button>Save</Button>
+							</Container.Item>
 						</Container>
+						{/* Settings */}
+						<Container
+							direction="column"
+							gap="sm"
+							className="bg-background-primary rounded-xl shadow p-6"
+						>
+							{/* Setting Section */}
+							<Container className="mb-0.5" align="center">
+								<Container.Item className="w-full max-w-120 space-y-1">
+									<Label size="md">Default Content Width</Label>
+									<p className="m-0 block text-sm leading-4 font-normal text-field-helper">
+										This setting will apply to Container Block's
+										default Content Width.
+									</p>
+									<p className="m-0 block text-sm leading-4 font-normal text-field-helper italic">
+										The current Content width is applied from
+										Full Site Editor's Global Styles.
+									</p>
+								</Container.Item>
+								<Input
+									defaultValue={1280}
+									suffix={
+										<span className="text-badge-color-gray rounded border border-solid border-border-subtle p-0.5 text-center text-xs font-medium bg-badge-background-gray">
+											PX
+										</span>
+									}
+									type="number"
+								/>
+							</Container>
 
-						<hr className="w-full border-b-0 border-x-0 border-t border-solid border-t-border-subtle" />
+							<hr className="w-full border-b-0 border-x-0 border-t border-solid border-t-border-subtle" />
 
-						{/* Setting Section */}
-						<Container className="mb-0.5" align="center">
-							<Container.Item className="w-full max-w-120 space-y-1">
-								<Label size="md">Container Padding</Label>
-								<p className="m-0 block text-sm leading-4 font-normal text-field-helper">
-									This setting will apply default padding in
-									the Container Block.
+							{/* Setting Section */}
+							<Container className="mb-0.5" align="center">
+								<Container.Item className="w-full max-w-120 space-y-1">
+									<Label size="md">Container Padding</Label>
+									<p className="m-0 block text-sm leading-4 font-normal text-field-helper">
+										This setting will apply default padding in
+										the Container Block.
+									</p>
+								</Container.Item>
+								<Input
+									defaultValue={10}
+									suffix={
+										<span className="text-badge-color-gray rounded border border-solid border-border-subtle p-0.5 text-center text-xs font-medium bg-badge-background-gray">
+											PX
+										</span>
+									}
+									type="number"
+								/>
+							</Container>
+
+							<hr className="w-full border-b-0 border-x-0 border-t border-solid border-t-border-subtle" />
+
+							{/* Setting Section */}
+							<Container className="mb-0.5" align="center">
+								<Container.Item className="w-full max-w-120 space-y-1">
+									<Label size="md">Container Elements Gap</Label>
+									<p className="m-0 block text-sm leading-4 font-normal text-field-helper">
+										This setting will apply default Row & Column
+										Gaps in the Container Block.
+									</p>
+								</Container.Item>
+								<Input
+									defaultValue={20}
+									suffix={
+										<span className="text-badge-color-gray rounded border border-solid border-border-subtle p-0.5 text-center text-xs font-medium bg-badge-background-gray">
+											PX
+										</span>
+									}
+									type="number"
+								/>
+							</Container>
+
+							<hr className="w-full border-b-0 border-x-0 border-t border-solid border-t-border-subtle" />
+
+							{/* Setting Section */}
+							<Container className="mb-0.5" align="center">
+								<Container.Item className="w-full max-w-120 space-y-1">
+									<Label className="inline-block" size="md">
+										Container Elements Gap
+									</Label>
+									<p className="m-0 block text-sm leading-4 font-normal text-field-helper">
+										This setting will apply default Row & Column
+										Gaps in the Container Block.
+									</p>
+								</Container.Item>
+								<Input
+									defaultValue={20}
+									suffix={
+										<span className="text-badge-color-gray rounded border border-solid border-border-subtle p-0.5 text-center text-xs font-medium bg-badge-background-gray">
+											PX
+										</span>
+									}
+									type="number"
+								/>
+							</Container>
+
+							<hr className="w-full border-b-0 border-x-0 border-t border-solid border-t-border-subtle" />
+
+							{/* Setting Section */}
+							<Container className="mb-0.5" align="center">
+								<Container.Item className="w-full max-w-95 space-y-1">
+									<div className="space-x-1 flex items-center">
+										<Label className="inline-block" size="md">
+											Dynamic Content
+										</Label>
+										<span className="inline-block py-0.5 px-1 text-text-inverse bg-background-inverse border border-solid border-border-inverse text-xs font-medium rounded-full">
+											PRO
+										</span>
+									</div>
+									<p className="m-0 block text-sm leading-4 font-normal text-field-helper">
+										Choose how you want to display dynamic
+										content settings.
+									</p>
+								</Container.Item>
+								<Container.Item className="ml-auto">
+									<RadioButton.Group
+										className="[&_button]:text-xs [&_button]:font-semibold"
+										size="sm"
+										columns={2}
+										style="tile"
+										disableGroup
+									>
+										<RadioButton.Button value="val1">
+											Popup
+										</RadioButton.Button>
+										<RadioButton.Button value="val2">
+											Sidebar
+										</RadioButton.Button>
+									</RadioButton.Group>
+								</Container.Item>
+							</Container>
+
+							<div className="w-full flex items-center justify-between border border-solid border-brand-200 bg-brand-background-50 py-2 pl-2.5 pr-2 rounded-lg">
+								<p className="m-0 text-sm text-text-primary font-normal">
+									<span className="font-semibold">
+										Personalized content
+									</span>{' '}
+									delivers relevant content for higher engagement.
 								</p>
-							</Container.Item>
-							<Input
-								defaultValue={10}
-								suffix={
-									<span className="text-badge-color-gray rounded border border-solid border-border-subtle p-0.5 text-center text-xs font-medium bg-badge-background-gray">
-										PX
-									</span>
-								}
-								type="number"
-							/>
-						</Container>
+								<button className="inline-flex items-center p-0 m-0 bg-transparent outline-none focus:outline-none border-0 shadow-none space-x-1 text-xs font-semibold text-link-primary">
+									Upgrade now{' '}
+									<ArrowUpRight className="size-3.5" />
+								</button>
+							</div>
 
-						<hr className="w-full border-b-0 border-x-0 border-t border-solid border-t-border-subtle" />
+							<hr className="w-full border-b-0 border-x-0 border-t border-solid border-t-border-subtle" />
 
-						{/* Setting Section */}
-						<Container className="mb-0.5" align="center">
-							<Container.Item className="w-full max-w-120 space-y-1">
-								<Label size="md">Container Elements Gap</Label>
-								<p className="m-0 block text-sm leading-4 font-normal text-field-helper">
-									This setting will apply default Row & Column
-									Gaps in the Container Block.
-								</p>
-							</Container.Item>
-							<Input
-								defaultValue={20}
-								suffix={
-									<span className="text-badge-color-gray rounded border border-solid border-border-subtle p-0.5 text-center text-xs font-medium bg-badge-background-gray">
-										PX
-									</span>
-								}
-								type="number"
-							/>
-						</Container>
+							{/* Setting Section */}
+							<Container className="mb-0.5" align="center">
+								<Container.Item className="w-full max-w-120 space-y-1">
+									<Label size="md">Inherit Theme Button</Label>
+									<p className="m-0 block text-sm leading-4 font-normal text-field-helper">
+										Enable this option to make all buttons in
+										Spectra blocks across your website inherit
+										their styles from the theme.
+									</p>
+								</Container.Item>
+								<Switch
+									size="lg"
+									defaultValue={true}
+									onChange={(value) => console.log(value)}
+								/>
+							</Container>
 
-						<hr className="w-full border-b-0 border-x-0 border-t border-solid border-t-border-subtle" />
+							<hr className="w-full border-b-0 border-x-0 border-t border-solid border-t-border-subtle" />
 
-						{/* Setting Section */}
-						<Container className="mb-0.5" align="center">
-							<Container.Item className="w-full max-w-120 space-y-1">
-								<div className='space-x-1 flex items-center'>
-									<Label className="inline-block" size="md">Container Elements Gap</Label>
-									<span className="inline-block py-0.5 px-1 text-text-inverse bg-background-inverse border border-solid border-border-inverse text-xs font-medium rounded-full">PRO</span>
-								</div>
-								<p className="m-0 block text-sm leading-4 font-normal text-field-helper">
-									This setting will apply default Row & Column
-									Gaps in the Container Block.
-								</p>
-							</Container.Item>
-							<Input
-								defaultValue={20}
-								suffix={
-									<span className="text-badge-color-gray rounded border border-solid border-border-subtle p-0.5 text-center text-xs font-medium bg-badge-background-gray">
-										PX
-									</span>
-								}
-								type="number"
-							/>
+							{/* Setting Section */}
+							<Container className="mb-0.5" align="center">
+								<Container.Item className="w-full max-w-120 space-y-1">
+									<Label size="md">Custom CSS</Label>
+									<p className="m-0 block text-sm leading-4 font-normal text-field-helper">
+									Enable the "Custom CSS" option if you want to add your own CSS code on post/page to customize the page as per your expectations.
+									</p>
+								</Container.Item>
+								<Switch size="lg" defaultValue={true} />
+							</Container>
+
+							<hr className="w-full border-b-0 border-x-0 border-t border-solid border-t-border-subtle" />
+
+							{/* Setting Section */}
+							<Container className="mb-0.5" align="center">
+								<Container.Item className="w-full max-w-120 space-y-1">
+									<Label size="md">Copy Paste Styles</Label>
+									<p className="m-0 block text-sm leading-4 font-normal text-field-helper">
+									Enable the "Copy Paste Styles" option to have the ability to copy & paste Spectra & Core Gutenberg Blocks Styles.
+									</p>
+								</Container.Item>
+								<Switch size="lg" defaultValue={true} />
+							</Container>
+
+							<hr className="w-full border-b-0 border-x-0 border-t border-solid border-t-border-subtle" />
+
+							{/* Setting Section */}
+							<Container className="mb-0.5" align="center">
+								<Container.Item className="w-full max-w-120 space-y-1">
+									<Label size="md">Automatic Block Recovery</Label>
+									<p className="m-0 block text-sm leading-4 font-normal text-field-helper">
+										Enable this to automatically recover any erroneous blocks that may occur on your web pages. This will save you time spent on clicking all those "Attempt Block Recovery" Buttons.
+									</p>
+								</Container.Item>
+								<Switch size="lg" defaultValue={true} />
+							</Container>
+
+							<hr className="w-full border-b-0 border-x-0 border-t border-solid border-t-border-subtle" />
+
+							{/* Setting Section */}
+							<Container className="mb-0.5" align="center">
+								<Container.Item className="w-full max-w-120 space-y-1">
+									<Label size="md">Load Font Awesome 5 Support</Label>
+									<p className="m-0 block text-sm leading-4 font-normal text-field-helper">
+										Enable this to make sure all previously used Font Awesome 5 icons are displayed correctly while using the Font Awesome 6 library.
+									</p>
+								</Container.Item>
+								<Switch size="lg" defaultValue={true} />
+							</Container>
 						</Container>
 					</Container>
-				</Container>
+				</Container.Item>
 			</Container.Item>
 		</Container>
 	);
