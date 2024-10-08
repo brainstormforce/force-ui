@@ -95,7 +95,7 @@ const DatePicker = ( {
 				{ ...props }
 				mode={ mode }
 				variant={ variant }
-				width="w-[296px]"
+				width="w-[18.5rem]"
 				selectedDates={ selectedDates }
 				setSelectedDates={ setSelectedDates }
 			/>
