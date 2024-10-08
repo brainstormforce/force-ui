@@ -255,7 +255,7 @@ const Template = () => {
 											<div>Home Page</div>
 										</Menu.Item>
 									</Menu.List>
-									<Menu.List heading="Social" open>
+									<Menu.List heading="Social" open arrow>
 										<Menu.Item>
 											<Settings />
 											<div>General</div>
