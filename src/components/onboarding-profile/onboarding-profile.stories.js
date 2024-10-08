@@ -11,9 +11,9 @@ export default {
 	title: 'Templates/OnboardingProfile',
 	component: OnboardingProfile,
 	parameters: {
-		layout: 'left',
+		layout: 'fullscreen',
 	},
-	tags: ['autodocs'],
+	tags: [ 'autodocs' ],
 	argTypes: {
 		children: {
 			description: 'Content to render inside the OnboardingProfile.',
@@ -22,10 +22,10 @@ export default {
 	},
 };
 
-const Template = (args) => {
+const Template = ( args ) => {
 	return (
 		<OnboardingProfile
-			{...args}
+			{ ...args }
 			className="bg-background-secondary min-h-screen w-full pb-10"
 		>
 			<Topbar className="bg-background-secondary">
@@ -49,7 +49,7 @@ const Template = (args) => {
 				</Topbar.Left>
 				<Topbar.Middle>
 					<Topbar.Item>
-						<ProgressSteps currentStep={3}>
+						<ProgressSteps currentStep={ 3 }>
 							<ProgressSteps.Step labelText="Connect" />
 							<ProgressSteps.Step labelText="Import" />
 							<ProgressSteps.Step labelText="Profile" />
@@ -63,51 +63,47 @@ const Template = (args) => {
 					</Topbar.Item>
 				</Topbar.Right>
 			</Topbar>
-			<form
-				onSubmit={
-					(event) => event.preventDefault()
-				}>
+			<form onSubmit={ ( event ) => event.preventDefault() }>
 				<div className="w-8/12 p-6 mx-auto gap-10 border-border-subtle bg-background-primary rounded-md mt-10">
 					<div>
-						<Label size="md" className='font-semibold'>
+						<Label size="md" className="font-semibold">
 							Your Website Basic Details
 						</Label>
 						<Label className="w-10/12 text-text-secondary mt-1">
-							Let's get started with the basic details of this website.
+							Let&#39;s get started with the basic details of this
+							website.
 						</Label>
 					</div>
 					<div className="grid grid-cols-2 gap-6 mt-6">
 						<div>
 							<Select
-								onChange={() => { }}
+								onChange={ () => {} }
 								placeholder="Select an option"
 								size="md"
 							>
-								<Select.Button
-									label="This Website Represents"
-								/>
+								<Select.Button label="This Website Represents" />
 								<Select.Options dropdownPortalId="Website">
 									<Select.Option
-										value={{
+										value={ {
 											id: '1',
-											name: 'Personal'
-										}}
+											name: 'Personal',
+										} }
 									>
 										Personal Website
 									</Select.Option>
 									<Select.Option
-										value={{
+										value={ {
 											id: '2',
-											name: 'Company'
-										}}
+											name: 'Company',
+										} }
 									>
 										Company Website
 									</Select.Option>
 									<Select.Option
-										value={{
+										value={ {
 											id: '3',
-											name: 'Client'
-										}}
+											name: 'Client',
+										} }
 									>
 										Client Website
 									</Select.Option>
@@ -138,9 +134,9 @@ const Template = (args) => {
 								label="Phone Number"
 							/>
 						</div>
-						<div className='col-span-2'>
+						<div className="col-span-2">
 							<Input
-								type='file'
+								type="file"
 								id="logo"
 								name="logo"
 								size="md"
@@ -149,35 +145,33 @@ const Template = (args) => {
 						</div>
 						<div>
 							<Select
-								onChange={() => { }}
+								onChange={ () => {} }
 								placeholder="Select an option"
 								size="md"
 							>
-								<Select.Button
-									label="Select About Page"
-								/>
+								<Select.Button label="Select About Page" />
 								<Select.Options dropdownPortalId="aboutpage">
 									<Select.Option
-										value={{
+										value={ {
 											id: '1',
-											name: 'Personal'
-										}}
+											name: 'Personal',
+										} }
 									>
 										Personal Website
 									</Select.Option>
 									<Select.Option
-										value={{
+										value={ {
 											id: '2',
-											name: 'Company'
-										}}
+											name: 'Company',
+										} }
 									>
 										Company Website
 									</Select.Option>
 									<Select.Option
-										value={{
+										value={ {
 											id: '3',
-											name: 'Client'
-										}}
+											name: 'Client',
+										} }
 									>
 										Client Website
 									</Select.Option>
@@ -186,64 +180,62 @@ const Template = (args) => {
 						</div>
 						<div>
 							<Select
-								onChange={() => { }}
+								onChange={ () => {} }
 								placeholder="Select an option"
 								size="md"
 							>
-								<Select.Button
-									label="Select Contact Page"
-								/>
+								<Select.Button label="Select Contact Page" />
 								<Select.Options dropdownPortalId="contactpage">
 									<Select.Option
-										value={{
+										value={ {
 											id: '1',
-											name: 'Personal'
-										}}
+											name: 'Personal',
+										} }
 									>
 										Personal Contact
 									</Select.Option>
 									<Select.Option
-										value={{
+										value={ {
 											id: '2',
-											name: 'Company'
-										}}
+											name: 'Company',
+										} }
 									>
 										Company Contact
 									</Select.Option>
 									<Select.Option
-										value={{
+										value={ {
 											id: '3',
-											name: 'Client'
-										}}
+											name: 'Client',
+										} }
 									>
 										Client Contact
 									</Select.Option>
 								</Select.Options>
 							</Select>
 						</div>
-
 					</div>
 					<div className="flex justify-between items-center gap-6 mt-10">
-						<Button variant='outline' className="flex items-center gap-2">
+						<Button
+							variant="outline"
+							className="flex items-center gap-2"
+						>
 							<ChevronLeft />
 							Back
 						</Button>
 						<div className="flex justify-end items-center gap-6">
-							<span className='text-sm'>Skip</span>
+							<span className="text-sm">Skip</span>
 							<Button className="flex items-center gap-2">
 								Next <ChevronRight />
 							</Button>
 						</div>
-
 					</div>
-
 				</div>
 			</form>
 		</OnboardingProfile>
 	);
 };
 
-export const DefaultOnboardingProfile = Template.bind({});
+export const DefaultOnboardingProfile = Template.bind( {} );
 DefaultOnboardingProfile.args = {};
 
 DefaultOnboardingProfile.storyName = 'OnboardingProfile';

@@ -5,4 +5,4 @@ const OnboardingSocial = ( { children, ...props } ) => {
 };
 OnboardingSocial.displayName = 'OnboardingSocial';
 
-export default  OnboardingSocial;
+export default OnboardingSocial;

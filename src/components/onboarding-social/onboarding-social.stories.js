@@ -10,9 +10,9 @@ export default {
 	title: 'Templates/OnboardingSocial',
 	component: OnboardingSocial,
 	parameters: {
-		layout: 'left',
+		layout: 'fullscreen',
 	},
-	tags: ['autodocs'],
+	tags: [ 'autodocs' ],
 	argTypes: {
 		children: {
 			description: 'Content to render inside the OnboardingSocial.',
@@ -21,10 +21,10 @@ export default {
 	},
 };
 
-const Template = (args) => {
+const Template = ( args ) => {
 	return (
 		<OnboardingSocial
-			{...args}
+			{ ...args }
 			className="bg-background-secondary min-h-screen w-full pb-10"
 		>
 			<Topbar className="bg-background-secondary">
@@ -48,7 +48,7 @@ const Template = (args) => {
 				</Topbar.Left>
 				<Topbar.Middle>
 					<Topbar.Item>
-						<ProgressSteps currentStep={4}>
+						<ProgressSteps currentStep={ 4 }>
 							<ProgressSteps.Step labelText="Connect" />
 							<ProgressSteps.Step labelText="Import" />
 							<ProgressSteps.Step labelText="Profile" />
@@ -65,15 +65,16 @@ const Template = (args) => {
 			<form>
 				<div className="w-8/12 p-6 mx-auto gap-10 border-border-subtle bg-background-primary rounded-md mt-10">
 					<div>
-						<Label size="md" className='font-semibold'>
-						Social Profiles
+						<Label size="md" className="font-semibold">
+							Social Profiles
 						</Label>
 						<Label className="w-10/12 text-text-secondary mt-1">
-						Please enter all your possible social media profiles. These links can appear in the knowledge panel of the search results for your website.
+							Please enter all your possible social media
+							profiles. These links can appear in the knowledge
+							panel of the search results for your website.
 						</Label>
 					</div>
 					<div className="grid grid-cols-1 gap-6 mt-6">
-						 
 						<div>
 							<Input
 								id="fb"
@@ -139,36 +140,37 @@ const Template = (args) => {
 						</div>
 
 						<div className="flex justify-center items-center gap-6">
-						<Button variant='ghost' className="flex items-center gap-2">
-						Add another profile  
-							<Plus />
-
-						</Button>
-						 
-
-					</div>
+							<Button
+								variant="ghost"
+								className="flex items-center gap-2"
+							>
+								Add another profile
+								<Plus />
+							</Button>
+						</div>
 					</div>
 					<div className="flex justify-between items-center gap-6 mt-6">
-						<Button variant='outline' className="flex items-center gap-2">
+						<Button
+							variant="outline"
+							className="flex items-center gap-2"
+						>
 							<ChevronLeft />
 							Back
 						</Button>
 						<div className="flex justify-end items-center gap-6">
-						<span className='text-sm'>Skip</span>
+							<span className="text-sm">Skip</span>
 							<Button className="flex items-center gap-2">
 								Next <ChevronRight />
 							</Button>
 						</div>
-
 					</div>
-
 				</div>
 			</form>
 		</OnboardingSocial>
 	);
 };
 
-export const DefaultOnboardingSocial = Template.bind({});
+export const DefaultOnboardingSocial = Template.bind( {} );
 DefaultOnboardingSocial.args = {};
 
 DefaultOnboardingSocial.storyName = 'OnboardingSocial';

@@ -5,4 +5,4 @@ const OnboardingProfile = ( { children, ...props } ) => {
 };
 OnboardingProfile.displayName = 'OnboardingProfile';
 
-export default  OnboardingProfile;
+export default OnboardingProfile;
