@@ -37,7 +37,7 @@ The `Menu.List` component organizes Menu.Item components under a heading. It sup
 
 ### `open`
 - **Type:** `boolean`
-- **Default:** `false`
+- **Default:** `true`
 - **Description:** Controls whether the Menu.List is initially open or closed
 
 ### `onClick`
