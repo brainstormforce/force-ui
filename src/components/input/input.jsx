@@ -17,45 +17,46 @@ const InputComponent = (
 		onError = () => {},
 		prefix = null,
 		suffix = null,
+		label = '',
 		...props
 	},
 	ref
 ) => {
-	const inputId = useMemo( () => id || `input-${ type }-${ nanoid() }`, [ id ] );
-	const isControlled = useMemo( () => typeof value !== 'undefined', [ value ] );
-	const [ inputValue, setInputValue ] = useState( defaultValue );
-	const [ selectedFile, setSelectedFile ] = useState( null );
+	const inputId = useMemo(() => id || `input-${type}-${nanoid()}`, [id]);
+	const isControlled = useMemo(() => typeof value !== 'undefined', [value]);
+	const [inputValue, setInputValue] = useState(defaultValue);
+	const [selectedFile, setSelectedFile] = useState(null);
 
 	const getValue = useCallback(
-		() => ( isControlled ? value : inputValue ),
-		[ isControlled, value, inputValue ]
+		() => (isControlled ? value : inputValue),
+		[isControlled, value, inputValue]
 	);
 
-	const handleChange = ( event ) => {
-		if ( disabled ) {
+	const handleChange = (event) => {
+		if (disabled) {
 			return;
 		}
 
 		let newValue;
-		if ( type === 'file' ) {
+		if (type === 'file') {
 			newValue = event.target.files;
-			if ( newValue.length > 0 ) {
-				setSelectedFile( newValue[ 0 ].name );
+			if (newValue.length > 0) {
+				setSelectedFile(newValue[0].name);
 			} else {
-				setSelectedFile( null );
+				setSelectedFile(null);
 			}
 		} else {
 			newValue = event.target.value;
 		}
 
-		if ( ! isControlled && type !== 'file' ) {
-			setInputValue( newValue );
+		if (!isControlled && type !== 'file') {
+			setInputValue(newValue);
 		}
 
-		if ( typeof onChange !== 'function' ) {
+		if (typeof onChange !== 'function') {
 			return;
 		}
-		onChange( newValue );
+		onChange(newValue);
 	};
 
 	const baseClasses =
@@ -65,9 +66,14 @@ const InputComponent = (
 		md: 'px-2.5 py-2.5 rounded-md',
 		lg: 'px-3 py-3 rounded-lg',
 	};
+	const labelClasses = {
+		sm: 'text-sm font-medium',
+		md: 'text-sm font-medium',
+		lg: 'text-base font-medium',
+	};
 	const textClasses = {
 		sm: 'text-xs',
-		md: 'text-base',
+		md: 'text-sm',
 		lg: 'text-base',
 	};
 	const sizeClassesWithPrefix = {
@@ -111,23 +117,23 @@ const InputComponent = (
 	};
 
 	const getPrefix = () => {
-		if ( ! prefix ) {
+		if (!prefix) {
 			return null;
 		}
 		return (
-			<div className={ cn( iconClasses, 'left-0 pl-3', textClasses[ size ] ) }>
-				{ prefix }
+			<div className={cn(iconClasses, 'left-0 pl-3', textClasses[size])}>
+				{prefix}
 			</div>
 		);
 	};
 
 	const getSuffix = () => {
-		if ( ! suffix ) {
+		if (!suffix) {
 			return null;
 		}
 		return (
-			<div className={ cn( iconClasses, 'right-0 pr-3', textClasses[ size ] ) }>
-				{ suffix }
+			<div className={cn(iconClasses, 'right-0 pr-3', textClasses[size])}>
+				{suffix}
 			</div>
 		);
 	};
@@ -136,70 +142,93 @@ const InputComponent = (
 		? 'file:border-0 file:bg-transparent'
 		: 'text-text-tertiary file:border-0 file:bg-transparent';
 
-	if ( type === 'file' ) {
+	if (type === 'file') {
 		return (
-			<div className={ cn( 'relative flex focus-within:z-10', className ) }>
+			<div className="flex flex-col items-start gap-1.5 [&_*]:box-border box-border">
+			<label
+				className={cn(
+					labelClasses[size],
+					'text-field-label'
+				)}
+				htmlFor={inputId}
+			>
+				{label}
+			</label>
+			<div className={cn('w-full relative flex focus-within:z-10', className)}>
+				 
 				<input
-					ref={ ref }
-					id={ inputId }
+					ref={ref}
+					id={inputId}
 					type="file"
-					className={ cn(
+					className={cn(
 						baseClasses,
 						disabledUploadFileClasses,
-						sizeClasses[ size ],
-						textClasses[ size ],
+						sizeClasses[size],
+						textClasses[size],
 						focusClasses,
 						hoverClasses,
 						errorFileClasses,
 						fileClasses
-					) }
-					disabled={ disabled }
-					onChange={ handleChange }
-					onInvalid={ onError }
-					{ ...props }
+					)}
+					disabled={disabled}
+					onChange={handleChange}
+					onInvalid={onError}
+					{...props}
 				/>
 				<div
-					className={ cn(
+					className={cn(
 						uploadIconClasses,
 						'right-0 pr-3',
-						uploadIconSizeClasses[ size ]
-					) }
+						uploadIconSizeClasses[size]
+					)}
 				>
 					<Upload />
 				</div>
+			</div>
 			</div>
 		);
 	}
 
 	return (
-		<div className={ cn( 'relative flex focus-within:z-10', className ) }>
-			{ getPrefix() }
-			<input
-				ref={ ref }
-				id={ inputId }
-				type={ type }
-				className={ cn(
-					baseClasses,
-					disabledClasses,
-					sizeClasses[ size ],
-					textClasses[ size ],
-					sizeClassesWithPrefix[ size ],
-					sizeClassesWithSuffix[ size ],
-					focusClasses,
-					hoverClasses,
-					errorClasses
-				) }
-				disabled={ disabled }
-				onChange={ handleChange }
-				onInvalid={ onError }
-				value={ getValue() }
-				{ ...props }
-			/>
-			{ getSuffix() }
+		<div className="flex flex-col items-start gap-1.5 [&_*]:box-border box-border">
+			<label
+				className={cn(
+					labelClasses[size],
+					'text-field-label'
+				)}
+				htmlFor={inputId}
+			>
+				{label}
+			</label>
+			<div className={cn('w-full relative flex focus-within:z-10', className)}>
+				{getPrefix()}
+				<input
+					ref={ref}
+					id={inputId}
+					type={type}
+					className={cn(
+						baseClasses,
+						disabledClasses,
+						sizeClasses[size],
+						textClasses[size],
+						sizeClassesWithPrefix[size],
+						sizeClassesWithSuffix[size],
+						focusClasses,
+						hoverClasses,
+						errorClasses
+					)}
+					disabled={disabled}
+					onChange={handleChange}
+					onInvalid={onError}
+					value={getValue()}
+					{...props}
+				/>
+				{getSuffix()}
+			</div>
 		</div>
 	);
 };
-const Input = forwardRef( InputComponent );
+const Input = forwardRef(InputComponent);
 Input.displayName = 'Input';
 
 export default Input;
