@@ -26,12 +26,4 @@ export { default as Breadcrumb } from './breadcrumb/index';
 export { default as Dialog } from './dialog/index';
 export { default as Topbar } from './topbar/index';
 export { default as Drawer } from './drawer/index';
-export {
-    Pagination,
-    PaginationContent,
-    PaginationLink,
-    PaginationItem,
-    PaginationPrevious,
-    PaginationNext,
-    PaginationEllipsis,
-} from './pagination/index';
+export { default as Pagination } from './pagination/index';

@@ -1,9 +1,7 @@
-import * as React from "react"
+import { createContext, useContext } from "react";
 import { cn } from '@/utilities/functions';
-import { ChevronLeft, ChevronRight, DotSquareIcon, EllipsisIcon } from "lucide-react"
+import { ChevronLeft, ChevronRight } from "lucide-react"
 import { sizeClassNames } from "./component-style";
-import { createContext } from "react";
-import { useContext } from "react";
 
 const PageContext = createContext();
 const usePageContext = () => useContext(PageContext);
@@ -55,14 +53,10 @@ const PaginationLink = ({
 	href = "#",
 	...props
 }) => {
-	const { size } = usePageContext();
-
 	return (
 	<a
 		className={cn(
 			'no-underline outline-none focus:outline-none text-inherit flex justify-center items-center',
-			// sizeClassNames[size].dimension,
-			'aspect-square',
 			className
 		)}
 		{...props}
@@ -80,7 +74,6 @@ const PaginationPrevious = ({ className, ...props }) => {
 		size="default"
 			className={cn(
 				sizeClassNames[size].icon,
-				// sizeClassNames[size].dimension,
 				className)}
 		{...props}
 	>
@@ -98,7 +91,6 @@ const PaginationNext = ({ className, ...props }) => {
 		size="default"
 			className={cn(
 				sizeClassNames[size].icon,
-				// sizeClassNames[size].dimension,
 				className)}
 		{...props}
 	>
@@ -114,23 +106,18 @@ const PaginationEllipsis = ({ className, ...props }) => {
 	return (
 		<div className={cn(
 			sizeClassNames[size].icon,
-			// sizeClassNames[size].dimension,
-			'aspect-square',
-
-			"flex justify-center items-end",
 			className)} {...props}>
-			<EllipsisIcon className="justify-center self-end" />
+			...
 		</div>
 	)
 }
 PaginationEllipsis.displayName = "PaginationEllipsis"
 
-export {
-	Pagination,
-	PaginationContent,
-	PaginationLink,
-	PaginationItem,
-	PaginationPrevious,
-	PaginationNext,
-	PaginationEllipsis,
-}
+Pagination.Content = PaginationContent;
+Pagination.Link = PaginationLink;
+Pagination.Item = PaginationItem;
+Pagination.Previous = PaginationPrevious;
+Pagination.Next = PaginationNext;
+Pagination.Ellipsis = PaginationEllipsis;
+
+export default Pagination;
