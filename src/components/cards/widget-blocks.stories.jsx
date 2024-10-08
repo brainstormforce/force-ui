@@ -280,7 +280,7 @@ const Template1 = () => {
 							useSwitch={ option.useSwitch }
 							className="px-2"
 							badgeItem={ option.bagde }
-							buttonWrapperClasses="bg-white"
+							buttonWrapperClasses="bg-background-primary"
 						/>
 					) ) }
 				</RadioButton.Group>
