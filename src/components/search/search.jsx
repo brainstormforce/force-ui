@@ -35,8 +35,8 @@ const SearchBox = forwardRef(({ className, dimension = 'sm', open = false, onOpe
 			size({
 				apply({ rects, elements, availableHeight }) {
 					Object.assign(elements.floating.style, {
-						maxHeight: `240px`,
-						width: `${inputRef.current?.clientWidth || 0}px`, // Set the width to match the input
+						maxHeight: availableHeight,
+						width: `${inputRef.current?.clientWidth || 0}px`, 
 						fontFamily: window.getComputedStyle(elements.reference).fontFamily, // Retain parent's font family
 					});
 				},
@@ -60,7 +60,6 @@ const SearchBox = forwardRef(({ className, dimension = 'sm', open = false, onOpe
 		</SearchContext.Provider>
 	);
 });
-SearchBox.displayName = 'SearchBox';
 
 const SearchBoxInput = forwardRef(({
 	className,
@@ -96,6 +95,7 @@ const SearchBoxInput = forwardRef(({
 
 	return (
 		<div
+			tabIndex={0}
 			ref={refs.setReference}
 			className={cn("w-full group relative flex justify-center items-center gap-2 focus-within:z-10",
 				baseClassNames,
@@ -104,14 +104,18 @@ const SearchBoxInput = forwardRef(({
 				textSizeClassNames[dimension],
 				disabled ? hoverClassNames.disabled : hoverClassNames.enabled,
 				disabled ? disabledClassNames : '',
-				focusClassNames,
+				'focus-within:border-focus-border focus-within:ring-2 focus-within:ring-focus focus-within:ring-offset-2',
 			)
 
 			}
 			{...getReferenceProps}
 		>
 			<span
-				className={cn(textSizeClassNames[dimension], IconClasses, "flex justify-center items-center")}>
+				className={cn(
+					textSizeClassNames[dimension],
+					!disabled && IconClasses,
+					"flex justify-center items-center",
+					"group-focus:text-text-secondary")}>
 				<Search />
 			</span>
 			<input
@@ -133,8 +137,9 @@ const SearchBoxInput = forwardRef(({
 			<span
 				className={cn(
 					textSizeClassNames[dimension],
-					IconClasses,
+					!disabled && IconClasses,
 					'bg-background-primary border border-solid border-border-subtle',
+					'group-focus:text-text-secondary',
 					dimension === 'sm'
 						? 'px-2 py-0.5'
 						: dimension === 'md'
@@ -148,7 +153,6 @@ const SearchBoxInput = forwardRef(({
 		</div >
 	);
 });
-SearchBoxInput.displayName = 'SearchBoxInput';
 
 const SearchBoxContent = forwardRef(({
 	className,
@@ -168,7 +172,7 @@ const SearchBoxContent = forwardRef(({
 					...floatingStyles
 				}}
 				className={cn(
-					'bg-background-primary rounded-md p-2 border-border-strong shadow-lg overflow-y-auto',
+					'bg-background-primary mt-2 rounded-md p-2 border-border-strong shadow-lg overflow-y-auto text-wrap',
 					className
 				)}
 				{...getFloatingProps}
@@ -180,7 +184,6 @@ const SearchBoxContent = forwardRef(({
 	);
 });
 
-SearchBoxContent.displayName = 'SearchBoxContent';
 
 const SearchBoxLoading = ({ loadingIcon = <Loader /> }) => {
 	const { dimension } = useSearchContext();
@@ -192,11 +195,10 @@ const SearchBoxLoading = ({ loadingIcon = <Loader /> }) => {
 };
 
 const SearchBoxResults = forwardRef(({ className, children, ...props }, ref) => (
-	<div ref={ref} className={cn('space-y-1', className)} {...props}>
+	<div ref={ref} className={cn('', className)} {...props}>
 		{children}
 	</div>
 ));
-SearchBoxResults.displayName = 'SearchBoxResults';
 
 const SearchBoxResultTitle = forwardRef(({ className, children, ...props }, ref) => {
 	const { dimension } = useSearchContext();
@@ -214,14 +216,13 @@ const SearchBoxResultTitle = forwardRef(({ className, children, ...props }, ref)
 		</div>
 	)
 });
-SearchBoxResultTitle.displayName = 'SearchBoxResultTitle';
 
 const SearchBoxResultItem = forwardRef(({ className, children, icon, ...props }, ref) => {
 	const { dimension } = useSearchContext();
 	return (<div
 		ref={ref}
 		className={cn(
-			'flex items-center gap-2 p-1 hover:bg-gray-200',
+			'flex items-center gap-2 p-1 hover:bg-background-secondary',
 			textSizeClassNames[dimension],
 			!icon && "pl-4",
 			className
@@ -232,20 +233,17 @@ const SearchBoxResultItem = forwardRef(({ className, children, icon, ...props },
 		<label className={cn(textSizeClassNames[dimension], "w-full text-text-secondary cursor-pointer")}>{children}</label>
 	</div>)
 });
-SearchBoxResultItem.displayName = 'SearchBoxResultItem';
 
 const SearchBoxSeparator = forwardRef(({ className, ...props }, ref) => (
-	<hr ref={ref} className={cn('w-full text-text-tertiary', className)} {...props} />
+	<hr ref={ref} className={cn(' text-text-tertiary', className)} {...props} />
 ));
-SearchBoxSeparator.displayName = 'SearchBoxSeparator';
 
-export {
-	SearchBox,
-	SearchBoxInput,
-	SearchBoxContent,
-	SearchBoxLoading,
-	SearchBoxResults,
-	SearchBoxResultTitle,
-	SearchBoxResultItem,
-	SearchBoxSeparator,
-};
+SearchBox.Input = SearchBoxInput;
+SearchBox.Content = SearchBoxContent;
+SearchBox.Loading = SearchBoxLoading;
+SearchBox.Results = SearchBoxResults;
+SearchBox.ResultTitle = SearchBoxResultTitle;
+SearchBox.ResultItem = SearchBoxResultItem;
+SearchBox.Separator = SearchBoxSeparator;
+
+export default SearchBox;

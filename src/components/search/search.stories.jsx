@@ -1,14 +1,5 @@
-import React, { useState } from 'react';
-import {
-    SearchBox,
-    SearchBoxInput,
-    SearchBoxContent,
-    SearchBoxLoading,
-    SearchBoxResults,
-    SearchBoxResultTitle,
-    SearchBoxResultItem,
-    SearchBoxSeparator,
-} from './search.jsx';
+import React, { useRef, useState } from 'react';
+import SearchBox from './search.jsx';
 import { File, Folder } from 'lucide-react';
 
 export default {
@@ -80,21 +71,35 @@ const Template = (args) => {
     const [loading, setLoading] = useState(false);
     const [results, setResults] = useState([]);
 
+    // Ref to store the timeout ID
+    const searchTimeout = useRef(null);
+
+    // Debounced search function
     const handleSearch = (value) => {
-        setLoading(true);
-        setTimeout(() => {
+        // Clear previous timeout if a new search is triggered
+        if (searchTimeout.current) {
+            clearTimeout(searchTimeout.current);
+        }
+
+        setLoading(true); // Start showing the loader
+        setResults([]); // Clear existing results
+
+        // Set a new timeout for the debounce
+        searchTimeout.current = setTimeout(() => {
             const filteredResults = mockResults.filter(item =>
                 item.name.toLowerCase().includes(value.toLowerCase())
             );
-            setResults(filteredResults);
-            setLoading(false);
-        }, 1000);
+
+            setResults(filteredResults); // Update with filtered results
+            setLoading(false); // Stop loader once results are set
+        }, 1000); // Adjust debounce delay (e.g., 500ms) as needed
     };
 
+
     return (
-        <div style={{ width: '300px' }}>
+        <div>
             <SearchBox {...args} open={open} onOpenChange={setOpen}>
-                <SearchBoxInput
+                <SearchBox.Input
                     placeholder={args.placeholder}
                     onChange={(value) => {
                         handleSearch(value);
@@ -102,37 +107,37 @@ const Template = (args) => {
                     variant={args.variant}
                     disabled={args.disabled}
                 />
-                <SearchBoxContent>
+                <SearchBox.Content>
                     {loading ? (
-                        <SearchBoxLoading />
+                        <SearchBox.Loading />
                     ) : (
                             <>
-                        <SearchBoxResults>
-                            <SearchBoxResultTitle>Search Results</SearchBoxResultTitle>
+                                <SearchBox.Results>
+                                    <SearchBox.ResultTitle>Search Results</SearchBox.ResultTitle>
                             {results.map((item, index) => (
                                 <React.Fragment key={index}>
-                                    <SearchBoxResultItem
+                                    <SearchBox.ResultItem
                                         icon={item.type === 'file' ? <File size={16} /> : <Folder size={16} />}
                                     >
                                         {item.name}
-                                    </SearchBoxResultItem>
+                                    </SearchBox.ResultItem>
                                 </React.Fragment>
                             ))}
-                        </SearchBoxResults>
-                                <SearchBoxSeparator />
-                                <SearchBoxResults>
-                                    <SearchBoxResultTitle>Extra Results</SearchBoxResultTitle>
+                                </SearchBox.Results>
+                                <SearchBox.Separator />
+                                <SearchBox.Results>
+                                    <SearchBox.ResultTitle>Extra Results</SearchBox.ResultTitle>
                                     {results.map((item, index) => (
                                         <React.Fragment key={index}>
-                                            <SearchBoxResultItem>
-                                                {item.name}
-                                            </SearchBoxResultItem>
+                                            <SearchBox.ResultItem>
+                                                {item.name} - (without icon)
+                                            </SearchBox.ResultItem>
                                         </React.Fragment>
                                     ))}
-                                </SearchBoxResults>
+                                </SearchBox.Results>
                             </>
                     )}
-                </SearchBoxContent>
+                </SearchBox.Content>
             </SearchBox>
         </div>
     );

@@ -15,7 +15,7 @@ export const variantClassNames = {
     ghost: 'text-text-secondary bg-transparent border border-transparent',
 };
 
-export const IconClasses = 'text-text-tertiary group-hover:text-text-secondary'
+export const IconClasses = 'text-text-tertiary group-hover:text-text-secondary group-focus:text-text-secondary'
 
 export const hoverClassNames = {
     enabled: 'hover:border-border-strong text-text-primary',
@@ -23,7 +23,7 @@ export const hoverClassNames = {
 };
 
 export const focusClassNames =
-    'focus:border-focus-border focus:ring-2 focus:ring-toggle-on focus:ring-offset-2';
+    'text-text-primary';
 
 export const disabledClassNames = 'border-border-disabled bg-field-background-disabled cursor-not-allowed text-text-disabled';
 
