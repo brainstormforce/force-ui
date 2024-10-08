@@ -10,6 +10,7 @@ import {
 	Title,
 	Topbar,
 	Alert,
+	Input,
 } from '@/components';
 import {
 	ArrowUpRight,
@@ -61,7 +62,6 @@ const Logo = (props) => (
 );
 
 const Template = () => {
-
 	return (
 		<Container
 			containerType="flex"
@@ -70,14 +70,18 @@ const Template = () => {
 			className="h-full"
 		>
 			{/* Info-bar Start */}
-			<div className='py-2 flex items-center justify-center relative bg-brand-background-hover-100'>
-				<div className='space-x-1 text-text-primary text-xs'>
-					<span className='font-semibold'>Unlock Spectra's Full Potential!</span>
-					<span className='font-normal'>Get exclusive features and unbeatable performance.</span>
-					<span className='font-normal underline'>Upgrade now</span>
+			<div className="py-2 flex items-center justify-center relative bg-brand-background-hover-100">
+				<div className="space-x-1 text-text-primary text-xs">
+					<span className="font-semibold">
+						Unlock Spectra's Full Potential!
+					</span>
+					<span className="font-normal">
+						Get exclusive features and unbeatable performance.
+					</span>
+					<span className="font-normal underline">Upgrade now</span>
 				</div>
-				<button className='inline-flex items-center justify-center absolute right-2 top-2 p-0 bg-transparent shadow-none border-0 outline-none focus:outline-none cursor-pointer'>
-					<X className='size-4' />
+				<button className="inline-flex items-center justify-center absolute right-2 top-2 p-0 bg-transparent shadow-none border-0 outline-none focus:outline-none cursor-pointer">
+					<X className="size-4" />
 				</button>
 			</div>
 			{/* Info-bar End */}
@@ -124,13 +128,9 @@ const Template = () => {
 							</button>
 						</Topbar.Item>
 					</Topbar.Middle>
-					<Topbar.Right gap='md' className="p-5">
+					<Topbar.Right gap="md" className="p-5">
 						<Topbar.Item>
-							<Badge
-								label="Free"
-								size="xs"
-								variant="neutral"
-							/>
+							<Badge label="Free" size="xs" variant="neutral" />
 						</Topbar.Item>
 						<Topbar.Item className="gap-2">
 							<CircleHelp strokeWidth="1.5" />
@@ -228,15 +228,101 @@ const Template = () => {
 					{/* Settings */}
 					<Container
 						direction="column"
-						className="bg-background-primary rounded-xl shadow py-4 px-6"
+						gap="sm"
+						className="bg-background-primary rounded-xl shadow p-6"
 					>
-						<Container.Item className="mb-0.5">
-							{/* TODO */}
-							<Label size="md">Default Content Width</Label>
-							<span className="block text-xs leading-4 font-normal text-field-helper">
-								Hint text can be added here. Link
-							</span>
-						</Container.Item>
+						{/* Setting Section */}
+						<Container className="mb-0.5" align="center">
+							<Container.Item className="w-full max-w-120 space-y-1">
+								<Label size="md">Default Content Width</Label>
+								<p className="m-0 block text-sm leading-4 font-normal text-field-helper">
+									This setting will apply to Container Block's
+									default Content Width.
+								</p>
+								<p className="m-0 block text-sm leading-4 font-normal text-field-helper italic">
+									The current Content width is applied from
+									Full Site Editor's Global Styles.
+								</p>
+							</Container.Item>
+							<Input
+								defaultValue={1280}
+								suffix={
+									<span className="text-badge-color-gray rounded border border-solid border-border-subtle p-0.5 text-center text-xs font-medium bg-badge-background-gray">
+										PX
+									</span>
+								}
+								type="number"
+							/>
+						</Container>
+
+						<hr className="w-full border-b-0 border-x-0 border-t border-solid border-t-border-subtle" />
+
+						{/* Setting Section */}
+						<Container className="mb-0.5" align="center">
+							<Container.Item className="w-full max-w-120 space-y-1">
+								<Label size="md">Container Padding</Label>
+								<p className="m-0 block text-sm leading-4 font-normal text-field-helper">
+									This setting will apply default padding in
+									the Container Block.
+								</p>
+							</Container.Item>
+							<Input
+								defaultValue={10}
+								suffix={
+									<span className="text-badge-color-gray rounded border border-solid border-border-subtle p-0.5 text-center text-xs font-medium bg-badge-background-gray">
+										PX
+									</span>
+								}
+								type="number"
+							/>
+						</Container>
+
+						<hr className="w-full border-b-0 border-x-0 border-t border-solid border-t-border-subtle" />
+
+						{/* Setting Section */}
+						<Container className="mb-0.5" align="center">
+							<Container.Item className="w-full max-w-120 space-y-1">
+								<Label size="md">Container Elements Gap</Label>
+								<p className="m-0 block text-sm leading-4 font-normal text-field-helper">
+									This setting will apply default Row & Column
+									Gaps in the Container Block.
+								</p>
+							</Container.Item>
+							<Input
+								defaultValue={20}
+								suffix={
+									<span className="text-badge-color-gray rounded border border-solid border-border-subtle p-0.5 text-center text-xs font-medium bg-badge-background-gray">
+										PX
+									</span>
+								}
+								type="number"
+							/>
+						</Container>
+
+						<hr className="w-full border-b-0 border-x-0 border-t border-solid border-t-border-subtle" />
+
+						{/* Setting Section */}
+						<Container className="mb-0.5" align="center">
+							<Container.Item className="w-full max-w-120 space-y-1">
+								<div className='space-x-1 flex items-center'>
+									<Label className="inline-block" size="md">Container Elements Gap</Label>
+									<span className="inline-block py-0.5 px-1 text-text-inverse bg-background-inverse border border-solid border-border-inverse text-xs font-medium rounded-full">PRO</span>
+								</div>
+								<p className="m-0 block text-sm leading-4 font-normal text-field-helper">
+									This setting will apply default Row & Column
+									Gaps in the Container Block.
+								</p>
+							</Container.Item>
+							<Input
+								defaultValue={20}
+								suffix={
+									<span className="text-badge-color-gray rounded border border-solid border-border-subtle p-0.5 text-center text-xs font-medium bg-badge-background-gray">
+										PX
+									</span>
+								}
+								type="number"
+							/>
+						</Container>
 					</Container>
 				</Container>
 			</Container.Item>
