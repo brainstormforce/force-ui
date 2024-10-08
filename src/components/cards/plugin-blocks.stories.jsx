@@ -5,10 +5,10 @@ import Container from '../container';
 import Button from '../button';
 import Label from '../label';
 import Badge from '../badge';
-import { AstraThemeSvg } from './svg/astra';
-import { StartersTemplatesSvg } from './svg/starter-templates';
-import { SureCartSvg } from './svg/surecart';
-import { PrestoPlayerSvg } from './svg/presto-player';
+import { AstraThemeSvg } from '@/globals/svgs/astra';
+import { StartersTemplatesSvg } from '@/globals/svgs/starter-templates';
+import { SureCartSvg } from '@/globals/svgs/surecart';
+import { PrestoPlayerSvg } from '@/globals/svgs/presto-player';
 
 import { ArrowUpRight } from 'lucide-react';
 
