@@ -7,7 +7,7 @@ const MenuContext = createContext();
 const useMenuContext = () => useContext( MenuContext );
 
 const Menu = ( { size = 'md', children, className } ) => {
-	const baseClasses = 'w-64 flex flex-col bg-background-primary p-2';
+	const baseClasses = 'flex flex-col bg-background-primary p-2';
 
 	return (
 		<MenuContext.Provider value={ { size } }>
@@ -16,10 +16,12 @@ const Menu = ( { size = 'md', children, className } ) => {
 	);
 };
 
+Menu.displayName = 'Menu';
+
 const MenuList = ( {
 	heading,
 	arrow = false,
-	open: initialOpen = false,
+	open: initialOpen = true,
 	onClick,
 	children,
 	className,
@@ -28,7 +30,7 @@ const MenuList = ( {
 	const { size } = useMenuContext();
 
 	const baseClasses =
-		'text-text-primary bg-transparent cursor-pointer flex justify-between items-center p-1 gap-1';
+		'text-text-primary bg-transparent cursor-pointer flex justify-between items-center gap-1';
 
 	const sizeClasses = {
 		sm: 'text-xs',
@@ -67,7 +69,12 @@ const MenuList = ( {
 						handleToggle();
 					}
 				} }
-				className={ cn( baseClasses, sizeClasses, className ) }
+				className={ cn(
+					baseClasses,
+					sizeClasses,
+					heading ? 'p-1' : 'p-0',
+					className
+				) }
 				aria-expanded={ isOpen }
 			>
 				<span className="text-text-tertiary">{ heading }</span>
@@ -104,6 +111,8 @@ const MenuList = ( {
 		</div>
 	);
 };
+
+MenuList.displayName = 'Menu.List';
 
 const MenuItem = ( {
 	disabled = false,
@@ -155,6 +164,8 @@ const MenuItem = ( {
 	);
 };
 
+MenuItem.displayName = 'Menu.Item';
+
 const MenuSeparator = ( { variant = 'solid', className } ) => {
 	const variantClasses = {
 		solid: 'border-solid',
@@ -178,8 +189,10 @@ const MenuSeparator = ( { variant = 'solid', className } ) => {
 	);
 };
 
-Menu.List = MenuList;
-Menu.Item = MenuItem;
-Menu.Separator = MenuSeparator;
+MenuSeparator.displayName = 'Menu.Separator';
 
-export default Menu;
+export default Object.assign( Menu, {
+	List: MenuList,
+	Item: MenuItem,
+	Separator: MenuSeparator,
+} );
