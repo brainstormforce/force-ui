@@ -1,11 +1,15 @@
+import React from "react";
 import { Topbar } from "@/components";
 import { Container } from "@/components";
-import { ArrowUpRight, CircleHelp, Bell, CirclePlay } from 'lucide-react';
+import { ArrowUpRight, CircleHelp, Bell, CirclePlay, Ellipsis, Upload, Paintbrush, PanelTop, PanelBottom, PaintBucket, Type, SquareMousePointer, PenTool, LayoutTemplate, Menu, Palette, Baseline, Ruler, Newspaper, PanelTopDashed, PanelsTopLeft } from 'lucide-react';
 import { Button } from "@/components";
 import { Badge } from "@/components";
 import { Avatar } from "@/components";
+import { Label } from "@/components";
+import { RadioButton } from "@/components";
 import media from "./media.png"
 import AvatarImage from "./AvatarImage.png"
+import { AstraTheme, StarterTheme, SureCart, SureTriggers } from "./dashboard-1-svgs";
 
 export default {
 	title: 'Templates/Dashboard 1',
@@ -23,7 +27,254 @@ export default {
 };
 
 
+const defaultRadioButtonGroupData = [
+	{
+		id: '1',
+		value: 'analytics',
+		icon: <Upload />,
+		label: 'Site Identity',
+		toggleLabel: 'Enable',
+		hideSelection: true,
+		useSwitch: false,
+	},
+	{
+		id: '2',
+		value: 'notifications',
+		icon: <Paintbrush />,
+		label: 'Style Guide',
+		toggleLabel: 'Disable',
+		hideSelection: true,
+		useSwitch: false,
+		badge: (
+			<Badge
+				label={ 'New' }
+				size="md"
+				icon={ null }
+				variant="inverse"
+				closable={ false }
+				className="py-0"
+			/>
+		),
+	},
+	{
+		id: '3',
+		value: 'settings',
+		icon: <PanelTop />,
+		label: 'Header Builder',
+		toggleLabel: 'Settings',
+		hideSelection: true,
+		useSwitch: false,
+	},
+	{
+		id: '4',
+		value: 'security',
+		icon: <PanelBottom />,
+		label: 'Footer Builder',
+		toggleLabel: 'Security',
+		hideSelection: true,
+		useSwitch: false,
+	},
+	{
+		id: '5',
+		value: 'marketing',
+		icon: <PaintBucket />,
+		label: 'Colors',
+		toggleLabel: 'Billing',
+		hideSelection: true,
+		useSwitch: false,
+	},
+	{
+		id: '6',
+		value: 'modal',
+		icon: <Type />,
+		label: 'Typography',
+		toggleLabel: 'modal',
+		hideSelection: true,
+		useSwitch: false,
+	},
+	{
+		id: '7',
+		value: 'socialshare',
+		icon: <SquareMousePointer  />,
+		label: 'Button',
+		toggleLabel: 'socialshare',
+		hideSelection: true,
+		useSwitch: false,
+	},
+	{
+		id: '8',
+		value: 'Blockquote',
+		icon: <PenTool />,
+		label: 'Blog',
+		toggleLabel: 'blockquote',
+		hideSelection: true,
+		useSwitch: false,
+	},
+	{
+		id: '9',
+		value: 'contenttimeline',
+		icon: <LayoutTemplate  />,
+		label: 'Layout',
+		toggleLabel: 'contenttimeline',
+		hideSelection: true,
+		useSwitch: false,
+	},
+	{
+		id: '10',
+		value: 'googlemaps',
+		icon: <Menu  />,
+		label: 'Menus',
+		toggleLabel: 'googlemaps',
+		hideSelection: true,
+		useSwitch: false,
+	},
+	{
+		id: '11',
+		value: 'lottieanimation',
+		icon: <Palette />,
+		label: 'Background',
+		toggleLabel: 'lottieanimation',
+		hideSelection: true,
+		useSwitch: false,
+        badge: (
+			<Badge
+				label={ 'PRO' }
+				size="md"
+				icon={ null }
+				variant="green"
+				closable={ false }
+				className="py-0 mr-2"
+			/>
+		),
+	},
+	{
+		id: '12',
+		value: 'animations',
+		icon: <Baseline />,
+		label: 'Advanced Typography',
+		toggleLabel: 'animations',
+		hideSelection: true,
+		useSwitch: false,
+		badge: (
+			<Badge
+				label={ 'PRO' }
+				size="md"
+				icon={ null }
+				variant="yellow"
+				closable={ false }
+				className="py-0 mr-2"
+			/>
+		),
+	},
+	{
+		id: '13',
+		value: 'animations',
+		icon: <Ruler />,
+		label: 'Spacing',
+		toggleLabel: 'animations',
+		hideSelection: true,
+		useSwitch: false,
+		badge: (
+			<Badge
+				label={ 'PRO' }
+				size="md"
+				icon={ null }
+				variant="yellow"
+				closable={ false }
+				className="py-0 mr-2"
+			/>
+		),
+	},
+	{
+		id: '14',
+		value: 'animations',
+		icon: <Newspaper />,
+		label: 'Blog Pro',
+		toggleLabel: 'animations',
+		hideSelection: true,
+		useSwitch: false,
+		badge: (
+			<Badge
+				label={ 'PRO' }
+				size="md"
+				icon={ null }
+				variant="yellow"
+				closable={ false }
+				className="py-0 mr-2"
+			/>
+		),
+	},
+	{
+		id: '15',
+		value: 'animations',
+		icon: <PanelTopDashed />,
+		label: 'Sticky Header',
+		toggleLabel: 'animations',
+		hideSelection: true,
+		useSwitch: false,
+		badge: (
+			<Badge
+				label={ 'PRO' }
+				size="md"
+				icon={ null }
+				variant="yellow"
+				closable={ false }
+				className="py-0 mr-2"
+			/>
+		),
+	},
+	{
+		id: '16',
+		value: 'animations',
+		icon: <PanelsTopLeft />,
+		label: 'Site Layouts',
+		toggleLabel: 'animations',
+		hideSelection: true,
+		useSwitch: false,
+		badge: (
+			<Badge
+				label={ 'PRO' }
+				size="md"
+				icon={ null }
+				variant="yellow"
+				closable={ false }
+				className="py-0 mr-2"
+			/>
+		),
+	},
+];
+
+const astraRadioButtonGroupData = [
+	{
+		id: '1',
+		svg: <AstraTheme />,
+		title: 'Astra Theme',
+		description: 'Free WordPress Page Builder Plugin.',
+	},
+	{
+		id: '2',
+		svg: <StarterTheme />,
+		title: 'Starters Templates',
+		description: 'Build your dream website in minutes with AI.',
+	},
+	{
+		id: '3',
+		svg: <SureCart />,
+		title: 'SureCart',
+		description: 'The new way to sell on WordPress.',
+	},
+	{
+		id: '4',
+		svg: <SureTriggers />,
+		title: 'SureTriggers',
+		description: 'Automate your WordPress setup.',
+	},
+];
+
+
 export const Dashboard = () => {
+    const radioButtonGroupData = defaultRadioButtonGroupData;
+
     return (
         <>
             <Topbar gap={0} className="h-16 p-0 shadow-sm">
@@ -112,14 +363,133 @@ export const Dashboard = () => {
                         </Container.Item>
                     </Container>
 
+                    {/* Radio Button Group */}
+                    <Container
+                        containerType="flex"
+                        direction="column"
+                        className="md:w-full lg:w-full bg-background-primary border border-solid rounded-xl border-border-subtle p-4"
+                        gap="xs"
+                    >
+                        <Container.Item className="md:w-full p-1 lg:w-full">
+                            <Container justify="between" gap="xs">
+                                <Container.Item className="">
+                                    <Label className="font-semibold">Quick Settings</Label>
+                                </Container.Item>
+                                <Container.Item className="items-center flex" gap="xs">
+                                    <Label>
+                                        View All 
+                                        <ArrowUpRight />
+                                    </Label>
+                                    <Button variant="ghost" className="p-0 leading-none	">
+                                        <Ellipsis />
+                                    </Button>
+                                </Container.Item>
+                            </Container>
+                        </Container.Item>
+                        <Container.Item className="md:w-full lg:w-full p-1 bg-field-primary-background ">
+                            <RadioButton.Group
+                                as="div"
+                                defaultValue={ `option-${ radioButtonGroupData[ 0 ].id }` }
+                                multiSelection={ true }
+                                onChange={ ( value ) => {
+                                    return value;
+                                } }
+                                className="w-full"
+                            >
+                                { radioButtonGroupData.map( ( option ) => (
+                                    <RadioButton.Button
+                                        key={ `option-${ option.id }` }
+                                        borderOn={ true }
+                                        value={ option.value }
+                                        icon={ option.icon }
+                                        hideSelection={ option.hideSelection }
+                                        toggleLabel={ option.toggleLabel }
+                                        label={ {
+                                            heading: option.label,
+                                        } }
+                                        useSwitch={ option.useSwitch }
+                                        className="px-2"
+                                        badgeItem={ option.badge }
+                                        // className="bg-background-primary"
+                                    />
+                                ) ) }
+                            </RadioButton.Group>
+                        </Container.Item>
+                    </Container>
+
                 </Container.Item>
 
                 {/* Second Column */}
                 <Container.Item colSpan={4} className="grid gap-8">
+
+                    <Container
+                        containerType="flex"
+                        gap="xs"
+                        direction="column"
+                        className="border border-solid rounded-xl border-border-subtle p-4 bg-background-primary"
+                    >
+                        <Container.Item className="md:w-full lg:w-full">
+                            <Container className="p-1" justify="between" gap="xs">
+                                <Container.Item>
+                                    <Label className="font-semibold">
+                                        Integrations
+                                    </Label>
+                                </Container.Item>
+                                <Container.Item
+                                    containerType="flex"
+                                    direction="row"
+                                    className="items-center"
+                                    gap="xs"
+                                >
+                                    <Button className="p-0" variant="ghost">
+                                        <ArrowUpRight />
+                                    </Button>
+                                </Container.Item>
+                            </Container>
+                        </Container.Item>
+                        <Container.Item className="md:w-full lg:w-full bg-field-primary-background rounded-lg">
+                            <Container className="grid grid-cols-2 p-1 gap-1">
+                                { astraRadioButtonGroupData.map( ( card ) => (
+                                    <Container.Item
+                                        key={ card.id }
+                                        className="md:w-full lg:w-full flex"
+                                    >
+                                        <Container
+                                            containerType="flex"
+                                            direction="column"
+                                            className="flex-1 gap-1 shadow-soft-shadow-inner p-2 rounded-md bg-background-primary"
+                                        >
+                                            <Container.Item>
+                                                <Container className="gap-1 items-center">
+                                                    <Container.Item
+                                                        className="peer-[]:&>svg]:size-5"
+                                                        grow={ 1 }
+                                                        order="none"
+                                                        shrink={ 1 }
+                                                    >
+                                                        { card.svg }
+                                                    </Container.Item>
+                                                </Container>
+                                            </Container.Item>
+                                            <Container.Item className="gap-0.5 p-1">
+                                                <Label className="text-sm font-semibold">
+                                                    { card.title }
+                                                </Label>
+                                                <Label variant="help" className="text-sm">
+                                                    { card.description }
+                                                </Label>
+                                            </Container.Item>
+                                        </Container>
+                                    </Container.Item>
+                                ) ) }
+                            </Container>
+                        </Container.Item>
+                    </Container>
+
                     <Container direction="column" gap="xs" className="p-5 bg-background-primary shadow-sm rounded-2xl">
                             <Container.Item>
                                 <Container gap="xs" align="center">
-                                    <div>VIP Support</div>
+                                    <div className="font-semibold">VIP Support</div>
                                     <Badge
                                         label={ 'PRO' }
                                         size="xs"
@@ -145,7 +515,7 @@ export const Dashboard = () => {
                     <Container direction="column" gap="xs" className="p-5 bg-background-primary shadow-sm rounded-2xl">
                             <Container.Item>
                                 <Container gap="xs" align="center">
-                                    <div>Join the Community</div>
+                                    <div className="font-semibold">Join the Community</div>
                                 </Container>
                             </Container.Item>
                             <Container.Item>
