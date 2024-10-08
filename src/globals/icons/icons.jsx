@@ -1,11 +1,12 @@
-export const Svgs = {
-	AstraThemeSvg: () => (
+export const Icons = {
+	AstraThemeSvg: ( props ) => (
 		<svg
 			width="21"
 			height="20"
 			viewBox="0 0 21 20"
 			fill="none"
 			xmlns="http://www.w3.org/2000/svg"
+			{ ...props }
 		>
 			<path
 				fillRule="evenodd"
@@ -28,13 +29,14 @@ export const Svgs = {
 			</defs>
 		</svg>
 	),
-	StartersTemplatesSvg: () => (
+	StartersTemplatesSvg: ( props ) => (
 		<svg
 			width="21"
 			height="20"
 			viewBox="0 0 21 20"
 			fill="none"
 			xmlns="http://www.w3.org/2000/svg"
+			{ ...props }
 		>
 			<g clipPath="url(#clip0_9150_48086)">
 				<path
@@ -84,13 +86,14 @@ export const Svgs = {
 			</defs>
 		</svg>
 	),
-	SureCartSvg: () => (
+	SureCartSvg: ( props ) => (
 		<svg
 			width="21"
 			height="20"
 			viewBox="0 0 21 20"
 			fill="none"
 			xmlns="http://www.w3.org/2000/svg"
+			{ ...props }
 		>
 			<path
 				fillRule="evenodd"
@@ -100,13 +103,14 @@ export const Svgs = {
 			/>
 		</svg>
 	),
-	PrestoPlayerSvg: () => (
+	PrestoPlayerSvg: ( props ) => (
 		<svg
 			width="21"
 			height="20"
 			viewBox="0 0 21 20"
 			fill="none"
 			xmlns="http://www.w3.org/2000/svg"
+			{ ...props }
 		>
 			<path
 				d="M13.6094 9.93105L19.3338 6.60156V13.2606L13.6094 9.93105Z"

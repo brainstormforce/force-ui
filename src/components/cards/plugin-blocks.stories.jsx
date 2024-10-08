@@ -5,7 +5,7 @@ import Container from '../container';
 import Button from '../button';
 import Label from '../label';
 import Badge from '../badge';
-import { Svgs } from '@/globals/svgs';
+import { Icons } from '@/globals/icons/icons';
 import { ArrowUpRight } from 'lucide-react';
 
 export default {
@@ -29,7 +29,7 @@ const astraRadioButtonGroupData = [
 		id: '1',
 		badgeText: 'Free',
 		buttonText: 'Install',
-		svg: <Svgs.AstraThemeSvg />,
+		svg: <Icons.AstraThemeSvg />,
 		title: 'Astra Theme',
 		description: 'Free WordPress Page Builder Plugin.',
 	},
@@ -37,7 +37,7 @@ const astraRadioButtonGroupData = [
 		id: '2',
 		badgeText: 'Free',
 		buttonText: 'Activate',
-		svg: <Svgs.StartersTemplatesSvg />,
+		svg: <Icons.StartersTemplatesSvg />,
 		title: 'Starters Templates',
 		description: 'Build your dream website in minutes with AI.',
 	},
@@ -45,7 +45,7 @@ const astraRadioButtonGroupData = [
 		id: '3',
 		badgeText: 'Free',
 		buttonText: 'Install',
-		svg: <Svgs.SureCartSvg />,
+		svg: <Icons.SureCartSvg />,
 		title: 'SureCart',
 		description: 'The new way to sell on WordPress.',
 	},
@@ -53,7 +53,7 @@ const astraRadioButtonGroupData = [
 		id: '4',
 		badgeText: 'Free',
 		buttonText: 'Install',
-		svg: <Svgs.PrestoPlayerSvg />,
+		svg: <Icons.PrestoPlayerSvg />,
 		title: 'Presto Player',
 		description: 'Automate your WordPress setup.',
 	},
