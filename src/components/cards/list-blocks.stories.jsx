@@ -78,7 +78,7 @@ const Template3 = () => {
 			<Container.Item className="md:w-full lg:w-full p-1">
 				<Label className="font-semibold">Quick Access</Label>
 			</Container.Item>
-			<Container.Item className="flex flex-col md:w-full lg:w-full bg-field-primary-background gap-1 p-1">
+			<Container.Item className="flex flex-col md:w-full lg:w-full bg-field-primary-background gap-1 p-1 rounded-lg">
 				{ containerRowButtons.map( ( button ) => (
 					<div
 						key={ button.id }

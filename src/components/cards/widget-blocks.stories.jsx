@@ -230,7 +230,7 @@ const Template1 = () => {
 		<Container
 			containerType="flex"
 			direction="column"
-			className="md:w-full lg:w-full border border-solid rounded-md border-border-subtle p-4"
+			className="md:w-full lg:w-full border border-solid rounded-s-xl border-border-subtle p-4"
 			gap="xs"
 		>
 			<Container.Item className="md:w-full p-1 lg:w-full">
@@ -255,7 +255,7 @@ const Template1 = () => {
 					</Container.Item>
 				</Container>
 			</Container.Item>
-			<Container.Item className="md:w-full lg:w-full p-1 bg-field-primary-background ">
+			<Container.Item className="md:w-full lg:w-full p-1 bg-field-primary-background rounded-lg">
 				<RadioButton.Group
 					as="div"
 					defaultValue={ `option-${ radioButtonGroupData[ 0 ].id }` }
