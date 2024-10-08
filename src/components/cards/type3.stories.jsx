@@ -4,6 +4,7 @@ import RadioButton from '../radio-button-group/radio-button-group';
 import Container from '../container';
 import Label from '../label';
 import Badge from '../badge';
+import Button from '../button';
 
 import { Headset, MessageSquare, HelpCircle, Star } from 'lucide-react';
 
@@ -77,36 +78,32 @@ const Template3 = () => {
 			<Container.Item className="md:w-full lg:w-full p-1">
 				<Label className="font-semibold">Quick Access</Label>
 			</Container.Item>
-			<Container.Item className="md:w-full lg:w-full bg-field-primary-background p-1">
-				{ /* Mapping the containerRowButtons array */ }
-				<RadioButton.Group
-					as="div"
-					defaultValue={ `option-${ containerRowButtons[ 0 ].id }` }
-					onChange={ ( value ) => {
-						return value;
-					} }
-					vertical={ true }
-					className="w-full gap-1"
-				>
-					{ containerRowButtons.map( ( option ) => (
-						<RadioButton.Button
-							key={ `option-${ option.id }` }
-							borderOn={ true }
-							value={ option.value }
-							inlineIcon={ true }
-							icon={ option.icon }
-							hideSelection={ option.hideSelection }
-							toggleLabel={ option.toggleLabel }
-							label={ {
-								heading: option.label,
-							} }
-							useSwitch={ option.useSwitch }
-							className="px-2"
-							badgeItem={ option.bagde }
-							buttonWrapperClasses="bg-white"
-						/>
-					) ) }
-				</RadioButton.Group>
+			<Container.Item className="flex flex-col md:w-full lg:w-full bg-field-primary-background gap-1 p-1">
+				{ containerRowButtons.map( ( button ) => (
+					<div
+						key={ button.id }
+						className='p-2 gap-1 className="items-cente bg-background-primary rounded-md shadow-soft-shadow-inner'
+					>
+						<Container
+							key={ button.id }
+							containerType="flex"
+							direction="row"
+							className="gap-1 p-1"
+							align="center"
+						>
+							<Container.Item>{ button.icon }</Container.Item>
+							<Container.Item>
+								<Button
+									variant="ghost"
+									className="py-0 font-normal"
+								>
+									{ button.label }
+								</Button>
+							</Container.Item>
+							<Container.Item>{ button.bagde }</Container.Item>
+						</Container>
+					</div>
+				) ) }
 			</Container.Item>
 		</Container>
 	);

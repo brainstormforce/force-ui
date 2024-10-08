@@ -240,7 +240,13 @@ const Template1 = () => {
 					</Container.Item>
 					<Container.Item className="items-center flex" gap="xs">
 						<Label>
-							View All <ArrowUpRight />{ ' ' }
+							<Button
+								icon={ <ArrowUpRight /> }
+								iconPosition="right"
+								variant="ghost"
+							>
+								View All
+							</Button>
 						</Label>
 						<Button variant="ghost" className="p-0 leading-none	">
 							{ ' ' }
