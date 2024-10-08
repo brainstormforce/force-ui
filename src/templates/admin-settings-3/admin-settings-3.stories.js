@@ -395,7 +395,7 @@ const Template = () => {
 									</p>
 								</Container.Item>
 								<Container.Item className="ml-auto">
-									<Switch size="lg" defaultValue={ true } />
+									<Switch size="lg" defaultValue={ false } />
 								</Container.Item>
 							</Container>
 
