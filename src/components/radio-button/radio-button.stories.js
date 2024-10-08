@@ -214,6 +214,14 @@ export default {
 				defaultValue: { summary: 'false' },
 			},
 		},
+		buttonWrapperClasses: {
+			description:
+				'`RadioButton.Button` : Custom classes to be applied to the button wrapper.',
+			control: {
+				type: 'text',
+			},
+			defaultValue: 'bg-white',
+		},
 	},
 };
 
