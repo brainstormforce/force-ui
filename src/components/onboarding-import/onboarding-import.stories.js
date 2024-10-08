@@ -10,7 +10,7 @@ export default {
 	title: 'Templates/OnboardingImport',
 	component: OnboardingImport,
 	parameters: {
-		layout: 'left',
+		layout: 'fullscreen',
 	},
 	tags: [ 'autodocs' ],
 	argTypes: {
@@ -25,9 +25,9 @@ const Template = ( args ) => {
 	return (
 		<OnboardingImport
 			{ ...args }
-			className="bg-gray-100 min-h-screen w-full pb-10"
+			className="bg-background-secondary min-h-screen w-full pb-10"
 		>
-			<Topbar className="bg-gray-100">
+			<Topbar className="bg-background-secondary">
 				<Topbar.Left>
 					<Topbar.Item>
 						<svg
@@ -64,7 +64,7 @@ const Template = ( args ) => {
 			</Topbar>
 			<div className="w-8/12 p-6 mx-auto gap-10 border-border-subtle bg-background-primary rounded-md mt-10">
 				<div>
-					<Label size="md">
+					<Label size="md" className='font-semibold'>
 						Import Data From Your Current Plugins
 					</Label>
 					<Label className="w-10/12 text-text-secondary mt-1">

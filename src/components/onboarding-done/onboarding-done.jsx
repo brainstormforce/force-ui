@@ -5,4 +5,4 @@ const OnboardingDone = ( { children, ...props } ) => {
 };
 OnboardingDone.displayName = 'OnboardingDone';
 
-export default Object.assign( OnboardingDone );
+export default  OnboardingDone ;

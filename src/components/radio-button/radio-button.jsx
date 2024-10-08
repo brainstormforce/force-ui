@@ -295,7 +295,7 @@ const RadioButtonComponent = (
 				</label>
 			) }
 			{ !! info && (
-				<div className="absolute mr-[2px] bottom-1.5 right-3">
+				<div className="absolute mr-0.5 bottom-1.5 right-3">
 					<Tooltip
 						arrow
 						title={ info?.heading }
@@ -314,7 +314,7 @@ const RadioButtonComponent = (
 			) }
 			<label
 				className={ cn(
-					'absolute mr-[2px] right-3 flex items-center cursor-pointer rounded-full',
+					'absolute mr-0.5 right-3 flex items-center cursor-pointer rounded-full',
 					reversePosition && 'left-0',
 					isDisabled && 'cursor-not-allowed'
 				) }

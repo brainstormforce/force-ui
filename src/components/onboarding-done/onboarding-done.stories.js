@@ -9,7 +9,7 @@ export default {
 	title: 'Templates/OnboardingDone',
 	component: OnboardingDone,
 	parameters: {
-		layout: 'left',
+		layout: 'fullscreen',
 	},
 	tags: [ 'autodocs' ],
 	argTypes: {
@@ -24,9 +24,9 @@ const Template = ( args ) => {
 	return (
 		<OnboardingDone
 			{ ...args }
-			className="bg-gray-100 min-h-screen w-full pb-10"
+			className="bg-background-secondary min-h-screen w-full pb-10"
 		>
-			<Topbar className="bg-gray-100">
+			<Topbar className="bg-background-secondary">
 				<Topbar.Left>
 					<Topbar.Item>
 						<svg
@@ -63,11 +63,11 @@ const Template = ( args ) => {
 			</Topbar>
 			<div className="flex justify-between items-center w-8/12 p-6 mx-auto gap-10 border-border-subtle bg-background-primary rounded-md mt-10">
 				<div>
-					<Label size="md" className="text-3xl">
+					<Label size="md" className="text-3xl font-semibold">
 						Congratulations!
 					</Label>
 					<Label className="w-10/12 text-text-secondary mt-1 text-sm">
-						You&#39ve taken the first step to SEO success. Now,
+						You&#39;ve taken the first step to SEO success. Now,
 						let&#39;s optimize your website for search engines.
 						Start by:
 					</Label>

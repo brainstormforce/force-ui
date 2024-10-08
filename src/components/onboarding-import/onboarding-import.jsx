@@ -5,4 +5,4 @@ const OnboardingImport = ( { children, ...props } ) => {
 };
 OnboardingImport.displayName = 'OnboardingImport';
 
-export default Object.assign( OnboardingImport );
+export default OnboardingImport ;

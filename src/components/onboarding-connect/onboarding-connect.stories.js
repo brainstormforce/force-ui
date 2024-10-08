@@ -9,7 +9,7 @@ export default {
 	title: 'Templates/OnboardingConnect',
 	component: OnboardingConnect,
 	parameters: {
-		layout: 'left',
+		layout: 'fullscreen',
 	},
 	tags: [ 'autodocs' ],
 	argTypes: {
@@ -63,10 +63,10 @@ const Template = ( args ) => {
 			</Topbar>
 			<div className="flex justify-between items-center w-8/12 p-6 mx-auto gap-10 border-border-subtle bg-background-primary rounded-md mt-10">
 				<div>
-					<Label size="md" className="text-3xl">
+					<Label size="md" className="text-3xl font-semibold">
 						Connect Your Site with SureRank
 					</Label>
-					<Label className="w-10/12 text-text-secondary mt-1 text-sm">
+					<Label className="w-10/12 text-text-secondary mt-2 text-sm">
 						When you connect your free account with SureRank you
 						will get keyword suggestions from Google when entering
 						the keywords. Not only that, you will access to our AI

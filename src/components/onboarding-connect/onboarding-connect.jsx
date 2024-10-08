@@ -5,4 +5,4 @@ const OnboardingConnect = ( { children, ...props } ) => {
 };
 OnboardingConnect.displayName = 'OnboardingConnect';
 
-export default Object.assign( OnboardingConnect );
+export default OnboardingConnect;
