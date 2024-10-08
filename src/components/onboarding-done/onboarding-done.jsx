@@ -5,4 +5,4 @@ const OnboardingDone = ( { children, ...props } ) => {
 };
 OnboardingDone.displayName = 'OnboardingDone';
 
-export default  OnboardingDone ;
+export default OnboardingDone;

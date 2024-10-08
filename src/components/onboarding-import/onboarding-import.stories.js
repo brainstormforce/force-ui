@@ -64,7 +64,7 @@ const Template = ( args ) => {
 			</Topbar>
 			<div className="w-8/12 p-6 mx-auto gap-10 border-border-subtle bg-background-primary rounded-md mt-10">
 				<div>
-					<Label size="md" className='font-semibold'>
+					<Label size="md" className="font-semibold">
 						Import Data From Your Current Plugins
 					</Label>
 					<Label className="w-10/12 text-text-secondary mt-1">
