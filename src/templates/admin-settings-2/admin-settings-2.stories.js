@@ -504,7 +504,7 @@ const Template = () => {
 									combobox
 								>
 									<Select.Button displayBy="label" />
-									<Select.Options className="font-sans [&_*]:font-sans">
+									<Select.Options searchBy='label' className="font-sans [&_*]:font-sans">
 										{CURRENCY_OPTIONS.map((optionItem) => (
 											<Select.Option
 												key={optionItem.value}
@@ -533,9 +533,10 @@ const Template = () => {
 										placeholder="Select an option"
 										size="md"
 										combobox
+										by='label'
 									>
 										<Select.Button displayBy="label" />
-										<Select.Options className="font-sans [&_*]:font-sans">
+										<Select.Options searchBy='label' className="font-sans [&_*]:font-sans">
 											{TIME_ZONE_OPTIONS.map(
 												(optionItem) => (
 													<Select.Option
@@ -563,9 +564,10 @@ const Template = () => {
 										placeholder="Select an option"
 										size="md"
 										combobox
+										by='label'
 									>
 										<Select.Button displayBy="label" />
-										<Select.Options className="font-sans [&_*]:font-sans">
+										<Select.Options searchBy='label' className="font-sans [&_*]:font-sans">
 											{LANGUAGE_OPTIONS.map(
 												(optionItem) => (
 													<Select.Option
