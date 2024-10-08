@@ -17,13 +17,8 @@ import {
 	ArrowUpRight,
 	Bell,
 	ChartNoAxesColumnIncreasing,
-	ChevronRight,
-	ChevronsLeft,
-	ChevronsRight,
 	CircleHelp,
 	CloudUpload,
-	CreditCard,
-	Dot,
 	EllipsisVertical,
 	Facebook,
 	House,
@@ -31,16 +26,9 @@ import {
 	Megaphone,
 	Monitor,
 	MousePointer,
-	PenTool,
-	RefreshCcw,
 	Settings,
 	Share2,
-	ShoppingBag,
-	ShoppingCart,
 	Smartphone,
-	Store,
-	Tag,
-	Truck,
 	Twitter,
 	Type,
 	User,
@@ -52,13 +40,13 @@ export default {
 		layout: 'fullscreen',
 	},
 	decorators: [
-		(Story, parameters) => (
+		( Story, parameters ) => (
 			<div className="box-border [&_*]:box-border w-full h-[100dvh]">
-				<Story {...parameters} />
+				<Story { ...parameters } />
 			</div>
 		),
 	],
-	tags: ['autodocs'],
+	tags: [ 'autodocs' ],
 };
 
 const TABS = [
@@ -80,16 +68,16 @@ const INPUT_SUGGESTIONS = [
 	{ value: '%page-title%', label: 'Page Title' },
 	{ value: '%site-title%', label: 'Site Title' },
 	{ value: '%separator%', label: 'Separator' },
-]
+];
 
-const Logo = (props) => (
+const Logo = ( props ) => (
 	<svg
 		width="24"
 		height="24"
 		viewBox="0 0 24 24"
 		fill="none"
 		xmlns="http://www.w3.org/2000/svg"
-		{...props}
+		{ ...props }
 	>
 		<path
 			fillRule="evenodd"
@@ -101,13 +89,13 @@ const Logo = (props) => (
 );
 
 const Template = () => {
-	const [activeTab, setActiveTab] = useState(TABS[0].slug);
+	const [ activeTab, setActiveTab ] = useState( TABS[ 0 ].slug );
 
-	const handleChangeTab = ({ event, value: { slug } }) => {
+	const handleChangeTab = ( { event, value: { slug } } ) => {
 		event.preventDefault();
 		event.stopPropagation();
 
-		setActiveTab(slug);
+		setActiveTab( slug );
 	};
 
 	const stringValueToFormatJSON = (
@@ -147,27 +135,27 @@ const Template = () => {
 		const value = { ...initialValue };
 		const content = stringContent
 			.trim()
-			.split(/(\n|%[\w\-_]+%)/)
-			.filter(Boolean);
+			.split( /(\n|%[\w\-_]+%)/ )
+			.filter( Boolean );
 
-		content.forEach((item) => {
-			if (item === '\n') {
-				value.root.children[0].children.push({
+		content.forEach( ( item ) => {
+			if ( item === '\n' ) {
+				value.root.children[ 0 ].children.push( {
 					type: 'linebreak',
 					version: 1,
-				});
-			} else if (item.startsWith('%') && item.endsWith('%')) {
+				} );
+			} else if ( item.startsWith( '%' ) && item.endsWith( '%' ) ) {
 				const option = options.find(
-					(mentionItem) => mentionItem[optionValueKey] === item.trim()
+					( mentionItem ) => mentionItem[ optionValueKey ] === item.trim()
 				);
-				if (option) {
-					value.root.children[0].children.push({
+				if ( option ) {
+					value.root.children[ 0 ].children.push( {
 						...mentionObjectStructure,
 						data: { ...option },
-					});
+					} );
 				}
 			} else {
-				value.root.children[0].children.push({
+				value.root.children[ 0 ].children.push( {
 					detail: 0,
 					format: 0,
 					mode: 'normal',
@@ -175,24 +163,24 @@ const Template = () => {
 					text: item,
 					type: 'text',
 					version: 1,
-				});
+				} );
 			}
-		});
+		} );
 
-		return JSON.stringify(value);
+		return JSON.stringify( value );
 	};
 
 	return (
 		<Container
 			containerType="flex"
 			direction="column"
-			gap={0}
+			gap={ 0 }
 			className="h-full"
 		>
 			<Container.Item>
-				{/* Navigation Bar */}
+				{ /* Navigation Bar */ }
 				<Topbar
-					gap={0}
+					gap={ 0 }
 					className="w-auto min-h-[unset] h-16 shadow-sm p-0 relative z-[1]"
 				>
 					<Topbar.Left className="p-5">
@@ -205,7 +193,7 @@ const Template = () => {
 							<button className="h-full py-0 px-1 m-0 bg-transparent outline-none shadow-none border-0 focus:outline-none text-text-tertiary text-sm font-medium cursor-pointer">
 								Dashboard
 							</button>
-							{/* Active Nav Item */}
+							{ /* Active Nav Item */ }
 							<button className="relative h-full py-0 px-1 m-0 bg-transparent outline-none shadow-none border-0 focus:outline-none text-text-primary text-sm font-medium cursor-pointer">
 								<span>Settings</span>
 								<span className="absolute bottom-0 left-0 w-full h-px bg-brand-800"></span>
@@ -213,11 +201,7 @@ const Template = () => {
 							<button className="h-full py-0 px-1 m-0 bg-transparent outline-none shadow-none border-0 focus:outline-none text-text-tertiary text-sm font-medium cursor-pointer">
 								Integrations
 							</button>
-							<button
-								className="h-full inline-flex items-center py-0 px-1 m-0 bg-transparent outline-none shadow-none border-0 focus:outline-none cursor-pointer text-sm font-semibold text-brand-800"
-								iconPosition="right"
-								variant="ghost"
-							>
+							<button className="h-full inline-flex items-center py-0 px-1 m-0 bg-transparent outline-none shadow-none border-0 focus:outline-none cursor-pointer text-sm font-semibold text-brand-800">
 								<span>Upgrade to Pro</span>
 								<ArrowUpRight
 									className="size-5"
@@ -249,13 +233,13 @@ const Template = () => {
 					</Topbar.Right>
 				</Topbar>
 			</Container.Item>
-			{/* Sidebar & the content section */}
+			{ /* Sidebar & the content section */ }
 			<Container.Item className="grid grid-cols-[16rem_1fr] bg-background-secondary flex-auto max-h-[calc(100%_-_4rem)]">
 				<div className="h-full w-full">
 					<Sidebar
 						borderOn
-						collapsible={false}
-						screenHeight={false}
+						collapsible={ false }
+						screenHeight={ false }
 						className="!h-full w-64"
 					>
 						<Sidebar.Body>
@@ -318,7 +302,7 @@ const Template = () => {
 						</Sidebar.Body>
 					</Sidebar>
 				</div>
-				{/* Content section */}
+				{ /* Content section */ }
 				<Container.Item className="w-full h-full overflow-y-auto">
 					<Container
 						gap="xl"
@@ -333,35 +317,35 @@ const Template = () => {
 							/>
 							<Button>Save</Button>
 						</Container>
-						{/* Settings */}
+						{ /* Settings */ }
 						<Container
 							direction="column"
 							className="bg-background-primary rounded-xl shadow py-4 px-6"
 						>
-							{/* Tabs */}
+							{ /* Tabs */ }
 							<Container.Item className="mb-0.5">
 								<Tabs.Group
-									activeItem={activeTab}
-									defaultValue={activeTab}
-									onChange={handleChangeTab}
+									activeItem={ activeTab }
+									defaultValue={ activeTab }
+									onChange={ handleChangeTab }
 									orientation="horizontal"
 									size="md"
 									variant="underline"
 									width="auto"
 								>
-									{TABS.map(({ label, slug }) => (
+									{ TABS.map( ( { label, slug } ) => (
 										<Tabs.Tab
-											key={label}
-											slug={slug}
-											text={label}
+											key={ label }
+											slug={ slug }
+											text={ label }
 										/>
-									))}
+									) ) }
 								</Tabs.Group>
 							</Container.Item>
-							{/* Tab Content */}
+							{ /* Tab Content */ }
 							<Container.Item className="flex flex-col items-start gap-2">
 								<div className="flex flex-col items-start gap-2.5">
-									{/* Search Engine Preview Start */}
+									{ /* Search Engine Preview Start */ }
 									<Container
 										align="center"
 										justify="between"
@@ -369,7 +353,9 @@ const Template = () => {
 									>
 										<Container.Item>
 											<Label>
-												<span>Search Engine Preview</span>
+												<span>
+													Search Engine Preview
+												</span>
 												<CircleHelp
 													className="size-4"
 													strokeWidth="1.5"
@@ -392,12 +378,12 @@ const Template = () => {
 											</RadioButton.Group>
 										</Container.Item>
 									</Container>
-									{/* Preview */}
+									{ /* Preview */ }
 									<div className="p-2 rounded-lg bg-background-secondary">
 										<div className="rounded-md border border-solid border-border-subtle bg-background-primary p-4 space-y-1.5 shadow-sm">
-											{/* Site logo, title, and URL */}
+											{ /* Site logo, title, and URL */ }
 											<div className="grid grid-cols-[1.75rem_1fr] items-center gap-3">
-												{/* Site logo */}
+												{ /* Site logo */ }
 												<Logo className="size-7" />
 												<div className="flex flex-col gap-0.5">
 													<span className="text-text-primary font-semibold">
@@ -405,30 +391,31 @@ const Template = () => {
 													</span>
 													<div className="flex items-center justify-start gap-2">
 														<span className="text-text-secondary">
-															{/* Site URL */}
+															{ /* Site URL */ }
 															https://www.surerank.com/
 														</span>
 														<EllipsisVertical className="size-3.5 text-icon-secondary" />
 													</div>
 												</div>
 											</div>
-											{/* Page title and description */}
+											{ /* Page title and description */ }
 											<div className="space-y-1">
 												<p className="text-xl leading-8 font-normal text-field-label m-0">
-													{/* Page title */}
+													{ /* Page title */ }
 													SureRank
 												</p>
 												<p className="text-sm leading-5 font-medium text-text-secondary m-0">
-													{/* Page description */}
-													Level up your web design skills with
-													our blog. Learn from experts,
-													discover the latest trends, and
-													build beautiful websites.
+													{ /* Page description */ }
+													Level up your web design
+													skills with our blog. Learn
+													from experts, discover the
+													latest trends, and build
+													beautiful websites.
 												</p>
 											</div>
 										</div>
 									</div>
-									{/* Search Engine Preview End */}
+									{ /* Search Engine Preview End */ }
 								</div>
 							</Container.Item>
 							<Container
@@ -445,13 +432,13 @@ const Template = () => {
 								</Container.Item>
 								<Container.Item className="w-full">
 									<EditorInput
-										defaultValue={stringValueToFormatJSON(
+										defaultValue={ stringValueToFormatJSON(
 											'%page-title% %separator% %site-title%',
 											INPUT_SUGGESTIONS
-										)}
+										) }
 										by="label"
 										placeholder="Press # to view variable suggestions"
-										options={INPUT_SUGGESTIONS}
+										options={ INPUT_SUGGESTIONS }
 										trigger="#"
 										size="md"
 									/>
@@ -476,7 +463,7 @@ const Template = () => {
 									by="label"
 									className="!min-h-32 [&+div]:items-start [&+div]:pt-1"
 									placeholder="Press # to view variable suggestions"
-									options={INPUT_SUGGESTIONS}
+									options={ INPUT_SUGGESTIONS }
 									trigger="#"
 									size="md"
 								/>

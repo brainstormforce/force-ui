@@ -35,23 +35,23 @@ export default {
 		layout: 'fullscreen',
 	},
 	decorators: [
-		(Story, parameters) => (
+		( Story, parameters ) => (
 			<div className="box-border [&_*]:box-border w-full h-[100dvh]">
-				<Story {...parameters} />
+				<Story { ...parameters } />
 			</div>
 		),
 	],
-	tags: ['autodocs'],
+	tags: [ 'autodocs' ],
 };
 
-const Logo = (props) => (
+const Logo = ( props ) => (
 	<svg
 		width="24"
 		height="24"
 		viewBox="0 0 24 24"
 		fill="none"
 		xmlns="http://www.w3.org/2000/svg"
-		{...props}
+		{ ...props }
 	>
 		<path
 			fillRule="evenodd"
@@ -67,14 +67,14 @@ const Template = () => {
 		<Container
 			containerType="flex"
 			direction="column"
-			gap={0}
+			gap={ 0 }
 			className="h-full"
 		>
-			{/* Info-bar Start */}
+			{ /* Info-bar Start */ }
 			<div className="py-2 flex items-center justify-center relative bg-brand-background-hover-100">
 				<div className="space-x-1 text-text-primary text-xs">
 					<span className="font-semibold">
-						Unlock Spectra's Full Potential!
+						Unlock Spectra&apos;s Full Potential!
 					</span>
 					<span className="font-normal">
 						Get exclusive features and unbeatable performance.
@@ -85,11 +85,11 @@ const Template = () => {
 					<X className="size-4" />
 				</button>
 			</div>
-			{/* Info-bar End */}
+			{ /* Info-bar End */ }
 			<Container.Item>
-				{/* Navigation Bar */}
+				{ /* Navigation Bar */ }
 				<Topbar
-					gap={0}
+					gap={ 0 }
 					className="w-auto min-h-[unset] h-16 shadow-sm p-0 relative z-[1]"
 				>
 					<Topbar.Left className="p-5">
@@ -105,7 +105,7 @@ const Template = () => {
 							<button className="h-full py-0 px-1 m-0 bg-transparent outline-none shadow-none border-0 focus:outline-none text-text-tertiary text-sm font-medium cursor-pointer">
 								Blocks
 							</button>
-							{/* Active Nav Item */}
+							{ /* Active Nav Item */ }
 							<button className="relative h-full py-0 px-1 m-0 bg-transparent outline-none shadow-none border-0 focus:outline-none text-text-primary text-sm font-medium cursor-pointer">
 								<span>Settings</span>
 								<span className="absolute bottom-0 left-0 w-full h-px bg-brand-800"></span>
@@ -116,11 +116,7 @@ const Template = () => {
 							<button className="h-full py-0 px-1 m-0 bg-transparent outline-none shadow-none border-0 focus:outline-none text-text-tertiary text-sm font-medium cursor-pointer">
 								Free vs Pro
 							</button>
-							<button
-								className="h-full inline-flex items-center py-0 px-1 m-0 bg-transparent outline-none shadow-none border-0 focus:outline-none cursor-pointer text-sm font-semibold text-brand-800"
-								iconPosition="right"
-								variant="ghost"
-							>
+							<button className="h-full inline-flex items-center py-0 px-1 m-0 bg-transparent outline-none shadow-none border-0 focus:outline-none cursor-pointer text-sm font-semibold text-brand-800">
 								<span>Upgrade Pro Features</span>
 								<ArrowUpRight
 									className="size-5"
@@ -150,13 +146,13 @@ const Template = () => {
 					</Topbar.Right>
 				</Topbar>
 			</Container.Item>
-			{/* Sidebar & the content section */}
+			{ /* Sidebar & the content section */ }
 			<Container.Item className="grid grid-cols-[16rem_1fr] bg-background-secondary flex-auto max-h-[calc(100%_-_6rem)]">
 				<div className="h-full w-full">
 					<Sidebar
 						borderOn
-						collapsible={false}
-						screenHeight={false}
+						collapsible={ false }
+						screenHeight={ false }
 						className="!h-full w-64"
 					>
 						<Sidebar.Body>
@@ -211,7 +207,7 @@ const Template = () => {
 						</Sidebar.Body>
 					</Sidebar>
 				</div>
-				{/* Content Section */}
+				{ /* Content Section */ }
 				<Container.Item className="w-full h-full overflow-y-auto">
 					<Container
 						gap="xl"
@@ -228,27 +224,30 @@ const Template = () => {
 								<Button>Save</Button>
 							</Container.Item>
 						</Container>
-						{/* Settings */}
+						{ /* Settings */ }
 						<Container
 							direction="column"
 							gap="sm"
 							className="bg-background-primary rounded-xl shadow p-6"
 						>
-							{/* Setting Section */}
+							{ /* Setting Section */ }
 							<Container className="mb-0.5" align="center">
 								<Container.Item className="w-full max-w-120 space-y-1">
-									<Label size="md">Default Content Width</Label>
+									<Label size="md">
+										Default Content Width
+									</Label>
 									<p className="m-0 block text-sm leading-4 font-normal text-field-helper">
-										This setting will apply to Container Block's
-										default Content Width.
+										This setting will apply to Container
+										Block&apos;s default Content Width.
 									</p>
 									<p className="m-0 block text-sm leading-4 font-normal text-field-helper italic">
-										The current Content width is applied from
-										Full Site Editor's Global Styles.
+										The current Content width is applied
+										from Full Site Editor&apos;s Global
+										Styles.
 									</p>
 								</Container.Item>
 								<Input
-									defaultValue={1280}
+									defaultValue={ 1280 }
 									suffix={
 										<span className="text-badge-color-gray rounded border border-solid border-border-subtle p-0.5 text-center text-xs font-medium bg-badge-background-gray">
 											PX
@@ -260,17 +259,17 @@ const Template = () => {
 
 							<hr className="w-full border-b-0 border-x-0 border-t border-solid border-t-border-subtle" />
 
-							{/* Setting Section */}
+							{ /* Setting Section */ }
 							<Container className="mb-0.5" align="center">
 								<Container.Item className="w-full max-w-120 space-y-1">
 									<Label size="md">Container Padding</Label>
 									<p className="m-0 block text-sm leading-4 font-normal text-field-helper">
-										This setting will apply default padding in
-										the Container Block.
+										This setting will apply default padding
+										in the Container Block.
 									</p>
 								</Container.Item>
 								<Input
-									defaultValue={10}
+									defaultValue={ 10 }
 									suffix={
 										<span className="text-badge-color-gray rounded border border-solid border-border-subtle p-0.5 text-center text-xs font-medium bg-badge-background-gray">
 											PX
@@ -282,17 +281,19 @@ const Template = () => {
 
 							<hr className="w-full border-b-0 border-x-0 border-t border-solid border-t-border-subtle" />
 
-							{/* Setting Section */}
+							{ /* Setting Section */ }
 							<Container className="mb-0.5" align="center">
 								<Container.Item className="w-full max-w-120 space-y-1">
-									<Label size="md">Container Elements Gap</Label>
+									<Label size="md">
+										Container Elements Gap
+									</Label>
 									<p className="m-0 block text-sm leading-4 font-normal text-field-helper">
-										This setting will apply default Row & Column
-										Gaps in the Container Block.
+										This setting will apply default Row &
+										Column Gaps in the Container Block.
 									</p>
 								</Container.Item>
 								<Input
-									defaultValue={20}
+									defaultValue={ 20 }
 									suffix={
 										<span className="text-badge-color-gray rounded border border-solid border-border-subtle p-0.5 text-center text-xs font-medium bg-badge-background-gray">
 											PX
@@ -304,19 +305,19 @@ const Template = () => {
 
 							<hr className="w-full border-b-0 border-x-0 border-t border-solid border-t-border-subtle" />
 
-							{/* Setting Section */}
+							{ /* Setting Section */ }
 							<Container className="mb-0.5" align="center">
 								<Container.Item className="w-full max-w-120 space-y-1">
 									<Label className="inline-block" size="md">
 										Container Elements Gap
 									</Label>
 									<p className="m-0 block text-sm leading-4 font-normal text-field-helper">
-										This setting will apply default Row & Column
-										Gaps in the Container Block.
+										This setting will apply default Row &
+										Column Gaps in the Container Block.
 									</p>
 								</Container.Item>
 								<Input
-									defaultValue={20}
+									defaultValue={ 20 }
 									suffix={
 										<span className="text-badge-color-gray rounded border border-solid border-border-subtle p-0.5 text-center text-xs font-medium bg-badge-background-gray">
 											PX
@@ -328,11 +329,14 @@ const Template = () => {
 
 							<hr className="w-full border-b-0 border-x-0 border-t border-solid border-t-border-subtle" />
 
-							{/* Setting Section */}
+							{ /* Setting Section */ }
 							<Container className="mb-0.5" align="center">
 								<Container.Item className="w-full max-w-95 space-y-1">
 									<div className="space-x-1 flex items-center">
-										<Label className="inline-block" size="md">
+										<Label
+											className="inline-block"
+											size="md"
+										>
 											Dynamic Content
 										</Label>
 										<span className="inline-block py-0.5 px-1 text-text-inverse bg-background-inverse border border-solid border-border-inverse text-xs font-medium rounded-full">
@@ -348,7 +352,7 @@ const Template = () => {
 									<RadioButton.Group
 										className="[&_button]:text-xs [&_button]:font-semibold"
 										size="sm"
-										columns={2}
+										columns={ 2 }
 										style="tile"
 										disableGroup
 									>
@@ -366,84 +370,110 @@ const Template = () => {
 								<p className="m-0 text-sm text-text-primary font-normal">
 									<span className="font-semibold">
 										Personalized content
-									</span>{' '}
-									delivers relevant content for higher engagement.
+									</span>{ ' ' }
+									delivers relevant content for higher
+									engagement.
 								</p>
 								<button className="inline-flex items-center p-0 m-0 bg-transparent outline-none focus:outline-none border-0 shadow-none space-x-1 text-xs font-semibold text-link-primary">
-									Upgrade now{' '}
+									Upgrade now{ ' ' }
 									<ArrowUpRight className="size-3.5" />
 								</button>
 							</div>
 
 							<hr className="w-full border-b-0 border-x-0 border-t border-solid border-t-border-subtle" />
 
-							{/* Setting Section */}
+							{ /* Setting Section */ }
 							<Container className="mb-0.5" align="center">
 								<Container.Item className="w-full max-w-120 space-y-1">
-									<Label size="md">Inherit Theme Button</Label>
+									<Label size="md">
+										Inherit Theme Button
+									</Label>
 									<p className="m-0 block text-sm leading-4 font-normal text-field-helper">
-										Enable this option to make all buttons in
-										Spectra blocks across your website inherit
-										their styles from the theme.
+										Enable this option to make all buttons
+										in Spectra blocks across your website
+										inherit their styles from the theme.
 									</p>
 								</Container.Item>
-								<Switch
-									size="lg"
-									defaultValue={true}
-									onChange={(value) => console.log(value)}
-								/>
+								<Container.Item className="ml-auto">
+									<Switch size="lg" defaultValue={ true } />
+								</Container.Item>
 							</Container>
 
 							<hr className="w-full border-b-0 border-x-0 border-t border-solid border-t-border-subtle" />
 
-							{/* Setting Section */}
+							{ /* Setting Section */ }
 							<Container className="mb-0.5" align="center">
 								<Container.Item className="w-full max-w-120 space-y-1">
 									<Label size="md">Custom CSS</Label>
 									<p className="m-0 block text-sm leading-4 font-normal text-field-helper">
-									Enable the "Custom CSS" option if you want to add your own CSS code on post/page to customize the page as per your expectations.
+										Enable the &quot;Custom CSS&quot; option
+										if you want to add your own CSS code on
+										post/page to customize the page as per
+										your expectations.
 									</p>
 								</Container.Item>
-								<Switch size="lg" defaultValue={true} />
+								<Container.Item className="ml-auto">
+									<Switch size="lg" defaultValue={ true } />
+								</Container.Item>
 							</Container>
 
 							<hr className="w-full border-b-0 border-x-0 border-t border-solid border-t-border-subtle" />
 
-							{/* Setting Section */}
+							{ /* Setting Section */ }
 							<Container className="mb-0.5" align="center">
 								<Container.Item className="w-full max-w-120 space-y-1">
 									<Label size="md">Copy Paste Styles</Label>
 									<p className="m-0 block text-sm leading-4 font-normal text-field-helper">
-									Enable the "Copy Paste Styles" option to have the ability to copy & paste Spectra & Core Gutenberg Blocks Styles.
+										Enable the &quot;Copy Paste Styles&quot;
+										option to have the ability to copy &
+										paste Spectra & Core Gutenberg Blocks
+										Styles.
 									</p>
 								</Container.Item>
-								<Switch size="lg" defaultValue={true} />
+								<Container.Item className="ml-auto">
+									<Switch size="lg" defaultValue={ true } />
+								</Container.Item>
 							</Container>
 
 							<hr className="w-full border-b-0 border-x-0 border-t border-solid border-t-border-subtle" />
 
-							{/* Setting Section */}
+							{ /* Setting Section */ }
 							<Container className="mb-0.5" align="center">
 								<Container.Item className="w-full max-w-120 space-y-1">
-									<Label size="md">Automatic Block Recovery</Label>
+									<Label size="md">
+										Automatic Block Recovery
+									</Label>
 									<p className="m-0 block text-sm leading-4 font-normal text-field-helper">
-										Enable this to automatically recover any erroneous blocks that may occur on your web pages. This will save you time spent on clicking all those "Attempt Block Recovery" Buttons.
+										Enable this to automatically recover any
+										erroneous blocks that may occur on your
+										web pages. This will save you time spent
+										on clicking all those &quot;Attempt
+										Block Recovery&quot; Buttons.
 									</p>
 								</Container.Item>
-								<Switch size="lg" defaultValue={true} />
+								<Container.Item className="ml-auto">
+									<Switch size="lg" defaultValue={ true } />
+								</Container.Item>
 							</Container>
 
 							<hr className="w-full border-b-0 border-x-0 border-t border-solid border-t-border-subtle" />
 
-							{/* Setting Section */}
+							{ /* Setting Section */ }
 							<Container className="mb-0.5" align="center">
 								<Container.Item className="w-full max-w-120 space-y-1">
-									<Label size="md">Load Font Awesome 5 Support</Label>
+									<Label size="md">
+										Load Font Awesome 5 Support
+									</Label>
 									<p className="m-0 block text-sm leading-4 font-normal text-field-helper">
-										Enable this to make sure all previously used Font Awesome 5 icons are displayed correctly while using the Font Awesome 6 library.
+										Enable this to make sure all previously
+										used Font Awesome 5 icons are displayed
+										correctly while using the Font Awesome 6
+										library.
 									</p>
 								</Container.Item>
-								<Switch size="lg" defaultValue={true} />
+								<Container.Item className="ml-auto">
+									<Switch size="lg" defaultValue={ true } />
+								</Container.Item>
 							</Container>
 						</Container>
 					</Container>

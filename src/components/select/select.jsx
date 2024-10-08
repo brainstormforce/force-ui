@@ -166,19 +166,17 @@ function SelectButton( {
 
 	return (
 		<div className="flex flex-col items-start gap-1.5 [&_*]:box-border box-border">
-			{
-				!!label && (
-					<label
-						className={ cn(
-							sizeClassNames[ sizeValue ]?.label,
-							'text-field-label'
-						) }
-						htmlFor={ selectId }
-					>
-						{ label }
-					</label>
-				)
-			}
+			{ !! label && (
+				<label
+					className={ cn(
+						sizeClassNames[ sizeValue ]?.label,
+						'text-field-label'
+					) }
+					htmlFor={ selectId }
+				>
+					{ label }
+				</label>
+			) }
 			<button
 				id={ selectId }
 				ref={ refs.setReference }

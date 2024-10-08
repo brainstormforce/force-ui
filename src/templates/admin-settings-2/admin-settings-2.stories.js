@@ -6,12 +6,10 @@ import {
 	Container,
 	Label,
 	Menu,
-	RadioButton,
 	Sidebar,
 	Tabs,
 	Title,
 	Topbar,
-	EditorInput,
 	Input,
 	Select,
 } from '@/components';
@@ -19,33 +17,18 @@ import {
 	ArrowUpRight,
 	Bell,
 	ChartNoAxesColumnIncreasing,
-	ChevronRight,
-	ChevronsLeft,
-	ChevronsRight,
 	CircleHelp,
 	CloudUpload,
 	CreditCard,
-	Dot,
-	EllipsisVertical,
-	Facebook,
-	House,
 	InfoIcon,
 	Layers,
 	Megaphone,
-	Monitor,
 	MousePointer,
 	PenTool,
-	RefreshCcw,
-	Settings,
-	Share2,
 	ShoppingBag,
 	ShoppingCart,
-	Smartphone,
 	Store,
-	Tag,
 	Truck,
-	Twitter,
-	Type,
 	User,
 } from 'lucide-react';
 
@@ -55,13 +38,13 @@ export default {
 		layout: 'fullscreen',
 	},
 	decorators: [
-		(Story, parameters) => (
+		( Story, parameters ) => (
 			<div className="box-border [&_*]:box-border w-full h-[100dvh]">
-				<Story {...parameters} />
+				<Story { ...parameters } />
 			</div>
 		),
 	],
-	tags: ['autodocs'],
+	tags: [ 'autodocs' ],
 };
 
 const TABS = [
@@ -120,7 +103,7 @@ const CURRENCY_OPTIONS = [
 		value: 'TRY',
 		label: 'Turkish Lira (₺)',
 	},
-]
+];
 
 const TIME_ZONE_OPTIONS = [
 	{
@@ -168,14 +151,14 @@ const LANGUAGE_OPTIONS = [
 	},
 ];
 
-const Logo = (props) => (
+const Logo = ( props ) => (
 	<svg
 		width="24"
 		height="24"
 		viewBox="0 0 24 24"
 		fill="none"
 		xmlns="http://www.w3.org/2000/svg"
-		{...props}
+		{ ...props }
 	>
 		<path
 			fillRule="evenodd"
@@ -187,26 +170,26 @@ const Logo = (props) => (
 );
 
 const Template = () => {
-	const [activeTab, setActiveTab] = useState(TABS[0].slug);
+	const [ activeTab, setActiveTab ] = useState( TABS[ 0 ].slug );
 
-	const handleChangeTab = ({ event, value: { slug } }) => {
+	const handleChangeTab = ( { event, value: { slug } } ) => {
 		event.preventDefault();
 		event.stopPropagation();
 
-		setActiveTab(slug);
+		setActiveTab( slug );
 	};
 
 	return (
 		<Container
 			containerType="flex"
 			direction="column"
-			gap={0}
+			gap={ 0 }
 			className="h-full"
 		>
 			<Container.Item>
-				{/* Navigation Bar */}
+				{ /* Navigation Bar */ }
 				<Topbar
-					gap={0}
+					gap={ 0 }
 					className="w-auto min-h-[unset] h-16 shadow-sm p-0 relative z-[1]"
 				>
 					<Topbar.Left className="p-5">
@@ -231,7 +214,7 @@ const Template = () => {
 							<button className="h-full py-0 px-1 m-0 bg-transparent outline-none shadow-none border-0 focus:outline-none text-text-tertiary text-sm font-medium cursor-pointer">
 								Products
 							</button>
-							{/* Active Nav Item */}
+							{ /* Active Nav Item */ }
 							<button className="relative h-full py-0 px-1 m-0 bg-transparent outline-none shadow-none border-0 focus:outline-none text-text-primary text-sm font-medium cursor-pointer">
 								<span>Settings</span>
 								<span className="absolute bottom-0 left-0 w-full h-px bg-brand-800"></span>
@@ -239,11 +222,7 @@ const Template = () => {
 							<button className="h-full py-0 px-1 m-0 bg-transparent outline-none shadow-none border-0 focus:outline-none text-text-tertiary text-sm font-medium cursor-pointer">
 								Integrations
 							</button>
-							<button
-								className="h-full inline-flex items-center py-0 px-1 m-0 bg-transparent outline-none shadow-none border-0 focus:outline-none cursor-pointer text-sm font-semibold text-brand-800"
-								iconPosition="right"
-								variant="ghost"
-							>
+							<button className="h-full inline-flex items-center py-0 px-1 m-0 bg-transparent outline-none shadow-none border-0 focus:outline-none cursor-pointer text-sm font-semibold text-brand-800">
 								<span>Upgrade to Pro</span>
 								<ArrowUpRight
 									className="size-5"
@@ -275,13 +254,13 @@ const Template = () => {
 					</Topbar.Right>
 				</Topbar>
 			</Container.Item>
-			{/* Sidebar & the content section */}
+			{ /* Sidebar & the content section */ }
 			<Container.Item className="grid grid-cols-[16rem_1fr] bg-background-secondary flex-auto max-h-[calc(100%_-_4rem)]">
 				<div className="h-full w-full">
 					<Sidebar
 						borderOn
-						collapsible={false}
-						screenHeight={false}
+						collapsible={ false }
+						screenHeight={ false }
 						className="!h-full w-64"
 					>
 						<Sidebar.Body>
@@ -348,7 +327,7 @@ const Template = () => {
 						</Sidebar.Body>
 					</Sidebar>
 				</div>
-				{/* Content section */}
+				{ /* Content section */ }
 				<Container.Item className="w-full h-full overflow-y-auto">
 					<Container
 						gap="xl"
@@ -366,49 +345,49 @@ const Template = () => {
 								<Button>Save</Button>
 							</Container.Item>
 						</Container>
-						{/* Settings */}
+						{ /* Settings */ }
 						<Container
 							direction="column"
 							className="bg-background-primary rounded-xl shadow py-4 px-6"
 						>
-							{/* Tabs */}
+							{ /* Tabs */ }
 							<Container.Item className="mb-0.5">
 								<Tabs.Group
-									activeItem={activeTab}
-									defaultValue={activeTab}
-									onChange={handleChangeTab}
+									activeItem={ activeTab }
+									defaultValue={ activeTab }
+									onChange={ handleChangeTab }
 									orientation="horizontal"
 									size="md"
 									variant="underline"
 									width="auto"
 								>
-									{TABS.map(({ label, slug }) => (
+									{ TABS.map( ( { label, slug } ) => (
 										<Tabs.Tab
-											key={label}
-											slug={slug}
-											text={label}
+											key={ label }
+											slug={ slug }
+											text={ label }
 										/>
-									))}
+									) ) }
 								</Tabs.Group>
 							</Container.Item>
-							{/* Tab Content */}
+							{ /* Tab Content */ }
 							<Container.Item className="flex flex-col items-start gap-6">
-								{/* Description / Info */}
+								{ /* Description / Info */ }
 								<p className="text-sm font-normal text-text-secondary m-0">
 									The name of your store will be visible to
 									customers, so you should use a name that is
-									recognizable and identifies your store to your
-									customers.
+									recognizable and identifies your store to
+									your customers.
 								</p>
 
 								<Container
 									className="w-full"
 									containerType="grid"
-									cols={{ sm: 1, md: 1, lg: 2 }}
+									cols={ { sm: 1, md: 1, lg: 2 } }
 								>
 									<Container.Item className="space-y-1.5">
 										<Label required>Store name</Label>
-										<Input size="md" onChange={() => {}} />
+										<Input size="md" onChange={ () => {} } />
 										<span className="block text-xs leading-4 font-normal text-field-helper">
 											This is displayed in the UI and in
 											notifications.
@@ -416,9 +395,10 @@ const Template = () => {
 									</Container.Item>
 									<Container.Item className="space-y-1.5">
 										<Label>Store URL</Label>
-										<Input size="md" onChange={() => {}} />
+										<Input size="md" onChange={ () => {} } />
 										<span className="block text-xs leading-4 font-normal text-field-helper">
-											This should be your live storefront URL.
+											This should be your live storefront
+											URL.
 										</span>
 									</Container.Item>
 								</Container>
@@ -426,22 +406,27 @@ const Template = () => {
 								<div className="w-full space-y-1.5">
 									<Label required>Store currency</Label>
 									<Select
-										defaultValue={CURRENCY_OPTIONS[0]}
-										onChange={() => {}}
+										defaultValue={ CURRENCY_OPTIONS[ 0 ] }
+										onChange={ () => {} }
 										placeholder="Select an option"
 										size="md"
 										combobox
 									>
 										<Select.Button displayBy="label" />
-										<Select.Options searchBy='label' className="font-sans [&_*]:font-sans">
-											{CURRENCY_OPTIONS.map((optionItem) => (
-												<Select.Option
-													key={optionItem.value}
-													value={optionItem}
-												>
-													{optionItem.label}
-												</Select.Option>
-											))}
+										<Select.Options
+											searchBy="label"
+											className="font-sans [&_*]:font-sans"
+										>
+											{ CURRENCY_OPTIONS.map(
+												( optionItem ) => (
+													<Select.Option
+														key={ optionItem.value }
+														value={ optionItem }
+													>
+														{ optionItem.label }
+													</Select.Option>
+												)
+											) }
 										</Select.Options>
 									</Select>
 									<span className="block text-xs leading-4 font-normal text-field-helper">
@@ -452,67 +437,79 @@ const Template = () => {
 								<Container
 									className="w-full"
 									containerType="grid"
-									cols={{ sm: 1, md: 1, lg: 2 }}
+									cols={ { sm: 1, md: 1, lg: 2 } }
 								>
 									<Container.Item className="space-y-1.5">
 										<Label required>Time zone</Label>
 										<Select
-											defaultValue={TIME_ZONE_OPTIONS[0]}
-											onChange={() => {}}
+											defaultValue={ TIME_ZONE_OPTIONS[ 0 ] }
+											onChange={ () => {} }
 											placeholder="Select an option"
 											size="md"
 											combobox
-											by='label'
+											by="label"
 										>
 											<Select.Button displayBy="label" />
-											<Select.Options searchBy='label' className="font-sans [&_*]:font-sans">
-												{TIME_ZONE_OPTIONS.map(
-													(optionItem) => (
+											<Select.Options
+												searchBy="label"
+												className="font-sans [&_*]:font-sans"
+											>
+												{ TIME_ZONE_OPTIONS.map(
+													( optionItem ) => (
 														<Select.Option
-															key={optionItem.value}
-															value={optionItem}
+															key={
+																optionItem.value
+															}
+															value={ optionItem }
 														>
-															{optionItem.label}
+															{ optionItem.label }
 														</Select.Option>
 													)
-												)}
+												) }
 											</Select.Options>
 										</Select>
 										<div className="flex items-center gap-1 text-xs leading-4 font-normal text-field-helper">
 											<InfoIcon className="size-3" />
 											<span>
-												Hint text can be added here. Link
+												Hint text can be added here.
+												Link
 											</span>
 										</div>
 									</Container.Item>
 									<Container.Item className="space-y-1.5">
 										<Label required>Store language</Label>
 										<Select
-											defaultValue={LANGUAGE_OPTIONS[0]}
-											onChange={() => {}}
+											defaultValue={ LANGUAGE_OPTIONS[ 0 ] }
+											onChange={ () => {} }
 											placeholder="Select an option"
 											size="md"
 											combobox
-											by='label'
+											by="label"
 										>
 											<Select.Button displayBy="label" />
-											<Select.Options searchBy='label' className="font-sans [&_*]:font-sans">
-												{LANGUAGE_OPTIONS.map(
-													(optionItem) => (
+											<Select.Options
+												searchBy="label"
+												className="font-sans [&_*]:font-sans"
+											>
+												{ LANGUAGE_OPTIONS.map(
+													( optionItem ) => (
 														<Select.Option
-															key={optionItem.value}
-															value={optionItem}
+															key={
+																optionItem.value
+															}
+															value={ optionItem }
 														>
-															{optionItem.label}
+															{ optionItem.label }
 														</Select.Option>
 													)
-												)}
+												) }
 											</Select.Options>
 										</Select>
 										<div className="flex items-center gap-1 text-xs leading-4 font-normal text-field-helper">
 											<InfoIcon className="size-3" />
 											<span>
-												Hint text can be added here. Link
+												Hint text can be added here.
+												Link
 											</span>
 										</div>
 									</Container.Item>
@@ -521,11 +518,11 @@ const Template = () => {
 								<Container
 									className="w-full"
 									containerType="grid"
-									cols={{ sm: 1, md: 1, lg: 2 }}
+									cols={ { sm: 1, md: 1, lg: 2 } }
 								>
 									<Container.Item className="space-y-1.5">
 										<Label>Terms page</Label>
-										<Input size="md" onChange={() => {}} />
+										<Input size="md" onChange={ () => {} } />
 										<span className="block text-xs leading-4 font-normal text-field-helper">
 											This is displayed in the UI and in
 											notifications.
@@ -533,9 +530,10 @@ const Template = () => {
 									</Container.Item>
 									<Container.Item className="space-y-1.5">
 										<Label>Privacy policy page</Label>
-										<Input size="md" onChange={() => {}} />
+										<Input size="md" onChange={ () => {} } />
 										<span className="block text-xs leading-4 font-normal text-field-helper">
-											This should be your live storefront URL.
+											This should be your live storefront
+											URL.
 										</span>
 									</Container.Item>
 								</Container>
