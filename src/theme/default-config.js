@@ -5,6 +5,7 @@ const defaultTheme = {
 			colors: {
 				// brand
 				'brand-background-50': '#EFF6FF',
+				'brand-background-100': '#E9E4FF',
 				'brand-background-hover-100': '#DBEAFE',
 				'brand-200': '#BFDBFE',
 				'brand-border-300': '#93C5FD',
