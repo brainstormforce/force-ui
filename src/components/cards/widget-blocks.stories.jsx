@@ -23,7 +23,7 @@ import {
 } from 'lucide-react';
 
 export default {
-	title: 'Organisms/Cards/Type 1',
+	title: 'Organisms/Cards/Widget Blocks',
 	component: RadioButton.Group,
 	parameters: {
 		layout: 'fullscreen',
@@ -290,4 +290,4 @@ const Template1 = () => {
 };
 
 // Export Type1 Story
-export const Type1 = Template1.bind( {} );
+export const WidgetBlocks = Template1.bind( {} );

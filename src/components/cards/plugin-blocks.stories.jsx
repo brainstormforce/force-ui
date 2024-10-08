@@ -13,7 +13,7 @@ import { PrestoPlayerSvg } from './svg/presto-player';
 import { ArrowUpRight } from 'lucide-react';
 
 export default {
-	title: 'Organisms/Cards/Type 2',
+	title: 'Organisms/Cards/Plugin Blocks',
 	component: RadioButton.Group,
 	parameters: {
 		layout: 'fullscreen',
@@ -150,4 +150,4 @@ const Template2 = () => {
 	);
 };
 
-export const Type2 = Template2.bind( {} );
+export const PluginBlocks = Template2.bind( {} );

@@ -9,7 +9,7 @@ import Button from '../button';
 import { Headset, MessageSquare, HelpCircle, Star } from 'lucide-react';
 
 export default {
-	title: 'Organisms/Cards/Type 3',
+	title: 'Organisms/Cards/List Blocks',
 	component: RadioButton.Group,
 	parameters: {
 		layout: 'fullscreen',
@@ -109,4 +109,4 @@ const Template3 = () => {
 	);
 };
 
-export const Type3 = Template3.bind( {} );
+export const ListBlocks = Template3.bind( {} );
