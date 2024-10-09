@@ -129,6 +129,7 @@ function SelectButton( {
 		return (
 			<span
 				className={ cn(
+					'truncate',
 					sizeClassNames[ sizeValue ].displaySelected,
 					disabledClassNames.text
 				) }
@@ -198,7 +199,7 @@ function SelectButton( {
 				{ /* Input and selected item container */ }
 				<div
 					className={ cn(
-						'flex-1 grid items-center justify-start gap-1.5 ',
+						'flex-1 grid items-center justify-start gap-1.5 overflow-hidden',
 						getValues() && 'flex flex-wrap'
 					) }
 				>
