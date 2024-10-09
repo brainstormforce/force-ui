@@ -104,7 +104,6 @@ IconVariant.args = {
 	type: 'inline',
 	currentStep: 4,
 	icon: <Check />,
-	lineProps: 'min-w-10',
 };
 
 export const StackType = Template.bind( {} );
