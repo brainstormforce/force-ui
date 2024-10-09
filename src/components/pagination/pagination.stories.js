@@ -1,110 +1,84 @@
-import Label from './label.jsx';
+import React, { useState } from 'react'; // Import React
+import Pagination from './pagination.jsx'; // Adjust the import path as necessary
 
 export default {
-	title: 'Atoms/Label',
-	component: Label,
+	title: 'Molecules/Pagination', // Story title
+	component: Pagination, // The component to be rendered
 	parameters: {
-		layout: 'centered',
+		layout: 'centered', // Layout for the story
 	},
-	tags: [ 'autodocs' ],
+	tags: ['autodocs'], // Documentation tags
 	argTypes: {
 		size: {
 			name: 'Size',
-			description: 'Defines the size of the label.',
-			control: 'select',
-			options: [ 'xs', 'sm', 'md' ],
+			description: 'Defines the size variant of the pagination',
+			control: { type: 'select' },
+			options: ['sm', 'md', 'lg'],
 			table: {
 				type: { summary: 'string' },
-				defaultValue: { summary: 'sm' },
+				defaultValue: { summary: 'md' },
 			},
 		},
-		variant: {
-			name: 'Variant',
-			description: 'Defines the style variant of the label.',
-			control: 'select',
-			options: [ 'neutral', 'help', 'error', 'disabled' ],
-			table: {
-				type: { summary: 'string' },
-				defaultValue: { summary: 'neutral' },
-			},
-		},
-		required: {
-			name: 'Required',
-			description: 'Defines if the label is required.',
+		disabled: {
+			name: 'Disabled',
+			description: 'If true, the pagination will be disabled.',
 			control: 'boolean',
 			table: {
 				type: { summary: 'boolean' },
-				defaultValue: { summary: 'false' },
+				defaultValue: { summary: 'true' },
 			},
 		},
-		tag: {
-			name: 'Tag',
-			description: 'Defines the tag of the button.',
-			control: 'select',
-			// Add 6 to 10 closable tags
-			options: [ 'label', 'p' ],
-			table: {
-				type: { summary: 'string' },
-				defaultValue: { summary: 'label' },
-			},
-		},
-		children: {
-			name: 'Children',
-			description: 'The label text or content.',
-			control: 'object',
-			table: {
-				type: { summary: 'onject' },
-				defaultValue: { summary: 'Label Text' },
-			},
-		},
-		className: {
-			name: 'Class Name',
-			description: 'Defines the extra classes',
-			control: 'text',
-			table: {
-				type: { summary: 'string' },
-				defaultValue: { summary: '' },
-			},
-		},
+		// Add more argTypes as needed
 	},
 };
 
-// Basic Label
-export const Basic = {
-	args: {
-		size: 'sm',
-		variant: 'neutral',
-		required: false,
-		children: 'Basic Label',
-	},
+// Define pagination items for demonstration
+const items = [
+	{ label: '1', href: '#' },
+	{ label: '2', href: '#', isActive: true },
+	{ label: '3', href: '#' },
+	{ label: '7', href: '#' },
+	{ label: '8', href: '#' },
+];
+
+// Template function for rendering pagination
+const Template = (args) => {
+	return (
+		<div style={{ width: '400px' }}>
+			<Pagination {...args}>
+				<Pagination.Content>
+					<Pagination.Item>
+						<Pagination.Previous href="#" />
+					</Pagination.Item>
+					{items.map((item, index) => (
+						<Pagination.Item key={index} isActive={item.isActive}>
+							<Pagination.Link href={item.href} isActive={item.isActive}>
+								{item.label}
+							</Pagination.Link>
+						</Pagination.Item>
+					))}
+					<Pagination.Item>
+						<Pagination.Ellipsis />
+					</Pagination.Item>
+					<Pagination.Item>
+						<Pagination.Next href="#" />
+					</Pagination.Item>
+				</Pagination.Content>
+			</Pagination>
+		</div>
+	);
 };
 
-// Required Label
-export const Required = {
-	args: {
-		size: 'sm',
-		variant: 'neutral',
-		required: true,
-		children: 'Required Label',
-	},
+// Basic Pagination Example
+export const BasicPagination = (args) => Template({ ...args });
+BasicPagination.args = {
+	size: 'md', // Set default size
+	disabled: false, // Default disabled state
 };
 
-// Error Variant
-export const Error = {
-	args: {
-		size: 'sm',
-		variant: 'error',
-		required: false,
-		children: 'Error Label',
-	},
-};
-
-// Disabled Variant
-export const Disabled = {
-	args: {
-		size: 'sm',
-		variant: 'disabled',
-		required: false,
-		children: 'Disabled Label',
-	},
+// Disabled Pagination Example
+export const DisabledPagination = (args) => Template({ ...args });
+DisabledPagination.args = {
+	size: 'md',
+	disabled: true, // Set disabled to true
 };

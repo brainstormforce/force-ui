@@ -1,4 +1,4 @@
-import { createContext, useContext } from "react";
+import { createContext, useContext, forwardRef } from "react";
 import { cn } from '@/utilities/functions';
 import { ChevronLeft, ChevronRight } from "lucide-react"
 import { sizeClassNames } from "./component-style";
@@ -20,7 +20,7 @@ const Pagination = ({ size = 'sm', children, className, ...props }) => (
 )
 Pagination.displayName = "Pagination"
 
-const PaginationContent = React.forwardRef(({ className, ...props }, ref) => (
+const PaginationContent = forwardRef(({ className, ...props }, ref) => (
 	<ul
 		ref={ref}
 		className={cn("m-0 w-full flex justify-center flex-row items-center gap-1", className)}
@@ -29,7 +29,7 @@ const PaginationContent = React.forwardRef(({ className, ...props }, ref) => (
 ))
 PaginationContent.displayName = "PaginationContent"
 
-const PaginationItem = React.forwardRef(({ isActive, className, ...props }, ref) => {
+const PaginationItem = forwardRef(({ isActive, className, ...props }, ref) => {
 	const { size } = usePageContext();
 	return (
 		<li
