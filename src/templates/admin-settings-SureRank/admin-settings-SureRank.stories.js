@@ -217,7 +217,7 @@ const Template = () => {
 					<Topbar.Right className="p-5">
 						<Topbar.Item>
 							<Badge
-								label="V 0.0 2"
+								label="V 0.0.2"
 								size="xs"
 								variant="neutral"
 							/>
@@ -239,7 +239,7 @@ const Template = () => {
 			</Container.Item>
 			{ /* Sidebar & the content section */ }
 			<Container.Item className="grid grid-cols-[16rem_1fr] bg-background-secondary flex-auto max-h-[calc(100%_-_4rem)]">
-				<div className="h-full w-full">
+				<div className="h-full w-full overflow-y-auto">
 					<Sidebar
 						borderOn
 						collapsible={ false }
@@ -487,7 +487,7 @@ const Template = () => {
 										<EditorInput
 											by="label"
 											className="!min-h-32 [&+div]:items-start [&+div]:pt-1"
-											placeholder="Press # to view variable suggestions"
+											placeholder=""
 											options={ INPUT_SUGGESTIONS }
 											trigger="#"
 											size="md"

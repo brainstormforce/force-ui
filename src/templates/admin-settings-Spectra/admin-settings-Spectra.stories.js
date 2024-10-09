@@ -131,7 +131,7 @@ const Template = () => {
 			</Container.Item>
 			{ /* Sidebar & the content section */ }
 			<Container.Item className="grid grid-cols-[16rem_1fr] bg-background-secondary flex-auto max-h-[calc(100%_-_6rem)]">
-				<div className="h-full w-full">
+				<div className="h-full w-full ">
 					<Sidebar
 						borderOn
 						collapsible={ false }
