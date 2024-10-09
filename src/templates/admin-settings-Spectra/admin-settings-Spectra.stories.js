@@ -219,7 +219,7 @@ const Template = () => {
 							{ /* Setting Section */ }
 							<Container className="mb-0.5" align="center">
 								<Container.Item className="w-full max-w-120 space-y-1">
-									<Label size="md">
+									<Label size="md" className="font-semibold">
 										Default Content Width
 									</Label>
 									<Label
@@ -258,7 +258,9 @@ const Template = () => {
 							{ /* Setting Section */ }
 							<Container className="mb-0.5" align="center">
 								<Container.Item className="w-full max-w-120 space-y-1">
-									<Label size="md">Container Padding</Label>
+									<Label size="md" className="font-semibold">
+										Container Padding
+									</Label>
 									<Label
 										tag="p"
 										size="sm"
@@ -285,36 +287,7 @@ const Template = () => {
 							{ /* Setting Section */ }
 							<Container className="mb-0.5" align="center">
 								<Container.Item className="w-full max-w-120 space-y-1">
-									<Label size="md">
-										Container Elements Gap
-									</Label>
-									<Label
-										tag="p"
-										size="sm"
-										variant="help"
-										className="m-0"
-									>
-										This setting will apply default Row &
-										Column Gaps in the Container Block.
-									</Label>
-								</Container.Item>
-								<Input
-									defaultValue={ 20 }
-									suffix={
-										<span className="text-badge-color-gray rounded border border-solid border-border-subtle p-0.5 text-center text-xs font-medium bg-badge-background-gray">
-											PX
-										</span>
-									}
-									type="number"
-								/>
-							</Container>
-
-							<hr className="w-full border-b-0 border-x-0 border-t border-solid border-t-border-subtle" />
-
-							{ /* Setting Section */ }
-							<Container className="mb-0.5" align="center">
-								<Container.Item className="w-full max-w-120 space-y-1">
-									<Label className="inline-block" size="md">
+									<Label size="md" className="font-semibold">
 										Container Elements Gap
 									</Label>
 									<Label
@@ -345,7 +318,7 @@ const Template = () => {
 								<Container.Item className="w-full max-w-95 space-y-1">
 									<div className="space-x-1 flex items-center">
 										<Label
-											className="inline-block"
+											className="font-semibold"
 											size="md"
 										>
 											Dynamic Content
@@ -401,7 +374,7 @@ const Template = () => {
 							{ /* Setting Section */ }
 							<Container className="mb-0.5" align="center">
 								<Container.Item className="w-full max-w-120 space-y-1">
-									<Label size="md">
+									<Label size="md" className="font-semibold">
 										Inherit Theme Button
 									</Label>
 									<Label
@@ -425,7 +398,9 @@ const Template = () => {
 							{ /* Setting Section */ }
 							<Container className="mb-0.5" align="center">
 								<Container.Item className="w-full max-w-120 space-y-1">
-									<Label size="md">Custom CSS</Label>
+									<Label size="md" className="font-semibold">
+										Custom CSS
+									</Label>
 									<Label
 										tag="p"
 										size="sm"
@@ -448,7 +423,9 @@ const Template = () => {
 							{ /* Setting Section */ }
 							<Container className="mb-0.5" align="center">
 								<Container.Item className="w-full max-w-120 space-y-1">
-									<Label size="md">Copy Paste Styles</Label>
+									<Label size="md" className="font-semibold">
+										Copy Paste Styles
+									</Label>
 									<Label
 										tag="p"
 										size="sm"
@@ -471,7 +448,7 @@ const Template = () => {
 							{ /* Setting Section */ }
 							<Container className="mb-0.5" align="center">
 								<Container.Item className="w-full max-w-120 space-y-1">
-									<Label size="md">
+									<Label size="md" className="font-semibold">
 										Automatic Block Recovery
 									</Label>
 									<Label
@@ -497,7 +474,7 @@ const Template = () => {
 							{ /* Setting Section */ }
 							<Container className="mb-0.5" align="center">
 								<Container.Item className="w-full max-w-120 space-y-1">
-									<Label size="md">
+									<Label size="md" className="font-semibold">
 										Load Font Awesome 5 Support
 									</Label>
 									<Label

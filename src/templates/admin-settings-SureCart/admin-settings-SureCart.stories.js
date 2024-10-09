@@ -486,7 +486,12 @@ const Template = () => {
 												className="m-0"
 											>
 												Hint text can be added here.
-												Link
+												<a
+													href="https://www.google.com"
+													rel="noopener noreferrer"
+												>
+													Link
+												</a>
 											</Label>
 										</div>
 
@@ -539,10 +544,13 @@ const Template = () => {
 													className="m-0"
 												>
 													<InfoIcon className="size-3" />
-													<span>
-														Hint text can be added
-														here. Link
-													</span>
+													Hint text can be added here.{ ' ' }
+													<a
+														href="https://www.google.com"
+														rel="noopener noreferrer"
+													>
+														Link
+													</a>
 												</Label>
 											</Container.Item>
 											<Container.Item className="space-y-1.5">
@@ -589,10 +597,13 @@ const Template = () => {
 													className="m-0"
 												>
 													<InfoIcon className="size-3" />
-													<span>
-														Hint text can be added
-														here. Link
-													</span>
+													Hint text can be added here.{ ' ' }
+													<a
+														href="https://www.google.com"
+														rel="noopener noreferrer"
+													>
+														Link
+													</a>
 												</Label>
 											</Container.Item>
 										</Container>
