@@ -28,7 +28,7 @@ const Template = ( args ) => {
 			<Topbar className="bg-background-secondary">
 				<Topbar.Left>
 					<Topbar.Item>
-					<Icons.SureRankLogo />
+						<Icons.SureRankLogo />
 					</Topbar.Item>
 				</Topbar.Left>
 				<Topbar.Middle>

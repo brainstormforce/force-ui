@@ -11,7 +11,7 @@ export default {
 	parameters: {
 		layout: 'fullscreen',
 	},
-	tags: ['autodocs'],
+	tags: [ 'autodocs' ],
 	argTypes: {
 		children: {
 			description: 'Content to render inside the OnboardingImport.',
@@ -20,10 +20,10 @@ export default {
 	},
 };
 
-const Template = (args) => {
+const Template = ( args ) => {
 	return (
 		<div
-			{...args}
+			{ ...args }
 			className="bg-background-secondary min-h-screen w-full pb-10"
 		>
 			<Topbar className="bg-background-secondary">
@@ -34,7 +34,7 @@ const Template = (args) => {
 				</Topbar.Left>
 				<Topbar.Middle>
 					<Topbar.Item>
-						<ProgressSteps currentStep={2}>
+						<ProgressSteps currentStep={ 2 }>
 							<ProgressSteps.Step labelText="Connect" />
 							<ProgressSteps.Step labelText="Import" />
 							<ProgressSteps.Step labelText="Profile" />
@@ -59,27 +59,27 @@ const Template = (args) => {
 					</Label>
 				</div>
 				<div className="py-6">
-					<RadioButton.Group vertical={true}>
+					<RadioButton.Group vertical={ true }>
 						<RadioButton.Button
 							value="seoPress"
-							label={{
+							label={ {
 								heading: `SEOPress`,
-							}}
-							borderOn={true}
+							} }
+							borderOn={ true }
 						/>
 						<RadioButton.Button
 							value="aioSeo"
-							label={{
+							label={ {
 								heading: `AIO SEO`,
-							}}
-							borderOn={true}
+							} }
+							borderOn={ true }
 						/>
 						<RadioButton.Button
 							value="youstSeo"
-							label={{
+							label={ {
 								heading: `Yoast SEO`,
-							}}
-							borderOn={true}
+							} }
+							borderOn={ true }
 						/>
 					</RadioButton.Group>
 				</div>
@@ -94,7 +94,7 @@ const Template = (args) => {
 	);
 };
 
-export const OnboardingImport = Template.bind({});
+export const OnboardingImport = Template.bind( {} );
 OnboardingImport.args = {};
 
 OnboardingImport.storyName = 'OnboardingImport';

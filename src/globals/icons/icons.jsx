@@ -1,12 +1,12 @@
 export const Icons = {
-	AstraThemeSvg: (props) => (
+	AstraThemeSvg: ( props ) => (
 		<svg
 			width="21"
 			height="20"
 			viewBox="0 0 21 20"
 			fill="none"
 			xmlns="http://www.w3.org/2000/svg"
-			{...props}
+			{ ...props }
 		>
 			<path
 				fillRule="evenodd"
@@ -29,14 +29,14 @@ export const Icons = {
 			</defs>
 		</svg>
 	),
-	StartersTemplatesSvg: (props) => (
+	StartersTemplatesSvg: ( props ) => (
 		<svg
 			width="21"
 			height="20"
 			viewBox="0 0 21 20"
 			fill="none"
 			xmlns="http://www.w3.org/2000/svg"
-			{...props}
+			{ ...props }
 		>
 			<g clipPath="url(#clip0_9150_48086)">
 				<path
@@ -86,14 +86,14 @@ export const Icons = {
 			</defs>
 		</svg>
 	),
-	SureRankLogo: (props) => (
+	SureRankLogo: ( props ) => (
 		<svg
 			fill="none"
 			height="24"
 			viewBox="0 0 25 24"
 			width="25"
 			xmlns="http://www.w3.org/2000/svg"
-			{...props}
+			{ ...props }
 		>
 			<path
 				clipRule="evenodd"
@@ -103,14 +103,14 @@ export const Icons = {
 			/>
 		</svg>
 	),
-	SureCartSvg: (props) => (
+	SureCartSvg: ( props ) => (
 		<svg
 			width="21"
 			height="20"
 			viewBox="0 0 21 20"
 			fill="none"
 			xmlns="http://www.w3.org/2000/svg"
-			{...props}
+			{ ...props }
 		>
 			<path
 				fillRule="evenodd"
@@ -120,14 +120,14 @@ export const Icons = {
 			/>
 		</svg>
 	),
-	PrestoPlayerSvg: (props) => (
+	PrestoPlayerSvg: ( props ) => (
 		<svg
 			width="21"
 			height="20"
 			viewBox="0 0 21 20"
 			fill="none"
 			xmlns="http://www.w3.org/2000/svg"
-			{...props}
+			{ ...props }
 		>
 			<path
 				d="M13.6094 9.93105L19.3338 6.60156V13.2606L13.6094 9.93105Z"
