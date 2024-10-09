@@ -1,18 +1,18 @@
 import { Topbar, Container, Title, Label, Button, Badge, RadioButton } from "@/components";
-import { ArrowUpRight, CircleHelp, Megaphone , CirclePlay, Plus, ExternalLink, House, Bell, Settings, Shield, AppWindow, PictureInPicture, Share2, Newspaper, ChartNoAxesGantt, Map, PanelLeftClose, Ellipsis, Headset, HelpCircle, MessageSquare, Star, Zap, Check, X } from 'lucide-react';
+import { ArrowUpRight, CircleHelp, Megaphone, Plus, ExternalLink, House, Bell, Settings, Shield, AppWindow, PictureInPicture, Share2, Newspaper, ChartNoAxesGantt, Map, PanelLeftClose, Ellipsis, Headset, HelpCircle, MessageSquare, Star, Zap, Check, X, LogIn, UserPlus, Instagram, Infinity, } from 'lucide-react';
 import video from "./video.png"
 import { SpectraLogo, AstraThemeSvg, StartersTemplatesSvg, SureCartSvg, PrestoPlayerSvg } from "./dashboard-2-svgs";
 import contentImageSpectra from "./contentImageSpectra.png";
 import unlockProSpectra from "./unlockProSpectra.png";
 
 export default {
-	title: 'Templates/Dashboard 2',
+	title: 'Templates/Dashboard/Spectra Dashboard',
 	parameters: {
 		layout: 'fullscreen',
 	},
     decorators: [
         (Story, parameters) => (
-            <div className="box-border [&_*]:box-border w-full">
+            <div className="box-border [&_*]:box-border w-full h-[100dvh]">
                 <Story {...parameters} />
             </div>
         )
@@ -24,7 +24,7 @@ const defaultRadioButtonGroupData = [
 	{
 		id: '1',
 		value: 'analytics',
-		icon: <House />,
+		icon: <LogIn />,
 		label: 'Login Form',
 		description: 'Demo',
 		toggleLabel: 'Enable',
@@ -33,7 +33,7 @@ const defaultRadioButtonGroupData = [
 		bagde: (
 			<Badge
 				label={ 'PRO' }
-				size="md"
+				size="xs"
 				icon={ null }
 				variant="inverse"
 				closable={ false }
@@ -44,7 +44,7 @@ const defaultRadioButtonGroupData = [
 	{
 		id: '2',
 		value: 'notifications',
-		icon: <Bell />,
+		icon: <UserPlus />,
 		label: 'Registration Form',
 		description: 'Demo',
 		toggleLabel: 'Disable',
@@ -53,7 +53,7 @@ const defaultRadioButtonGroupData = [
 		bagde: (
 			<Badge
 				label={ 'PRO' }
-				size="md"
+				size="xs"
 				icon={ null }
 				variant="inverse"
 				closable={ false }
@@ -64,7 +64,7 @@ const defaultRadioButtonGroupData = [
 	{
 		id: '3',
 		value: 'settings',
-		icon: <Settings />,
+		icon: <Instagram />,
 		label: 'Instagram Feed',
 		description: 'Demo',
 		toggleLabel: 'Settings',
@@ -73,7 +73,7 @@ const defaultRadioButtonGroupData = [
 		bagde: (
 			<Badge
 				label={ 'PRO' }
-				size="md"
+				size="xs"
 				icon={ null }
 				variant="inverse"
 				closable={ false }
@@ -84,7 +84,7 @@ const defaultRadioButtonGroupData = [
 	{
 		id: '4',
 		value: 'security',
-		icon: <Shield />,
+		icon: <Infinity />,
 		label: 'Loop Builder',
 		description: 'Demo',
 		toggleLabel: 'Security',
@@ -93,7 +93,7 @@ const defaultRadioButtonGroupData = [
 		bagde: (
 			<Badge
 				label={ 'PRO' }
-				size="md"
+				size="xs"
 				icon={ null }
 				variant="inverse"
 				closable={ false }
@@ -163,7 +163,7 @@ const defaultRadioButtonGroupData = [
 		bagde: (
 			<Badge
 				label={ 'New' }
-				size="md"
+				size="xs"
 				icon={ null }
 				variant="green"
 				closable={ false }
@@ -193,7 +193,7 @@ const defaultRadioButtonGroupData = [
 		bagde: (
 			<Badge
 				label={ 'Extension' }
-				size="md"
+				size="xs"
 				icon={ null }
 				variant="yellow"
 				closable={ false }
@@ -283,12 +283,11 @@ const containerRowButtons = [
 
 
 
-export const Dashboard2 = () => {
+export const SpectraDashboard = () => {
     const radioButtonGroupData = defaultRadioButtonGroupData;
-
     return (
         <>
-            <div className="py-2 flex items-center justify-center relative bg-brand-background-100">
+            <div className="py-2 flex items-center justify-center relative bg-brand-background-hover-100">
 				<div className="space-x-1 text-text-primary text-xs">
 					<span className="font-semibold">
 						Unlock Spectra&apos;s Full Potential!
@@ -313,7 +312,7 @@ export const Dashboard2 = () => {
                         {/* Active Item underline */}
                         <button className="relative h-full text-text-primary text-sm font-medium py-0 px-1 m-0 bg-transparent  shadow-none border-0 cursor-pointer">
                             <span>Dashboard</span>
-                            <span className="absolute w-full h-px bg-brand-primary-600 bottom-0 left-0 "></span>
+                            <span className="absolute w-full h-px bg-brand-primary-600 bottom-0 left-0"></span>
                         </button>
                         <button className="h-full text-text-tertiary text-sm font-medium py-0 px-1 m-0 bg-transparent  shadow-none border-0 cursor-pointer">
                             <span>Blocks</span>
@@ -331,7 +330,7 @@ export const Dashboard2 = () => {
                             variant="ghost"
                             icon={ <ArrowUpRight /> }
                             iconPosition="right"
-                            className="h-full inline-flex items-center py-0 px-1 m-0 bg-transparent  shadow-none border-0 cursor-pointer text-sm font-semibold text-brand-primary-600"
+                            className="h-full inline-flex items-center py-0 px-1 m-0 bg-transparent  shadow-none border-0 cursor-pointer text-sm font-semibold text-link-primary"
                         >
                             Unlock Pro Features
                         </Button>
@@ -347,10 +346,10 @@ export const Dashboard2 = () => {
                         />
                     </Topbar.Item>
                     <Topbar.Item>
-                        <CircleHelp />
+                        <CircleHelp strokeWidth="1.5"/>
                     </Topbar.Item>
-                    <Topbar.Item>
-                        <Megaphone />
+                    <Topbar.Item className="relative after:content-[''] after:inline-block after:size-1.5 after:bg-button-danger after:rounded-full after:absolute after:-top-0.5 after:left-5">
+                        <Megaphone strokeWidth="1.5" />
                     </Topbar.Item>
                 </Topbar.Right>
             </Topbar>
@@ -358,12 +357,14 @@ export const Dashboard2 = () => {
             <Container containerType="grid" cols={12} gap="2xl" className="bg-background-secondary p-8">
                 {/* First Column */}
                 <Container.Item colSpan={8} className="flex flex-col gap-8">
-                    <Container containerType="grid" cols={8} gap={4} className="bg-background-primary p-6 shadow-sm rounded-2xl">
-                        <Container.Item colSpan={5} className="flex flex-col">
-                            <Title tag="h3" title="Welcome to Spectra!" size="lg" />
-                            <p className="text-sm text-text-secondary">
-                            We designed Spectra to be intuitive but we do recommend learning how it works by checking our comprehensive documentation and watching the video below. Enjoy your time with Spectra!
-                            </p>
+                    <Container containerType="grid" cols={8} gap="2xl" className="bg-background-primary p-6 shadow-sm rounded-xl">
+                        <Container.Item colSpan={5} className="flex flex-col gap-6">
+                            <div>
+                                <Title tag="h3" title="Welcome to Spectra!" size="lg" />
+                                <p className="text-sm text-text-secondary">
+                                We designed Spectra to be intuitive but we do recommend learning how it works by checking our comprehensive documentation and watching the video below. Enjoy your time with Spectra!
+                                </p>
+                            </div>
                             <div className="flex space-x-4">
                                 <Button
                                     variant="primary"
@@ -451,49 +452,49 @@ export const Dashboard2 = () => {
                         </Container.Item>
                     </Container>
                     
-                    <Container containerType="grid" cols={8} gap={4} className="bg-background-primary p-6 shadow-sm rounded-2xl">
+                    <Container containerType="grid" cols={8} gap={4} className="bg-background-primary p-6 shadow-sm rounded-xl">
                         <Container.Item colSpan={4} className="flex flex-col ">
-                            <div>
-                                <Zap />
-                                Unlock Pro Features
+                            <div className="text-brand-hover-700 flex space-x-1">
+                                <Zap className="size-4"/>
+                                <div className="font-semibold text-xs">Unlock Pro Features</div>
                             </div>
-                            <div className="text-lg font-semibold">Limitless Design with Spectra Pro!</div>
+                            <Title title="Limitless Design with Spectra Pro!" tag="h5" />
                             <p className="text-sm text-text-secondary">
                             Utilize advanced blocks, extensions, and premium features to create a websites that stands out!
                             </p>
-                            <div className="flex">
-                                <div>
-                                    <div className="flex">
-                                        <Check />
-                                        <p>Instagram Feed Block</p>
-                                    </div>
-                                    <div className="flex">
-                                        <Check />
-                                        <p>Dynamic Content</p>
-                                    </div>
-                                    <div className="flex">
-                                        <Check />
-                                        <p>Popup Builder</p>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div className="flex">
-                                        <Check />
-                                        <p>Global Block Styles</p>
-                                    </div>
-                                    <div className="flex">
-                                        <Check />
-                                        <p>Loop Builder</p>
-                                    </div>
-                                    <div className="flex">
-                                        <Check />
-                                        <p>And more...</p>
-                                    </div>
-                                </div>
+                            <div className="grid grid-cols-2 gap-3">
+                                <ul className="list-none pl-0 space-y-2">
+                                    <li className="flex items-center space-x-2 text-field-label text-sm">
+                                        <Check className="size-3.5 text-brand-hover-700"/>
+                                        <span>Instagram Feed Block</span>
+                                    </li>
+                                    <li className="flex items-center space-x-2 text-field-label text-sm">
+                                        <Check className="size-3.5 text-brand-hover-700"/>
+                                        <span>Dynamic Content</span>
+                                    </li>
+                                    <li className="flex items-center space-x-2 text-field-label text-sm">
+                                        <Check className="size-3.5 text-brand-hover-700"/>
+                                        <span>Popup Builder</span>
+                                    </li>
+                                </ul>
+                                <ul className="list-none pl-0 space-y-2">
+                                    <li className="flex items-center space-x-2 text-field-label text-sm">
+                                        <Check className="size-3.5 text-brand-hover-700"/>
+                                        <span>Global Block Styles</span>
+                                    </li>
+                                    <li className="flex items-center space-x-2 text-field-label text-sm">
+                                        <Check className="size-3.5 text-brand-hover-700"/>
+                                        <span>Loop Builder</span>
+                                    </li>
+                                    <li className="flex items-center space-x-2 text-field-label text-sm">
+                                        <Check className="size-3.5 text-brand-hover-700"/>
+                                        <span>And more...</span>
+                                    </li>
+                                </ul>
                             </div>
                             <div className="flex space-x-4">
                                 <Button
-                                    variant="primary"
+                                    variant="secondary"
                                 >
                                     Upgrade now
                                 </Button>
@@ -518,13 +519,12 @@ export const Dashboard2 = () => {
 
 
                 {/* Second Column */}
-                <Container.Item colSpan={4} className="grid gap-8">
-
+                <Container.Item colSpan={4} className="flex flex-col gap-8">
                     <Container
                         containerType="flex"
                         gap="xs"
                         direction="column"
-                        className="bg-background-primary border border-solid rounded-md border-border-subtle p-4"
+                        className="bg-background-primary border border-solid rounded-xl border-border-subtle p-4"
                     >
                         <Container.Item className="md:w-full lg:w-full">
                             <Container className="p-1" justify="between" gap="xs">
@@ -602,21 +602,21 @@ export const Dashboard2 = () => {
                         </Container.Item>
                     </Container>
 
-                    <Container direction="column" gap="xs" className="p-5 bg-background-primary shadow-sm rounded-2xl">
-                            <Container.Item>
-                                <img src={contentImageSpectra} alt="" />
+                    <Container direction="column" gap="xs" className="p-5 bg-background-primary shadow-sm rounded-xl">
+                            <Container.Item className="w-full">
+                                <img src={contentImageSpectra} alt="Content image" className="w-full h-full object-cover" />
                             </Container.Item>
                             <Container.Item>
                                 {/* <Container> */}
                                     <div className="text-base font-semibold">Build website 10x faster with AI</div>
-                                    <div>Beautiful pages, persuasive content, and custom code in seconds. The possibilities are endless!</div>
+                                    <p className="text-text-secondary">Beautiful pages, persuasive content, and custom code in seconds. The possibilities are endless!</p>
                                 {/* </Container> */}
                             </Container.Item>
-                            <Container.Item>
-                                <Button >
+                            <Container.Item className="flex space-x-4">
+                                <Button variant="secondary">
                                     Get Started
                                 </Button>
-                                <Label>Get 1000 free monthly credits</Label>
+                                <p className="text-text-tertiary">Get 1000 free monthly credits</p>
                             </Container.Item>
                     </Container>
 

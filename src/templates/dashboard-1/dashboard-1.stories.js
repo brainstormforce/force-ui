@@ -1,24 +1,23 @@
 import { Topbar, Avatar, Container, Title, Label, Button, Badge, RadioButton } from "@/components";
 import { ArrowUpRight, CircleHelp, Bell, CirclePlay, Ellipsis, Upload, Paintbrush, PanelTop, PanelBottom, PaintBucket, Type, SquareMousePointer, PenTool, LayoutTemplate, Menu, Palette, Baseline, Ruler, Newspaper, PanelTopDashed, PanelsTopLeft } from 'lucide-react';
-import astraVideo from "./astraVideo.png"
-import AvatarImage from "./AvatarImage.png"
 import { AstraLogo, AstraTheme, StarterTheme, SureCart, SureTriggers } from "./dashboard-1-svgs";
+import astraVideo from "./astraVideo.png"
+import avatarImage from "./avatarImage.png"
 
 export default {
-	title: 'Templates/Dashboard 1',
+	title: 'Templates/Dashboard/Astra Dashboard',
 	parameters: {
 		layout: 'fullscreen',
 	},
     decorators: [
         (Story, parameters) => (
-            <div className="box-border [&_*]:box-border w-full">
+            <div className="box-border [&_*]:box-border w-full h-[100dvh]">
                 <Story {...parameters} />
             </div>
         )
     ],
 	tags: [ 'autodocs' ],
 };
-
 
 const defaultRadioButtonGroupData = [
 	{
@@ -139,6 +138,7 @@ const defaultRadioButtonGroupData = [
 				className="py-0 mr-2"
 			/>
 		),
+        disabled: true,
 	},
 	{
 		id: '12',
@@ -158,6 +158,7 @@ const defaultRadioButtonGroupData = [
 				className="py-0 mr-2"
 			/>
 		),
+        disabled: true,
 	},
 	{
 		id: '13',
@@ -177,6 +178,7 @@ const defaultRadioButtonGroupData = [
 				className="py-0 mr-2"
 			/>
 		),
+        disabled: true,
 	},
 	{
 		id: '14',
@@ -196,6 +198,7 @@ const defaultRadioButtonGroupData = [
 				className="py-0 mr-2"
 			/>
 		),
+        disabled: true,
 	},
 	{
 		id: '15',
@@ -215,6 +218,7 @@ const defaultRadioButtonGroupData = [
 				className="py-0 mr-2"
 			/>
 		),
+        disabled: true,
 	},
 	{
 		id: '16',
@@ -234,6 +238,7 @@ const defaultRadioButtonGroupData = [
 				className="py-0 mr-2"
 			/>
 		),
+        disabled: true,
 	},
 ];
 
@@ -264,10 +269,8 @@ const astraRadioButtonGroupData = [
 	},
 ];
 
-
-export const Dashboard = () => {
+export const AstraDashboard = () => {
     const radioButtonGroupData = defaultRadioButtonGroupData;
-
     return (
         <>
             <Topbar gap={0} className="h-16 p-0 shadow-sm">
@@ -292,7 +295,7 @@ export const Dashboard = () => {
                             variant="ghost"
                             icon={ <ArrowUpRight /> }
                             iconPosition="right"
-                            className="h-full inline-flex items-center py-0 px-1 m-0 bg-transparent  shadow-none border-0 cursor-pointer text-sm font-semibold text-brand-primary-600"
+                            className="h-full inline-flex items-center py-0 px-1 m-0 bg-transparent  shadow-none border-0 cursor-pointer text-sm font-semibold text-link-primary"
                         >
                             Upgrade to Pro
                         </Button>
@@ -308,12 +311,12 @@ export const Dashboard = () => {
                         />
                     </Topbar.Item>
                     <Topbar.Item className="gap-2">
-                        <CircleHelp strokeWidth={1.5} size={16}/>
-                        <Bell strokeWidth={1.5} size={16}/>
+                        <CircleHelp strokeWidth={1.5} />
+                        <Bell strokeWidth={1.5} />
                     </Topbar.Item>
                     <Topbar.Item>
                         <Avatar size="sm"  border="none"
-                        url={AvatarImage}/>
+                        url={avatarImage}/>
                     </Topbar.Item>
                 </Topbar.Right>
             </Topbar>
@@ -321,13 +324,15 @@ export const Dashboard = () => {
             <Container containerType="grid" cols={12} gap="2xl" className="bg-background-secondary p-8">
                 {/* First Column */}
                 <Container.Item colSpan={8} className="flex flex-col gap-8">
-                    <Container containerType="grid" cols={8} gap={4} className="bg-background-primary p-4 shadow-sm rounded-xl">
-                        <Container.Item colSpan={5} className="grid p-2">
-                            <Title tag="h3" title="Welcome to Astra" size="lg" />
-                            <p className="text-sm text-text-secondary m-0">
-                            Astra is fast, fully customizable & beautiful WordPress theme suitable for blog, personal portfolio, business website and WooCommerce storefront. It is very lightweight and offers unparalleled speed.
-                            </p>
-                            <div className="flex mt-6 space-x-4">
+                    <Container containerType="grid" cols={8} gap="2xl" className="bg-background-primary p-4 shadow-sm rounded-xl">
+                        <Container.Item colSpan={5} className="flex flex-col gap-6">
+                            <div>
+                                <Title tag="h3" title="Welcome to Astra" size="lg" />
+                                <p className="text-sm text-text-secondary m-0">
+                                Astra is fast, fully customizable & beautiful WordPress theme suitable for blog, personal portfolio, business website and WooCommerce storefront. It is very lightweight and offers unparalleled speed.
+                                </p>
+                            </div>
+                            <div className="flex space-x-4">
                                 <Button>Start Customizing</Button>
                                 <Button
                                     variant="ghost" 
@@ -337,7 +342,6 @@ export const Dashboard = () => {
                                 </Button>
                             </div>
                         </Container.Item>
-                    
                         <Container.Item colSpan={3}>
                             <img
                             src={astraVideo}
@@ -356,7 +360,7 @@ export const Dashboard = () => {
                         <Container.Item className="md:w-full p-1 lg:w-full">
                             <Container justify="between" gap="xs">
                                 <Container.Item className="">
-                                    <Label className="font-semibold">Quick Settings</Label>
+                                    <Label size="md" className="font-semibold">Quick Settings</Label>
                                 </Container.Item>
                                 <Container.Item className="items-center flex gap-2">
                                     <Button variant="ghost" className="p-0 leading-none	">
@@ -368,7 +372,7 @@ export const Dashboard = () => {
                                 </Container.Item>
                             </Container>
                         </Container.Item>
-                        <Container.Item className="md:w-full lg:w-full p-2 rounded-lg bg-field-primary-background ">
+                        <Container.Item className="md:w-full lg:w-full p-2 rounded-lg bg-background-secondary">
                             <RadioButton.Group
                                 as="div"
                                 defaultValue={ `option-${ radioButtonGroupData[ 0 ].id }` }
@@ -392,39 +396,36 @@ export const Dashboard = () => {
                                         useSwitch={ option.useSwitch }
                                         className="px-2"
                                         badgeItem={ option.badge }
+                                        disabled={option.disabled}
                                         buttonWrapperClasses="bg-background-primary"
                                     />
                                 ) ) }
                             </RadioButton.Group>
                         </Container.Item>
 
-                        <Container.Item className="bg-background-secondary rounded-lg">
-                            <div className="py-3 flex items-center justify-center">
-                                <div className="space-x-1 text-text-primary text-xs">
-                                    <AstraLogo size={16}/>
-                                    <span className="font-semibold">
-                                        Do More with Astra Pro
-                                    </span>
-                                    <span className="font-normal">
-                                        Get access to powerful features without the high costs.
-                                    </span>
-                                    <Button
-                                        variant="ghost"
-                                        icon={ <ArrowUpRight /> }
-                                        iconPosition="right"
-                                        className="h-full inline-flex items-center py-0 px-1 m-0 bg-transparent  shadow-none border-0 cursor-pointer text-sm font-semibold text-brand-primary-600"
-                                    >
-                                        Upgrade to Pro
-                                    </Button>
-                                </div>
-                            </div>
+                        <Container.Item className="flex items-center justify-center space-x-2 text-text-primary text-sm bg-background-secondary rounded-lg py-3">
+                            <AstraLogo className="size-4"/>
+                            <span className="font-semibold">
+                                Do More with Astra Pro
+                            </span>
+                            <span className="font-normal text-text-secondary">
+                                Get access to powerful features without the high costs.
+                            </span>
+                            <Button
+                                variant="ghost"
+                                icon={ <ArrowUpRight /> }
+                                iconPosition="right"
+                                className="h-full inline-flex items-center py-0 px-1 m-0 bg-transparent  shadow-none border-0 cursor-pointer text-sm font-semibold text-link-primary"
+                            >
+                                Upgrade to Pro
+                            </Button>
                         </Container.Item>
                     </Container>
 
                 </Container.Item>
 
                 {/* Second Column */}
-                <Container.Item colSpan={4} className="grid gap-8">
+                <Container.Item colSpan={4} className="flex flex-col gap-8">
 
                     <Container
                         containerType="flex"
@@ -506,7 +507,7 @@ export const Dashboard = () => {
                             </Container.Item>
                             <Container.Item>
                                 <Container>
-                                    <div className="text-sm text-secondary">Faster and exclusive support service designed for VIP assistance and benefits.</div>
+                                    <div className="text-sm text-text-secondary">Faster and exclusive support service designed for VIP assistance and benefits.</div>
                                 </Container>
                             </Container.Item>
                             <Container.Item>
@@ -524,7 +525,7 @@ export const Dashboard = () => {
                             </Container.Item>
                             <Container.Item>
                                 <Container>
-                                    <div className="text-sm text-secondary">Got a question about the plugin, want to share your awesome project? Join our wonderful community!</div>
+                                    <div className="text-sm text-text-secondary">Got a question about the plugin, want to share your awesome project? Join our wonderful community!</div>
                                 </Container>
                             </Container.Item>
                             <Container.Item>
