@@ -94,7 +94,6 @@ NumberVariant.args = {
 	size: 'md',
 	type: 'inline',
 	currentStep: 3,
-	lineProps: 'min-w-10',
 };
 
 export const IconVariant = Template.bind( {} );
