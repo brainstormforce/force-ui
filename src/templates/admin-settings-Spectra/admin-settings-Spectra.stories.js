@@ -30,7 +30,7 @@ import {
 } from 'lucide-react';
 
 export default {
-	title: 'Templates/Admin Settings/Admin Settings 3',
+	title: 'Templates/Admin Settings/Admin Settings - Spectra',
 	parameters: {
 		layout: 'fullscreen',
 	},
@@ -208,7 +208,10 @@ const Template = () => {
 					</Sidebar>
 				</div>
 				{ /* Content Section */ }
-				<Container.Item className="w-full h-full overflow-y-auto">
+				<form
+					onSubmit={ ( event ) => event.preventDefault() }
+					className="w-full h-full overflow-y-auto"
+				>
 					<Container
 						gap="xl"
 						direction="column"
@@ -477,7 +480,7 @@ const Template = () => {
 							</Container>
 						</Container>
 					</Container>
-				</Container.Item>
+				</form>
 			</Container.Item>
 		</Container>
 	);

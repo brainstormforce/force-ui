@@ -33,7 +33,7 @@ import {
 } from 'lucide-react';
 
 export default {
-	title: 'Templates/Admin Settings/Admin Settings 2',
+	title: 'Templates/Admin Settings/Admin Settings - SureCart',
 	parameters: {
 		layout: 'fullscreen',
 	},
@@ -328,7 +328,10 @@ const Template = () => {
 					</Sidebar>
 				</div>
 				{ /* Content section */ }
-				<Container.Item className="w-full h-full overflow-y-auto">
+				<form
+					onSubmit={ ( event ) => event.preventDefault() }
+					className="w-full h-full overflow-y-auto"
+				>
 					<Container
 						gap="xl"
 						direction="column"
@@ -540,7 +543,7 @@ const Template = () => {
 							</Container.Item>
 						</Container>
 					</Container>
-				</Container.Item>
+				</form>
 			</Container.Item>
 		</Container>
 	);
