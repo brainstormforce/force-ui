@@ -6,8 +6,8 @@ export const textSizeClassNames = {
 
 export const sizeClassNames = {
     sm: 'py-1.5 px-2 rounded',
-    md: 'py-2.5 px-2.5 rounded-md',
-    lg: 'py-3 px-3 rounded-md',
+    md: 'p-2.5 rounded-md',
+    lg: 'p-3 rounded-md',
 }
 export const variantClassNames = {
     primary: 'bg-field-primary-background border border-solid border-field-border hover:border-border-strong',
@@ -15,8 +15,7 @@ export const variantClassNames = {
     ghost: 'bg-field-secondary-background border-transparent',
 };
 
-export const IconClasses = 'text-icon-secondary group-hover:text-icon-primary group-focus:text-icon-primary'
+export const IconClasses = 'text-icon-secondary group-hover:text-icon-primary group-focus-within:text-icon-primary'
 
 export const disabledClassNames = 'border-border-disabled hover:border-border-disabled bg-field-background-disabled cursor-not-allowed text-text-disabled';
 
-export const baseClassNames = 'font-normal w-full';

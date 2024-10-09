@@ -58,6 +58,7 @@ const SearchBox = forwardRef(({ className, dimension = 'sm', open = false, onOpe
 		</SearchContext.Provider>
 	);
 });
+SearchBox.displayName = 'SearchBox';
 
 const SearchBoxInput = forwardRef(({
 	className,
@@ -72,7 +73,7 @@ const SearchBoxInput = forwardRef(({
 }, ref) => {
 	const [internalValue, setInternalValue] = useState(defaultValue || '');
 	const isControlled = useRef(value !== undefined);
-	const { dimension, open, onOpenChange, refs, getReferenceProps } = useSearchContext();
+	const { dimension, onOpenChange, refs, getReferenceProps } = useSearchContext();
 
 	const handleChange = (event) => {
 		const newValue = event.target.value;
@@ -95,17 +96,16 @@ const SearchBoxInput = forwardRef(({
 		<div
 			tabIndex={0}
 			ref={refs.setReference}
-			className={cn("w-full group relative flex justify-center items-center gap-2 focus-within:z-10",
+			className={cn(
+				"w-full box-border group relative flex justify-center items-center font-normal gap-1.5 focus-within:z-10 transition-colors ease-in-out duration-150",
 				baseClassNames,
 				variantClassNames[variant],
 				sizeClassNames[dimension],
 				textSizeClassNames[dimension],
-				disabled && disabledClassNames,
-				'focus-within:ring-1 focus-within:ring-focus focus-within:ring-offset-2',
-				'text-field-placeholder',
-			)
-
-			}
+				disabled ?
+					disabledClassNames :
+					'focus-within:ring-2 focus-within:ring-focus focus-within:ring-offset-2 focus-within:border-border-interactive focus-within:hover:border-border-interactive',
+			)}
 			{...getReferenceProps}
 		>
 			<span
@@ -122,8 +122,9 @@ const SearchBoxInput = forwardRef(({
 				className={cn(
 					textSizeClassNames[dimension],
 					'flex-grow bg-transparent border-none outline-none border-transparent focus:ring-0',
-					disabled && disabledClassNames,
-					'text-field-placeholder focus-within:text-field-input',
+					disabled ?
+						disabledClassNames :
+						'text-field-placeholder placeholder:text-field-placeholder group-hover:placeholder:text-field-input group-focus-within:placeholder:text-field-input focus-within:text-field-input group-hover:text-field-input',
 					className
 				)}
 				disabled={disabled}
@@ -150,6 +151,7 @@ const SearchBoxInput = forwardRef(({
 		</div >
 	);
 });
+SearchBoxInput.displayName = 'SearchBox.Input';
 
 const SearchBoxContent = forwardRef(({
 	className,
@@ -169,7 +171,7 @@ const SearchBoxContent = forwardRef(({
 					...floatingStyles
 				}}
 				className={cn(
-					'bg-background-primary mt-2 rounded-md p-2 border-border-strong shadow-lg overflow-y-auto text-wrap',
+					'bg-background-primary mt-2 rounded-md border-border-strong shadow-lg overflow-y-auto text-wrap',
 					className
 				)}
 				{...getFloatingProps}
@@ -180,6 +182,7 @@ const SearchBoxContent = forwardRef(({
 		</FloatingPortal>
 	);
 });
+SearchBoxContent.displayName = 'SearchBox.Content';
 
 
 const SearchBoxLoading = ({ loadingIcon = <Loader /> }) => {
@@ -190,12 +193,16 @@ const SearchBoxLoading = ({ loadingIcon = <Loader /> }) => {
 	</div>
 	)
 };
+SearchBoxLoading.displayName = 'SearchBox.Loading';
+
 
 const SearchBoxResults = forwardRef(({ className, children, ...props }, ref) => (
-	<div ref={ref} className={cn('', className)} {...props}>
+	<div ref={ref} className={cn('p-2', className)} {...props}>
 		{children}
 	</div>
 ));
+SearchBoxResults.displayName = 'SearchBox.Results';
+
 
 const SearchBoxResultTitle = forwardRef(({ className, children, ...props }, ref) => {
 	const { dimension } = useSearchContext();
@@ -213,6 +220,8 @@ const SearchBoxResultTitle = forwardRef(({ className, children, ...props }, ref)
 		</div>
 	)
 });
+SearchBoxResultTitle.displayName = 'SearchBox.ResultTitle';
+
 
 const SearchBoxResultItem = forwardRef(({ className, children, icon, ...props }, ref) => {
 	const { dimension } = useSearchContext();
@@ -230,10 +239,13 @@ const SearchBoxResultItem = forwardRef(({ className, children, icon, ...props },
 		<label className={cn(textSizeClassNames[dimension], "w-full text-text-secondary cursor-pointer")}>{children}</label>
 	</div>)
 });
+SearchBoxResultItem.displayName = 'SearchBox.ResultItem';
+
 
 const SearchBoxSeparator = forwardRef(({ className, ...props }, ref) => (
-	<hr ref={ref} className={cn(' text-text-tertiary', className)} {...props} />
+	<hr ref={ref} className={cn('m-0 text-text-tertiary', className)} {...props} />
 ));
+SearchBoxSeparator.displayName = 'SearchBox.Separator';
 
 SearchBox.Input = SearchBoxInput;
 SearchBox.Content = SearchBoxContent;
