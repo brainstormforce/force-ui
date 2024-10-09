@@ -13,19 +13,19 @@ import {
 } from 'date-fns';
 
 const DatePicker = ( {
-	mode = 'single',
+	selectionType = 'single',
 	variant = 'normal',
 	presets: customPresets = [],
 	onCancel,
 	onApply,
-	applyText = '',
-	cancelText = '',
+	applyButtonText = 'Apply',
+	cancelButtonText = 'Cancel',
 	...props
 } ) => {
 	const [ selectedDates, setSelectedDates ] = useState( () => {
-		if ( mode === 'multiple' ) {
+		if ( selectionType === 'multiple' ) {
 			return [];
-		} else if ( mode === 'range' ) {
+		} else if ( selectionType === 'range' ) {
 			return { from: null, to: null };
 		}
 		return null;
@@ -77,7 +77,9 @@ const DatePicker = ( {
 	};
 
 	const handleCancelClick = () => {
-		setSelectedDates( mode === 'multiple' ? [] : { from: null, to: null } );
+		setSelectedDates(
+			selectionType === 'multiple' ? [] : { from: null, to: null }
+		);
 		if ( onCancel ) {
 			onCancel();
 		}
@@ -93,7 +95,7 @@ const DatePicker = ( {
 		return (
 			<DatePickerComponent
 				{ ...props }
-				mode={ mode }
+				mode={ selectionType }
 				variant={ variant }
 				width="w-[18.5rem]"
 				selectedDates={ selectedDates }
@@ -105,7 +107,7 @@ const DatePicker = ( {
 	if ( variant === 'dualdate' ) {
 		return (
 			<DatePickerComponent
-				mode={ mode }
+				mode={ selectionType }
 				numberOfMonths={ 2 }
 				alignment="horizontal"
 				selectedDates={ selectedDates }
@@ -115,9 +117,11 @@ const DatePicker = ( {
 				footer={
 					<div className="flex justify-end p-2 gap-3 border border-solid border-border-subtle border-t-0 rounded-md">
 						<Button variant="outline" onClick={ handleCancelClick }>
-							{ cancelText }
+							{ cancelButtonText }
 						</Button>
-						<Button onClick={ handleApplyClick }>{ applyText }</Button>
+						<Button onClick={ handleApplyClick }>
+							{ applyButtonText }
+						</Button>
 					</div>
 				}
 			/>
@@ -141,7 +145,7 @@ const DatePicker = ( {
 				</div>
 				<DatePickerComponent
 					{ ...props }
-					mode={ mode }
+					mode={ selectionType }
 					selectedDates={ selectedDates }
 					setSelectedDates={ setSelectedDates }
 					variant={ variant }
@@ -153,10 +157,10 @@ const DatePicker = ( {
 								variant="outline"
 								onClick={ handleCancelClick }
 							>
-								{ cancelText }
+								{ cancelButtonText }
 							</Button>
 							<Button onClick={ handleApplyClick }>
-								{ applyText }
+								{ applyButtonText }
 							</Button>
 						</div>
 					}

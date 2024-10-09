@@ -8,25 +8,41 @@ export default {
 	},
 	tags: [ 'autodocs' ],
 	argTypes: {
-		mode: {
+		selectionType: {
 			control: 'select',
 			options: [ 'single', 'range', 'multiple' ],
 			description:
-				'Defines the selection mode of the date picker: single, range, or multiple dates.',
+				'Defines the selection selectionType of the date picker: single, range, or multiple dates.',
+			table: {
+				type: { summary: 'string' },
+				defaultValue: { summary: 'single' },
+			},
 		},
 		variant: {
 			control: 'select',
 			options: [ 'normal', 'dualdate', 'presets' ],
 			description:
 				'Defines the variant of the date picker: normal, dualdate, or presets.',
+			table: {
+				type: { summary: 'string' },
+				defaultValue: { summary: 'normal' },
+			},
 		},
-		applyText: {
+		applyButtonText: {
 			control: 'text',
 			description: 'Text displayed on the Apply button.',
+			table: {
+				type: { summary: 'string' },
+				defaultValue: { summary: 'Apply' },
+			},
 		},
-		cancelText: {
+		cancelButtonText: {
 			control: 'text',
 			description: 'Text displayed on the Cancel button.',
+			table: {
+				type: { summary: 'string' },
+				defaultValue: { summary: 'Cancel' },
+			},
 		},
 	},
 	decorators: [
@@ -42,40 +58,40 @@ const Template = ( args ) => <DatePicker { ...args } />;
 
 export const Default = Template.bind( {} );
 Default.args = {
-	mode: 'single',
+	selectionType: 'single',
 	variant: 'normal',
-	applyText: 'Apply',
-	cancelText: 'Cancel',
+	applyButtonText: 'Apply',
+	cancelButtonText: 'Cancel',
 };
 
 export const Range = Template.bind( {} );
 Range.args = {
-	mode: 'range',
+	selectionType: 'range',
 	variant: 'normal',
-	applyText: 'Apply',
-	cancelText: 'Cancel',
+	applyButtonText: 'Apply',
+	cancelButtonText: 'Cancel',
 };
 
 export const Multiple = Template.bind( {} );
 Multiple.args = {
-	mode: 'multiple',
+	selectionType: 'multiple',
 	variant: 'normal',
-	applyText: 'Apply',
-	cancelText: 'Cancel',
+	applyButtonText: 'Apply',
+	cancelButtonText: 'Cancel',
 };
 
 export const DualDate = Template.bind( {} );
 DualDate.args = {
-	mode: 'range',
+	selectionType: 'range',
 	variant: 'dualdate',
-	applyText: 'Apply',
-	cancelText: 'Cancel',
+	applyButtonText: 'Apply',
+	cancelButtonText: 'Cancel',
 };
 
 export const WithPresets = Template.bind( {} );
 WithPresets.args = {
-	mode: 'range',
+	selectionType: 'range',
 	variant: 'presets',
-	applyText: 'Apply',
-	cancelText: 'Cancel',
+	applyButtonText: 'Apply',
+	cancelButtonText: 'Cancel',
 };

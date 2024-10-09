@@ -157,7 +157,7 @@ const DatePickerComponent = ( {
 									yearValue === selectedYear &&
 										yearValue !==
 											new Date().getFullYear() &&
-										'bg-background-brand text-white hover:bg-background-brand hover:text-black'
+										'bg-background-brand text-text-on-color hover:bg-background-brand hover:text-black'
 								) }
 							>
 								{ yearValue }
@@ -181,7 +181,7 @@ const DatePickerComponent = ( {
 									);
 								} }
 								className={ cn(
-									'px-1.5 py-2 h-10 w-[70px] text-center font-normal relative',
+									'px-1.5 py-2 h-10 w-[4.375rem] text-center font-normal relative',
 									monthIndex ===
 										customMonthProps.calendarMonth.date.getMonth() &&
 										monthIndex !== new Date().getMonth() &&
@@ -189,7 +189,7 @@ const DatePickerComponent = ( {
 											customMonthProps.calendarMonth.date.getFullYear() &&
 										customMonthProps.calendarMonth.date.getFullYear() !==
 											new Date().getFullYear() &&
-										'bg-background-brand text-white hover:bg-background-brand hover:text-black'
+										'bg-background-brand text-text-on-color hover:bg-background-brand hover:text-black'
 								) }
 							>
 								{ format( new Date( 0, monthIndex ), 'MMM' ) }
@@ -245,12 +245,11 @@ const DatePickerComponent = ( {
 					'h-10 w-10 flex items-center justify-center transition text-text-secondary relative',
 					'border-none rounded',
 					isSelected
-						? 'bg-background-brand text-white'
+						? 'bg-background-brand text-text-on-color'
 						: 'bg-transparent hover:bg-button-tertiary-hover',
 					isRangeMiddle
 						? 'bg-blue-50 text-text-secondary rounded-none'
 						: '',
-					isToday ? 'border border-blue-500' : '',
 					isDisabled
 						? 'opacity-50 cursor-not-allowed text-text-disabled'
 						: 'cursor-pointer',
@@ -381,7 +380,7 @@ const DatePickerComponent = ( {
 					row: 'flex w-full mt-2',
 					cell: 'h-10 w-10 text-center text-sm p-0 relative',
 					day: 'h-10 w-10 p-0 font-normal bg-background-primary text-current',
-					day_selected: 'text-white',
+					day_selected: 'text-text-on-color',
 					day_today: 'border-2 border-blue-500 rounded-full',
 					day_outside: 'text-muted-foreground opacity-50',
 					day_disabled: 'text-muted-foreground opacity-50',
