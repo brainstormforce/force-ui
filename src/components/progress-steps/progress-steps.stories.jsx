@@ -85,7 +85,6 @@ Default.args = {
 	size: 'md',
 	type: 'inline',
 	currentStep: 2,
-	lineProps: 'min-w-10',
 };
 
 export const NumberVariant = Template.bind( {} );
