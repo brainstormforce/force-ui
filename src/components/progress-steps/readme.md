@@ -73,7 +73,7 @@ import { Plus } from 'lucide-react';
 const App = () => (
     <div>
         <h2>Progress Example</h2>
-        <ProgressSteps type="inline" variant="number" currentStep={2} size="md" lineProps="min-w-10">
+        <ProgressSteps type="inline" variant="number" currentStep={2} size="md">
             <ProgressSteps.Step labelText="Step 1"/>
             <ProgressSteps.Step labelText="Step 2"/>
             <ProgressSteps.Step labelText="Step 3"/>
