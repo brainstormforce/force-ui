@@ -1,17 +1,19 @@
 import { createContext, useContext, forwardRef } from "react";
 import { cn } from '@/utilities/functions';
 import { ChevronLeft, ChevronRight } from "lucide-react"
-import { sizeClassNames } from "./component-style";
+import { disabledClassNames, sizeClassNames } from "./component-style";
 
 const PageContext = createContext();
 const usePageContext = () => useContext(PageContext);
 
-const Pagination = ({ size = 'sm', children, className, ...props }) => (
-	<PageContext.Provider value={{ size }}>
+const Pagination = ({ size = 'sm', disabled = false, children, className, ...props }) => (
+	<PageContext.Provider value={{ size, disabled }}>
 	<nav
 		role="navigation"
 		aria-label="pagination"
-			className={cn("flex w-full justify-center m-0", className)}
+			className={cn(
+				"flex w-full justify-center m-0",
+				className)}
 		{...props}
 		>
 			{children}
@@ -30,18 +32,24 @@ const PaginationContent = forwardRef(({ className, ...props }, ref) => (
 PaginationContent.displayName = "PaginationContent"
 
 const PaginationItem = forwardRef(({ isActive, className, ...props }, ref) => {
-	const { size } = usePageContext();
+	const { size, disabled } = usePageContext();
 	return (
 		<li
 			ref={ref}
 			tabIndex={0}
 			className={cn(
 				sizeClassNames[size].general,
-				sizeClassNames[size].hover,
-				sizeClassNames[size].focus,
 				sizeClassNames[size].text,
-				isActive && 'text-brand-500 bg-brand-background-50',
-				'cursor-pointer',
+				disabled ? [
+					disabledClassNames.general,
+					disabledClassNames.text,
+					'cursor-not-allowed'
+				] : [
+					'hover:bg-button-tertiary-hover hover:text-button-secondary',
+					'focus:bg-button-tertiary-hover focus:ring',
+					isActive && 'text-button-primary bg-brand-background-50',
+					'cursor-pointer',
+				],
 				className
 			)} {...props} />
 	)
@@ -53,27 +61,30 @@ const PaginationLink = ({
 	href = "#",
 	...props
 }) => {
+	const { disabled } = usePageContext();
 	return (
-	<a
-		className={cn(
-			'no-underline outline-none focus:outline-none text-inherit flex justify-center items-center',
-			className
-		)}
-		{...props}
-	/>
+		<a
+			aria-disabled={disabled}
+			tabIndex={disabled ? -1 : 0}
+			className={cn(
+				'no-underline outline-none focus:outline-none text-inherit flex justify-center items-center',
+				className
+			)}
+			{...props}
+		/>
 	)
 }
 PaginationLink.displayName = "PaginationLink"
 
 const PaginationPrevious = ({ className, ...props }) => {
-	const { size } = usePageContext();
+	const { size, disabled } = usePageContext();
 
 	return (
 	<PaginationLink
-		aria-label="Go to previous page"
-		size="default"
+			aria-label="Go to previous page"
 			className={cn(
 				sizeClassNames[size].icon,
+				disabled && disabledClassNames.icon,
 				className)}
 		{...props}
 	>
@@ -84,13 +95,14 @@ const PaginationPrevious = ({ className, ...props }) => {
 PaginationPrevious.displayName = "PaginationPrevious"
 
 const PaginationNext = ({ className, ...props }) => {
-	const { size } = usePageContext();
+	const { size, disabled } = usePageContext();
+
 	return (
 	<PaginationLink
-		aria-label="Go to next page"
-		size="default"
+			aria-label="Go to next page"
 			className={cn(
 				sizeClassNames[size].icon,
+				disabled && disabledClassNames.icon,
 				className)}
 		{...props}
 	>
@@ -106,7 +118,10 @@ const PaginationEllipsis = ({ className, ...props }) => {
 	return (
 		<div className={cn(
 			sizeClassNames[size].icon,
-			className)} {...props}>
+			className
+		)}
+			{...props}
+		>
 			...
 		</div>
 	)

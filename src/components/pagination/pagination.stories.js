@@ -25,7 +25,7 @@ export default {
 			control: 'boolean',
 			table: {
 				type: { summary: 'boolean' },
-				defaultValue: { summary: 'true' },
+				defaultValue: { summary: 'false' },
 			},
 		},
 		// Add more argTypes as needed
