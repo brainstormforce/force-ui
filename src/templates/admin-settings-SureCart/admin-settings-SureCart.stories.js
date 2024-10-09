@@ -31,6 +31,7 @@ import {
 	Truck,
 	User,
 } from 'lucide-react';
+import { SureCartLogo as Logo } from '@/icons';
 
 export default {
 	title: 'Templates/Admin Settings/Admin Settings - SureCart',
@@ -150,24 +151,6 @@ const LANGUAGE_OPTIONS = [
 		value: 'en-CA',
 	},
 ];
-
-const Logo = ( props ) => (
-	<svg
-		width="24"
-		height="24"
-		viewBox="0 0 24 24"
-		fill="none"
-		xmlns="http://www.w3.org/2000/svg"
-		{ ...props }
-	>
-		<path
-			fillRule="evenodd"
-			clipRule="evenodd"
-			d="M12 24C18.6275 24 24 18.6273 24 11.9999C24 5.37255 18.6275 0 12 0C5.37259 0 0 5.37255 0 11.9999C0 18.6273 5.37259 24 12 24ZM12.0517 5.99996C11.0882 5.99996 9.75474 6.55101 9.0734 7.23073L7.2229 9.07688H16.4465L19.5307 5.99996H12.0517ZM14.9111 16.7692C14.2298 17.4489 12.8964 17.9999 11.9328 17.9999H4.45388L7.53804 14.923H16.7616L14.9111 16.7692ZM17.9089 10.6153H5.68418L5.10673 11.1923C3.73941 12.423 4.14495 13.3846 6.0598 13.3846H18.3176L18.8952 12.8076C20.2492 11.5841 19.8237 10.6153 17.9089 10.6153Z"
-			fill="#01824C"
-		/>
-	</svg>
-);
 
 const Template = () => {
 	const [ activeTab, setActiveTab ] = useState( TABS[ 0 ].slug );
