@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import {
 	Avatar,
 	Badge,
@@ -157,6 +157,23 @@ const Template = () => {
 		return JSON.stringify( value );
 	};
 
+	const renderTabContent = useCallback(
+		( tabSlug, content ) => {
+			if ( tabSlug === activeTab ) {
+				return content;
+			}
+
+			return (
+				<div className="w-full min-h-32 flex items-center justify-center">
+					<p className="text-text-tertiary text-sm font-normal m-0">
+						No content available
+					</p>
+				</div>
+			);
+		},
+		[ activeTab ]
+	);
+
 	return (
 		<Container
 			containerType="flex"
@@ -233,7 +250,7 @@ const Template = () => {
 							<Sidebar.Item>
 								<Menu size="md" className="w-full p-0 gap-4">
 									<Menu.List arrow heading="General" open>
-										<Menu.Item>
+										<Menu.Item active>
 											<Type />
 											<div>Titles and Descriptions</div>
 										</Menu.Item>
@@ -333,141 +350,149 @@ const Template = () => {
 								</Tabs.Group>
 							</Container.Item>
 							{ /* Tab Content */ }
-							<Container.Item className="flex flex-col items-start gap-2">
-								<div className="flex flex-col items-start gap-2.5">
-									{ /* Search Engine Preview Start */ }
-									<Container
-										align="center"
-										justify="between"
-										className="w-full"
-									>
-										<Container.Item>
-											<Label>
-												<span>
-													Search Engine Preview
-												</span>
-												<Tooltip
-													tooltipPortalId="story-root-tw"
-													content="This is just a preview of how your page will look in search engine results."
-													arrow
-													placement="top"
-												>
-													<CircleHelp
-														className="size-4"
-														strokeWidth="1.5"
-													/>
-												</Tooltip>
-											</Label>
-										</Container.Item>
-										<Container.Item>
-											<RadioButton.Group
-												size="xs"
-												style="tile"
-												columns="2"
-												defaultValue="desktop"
+							{ renderTabContent(
+								'general',
+								<>
+									<Container.Item className="flex flex-col items-start gap-2">
+										<div className="flex flex-col items-start gap-2.5">
+											{ /* Search Engine Preview Start */ }
+											<Container
+												align="center"
+												justify="between"
+												className="w-full"
 											>
-												<RadioButton.Button value="desktop">
-													<Monitor className="size-4" />
-												</RadioButton.Button>
-												<RadioButton.Button value="mobile">
-													<Smartphone className="size-4" />
-												</RadioButton.Button>
-											</RadioButton.Group>
-										</Container.Item>
-									</Container>
-									{ /* Preview */ }
-									<div className="p-2 rounded-lg bg-background-secondary">
-										<div className="rounded-md border border-solid border-border-subtle bg-background-primary p-4 space-y-1.5 shadow-sm">
-											{ /* Site logo, title, and URL */ }
-											<div className="grid grid-cols-[1.75rem_1fr] items-center gap-3">
-												{ /* Site logo */ }
-												<Logo className="size-7" />
-												<div className="flex flex-col gap-0.5">
-													<span className="text-text-primary font-semibold">
-														SureRank
-													</span>
-													<div className="flex items-center justify-start gap-2">
-														<span className="text-text-secondary">
-															{ /* Site URL */ }
-															https://www.surerank.com/
+												<Container.Item>
+													<Label>
+														<span>
+															Search Engine
+															Preview
 														</span>
-														<EllipsisVertical className="size-3.5 text-icon-secondary" />
+														<Tooltip
+															tooltipPortalId="story-root-tw"
+															content="This is just a preview of how your page will look in search engine results."
+															arrow
+															placement="top"
+														>
+															<CircleHelp
+																className="size-4"
+																strokeWidth="1.5"
+															/>
+														</Tooltip>
+													</Label>
+												</Container.Item>
+												<Container.Item>
+													<RadioButton.Group
+														size="xs"
+														style="tile"
+														columns="2"
+														defaultValue="desktop"
+													>
+														<RadioButton.Button value="desktop">
+															<Monitor className="size-4" />
+														</RadioButton.Button>
+														<RadioButton.Button value="mobile">
+															<Smartphone className="size-4" />
+														</RadioButton.Button>
+													</RadioButton.Group>
+												</Container.Item>
+											</Container>
+											{ /* Preview */ }
+											<div className="p-2 rounded-lg bg-background-secondary">
+												<div className="rounded-md border border-solid border-border-subtle bg-background-primary p-4 space-y-1.5 shadow-sm">
+													{ /* Site logo, title, and URL */ }
+													<div className="grid grid-cols-[1.75rem_1fr] items-center gap-3">
+														{ /* Site logo */ }
+														<Logo className="size-7" />
+														<div className="flex flex-col gap-0.5">
+															<span className="text-text-primary font-semibold">
+																SureRank
+															</span>
+															<div className="flex items-center justify-start gap-2">
+																<span className="text-text-secondary">
+																	{ /* Site URL */ }
+																	https://www.surerank.com/
+																</span>
+																<EllipsisVertical className="size-3.5 text-icon-secondary" />
+															</div>
+														</div>
+													</div>
+													{ /* Page title and description */ }
+													<div className="space-y-1">
+														<p className="text-xl leading-8 font-normal text-field-label m-0">
+															{ /* Page title */ }
+															SureRank
+														</p>
+														<p className="text-sm leading-5 font-medium text-text-secondary m-0">
+															{ /* Page description */ }
+															Level up your web
+															design skills with
+															our blog. Learn from
+															experts, discover
+															the latest trends,
+															and build beautiful
+															websites.
+														</p>
 													</div>
 												</div>
 											</div>
-											{ /* Page title and description */ }
-											<div className="space-y-1">
-												<p className="text-xl leading-8 font-normal text-field-label m-0">
-													{ /* Page title */ }
-													SureRank
-												</p>
-												<p className="text-sm leading-5 font-medium text-text-secondary m-0">
-													{ /* Page description */ }
-													Level up your web design
-													skills with our blog. Learn
-													from experts, discover the
-													latest trends, and build
-													beautiful websites.
-												</p>
-											</div>
+											{ /* Search Engine Preview End */ }
 										</div>
-									</div>
-									{ /* Search Engine Preview End */ }
-								</div>
-							</Container.Item>
-							<Container
-								direction="column"
-								className="w-full gap-1.5"
-							>
-								<Container.Item className="w-full flex items-center gap-1">
-									<Label className="inline-block">
-										<span>Page Title</span>
-									</Label>
-									<span className="inline-block text-xs font-normal text-field-helper">
-										0/60
-									</span>
-								</Container.Item>
-								<Container.Item className="w-full">
-									<EditorInput
-										defaultValue={ stringValueToFormatJSON(
-											'%page-title% %separator% %site-title%',
-											INPUT_SUGGESTIONS
-										) }
-										by="label"
-										placeholder="Press # to view variable suggestions"
-										options={ INPUT_SUGGESTIONS }
-										trigger="#"
-										size="md"
-									/>
-								</Container.Item>
-								<span className="block text-xs leading-4 font-normal text-field-helper">
-									Type # to view variable suggestions
-								</span>
-							</Container>
-							<Container
-								direction="column"
-								className="w-full gap-1.5"
-							>
-								<Container.Item className="w-full flex items-center gap-1">
-									<Label className="inline-block">
-										<span>Page Description</span>
-									</Label>
-									<span className="inline-block text-xs font-normal text-field-helper">
-										0/60
-									</span>
-								</Container.Item>
-								<EditorInput
-									by="label"
-									className="!min-h-32 [&+div]:items-start [&+div]:pt-1"
-									placeholder="Press # to view variable suggestions"
-									options={ INPUT_SUGGESTIONS }
-									trigger="#"
-									size="md"
-								/>
-								<span className="block text-xs leading-4 font-normal text-field-helper">
-									Type # to view variable suggestions
-								</span>
-							</Container>
+									</Container.Item>
+									<Container
+										direction="column"
+										className="w-full gap-1.5"
+									>
+										<Container.Item className="w-full flex items-center gap-1">
+											<Label className="inline-block">
+												<span>Page Title</span>
+											</Label>
+											<span className="inline-block text-xs font-normal text-field-helper">
+												0/60
+											</span>
+										</Container.Item>
+										<Container.Item className="w-full">
+											<EditorInput
+												defaultValue={ stringValueToFormatJSON(
+													'%page-title% %separator% %site-title%',
+													INPUT_SUGGESTIONS
+												) }
+												by="label"
+												placeholder="Press # to view variable suggestions"
+												options={ INPUT_SUGGESTIONS }
+												trigger="#"
+												size="md"
+											/>
+										</Container.Item>
+										<span className="block text-xs leading-4 font-normal text-field-helper">
+											Type # to view variable suggestions
+										</span>
+									</Container>
+									<Container
+										direction="column"
+										className="w-full gap-1.5"
+									>
+										<Container.Item className="w-full flex items-center gap-1">
+											<Label className="inline-block">
+												<span>Page Description</span>
+											</Label>
+											<span className="inline-block text-xs font-normal text-field-helper">
+												0/60
+											</span>
+										</Container.Item>
+										<EditorInput
+											by="label"
+											className="!min-h-32 [&+div]:items-start [&+div]:pt-1"
+											placeholder="Press # to view variable suggestions"
+											options={ INPUT_SUGGESTIONS }
+											trigger="#"
+											size="md"
+										/>
+										<span className="block text-xs leading-4 font-normal text-field-helper">
+											Type # to view variable suggestions
+										</span>
+									</Container>
+								</>
+							) }
 						</Container>
 					</Container>
 				</form>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import {
 	Avatar,
 	Badge,
@@ -162,6 +162,23 @@ const Template = () => {
 		setActiveTab( slug );
 	};
 
+	const renderTabContent = useCallback(
+		( tabSlug, content ) => {
+			if ( tabSlug === activeTab ) {
+				return content;
+			}
+
+			return (
+				<div className="w-full min-h-32 flex items-center justify-center">
+					<p className="text-text-tertiary text-sm font-normal m-0">
+						No content available
+					</p>
+				</div>
+			);
+		},
+		[ activeTab ]
+	);
+
 	return (
 		<Container
 			containerType="flex"
@@ -250,7 +267,7 @@ const Template = () => {
 							<Sidebar.Item>
 								<Menu size="md" className="w-full p-0 gap-4">
 									<Menu.List arrow heading="Store" open>
-										<Menu.Item>
+										<Menu.Item active>
 											<Store />
 											<div>Store Settings</div>
 										</Menu.Item>
@@ -357,173 +374,222 @@ const Template = () => {
 								</Tabs.Group>
 							</Container.Item>
 							{ /* Tab Content */ }
-							<Container.Item className="flex flex-col items-start gap-6">
-								{ /* Description / Info */ }
-								<p className="text-sm font-normal text-text-secondary m-0">
-									The name of your store will be visible to
-									customers, so you should use a name that is
-									recognizable and identifies your store to
-									your customers.
-								</p>
+							{ renderTabContent(
+								TABS[ 0 ].slug,
+								<>
+									<Container.Item className="flex flex-col items-start gap-6">
+										{ /* Description / Info */ }
+										<p className="text-sm font-normal text-text-secondary m-0">
+											The name of your store will be
+											visible to customers, so you should
+											use a name that is recognizable and
+											identifies your store to your
+											customers.
+										</p>
 
-								<Container
-									className="w-full"
-									containerType="grid"
-									cols={ { sm: 1, md: 1, lg: 2 } }
-								>
-									<Container.Item className="space-y-1.5">
-										<Label required>Store name</Label>
-										<Input size="md" onChange={ () => {} } />
-										<span className="block text-xs leading-4 font-normal text-field-helper">
-											This is displayed in the UI and in
-											notifications.
-										</span>
-									</Container.Item>
-									<Container.Item className="space-y-1.5">
-										<Label>Store URL</Label>
-										<Input size="md" onChange={ () => {} } />
-										<span className="block text-xs leading-4 font-normal text-field-helper">
-											This should be your live storefront
-											URL.
-										</span>
-									</Container.Item>
-								</Container>
-
-								<div className="w-full space-y-1.5">
-									<Label required>Store currency</Label>
-									<Select
-										defaultValue={ CURRENCY_OPTIONS[ 0 ] }
-										onChange={ () => {} }
-										placeholder="Select an option"
-										size="md"
-										combobox
-									>
-										<Select.Button displayBy="label" />
-										<Select.Options
-											searchBy="label"
-											className="font-sans [&_*]:font-sans"
+										<Container
+											className="w-full"
+											containerType="grid"
+											cols={ { sm: 1, md: 1, lg: 2 } }
 										>
-											{ CURRENCY_OPTIONS.map(
-												( optionItem ) => (
-													<Select.Option
-														key={ optionItem.value }
-														value={ optionItem }
+											<Container.Item className="space-y-1.5">
+												<Label required>
+													Store name
+												</Label>
+												<Input
+													size="md"
+													onChange={ () => {} }
+												/>
+												<span className="block text-xs leading-4 font-normal text-field-helper">
+													This is displayed in the UI
+													and in notifications.
+												</span>
+											</Container.Item>
+											<Container.Item className="space-y-1.5">
+												<Label>Store URL</Label>
+												<Input
+													size="md"
+													onChange={ () => {} }
+												/>
+												<span className="block text-xs leading-4 font-normal text-field-helper">
+													This should be your live
+													storefront URL.
+												</span>
+											</Container.Item>
+										</Container>
+
+										<div className="w-full space-y-1.5">
+											<Label required>
+												Store currency
+											</Label>
+											<Select
+												defaultValue={
+													CURRENCY_OPTIONS[ 0 ]
+												}
+												onChange={ () => {} }
+												placeholder="Select an option"
+												size="md"
+												combobox
+											>
+												<Select.Button displayBy="label" />
+												<Select.Options
+													searchBy="label"
+													className="font-sans [&_*]:font-sans"
+												>
+													{ CURRENCY_OPTIONS.map(
+														( optionItem ) => (
+															<Select.Option
+																key={
+																	optionItem.value
+																}
+																value={
+																	optionItem
+																}
+															>
+																{
+																	optionItem.label
+																}
+															</Select.Option>
+														)
+													) }
+												</Select.Options>
+											</Select>
+											<span className="block text-xs leading-4 font-normal text-field-helper">
+												Hint text can be added here.
+												Link
+											</span>
+										</div>
+
+										<Container
+											className="w-full"
+											containerType="grid"
+											cols={ { sm: 1, md: 1, lg: 2 } }
+										>
+											<Container.Item className="space-y-1.5">
+												<Label required>
+													Time zone
+												</Label>
+												<Select
+													defaultValue={
+														TIME_ZONE_OPTIONS[ 0 ]
+													}
+													onChange={ () => {} }
+													placeholder="Select an option"
+													size="md"
+													combobox
+													by="label"
+												>
+													<Select.Button displayBy="label" />
+													<Select.Options
+														searchBy="label"
+														className="font-sans [&_*]:font-sans"
 													>
-														{ optionItem.label }
-													</Select.Option>
-												)
-											) }
-										</Select.Options>
-									</Select>
-									<span className="block text-xs leading-4 font-normal text-field-helper">
-										Hint text can be added here. Link
-									</span>
-								</div>
+														{ TIME_ZONE_OPTIONS.map(
+															( optionItem ) => (
+																<Select.Option
+																	key={
+																		optionItem.value
+																	}
+																	value={
+																		optionItem
+																	}
+																>
+																	{
+																		optionItem.label
+																	}
+																</Select.Option>
+															)
+														) }
+													</Select.Options>
+												</Select>
+												<div className="flex items-center gap-1 text-xs leading-4 font-normal text-field-helper">
+													<InfoIcon className="size-3" />
+													<span>
+														Hint text can be added
+														here. Link
+													</span>
+												</div>
+											</Container.Item>
+											<Container.Item className="space-y-1.5">
+												<Label required>
+													Store language
+												</Label>
+												<Select
+													defaultValue={
+														LANGUAGE_OPTIONS[ 0 ]
+													}
+													onChange={ () => {} }
+													placeholder="Select an option"
+													size="md"
+													combobox
+													by="label"
+												>
+													<Select.Button displayBy="label" />
+													<Select.Options
+														searchBy="label"
+														className="font-sans [&_*]:font-sans"
+													>
+														{ LANGUAGE_OPTIONS.map(
+															( optionItem ) => (
+																<Select.Option
+																	key={
+																		optionItem.value
+																	}
+																	value={
+																		optionItem
+																	}
+																>
+																	{
+																		optionItem.label
+																	}
+																</Select.Option>
+															)
+														) }
+													</Select.Options>
+												</Select>
+												<div className="flex items-center gap-1 text-xs leading-4 font-normal text-field-helper">
+													<InfoIcon className="size-3" />
+													<span>
+														Hint text can be added
+														here. Link
+													</span>
+												</div>
+											</Container.Item>
+										</Container>
 
-								<Container
-									className="w-full"
-									containerType="grid"
-									cols={ { sm: 1, md: 1, lg: 2 } }
-								>
-									<Container.Item className="space-y-1.5">
-										<Label required>Time zone</Label>
-										<Select
-											defaultValue={ TIME_ZONE_OPTIONS[ 0 ] }
-											onChange={ () => {} }
-											placeholder="Select an option"
-											size="md"
-											combobox
-											by="label"
+										<Container
+											className="w-full"
+											containerType="grid"
+											cols={ { sm: 1, md: 1, lg: 2 } }
 										>
-											<Select.Button displayBy="label" />
-											<Select.Options
-												searchBy="label"
-												className="font-sans [&_*]:font-sans"
-											>
-												{ TIME_ZONE_OPTIONS.map(
-													( optionItem ) => (
-														<Select.Option
-															key={
-																optionItem.value
-															}
-															value={ optionItem }
-														>
-															{ optionItem.label }
-														</Select.Option>
-													)
-												) }
-											</Select.Options>
-										</Select>
-										<div className="flex items-center gap-1 text-xs leading-4 font-normal text-field-helper">
-											<InfoIcon className="size-3" />
-											<span>
-												Hint text can be added here.
-												Link
-											</span>
-										</div>
+											<Container.Item className="space-y-1.5">
+												<Label>Terms page</Label>
+												<Input
+													size="md"
+													onChange={ () => {} }
+												/>
+												<span className="block text-xs leading-4 font-normal text-field-helper">
+													This is displayed in the UI
+													and in notifications.
+												</span>
+											</Container.Item>
+											<Container.Item className="space-y-1.5">
+												<Label>
+													Privacy policy page
+												</Label>
+												<Input
+													size="md"
+													onChange={ () => {} }
+												/>
+												<span className="block text-xs leading-4 font-normal text-field-helper">
+													This should be your live
+													storefront URL.
+												</span>
+											</Container.Item>
+										</Container>
 									</Container.Item>
-									<Container.Item className="space-y-1.5">
-										<Label required>Store language</Label>
-										<Select
-											defaultValue={ LANGUAGE_OPTIONS[ 0 ] }
-											onChange={ () => {} }
-											placeholder="Select an option"
-											size="md"
-											combobox
-											by="label"
-										>
-											<Select.Button displayBy="label" />
-											<Select.Options
-												searchBy="label"
-												className="font-sans [&_*]:font-sans"
-											>
-												{ LANGUAGE_OPTIONS.map(
-													( optionItem ) => (
-														<Select.Option
-															key={
-																optionItem.value
-															}
-															value={ optionItem }
-														>
-															{ optionItem.label }
-														</Select.Option>
-													)
-												) }
-											</Select.Options>
-										</Select>
-										<div className="flex items-center gap-1 text-xs leading-4 font-normal text-field-helper">
-											<InfoIcon className="size-3" />
-											<span>
-												Hint text can be added here.
-												Link
-											</span>
-										</div>
-									</Container.Item>
-								</Container>
-
-								<Container
-									className="w-full"
-									containerType="grid"
-									cols={ { sm: 1, md: 1, lg: 2 } }
-								>
-									<Container.Item className="space-y-1.5">
-										<Label>Terms page</Label>
-										<Input size="md" onChange={ () => {} } />
-										<span className="block text-xs leading-4 font-normal text-field-helper">
-											This is displayed in the UI and in
-											notifications.
-										</span>
-									</Container.Item>
-									<Container.Item className="space-y-1.5">
-										<Label>Privacy policy page</Label>
-										<Input size="md" onChange={ () => {} } />
-										<span className="block text-xs leading-4 font-normal text-field-helper">
-											This should be your live storefront
-											URL.
-										</span>
-									</Container.Item>
-								</Container>
-							</Container.Item>
+								</>
+							) }
 						</Container>
 					</Container>
 				</form>
