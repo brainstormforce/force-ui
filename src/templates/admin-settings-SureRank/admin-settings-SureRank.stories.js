@@ -12,6 +12,7 @@ import {
 	Title,
 	Topbar,
 	EditorInput,
+	Tooltip,
 } from '@/components';
 import {
 	ArrowUpRight,
@@ -42,7 +43,10 @@ export default {
 	},
 	decorators: [
 		( Story, parameters ) => (
-			<div className="box-border [&_*]:box-border w-full h-[100dvh]">
+			<div
+				id="story-root-tw"
+				className="box-border [&_*]:box-border w-full h-[100dvh]"
+			>
 				<Story { ...parameters } />
 			</div>
 		),
@@ -342,10 +346,17 @@ const Template = () => {
 												<span>
 													Search Engine Preview
 												</span>
-												<CircleHelp
-													className="size-4"
-													strokeWidth="1.5"
-												/>
+												<Tooltip
+													tooltipPortalId="story-root-tw"
+													content="This is just a preview of how your page will look in search engine results."
+													arrow
+													placement="top"
+												>
+													<CircleHelp
+														className="size-4"
+														strokeWidth="1.5"
+													/>
+												</Tooltip>
 											</Label>
 										</Container.Item>
 										<Container.Item>
