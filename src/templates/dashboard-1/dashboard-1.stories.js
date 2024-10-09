@@ -1,4 +1,4 @@
-import { Topbar, Avatar, Container, Label, Button, Badge, RadioButton } from "@/components";
+import { Topbar, Avatar, Container, Title, Label, Button, Badge, RadioButton } from "@/components";
 import { ArrowUpRight, CircleHelp, Bell, CirclePlay, Ellipsis, Upload, Paintbrush, PanelTop, PanelBottom, PaintBucket, Type, SquareMousePointer, PenTool, LayoutTemplate, Menu, Palette, Baseline, Ruler, Newspaper, PanelTopDashed, PanelsTopLeft } from 'lucide-react';
 import astraVideo from "./astraVideo.png"
 import AvatarImage from "./AvatarImage.png"
@@ -323,7 +323,7 @@ export const Dashboard = () => {
                 <Container.Item colSpan={8} className="flex flex-col gap-8">
                     <Container containerType="grid" cols={8} gap={4} className="bg-background-primary p-4 shadow-sm rounded-xl">
                         <Container.Item colSpan={5} className="grid p-2">
-                            <h3 className="text-2xl m-0 font-bold">Welcome to Astra</h3>
+                            <Title tag="h3" title="Welcome to Astra" size="lg" />
                             <p className="text-sm text-text-secondary m-0">
                             Astra is fast, fully customizable & beautiful WordPress theme suitable for blog, personal portfolio, business website and WooCommerce storefront. It is very lightweight and offers unparalleled speed.
                             </p>
@@ -359,10 +359,6 @@ export const Dashboard = () => {
                                     <Label className="font-semibold">Quick Settings</Label>
                                 </Container.Item>
                                 <Container.Item className="items-center flex gap-2">
-                                    {/* <Label>
-                                        View All 
-                                        <ArrowUpRight />
-                                    </Label> */}
                                     <Button variant="ghost" className="p-0 leading-none	">
                                         <Ellipsis />
                                     </Button>
@@ -372,7 +368,7 @@ export const Dashboard = () => {
                                 </Container.Item>
                             </Container>
                         </Container.Item>
-                        <Container.Item className="md:w-full lg:w-full p-1 bg-field-primary-background ">
+                        <Container.Item className="md:w-full lg:w-full p-2 rounded-lg bg-field-primary-background ">
                             <RadioButton.Group
                                 as="div"
                                 defaultValue={ `option-${ radioButtonGroupData[ 0 ].id }` }
@@ -396,6 +392,7 @@ export const Dashboard = () => {
                                         useSwitch={ option.useSwitch }
                                         className="px-2"
                                         badgeItem={ option.badge }
+                                        buttonWrapperClasses="bg-background-primary"
                                     />
                                 ) ) }
                             </RadioButton.Group>

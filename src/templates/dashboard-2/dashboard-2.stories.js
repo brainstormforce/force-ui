@@ -1,11 +1,5 @@
-import { Topbar } from "@/components";
-import { Container } from "@/components";
+import { Topbar, Container, Title, Label, Button, Badge, RadioButton } from "@/components";
 import { ArrowUpRight, CircleHelp, Megaphone , CirclePlay, Plus, ExternalLink, House, Bell, Settings, Shield, AppWindow, PictureInPicture, Share2, Newspaper, ChartNoAxesGantt, Map, PanelLeftClose, Ellipsis, Headset, HelpCircle, MessageSquare, Star, Zap, Check, X } from 'lucide-react';
-import { Button } from "@/components";
-import { Badge } from "@/components";
-import { Alert } from "@/components";
-import { Label } from "@/components";
-import { RadioButton } from "@/components";
 import video from "./video.png"
 import { SpectraLogo, AstraThemeSvg, StartersTemplatesSvg, SureCartSvg, PrestoPlayerSvg } from "./dashboard-2-svgs";
 import contentImageSpectra from "./contentImageSpectra.png";
@@ -365,8 +359,8 @@ export const Dashboard2 = () => {
                 {/* First Column */}
                 <Container.Item colSpan={8} className="flex flex-col gap-8">
                     <Container containerType="grid" cols={8} gap={4} className="bg-background-primary p-6 shadow-sm rounded-2xl">
-                        <Container.Item colSpan={5} className="flex flex-col ">
-                            <h3 className="text-2xl m-0 font-bold">Welcome to Spectra!</h3>
+                        <Container.Item colSpan={5} className="flex flex-col">
+                            <Title tag="h3" title="Welcome to Spectra!" size="lg" />
                             <p className="text-sm text-text-secondary">
                             We designed Spectra to be intuitive but we do recommend learning how it works by checking our comprehensive documentation and watching the video below. Enjoy your time with Spectra!
                             </p>
@@ -400,7 +394,7 @@ export const Dashboard2 = () => {
                     <Container
                         containerType="flex"
                         direction="column"
-                        className="md:w-full lg:w-full bg-background-primary border border-solid rounded-md border-border-subtle p-4"
+                        className="bg-background-primary md:w-full lg:w-full border border-solid rounded-xl border-border-subtle p-4"
                         gap="xs"
                     >
                         <Container.Item className="md:w-full p-1 lg:w-full">
@@ -410,7 +404,13 @@ export const Dashboard2 = () => {
                                 </Container.Item>
                                 <Container.Item className="items-center flex" gap="xs">
                                     <Label>
-                                        View All <ArrowUpRight />{ ' ' }
+                                        <Button
+                                            icon={ <ArrowUpRight /> }
+                                            iconPosition="right"
+                                            variant="ghost"
+                                        >
+                                            View All
+                                        </Button>
                                     </Label>
                                     <Button variant="ghost" className="p-0 leading-none	">
                                         { ' ' }
@@ -419,7 +419,7 @@ export const Dashboard2 = () => {
                                 </Container.Item>
                             </Container>
                         </Container.Item>
-                        <Container.Item className="md:w-full lg:w-full p-1 bg-field-primary-background ">
+                        <Container.Item className="md:w-full lg:w-full p-1 bg-field-primary-background rounded-lg">
                             <RadioButton.Group
                                 as="div"
                                 defaultValue={ `option-${ radioButtonGroupData[ 0 ].id }` }
@@ -427,7 +427,7 @@ export const Dashboard2 = () => {
                                 onChange={ ( value ) => {
                                     return value;
                                 } }
-                                className="w-full"
+                                className="w-full gap-1"
                             >
                                 { radioButtonGroupData.map( ( option ) => (
                                     <RadioButton.Button
@@ -444,6 +444,7 @@ export const Dashboard2 = () => {
                                         useSwitch={ option.useSwitch }
                                         className="px-2"
                                         badgeItem={ option.bagde }
+                                        buttonWrapperClasses="bg-background-primary"
                                     />
                                 ) ) }
                             </RadioButton.Group>
@@ -628,35 +629,32 @@ export const Dashboard2 = () => {
                         <Container.Item className="md:w-full lg:w-full p-1">
                             <Label className="font-semibold">Quick Access</Label>
                         </Container.Item>
-                        <Container.Item className="md:w-full lg:w-full bg-field-primary-background p-1">
-                            { /* Mapping the containerRowButtons array */ }
-                            <RadioButton.Group
-                                as="div"
-                                defaultValue={ `option-${ containerRowButtons[ 0 ].id }` }
-                                onChange={ ( value ) => {
-                                    return value;
-                                } }
-                                vertical={ true }
-                                className="w-full gap-1"
-                            >
-                                { containerRowButtons.map( ( option ) => (
-                                    <RadioButton.Button
-                                        key={ `option-${ option.id }` }
-                                        borderOn={ true }
-                                        value={ option.value }
-                                        inlineIcon={ true }
-                                        icon={ option.icon }
-                                        hideSelection={ option.hideSelection }
-                                        toggleLabel={ option.toggleLabel }
-                                        label={ {
-                                            heading: option.label,
-                                        } }
-                                        useSwitch={ option.useSwitch }
-                                        className="px-2"
-                                        badgeItem={ option.bagde }
-                                    />
-                                ) ) }
-                            </RadioButton.Group>
+                        <Container.Item className="flex flex-col md:w-full lg:w-full bg-field-primary-background gap-1 p-1 rounded-lg">
+                            { containerRowButtons.map( ( button ) => (
+                                <div
+                                    key={ button.id }
+                                    className='p-2 gap-1 className="items-cente bg-background-primary rounded-md shadow-soft-shadow-inner'
+                                >
+                                    <Container
+                                        key={ button.id }
+                                        containerType="flex"
+                                        direction="row"
+                                        className="gap-1 p-1"
+                                        align="center"
+                                    >
+                                        <Container.Item>{ button.icon }</Container.Item>
+                                        <Container.Item>
+                                            <Button
+                                                variant="ghost"
+                                                className="py-0 font-normal"
+                                            >
+                                                { button.label }
+                                            </Button>
+                                        </Container.Item>
+                                        <Container.Item>{ button.bagde }</Container.Item>
+                                    </Container>
+                                </div>
+                            ) ) }
                         </Container.Item>
                     </Container>
                     
