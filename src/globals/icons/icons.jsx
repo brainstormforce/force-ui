@@ -1,12 +1,12 @@
 export const Icons = {
-	AstraThemeSvg: (props) => (
+	AstraThemeSvg: ( props ) => (
 		<svg
 			width="21"
 			height="20"
 			viewBox="0 0 21 20"
 			fill="none"
 			xmlns="http://www.w3.org/2000/svg"
-			{...props}
+			{ ...props }
 		>
 			<path
 				fillRule="evenodd"
@@ -29,14 +29,14 @@ export const Icons = {
 			</defs>
 		</svg>
 	),
-	StartersTemplatesSvg: (props) => (
+	StartersTemplatesSvg: ( props ) => (
 		<svg
 			width="21"
 			height="20"
 			viewBox="0 0 21 20"
 			fill="none"
 			xmlns="http://www.w3.org/2000/svg"
-			{...props}
+			{ ...props }
 		>
 			<g clipPath="url(#clip0_9150_48086)">
 				<path
@@ -86,14 +86,14 @@ export const Icons = {
 			</defs>
 		</svg>
 	),
-	SureCartSvg: (props) => (
+	SureCartSvg: ( props ) => (
 		<svg
 			width="21"
 			height="20"
 			viewBox="0 0 21 20"
 			fill="none"
 			xmlns="http://www.w3.org/2000/svg"
-			{...props}
+			{ ...props }
 		>
 			<path
 				fillRule="evenodd"
@@ -103,18 +103,18 @@ export const Icons = {
 			/>
 		</svg>
 	),
-	SureEmailsLogo: (props) => (
+	SureEmailsLogo: ( props ) => (
 		<svg
 			width="145"
 			height="24"
 			viewBox="0 0 145 24"
 			fill="none"
 			xmlns="http://www.w3.org/2000/svg"
-			{...props}
+			{ ...props }
 		>
 			<path
-				fill-rule="evenodd"
-				clip-rule="evenodd"
+				fillRule="evenodd"
+				clipRule="evenodd"
 				d="M12 24C18.6274 24 24 18.6274 24 12C24 5.37259 18.6274 0 12 0C5.37259 0 0 5.37259 0 12C0 18.6274 5.37259 24 12 24ZM12.0517 6C11.0881 6 9.75473 6.55103 9.07334 7.23077L7.22289 9.07692H16.4465L19.5306 6H12.0517ZM14.9111 16.7692C14.2298 17.449 12.8963 18 11.9328 18H4.45388L7.53804 14.9231H16.7616L14.9111 16.7692ZM17.9088 10.6154H5.68416L5.10671 11.1923C3.73941 12.4231 4.14493 13.3846 6.05978 13.3846H18.3175L18.8952 12.8077C20.2492 11.5841 19.8237 10.6154 17.9088 10.6154Z"
 				fill="#0D7EE8"
 			/>
@@ -128,14 +128,14 @@ export const Icons = {
 			/>
 		</svg>
 	),
-	PrestoPlayerSvg: (props) => (
+	PrestoPlayerSvg: ( props ) => (
 		<svg
 			width="21"
 			height="20"
 			viewBox="0 0 21 20"
 			fill="none"
 			xmlns="http://www.w3.org/2000/svg"
-			{...props}
+			{ ...props }
 		>
 			<path
 				d="M13.6094 9.93105L19.3338 6.60156V13.2606L13.6094 9.93105Z"

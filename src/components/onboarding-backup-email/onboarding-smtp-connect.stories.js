@@ -8,14 +8,13 @@ import Input from '../input';
 import Select from '../select';
 import { Icons } from '@/globals/icons/icons';
 
-
 export default {
 	title: 'Templates/OnboardingBackupEmail',
 	component: OnboardingBackupEmail,
 	parameters: {
 		layout: 'fullscreen',
 	},
-	tags: ['autodocs'],
+	tags: [ 'autodocs' ],
 	argTypes: {
 		children: {
 			description: 'Content to render inside the OnboardingBackupEmail.',
@@ -24,10 +23,10 @@ export default {
 	},
 };
 
-const Template = (args) => {
+const Template = ( args ) => {
 	return (
 		<OnboardingBackupEmail
-			{...args}
+			{ ...args }
 			className="bg-background-secondary min-h-screen w-full pb-10"
 		>
 			<Topbar className="bg-background-secondary">
@@ -38,7 +37,7 @@ const Template = (args) => {
 				</Topbar.Left>
 				<Topbar.Middle>
 					<Topbar.Item>
-						<ProgressSteps currentStep={3} variant='number'>
+						<ProgressSteps currentStep={ 3 } variant="number">
 							<ProgressSteps.Step />
 							<ProgressSteps.Step />
 							<ProgressSteps.Step />
@@ -50,28 +49,28 @@ const Template = (args) => {
 				<Topbar.Right>
 					<Topbar.Item>
 						<Button
-							icon={<X />}
+							icon={ <X /> }
 							iconPosition="right"
 							variant="ghost"
 						>
 							Exit Guided Setup
 						</Button>
-						
 					</Topbar.Item>
 				</Topbar.Right>
 			</Topbar>
-			<form onSubmit={(event) => event.preventDefault()}>
+			<form onSubmit={ ( event ) => event.preventDefault() }>
 				<div className="w-8/12 p-6 mx-auto gap-10 border-border-subtle bg-background-primary rounded-md mt-10">
 					<div>
 						<Label size="md" className="font-semibold">
-						Now, Let&#39;s Connect With [Selected SMTP Provider Name]
+							Now, Let&#39;s Connect With [Selected SMTP Provider
+							Name]
 						</Label>
 						<Label className="w-10/12 text-text-secondary mt-1">
-						Enter the details below to connect with your [Provider Name] account.
+							Enter the details below to connect with your
+							[Provider Name] account.
 						</Label>
 					</div>
 					<div className="grid grid-cols-2 gap-6 mt-6">
-						 
 						<div>
 							<Input
 								id="name"
@@ -99,8 +98,8 @@ const Template = (args) => {
 								label="Host"
 							/>
 						</div>
-						<div >
-							<Input 
+						<div>
+							<Input
 								id="Username"
 								name="Username"
 								size="md"
@@ -108,9 +107,9 @@ const Template = (args) => {
 								label="Username"
 							/>
 						</div>
-						<div >
-							<Input 
-							type="password"
+						<div>
+							<Input
+								type="password"
 								id="Password"
 								name="Password"
 								size="md"
@@ -118,9 +117,9 @@ const Template = (args) => {
 								label="Password"
 							/>
 						</div>
-						<div >
-							<Input 
-							type="email"
+						<div>
+							<Input
+								type="email"
 								id="Email"
 								name="Email"
 								size="md"
@@ -128,8 +127,8 @@ const Template = (args) => {
 								label="Email"
 							/>
 						</div>
-						<div >
-							<Input 
+						<div>
+							<Input
 								id="FromName"
 								name="FromName"
 								size="md"
@@ -137,8 +136,8 @@ const Template = (args) => {
 								label="From Name"
 							/>
 						</div>
-						<div >
-							<Input 
+						<div>
+							<Input
 								id="Port"
 								name="Port"
 								size="md"
@@ -146,7 +145,7 @@ const Template = (args) => {
 								label="Port"
 							/>
 						</div>
-						 
+
 						<div>
 							<Select
 								onChange={ () => {} }
@@ -184,9 +183,9 @@ const Template = (args) => {
 							Back
 						</Button>
 						<div className="flex justify-end items-center gap-6">
-							<span className='text-sm'>Skip</span>
+							<span className="text-sm">Skip</span>
 							<Button className="flex items-center gap-2">
-							Continue Setup <ChevronRight />
+								Continue Setup <ChevronRight />
 							</Button>
 						</div>
 					</div>
@@ -196,7 +195,7 @@ const Template = (args) => {
 	);
 };
 
-export const DefaultOnboardingBackupEmail = Template.bind({});
+export const DefaultOnboardingBackupEmail = Template.bind( {} );
 DefaultOnboardingBackupEmail.args = {};
 
 DefaultOnboardingBackupEmail.storyName = 'OnboardingBackupEmail';

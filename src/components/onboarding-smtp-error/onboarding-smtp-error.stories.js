@@ -9,15 +9,13 @@ import Select from '../select';
 import Alert from '../alert';
 import { Icons } from '@/globals/icons/icons';
 
-
-
 export default {
 	title: 'Templates/OnboardingSmtpError',
 	component: OnboardingSmtpError,
 	parameters: {
 		layout: 'fullscreen',
 	},
-	tags: ['autodocs'],
+	tags: [ 'autodocs' ],
 	argTypes: {
 		children: {
 			description: 'Content to render inside the OnboardingSmtpError.',
@@ -26,10 +24,10 @@ export default {
 	},
 };
 
-const Template = (args) => {
+const Template = ( args ) => {
 	return (
 		<OnboardingSmtpError
-			{...args}
+			{ ...args }
 			className="bg-background-secondary min-h-screen w-full pb-10"
 		>
 			<Topbar className="bg-background-secondary">
@@ -40,7 +38,7 @@ const Template = (args) => {
 				</Topbar.Left>
 				<Topbar.Middle>
 					<Topbar.Item>
-						<ProgressSteps currentStep={2} variant='number'>
+						<ProgressSteps currentStep={ 2 } variant="number">
 							<ProgressSteps.Step />
 							<ProgressSteps.Step />
 							<ProgressSteps.Step />
@@ -52,28 +50,28 @@ const Template = (args) => {
 				<Topbar.Right>
 					<Topbar.Item>
 						<Button
-							icon={<X />}
+							icon={ <X /> }
 							iconPosition="right"
 							variant="ghost"
 						>
 							Exit Guided Setup
 						</Button>
-
 					</Topbar.Item>
 				</Topbar.Right>
 			</Topbar>
-			<form onSubmit={(event) => event.preventDefault()}>
+			<form onSubmit={ ( event ) => event.preventDefault() }>
 				<div className="w-8/12 p-6 mx-auto gap-10 border-border-subtle bg-background-primary rounded-md mt-10">
 					<div>
 						<Label size="md" className="font-semibold">
-							Now, Let&#39;s Connect With [Selected SMTP Provider Name]
+							Now, Let&#39;s Connect With [Selected SMTP Provider
+							Name]
 						</Label>
 						<Label className="w-10/12 text-text-secondary mt-1">
-							Enter the details below to connect with your [Provider Name] account.
+							Enter the details below to connect with your
+							[Provider Name] account.
 						</Label>
 					</div>
 					<div className="grid grid-cols-2 gap-6 mt-6">
-
 						<div>
 							<Input
 								id="name"
@@ -101,7 +99,7 @@ const Template = (args) => {
 								label="Host"
 							/>
 						</div>
-						<div >
+						<div>
 							<Input
 								id="Username"
 								name="Username"
@@ -110,7 +108,7 @@ const Template = (args) => {
 								label="Username"
 							/>
 						</div>
-						<div >
+						<div>
 							<Input
 								type="password"
 								id="Password"
@@ -120,7 +118,7 @@ const Template = (args) => {
 								label="Password"
 							/>
 						</div>
-						<div >
+						<div>
 							<Input
 								type="email"
 								id="Email"
@@ -130,7 +128,7 @@ const Template = (args) => {
 								label="Email"
 							/>
 						</div>
-						<div >
+						<div>
 							<Input
 								id="FromName"
 								name="FromName"
@@ -139,7 +137,7 @@ const Template = (args) => {
 								label="From Name"
 							/>
 						</div>
-						<div >
+						<div>
 							<Input
 								id="Port"
 								name="Port"
@@ -151,25 +149,25 @@ const Template = (args) => {
 
 						<div>
 							<Select
-								onChange={() => { }}
+								onChange={ () => {} }
 								placeholder="Select an option"
 								size="md"
 							>
 								<Select.Button label="Encryption" />
 								<Select.Options dropdownPortalId="Encryption">
 									<Select.Option
-										value={{
+										value={ {
 											id: '1',
 											name: 'Symmetrical',
-										}}
+										} }
 									>
 										Symmetrical
 									</Select.Option>
 									<Select.Option
-										value={{
+										value={ {
 											id: '2',
 											name: 'Assymetrical',
-										}}
+										} }
 									>
 										Assymetrical
 									</Select.Option>
@@ -191,11 +189,11 @@ const Template = (args) => {
 							</Button>
 						</div>
 					</div>
-					<div className='mt-6'>
+					<div className="mt-6">
 						<Alert
 							content="Please check the details and try again."
-							icon={<AlertTriangle />}
-							onClose={() => { }}
+							icon={ <AlertTriangle /> }
+							onClose={ () => {} }
 							title="Verification failed."
 							variant="error"
 						/>
@@ -206,7 +204,7 @@ const Template = (args) => {
 	);
 };
 
-export const DefaultOnboardingSmtpError = Template.bind({});
+export const DefaultOnboardingSmtpError = Template.bind( {} );
 DefaultOnboardingSmtpError.args = {};
 
 DefaultOnboardingSmtpError.storyName = 'OnboardingSmtpError';
