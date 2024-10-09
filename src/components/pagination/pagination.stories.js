@@ -28,6 +28,13 @@ export default {
 				defaultValue: { summary: 'false' },
 			},
 		},
+		onClick: {
+			name: 'OnClick',
+			description: 'Callback function to handle page button click.',
+			table: {
+				type: { summary: 'function' },
+			},
+		},
 		// Add more argTypes as needed
 	},
 };
@@ -43,25 +50,42 @@ const items = [
 
 // Template function for rendering pagination
 const Template = (args) => {
+	const [activeIndex, setActiveIndex] = useState(0);
+
+	const items = [
+		{ label: '1' },
+		{ label: '2' },
+		{ label: '3' },
+		{ label: '4' },
+		{ label: '5' },
+	];
+
+	const handleClick = (index) => {
+		setActiveIndex(index);
+	};
+
 	return (
 		<div style={{ width: '400px' }}>
 			<Pagination {...args}>
 				<Pagination.Content>
 					<Pagination.Item>
-						<Pagination.Previous href="#" />
+						<Pagination.Previous onClick={() => handleClick(-1)} />
 					</Pagination.Item>
 					{items.map((item, index) => (
-						<Pagination.Item key={index} isActive={item.isActive}>
-							<Pagination.Link href={item.href} isActive={item.isActive}>
+						<Pagination.Item key={index}>
+							<Pagination.Link
+								onClick={() => handleClick(index)}
+								isActive={activeIndex === index}
+							>
 								{item.label}
 							</Pagination.Link>
 						</Pagination.Item>
 					))}
 					<Pagination.Item>
-						<Pagination.Ellipsis />
+						<Pagination.Ellipsis onClick={() => handleClick(items.length)} />
 					</Pagination.Item>
 					<Pagination.Item>
-						<Pagination.Next href="#" />
+						<Pagination.Next onClick={() => handleClick(items.length + 1)} />
 					</Pagination.Item>
 				</Pagination.Content>
 			</Pagination>

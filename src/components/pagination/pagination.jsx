@@ -62,6 +62,7 @@ const PaginationLink = ({
 	href = "#",
 	children,
 	isActive,
+	onClick = () => { },
 	icon = null,
 	...props
 }) => {
@@ -83,8 +84,10 @@ const PaginationLink = ({
 				!disabled && isActive && 'text-button-primary bg-brand-background-50',
 				disabled && 'hover:none'
 			)}
+			onClick={onClick}
 			disabled={disabled}
 			icon={icon}
+
 		>
 			{children}
 		</Button>
@@ -92,7 +95,7 @@ const PaginationLink = ({
 }
 PaginationLink.displayName = "PaginationLink"
 
-const PaginationPrevious = ({ className, ...props }) => {
+const PaginationPrevious = ({ onClick = () => { }, className, ...props }) => {
 	const { size, disabled } = usePageContext();
 
 	return (
@@ -103,13 +106,14 @@ const PaginationPrevious = ({ className, ...props }) => {
 				// disabled && disabledClassNames.icon,
 				className)}
 			icon={<ChevronLeft />}
+			onClick={onClick}
 		{...props}
 		/>
 	)
 }
 PaginationPrevious.displayName = "PaginationPrevious"
 
-const PaginationNext = ({ className, ...props }) => {
+const PaginationNext = ({ onClick = () => { }, className, ...props }) => {
 	const { size, disabled } = usePageContext();
 
 	return (
@@ -120,18 +124,20 @@ const PaginationNext = ({ className, ...props }) => {
 				// disabled && disabledClassNames.icon,
 				className)}
 			icon={<ChevronRight />}
+			onClick={onClick}
 		{...props}
 		/>
 	)
 }
 PaginationNext.displayName = "PaginationNext"
 
-const PaginationEllipsis = ({ className, ...props }) => {
+const PaginationEllipsis = ({ onClick = () => { }, className, ...props }) => {
 	const { size } = usePageContext();
 
 	return (
 		<PaginationLink
 			className={cn(className)}
+			onClick={onClick}
 			{...props}
 		>
 			...
