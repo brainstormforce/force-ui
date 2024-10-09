@@ -10,21 +10,13 @@ export const sizeClassNames = {
     lg: 'py-3 px-3 rounded-md',
 }
 export const variantClassNames = {
-    primary: 'border border-solid border-border-subtle bg-field-primary-background',
-    secondary: 'border border-solid border-border-subtle bg-field-secondary-background',
-    ghost: 'text-text-secondary bg-transparent border border-transparent',
+    primary: 'bg-field-primary-background border border-solid border-field-border hover:border-border-strong',
+    secondary: 'bg-field-secondary-background border border-solid border-field-border hover:border-border-strong',
+    ghost: 'bg-field-secondary-background border-transparent',
 };
 
-export const IconClasses = 'text-text-tertiary group-hover:text-text-secondary group-focus:text-text-secondary'
+export const IconClasses = 'text-icon-secondary group-hover:text-icon-primary group-focus:text-icon-primary'
 
-export const hoverClassNames = {
-    enabled: 'hover:border-border-strong text-text-primary',
-    disabled: 'hover:border-border-disabled',
-};
+export const disabledClassNames = 'border-border-disabled hover:border-border-disabled bg-field-background-disabled cursor-not-allowed text-text-disabled';
 
-export const focusClassNames =
-    'text-text-primary';
-
-export const disabledClassNames = 'border-border-disabled bg-field-background-disabled cursor-not-allowed text-text-disabled';
-
-export const baseClassNames = 'font-normal placeholder-text-tertiary text-text-secondary w-full focus:outline-none';
+export const baseClassNames = 'font-normal w-full';

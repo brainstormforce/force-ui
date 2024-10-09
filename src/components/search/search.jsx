@@ -5,8 +5,6 @@ import Loader from '../loader';
 import {
 	textSizeClassNames,
 	variantClassNames,
-	hoverClassNames,
-	focusClassNames,
 	disabledClassNames,
 	baseClassNames,
 	sizeClassNames,
@@ -102,9 +100,9 @@ const SearchBoxInput = forwardRef(({
 				variantClassNames[variant],
 				sizeClassNames[dimension],
 				textSizeClassNames[dimension],
-				disabled ? hoverClassNames.disabled : hoverClassNames.enabled,
-				disabled ? disabledClassNames : '',
-				'focus-within:border-focus-border focus-within:ring-2 focus-within:ring-focus focus-within:ring-offset-2',
+				disabled && disabledClassNames,
+				'focus-within:ring-1 focus-within:ring-focus focus-within:ring-offset-2',
+				'text-field-placeholder',
 			)
 
 			}
@@ -113,9 +111,9 @@ const SearchBoxInput = forwardRef(({
 			<span
 				className={cn(
 					textSizeClassNames[dimension],
-					!disabled && IconClasses,
+					disabled ? 'text-icon-disabled' : IconClasses,
 					"flex justify-center items-center",
-					"group-focus:text-text-secondary")}>
+				)}>
 				<Search />
 			</span>
 			<input
@@ -125,7 +123,7 @@ const SearchBoxInput = forwardRef(({
 					textSizeClassNames[dimension],
 					'flex-grow bg-transparent border-none outline-none border-transparent focus:ring-0',
 					disabled && disabledClassNames,
-
+					'text-field-placeholder focus-within:text-field-input',
 					className
 				)}
 				disabled={disabled}
@@ -137,9 +135,8 @@ const SearchBoxInput = forwardRef(({
 			<span
 				className={cn(
 					textSizeClassNames[dimension],
-					!disabled && IconClasses,
-					'bg-background-primary border border-solid border-border-subtle',
-					'group-focus:text-text-secondary',
+					disabled ? 'text-icon-disabled' : IconClasses,
+					'bg-field-secondary-background border border-solid border-field-border',
 					dimension === 'sm'
 						? 'px-2 py-0.5'
 						: dimension === 'md'
