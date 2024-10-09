@@ -400,10 +400,15 @@ const Template = () => {
 													size="md"
 													onChange={ () => {} }
 												/>
-												<span className="block text-xs leading-4 font-normal text-field-helper">
+												<Label
+													tag="p"
+													size="xs"
+													variant="help"
+													className="m-0"
+												>
 													This is displayed in the UI
 													and in notifications.
-												</span>
+												</Label>
 											</Container.Item>
 											<Container.Item className="space-y-1.5">
 												<Label>Store URL</Label>
@@ -411,10 +416,15 @@ const Template = () => {
 													size="md"
 													onChange={ () => {} }
 												/>
-												<span className="block text-xs leading-4 font-normal text-field-helper">
+												<Label
+													tag="p"
+													size="xs"
+													variant="help"
+													className="m-0"
+												>
 													This should be your live
 													storefront URL.
-												</span>
+												</Label>
 											</Container.Item>
 										</Container>
 
@@ -454,10 +464,15 @@ const Template = () => {
 													) }
 												</Select.Options>
 											</Select>
-											<span className="block text-xs leading-4 font-normal text-field-helper">
+											<Label
+												tag="p"
+												size="xs"
+												variant="help"
+												className="m-0"
+											>
 												Hint text can be added here.
 												Link
-											</span>
+											</Label>
 										</div>
 
 										<Container
@@ -502,13 +517,18 @@ const Template = () => {
 														) }
 													</Select.Options>
 												</Select>
-												<div className="flex items-center gap-1 text-xs leading-4 font-normal text-field-helper">
+												<Label
+													tag="p"
+													size="xs"
+													variant="help"
+													className="m-0"
+												>
 													<InfoIcon className="size-3" />
 													<span>
 														Hint text can be added
 														here. Link
 													</span>
-												</div>
+												</Label>
 											</Container.Item>
 											<Container.Item className="space-y-1.5">
 												<Label required>
@@ -547,13 +567,18 @@ const Template = () => {
 														) }
 													</Select.Options>
 												</Select>
-												<div className="flex items-center gap-1 text-xs leading-4 font-normal text-field-helper">
+												<Label
+													tag="p"
+													size="xs"
+													variant="help"
+													className="m-0"
+												>
 													<InfoIcon className="size-3" />
 													<span>
 														Hint text can be added
 														here. Link
 													</span>
-												</div>
+												</Label>
 											</Container.Item>
 										</Container>
 
@@ -568,10 +593,15 @@ const Template = () => {
 													size="md"
 													onChange={ () => {} }
 												/>
-												<span className="block text-xs leading-4 font-normal text-field-helper">
+												<Label
+													tag="p"
+													size="xs"
+													variant="help"
+													className="m-0"
+												>
 													This is displayed in the UI
 													and in notifications.
-												</span>
+												</Label>
 											</Container.Item>
 											<Container.Item className="space-y-1.5">
 												<Label>
@@ -581,10 +611,15 @@ const Template = () => {
 													size="md"
 													onChange={ () => {} }
 												/>
-												<span className="block text-xs leading-4 font-normal text-field-helper">
+												<Label
+													tag="p"
+													size="xs"
+													variant="help"
+													className="m-0"
+												>
 													This should be your live
 													storefront URL.
-												</span>
+												</Label>
 											</Container.Item>
 										</Container>
 									</Container.Item>

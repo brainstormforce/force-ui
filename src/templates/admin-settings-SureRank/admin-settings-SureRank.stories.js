@@ -463,9 +463,14 @@ const Template = () => {
 												size="md"
 											/>
 										</Container.Item>
-										<span className="block text-xs leading-4 font-normal text-field-helper">
+										<Label
+											tag="p"
+											size="sm"
+											variant="help"
+											className="m-0"
+										>
 											Type # to view variable suggestions
-										</span>
+										</Label>
 									</Container>
 									<Container
 										direction="column"
@@ -487,9 +492,14 @@ const Template = () => {
 											trigger="#"
 											size="md"
 										/>
-										<span className="block text-xs leading-4 font-normal text-field-helper">
+										<Label
+											tag="p"
+											size="sm"
+											variant="help"
+											className="m-0"
+										>
 											Type # to view variable suggestions
-										</span>
+										</Label>
 									</Container>
 								</>
 							) }

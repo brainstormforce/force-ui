@@ -222,15 +222,25 @@ const Template = () => {
 									<Label size="md">
 										Default Content Width
 									</Label>
-									<p className="m-0 block text-sm leading-4 font-normal text-field-helper">
+									<Label
+										tag="p"
+										size="sm"
+										variant="help"
+										className="m-0"
+									>
 										This setting will apply to Container
 										Block&apos;s default Content Width.
-									</p>
-									<p className="m-0 block text-sm leading-4 font-normal text-field-helper italic">
+									</Label>
+									<Label
+										tag="p"
+										size="sm"
+										variant="help"
+										className="m-0 italic"
+									>
 										The current Content width is applied
 										from Full Site Editor&apos;s Global
 										Styles.
-									</p>
+									</Label>
 								</Container.Item>
 								<Input
 									defaultValue={ 1280 }
@@ -249,10 +259,15 @@ const Template = () => {
 							<Container className="mb-0.5" align="center">
 								<Container.Item className="w-full max-w-120 space-y-1">
 									<Label size="md">Container Padding</Label>
-									<p className="m-0 block text-sm leading-4 font-normal text-field-helper">
+									<Label
+										tag="p"
+										size="sm"
+										variant="help"
+										className="m-0"
+									>
 										This setting will apply default padding
 										in the Container Block.
-									</p>
+									</Label>
 								</Container.Item>
 								<Input
 									defaultValue={ 10 }
@@ -273,10 +288,15 @@ const Template = () => {
 									<Label size="md">
 										Container Elements Gap
 									</Label>
-									<p className="m-0 block text-sm leading-4 font-normal text-field-helper">
+									<Label
+										tag="p"
+										size="sm"
+										variant="help"
+										className="m-0"
+									>
 										This setting will apply default Row &
 										Column Gaps in the Container Block.
-									</p>
+									</Label>
 								</Container.Item>
 								<Input
 									defaultValue={ 20 }
@@ -297,10 +317,15 @@ const Template = () => {
 									<Label className="inline-block" size="md">
 										Container Elements Gap
 									</Label>
-									<p className="m-0 block text-sm leading-4 font-normal text-field-helper">
+									<Label
+										tag="p"
+										size="sm"
+										variant="help"
+										className="m-0"
+									>
 										This setting will apply default Row &
 										Column Gaps in the Container Block.
-									</p>
+									</Label>
 								</Container.Item>
 								<Input
 									defaultValue={ 20 }
@@ -329,10 +354,15 @@ const Template = () => {
 											PRO
 										</span>
 									</div>
-									<p className="m-0 block text-sm leading-4 font-normal text-field-helper">
+									<Label
+										tag="p"
+										size="sm"
+										variant="help"
+										className="m-0"
+									>
 										Choose how you want to display dynamic
 										content settings.
-									</p>
+									</Label>
 								</Container.Item>
 								<Container.Item className="ml-auto">
 									<RadioButton.Group
@@ -374,11 +404,16 @@ const Template = () => {
 									<Label size="md">
 										Inherit Theme Button
 									</Label>
-									<p className="m-0 block text-sm leading-4 font-normal text-field-helper">
+									<Label
+										tag="p"
+										size="sm"
+										variant="help"
+										className="m-0"
+									>
 										Enable this option to make all buttons
 										in Spectra blocks across your website
 										inherit their styles from the theme.
-									</p>
+									</Label>
 								</Container.Item>
 								<Container.Item className="ml-auto">
 									<Switch size="lg" defaultValue={ false } />
@@ -391,12 +426,17 @@ const Template = () => {
 							<Container className="mb-0.5" align="center">
 								<Container.Item className="w-full max-w-120 space-y-1">
 									<Label size="md">Custom CSS</Label>
-									<p className="m-0 block text-sm leading-4 font-normal text-field-helper">
+									<Label
+										tag="p"
+										size="sm"
+										variant="help"
+										className="m-0"
+									>
 										Enable the &quot;Custom CSS&quot; option
 										if you want to add your own CSS code on
 										post/page to customize the page as per
 										your expectations.
-									</p>
+									</Label>
 								</Container.Item>
 								<Container.Item className="ml-auto">
 									<Switch size="lg" defaultValue={ true } />
@@ -409,12 +449,17 @@ const Template = () => {
 							<Container className="mb-0.5" align="center">
 								<Container.Item className="w-full max-w-120 space-y-1">
 									<Label size="md">Copy Paste Styles</Label>
-									<p className="m-0 block text-sm leading-4 font-normal text-field-helper">
+									<Label
+										tag="p"
+										size="sm"
+										variant="help"
+										className="m-0"
+									>
 										Enable the &quot;Copy Paste Styles&quot;
 										option to have the ability to copy &
 										paste Spectra & Core Gutenberg Blocks
 										Styles.
-									</p>
+									</Label>
 								</Container.Item>
 								<Container.Item className="ml-auto">
 									<Switch size="lg" defaultValue={ true } />
@@ -429,13 +474,18 @@ const Template = () => {
 									<Label size="md">
 										Automatic Block Recovery
 									</Label>
-									<p className="m-0 block text-sm leading-4 font-normal text-field-helper">
+									<Label
+										tag="p"
+										size="sm"
+										variant="help"
+										className="m-0"
+									>
 										Enable this to automatically recover any
 										erroneous blocks that may occur on your
 										web pages. This will save you time spent
 										on clicking all those &quot;Attempt
 										Block Recovery&quot; Buttons.
-									</p>
+									</Label>
 								</Container.Item>
 								<Container.Item className="ml-auto">
 									<Switch size="lg" defaultValue={ true } />
@@ -450,12 +500,17 @@ const Template = () => {
 									<Label size="md">
 										Load Font Awesome 5 Support
 									</Label>
-									<p className="m-0 block text-sm leading-4 font-normal text-field-helper">
+									<Label
+										tag="p"
+										size="sm"
+										variant="help"
+										className="m-0"
+									>
 										Enable this to make sure all previously
 										used Font Awesome 5 icons are displayed
 										correctly while using the Font Awesome 6
 										library.
-									</p>
+									</Label>
 								</Container.Item>
 								<Container.Item className="ml-auto">
 									<Switch size="lg" defaultValue={ true } />
