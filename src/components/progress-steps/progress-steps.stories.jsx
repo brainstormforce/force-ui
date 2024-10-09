@@ -113,5 +113,4 @@ StackType.args = {
 	size: 'md',
 	type: 'stack',
 	currentStep: 3,
-	lineProps: 'min-w-10',
 };
