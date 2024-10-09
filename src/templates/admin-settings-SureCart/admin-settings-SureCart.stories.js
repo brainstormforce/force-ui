@@ -25,9 +25,12 @@ import {
 	Megaphone,
 	MousePointer,
 	PenTool,
+	RefreshCcw,
 	ShoppingBag,
 	ShoppingCart,
+	Sliders,
 	Store,
+	Tag,
 	Truck,
 	User,
 } from 'lucide-react';
@@ -290,6 +293,10 @@ const Template = () => {
 											<div>Abandoned Checkout</div>
 										</Menu.Item>
 										<Menu.Item>
+											<Tag />
+											<div>Taxes</div>
+										</Menu.Item>
+										<Menu.Item>
 											<Truck />
 											<div>Shipping</div>
 										</Menu.Item>
@@ -302,6 +309,10 @@ const Template = () => {
 										<Menu.Item>
 											<MousePointer />
 											<div>Affiliates</div>
+										</Menu.Item>
+										<Menu.Item>
+											<RefreshCcw />
+											<div>Subscriptions</div>
 										</Menu.Item>
 										<Menu.Item>
 											<ChartNoAxesColumnIncreasing />
@@ -321,6 +332,10 @@ const Template = () => {
 											<Bell />
 											<div>Notification</div>
 										</Menu.Item>
+										<Menu.Item>
+											<Sliders />
+											<div>Advanced</div>
+										</Menu.Item>
 									</Menu.List>
 								</Menu>
 							</Sidebar.Item>
@@ -330,7 +345,7 @@ const Template = () => {
 				{ /* Content section */ }
 				<form
 					onSubmit={ ( event ) => event.preventDefault() }
-					className="w-full h-full overflow-y-auto"
+					className="w-full h-full overflow-y-auto bg-background-secondary"
 				>
 					<Container
 						gap="xl"
