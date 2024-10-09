@@ -57,6 +57,11 @@ The `ProgressSteps` component renders a sequence of steps, typically used in mul
 - **Type:** `string`
 - **Description:** Additional custom classes to be added to the individual step container.
 
+### `lineProps`
+- **Type:** `string`
+- **Description:** Props to be passed to the line connecting the steps.
+
+
 ## Usage
 
 ### Basic Example
@@ -68,7 +73,7 @@ import { Plus } from 'lucide-react';
 const App = () => (
     <div>
         <h2>Progress Example</h2>
-        <ProgressSteps type="inline" variant="number" currentStep={2} size="md">
+        <ProgressSteps type="inline" variant="number" currentStep={2} size="md" lineProps="min-w-10">
             <ProgressSteps.Step labelText="Step 1"/>
             <ProgressSteps.Step labelText="Step 2"/>
             <ProgressSteps.Step labelText="Step 3"/>
