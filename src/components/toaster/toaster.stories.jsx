@@ -7,6 +7,27 @@ export default {
 	component: Toaster,
 	parameters: {
 		layout: 'centered',
+		docs: {
+			source: {
+				code: `
+			  <Toaster position="top-right" design="stack" theme="light" autoDismiss={true} dismissAfter={5000} />
+			  <div className="flex gap-2">
+				  <button onClick={() => toast.success('Success toast!', { description: 'This is a success message' })}>
+					  Show Success Toast
+				  </button>
+				  <button onClick={() => toast.error('Error toast!', { description: 'This is an error message' })}>
+					  Show Error Toast
+				  </button>
+				  <button onClick={() => toast.info('Info toast!', { description: 'This is an info message' })}>
+					  Show Info Toast
+				  </button>
+				  <button onClick={() => toast.warning('Warning toast!', { description: 'This is a warning message' })}>
+					  Show Warning Toast
+				  </button>
+			  </div>
+			  `,
+			},
+		},
 	},
 	tags: [ 'autodocs' ],
 	argTypes: {
