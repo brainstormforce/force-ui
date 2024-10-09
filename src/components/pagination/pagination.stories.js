@@ -7,13 +7,13 @@ export default {
 	parameters: {
 		layout: 'centered', // Layout for the story
 	},
-	tags: ['autodocs'], // Documentation tags
+	tags: [ 'autodocs' ], // Documentation tags
 	argTypes: {
 		size: {
 			name: 'Size',
 			description: 'Defines the size variant of the pagination',
 			control: { type: 'select' },
-			options: ['sm', 'md', 'lg'],
+			options: [ 'sm', 'md', 'lg' ],
 			table: {
 				type: { summary: 'string' },
 				defaultValue: { summary: 'md' },
@@ -39,18 +39,9 @@ export default {
 	},
 };
 
-// Define pagination items for demonstration
-const items = [
-	{ label: '1', href: '#' },
-	{ label: '2', href: '#', isActive: true },
-	{ label: '3', href: '#' },
-	{ label: '7', href: '#' },
-	{ label: '8', href: '#' },
-];
-
 // Template function for rendering pagination
-const Template = (args) => {
-	const [activeIndex, setActiveIndex] = useState(0);
+const Template = ( args ) => {
+	const [ activeIndex, setActiveIndex ] = useState( 0 );
 
 	const items = [
 		{ label: '1' },
@@ -60,32 +51,36 @@ const Template = (args) => {
 		{ label: '5' },
 	];
 
-	const handleClick = (index) => {
-		setActiveIndex(index);
+	const handleClick = ( index ) => {
+		setActiveIndex( index );
 	};
 
 	return (
-		<div style={{ width: '400px' }}>
-			<Pagination {...args}>
+		<div style={ { width: '400px' } }>
+			<Pagination { ...args }>
 				<Pagination.Content>
 					<Pagination.Item>
-						<Pagination.Previous onClick={() => handleClick(-1)} />
+						<Pagination.Previous onClick={ () => handleClick( -1 ) } />
 					</Pagination.Item>
-					{items.map((item, index) => (
-						<Pagination.Item key={index}>
+					{ items.map( ( item, index ) => (
+						<Pagination.Item key={ index }>
 							<Pagination.Link
-								onClick={() => handleClick(index)}
-								isActive={activeIndex === index}
+								onClick={ () => handleClick( index ) }
+								isActive={ activeIndex === index }
 							>
-								{item.label}
+								{ item.label }
 							</Pagination.Link>
 						</Pagination.Item>
-					))}
+					) ) }
 					<Pagination.Item>
-						<Pagination.Ellipsis onClick={() => handleClick(items.length)} />
+						<Pagination.Ellipsis
+							onClick={ () => handleClick( items.length ) }
+						/>
 					</Pagination.Item>
 					<Pagination.Item>
-						<Pagination.Next onClick={() => handleClick(items.length + 1)} />
+						<Pagination.Next
+							onClick={ () => handleClick( items.length + 1 ) }
+						/>
 					</Pagination.Item>
 				</Pagination.Content>
 			</Pagination>
@@ -94,14 +89,14 @@ const Template = (args) => {
 };
 
 // Basic Pagination Example
-export const BasicPagination = (args) => Template({ ...args });
+export const BasicPagination = ( args ) => Template( { ...args } );
 BasicPagination.args = {
 	size: 'md', // Set default size
 	disabled: false, // Default disabled state
 };
 
 // Disabled Pagination Example
-export const DisabledPagination = (args) => Template({ ...args });
+export const DisabledPagination = ( args ) => Template( { ...args } );
 DisabledPagination.args = {
 	size: 'md',
 	disabled: true, // Set disabled to true

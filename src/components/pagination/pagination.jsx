@@ -1,44 +1,54 @@
-import { createContext, useContext, forwardRef } from "react";
+import { createContext, useContext, forwardRef } from 'react';
 import { cn } from '@/utilities/functions';
-import { ChevronLeft, ChevronRight } from "lucide-react"
-import { disabledClassNames, sizeClassNames } from "./component-style";
-import Button from "../button";
+import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { disabledClassNames } from './component-style';
+import Button from '../button';
 
 const PageContext = createContext();
-const usePageContext = () => useContext(PageContext);
+const usePageContext = () => useContext( PageContext );
 
-const Pagination = ({ size = 'sm', disabled = false, children, className, ...props }) => (
-	<PageContext.Provider value={{ size, disabled }}>
-	<nav
-		role="navigation"
-		aria-label="pagination"
-			className={cn(
-				"flex w-full justify-center m-0 box-border",
-				className)}
-		{...props}
+const Pagination = ( {
+	size = 'sm',
+	disabled = false,
+	children,
+	className,
+	...props
+} ) => (
+	<PageContext.Provider value={ { size, disabled } }>
+		<nav
+			role="navigation"
+			aria-label="pagination"
+			className={ cn(
+				'flex w-full justify-center m-0 box-border',
+				className
+			) }
+			{ ...props }
 		>
-			{children}
+			{ children }
 		</nav>
 	</PageContext.Provider>
-)
-Pagination.displayName = "Pagination"
+);
+Pagination.displayName = 'Pagination';
 
-const PaginationContent = forwardRef(({ className, ...props }, ref) => (
+const PaginationContent = forwardRef( ( { className, ...props }, ref ) => (
 	<ul
-		ref={ref}
-		className={cn("m-0 w-full flex justify-center flex-row items-center gap-1", className)}
-		{...props}
+		ref={ ref }
+		className={ cn(
+			'm-0 w-full flex justify-center flex-row items-center gap-1',
+			className
+		) }
+		{ ...props }
 	/>
-))
-PaginationContent.displayName = "PaginationContent"
+) );
+PaginationContent.displayName = 'PaginationContent';
 
-const PaginationItem = forwardRef(({ className, ...props }, ref) => {
-	const { size, disabled } = usePageContext();
+const PaginationItem = forwardRef( ( { className, ...props }, ref ) => {
+	const { disabled } = usePageContext();
 	return (
 		<li
-			ref={ref}
-			tabIndex={0}
-			className={cn(
+			ref={ ref }
+			tabIndex={ 0 }
+			className={ cn(
 				// sizeClassNames[size].general,
 				// sizeClassNames[size].text,
 				'flex',
@@ -52,20 +62,21 @@ const PaginationItem = forwardRef(({ className, ...props }, ref) => {
 				// 	'cursor-pointer',
 				// ],
 				className
-			)} {...props} />
-	)
-})
-PaginationItem.displayName = "PaginationItem"
+			) }
+			{ ...props }
+		/>
+	);
+} );
+PaginationItem.displayName = 'PaginationItem';
 
-const PaginationLink = ({
+const PaginationLink = ( {
 	className,
-	href = "#",
 	children,
 	isActive,
-	onClick = () => { },
+	onClick = () => {},
 	icon = null,
 	...props
-}) => {
+} ) => {
 	const { size, disabled } = usePageContext();
 	return (
 		// <a
@@ -78,73 +89,71 @@ const PaginationLink = ({
 		// 	{...props}
 		// />
 		<Button
-			size={size}
-			variant={'ghost'}
-			className={cn(
-				!disabled && isActive && 'text-button-primary bg-brand-background-50',
+			size={ size }
+			variant={ 'ghost' }
+			className={ cn(
+				! disabled &&
+					isActive &&
+					'text-button-primary bg-brand-background-50',
 				disabled && 'hover:none'
-			)}
-			onClick={onClick}
-			disabled={disabled}
-			icon={icon}
-
+			) }
+			onClick={ onClick }
+			disabled={ disabled }
+			icon={ icon }
+			{ ...props }
 		>
-			{children}
+			{ children }
 		</Button>
-	)
-}
-PaginationLink.displayName = "PaginationLink"
+	);
+};
+PaginationLink.displayName = 'PaginationLink';
 
-const PaginationPrevious = ({ onClick = () => { }, className, ...props }) => {
-	const { size, disabled } = usePageContext();
-
-	return (
-	<PaginationLink
-			aria-label="Go to previous page"
-			className={cn(
-				// sizeClassNames[size].icon,
-				// disabled && disabledClassNames.icon,
-				className)}
-			icon={<ChevronLeft />}
-			onClick={onClick}
-		{...props}
-		/>
-	)
-}
-PaginationPrevious.displayName = "PaginationPrevious"
-
-const PaginationNext = ({ onClick = () => { }, className, ...props }) => {
-	const { size, disabled } = usePageContext();
-
-	return (
-	<PaginationLink
-			aria-label="Go to next page"
-			className={cn(
-				// sizeClassNames[size].icon,
-				// disabled && disabledClassNames.icon,
-				className)}
-			icon={<ChevronRight />}
-			onClick={onClick}
-		{...props}
-		/>
-	)
-}
-PaginationNext.displayName = "PaginationNext"
-
-const PaginationEllipsis = ({ onClick = () => { }, className, ...props }) => {
-	const { size } = usePageContext();
+const PaginationPrevious = ( { onClick = () => {}, className, ...props } ) => {
+	// const { size, disabled } = usePageContext();
 
 	return (
 		<PaginationLink
-			className={cn(className)}
-			onClick={onClick}
-			{...props}
-		>
+			aria-label="Go to previous page"
+			className={ cn(
+				// sizeClassNames[size].icon,
+				// disabled && disabledClassNames.icon,
+				className
+			) }
+			icon={ <ChevronLeft /> }
+			onClick={ onClick }
+			{ ...props }
+		/>
+	);
+};
+PaginationPrevious.displayName = 'PaginationPrevious';
+
+const PaginationNext = ( { onClick = () => {}, className, ...props } ) => {
+	// const { size, disabled } = usePageContext();
+
+	return (
+		<PaginationLink
+			aria-label="Go to next page"
+			className={ cn(
+				// sizeClassNames[size].icon,
+				// disabled && disabledClassNames.icon,
+				className
+			) }
+			icon={ <ChevronRight /> }
+			onClick={ onClick }
+			{ ...props }
+		/>
+	);
+};
+PaginationNext.displayName = 'PaginationNext';
+
+const PaginationEllipsis = ( { onClick = () => {}, className, ...props } ) => {
+	return (
+		<PaginationLink className={ cn( className ) } onClick={ onClick } { ...props }>
 			...
 		</PaginationLink>
-	)
-}
-PaginationEllipsis.displayName = "PaginationEllipsis"
+	);
+};
+PaginationEllipsis.displayName = 'PaginationEllipsis';
 
 Pagination.Content = PaginationContent;
 Pagination.Link = PaginationLink;
