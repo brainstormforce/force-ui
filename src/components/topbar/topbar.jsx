@@ -16,6 +16,8 @@ const Topbar = ( { children, gap = 'lg', className, ...props } ) => {
 	);
 };
 
+Topbar.displayName = 'Topbar';
+
 const Left = ( { gap = 'sm', children, className } ) => {
 	return (
 		<div className={ cn( 'flex items-center', getGapClass( gap ), className ) }>
@@ -23,6 +25,8 @@ const Left = ( { gap = 'sm', children, className } ) => {
 		</div>
 	);
 };
+
+Left.displayName = 'Topbar.Left';
 
 const Middle = ( { gap = 'md', children, align = 'center', className } ) => {
 	const alignmentClass = {
@@ -45,6 +49,8 @@ const Middle = ( { gap = 'md', children, align = 'center', className } ) => {
 	);
 };
 
+Middle.displayName = 'Topbar.Middle';
+
 const Right = ( { gap = 'sm', children, className } ) => {
 	return (
 		<div className={ cn( 'flex items-center', getGapClass( gap ), className ) }>
@@ -52,6 +58,8 @@ const Right = ( { gap = 'sm', children, className } ) => {
 		</div>
 	);
 };
+
+Right.displayName = 'Topbar.Right';
 
 const Item = ( { children, className } ) => {
 	return (
@@ -63,9 +71,11 @@ const Item = ( { children, className } ) => {
 	);
 };
 
-Topbar.Left = Left;
-Topbar.Middle = Middle;
-Topbar.Right = Right;
-Topbar.Item = Item;
+Item.displayName = 'Topbar.Item';
 
-export default Topbar;
+export default Object.assign( Topbar, {
+	Left,
+	Middle,
+	Right,
+	Item,
+} );
