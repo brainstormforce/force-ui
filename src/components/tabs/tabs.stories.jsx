@@ -2,6 +2,8 @@ import { useState } from 'react';
 import Tabs from './tabs.jsx';
 import { House } from 'lucide-react';
 
+Tabs.Group.displayName = 'Tabs.Group';
+Tabs.Tab.displayName = 'Tabs.Tab';
 export default {
 	title: 'Atoms/Tabs',
 	component: Tabs.Group,
