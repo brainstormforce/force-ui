@@ -281,13 +281,11 @@ const containerRowButtons = [
 	},
 ];
 
-
-
 export const SpectraDashboard = () => {
     const radioButtonGroupData = defaultRadioButtonGroupData;
     return (
         <>
-            <div className="py-2 flex items-center justify-center relative bg-brand-background-hover-100">
+            <Container containerType="flex" align="center" justify="center" className="py-2 relative bg-brand-background-hover-100">
 				<div className="space-x-1 text-text-primary text-xs">
 					<span className="font-semibold">
 						Unlock Spectra&apos;s Full Potential!
@@ -300,7 +298,8 @@ export const SpectraDashboard = () => {
 				<button className="inline-flex items-center justify-center absolute right-2 top-2 p-0 bg-transparent shadow-none border-0 outline-none focus:outline-none cursor-pointer">
 					<X className="size-4" />
 				</button>
-			</div>
+			</Container>
+            {/* Navigation Topbar */}
             <Topbar gap={0} className="h-16 p-0 shadow-sm">
                 <Topbar.Left className="p-5">
                     <Topbar.Item>
@@ -354,9 +353,10 @@ export const SpectraDashboard = () => {
                 </Topbar.Right>
             </Topbar>
 
+            {/* Content */}
             <Container containerType="grid" cols={12} gap="2xl" className="bg-background-secondary p-8">
-                {/* First Column */}
                 <Container.Item colSpan={8} className="flex flex-col gap-8">
+                    {/* Welcome Spectra card */}
                     <Container containerType="grid" cols={8} gap="2xl" className="bg-background-primary p-6 shadow-sm rounded-xl">
                         <Container.Item colSpan={5} className="flex flex-col gap-6">
                             <div>
@@ -391,7 +391,7 @@ export const SpectraDashboard = () => {
                             />
                         </Container.Item>
                     </Container>
-
+                    {/* Blocks card */}
                     <Container
                         containerType="flex"
                         direction="column"
@@ -451,9 +451,9 @@ export const SpectraDashboard = () => {
                             </RadioButton.Group>
                         </Container.Item>
                     </Container>
-                    
+                    {/* Unlock Pro Features card */}
                     <Container containerType="grid" cols={8} gap={4} className="bg-background-primary p-6 shadow-sm rounded-xl">
-                        <Container.Item colSpan={4} className="flex flex-col ">
+                        <Container.Item colSpan={4} className="flex flex-col gap-2">
                             <div className="text-brand-hover-700 flex space-x-1">
                                 <Zap className="size-4"/>
                                 <div className="font-semibold text-xs">Unlock Pro Features</div>
@@ -514,12 +514,10 @@ export const SpectraDashboard = () => {
                             />
                         </Container.Item>
                     </Container>
-
                 </Container.Item>
 
-
-                {/* Second Column */}
                 <Container.Item colSpan={4} className="flex flex-col gap-8">
+                    {/* Extend Your Website card */}
                     <Container
                         containerType="flex"
                         gap="xs"
@@ -601,16 +599,14 @@ export const SpectraDashboard = () => {
                             </Container>
                         </Container.Item>
                     </Container>
-
+                    {/* Build website with AI card */}
                     <Container direction="column" gap="xs" className="p-5 bg-background-primary shadow-sm rounded-xl">
                             <Container.Item className="w-full">
                                 <img src={contentImageSpectra} alt="Content image" className="w-full h-full object-cover" />
                             </Container.Item>
                             <Container.Item>
-                                {/* <Container> */}
                                     <div className="text-base font-semibold">Build website 10x faster with AI</div>
                                     <p className="text-text-secondary">Beautiful pages, persuasive content, and custom code in seconds. The possibilities are endless!</p>
-                                {/* </Container> */}
                             </Container.Item>
                             <Container.Item className="flex space-x-4">
                                 <Button variant="secondary">
@@ -619,7 +615,7 @@ export const SpectraDashboard = () => {
                                 <p className="text-text-tertiary">Get 1000 free monthly credits</p>
                             </Container.Item>
                     </Container>
-
+                    {/* Quick Access card */}
                     <Container
                         containerType="flex"
                         direction="column"
@@ -657,11 +653,8 @@ export const SpectraDashboard = () => {
                             ) ) }
                         </Container.Item>
                     </Container>
-                    
                 </Container.Item>
             </Container>
-            
         </>
     )
 }
-

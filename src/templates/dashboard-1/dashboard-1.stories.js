@@ -273,6 +273,7 @@ export const AstraDashboard = () => {
     const radioButtonGroupData = defaultRadioButtonGroupData;
     return (
         <>
+            {/* Navigation Topbar */}
             <Topbar gap={0} className="h-16 p-0 shadow-sm">
                 <Topbar.Left className="p-5">
                     <Topbar.Item>
@@ -321,9 +322,10 @@ export const AstraDashboard = () => {
                 </Topbar.Right>
             </Topbar>
 
+            {/* Content */}
             <Container containerType="grid" cols={12} gap="2xl" className="bg-background-secondary p-8">
-                {/* First Column */}
                 <Container.Item colSpan={8} className="flex flex-col gap-8">
+                    {/* Welcome Astra card */}
                     <Container containerType="grid" cols={8} gap="2xl" className="bg-background-primary p-4 shadow-sm rounded-xl">
                         <Container.Item colSpan={5} className="flex flex-col gap-6">
                             <div>
@@ -350,7 +352,7 @@ export const AstraDashboard = () => {
                             />
                         </Container.Item>
                     </Container>
-
+                    {/* Quick Settings card */}
                     <Container
                         containerType="flex"
                         direction="column"
@@ -402,7 +404,6 @@ export const AstraDashboard = () => {
                                 ) ) }
                             </RadioButton.Group>
                         </Container.Item>
-
                         <Container.Item className="flex items-center justify-center space-x-2 text-text-primary text-sm bg-background-secondary rounded-lg py-3">
                             <AstraLogo className="size-4"/>
                             <span className="font-semibold">
@@ -421,12 +422,10 @@ export const AstraDashboard = () => {
                             </Button>
                         </Container.Item>
                     </Container>
-
                 </Container.Item>
 
-                {/* Second Column */}
                 <Container.Item colSpan={4} className="flex flex-col gap-8">
-
+                    {/* Inegrations card */}
                     <Container
                         containerType="flex"
                         gap="xs"
@@ -490,7 +489,7 @@ export const AstraDashboard = () => {
                             </Container>
                         </Container.Item>
                     </Container>
-
+                    {/* Vip Support card */}
                     <Container containerType="grid" gap="xs" className="p-5 bg-background-primary shadow-sm rounded-xl">
                             <Container.Item>
                                 <Container gap="xs" align="center">
@@ -516,7 +515,7 @@ export const AstraDashboard = () => {
                                 </Button>
                             </Container.Item>
                     </Container>
-
+                    {/* Join the Community card */}
                     <Container containerType="grid" gap="xs" className="p-5 bg-background-primary shadow-sm rounded-xl">
                             <Container.Item>
                                 <Container gap="xs" align="center">
@@ -534,11 +533,8 @@ export const AstraDashboard = () => {
                                 </Button>
                             </Container.Item>
                     </Container>
-                    
                 </Container.Item>
             </Container>
-            
         </>
     )
 }
-
