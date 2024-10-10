@@ -38,7 +38,6 @@ import {
 	SureCart,
 	SureTriggers,
 } from './dashboard-astra-svgs';
-import astraVideo from './astraVideo.png';
 
 export default {
 	title: 'Templates/Dashboard/Astra Dashboard',
@@ -403,7 +402,7 @@ export const AstraDashboard = () => {
 						</Container.Item>
 						<Container.Item colSpan={ 3 }>
 							<img
-								src={ astraVideo }
+								src="https://placehold.co/272x154"
 								alt="Astra video"
 								className="w-full h-full object-cover rounded-lg"
 							/>

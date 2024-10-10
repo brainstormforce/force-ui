@@ -42,8 +42,6 @@ import {
 	SureCartSvg,
 	PrestoPlayerSvg,
 } from './dashboard-spectra-svgs';
-import contentImageSpectra from './contentImageSpectra.png';
-import unlockProSpectra from './unlockProSpectra.png';
 
 export default {
 	title: 'Templates/Dashboard/Spectra Dashboard',
@@ -451,7 +449,8 @@ export const SpectraDashboard = () => {
 
 						<Container.Item colSpan={ 3 }>
 							<img
-								src={ video }
+								// src={ video }
+								src="https://placehold.co/272x154"
 								alt="Spectra video"
 								className="w-full h-full object-cover rounded-lg"
 							/>
@@ -588,7 +587,7 @@ export const SpectraDashboard = () => {
 
 						<Container.Item colSpan={ 4 }>
 							<img
-								src={ unlockProSpectra }
+								src="https://placehold.co/384x252"
 								alt="Unlock Pro Features"
 								className="w-full h-full object-cover rounded-lg"
 							/>
@@ -696,7 +695,7 @@ export const SpectraDashboard = () => {
 					>
 						<Container.Item className="w-full">
 							<img
-								src={ contentImageSpectra }
+								src="https://placehold.co/384x138"
 								alt="Build website with AI"
 								className="w-full h-full object-cover"
 							/>
