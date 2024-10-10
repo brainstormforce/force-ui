@@ -264,7 +264,7 @@ const DatePickerComponent = ( {
 				? 'bg-background-brand text-text-on-color'
 				: 'bg-transparent hover:bg-button-tertiary-hover',
 			isRangeMiddle && shouldShowDay && ( ! isOutside || isPartOfRange )
-				? 'bg-brand-50 text-text-secondary rounded-none'
+				? 'bg-brand-background-50 text-text-secondary rounded-none'
 				: '',
 			isDisabled
 				? 'opacity-50 cursor-not-allowed text-text-disabled'
