@@ -10,7 +10,7 @@ const defaultTheme = {
 				'brand-border-300': '#93C5FD',
 				'brand-400': '#60A5FA',
 				'brand-500': '#3B82F6',
-				'brand-50' : '#EFF6FF',
+				'brand-50': '#EFF6FF',
 				'brand-primary-600': '#2563EB',
 				'brand-hover-700': '#1D4ED8',
 				'brand-800': '#1E40AF',
