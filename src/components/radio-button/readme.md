@@ -76,6 +76,13 @@
 - **Object properties/format:** `{heading: 'Label heading', description:** 'Label description'}`
 The label also accepts a React component.
 
+### info (optional)
+- **type:** `object` || `ReactComponent`
+- **Object properties/format:** `{heading: 'Info heading', description:** 'Info description'}`
+The info also accepts a React component.
+- **description:** The `info` prop allows adding info to the radio button.
+
+
 ### checked (optional)
 - **type:** `boolean`
 - **default value:** `undefined`
