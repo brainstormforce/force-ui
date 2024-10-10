@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Tooltip from './tooltip.jsx';
 import { CircleHelp } from 'lucide-react';
-import Label from '../label/label.jsx';
+import Label from '../label';
 
 export default {
 	title: 'Molecules/Tooltip',

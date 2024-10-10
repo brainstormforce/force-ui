@@ -1,22 +1,33 @@
 import { cn } from '@/utilities/functions';
 import React, { forwardRef } from 'react';
 
-/**
- * Label component.
- */
+export interface LabelProps {
+	/** The content of the label. */
+	children: React.ReactNode;
+	/** Defines the HTML tag to use for the label. */
+	tag?: string | React.ElementType;
+	/** Defines the size of the label. */
+	size?: 'xs' | 'sm' | 'md';
+	/** Defines the extra classes. */
+	className?: string;
+	/** Defines the style variant of the label. */
+	variant?: 'neutral' | 'help' | 'error' | 'disabled';
+	/** Defines if the label is required. */
+	required?: boolean;
+}
 
 const Label = forwardRef(
 	(
 		{
 			children = null,
-			tag = 'label',
+			tag: Tag = 'label',
 			size = 'sm', // xs, sm, md
 			className = '',
 			variant = 'neutral', // neutral, help, error, disabled
 			required = false,
 			...props
-		},
-		ref
+		}: LabelProps,
+		ref: React.Ref<HTMLElement>
 	) => {
 		// Base classes. - Mandatory classes.
 		const baseClasses =
@@ -48,8 +59,6 @@ const Label = forwardRef(
 			requiredClasses =
 				"after:content-['*'] after:text-field-required after:ml-0.5";
 		}
-
-		const Tag = tag;
 
 		return (
 			<Tag

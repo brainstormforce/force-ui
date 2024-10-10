@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Select from './select.jsx';
-import Label from '../label/label.jsx';
+import Label from '../label';
 
 Select.displayName = 'Select';
 Select.Button.displayName = 'Select.Button';
