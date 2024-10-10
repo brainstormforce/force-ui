@@ -26,6 +26,7 @@ const BadgeComponent = ( props, ref ) => {
 
 	// Size classes - Based on the size prop.
 	const sizeClasses = {
+		xxs: 'py-0.5 px-0.5 text-xs',
 		xs: 'py-0.5 px-1 text-xs',
 		sm: 'py-1 px-1.5 text-xs',
 		md: 'py-1 px-1.5 text-sm',
@@ -56,6 +57,14 @@ const BadgeComponent = ( props, ref ) => {
 	let buttonClasses =
 		'group relative justify-center flex items-center [&>svg]:h-4 [&>svg]:w-4 cursor-pointer';
 
+    const iconSizeClasses = {
+        xxs: '[&>svg]:size-3',
+        xs: '[&>svg]:size-3',
+        sm: '[&>svg]:size-3',
+        md: '[&>svg]:size-4',
+        lg: '[&>svg]:size-5',
+    }
+
 	if ( disabled ) {
 		filteredClasses = variantClasses.disabled;
 		buttonClasses += ' cursor-not-allowed disabled';
@@ -79,7 +88,7 @@ const BadgeComponent = ( props, ref ) => {
 			ref={ ref }
 		>
 			{ icon ? (
-				<span className="justify-center flex items-center [&>svg]:h-4 [&>svg]:w-4">
+				<span className={ cn("justify-center flex items-center", iconSizeClasses[size])}>
 					{ icon }
 				</span>
 			) : null }
