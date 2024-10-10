@@ -14,6 +14,7 @@ const ProgressSteps = ( {
 	currentStep = 1,
 	children,
 	className,
+	lineProps = 'min-w-10',
 	...rest
 } ) => {
 	const totalSteps = React.Children.count( children );
@@ -56,6 +57,7 @@ const ProgressSteps = ( {
 			type,
 			isLast,
 			index,
+			lineProps,
 		};
 
 		return (
@@ -93,6 +95,7 @@ const ProgressStep = ( {
 	size,
 	isLast,
 	index,
+	lineProps,
 	...rest
 } ) => {
 	const stepContent = createStepContent(
@@ -137,7 +140,8 @@ const ProgressStep = ( {
 				'block',
 				isCompleted
 					? 'border-brand-primary-600'
-					: 'border-border-subtle'
+					: 'border-border-subtle',
+				lineProps
 			);
 
 			if ( type === 'stack' ) {
