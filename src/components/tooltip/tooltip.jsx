@@ -141,12 +141,14 @@ const Tooltip = ( {
 						{ ...getFloatingProps() }
 					>
 						<div>
-							{ !! title && (
-								<span className="font-semibold">{ title }</span>
-							) }
-							{ !! content && (
-								<div className="font-normal">{ content }</div>
-							) }
+                            {isValidElement(title) && title} 
+                            {!isValidElement(title) && !!title && (
+                                <span className="font-semibold">{title}</span>
+                            )} 
+                            {isValidElement(content) && content}
+                            {!isValidElement(content) && !!content && (
+                                <div className="font-normal">{content}</div>
+                            )}
 						</div>
 						{ arrow && (
 							<FloatingArrow

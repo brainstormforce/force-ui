@@ -31,12 +31,12 @@ The `Tooltips` are small, interactive pop-up boxes that provide brief, informati
   - `"left-end"`
 
 ### `title`
-- **Type:** `string`
-- **Description:** Defines the title of the tooltip. 
+- **Type:** `string | ReactNode`
+- **Description:** Defines the title of the tooltip. Can be a string or a valid JSX element. If a string is provided, it will be displayed in a bold format. If a JSX element is provided, it will be rendered directly.
 
 ### `content`
-- **Type:** `HTML content`
-- **Description:** Content of tooltip - description of tooltip in more detail.
+- **Type:** `string | ReactNode`
+- **Description:** Content of the tooltip. Can be a string or a valid JSX element. If a string is provided, it will be displayed in normal format. If a JSX element is provided, it will be rendered directly, allowing for more complex content such as buttons.
 
 ### `arrow`
 - **Type:** `boolean`
