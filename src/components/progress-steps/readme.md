@@ -57,6 +57,11 @@ The `ProgressSteps` component renders a sequence of steps, typically used in mul
 - **Type:** `string`
 - **Description:** Additional custom classes to be added to the individual step container.
 
+### `lineProps`
+- **Type:** `string`
+- **Description:** Props to be passed to the line connecting the steps.
+
+
 ## Usage
 
 ### Basic Example
