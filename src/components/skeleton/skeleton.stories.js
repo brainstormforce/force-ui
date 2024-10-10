@@ -19,23 +19,25 @@ export default {
 			},
 		},
 		className: {
-			description: 'Allows you to pass custom classes to control the size and styles',
+			name: 'Class Name',
+			description:
+				'Allows you to pass custom classes to control the size and styles',
 			control: 'text',
+			table: {
+				type: { summary: 'string' },
+				defaultValue: { summary: '' },
+			},
 		},
 	},
 };
 
-export const Rectangular = ( args ) => (
-	<Skeleton { ...args } />
-);
+export const Rectangular = ( args ) => <Skeleton { ...args } />;
 
 Rectangular.args = {
 	variant: 'rectangular',
 };
 
-export const Circular = ( args ) => (
-	<Skeleton { ...args } />
-);
+export const Circular = ( args ) => <Skeleton { ...args } />;
 
 Circular.args = {
 	variant: 'circular',

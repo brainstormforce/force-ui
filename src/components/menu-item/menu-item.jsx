@@ -11,9 +11,7 @@ const Menu = ( { size = 'md', children, className } ) => {
 
 	return (
 		<MenuContext.Provider value={ { size } }>
-			<div className={ cn( baseClasses, className ) }>
-				{ children }
-			</div>
+			<div className={ cn( baseClasses, className ) }>{ children }</div>
 		</MenuContext.Provider>
 	);
 };
@@ -29,7 +27,8 @@ const MenuList = ( {
 	const [ isOpen, setIsOpen ] = useState( initialOpen );
 	const { size } = useMenuContext();
 
-	const baseClasses = 'text-text-primary bg-transparent cursor-pointer flex justify-between items-center p-1 gap-1';
+	const baseClasses =
+		'text-text-primary bg-transparent cursor-pointer flex justify-between items-center p-1 gap-1';
 
 	const sizeClasses = {
 		sm: 'text-xs',
@@ -58,7 +57,7 @@ const MenuList = ( {
 	};
 
 	return (
-		<div className="p-2">
+		<div>
 			<div
 				role="button"
 				tabIndex="0"
@@ -72,12 +71,16 @@ const MenuList = ( {
 				aria-expanded={ isOpen }
 			>
 				<span className="text-text-tertiary">{ heading }</span>
+
 				{ arrow && (
 					<motion.span
 						variants={ arrowAnimationVariants }
 						animate={ isOpen ? 'open' : 'closed' }
 						transition={ { duration: 0.15 } }
-						className={ cn( 'flex items-center text-border-strong', iconSizeClasses ) }
+						className={ cn(
+							'flex items-center text-border-strong',
+							iconSizeClasses
+						) }
 					>
 						<ChevronDown />
 					</motion.span>
@@ -102,17 +105,29 @@ const MenuList = ( {
 	);
 };
 
-const MenuItem = ( { disabled = false, active, onClick, children, className } ) => {
+const MenuItem = ( {
+	disabled = false,
+	active,
+	onClick,
+	children,
+	className,
+} ) => {
 	const { size } = useMenuContext();
 
-	const baseClasses = 'flex p-1 gap-1 items-center bg-transparent w-full border-none rounded text-text-secondary cursor-pointer m-0';
+	const baseClasses =
+		'flex p-1 gap-1 items-center bg-transparent w-full border-none rounded text-text-secondary cursor-pointer m-0';
 	const sizeClasses = {
 		sm: '[&>svg]:size-4 [&>svg]:m-1 [&>*:not(svg)]:mx-1 [&>*:not(svg)]:my-0.5 text-sm',
 		md: '[&>svg]:size-5 [&>svg]:m-1.5 [&>*:not(svg)]:m-1 text-base',
 	}?.[ size ];
-	const hoverClasses = 'hover:bg-background-secondary hover:text-text-primary';
-	const disabledClasses = disabled ? 'text-text-disabled hover:text-text-disabled cursor-not-allowed hover:bg-transparent' : '';
-	const activeClasses = active ? 'text-icon-primary [&>svg]:text-icon-interactive bg-background-secondary' : '';
+	const hoverClasses =
+		'hover:bg-background-secondary hover:text-text-primary';
+	const disabledClasses = disabled
+		? 'text-text-disabled hover:text-text-disabled cursor-not-allowed hover:bg-transparent'
+		: '';
+	const activeClasses = active
+		? 'text-icon-primary [&>svg]:text-icon-interactive bg-background-secondary'
+		: '';
 	const transitionClasses = 'transition-colors duration-300 ease-in-out';
 
 	return (
@@ -125,7 +140,15 @@ const MenuItem = ( { disabled = false, active, onClick, children, className } ) 
 					onClick();
 				}
 			} }
-			className={ cn( baseClasses, sizeClasses, hoverClasses, disabledClasses, activeClasses, transitionClasses, className ) }
+			className={ cn(
+				baseClasses,
+				sizeClasses,
+				hoverClasses,
+				disabledClasses,
+				activeClasses,
+				transitionClasses,
+				className
+			) }
 		>
 			{ children }
 		</li>
@@ -145,7 +168,11 @@ const MenuSeparator = ( { variant = 'solid', className } ) => {
 	return (
 		<>
 			<hr
-				className={ cn( 'w-full border-0 border-t border-border-subtle', variantClasses, className ) }
+				className={ cn(
+					'w-full border-0 border-t border-border-subtle',
+					variantClasses,
+					className
+				) }
 			/>
 		</>
 	);

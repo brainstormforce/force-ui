@@ -1,6 +1,6 @@
 import { forwardRef } from 'react';
 import { cn } from '@/utilities/functions';
-import { X, Info } from 'lucide-react';
+import { X } from 'lucide-react';
 
 /**
  * Badge component.
@@ -13,10 +13,10 @@ const BadgeComponent = ( props, ref ) => {
 		className = '',
 		type = 'pill', // pill, rounded
 		variant = 'neutral', // neutral, red, yellow, green, blue, inverse
-		icon = <Info />,
+		icon = null,
 		disabled = false,
 		onClose = () => {},
-		closable = true,
+		closable = false,
 		onMouseDown = () => {},
 	} = props;
 

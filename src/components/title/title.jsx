@@ -35,7 +35,11 @@ const Title = ( {
 			md: 'text-xl [&>*]:text-xl gap-1.5',
 			lg: 'text-2xl [&>*]:text-2xl gap-1.5',
 		};
-		return ( <Tag className={ cn( titleCommonClasses, sizeClasses[ size ] ) }>{ title }</Tag> );
+		return (
+			<Tag className={ cn( titleCommonClasses, sizeClasses[ size ] ) }>
+				{ title }
+			</Tag>
+		);
 	};
 
 	const getDescription = () => {
@@ -45,7 +49,16 @@ const Title = ( {
 			md: 'text-xl',
 			lg: 'text-2xl',
 		};
-		return ( <span className={ cn( 'text-text-secondary font-normal', descriptionClasses[ size ] ) }>{ description }</span> );
+		return (
+			<span
+				className={ cn(
+					'text-text-secondary font-normal',
+					descriptionClasses[ size ]
+				) }
+			>
+				{ description }
+			</span>
+		);
 	};
 
 	if ( description ) {

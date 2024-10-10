@@ -64,7 +64,7 @@ export default {
 			},
 		},
 		className: {
-			name: 'ClassName',
+			name: 'Class Name',
 			description: 'Additional custom classes for styling.',
 			control: 'text',
 			table: {

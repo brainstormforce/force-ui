@@ -20,7 +20,7 @@ export default {
 			},
 		},
 		disabled: {
-			name: 'disabled',
+			name: 'Sisabled',
 			description: 'Defines if the switch is disabled.',
 			control: 'boolean',
 			table: {
@@ -30,13 +30,14 @@ export default {
 		},
 		label: {
 			name: 'Label',
-			description: 'Defines the label and description of the switch. Can be an object or a React element.',
+			description:
+				'Defines the label and description of the switch. Can be an object or a React element.',
 			table: {
 				type: { summary: 'object | ReactNode' },
 			},
 		},
 		name: {
-			name: 'name',
+			name: 'Name',
 			description: 'Name attribute of the input element.',
 			control: 'text',
 			table: {
@@ -44,19 +45,29 @@ export default {
 			},
 		},
 		onChange: {
-			name: 'onChange',
-			description: 'Callback function fired when the switch state changes.',
+			name: 'On Change Event',
+			description:
+				'Callback function fired when the switch state changes.',
 			table: {
 				type: { summary: 'function' },
 			},
 		},
 		defaultValue: {
-			name: 'defaultValue',
+			name: 'Default Value',
 			description: 'Default value for uncontrolled switch (true/false).',
 			control: 'boolean',
 			table: {
 				type: { summary: 'boolean' },
 				defaultValue: { summary: 'false' },
+			},
+		},
+		className: {
+			name: 'Class Name',
+			description: 'Defines the extra classes',
+			control: 'text',
+			table: {
+				type: { summary: 'string' },
+				defaultValue: { summary: '' },
 			},
 		},
 	},
@@ -77,12 +88,7 @@ const Template = ( { defaultValue, size, ...args } ) => {
 	};
 
 	return (
-		<Switch
-			{ ...args }
-			size={ size }
-			value={ checked }
-			onChange={ handleChange }
-		/>
+		<Switch { ...args } size={ size } value={ checked } onChange={ handleChange } />
 	);
 };
 
@@ -105,5 +111,8 @@ export const Disabled = ( args ) => Template( { ...args } );
 Disabled.args = {
 	size: 'lg',
 	disabled: true,
-	label: { heading: 'Disabled Switch', description: 'This switch is disabled.' },
+	label: {
+		heading: 'Disabled Switch',
+		description: 'This switch is disabled.',
+	},
 };

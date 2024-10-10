@@ -4,14 +4,12 @@ import EditorInput from './editor-input.jsx';
 export default {
 	title: 'Atoms/EditorInput',
 	component: EditorInput,
-	parameters: {
-		layout: 'centered',
-	},
 	tags: [ 'autodocs' ],
 	argTypes: {
 		by: {
 			name: 'By',
-			description: 'The key to be used to display the label of the option in the editor input and in the editor after selecting any mention/tag option.',
+			description:
+				'The key to be used to display the label of the option in the editor input and in the editor after selecting any mention/tag option.',
 			control: 'text',
 			table: {
 				type: { summary: 'string' },
@@ -20,20 +18,23 @@ export default {
 		},
 		options: {
 			name: 'Options',
-			description: 'Array of options to be displayed in the editor input. Each option should be an object  or string.',
+			description:
+				'Array of options to be displayed in the editor input. Each option should be an object  or string.',
 			control: 'array',
 			table: {
 				type: { summary: 'array' },
-				defaultValue: { summary: [
-					'Red',
-					'Orange',
-					'Yellow',
-					'Green',
-					'Cyan',
-					'Blue',
-					'Purple',
-					'Pink',
-				] },
+				defaultValue: {
+					summary: [
+						'Red',
+						'Orange',
+						'Yellow',
+						'Green',
+						'Cyan',
+						'Blue',
+						'Purple',
+						'Pink',
+					],
+				},
 			},
 		},
 		disabled: {
@@ -47,7 +48,8 @@ export default {
 		},
 		autoFocus: {
 			name: 'Auto Focus',
-			description: 'Defines if the editor input is focused automatically.',
+			description:
+				'Defines if the editor input is focused automatically.',
 			control: 'boolean',
 			table: {
 				type: { summary: 'boolean' },
@@ -56,22 +58,35 @@ export default {
 		},
 		onChange: {
 			name: 'On Change',
-			description: 'Callback function that is called when the value of the input changes. The function receives the updated value as an argument.',
+			description:
+				'Callback function that is called when the value of the input changes. The function receives the updated value as an argument.',
 			control: 'function',
 			table: {
 				type: { summary: 'object' },
-				defaultValue: { summary: ( value ) => {
-					return value;
-				} },
+				defaultValue: {
+					summary: ( value ) => {
+						return value;
+					},
+				},
 			},
 		},
 		size: {
 			name: 'Size',
 			description: 'Defines the sizes of the editor input.',
-			control: 'select', options: [ 'sm', 'md', 'lg' ],
+			control: 'select',
+			options: [ 'sm', 'md', 'lg' ],
 			table: {
 				type: { summary: 'string' },
 				defaultValue: { summary: 'md' },
+			},
+		},
+		defaultValue: {
+			name: 'Default Value',
+			description: 'Default value for the editor input field.',
+			control: 'text',
+			table: {
+				type: { summary: 'string' },
+				defaultValue: { summary: '' },
 			},
 		},
 		placeholder: {
@@ -80,7 +95,18 @@ export default {
 			control: 'text',
 			table: {
 				type: { summary: 'string' },
-				defaultValue: { summary: 'Press @ to view variable suggestions' },
+				defaultValue: {
+					summary: 'Press @ to view variable suggestions',
+				},
+			},
+		},
+		trigger: {
+			name: 'Trigger',
+			description: 'Trigger text for the editor input field.',
+			control: 'text',
+			table: {
+				type: { summary: 'string' },
+				defaultValue: { summary: '@' },
 			},
 		},
 		className: {
@@ -93,6 +119,13 @@ export default {
 			},
 		},
 	},
+	decorators: [
+		( Story ) => (
+			<div style={ { maxWidth: '900px', height: '200px' } }>
+				<Story />
+			</div>
+		),
+	],
 };
 
 const options = [
@@ -108,37 +141,25 @@ const options = [
 
 // More on writing stories with args: https://storybook.js.org/docs/writing-stories/args
 export const Small = {
-	render: () => (
-		<div style={ { width: '900px', height: '200px' } }>
-			<EditorInput
-				size="sm"
-				options={ options }
-				onChange={ ( editorState ) => editorState.toJSON() }
-			/>
-		</div>
-	),
+	args: {
+		size: 'sm',
+		options,
+		onChange: ( editorState ) => editorState.toJSON(),
+	},
 };
 
 export const Medium = {
-	render: () => (
-		<div style={ { width: '900px', height: '200px' } }>
-			<EditorInput
-				size="md"
-				options={ options }
-				onChange={ ( editorState ) => editorState.toJSON() }
-			/>
-		</div>
-	),
+	args: {
+		size: 'md',
+		options,
+		onChange: ( editorState ) => editorState.toJSON(),
+	},
 };
 
 export const Large = {
-	render: () => (
-		<div style={ { width: '900px', height: '200px' } }>
-			<EditorInput
-				size="lg"
-				options={ options }
-				onChange={ ( editorState ) => editorState.toJSON() }
-			/>
-		</div>
-	),
+	args: {
+		size: 'lg',
+		options,
+		onChange: ( editorState ) => editorState.toJSON(),
+	},
 };

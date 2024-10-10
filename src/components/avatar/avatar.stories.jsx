@@ -40,9 +40,32 @@ export default {
 				defaultValue: { summary: 'subtle' },
 			},
 		},
-		className: { name: 'Classname', control: 'text', defaultValue: '' },
-		url: { name: 'URL', control: 'text', defaultValue: '' },
-		children: { name: 'Children', control: 'text', defaultValue: 'Button' },
+		className: {
+			name: 'Class Name',
+			description: 'Defines the extra classes',
+			control: 'text',
+			table: {
+				type: { summary: 'string' },
+				defaultValue: { summary: '' },
+			},
+		},
+		url: {
+			name: 'URL',
+			description: 'The URL of the Avatar image',
+			control: 'text',
+			table: {
+				type: { summary: 'string' },
+				defaultValue: { summary: '' },
+			},
+		},
+		children: {
+			name: 'Children',
+			control: 'object',
+			table: {
+				type: { summary: 'string' },
+				defaultValue: { summary: '' },
+			},
+		},
 	},
 };
 
