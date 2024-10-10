@@ -112,11 +112,17 @@ const Template = () => {
 						<Topbar.Item>
 							<Badge label="Free" size="xs" variant="neutral" />
 						</Topbar.Item>
-						<Topbar.Item className="gap-2">
-							<CircleHelp strokeWidth="1.5" />
+						<Topbar.Item>
+							<CircleHelp
+								className="size-4 m-1"
+								strokeWidth="1.5"
+							/>
 						</Topbar.Item>
 						<Topbar.Item className="relative after:content-[''] after:inline-block after:size-1.5 after:bg-badge-background-important after:rounded-full after:absolute after:-top-0.5 after:left-5">
-							<Megaphone strokeWidth="1.5" />
+							<Megaphone
+								className="size-4 m-1"
+								strokeWidth="1.5"
+							/>
 						</Topbar.Item>
 						<Topbar.Item>
 							<Avatar

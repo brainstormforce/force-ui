@@ -22,7 +22,6 @@ import {
 	CreditCard,
 	InfoIcon,
 	Layers,
-	Megaphone,
 	MousePointer,
 	PenTool,
 	RefreshCcw,
@@ -242,9 +241,14 @@ const Template = () => {
 								variant="neutral"
 							/>
 						</Topbar.Item>
-						<Topbar.Item className="gap-2">
-							<CircleHelp strokeWidth="1.5" />
-							<Megaphone strokeWidth="1.5" />
+						<Topbar.Item>
+							<CircleHelp
+								className="size-4 m-1"
+								strokeWidth="1.5"
+							/>
+						</Topbar.Item>
+						<Topbar.Item>
+							<Bell className="size-4 m-1" strokeWidth="1.5" />
 						</Topbar.Item>
 						<Topbar.Item>
 							<Avatar
