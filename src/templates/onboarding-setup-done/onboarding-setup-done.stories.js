@@ -1,8 +1,5 @@
 import { Check, ExternalLink, X } from 'lucide-react';
-import ProgressSteps from '../../components/progress-steps';
-import Topbar from '../../components/topbar';
-import Button from '../../components/button';
-import Label from '../../components/label';
+import { Topbar, Button, Label, ProgressSteps } from '@/components';
 import { Icons } from '@/globals/icons/icons';
 
 export default {
@@ -47,13 +44,13 @@ const Template = (args) => {
                     </Topbar.Item>
                 </Topbar.Right>
             </Topbar>
-            <div className="space-y-4 p-6 w-max mx-auto mt-10 gap-10 border-border-subtle bg-background-primary rounded-md">
+            <div className="space-y-4 p-8 md:w-[31rem] mx-auto mt-10 border-border-subtle bg-background-primary rounded-md">
                 <div className='flex justify-between gap-4'>
                     <div>
                         <Label size="md" className="text-3xl font-semibold">
                             You're Good to Go! 🚀
                         </Label>
-                        <Label className="w-10/12 text-text-secondary mt-1 text-sm max-w-96">
+                        <Label className="text-text-secondary mt-1 text-sm">
                             You&#39;ve successfully set up SureEmails, and your site is ready to send emails without a hitch! Now you can focus on your business and let us handle the rest.
                         </Label>
 
@@ -63,7 +60,7 @@ const Template = (args) => {
                     </div>
                 </div>
                 <div>
-                    <Label className="w-10/12 text-text-primary font-semibold text-sm">
+                    <Label className="text-text-primary font-semibold text-sm">
                         Here&#39;s What SureEmails Will Do for You Now:
                     </Label>
                     <ul className="divide-y divide-gray-200 list-none pl-0 space-y-2 my-2">

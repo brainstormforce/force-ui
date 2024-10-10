@@ -1,23 +1,16 @@
 import { ChevronLeft, ChevronRight, X } from 'lucide-react';
-import ProgressSteps from '../progress-steps';
-import Topbar from '../topbar';
-import OnboardingSpam from './onboarding-spam';
-import Button from '../button';
-import Label from '../label';
-import Input from '../input';
+import { Topbar, Button, Label, Input, RadioButton, ProgressSteps } from '@/components';
 // import { Icons } from '@/globals/icons/icons';
-import RadioButton from '../radio-button-group';
 
 export default {
-	title: 'Templates/OnboardingSpam',
-	component: OnboardingSpam,
+	title: 'Templates/Onboarding/Setup Tools',
 	parameters: {
 		layout: 'fullscreen',
 	},
 	tags: [ 'autodocs' ],
 	argTypes: {
 		children: {
-			description: 'Content to render inside the OnboardingSpam.',
+			description: 'Content to render inside the OnboardingTools.',
 			control: { type: 'none' },
 		},
 	},
@@ -25,7 +18,7 @@ export default {
 
 const Template = ( args ) => {
 	return (
-		<OnboardingSpam
+		<div
 			{ ...args }
 			className="bg-background-secondary min-h-screen w-full pb-10"
 		>
@@ -115,11 +108,11 @@ const Template = ( args ) => {
 					</div>
 				</div>
 			</form>
-		</OnboardingSpam>
+		</div>
 	);
 };
 
-export const DefaultOnboardingSpam = Template.bind( {} );
-DefaultOnboardingSpam.args = {};
+export const DefaultOnboardingTools = Template.bind( {} );
+DefaultOnboardingTools.args = {};
 
-DefaultOnboardingSpam.storyName = 'OnboardingSpam';
+DefaultOnboardingTools.storyName = 'OnboardingTools';
