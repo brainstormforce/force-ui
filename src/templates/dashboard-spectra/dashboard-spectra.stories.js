@@ -34,7 +34,6 @@ import {
 	Instagram,
 	Infinity,
 } from 'lucide-react';
-import video from './video.png';
 import {
 	SpectraLogo,
 	AstraThemeSvg,
