@@ -118,7 +118,7 @@ const Template = (args) => {
                                 <React.Fragment key={index}>
                                     <SearchBox.ResultItem
                                         icon={item.type === 'file' ? <File size={16} /> : <Folder size={16} />}
-                                        onClick={() => { setOpen(false); }}
+                                        onClick={() => { setOpen(false); console.log(item.name) }}
                                         index={index}
                                     >
                                         {item.name}
@@ -132,8 +132,9 @@ const Template = (args) => {
                                     {results.map((item, index) => (
                                         <React.Fragment key={index}>
                                             <SearchBox.ResultItem
-                                                onClick={() => { setOpen(false); }}
-                                                index={index}>
+                                                onClick={() => { setOpen(false); console.log(item.name) }}
+                                                index={index}
+                                            >
                                                 {item.name} - (without icon)
                                             </SearchBox.ResultItem>
                                         </React.Fragment>

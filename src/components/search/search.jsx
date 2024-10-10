@@ -238,16 +238,23 @@ const SearchBoxResultTitle = forwardRef(({ className, children, ...props }, ref)
 SearchBoxResultTitle.displayName = 'SearchBox.ResultTitle';
 
 
-const SearchBoxResultItem = forwardRef(({ className, children, icon, ...props }, ref) => {
+const SearchBoxResultItem = forwardRef(({ onClick = () => { }, className, children, icon, ...props }, ref) => {
 	const { dimension } = useSearchContext();
 
 	return (<div
+		tabIndex={0}
 		ref={ref}
 		className={cn(
 			'flex items-center justify-center gap-1 p-1 hover:bg-background-secondary',
 			sizeClassNames.item[dimension],
 			className
 		)}
+		onClick={onClick}
+		onKeyDown={(e) => {
+			if (e.key === 'Enter') {
+				onClick();
+			}
+		}}
 		{...props}
 	>
 		<div className={cn(sizeClassNames.icon[dimension], 'flex items-center justify-center')}>
