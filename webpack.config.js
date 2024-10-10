@@ -4,7 +4,7 @@ const path = require('path');
 const libConfig = {
 	...defaultConfig,
 	entry: {
-		'force-ui': path.resolve(process.cwd(), 'src/index.js'),
+		'force-ui': path.resolve(process.cwd(), 'src/index'),
 		'utils/withTW': path.resolve(process.cwd(), 'src/utilities/withTW.js'),
 	},
 	output: {
@@ -18,7 +18,7 @@ const libConfig = {
 	},
 	resolve: {
 		...defaultConfig.resolve,
-		extensions: ['.js', '.jsx', '...'],
+		extensions: ['.ts', '.tsx', '.js', '.jsx', '...'],
 		alias: {
 			...defaultConfig.resolve.alias,
 			'@': path.resolve(process.cwd(), 'src'),
@@ -40,6 +40,19 @@ const libConfig = {
 				test: /\.mjs$/,
 				include: /node_modules/,
 				type: 'javascript/auto',
+			},
+			{
+				test: /\.(ts|tsx)$/,
+				exclude: /node_modules/,
+				use: [
+					{
+						loader: 'ts-loader',
+						options: {
+							configFile: 'tsconfig.json',
+							transpileOnly: true,
+						},
+					},
+				],
 			},
 		],
 	},
