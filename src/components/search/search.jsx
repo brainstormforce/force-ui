@@ -245,7 +245,7 @@ const SearchBoxResultItem = forwardRef(({ onClick = () => { }, className, childr
 		tabIndex={0}
 		ref={ref}
 		className={cn(
-			'flex items-center justify-center gap-1 p-1 hover:bg-background-secondary',
+			'flex items-center justify-center gap-1 p-1 hover:bg-background-secondary focus:bg-background-secondary',
 			sizeClassNames.item[dimension],
 			className
 		)}
