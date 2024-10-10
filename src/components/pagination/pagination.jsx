@@ -1,7 +1,7 @@
 import { createContext, useContext, forwardRef } from 'react';
 import { cn } from '@/utilities/functions';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { disabledClassNames } from './component-style';
+import { disabledClassNames, sizeClassNames } from './component-style';
 import Button from '../button';
 
 const PageContext = createContext();
@@ -48,19 +48,9 @@ const PaginationItem = forwardRef( ( { className, ...props }, ref ) => {
 		<li
 			ref={ ref }
 			tabIndex={ 0 }
-			className={ cn(
-				// sizeClassNames[size].general,
-				// sizeClassNames[size].text,
+			className={cn(
 				'flex',
-				disabled && [
-					disabledClassNames.general,
-					disabledClassNames.text,
-				],
-				// : [
-				// 	'hover:bg-button-tertiary-hover hover:text-button-secondary',
-				// 		'focus:bg-button-tertiary-hover focus:ring-2 focus:ring-offset-1 focus:border-solid focus:border-border-subtle focus:ring-focus',
-				// 	'cursor-pointer',
-				// ],
+				disabled && disabledClassNames.general,
 				className
 			) }
 			{ ...props }
@@ -79,23 +69,16 @@ const PaginationLink = ( {
 } ) => {
 	const { size, disabled } = usePageContext();
 	return (
-		// <a
-		// 	aria-disabled={disabled}
-		// 	tabIndex={disabled ? -1 : 0}
-		// 	className={cn(
-		// 		'no-underline outline-none focus:outline-none focus:ring-0 text-inherit flex justify-center items-center',
-		// 		className
-		// 	)}
-		// 	{...props}
-		// />
 		<Button
 			size={ size }
 			variant={ 'ghost' }
 			className={ cn(
-				! disabled &&
+				sizeClassNames[size].general,
+				!disabled &&
 					isActive &&
 					'text-button-primary bg-brand-background-50',
-				disabled && 'hover:none'
+				disabled && 'hover:bg-transparent cursor-not-allowed',
+				'focus:border-border-subtle'
 			) }
 			onClick={ onClick }
 			disabled={ disabled }
@@ -108,15 +91,12 @@ const PaginationLink = ( {
 };
 PaginationLink.displayName = 'PaginationLink';
 
-const PaginationPrevious = ( { onClick = () => {}, className, ...props } ) => {
-	// const { size, disabled } = usePageContext();
+const PaginationPrevious = ({ onClick = () => { }, className, ...props }) => {
 
 	return (
 		<PaginationLink
 			aria-label="Go to previous page"
-			className={ cn(
-				// sizeClassNames[size].icon,
-				// disabled && disabledClassNames.icon,
+			className={cn(
 				className
 			) }
 			icon={ <ChevronLeft /> }
@@ -127,15 +107,12 @@ const PaginationPrevious = ( { onClick = () => {}, className, ...props } ) => {
 };
 PaginationPrevious.displayName = 'PaginationPrevious';
 
-const PaginationNext = ( { onClick = () => {}, className, ...props } ) => {
-	// const { size, disabled } = usePageContext();
+const PaginationNext = ({ onClick = () => { }, className, ...props }) => {
 
 	return (
 		<PaginationLink
 			aria-label="Go to next page"
-			className={ cn(
-				// sizeClassNames[size].icon,
-				// disabled && disabledClassNames.icon,
+			className={cn(
 				className
 			) }
 			icon={ <ChevronRight /> }

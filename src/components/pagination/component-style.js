@@ -1,18 +1,12 @@
 export const sizeClassNames = {
 	sm: {
-		icon: '[&>svg]:size-4',
-		general: 'px-2 py-1 flex items-center rounded text-button-secondary',
-		text: 'text-xs font-semibold',
+		general: 'px-2 py-1 flex items-center rounded text-button-secondary'
 	},
 	md: {
-		icon: '[&>svg]:size-5',
-		general: 'px-3 py-1 flex items-center rounded text-button-secondary',
-		text: 'text-base font-semibold',
+		general: 'px-2.5 py-1 flex items-center rounded text-button-secondary',
 	},
 	lg: {
-		icon: '[&>svg]:size-6',
-		general: 'px-4 py-1.5 flex items-center rounded text-button-secondary',
-		text: 'text-lg font-semibold',
+		general: 'px-4 py-2 flex items-center rounded text-button-secondary',
 	},
 };
 
