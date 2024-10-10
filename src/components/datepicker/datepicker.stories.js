@@ -44,6 +44,14 @@ export default {
 				defaultValue: { summary: 'Cancel' },
 			},
 		},
+		showOutsideDays: {
+			control: 'boolean',
+			description: 'Show or hide days outside of the current month.',
+			table: {
+				type: { summary: 'boolean' },
+				defaultValue: { summary: 'true' },
+			},
+		},
 	},
 	decorators: [
 		( Story ) => (
@@ -62,6 +70,7 @@ Default.args = {
 	variant: 'normal',
 	applyButtonText: 'Apply',
 	cancelButtonText: 'Cancel',
+	showOutsideDays: true,
 };
 
 export const Range = Template.bind( {} );
@@ -70,6 +79,7 @@ Range.args = {
 	variant: 'normal',
 	applyButtonText: 'Apply',
 	cancelButtonText: 'Cancel',
+	showOutsideDays: true,
 };
 
 export const Multiple = Template.bind( {} );
@@ -78,6 +88,7 @@ Multiple.args = {
 	variant: 'normal',
 	applyButtonText: 'Apply',
 	cancelButtonText: 'Cancel',
+	showOutsideDays: true,
 };
 
 export const DualDate = Template.bind( {} );
@@ -86,6 +97,7 @@ DualDate.args = {
 	variant: 'dualdate',
 	applyButtonText: 'Apply',
 	cancelButtonText: 'Cancel',
+	showOutsideDays: true,
 };
 
 export const WithPresets = Template.bind( {} );
@@ -94,4 +106,5 @@ WithPresets.args = {
 	variant: 'presets',
 	applyButtonText: 'Apply',
 	cancelButtonText: 'Cancel',
+	showOutsideDays: true,
 };

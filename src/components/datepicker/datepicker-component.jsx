@@ -12,7 +12,7 @@ const DatePickerComponent = ( {
 	classNames,
 	selectedDates,
 	setSelectedDates,
-	showOutsideDays = false,
+	showOutsideDays = true,
 	mode = 'single',
 	variant = 'normal',
 	alignment = 'horizontal',
@@ -229,38 +229,49 @@ const DatePickerComponent = ( {
 		const isDisabled = modifiers.disabled;
 		const isOutside = modifiers.outside;
 		const isRangeMiddle = modifiers.range_middle;
+		const isPartOfRange =
+			modifiers.range_start || modifiers.range_end || isRangeMiddle; // Part of the range
 
 		const handleClick = () => {
 			if ( ! isDisabled ) {
 				onSelect( day.date );
 			}
 		};
+		const showOutsideDates = ! showOutsideDays && isOutside;
+		// Check if the day is in the current display month
+		const isThisMonth =
+			format( day.displayMonth, 'yyyy-MM' ) ===
+			format( new Date(), 'yyyy-MM' );
 
 		return (
 			<button
 				onClick={ handleClick }
-				onBlur={ onBlur }
-				onChange={ onChange }
 				className={ cn(
 					'h-10 w-10 flex items-center justify-center transition text-text-secondary relative',
 					'border-none rounded',
-					isSelected
+					( isSelected || isPartOfRange ) && isThisMonth // Apply styles only if isThisMonth is true
 						? 'bg-background-brand text-text-on-color'
 						: 'bg-transparent hover:bg-button-tertiary-hover',
-					isRangeMiddle
+					isRangeMiddle && isThisMonth // Apply styles for range middle only if isThisMonth is true
 						? 'bg-blue-50 text-text-secondary rounded-none'
 						: '',
 					isDisabled
 						? 'opacity-50 cursor-not-allowed text-text-disabled'
 						: 'cursor-pointer',
-					isOutside ? 'opacity-50 text-text-disabled' : ''
+					isOutside && ! isPartOfRange
+						? 'opacity-50 text-text-disabled cursor-auto'
+						: '',
+					! isThisMonth && isOutside
+						? 'opacity-50 text-text-disabled cursor-auto'
+						: ''
 				) }
-				disabled={ isDisabled }
+				disabled={ isDisabled || isOutside }
 				aria-label={ format( day.date, 'EEEE, MMMM do, yyyy' ) }
 			>
-				{ format( day.date, 'd' ) }
+				{ ( ! showOutsideDates || ( isPartOfRange && isThisMonth ) ) &&
+					format( day.date, 'd' ) }
 				{ isToday && (
-					<span className="absolute h-1 w-1 bg-background-brand  rounded-full bottom-1"></span>
+					<span className="absolute h-1 w-1 bg-background-brand rounded-full bottom-1"></span>
 				) }
 			</button>
 		);
@@ -268,7 +279,6 @@ const DatePickerComponent = ( {
 
 	const Day = ( dayProps ) => {
 		const { day, modifiers, className, onSelect } = dayProps;
-
 		return (
 			<td className={ className }>
 				<CustomDayButton
@@ -363,7 +373,6 @@ const DatePickerComponent = ( {
 				onSelect={ handleSelect }
 				hideNavigation
 				captionLayout="label"
-				showOutsideDays={ showOutsideDays }
 				className={ cn( outerClassName ) } // Using renamed className
 				formatters={ {
 					formatWeekdayName,
@@ -380,14 +389,7 @@ const DatePickerComponent = ( {
 					row: 'flex w-full mt-2',
 					cell: 'h-10 w-10 text-center text-sm p-0 relative',
 					day: 'h-10 w-10 p-0 font-normal bg-background-primary text-current',
-					day_selected: 'text-text-on-color',
-					day_today: 'border-2 border-blue-500 rounded-full',
-					day_outside: 'text-muted-foreground opacity-50',
-					day_disabled: 'text-muted-foreground opacity-50',
-					day_hidden: 'invisible',
 					...classNames,
-					weekday:
-						'h-10 p-0 text-muted-foreground text-[0.8rem] font-normal',
 				} }
 				components={ {
 					MonthCaption: CustomMonthCaption,

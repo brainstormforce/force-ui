@@ -20,6 +20,7 @@ const DatePicker = ( {
 	onApply,
 	applyButtonText = 'Apply',
 	cancelButtonText = 'Cancel',
+	showOutsideDays = true,
 	...props
 } ) => {
 	const [ selectedDates, setSelectedDates ] = useState( () => {
@@ -99,6 +100,7 @@ const DatePicker = ( {
 				variant={ variant }
 				width="w-[18.5rem]"
 				selectedDates={ selectedDates }
+				showOutsideDays={ showOutsideDays }
 				setSelectedDates={ setSelectedDates }
 			/>
 		);
@@ -112,6 +114,7 @@ const DatePicker = ( {
 				alignment="horizontal"
 				selectedDates={ selectedDates }
 				setSelectedDates={ setSelectedDates }
+				showOutsideDays={ showOutsideDays }
 				variant={ variant }
 				width="w-full"
 				footer={
@@ -149,6 +152,7 @@ const DatePicker = ( {
 					selectedDates={ selectedDates }
 					setSelectedDates={ setSelectedDates }
 					variant={ variant }
+					showOutsideDays={ showOutsideDays }
 					width="w-full"
 					numberOfMonths={ 2 }
 					footer={
