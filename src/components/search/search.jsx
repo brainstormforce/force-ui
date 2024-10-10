@@ -1,0 +1,258 @@
+import { useState, forwardRef, useRef, createContext, useContext } from 'react';
+import { cn } from '@/utilities/functions';
+import { Search } from 'lucide-react';
+import Loader from '../loader';
+import {
+	textSizeClassNames,
+	variantClassNames,
+	disabledClassNames,
+	baseClassNames,
+	sizeClassNames,
+	IconClasses
+} from './styles';
+import { autoUpdate, flip, FloatingPortal, offset, size, useDismiss, useFloating, useInteractions } from '@floating-ui/react';
+
+const SearchContext = createContext();
+
+const useSearchContext = () => {
+	return useContext(SearchContext);
+};
+
+const SearchBox = forwardRef(({ className, dimension = 'sm', open = false, onOpenChange = () => { }, ...props }, ref) => {
+
+	const inputRef = useRef(null);
+
+	const { refs, floatingStyles, context } = useFloating({
+		open: open,
+		onOpenChange: onOpenChange,
+		placement: 'bottom-start',
+		whileElementsMounted: autoUpdate,
+		middleware: [
+			offset(5),
+			flip({ padding: 10 }),
+			size({
+				apply({ rects, elements, availableHeight }) {
+					Object.assign(elements.floating.style, {
+						maxHeight: availableHeight,
+						width: `${inputRef.current?.clientWidth || 0}px`, 
+						fontFamily: window.getComputedStyle(elements.reference).fontFamily, // Retain parent's font family
+					});
+				},
+				padding: 10,
+			}),
+		],
+	});
+	const dismiss = useDismiss(context);
+
+	const { getReferenceProps, getFloatingProps } = useInteractions([
+		dismiss,
+	]);
+
+	return (
+		<SearchContext.Provider value={{ dimension, open, onOpenChange, refs, floatingStyles, context, getReferenceProps, getFloatingProps }}>
+			<div
+				className={cn('searchbox-wrapper relative w-full', className)}
+				{...props}
+				ref={inputRef}
+			/>
+		</SearchContext.Provider>
+	);
+});
+SearchBox.displayName = 'SearchBox';
+
+const SearchBoxInput = forwardRef(({
+	className,
+	type = "text",
+	placeholder = 'Search...',
+	variant = 'primary',
+	disabled = false,
+	value,
+	defaultValue,
+	onChange,
+	...props
+}, ref) => {
+	const [internalValue, setInternalValue] = useState(defaultValue || '');
+	const isControlled = useRef(value !== undefined);
+	const { dimension, onOpenChange, refs, getReferenceProps } = useSearchContext();
+
+	const handleChange = (event) => {
+		const newValue = event.target.value;
+		if (!isControlled.current) {
+			setInternalValue(newValue);
+		}
+		onChange?.(newValue, event);
+		if (typeof onOpenChange === 'function') {
+			if (newValue.trim()) {
+				onOpenChange(true); // Open the dropdown
+			} else {
+				onOpenChange(false); // Close the dropdown
+			}
+		}
+	};
+
+	const inputValue = isControlled.current ? value : internalValue;
+
+	return (
+		<div
+			tabIndex={0}
+			ref={refs.setReference}
+			className={cn(
+				"w-full box-border group relative flex justify-center items-center font-normal gap-1.5 focus-within:z-10 transition-colors ease-in-out duration-150",
+				baseClassNames,
+				variantClassNames[variant],
+				sizeClassNames[dimension],
+				textSizeClassNames[dimension],
+				disabled ?
+					disabledClassNames :
+					'focus-within:ring-2 focus-within:ring-focus focus-within:ring-offset-2 focus-within:border-border-interactive focus-within:hover:border-border-interactive',
+			)}
+			{...getReferenceProps}
+		>
+			<span
+				className={cn(
+					textSizeClassNames[dimension],
+					disabled ? 'text-icon-disabled' : IconClasses,
+					"flex justify-center items-center",
+				)}>
+				<Search />
+			</span>
+			<input
+				type={type}
+				ref={ref}
+				className={cn(
+					textSizeClassNames[dimension],
+					'flex-grow bg-transparent border-none outline-none border-transparent focus:ring-0',
+					disabled ?
+						disabledClassNames :
+						'text-field-placeholder placeholder:text-field-placeholder group-hover:placeholder:text-field-input group-focus-within:placeholder:text-field-input focus-within:text-field-input group-hover:text-field-input',
+					className
+				)}
+				disabled={disabled}
+				value={inputValue}
+				onChange={handleChange}
+				placeholder={placeholder}
+				{...props}
+			/>
+			<span
+				className={cn(
+					textSizeClassNames[dimension],
+					disabled ? 'text-icon-disabled' : IconClasses,
+					'bg-field-secondary-background border border-solid border-field-border',
+					dimension === 'sm'
+						? 'px-2 py-0.5'
+						: dimension === 'md'
+							? 'px-3 py-1'
+							: 'px-3.5 py-1'
+				)}
+			>
+				/
+			</span>
+
+		</div >
+	);
+});
+SearchBoxInput.displayName = 'SearchBox.Input';
+
+const SearchBoxContent = forwardRef(({
+	className,
+	dropdownPortalRoot = null, // Root element where the dropdown will be rendered.
+	dropdownPortalId = '', // Id of the dropdown portal where the dropdown will be rendered.
+	children, ...props
+}, ref) => {
+	const { open, refs, floatingStyles, getFloatingProps } = useSearchContext();
+
+	if (!open) return null;
+
+	return (
+		<FloatingPortal id={dropdownPortalId} root={dropdownPortalRoot}>
+			<div
+				ref={refs.setFloating}
+				style={{
+					...floatingStyles
+				}}
+				className={cn(
+					'bg-background-primary mt-2 rounded-md border-border-strong shadow-lg overflow-y-auto text-wrap',
+					className
+				)}
+				{...getFloatingProps}
+				{...props}
+			>
+				{children}
+			</div>
+		</FloatingPortal>
+	);
+});
+SearchBoxContent.displayName = 'SearchBox.Content';
+
+
+const SearchBoxLoading = ({ loadingIcon = <Loader /> }) => {
+	const { dimension } = useSearchContext();
+	return (
+		<div className={cn("justify-center p-4", textSizeClassNames[dimension])}>
+		{loadingIcon}
+	</div>
+	)
+};
+SearchBoxLoading.displayName = 'SearchBox.Loading';
+
+
+const SearchBoxResults = forwardRef(({ className, children, ...props }, ref) => (
+	<div ref={ref} className={cn('p-2', className)} {...props}>
+		{children}
+	</div>
+));
+SearchBoxResults.displayName = 'SearchBox.Results';
+
+
+const SearchBoxResultTitle = forwardRef(({ className, children, ...props }, ref) => {
+	const { dimension } = useSearchContext();
+
+	return (
+		<div
+			ref={ref}
+			className={cn(
+				'flex p-1',
+				className
+			)}
+			{...props}
+		>
+			<label className={cn("w-full text-text-secondary", textSizeClassNames[dimension])}>{children}</label>
+		</div>
+	)
+});
+SearchBoxResultTitle.displayName = 'SearchBox.ResultTitle';
+
+
+const SearchBoxResultItem = forwardRef(({ className, children, icon, ...props }, ref) => {
+	const { dimension } = useSearchContext();
+	return (<div
+		ref={ref}
+		className={cn(
+			'flex items-center gap-2 p-1 hover:bg-background-secondary',
+			textSizeClassNames[dimension],
+			!icon && "pl-4",
+			className
+		)}
+		{...props}
+	>
+		{icon}
+		<label className={cn(textSizeClassNames[dimension], "w-full text-text-secondary cursor-pointer")}>{children}</label>
+	</div>)
+});
+SearchBoxResultItem.displayName = 'SearchBox.ResultItem';
+
+
+const SearchBoxSeparator = forwardRef(({ className, ...props }, ref) => (
+	<hr ref={ref} className={cn('m-0 text-text-tertiary', className)} {...props} />
+));
+SearchBoxSeparator.displayName = 'SearchBox.Separator';
+
+SearchBox.Input = SearchBoxInput;
+SearchBox.Content = SearchBoxContent;
+SearchBox.Loading = SearchBoxLoading;
+SearchBox.Results = SearchBoxResults;
+SearchBox.ResultTitle = SearchBoxResultTitle;
+SearchBox.ResultItem = SearchBoxResultItem;
+SearchBox.Separator = SearchBoxSeparator;
+
+export default SearchBox;
