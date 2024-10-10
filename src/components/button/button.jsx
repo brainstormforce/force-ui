@@ -48,10 +48,10 @@ const Button = forwardRef( ( props, ref ) => {
 			: '';
 
 	const sizeClassNames = {
-		xs: 'p-1 rounded-sm [&>svg]:h-4 [&>svg]:w-4',
-		sm: 'p-2 rounded-sm [&>svg]:h-4 [&>svg]:w-4',
-		md: 'p-2.5 rounded-md text-sm [&>svg]:h-5 [&>svg]:w-5',
-		lg: 'p-3 rounded-lg text-base [&>svg]:h-6 [&>svg]:w-6',
+		xs: 'p-1 rounded [&>svg]:h-4 [&>svg]:w-4 h-6 gap-1',
+		sm: 'p-2 rounded [&>svg]:h-4 [&>svg]:w-4 h-8 gap-1.5',
+		md: 'p-2.5 rounded-md text-sm [&>svg]:h-5 [&>svg]:w-5 h-10 gap-2',
+		lg: 'p-3 rounded-lg text-base [&>svg]:h-6 [&>svg]:w-6 h-12 gap-2',
 	}?.[ size ];
 
 	let iconLeft,
