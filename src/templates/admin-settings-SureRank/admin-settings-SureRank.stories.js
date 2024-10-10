@@ -250,11 +250,11 @@ const Template = () => {
 							<Sidebar.Item>
 								<Menu size="md" className="w-full p-0 gap-4">
 									<Menu.List arrow heading="General" open>
-										<Menu.Item active>
+										<Menu.Item>
 											<Type />
 											<div>Titles and Descriptions</div>
 										</Menu.Item>
-										<Menu.Item>
+										<Menu.Item active>
 											<House />
 											<div>Home Page</div>
 										</Menu.Item>
