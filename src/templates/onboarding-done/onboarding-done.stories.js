@@ -1,5 +1,5 @@
 import { ChevronRight, ExternalLink, X } from 'lucide-react';
-import { ProgressSteps, Topbar, Button, Label } from '@/components'
+import { ProgressSteps, Topbar, Button, Label } from '@/components';
 import { Icons } from '@/globals/icons/icons';
 
 export default {
@@ -51,7 +51,8 @@ const Template = ( args ) => {
 					</Label>
 					<Label className="text-text-secondary mt-1 text-sm">
 						You&#39;ve taken the first step to SEO success. Now,
-						let&#39;s optimize your website for search engines.<br/>
+						let&#39;s optimize your website for search engines.
+						<br />
 						Start by:
 					</Label>
 					<ul className="divide-y divide-gray-200 list-none pl-0 space-y-2">
@@ -60,7 +61,7 @@ const Template = ( args ) => {
 							<span>Analyzing your keywords</span>
 						</li>
 						<li className="flex items-center space-x-2 text-field-label text-sm">
-							<ChevronRight  className="size-4" />
+							<ChevronRight className="size-4" />
 							<span>Optimizing your content</span>
 						</li>
 						<li className="flex items-center space-x-2 text-field-label text-sm">
@@ -69,9 +70,7 @@ const Template = ( args ) => {
 						</li>
 					</ul>
 					<div className="flex items-center mt-6">
-						<Button className="px-4 w-max">
-							Go to Dashboard
-						</Button>
+						<Button className="px-4 w-max">Go to Dashboard</Button>
 						<Button
 							variant="link"
 							className="px-4 flex items-center gap-2"

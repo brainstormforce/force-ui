@@ -1,5 +1,11 @@
 import { ChevronRight, X } from 'lucide-react';
-import { ProgressSteps, Topbar, Button, RadioButton, Label } from '@/components'
+import {
+	ProgressSteps,
+	Topbar,
+	Button,
+	RadioButton,
+	Label,
+} from '@/components';
 import { Icons } from '@/globals/icons/icons';
 
 export default {
@@ -80,9 +86,7 @@ const Template = ( args ) => {
 					</RadioButton.Group>
 				</div>
 				<div className="flex justify-end items-center gap-3 mt-6">
-				<Button variant='ghost'>
-						Skip
-					</Button>
+					<Button variant="ghost">Skip</Button>
 					<Button className="flex items-center gap-2">
 						Next <ChevronRight />
 					</Button>

@@ -1,4 +1,4 @@
-import { X } from 'lucide-react'; 
+import { X } from 'lucide-react';
 import { ProgressSteps, Topbar, Button, Label } from '@/components';
 import { Icons } from '@/globals/icons/icons';
 
