@@ -39,7 +39,6 @@ import {
 	SureTriggers,
 } from './dashboard-astra-svgs';
 import astraVideo from './astraVideo.png';
-import avatarImage from './avatarImage.png';
 
 export default {
 	title: 'Templates/Dashboard/Astra Dashboard',
@@ -353,7 +352,11 @@ export const AstraDashboard = () => {
 						<Bell strokeWidth={ 1.5 } />
 					</Topbar.Item>
 					<Topbar.Item>
-						<Avatar size="sm" border="none" url={ avatarImage } />
+						<Avatar
+							size="sm"
+							border="none"
+							url="https://t4.ftcdn.net/jpg/03/83/25/83/360_F_383258331_D8imaEMl8Q3lf7EKU2Pi78Cn0R7KkW9o.jpg"
+						/>
 					</Topbar.Item>
 				</Topbar.Right>
 			</Topbar>
