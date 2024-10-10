@@ -26,7 +26,7 @@ const BadgeComponent = ( props, ref ) => {
 
 	// Size classes - Based on the size prop
 	const sizeClasses = {
-		xxs: 'py-0.5 px-1 text-xxs', // Assuming you have xxs text size as utility
+		xxs: 'py-0.5 px-1 text-xs', // Assuming you have xxs text size as utility
 		xs: 'py-0.5 px-1 text-xs',
 		sm: 'py-1 px-1.5 text-xs',
 		md: 'py-1 px-1.5 text-sm',
