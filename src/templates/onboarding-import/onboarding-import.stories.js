@@ -50,7 +50,7 @@ const Template = ( args ) => {
 					</Topbar.Item>
 				</Topbar.Right>
 			</Topbar>
-			<div className="md:w-[41rem] mx-auto p-8 mt-10 border-border-subtle bg-background-primary rounded-md">
+			<div className="md:w-[41rem] mx-auto p-8 mt-10 border border-solid border-border-subtle bg-background-primary rounded-md">
 				<div>
 					<Label size="md" className="font-semibold">
 						Import Data From Your Current Plugins
