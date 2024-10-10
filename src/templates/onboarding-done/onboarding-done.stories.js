@@ -70,7 +70,7 @@ const Template = ( args ) => {
 						</li>
 					</ul>
 					<div className="flex items-center mt-6">
-						<Button className="px-4 w-max">Go to Dashboard</Button>
+						<Button className="w-max">Go to Dashboard</Button>
 						<Button
 							variant="link"
 							className="px-4 flex items-center gap-2"

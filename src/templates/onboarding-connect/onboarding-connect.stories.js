@@ -56,7 +56,7 @@ const Template = ( args ) => {
 						assistant work as a SEO expert and help you get your
 						site ranked.
 					</Label>
-					<Button className="mt-6 px-4">Connect Now</Button>
+					<Button className="mt-6">Connect Now</Button>
 				</div>
 				<div>
 					<img
