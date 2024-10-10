@@ -16,7 +16,7 @@ module.exports = {
 					['@/components', './src/components'],
 					['@/utilities', './src/utilities'],
 				],
-				extensions: ['.js', '.jsx'],
+				extensions: ['.js', '.jsx', '.ts', '.tsx'],
 			},
 		},
 	},
@@ -26,6 +26,14 @@ module.exports = {
 			presets: ['@wordpress/babel-preset-default'],
 		},
 	},
+	overrides: [
+		{
+			files: ['*.ts', '*.tsx'],
+			rules: {
+				'no-undef': 'off',
+			},
+		},
+	],
 	rules: {
 		'jsx-a11y/click-events-have-key-events': 'off',
 		'react-hooks/exhaustive-deps': 'off',
