@@ -238,7 +238,7 @@ const DatePickerComponent = ( {
 		const handleClick = () => ! isDisabled && onSelect( day.date );
 
 		const today = new Date();
-		const rangeEnd = selectedDates.to;
+		const rangeEnd = selectedDates?.to;
 
 		const isThisMonth =
 			format( day.displayMonth, 'yyyy-MM' ) === format( today, 'yyyy-MM' );
