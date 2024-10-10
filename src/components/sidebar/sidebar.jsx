@@ -43,16 +43,10 @@ const Sidebar = ( {
 				localStorage.removeItem( 'sidebar-collapsed' );
 			} else if ( isSmallScreen ) {
 				setIsCollapsed( true );
-				localStorage.setItem(
-					'sidebar-collapsed',
-					JSON.stringify( true )
-				);
+				localStorage.setItem( 'sidebar-collapsed', JSON.stringify( true ) );
 			} else {
-				const storedState =
-						localStorage.getItem( 'sidebar-collapsed' );
-				setIsCollapsed(
-					storedState ? JSON.parse( storedState ) : false
-				);
+				const storedState = localStorage.getItem( 'sidebar-collapsed' );
+				setIsCollapsed( storedState ? JSON.parse( storedState ) : false );
 			}
 
 			if ( sideBarRef.current ) {

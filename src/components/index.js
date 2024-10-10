@@ -26,4 +26,5 @@ export { default as Breadcrumb } from './breadcrumb/index';
 export { default as Dialog } from './dialog/index';
 export { default as Topbar } from './topbar/index';
 export { default as SearchBox } from './search/index';
+export { default as DropdownMenu } from './dropdown-menu/index';
 export { default as Drawer } from './drawer/index';
