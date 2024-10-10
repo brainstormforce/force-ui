@@ -1,3 +1,14 @@
+import {
+	startOfToday,
+	startOfYesterday,
+	startOfWeek,
+	endOfWeek,
+	startOfMonth,
+	endOfMonth,
+	subWeeks,
+	subMonths,
+} from 'date-fns';
+
 import DatePicker from './datepicker';
 
 export default {
@@ -50,6 +61,14 @@ export default {
 			table: {
 				type: { summary: 'boolean' },
 				defaultValue: { summary: 'true' },
+			},
+		},
+		presets: {
+			control: 'object',
+			description: 'Array of preset date ranges to display.',
+			table: {
+				type: { summary: 'array' },
+				defaultValue: { summary: '[]' },
 			},
 		},
 	},
@@ -107,4 +126,42 @@ WithPresets.args = {
 	applyButtonText: 'Apply',
 	cancelButtonText: 'Cancel',
 	showOutsideDays: true,
+	presets: [
+		{
+			label: 'Today',
+			range: { from: startOfToday(), to: startOfToday() },
+		},
+		{
+			label: 'Yesterday',
+			range: { from: startOfYesterday(), to: startOfYesterday() },
+		},
+		{
+			label: 'This Week',
+			range: {
+				from: startOfWeek( new Date(), { weekStartsOn: 1 } ),
+				to: endOfWeek( new Date(), { weekStartsOn: 1 } ),
+			},
+		},
+		{
+			label: 'Last Week',
+			range: {
+				from: startOfWeek( subWeeks( new Date(), 1 ), { weekStartsOn: 1 } ),
+				to: endOfWeek( subWeeks( new Date(), 1 ), { weekStartsOn: 1 } ),
+			},
+		},
+		{
+			label: 'This Month',
+			range: {
+				from: startOfMonth( new Date() ),
+				to: endOfMonth( new Date() ),
+			},
+		},
+		{
+			label: 'Last Month',
+			range: {
+				from: startOfMonth( subMonths( new Date(), 1 ) ),
+				to: endOfMonth( subMonths( new Date(), 1 ) ),
+			},
+		},
+	],
 };
