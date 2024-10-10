@@ -97,7 +97,7 @@ const Template = (args) => {
 
 
     return (
-        <div>
+        <div style={{ width: '400px' }}>
             <SearchBox {...args} open={open} onOpenChange={setOpen}>
                 <SearchBox.Input
                     placeholder={args.placeholder}
@@ -119,6 +119,7 @@ const Template = (args) => {
                                     <SearchBox.ResultItem
                                         icon={item.type === 'file' ? <File size={16} /> : <Folder size={16} />}
                                         onClick={() => { setOpen(false); }}
+                                        index={index}
                                     >
                                         {item.name}
                                     </SearchBox.ResultItem>
@@ -132,7 +133,7 @@ const Template = (args) => {
                                         <React.Fragment key={index}>
                                             <SearchBox.ResultItem
                                                 onClick={() => { setOpen(false); }}
-                                            >
+                                                index={index}>
                                                 {item.name} - (without icon)
                                             </SearchBox.ResultItem>
                                         </React.Fragment>

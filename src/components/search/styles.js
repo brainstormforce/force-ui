@@ -5,6 +5,36 @@ export const textSizeClassNames = {
 };
 
 export const sizeClassNames = {
+    input: {
+        sm: 'py-1.5 px-2 rounded',
+        md: 'p-2.5 rounded-md',
+        lg: 'p-3 rounded-md',
+    },
+    content: {
+        sm: 'p-1.5',
+        md: 'p-2.5',
+        lg: 'p-3',
+    },
+    title: {
+        sm: 'p-2 text-xs',
+        md: 'p-2 text-sm',
+        lg: 'p-2 text-sm',
+    },
+    item: {
+        sm: 'text-sm text-text-secondary rounded',
+        md: 'text-base text-text-secondary rounded-md',
+        lg: 'text-base text-text-secondary rounded-md',
+    },
+    icon: {
+        sm: 'p-1 text-sm [&>svg]:size-4 text-icon-secondary',
+        md: 'p-2 text-base [&>svg]:size-5 text-icon-secondary',
+        lg: 'p-2 text-base [&>svg]:size-5 text-icon-secondary',
+    },
+    dialog: {
+        sm: 'mt-1 rounded-md',
+        md: 'mt-1.5 rounded-lg',
+        lg: 'mt-1.5 rounded-lg',
+    },
     sm: 'py-1.5 px-2 rounded',
     md: 'p-2.5 rounded-md',
     lg: 'p-3 rounded-md',
