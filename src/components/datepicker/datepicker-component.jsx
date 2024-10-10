@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { DayPicker, useDayPicker } from 'react-day-picker';
-import { format } from 'date-fns';
+import { format, subMonths } from 'date-fns';
 import { cn } from '@/utilities/functions';
 import Button from '../button';
 import { currentTimeDot, formatWeekdayName, generateYearRange } from './utils';
@@ -224,51 +224,66 @@ const DatePickerComponent = ( {
 	};
 
 	const CustomDayButton = ( { day, modifiers, onSelect } ) => {
-		const isSelected = modifiers.selected;
-		const isToday = modifiers.today;
-		const isDisabled = modifiers.disabled;
-		const isOutside = modifiers.outside;
-		const isRangeMiddle = modifiers.range_middle;
-		const isPartOfRange =
-			modifiers.range_start || modifiers.range_end || isRangeMiddle; // Part of the range
+		const {
+			selected: isSelected,
+			today: isToday,
+			disabled: isDisabled,
+			outside: isOutside,
+			range_middle: isRangeMiddle,
+			range_start: isRangeStart,
+			range_end: isRangeEnd,
+		} = modifiers;
 
-		const handleClick = () => {
-			if ( ! isDisabled ) {
-				onSelect( day.date );
-			}
-		};
-		const showOutsideDates = ! showOutsideDays && isOutside;
-		// Check if the day is in the current display month
+		const isPartOfRange = isRangeStart || isRangeEnd || isRangeMiddle;
+		const handleClick = () => ! isDisabled && onSelect( day.date );
+
+		const today = new Date();
+		const rangeEnd = selectedDates.to;
+
 		const isThisMonth =
-			format( day.displayMonth, 'yyyy-MM' ) ===
-			format( new Date(), 'yyyy-MM' );
+			format( day.displayMonth, 'yyyy-MM' ) === format( today, 'yyyy-MM' );
+		const isRangeEndInCurrentMonth =
+			rangeEnd &&
+			format( rangeEnd, 'yyyy-MM' ) === format( day.date, 'yyyy-MM' );
+		const previousMonth = subMonths( today, 1 );
+		const isPreviousMonth =
+			format( day.date, 'yyyy-MM' ) === format( previousMonth, 'yyyy-MM' );
+
+		const shouldShowDay =
+			isThisMonth || isRangeEndInCurrentMonth || isPartOfRange;
+		const showOutsideDates = ! showOutsideDays && isOutside;
+
+		// Common class for disabled outside days
+		const disabledOutsideClass =
+			'bg-transperant opacity-50 text-text-disabled cursor-auto';
+
+		const buttonClasses = cn(
+			'h-10 w-10 flex items-center justify-center transition text-text-secondary relative',
+			'border-none rounded',
+			( isSelected || isPartOfRange ) && ( ! isOutside || isPreviousMonth )
+				? 'bg-background-brand text-text-on-color'
+				: 'bg-transparent hover:bg-button-tertiary-hover',
+			isRangeMiddle && shouldShowDay && ( ! isOutside || isPartOfRange )
+				? 'bg-brand-50 text-text-secondary rounded-none'
+				: '',
+			isDisabled
+				? 'opacity-50 cursor-not-allowed text-text-disabled'
+				: 'cursor-pointer',
+			( isOutside && ! isPartOfRange ) ||
+				( ! shouldShowDay && isOutside ) ||
+				( isOutside && ! isPreviousMonth )
+				? disabledOutsideClass
+				: ''
+		);
 
 		return (
 			<button
 				onClick={ handleClick }
-				className={ cn(
-					'h-10 w-10 flex items-center justify-center transition text-text-secondary relative',
-					'border-none rounded',
-					( isSelected || isPartOfRange ) && isThisMonth // Apply styles only if isThisMonth is true
-						? 'bg-background-brand text-text-on-color'
-						: 'bg-transparent hover:bg-button-tertiary-hover',
-					isRangeMiddle && isThisMonth // Apply styles for range middle only if isThisMonth is true
-						? 'bg-blue-50 text-text-secondary rounded-none'
-						: '',
-					isDisabled
-						? 'opacity-50 cursor-not-allowed text-text-disabled'
-						: 'cursor-pointer',
-					isOutside && ! isPartOfRange
-						? 'opacity-50 text-text-disabled cursor-auto'
-						: '',
-					! isThisMonth && isOutside
-						? 'opacity-50 text-text-disabled cursor-auto'
-						: ''
-				) }
+				className={ buttonClasses }
 				disabled={ isDisabled || isOutside }
 				aria-label={ format( day.date, 'EEEE, MMMM do, yyyy' ) }
 			>
-				{ ( ! showOutsideDates || ( isPartOfRange && isThisMonth ) ) &&
+				{ ( ! showOutsideDates || ( isPartOfRange && shouldShowDay ) ) &&
 					format( day.date, 'd' ) }
 				{ isToday && (
 					<span className="absolute h-1 w-1 bg-background-brand rounded-full bottom-1"></span>

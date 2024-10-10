@@ -2,7 +2,7 @@ import { format } from 'date-fns';
 
 export const currentTimeDot = () => {
 	return (
-		<span className="bg-blue-500 h-1 w-1 absolute rounded-full inline-block bottom-0 left-1/2 right-1/2"></span>
+		<span className="bg-icon-interactive h-1 w-1 absolute rounded-full inline-block bottom-0 left-1/2 right-1/2"></span>
 	);
 };
 
