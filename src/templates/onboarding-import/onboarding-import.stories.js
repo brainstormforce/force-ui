@@ -1,9 +1,5 @@
 import { ChevronRight, X } from 'lucide-react';
-import ProgressSteps from '../../components/progress-steps';
-import Topbar from '../../components/topbar';
-import Button from '../../components/button';
-import RadioButton from '../../components/radio-button';
-import Label from '../../components/label';
+import { ProgressSteps, Topbar, Button, RadioButton, Label } from '@/components'
 import { Icons } from '@/globals/icons/icons';
 
 export default {
@@ -48,12 +44,12 @@ const Template = ( args ) => {
 					</Topbar.Item>
 				</Topbar.Right>
 			</Topbar>
-			<div className="w-8/12 p-6 mx-auto gap-10 border-border-subtle bg-background-primary rounded-md mt-10">
+			<div className="md:w-[41rem] mx-auto p-8 mt-10 border-border-subtle bg-background-primary rounded-md">
 				<div>
 					<Label size="md" className="font-semibold">
 						Import Data From Your Current Plugins
 					</Label>
-					<Label className="w-10/12 text-text-secondary mt-1">
+					<Label className="text-text-secondary mt-1 text-sm max-w-[520px]">
 						We have deducted few SEO plugins installed on your
 						website. Select the plugin from which you want to import
 					</Label>
@@ -83,8 +79,10 @@ const Template = ( args ) => {
 						/>
 					</RadioButton.Group>
 				</div>
-				<div className="flex justify-end items-center gap-6 mt-6">
-					<span>Skip</span>
+				<div className="flex justify-end items-center gap-3 mt-6">
+				<Button variant='ghost'>
+						Skip
+					</Button>
 					<Button className="flex items-center gap-2">
 						Next <ChevronRight />
 					</Button>

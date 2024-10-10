@@ -1,8 +1,5 @@
-import { X } from 'lucide-react';
-import ProgressSteps from '../../components/progress-steps';
-import Topbar from '../../components/topbar';
-import Button from '../../components/button';
-import Label from '../../components/label';
+import { X } from 'lucide-react'; 
+import { ProgressSteps, Topbar, Button, Label } from '@/components';
 import { Icons } from '@/globals/icons/icons';
 
 export default {
@@ -47,12 +44,12 @@ const Template = ( args ) => {
 					</Topbar.Item>
 				</Topbar.Right>
 			</Topbar>
-			<div className="flex justify-between items-center w-8/12 p-6 mx-auto gap-10 border-border-subtle bg-background-primary rounded-md mt-10">
+			<div className="grid md:grid-cols-2 md:w-[41rem] mx-auto p-8 gap-10 mt-10 border-border-subtle bg-background-primary rounded-md">
 				<div>
 					<Label size="md" className="text-3xl font-semibold">
 						Connect Your Site with SureRank
 					</Label>
-					<Label className="w-10/12 text-text-secondary mt-2 text-sm">
+					<Label className="text-text-secondary text-sm mt-2">
 						When you connect your free account with SureRank you
 						will get keyword suggestions from Google when entering
 						the keywords. Not only that, you will access to our AI
@@ -61,7 +58,7 @@ const Template = ( args ) => {
 					</Label>
 					<Button className="mt-6 px-4">Connect Now</Button>
 				</div>
-				<div className="max-w-80">
+				<div>
 					<img
 						className="w-full"
 						src="https://static.vecteezy.com/system/resources/previews/019/019/725/non_2x/male-seo-developer-illustration-illustration-of-a-hand-holding-a-magnifying-glass-and-writing-seo-on-a-computer-screen-free-png.png"
