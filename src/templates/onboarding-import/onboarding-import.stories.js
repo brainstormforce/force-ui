@@ -46,7 +46,7 @@ const Template = ( args ) => {
 				</Topbar.Middle>
 				<Topbar.Right>
 					<Topbar.Item>
-						<X />
+						<X className="size-4" />
 					</Topbar.Item>
 				</Topbar.Right>
 			</Topbar>
