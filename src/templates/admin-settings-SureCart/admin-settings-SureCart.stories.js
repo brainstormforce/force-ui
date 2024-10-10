@@ -201,10 +201,10 @@ const Template = () => {
 					</Topbar.Left>
 					<Topbar.Middle align="left" className="h-full">
 						<Topbar.Item className="h-full gap-4">
-							<button className="h-full py-0 px-1 m-0 bg-transparent outline-none shadow-none border-0 focus:outline-none text-text-tertiary text-sm font-medium cursor-pointer">
+							<button className="h-full py-0 px-1 m-0 bg-transparent outline-none shadow-none border-0 focus:outline-none text-text-secondary text-sm font-medium cursor-pointer">
 								Dashboard
 							</button>
-							<button className="inline-flex items-center gap-1 h-full py-0 px-1 m-0 bg-transparent outline-none shadow-none border-0 focus:outline-none text-text-tertiary text-sm font-medium cursor-pointer">
+							<button className="inline-flex items-center gap-1 h-full py-0 px-1 m-0 bg-transparent outline-none shadow-none border-0 focus:outline-none text-text-secondary text-sm font-medium cursor-pointer">
 								<span>Orders</span>
 								<Badge
 									label="99+"
@@ -213,7 +213,7 @@ const Template = () => {
 									variant="green"
 								/>
 							</button>
-							<button className="h-full py-0 px-1 m-0 bg-transparent outline-none shadow-none border-0 focus:outline-none text-text-tertiary text-sm font-medium cursor-pointer">
+							<button className="h-full py-0 px-1 m-0 bg-transparent outline-none shadow-none border-0 focus:outline-none text-text-secondary text-sm font-medium cursor-pointer">
 								Products
 							</button>
 							{ /* Active Nav Item */ }
@@ -221,7 +221,7 @@ const Template = () => {
 								<span>Settings</span>
 								<span className="absolute bottom-0 left-0 w-full h-px bg-brand-800"></span>
 							</button>
-							<button className="h-full py-0 px-1 m-0 bg-transparent outline-none shadow-none border-0 focus:outline-none text-text-tertiary text-sm font-medium cursor-pointer">
+							<button className="h-full py-0 px-1 m-0 bg-transparent outline-none shadow-none border-0 focus:outline-none text-text-secondary text-sm font-medium cursor-pointer">
 								Integrations
 							</button>
 							<button className="h-full inline-flex items-center py-0 px-1 m-0 bg-transparent outline-none shadow-none border-0 focus:outline-none cursor-pointer text-sm font-semibold text-brand-800">
