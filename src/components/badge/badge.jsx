@@ -57,13 +57,13 @@ const BadgeComponent = ( props, ref ) => {
 	let buttonClasses =
 		'group relative justify-center flex items-center [&>svg]:h-4 [&>svg]:w-4 cursor-pointer';
 
-    const iconSizeClasses = {
-        xxs: '[&>svg]:size-3',
-        xs: '[&>svg]:size-3',
-        sm: '[&>svg]:size-3',
-        md: '[&>svg]:size-4',
-        lg: '[&>svg]:size-5',
-    }
+	const iconSizeClasses = {
+		xxs: '[&>svg]:size-3',
+		xs: '[&>svg]:size-3',
+		sm: '[&>svg]:size-3',
+		md: '[&>svg]:size-4',
+		lg: '[&>svg]:size-5',
+	};
 
 	if ( disabled ) {
 		filteredClasses = variantClasses.disabled;
@@ -88,7 +88,12 @@ const BadgeComponent = ( props, ref ) => {
 			ref={ ref }
 		>
 			{ icon ? (
-				<span className={ cn("justify-center flex items-center", iconSizeClasses[size])}>
+				<span
+					className={ cn(
+						'justify-center flex items-center',
+						iconSizeClasses[ size ]
+					) }
+				>
 					{ icon }
 				</span>
 			) : null }

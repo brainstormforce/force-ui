@@ -1,22 +1,62 @@
-import { Topbar, Container, Title, Label, Button, Badge, RadioButton } from "@/components";
-import { ArrowUpRight, CircleHelp, Megaphone, Plus, ExternalLink, House, Bell, Settings, Shield, AppWindow, PictureInPicture, Share2, Newspaper, ChartNoAxesGantt, Map, PanelLeftClose, Ellipsis, Headset, HelpCircle, MessageSquare, Star, Zap, Check, X, LogIn, UserPlus, Instagram, Infinity, } from 'lucide-react';
-import video from "./video.png"
-import { SpectraLogo, AstraThemeSvg, StartersTemplatesSvg, SureCartSvg, PrestoPlayerSvg } from "./dashboard-2-svgs";
-import contentImageSpectra from "./contentImageSpectra.png";
-import unlockProSpectra from "./unlockProSpectra.png";
+import {
+	Topbar,
+	Container,
+	Title,
+	Label,
+	Button,
+	Badge,
+	RadioButton,
+} from '@/components';
+import {
+	ArrowUpRight,
+	CircleHelp,
+	Megaphone,
+	Plus,
+	ExternalLink,
+	House,
+	AppWindow,
+	PictureInPicture,
+	Share2,
+	Newspaper,
+	ChartNoAxesGantt,
+	Map,
+	PanelLeftClose,
+	Ellipsis,
+	Headset,
+	HelpCircle,
+	MessageSquare,
+	Star,
+	Zap,
+	Check,
+	X,
+	LogIn,
+	UserPlus,
+	Instagram,
+	Infinity,
+} from 'lucide-react';
+import video from './video.png';
+import {
+	SpectraLogo,
+	AstraThemeSvg,
+	StartersTemplatesSvg,
+	SureCartSvg,
+	PrestoPlayerSvg,
+} from './dashboard-2-svgs';
+import contentImageSpectra from './contentImageSpectra.png';
+import unlockProSpectra from './unlockProSpectra.png';
 
 export default {
 	title: 'Templates/Dashboard/Spectra Dashboard',
 	parameters: {
 		layout: 'fullscreen',
 	},
-    decorators: [
-        (Story, parameters) => (
-            <div className="box-border [&_*]:box-border w-full h-[100dvh]">
-                <Story {...parameters} />
-            </div>
-        )
-    ],
+	decorators: [
+		( Story, parameters ) => (
+			<div className="box-border [&_*]:box-border w-full h-[100dvh]">
+				<Story { ...parameters } />
+			</div>
+		),
+	],
 	tags: [ 'autodocs' ],
 };
 
@@ -282,10 +322,15 @@ const containerRowButtons = [
 ];
 
 export const SpectraDashboard = () => {
-    const radioButtonGroupData = defaultRadioButtonGroupData;
-    return (
-        <>
-            <Container containerType="flex" align="center" justify="center" className="py-2 relative bg-brand-background-hover-100">
+	const radioButtonGroupData = defaultRadioButtonGroupData;
+	return (
+		<>
+			<Container
+				containerType="flex"
+				align="center"
+				justify="center"
+				className="py-2 relative bg-brand-background-hover-100"
+			>
 				<div className="space-x-1 text-text-primary text-xs">
 					<span className="font-semibold">
 						Unlock Spectra&apos;s Full Potential!
@@ -299,362 +344,425 @@ export const SpectraDashboard = () => {
 					<X className="size-4" />
 				</button>
 			</Container>
-            {/* Navigation Topbar */}
-            <Topbar gap={0} className="h-16 p-0 shadow-sm">
-                <Topbar.Left className="p-5">
-                    <Topbar.Item>
-                        <SpectraLogo />
-                    </Topbar.Item>
-                </Topbar.Left>
-                <Topbar.Middle align="left" className="h-full">
-                    <Topbar.Item className="gap-4">
-                        {/* Active Item underline */}
-                        <button className="relative h-full text-text-primary text-sm font-medium py-0 px-1 m-0 bg-transparent  shadow-none border-0 cursor-pointer">
-                            <span>Dashboard</span>
-                            <span className="absolute w-full h-px bg-brand-primary-600 bottom-0 left-0"></span>
-                        </button>
-                        <button className="h-full text-text-tertiary text-sm font-medium py-0 px-1 m-0 bg-transparent  shadow-none border-0 cursor-pointer">
-                            <span>Blocks</span>
-                        </button>
-                        <button className="h-full text-text-tertiary text-sm font-medium py-0 px-1 m-0 bg-transparent  shadow-none border-0 cursor-pointer">
-                            <span>Settings</span>
-                        </button>
-                        <button className="h-full text-text-tertiary text-sm font-medium py-0 px-1 m-0 bg-transparent  shadow-none border-0 cursor-pointer">
-                            <span>AI Features</span>
-                        </button>
-                        <button className="h-full text-text-tertiary text-sm font-medium py-0 px-1 m-0 bg-transparent  shadow-none border-0 cursor-pointer">
-                            <span>Free vs Pro</span>
-                        </button>
-                        <Button
-                            variant="ghost"
-                            icon={ <ArrowUpRight /> }
-                            iconPosition="right"
-                            className="h-full inline-flex items-center py-0 px-1 m-0 bg-transparent  shadow-none border-0 cursor-pointer text-sm font-semibold text-link-primary"
-                        >
-                            Unlock Pro Features
-                        </Button>
-                    </Topbar.Item>
-                </Topbar.Middle>
-                <Topbar.Right className="p-5">
-                    <Topbar.Item>
-                        <Badge
-                            label="Free"
-                            size="xs"
-                            variant="neutral"
-                            closable={ false }
-                        />
-                    </Topbar.Item>
-                    <Topbar.Item>
-                        <CircleHelp strokeWidth="1.5"/>
-                    </Topbar.Item>
-                    <Topbar.Item className="relative after:content-[''] after:inline-block after:size-1.5 after:bg-button-danger after:rounded-full after:absolute after:-top-0.5 after:left-5">
-                        <Megaphone strokeWidth="1.5" />
-                    </Topbar.Item>
-                </Topbar.Right>
-            </Topbar>
+			{ /* Navigation Topbar */ }
+			<Topbar gap={ 0 } className="h-16 p-0 shadow-sm">
+				<Topbar.Left className="p-5">
+					<Topbar.Item>
+						<SpectraLogo />
+					</Topbar.Item>
+				</Topbar.Left>
+				<Topbar.Middle align="left" className="h-full">
+					<Topbar.Item className="gap-4">
+						{ /* Active Item underline */ }
+						<button className="relative h-full text-text-primary text-sm font-medium py-0 px-1 m-0 bg-transparent  shadow-none border-0 cursor-pointer">
+							<span>Dashboard</span>
+							<span className="absolute w-full h-px bg-brand-primary-600 bottom-0 left-0"></span>
+						</button>
+						<button className="h-full text-text-tertiary text-sm font-medium py-0 px-1 m-0 bg-transparent  shadow-none border-0 cursor-pointer">
+							<span>Blocks</span>
+						</button>
+						<button className="h-full text-text-tertiary text-sm font-medium py-0 px-1 m-0 bg-transparent  shadow-none border-0 cursor-pointer">
+							<span>Settings</span>
+						</button>
+						<button className="h-full text-text-tertiary text-sm font-medium py-0 px-1 m-0 bg-transparent  shadow-none border-0 cursor-pointer">
+							<span>AI Features</span>
+						</button>
+						<button className="h-full text-text-tertiary text-sm font-medium py-0 px-1 m-0 bg-transparent  shadow-none border-0 cursor-pointer">
+							<span>Free vs Pro</span>
+						</button>
+						<Button
+							variant="ghost"
+							icon={ <ArrowUpRight /> }
+							iconPosition="right"
+							className="h-full inline-flex items-center py-0 px-1 m-0 bg-transparent  shadow-none border-0 cursor-pointer text-sm font-semibold text-link-primary"
+						>
+							Unlock Pro Features
+						</Button>
+					</Topbar.Item>
+				</Topbar.Middle>
+				<Topbar.Right className="p-5">
+					<Topbar.Item>
+						<Badge
+							label="Free"
+							size="xs"
+							variant="neutral"
+							closable={ false }
+						/>
+					</Topbar.Item>
+					<Topbar.Item>
+						<CircleHelp strokeWidth="1.5" />
+					</Topbar.Item>
+					<Topbar.Item className="relative after:content-[''] after:inline-block after:size-1.5 after:bg-button-danger after:rounded-full after:absolute after:-top-0.5 after:left-5">
+						<Megaphone strokeWidth="1.5" />
+					</Topbar.Item>
+				</Topbar.Right>
+			</Topbar>
 
-            {/* Content */}
-            <Container containerType="grid" cols={12} gap="2xl" className="bg-background-secondary p-8">
-                <Container.Item colSpan={8} className="flex flex-col gap-8">
-                    {/* Welcome Spectra card */}
-                    <Container containerType="grid" cols={8} gap="2xl" className="bg-background-primary p-6 shadow-sm rounded-xl">
-                        <Container.Item colSpan={5} className="flex flex-col gap-6">
-                            <div>
-                                <Title tag="h3" title="Welcome to Spectra!" size="lg" />
-                                <p className="text-sm text-text-secondary">
-                                We designed Spectra to be intuitive but we do recommend learning how it works by checking our comprehensive documentation and watching the video below. Enjoy your time with Spectra!
-                                </p>
-                            </div>
-                            <div className="flex space-x-4">
-                                <Button
-                                    variant="primary"
-                                    iconPosition="right"
-                                    icon={ <Plus /> }
-                                >
-                                    Create new page
-                                </Button>
-                                <Button
-                                    variant="ghost" 
-                                    iconPosition="right"
-                                    icon={ <ExternalLink /> }
-                                >
-                                    Read full guide
-                                </Button>
-                            </div>
-                        </Container.Item>
-                    
-                        <Container.Item colSpan={3}>
-                            <img
-                            src={video}
-                            alt="Spectra image"
-                            className="w-full h-full object-cover rounded-lg"
-                            />
-                        </Container.Item>
-                    </Container>
-                    {/* Blocks card */}
-                    <Container
-                        containerType="flex"
-                        direction="column"
-                        className="bg-background-primary md:w-full lg:w-full border border-solid rounded-xl border-border-subtle p-4"
-                        gap="xs"
-                    >
-                        <Container.Item className="md:w-full p-1 lg:w-full">
-                            <Container justify="between" gap="xs">
-                                <Container.Item className="">
-                                    <Label className="font-semibold">Blocks</Label>
-                                </Container.Item>
-                                <Container.Item className="items-center flex" gap="xs">
-                                    <Label>
-                                        <Button
-                                            icon={ <ArrowUpRight /> }
-                                            iconPosition="right"
-                                            variant="ghost"
-                                        >
-                                            View All
-                                        </Button>
-                                    </Label>
-                                    <Button variant="ghost" className="p-0 leading-none	">
-                                        { ' ' }
-                                        <Ellipsis />
-                                    </Button>
-                                </Container.Item>
-                            </Container>
-                        </Container.Item>
-                        <Container.Item className="md:w-full lg:w-full p-1 bg-field-primary-background rounded-lg">
-                            <RadioButton.Group
-                                as="div"
-                                defaultValue={ `option-${ radioButtonGroupData[ 0 ].id }` }
-                                multiSelection={ true }
-                                onChange={ ( value ) => {
-                                    return value;
-                                } }
-                                className="w-full gap-1"
-                            >
-                                { radioButtonGroupData.map( ( option ) => (
-                                    <RadioButton.Button
-                                        key={ `option-${ option.id }` }
-                                        borderOn={ true }
-                                        value={ option.value }
-                                        icon={ option.icon }
-                                        hideSelection={ option.hideSelection }
-                                        toggleLabel={ option.toggleLabel }
-                                        label={ {
-                                            heading: option.label,
-                                            description: option.description,
-                                        } }
-                                        useSwitch={ option.useSwitch }
-                                        className="px-2"
-                                        badgeItem={ option.bagde }
-                                        buttonWrapperClasses="bg-background-primary"
-                                    />
-                                ) ) }
-                            </RadioButton.Group>
-                        </Container.Item>
-                    </Container>
-                    {/* Unlock Pro Features card */}
-                    <Container containerType="grid" cols={8} gap={4} className="bg-background-primary p-6 shadow-sm rounded-xl">
-                        <Container.Item colSpan={4} className="flex flex-col gap-2">
-                            <div className="text-brand-hover-700 flex space-x-1">
-                                <Zap className="size-4"/>
-                                <div className="font-semibold text-xs">Unlock Pro Features</div>
-                            </div>
-                            <Title title="Limitless Design with Spectra Pro!" tag="h5" />
-                            <p className="text-sm text-text-secondary">
-                            Utilize advanced blocks, extensions, and premium features to create a websites that stands out!
-                            </p>
-                            <div className="grid grid-cols-2 gap-3">
-                                <ul className="list-none pl-0 space-y-2">
-                                    <li className="flex items-center space-x-2 text-field-label text-sm">
-                                        <Check className="size-3.5 text-brand-hover-700"/>
-                                        <span>Instagram Feed Block</span>
-                                    </li>
-                                    <li className="flex items-center space-x-2 text-field-label text-sm">
-                                        <Check className="size-3.5 text-brand-hover-700"/>
-                                        <span>Dynamic Content</span>
-                                    </li>
-                                    <li className="flex items-center space-x-2 text-field-label text-sm">
-                                        <Check className="size-3.5 text-brand-hover-700"/>
-                                        <span>Popup Builder</span>
-                                    </li>
-                                </ul>
-                                <ul className="list-none pl-0 space-y-2">
-                                    <li className="flex items-center space-x-2 text-field-label text-sm">
-                                        <Check className="size-3.5 text-brand-hover-700"/>
-                                        <span>Global Block Styles</span>
-                                    </li>
-                                    <li className="flex items-center space-x-2 text-field-label text-sm">
-                                        <Check className="size-3.5 text-brand-hover-700"/>
-                                        <span>Loop Builder</span>
-                                    </li>
-                                    <li className="flex items-center space-x-2 text-field-label text-sm">
-                                        <Check className="size-3.5 text-brand-hover-700"/>
-                                        <span>And more...</span>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div className="flex space-x-4">
-                                <Button
-                                    variant="secondary"
-                                >
-                                    Upgrade now
-                                </Button>
-                                <Button
-                                    variant="ghost" 
-                                >
-                                    Free vs Pro
-                                </Button>
-                            </div>
-                        </Container.Item>
-                    
-                        <Container.Item colSpan={4}>
-                            <img
-                            src={unlockProSpectra}
-                            alt="Spectra image"
-                            className="w-full h-full object-cover rounded-lg"
-                            />
-                        </Container.Item>
-                    </Container>
-                </Container.Item>
+			{ /* Content */ }
+			<Container
+				containerType="grid"
+				cols={ 12 }
+				gap="2xl"
+				className="bg-background-secondary p-8"
+			>
+				<Container.Item colSpan={ 8 } className="flex flex-col gap-8">
+					{ /* Welcome Spectra card */ }
+					<Container
+						containerType="grid"
+						cols={ 8 }
+						gap="2xl"
+						className="bg-background-primary p-6 shadow-sm rounded-xl"
+					>
+						<Container.Item
+							colSpan={ 5 }
+							className="flex flex-col gap-6"
+						>
+							<div>
+								<Title
+									tag="h3"
+									title="Welcome to Spectra!"
+									size="lg"
+								/>
+								<p className="text-sm text-text-secondary">
+									We designed Spectra to be intuitive but we
+									do recommend learning how it works by
+									checking our comprehensive documentation and
+									watching the video below. Enjoy your time
+									with Spectra!
+								</p>
+							</div>
+							<div className="flex space-x-4">
+								<Button
+									variant="primary"
+									iconPosition="right"
+									icon={ <Plus /> }
+								>
+									Create new page
+								</Button>
+								<Button
+									variant="ghost"
+									iconPosition="right"
+									icon={ <ExternalLink /> }
+								>
+									Read full guide
+								</Button>
+							</div>
+						</Container.Item>
 
-                <Container.Item colSpan={4} className="flex flex-col gap-8">
-                    {/* Extend Your Website card */}
-                    <Container
-                        containerType="flex"
-                        gap="xs"
-                        direction="column"
-                        className="bg-background-primary border border-solid rounded-xl border-border-subtle p-4"
-                    >
-                        <Container.Item className="md:w-full lg:w-full">
-                            <Container className="p-1" justify="between" gap="xs">
-                                <Container.Item>
-                                    <Label className="font-semibold">
-                                        Extend Your Website
-                                    </Label>
-                                </Container.Item>
-                                <Container.Item
-                                    containerType="flex"
-                                    direction="row"
-                                    className="items-center"
-                                    gap="xs"
-                                >
-                                    <Button className="p-0" variant="ghost">
-                                        <ArrowUpRight />
-                                    </Button>
-                                </Container.Item>
-                            </Container>
-                        </Container.Item>
-                        <Container.Item className="md:w-full lg:w-full bg-field-primary-background rounded-lg">
-                            <Container className="grid grid-cols-2  p-1 gap-1">
-                                { astraRadioButtonGroupData.map( ( card ) => (
-                                    <Container.Item
-                                        key={ card.id }
-                                        className="md:w-full lg:w-full flex"
-                                    >
-                                        <Container
-                                            containerType="flex"
-                                            direction="column"
-                                            className="flex-1 gap-1 shadow-soft-shadow-inner p-2 rounded-md bg-background-primary"
-                                        >
-                                            <Container.Item>
-                                                <Container className="gap-1 items-center">
-                                                    <Container.Item
-                                                        className="[&>svg]:size-5"
-                                                        grow={ 1 }
-                                                        order="none"
-                                                        shrink={ 1 }
-                                                    >
-                                                        { card.svg }
-                                                    </Container.Item>
-                                                    <Container.Item>
-                                                        <Badge
-                                                            label={ card.badgeText }
-                                                            icon={ null }
-                                                            variant="green"
-                                                            closable={ false }
-                                                            className="py-0"
-                                                        />
-                                                    </Container.Item>
-                                                    <Container.Item>
-                                                        <Button
-                                                            variant="link"
-                                                            className="p-0 text-link-primary"
-                                                            size="sm"
-                                                        >
-                                                            { card.buttonText }
-                                                        </Button>
-                                                    </Container.Item>
-                                                </Container>
-                                            </Container.Item>
-                                            <Container.Item className="gap-0.5 p-1">
-                                                <Label className="text-sm font-semibold">
-                                                    { card.title }
-                                                </Label>
-                                                <Label variant="help" className="text-sm">
-                                                    { card.description }
-                                                </Label>
-                                            </Container.Item>
-                                        </Container>
-                                    </Container.Item>
-                                ) ) }
-                            </Container>
-                        </Container.Item>
-                    </Container>
-                    {/* Build website with AI card */}
-                    <Container direction="column" gap="xs" className="p-5 bg-background-primary shadow-sm rounded-xl">
-                            <Container.Item className="w-full">
-                                <img src={contentImageSpectra} alt="Content image" className="w-full h-full object-cover" />
-                            </Container.Item>
-                            <Container.Item>
-                                    <div className="text-base font-semibold">Build website 10x faster with AI</div>
-                                    <p className="text-text-secondary">Beautiful pages, persuasive content, and custom code in seconds. The possibilities are endless!</p>
-                            </Container.Item>
-                            <Container.Item className="flex space-x-4">
-                                <Button variant="secondary">
-                                    Get Started
-                                </Button>
-                                <p className="text-text-tertiary">Get 1000 free monthly credits</p>
-                            </Container.Item>
-                    </Container>
-                    {/* Quick Access card */}
-                    <Container
-                        containerType="flex"
-                        direction="column"
-                        className="bg-background-primary border border-solid rounded-xl border-border-subtle p-4"
-                        gap="xs"
-                    >
-                        <Container.Item className="md:w-full lg:w-full p-1">
-                            <Label className="font-semibold">Quick Access</Label>
-                        </Container.Item>
-                        <Container.Item className="flex flex-col md:w-full lg:w-full bg-field-primary-background gap-1 p-1 rounded-lg">
-                            { containerRowButtons.map( ( button ) => (
-                                <div
-                                    key={ button.id }
-                                    className='p-2 gap-1 className="items-cente bg-background-primary rounded-md shadow-soft-shadow-inner'
-                                >
-                                    <Container
-                                        key={ button.id }
-                                        containerType="flex"
-                                        direction="row"
-                                        className="gap-1 p-1"
-                                        align="center"
-                                    >
-                                        <Container.Item>{ button.icon }</Container.Item>
-                                        <Container.Item>
-                                            <Button
-                                                variant="ghost"
-                                                className="py-0 font-normal"
-                                            >
-                                                { button.label }
-                                            </Button>
-                                        </Container.Item>
-                                        <Container.Item>{ button.bagde }</Container.Item>
-                                    </Container>
-                                </div>
-                            ) ) }
-                        </Container.Item>
-                    </Container>
-                </Container.Item>
-            </Container>
-        </>
-    )
-}
+						<Container.Item colSpan={ 3 }>
+							<img
+								src={ video }
+								alt="Spectra video"
+								className="w-full h-full object-cover rounded-lg"
+							/>
+						</Container.Item>
+					</Container>
+					{ /* Blocks card */ }
+					<Container
+						containerType="flex"
+						direction="column"
+						className="bg-background-primary md:w-full lg:w-full border border-solid rounded-xl border-border-subtle p-4"
+						gap="xs"
+					>
+						<Container.Item className="md:w-full p-1 lg:w-full">
+							<Container justify="between" gap="xs">
+								<Container.Item className="">
+									<Label className="font-semibold">
+										Blocks
+									</Label>
+								</Container.Item>
+								<Container.Item
+									className="items-center flex"
+									gap="xs"
+								>
+									<Label>
+										<Button
+											icon={ <ArrowUpRight /> }
+											iconPosition="right"
+											variant="ghost"
+										>
+											View All
+										</Button>
+									</Label>
+									<Button
+										variant="ghost"
+										className="p-0 leading-none	"
+									>
+										{ ' ' }
+										<Ellipsis />
+									</Button>
+								</Container.Item>
+							</Container>
+						</Container.Item>
+						<Container.Item className="md:w-full lg:w-full p-1 bg-field-primary-background rounded-lg">
+							<RadioButton.Group
+								as="div"
+								defaultValue={ `option-${ radioButtonGroupData[ 0 ].id }` }
+								multiSelection={ true }
+								onChange={ ( value ) => {
+									return value;
+								} }
+								className="w-full gap-1"
+							>
+								{ radioButtonGroupData.map( ( option ) => (
+									<RadioButton.Button
+										key={ `option-${ option.id }` }
+										borderOn={ true }
+										value={ option.value }
+										icon={ option.icon }
+										hideSelection={ option.hideSelection }
+										toggleLabel={ option.toggleLabel }
+										label={ {
+											heading: option.label,
+											description: option.description,
+										} }
+										useSwitch={ option.useSwitch }
+										className="px-2"
+										badgeItem={ option.bagde }
+										buttonWrapperClasses="bg-background-primary"
+									/>
+								) ) }
+							</RadioButton.Group>
+						</Container.Item>
+					</Container>
+					{ /* Unlock Pro Features card */ }
+					<Container
+						containerType="grid"
+						cols={ 8 }
+						gap={ 4 }
+						className="bg-background-primary p-6 shadow-sm rounded-xl"
+					>
+						<Container.Item
+							colSpan={ 4 }
+							className="flex flex-col gap-2"
+						>
+							<div className="text-brand-hover-700 flex space-x-1">
+								<Zap className="size-4" />
+								<div className="font-semibold text-xs">
+									Unlock Pro Features
+								</div>
+							</div>
+							<Title
+								title="Limitless Design with Spectra Pro!"
+								tag="h5"
+							/>
+							<p className="text-sm text-text-secondary">
+								Utilize advanced blocks, extensions, and premium
+								features to create a websites that stands out!
+							</p>
+							<div className="grid grid-cols-2 gap-3">
+								<ul className="list-none pl-0 space-y-2">
+									<li className="flex items-center space-x-2 text-field-label text-sm">
+										<Check className="size-3.5 text-brand-hover-700" />
+										<span>Instagram Feed Block</span>
+									</li>
+									<li className="flex items-center space-x-2 text-field-label text-sm">
+										<Check className="size-3.5 text-brand-hover-700" />
+										<span>Dynamic Content</span>
+									</li>
+									<li className="flex items-center space-x-2 text-field-label text-sm">
+										<Check className="size-3.5 text-brand-hover-700" />
+										<span>Popup Builder</span>
+									</li>
+								</ul>
+								<ul className="list-none pl-0 space-y-2">
+									<li className="flex items-center space-x-2 text-field-label text-sm">
+										<Check className="size-3.5 text-brand-hover-700" />
+										<span>Global Block Styles</span>
+									</li>
+									<li className="flex items-center space-x-2 text-field-label text-sm">
+										<Check className="size-3.5 text-brand-hover-700" />
+										<span>Loop Builder</span>
+									</li>
+									<li className="flex items-center space-x-2 text-field-label text-sm">
+										<Check className="size-3.5 text-brand-hover-700" />
+										<span>And more...</span>
+									</li>
+								</ul>
+							</div>
+							<div className="flex space-x-4">
+								<Button variant="secondary">Upgrade now</Button>
+								<Button variant="ghost">Free vs Pro</Button>
+							</div>
+						</Container.Item>
+
+						<Container.Item colSpan={ 4 }>
+							<img
+								src={ unlockProSpectra }
+								alt="Unlock Pro Features"
+								className="w-full h-full object-cover rounded-lg"
+							/>
+						</Container.Item>
+					</Container>
+				</Container.Item>
+
+				<Container.Item colSpan={ 4 } className="flex flex-col gap-8">
+					{ /* Extend Your Website card */ }
+					<Container
+						containerType="flex"
+						gap="xs"
+						direction="column"
+						className="bg-background-primary border border-solid rounded-xl border-border-subtle p-4"
+					>
+						<Container.Item className="md:w-full lg:w-full">
+							<Container
+								className="p-1"
+								justify="between"
+								gap="xs"
+							>
+								<Container.Item>
+									<Label className="font-semibold">
+										Extend Your Website
+									</Label>
+								</Container.Item>
+								<Container.Item
+									containerType="flex"
+									direction="row"
+									className="items-center"
+									gap="xs"
+								>
+									<Button className="p-0" variant="ghost">
+										<ArrowUpRight />
+									</Button>
+								</Container.Item>
+							</Container>
+						</Container.Item>
+						<Container.Item className="md:w-full lg:w-full bg-field-primary-background rounded-lg">
+							<Container className="grid grid-cols-2  p-1 gap-1">
+								{ astraRadioButtonGroupData.map( ( card ) => (
+									<Container.Item
+										key={ card.id }
+										className="md:w-full lg:w-full flex"
+									>
+										<Container
+											containerType="flex"
+											direction="column"
+											className="flex-1 gap-1 shadow-soft-shadow-inner p-2 rounded-md bg-background-primary"
+										>
+											<Container.Item>
+												<Container className="gap-1 items-center">
+													<Container.Item
+														className="[&>svg]:size-5"
+														grow={ 1 }
+														order="none"
+														shrink={ 1 }
+													>
+														{ card.svg }
+													</Container.Item>
+													<Container.Item>
+														<Badge
+															label={
+																card.badgeText
+															}
+															icon={ null }
+															variant="green"
+															closable={ false }
+															className="py-0"
+														/>
+													</Container.Item>
+													<Container.Item>
+														<Button
+															variant="link"
+															className="p-0 text-link-primary"
+															size="sm"
+														>
+															{ card.buttonText }
+														</Button>
+													</Container.Item>
+												</Container>
+											</Container.Item>
+											<Container.Item className="gap-0.5 p-1">
+												<Label className="text-sm font-semibold">
+													{ card.title }
+												</Label>
+												<Label
+													variant="help"
+													className="text-sm"
+												>
+													{ card.description }
+												</Label>
+											</Container.Item>
+										</Container>
+									</Container.Item>
+								) ) }
+							</Container>
+						</Container.Item>
+					</Container>
+					{ /* Build website with AI card */ }
+					<Container
+						direction="column"
+						gap="xs"
+						className="p-5 bg-background-primary shadow-sm rounded-xl"
+					>
+						<Container.Item className="w-full">
+							<img
+								src={ contentImageSpectra }
+								alt="Build website with AI"
+								className="w-full h-full object-cover"
+							/>
+						</Container.Item>
+						<Container.Item>
+							<div className="text-base font-semibold">
+								Build website 10x faster with AI
+							</div>
+							<p className="text-text-secondary">
+								Beautiful pages, persuasive content, and custom
+								code in seconds. The possibilities are endless!
+							</p>
+						</Container.Item>
+						<Container.Item className="flex space-x-4">
+							<Button variant="secondary">Get Started</Button>
+							<p className="text-text-tertiary">
+								Get 1000 free monthly credits
+							</p>
+						</Container.Item>
+					</Container>
+					{ /* Quick Access card */ }
+					<Container
+						containerType="flex"
+						direction="column"
+						className="bg-background-primary border border-solid rounded-xl border-border-subtle p-4"
+						gap="xs"
+					>
+						<Container.Item className="md:w-full lg:w-full p-1">
+							<Label className="font-semibold">
+								Quick Access
+							</Label>
+						</Container.Item>
+						<Container.Item className="flex flex-col md:w-full lg:w-full bg-field-primary-background gap-1 p-1 rounded-lg">
+							{ containerRowButtons.map( ( button ) => (
+								<div
+									key={ button.id }
+									className='p-2 gap-1 className="items-cente bg-background-primary rounded-md shadow-soft-shadow-inner'
+								>
+									<Container
+										key={ button.id }
+										containerType="flex"
+										direction="row"
+										className="gap-1 p-1"
+										align="center"
+									>
+										<Container.Item>
+											{ button.icon }
+										</Container.Item>
+										<Container.Item>
+											<Button
+												variant="ghost"
+												className="py-0 font-normal"
+											>
+												{ button.label }
+											</Button>
+										</Container.Item>
+										<Container.Item>
+											{ button.bagde }
+										</Container.Item>
+									</Container>
+								</div>
+							) ) }
+						</Container.Item>
+					</Container>
+				</Container.Item>
+			</Container>
+		</>
+	);
+};

@@ -1,21 +1,58 @@
-import { Topbar, Avatar, Container, Title, Label, Button, Badge, RadioButton } from "@/components";
-import { ArrowUpRight, CircleHelp, Bell, CirclePlay, Ellipsis, Upload, Paintbrush, PanelTop, PanelBottom, PaintBucket, Type, SquareMousePointer, PenTool, LayoutTemplate, Menu, Palette, Baseline, Ruler, Newspaper, PanelTopDashed, PanelsTopLeft } from 'lucide-react';
-import { AstraLogo, AstraTheme, StarterTheme, SureCart, SureTriggers } from "./dashboard-1-svgs";
-import astraVideo from "./astraVideo.png"
-import avatarImage from "./avatarImage.png"
+import {
+	Topbar,
+	Avatar,
+	Container,
+	Title,
+	Label,
+	Button,
+	Badge,
+	RadioButton,
+} from '@/components';
+import {
+	ArrowUpRight,
+	CircleHelp,
+	Bell,
+	CirclePlay,
+	Ellipsis,
+	Upload,
+	Paintbrush,
+	PanelTop,
+	PanelBottom,
+	PaintBucket,
+	Type,
+	SquareMousePointer,
+	PenTool,
+	LayoutTemplate,
+	Menu,
+	Palette,
+	Baseline,
+	Ruler,
+	Newspaper,
+	PanelTopDashed,
+	PanelsTopLeft,
+} from 'lucide-react';
+import {
+	AstraLogo,
+	AstraTheme,
+	StarterTheme,
+	SureCart,
+	SureTriggers,
+} from './dashboard-1-svgs';
+import astraVideo from './astraVideo.png';
+import avatarImage from './avatarImage.png';
 
 export default {
 	title: 'Templates/Dashboard/Astra Dashboard',
 	parameters: {
 		layout: 'fullscreen',
 	},
-    decorators: [
-        (Story, parameters) => (
-            <div className="box-border [&_*]:box-border w-full h-[100dvh]">
-                <Story {...parameters} />
-            </div>
-        )
-    ],
+	decorators: [
+		( Story, parameters ) => (
+			<div className="box-border [&_*]:box-border w-full h-[100dvh]">
+				<Story { ...parameters } />
+			</div>
+		),
+	],
 	tags: [ 'autodocs' ],
 };
 
@@ -87,7 +124,7 @@ const defaultRadioButtonGroupData = [
 	{
 		id: '7',
 		value: 'socialshare',
-		icon: <SquareMousePointer  />,
+		icon: <SquareMousePointer />,
 		label: 'Button',
 		toggleLabel: 'socialshare',
 		hideSelection: true,
@@ -105,7 +142,7 @@ const defaultRadioButtonGroupData = [
 	{
 		id: '9',
 		value: 'contenttimeline',
-		icon: <LayoutTemplate  />,
+		icon: <LayoutTemplate />,
 		label: 'Layout',
 		toggleLabel: 'contenttimeline',
 		hideSelection: true,
@@ -114,7 +151,7 @@ const defaultRadioButtonGroupData = [
 	{
 		id: '10',
 		value: 'googlemaps',
-		icon: <Menu  />,
+		icon: <Menu />,
 		label: 'Menus',
 		toggleLabel: 'googlemaps',
 		hideSelection: true,
@@ -128,7 +165,7 @@ const defaultRadioButtonGroupData = [
 		toggleLabel: 'lottieanimation',
 		hideSelection: true,
 		useSwitch: false,
-        badge: (
+		badge: (
 			<Badge
 				label={ 'PRO' }
 				size="md"
@@ -138,7 +175,7 @@ const defaultRadioButtonGroupData = [
 				className="py-0 mr-2"
 			/>
 		),
-        disabled: true,
+		disabled: true,
 	},
 	{
 		id: '12',
@@ -158,7 +195,7 @@ const defaultRadioButtonGroupData = [
 				className="py-0 mr-2"
 			/>
 		),
-        disabled: true,
+		disabled: true,
 	},
 	{
 		id: '13',
@@ -178,7 +215,7 @@ const defaultRadioButtonGroupData = [
 				className="py-0 mr-2"
 			/>
 		),
-        disabled: true,
+		disabled: true,
 	},
 	{
 		id: '14',
@@ -198,7 +235,7 @@ const defaultRadioButtonGroupData = [
 				className="py-0 mr-2"
 			/>
 		),
-        disabled: true,
+		disabled: true,
 	},
 	{
 		id: '15',
@@ -218,7 +255,7 @@ const defaultRadioButtonGroupData = [
 				className="py-0 mr-2"
 			/>
 		),
-        disabled: true,
+		disabled: true,
 	},
 	{
 		id: '16',
@@ -238,7 +275,7 @@ const defaultRadioButtonGroupData = [
 				className="py-0 mr-2"
 			/>
 		),
-        disabled: true,
+		disabled: true,
 	},
 ];
 
@@ -270,271 +307,319 @@ const astraRadioButtonGroupData = [
 ];
 
 export const AstraDashboard = () => {
-    const radioButtonGroupData = defaultRadioButtonGroupData;
-    return (
-        <>
-            {/* Navigation Topbar */}
-            <Topbar gap={0} className="h-16 p-0 shadow-sm">
-                <Topbar.Left className="p-5">
-                    <Topbar.Item>
-                        <AstraLogo />
-                    </Topbar.Item>
-                </Topbar.Left>
-                <Topbar.Middle align="left" className="h-full">
-                    <Topbar.Item className="gap-4">
-                        <button className="relative h-full text-text-primary text-sm font-medium py-0 px-1 m-0 bg-transparent  shadow-none border-0 cursor-pointer">
-                            <span>Dashboard</span>
-                            <span className="absolute w-full h-px bg-brand-primary-600 bottom-0 left-0 "></span>
-                        </button>
-                        <button className="h-full text-text-tertiary text-sm font-medium py-0 px-1 m-0 bg-transparent  shadow-none border-0 cursor-pointer">
-                            <span>Settings</span>
-                        </button>
-                        <button className="h-full text-text-tertiary text-sm font-medium py-0 px-1 m-0 bg-transparent  shadow-none border-0 cursor-pointer">
-                            <span>Starter Templates</span>
-                        </button>
-                        <Button
-                            variant="ghost"
-                            icon={ <ArrowUpRight /> }
-                            iconPosition="right"
-                            className="h-full inline-flex items-center py-0 px-1 m-0 bg-transparent  shadow-none border-0 cursor-pointer text-sm font-semibold text-link-primary"
-                        >
-                            Upgrade to Pro
-                        </Button>
-                    </Topbar.Item>
-                </Topbar.Middle>
-                <Topbar.Right className="p-5">
-                    <Topbar.Item>
-                        <Badge
-                            label="V 2.29.2"
-                            size="xs"
-                            variant="neutral"
-                            closable={ false }
-                        />
-                    </Topbar.Item>
-                    <Topbar.Item className="gap-2">
-                        <CircleHelp strokeWidth={1.5} />
-                        <Bell strokeWidth={1.5} />
-                    </Topbar.Item>
-                    <Topbar.Item>
-                        <Avatar size="sm"  border="none"
-                        url={avatarImage}/>
-                    </Topbar.Item>
-                </Topbar.Right>
-            </Topbar>
+	const radioButtonGroupData = defaultRadioButtonGroupData;
+	return (
+		<>
+			{ /* Navigation Topbar */ }
+			<Topbar gap={ 0 } className="h-16 p-0 shadow-sm">
+				<Topbar.Left className="p-5">
+					<Topbar.Item>
+						<AstraLogo />
+					</Topbar.Item>
+				</Topbar.Left>
+				<Topbar.Middle align="left" className="h-full">
+					<Topbar.Item className="gap-4">
+						<button className="relative h-full text-text-primary text-sm font-medium py-0 px-1 m-0 bg-transparent  shadow-none border-0 cursor-pointer">
+							<span>Dashboard</span>
+							<span className="absolute w-full h-px bg-brand-primary-600 bottom-0 left-0 "></span>
+						</button>
+						<button className="h-full text-text-tertiary text-sm font-medium py-0 px-1 m-0 bg-transparent  shadow-none border-0 cursor-pointer">
+							<span>Settings</span>
+						</button>
+						<button className="h-full text-text-tertiary text-sm font-medium py-0 px-1 m-0 bg-transparent  shadow-none border-0 cursor-pointer">
+							<span>Starter Templates</span>
+						</button>
+						<Button
+							variant="ghost"
+							icon={ <ArrowUpRight /> }
+							iconPosition="right"
+							className="h-full inline-flex items-center py-0 px-1 m-0 bg-transparent  shadow-none border-0 cursor-pointer text-sm font-semibold text-link-primary"
+						>
+							Upgrade to Pro
+						</Button>
+					</Topbar.Item>
+				</Topbar.Middle>
+				<Topbar.Right className="p-5">
+					<Topbar.Item>
+						<Badge
+							label="V 2.29.2"
+							size="xs"
+							variant="neutral"
+							closable={ false }
+						/>
+					</Topbar.Item>
+					<Topbar.Item className="gap-2">
+						<CircleHelp strokeWidth={ 1.5 } />
+						<Bell strokeWidth={ 1.5 } />
+					</Topbar.Item>
+					<Topbar.Item>
+						<Avatar size="sm" border="none" url={ avatarImage } />
+					</Topbar.Item>
+				</Topbar.Right>
+			</Topbar>
 
-            {/* Content */}
-            <Container containerType="grid" cols={12} gap="2xl" className="bg-background-secondary p-8">
-                <Container.Item colSpan={8} className="flex flex-col gap-8">
-                    {/* Welcome Astra card */}
-                    <Container containerType="grid" cols={8} gap="2xl" className="bg-background-primary p-4 shadow-sm rounded-xl">
-                        <Container.Item colSpan={5} className="flex flex-col gap-6">
-                            <div>
-                                <Title tag="h3" title="Welcome to Astra" size="lg" />
-                                <p className="text-sm text-text-secondary m-0">
-                                Astra is fast, fully customizable & beautiful WordPress theme suitable for blog, personal portfolio, business website and WooCommerce storefront. It is very lightweight and offers unparalleled speed.
-                                </p>
-                            </div>
-                            <div className="flex space-x-4">
-                                <Button>Start Customizing</Button>
-                                <Button
-                                    variant="ghost" 
-                                    icon={ <CirclePlay /> }
-                                >
-                                    Watch a Quick Guide
-                                </Button>
-                            </div>
-                        </Container.Item>
-                        <Container.Item colSpan={3}>
-                            <img
-                            src={astraVideo}
-                            alt="Media image"
-                            className="w-full h-full object-cover rounded-lg"
-                            />
-                        </Container.Item>
-                    </Container>
-                    {/* Quick Settings card */}
-                    <Container
-                        containerType="flex"
-                        direction="column"
-                        className="md:w-full lg:w-full bg-background-primary border border-solid rounded-xl border-border-subtle p-4"
-                        gap="xs"
-                    >
-                        <Container.Item className="md:w-full p-1 lg:w-full">
-                            <Container justify="between" gap="xs">
-                                <Container.Item className="">
-                                    <Label size="md" className="font-semibold">Quick Settings</Label>
-                                </Container.Item>
-                                <Container.Item className="items-center flex gap-2">
-                                    <Button variant="ghost" className="p-0 leading-none	">
-                                        <Ellipsis />
-                                    </Button>
-                                    <Button variant="ghost" className="p-0 leading-none	">
-                                        <ArrowUpRight />
-                                    </Button>
-                                </Container.Item>
-                            </Container>
-                        </Container.Item>
-                        <Container.Item className="md:w-full lg:w-full p-2 rounded-lg bg-background-secondary">
-                            <RadioButton.Group
-                                as="div"
-                                defaultValue={ `option-${ radioButtonGroupData[ 0 ].id }` }
-                                multiSelection={ true }
-                                onChange={ ( value ) => {
-                                    return value;
-                                } }
-                                className="w-full"
-                            >
-                                { radioButtonGroupData.map( ( option ) => (
-                                    <RadioButton.Button
-                                        key={ `option-${ option.id }` }
-                                        borderOn={ true }
-                                        value={ option.value }
-                                        icon={ option.icon }
-                                        hideSelection={ option.hideSelection }
-                                        toggleLabel={ option.toggleLabel }
-                                        label={ {
-                                            heading: option.label,
-                                        } }
-                                        useSwitch={ option.useSwitch }
-                                        className="px-2"
-                                        badgeItem={ option.badge }
-                                        disabled={option.disabled}
-                                        buttonWrapperClasses="bg-background-primary"
-                                    />
-                                ) ) }
-                            </RadioButton.Group>
-                        </Container.Item>
-                        <Container.Item className="flex items-center justify-center space-x-2 text-text-primary text-sm bg-background-secondary rounded-lg py-3">
-                            <AstraLogo className="size-4"/>
-                            <span className="font-semibold">
-                                Do More with Astra Pro
-                            </span>
-                            <span className="font-normal text-text-secondary">
-                                Get access to powerful features without the high costs.
-                            </span>
-                            <Button
-                                variant="ghost"
-                                icon={ <ArrowUpRight /> }
-                                iconPosition="right"
-                                className="h-full inline-flex items-center py-0 px-1 m-0 bg-transparent  shadow-none border-0 cursor-pointer text-sm font-semibold text-link-primary"
-                            >
-                                Upgrade to Pro
-                            </Button>
-                        </Container.Item>
-                    </Container>
-                </Container.Item>
+			{ /* Content */ }
+			<Container
+				containerType="grid"
+				cols={ 12 }
+				gap="2xl"
+				className="bg-background-secondary p-8"
+			>
+				<Container.Item colSpan={ 8 } className="flex flex-col gap-8">
+					{ /* Welcome Astra card */ }
+					<Container
+						containerType="grid"
+						cols={ 8 }
+						gap="2xl"
+						className="bg-background-primary p-4 shadow-sm rounded-xl"
+					>
+						<Container.Item
+							colSpan={ 5 }
+							className="flex flex-col gap-6"
+						>
+							<div>
+								<Title
+									tag="h3"
+									title="Welcome to Astra"
+									size="lg"
+								/>
+								<p className="text-sm text-text-secondary m-0">
+									Astra is fast, fully customizable &
+									beautiful WordPress theme suitable for blog,
+									personal portfolio, business website and
+									WooCommerce storefront. It is very
+									lightweight and offers unparalleled speed.
+								</p>
+							</div>
+							<div className="flex space-x-4">
+								<Button>Start Customizing</Button>
+								<Button variant="ghost" icon={ <CirclePlay /> }>
+									Watch a Quick Guide
+								</Button>
+							</div>
+						</Container.Item>
+						<Container.Item colSpan={ 3 }>
+							<img
+								src={ astraVideo }
+								alt="Astra video"
+								className="w-full h-full object-cover rounded-lg"
+							/>
+						</Container.Item>
+					</Container>
+					{ /* Quick Settings card */ }
+					<Container
+						containerType="flex"
+						direction="column"
+						className="md:w-full lg:w-full bg-background-primary border border-solid rounded-xl border-border-subtle p-4"
+						gap="xs"
+					>
+						<Container.Item className="md:w-full p-1 lg:w-full">
+							<Container justify="between" gap="xs">
+								<Container.Item className="">
+									<Label size="md" className="font-semibold">
+										Quick Settings
+									</Label>
+								</Container.Item>
+								<Container.Item className="items-center flex gap-2">
+									<Button
+										variant="ghost"
+										className="p-0 leading-none	"
+									>
+										<Ellipsis />
+									</Button>
+									<Button
+										variant="ghost"
+										className="p-0 leading-none	"
+									>
+										<ArrowUpRight />
+									</Button>
+								</Container.Item>
+							</Container>
+						</Container.Item>
+						<Container.Item className="md:w-full lg:w-full p-2 rounded-lg bg-background-secondary">
+							<RadioButton.Group
+								as="div"
+								defaultValue={ `option-${ radioButtonGroupData[ 0 ].id }` }
+								multiSelection={ true }
+								onChange={ ( value ) => {
+									return value;
+								} }
+								className="w-full"
+							>
+								{ radioButtonGroupData.map( ( option ) => (
+									<RadioButton.Button
+										key={ `option-${ option.id }` }
+										borderOn={ true }
+										value={ option.value }
+										icon={ option.icon }
+										hideSelection={ option.hideSelection }
+										toggleLabel={ option.toggleLabel }
+										label={ {
+											heading: option.label,
+										} }
+										useSwitch={ option.useSwitch }
+										className="px-2"
+										badgeItem={ option.badge }
+										disabled={ option.disabled }
+										buttonWrapperClasses="bg-background-primary"
+									/>
+								) ) }
+							</RadioButton.Group>
+						</Container.Item>
+						<Container.Item className="flex items-center justify-center space-x-2 text-text-primary text-sm bg-background-secondary rounded-lg py-3">
+							<AstraLogo className="size-4" />
+							<span className="font-semibold">
+								Do More with Astra Pro
+							</span>
+							<span className="font-normal text-text-secondary">
+								Get access to powerful features without the high
+								costs.
+							</span>
+							<Button
+								variant="ghost"
+								icon={ <ArrowUpRight /> }
+								iconPosition="right"
+								className="h-full inline-flex items-center py-0 px-1 m-0 bg-transparent  shadow-none border-0 cursor-pointer text-sm font-semibold text-link-primary"
+							>
+								Upgrade to Pro
+							</Button>
+						</Container.Item>
+					</Container>
+				</Container.Item>
 
-                <Container.Item colSpan={4} className="flex flex-col gap-8">
-                    {/* Inegrations card */}
-                    <Container
-                        containerType="flex"
-                        gap="xs"
-                        direction="column"
-                        className="border border-solid rounded-xl border-border-subtle p-4 bg-background-primary"
-                    >
-                        <Container.Item className="md:w-full lg:w-full">
-                            <Container className="p-1" justify="between" gap="xs">
-                                <Container.Item>
-                                    <Label className="font-semibold">
-                                        Integrations
-                                    </Label>
-                                </Container.Item>
-                                <Container.Item
-                                    containerType="flex"
-                                    direction="row"
-                                    className="items-center"
-                                    gap="xs"
-                                >
-                                    <Button className="p-0" variant="ghost">
-                                        <ArrowUpRight />
-                                    </Button>
-                                </Container.Item>
-                            </Container>
-                        </Container.Item>
-                        <Container.Item className="md:w-full lg:w-full bg-field-primary-background rounded-lg">
-                            <Container className="grid grid-cols-2 p-1 gap-1">
-                                { astraRadioButtonGroupData.map( ( card ) => (
-                                    <Container.Item
-                                        key={ card.id }
-                                        className="md:w-full lg:w-full flex"
-                                    >
-                                        <Container
-                                            containerType="flex"
-                                            direction="column"
-                                            className="flex-1 gap-1 shadow-soft-shadow-inner p-2 rounded-md bg-background-primary"
-                                        >
-                                            <Container.Item>
-                                                <Container className="gap-1 items-center">
-                                                    <Container.Item
-                                                        className="peer-[]:&>svg]:size-5"
-                                                        grow={ 1 }
-                                                        order="none"
-                                                        shrink={ 1 }
-                                                    >
-                                                        { card.svg }
-                                                    </Container.Item>
-                                                </Container>
-                                            </Container.Item>
-                                            <Container.Item className="gap-0.5 p-1">
-                                                <Label className="text-sm font-semibold">
-                                                    { card.title }
-                                                </Label>
-                                                <Label variant="help" className="text-sm">
-                                                    { card.description }
-                                                </Label>
-                                            </Container.Item>
-                                        </Container>
-                                    </Container.Item>
-                                ) ) }
-                            </Container>
-                        </Container.Item>
-                    </Container>
-                    {/* Vip Support card */}
-                    <Container containerType="grid" gap="xs" className="p-5 bg-background-primary shadow-sm rounded-xl">
-                            <Container.Item>
-                                <Container gap="xs" align="center">
-                                    <div className="text-base font-semibold">VIP Support</div>
-                                    <Badge
-                                        label={ 'PRO' }
-                                        size="xs"
-                                        icon={ null }
-                                        variant="inverse"
-                                        closable={ false }
-                                        className="py-0"
-                                    />
-                                </Container>
-                            </Container.Item>
-                            <Container.Item>
-                                <Container>
-                                    <div className="text-sm text-text-secondary">Faster and exclusive support service designed for VIP assistance and benefits.</div>
-                                </Container>
-                            </Container.Item>
-                            <Container.Item>
-                                <Button variant="link">
-                                    Know more
-                                </Button>
-                            </Container.Item>
-                    </Container>
-                    {/* Join the Community card */}
-                    <Container containerType="grid" gap="xs" className="p-5 bg-background-primary shadow-sm rounded-xl">
-                            <Container.Item>
-                                <Container gap="xs" align="center">
-                                    <div className="font-semibold">Join the Community</div>
-                                </Container>
-                            </Container.Item>
-                            <Container.Item>
-                                <Container>
-                                    <div className="text-sm text-text-secondary">Got a question about the plugin, want to share your awesome project? Join our wonderful community!</div>
-                                </Container>
-                            </Container.Item>
-                            <Container.Item>
-                                <Button variant="link">
-                                    Join now
-                                </Button>
-                            </Container.Item>
-                    </Container>
-                </Container.Item>
-            </Container>
-        </>
-    )
-}
+				<Container.Item colSpan={ 4 } className="flex flex-col gap-8">
+					{ /* Inegrations card */ }
+					<Container
+						containerType="flex"
+						gap="xs"
+						direction="column"
+						className="border border-solid rounded-xl border-border-subtle p-4 bg-background-primary"
+					>
+						<Container.Item className="md:w-full lg:w-full">
+							<Container
+								className="p-1"
+								justify="between"
+								gap="xs"
+							>
+								<Container.Item>
+									<Label className="font-semibold">
+										Integrations
+									</Label>
+								</Container.Item>
+								<Container.Item
+									containerType="flex"
+									direction="row"
+									className="items-center"
+									gap="xs"
+								>
+									<Button className="p-0" variant="ghost">
+										<ArrowUpRight />
+									</Button>
+								</Container.Item>
+							</Container>
+						</Container.Item>
+						<Container.Item className="md:w-full lg:w-full bg-field-primary-background rounded-lg">
+							<Container className="grid grid-cols-2 p-1 gap-1">
+								{ astraRadioButtonGroupData.map( ( card ) => (
+									<Container.Item
+										key={ card.id }
+										className="md:w-full lg:w-full flex"
+									>
+										<Container
+											containerType="flex"
+											direction="column"
+											className="flex-1 gap-1 shadow-soft-shadow-inner p-2 rounded-md bg-background-primary"
+										>
+											<Container.Item>
+												<Container className="gap-1 items-center">
+													<Container.Item
+														className="peer-[]:&>svg]:size-5"
+														grow={ 1 }
+														order="none"
+														shrink={ 1 }
+													>
+														{ card.svg }
+													</Container.Item>
+												</Container>
+											</Container.Item>
+											<Container.Item className="gap-0.5 p-1">
+												<Label className="text-sm font-semibold">
+													{ card.title }
+												</Label>
+												<Label
+													variant="help"
+													className="text-sm"
+												>
+													{ card.description }
+												</Label>
+											</Container.Item>
+										</Container>
+									</Container.Item>
+								) ) }
+							</Container>
+						</Container.Item>
+					</Container>
+					{ /* Vip Support card */ }
+					<Container
+						containerType="grid"
+						gap="xs"
+						className="p-5 bg-background-primary shadow-sm rounded-xl"
+					>
+						<Container.Item>
+							<Container gap="xs" align="center">
+								<div className="text-base font-semibold">
+									VIP Support
+								</div>
+								<Badge
+									label={ 'PRO' }
+									size="xs"
+									icon={ null }
+									variant="inverse"
+									closable={ false }
+									className="py-0"
+								/>
+							</Container>
+						</Container.Item>
+						<Container.Item>
+							<Container>
+								<div className="text-sm text-text-secondary">
+									Faster and exclusive support service
+									designed for VIP assistance and benefits.
+								</div>
+							</Container>
+						</Container.Item>
+						<Container.Item>
+							<Button variant="link">Know more</Button>
+						</Container.Item>
+					</Container>
+					{ /* Join the Community card */ }
+					<Container
+						containerType="grid"
+						gap="xs"
+						className="p-5 bg-background-primary shadow-sm rounded-xl"
+					>
+						<Container.Item>
+							<Container gap="xs" align="center">
+								<div className="font-semibold">
+									Join the Community
+								</div>
+							</Container>
+						</Container.Item>
+						<Container.Item>
+							<Container>
+								<div className="text-sm text-text-secondary">
+									Got a question about the plugin, want to
+									share your awesome project? Join our
+									wonderful community!
+								</div>
+							</Container>
+						</Container.Item>
+						<Container.Item>
+							<Button variant="link">Join now</Button>
+						</Container.Item>
+					</Container>
+				</Container.Item>
+			</Container>
+		</>
+	);
+};
