@@ -116,6 +116,7 @@ const TabsGroup = ( props ) => {
 		</div>
 	);
 };
+TabsGroup.displayName = 'Tabs.Group';
 
 // Tab component to be used within a TabsGroup.
 const TabComponent = ( props, ref ) => {
@@ -245,7 +246,7 @@ const TabComponent = ( props, ref ) => {
 	);
 };
 const Tab = forwardRef( TabComponent );
-Tab.displayName = 'Tab';
+Tab.displayName = 'Tabs.Tab';
 
 const exports = {
 	Group: TabsGroup,

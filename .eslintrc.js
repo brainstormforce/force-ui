@@ -12,9 +12,10 @@ module.exports = {
 			},
 			alias: {
 				map: [
-					['@', './src'],
+					['@/icons', './src/ui/icons.js'],
 					['@/components', './src/components'],
 					['@/utilities', './src/utilities'],
+					['@', './src'],
 				],
 				extensions: ['.js', '.jsx'],
 			},
