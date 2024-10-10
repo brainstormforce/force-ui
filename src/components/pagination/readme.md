@@ -1,59 +1,83 @@
-# Label
+# Pagination Component Documentation
 
 ## Description
 
-Labels component - These are the basic atoms used for the form elements with input, checkboxes and radios and more.
+The `Pagination` component provides a navigational interface for page-based navigation, supporting customizable options such as size, icons, and disabled states. It is built with Tailwind CSS and is designed to be flexible for different use cases.
 
-## Props
+## `Pagination` Props
 
-### size
+### `size`
 - **Type:** `string`
 - **Default:** `"sm"`
-- **Description:** Defines the size of the label field
-    - `"xs"`
-    - `"sm"`
-    - `"md"`
+- **Description:** Defines the size of the pagination buttons. Options include:
+  - `"xs"`
+  - `"sm"`
+  - `"md"`
+  - `"lg"`
 
-### tag
-- **Type:** `string`
-- **Default:** `"label"`
-- **Description:** The HTML tag - label, span, title, etc.
+### `disabled`
+- **Type:** `boolean`
+- **Default:** `false`
+- **Description:** If true, disables the pagination buttons, preventing user interaction.
 
+## `Pagination.Link` Props
 
-### children
-- **Type:** `ReactNode`
-- **Description:** The content to be displayed inside the label.
+### `isActive`
+- **Type:** `boolean`
+- **Default:** `false`
+- **Description:** If true, the pagination link will be styled as active.
 
-### className
-- **Type:** `string`
-- **Description:** Additional custom classes to be added to the label.
+### `onClick`
+- **Type:** `function`
+- **Default:** `() => {}`
+- **Description:** Callback function when the pagination link is clicked.
 
-### variant
-- **Type:** `string`
-- **Default:** `"neutral"`
-- **Description:** Variant of the label
-    - `neutral`
-    - `help`
-    - `error`
-    - `disabled`
+## `Pagination.Previous` Props
 
-## Usage
+### `onClick`
+- **Type:** `function`
+- **Default:** `() => {}`
+- **Description:** Callback function when the "Previous" button is clicked.
 
-### Basic Example
+## `Pagination.Next` Props
+
+### `onClick`
+- **Type:** `function`
+- **Default:** `() => {}`
+- **Description:** Callback function when the "Next" button is clicked.
+
+## `Pagination.Ellipsis` Props
+
+### `onClick`
+- **Type:** `function`
+- **Default:** `() => {}`
+- **Description:** Callback function when the ellipsis (`...`) is clicked.
+
+## Usage Example
 
 ```jsx
-import { Label } from '@bsf/force-ui';
+import Pagination from './Pagination';
 
 const App = () => (
-    <div>
-        <Label size='xs'>Vrunda <MapPinPlusInside/> Kansara </Label>
-        <Label size='sm'>Label</Label>
-        <Label size='sm' variant='disabled'><MapPinPlusInside/> Label</Label>
-        <Label size='md' variant="help">Another Label <MapPinPlusInside/></Label>
-        <Label variant="error">An error label with a <a href="#">link</a>.</Label>
-    </div>
+  <Pagination size="md">
+    <Pagination.Previous onClick={() => console.log('Previous page')} />
+    <Pagination.Content>
+      <Pagination.Item>
+        <Pagination.Link isActive onClick={() => console.log('Go to page 1')}>
+          1
+        </Pagination.Link>
+      </Pagination.Item>
+      <Pagination.Item>
+        <Pagination.Link onClick={() => console.log('Go to page 2')}>2</Pagination.Link>
+      </Pagination.Item>
+      <Pagination.Ellipsis onClick={() => console.log('Show more pages')} />
+      <Pagination.Item>
+        <Pagination.Link onClick={() => console.log('Go to page 10')}>10</Pagination.Link>
+      </Pagination.Item>
+    </Pagination.Content>
+    <Pagination.Next onClick={() => console.log('Next page')} />
+  </Pagination>
 );
 
 export default App;
 ```
-
