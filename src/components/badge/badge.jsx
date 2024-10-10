@@ -20,25 +20,26 @@ const BadgeComponent = ( props, ref ) => {
 		onMouseDown = () => {},
 	} = props;
 
-	// Base classes. - Mandatory classes.
+	// Base classes - Mandatory classes
 	const baseClasses =
-		'font-medium border-badge-border-gray flex gap-1 items-center justify-center border border-solid';
+		'font-medium border-badge-border-gray flex items-center justify-center border border-solid';
 
-	// Size classes - Based on the size prop.
+	// Size classes - Based on the size prop
 	const sizeClasses = {
+		xxs: 'py-0.5 px-1 text-xxs', // Assuming you have xxs text size as utility
 		xs: 'py-0.5 px-1 text-xs',
 		sm: 'py-1 px-1.5 text-xs',
 		md: 'py-1 px-1.5 text-sm',
 		lg: 'py-1 px-1.5 text-base',
 	};
 
-	// Type classes - Based on the type prop.
+	// Type classes - Based on the type prop
 	const typeClasses = {
 		pill: 'rounded-full',
 		rounded: 'rounded',
 	};
 
-	// Variant classes - Based on the variant prop.
+	// Variant classes - Based on the variant prop
 	const variantClasses = {
 		neutral:
 			'bg-badge-background-gray hover:bg-badge-hover-gray text-badge-color-gray border-badge-border-gray',
@@ -52,9 +53,27 @@ const BadgeComponent = ( props, ref ) => {
 			'bg-badge-background-disabled hover:bg-badge-hover-disabled text-badge-color-disabled border-badge-border-disabled disabled cursor-not-allowed',
 	};
 
+	// Icon size classes based on the badge size prop
+	const iconSizeClasses = {
+		xxs: 'size-3', // 12px
+		xs: 'size-3',  // 12px
+		sm: 'size-3',  // 12px
+		md: 'size-4',  // 16px
+		lg: 'size-5',  // 20px
+	};
+
+	// Gap classes between icon, label, and X
+	const gapClasses = {
+		xxs: 'gap-1', // 4px
+		xs: 'gap-1.5', // 6px
+		sm: 'gap-1.5', // 6px
+		md: 'gap-1.5', // 6px
+		lg: 'gap-1.5', // 6px
+	};
+
 	let filteredClasses = '';
 	let buttonClasses =
-		'group relative justify-center flex items-center [&>svg]:h-4 [&>svg]:w-4 cursor-pointer';
+		'group relative justify-center flex items-center cursor-pointer';
 
 	if ( disabled ) {
 		filteredClasses = variantClasses.disabled;
@@ -73,13 +92,14 @@ const BadgeComponent = ( props, ref ) => {
 				baseClasses,
 				sizeClasses[ size ],
 				typeClasses[ type ],
+				gapClasses[ size ], // Apply the gap class based on size
 				filteredClasses,
 				className
 			) }
 			ref={ ref }
 		>
 			{ icon ? (
-				<span className="justify-center flex items-center [&>svg]:h-4 [&>svg]:w-4">
+				<span className={ `justify-center flex items-center ${iconSizeClasses[size]}` }>
 					{ icon }
 				</span>
 			) : null }
@@ -93,7 +113,7 @@ const BadgeComponent = ( props, ref ) => {
 					tabIndex={ 0 }
 				>
 					<span className="sr-only">{ `Remove ${ label }` }</span>
-					<X />
+					<X className={ iconSizeClasses[ size ] } /> {/* Apply the same size class to the X icon */}
 					<span className="absolute -inset-1" />
 				</span>
 			) }
