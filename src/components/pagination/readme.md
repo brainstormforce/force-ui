@@ -20,7 +20,7 @@ The `Pagination` component provides a navigational interface for page-based navi
 - **Default:** `false`
 - **Description:** If true, disables the pagination buttons, preventing user interaction.
 
-## `Pagination.Link` Props
+## `Pagination.Item` Props
 
 ### `isActive`
 - **Type:** `boolean`
@@ -60,22 +60,14 @@ import Pagination from './Pagination';
 
 const App = () => (
   <Pagination size="md">
-    <Pagination.Previous onClick={() => console.log('Previous page')} />
     <Pagination.Content>
-      <Pagination.Item>
-        <Pagination.Link isActive onClick={() => console.log('Go to page 1')}>
-          1
-        </Pagination.Link>
-      </Pagination.Item>
-      <Pagination.Item>
-        <Pagination.Link onClick={() => console.log('Go to page 2')}>2</Pagination.Link>
-      </Pagination.Item>
+    <Pagination.Previous onClick={() => console.log('Previous page')} />
+      <Pagination.Item isActive onClick={() => console.log('Go to page 1')}> 1 </Pagination.Item>
+      <Pagination.Item onClick={() => console.log('Go to page 2')}> 2 </Pagination.Item>
       <Pagination.Ellipsis onClick={() => console.log('Show more pages')} />
-      <Pagination.Item>
-        <Pagination.Link onClick={() => console.log('Go to page 10')}>10</Pagination.Link>
-      </Pagination.Item>
-    </Pagination.Content>
+      <Pagination.Item onClick={() => console.log('Go to page 10')}> 10 </Pagination.Item>
     <Pagination.Next onClick={() => console.log('Next page')} />
+    </Pagination.Content>
   </Pagination>
 );
 

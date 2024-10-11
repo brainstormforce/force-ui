@@ -52,19 +52,23 @@ const PaginationContent = forwardRef( ( { className, ...props }, ref ) => {
 PaginationContent.displayName = 'Pagination.Content';
 
 const PaginationItem = forwardRef(
-	( { isActive = false, className, children, ...props }, ref ) => {
+	(
+		{ isActive = false, onClick = () => {}, className, children, ...props },
+		ref
+	) => {
 		const { disabled } = usePageContext();
 		return (
 			<li
 				ref={ ref }
 				tabIndex={ 0 }
 				className={ cn( 'flex', disabled && disabledClassNames.general ) }
-				{ ...props }
 			>
 				<PaginationButton
 					isActive={ isActive }
 					disabled={ disabled }
 					className={ className }
+					onClick={ onClick }
+					{ ...props }
 				>
 					{ children }
 				</PaginationButton>
