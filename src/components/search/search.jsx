@@ -53,19 +53,16 @@ const SearchBox = forwardRef(
 			whileElementsMounted: autoUpdate,
 			middleware: [
 				offset(size === 'sm' ? 5 : 10),
-				flip( { padding: 10 } ),
+				flip({ padding: 10 }),
 				floatingSize({
-					apply( { rects, elements, availableHeight } ) {
-						Object.assign( elements.floating.style, {
-							maxHeight: availableHeight,
-							width: `${ rects.reference.width }px`,
-							fontFamily: window.getComputedStyle(
-								elements.reference
-							).fontFamily, // Retain parent's font family
-						} );
+					apply({ rects, elements, availableHeight }) {
+						elements.floating.style.maxHeight = `${availableHeight}px`;
+						elements.floating.style.width = `${rects.reference.width}px`;
+						elements.floating.style.fontFamily = window.getComputedStyle(elements.reference).fontFamily; // Retain parent's font family
 					},
-				} ),
+				}),
 			],
+
 		} );
 		const dismiss = useDismiss( context );
 
