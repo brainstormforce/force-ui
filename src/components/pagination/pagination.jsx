@@ -1,7 +1,7 @@
 import { createContext, useContext, forwardRef } from 'react';
 import { cn } from '@/utilities/functions';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { disabledClassNames, sizeClassNames } from './component-style';
+import { disabledClassNames, sizeToClass } from './component-style';
 import Button from '../button';
 
 const PageContext = createContext();
@@ -40,9 +40,9 @@ const PaginationContent = forwardRef( ( { className, ...props }, ref ) => (
 		{ ...props }
 	/>
 ) );
-PaginationContent.displayName = 'PaginationContent';
+PaginationContent.displayName = 'Pagination.Content';
 
-const PaginationItem = forwardRef( ( { className, ...props }, ref ) => {
+const PaginationItem = forwardRef(({ isActive = false, className, children, ...props }, ref) => {
 	const { disabled } = usePageContext();
 	return (
 		<li
@@ -51,90 +51,71 @@ const PaginationItem = forwardRef( ( { className, ...props }, ref ) => {
 			className={cn(
 				'flex',
 				disabled && disabledClassNames.general,
-				className
 			) }
 			{ ...props }
-		/>
+		>
+			<PaginationButton isActive={isActive} disabled={disabled} className={className} >
+				{children}
+			</PaginationButton>
+		</li>
 	);
 } );
-PaginationItem.displayName = 'PaginationItem';
+PaginationItem.displayName = 'Pagination.Item';
 
-const PaginationLink = ( {
-	className,
-	children,
-	isActive,
-	onClick = () => {},
-	icon = null,
-	...props
-} ) => {
+const PaginationButton = ({ icon = null, isActive = false, onClick = () => { }, className, ...props }) => {
 	const { size, disabled } = usePageContext();
+
 	return (
 		<Button
-			size={ size }
 			variant={ 'ghost' }
 			className={ cn(
-				sizeClassNames[size].general,
-				'flex items-center rounded text-button-secondary',
+				sizeToClass[size],
+				'aspect-square p-0 flex justify-center items-center rounded text-button-secondary',
 				!disabled &&
 					isActive &&
 					'text-button-primary bg-brand-background-50',
 				disabled && 'hover:bg-transparent cursor-not-allowed',
-				'focus:border-border-subtle'
+				'focus:border-border-subtle',
+				className,
 			) }
 			onClick={ onClick }
 			disabled={ disabled }
 			icon={ icon }
 			{ ...props }
-		>
-			{ children }
-		</Button>
-	);
-};
-PaginationLink.displayName = 'PaginationLink';
-
-const PaginationPrevious = ({ onClick = () => { }, className, ...props }) => {
-
-	return (
-		<PaginationLink
-			aria-label="Go to previous page"
-			className={cn(
-				className
-			) }
-			icon={ <ChevronLeft /> }
-			onClick={ onClick }
-			{ ...props }
 		/>
-	);
+	)
 };
-PaginationPrevious.displayName = 'PaginationPrevious';
 
-const PaginationNext = ({ onClick = () => { }, className, ...props }) => {
+const PaginationPrevious = (props) => (
+	<PaginationButton
+		icon={<ChevronLeft />}
+		ariaLabel="Go to previous page"
+		{...props}
+	/>
+);
+PaginationPrevious.displayName = 'Pagination.Previous';
 
-	return (
-		<PaginationLink
-			aria-label="Go to next page"
-			className={cn(
-				className
-			) }
-			icon={ <ChevronRight /> }
-			onClick={ onClick }
-			{ ...props }
-		/>
-	);
-};
-PaginationNext.displayName = 'PaginationNext';
+const PaginationNext = (props) => (
+	<PaginationButton
+		icon={<ChevronRight />}
+		ariaLabel="Go to next page"
+		{...props}
+	/>
+);
+
+PaginationNext.displayName = 'Pagination.Next';
 
 const PaginationEllipsis = ( { onClick = () => {}, className, ...props } ) => {
+	const { size } = usePageContext();
 	return (
-		<PaginationLink className={ cn( className ) } onClick={ onClick } { ...props }>
+		<PaginationButton className={cn(className)} onClick={onClick} {...props}>
 			...
-		</PaginationLink>
+		</PaginationButton>
 	);
 };
-PaginationEllipsis.displayName = 'PaginationEllipsis';
+PaginationEllipsis.displayName = 'Pagination.Ellipsis';
 
 Pagination.Content = PaginationContent;
-Pagination.Link = PaginationLink;
 Pagination.Item = PaginationItem;
 Pagination.Previous = PaginationPrevious;
 Pagination.Next = PaginationNext;

@@ -13,7 +13,7 @@ export default {
 			name: 'Size',
 			description: 'Defines the size variant of the pagination',
 			control: { type: 'select' },
-			options: [ 'sm', 'md', 'lg' ],
+			options: ['xs', 'sm', 'md', 'lg'],
 			table: {
 				type: { summary: 'string' },
 				defaultValue: { summary: 'md' },
@@ -59,29 +59,19 @@ const Template = ( args ) => {
 		<div style={ { width: '400px' } }>
 			<Pagination { ...args }>
 				<Pagination.Content>
-					<Pagination.Item>
-						<Pagination.Previous onClick={ () => handleClick( -1 ) } />
-					</Pagination.Item>
+					<Pagination.Previous onClick={() => handleClick(-1)} />
 					{ items.map( ( item, index ) => (
-						<Pagination.Item key={ index }>
-							<Pagination.Link
-								onClick={ () => handleClick( index ) }
-								isActive={ activeIndex === index }
-							>
-								{ item.label }
-							</Pagination.Link>
+						<Pagination.Item key={index} onClick={() => handleClick(index)}
+							isActive={activeIndex === index}>
+							{item.label}
 						</Pagination.Item>
-					) ) }
-					<Pagination.Item>
+					))}
 						<Pagination.Ellipsis
 							onClick={ () => handleClick( items.length ) }
-						/>
-					</Pagination.Item>
-					<Pagination.Item>
+					/>
 						<Pagination.Next
 							onClick={ () => handleClick( items.length + 1 ) }
-						/>
-					</Pagination.Item>
+					/>
 				</Pagination.Content>
 			</Pagination>
 		</div>
@@ -89,12 +79,34 @@ const Template = ( args ) => {
 };
 
 // Basic Pagination Example
-export const BasicPagination = ( args ) => Template( { ...args } );
+
+export const BasicPagination = (args) => Template({ ...args });
 BasicPagination.args = {
 	size: 'md', // Set default size
 	disabled: false, // Default disabled state
 };
 
+export const ExtraSmallPagination = (args) => Template({ ...args });
+ExtraSmallPagination.args = {
+	size: 'xs', // Set default size
+	disabled: false, // Default disabled state
+};
+
+export const SmallPagination = (args) => Template({ ...args });
+SmallPagination.args = {
+	size: 'sm', // Set default size
+	disabled: false, // Default disabled state
+};
+export const MediumPagination = (args) => Template({ ...args });
+MediumPagination.args = {
+	size: 'md', // Set default size
+	disabled: false, // Default disabled state
+};
+export const LargePagination = (args) => Template({ ...args });
+LargePagination.args = {
+	size: 'lg', // Set default size
+	disabled: false, // Default disabled state
+};
 // Disabled Pagination Example
 export const DisabledPagination = ( args ) => Template( { ...args } );
 DisabledPagination.args = {
