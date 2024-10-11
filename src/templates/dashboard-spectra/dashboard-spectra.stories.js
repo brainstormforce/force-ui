@@ -351,23 +351,42 @@ export const SpectraDashboard = () => {
 				</Topbar.Left>
 				<Topbar.Middle align="left" className="h-full">
 					<Topbar.Item className="gap-4">
-						{ /* Active Item underline */ }
-						<button className="relative h-full text-text-primary text-sm font-medium py-0 px-1 m-0 bg-transparent  shadow-none border-0 cursor-pointer">
-							<span>Dashboard</span>
-							<span className="absolute w-full h-px bg-brand-primary-600 bottom-0 left-0"></span>
-						</button>
-						<button className="h-full text-text-tertiary text-sm font-medium py-0 px-1 m-0 bg-transparent  shadow-none border-0 cursor-pointer">
-							<span>Blocks</span>
-						</button>
-						<button className="h-full text-text-tertiary text-sm font-medium py-0 px-1 m-0 bg-transparent  shadow-none border-0 cursor-pointer">
-							<span>Settings</span>
-						</button>
-						<button className="h-full text-text-tertiary text-sm font-medium py-0 px-1 m-0 bg-transparent  shadow-none border-0 cursor-pointer">
-							<span>AI Features</span>
-						</button>
-						<button className="h-full text-text-tertiary text-sm font-medium py-0 px-1 m-0 bg-transparent  shadow-none border-0 cursor-pointer">
-							<span>Free vs Pro</span>
-						</button>
+                        <a
+                            href="#"
+                            target="_self"
+                            className="content-center no-underline relative h-full py-0 px-1 m-0 bg-transparent outline-none shadow-none border-0 focus:outline-none text-text-primary text-sm font-medium cursor-pointer"
+                        >
+                            <span>Dashboard</span>
+                            <span className="absolute bottom-0 left-0 w-full h-px bg-brand-primary-600"></span>
+                        </a>
+                        <a
+                            href="#"
+                            target="_self"
+                            className="content-center no-underline h-full py-0 px-1 m-0 bg-transparent outline-none shadow-none border-0 focus:outline-none text-text-tertiary text-sm font-medium cursor-pointer"
+                        >
+                            Blocks
+                        </a>
+                        <a
+                            href="#"
+                            target="_self"
+                            className="content-center no-underline h-full py-0 px-1 m-0 bg-transparent outline-none shadow-none border-0 focus:outline-none text-text-tertiary text-sm font-medium cursor-pointer"
+                        >
+                            Settings
+                        </a>
+                        <a
+                            href="#"
+                            target="_self"
+                            className="content-center no-underline h-full py-0 px-1 m-0 bg-transparent outline-none shadow-none border-0 focus:outline-none text-text-tertiary text-sm font-medium cursor-pointer"
+                        >
+                            AI Features
+                        </a>
+                        <a
+                            href="#"
+                            target="_self"
+                            className="content-center no-underline h-full py-0 px-1 m-0 bg-transparent outline-none shadow-none border-0 focus:outline-none text-text-tertiary text-sm font-medium cursor-pointer"
+                        >
+                            Free vs Pro
+                        </a>
 						<Button
 							variant="ghost"
 							icon={ <ArrowUpRight /> }
