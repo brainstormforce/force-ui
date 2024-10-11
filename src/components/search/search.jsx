@@ -39,8 +39,8 @@ const SearchBox = forwardRef(
 			className,
 			size = 'sm',
 			open = false,
-			onOpenChange = () => { },
-			...props 
+			onOpenChange = () => {},
+			...props
 		},
 		ref
 	) => {
@@ -80,7 +80,7 @@ const SearchBox = forwardRef(
 					floatingStyles,
 					context,
 					getReferenceProps,
-					getFloatingProps, 
+					getFloatingProps,
 				} }
 			>
 				<div
