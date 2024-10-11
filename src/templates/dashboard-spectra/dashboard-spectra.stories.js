@@ -49,7 +49,7 @@ export default {
 	},
 	decorators: [
 		( Story, parameters ) => (
-			<div className="box-border [&_*]:box-border w-full h-[100dvh]">
+			<div className="box-border [&_*]:box-border w-full">
 				<Story { ...parameters } />
 			</div>
 		),
@@ -279,7 +279,7 @@ const containerRowButtons = [
 	{
 		id: '1',
 		value: 'vipsupport',
-		icon: <Headset />,
+		icon: <Headset className="size-4 m-1"/>,
 		label: 'VIP Support',
 		hideSelection: true,
 		useSwitch: false,
@@ -289,13 +289,14 @@ const containerRowButtons = [
 				icon={ null }
 				variant="inverse"
 				closable={ false }
+                size="xxs"
 			/>
 		),
 	},
 	{
 		id: '2',
 		value: 'helpcenter',
-		icon: <HelpCircle />,
+		icon: <HelpCircle className="size-4 m-1"/>,
 		label: 'Help Center',
 		hideSelection: true,
 		useSwitch: false,
@@ -303,7 +304,7 @@ const containerRowButtons = [
 	{
 		id: '3',
 		value: 'community',
-		icon: <MessageSquare />,
+		icon: <MessageSquare className="size-4 m-1"/>,
 		label: 'Join the Community',
 		hideSelection: true,
 		useSwitch: false,
@@ -311,7 +312,7 @@ const containerRowButtons = [
 	{
 		id: '4',
 		value: 'rateus',
-		icon: <Star />,
+		icon: <Star className="size-4 m-1"/>,
 		label: 'Rate Us',
 		hideSelection: true,
 		useSwitch: false,
@@ -342,8 +343,8 @@ export const SpectraDashboard = () => {
 				</button>
 			</Container>
 			{ /* Navigation Topbar */ }
-			<Topbar gap={ 0 } className="h-16 p-0 shadow-sm">
-				<Topbar.Left className="p-5">
+			<Topbar gap={ 0 } className="h-16 p-0 shadow-sm sticky top-0 z-10">
+				<Topbar.Left className="p-4">
 					<Topbar.Item>
 						<SpectraLogo />
 					</Topbar.Item>
@@ -377,7 +378,7 @@ export const SpectraDashboard = () => {
 						</Button>
 					</Topbar.Item>
 				</Topbar.Middle>
-				<Topbar.Right className="p-5">
+				<Topbar.Right className="p-5" gap="md">
 					<Topbar.Item>
 						<Badge
 							label="Free"
@@ -387,10 +388,10 @@ export const SpectraDashboard = () => {
 						/>
 					</Topbar.Item>
 					<Topbar.Item>
-						<CircleHelp strokeWidth="1.5" />
+						<CircleHelp strokeWidth="1.5" className="size-4 m-1"/>
 					</Topbar.Item>
-					<Topbar.Item className="relative after:content-[''] after:inline-block after:size-1.5 after:bg-button-danger after:rounded-full after:absolute after:-top-0.5 after:left-5">
-						<Megaphone strokeWidth="1.5" />
+					<Topbar.Item className="relative after:content-[''] after:inline-block after:size-1.5 after:bg-background-important after:rounded-full after:absolute after:-top-0.5 after:left-5">
+						<Megaphone strokeWidth="1.5" className="size-4 m-1"/>
 					</Topbar.Item>
 				</Topbar.Right>
 			</Topbar>
@@ -419,6 +420,7 @@ export const SpectraDashboard = () => {
 									tag="h3"
 									title="Welcome to Spectra!"
 									size="lg"
+                                    className="text-text-primary"
 								/>
 								<p className="text-sm text-text-secondary">
 									We designed Spectra to be intuitive but we
@@ -428,7 +430,7 @@ export const SpectraDashboard = () => {
 									with Spectra!
 								</p>
 							</div>
-							<div className="flex space-x-4">
+							<div className="flex gap-3">
 								<Button
 									variant="primary"
 									iconPosition="right"
@@ -448,10 +450,9 @@ export const SpectraDashboard = () => {
 
 						<Container.Item colSpan={ 3 }>
 							<img
-								// src={ video }
 								src="https://placehold.co/272x154"
 								alt="Spectra video"
-								className="w-full h-full object-cover rounded-lg"
+								className="w-full h-full object-cover rounded"
 							/>
 						</Container.Item>
 					</Container>
@@ -463,9 +464,9 @@ export const SpectraDashboard = () => {
 						gap="xs"
 					>
 						<Container.Item className="md:w-full p-1 lg:w-full">
-							<Container justify="between" gap="xs">
+							<Container justify="between" align="center" gap="xs">
 								<Container.Item className="">
-									<Label className="font-semibold">
+									<Label className="font-semibold text-text-primary">
 										Blocks
 									</Label>
 								</Container.Item>
@@ -540,14 +541,17 @@ export const SpectraDashboard = () => {
 									Unlock Pro Features
 								</div>
 							</div>
-							<Title
-								title="Limitless Design with Spectra Pro!"
-								tag="h5"
-							/>
-							<p className="text-sm text-text-secondary">
-								Utilize advanced blocks, extensions, and premium
-								features to create a websites that stands out!
-							</p>
+                            <div>
+                                <Title
+                                    title="Limitless Design with Spectra Pro!"
+                                    tag="h5"
+                                    className="text-text-primary"
+                                />
+                                <p className="text-sm text-text-secondary">
+                                    Utilize advanced blocks, extensions, and premium
+                                    features to create a websites that stands out!
+                                </p>
+                            </div>
 							<div className="grid grid-cols-2 gap-3">
 								<ul className="list-none pl-0 space-y-2">
 									<li className="flex items-center space-x-2 text-field-label text-sm">
@@ -600,7 +604,7 @@ export const SpectraDashboard = () => {
 						containerType="flex"
 						gap="xs"
 						direction="column"
-						className="bg-background-primary border border-solid rounded-xl border-border-subtle p-4"
+						className="bg-background-primary border border-solid rounded-xl border-border-subtle p-3"
 					>
 						<Container.Item className="md:w-full lg:w-full">
 							<Container
@@ -609,7 +613,7 @@ export const SpectraDashboard = () => {
 								gap="xs"
 							>
 								<Container.Item>
-									<Label className="font-semibold">
+									<Label className="font-semibold text-text-primary">
 										Extend Your Website
 									</Label>
 								</Container.Item>
@@ -619,7 +623,7 @@ export const SpectraDashboard = () => {
 									className="items-center"
 									gap="xs"
 								>
-									<Button className="p-0" variant="ghost">
+									<Button className="p-0 text-icon-secondary" variant="ghost">
 										<ArrowUpRight />
 									</Button>
 								</Container.Item>
@@ -690,27 +694,27 @@ export const SpectraDashboard = () => {
 					<Container
 						direction="column"
 						gap="xs"
-						className="p-5 bg-background-primary shadow-sm rounded-xl"
+						className="p-3 bg-background-primary shadow-sm rounded-xl"
 					>
 						<Container.Item className="w-full">
 							<img
 								src="https://placehold.co/384x138"
 								alt="Build website with AI"
-								className="w-full h-full object-cover"
+								className="w-full h-full object-cover rounded-md"
 							/>
 						</Container.Item>
 						<Container.Item>
-							<div className="text-base font-semibold">
+							<div className="text-base font-semibold text-text-primary">
 								Build website 10x faster with AI
 							</div>
-							<p className="text-text-secondary">
+							<p className="text-sm text-text-secondary">
 								Beautiful pages, persuasive content, and custom
 								code in seconds. The possibilities are endless!
 							</p>
 						</Container.Item>
-						<Container.Item className="flex space-x-4">
+						<Container.Item className="flex gap-4">
 							<Button variant="secondary">Get Started</Button>
-							<p className="text-text-tertiary">
+							<p className="text-xs text-text-tertiary">
 								Get 1000 free monthly credits
 							</p>
 						</Container.Item>
@@ -719,11 +723,11 @@ export const SpectraDashboard = () => {
 					<Container
 						containerType="flex"
 						direction="column"
-						className="bg-background-primary border border-solid rounded-xl border-border-subtle p-4"
+						className="bg-background-primary border border-solid rounded-xl border-border-subtle p-3"
 						gap="xs"
 					>
 						<Container.Item className="md:w-full lg:w-full p-1">
-							<Label className="font-semibold">
+							<Label className="font-semibold text-text-primary">
 								Quick Access
 							</Label>
 						</Container.Item>
@@ -746,7 +750,7 @@ export const SpectraDashboard = () => {
 										<Container.Item>
 											<Button
 												variant="ghost"
-												className="py-0 font-normal"
+												className="py-0 font-medium text-text-primary"
 											>
 												{ button.label }
 											</Button>

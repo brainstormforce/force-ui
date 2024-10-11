@@ -46,7 +46,7 @@ export default {
 	},
 	decorators: [
 		( Story, parameters ) => (
-			<div className="box-border [&_*]:box-border w-full h-[100dvh]">
+			<div className="box-border [&_*]:box-border w-full">
 				<Story { ...parameters } />
 			</div>
 		),
@@ -309,17 +309,17 @@ export const AstraDashboard = () => {
 	return (
 		<>
 			{ /* Navigation Topbar */ }
-			<Topbar gap={ 0 } className="h-16 p-0 shadow-sm">
+			<Topbar gap={ 0 } className="h-16 p-0 shadow-sm sticky top-0 z-10">
 				<Topbar.Left className="p-5">
 					<Topbar.Item>
 						<AstraLogo />
 					</Topbar.Item>
 				</Topbar.Left>
 				<Topbar.Middle align="left" className="h-full">
-					<Topbar.Item className="gap-4">
+					<Topbar.Item className="gap-3">
 						<button className="relative h-full text-text-primary text-sm font-medium py-0 px-1 m-0 bg-transparent  shadow-none border-0 cursor-pointer">
 							<span>Dashboard</span>
-							<span className="absolute w-full h-px bg-brand-primary-600 bottom-0 left-0 "></span>
+							<span className="absolute w-full h-px bg-brand-primary-600 bottom-0 left-0"></span>
 						</button>
 						<button className="h-full text-text-tertiary text-sm font-medium py-0 px-1 m-0 bg-transparent  shadow-none border-0 cursor-pointer">
 							<span>Settings</span>
@@ -347,8 +347,8 @@ export const AstraDashboard = () => {
 						/>
 					</Topbar.Item>
 					<Topbar.Item className="gap-2">
-						<CircleHelp strokeWidth={ 1.5 } />
-						<Bell strokeWidth={ 1.5 } />
+						<CircleHelp strokeWidth={ 1.5 } className="size-4 m-1"/>
+						<Bell strokeWidth={ 1.5 } className="size-4 m-1"/>
 					</Topbar.Item>
 					<Topbar.Item>
 						<Avatar
@@ -373,7 +373,7 @@ export const AstraDashboard = () => {
 						containerType="grid"
 						cols={ 8 }
 						gap="2xl"
-						className="bg-background-primary p-4 shadow-sm rounded-xl"
+						className="bg-background-primary p-6 shadow-sm rounded-xl"
 					>
 						<Container.Item
 							colSpan={ 5 }
@@ -384,8 +384,9 @@ export const AstraDashboard = () => {
 									tag="h3"
 									title="Welcome to Astra"
 									size="lg"
+                                    className="text-text-primary"
 								/>
-								<p className="text-sm text-text-secondary m-0">
+								<p className="text-sm text-text-secondary">
 									Astra is fast, fully customizable &
 									beautiful WordPress theme suitable for blog,
 									personal portfolio, business website and
@@ -393,7 +394,7 @@ export const AstraDashboard = () => {
 									lightweight and offers unparalleled speed.
 								</p>
 							</div>
-							<div className="flex space-x-4">
+							<div className="flex gap-3">
 								<Button>Start Customizing</Button>
 								<Button variant="ghost" icon={ <CirclePlay /> }>
 									Watch a Quick Guide
@@ -404,7 +405,7 @@ export const AstraDashboard = () => {
 							<img
 								src="https://placehold.co/272x154"
 								alt="Astra video"
-								className="w-full h-full object-cover rounded-lg"
+								className="w-full h-full object-cover rounded"
 							/>
 						</Container.Item>
 					</Container>
@@ -412,12 +413,12 @@ export const AstraDashboard = () => {
 					<Container
 						containerType="flex"
 						direction="column"
-						className="md:w-full lg:w-full bg-background-primary border border-solid rounded-xl border-border-subtle p-4"
+						className="md:w-full lg:w-full bg-background-primary border-[0.5px] border-solid border-border-subtle rounded-xl p-4"
 						gap="xs"
 					>
 						<Container.Item className="md:w-full p-1 lg:w-full">
-							<Container justify="between" gap="xs">
-								<Container.Item className="">
+							<Container justify="between" align="center" gap="xs">
+								<Container.Item>
 									<Label size="md" className="font-semibold">
 										Quick Settings
 									</Label>
@@ -425,13 +426,13 @@ export const AstraDashboard = () => {
 								<Container.Item className="items-center flex gap-2">
 									<Button
 										variant="ghost"
-										className="p-0 leading-none	"
+										className="p-0 leading-none text-icon-secondary"
 									>
 										<Ellipsis />
 									</Button>
 									<Button
 										variant="ghost"
-										className="p-0 leading-none	"
+										className="p-0 leading-none text-icon-secondary"
 									>
 										<ArrowUpRight />
 									</Button>
@@ -468,7 +469,7 @@ export const AstraDashboard = () => {
 								) ) }
 							</RadioButton.Group>
 						</Container.Item>
-						<Container.Item className="flex items-center justify-center space-x-2 text-text-primary text-sm bg-background-secondary rounded-lg py-3">
+						<Container.Item className="flex items-center justify-center gap-2 text-text-primary text-sm bg-background-secondary rounded-lg p-3">
 							<AstraLogo className="size-4" />
 							<span className="font-semibold">
 								Do More with Astra Pro
@@ -495,7 +496,7 @@ export const AstraDashboard = () => {
 						containerType="flex"
 						gap="xs"
 						direction="column"
-						className="border border-solid rounded-xl border-border-subtle p-4 bg-background-primary"
+						className="border-[0.5px] border-solid border-border-subtle rounded-xl p-4 bg-background-primary"
 					>
 						<Container.Item className="md:w-full lg:w-full">
 							<Container
@@ -565,11 +566,11 @@ export const AstraDashboard = () => {
 					<Container
 						containerType="grid"
 						gap="xs"
-						className="p-5 bg-background-primary shadow-sm rounded-xl"
+						className="p-5 bg-background-primary border-[0.5px] border-solid border-border-subtle shadow-sm rounded-xl"
 					>
 						<Container.Item>
 							<Container gap="xs" align="center">
-								<div className="text-base font-semibold">
+								<div className="text-base font-semibold text-text-primary">
 									VIP Support
 								</div>
 								<Badge
@@ -598,11 +599,11 @@ export const AstraDashboard = () => {
 					<Container
 						containerType="grid"
 						gap="xs"
-						className="p-5 bg-background-primary shadow-sm rounded-xl"
+						className="p-5 bg-background-primary border-[0.5px] border-solid border-border-subtle shadow-sm rounded-xl"
 					>
 						<Container.Item>
 							<Container gap="xs" align="center">
-								<div className="font-semibold">
+								<div className="text-base font-semibold text-text-primary">
 									Join the Community
 								</div>
 							</Container>

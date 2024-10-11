@@ -20,6 +20,7 @@ const defaultTheme = {
 				'background-secondary': '#F3F4F6',
 				'background-inverse': '#111827',
 				'background-brand': '#2563EB',
+				'background-important': '#DC2626',
 				// field
 				'field-primary-background': '#F9FAFB',
 				'field-secondary-background': '#FFFFFF',
