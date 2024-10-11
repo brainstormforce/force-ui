@@ -7,6 +7,65 @@ export default {
 	component: SearchBox,
 	parameters: {
 		layout: 'centered',
+		docs: {
+			source: {
+				code: `
+				<SearchBox open={true} onOpenChange={() => {}}>
+				  <SearchBox.Input
+					placeholder="Search..."
+					onChange={() => {}}
+					variant="default"
+					disabled={false}
+					value=""
+				  />
+				  <SearchBox.Content>
+					<SearchBox.Loading loadingIcon={null} />
+					<SearchBox.Results>
+					  <SearchBox.ResultTitle>
+						Search Results
+					  </SearchBox.ResultTitle>
+					  <SearchBox.ResultItem
+						key={0}
+						icon={<File size={16} />}
+						onClick={() => {}}
+					  >
+						Item 1
+					  </SearchBox.ResultItem>
+					  <SearchBox.ResultItem
+						key={1}
+						icon={<Folder size={16} />}
+						onClick={() => {}}
+					  >
+						Item 2
+					  </SearchBox.ResultItem>
+					</SearchBox.Results>
+					<SearchBox.Separator />
+					<SearchBox.Results>
+					  <SearchBox.ResultTitle>
+						Categories
+					  </SearchBox.ResultTitle>
+					  <SearchBox.ResultItem
+						key={2}
+						icon={<File size={16} />}
+						onClick={() => {}}
+					  >
+						Category 1
+					  </SearchBox.ResultItem>
+					  <SearchBox.ResultItem
+						key={3}
+						icon={<Folder size={16} />}
+						onClick={() => {}}
+					  >
+						Category 2
+					  </SearchBox.ResultItem>
+					</SearchBox.Results>
+				  </SearchBox.Content>
+				</SearchBox>
+			  `,
+			},
+		},
+
+
 	},
 	tags: [ 'autodocs' ],
 	argTypes: {
@@ -69,10 +128,10 @@ export default {
 		},
 		defaultValue: {
 			description: 'Default value if uncontrolled',
-			action: 'text',
 			table: {
 				type: { summary: 'string' },
 			},
+			control: { disable: true }, // This disables the control for defaultValue
 		},
 	},
 };
@@ -86,10 +145,13 @@ const mockResults = [
 ];
 
 const mockCategories = [
-	{ name: 'Documents' },
-	{ name: 'Images' },
-	{ name: 'Projects' },
+	{ type: 'file', name: 'Marketing Documents' },
+	{ type: 'folder', name: 'HR Policies' },
+	{ type: 'file', name: 'Budget Report 2024' },
+	{ type: 'folder', name: 'Sales Data' },
+	{ type: 'file', name: 'Company Guidelines' },
 ];
+
 
 const Template = ( args ) => {
 	const [ open, setOpen ] = useState( args.open );
@@ -171,12 +233,19 @@ const Template = ( args ) => {
 								<SearchBox.ResultTitle>
 									Categories
 								</SearchBox.ResultTitle>
-								{ categories.map( ( item, index ) => (
+									{categories.map((item, index) => (
 									<SearchBox.ResultItem
 										key={ index }
 										onClick={ () => {
 											setOpen( false );
 										} }
+											icon={
+												item.type === 'file' ? (
+													<File size={16} />
+												) : (
+													<Folder size={16} />
+												)
+											}
 									>
 										{ item.name }
 									</SearchBox.ResultItem>

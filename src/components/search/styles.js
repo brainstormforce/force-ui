@@ -52,5 +52,9 @@ export const variantClassNames = {
 export const IconClasses =
 	'text-icon-secondary group-hover:text-icon-primary group-focus-within:text-icon-primary';
 
-export const disabledClassNames =
-	'border-border-disabled hover:border-border-disabled bg-field-background-disabled cursor-not-allowed text-text-disabled';
+export const disabledClassNames = {
+	ghost: 'cursor-not-allowed text-text-disabled placeholder:text-text-disabled',
+	primary: 'border-border-disabled hover:border-border-disabled bg-field-background-disabled cursor-not-allowed text-text-disabled placeholder:text-text-disabled',
+	secondary: 'border-border-disabled hover:border-border-disabled cursor-not-allowed text-text-disabled placeholder:text-text-disabled'
+}
+
