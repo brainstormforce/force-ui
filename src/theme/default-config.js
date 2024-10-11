@@ -142,6 +142,7 @@ const defaultTheme = {
 				'badge-color-disabled': '#D1D5DB',
 				'badge-hover-disabled': '#F3F4F6',
 				'badge-border-disabled': '#E5E7EB',
+				'badge-background-important': '#DC2626',
 				// alert
 				'alert-background-neutral': '#FFFFFF',
 				'alert-border-neutral': '#E5E7EB',

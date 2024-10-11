@@ -21,10 +21,10 @@ const libConfig = {
 		extensions: ['.js', '.jsx', '...'],
 		alias: {
 			...defaultConfig.resolve.alias,
-			'@': path.resolve(process.cwd(), 'src'),
+			'@/icons': path.resolve(process.cwd(), 'src/ui/icons'),
 			'@/components': path.resolve(process.cwd(), 'src/components'),
 			'@/utilities': path.resolve(process.cwd(), 'src/utilities'),
-			'@/globals': path.resolve(process.cwd(), 'src/globals'),
+			'@': path.resolve(process.cwd(), 'src'),
 		},
 	},
 	module: {
