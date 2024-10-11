@@ -83,7 +83,7 @@ const ProgressSteps = ( {
 
 // ProgressStep component as {ProgressSteps.Step}
 const ProgressStep = ( {
-	labelText,
+	labelText = '',
 	icon = <Plus />,
 	stepClasses,
 	isCurrent,
@@ -169,8 +169,8 @@ const ProgressStep = ( {
 					<span
 						className={ cn(
 							lineClasses,
-							'mr-2',
-							'border-y border-solid'
+							'mr-2 border-y border-solid',
+							! labelText && 'ml-2'
 						) }
 					></span>
 				</div>
