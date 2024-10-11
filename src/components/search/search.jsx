@@ -36,11 +36,11 @@ const useSearchContext = () => {
 const SearchBox = forwardRef(
 	(
 		{
-			className, // Custom class names for additional styling
-			size = 'sm', // Size of the SearchBox (default is 'sm')
-			open = false, // Controls whether the dropdown is open or not (default is false)
-			onOpenChange = () => {}, // Callback function to handle the open state change
-			...props // Any additional props that are passed
+			className,
+			size = 'sm',
+			open = false,
+			onOpenChange = () => { },
+			...props 
 		},
 		ref
 	) => {
@@ -73,14 +73,14 @@ const SearchBox = forwardRef(
 		return (
 			<SearchContext.Provider
 				value={ {
-					size, // Pass size to context
-					open, // Pass open state to context
-					onOpenChange, // Pass onOpenChange handler to context
-					refs, // Pass refs to context
-					floatingStyles, // Pass floating styles to context
-					context, // Pass context to context (nested contexts)
-					getReferenceProps, // Reference props for floating elements
-					getFloatingProps, // Floating props for dropdown content
+					size,
+					open,
+					onOpenChange,
+					refs,
+					floatingStyles,
+					context,
+					getReferenceProps,
+					getFloatingProps, 
 				} }
 			>
 				<div
@@ -100,15 +100,15 @@ SearchBox.displayName = 'SearchBox';
 const SearchBoxInput = forwardRef(
 	(
 		{
-			className, // Custom class names for input styling
-			type = 'text', // Input type (default is 'text')
-			placeholder = 'Search...', // Placeholder text for input
-			variant = 'primary', // Input variant (default is 'primary')
-			disabled = false, // Whether input is disabled or not
-			value, // Controlled value for the input
-			defaultValue, // Default value if uncontrolled
-			onChange, // Callback for handling value changes
-			...props // Any additional props
+			className,
+			type = 'text',
+			placeholder = 'Search...',
+			variant = 'primary',
+			disabled = false,
+			value,
+			defaultValue,
+			onChange,
+			...props
 		},
 		ref
 	) => {
