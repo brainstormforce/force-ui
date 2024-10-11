@@ -347,8 +347,8 @@ export const AstraDashboard = () => {
 						/>
 					</Topbar.Item>
 					<Topbar.Item className="gap-2">
-						<CircleHelp strokeWidth={ 1.5 } className="size-4 m-1"/>
-						<Bell strokeWidth={ 1.5 } className="size-4 m-1"/>
+						<CircleHelp strokeWidth={ 1.5 } className="size-4 m-1" />
+						<Bell strokeWidth={ 1.5 } className="size-4 m-1" />
 					</Topbar.Item>
 					<Topbar.Item>
 						<Avatar
@@ -384,7 +384,7 @@ export const AstraDashboard = () => {
 									tag="h3"
 									title="Welcome to Astra"
 									size="lg"
-                                    className="text-text-primary"
+									className="text-text-primary"
 								/>
 								<p className="text-sm text-text-secondary">
 									Astra is fast, fully customizable &
@@ -417,7 +417,11 @@ export const AstraDashboard = () => {
 						gap="xs"
 					>
 						<Container.Item className="md:w-full p-1 lg:w-full">
-							<Container justify="between" align="center" gap="xs">
+							<Container
+								justify="between"
+								align="center"
+								gap="xs"
+							>
 								<Container.Item>
 									<Label size="md" className="font-semibold">
 										Quick Settings

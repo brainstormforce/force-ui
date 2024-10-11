@@ -279,7 +279,7 @@ const containerRowButtons = [
 	{
 		id: '1',
 		value: 'vipsupport',
-		icon: <Headset className="size-4 m-1"/>,
+		icon: <Headset className="size-4 m-1" />,
 		label: 'VIP Support',
 		hideSelection: true,
 		useSwitch: false,
@@ -289,14 +289,14 @@ const containerRowButtons = [
 				icon={ null }
 				variant="inverse"
 				closable={ false }
-                size="xxs"
+				size="xxs"
 			/>
 		),
 	},
 	{
 		id: '2',
 		value: 'helpcenter',
-		icon: <HelpCircle className="size-4 m-1"/>,
+		icon: <HelpCircle className="size-4 m-1" />,
 		label: 'Help Center',
 		hideSelection: true,
 		useSwitch: false,
@@ -304,7 +304,7 @@ const containerRowButtons = [
 	{
 		id: '3',
 		value: 'community',
-		icon: <MessageSquare className="size-4 m-1"/>,
+		icon: <MessageSquare className="size-4 m-1" />,
 		label: 'Join the Community',
 		hideSelection: true,
 		useSwitch: false,
@@ -312,7 +312,7 @@ const containerRowButtons = [
 	{
 		id: '4',
 		value: 'rateus',
-		icon: <Star className="size-4 m-1"/>,
+		icon: <Star className="size-4 m-1" />,
 		label: 'Rate Us',
 		hideSelection: true,
 		useSwitch: false,
@@ -388,10 +388,10 @@ export const SpectraDashboard = () => {
 						/>
 					</Topbar.Item>
 					<Topbar.Item>
-						<CircleHelp strokeWidth="1.5" className="size-4 m-1"/>
+						<CircleHelp strokeWidth="1.5" className="size-4 m-1" />
 					</Topbar.Item>
 					<Topbar.Item className="relative after:content-[''] after:inline-block after:size-1.5 after:bg-background-important after:rounded-full after:absolute after:-top-0.5 after:left-5">
-						<Megaphone strokeWidth="1.5" className="size-4 m-1"/>
+						<Megaphone strokeWidth="1.5" className="size-4 m-1" />
 					</Topbar.Item>
 				</Topbar.Right>
 			</Topbar>
@@ -420,7 +420,7 @@ export const SpectraDashboard = () => {
 									tag="h3"
 									title="Welcome to Spectra!"
 									size="lg"
-                                    className="text-text-primary"
+									className="text-text-primary"
 								/>
 								<p className="text-sm text-text-secondary">
 									We designed Spectra to be intuitive but we
@@ -464,7 +464,11 @@ export const SpectraDashboard = () => {
 						gap="xs"
 					>
 						<Container.Item className="md:w-full p-1 lg:w-full">
-							<Container justify="between" align="center" gap="xs">
+							<Container
+								justify="between"
+								align="center"
+								gap="xs"
+							>
 								<Container.Item className="">
 									<Label className="font-semibold text-text-primary">
 										Blocks
@@ -541,17 +545,18 @@ export const SpectraDashboard = () => {
 									Unlock Pro Features
 								</div>
 							</div>
-                            <div>
-                                <Title
-                                    title="Limitless Design with Spectra Pro!"
-                                    tag="h5"
-                                    className="text-text-primary"
-                                />
-                                <p className="text-sm text-text-secondary">
-                                    Utilize advanced blocks, extensions, and premium
-                                    features to create a websites that stands out!
-                                </p>
-                            </div>
+							<div>
+								<Title
+									title="Limitless Design with Spectra Pro!"
+									tag="h5"
+									className="text-text-primary"
+								/>
+								<p className="text-sm text-text-secondary">
+									Utilize advanced blocks, extensions, and
+									premium features to create a websites that
+									stands out!
+								</p>
+							</div>
 							<div className="grid grid-cols-2 gap-3">
 								<ul className="list-none pl-0 space-y-2">
 									<li className="flex items-center space-x-2 text-field-label text-sm">
@@ -623,7 +628,10 @@ export const SpectraDashboard = () => {
 									className="items-center"
 									gap="xs"
 								>
-									<Button className="p-0 text-icon-secondary" variant="ghost">
+									<Button
+										className="p-0 text-icon-secondary"
+										variant="ghost"
+									>
 										<ArrowUpRight />
 									</Button>
 								</Container.Item>
