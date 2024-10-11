@@ -343,7 +343,7 @@ export const SpectraDashboard = () => {
 				</button>
 			</Container>
 			{ /* Navigation Topbar */ }
-			<Topbar gap={ 0 } className="h-16 p-0 shadow-sm sticky top-0 z-10">
+			<Topbar gap={ 0 } className="h-16 p-0 shadow-sm">
 				<Topbar.Left className="p-4">
 					<Topbar.Item>
 						<SpectraLogo />
@@ -420,9 +420,9 @@ export const SpectraDashboard = () => {
 									tag="h3"
 									title="Welcome to Spectra!"
 									size="lg"
-									className="text-text-primary"
+									className="text-text-primary mb-1"
 								/>
-								<p className="text-sm text-text-secondary">
+								<p className="text-sm text-text-secondary m-0">
 									We designed Spectra to be intuitive but we
 									do recommend learning how it works by
 									checking our comprehensive documentation and
@@ -532,7 +532,7 @@ export const SpectraDashboard = () => {
 					<Container
 						containerType="grid"
 						cols={ 8 }
-						gap={ 4 }
+						gap="2xl"
 						className="bg-background-primary p-6 shadow-sm rounded-xl"
 					>
 						<Container.Item
@@ -551,7 +551,7 @@ export const SpectraDashboard = () => {
 									tag="h5"
 									className="text-text-primary"
 								/>
-								<p className="text-sm text-text-secondary">
+								<p className="text-sm text-text-secondary m-0">
 									Utilize advanced blocks, extensions, and
 									premium features to create a websites that
 									stands out!
@@ -587,7 +587,7 @@ export const SpectraDashboard = () => {
 									</li>
 								</ul>
 							</div>
-							<div className="flex space-x-4">
+							<div className="flex gap-3 my-2">
 								<Button variant="secondary">Upgrade now</Button>
 								<Button variant="ghost">Free vs Pro</Button>
 							</div>
@@ -702,7 +702,7 @@ export const SpectraDashboard = () => {
 					<Container
 						direction="column"
 						gap="xs"
-						className="p-3 bg-background-primary shadow-sm rounded-xl"
+						className="p-4 bg-background-primary shadow-sm rounded-xl"
 					>
 						<Container.Item className="w-full">
 							<img
@@ -712,15 +712,15 @@ export const SpectraDashboard = () => {
 							/>
 						</Container.Item>
 						<Container.Item>
-							<div className="text-base font-semibold text-text-primary">
+							<div className="text-base font-semibold text-text-primary my-1">
 								Build website 10x faster with AI
 							</div>
-							<p className="text-sm text-text-secondary">
+							<p className="text-sm text-text-secondary my-1">
 								Beautiful pages, persuasive content, and custom
 								code in seconds. The possibilities are endless!
 							</p>
 						</Container.Item>
-						<Container.Item className="flex gap-4">
+						<Container.Item className="flex gap-4 my-1">
 							<Button variant="secondary">Get Started</Button>
 							<p className="text-xs text-text-tertiary">
 								Get 1000 free monthly credits

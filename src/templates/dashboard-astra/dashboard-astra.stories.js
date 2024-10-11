@@ -309,7 +309,7 @@ export const AstraDashboard = () => {
 	return (
 		<>
 			{ /* Navigation Topbar */ }
-			<Topbar gap={ 0 } className="h-16 p-0 shadow-sm sticky top-0 z-10">
+			<Topbar gap={ 0 } className="h-16 p-0 shadow-sm">
 				<Topbar.Left className="p-5">
 					<Topbar.Item>
 						<AstraLogo />
@@ -384,9 +384,9 @@ export const AstraDashboard = () => {
 									tag="h3"
 									title="Welcome to Astra"
 									size="lg"
-									className="text-text-primary"
+									className="text-text-primary mb-1"
 								/>
-								<p className="text-sm text-text-secondary">
+								<p className="text-sm text-text-secondary m-0">
 									Astra is fast, fully customizable &
 									beautiful WordPress theme suitable for blog,
 									personal portfolio, business website and
@@ -519,7 +519,7 @@ export const AstraDashboard = () => {
 									className="items-center"
 									gap="xs"
 								>
-									<Button className="p-0" variant="ghost">
+									<Button className="p-0 text-text-secondary" variant="ghost">
 										<ArrowUpRight />
 									</Button>
 								</Container.Item>
@@ -589,7 +589,7 @@ export const AstraDashboard = () => {
 						</Container.Item>
 						<Container.Item>
 							<Container>
-								<div className="text-sm text-text-secondary">
+								<div className="text-sm text-text-secondary mb-2">
 									Faster and exclusive support service
 									designed for VIP assistance and benefits.
 								</div>
@@ -614,7 +614,7 @@ export const AstraDashboard = () => {
 						</Container.Item>
 						<Container.Item>
 							<Container>
-								<div className="text-sm text-text-secondary">
+								<div className="text-sm text-text-secondary mb-2">
 									Got a question about the plugin, want to
 									share your awesome project? Join our
 									wonderful community!
