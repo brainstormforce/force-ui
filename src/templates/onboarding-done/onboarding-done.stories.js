@@ -49,13 +49,13 @@ const Template = ( args ) => {
 					<Label size="md" className="text-3xl font-semibold">
 						Congratulations!
 					</Label>
-					<Label className="text-text-secondary mt-1 text-sm">
+					<Label className="text-text-secondary mt-2 text-sm">
 						You&#39;ve taken the first step to SEO success. Now,
 						let&#39;s optimize your website for search engines.
 						<br />
 						Start by:
 					</Label>
-					<ul className="divide-y divide-gray-200 list-none pl-0 space-y-2">
+					<ul className="divide-y divide-gray-200 list-none pl-0 my-2 space-y-2">
 						<li className="flex items-center space-x-2 text-field-label text-sm">
 							<ChevronRight className="size-4" />
 							<span>Analyzing your keywords</span>
@@ -69,7 +69,7 @@ const Template = ( args ) => {
 							<span>Improving your site&#39;s structure</span>
 						</li>
 					</ul>
-					<div className="flex items-center mt-6">
+					<div className="flex items-center pt-4 gap-2">
 						<Button className="w-max">Go to Dashboard</Button>
 						<Button
 							variant="link"
