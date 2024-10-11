@@ -332,7 +332,7 @@ const SearchBoxResultItem = forwardRef(
 				</div>
 				<label
 					className={ cn(
-						'w-full text-inherit cursor-pointer',
+						'w-full p-1 text-inherit cursor-pointer',
 						! icon && sizeClassNames.icon[ size ]
 					) }
 				>
