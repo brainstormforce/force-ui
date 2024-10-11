@@ -42,73 +42,85 @@ const PaginationContent = forwardRef( ( { className, ...props }, ref ) => (
 ) );
 PaginationContent.displayName = 'Pagination.Content';
 
-const PaginationItem = forwardRef(({ isActive = false, className, children, ...props }, ref) => {
-	const { disabled } = usePageContext();
-	return (
-		<li
-			ref={ ref }
-			tabIndex={ 0 }
-			className={cn(
-				'flex',
-				disabled && disabledClassNames.general,
-			) }
-			{ ...props }
-		>
-			<PaginationButton isActive={isActive} disabled={disabled} className={className} >
-				{children}
-			</PaginationButton>
-		</li>
-	);
-} );
+const PaginationItem = forwardRef(
+	( { isActive = false, className, children, ...props }, ref ) => {
+		const { disabled } = usePageContext();
+		return (
+			<li
+				ref={ ref }
+				tabIndex={ 0 }
+				className={ cn( 'flex', disabled && disabledClassNames.general ) }
+				{ ...props }
+			>
+				<PaginationButton
+					isActive={ isActive }
+					disabled={ disabled }
+					className={ className }
+				>
+					{ children }
+				</PaginationButton>
+			</li>
+		);
+	}
+);
 PaginationItem.displayName = 'Pagination.Item';
 
-const PaginationButton = ({ icon = null, isActive = false, onClick = () => { }, className, ...props }) => {
+const PaginationButton = ( {
+	icon = null,
+	isActive = false,
+	onClick = () => {},
+	className,
+	...props
+} ) => {
 	const { size, disabled } = usePageContext();
 
 	return (
 		<Button
 			variant={ 'ghost' }
 			className={ cn(
-				sizeToClass[size],
+				sizeToClass[ size ],
 				'aspect-square p-0 flex justify-center items-center rounded text-button-secondary',
-				!disabled &&
+				! disabled &&
 					isActive &&
 					'text-button-primary bg-brand-background-50',
 				disabled && 'hover:bg-transparent cursor-not-allowed',
 				'focus:border-border-subtle',
-				className,
+				className
 			) }
 			onClick={ onClick }
 			disabled={ disabled }
 			icon={ icon }
 			{ ...props }
 		/>
-	)
+	);
 };
 
-const PaginationPrevious = (props) => (
+const PaginationPrevious = ( props ) => (
 	<PaginationButton
-		icon={<ChevronLeft />}
+		icon={ <ChevronLeft /> }
 		ariaLabel="Go to previous page"
-		{...props}
+		{ ...props }
 	/>
 );
 PaginationPrevious.displayName = 'Pagination.Previous';
 
-const PaginationNext = (props) => (
+const PaginationNext = ( props ) => (
 	<PaginationButton
-		icon={<ChevronRight />}
+		icon={ <ChevronRight /> }
 		ariaLabel="Go to next page"
-		{...props}
+		{ ...props }
 	/>
 );
 
 PaginationNext.displayName = 'Pagination.Next';
 
 const PaginationEllipsis = ( { onClick = () => {}, className, ...props } ) => {
-	const { size } = usePageContext();
 	return (
-		<PaginationButton className={cn(className)} onClick={onClick} {...props}>
+		<PaginationButton
+			className={ cn( className ) }
+			onClick={ onClick }
+			{ ...props }
+		>
 			...
 		</PaginationButton>
 	);
