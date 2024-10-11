@@ -143,7 +143,7 @@ const SearchBoxInput = forwardRef(
 					variantClassNames[ variant ],
 					sizeClassNames.input[ size ],
 					disabled
-						? disabledClassNames[variant]
+						? disabledClassNames[ variant ]
 						: 'focus-within:ring-2 focus-within:ring-focus focus-within:ring-offset-2 focus-within:border-focus-border focus-within:hover:border-focus-border'
 				) }
 				{ ...getReferenceProps }
@@ -164,7 +164,7 @@ const SearchBoxInput = forwardRef(
 						textSizeClassNames[ size ],
 						'flex-grow bg-transparent border-none outline-none border-transparent focus:ring-0',
 						disabled
-							? disabledClassNames[variant]
+							? disabledClassNames[ variant ]
 							: 'text-field-placeholder placeholder:text-field-placeholder group-hover:placeholder:text-field-input group-focus-within:placeholder:text-field-input focus-within:text-field-input group-hover:text-field-input',
 						className
 					) }

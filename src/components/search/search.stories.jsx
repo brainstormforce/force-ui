@@ -64,8 +64,6 @@ export default {
 			  `,
 			},
 		},
-
-
 	},
 	tags: [ 'autodocs' ],
 	argTypes: {
@@ -152,7 +150,6 @@ const mockCategories = [
 	{ type: 'file', name: 'Company Guidelines' },
 ];
 
-
 const Template = ( args ) => {
 	const [ open, setOpen ] = useState( args.open );
 	const [ loading, setLoading ] = useState( false );
@@ -233,19 +230,19 @@ const Template = ( args ) => {
 								<SearchBox.ResultTitle>
 									Categories
 								</SearchBox.ResultTitle>
-									{categories.map((item, index) => (
+								{ categories.map( ( item, index ) => (
 									<SearchBox.ResultItem
 										key={ index }
 										onClick={ () => {
 											setOpen( false );
 										} }
-											icon={
-												item.type === 'file' ? (
-													<File size={16} />
-												) : (
-													<Folder size={16} />
-												)
-											}
+										icon={
+											item.type === 'file' ? (
+												<File size={ 16 } />
+											) : (
+												<Folder size={ 16 } />
+											)
+										}
 									>
 										{ item.name }
 									</SearchBox.ResultItem>
