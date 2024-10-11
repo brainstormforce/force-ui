@@ -442,7 +442,7 @@ const Template = () => {
 													</div>
 													{ /* Page title and description */ }
 													<div className="space-y-1">
-														<p className="text-xl leading-8 font-normal text-field-label m-0">
+														<p className="text-xl leading-8 font-normal text-[#190EA4] m-0">
 															{ /* Page title */ }
 															SureRank
 														</p>
