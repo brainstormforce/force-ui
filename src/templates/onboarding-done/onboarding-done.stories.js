@@ -1,6 +1,6 @@
 import { ChevronRight, ExternalLink, X } from 'lucide-react';
 import { ProgressSteps, Topbar, Button, Label } from '@/components';
-import { Icons } from '@/globals/icons/icons';
+import { SureRankLogo } from '@/icons';
 
 export default {
 	title: 'Templates/Onboarding/Done',
@@ -25,7 +25,7 @@ const Template = ( args ) => {
 			<Topbar className="bg-background-secondary">
 				<Topbar.Left>
 					<Topbar.Item>
-						<Icons.SureRankLogo />
+						<SureRankLogo />
 					</Topbar.Item>
 				</Topbar.Left>
 				<Topbar.Middle>
