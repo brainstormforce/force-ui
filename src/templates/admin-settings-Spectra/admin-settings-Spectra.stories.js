@@ -82,30 +82,54 @@ const Template = () => {
 					</Topbar.Left>
 					<Topbar.Middle align="left" className="h-full">
 						<Topbar.Item className="h-full gap-4">
-							<button className="h-full py-0 px-1 m-0 bg-transparent outline-none shadow-none border-0 focus:outline-none text-text-secondary text-sm font-medium cursor-pointer">
+							<a
+								href="#"
+								target="_self"
+								className="content-center no-underline h-full py-0 px-1 m-0 bg-transparent outline-none shadow-none border-0 focus:outline-none text-text-secondary text-sm font-medium cursor-pointer"
+							>
 								Dashboard
-							</button>
-							<button className="h-full py-0 px-1 m-0 bg-transparent outline-none shadow-none border-0 focus:outline-none text-text-secondary text-sm font-medium cursor-pointer">
+							</a>
+							<a
+								href="#"
+								target="_self"
+								className="content-center no-underline h-full py-0 px-1 m-0 bg-transparent outline-none shadow-none border-0 focus:outline-none text-text-secondary text-sm font-medium cursor-pointer"
+							>
 								Blocks
-							</button>
+							</a>
 							{ /* Active Nav Item */ }
-							<button className="relative h-full py-0 px-1 m-0 bg-transparent outline-none shadow-none border-0 focus:outline-none text-text-primary text-sm font-medium cursor-pointer">
+							<a
+								href="#"
+								target="_self"
+								className="content-center no-underline relative h-full py-0 px-1 m-0 bg-transparent outline-none shadow-none border-0 focus:outline-none text-text-primary text-sm font-medium cursor-pointer"
+							>
 								<span>Settings</span>
 								<span className="absolute bottom-0 left-0 w-full h-px bg-brand-800"></span>
-							</button>
-							<button className="h-full py-0 px-1 m-0 bg-transparent outline-none shadow-none border-0 focus:outline-none text-text-secondary text-sm font-medium cursor-pointer">
+							</a>
+							<a
+								href="#"
+								target="_self"
+								className="content-center no-underline h-full py-0 px-1 m-0 bg-transparent outline-none shadow-none border-0 focus:outline-none text-text-secondary text-sm font-medium cursor-pointer"
+							>
 								AI Features
-							</button>
-							<button className="h-full py-0 px-1 m-0 bg-transparent outline-none shadow-none border-0 focus:outline-none text-text-secondary text-sm font-medium cursor-pointer">
+							</a>
+							<a
+								href="#"
+								target="_self"
+								className="content-center no-underline h-full py-0 px-1 m-0 bg-transparent outline-none shadow-none border-0 focus:outline-none text-text-secondary text-sm font-medium cursor-pointer"
+							>
 								Free vs Pro
-							</button>
-							<button className="h-full inline-flex items-center py-0 px-1 m-0 bg-transparent outline-none shadow-none border-0 focus:outline-none cursor-pointer text-sm font-semibold text-brand-800">
+							</a>
+							<a
+								href="#"
+								target="_self"
+								className="content-center no-underline h-full inline-flex items-center py-0 px-1 m-0 bg-transparent outline-none shadow-none border-0 focus:outline-none cursor-pointer text-sm font-semibold text-brand-800"
+							>
 								<span>Upgrade Pro Features</span>
 								<ArrowUpRight
 									className="size-5"
 									strokeWidth="1.5"
 								/>
-							</button>
+							</a>
 						</Topbar.Item>
 					</Topbar.Middle>
 					<Topbar.Right gap="md" className="p-5">
