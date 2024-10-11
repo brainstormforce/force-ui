@@ -1,4 +1,4 @@
-import React, { useState } from 'react'; // Import React
+import React from 'react'; // Import React
 import Pagination from './pagination.jsx'; // Adjust the import path as necessary
 
 export default {
@@ -41,7 +41,7 @@ export default {
 
 // Template function for rendering pagination
 const Template = ( args ) => {
-	const [activeIndex, setActiveIndex] = useState(1);
+	const activeIndex = 2;
 
 	const items = [
 		{ label: '1' },
@@ -58,7 +58,7 @@ const Template = ( args ) => {
 					<Pagination.Previous />
 					{ items.map( ( item, index ) => (
 						<Pagination.Item
-							key={index}
+							key={ index }
 							isActive={ activeIndex === index }
 						>
 							{ item.label }

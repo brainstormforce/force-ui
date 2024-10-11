@@ -31,8 +31,6 @@ const Pagination = ( {
 Pagination.displayName = 'Pagination';
 
 const PaginationContent = forwardRef( ( { className, ...props }, ref ) => {
-	const { disabled } = usePageContext();
-
 	return (
 		<ul
 			ref={ ref }
@@ -85,7 +83,7 @@ const PaginationButton = ( {
 
 	return (
 		<Button
-			size={size}
+			size={ size }
 			variant={ 'ghost' }
 			className={ cn(
 				sizeToClass[ size ],
@@ -105,54 +103,54 @@ const PaginationButton = ( {
 	);
 };
 
-const PaginationPrevious = (props) => {
+const PaginationPrevious = ( props ) => {
 	const { disabled } = usePageContext();
 	return (
 		<li
-			tabIndex={0}
-			className={cn('flex', disabled && disabledClassNames.general)}
+			tabIndex={ 0 }
+			className={ cn( 'flex', disabled && disabledClassNames.general ) }
 		>
-	<PaginationButton
-		icon={ <ChevronLeft /> }
-		ariaLabel="Go to previous page"
-		{ ...props }
-	/>
+			<PaginationButton
+				icon={ <ChevronLeft /> }
+				ariaLabel="Go to previous page"
+				{ ...props }
+			/>
 		</li>
-	)
+	);
 };
 PaginationPrevious.displayName = 'Pagination.Previous';
 
-const PaginationNext = (props) => {
+const PaginationNext = ( props ) => {
 	const { disabled } = usePageContext();
 	return (
 		<li
-			tabIndex={0}
-			className={cn('flex', disabled && disabledClassNames.general)}
+			tabIndex={ 0 }
+			className={ cn( 'flex', disabled && disabledClassNames.general ) }
 		>
-	<PaginationButton
-		icon={ <ChevronRight /> }
-		ariaLabel="Go to next page"
-		{ ...props }
-	/>
+			<PaginationButton
+				icon={ <ChevronRight /> }
+				ariaLabel="Go to next page"
+				{ ...props }
+			/>
 		</li>
-	)
+	);
 };
 
 PaginationNext.displayName = 'Pagination.Next';
 
-const PaginationEllipsis = ({ className, ...props }) => {
+const PaginationEllipsis = ( { className, ...props } ) => {
 	const { disabled } = usePageContext();
 	return (
 		<li
-			tabIndex={0}
-			className={cn('flex', disabled && disabledClassNames.general)}
+			tabIndex={ 0 }
+			className={ cn( 'flex', disabled && disabledClassNames.general ) }
 		>
-		<PaginationButton
-				className={cn('cursor-default', className)}
-			{ ...props }
-		>
-			...
-		</PaginationButton>
+			<PaginationButton
+				className={ cn( 'cursor-default', className ) }
+				{ ...props }
+			>
+				...
+			</PaginationButton>
 		</li>
 	);
 };
