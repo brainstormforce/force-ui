@@ -55,17 +55,18 @@ const Template = ( args ) => {
 		<div style={ { width: '400px' } }>
 			<Pagination { ...args }>
 				<Pagination.Content>
-					<Pagination.Previous />
+					<Pagination.Previous onClick={ () => {} } />
 					{ items.map( ( item, index ) => (
 						<Pagination.Item
 							key={ index }
+							onClick={ () => {} }
 							isActive={ activeIndex === index }
 						>
 							{ item.label }
 						</Pagination.Item>
 					) ) }
 					<Pagination.Ellipsis />
-					<Pagination.Next />
+					<Pagination.Next onClick={ () => {} } />
 				</Pagination.Content>
 			</Pagination>
 		</div>

@@ -112,7 +112,7 @@ const PaginationPrevious = ( props ) => {
 		>
 			<PaginationButton
 				icon={ <ChevronLeft /> }
-				ariaLabel="Go to previous page"
+				aria-label="Go to previous page"
 				{ ...props }
 			/>
 		</li>
@@ -129,7 +129,7 @@ const PaginationNext = ( props ) => {
 		>
 			<PaginationButton
 				icon={ <ChevronRight /> }
-				ariaLabel="Go to next page"
+				aria-label="Go to next page"
 				{ ...props }
 			/>
 		</li>
