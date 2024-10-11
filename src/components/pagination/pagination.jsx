@@ -39,10 +39,6 @@ const PaginationContent = forwardRef( ( { className, ...props }, ref ) => {
 			className={ cn(
 				'm-0 p-0 w-full flex justify-center flex-row items-center gap-1',
 				'list-none',
-				disabled && [
-					disabledClassNames.general,
-					'hover:bg-transparent cursor-not-allowed',
-				],
 				className
 			) }
 			{ ...props }
@@ -89,6 +85,7 @@ const PaginationButton = ( {
 
 	return (
 		<Button
+			size={size}
 			variant={ 'ghost' }
 			className={ cn(
 				sizeToClass[ size ],
@@ -97,7 +94,7 @@ const PaginationButton = ( {
 					isActive &&
 					'text-button-primary bg-brand-background-50',
 				disabled && 'hover:bg-transparent cursor-not-allowed',
-				'focus:border-border-subtle',
+				'focus:border-border-subtle focus:bg-button-tertiary-hover',
 				className
 			) }
 			onClick={ onClick }
@@ -108,34 +105,55 @@ const PaginationButton = ( {
 	);
 };
 
-const PaginationPrevious = ( props ) => (
+const PaginationPrevious = (props) => {
+	const { disabled } = usePageContext();
+	return (
+		<li
+			tabIndex={0}
+			className={cn('flex', disabled && disabledClassNames.general)}
+		>
 	<PaginationButton
 		icon={ <ChevronLeft /> }
 		ariaLabel="Go to previous page"
 		{ ...props }
 	/>
-);
+		</li>
+	)
+};
 PaginationPrevious.displayName = 'Pagination.Previous';
 
-const PaginationNext = ( props ) => (
+const PaginationNext = (props) => {
+	const { disabled } = usePageContext();
+	return (
+		<li
+			tabIndex={0}
+			className={cn('flex', disabled && disabledClassNames.general)}
+		>
 	<PaginationButton
 		icon={ <ChevronRight /> }
 		ariaLabel="Go to next page"
 		{ ...props }
 	/>
-);
+		</li>
+	)
+};
 
 PaginationNext.displayName = 'Pagination.Next';
 
-const PaginationEllipsis = ( { onClick = () => {}, className, ...props } ) => {
+const PaginationEllipsis = ({ className, ...props }) => {
+	const { disabled } = usePageContext();
 	return (
+		<li
+			tabIndex={0}
+			className={cn('flex', disabled && disabledClassNames.general)}
+		>
 		<PaginationButton
-			className={ cn( className ) }
-			onClick={ onClick }
+				className={cn('cursor-default', className)}
 			{ ...props }
 		>
 			...
 		</PaginationButton>
+		</li>
 	);
 };
 PaginationEllipsis.displayName = 'Pagination.Ellipsis';

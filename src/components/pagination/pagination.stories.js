@@ -41,7 +41,7 @@ export default {
 
 // Template function for rendering pagination
 const Template = ( args ) => {
-	const [ activeIndex, setActiveIndex ] = useState( 0 );
+	const [activeIndex, setActiveIndex] = useState(1);
 
 	const items = [
 		{ label: '1' },
@@ -51,30 +51,21 @@ const Template = ( args ) => {
 		{ label: '5' },
 	];
 
-	const handleClick = ( index ) => {
-		setActiveIndex( index );
-	};
-
 	return (
 		<div style={ { width: '400px' } }>
 			<Pagination { ...args }>
 				<Pagination.Content>
-					<Pagination.Previous onClick={ () => handleClick( -1 ) } />
+					<Pagination.Previous />
 					{ items.map( ( item, index ) => (
 						<Pagination.Item
-							key={ index }
-							onClick={ () => handleClick( index ) }
+							key={index}
 							isActive={ activeIndex === index }
 						>
 							{ item.label }
 						</Pagination.Item>
 					) ) }
-					<Pagination.Ellipsis
-						onClick={ () => handleClick( items.length ) }
-					/>
-					<Pagination.Next
-						onClick={ () => handleClick( items.length + 1 ) }
-					/>
+					<Pagination.Ellipsis />
+					<Pagination.Next />
 				</Pagination.Content>
 			</Pagination>
 		</div>
