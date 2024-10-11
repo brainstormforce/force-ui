@@ -62,7 +62,13 @@ const Template = () => {
 					<span className="font-normal">
 						Get exclusive features and unbeatable performance.
 					</span>
-					<span className="font-normal underline">Upgrade now</span>
+					<a
+						href="#"
+						target="_self"
+						className="content-center text-inherit font-normal underline"
+					>
+						Upgrade now
+					</a>
 				</div>
 				<button className="inline-flex items-center justify-center absolute right-2 top-2 p-0 bg-transparent shadow-none border-0 outline-none focus:outline-none cursor-pointer">
 					<X className="size-4" />
@@ -393,10 +399,14 @@ const Template = () => {
 									delivers relevant content for higher
 									engagement.
 								</p>
-								<button className="inline-flex items-center p-0 m-0 bg-transparent outline-none focus:outline-none border-0 shadow-none space-x-1 text-xs font-semibold text-link-primary">
+								<a
+									href="#"
+									target="_self"
+									className="content-center inline-flex items-center p-0 m-0 bg-transparent outline-none focus:outline-none border-0 shadow-none space-x-1 text-xs font-semibold text-link-primary no-underline"
+								>
 									Upgrade now{ ' ' }
 									<ArrowUpRight className="size-3.5" />
-								</button>
+								</a>
 							</div>
 
 							<hr className="w-full border-b-0 border-x-0 border-t border-solid border-t-border-subtle" />
