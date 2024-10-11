@@ -348,7 +348,7 @@ const SearchBoxSeparator = forwardRef( ( { className, ...props }, ref ) => (
 	<hr
 		ref={ ref }
 		className={ cn(
-			'm-0 border border-solid border-border-subtle',
+			'border-0 border-t border-border-subtle border-solid m-0',
 			className
 		) }
 		{ ...props }
