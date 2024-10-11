@@ -364,7 +364,7 @@ const Template = () => {
 							/>
 							<Container.Item className="inline-flex items-center gap-3">
 								<Button variant="outline">Cancel</Button>
-								<Button>Save</Button>
+								<Button className="px-3.5">Save</Button>
 							</Container.Item>
 						</Container>
 						{ /* Settings */ }

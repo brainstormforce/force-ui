@@ -213,7 +213,7 @@ const Template = () => {
 								className="[&_h2]:text-text-primary [&_h2]:leading-[1.875rem]"
 							/>
 							<Container.Item className="inline-flex items-center gap-3">
-								<Button>Save</Button>
+								<Button className="px-3.5">Save</Button>
 							</Container.Item>
 						</Container>
 						{ /* Settings */ }

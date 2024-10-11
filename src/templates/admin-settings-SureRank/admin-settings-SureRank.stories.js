@@ -330,7 +330,7 @@ const Template = () => {
 								size="md"
 								className="[&_h2]:text-text-primary [&_h2]:leading-[1.875rem]"
 							/>
-							<Button>Save</Button>
+							<Button className="px-3.5">Save</Button>
 						</Container>
 						{ /* Settings */ }
 						<Container
