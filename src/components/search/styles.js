@@ -35,9 +35,11 @@ export const sizeClassNames = {
 		md: 'mt-1.5 rounded-lg',
 		lg: 'mt-1.5 rounded-lg',
 	},
-	sm: 'py-1.5 px-2 rounded',
-	md: 'p-2.5 rounded-md',
-	lg: 'p-3 rounded-md',
+	slashIcon: {
+		sm: 'px-2 py-0.5',
+		md: 'px-3 py-1',
+		lg: 'px-3.5 py-1',
+	},
 };
 export const variantClassNames = {
 	primary:

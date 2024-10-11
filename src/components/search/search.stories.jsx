@@ -10,7 +10,7 @@ export default {
 	},
 	tags: [ 'autodocs' ],
 	argTypes: {
-		dimension: {
+		size: {
 			description: 'Defines the size of the component',
 			control: { type: 'select' },
 			options: [ 'sm', 'md', 'lg' ],
@@ -180,7 +180,7 @@ const Template = ( args ) => {
 
 export const BasicSearchBox = Template.bind( {} );
 BasicSearchBox.args = {
-	dimension: 'sm',
+	size: 'sm',
 	variant: 'primary',
 	disabled: false,
 	placeholder: 'Search...',
@@ -192,7 +192,7 @@ BasicSearchBox.args = {
 export const LargeSearchBox = Template.bind( {} );
 LargeSearchBox.args = {
 	...BasicSearchBox.args,
-	dimension: 'lg',
+	size: 'lg',
 };
 
 export const DisabledSearchBox = Template.bind( {} );
