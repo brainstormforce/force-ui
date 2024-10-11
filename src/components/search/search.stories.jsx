@@ -206,3 +206,9 @@ SecondaryVariant.args = {
 	...BasicSearchBox.args,
 	variant: 'secondary',
 };
+
+export const GhostVariant = Template.bind({});
+GhostVariant.args = {
+	...BasicSearchBox.args,
+	variant: 'ghost',
+};

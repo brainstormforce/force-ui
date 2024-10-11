@@ -46,7 +46,7 @@ export const variantClassNames = {
 		'bg-field-primary-background border border-solid border-field-border hover:border-border-strong',
 	secondary:
 		'bg-field-secondary-background border border-solid border-field-border hover:border-border-strong',
-	ghost: 'bg-field-secondary-background border-transparent',
+	ghost: 'bg-field-secondary-background border border-solid border-transparent',
 };
 
 export const IconClasses =
