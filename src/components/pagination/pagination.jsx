@@ -30,22 +30,25 @@ const Pagination = ( {
 );
 Pagination.displayName = 'Pagination';
 
-const PaginationContent = forwardRef(({ className, ...props }, ref) => {
+const PaginationContent = forwardRef( ( { className, ...props }, ref ) => {
 	const { disabled } = usePageContext();
 
 	return (
-	<ul
-		ref={ ref }
-		className={ cn(
-			'm-0 p-0 w-full flex justify-center flex-row items-center gap-1',
-			'list-none',
-			disabled && [disabledClassNames.general, 'hover:bg-transparent cursor-not-allowed'],
-			className
-		) }
-		{ ...props }
-	/>
-	)
-});
+		<ul
+			ref={ ref }
+			className={ cn(
+				'm-0 p-0 w-full flex justify-center flex-row items-center gap-1',
+				'list-none',
+				disabled && [
+					disabledClassNames.general,
+					'hover:bg-transparent cursor-not-allowed',
+				],
+				className
+			) }
+			{ ...props }
+		/>
+	);
+} );
 PaginationContent.displayName = 'Pagination.Content';
 
 const PaginationItem = forwardRef(
