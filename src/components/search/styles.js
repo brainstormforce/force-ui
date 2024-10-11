@@ -1,21 +1,54 @@
 export const textSizeClassNames = {
-    sm: 'text-xs [&>svg]:size-4 rounded',
-    md: 'text-sm [&>svg]:size-5 rounded-md',
-    lg: 'text-base [&>svg]:size-6 rounded-md',
+	sm: 'text-xs [&>svg]:size-4 rounded',
+	md: 'text-sm [&>svg]:size-5 rounded-md',
+	lg: 'text-base [&>svg]:size-6 rounded-md',
 };
 
 export const sizeClassNames = {
-    sm: 'py-1.5 px-2 rounded',
-    md: 'p-2.5 rounded-md',
-    lg: 'p-3 rounded-md',
-}
+	input: {
+		sm: 'py-1.5 px-2 rounded',
+		md: 'p-2.5 rounded-md',
+		lg: 'p-3 rounded-md',
+	},
+	content: {
+		sm: 'p-1.5',
+		md: 'p-2.5',
+		lg: 'p-3',
+	},
+	title: {
+		sm: 'p-2 text-xs',
+		md: 'p-2 text-sm',
+		lg: 'p-2 text-sm',
+	},
+	item: {
+		sm: 'text-sm text-text-secondary rounded',
+		md: 'text-base text-text-secondary rounded-md',
+		lg: 'text-base text-text-secondary rounded-md',
+	},
+	icon: {
+		sm: 'p-1 text-sm [&>svg]:size-4 text-icon-secondary',
+		md: 'p-2 text-base [&>svg]:size-5 text-icon-secondary',
+		lg: 'p-2 text-base [&>svg]:size-5 text-icon-secondary',
+	},
+	dialog: {
+		sm: 'mt-1 rounded-md',
+		md: 'mt-1.5 rounded-lg',
+		lg: 'mt-1.5 rounded-lg',
+	},
+	sm: 'py-1.5 px-2 rounded',
+	md: 'p-2.5 rounded-md',
+	lg: 'p-3 rounded-md',
+};
 export const variantClassNames = {
-    primary: 'bg-field-primary-background border border-solid border-field-border hover:border-border-strong',
-    secondary: 'bg-field-secondary-background border border-solid border-field-border hover:border-border-strong',
-    ghost: 'bg-field-secondary-background border-transparent',
+	primary:
+		'bg-field-primary-background border border-solid border-field-border hover:border-border-strong',
+	secondary:
+		'bg-field-secondary-background border border-solid border-field-border hover:border-border-strong',
+	ghost: 'bg-field-secondary-background border-transparent',
 };
 
-export const IconClasses = 'text-icon-secondary group-hover:text-icon-primary group-focus-within:text-icon-primary'
+export const IconClasses =
+	'text-icon-secondary group-hover:text-icon-primary group-focus-within:text-icon-primary';
 
-export const disabledClassNames = 'border-border-disabled hover:border-border-disabled bg-field-background-disabled cursor-not-allowed text-text-disabled';
-
+export const disabledClassNames =
+	'border-border-disabled hover:border-border-disabled bg-field-background-disabled cursor-not-allowed text-text-disabled';
