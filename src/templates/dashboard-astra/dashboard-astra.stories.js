@@ -335,14 +335,17 @@ export const AstraDashboard = () => {
 						>
 							Starter Templates
 						</a>
-						<Button
-							variant="ghost"
-							icon={ <ArrowUpRight /> }
-							iconPosition="right"
-							className="h-full inline-flex items-center py-0 px-1 m-0 bg-transparent  shadow-none border-0 cursor-pointer text-sm font-semibold text-link-primary"
-						>
-							Upgrade to Pro
-						</Button>
+                        <a
+                            href="#"
+                            target="_self"
+                            className="content-center no-underline h-full inline-flex items-center py-0 px-1 m-0 bg-transparent outline-none shadow-none border-0 focus:outline-none cursor-pointer text-sm font-semibold text-brand-primary-600"
+                        >
+                            <span>Upgrade to Pro</span>
+                            <ArrowUpRight
+                                className="size-5"
+                                strokeWidth="1.5"
+                            />
+                        </a>
 					</Topbar.Item>
 				</Topbar.Middle>
 				<Topbar.Right className="p-5">
@@ -369,11 +372,12 @@ export const AstraDashboard = () => {
 			</Topbar>
 
 			{ /* Content */ }
+            <div className='bg-background-secondary'>
 			<Container
 				containerType="grid"
 				cols={ 12 }
 				gap="2xl"
-				className="bg-background-secondary p-8"
+				className="p-8 max-w-[82rem] mx-auto"
 			>
 				<Container.Item colSpan={ 8 } className="flex flex-col gap-8">
 					{ /* Welcome Astra card */ }
@@ -490,14 +494,17 @@ export const AstraDashboard = () => {
 								Get access to powerful features without the high
 								costs.
 							</span>
-							<Button
-								variant="ghost"
-								icon={ <ArrowUpRight /> }
-								iconPosition="right"
-								className="h-full inline-flex items-center py-0 px-1 m-0 bg-transparent  shadow-none border-0 cursor-pointer text-sm font-semibold text-link-primary"
-							>
-								Upgrade to Pro
-							</Button>
+                            <a
+                                href="#"
+                                target="_self"
+                                className="content-center no-underline h-full inline-flex items-center py-0 px-1 m-0 bg-transparent outline-none shadow-none border-0 focus:outline-none cursor-pointer text-sm font-semibold text-brand-primary-600"
+                            >
+                                <span>Upgrade to Pro</span>
+                                <ArrowUpRight
+                                    className="size-5"
+                                    strokeWidth="1.5"
+                                />
+                            </a>
 						</Container.Item>
 					</Container>
 				</Container.Item>
@@ -638,6 +645,7 @@ export const AstraDashboard = () => {
 					</Container>
 				</Container.Item>
 			</Container>
+            </div>
 		</>
 	);
 };

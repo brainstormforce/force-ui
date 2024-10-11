@@ -332,7 +332,13 @@ export const SpectraDashboard = () => {
 					<span className="font-normal">
 						Get exclusive features and unbeatable performance.
 					</span>
-					<span className="font-normal underline">Upgrade now</span>
+					<a
+						href="#"
+						target="_self"
+						className="content-center text-inherit font-normal underline"
+					>
+						Upgrade now
+					</a>
 				</div>
 				<button className="inline-flex items-center justify-center absolute right-2 top-2 p-0 bg-transparent shadow-none border-0 outline-none focus:outline-none cursor-pointer">
 					<X className="size-4" />
@@ -383,14 +389,17 @@ export const SpectraDashboard = () => {
 						>
 							Free vs Pro
 						</a>
-						<Button
-							variant="ghost"
-							icon={ <ArrowUpRight /> }
-							iconPosition="right"
-							className="h-full inline-flex items-center py-0 px-1 m-0 bg-transparent  shadow-none border-0 cursor-pointer text-sm font-semibold text-link-primary"
-						>
-							Unlock Pro Features
-						</Button>
+                         <a
+                            href="#"
+                            target="_self"
+                            className="content-center no-underline h-full inline-flex items-center py-0 px-1 m-0 bg-transparent outline-none shadow-none border-0 focus:outline-none cursor-pointer text-sm font-semibold text-brand-primary-600"
+                        >
+                            <span>Unlock Pro Features</span>
+                            <ArrowUpRight
+                                className="size-5"
+                                strokeWidth="1.5"
+                            />
+                        </a>
 					</Topbar.Item>
 				</Topbar.Middle>
 				<Topbar.Right className="p-5" gap="md">
@@ -412,11 +421,12 @@ export const SpectraDashboard = () => {
 			</Topbar>
 
 			{ /* Content */ }
+            <div className='bg-background-secondary'>
 			<Container
 				containerType="grid"
 				cols={ 12 }
 				gap="2xl"
-				className="bg-background-secondary p-8"
+				className="p-8 max-w-[82rem] mx-auto"
 			>
 				<Container.Item colSpan={ 8 } className="flex flex-col gap-8">
 					{ /* Welcome Spectra card */ }
@@ -788,6 +798,7 @@ export const SpectraDashboard = () => {
 					</Container>
 				</Container.Item>
 			</Container>
+            </div>
 		</>
 	);
 };
