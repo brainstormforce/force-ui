@@ -40,11 +40,11 @@ export default {
 	},
 	decorators: [
 		( Story, parameters ) => (
-            <div className='@container'>
-                <div className="box-border [&_*]:box-border @[80rem]:w-full w-[1376px]">
-                    <Story { ...parameters } />
-                </div>
-            </div>
+			<div className="@container">
+				<div className="box-border [&_*]:box-border @[80rem]:w-full w-[1376px]">
+					<Story { ...parameters } />
+				</div>
+			</div>
 		),
 	],
 	tags: [ 'autodocs' ],
@@ -308,33 +308,33 @@ export const AstraDashboard = () => {
 			<Topbar gap={ 0 } className="h-16 p-0 shadow-sm">
 				<Topbar.Left className="p-5">
 					<Topbar.Item>
-						<Logo className="size-6"/>
+						<Logo className="size-6" />
 					</Topbar.Item>
 				</Topbar.Left>
 				<Topbar.Middle align="left" className="h-full">
 					<Topbar.Item className="gap-3">
-                        <a
-                            href="#"
-                            target="_self"
-                            className="content-center no-underline relative h-full py-0 px-1 m-0 bg-transparent outline-none shadow-none border-0 focus:outline-none text-text-primary text-sm font-medium cursor-pointer"
-                        >
-                            <span>Dashboard</span>
-                            <span className="absolute bottom-0 left-0 w-full h-px bg-brand-primary-600"></span>
-                        </a>
-                        <a
-                            href="#"
-                            target="_self"
-                            className="content-center no-underline h-full py-0 px-1 m-0 bg-transparent outline-none shadow-none border-0 focus:outline-none text-text-tertiary text-sm font-medium cursor-pointer"
-                        >
-                            Settings
-                        </a>
-                        <a
-                            href="#"
-                            target="_self"
-                            className="content-center no-underline h-full py-0 px-1 m-0 bg-transparent outline-none shadow-none border-0 focus:outline-none text-text-tertiary text-sm font-medium cursor-pointer"
-                        >
-                            Starter Templates
-                        </a>
+						<a
+							href="#"
+							target="_self"
+							className="content-center no-underline relative h-full py-0 px-1 m-0 bg-transparent outline-none shadow-none border-0 focus:outline-none text-text-primary text-sm font-medium cursor-pointer"
+						>
+							<span>Dashboard</span>
+							<span className="absolute bottom-0 left-0 w-full h-px bg-brand-primary-600"></span>
+						</a>
+						<a
+							href="#"
+							target="_self"
+							className="content-center no-underline h-full py-0 px-1 m-0 bg-transparent outline-none shadow-none border-0 focus:outline-none text-text-tertiary text-sm font-medium cursor-pointer"
+						>
+							Settings
+						</a>
+						<a
+							href="#"
+							target="_self"
+							className="content-center no-underline h-full py-0 px-1 m-0 bg-transparent outline-none shadow-none border-0 focus:outline-none text-text-tertiary text-sm font-medium cursor-pointer"
+						>
+							Starter Templates
+						</a>
 						<Button
 							variant="ghost"
 							icon={ <ArrowUpRight /> }
@@ -527,7 +527,10 @@ export const AstraDashboard = () => {
 									className="items-center"
 									gap="xs"
 								>
-									<Button className="p-0 text-text-secondary" variant="ghost">
+									<Button
+										className="p-0 text-text-secondary"
+										variant="ghost"
+									>
 										<ArrowUpRight />
 									</Button>
 								</Container.Item>

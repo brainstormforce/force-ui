@@ -43,11 +43,11 @@ export default {
 	},
 	decorators: [
 		( Story, parameters ) => (
-			<div className='@container'>
-                <div className="box-border [&_*]:box-border @[80rem]:w-full w-[1376px]">
-                    <Story { ...parameters } />
-                </div>
-            </div>
+			<div className="@container">
+				<div className="box-border [&_*]:box-border @[80rem]:w-full w-[1376px]">
+					<Story { ...parameters } />
+				</div>
+			</div>
 		),
 	],
 	tags: [ 'autodocs' ],
@@ -241,7 +241,7 @@ const astraRadioButtonGroupData = [
 		id: '1',
 		badgeText: 'Free',
 		buttonText: 'Install',
-		svg: <Logo className="size-5"  />,
+		svg: <Logo className="size-5" />,
 		title: 'Astra Theme',
 		description: 'Free WordPress Page Builder Plugin.',
 	},
@@ -347,42 +347,42 @@ export const SpectraDashboard = () => {
 				</Topbar.Left>
 				<Topbar.Middle align="left" className="h-full">
 					<Topbar.Item className="gap-4">
-                        <a
-                            href="#"
-                            target="_self"
-                            className="content-center no-underline relative h-full py-0 px-1 m-0 bg-transparent outline-none shadow-none border-0 focus:outline-none text-text-primary text-sm font-medium cursor-pointer"
-                        >
-                            <span>Dashboard</span>
-                            <span className="absolute bottom-0 left-0 w-full h-px bg-brand-primary-600"></span>
-                        </a>
-                        <a
-                            href="#"
-                            target="_self"
-                            className="content-center no-underline h-full py-0 px-1 m-0 bg-transparent outline-none shadow-none border-0 focus:outline-none text-text-tertiary text-sm font-medium cursor-pointer"
-                        >
-                            Blocks
-                        </a>
-                        <a
-                            href="#"
-                            target="_self"
-                            className="content-center no-underline h-full py-0 px-1 m-0 bg-transparent outline-none shadow-none border-0 focus:outline-none text-text-tertiary text-sm font-medium cursor-pointer"
-                        >
-                            Settings
-                        </a>
-                        <a
-                            href="#"
-                            target="_self"
-                            className="content-center no-underline h-full py-0 px-1 m-0 bg-transparent outline-none shadow-none border-0 focus:outline-none text-text-tertiary text-sm font-medium cursor-pointer"
-                        >
-                            AI Features
-                        </a>
-                        <a
-                            href="#"
-                            target="_self"
-                            className="content-center no-underline h-full py-0 px-1 m-0 bg-transparent outline-none shadow-none border-0 focus:outline-none text-text-tertiary text-sm font-medium cursor-pointer"
-                        >
-                            Free vs Pro
-                        </a>
+						<a
+							href="#"
+							target="_self"
+							className="content-center no-underline relative h-full py-0 px-1 m-0 bg-transparent outline-none shadow-none border-0 focus:outline-none text-text-primary text-sm font-medium cursor-pointer"
+						>
+							<span>Dashboard</span>
+							<span className="absolute bottom-0 left-0 w-full h-px bg-brand-primary-600"></span>
+						</a>
+						<a
+							href="#"
+							target="_self"
+							className="content-center no-underline h-full py-0 px-1 m-0 bg-transparent outline-none shadow-none border-0 focus:outline-none text-text-tertiary text-sm font-medium cursor-pointer"
+						>
+							Blocks
+						</a>
+						<a
+							href="#"
+							target="_self"
+							className="content-center no-underline h-full py-0 px-1 m-0 bg-transparent outline-none shadow-none border-0 focus:outline-none text-text-tertiary text-sm font-medium cursor-pointer"
+						>
+							Settings
+						</a>
+						<a
+							href="#"
+							target="_self"
+							className="content-center no-underline h-full py-0 px-1 m-0 bg-transparent outline-none shadow-none border-0 focus:outline-none text-text-tertiary text-sm font-medium cursor-pointer"
+						>
+							AI Features
+						</a>
+						<a
+							href="#"
+							target="_self"
+							className="content-center no-underline h-full py-0 px-1 m-0 bg-transparent outline-none shadow-none border-0 focus:outline-none text-text-tertiary text-sm font-medium cursor-pointer"
+						>
+							Free vs Pro
+						</a>
 						<Button
 							variant="ghost"
 							icon={ <ArrowUpRight /> }
