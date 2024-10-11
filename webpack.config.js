@@ -24,6 +24,7 @@ const libConfig = {
 			'@': path.resolve(process.cwd(), 'src'),
 			'@/components': path.resolve(process.cwd(), 'src/components'),
 			'@/utilities': path.resolve(process.cwd(), 'src/utilities'),
+			'@/globals': path.resolve(process.cwd(), 'src/globals'),
 		},
 	},
 	module: {

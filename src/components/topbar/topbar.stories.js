@@ -5,15 +5,12 @@ import { ArrowUpRight, CircleHelp, Megaphone, User } from 'lucide-react';
 import Badge from '../badge/badge.jsx';
 import Avatar from '../avatar/avatar.jsx';
 
-Topbar.displayName = 'Topbar';
-Topbar.Left.displayName = 'Topbar.Left';
-Topbar.Middle.displayName = 'Topbar.Middle';
-Topbar.Right.displayName = 'Topbar.Right';
-Topbar.Item.displayName = 'Topbar.Item';
-
 export default {
 	title: 'Organisms/Topbar',
 	component: Topbar,
+	parameters: {
+		layout: 'fullscreen',
+	},
 	tags: [ 'autodocs' ],
 	argTypes: {
 		gap: {
