@@ -10,7 +10,7 @@ export default {
 	},
 	tags: [ 'autodocs' ],
 	argTypes: {
-		dimension: {
+		size: {
 			description: 'Defines the size of the component',
 			control: { type: 'select' },
 			options: [ 'sm', 'md', 'lg' ],
@@ -58,6 +58,20 @@ export default {
 			action: 'onOpenChange',
 			table: {
 				type: { summary: 'function' },
+			},
+		},
+		value: {
+			description: 'Controlled value for the input',
+			action: 'text',
+			table: {
+				type: { summary: 'string' },
+			},
+		},
+		defaultValue: {
+			description: 'Default value if uncontrolled',
+			action: 'text',
+			table: {
+				type: { summary: 'string' },
 			},
 		},
 	},
@@ -146,7 +160,6 @@ const Template = ( args ) => {
 										}
 										onClick={ () => {
 											setOpen( false );
-											console.log( item.name );
 										} }
 									>
 										{ item.name }
@@ -163,7 +176,6 @@ const Template = ( args ) => {
 										key={ index }
 										onClick={ () => {
 											setOpen( false );
-											console.log( item.name );
 										} }
 									>
 										{ item.name }
@@ -180,7 +192,7 @@ const Template = ( args ) => {
 
 export const BasicSearchBox = Template.bind( {} );
 BasicSearchBox.args = {
-	dimension: 'sm',
+	size: 'sm',
 	variant: 'primary',
 	disabled: false,
 	placeholder: 'Search...',
@@ -192,7 +204,7 @@ BasicSearchBox.args = {
 export const LargeSearchBox = Template.bind( {} );
 LargeSearchBox.args = {
 	...BasicSearchBox.args,
-	dimension: 'lg',
+	size: 'lg',
 };
 
 export const DisabledSearchBox = Template.bind( {} );
@@ -205,4 +217,10 @@ export const SecondaryVariant = Template.bind( {} );
 SecondaryVariant.args = {
 	...BasicSearchBox.args,
 	variant: 'secondary',
+};
+
+export const GhostVariant = Template.bind( {} );
+GhostVariant.args = {
+	...BasicSearchBox.args,
+	variant: 'ghost',
 };
