@@ -83,7 +83,6 @@ const ProgressSteps = ( {
 const ProgressStep = ( {
 	labelText,
 	icon = <Plus />,
-	stepClasses,
 	isCurrent,
 	isCompleted,
 	className,

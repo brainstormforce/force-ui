@@ -4,6 +4,7 @@ module.exports = {
 	extends: [
 		'plugin:@wordpress/eslint-plugin/recommended-with-formatting',
 		'plugin:storybook/recommended',
+		'plugin:@typescript-eslint/recommended',
 	],
 	settings: {
 		'import/resolver': {
@@ -28,9 +29,9 @@ module.exports = {
 	},
 	overrides: [
 		{
-			files: ['*.ts', '*.tsx'],
+			files: ['./src/utilities/withTW.js'],
 			rules: {
-				'no-undef': 'off',
+				'@typescript-eslint/no-var-requires': 'off',
 			},
 		},
 	],

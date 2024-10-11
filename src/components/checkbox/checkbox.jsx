@@ -16,7 +16,6 @@ const CheckboxComponent = (
 		defaultChecked = false,
 		checked,
 		onChange,
-		value,
 		indeterminate,
 		disabled,
 		size = 'md',
