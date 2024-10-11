@@ -55,7 +55,7 @@ const Template = ( args ) => {
 					<Label size="md" className="font-semibold">
 						Import Data From Your Current Plugins
 					</Label>
-					<Label className="text-text-secondary mt-1 text-sm max-w-[520px]">
+					<Label className="text-text-secondary mt-1 text-sm max-w-[35rem]">
 						We have deducted few SEO plugins installed on your
 						website. Select the plugin from which you want to import
 					</Label>
