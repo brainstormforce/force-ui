@@ -44,18 +44,18 @@ const Template = (args) => {
                     </Topbar.Item>
                 </Topbar.Right>
             </Topbar>
-            <div className="space-y-4 p-8 md:w-[31rem] mx-auto mt-10 border-border-subtle bg-background-primary rounded-md">
+            <div className="space-y-4 p-8 md:w-[31rem] mx-auto mt-10 border-border-subtle bg-background-primary border border-solid rounded-md">
                 <div className='flex justify-between gap-4'>
                     <div>
                         <Label size="md" className="text-3xl font-semibold">
-                            You're Good to Go! 🚀
+                            You&#39;re Good to Go! 🚀
                         </Label>
-                        <Label className="text-text-secondary mt-1 text-sm">
+                        <Label className="text-text-secondary mt-2 text-sm">
                             You&#39;ve successfully set up SureEmails, and your site is ready to send emails without a hitch! Now you can focus on your business and let us handle the rest.
                         </Label>
 
                     </div>
-                    <div className="max-w-28">
+                    <div className="max-w-32">
                         <Icons.EmailSetup />
                     </div>
                 </div>
@@ -78,14 +78,16 @@ const Template = (args) => {
                         </li>
                     </ul>
                 </div>
-
+                <div className='py-1'>
+                    <hr className="w-full border-b-0 border-x-0 border-t border-solid border-t-border-subtle" />
+                </div>
                 <div className="flex items-center">
-                    <Button className="mt-4 px-4 w-max">
+                    <Button className="px-4 w-max">
                         Go to Dashboard
                     </Button>
                     <Button
                         variant="link"
-                        className="mt-4 px-4 flex items-center gap-2"
+                        className="px-4 flex items-center gap-2"
                     >
                         Documentation <ExternalLink />
                     </Button>

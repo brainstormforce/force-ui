@@ -3,7 +3,7 @@ import { Topbar, Button, Label, Input, RadioButton, ProgressSteps, Badge } from 
 import { Icons } from '@/globals/icons/icons';
 
 export default {
-	title: 'Templates/Onboarding/Setup Tools',
+	title: 'Templates/Onboarding/Backup Email',
 	parameters: {
 		layout: 'fullscreen',
 	},
@@ -55,16 +55,15 @@ const Template = (args) => {
 				<div className="w-[43rem] p-8 mx-auto space-y-4 mt-10 border-border-subtle bg-background-primary border border-solid rounded-md">
 					<div className='max-w-[40rem]'>
 						<Label size="md" className="font-semibold">
-							Say Goodbye to Spam Folders
+						Want to Add a Backup Email Service?
 						</Label>
 						<Label className="text-text-secondary mt-1 text-sm">
-							These tools can help you build your website faster and easier. Try them out and see how they can help your website grow.
+						This is an optional step, but it can be really helpful. By adding a backup email service, your emails will still be sent if your main service stops working.
 						</Label>
 					</div>
 
 					<div className='bg-background-secondary p-1 rounded-lg max-h-80 overflow-auto'>
 						<RadioButton.Group columns={2}
-							multiSelection={true}
 							gapClassname='gap-1'
 						>
 							<RadioButton.Button
@@ -72,13 +71,12 @@ const Template = (args) => {
 								label={
 									args.label ?? {
 										heading: `Astra Theme`,
-										description: `Fast, customizable & beautiful WordPress theme.`,
 									}
 								}
-								useSwitch={true}
+								inlineIcon={true}
 								badgeItem={
 									<Badge
-										label="Free"
+										label="Primary"
 										size="sm"
 										variant="green"
 										type="pill"
@@ -94,18 +92,10 @@ const Template = (args) => {
 								label={
 									args.label ?? {
 										heading: `Starter Templates`,
-										description: `Build your dream website in minutes with AI.`,
 									}
 								}
-								useSwitch={true}
-								badgeItem={
-									<Badge
-										label="Free"
-										size="sm"
-										variant="green"
-										type="pill"
-									/>
-								}
+								inlineIcon={true}
+								 
 								borderOn
 								icon={<Icons.StartersTemplatesSvg />}
 								onChange={() => { }}
@@ -116,13 +106,12 @@ const Template = (args) => {
 								label={
 									args.label ?? {
 										heading: `SureCart`,
-										description: `The new way to sell on WordPress.`,
 									}
 								}
-								useSwitch={true}
+								inlineIcon={true}
 								badgeItem={
 									<Badge
-										label="Free"
+										label="Soon"
 										size="sm"
 										variant="green"
 										type="pill"
@@ -138,18 +127,10 @@ const Template = (args) => {
 								label={
 									args.label ?? {
 										heading: `Presto Player`,
-										description: `Automate your WordPress setup.`,
 									}
 								}
-								useSwitch={true}
-								badgeItem={
-									<Badge
-										label="Free"
-										size="sm"
-										variant="green"
-										type="pill"
-									/>
-								}
+								inlineIcon={true}
+								 
 								borderOn
 								icon={<Icons.PrestoPlayerSvg />}
 								onChange={() => { }}
@@ -160,18 +141,10 @@ const Template = (args) => {
 								label={
 									args.label ?? {
 										heading: `Astra Theme`,
-										description: `Fast, customizable & beautiful WordPress theme.`,
 									}
 								}
-								useSwitch={true}
-								badgeItem={
-									<Badge
-										label="Free"
-										size="sm"
-										variant="green"
-										type="pill"
-									/>
-								}
+								inlineIcon={true}
+								 
 								borderOn
 								icon={<Icons.AstraIcon />}
 								onChange={() => { }}
@@ -182,10 +155,9 @@ const Template = (args) => {
 								label={
 									args.label ?? {
 										heading: `Starter Templates`,
-										description: `Build your dream website in minutes with AI.`,
 									}
 								}
-								useSwitch={true}
+								inlineIcon={true}
 								badgeItem={
 									<Badge
 										label="Free"
@@ -194,6 +166,69 @@ const Template = (args) => {
 										type="pill"
 									/>
 								}
+								borderOn
+								icon={<Icons.StartersTemplatesSvg />}
+								onChange={() => { }}
+								buttonWrapperClasses='bg-white'
+							/>
+							<RadioButton.Button
+								value={`Starter3`}
+								label={
+									args.label ?? {
+										heading: `Starter Templates`,
+									}
+								}
+								inlineIcon={true}
+								 
+								borderOn
+								icon={<Icons.StartersTemplatesSvg />}
+								onChange={() => { }}
+								buttonWrapperClasses='bg-white'
+							/>
+							<RadioButton.Button
+								value={`Starter4`}
+								label={
+									args.label ?? {
+										heading: `Starter Templates`,
+									}
+								}
+								inlineIcon={true}
+								badgeItem={
+									<Badge
+										label="Soon"
+										size="sm"
+										variant="green"
+										type="pill"
+									/>
+								}
+								borderOn
+								icon={<Icons.StartersTemplatesSvg />}
+								onChange={() => { }}
+								buttonWrapperClasses='bg-white'
+							/>
+							<RadioButton.Button
+								value={`Starter5`}
+								label={
+									args.label ?? {
+										heading: `Starter Templates`,
+									}
+								}
+								inlineIcon={true}
+							 
+								borderOn
+								icon={<Icons.StartersTemplatesSvg />}
+								onChange={() => { }}
+								buttonWrapperClasses='bg-white'
+							/>
+							<RadioButton.Button
+								value={`Starter6`}
+								label={
+									args.label ?? {
+										heading: `Starter Templates`,
+									}
+								}
+								inlineIcon={true}
+								 
 								borderOn
 								icon={<Icons.StartersTemplatesSvg />}
 								onChange={() => { }}
@@ -222,7 +257,7 @@ const Template = (args) => {
 	);
 };
 
-export const DefaultOnboardingTools = Template.bind({});
-DefaultOnboardingTools.args = {};
+export const DefaultOnboardingBackup = Template.bind({});
+DefaultOnboardingBackup.args = {};
 
-DefaultOnboardingTools.storyName = 'OnboardingTools';
+DefaultOnboardingBackup.storyName = 'OnboardingBackup';
