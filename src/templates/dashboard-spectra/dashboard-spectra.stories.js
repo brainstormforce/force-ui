@@ -34,13 +34,7 @@ import {
 	Instagram,
 	Infinity,
 } from 'lucide-react';
-import {
-	SpectraLogo,
-	AstraThemeSvg,
-	StartersTemplatesSvg,
-	SureCartSvg,
-	PrestoPlayerSvg,
-} from './dashboard-spectra-svgs';
+import { SpectraLogo as Logo } from '@/icons';
 
 export default {
 	title: 'Templates/Dashboard/Spectra Dashboard',
@@ -49,9 +43,11 @@ export default {
 	},
 	decorators: [
 		( Story, parameters ) => (
-			<div className="box-border [&_*]:box-border w-full">
-				<Story { ...parameters } />
-			</div>
+			<div className='@container'>
+                <div className="box-border [&_*]:box-border @[80rem]:w-full w-[1376px]">
+                    <Story { ...parameters } />
+                </div>
+            </div>
 		),
 	],
 	tags: [ 'autodocs' ],
@@ -245,7 +241,7 @@ const astraRadioButtonGroupData = [
 		id: '1',
 		badgeText: 'Free',
 		buttonText: 'Install',
-		svg: <AstraThemeSvg />,
+		svg: <Logo className="size-5"  />,
 		title: 'Astra Theme',
 		description: 'Free WordPress Page Builder Plugin.',
 	},
@@ -253,7 +249,7 @@ const astraRadioButtonGroupData = [
 		id: '2',
 		badgeText: 'Free',
 		buttonText: 'Activate',
-		svg: <StartersTemplatesSvg />,
+		svg: <Logo className="size-5" />,
 		title: 'Starters Templates',
 		description: 'Build your dream website in minutes with AI.',
 	},
@@ -261,7 +257,7 @@ const astraRadioButtonGroupData = [
 		id: '3',
 		badgeText: 'Free',
 		buttonText: 'Install',
-		svg: <SureCartSvg />,
+		svg: <Logo className="size-5" />,
 		title: 'SureCart',
 		description: 'The new way to sell on WordPress.',
 	},
@@ -269,7 +265,7 @@ const astraRadioButtonGroupData = [
 		id: '4',
 		badgeText: 'Free',
 		buttonText: 'Install',
-		svg: <PrestoPlayerSvg />,
+		svg: <Logo className="size-5" />,
 		title: 'Presto Player',
 		description: 'Automate your WordPress setup.',
 	},
@@ -346,7 +342,7 @@ export const SpectraDashboard = () => {
 			<Topbar gap={ 0 } className="h-16 p-0 shadow-sm">
 				<Topbar.Left className="p-4">
 					<Topbar.Item>
-						<SpectraLogo />
+						<Logo />
 					</Topbar.Item>
 				</Topbar.Left>
 				<Topbar.Middle align="left" className="h-full">

@@ -31,13 +31,7 @@ import {
 	PanelTopDashed,
 	PanelsTopLeft,
 } from 'lucide-react';
-import {
-	AstraLogo,
-	AstraTheme,
-	StarterTheme,
-	SureCart,
-	SureTriggers,
-} from './dashboard-astra-svgs';
+import { AstraThemeLogo as Logo } from '@/icons';
 
 export default {
 	title: 'Templates/Dashboard/Astra Dashboard',
@@ -46,9 +40,11 @@ export default {
 	},
 	decorators: [
 		( Story, parameters ) => (
-			<div className="box-border [&_*]:box-border w-full">
-				<Story { ...parameters } />
-			</div>
+            <div className='@container'>
+                <div className="box-border [&_*]:box-border @[80rem]:w-full w-[1376px]">
+                    <Story { ...parameters } />
+                </div>
+            </div>
 		),
 	],
 	tags: [ 'autodocs' ],
@@ -280,25 +276,25 @@ const defaultRadioButtonGroupData = [
 const astraRadioButtonGroupData = [
 	{
 		id: '1',
-		svg: <AstraTheme />,
+		svg: <Logo className="size-5" />,
 		title: 'Astra Theme',
 		description: 'Free WordPress Page Builder Plugin.',
 	},
 	{
 		id: '2',
-		svg: <StarterTheme />,
+		svg: <Logo className="size-5" />,
 		title: 'Starters Templates',
 		description: 'Build your dream website in minutes with AI.',
 	},
 	{
 		id: '3',
-		svg: <SureCart />,
+		svg: <Logo className="size-5" />,
 		title: 'SureCart',
 		description: 'The new way to sell on WordPress.',
 	},
 	{
 		id: '4',
-		svg: <SureTriggers />,
+		svg: <Logo className="size-5" />,
 		title: 'SureTriggers',
 		description: 'Automate your WordPress setup.',
 	},
@@ -312,7 +308,7 @@ export const AstraDashboard = () => {
 			<Topbar gap={ 0 } className="h-16 p-0 shadow-sm">
 				<Topbar.Left className="p-5">
 					<Topbar.Item>
-						<AstraLogo />
+						<Logo className="size-6"/>
 					</Topbar.Item>
 				</Topbar.Left>
 				<Topbar.Middle align="left" className="h-full">
@@ -486,7 +482,7 @@ export const AstraDashboard = () => {
 							</RadioButton.Group>
 						</Container.Item>
 						<Container.Item className="flex items-center justify-center gap-2 text-text-primary text-sm bg-background-secondary rounded-lg p-3">
-							<AstraLogo className="size-4" />
+							<Logo className="size-5" />
 							<span className="font-semibold">
 								Do More with Astra Pro
 							</span>
