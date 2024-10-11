@@ -26,14 +26,14 @@ export default {
 					  </SearchBox.ResultTitle>
 					  <SearchBox.ResultItem
 						key={0}
-						icon={<File size={16} />}
+						icon={<File />}
 						onClick={() => {}}
 					  >
 						Item 1
 					  </SearchBox.ResultItem>
 					  <SearchBox.ResultItem
 						key={1}
-						icon={<Folder size={16} />}
+						icon={<Folder />}
 						onClick={() => {}}
 					  >
 						Item 2
@@ -46,14 +46,14 @@ export default {
 					  </SearchBox.ResultTitle>
 					  <SearchBox.ResultItem
 						key={2}
-						icon={<File size={16} />}
+						icon={<File />}
 						onClick={() => {}}
 					  >
 						Category 1
 					  </SearchBox.ResultItem>
 					  <SearchBox.ResultItem
 						key={3}
-						icon={<Folder size={16} />}
+						icon={<Folder />}
 						onClick={() => {}}
 					  >
 						Category 2
