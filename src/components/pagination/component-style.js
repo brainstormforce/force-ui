@@ -1,12 +1,12 @@
 export const sizeClassNames = {
 	sm: {
-		general: 'px-2 py-1 flex items-center rounded text-button-secondary'
+		general: 'px-2 py-1'
 	},
 	md: {
-		general: 'px-2.5 py-1 flex items-center rounded text-button-secondary',
+		general: 'px-2.5 py-1',
 	},
 	lg: {
-		general: 'px-4 py-2 flex items-center rounded text-button-secondary',
+		general: 'px-4 py-2',
 	},
 };
 

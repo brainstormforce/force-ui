@@ -34,7 +34,7 @@ const PaginationContent = forwardRef( ( { className, ...props }, ref ) => (
 	<ul
 		ref={ ref }
 		className={ cn(
-			'm-0 w-full flex justify-center flex-row items-center gap-1',
+			'm-0 p-0 w-full flex justify-center flex-row items-center gap-1',
 			className
 		) }
 		{ ...props }
@@ -74,6 +74,7 @@ const PaginationLink = ( {
 			variant={ 'ghost' }
 			className={ cn(
 				sizeClassNames[size].general,
+				'flex items-center rounded text-button-secondary',
 				!disabled &&
 					isActive &&
 					'text-button-primary bg-brand-background-50',
