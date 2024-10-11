@@ -36,33 +36,33 @@ const useSearchContext = () => {
 const SearchBox = forwardRef(
 	(
 		{
-			className,
-			size = 'sm',
-			open = false,
-			onOpenChange = () => {},
-			...props
+			className, // Custom class names for additional styling
+			size = 'sm', // Size of the SearchBox (default is 'sm')
+			open = false, // Controls whether the dropdown is open or not (default is false)
+			onOpenChange = () => {}, // Callback function to handle the open state change
+			...props // Any additional props that are passed
 		},
 		ref
 	) => {
-		const inputRef = useRef( null );
-
 		const { refs, floatingStyles, context } = useFloating( {
 			open,
 			onOpenChange,
 			placement: 'bottom-start',
 			whileElementsMounted: autoUpdate,
 			middleware: [
-				offset(size === 'sm' ? 5 : 10),
-				flip({ padding: 10 }),
-				floatingSize({
-					apply({ rects, elements, availableHeight }) {
-						elements.floating.style.maxHeight = `${availableHeight}px`;
-						elements.floating.style.width = `${rects.reference.width}px`;
-						elements.floating.style.fontFamily = window.getComputedStyle(elements.reference).fontFamily; // Retain parent's font family
+				offset( size === 'sm' ? 4 : 6 ),
+				flip( { padding: 10 } ),
+				floatingSize( {
+					apply( { rects, elements, availableHeight } ) {
+						elements.floating.style.maxHeight = `${ availableHeight }px`;
+						elements.floating.style.width = `${ rects.reference.width }px`;
+						elements.floating.style.fontFamily =
+							window.getComputedStyle(
+								elements.reference
+							).fontFamily; // Retain parent's font family
 					},
-				}),
+				} ),
 			],
-
 		} );
 		const dismiss = useDismiss( context );
 
@@ -73,14 +73,14 @@ const SearchBox = forwardRef(
 		return (
 			<SearchContext.Provider
 				value={ {
-					size,
-					open,
-					onOpenChange,
-					refs,
-					floatingStyles,
-					context,
-					getReferenceProps,
-					getFloatingProps,
+					size, // Pass size to context
+					open, // Pass open state to context
+					onOpenChange, // Pass onOpenChange handler to context
+					refs, // Pass refs to context
+					floatingStyles, // Pass floating styles to context
+					context, // Pass context to context (nested contexts)
+					getReferenceProps, // Reference props for floating elements
+					getFloatingProps, // Floating props for dropdown content
 				} }
 			>
 				<div
@@ -89,7 +89,7 @@ const SearchBox = forwardRef(
 						className
 					) }
 					{ ...props }
-					ref={ref}
+					ref={ ref }
 				/>
 			</SearchContext.Provider>
 		);
@@ -100,15 +100,15 @@ SearchBox.displayName = 'SearchBox';
 const SearchBoxInput = forwardRef(
 	(
 		{
-			className,
-			type = 'text',
-			placeholder = 'Search...',
-			variant = 'primary',
-			disabled = false,
-			value,
-			defaultValue,
-			onChange,
-			...props
+			className, // Custom class names for input styling
+			type = 'text', // Input type (default is 'text')
+			placeholder = 'Search...', // Placeholder text for input
+			variant = 'primary', // Input variant (default is 'primary')
+			disabled = false, // Whether input is disabled or not
+			value, // Controlled value for the input
+			defaultValue, // Default value if uncontrolled
+			onChange, // Callback for handling value changes
+			...props // Any additional props
 		},
 		ref
 	) => {
@@ -141,7 +141,7 @@ const SearchBoxInput = forwardRef(
 				className={ cn(
 					'w-full group relative flex justify-center items-center gap-1.5 focus-within:z-10 transition-colors ease-in-out duration-150',
 					variantClassNames[ variant ],
-					sizeClassNames.input[size],
+					sizeClassNames.input[ size ],
 					disabled
 						? disabledClassNames
 						: 'focus-within:ring-2 focus-within:ring-focus focus-within:ring-offset-2 focus-within:border-border-interactive focus-within:hover:border-border-interactive'
@@ -150,7 +150,7 @@ const SearchBoxInput = forwardRef(
 			>
 				<span
 					className={ cn(
-						textSizeClassNames[size],
+						textSizeClassNames[ size ],
 						disabled ? 'text-icon-disabled' : IconClasses,
 						'flex justify-center items-center'
 					) }
@@ -161,7 +161,7 @@ const SearchBoxInput = forwardRef(
 					type={ type }
 					ref={ ref }
 					className={ cn(
-						textSizeClassNames[size],
+						textSizeClassNames[ size ],
 						'flex-grow bg-transparent border-none outline-none border-transparent focus:ring-0',
 						disabled
 							? disabledClassNames
@@ -176,10 +176,10 @@ const SearchBoxInput = forwardRef(
 				/>
 				<span
 					className={ cn(
-						textSizeClassNames[size],
+						textSizeClassNames[ size ],
 						disabled ? 'text-icon-disabled' : IconClasses,
 						'bg-field-secondary-background border border-solid border-field-border',
-						sizeClassNames.slashIcon[size]
+						sizeClassNames.slashIcon[ size ]
 					) }
 				>
 					/
@@ -190,51 +190,47 @@ const SearchBoxInput = forwardRef(
 );
 SearchBoxInput.displayName = 'SearchBox.Input';
 
-const SearchBoxContent = forwardRef(
-	(
-		{
-			className,
-			dropdownPortalRoot = null, // Root element where the dropdown will be rendered.
-			dropdownPortalId = '', // Id of the dropdown portal where the dropdown will be rendered.
-			children,
-			...props
-		},
-		ref
-	) => {
-		const { size, open, refs, floatingStyles, getFloatingProps } =
-			useSearchContext();
+const SearchBoxContent = ( {
+	className,
+	dropdownPortalRoot = null, // Root element where the dropdown will be rendered.
+	dropdownPortalId = '', // Id of the dropdown portal where the dropdown will be rendered.
+	children,
+	...props
+} ) => {
+	const { size, open, refs, floatingStyles, getFloatingProps } =
+		useSearchContext();
 
-		if ( ! open ) {
-			return null;
-		}
-
-		return (
-			<FloatingPortal id={ dropdownPortalId } root={ dropdownPortalRoot }>
-				<div
-					ref={ refs.setFloating }
-					style={ {
-						...floatingStyles,
-					} }
-					className={ cn(
-						'bg-background-primary rounded-md border border-solid border-border-subtle shadow-soft-shadow-lg overflow-y-auto text-wrap',
-						sizeClassNames.dialog[size],
-						className
-					) }
-					{ ...getFloatingProps }
-					{ ...props }
-				>
-					{ children }
-				</div>
-			</FloatingPortal>
-		);
+	if ( ! open ) {
+		return null;
 	}
-);
+
+	return (
+		<FloatingPortal id={ dropdownPortalId } root={ dropdownPortalRoot }>
+			<div
+				ref={ refs.setFloating }
+				style={ {
+					...floatingStyles,
+				} }
+				className={ cn(
+					'bg-background-primary rounded-md border border-solid border-border-subtle shadow-soft-shadow-lg overflow-y-auto text-wrap',
+					sizeClassNames.dialog[ size ],
+					className
+				) }
+				{ ...getFloatingProps() }
+				{ ...props }
+			>
+				{ children }
+			</div>
+		</FloatingPortal>
+	);
+};
+
 SearchBoxContent.displayName = 'SearchBox.Content';
 
 const SearchBoxLoading = ( { loadingIcon = <Loader /> } ) => {
 	const { size } = useSearchContext();
 	return (
-		<div className={cn('justify-center p-4', textSizeClassNames[size])}>
+		<div className={ cn( 'justify-center p-4', textSizeClassNames[ size ] ) }>
 			{ loadingIcon }
 		</div>
 	);
@@ -249,7 +245,7 @@ const SearchBoxResults = forwardRef(
 		return (
 			<div
 				ref={ ref }
-				className={cn(sizeClassNames.content[size], className)}
+				className={ cn( sizeClassNames.content[ size ], className ) }
 				{ ...props }
 			>
 				{ children }
@@ -257,8 +253,8 @@ const SearchBoxResults = forwardRef(
 					<div
 						className={ cn(
 							'flex justify-center items-center',
-							sizeClassNames.content[size],
-							sizeClassNames.item[size],
+							sizeClassNames.content[ size ],
+							sizeClassNames.item[ size ],
 							'text-text-tertiary'
 						) }
 					>
@@ -278,13 +274,13 @@ const SearchBoxResultTitle = forwardRef(
 		return (
 			<div
 				ref={ ref }
-				className={cn('flex', sizeClassNames.title[size], className)}
+				className={ cn( 'flex', sizeClassNames.title[ size ], className ) }
 				{ ...props }
 			>
 				<label
 					className={ cn(
 						'w-full text-text-secondary',
-						textSizeClassNames[size]
+						textSizeClassNames[ size ]
 					) }
 				>
 					{ children }
@@ -296,21 +292,31 @@ const SearchBoxResultTitle = forwardRef(
 SearchBoxResultTitle.displayName = 'SearchBox.ResultTitle';
 
 const SearchBoxResultItem = forwardRef(
-	( { onClick = () => {}, className, children, icon, ...props }, ref ) => {
+	(
+		{
+			onClick = () => {},
+			className,
+			children,
+			icon, // Icons beside search result
+			...props
+		},
+		ref
+	) => {
 		const { size } = useSearchContext();
 
 		return (
 			<div
+				role="button"
 				tabIndex={ 0 }
 				ref={ ref }
 				className={ cn(
 					'flex items-center justify-center gap-1 p-1 hover:bg-background-secondary focus:bg-background-secondary',
-					sizeClassNames.item[size],
+					sizeClassNames.item[ size ],
 					className
 				) }
 				onClick={ onClick }
 				onKeyDown={ ( e ) => {
-					if ( e.key === 'Enter' ) {
+					if ( e.key === 'Enter' || e.key === ' ' ) {
 						onClick();
 					}
 				} }
@@ -318,7 +324,7 @@ const SearchBoxResultItem = forwardRef(
 			>
 				<div
 					className={ cn(
-						sizeClassNames.icon[size],
+						sizeClassNames.icon[ size ],
 						'flex items-center justify-center'
 					) }
 				>
@@ -327,7 +333,7 @@ const SearchBoxResultItem = forwardRef(
 				<label
 					className={ cn(
 						'w-full text-inherit cursor-pointer',
-						!icon && sizeClassNames.icon[size]
+						! icon && sizeClassNames.icon[ size ]
 					) }
 				>
 					{ children }

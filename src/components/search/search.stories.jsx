@@ -60,6 +60,20 @@ export default {
 				type: { summary: 'function' },
 			},
 		},
+		value: {
+			description: 'Controlled value for the input',
+			action: 'text',
+			table: {
+				type: { summary: 'string' },
+			},
+		},
+		defaultValue: {
+			description: 'Default value if uncontrolled',
+			action: 'text',
+			table: {
+				type: { summary: 'string' },
+			},
+		},
 	},
 };
 
@@ -146,7 +160,6 @@ const Template = ( args ) => {
 										}
 										onClick={ () => {
 											setOpen( false );
-											console.log( item.name );
 										} }
 									>
 										{ item.name }
@@ -163,7 +176,6 @@ const Template = ( args ) => {
 										key={ index }
 										onClick={ () => {
 											setOpen( false );
-											console.log( item.name );
 										} }
 									>
 										{ item.name }
@@ -207,7 +219,7 @@ SecondaryVariant.args = {
 	variant: 'secondary',
 };
 
-export const GhostVariant = Template.bind({});
+export const GhostVariant = Template.bind( {} );
 GhostVariant.args = {
 	...BasicSearchBox.args,
 	variant: 'ghost',
