@@ -36,12 +36,12 @@ const CheckboxComponent = (
 		sm: {
 			checkbox: 'size-4 rounded-sm',
 			icon: 'size-3',
-			text : 'text-sm', // text class for sm
+			text: 'text-sm', // text class for sm
 		},
 		md: {
 			checkbox: 'size-5 rounded',
 			icon: 'size-4',
-			text : 'text-base', // text class for md
+			text: 'text-base', // text class for md
 		},
 	};
 	const colorClassNames = {
@@ -90,7 +90,12 @@ const CheckboxComponent = (
 		return (
 			<div className="space-y-1.5">
 				{ label.heading && (
-					<p className={cn("text-text-primary font-medium leading-4 m-0", sizeClassNames[size].text)}>
+					<p
+						className={ cn(
+							'text-text-primary font-medium leading-4 m-0',
+							sizeClassNames[ size ].text
+						) }
+					>
 						{ label.heading }
 					</p>
 				) }
@@ -105,7 +110,10 @@ const CheckboxComponent = (
 
 	return (
 		<div
-			className={ cn( 'inline-flex items-center gap-2', !! label && 'items-start' ) }
+			className={ cn(
+				'inline-flex items-center gap-2',
+				!! label && 'items-start'
+			) }
 		>
 			<label
 				className={ cn(
@@ -145,7 +153,7 @@ const CheckboxComponent = (
 			</label>
 			{ !! label && (
 				<label
-					className={ cn(! disabled && 'cursor-pointer p-0.5' ) }
+					className={ cn( ! disabled && 'cursor-pointer p-0.5' ) }
 					htmlFor={ checkboxId }
 				>
 					{ renderLabel() }

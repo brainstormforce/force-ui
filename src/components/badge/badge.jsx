@@ -56,10 +56,10 @@ const BadgeComponent = ( props, ref ) => {
 	// Icon size classes based on the badge size prop
 	const iconSizeClasses = {
 		xxs: 'size-3', // 12px
-		xs: 'size-3',  // 12px
-		sm: 'size-3',  // 12px
-		md: 'size-4',  // 16px
-		lg: 'size-5',  // 20px
+		xs: 'size-3', // 12px
+		sm: 'size-3', // 12px
+		md: 'size-4', // 16px
+		lg: 'size-5', // 20px
 	};
 
 	// Gap classes between icon, label, and X
@@ -99,7 +99,9 @@ const BadgeComponent = ( props, ref ) => {
 			ref={ ref }
 		>
 			{ icon ? (
-				<span className={ `justify-center flex items-center ${iconSizeClasses[size]}` }>
+				<span
+					className={ `justify-center flex items-center ${ iconSizeClasses[ size ] }` }
+				>
 					{ icon }
 				</span>
 			) : null }
@@ -113,7 +115,8 @@ const BadgeComponent = ( props, ref ) => {
 					tabIndex={ 0 }
 				>
 					<span className="sr-only">{ `Remove ${ label }` }</span>
-					<X className={ iconSizeClasses[ size ] } /> {/* Apply the same size class to the X icon */}
+					<X className={ iconSizeClasses[ size ] } />{ ' ' }
+					{ /* Apply the same size class to the X icon */ }
 					<span className="absolute -inset-1" />
 				</span>
 			) }

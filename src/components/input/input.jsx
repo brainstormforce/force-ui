@@ -1,7 +1,7 @@
-import { useState, useCallback, useMemo, forwardRef } from 'react';
+import { useState, useCallback, useMemo, forwardRef, useRef } from 'react';
 import { nanoid } from 'nanoid';
 import { cn } from '@/utilities/functions';
-import { Upload } from 'lucide-react';
+import { Upload, X } from 'lucide-react';
 
 const InputComponent = (
 	{
@@ -21,6 +21,7 @@ const InputComponent = (
 	},
 	ref
 ) => {
+	const inputRef = useRef( null );
 	const inputId = useMemo( () => id || `input-${ type }-${ nanoid() }`, [ id ] );
 	const isControlled = useMemo( () => typeof value !== 'undefined', [ value ] );
 	const [ inputValue, setInputValue ] = useState( defaultValue );
@@ -58,12 +59,22 @@ const InputComponent = (
 		onChange( newValue );
 	};
 
+	const handleReset = () => {
+		// Reset file selection when "X" icon is clicked
+		setSelectedFile( null );
+		if ( inputRef.current ) {
+			inputRef.current.value = null;
+		}
+		onChange( null );
+	};
+
 	const baseClasses =
 		'border border-solid border-border-subtle bg-field-secondary-background font-normal placeholder-text-tertiary text-text-primary w-full focus:outline-none';
 	const sizeClasses = {
-		sm: 'px-2 py-2 rounded',
-		md: 'px-2.5 py-2.5 rounded-md',
-		lg: 'px-3 py-3 rounded-lg',
+		xs: 'p-2 rounded',
+		sm: 'p-3 rounded',
+		md: 'p-3.5 rounded-md',
+		lg: 'p-4 rounded-lg',
 	};
 	const textClasses = {
 		sm: 'text-xs',
@@ -87,10 +98,10 @@ const InputComponent = (
 	const focusClasses =
 		'focus:border-focus-border focus:ring-2 focus:ring-toggle-on focus:ring-offset-2';
 	const errorClasses = error
-		? 'focus:border-focus-error-border focus:ring-field-color-error bg-field-background-error'
+		? 'focus:border-focus-error-border focus:ring-field-color-error border-focus-error-border'
 		: '';
 	const errorFileClasses = error
-		? 'focus:border-focus-error-border focus:ring-field-color-error'
+		? 'focus:border-focus-error-border focus:ring-field-color-error border-focus-error-border'
 		: '';
 	const disabledClasses = disabled
 		? 'border-border-disabled bg-field-background-disabled cursor-not-allowed text-text-disabled'
@@ -105,9 +116,10 @@ const InputComponent = (
 		: 'font-normal placeholder-text-tertiary text-field-placeholder pointer-events-none absolute inset-y-0 flex flex-1 items-center';
 
 	const uploadIconSizeClasses = {
-		sm: '[&>svg]:h-4 [&>svg]:w-4',
-		md: '[&>svg]:h-5 [&>svg]:w-5',
-		lg: '[&>svg]:h-6 [&>svg]:w-6',
+		xs: '[&>svg]:size-4',
+		sm: '[&>svg]:size-4',
+		md: '[&>svg]:size-5',
+		lg: '[&>svg]:size-6',
 	};
 
 	const getPrefix = () => {
@@ -122,25 +134,50 @@ const InputComponent = (
 	};
 
 	const getSuffix = () => {
-		if ( ! suffix ) {
-			return null;
+		if ( selectedFile ) {
+			// Change icon to "X" when a file is selected
+			return (
+				<div
+					className={ cn(
+						uploadIconClasses,
+						'right-0 pr-3 cursor-pointer z-20 pointer-events-auto',
+						uploadIconSizeClasses[ size ]
+					) }
+					onClick={ handleReset }
+					role="button"
+					tabIndex={ 0 }
+					onKeyDown={ ( e ) => {
+						if ( e.key === 'Enter' || e.key === ' ' ) {
+							handleReset();
+						}
+					} }
+				>
+					<X />
+				</div>
+			);
 		}
 		return (
-			<div className={ cn( iconClasses, 'right-0 pr-3', textClasses[ size ] ) }>
-				{ suffix }
+			<div
+				className={ cn(
+					uploadIconClasses,
+					'right-0 pr-3',
+					uploadIconSizeClasses[ size ]
+				) }
+			>
+				<Upload />
 			</div>
 		);
 	};
 
 	const fileClasses = selectedFile
-		? 'file:border-0 file:bg-transparent'
-		: 'text-text-tertiary file:border-0 file:bg-transparent';
+		? 'file:border-0 file:bg-transparent pr-10'
+		: 'text-text-tertiary file:border-0 file:bg-transparent pr-10';
 
 	if ( type === 'file' ) {
 		return (
 			<div className={ cn( 'relative flex focus-within:z-10', className ) }>
 				<input
-					ref={ ref }
+					ref={ inputRef }
 					id={ inputId }
 					type="file"
 					className={ cn(
@@ -158,15 +195,7 @@ const InputComponent = (
 					onInvalid={ onError }
 					{ ...props }
 				/>
-				<div
-					className={ cn(
-						uploadIconClasses,
-						'right-0 pr-3',
-						uploadIconSizeClasses[ size ]
-					) }
-				>
-					<Upload />
-				</div>
+				{ getSuffix() }
 			</div>
 		);
 	}
@@ -199,6 +228,7 @@ const InputComponent = (
 		</div>
 	);
 };
+
 const Input = forwardRef( InputComponent );
 Input.displayName = 'Input';
 
