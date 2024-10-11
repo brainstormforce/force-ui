@@ -41,31 +41,30 @@ export default {
 
 // Template function for rendering pagination
 const Template = ( args ) => {
-	const activeIndex = 2;
-
-	const items = [
-		{ label: '1' },
-		{ label: '2' },
-		{ label: '3' },
-		{ label: '4' },
-		{ label: '5' },
-	];
-
 	return (
 		<div style={ { width: '400px' } }>
 			<Pagination { ...args }>
 				<Pagination.Content>
 					<Pagination.Previous onClick={ () => {} } />
-					{ items.map( ( item, index ) => (
-						<Pagination.Item
-							key={ index }
-							onClick={ () => {} }
-							isActive={ activeIndex === index }
-						>
-							{ item.label }
-						</Pagination.Item>
-					) ) }
+					<Pagination.Item onClick={ () => {} } isActive={ false }>
+						1
+					</Pagination.Item>
+					<Pagination.Item onClick={ () => {} } isActive={ true }>
+						2
+					</Pagination.Item>
+					<Pagination.Item onClick={ () => {} } isActive={ false }>
+						3
+					</Pagination.Item>
 					<Pagination.Ellipsis />
+					<Pagination.Item onClick={ () => {} } isActive={ false }>
+						7
+					</Pagination.Item>
+					<Pagination.Item onClick={ () => {} } isActive={ false }>
+						8
+					</Pagination.Item>
+					<Pagination.Item onClick={ () => {} } isActive={ false }>
+						9
+					</Pagination.Item>
 					<Pagination.Next onClick={ () => {} } />
 				</Pagination.Content>
 			</Pagination>
