@@ -677,7 +677,10 @@ export const SpectraDashboard = () => {
 												className="flex-1 gap-1 shadow-soft-shadow-inner p-2 rounded-md bg-background-primary"
 											>
 												<Container.Item>
-													<Container align="start" className="gap-0">
+													<Container
+														align="start"
+														className="gap-0"
+													>
 														<Container.Item
 															className="[&>svg]:size-5"
 															grow={ 1 }
@@ -687,28 +690,33 @@ export const SpectraDashboard = () => {
 															{ card.svg }
 														</Container.Item>
 														<Container.Item>
-                                                            <Container gap="xs" align="center">
-															<Badge
-																label={
-																	card.badgeText
-																}
-																icon={ null }
-																variant="green"
-																closable={ false }
-																className="py-0"
-															/>
-                                                            <Button
-																variant="link"
-																className="p-0 text-link-primary"
-																size="sm"
+															<Container
+																gap="xs"
+																align="center"
 															>
-																{
-																	card.buttonText
-																}
-															</Button>
-                                                            </Container>
+																<Badge
+																	label={
+																		card.badgeText
+																	}
+																	icon={ null }
+																	variant="green"
+																	closable={
+																		false
+																	}
+																	className="py-0"
+																/>
+																<Button
+																	variant="link"
+																	className="p-0 text-link-primary"
+																	size="sm"
+																>
+																	{
+																		card.buttonText
+																	}
+																</Button>
+															</Container>
 														</Container.Item>
-														{/* <Container.Item>
+														{ /* <Container.Item>
 															<Button
 																variant="link"
 																className="p-0 text-link-primary"
@@ -718,7 +726,7 @@ export const SpectraDashboard = () => {
 																	card.buttonText
 																}
 															</Button>
-														</Container.Item> */}
+														</Container.Item> */ }
 													</Container>
 												</Container.Item>
 												<Container.Item className="gap-0.5 p-1">
