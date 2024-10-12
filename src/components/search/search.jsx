@@ -113,13 +113,19 @@ const SearchBoxInput = forwardRef(
 			placeholder = 'Search...',
 			variant = 'primary',
 			disabled = false,
-			onChange = () => { },
+			onChange = () => {},
 			...props
 		},
 		ref
 	) => {
-		const { size, onOpenChange, refs, getReferenceProps, searchTerm, setSearchTerm } =
-			useSearchContext();
+		const {
+			size,
+			onOpenChange,
+			refs,
+			getReferenceProps,
+			searchTerm,
+			setSearchTerm,
+		} = useSearchContext();
 
 		const handleChange = ( event ) => {
 			const newValue = event.target.value;
@@ -166,7 +172,8 @@ const SearchBoxInput = forwardRef(
 						'flex-grow font-medium bg-transparent border-none outline-none border-transparent focus:ring-0',
 						disabled
 							? disabledClassNames[ variant ]
-							: [ 'text-field-placeholder focus-within:text-field-input group-hover:text-field-input',
+							: [
+								'text-field-placeholder focus-within:text-field-input group-hover:text-field-input',
 								'placeholder:text-field-placeholder',
 							],
 						className
@@ -234,28 +241,38 @@ const SearchBoxList = ( { filter = true, children } ) => {
 	const { searchTerm, isLoading } = useSearchContext();
 
 	if ( ! filter ) {
-		return (
-			<div>
-				{ children }
-			</div>
-		);
+		return <div>{ children }</div>;
 	}
-	const filteredChildren = Children.toArray( children ).map( ( child ) => {
-		if ( child.type === SearchBoxGroup ) {
-			const filteredItems = Children.toArray( child.props.children ).filter( ( item ) =>
-				item.props.children.toLowerCase().includes( searchTerm.toLowerCase() )
-			);
-			return filteredItems.length > 0 ? cloneElement( child, { children: filteredItems } ) : null;
-		}
-		return child;
-	} ).filter( Boolean );
+	const filteredChildren = Children.toArray( children )
+		.map( ( child ) => {
+			if ( child.type === SearchBoxGroup ) {
+				const filteredItems = Children.toArray(
+					child.props.children
+				).filter( ( item ) =>
+					item.props.children
+						.toLowerCase()
+						.includes( searchTerm.toLowerCase() )
+				);
+				return filteredItems.length > 0
+					? cloneElement( child, { children: filteredItems } )
+					: null;
+			}
+			return child;
+		} )
+		.filter( Boolean );
 
 	if ( isLoading ) {
 		return <SearchBoxLoading />;
 	}
 	return (
 		<div>
-			{ filteredChildren.some( ( child ) => child.type !== SearchBoxSeparator ) ? filteredChildren : <SearchBoxEmpty /> }
+			{ filteredChildren.some(
+				( child ) => child.type !== SearchBoxSeparator
+			) ? (
+					filteredChildren
+				) : (
+					<SearchBoxEmpty />
+				) }
 		</div>
 	);
 };
@@ -264,11 +281,13 @@ SearchBoxList.displayName = 'SearchBox.List';
 const SearchBoxEmpty = ( { children = 'No results found.' } ) => {
 	const { size } = useSearchContext();
 	return (
-		<div className={ cn(
-			'flex justify-center items-center',
-			sizeClassNames.item[ size ],
-			'text-text-tertiary p-4'
-		) }>
+		<div
+			className={ cn(
+				'flex justify-center items-center',
+				sizeClassNames.item[ size ],
+				'text-text-tertiary p-4'
+			) }
+		>
 			{ children }
 		</div>
 	);
@@ -278,12 +297,19 @@ SearchBoxEmpty.displayName = 'SearchBox.Empty';
 const SearchBoxGroup = ( { heading, children } ) => {
 	const { size } = useSearchContext();
 	return (
-		<div className={ cn(
-			sizeClassNames.content[ size ],
-			sizeClassNames.item[ size ]
-		) }>
+		<div
+			className={ cn(
+				sizeClassNames.content[ size ],
+				sizeClassNames.item[ size ]
+			) }
+		>
 			{ heading && (
-				<div className={ cn( sizeClassNames.title[ size ], 'text-text-secondary' ) }>
+				<div
+					className={ cn(
+						sizeClassNames.title[ size ],
+						'text-text-secondary'
+					) }
+				>
 					{ heading }
 				</div>
 			) }
@@ -293,26 +319,41 @@ const SearchBoxGroup = ( { heading, children } ) => {
 };
 SearchBoxGroup.displayName = 'SearchBox.Group';
 
-const SearchBoxItem = forwardRef( ( { className, icon, children, ...props }, ref ) => {
-	const { size } = useSearchContext();
-	return (
-		<div
-			ref={ ref }
-			className={ cn(
-				'flex items-center justify-start gap-1 p-1 hover:bg-background-secondary focus:bg-background-secondary cursor-pointer',
-				sizeClassNames.item[ size ]
-			) }
-			{ ...props }
-		>
-			{ icon && (
-				<span className={ cn( sizeClassNames.icon[ size ], 'flex items-center justify-center' ) }>
-					{ icon }
+const SearchBoxItem = forwardRef(
+	( { className, icon, children, ...props }, ref ) => {
+		const { size } = useSearchContext();
+		return (
+			<div
+				ref={ ref }
+				className={ cn(
+					'flex items-center justify-start gap-1 p-1 hover:bg-background-secondary focus:bg-background-secondary cursor-pointer',
+					sizeClassNames.item[ size ]
+				) }
+				{ ...props }
+			>
+				{ icon && (
+					<span
+						className={ cn(
+							sizeClassNames.icon[ size ],
+							'flex items-center justify-center'
+						) }
+					>
+						{ icon }
+					</span>
+				) }
+				<span
+					className={ cn(
+						'flex-grow p-1 font-normal cursor-pointer',
+						sizeClassNames.item[ size ],
+						className
+					) }
+				>
+					{ children }
 				</span>
-			) }
-			<span className={ cn( 'flex-grow p-1 font-normal cursor-pointer', sizeClassNames.item[ size ], className ) }>{ children }</span>
-		</div>
-	);
-} );
+			</div>
+		);
+	}
+);
 SearchBoxItem.displayName = 'SearchBox.Item';
 
 const SearchBoxLoading = ( { loadingIcon = <Loader /> } ) => {
@@ -321,11 +362,13 @@ const SearchBoxLoading = ( { loadingIcon = <Loader /> } ) => {
 	// Clone the loadingIcon element to pass the size prop
 	const loadingIconWithSize = cloneElement( loadingIcon, { size } );
 	return (
-		<div className={ cn(
-			'flex justify-center p-4',
-			textSizeClassNames[ size ],
-			sizeClassNames.item[ size ],
-		) }>
+		<div
+			className={ cn(
+				'flex justify-center p-4',
+				textSizeClassNames[ size ],
+				sizeClassNames.item[ size ]
+			) }
+		>
 			{ loadingIconWithSize }
 		</div>
 	);

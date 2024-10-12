@@ -75,10 +75,12 @@ export default {
 			},
 		},
 		className: {
-			description: 'Defines custom classes for component. Can be passed to each element',
+			description:
+				'Defines custom classes for component. Can be passed to all components.',
 			control: { type: 'string' },
 			table: {
 				type: { summary: 'string' },
+				defaultValue: { summary: '' },
 			},
 		},
 	},
@@ -86,7 +88,6 @@ export default {
 
 const Template = ( args ) => {
 	const [ open, setOpen ] = useState( false );
-	const [ loading, setLoading ] = useState( args.loading );
 	const inputRef = useRef( null );
 
 	const handleSearch = () => {};
@@ -100,7 +101,12 @@ const Template = ( args ) => {
 	// }, [ args.loading ] );
 
 	return (
-		<SearchBox size={ args.size } open={ open || args.open } onOpenChange={ handleOpenChange } loading={ loading }>
+		<SearchBox
+			size={ args.size }
+			open={ open || args.open }
+			onOpenChange={ handleOpenChange }
+			loading={ args.loading }
+		>
 			<SearchBox.Input
 				ref={ inputRef }
 				placeholder={ args.placeholder }
@@ -111,15 +117,27 @@ const Template = ( args ) => {
 			<SearchBox.Content>
 				<SearchBox.List filter={ args.filter }>
 					<SearchBox.Group heading="Suggestions">
-						<SearchBox.Item icon={ <File /> }>Calendar</SearchBox.Item>
-						<SearchBox.Item icon={ <File /> }>Document</SearchBox.Item>
-						<SearchBox.Item icon={ <File /> }>Attendance</SearchBox.Item>
+						<SearchBox.Item icon={ <File /> }>
+							Calendar
+						</SearchBox.Item>
+						<SearchBox.Item icon={ <File /> }>
+							Document
+						</SearchBox.Item>
+						<SearchBox.Item icon={ <File /> }>
+							Attendance
+						</SearchBox.Item>
 					</SearchBox.Group>
 					<SearchBox.Separator />
 					<SearchBox.Group heading="Folders">
-						<SearchBox.Item icon={ <Folder /> }>Calendar Folder</SearchBox.Item>
-						<SearchBox.Item icon={ <Folder /> }>Document Folder</SearchBox.Item>
-						<SearchBox.Item icon={ <Folder /> }>Attendance Folder</SearchBox.Item>
+						<SearchBox.Item icon={ <Folder /> }>
+							Calendar Folder
+						</SearchBox.Item>
+						<SearchBox.Item icon={ <Folder /> }>
+							Document Folder
+						</SearchBox.Item>
+						<SearchBox.Item icon={ <Folder /> }>
+							Attendance Folder
+						</SearchBox.Item>
 					</SearchBox.Group>
 				</SearchBox.List>
 			</SearchBox.Content>
