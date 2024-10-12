@@ -5,8 +5,8 @@ import OnboardingSpam from './onboarding-spam';
 import Button from '../button';
 import Label from '../label';
 import Input from '../input';
-import { Icons } from '@/globals/icons/icons';
-import RadioButton from '../radio-button-group';
+// import { Icons } from '@/globals/icons/icons';
+import RadioButton from '../radio-button';
 
 export default {
 	title: 'Templates/OnboardingSpam',
@@ -31,9 +31,7 @@ const Template = ( args ) => {
 		>
 			<Topbar className="bg-background-secondary">
 				<Topbar.Left>
-					<Topbar.Item>
-						<Icons.SureEmailsLogo />
-					</Topbar.Item>
+					<Topbar.Item>{ /* <Icons.SureEmailsLogo /> */ }</Topbar.Item>
 				</Topbar.Left>
 				<Topbar.Middle>
 					<Topbar.Item>

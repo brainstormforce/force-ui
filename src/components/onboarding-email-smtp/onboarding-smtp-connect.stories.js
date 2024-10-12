@@ -6,7 +6,7 @@ import Button from '../button';
 import Label from '../label';
 import Input from '../input';
 import Select from '../select';
-import { Icons } from '@/globals/icons/icons';
+// import { Icons } from '@/globals/icons/icons';
 
 export default {
 	title: 'Templates/OnboardingEmailSmtp',
@@ -31,9 +31,7 @@ const Template = ( args ) => {
 		>
 			<Topbar className="bg-background-secondary">
 				<Topbar.Left>
-					<Topbar.Item>
-						<Icons.SureEmailsLogo />
-					</Topbar.Item>
+					<Topbar.Item>{ /* <Icons.SureEmailsLogo /> */ }</Topbar.Item>
 				</Topbar.Left>
 				<Topbar.Middle>
 					<Topbar.Item>
