@@ -1,6 +1,6 @@
 import { X } from 'lucide-react';
 import { ProgressSteps, Topbar, Button, Label } from '@/components';
-import { SureRankLogo } from '@/icons';
+import { SureEmailLogo } from '@/icons';
 
 export default {
 	title: 'Templates/Onboarding/Connect',
@@ -8,12 +8,6 @@ export default {
 		layout: 'fullscreen',
 	},
 	tags: [ 'autodocs' ],
-	argTypes: {
-		children: {
-			description: 'Content to render inside the OnboardingConnect.',
-			control: { type: 'none' },
-		},
-	},
 };
 
 const Template = ( args ) => {
@@ -25,7 +19,7 @@ const Template = ( args ) => {
 			<Topbar className="bg-background-secondary">
 				<Topbar.Left>
 					<Topbar.Item>
-						<SureRankLogo />
+						<SureEmailLogo />
 					</Topbar.Item>
 				</Topbar.Left>
 				<Topbar.Middle>
