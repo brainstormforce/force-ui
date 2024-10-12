@@ -141,6 +141,7 @@ const defaultTheme = {
 				'badge-color-disabled': '#D1D5DB',
 				'badge-hover-disabled': '#F3F4F6',
 				'badge-border-disabled': '#E5E7EB',
+				'badge-background-important': '#DC2626',
 				// alert
 				'alert-background-neutral': '#FFFFFF',
 				'alert-border-neutral': '#E5E7EB',
@@ -188,6 +189,7 @@ const defaultTheme = {
 					'0px 16px 32px -12px rgba(149, 160, 178, 0.32)',
 				'soft-shadow-2xl':
 					'0px 24px 64px -12px rgba(149, 160, 178, 0.32)',
+				'soft-shadow-inner': '0px 1px 1px 0px rgba(0, 0, 0, 0.05)',
 			},
 			fontSize: {
 				tiny: '0.625rem',

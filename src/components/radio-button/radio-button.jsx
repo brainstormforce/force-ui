@@ -9,7 +9,7 @@ import React, {
 	Fragment,
 } from 'react';
 import { nanoid } from 'nanoid';
-import { Check } from 'lucide-react';
+import { Check, Info } from 'lucide-react';
 
 import { cn, columnClasses } from '@/utilities/functions';
 import Switch from '../switch';
@@ -23,6 +23,7 @@ import {
 	hoverClasses,
 	focusClasses,
 } from './styles';
+import Tooltip from '../tooltip';
 
 const RadioButtonContext = createContext();
 const useRadioButton = () => useContext( RadioButtonContext );
@@ -156,10 +157,13 @@ const RadioButtonComponent = (
 		borderOn = false,
 		badgeItem = null,
 		useSwitch = false,
+		info = null,
+		minWidth = true,
 		...props
 	},
 	ref
 ) => {
+	const { buttonWrapperClasses } = props;
 	const providerValue = useRadioButton();
 	const {
 		name,
@@ -267,7 +271,9 @@ const RadioButtonComponent = (
 		<label
 			className={ cn(
 				'inline-flex items-center relative cursor-pointer transition-all duration-300',
-				!! label && 'items-start justify-between min-w-[180px] ',
+				!! label && 'items-start justify-between',
+				minWidth && 'min-w-[180px]',
+				buttonWrapperClasses,
 				borderOn &&
 					'border border-border-subtle border-solid rounded-md shadow-sm hover:ring-2 hover:ring-border-interactive',
 				borderOn && checkedValue && 'ring-2 ring-border-interactive',
@@ -290,9 +296,27 @@ const RadioButtonComponent = (
 					{ renderLabel() }
 				</label>
 			) }
+			{ !! info && (
+				<div className="absolute mr-0.5 bottom-1.5 right-3">
+					<Tooltip
+						arrow
+						title={ info?.heading }
+						content={ info?.description }
+						triggers={ [ 'hover', 'focus' ] }
+						placement="top"
+					>
+						<Info
+							className={ cn(
+								'text-text-primary',
+								sizeClassNames[ size ]?.info
+							) }
+						/>
+					</Tooltip>
+				</div>
+			) }
 			<label
 				className={ cn(
-					'absolute mr-[2px] right-3 flex items-center cursor-pointer rounded-full',
+					'absolute mr-0.5 right-3 flex items-center cursor-pointer rounded-full',
 					reversePosition && 'left-0',
 					isDisabled && 'cursor-not-allowed'
 				) }

@@ -76,6 +76,13 @@
 - **Object properties/format:** `{heading: 'Label heading', description:** 'Label description'}`
 The label also accepts a React component.
 
+### info (optional)
+- **type:** `object` || `ReactComponent`
+- **Object properties/format:** `{heading: 'Info heading', description:** 'Info description'}`
+The info also accepts a React component.
+- **description:** The `info` prop allows adding info to the radio button.
+
+
 ### checked (optional)
 - **type:** `boolean`
 - **default value:** `undefined`
@@ -155,7 +162,9 @@ The label also accepts a React component.
 - **Type:** `string` or `ReactNode`
 - **Description:** The children prop can be used to pass additional content, such as icons or custom elements, that will be displayed within the button.
 
-### Example:
+### buttonWrapperClasses:
+- **Type:** `string`
+- **Description:** The `buttonWrapperClasses` prop can be used to pass additional classes to the button wrapper.
 
 ```
 <RadioButton.Group
@@ -163,7 +172,7 @@ The label also accepts a React component.
     defaultValue="food-1"
     onChange={ ( value ) => console.log( value ) }
 >
-    <RadioButton.Button value="food-1" />
+    <RadioButton.Button value="food-1" buttonWrapperClasses='bg-white'/>
     <RadioButton.Button value="food-2" />
     <RadioButton.Button value="food-3" />
 </RadioButton.Group>
