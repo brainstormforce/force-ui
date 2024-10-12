@@ -12,8 +12,8 @@ export const sizeClassNames = {
 	},
 	content: {
 		sm: 'p-1.5',
-		md: 'p-2.5',
-		lg: 'p-3',
+		md: 'p-1.5',
+		lg: 'p-2',
 	},
 	title: {
 		sm: 'p-2 text-xs',

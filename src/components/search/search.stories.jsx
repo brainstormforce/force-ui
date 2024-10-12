@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import SearchBox from './search.jsx';
 import { File, Folder } from 'lucide-react';
 
@@ -7,63 +7,6 @@ export default {
 	component: SearchBox,
 	parameters: {
 		layout: 'centered',
-		docs: {
-			source: {
-				code: `
-				<SearchBox open={true} onOpenChange={() => {}}>
-				  <SearchBox.Input
-					placeholder="Search..."
-					onChange={() => {}}
-					variant="default"
-					disabled={false}
-					value=""
-				  />
-				  <SearchBox.Content>
-					<SearchBox.Loading loadingIcon={null} />
-					<SearchBox.Results>
-					  <SearchBox.ResultTitle>
-						Search Results
-					  </SearchBox.ResultTitle>
-					  <SearchBox.ResultItem
-						key={0}
-						icon={<File />}
-						onClick={() => {}}
-					  >
-						Item 1
-					  </SearchBox.ResultItem>
-					  <SearchBox.ResultItem
-						key={1}
-						icon={<Folder />}
-						onClick={() => {}}
-					  >
-						Item 2
-					  </SearchBox.ResultItem>
-					</SearchBox.Results>
-					<SearchBox.Separator />
-					<SearchBox.Results>
-					  <SearchBox.ResultTitle>
-						Categories
-					  </SearchBox.ResultTitle>
-					  <SearchBox.ResultItem
-						key={2}
-						icon={<File />}
-						onClick={() => {}}
-					  >
-						Category 1
-					  </SearchBox.ResultItem>
-					  <SearchBox.ResultItem
-						key={3}
-						icon={<Folder />}
-						onClick={() => {}}
-					  >
-						Category 2
-					  </SearchBox.ResultItem>
-					</SearchBox.Results>
-				  </SearchBox.Content>
-				</SearchBox>
-			  `,
-			},
-		},
 	},
 	tags: [ 'autodocs' ],
 	argTypes: {
@@ -117,172 +60,70 @@ export default {
 				type: { summary: 'function' },
 			},
 		},
-		value: {
-			description: 'Controlled value for the input',
-			action: 'text',
+		loading: {
+			description: 'Controls loading state of the dropdown.',
 			table: {
-				type: { summary: 'string' },
+				type: { summary: 'boolean' },
 			},
 		},
-		defaultValue: {
-			description: 'Default value if uncontrolled',
+		filter: {
+			description: 'Controls auto filtering of results.',
+			control: 'boolean',
+			table: {
+				type: { summary: 'boolean' },
+				defaultValue: { summary: true },
+			},
+		},
+		className: {
+			description: 'Defines custom classes for component. Can be passed to each element',
+			control: { type: 'string' },
 			table: {
 				type: { summary: 'string' },
 			},
-			control: { disable: true }, // This disables the control for defaultValue
 		},
 	},
 };
 
-const mockResults = [
-	{ type: 'file', name: 'calendar.pdf' },
-	{ type: 'file', name: 'image.jpg' },
-	{ type: 'folder', name: 'Project Files' },
-	{ type: 'file', name: 'document.docx' },
-	{ type: 'folder', name: 'Attendance' },
-];
-
-const mockCategories = [
-	{ type: 'file', name: 'Marketing Documents' },
-	{ type: 'folder', name: 'HR Policies' },
-	{ type: 'file', name: 'Budget Report 2024' },
-	{ type: 'folder', name: 'Sales Data' },
-	{ type: 'file', name: 'Company Guidelines' },
-];
-
 const Template = ( args ) => {
-	const [ open, setOpen ] = useState( args.open );
-	// const [ loading, setLoading ] = useState( false );
-	// const [ results, setResults ] = useState( [] );
-	// const [ categories, setCategories ] = useState( [] );
-	// const [ value, setValue ] = useState( args.defaultValue || '' );
+	const [ open, setOpen ] = useState( false );
+	const [ loading, setLoading ] = useState( args.loading );
 	const inputRef = useRef( null );
-	// const searchTimeout = useRef( null );
 
-	const handleSearch = ( inputValue ) => {
-		// setValue( newValue );
-		// if ( searchTimeout.current ) {
-		// 	clearTimeout( searchTimeout.current );
-		// }
-
-		// setLoading( true );
-		// setResults( [] );
-		// setCategories( [] );
-
-		// searchTimeout.current = setTimeout( () => {
-		// 	const filteredResults = mockResults.filter( ( item ) =>
-		// 		item.name.toLowerCase().includes( newValue.toLowerCase() )
-		// 	);
-		// 	const filteredCategories = mockCategories.filter( ( item ) =>
-		// 		item.name.toLowerCase().includes( newValue.toLowerCase() )
-		// 	);
-
-		// 	setResults( filteredResults );
-		// 	setCategories( filteredCategories );
-		// 	setLoading( false );
-		// }, 1000 );
-		console.log( inputValue );
-	};
-
-	// useEffect( () => {
-	// 	console.log( inputRef?.current?.value );
-	// }, [ inputRef?.current?.value ] );
+	const handleSearch = () => {};
 
 	const handleOpenChange = ( isOpen ) => {
 		setOpen( isOpen );
-		args.onOpenChange( isOpen );
 	};
 
+	// useEffect( () => {
+	// 	setLoading( args.loading );
+	// }, [ args.loading ] );
+
 	return (
-		<div style={ { width: '400px' } }>
-			<SearchBox { ...args } open={ open } onOpenChange={ handleOpenChange }>
-				<SearchBox.Input
-					ref={ inputRef }
-					placeholder={ args.placeholder }
-					onChange={ handleSearch }
-					// variant={ args.variant }
-					// disabled={ args.disabled }
-					// value={ value }
-				/>
-				{ /* <SearchBox.Content>
-					{ loading ? (
-						<SearchBox.Loading loadingIcon={ args.loadingIcon } />
-					) : (
-						<>
-							<SearchBox.Results>
-								<SearchBox.ResultTitle>
-									Search Results
-								</SearchBox.ResultTitle>
-								{ results.map( ( item, index ) => (
-									<SearchBox.ResultItem
-										key={ index }
-										icon={
-											item.type === 'file' ? (
-												<File size={ 16 } />
-											) : (
-												<Folder size={ 16 } />
-											)
-										}
-										onClick={ () => {
-											setOpen( false );
-										} }
-									>
-										{ item.name }
-									</SearchBox.ResultItem>
-								) ) }
-							</SearchBox.Results>
-							<SearchBox.Separator />
-							<SearchBox.Results>
-								<SearchBox.ResultTitle>
-									Categories
-								</SearchBox.ResultTitle>
-								{ categories.map( ( item, index ) => (
-									<SearchBox.ResultItem
-										key={ index }
-										onClick={ () => {
-											setOpen( false );
-										} }
-										icon={
-											item.type === 'file' ? (
-												<File size={ 16 } />
-											) : (
-												<Folder size={ 16 } />
-											)
-										}
-									>
-										{ item.name }
-									</SearchBox.ResultItem>
-								) ) }
-							</SearchBox.Results>
-						</>
-					) }
-				</SearchBox.Content> */ }
-				<SearchBox.Content>
-					<SearchBox.List filtering={ true }>
-						{ /* <SearchBox.Empty>No results found.</SearchBox.Empty> */ }
-						<SearchBox.Group heading="Suggestions">
-							{ /* <SearchBox.Item
-								icon={ <File /> }
-							>Calendar</SearchBox.Item>
-							<SearchBox.Item icon={ <File /> }>Document</SearchBox.Item>
-							<SearchBox.Item icon={ <File /> }>Attendance</SearchBox.Item> */ }
-							{ mockResults.map( ( item, index ) => (
-								<SearchBox.Item
-									key={ index }
-									icon={ <File /> }
-								>{ item.name }</SearchBox.Item>
-							) ) }
-						</SearchBox.Group>
-						<SearchBox.Separator />
-						<SearchBox.Group heading="Folders">
-							<SearchBox.Item icon={ <Folder /> }>Calendar Folder</SearchBox.Item>
-							<SearchBox.Item icon={ <Folder /> }>Document Folder</SearchBox.Item>
-							<SearchBox.Item icon={ <Folder /> }>Attendance Folder</SearchBox.Item>
-						</SearchBox.Group>
-					</SearchBox.List>
-				</SearchBox.Content>
-			</SearchBox>
-		</div>
+		<SearchBox size={ args.size } open={ open || args.open } onOpenChange={ handleOpenChange } loading={ loading }>
+			<SearchBox.Input
+				ref={ inputRef }
+				placeholder={ args.placeholder }
+				onChange={ handleSearch }
+				variant={ args.variant }
+				disabled={ args.disabled }
+			/>
+			<SearchBox.Content>
+				<SearchBox.List filter={ args.filter }>
+					<SearchBox.Group heading="Suggestions">
+						<SearchBox.Item icon={ <File /> }>Calendar</SearchBox.Item>
+						<SearchBox.Item icon={ <File /> }>Document</SearchBox.Item>
+						<SearchBox.Item icon={ <File /> }>Attendance</SearchBox.Item>
+					</SearchBox.Group>
+					<SearchBox.Separator />
+					<SearchBox.Group heading="Folders">
+						<SearchBox.Item icon={ <Folder /> }>Calendar Folder</SearchBox.Item>
+						<SearchBox.Item icon={ <Folder /> }>Document Folder</SearchBox.Item>
+						<SearchBox.Item icon={ <Folder /> }>Attendance Folder</SearchBox.Item>
+					</SearchBox.Group>
+				</SearchBox.List>
+			</SearchBox.Content>
+		</SearchBox>
 	);
 };
 
@@ -294,7 +135,7 @@ BasicSearchBox.args = {
 	placeholder: 'Search...',
 	open: false,
 	onOpenChange: () => {},
-	defaultValue: '',
+	filter: true,
 };
 
 export const LargeSearchBox = Template.bind( {} );
@@ -319,4 +160,12 @@ export const GhostVariant = Template.bind( {} );
 GhostVariant.args = {
 	...BasicSearchBox.args,
 	variant: 'ghost',
+};
+
+export const LoadingVariant = Template.bind( {} );
+LoadingVariant.args = {
+	...BasicSearchBox.args,
+	open: true,
+	loading: true,
+	variant: 'secondary',
 };
