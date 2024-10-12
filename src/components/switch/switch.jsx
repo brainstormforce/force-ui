@@ -8,10 +8,15 @@ import {
 import { nanoid } from 'nanoid';
 import { cn } from '@/utilities/functions';
 
-const SwitchLabel = ( { label, switchId, disabled = false, children } ) => {
+const SwitchLabel = ( { label, switchId, disabled = false, children, size } ) => {
+	const headingClasses = {
+		sm: 'text-sm leading-4 font-medium',
+		md: 'text-base leading-5 font-medium',
+		lg: 'text-lg leading-6 font-medium',
+	};
 	const isLabelAComponent = isValidElement( label );
 	if ( isLabelAComponent ) {
-		return (
+		return (	
 			<div
 				className={ cn( 'inline-flex items-center gap-3', 'items-start' ) }
 			>
@@ -25,12 +30,23 @@ const SwitchLabel = ( { label, switchId, disabled = false, children } ) => {
 		return (
 			<div className="space-y-1.5">
 				{ heading && (
-					<p className="text-text-primary text-base font-medium leading-4 m-0">
+					<p className={
+						cn(
+							"text-text-primary m-0", // text-base font-medium leading-4
+							headingClasses[size],
+							disabled && 'text-text-disabled'
+						)
+					}>
 						{ heading }
 					</p>
 				) }
 				{ description && (
-					<p className="text-text-secondary text-sm font-normal leading-5 m-0">
+					<p className={
+						cn(
+							"text-text-secondary text-sm font-normal leading-5 m-0",
+							disabled && 'text-text-disabled'
+						)
+					}>
 						{ description }
 					</p>
 				) }
@@ -102,7 +118,7 @@ const SwitchComponent = (
 
 	const colorClassNames = {
 		primary: {
-			input: 'bg-toggle-off hover:bg-toggle-off-hover checked:bg-toggle-on checked:hover:bg-toggle-on-hover focus:ring focus:ring-toggle-on focus:ring-offset-4 border border-solid border-toggle-off-border checked:border-toggle-on-border shadow-toggleContainer focus:outline-none checked:focus:border-toggle-on-border focus:border-toggle-off-border',
+			input: 'bg-toggle-off hover:bg-toggle-off-hover checked:bg-toggle-on checked:hover:bg-toggle-on focus:ring focus:ring-toggle-on focus:ring-offset-4 border border-solid border-toggle-off-border checked:border-toggle-on-border shadow-toggleContainer focus:outline-none checked:focus:border-toggle-on-border focus:border-toggle-off-border',
 			toggleDial: 'bg-toggle-dial-background shadow-toggleDial',
 		},
 	};
@@ -126,7 +142,7 @@ const SwitchComponent = (
 	};
 
 	return (
-		<SwitchLabel label={ label } switchId={ switchId } disabled={ disabled }>
+		<SwitchLabel label={ label } switchId={ switchId } disabled={ disabled } size={size}>
 			<div
 				className={ cn(
 					'relative inline-block cursor-pointer rounded-full shrink-0',

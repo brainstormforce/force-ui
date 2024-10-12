@@ -20,7 +20,7 @@ export default {
 			},
 		},
 		disabled: {
-			name: 'Sisabled',
+			name: 'Disabled',
 			description: 'Defines if the switch is disabled.',
 			control: 'boolean',
 			table: {
