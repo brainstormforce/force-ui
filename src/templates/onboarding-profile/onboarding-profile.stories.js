@@ -1,5 +1,5 @@
 import { ChevronLeft, ChevronRight, X } from 'lucide-react';
-import { Select, Input, Label, Button, Topbar, ProgressSteps } from '@/components';
+import { Select, Input, Label, Button, Topbar, ProgressSteps, Title } from '@/components';
 import { SureEmailLogo } from '@/icons';
 
 
@@ -43,9 +43,11 @@ const Template = ( args ) => {
 			<form onSubmit={ ( event ) => event.preventDefault() }>
 				<div className="md:w-[45rem] box-border mx-auto p-8 mt-10 border border-solid border-border-subtle bg-background-primary rounded-md">
 					<div>
-						<Label size="md" className="font-semibold">
-							Your Website Basic Details
-						</Label>
+						<Title
+							size="md"
+							tag="h4"
+							title="Your Website Basic Details"
+						/>
 						<Label className="text-text-secondary mt-1 text-sm max-w-[35rem]">
 							Let&#39;s get started with the basic details of this
 							website.

@@ -1,6 +1,6 @@
 import { ChevronLeft, ChevronRight, Plus, X } from 'lucide-react';
 import { SureEmailLogo } from '@/icons';
-import { Input, Label, Button, Topbar, ProgressSteps } from '@/components';
+import { Input, Label, Button, Topbar, ProgressSteps, Title } from '@/components';
 
 export default {
 	title: 'Templates/Onboarding/Social',
@@ -41,9 +41,11 @@ const Template = (args) => {
 			<form>
 				<div className="md:w-[45rem] box-border mx-auto p-8 mt-10 border border-solid border-border-subtle bg-background-primary rounded-md">
 					<div>
-						<Label size="md" className="font-semibold">
-							Social Profiles
-						</Label>
+						<Title
+							size="md"
+							tag="h4"
+							title="Social Profiles"
+						/>
 						<Label className="text-text-secondary mt-1 text-sm max-w-[35rem]">
 							Please enter all your possible social media
 							profiles. These links can appear in the knowledge
