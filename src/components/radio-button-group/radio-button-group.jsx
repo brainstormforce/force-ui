@@ -17,6 +17,7 @@ import {
 	colorClassNames,
 	disabledClassNames,
 	sizeClassNames,
+	textSizeClassNames,
 	sizes,
 	borderClasses,
 	baseClasses,
@@ -223,7 +224,9 @@ const RadioButtonComponent = (
 				<div className={ cn( 'space-y-1.5' ) }>
 					<p
 						className={ cn(
-							'text-text-primary text-sm font-medium leading-4 m-0',
+							'text-text-primary font-medium m-0',
+							textSizeClassNames[ size ],
+							disabled && 'text-text-disabled cursor-not-allowed',
 							icon && 'mt-1'
 						) }
 					>
@@ -294,7 +297,7 @@ const RadioButtonComponent = (
 			) }
 			<label
 				className={ cn(
-					'absolute mr-[2px] right-3 flex items-center cursor-pointer rounded-full',
+					'absolute mr-0.5 right-3 flex items-center cursor-pointer rounded-full w-7',
 					reversePosition && 'left-0',
 					isDisabled && 'cursor-not-allowed'
 				) }
@@ -317,7 +320,7 @@ const RadioButtonComponent = (
 							checked={ checkedValue }
 						/>
 					) : (
-						<span className="relative">
+						<span className="relative p-0.5">
 							<input
 								ref={ ref }
 								id={ radioButtonId }
