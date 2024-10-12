@@ -96,10 +96,6 @@ const Template = ( args ) => {
 		setOpen( isOpen );
 	};
 
-	// useEffect( () => {
-	// 	setLoading( args.loading );
-	// }, [ args.loading ] );
-
 	return (
 		<SearchBox
 			size={ args.size }
