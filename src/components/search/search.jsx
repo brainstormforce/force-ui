@@ -179,7 +179,6 @@ const SearchBoxInput = forwardRef(
 						className
 					) }
 					disabled={ disabled }
-					// value={ inputValue }
 					value={ searchTerm }
 					onChange={ handleChange }
 					placeholder={ placeholder }
