@@ -4,29 +4,31 @@ import { ChevronDown } from 'lucide-react';
 import { cn } from '@/utilities/functions';
 
 const MenuContext = createContext();
-const useMenuContext = () => useContext( MenuContext );
+const useMenuContext = () => useContext(MenuContext);
 
-const Menu = ( { size = 'md', children, className } ) => {
+const Menu = ({ size = 'md', children, className }) => {
 	const baseClasses = 'flex flex-col bg-background-primary p-2';
 
 	return (
-		<MenuContext.Provider value={ { size } }>
-			<div className={ cn( baseClasses, className ) }>{ children }</div>
+		<MenuContext.Provider value={{ size }}>
+			<div className={cn(baseClasses, className)}>{children}</div>
 		</MenuContext.Provider>
 	);
 };
 
 Menu.displayName = 'Menu';
 
-const MenuList = ( {
+const MenuList = ({
 	heading,
 	arrow = false,
+	showArrowOnHover = true, // Prop to toggle hover-based arrow display
 	open: initialOpen = true,
 	onClick,
 	children,
 	className,
-} ) => {
-	const [ isOpen, setIsOpen ] = useState( initialOpen );
+}) => {
+	const [isOpen, setIsOpen] = useState(initialOpen);
+	const [isHovered, setIsHovered] = useState(false);
 	const { size } = useMenuContext();
 
 	const baseClasses =
@@ -35,16 +37,16 @@ const MenuList = ( {
 	const sizeClasses = {
 		sm: 'text-xs',
 		md: 'text-sm',
-	}?.[ size ];
+	}?.[size];
 	const iconSizeClasses = {
 		sm: '[&>svg]:size-4',
 		md: '[&>svg]:size-5',
-	}?.[ size ];
+	}?.[size];
 
 	const handleToggle = () => {
-		setIsOpen( ! isOpen );
-		if ( onClick ) {
-			onClick( ! isOpen );
+		setIsOpen(!isOpen);
+		if (onClick) {
+			onClick(!isOpen);
 		}
 	};
 
@@ -63,50 +65,47 @@ const MenuList = ( {
 			<div
 				role="button"
 				tabIndex="0"
-				onClick={ handleToggle }
-				onKeyPress={ ( event ) => {
-					if ( event.key === 'Enter' || event.key === ' ' ) {
+				onClick={handleToggle}
+				onKeyPress={(event) => {
+					if (event.key === 'Enter' || event.key === ' ') {
 						handleToggle();
 					}
-				} }
-				className={ cn(
-					baseClasses,
-					sizeClasses,
-					heading ? 'p-1' : 'p-0',
-					className
-				) }
-				aria-expanded={ isOpen }
+				}}
+				onMouseEnter={() => showArrowOnHover && setIsHovered(true)}
+				onMouseLeave={() => showArrowOnHover && setIsHovered(false)}
+				className={cn(baseClasses, sizeClasses, heading ? 'p-1' : 'p-0', className)}
+				aria-expanded={isOpen}
 			>
-				<span className="text-text-tertiary">{ heading }</span>
+				<span className="text-text-tertiary">{heading}</span>
 
-				{ arrow && (
+				{arrow && (
 					<motion.span
-						variants={ arrowAnimationVariants }
-						animate={ isOpen ? 'open' : 'closed' }
-						transition={ { duration: 0.15 } }
-						className={ cn(
-							'flex items-center text-border-strong',
-							iconSizeClasses
-						) }
+						variants={arrowAnimationVariants}
+						animate={isOpen ? 'open' : 'closed'}
+						transition={{ duration: 0.15 }}
+						className={cn('flex items-center text-border-strong', iconSizeClasses)}
 					>
-						<ChevronDown />
+						{/* Show ChevronDown only when menu is open, or on hover if the menu is closed and showArrowOnHover is true */}
+						{isOpen || !showArrowOnHover || (showArrowOnHover && isHovered) ? (
+							<ChevronDown />
+						) : null}
 					</motion.span>
-				) }
+				)}
 			</div>
 
-			<AnimatePresence initial={ false }>
-				{ isOpen && (
+			<AnimatePresence initial={false}>
+				{isOpen && (
 					<motion.ul
-						variants={ listAnimationVariants }
+						variants={listAnimationVariants}
 						initial="closed"
 						animate="open"
 						exit="closed"
-						transition={ { duration: 0.3, ease: 'easeInOut' } }
-						className="overflow-hidden flex gap-0.5 flex-col m-0 bg-white rounded-md p-0"
+						transition={{ duration: 0.3, ease: 'easeInOut' }}
+						className="overflow flex gap-0.5 flex-col m-0 bg-white rounded p-0"
 					>
-						{ children }
+						{children}
 					</motion.ul>
-				) }
+				)}
 			</AnimatePresence>
 		</div>
 	);
@@ -114,23 +113,16 @@ const MenuList = ( {
 
 MenuList.displayName = 'Menu.List';
 
-const MenuItem = ( {
-	disabled = false,
-	active,
-	onClick,
-	children,
-	className,
-} ) => {
+const MenuItem = ({ disabled = false, active, onClick, children, className }) => {
 	const { size } = useMenuContext();
 
 	const baseClasses =
-		'flex p-1 gap-1 items-center bg-transparent w-full border-none rounded text-text-secondary cursor-pointer m-0';
+		'flex p-1 gap-1 items-center bg-transparent border-none rounded text-text-secondary cursor-pointer m-0';
 	const sizeClasses = {
 		sm: '[&>svg]:size-4 [&>svg]:m-1 [&>*:not(svg)]:mx-1 [&>*:not(svg)]:my-0.5 text-sm',
 		md: '[&>svg]:size-5 [&>svg]:m-1.5 [&>*:not(svg)]:m-1 text-base',
-	}?.[ size ];
-	const hoverClasses =
-		'hover:bg-background-secondary hover:text-text-primary';
+	}?.[size];
+	const hoverClasses = 'hover:bg-background-secondary hover:text-text-primary';
 	const disabledClasses = disabled
 		? 'text-text-disabled hover:text-text-disabled cursor-not-allowed hover:bg-transparent'
 		: '';
@@ -143,13 +135,13 @@ const MenuItem = ( {
 		<li
 			role="menuitem"
 			tabIndex="0"
-			onClick={ onClick }
-			onKeyPress={ ( event ) => {
-				if ( event.key === 'Enter' || event.key === ' ' ) {
+			onClick={onClick}
+			onKeyPress={(event) => {
+				if (event.key === 'Enter' || event.key === ' ') {
 					onClick();
 				}
-			} }
-			className={ cn(
+			}}
+			className={cn(
 				baseClasses,
 				sizeClasses,
 				hoverClasses,
@@ -157,16 +149,16 @@ const MenuItem = ( {
 				activeClasses,
 				transitionClasses,
 				className
-			) }
+			)}
 		>
-			{ children }
+			{children}
 		</li>
 	);
 };
 
 MenuItem.displayName = 'Menu.Item';
 
-const MenuSeparator = ( { variant = 'solid', className } ) => {
+const MenuSeparator = ({ variant = 'solid', className }) => {
 	const variantClasses = {
 		solid: 'border-solid',
 		dashed: 'border-dashed',
@@ -174,16 +166,16 @@ const MenuSeparator = ( { variant = 'solid', className } ) => {
 		double: 'border-double',
 		hidden: 'border-hidden',
 		none: 'border-none',
-	}?.[ variant ];
+	}?.[variant];
 
 	return (
 		<>
 			<hr
-				className={ cn(
+				className={cn(
 					'w-full border-0 border-t border-border-subtle',
 					variantClasses,
 					className
-				) }
+				)}
 			/>
 		</>
 	);
@@ -191,8 +183,8 @@ const MenuSeparator = ( { variant = 'solid', className } ) => {
 
 MenuSeparator.displayName = 'Menu.Separator';
 
-export default Object.assign( Menu, {
+export default Object.assign(Menu, {
 	List: MenuList,
 	Item: MenuItem,
 	Separator: MenuSeparator,
-} );
+});

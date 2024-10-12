@@ -56,7 +56,7 @@ export default {
 };
 
 const Template = ( args ) => (
-	<Menu size={ args.size }>
+	<Menu size={ args.size } className="gap-6">
 		<Menu.List heading="Store" open={ true } arrow={ true }>
 			<Menu.Item
 				active={ args.menuItemActive }
