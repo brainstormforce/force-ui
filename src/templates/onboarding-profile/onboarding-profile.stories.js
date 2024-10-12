@@ -1,7 +1,14 @@
 import { ChevronLeft, ChevronRight, X } from 'lucide-react';
-import { Select, Input, Label, Button, Topbar, ProgressSteps, Title } from '@/components';
+import {
+	Select,
+	Input,
+	Label,
+	Button,
+	Topbar,
+	ProgressSteps,
+	Title,
+} from '@/components';
 import { SureEmailLogo } from '@/icons';
-
 
 export default {
 	title: 'Templates/Onboarding/Profile',
@@ -9,7 +16,6 @@ export default {
 		layout: 'fullscreen',
 	},
 	tags: [ 'autodocs' ],
-	
 };
 
 const Template = ( args ) => {
@@ -21,7 +27,7 @@ const Template = ( args ) => {
 			<Topbar className="bg-background-secondary">
 				<Topbar.Left>
 					<Topbar.Item>
-					<SureEmailLogo />
+						<SureEmailLogo />
 					</Topbar.Item>
 				</Topbar.Left>
 				<Topbar.Middle>
@@ -36,7 +42,7 @@ const Template = ( args ) => {
 				</Topbar.Middle>
 				<Topbar.Right>
 					<Topbar.Item>
-					<X className="size-4" />
+						<X className="size-4" />
 					</Topbar.Item>
 				</Topbar.Right>
 			</Topbar>
@@ -202,7 +208,7 @@ const Template = ( args ) => {
 							Back
 						</Button>
 						<div className="flex justify-end items-center gap-3">
-						<Button variant="ghost">Skip</Button>
+							<Button variant="ghost">Skip</Button>
 							<Button className="flex items-center gap-2">
 								Next <ChevronRight />
 							</Button>

@@ -1,19 +1,26 @@
 import { ChevronLeft, ChevronRight, Plus, X } from 'lucide-react';
 import { SureEmailLogo } from '@/icons';
-import { Input, Label, Button, Topbar, ProgressSteps, Title } from '@/components';
+import {
+	Input,
+	Label,
+	Button,
+	Topbar,
+	ProgressSteps,
+	Title,
+} from '@/components';
 
 export default {
 	title: 'Templates/Onboarding/Social',
 	parameters: {
 		layout: 'fullscreen',
 	},
-	tags: ['autodocs'],
+	tags: [ 'autodocs' ],
 };
 
-const Template = (args) => {
+const Template = ( args ) => {
 	return (
 		<div
-			{...args}
+			{ ...args }
 			className="bg-background-secondary min-h-screen w-full pb-10"
 		>
 			<Topbar className="bg-background-secondary">
@@ -24,7 +31,7 @@ const Template = (args) => {
 				</Topbar.Left>
 				<Topbar.Middle>
 					<Topbar.Item>
-						<ProgressSteps currentStep={4}>
+						<ProgressSteps currentStep={ 4 }>
 							<ProgressSteps.Step labelText="Connect" />
 							<ProgressSteps.Step labelText="Import" />
 							<ProgressSteps.Step labelText="Profile" />
@@ -41,11 +48,7 @@ const Template = (args) => {
 			<form>
 				<div className="md:w-[45rem] box-border mx-auto p-8 mt-10 border border-solid border-border-subtle bg-background-primary rounded-md">
 					<div>
-						<Title
-							size="md"
-							tag="h4"
-							title="Social Profiles"
-						/>
+						<Title size="md" tag="h4" title="Social Profiles" />
 						<Label className="text-text-secondary mt-1 text-sm max-w-[35rem]">
 							Please enter all your possible social media
 							profiles. These links can appear in the knowledge
@@ -119,7 +122,7 @@ const Template = (args) => {
 
 						<div className="flex justify-center">
 							<Button
-								icon={<Plus />}
+								icon={ <Plus /> }
 								iconPosition="right"
 								variant="ghost"
 							>
@@ -148,7 +151,7 @@ const Template = (args) => {
 	);
 };
 
-export const DefaultOnboardingSocial = Template.bind({});
+export const DefaultOnboardingSocial = Template.bind( {} );
 DefaultOnboardingSocial.args = {};
 
 DefaultOnboardingSocial.storyName = 'OnboardingSocial';
