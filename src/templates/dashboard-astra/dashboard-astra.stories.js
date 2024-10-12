@@ -301,7 +301,6 @@ const astraRadioButtonGroupData = [
 ];
 
 export const AstraDashboard = () => {
-	const radioButtonGroupData = defaultRadioButtonGroupData;
 	return (
 		<>
 			{ /* Navigation Topbar */ }
@@ -465,14 +464,14 @@ export const AstraDashboard = () => {
 							<Container.Item className="md:w-full lg:w-full p-2 rounded-lg bg-background-secondary">
 								<RadioButton.Group
 									as="div"
-									defaultValue={ `option-${ radioButtonGroupData[ 0 ].id }` }
+									defaultValue={ `option-${ defaultRadioButtonGroupData[ 0 ].id }` }
 									multiSelection={ true }
 									onChange={ ( value ) => {
 										return value;
 									} }
 									className="w-full"
 								>
-									{ radioButtonGroupData.map( ( option ) => (
+									{ defaultRadioButtonGroupData.map( ( option ) => (
 										<RadioButton.Button
 											key={ `option-${ option.id }` }
 											borderOn={ true }

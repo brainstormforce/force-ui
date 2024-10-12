@@ -316,7 +316,6 @@ const containerRowButtons = [
 ];
 
 export const SpectraDashboard = () => {
-	const radioButtonGroupData = defaultRadioButtonGroupData;
 	return (
 		<>
 			<Container
@@ -525,14 +524,14 @@ export const SpectraDashboard = () => {
 							<Container.Item className="md:w-full lg:w-full p-1 bg-field-primary-background rounded-lg">
 								<RadioButton.Group
 									as="div"
-									defaultValue={ `option-${ radioButtonGroupData[ 0 ].id }` }
+									defaultValue={ `option-${ defaultRadioButtonGroupData[ 0 ].id }` }
 									multiSelection={ true }
 									onChange={ ( value ) => {
 										return value;
 									} }
 									className="w-full gap-1"
 								>
-									{ radioButtonGroupData.map( ( option ) => (
+									{ defaultRadioButtonGroupData.map( ( option ) => (
 										<RadioButton.Button
 											key={ `option-${ option.id }` }
 											borderOn={ true }
