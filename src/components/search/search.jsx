@@ -1,10 +1,11 @@
 import {
 	useState,
 	forwardRef,
-	useRef,
+	// useRef,
 	createContext,
 	useContext,
 	Children,
+	cloneElement,
 } from 'react';
 import { cn } from '@/utilities/functions';
 import { Search } from 'lucide-react';
@@ -44,6 +45,9 @@ const SearchBox = forwardRef(
 		},
 		ref
 	) => {
+		const [ searchTerm, setSearchTerm ] = useState( '' );
+		const [ isLoading, setIsLoading ] = useState( false );
+
 		const { refs, floatingStyles, context } = useFloating( {
 			open,
 			onOpenChange,
@@ -81,6 +85,10 @@ const SearchBox = forwardRef(
 					context,
 					getReferenceProps,
 					getFloatingProps,
+					searchTerm,
+					setSearchTerm,
+					isLoading,
+					setIsLoading,
 				} }
 			>
 				<div
@@ -105,24 +113,28 @@ const SearchBoxInput = forwardRef(
 			placeholder = 'Search...',
 			variant = 'primary',
 			disabled = false,
-			value,
-			defaultValue,
-			onChange,
+			// value,
+			// defaultValue,
+			onChange = () => { },
 			...props
 		},
 		ref
 	) => {
-		const [ internalValue, setInternalValue ] = useState( defaultValue || '' );
-		const isControlled = useRef( value !== undefined );
-		const { size, onOpenChange, refs, getReferenceProps } =
+		// const [ internalValue, setInternalValue ] = useState( defaultValue || '' );
+		// const isControlled = useRef( value !== undefined );
+
+		const { size, onOpenChange, refs, getReferenceProps, searchTerm, setSearchTerm } =
 			useSearchContext();
 
 		const handleChange = ( event ) => {
 			const newValue = event.target.value;
-			if ( ! isControlled.current ) {
-				setInternalValue( newValue );
-			}
-			onChange?.( newValue, event );
+			setSearchTerm( newValue );
+			onChange( newValue );
+			// if ( ! isControlled.current ) {
+			// 	setInternalValue( newValue );
+			// }
+			// onChange?.( newValue, event );
+
 			if ( typeof onOpenChange === 'function' ) {
 				if ( newValue.trim() ) {
 					onOpenChange( true ); // Open the dropdown
@@ -132,7 +144,7 @@ const SearchBoxInput = forwardRef(
 			}
 		};
 
-		const inputValue = isControlled.current ? value : internalValue;
+		// const inputValue = isControlled.current ? value : internalValue;
 
 		return (
 			<div
@@ -169,7 +181,8 @@ const SearchBoxInput = forwardRef(
 						className
 					) }
 					disabled={ disabled }
-					value={ inputValue }
+					// value={ inputValue }
+					value={ searchTerm }
 					onChange={ handleChange }
 					placeholder={ placeholder }
 					{ ...props }
@@ -224,8 +237,95 @@ const SearchBoxContent = ( {
 		</FloatingPortal>
 	);
 };
-
 SearchBoxContent.displayName = 'SearchBox.Content';
+
+const SearchBoxList = ( { filtering = true, children } ) => {
+	const { searchTerm, isLoading } = useSearchContext();
+
+	if ( ! filtering ) {
+		return (
+			<div>
+				{ children }
+			</div>
+		);
+	}
+	const filteredChildren = Children.toArray( children ).map( ( child ) => {
+		if ( child.type === SearchBoxGroup ) {
+			const filteredItems = Children.toArray( child.props.children ).filter( ( item ) =>
+				item.props.children.toLowerCase().includes( searchTerm.toLowerCase() )
+			);
+			return filteredItems.length > 0 ? cloneElement( child, { children: filteredItems } ) : null;
+		}
+		return child;
+	} ).filter( Boolean );
+
+	if ( isLoading ) {
+		return <SearchBoxLoading />;
+	}
+
+	return (
+		<div>
+			{ filteredChildren.length > 0 ? filteredChildren : <SearchBoxEmpty /> }
+		</div>
+	);
+};
+SearchBoxList.displayName = 'SearchBox.List';
+
+const SearchBoxEmpty = ( { children = 'No results found.' } ) => {
+	const { size } = useSearchContext();
+	return (
+		<div className={ cn(
+			'flex justify-center items-center',
+			sizeClassNames.content[ size ],
+			sizeClassNames.item[ size ],
+			'text-text-tertiary'
+		) }>
+			{ children }
+		</div>
+	);
+};
+SearchBoxEmpty.displayName = 'SearchBox.Empty';
+
+const SearchBoxGroup = ( { heading, children } ) => {
+	const { size } = useSearchContext();
+	return (
+		<div className={ cn(
+			sizeClassNames.content[ size ],
+			sizeClassNames.item[ size ]
+		) }>
+			{ heading && (
+				<div className={ cn( sizeClassNames.title[ size ], 'text-text-secondary' ) }>
+					{ heading }
+				</div>
+			) }
+			{ children }
+		</div>
+	);
+};
+SearchBoxGroup.displayName = 'SearchBox.Group';
+
+const SearchBoxItem = forwardRef( ( { className, icon, children, ...props }, ref ) => {
+	const { size } = useSearchContext();
+	return (
+		<div
+			ref={ ref }
+			className={ cn(
+				'flex items-center justify-start gap-1 p-1 hover:bg-background-secondary focus:bg-background-secondary cursor-pointer',
+				sizeClassNames.item[ size ],
+				className
+			) }
+			{ ...props }
+		>
+			{ icon && (
+				<span className={ cn( sizeClassNames.icon[ size ], 'flex items-center justify-center' ) }>
+					{ icon }
+				</span>
+			) }
+			<span className={ cn( 'flex-grow p-1 cursor-pointer', textSizeClassNames[ size ] ) }>{ children }</span>
+		</div>
+	);
+} );
+SearchBoxItem.displayName = 'SearchBox.Item';
 
 const SearchBoxLoading = ( { loadingIcon = <Loader /> } ) => {
 	const { size } = useSearchContext();
@@ -357,11 +457,17 @@ const SearchBoxSeparator = forwardRef( ( { className, ...props }, ref ) => (
 SearchBoxSeparator.displayName = 'SearchBox.Separator';
 
 SearchBox.Input = SearchBoxInput;
-SearchBox.Content = SearchBoxContent;
+// SearchBox.Content = SearchBoxContent;
 SearchBox.Loading = SearchBoxLoading;
-SearchBox.Results = SearchBoxResults;
-SearchBox.ResultTitle = SearchBoxResultTitle;
-SearchBox.ResultItem = SearchBoxResultItem;
+// SearchBox.Results = SearchBoxResults;
+// SearchBox.ResultTitle = SearchBoxResultTitle;
+// SearchBox.ResultItem = SearchBoxResultItem;
 SearchBox.Separator = SearchBoxSeparator;
+
+SearchBox.Content = SearchBoxContent;
+SearchBox.List = SearchBoxList;
+SearchBox.Empty = SearchBoxEmpty;
+SearchBox.Group = SearchBoxGroup;
+SearchBox.Item = SearchBoxItem;
 
 export default SearchBox;

@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import SearchBox from './search.jsx';
 import { File, Folder } from 'lucide-react';
 
@@ -135,11 +135,11 @@ export default {
 };
 
 const mockResults = [
-	{ type: 'file', name: 'document.pdf' },
+	{ type: 'file', name: 'calendar.pdf' },
 	{ type: 'file', name: 'image.jpg' },
 	{ type: 'folder', name: 'Project Files' },
-	{ type: 'file', name: 'report.docx' },
-	{ type: 'folder', name: 'Archive' },
+	{ type: 'file', name: 'document.docx' },
+	{ type: 'folder', name: 'Attendance' },
 ];
 
 const mockCategories = [
@@ -152,36 +152,41 @@ const mockCategories = [
 
 const Template = ( args ) => {
 	const [ open, setOpen ] = useState( args.open );
-	const [ loading, setLoading ] = useState( false );
-	const [ results, setResults ] = useState( [] );
-	const [ categories, setCategories ] = useState( [] );
-	const [ value, setValue ] = useState( args.defaultValue || '' );
+	// const [ loading, setLoading ] = useState( false );
+	// const [ results, setResults ] = useState( [] );
+	// const [ categories, setCategories ] = useState( [] );
+	// const [ value, setValue ] = useState( args.defaultValue || '' );
+	const inputRef = useRef( null );
+	// const searchTimeout = useRef( null );
 
-	const searchTimeout = useRef( null );
+	const handleSearch = ( inputValue ) => {
+		// setValue( newValue );
+		// if ( searchTimeout.current ) {
+		// 	clearTimeout( searchTimeout.current );
+		// }
 
-	const handleSearch = ( newValue ) => {
-		setValue( newValue );
-		if ( searchTimeout.current ) {
-			clearTimeout( searchTimeout.current );
-		}
+		// setLoading( true );
+		// setResults( [] );
+		// setCategories( [] );
 
-		setLoading( true );
-		setResults( [] );
-		setCategories( [] );
+		// searchTimeout.current = setTimeout( () => {
+		// 	const filteredResults = mockResults.filter( ( item ) =>
+		// 		item.name.toLowerCase().includes( newValue.toLowerCase() )
+		// 	);
+		// 	const filteredCategories = mockCategories.filter( ( item ) =>
+		// 		item.name.toLowerCase().includes( newValue.toLowerCase() )
+		// 	);
 
-		searchTimeout.current = setTimeout( () => {
-			const filteredResults = mockResults.filter( ( item ) =>
-				item.name.toLowerCase().includes( newValue.toLowerCase() )
-			);
-			const filteredCategories = mockCategories.filter( ( item ) =>
-				item.name.toLowerCase().includes( newValue.toLowerCase() )
-			);
-
-			setResults( filteredResults );
-			setCategories( filteredCategories );
-			setLoading( false );
-		}, 1000 );
+		// 	setResults( filteredResults );
+		// 	setCategories( filteredCategories );
+		// 	setLoading( false );
+		// }, 1000 );
+		console.log( inputValue );
 	};
+
+	// useEffect( () => {
+	// 	console.log( inputRef?.current?.value );
+	// }, [ inputRef?.current?.value ] );
 
 	const handleOpenChange = ( isOpen ) => {
 		setOpen( isOpen );
@@ -192,13 +197,14 @@ const Template = ( args ) => {
 		<div style={ { width: '400px' } }>
 			<SearchBox { ...args } open={ open } onOpenChange={ handleOpenChange }>
 				<SearchBox.Input
+					ref={ inputRef }
 					placeholder={ args.placeholder }
 					onChange={ handleSearch }
-					variant={ args.variant }
-					disabled={ args.disabled }
-					value={ value }
+					// variant={ args.variant }
+					// disabled={ args.disabled }
+					// value={ value }
 				/>
-				<SearchBox.Content>
+				{ /* <SearchBox.Content>
 					{ loading ? (
 						<SearchBox.Loading loadingIcon={ args.loadingIcon } />
 					) : (
@@ -250,6 +256,30 @@ const Template = ( args ) => {
 							</SearchBox.Results>
 						</>
 					) }
+				</SearchBox.Content> */ }
+				<SearchBox.Content>
+					<SearchBox.List filtering={ true }>
+						{ /* <SearchBox.Empty>No results found.</SearchBox.Empty> */ }
+						<SearchBox.Group heading="Suggestions">
+							{ /* <SearchBox.Item
+								icon={ <File /> }
+							>Calendar</SearchBox.Item>
+							<SearchBox.Item icon={ <File /> }>Document</SearchBox.Item>
+							<SearchBox.Item icon={ <File /> }>Attendance</SearchBox.Item> */ }
+							{ mockResults.map( ( item, index ) => (
+								<SearchBox.Item
+									key={ index }
+									icon={ <File /> }
+								>{ item.name }</SearchBox.Item>
+							) ) }
+						</SearchBox.Group>
+						<SearchBox.Separator />
+						<SearchBox.Group heading="Folders">
+							<SearchBox.Item icon={ <Folder /> }>Calendar Folder</SearchBox.Item>
+							<SearchBox.Item icon={ <Folder /> }>Document Folder</SearchBox.Item>
+							<SearchBox.Item icon={ <Folder /> }>Attendance Folder</SearchBox.Item>
+						</SearchBox.Group>
+					</SearchBox.List>
 				</SearchBox.Content>
 			</SearchBox>
 		</div>
