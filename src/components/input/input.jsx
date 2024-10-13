@@ -134,39 +134,41 @@ const InputComponent = (
 	};
 
 	const getSuffix = () => {
-		if ( selectedFile ) {
-			// Change icon to "X" when a file is selected
+		if ( type === 'file' ) {
+			if ( selectedFile ) {
+				return (
+					<div
+						className={ cn(
+							uploadIconClasses,
+							'right-0 pr-3 cursor-pointer z-20 pointer-events-auto',
+							uploadIconSizeClasses[ size ]
+						) }
+						onClick={ handleReset }
+						role="button"
+						tabIndex={ 0 }
+						onKeyDown={ ( e ) => {
+							if ( e.key === 'Enter' || e.key === ' ' ) {
+								handleReset();
+							}
+						} }
+					>
+						<X />
+					</div>
+				);
+			}
 			return (
 				<div
 					className={ cn(
 						uploadIconClasses,
-						'right-0 pr-3 cursor-pointer z-20 pointer-events-auto',
+						'right-0 pr-3',
 						uploadIconSizeClasses[ size ]
 					) }
-					onClick={ handleReset }
-					role="button"
-					tabIndex={ 0 }
-					onKeyDown={ ( e ) => {
-						if ( e.key === 'Enter' || e.key === ' ' ) {
-							handleReset();
-						}
-					} }
 				>
-					<X />
+					<Upload />
 				</div>
 			);
 		}
-		return (
-			<div
-				className={ cn(
-					uploadIconClasses,
-					'right-0 pr-3',
-					uploadIconSizeClasses[ size ]
-				) }
-			>
-				<Upload />
-			</div>
-		);
+		return null;
 	};
 
 	const fileClasses = selectedFile
