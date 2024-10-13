@@ -1,7 +1,7 @@
 import { createContext, useContext, forwardRef } from 'react';
 import { cn } from '@/utilities/functions';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { disabledClassNames, sizeToClass } from './component-style';
+import { disabledClassNames, sizeClassNames } from './component-style';
 import Button from '../button';
 
 const PageContext = createContext();
@@ -46,10 +46,7 @@ const PaginationContent = forwardRef( ( { className, ...props }, ref ) => {
 PaginationContent.displayName = 'Pagination.Content';
 
 const PaginationItem = forwardRef(
-	(
-		{ isActive = false, onClick = () => {}, className, children, ...props },
-		ref
-	) => {
+	( { isActive = false, href = '', className, children, ...props }, ref ) => {
 		const { disabled } = usePageContext();
 		return (
 			<li
@@ -61,7 +58,7 @@ const PaginationItem = forwardRef(
 					isActive={ isActive }
 					disabled={ disabled }
 					className={ className }
-					onClick={ onClick }
+					href={ href }
 					{ ...props }
 				>
 					{ children }
@@ -75,44 +72,52 @@ PaginationItem.displayName = 'Pagination.Item';
 const PaginationButton = ( {
 	icon = null,
 	isActive = false,
-	onClick = () => {},
+	href = '',
+	children,
 	className,
 	...props
 } ) => {
 	const { size, disabled } = usePageContext();
 
 	return (
-		<Button
-			size={ size }
-			variant={ 'ghost' }
-			className={ cn(
-				sizeToClass[ size ],
-				'aspect-square p-0 flex justify-center items-center rounded text-button-secondary',
-				! disabled &&
-					isActive &&
-					'text-button-primary bg-brand-background-50',
-				disabled && 'hover:bg-transparent cursor-not-allowed',
-				'focus:border-border-subtle focus:bg-button-tertiary-hover',
-				className
-			) }
-			onClick={ onClick }
-			disabled={ disabled }
-			icon={ icon }
-			{ ...props }
-		/>
+		<a
+			href={ href }
+			className="text-none no-underline bg-transparent p-0 m-0 border-none"
+		>
+			<Button
+				size={ size }
+				variant={ 'ghost' }
+				className={ cn(
+					'flex justify-center items-center rounded text-button-secondary',
+					! disabled &&
+						isActive &&
+						'text-button-primary bg-brand-background-50',
+					disabled && 'hover:bg-transparent cursor-not-allowed',
+					'focus:border-border-subtle focus:bg-button-tertiary-hover',
+					sizeClassNames[ size ].general,
+					className
+				) }
+				disabled={ disabled }
+				icon={ icon }
+				{ ...props }
+			>
+				{ children }
+			</Button>
+		</a>
 	);
 };
 
-const PaginationPrevious = ( props ) => {
-	const { disabled } = usePageContext();
+const PaginationPrevious = ( { icon = <ChevronLeft />, props } ) => {
+	const { size, disabled } = usePageContext();
 	return (
 		<li
 			tabIndex={ 0 }
 			className={ cn( 'flex', disabled && disabledClassNames.general ) }
 		>
 			<PaginationButton
-				icon={ <ChevronLeft /> }
+				icon={ icon }
 				aria-label="Go to previous page"
+				className={ sizeClassNames[ size ].icon }
 				{ ...props }
 			/>
 		</li>
@@ -120,16 +125,17 @@ const PaginationPrevious = ( props ) => {
 };
 PaginationPrevious.displayName = 'Pagination.Previous';
 
-const PaginationNext = ( props ) => {
-	const { disabled } = usePageContext();
+const PaginationNext = ( { icon = <ChevronRight />, props } ) => {
+	const { size, disabled } = usePageContext();
 	return (
 		<li
 			tabIndex={ 0 }
 			className={ cn( 'flex', disabled && disabledClassNames.general ) }
 		>
 			<PaginationButton
-				icon={ <ChevronRight /> }
+				icon={ icon }
 				aria-label="Go to next page"
+				className={ sizeClassNames[ size ].icon }
 				{ ...props }
 			/>
 		</li>
@@ -138,19 +144,22 @@ const PaginationNext = ( props ) => {
 
 PaginationNext.displayName = 'Pagination.Next';
 
-const PaginationEllipsis = ( { className, ...props } ) => {
-	const { disabled } = usePageContext();
+const PaginationEllipsis = ( props ) => {
+	const { size, disabled } = usePageContext();
 	return (
 		<li
 			tabIndex={ 0 }
 			className={ cn( 'flex', disabled && disabledClassNames.general ) }
+			{ ...props }
 		>
-			<PaginationButton
-				className={ cn( 'cursor-default', className ) }
-				{ ...props }
+			<span
+				className={ cn(
+					sizeClassNames[ size ].icon,
+					disabled && disabledClassNames.general
+				) }
 			>
 				...
-			</PaginationButton>
+			</span>
 		</li>
 	);
 };

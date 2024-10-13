@@ -1,8 +1,20 @@
-export const sizeToClass = {
-	xs: 'w-6 text-xs', // 24px (6 * 4px)
-	sm: 'w-8 text-xs', // 32px (8 * 4px)
-	md: 'w-10 text-sm', // 40px (10 * 4px)
-	lg: 'w-12 text-base', // 48px (12 * 4px)
+export const sizeClassNames = {
+	xs: {
+		general: 'px-2 py-1 text-xs',
+		icon: 'p-1 text-xs',
+	},
+	sm: {
+		general: 'px-3 py-2 text-xs',
+		icon: 'p-2 text-xs',
+	},
+	md: {
+		general: 'px-3.5 py-2 text-sm',
+		icon: 'p-2 text-sm',
+	},
+	lg: {
+		general: 'px-5 py-3 textx-base',
+		icon: 'p-3 textx-base',
+	},
 };
 
 export const disabledClassNames = {

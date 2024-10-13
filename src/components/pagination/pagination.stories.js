@@ -28,47 +28,98 @@ export default {
 				defaultValue: { summary: 'false' },
 			},
 		},
-		onClick: {
-			name: 'OnClick',
-			description: 'Callback function to handle page button click.',
+		isActive: {
+			name: 'IsActive',
+			description:
+				'Defines if the page item is active. Passed to each Pagination Item.',
+			control: 'boolean',
 			table: {
-				type: { summary: 'function' },
+				type: { summary: 'boolean' },
+				defaultValue: { summary: 'false' },
 			},
 		},
-		// Add more argTypes as needed
+		href: {
+			name: 'Href',
+			description:
+				'Link for the Pagination Item. Passed to each Pagination Item.',
+			control: 'text',
+			table: {
+				type: { summary: 'string' },
+				defaultValue: { summary: '#' },
+			},
+		},
+		icon: {
+			name: 'Icon',
+			description: 'Icon for the Pagination Next and Previous component.',
+			control: { type: 'text' },
+			table: {
+				type: { summary: 'string' },
+				defaultValue: { summary: '<ChevronLeft/>, <ChevronRight/>' },
+			},
+		},
+		className: {
+			name: 'ClassName',
+			description:
+				'Additional custom classes for pagination. Can be passed to every component.',
+			control: 'text',
+			table: {
+				type: { summary: 'string' },
+				defaultValue: { summary: '' },
+			},
+		},
 	},
 };
 
 // Template function for rendering pagination
 const Template = ( args ) => {
 	return (
-		<div style={ { width: '400px' } }>
-			<Pagination { ...args }>
-				<Pagination.Content>
-					<Pagination.Previous onClick={ () => {} } />
-					<Pagination.Item onClick={ () => {} } isActive={ false }>
-						1
-					</Pagination.Item>
-					<Pagination.Item onClick={ () => {} } isActive={ true }>
-						2
-					</Pagination.Item>
-					<Pagination.Item onClick={ () => {} } isActive={ false }>
-						3
-					</Pagination.Item>
-					<Pagination.Ellipsis />
-					<Pagination.Item onClick={ () => {} } isActive={ false }>
-						7
-					</Pagination.Item>
-					<Pagination.Item onClick={ () => {} } isActive={ false }>
-						8
-					</Pagination.Item>
-					<Pagination.Item onClick={ () => {} } isActive={ false }>
-						9
-					</Pagination.Item>
-					<Pagination.Next onClick={ () => {} } />
-				</Pagination.Content>
-			</Pagination>
-		</div>
+		<Pagination
+			size={ args.size }
+			disabled={ args.disabled }
+			className={ args.className }
+		>
+			<Pagination.Content>
+				<Pagination.Previous href={ args.href } icon={ args.icon } />
+				<Pagination.Item
+					href={ args.href }
+					isActive={ false || args.isActive }
+				>
+					1
+				</Pagination.Item>
+				<Pagination.Item
+					href={ args.href }
+					isActive={ true || args.isActive }
+				>
+					2
+				</Pagination.Item>
+				<Pagination.Item
+					href={ args.href }
+					isActive={ false || args.isActive }
+				>
+					3
+				</Pagination.Item>
+				<Pagination.Ellipsis />
+				<Pagination.Item
+					href={ args.href }
+					isActive={ false || args.isActive }
+				>
+					7
+				</Pagination.Item>
+				<Pagination.Item
+					href={ args.href }
+					isActive={ false || args.isActive }
+				>
+					8
+				</Pagination.Item>
+				<Pagination.Item
+					href={ args.href }
+					isActive={ false || args.isActive }
+				>
+					9
+				</Pagination.Item>
+				<Pagination.Next href={ args.href } icon={ args.icon } />
+			</Pagination.Content>
+		</Pagination>
 	);
 };
 
@@ -76,34 +127,37 @@ const Template = ( args ) => {
 
 export const BasicPagination = ( args ) => Template( { ...args } );
 BasicPagination.args = {
-	size: 'md', // Set default size
-	disabled: false, // Default disabled state
+	size: 'lg',
+	disabled: false,
+	className: '',
+	isActive: false,
+	href: '',
 };
 
 export const ExtraSmallPagination = ( args ) => Template( { ...args } );
 ExtraSmallPagination.args = {
-	size: 'xs', // Set default size
-	disabled: false, // Default disabled state
+	size: 'xs',
+	disabled: false,
 };
 
 export const SmallPagination = ( args ) => Template( { ...args } );
 SmallPagination.args = {
-	size: 'sm', // Set default size
-	disabled: false, // Default disabled state
+	size: 'sm',
+	disabled: false,
 };
 export const MediumPagination = ( args ) => Template( { ...args } );
 MediumPagination.args = {
-	size: 'md', // Set default size
-	disabled: false, // Default disabled state
+	size: 'md',
+	disabled: false,
 };
 export const LargePagination = ( args ) => Template( { ...args } );
 LargePagination.args = {
-	size: 'lg', // Set default size
-	disabled: false, // Default disabled state
+	size: 'lg',
+	disabled: false,
 };
 // Disabled Pagination Example
 export const DisabledPagination = ( args ) => Template( { ...args } );
 DisabledPagination.args = {
 	size: 'md',
-	disabled: true, // Set disabled to true
+	disabled: true,
 };
