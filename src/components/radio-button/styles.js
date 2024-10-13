@@ -15,10 +15,12 @@ export const sizeClassNames = {
 	sm: {
 		checkbox: 'size-4',
 		icon: 'size-1.5',
+		info: 'size-4',
 	},
 	md: {
 		checkbox: 'size-5',
 		icon: 'size-2',
+		info: 'size-5',
 	},
 };
 

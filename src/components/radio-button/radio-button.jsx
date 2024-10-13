@@ -9,7 +9,7 @@ import React, {
 	Fragment,
 } from 'react';
 import { nanoid } from 'nanoid';
-import { Check } from 'lucide-react';
+import { Check, Info } from 'lucide-react';
 
 import { cn, columnClasses } from '@/utilities/functions';
 import Switch from '../switch';
@@ -23,11 +23,12 @@ import {
 	hoverClasses,
 	focusClasses,
 } from './styles';
+import Tooltip from '../tooltip';
 
 const RadioButtonContext = createContext();
-const useRadioButton = () => useContext(RadioButtonContext);
+const useRadioButton = () => useContext( RadioButtonContext );
 
-const RadioButtonGroup = ({
+const RadioButtonGroup = ( {
 	children,
 	name,
 	style = 'simple',
@@ -43,54 +44,54 @@ const RadioButtonGroup = ({
 	columns = 4,
 	multiSelection = false,
 	gapClassname = 'gap-2',
-}) => {
-	const isControlled = useMemo(() => typeof value !== 'undefined', [value]);
+} ) => {
+	const isControlled = useMemo( () => typeof value !== 'undefined', [ value ] );
 	const nameAttr = useMemo(
-		() => name || `radio-button-group-${nanoid()}`,
-		[name]
+		() => name || `radio-button-group-${ nanoid() }`,
+		[ name ]
 	);
 	let initialSelectedValue;
-	if (isControlled) {
+	if ( isControlled ) {
 		initialSelectedValue = value;
-	} else if (multiSelection) {
+	} else if ( multiSelection ) {
 		initialSelectedValue = defaultValue ?? [];
 	} else {
 		initialSelectedValue = defaultValue;
 	}
 
-	const [selectedValue, setSelectedValue] = useState(initialSelectedValue);
+	const [ selectedValue, setSelectedValue ] = useState( initialSelectedValue );
 
 	const handleChange = useCallback(
-		(newValue) => {
-			if (multiSelection) {
+		( newValue ) => {
+			if ( multiSelection ) {
 				// Handles multi-selection logic
-				setSelectedValue((prevValue) => {
-					const isAlreadySelected = prevValue.includes(newValue);
+				setSelectedValue( ( prevValue ) => {
+					const isAlreadySelected = prevValue.includes( newValue );
 					const updatedValue = isAlreadySelected
-						? prevValue.filter((val) => val !== newValue)
-						: [...prevValue, newValue];
+						? prevValue.filter( ( val ) => val !== newValue )
+						: [ ...prevValue, newValue ];
 
-					if (typeof onChange === 'function') {
-						onChange(updatedValue);
+					if ( typeof onChange === 'function' ) {
+						onChange( updatedValue );
 					}
 					return updatedValue;
-				});
+				} );
 			} else {
 				// Handles single selection logic
-				if (!isControlled) {
-					setSelectedValue(newValue);
+				if ( ! isControlled ) {
+					setSelectedValue( newValue );
 				}
-				if (typeof onChange !== 'function') {
+				if ( typeof onChange !== 'function' ) {
 					return;
 				}
-				onChange(newValue);
+				onChange( newValue );
 			}
 		},
-		[onChange]
+		[ onChange ]
 	);
 	className = cn(
 		`grid grid-cols-4`,
-		columnClasses[columns],
+		columnClasses[ columns ],
 		gapClassname,
 		style === 'tile' && 'gap-0',
 		vertical && 'grid-cols-1',
@@ -106,7 +107,7 @@ const RadioButtonGroup = ({
 
 	const renderRadioButtonContext = () => (
 		<RadioButtonContext.Provider
-			value={{
+			value={ {
 				name: nameAttr,
 				value: isControlled ? value : selectedValue,
 				by,
@@ -117,28 +118,28 @@ const RadioButtonGroup = ({
 				columns,
 				multiSelection,
 				size,
-			}}
+			} }
 		>
-			{React.Children.map(children, (child) => {
-				if (!isValidElement(child)) {
+			{ React.Children.map( children, ( child ) => {
+				if ( ! isValidElement( child ) ) {
 					return null;
 				}
 				return child;
-			})}
+			} ) }
 		</RadioButtonContext.Provider>
 	);
 
 	return (
 		<>
-			{style === 'tile' ? (
-				<div className={groupClassName}>
-					{renderRadioButtonContext()}
+			{ style === 'tile' ? (
+				<div className={ groupClassName }>
+					{ renderRadioButtonContext() }
 				</div>
 			) : (
-				<AsElement {...(AsElement === Fragment ? {} : { className })}>
-					{renderRadioButtonContext()}
+				<AsElement { ...( AsElement === Fragment ? {} : { className } ) }>
+					{ renderRadioButtonContext() }
 				</AsElement>
-			)}
+			) }
 		</>
 	);
 };
@@ -158,6 +159,8 @@ const RadioButtonComponent = (
 		borderOn = false,
 		badgeItem = null,
 		useSwitch = false,
+		info = null,
+		minWidth = true,
 		...props
 	},
 	ref
@@ -176,101 +179,102 @@ const RadioButtonComponent = (
 	} = providerValue;
 
 	const color = 'primary';
-	const radioButtonId = useMemo(() => id || `radio-button-${nanoid()}`, [id]),
+	const radioButtonId = useMemo( () => id || `radio-button-${ nanoid() }`, [ id ] ),
 		isDisabled = useMemo(
 			() => disableAll || disabled,
-			[disableAll, disabled]
+			[ disableAll, disabled ]
 		);
-	const checkedValue = useMemo(() => {
-		if (multiSelection) {
+	const checkedValue = useMemo( () => {
+		if ( multiSelection ) {
 			return (
-				Array.isArray(selectedValue) && selectedValue.includes(value)
+				Array.isArray( selectedValue ) && selectedValue.includes( value )
 			);
 		}
-		if (typeof checked !== 'undefined') {
+		if ( typeof checked !== 'undefined' ) {
 			return checked;
 		}
 
-		if (typeof selectedValue !== typeof value) {
+		if ( typeof selectedValue !== typeof value ) {
 			return false;
 		}
-		if (typeof selectedValue === 'string') {
+		if ( typeof selectedValue === 'string' ) {
 			return selectedValue === value;
 		}
 
-		if (Array.isArray(selectedValue)) {
-			return selectedValue.includes(value);
+		if ( Array.isArray( selectedValue ) ) {
+			return selectedValue.includes( value );
 		}
 
-		return selectedValue[by] === value[by];
-	}, [selectedValue, value, checked]);
+		return selectedValue[ by ] === value[ by ];
+	}, [ selectedValue, value, checked ] );
 
-	const renderLabel = useCallback(() => {
-		if (isValidElement(label)) {
+	const renderLabel = useCallback( () => {
+		if ( isValidElement( label ) ) {
 			return label;
 		}
 
-		if (!label.heading) {
+		if ( ! label.heading ) {
 			return null;
 		}
 		return (
 			<div
-				className={cn(
-					!inlineIcon && 'space-y-1.5 mt-[2px]',
-					reversePosition && (useSwitch ? 'ml-10' : 'ml-4'),
+				className={ cn(
+					! inlineIcon && 'space-y-1.5 mt-[2px]',
+					reversePosition && ( useSwitch ? 'ml-10' : 'ml-4' ),
 					inlineIcon && 'flex gap-2'
-				)}
+				) }
 			>
-				{icon && <span>{icon} </span>}
-				<div className={cn('space-y-1.5')}>
+				{ icon && <span>{ icon } </span> }
+				<div className={ cn( 'space-y-1.5' ) }>
 					<p
-						className={cn(
+						className={ cn(
 							'text-text-primary text-sm font-medium leading-4 m-0',
 							icon && 'mt-1'
-						)}
+						) }
 					>
-						{label.heading}
+						{ label.heading }
 					</p>
-					{label.description && (
+					{ label.description && (
 						<p className="text-text-tertiary text-sm font-normal leading-5 m-0">
-							{label.description}
+							{ label.description }
 						</p>
-					)}
+					) }
 				</div>
 			</div>
 		);
-	}, [label]);
+	}, [ label ] );
 
-	if (providerValue.style === 'tile') {
+	if ( providerValue.style === 'tile' ) {
 		return (
 			<ButtonGroupItem
-				id={id}
-				label={label}
-				value={value}
-				disabled={disabled}
-				size={size}
+				id={ id }
+				label={ label }
+				value={ value }
+				disabled={ disabled }
+				size={ size }
 			>
-				{children}
+				{ children }
 			</ButtonGroupItem>
 		);
 	}
 	const handleLabelClick = () => {
-		if (!isDisabled) {
-			if (multiSelection) {
+		if ( ! isDisabled ) {
+			if ( multiSelection ) {
 				// In multi-selection, toggle each individual selection
-				onChange(value, !checkedValue); // Pass the toggled value
+				onChange( value, ! checkedValue ); // Pass the toggled value
 			} else {
 				// In single selection, only one can be selected
-				onChange(value); // Trigger onChange with the selected value
+				onChange( value ); // Trigger onChange with the selected value
 			}
 		}
 	};
 
 	return (
 		<label
-			className={cn(
+			className={ cn(
 				'inline-flex items-center relative cursor-pointer transition-all duration-300',
-				!!label && 'items-start justify-between min-w-[180px]',
+				!! label && 'items-start justify-between',
+				minWidth && 'min-w-[180px]',
 				buttonWrapperClasses,
 				borderOn &&
 					'border border-border-subtle border-solid rounded-md shadow-sm hover:ring-2 hover:ring-border-interactive',
@@ -278,74 +282,92 @@ const RadioButtonComponent = (
 				size === 'sm' ? 'px-3 py-3' : 'px-4 py-4',
 				'pr-12',
 				isDisabled && 'cursor-not-allowed'
-			)}
-			htmlFor={radioButtonId}
+			) }
+			htmlFor={ radioButtonId }
 			/** js */
-			onClick={handleLabelClick} // Toggle switch when label is clicked
+			onClick={ handleLabelClick } // Toggle switch when label is clicked
 		>
-			{!!label && (
+			{ !! label && (
 				<label
-					className={cn(
+					className={ cn(
 						'cursor-pointer',
 						isDisabled && 'cursor-not-allowed'
-					)}
-					htmlFor={radioButtonId}
+					) }
+					htmlFor={ radioButtonId }
 				>
-					{renderLabel()}
+					{ renderLabel() }
 				</label>
-			)}
+			) }
+			{ !! info && (
+				<div className="absolute mr-0.5 bottom-1.5 right-3">
+					<Tooltip
+						arrow
+						title={ info?.heading }
+						content={ info?.description }
+						triggers={ [ 'hover', 'focus' ] }
+						placement="top"
+					>
+						<Info
+							className={ cn(
+								'text-text-primary',
+								sizeClassNames[ size ]?.info
+							) }
+						/>
+					</Tooltip>
+				</div>
+			) }
 			<label
-				className={cn(
-					'absolute mr-[2px] right-3 flex gap-2 items-center cursor-pointer rounded-full',
+				className={ cn(
+					'absolute mr-0.5 right-3 flex items-center cursor-pointer rounded-full gap-2',
 					reversePosition && 'left-0',
 					isDisabled && 'cursor-not-allowed'
-				)}
+				) }
 			>
-				{!!badgeItem && badgeItem}
-				{!hideSelection &&
-					(useSwitch ? (
+				{ !! badgeItem && badgeItem }
+				{ ! hideSelection &&
+					( useSwitch ? (
 						<Switch
-							defaultValue={false}
-							size={size === 'md' ? 'lg' : 'sm'}
-							onChange={() => {
-								if (!multiSelection) {
+							defaultValue={ false }
+							size={ size === 'md' ? 'lg' : 'sm' }
+							onChange={ () => {
+								if ( ! multiSelection ) {
 									// In single selection, only one can be on
-									onChange(value); // Update the state to select this option
+									onChange( value ); // Update the state to select this option
 								} else {
 									// In multi-selection, toggle the current state
-									onChange(value, !checkedValue);
+									onChange( value, ! checkedValue );
 								}
-							}}
-							checked={checkedValue}
+							} }
+							checked={ checkedValue }
 						/>
 					) : (
 						<span className="relative">
 							<input
-								ref={ref}
-								id={radioButtonId}
-								type={multiSelection ? 'checkbox' : 'radio'}
-								className={cn(
+								ref={ ref }
+								id={ radioButtonId }
+								type={ multiSelection ? 'checkbox' : 'radio' }
+								className={ cn(
 									"peer flex relative cursor-pointer appearance-none transition-all m-0 before:content-[''] checked:before:content-[''] checked:before:hidden before:hidden !border-1.5 border-solid",
-									!multiSelection && 'rounded-full',
-									colorClassNames[color].checkbox,
-									sizeClassNames[size].checkbox,
+									! multiSelection && 'rounded-full',
+									colorClassNames[ color ].checkbox,
+									sizeClassNames[ size ].checkbox,
 									isDisabled && disabledClassNames.checkbox
-								)}
-								name={name}
-								value={value}
-								onChange={(e) => onChange(e.target.value)}
-								checked={checkedValue}
-								disabled={isDisabled}
-								{...props}
+								) }
+								name={ name }
+								value={ value }
+								onChange={ ( e ) => onChange( e.target.value ) }
+								checked={ checkedValue }
+								disabled={ isDisabled }
+								{ ...props }
 							/>
 							<span
-								className={cn(
+								className={ cn(
 									'inline-flex items-center absolute top-2/4 left-2/4 -translate-y-2/4 -translate-x-2/4 text-white opacity-0 transition-opacity peer-checked:opacity-100',
-									colorClassNames[color].icon,
+									colorClassNames[ color ].icon,
 									isDisabled && disabledClassNames.icon
-								)}
+								) }
 							>
-								{multiSelection ? (
+								{ multiSelection ? (
 									<Check
 										className={
 											size === 'sm' ? 'size-3' : 'size-4'
@@ -353,31 +375,31 @@ const RadioButtonComponent = (
 									/>
 								) : (
 									<div
-										className={cn(
+										className={ cn(
 											'rounded-full bg-current',
 											size === 'sm' && 'mt-[2px]',
-											sizeClassNames[size]?.icon
-										)}
+											sizeClassNames[ size ]?.icon
+										) }
 									/>
-								)}
+								) }
 							</span>
 						</span>
-					))}
+					) ) }
 			</label>
 		</label>
 	);
 };
-const RadioButton = forwardRef(RadioButtonComponent);
+const RadioButton = forwardRef( RadioButtonComponent );
 RadioButton.displayName = 'RadioButton.Button';
 
-const ButtonGroupItem = ({
+const ButtonGroupItem = ( {
 	id,
 	children,
 	value,
 	disabled,
 	size = 'md',
 	...props
-}) => {
+} ) => {
 	const providerValue = useRadioButton();
 
 	const {
@@ -389,34 +411,34 @@ const ButtonGroupItem = ({
 		checked,
 	} = providerValue || {};
 
-	const radioButtonId = useMemo(() => id || `radio-button-${nanoid()}`, [id]);
+	const radioButtonId = useMemo( () => id || `radio-button-${ nanoid() }`, [ id ] );
 	const isDisabled = useMemo(
 		() => disableAll || disabled,
-		[disableAll, disabled]
+		[ disableAll, disabled ]
 	);
 
-	const checkedValue = useMemo(() => {
-		if (typeof checked !== 'undefined') {
+	const checkedValue = useMemo( () => {
+		if ( typeof checked !== 'undefined' ) {
 			return checked;
 		}
 
-		if (typeof selectedValue !== typeof value) {
+		if ( typeof selectedValue !== typeof value ) {
 			return false;
 		}
-		if (typeof selectedValue === 'string') {
+		if ( typeof selectedValue === 'string' ) {
 			return selectedValue === value;
 		}
 
-		if (Array.isArray(selectedValue)) {
-			return selectedValue.includes(value);
+		if ( Array.isArray( selectedValue ) ) {
+			return selectedValue.includes( value );
 		}
 
-		return selectedValue[by] === value[by];
-	}, [selectedValue, value, checked, by]);
+		return selectedValue[ by ] === value[ by ];
+	}, [ selectedValue, value, checked, by ] );
 
 	const handleClick = () => {
-		if (onChange) {
-			onChange(value);
+		if ( onChange ) {
+			onChange( value );
 		}
 	};
 
@@ -428,7 +450,7 @@ const ButtonGroupItem = ({
 		hoverClasses,
 		focusClasses,
 		disabledClasses,
-		sizes[size],
+		sizes[ size ],
 		borderClasses
 	);
 
@@ -436,30 +458,30 @@ const ButtonGroupItem = ({
 		<>
 			<button
 				type="button"
-				id={radioButtonId}
-				className={cn(
+				id={ radioButtonId }
+				className={ cn(
 					buttonClassName,
 					'first:rounded-tl first:rounded-bl first:border-0 first:border-r first:border-border-subtle last:rounded-tr last:rounded-br last:border-0',
 					checkedValue && 'bg-button-disabled'
-				)}
-				onClick={handleClick}
-				disabled={isDisabled}
-				{...props}
+				) }
+				onClick={ handleClick }
+				disabled={ isDisabled }
+				{ ...props }
 			>
 				<input
 					type="hidden"
-					value={value}
-					name={name}
-					checked={checkedValue}
-					onChange={onChange}
+					value={ value }
+					name={ name }
+					checked={ checkedValue }
+					onChange={ onChange }
 				/>
-				{children}
+				{ children }
 			</button>
 		</>
 	);
 };
 
-export default Object.assign(RadioButton, {
+export default Object.assign( RadioButton, {
 	Group: RadioButtonGroup,
 	Button: RadioButton,
-});
+} );
