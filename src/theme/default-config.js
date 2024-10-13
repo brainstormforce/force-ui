@@ -210,4 +210,4 @@ const defaultTheme = {
 	},
 };
 
-module.exports = defaultTheme;
+export default defaultTheme;
