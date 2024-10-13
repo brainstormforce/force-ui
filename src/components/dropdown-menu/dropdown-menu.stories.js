@@ -1,6 +1,6 @@
 import DropdownMenu from './dropdown-menu.jsx';
 import Avatar from '../avatar/avatar.jsx';
-import Button from '../button/button.jsx';
+import Button from '../button';
 import { House } from 'lucide-react';
 
 export default {

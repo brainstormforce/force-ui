@@ -1,4 +1,4 @@
-import Button from './button.jsx';
+import Button from './button';
 import { Plus } from 'lucide-react';
 
 // Button component story configuration
