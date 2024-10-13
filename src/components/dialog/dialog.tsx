@@ -38,7 +38,14 @@ const animationVariants = {
 };
 const TRANSITION_DURATION = { duration: 0.2 };
 
-export interface DialogProps {
+export interface CommonProps {
+	/** Additional class name. */
+	className?: string;
+	/** Additional inline styles. */
+	style?: React.CSSProperties;
+}
+
+export interface DialogProps extends CommonProps {
 	/** Control the dialog open state. If not provided, the dialog will be controlled internally. */
 	open?: boolean;
 	/** Control the dialog open state. If not provided, the dialog will be controlled internally. */
@@ -49,8 +56,6 @@ export interface DialogProps {
 	trigger?:
 		| React.ReactNode
 		| ((props: { onClick: () => void }) => React.ReactElement);
-	/** Additional class name for the dialog container. */
-	className?: string;
 	/** Close the dialog on clicking outside the dialog. */
 	exitOnClickOutside?: boolean;
 	/** Close the dialog on pressing the escape key. */
@@ -195,11 +200,9 @@ const Dialog = ( {
 };
 Dialog.displayName = 'Dialog';
 
-export interface DialogPanelProps {
+export interface DialogPanelProps extends CommonProps {
 	/** Children of the dialog panel. */
 	children: React.ReactNode | ((param: {close: () => void}) => React.ReactNode);
-	/** Additional class name for the dialog panel. */
-	className?: string;
 }
 
 export const DialogPanel = ( { children, className }: DialogPanelProps ): JSX.Element => {
@@ -237,14 +240,7 @@ export const DialogPanel = ( { children, className }: DialogPanelProps ): JSX.El
 };
 DialogPanel.displayName = 'Dialog.Panel';
 
-export interface DialogBackdropProps {
-	/** Additional class name for the dialog backdrop. */
-	className?: string;
-	/** Additional inline styles for the dialog backdrop. */
-	style?: React.CSSProperties;
-	/** Additional props for the dialog title. */
-	[key: string]: any;
-}
+export interface DialogBackdropProps extends CommonProps {}
 
 export const DialogBackdrop = ({
 	className,
@@ -282,13 +278,9 @@ export const DialogBackdrop = ({
 };
 DialogBackdrop.displayName = 'Dialog.Backdrop';
 
-export interface DialogHeaderProps {
+export interface DialogHeaderProps extends CommonProps {
 	/** Children of the dialog header. */
 	children: React.ReactNode;
-	/** Additional class name for the dialog header. */
-	className?: string;
-	/** Additional props for the dialog title. */
-	[key: string]: any;
 }
 
 // Dialog header wrapper.
@@ -301,15 +293,11 @@ export const DialogHeader = ( { children, className, ...props }: DialogHeaderPro
 };
 DialogHeader.displayName = 'Dialog.Header';
 
-export interface DialogTitleProp {
+export interface DialogTitleProp extends CommonProps {
 	/** Children of the dialog title. */
 	children: React.ReactNode;
 	/** Additional class name for the dialog title. */
 	as?: React.ElementType;
-	/** Additional class name for the dialog title. */
-	className?: string;
-	/** Additional props for the dialog title. */
-	[key: string]: any;
 }
 
 // Dialog title.
@@ -333,15 +321,11 @@ export const DialogTitle = ({
 };
 DialogTitle.displayName = 'Dialog.Title';
 
-export interface DialogDescriptionProp {
+export interface DialogDescriptionProp extends CommonProps {
 	/** Children of the dialog description. */
 	children: React.ReactNode;
 	/** Additional class name for the dialog description. */
 	as?: React.ElementType;
-	/** Additional class name for the dialog description. */
-	className?: string;
-	/** Additional props for the dialog description. */
-	[key: string]: any;
 }
 
 // Dialog description.
@@ -365,14 +349,14 @@ export const DialogDescription = ( {
 };
 DialogDescription.displayName = 'Dialog.Description';
 
-export interface DialogCloseButtonProps {
+export interface DialogCloseButtonProps extends CommonProps {
 	/** Children of the dialog close button. */
 	children?: React.ReactNode;
 	/** Additional class name for the dialog close button. */
 	as?: React.ElementType;
 	/** Additional class name for the dialog close button. */
 	className?: string;
-	/** Additional props for the dialog close button. */
+	/** Additional props */
 	[key: string]: any;
 }
 
@@ -424,13 +408,9 @@ export const DialogCloseButton = ({
 };
 DialogCloseButton.displayName = 'Dialog.CloseButton';
 
-export interface DialogBodyProps {
+export interface DialogBodyProps extends CommonProps {
 	/** Children of the dialog body. */
 	children: React.ReactNode;
-	/** Additional class name for the dialog body. */
-	className?: string;
-	/** Additional props for the dialog body. */
-	[key: string]: any;
 }
 
 // Dialog body.
@@ -444,11 +424,9 @@ export const DialogBody = ( { children, className, ...props }: DialogBodyProps )
 DialogBody.displayName = 'Dialog.Body';
 
 // Dialog footer.
-export interface DialogFooterProps {
+export interface DialogFooterProps extends CommonProps {
 	/** Children of the dialog footer. */
 	children?: React.ReactNode | ((props: { close: () => void }) => React.ReactNode);
-	/** Additional class name for the dialog footer. */
-	className?: string;
 }
 
 export const DialogFooter = ( { children, className }: DialogFooterProps ): JSX.Element => {

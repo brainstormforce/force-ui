@@ -38,17 +38,7 @@ export default meta;
 
 type Story = StoryFn<typeof Dialog>;
 
-interface TemplateArgs {
-	open?: boolean;
-	setOpen?: (open: boolean) => void;
-	design?: 'simple' | 'footer-divided';
-	exitOnEsc?: boolean;
-	exitOnClickOutside?: boolean;
-	trigger?: React.ReactNode | ((props: { onClick: () => void; }) => React.ReactElement<any, string | React.JSXElementConstructor<any>>);
-	scrollLock?: boolean;
-}
-
-const Template: Story = (args: TemplateArgs) => {
+const Template: Story = (args ) => {
 	const [open, setOpen] = useState<boolean>(false);
 
 	return (
@@ -94,7 +84,7 @@ const UncontrolledTemplate: Story = () => (
 						<div className="flex items-center justify-between">
 							<Dialog.Title>Dialog Title</Dialog.Title>
 							{/* Custom Close button instead of default with Passes component/tag props. */}
-							<Dialog.CloseButton className='px-2 py-0.5' variant="secondary" as={Button} destructive>
+							<Dialog.CloseButton className='px-2 py-0.5' variant="ghost" as={Button}>
 								X
 							</Dialog.CloseButton>
 						</div>
@@ -123,166 +113,17 @@ const UncontrolledTemplate: Story = () => (
 	</Dialog>
 )
 
+export const Controlled = Template.bind({});
+Controlled.args = {
+	trigger: <Button>Open Dialog</Button>,
+	exitOnEsc: true,
+	exitOnClickOutside: false,
+	scrollLock: true,
+	design: 'simple',
+}
+
 export const Uncontrolled: Story = UncontrolledTemplate.bind({});
 Uncontrolled.parameters = {
 	docs: { source: {type: 'code'} },
 };
 
-// export default {
-// 	title: 'Organisms/Dialog',
-// 	component: Dialog,
-// 	parameters: {
-// 		layout: 'fullscreen',
-// 	},
-// 	tags: [ 'autodocs' ],
-// 	decorators: [
-// 		( Story ) => (
-// 			<div className="font-sans [&_*]:font-sans h-[600px] flex items-center justify-center">
-// 				<Story />
-// 			</div>
-// 		),
-// 	],
-// 	argTypes: {
-// 		open: {
-// 			name: 'Open',
-// 			description:
-// 				'Control the dialog open state. If not provided, the dialog will be controlled internally.',
-// 			control: 'none',
-// 			table: {
-// 				type: { summary: 'boolean' },
-// 			},
-// 		},
-// 		setOpen: {
-// 			name: 'Set Open',
-// 			description:
-// 				'Control the dialog open state. If not provided, the dialog will be controlled internally.',
-// 			control: 'none',
-// 			table: {
-// 				type: { summary: 'function' },
-// 			},
-// 		},
-// 		design: {
-// 			name: 'Design',
-// 			description: 'Design of the dialog.',
-// 			control: 'select',
-// 			options: [ 'simple', 'footer-divided' ],
-// 			table: {
-// 				type: { summary: 'string' },
-// 				defaultValue: { summary: 'simple' },
-// 			},
-// 		},
-// 		exitOnEsc: {
-// 			name: 'Exit on Esc',
-// 			description: 'Close the dialog on pressing the escape key.',
-// 			control: 'boolean',
-// 			table: {
-// 				type: { summary: 'boolean' },
-// 				defaultValue: { summary: 'true' },
-// 			},
-// 		},
-// 		exitOnClickOutside: {
-// 			name: 'Exit on Click Outside',
-// 			description: 'Close the dialog on clicking outside the dialog.',
-// 			control: 'boolean',
-// 			table: {
-// 				type: { summary: 'boolean' },
-// 				defaultValue: { summary: 'false' },
-// 			},
-// 		},
-// 		trigger: {
-// 			name: 'Trigger Button',
-// 			description: 'Button to trigger the dialog.',
-// 			control: 'none',
-// 			table: {
-// 				type: { summary: 'node' },
-// 			},
-// 			defaultValue: <Button>Open Dialog</Button>,
-// 		},
-// 		scrollLock: {
-// 			name: 'Scroll Lock',
-// 			description: 'Lock the scroll when the dialog is open.',
-// 			control: 'boolean',
-// 			table: {
-// 				type: { summary: 'boolean' },
-// 				defaultValue: { summary: 'true' },
-// 			},
-// 		},
-// 	},
-// };
-
-// export const Default = Template.bind( {} );
-// Default.args = {
-// 	trigger: <Button>Open Dialog</Button>,
-// 	exitOnEsc: true,
-// 	exitOnClickOutside: false,
-// 	scrollLock: true,
-// 	design: 'simple',
-// };
-
-// const ControlledTemplate = ( args ) => {
-// 	const [ open, setOpen ] = useState( false );
-
-// 	return (
-// 		<>
-// 			<Button onClick={ () => setOpen( true ) }>
-// 				Open Controlled Dialog
-// 			</Button>
-// 			<Dialog open={ open } setOpen={ setOpen } { ...args }>
-// 				<Dialog.Panel>
-// 					<Dialog.Header>
-// 						<div className="flex items-center justify-between">
-// 							<Dialog.Title>Dialog Title</Dialog.Title>
-// 							<Dialog.CloseButton />
-// 						</div>
-// 						<Dialog.Description>
-// 							Lorem ipsum dolor sit amet consectetur. Aliquam sed
-// 							scelerisque et arcu nibh a massa.
-// 						</Dialog.Description>
-// 					</Dialog.Header>
-// 					<Dialog.Body>
-// 						<h1 className="m-0">Dialog Content</h1>
-// 					</Dialog.Body>
-// 					<Dialog.Footer>
-// 						<div className="mr-auto inline-flex items-center">
-// 							Other option
-// 						</div>
-// 						<Button variant="ghost">Details</Button>
-// 						<Button
-// 							onClick={ () => setOpen( false ) }
-// 							variant="outline"
-// 						>
-// 							Cancel
-// 						</Button>
-// 						<Button variant="primary">Save</Button>
-// 					</Dialog.Footer>
-// 				</Dialog.Panel>
-// 				<Dialog.Backdrop />
-// 			</Dialog>
-// 		</>
-// 	);
-// };
-
-// export const Controlled = ControlledTemplate.bind( {} );
-// Controlled.args = {};
-
-
-
-// export const Uncontrolled = UncontrolledTemplate.bind( {} );
-// Uncontrolled.args = {
-// 	trigger: <Button>Open Uncontrolled Dialog</Button>,
-// };
-// Uncontrolled.parameters = {
-// 	docs: { source: { type: 'code' } },
-// };
-
-// export const Simple = Template.bind( {} );
-// Simple.args = {
-// 	trigger: <Button>Open Dialog</Button>,
-// 	design: 'simple',
-// };
-
-// export const FooterDivided = Template.bind( {} );
-// FooterDivided.args = {
-// 	trigger: <Button>Open Dialog</Button>,
-// 	design: 'footer-divided',
-// };
