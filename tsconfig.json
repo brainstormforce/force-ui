@@ -1,57 +1,7 @@
 {
-    "$schema": "https://json.schemastore.org/tsconfig.json",
-	"compilerOptions": {
-        "baseUrl": ".",
-        "paths": {
-			"@/components/*": ["src/components/*"],
-            "@/components": ["src/components"],
-            "@/utilities/*": ["src/utilities/*"],
-            "@/*": ["src/*"]
-        },
-		"allowJs": true,
-		"checkJs": false,
-		"allowSyntheticDefaultImports": true,
-		"jsx": "react",
-		"target": "esnext",
-		"module": "esnext",
-		"lib": [ "DOM", "DOM.Iterable", "ESNext" ],
-		"declaration": true,
-		"declarationMap": true,
-		"composite": true,
-		"emitDeclarationOnly": false,
-		"isolatedModules": false,
-		"skipDefaultLibCheck": true,
-		
-		/* Strict Type-Checking Options */
-		"strict": true,
-
-		/* Additional Checks */
-		"noImplicitReturns": true,
-		"noFallthroughCasesInSwitch": true,
-		"noEmit": false,
-		"noEmitOnError": false,
-
-		/* Module Resolution Options */
-		"moduleResolution": "node",
-
-		/* This needs to be false so our types are possible to consume without setting this */
-		"esModuleInterop": false,
-		"resolveJsonModule": false,
-
-        "skipLibCheck": true,
-        "forceConsistentCasingInFileNames": true,
-		"noUnusedLocals": true /* Enable error reporting when a local variables aren't read. */,
-        "noUnusedParameters": true /* Raise an error when a function parameter isn't read */,
-		
-		"typeRoots": [ "./node_modules/@types" ],
-		"types": [],
-		"outDir": "./dist",
-	},
-    "exclude": [
-        "node_modules",
-        "dist",
-    ],
-    "include": [
-        "src/**/*",
-    ]
+  "files": [],
+  "references": [
+    { "path": "./tsconfig.app.json" },
+    { "path": "./tsconfig.node.json" }
+  ]
 }
