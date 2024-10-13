@@ -1,61 +1,66 @@
 import { Check, ExternalLink, X } from 'lucide-react';
-import { Topbar, Button, Label, ProgressSteps } from '@/components';
-// import { Icons } from '@/globals/icons/icons';
+import { Topbar, Button, Label, ProgressSteps, Title } from '@/components';
+import { SureEmailLogo, EmailSetup } from '@/icons';
+
 
 export default {
 	title: 'Templates/Onboarding/Setup Done',
 	parameters: {
 		layout: 'fullscreen',
 	},
-	tags: [ 'autodocs' ],
-	argTypes: {
-		children: {
-			description: 'Content to render inside the OnboardingSetupDone.',
-			control: { type: 'none' },
-		},
-	},
+	tags: ['autodocs'],
 };
 
-const Template = ( args ) => {
+const Template = (args) => {
 	return (
 		<div
-			{ ...args }
+			{...args}
 			className="bg-background-secondary min-h-screen w-full pb-10"
 		>
 			<Topbar className="bg-background-secondary">
 				<Topbar.Left>
-					<Topbar.Item>{ /* <Icons.SureRankLogo /> */ }</Topbar.Item>
+					<Topbar.Item><SureEmailLogo /></Topbar.Item>
+
 				</Topbar.Left>
 				<Topbar.Middle>
 					<Topbar.Item>
-						<ProgressSteps currentStep={ 6 } type="inline">
-							<ProgressSteps.Step labelText="Connect" />
-							<ProgressSteps.Step labelText="Import" />
-							<ProgressSteps.Step labelText="Profile" />
-							<ProgressSteps.Step labelText="Social" />
+						<ProgressSteps currentStep={5} variant="number">
+							<ProgressSteps.Step />
+							<ProgressSteps.Step />
+							<ProgressSteps.Step />
+							<ProgressSteps.Step />
+							<ProgressSteps.Step />
 						</ProgressSteps>
 					</Topbar.Item>
 				</Topbar.Middle>
 				<Topbar.Right>
 					<Topbar.Item>
-						<X />
+						<Button
+							icon={<X className="size-4" />}
+							iconPosition="right"
+							variant="ghost"
+						>
+							Exit Guided Setup
+						</Button>
 					</Topbar.Item>
 				</Topbar.Right>
 			</Topbar>
-			<div className="space-y-4 p-8 md:w-[31rem] mx-auto mt-10 border-border-subtle bg-background-primary border border-solid rounded-md">
+			<div className="md:w-[35rem] box-border mx-auto p-8 mt-10 border border-solid border-border-subtle bg-background-primary rounded-md space-y-4">
 				<div className="flex justify-between gap-4">
 					<div>
-						<Label size="md" className="text-3xl font-semibold">
-							You&#39;re Good to Go! 🚀
-						</Label>
-						<Label className="text-text-secondary mt-2 text-sm">
+						<Title
+							size="md"
+							tag="h4"
+							title="You&#39;re Good to Go! 🚀"
+						/>
+						<Label className="text-text-secondary mt-1 text-sm">
 							You&#39;ve successfully set up SureEmails, and your
 							site is ready to send emails without a hitch! Now
 							you can focus on your business and let us handle the
 							rest.
 						</Label>
 					</div>
-					<div className="max-w-32">{ /* <Icons.EmailSetup /> */ }</div>
+					<div className="max-w-32"><EmailSetup /> </div>
 				</div>
 				<div>
 					<Label className="text-text-primary font-semibold text-sm">
@@ -84,11 +89,9 @@ const Template = ( args ) => {
 							</span>
 						</li>
 					</ul>
+					<hr className="my-6 w-full border-b-0 border-x-0 border-t border-solid border-t-border-subtle" />
 				</div>
-				<div className="py-1">
-					<hr className="w-full border-b-0 border-x-0 border-t border-solid border-t-border-subtle" />
-				</div>
-				<div className="flex items-center">
+				<div className="flex items-center gap-3">
 					<Button className="px-4 w-max">Go to Dashboard</Button>
 					<Button
 						variant="link"
@@ -102,7 +105,7 @@ const Template = ( args ) => {
 	);
 };
 
-export const OnboardingSetupDone = Template.bind( {} );
+export const OnboardingSetupDone = Template.bind({});
 OnboardingSetupDone.args = {};
 
 OnboardingSetupDone.storyName = 'OnboardingSetupDone';

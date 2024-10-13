@@ -6,36 +6,32 @@ import {
 	RadioButton,
 	ProgressSteps,
 	Badge,
+	Title
 } from '@/components';
-// import { Icons } from '@/globals/icons/icons';
+import { SureEmailLogo, SureEmailIcon } from '@/icons';
+
 
 export default {
 	title: 'Templates/Onboarding/Backup Email',
 	parameters: {
 		layout: 'fullscreen',
 	},
-	tags: [ 'autodocs' ],
-	argTypes: {
-		children: {
-			description: 'Content to render inside the OnboardingTools.',
-			control: { type: 'none' },
-		},
-	},
+	tags: ['autodocs'],
 };
 
-const Template = ( args ) => {
+const Template = (args) => {
 	return (
 		<div
-			{ ...args }
+			{...args}
 			className="bg-background-secondary min-h-screen w-full pb-10"
 		>
 			<Topbar className="bg-background-secondary">
 				<Topbar.Left>
-					<Topbar.Item>{ /* <Icons.SureEmailsLogo /> */ }</Topbar.Item>
+					<Topbar.Item><SureEmailLogo /></Topbar.Item>
 				</Topbar.Left>
 				<Topbar.Middle>
 					<Topbar.Item>
-						<ProgressSteps currentStep={ 4 } variant="number">
+						<ProgressSteps currentStep={4} variant="number">
 							<ProgressSteps.Step />
 							<ProgressSteps.Step />
 							<ProgressSteps.Step />
@@ -47,7 +43,7 @@ const Template = ( args ) => {
 				<Topbar.Right>
 					<Topbar.Item>
 						<Button
-							icon={ <X className="size-4" /> }
+							icon={<X className="size-4" />}
 							iconPosition="right"
 							variant="ghost"
 						>
@@ -56,13 +52,15 @@ const Template = ( args ) => {
 					</Topbar.Item>
 				</Topbar.Right>
 			</Topbar>
-			<form onSubmit={ ( event ) => event.preventDefault() }>
-				<div className="w-[43rem] p-8 mx-auto space-y-4 mt-10 border-border-subtle bg-background-primary border border-solid rounded-md">
-					<div className="max-w-[40rem]">
-						<Label size="md" className="font-semibold">
-							Want to Add a Backup Email Service?
-						</Label>
-						<Label className="text-text-secondary mt-1 text-sm">
+			<form onSubmit={(event) => event.preventDefault()}>
+				<div className="md:w-[47rem] box-border mx-auto p-8 mt-10 border border-solid border-border-subtle bg-background-primary rounded-md space-y-4">
+					<div>
+						<Title
+							size="md"
+							tag="h4"
+							title="Want to Add a Backup Email Service?"
+						/>
+						<Label className="text-text-secondary mt-1 text-sm max-w-[41rem]">
 							This is an optional step, but it can be really
 							helpful. By adding a backup email service, your
 							emails will still be sent if your main service stops
@@ -70,16 +68,16 @@ const Template = ( args ) => {
 						</Label>
 					</div>
 
-					<div className="bg-background-secondary p-1 rounded-lg max-h-80 overflow-auto">
-						<RadioButton.Group columns={ 2 } gapClassname="gap-1">
+					<div className="bg-background-secondary p-1 rounded-lg max-h-[23rem] overflow-auto">
+						<RadioButton.Group columns={2} gapClassname="gap-1">
 							<RadioButton.Button
-								value={ `Astra` }
+								value={`Email1`}
 								label={
 									args.label ?? {
-										heading: `Astra Theme`,
+										heading: 'Email Service'
 									}
 								}
-								inlineIcon={ true }
+								inlineIcon={true}
 								badgeItem={
 									<Badge
 										label="Primary"
@@ -89,31 +87,29 @@ const Template = ( args ) => {
 									/>
 								}
 								borderOn
-								// icon={ <Icons.AstraIcon /> }
-								onChange={ () => {} }
+								icon={<SureEmailIcon />} onChange={() => { }}
 								buttonWrapperClasses="bg-white"
 							/>
 							<RadioButton.Button
-								value={ `Starter` }
+								value={`Email2`}
 								label={
 									args.label ?? {
-										heading: `Starter Templates`,
+										heading: 'Email Service'
 									}
 								}
-								inlineIcon={ true }
+								inlineIcon={true}
 								borderOn
-								// icon={ <Icons.StartersTemplatesSvg /> }
-								onChange={ () => {} }
+								icon={<SureEmailIcon />} onChange={() => { }}
 								buttonWrapperClasses="bg-white"
 							/>
 							<RadioButton.Button
-								value={ `SureCart` }
+								value={`Email3`}
 								label={
 									args.label ?? {
-										heading: `SureCart`,
+										heading: 'Email Service'
 									}
 								}
-								inlineIcon={ true }
+								inlineIcon={true}
 								badgeItem={
 									<Badge
 										label="Soon"
@@ -123,44 +119,41 @@ const Template = ( args ) => {
 									/>
 								}
 								borderOn
-								// icon={ <Icons.SureCartSvg /> }
-								onChange={ () => {} }
+								icon={<SureEmailIcon />} onChange={() => { }}
 								buttonWrapperClasses="bg-white"
 							/>
 							<RadioButton.Button
-								value={ `Presto` }
+								value={`Email4`}
 								label={
 									args.label ?? {
-										heading: `Presto Player`,
+										heading: 'Email Service'
 									}
 								}
-								inlineIcon={ true }
+								inlineIcon={true}
 								borderOn
-								// icon={ <Icons.PrestoPlayerSvg /> }
-								onChange={ () => {} }
+								icon={<SureEmailIcon />} onChange={() => { }}
 								buttonWrapperClasses="bg-white"
 							/>
 							<RadioButton.Button
-								value={ `Astra2` }
+								value={`Email5`}
 								label={
 									args.label ?? {
-										heading: `Astra Theme`,
+										heading: 'Email Service'
 									}
 								}
-								inlineIcon={ true }
+								inlineIcon={true}
 								borderOn
-								// icon={ <Icons.AstraIcon /> }
-								onChange={ () => {} }
+								icon={<SureEmailIcon />} onChange={() => { }}
 								buttonWrapperClasses="bg-white"
 							/>
 							<RadioButton.Button
-								value={ `Starter2` }
+								value={`Email6`}
 								label={
 									args.label ?? {
-										heading: `Starter Templates`,
+										heading: 'Email Service'
 									}
 								}
-								inlineIcon={ true }
+								inlineIcon={true}
 								badgeItem={
 									<Badge
 										label="Free"
@@ -170,31 +163,29 @@ const Template = ( args ) => {
 									/>
 								}
 								borderOn
-								// icon={ <Icons.StartersTemplatesSvg /> }
-								onChange={ () => {} }
+								icon={<SureEmailIcon />} onChange={() => { }}
 								buttonWrapperClasses="bg-white"
 							/>
 							<RadioButton.Button
-								value={ `Starter3` }
+								value={`Email7`}
 								label={
 									args.label ?? {
-										heading: `Starter Templates`,
+										heading: 'Email Service'
 									}
 								}
-								inlineIcon={ true }
+								inlineIcon={true}
 								borderOn
-								// icon={ <Icons.StartersTemplatesSvg /> }
-								onChange={ () => {} }
+								icon={<SureEmailIcon />} onChange={() => { }}
 								buttonWrapperClasses="bg-white"
 							/>
 							<RadioButton.Button
-								value={ `Starter4` }
+								value={`Email8`}
 								label={
 									args.label ?? {
-										heading: `Starter Templates`,
+										heading: 'Email Service'
 									}
 								}
-								inlineIcon={ true }
+								inlineIcon={true}
 								badgeItem={
 									<Badge
 										label="Soon"
@@ -204,39 +195,84 @@ const Template = ( args ) => {
 									/>
 								}
 								borderOn
-								// icon={ <Icons.StartersTemplatesSvg /> }
-								onChange={ () => {} }
+								icon={<SureEmailIcon />} onChange={() => { }}
 								buttonWrapperClasses="bg-white"
 							/>
 							<RadioButton.Button
-								value={ `Starter5` }
+								value={`Email9`}
 								label={
 									args.label ?? {
-										heading: `Starter Templates`,
+										heading: 'Email Service'
 									}
 								}
-								inlineIcon={ true }
+								inlineIcon={true}
 								borderOn
-								// icon={ <Icons.StartersTemplatesSvg /> }
-								onChange={ () => {} }
+								icon={<SureEmailIcon />} onChange={() => { }}
 								buttonWrapperClasses="bg-white"
 							/>
 							<RadioButton.Button
-								value={ `Starter6` }
+								value={`Email11`}
 								label={
 									args.label ?? {
-										heading: `Starter Templates`,
+										heading: 'Email Service'
 									}
 								}
-								inlineIcon={ true }
+								inlineIcon={true}
 								borderOn
-								// icon={ <Icons.StartersTemplatesSvg /> }
-								onChange={ () => {} }
+								icon={<SureEmailIcon />} onChange={() => { }}
+								buttonWrapperClasses="bg-white"
+							/>
+							<RadioButton.Button
+								value={`Email12`}
+								label={
+									args.label ?? {
+										heading: 'Email Service'
+									}
+								}
+								inlineIcon={true}
+								borderOn
+								icon={<SureEmailIcon />} onChange={() => { }}
+								buttonWrapperClasses="bg-white"
+							/>
+								<RadioButton.Button
+								value={`Starter64`}
+								label={
+									args.label ?? {
+										heading: 'Email Service'
+									}
+								}
+								inlineIcon={true}
+								borderOn
+								icon={<SureEmailIcon />} onChange={() => { }}
+								buttonWrapperClasses="bg-white"
+							/>
+								<RadioButton.Button
+								value={`Email13`}
+								label={
+									args.label ?? {
+										heading: 'Email Service'
+									}
+								}
+								inlineIcon={true}
+								borderOn
+								icon={<SureEmailIcon />} onChange={() => { }}
+								buttonWrapperClasses="bg-white"
+							/>
+								<RadioButton.Button
+								value={`Email14`}
+								label={
+									args.label ?? {
+										heading: 'Email Service'
+									}
+								}
+								inlineIcon={true}
+								borderOn
+								icon={<SureEmailIcon />} onChange={() => { }}
 								buttonWrapperClasses="bg-white"
 							/>
 						</RadioButton.Group>
 					</div>
-					<div className="flex justify-between items-center pt-2 gap-6">
+					<div className="flex justify-between items-center pt-2 gap-4">
 						<Button
 							variant="outline"
 							className="flex items-center gap-2"
@@ -257,7 +293,7 @@ const Template = ( args ) => {
 	);
 };
 
-export const DefaultOnboardingBackup = Template.bind( {} );
+export const DefaultOnboardingBackup = Template.bind({});
 DefaultOnboardingBackup.args = {};
 
 DefaultOnboardingBackup.storyName = 'OnboardingBackup';
