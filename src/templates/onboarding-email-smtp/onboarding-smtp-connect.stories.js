@@ -1,41 +1,29 @@
-import { ChevronLeft, ChevronRight, X } from 'lucide-react';
-import ProgressSteps from '../progress-steps';
-import Topbar from '../topbar';
-import OnboardingBackupEmail from './onboarding-backup-email';
-import Button from '../button';
-import Label from '../label';
-import Input from '../input';
-import Select from '../select';
-// import { Icons } from '@/globals/icons/icons';
+import { AlertTriangle, ChevronLeft, ChevronRight, X } from 'lucide-react';
+import { SureEmailLogo } from '@/icons';
+import { Input, Label, Button, Topbar, ProgressSteps, Alert, Select, Title } from '@/components';
+
 
 export default {
-	title: 'Templates/OnboardingBackupEmail',
-	component: OnboardingBackupEmail,
+	title: 'Templates/Onboarding/Email Smtp',
 	parameters: {
 		layout: 'fullscreen',
 	},
-	tags: [ 'autodocs' ],
-	argTypes: {
-		children: {
-			description: 'Content to render inside the OnboardingBackupEmail.',
-			control: { type: 'none' },
-		},
-	},
+	tags: ['autodocs'],
 };
 
-const Template = ( args ) => {
+const Template = (args) => {
 	return (
-		<OnboardingBackupEmail
-			{ ...args }
+		<div
+			{...args}
 			className="bg-background-secondary min-h-screen w-full pb-10"
 		>
 			<Topbar className="bg-background-secondary">
 				<Topbar.Left>
-					<Topbar.Item>{ /* <Icons.SureEmailsLogo /> */ }</Topbar.Item>
+					<Topbar.Item><SureEmailLogo /> </Topbar.Item>
 				</Topbar.Left>
 				<Topbar.Middle>
 					<Topbar.Item>
-						<ProgressSteps currentStep={ 3 } variant="number">
+						<ProgressSteps currentStep={2} variant="number">
 							<ProgressSteps.Step />
 							<ProgressSteps.Step />
 							<ProgressSteps.Step />
@@ -47,7 +35,7 @@ const Template = ( args ) => {
 				<Topbar.Right>
 					<Topbar.Item>
 						<Button
-							icon={ <X /> }
+							icon={<X className="size-4" />}
 							iconPosition="right"
 							variant="ghost"
 						>
@@ -56,19 +44,20 @@ const Template = ( args ) => {
 					</Topbar.Item>
 				</Topbar.Right>
 			</Topbar>
-			<form onSubmit={ ( event ) => event.preventDefault() }>
-				<div className="w-8/12 p-6 mx-auto gap-10 border-border-subtle bg-background-primary rounded-md mt-10">
+			<form onSubmit={(event) => event.preventDefault()}>
+				<div className="md:w-[47rem] box-border mx-auto p-8 mt-10 border border-solid border-border-subtle bg-background-primary rounded-md">
 					<div>
-						<Label size="md" className="font-semibold">
-							Now, Let&#39;s Connect With [Selected SMTP Provider
-							Name]
-						</Label>
-						<Label className="w-10/12 text-text-secondary mt-1">
+						<Title
+							size="md"
+							tag="h4"
+							title="Now, Let's Connect With [Selected SMTP Provider Name]"
+						/>
+						<Label className="text-text-secondary mt-1 text-sm max-w-[35rem]">
 							Enter the details below to connect with your
 							[Provider Name] account.
 						</Label>
 					</div>
-					<div className="grid grid-cols-2 gap-6 mt-6">
+					<div className="grid grid-cols-2 gap-6 mt-8">
 						<div>
 							<Input
 								id="name"
@@ -146,25 +135,25 @@ const Template = ( args ) => {
 
 						<div>
 							<Select
-								onChange={ () => {} }
+								onChange={() => { }}
 								placeholder="Select an option"
 								size="md"
 							>
 								<Select.Button label="Encryption" />
 								<Select.Options dropdownPortalId="Encryption">
 									<Select.Option
-										value={ {
+										value={{
 											id: '1',
 											name: 'Symmetrical',
-										} }
+										}}
 									>
 										Symmetrical
 									</Select.Option>
 									<Select.Option
-										value={ {
+										value={{
 											id: '2',
 											name: 'Assymetrical',
-										} }
+										}}
 									>
 										Assymetrical
 									</Select.Option>
@@ -172,7 +161,7 @@ const Template = ( args ) => {
 							</Select>
 						</div>
 					</div>
-					<div className="flex justify-between items-center gap-6 mt-10">
+					<div className="flex justify-between items-center gap-3 mt-8">
 						<Button
 							variant="outline"
 							className="flex items-center gap-2"
@@ -180,20 +169,30 @@ const Template = ( args ) => {
 							<ChevronLeft />
 							Back
 						</Button>
-						<div className="flex justify-end items-center gap-6">
-							<span className="text-sm">Skip</span>
+
+						<div className="flex justify-end items-center gap-3">
+							<Button variant="ghost">Skip</Button>
 							<Button className="flex items-center gap-2">
 								Continue Setup <ChevronRight />
 							</Button>
 						</div>
 					</div>
+					<div className="mt-8">
+						<Alert
+							content="Please check the details and try again."
+							icon={<AlertTriangle />}
+							onClose={() => { }}
+							title="Verification failed."
+							variant="error"
+						/>
+					</div>
 				</div>
 			</form>
-		</OnboardingBackupEmail>
+		</div>
 	);
 };
 
-export const DefaultOnboardingBackupEmail = Template.bind( {} );
-DefaultOnboardingBackupEmail.args = {};
+export const DefaultOnboardingEmailSmtp = Template.bind({});
+DefaultOnboardingEmailSmtp.args = {};
 
-DefaultOnboardingBackupEmail.storyName = 'OnboardingBackupEmail';
+DefaultOnboardingEmailSmtp.storyName = 'OnboardingEmailSmtp';

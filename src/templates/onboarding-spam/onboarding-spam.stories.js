@@ -1,41 +1,28 @@
 import { ChevronLeft, ChevronRight, X } from 'lucide-react';
-import ProgressSteps from '../progress-steps';
-import Topbar from '../topbar';
-import OnboardingSpam from './onboarding-spam';
-import Button from '../button';
-import Label from '../label';
-import Input from '../input';
-// import { Icons } from '@/globals/icons/icons';
-import RadioButton from '../radio-button';
+import { SureEmailLogo } from '@/icons';
+import { Input, RadioButton, Label, Button, Topbar, ProgressSteps, Title } from '@/components';
 
 export default {
-	title: 'Templates/OnboardingSpam',
-	component: OnboardingSpam,
+	title: 'Templates/Onboarding/Spam',
 	parameters: {
 		layout: 'fullscreen',
 	},
-	tags: [ 'autodocs' ],
-	argTypes: {
-		children: {
-			description: 'Content to render inside the OnboardingSpam.',
-			control: { type: 'none' },
-		},
-	},
+	tags: ['autodocs'],
 };
 
-const Template = ( args ) => {
+const Template = (args) => {
 	return (
-		<OnboardingSpam
-			{ ...args }
+		<div
+			{...args}
 			className="bg-background-secondary min-h-screen w-full pb-10"
 		>
 			<Topbar className="bg-background-secondary">
 				<Topbar.Left>
-					<Topbar.Item>{ /* <Icons.SureEmailsLogo /> */ }</Topbar.Item>
+					<Topbar.Item><SureEmailLogo /> </Topbar.Item>
 				</Topbar.Left>
 				<Topbar.Middle>
 					<Topbar.Item>
-						<ProgressSteps currentStep={ 4 } variant="number">
+						<ProgressSteps currentStep={4} variant="number">
 							<ProgressSteps.Step />
 							<ProgressSteps.Step />
 							<ProgressSteps.Step />
@@ -47,7 +34,7 @@ const Template = ( args ) => {
 				<Topbar.Right>
 					<Topbar.Item>
 						<Button
-							icon={ <X /> }
+							icon={<X className="size-4" />}
 							iconPosition="right"
 							variant="ghost"
 						>
@@ -56,19 +43,21 @@ const Template = ( args ) => {
 					</Topbar.Item>
 				</Topbar.Right>
 			</Topbar>
-			<form onSubmit={ ( event ) => event.preventDefault() }>
-				<div className="w-8/12 p-6 mx-auto gap-10 border-border-subtle bg-background-primary rounded-md mt-10">
+			<form onSubmit={(event) => event.preventDefault()}>
+				<div className="md:w-[47rem] box-border mx-auto p-8 mt-10 border border-solid border-border-subtle bg-background-primary rounded-md">
 					<div>
-						<Label size="md" className="font-semibold">
-							Say Goodbye to Spam Folders
-						</Label>
-						<Label className="w-10/12 text-text-secondary mt-1">
+						<Title
+							size="md"
+							tag="h4"
+							title="Say Goodbye to Spam Folders"
+						/>
+						<Label className="text-text-secondary mt-1 text-sm max-w-[35rem]">
 							Enter your email address to receive a step-by-step
 							guide that will help you ensure your emails always
 							make it to the inbox.
 						</Label>
 					</div>
-					<div className="grid gap-6 mt-6">
+					<div className="grid gap-2 mt-8">
 						<div>
 							<Input
 								type="email"
@@ -80,23 +69,23 @@ const Template = ( args ) => {
 							/>
 						</div>
 						<div>
-							<RadioButton.Group columns={ 1 }>
+							<RadioButton.Group columns={1}>
 								<RadioButton.Button
-									value={ `help` }
+									value={`help`}
 									label={
 										args.label ?? {
 											heading: `Help make SureEmails better`,
 											description: `By sharing a bit of anonymous data about your website, plugins, themes, and settings, you help us understand what's popular. This means we can fine-tune our testing and build a product that’s perfectly suited to your needs. Your privacy is our priority. Check out our privacy policy and see what information you share.`,
 										}
 									}
-									useSwitch={ true }
-									reversePosition={ true }
+									useSwitch={true}
+									reversePosition={true}
 								/>
 							</RadioButton.Group>
 						</div>
 					</div>
 					<hr className="w-full border-b-0 border-x-0 border-t border-solid border-t-border-subtle" />
-					<div className="flex justify-between items-center gap-6 mt-10">
+					<div className="flex justify-between items-center gap-3 mt-8">
 						<Button
 							variant="outline"
 							className="flex items-center gap-2"
@@ -104,8 +93,9 @@ const Template = ( args ) => {
 							<ChevronLeft />
 							Back
 						</Button>
-						<div className="flex justify-end items-center gap-6">
-							<span className="text-sm">Skip</span>
+
+						<div className="flex justify-end items-center gap-3">
+							<Button variant="ghost">Skip</Button>
 							<Button className="flex items-center gap-2">
 								Continue Setup <ChevronRight />
 							</Button>
@@ -113,11 +103,11 @@ const Template = ( args ) => {
 					</div>
 				</div>
 			</form>
-		</OnboardingSpam>
+		</div>
 	);
 };
 
-export const DefaultOnboardingSpam = Template.bind( {} );
+export const DefaultOnboardingSpam = Template.bind({});
 DefaultOnboardingSpam.args = {};
 
 DefaultOnboardingSpam.storyName = 'OnboardingSpam';
