@@ -3,19 +3,19 @@ import { cn } from '@/utilities/functions';
 
 export interface ButtonProps {
 	/**
-	 * The variant of the button
+	 * Defines the style variant of the button.
 	 */
 	variant?: 'primary' | 'secondary' | 'outline' | 'ghost' | 'link';
 	/**
-	 * The size of the button
+	 * Defines the size of the button.
 	 */
 	size?: 'xs' | 'sm' | 'md' | 'lg';
 	/**
-	 * The type of the button
+	 * Defines the type of the button.
 	 */
 	type?: 'button' | 'submit' | 'reset';
 	/**
-	 * The tag of the button
+	 * Defines the tag of the button.
 	 */
 	tag?: string | React.ElementType;
 	/**
@@ -27,38 +27,38 @@ export interface ButtonProps {
 	 */
 	children?: React.ReactNode;
 	/**
-	 * The disabled state of the button
+	 * Defines if the button is disabled.
 	 */
 	disabled?: boolean;
 	/**
-	 * The destructive state of the button
+	 * Defines if the button is destructive.
 	 */
 	destructive?: boolean;
 	/**
-	 * The icon of the button
+	 * Custom Icon for the button.
 	 */
 	icon?: React.ReactNode;
 	/**
-	 * The icon position of the button
+	 * Defines the position of the icon.
 	 */
 	iconPosition?: 'left' | 'right';
 	/**
-	 * The loading state of the button
+	 * Defines if the button is loading.
 	 */
 	loading?: boolean;
 
-	/** On click handler */
+	/** On click event. */
 	onClick?: (event: React.MouseEvent<HTMLElement>) => void;
 
 	/**
-	 * The rest of the props
+	 * The rest of the props.
 	 */
 	[key: string]: any;
 }
 export type Ref = React.ForwardedRef<HTMLElement>;
 
-const Button: React.FunctionComponent<ButtonProps> = forwardRef<Ref, ButtonProps>(
-	(props, ref) => {
+const Button: React.FunctionComponent<ButtonProps> = forwardRef(
+	(props: ButtonProps, ref: Ref) => {
 		const {
 			variant = 'primary', // primary, secondary, outline, ghost, link
 			size = 'md', // xs, sm, md, lg
@@ -90,7 +90,7 @@ const Button: React.FunctionComponent<ButtonProps> = forwardRef<Ref, ButtonProps
 				'text-button-tertiary-color border border-border-subtle bg-button-tertiary hover:bg-button-tertiary-hover hover:border-border-subtle disabled:bg-button-tertiary disabled:border-border-disabled',
 			ghost: 'text-text-primary bg-transparent border border-transparent hover:bg-button-tertiary-hover',
 			link: 'text-link-primary bg-transparent hover:text-link-primary-hover hover:underline p-0 border-0 leading-none',
-		})[variant as keyof typeof variantClassNames];
+		})[variant];
 
 		const destructiveClassNames: string | undefined =
 			destructive && !disabled
@@ -103,7 +103,7 @@ const Button: React.FunctionComponent<ButtonProps> = forwardRef<Ref, ButtonProps
 							'text-button-danger border border-button-danger hover:border-button-danger bg-button-tertiary hover:bg-field-background-error',
 						ghost: 'text-button-danger hover:bg-field-background-error',
 						link: 'text-button-danger hover:text-button-danger-secondary',
-					}?.[variant as keyof typeof destructiveClassNames]
+					}[variant]
 				: '';
 
 		const sizeClassNames: string | undefined = {
@@ -111,7 +111,7 @@ const Button: React.FunctionComponent<ButtonProps> = forwardRef<Ref, ButtonProps
 			sm: 'p-2 rounded-sm [&>svg]:h-4 [&>svg]:w-4',
 			md: 'p-2.5 rounded-md text-sm [&>svg]:h-5 [&>svg]:w-5',
 			lg: 'p-3 rounded-lg text-base [&>svg]:h-6 [&>svg]:w-6',
-		}?.[size as keyof typeof sizeClassNames];
+		}?.[size];
 
 		let iconLeft,
 			iconRight = null;
