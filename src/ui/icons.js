@@ -1,11 +1,11 @@
-export const SureRankLogo = (props) => (
+export const SureRankLogo = ( props ) => (
 	<svg
 		width="24"
 		height="24"
 		viewBox="0 0 24 24"
 		fill="none"
 		xmlns="http://www.w3.org/2000/svg"
-		{...props}
+		{ ...props }
 	>
 		<path
 			fillRule="evenodd"
@@ -16,14 +16,14 @@ export const SureRankLogo = (props) => (
 	</svg>
 );
 
-export const SureEmailLogo = (props) => (
+export const SureEmailLogo = ( props ) => (
 	<svg
 		width="145"
 		height="24"
 		viewBox="0 0 145 24"
 		fill="none"
 		xmlns="http://www.w3.org/2000/svg"
-		{...props}
+		{ ...props }
 	>
 		<path
 			fillRule="evenodd"
@@ -42,14 +42,14 @@ export const SureEmailLogo = (props) => (
 	</svg>
 );
 
-export const SureCartLogo = (props) => (
+export const SureCartLogo = ( props ) => (
 	<svg
 		width="24"
 		height="24"
 		viewBox="0 0 24 24"
 		fill="none"
 		xmlns="http://www.w3.org/2000/svg"
-		{...props}
+		{ ...props }
 	>
 		<path
 			fillRule="evenodd"
@@ -60,14 +60,14 @@ export const SureCartLogo = (props) => (
 	</svg>
 );
 
-export const SpectraLogo = (props) => (
+export const SpectraLogo = ( props ) => (
 	<svg
 		width="24"
 		height="24"
 		viewBox="0 0 24 24"
 		fill="none"
 		xmlns="http://www.w3.org/2000/svg"
-		{...props}
+		{ ...props }
 	>
 		<path
 			fillRule="evenodd"
@@ -78,14 +78,14 @@ export const SpectraLogo = (props) => (
 	</svg>
 );
 
-export const AstraThemeLogo = (props) => (
+export const AstraThemeLogo = ( props ) => (
 	<svg
 		width="21"
 		height="20"
 		viewBox="0 0 21 20"
 		fill="none"
 		xmlns="http://www.w3.org/2000/svg"
-		{...props}
+		{ ...props }
 	>
 		<path
 			fillRule="evenodd"
@@ -109,14 +109,14 @@ export const AstraThemeLogo = (props) => (
 	</svg>
 );
 
-export const StartersTemplatesLogo = (props) => (
+export const StartersTemplatesLogo = ( props ) => (
 	<svg
 		width="21"
 		height="20"
 		viewBox="0 0 21 20"
 		fill="none"
 		xmlns="http://www.w3.org/2000/svg"
-		{...props}
+		{ ...props }
 	>
 		<g clipPath="url(#clip0_9150_48086)">
 			<path
@@ -167,14 +167,14 @@ export const StartersTemplatesLogo = (props) => (
 	</svg>
 );
 
-export const PrestoPlayerLogo = (props) => (
+export const PrestoPlayerLogo = ( props ) => (
 	<svg
 		width="21"
 		height="20"
 		viewBox="0 0 21 20"
 		fill="none"
 		xmlns="http://www.w3.org/2000/svg"
-		{...props}
+		{ ...props }
 	>
 		<path
 			d="M13.6094 9.93105L19.3338 6.60156V13.2606L13.6094 9.93105Z"
