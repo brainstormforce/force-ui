@@ -2,29 +2,29 @@ import { Check, ExternalLink, X } from 'lucide-react';
 import { Topbar, Button, Label, ProgressSteps, Title } from '@/components';
 import { SureEmailLogo, EmailSetup } from '@/icons';
 
-
 export default {
 	title: 'Templates/Onboarding/Setup Done',
 	parameters: {
 		layout: 'fullscreen',
 	},
-	tags: ['autodocs'],
+	tags: [ 'autodocs' ],
 };
 
-const Template = (args) => {
+const Template = ( args ) => {
 	return (
 		<div
-			{...args}
+			{ ...args }
 			className="bg-background-secondary min-h-screen w-full pb-10"
 		>
 			<Topbar className="bg-background-secondary">
 				<Topbar.Left>
-					<Topbar.Item><SureEmailLogo /></Topbar.Item>
-
+					<Topbar.Item>
+						<SureEmailLogo />
+					</Topbar.Item>
 				</Topbar.Left>
 				<Topbar.Middle>
 					<Topbar.Item>
-						<ProgressSteps currentStep={5} variant="number">
+						<ProgressSteps currentStep={ 5 } variant="number">
 							<ProgressSteps.Step />
 							<ProgressSteps.Step />
 							<ProgressSteps.Step />
@@ -36,7 +36,7 @@ const Template = (args) => {
 				<Topbar.Right>
 					<Topbar.Item>
 						<Button
-							icon={<X className="size-4" />}
+							icon={ <X className="size-4" /> }
 							iconPosition="right"
 							variant="ghost"
 						>
@@ -60,7 +60,9 @@ const Template = (args) => {
 							rest.
 						</Label>
 					</div>
-					<div className="max-w-32"><EmailSetup /> </div>
+					<div className="max-w-32">
+						<EmailSetup />{ ' ' }
+					</div>
 				</div>
 				<div>
 					<Label className="text-text-primary font-semibold text-sm">
@@ -105,7 +107,7 @@ const Template = (args) => {
 	);
 };
 
-export const OnboardingSetupDone = Template.bind({});
+export const OnboardingSetupDone = Template.bind( {} );
 OnboardingSetupDone.args = {};
 
 OnboardingSetupDone.storyName = 'OnboardingSetupDone';
