@@ -2,11 +2,11 @@
 
 ## Description
 
-The `SearchBox` component is a versatile, customizable search input component built with React and styled using Tailwind CSS. It provides a user-friendly interface for search functionality with support for dropdown results, loading states, and various styling options.
+The `SearchBox` component is a versatile, customizable search input component built with React. It provides a user-friendly interface for search functionality with support for dropdown results, loading states, and various styling options.
 
 ## `SearchBox` Props
 
-### `dimension`
+### `size`
 - **Type:** `string`
 - **Default:** `"sm"`
 - **Description:** Defines the size of the component. Options include:
@@ -27,7 +27,17 @@ The `SearchBox` component is a versatile, customizable search input component bu
 - **Parameters:**
     - `isOpen`: The new open state.
 
+### `loading`
+- **Type:** `boolean`
+- **Default:** `false`
+- **Description:** Controls loading state of the dropdown.
+
 ## `SearchBox.Input` Props
+
+### `ref`
+- **Type:** `React.RefObject<HTMLInputElement>`
+- **Default:** `undefined`
+- **Description:** A ref object to access the underlying input DOM element. This can be used to programmatically focus the input or access its properties.
 
 ### `placeholder`
 - **Type:** `string`
@@ -47,81 +57,89 @@ The `SearchBox` component is a versatile, customizable search input component bu
 - **Default:** `false`
 - **Description:** If true, the input will be disabled.
 
-### `value`
-- **Type:** `string`
-- **Default:** `undefined`
-- **Description:** Controlled input value.
-
-### `defaultValue`
-- **Type:** `string`
-- **Default:** `undefined`
-- **Description:** Default value for uncontrolled input.
-
 ### `onChange`
 - **Type:** `function`
 - **Default:** `undefined`
 - **Description:** Callback function triggered when the input value changes.
-- **Signature:** `function(value: string, event: React.ChangeEvent): void`
+- **Signature:** `function(event: React.ChangeEvent<HTMLInputElement>): void`
 - **Parameters:**
-    - `value`: The new input value.
     - `event`: The original change event.
 
-## `SearchBox.Loading` Props
+### `className`
+- **Type:** `string`
+- **Default:** `""`
+- **Description:** Custom CSS classes for the input.
 
-### `loadingIcon`
-- **Type:** `ReactNode`
-- **Default:** `<Loader />`
-- **Description:** Custom loading icon component.
+## `SearchBox.Content` Props
 
-## `SearchBox.ResultItem` Props
+Container for the dropdown content. No specific props.
 
-### `onClick`
-- **Type:** `function`
-- **Default:** `() => {}`
-- **Description:** Callback function triggered when the item is clicked.
+## `SearchBox.List` Props
+
+### `filter`
+- **Type:** `boolean`
+- **Default:** `true`
+- **Description:** Controls auto filtering of results.
+
+## `SearchBox.Group` Props
+
+### `heading`
+- **Type:** `string`
+- **Description:** Heading text for the group of items.
+
+## `SearchBox.Item` Props
 
 ### `icon`
 - **Type:** `ReactNode`
-- **Default:** `undefined`
 - **Description:** Icon component to display next to the item.
 
 ## Basic Example
 
 ```jsx
-import SearchBox from './SearchBox';
-import { useState } from 'react';
+import React, { useRef, useState } from 'react';
+import SearchBox from '@your-org/searchbox';
+import { File, Folder } from 'lucide-react';
 
 const App = () => {
   const [open, setOpen] = useState(false);
-  const [value, setValue] = useState('');
+  const inputRef = useRef(null);
 
-  const handleChange = (newValue) => {
-    setValue(newValue);
-    // Perform search logic here
+  const handleSearch = () => {
+    // Implement your search logic here
+  };
+
+  const handleOpenChange = (isOpen) => {
+    setOpen(isOpen);
   };
 
   return (
-    <div>
-      <SearchBox dimension="md" open={open} onOpenChange={setOpen}>
-        <SearchBox.Input
-          placeholder="Search..."
-          value={value}
-          onChange={handleChange}
-        />
-        <SearchBox.Content>
-          <SearchBox.Loading />
-          <SearchBox.Results>
-            <SearchBox.ResultTitle>Results</SearchBox.ResultTitle>
-            <SearchBox.ResultItem>Result 1</SearchBox.ResultItem>
-            <SearchBox.ResultItem>Result 2</SearchBox.ResultItem>
-            <SearchBox.Separator />
-            <SearchBox.ResultTitle>Categories</SearchBox.ResultTitle>
-            <SearchBox.ResultItem>Category 1</SearchBox.ResultItem>
-            <SearchBox.ResultItem>Category 2</SearchBox.ResultItem>
-          </SearchBox.Results>
-        </SearchBox.Content>
-      </SearchBox>
-    </div>
+    <SearchBox
+      size="sm"
+      open={open}
+      onOpenChange={handleOpenChange}
+    >
+      <SearchBox.Input
+        ref={inputRef}
+        placeholder="Search..."
+        onChange={handleSearch}
+        variant="primary"
+      />
+      <SearchBox.Content>
+        <SearchBox.List filter={true}>
+          <SearchBox.Group heading="Suggestions">
+            <SearchBox.Item icon={<File />}>Calendar</SearchBox.Item>
+            <SearchBox.Item icon={<File />}>Document</SearchBox.Item>
+            <SearchBox.Item icon={<File />}>Attendance</SearchBox.Item>
+          </SearchBox.Group>
+          <SearchBox.Separator />
+          <SearchBox.Group heading="Folders">
+            <SearchBox.Item icon={<Folder />}>Calendar Folder</SearchBox.Item>
+            <SearchBox.Item icon={<Folder />}>Document Folder</SearchBox.Item>
+            <SearchBox.Item icon={<Folder />}>Attendance Folder</SearchBox.Item>
+          </SearchBox.Group>
+        </SearchBox.List>
+      </SearchBox.Content>
+    </SearchBox>
   );
 };
 

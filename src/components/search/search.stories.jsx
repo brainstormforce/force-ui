@@ -28,6 +28,13 @@ export default {
 				defaultValue: { summary: 'primary' },
 			},
 		},
+		ref: {
+			description: 'Ref forwarded to the input element',
+			control: false,
+			table: {
+				type: { summary: 'React.RefObject<HTMLInputElement>' },
+			},
+		},
 		disabled: {
 			description: 'If true, the input will be disabled',
 			control: 'boolean',
@@ -77,10 +84,9 @@ export default {
 		className: {
 			description:
 				'Defines custom classes for component. Can be passed to all components.',
-			control: { type: 'string' },
+			control: { type: 'text' },
 			table: {
 				type: { summary: 'string' },
-				defaultValue: { summary: '' },
 			},
 		},
 	},
@@ -109,6 +115,7 @@ const Template = ( args ) => {
 				onChange={ handleSearch }
 				variant={ args.variant }
 				disabled={ args.disabled }
+				className={ args.className }
 			/>
 			<SearchBox.Content>
 				<SearchBox.List filter={ args.filter }>
@@ -150,6 +157,7 @@ BasicSearchBox.args = {
 	open: false,
 	onOpenChange: () => {},
 	filter: true,
+	className: '',
 };
 
 export const LargeSearchBox = Template.bind( {} );
