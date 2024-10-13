@@ -1,29 +1,39 @@
 import { AlertTriangle, ChevronLeft, ChevronRight, X } from 'lucide-react';
 import { SureEmailLogo } from '@/icons';
-import { Input, Label, Button, Topbar, ProgressSteps, Alert, Select, Title } from '@/components';
-
+import {
+	Input,
+	Label,
+	Button,
+	Topbar,
+	ProgressSteps,
+	Alert,
+	Select,
+	Title,
+} from '@/components';
 
 export default {
 	title: 'Templates/Onboarding/Email Smtp',
 	parameters: {
 		layout: 'fullscreen',
 	},
-	tags: ['autodocs'],
+	tags: [ 'autodocs' ],
 };
 
-const Template = (args) => {
+const Template = ( args ) => {
 	return (
 		<div
-			{...args}
+			{ ...args }
 			className="bg-background-secondary min-h-screen w-full pb-10"
 		>
 			<Topbar className="bg-background-secondary">
 				<Topbar.Left>
-					<Topbar.Item><SureEmailLogo /> </Topbar.Item>
+					<Topbar.Item>
+						<SureEmailLogo />{ ' ' }
+					</Topbar.Item>
 				</Topbar.Left>
 				<Topbar.Middle>
 					<Topbar.Item>
-						<ProgressSteps currentStep={2} variant="number">
+						<ProgressSteps currentStep={ 2 } variant="number">
 							<ProgressSteps.Step />
 							<ProgressSteps.Step />
 							<ProgressSteps.Step />
@@ -35,7 +45,7 @@ const Template = (args) => {
 				<Topbar.Right>
 					<Topbar.Item>
 						<Button
-							icon={<X className="size-4" />}
+							icon={ <X className="size-4" /> }
 							iconPosition="right"
 							variant="ghost"
 						>
@@ -44,7 +54,7 @@ const Template = (args) => {
 					</Topbar.Item>
 				</Topbar.Right>
 			</Topbar>
-			<form onSubmit={(event) => event.preventDefault()}>
+			<form onSubmit={ ( event ) => event.preventDefault() }>
 				<div className="md:w-[47rem] box-border mx-auto p-8 mt-10 border border-solid border-border-subtle bg-background-primary rounded-md">
 					<div>
 						<Title
@@ -135,25 +145,25 @@ const Template = (args) => {
 
 						<div>
 							<Select
-								onChange={() => { }}
+								onChange={ () => {} }
 								placeholder="Select an option"
 								size="md"
 							>
 								<Select.Button label="Encryption" />
 								<Select.Options dropdownPortalId="Encryption">
 									<Select.Option
-										value={{
+										value={ {
 											id: '1',
 											name: 'Symmetrical',
-										}}
+										} }
 									>
 										Symmetrical
 									</Select.Option>
 									<Select.Option
-										value={{
+										value={ {
 											id: '2',
 											name: 'Assymetrical',
-										}}
+										} }
 									>
 										Assymetrical
 									</Select.Option>
@@ -180,8 +190,8 @@ const Template = (args) => {
 					<div className="mt-8">
 						<Alert
 							content="Please check the details and try again."
-							icon={<AlertTriangle />}
-							onClose={() => { }}
+							icon={ <AlertTriangle /> }
+							onClose={ () => {} }
 							title="Verification failed."
 							variant="error"
 						/>
@@ -192,7 +202,7 @@ const Template = (args) => {
 	);
 };
 
-export const DefaultOnboardingEmailSmtp = Template.bind({});
+export const DefaultOnboardingEmailSmtp = Template.bind( {} );
 DefaultOnboardingEmailSmtp.args = {};
 
 DefaultOnboardingEmailSmtp.storyName = 'OnboardingEmailSmtp';

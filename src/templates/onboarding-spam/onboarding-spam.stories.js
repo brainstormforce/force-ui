@@ -1,28 +1,38 @@
 import { ChevronLeft, ChevronRight, X } from 'lucide-react';
 import { SureEmailLogo } from '@/icons';
-import { Input, RadioButton, Label, Button, Topbar, ProgressSteps, Title } from '@/components';
+import {
+	Input,
+	RadioButton,
+	Label,
+	Button,
+	Topbar,
+	ProgressSteps,
+	Title,
+} from '@/components';
 
 export default {
 	title: 'Templates/Onboarding/Spam',
 	parameters: {
 		layout: 'fullscreen',
 	},
-	tags: ['autodocs'],
+	tags: [ 'autodocs' ],
 };
 
-const Template = (args) => {
+const Template = ( args ) => {
 	return (
 		<div
-			{...args}
+			{ ...args }
 			className="bg-background-secondary min-h-screen w-full pb-10"
 		>
 			<Topbar className="bg-background-secondary">
 				<Topbar.Left>
-					<Topbar.Item><SureEmailLogo /> </Topbar.Item>
+					<Topbar.Item>
+						<SureEmailLogo />{ ' ' }
+					</Topbar.Item>
 				</Topbar.Left>
 				<Topbar.Middle>
 					<Topbar.Item>
-						<ProgressSteps currentStep={4} variant="number">
+						<ProgressSteps currentStep={ 4 } variant="number">
 							<ProgressSteps.Step />
 							<ProgressSteps.Step />
 							<ProgressSteps.Step />
@@ -34,7 +44,7 @@ const Template = (args) => {
 				<Topbar.Right>
 					<Topbar.Item>
 						<Button
-							icon={<X className="size-4" />}
+							icon={ <X className="size-4" /> }
 							iconPosition="right"
 							variant="ghost"
 						>
@@ -43,7 +53,7 @@ const Template = (args) => {
 					</Topbar.Item>
 				</Topbar.Right>
 			</Topbar>
-			<form onSubmit={(event) => event.preventDefault()}>
+			<form onSubmit={ ( event ) => event.preventDefault() }>
 				<div className="md:w-[47rem] box-border mx-auto p-8 mt-10 border border-solid border-border-subtle bg-background-primary rounded-md">
 					<div>
 						<Title
@@ -69,17 +79,17 @@ const Template = (args) => {
 							/>
 						</div>
 						<div>
-							<RadioButton.Group columns={1}>
+							<RadioButton.Group columns={ 1 }>
 								<RadioButton.Button
-									value={`help`}
+									value={ `help` }
 									label={
 										args.label ?? {
 											heading: `Help make SureEmails better`,
 											description: `By sharing a bit of anonymous data about your website, plugins, themes, and settings, you help us understand what's popular. This means we can fine-tune our testing and build a product that’s perfectly suited to your needs. Your privacy is our priority. Check out our privacy policy and see what information you share.`,
 										}
 									}
-									useSwitch={true}
-									reversePosition={true}
+									useSwitch={ true }
+									reversePosition={ true }
 								/>
 							</RadioButton.Group>
 						</div>
@@ -107,7 +117,7 @@ const Template = (args) => {
 	);
 };
 
-export const DefaultOnboardingSpam = Template.bind({});
+export const DefaultOnboardingSpam = Template.bind( {} );
 DefaultOnboardingSpam.args = {};
 
 DefaultOnboardingSpam.storyName = 'OnboardingSpam';
