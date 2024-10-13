@@ -1,4 +1,4 @@
-import { Meta, StoryObj, StoryFn } from '@storybook/react';
+import { Meta, StoryFn } from '@storybook/react';
 import React, { useState } from 'react';
 import Dialog from './dialog';
 import Button from '../button';
