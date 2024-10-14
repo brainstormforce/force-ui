@@ -24,7 +24,7 @@ export default {
 			name: 'Size',
 			description: 'Defines the size of the input.',
 			control: 'select',
-			options: [ 'sm', 'md', 'lg' ],
+			options: [ 'xs', 'sm', 'md', 'lg' ],
 			table: {
 				type: { summary: 'string' },
 				defaultValue: { summary: 'sm' },

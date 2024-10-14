@@ -13,14 +13,14 @@ export default {
 			name: 'Size',
 			description: 'Defines the size of the switch.',
 			control: 'radio',
-			options: [ 'sm', 'lg' ],
+			options: [ 'sm', 'md', 'lg' ],
 			table: {
 				type: { summary: 'string' },
 				defaultValue: { summary: 'lg' },
 			},
 		},
 		disabled: {
-			name: 'Sisabled',
+			name: 'Disabled',
 			description: 'Defines if the switch is disabled.',
 			control: 'boolean',
 			table: {

@@ -10,6 +10,10 @@ export const disabledClassNames = {
 		'disabled:bg-white checked:disabled:bg-white disabled:border-border-disabled checked:disabled:border-border-disabled cursor-not-allowed',
 	icon: 'peer-disabled:text-border-disabled cursor-not-allowed',
 };
+export const textSizeClassNames = {
+	sm: 'text-sm leading-5',
+	md: 'text-base leading-6',
+};
 
 export const sizeClassNames = {
 	sm: {
@@ -25,9 +29,10 @@ export const sizeClassNames = {
 };
 
 export const sizes = {
-	xs: 'py-1 px-1 text-sm gap-0.5 [&>svg]:h-4 [&>svg]:w-4',
-	sm: 'py-2 px-2 text-base gap-1 [&>svg]:h-4 [&>svg]:w-4',
-	md: 'py-2.5 px-2.5 text-base gap-1 [&>svg]:h-5 [&>svg]:w-5',
+	xs: 'py-1 px-1 text-sm gap-0.5 [&>svg]:size-4',
+	sm: 'py-1 px-1.5 text-base gap-1 [&>svg]:size-4',
+	md: 'py-2 px-2.5 text-base gap-1 [&>svg]:size-5',
+	lg: 'py-2.5 px-3 text-base gap-1 [&>svg]:size-6',
 };
 
 export const borderClasses =
