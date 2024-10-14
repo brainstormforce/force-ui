@@ -30,13 +30,10 @@ The `Tooltips` are small, interactive pop-up boxes that provide brief, informati
   - `"left-start"`
   - `"left-end"`
 
-### `title`
-- **Type:** `string | ReactNode`
-- **Description:** Defines the title of the tooltip. Can be a string or a valid JSX element. If a string is provided, it will be displayed in a bold format. If a JSX element is provided, it will be rendered directly.
-
-### `content`
-- **Type:** `string | ReactNode`
-- **Description:** Content of the tooltip. Can be a string or a valid JSX element. If a string is provided, it will be displayed in normal format. If a JSX element is provided, it will be rendered directly, allowing for more complex content such as buttons.
+### label
+**type:** `object` || `ReactComponent`
+- **Object properties/format:** `{heading: 'Tooltip heading,' description: 'Tooltip description'}`
+The label and label description also accepts a React component.
 
 ### `arrow`
 - **Type:** `boolean`
@@ -115,14 +112,10 @@ import { Tooltip } from '@bsf/force-ui';
 const App = () => (
 	<div>
 		<Tooltip
-			title="Tooltip Title"
-			content={
-				<span>
-					<strong>Tooltips</strong> are used to describe or identify
-					an element. In most scenarios, tooltips help the user
-					understand meaning, function or alt-text.
-				</span>
-			}
+            label={{
+                heading: 'Tooltip Heading',
+                description: <span>This is <strong>custom JSX</strong> in the description.</span>
+            }}
 			arrow
 		>
 			<button>Hover over me</button>
@@ -130,14 +123,10 @@ const App = () => (
 
 		{/* Click only mode */}
 		<Tooltip
-			title="Tooltip Title"
-			content={
-				<span>
-					<strong>Tooltips</strong> are used to describe or identify
-					an element. In most scenarios, tooltips help the user
-					understand meaning, function or alt-text.
-				</span>
-			}
+            label={{
+                heading: 'Tooltip Heading',
+                description: 'This is a simple text description.'
+            }}
 			triggers={['click']}
 			arrow
 		>
@@ -146,29 +135,29 @@ const App = () => (
 
 		{/* Interactive Tooltip */}
 		<Tooltip
-			title="Tooltip Title"
-			content={
-				<span>
-					<strong>Tooltips</strong> are used to describe or identify
-					an element. In most scenarios, tooltips help the user
-					understand meaning, function or alt-text.
-				</span>
-			}
+            label={
+                <div>
+                    <h4>Tooltip title</h4>
+                    <div>Tooltips are used to describe or identify
+                    an element. In most scenarios, tooltips help the user
+                    understand meaning, function or alt-text.</div>
+                    <Button variant="primary" destructive className="w-full">
+                            Primary
+                    </Button>
+                </div>
+            }
 			arrow
 			interactive
 		>
 			<button>Hover over me</button>
 		</Tooltip>
+
 		{/* Controlled tooltip */}
 		<Tooltip
-			title="Tooltip Title"
-			content={
-				<span>
-					<strong>Tooltips</strong> are used to describe or identify
-					an element. In most scenarios, tooltips help the user
-					understand meaning, function or alt-text.
-				</span>
-			}
+			label={{
+                heading: 'Tooltip Heading',
+                description: 'This is a simple text description.'
+            }}
 			arrow
 			interactive
 			placement="top-start"

@@ -29,8 +29,7 @@ import { mergeRefs } from '../toaster/utils';
 const Tooltip = ( {
 	variant = 'dark', // 'light' | 'dark';
 	placement = 'bottom', //  | 'top' | 'top-start' | 'top-end' | 'right' | 'right-start' | 'right-end' | 'bottom' | 'bottom-start' | 'bottom-end' | 'left' | 'left-start' | 'left-end';
-	title = '',
-	content,
+    label = {},
 	arrow = false,
 	open,
 	setOpen,
@@ -140,16 +139,19 @@ const Tooltip = ( {
 						} }
 						{ ...getFloatingProps() }
 					>
-						<div>
-                            {isValidElement(title) && title} 
-                            {!isValidElement(title) && !!title && (
-                                <span className="font-semibold">{title}</span>
-                            )} 
-                            {isValidElement(content) && content}
-                            {!isValidElement(content) && !!content && (
-                                <div className="font-normal">{content}</div>
+                        <div>
+                            {isValidElement(label) && label}
+                            {!isValidElement(label) && label?.heading && (
+                                <span className="font-semibold">{label.heading}</span>
                             )}
-						</div>
+                            {!isValidElement(label) && label?.description && (
+                                <div>
+                                    {isValidElement(label.description)
+                                        ? label.description
+                                        : <span>{label.description}</span>}
+                                </div>
+                            )}
+                        </div>
 						{ arrow && (
 							<FloatingArrow
 								ref={ arrowRef }
