@@ -14,7 +14,7 @@ import {
 	variantClassNames,
 	disabledClassNames,
 	sizeClassNames,
-	IconClasses,
+	iconClasses,
 } from './styles';
 import {
 	autoUpdate,
