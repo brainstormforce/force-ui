@@ -47,6 +47,7 @@ const Template = ( args ) => {
 							icon={ <X className="size-4" /> }
 							iconPosition="right"
 							variant="ghost"
+							size="xs"
 						>
 							Exit Guided Setup
 						</Button>
@@ -54,7 +55,7 @@ const Template = ( args ) => {
 				</Topbar.Right>
 			</Topbar>
 			<form onSubmit={ ( event ) => event.preventDefault() }>
-				<div className="md:w-[47rem] box-border mx-auto p-8 mt-10 border border-solid border-border-subtle bg-background-primary rounded-md shadow-sm space-y-4">
+				<div className="md:w-[47rem] box-border mx-auto p-8 mt-10 border border-solid border-border-subtle bg-background-primary rounded-xl shadow-sm space-y-4">
 					<div>
 						<Title
 							size="md"
@@ -71,7 +72,9 @@ const Template = ( args ) => {
 					</div>
 
 					<div className="bg-background-secondary p-1 rounded-lg max-h-[23rem] overflow-auto">
-						<RadioButton.Group columns={ 2 } gapClassname="gap-1">
+						<RadioButton.Group columns={ 2 } 
+							size="sm"
+							gapClassname="gap-1">
 							<RadioButton.Button
 								value={ `Email1` }
 								label={
