@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Tooltip from './tooltip.jsx';
 import { CircleHelp } from 'lucide-react';
 import Label from '../label/label.jsx';
+import Button from '../button/index.js';
 
 export default {
 	title: 'Molecules/Tooltip',
@@ -40,19 +41,12 @@ export default {
 				type: { summary: 'string' },
 			},
 		},
-		title: {
-			description: 'Title for the tooltip.',
-			control: { type: 'text' },
-			table: {
-				type: { summary: 'string' },
-			},
-		},
-		content: {
+        label: {
+			name: 'Label',
 			description:
-				'Content of tooltip - description of tooltip in more detail.',
-			control: { type: 'text' },
+				'Defines the heading and description of the tooltip. Can be an object or a React element.',
 			table: {
-				type: { summary: 'string' },
+				type: { summary: 'object | ReactNode' },
 			},
 		},
 		arrow: {
@@ -145,8 +139,10 @@ export const DefaultTooltip = ( args ) => {
 DefaultTooltip.args = {
 	variant: 'dark',
 	placement: 'bottom',
-	title: 'Tooltip Title',
-	content: 'This is the content of the tooltip.',
+    label:{
+        heading: 'Tooltip Heading',
+        description: <span>This is <strong>custom JSX</strong> in the description.</span>
+    },
 	arrow: true,
 	triggers: [ 'hover', 'focus' ],
 	interactive: false,
@@ -187,7 +183,17 @@ DarkTooltipWithIcon.storyName = 'Tooltip with icon';
 
 DarkTooltipWithIcon.args = {
 	variant: 'dark',
-	title: 'Tooltip',
+    label:{
+        heading: 'Tooltip Heading',
+        description: <div className='mt-2'>
+            <div>Tooltips are used to describe or identify
+            an element. In most scenarios, tooltips help the user
+            understand meaning, function or alt-text.</div>
+            <Button variant="primary" size="sm" className="w-full mt-2">
+                    Upgrade now
+            </Button>
+        </div>
+    },
 	arrow: true,
 };
 
@@ -224,6 +230,9 @@ DarkTooltipWithLabel.storyName = 'Tooltip with label';
 
 DarkTooltipWithLabel.args = {
 	variant: 'dark',
-	title: 'Tooltip',
+    label:{
+        heading: 'Tooltip Heading',
+        description: 'This is a simple text description.'
+    },
 	arrow: true,
 };
