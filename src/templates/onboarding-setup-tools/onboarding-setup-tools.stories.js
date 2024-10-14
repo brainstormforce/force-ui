@@ -59,7 +59,7 @@ const Template = ( args ) => {
 						<Title
 							size="md"
 							tag="h4"
-						className='text-text-primary'
+							className="text-text-primary"
 							title="Add More Power to Your Website"
 						/>
 						<Label className="text-text-secondary mt-1 text-sm max-w-[41rem]">

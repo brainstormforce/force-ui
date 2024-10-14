@@ -52,8 +52,7 @@ const Template = ( args ) => {
 						<Title
 							size="md"
 							tag="h4"
-						className='text-text-primary'
-
+							className="text-text-primary"
 							title="Your Website Basic Details"
 						/>
 						<Label className="text-text-secondary mt-1 text-sm max-w-[35rem]">

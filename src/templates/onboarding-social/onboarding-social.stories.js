@@ -48,9 +48,12 @@ const Template = ( args ) => {
 			<form>
 				<div className="md:w-[45rem] box-border mx-auto p-8 mt-10 border border-solid border-border-subtle bg-background-primary rounded-md shadow-sm">
 					<div>
-						<Title size="md" tag="h4" 
-						className='text-text-primary'
-						title="Social Profiles" />
+						<Title
+							size="md"
+							tag="h4"
+							className="text-text-primary"
+							title="Social Profiles"
+						/>
 						<Label className="text-text-secondary mt-1 text-sm max-w-[35rem]">
 							Please enter all your possible social media
 							profiles. These links can appear in the knowledge

@@ -59,8 +59,7 @@ const Template = ( args ) => {
 					<div>
 						<Title
 							size="md"
-						className='text-text-primary'
-
+							className="text-text-primary"
 							tag="h4"
 							title="Now, Let's Connect With [Selected SMTP Provider Name]"
 						/>

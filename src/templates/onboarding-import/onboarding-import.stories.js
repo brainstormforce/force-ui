@@ -49,7 +49,7 @@ const Template = ( args ) => {
 				<div>
 					<Title
 						size="md"
-						className='text-text-primary'
+						className="text-text-primary"
 						tag="h4"
 						title="Import Data From Your Current Plugins"
 					/>

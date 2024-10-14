@@ -51,8 +51,7 @@ const Template = ( args ) => {
 						<Title
 							size="md"
 							tag="h4"
-						className='text-text-primary'
-
+							className="text-text-primary"
 							title="You're Good to Go! 🚀"
 						/>
 						<Label className="text-text-secondary mt-1 text-sm">

@@ -59,7 +59,7 @@ const Template = ( args ) => {
 						<Title
 							size="md"
 							tag="h4"
-						className='text-text-primary'
+							className="text-text-primary"
 							title="Say Goodbye to Spam Folders"
 						/>
 						<Label className="text-text-secondary mt-1 text-sm max-w-[35rem]">

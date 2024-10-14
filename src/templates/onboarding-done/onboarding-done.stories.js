@@ -40,7 +40,10 @@ const Template = ( args ) => {
 			</Topbar>
 			<div className="grid md:grid-cols-2 md:w-[45rem] box-border mx-auto p-8 gap-10 mt-10 border border-solid border-border-subtle bg-background-primary rounded-md shadow-sm ">
 				<div>
-					<Label size="md" className="text-3xl font-semibold text-text-primary">
+					<Label
+						size="md"
+						className="text-3xl font-semibold text-text-primary"
+					>
 						Congratulations!
 					</Label>
 					<Label className="text-text-secondary mt-2 text-sm">
