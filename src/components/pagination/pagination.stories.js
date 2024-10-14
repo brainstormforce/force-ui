@@ -50,7 +50,8 @@ export default {
 		},
 		target: {
 			name: 'Target',
-			description: 'Specifies where to open the linked document. Default is "_self".',
+			description:
+				'Specifies where to open the linked document. Default is "_self".',
 			control: {
 				type: 'select',
 			},
@@ -62,7 +63,8 @@ export default {
 		},
 		rel: {
 			name: 'Rel',
-			description: 'Specifies the relationship between the current document and the linked document. Default is "noopener noreferrer" for "_blank".',
+			description:
+				'Specifies the relationship between the current document and the linked document. Default is "noopener noreferrer" for "_blank".',
 			control: {
 				type: 'text', // Allow users to input custom rel values
 			},
@@ -105,7 +107,8 @@ const Template = ( args ) => {
 				<Pagination.Previous
 					href={ args.href }
 					target={ args.target }
-					rel={ args.rel } icon={ args.icon }
+					rel={ args.rel }
+					icon={ args.icon }
 				/>
 
 				<Pagination.Item
@@ -163,9 +166,9 @@ const Template = ( args ) => {
 				<Pagination.Next
 					href={ args.href }
 					target={ args.target }
-					rel={ args.rel } icon={ args.icon }
+					rel={ args.rel }
+					icon={ args.icon }
 				/>
-
 			</Pagination.Content>
 		</Pagination>
 	);

@@ -94,8 +94,15 @@ const PaginationButton = ( {
 				'flex justify-center items-center rounded text-button-secondary',
 				'focus:border focus:border-solid focus:border-border-subtle focus:bg-button-tertiary-hover',
 				sizeClassNames[ size ].general,
-				! disabled && isActive && 'text-button-primary active:text-button-primary bg-brand-background-50',
-				disabled && [ disabledClassNames.general, disabledClassNames.icon, disabledClassNames.text, 'focus:ring-transparent cursor-not-allowed' ],
+				! disabled &&
+					isActive &&
+					'text-button-primary active:text-button-primary bg-brand-background-50',
+				disabled && [
+					disabledClassNames.general,
+					disabledClassNames.icon,
+					disabledClassNames.text,
+					'focus:ring-transparent cursor-not-allowed',
+				],
 				className
 			) }
 			disabled={ disabled }
@@ -107,15 +114,13 @@ const PaginationButton = ( {
 	);
 };
 
-const PaginationPrevious = (
-	{
-		icon = <ChevronLeft />,
-		href = '',
-		target = '_self',
-		rel,
-		props,
-	}
-) => {
+const PaginationPrevious = ( {
+	icon = <ChevronLeft />,
+	href = '',
+	target = '_self',
+	rel,
+	props,
+} ) => {
 	const { size, disabled } = usePageContext();
 	return (
 		<li
@@ -136,15 +141,13 @@ const PaginationPrevious = (
 };
 PaginationPrevious.displayName = 'Pagination.Previous';
 
-const PaginationNext = (
-	{
-		icon = <ChevronRight />,
-		href = '',
-		target = '_self',
-		rel,
-		props,
-	}
-) => {
+const PaginationNext = ( {
+	icon = <ChevronRight />,
+	href = '',
+	target = '_self',
+	rel,
+	props,
+} ) => {
 	const { size, disabled } = usePageContext();
 	return (
 		<li
