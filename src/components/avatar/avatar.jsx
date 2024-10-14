@@ -34,7 +34,7 @@ const Avatar = ( props ) => {
 	const borderClasses = {
 		none: '',
 		subtle: 'border border-solid border-border-transparent-subtle',
-		ring: 'border-4 border-solid border-border-white',
+		ring: 'ring ring-border-subtle',
 	}?.[ effectiveBorder ];
 
 	const contentClasses = url ? 'bg-cover bg-center' : '';

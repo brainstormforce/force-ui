@@ -34,14 +34,18 @@ const CheckboxComponent = (
 
 	const sizeClassNames = {
 		sm: {
-			checkbox: 'size-4 rounded-sm',
+			checkbox: 'size-4 rounded gap-1',
 			icon: 'size-3',
 			text: 'text-sm', // text class for sm
+			description: 'text-xs',
+			gap: 'gap-0.5',
 		},
 		md: {
-			checkbox: 'size-5 rounded',
+			checkbox: 'size-5 rounded gap-1',
 			icon: 'size-4',
 			text: 'text-base', // text class for md
+			description: 'text-sm',
+			gap: 'gap-1',
 		},
 	};
 	const colorClassNames = {
@@ -88,19 +92,26 @@ const CheckboxComponent = (
 		}
 
 		return (
-			<div className="space-y-1.5">
+			<div className={ sizeClassNames[ size ].gap }>
 				{ label.heading && (
 					<p
 						className={ cn(
 							'text-text-primary font-medium leading-4 m-0',
-							sizeClassNames[ size ].text
+							sizeClassNames[ size ].text,
+							sizeClassNames[ size ].gap
+
 						) }
 					>
 						{ label.heading }
 					</p>
 				) }
 				{ label.description && (
-					<p className="text-text-secondary text-sm font-normal leading-5 m-0">
+					<p
+						className={ cn(
+							'text-text-secondary font-normal leading-5 m-0',
+							sizeClassNames[ size ].description
+						) }
+					>
 						{ label.description }
 					</p>
 				) }
