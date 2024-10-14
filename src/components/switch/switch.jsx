@@ -16,7 +16,7 @@ const SwitchLabel = ( { label, switchId, disabled = false, children, size } ) =>
 	};
 	const isLabelAComponent = isValidElement( label );
 	if ( isLabelAComponent ) {
-		return (	
+		return (
 			<div
 				className={ cn( 'inline-flex items-center gap-3', 'items-start' ) }
 			>
@@ -30,23 +30,23 @@ const SwitchLabel = ( { label, switchId, disabled = false, children, size } ) =>
 		return (
 			<div className="space-y-1.5">
 				{ heading && (
-					<p className={
-						cn(
-							"text-text-primary m-0", // text-base font-medium leading-4
-							headingClasses[size],
+					<p
+						className={ cn(
+							'text-text-primary m-0', // text-base font-medium leading-4
+							headingClasses[ size ],
 							disabled && 'text-text-disabled'
-						)
-					}>
+						) }
+					>
 						{ heading }
 					</p>
 				) }
 				{ description && (
-					<p className={
-						cn(
-							"text-text-secondary text-sm font-normal leading-5 m-0",
+					<p
+						className={ cn(
+							'text-text-secondary text-sm font-normal leading-5 m-0',
 							disabled && 'text-text-disabled'
-						)
-					}>
+						) }
+					>
 						{ description }
 					</p>
 				) }
@@ -142,7 +142,12 @@ const SwitchComponent = (
 	};
 
 	return (
-		<SwitchLabel label={ label } switchId={ switchId } disabled={ disabled } size={size}>
+		<SwitchLabel
+			label={ label }
+			switchId={ switchId }
+			disabled={ disabled }
+			size={ size }
+		>
 			<div
 				className={ cn(
 					'relative inline-block cursor-pointer rounded-full shrink-0',

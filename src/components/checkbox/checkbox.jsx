@@ -99,7 +99,6 @@ const CheckboxComponent = (
 							'text-text-primary font-medium leading-4 m-0',
 							sizeClassNames[ size ].text,
 							sizeClassNames[ size ].gap
-
 						) }
 					>
 						{ label.heading }

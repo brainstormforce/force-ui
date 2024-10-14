@@ -13,7 +13,7 @@ export const disabledClassNames = {
 export const textSizeClassNames = {
 	sm: 'text-sm leading-5',
 	md: 'text-base leading-6',
-}
+};
 
 export const sizeClassNames = {
 	sm: {
