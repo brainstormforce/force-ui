@@ -48,6 +48,29 @@ export default {
 				defaultValue: { summary: '#' },
 			},
 		},
+		target: {
+			name: 'Target',
+			description: 'Specifies where to open the linked document. Default is "_self".',
+			control: {
+				type: 'select',
+			},
+			options: [ '_self', '_blank', '_parent', '_top' ], // Common target values
+			table: {
+				type: { summary: 'string' },
+				defaultValue: { summary: '_self' },
+			},
+		},
+		rel: {
+			name: 'Rel',
+			description: 'Specifies the relationship between the current document and the linked document. Default is "noopener noreferrer" for "_blank".',
+			control: {
+				type: 'text', // Allow users to input custom rel values
+			},
+			table: {
+				type: { summary: 'string' },
+				defaultValue: { summary: 'noopener noreferrer' },
+			},
+		},
 		icon: {
 			name: 'Icon',
 			description: 'Icon for the Pagination Next and Previous component.',
@@ -79,45 +102,70 @@ const Template = ( args ) => {
 			className={ args.className }
 		>
 			<Pagination.Content>
-				<Pagination.Previous href={ args.href } icon={ args.icon } />
+				<Pagination.Previous
+					href={ args.href }
+					target={ args.target }
+					rel={ args.rel } icon={ args.icon }
+				/>
+
 				<Pagination.Item
 					href={ args.href }
+					target={ args.target }
+					rel={ args.rel }
 					isActive={ false || args.isActive }
 				>
 					1
 				</Pagination.Item>
 				<Pagination.Item
 					href={ args.href }
+					target={ args.target }
+					rel={ args.rel }
 					isActive={ true || args.isActive }
 				>
 					2
 				</Pagination.Item>
 				<Pagination.Item
 					href={ args.href }
+					target={ args.target }
+					rel={ args.rel }
 					isActive={ false || args.isActive }
 				>
 					3
 				</Pagination.Item>
+
 				<Pagination.Ellipsis />
+
 				<Pagination.Item
 					href={ args.href }
+					target={ args.target }
+					rel={ args.rel }
 					isActive={ false || args.isActive }
 				>
 					7
 				</Pagination.Item>
 				<Pagination.Item
 					href={ args.href }
+					target={ args.target }
+					rel={ args.rel }
 					isActive={ false || args.isActive }
 				>
 					8
 				</Pagination.Item>
 				<Pagination.Item
 					href={ args.href }
+					target={ args.target }
+					rel={ args.rel }
 					isActive={ false || args.isActive }
 				>
 					9
 				</Pagination.Item>
-				<Pagination.Next href={ args.href } icon={ args.icon } />
+
+				<Pagination.Next
+					href={ args.href }
+					target={ args.target }
+					rel={ args.rel } icon={ args.icon }
+				/>
+
 			</Pagination.Content>
 		</Pagination>
 	);
@@ -131,7 +179,9 @@ BasicPagination.args = {
 	disabled: false,
 	className: '',
 	isActive: false,
-	href: '',
+	href: '#',
+	target: '_self',
+	rel: '',
 };
 
 export const ExtraSmallPagination = ( args ) => Template( { ...args } );

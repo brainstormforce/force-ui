@@ -73,6 +73,8 @@ const PaginationButton = ( {
 	icon = null,
 	isActive = false,
 	href = '',
+	target = '_self',
+	rel,
 	children,
 	className,
 	...props
@@ -80,34 +82,42 @@ const PaginationButton = ( {
 	const { size, disabled } = usePageContext();
 
 	return (
-		<a
+		<Button
+			tag="a"
 			href={ href }
-			className="text-none no-underline bg-transparent p-0 m-0 border-none"
-		>
-			<Button
-				size={ size }
-				variant={ 'ghost' }
-				className={ cn(
-					'flex justify-center items-center rounded text-button-secondary',
-					! disabled &&
+			target={ target } // target attribute
+			rel={ target === '_blank' ? 'noopener noreferrer' : rel } // rel attribute for security if needed
+			size={ size }
+			variant={ 'ghost' }
+			className={ cn(
+				'no-underline bg-transparent p-0 m-0 border-none',
+				'flex justify-center items-center rounded text-button-secondary active:text-button-primary',
+				! disabled &&
 						isActive &&
 						'text-button-primary bg-brand-background-50',
-					disabled && 'hover:bg-transparent cursor-not-allowed',
-					'focus:border-border-subtle focus:bg-button-tertiary-hover',
-					sizeClassNames[ size ].general,
-					className
-				) }
-				disabled={ disabled }
-				icon={ icon }
-				{ ...props }
-			>
-				{ children }
-			</Button>
-		</a>
+				disabled && 'hover:bg-transparent cursor-not-allowed',
+				'focus:border-border-subtle focus:bg-button-tertiary-hover',
+				sizeClassNames[ size ].general,
+				className
+			) }
+			disabled={ disabled }
+			icon={ icon }
+			{ ...props }
+		>
+			{ children }
+		</Button>
 	);
 };
 
-const PaginationPrevious = ( { icon = <ChevronLeft />, props } ) => {
+const PaginationPrevious = (
+	{
+		icon = <ChevronLeft />,
+		href = '',
+		target = '_self',
+		rel,
+		props,
+	}
+) => {
 	const { size, disabled } = usePageContext();
 	return (
 		<li
@@ -118,6 +128,9 @@ const PaginationPrevious = ( { icon = <ChevronLeft />, props } ) => {
 				icon={ icon }
 				aria-label="Go to previous page"
 				className={ sizeClassNames[ size ].icon }
+				href={ href }
+				target={ target }
+				rel={ rel }
 				{ ...props }
 			/>
 		</li>
@@ -125,7 +138,15 @@ const PaginationPrevious = ( { icon = <ChevronLeft />, props } ) => {
 };
 PaginationPrevious.displayName = 'Pagination.Previous';
 
-const PaginationNext = ( { icon = <ChevronRight />, props } ) => {
+const PaginationNext = (
+	{
+		icon = <ChevronRight />,
+		href = '',
+		target = '_self',
+		rel,
+		props,
+	}
+) => {
 	const { size, disabled } = usePageContext();
 	return (
 		<li
@@ -136,6 +157,9 @@ const PaginationNext = ( { icon = <ChevronRight />, props } ) => {
 				icon={ icon }
 				aria-label="Go to next page"
 				className={ sizeClassNames[ size ].icon }
+				href={ href }
+				target={ target }
+				rel={ rel }
 				{ ...props }
 			/>
 		</li>
@@ -154,7 +178,7 @@ const PaginationEllipsis = ( props ) => {
 		>
 			<span
 				className={ cn(
-					sizeClassNames[ size ].icon,
+					sizeClassNames[ size ].ellipse,
 					disabled && disabledClassNames.general
 				) }
 			>
