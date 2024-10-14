@@ -284,7 +284,7 @@ const RadioButtonComponent = (
 				borderOn && checkedValue && 'ring-2 ring-border-interactive',
 				size === 'sm' ? 'px-3 py-3' : 'px-4 py-4',
 				'pr-12',
-				isDisabled && 'cursor-not-allowed'
+				isDisabled && 'cursor-not-allowed opacity-40'
 			) }
 			htmlFor={ radioButtonId }
 			/** js */
