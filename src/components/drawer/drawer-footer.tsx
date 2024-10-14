@@ -1,8 +1,15 @@
 import { cn } from '@/utilities/functions';
 import { useDrawerState } from './drawer';
 
+export interface DrawerFooterProps {
+	/** Footer content. */
+	children: React.ReactNode | (( { close }: { close: () => void } ) => React.ReactNode);
+	/** Additional class names. */
+	className?: string;
+}
+
 // Drawer footer.
-const DrawerFooter = ( { children, className } ) => {
+const DrawerFooter = ( { children, className }: DrawerFooterProps ) => {
 	const { design, handleClose } = useDrawerState();
 
 	const renderChildren = () => {
@@ -11,7 +18,7 @@ const DrawerFooter = ( { children, className } ) => {
 		}
 
 		if ( typeof children === 'function' ) {
-			return children( { close: handleClose } );
+			return children( { close: handleClose! } );
 		}
 
 		return children;
@@ -32,6 +39,6 @@ const DrawerFooter = ( { children, className } ) => {
 	);
 };
 
-export default Object.assign( DrawerFooter, {
-	displayName: 'Drawer.Footer',
-} );
+DrawerFooter.displayName = 'Drawer.Footer';
+
+export default DrawerFooter;

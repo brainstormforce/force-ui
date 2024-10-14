@@ -12,12 +12,23 @@ const backdropAnimationVariants = {
 	},
 };
 
+export interface DrawerBackdropProps {
+	/** Additional class names. */
+	className?: string;
+	/** Additional props. */
+	[key: string]: any;
+}
+
 // Backdrop for the drawer.
-const DrawerBackdrop = ( { className, ...props } ) => {
+const DrawerBackdrop = ( { className, ...props }: DrawerBackdropProps ) => {
 	const { open, drawerContainerRef, transitionDuration } = useDrawerState();
 
+	if ( ! drawerContainerRef?.current ) {
+		return null;
+	}
+
 	return (
-		drawerContainerRef.current &&
+		!! drawerContainerRef.current &&
 		createPortal(
 			<AnimatePresence>
 				{ open && (
@@ -39,7 +50,6 @@ const DrawerBackdrop = ( { className, ...props } ) => {
 		)
 	);
 };
+DrawerBackdrop.displayName = 'Drawer.Backdrop';
 
-export default Object.assign( DrawerBackdrop, {
-	displayName: 'Drawer.Backdrop',
-} );
+export default DrawerBackdrop;

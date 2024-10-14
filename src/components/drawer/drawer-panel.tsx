@@ -1,3 +1,4 @@
+import React from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useDrawerState } from './drawer';
 import { cn } from '@/utilities/functions';
@@ -21,7 +22,14 @@ const animationVariants = {
 	},
 };
 
-const DrawerPanel = ( { children, className } ) => {
+export interface DrawerPanelProps {
+	/** Drawer content. */
+	children: React.ReactNode | ((props: { close: () => void }) => React.ReactNode);
+	/** Additional class names. */
+	className?: string;
+}
+
+const DrawerPanel = ( { children, className }: DrawerPanelProps ) => {
 	const { open, position, handleClose, drawerRef, transitionDuration } =
 		useDrawerState();
 
@@ -47,11 +55,11 @@ const DrawerPanel = ( { children, className } ) => {
 							initial="exit"
 							animate="open"
 							exit="exit"
-							variants={ animationVariants[ position ] }
+							variants={ animationVariants[ position! ] }
 							transition={ transitionDuration }
 						>
 							{ typeof children === 'function'
-								? children( { close: handleClose } )
+								? children( { close: handleClose! } )
 								: children }
 						</motion.div>
 					</div>
@@ -61,6 +69,6 @@ const DrawerPanel = ( { children, className } ) => {
 	);
 };
 
-export default Object.assign( DrawerPanel, {
-	displayName: 'Drawer.Panel',
-} );
+DrawerPanel.displayName = 'Drawer.Panel';
+
+export default DrawerPanel;
