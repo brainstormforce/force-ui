@@ -158,7 +158,7 @@ const SearchBoxInput = forwardRef(
 				<span
 					className={ cn(
 						textSizeClassNames[ size ],
-						disabled ? 'text-icon-disabled' : IconClasses,
+						disabled ? 'text-icon-disabled' : iconClasses,
 						'flex justify-center items-center'
 					) }
 				>
