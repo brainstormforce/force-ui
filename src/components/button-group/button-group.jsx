@@ -113,9 +113,9 @@ const ButtonComponent = ( props, ref ) => {
 	const { activeItem, onChange, size, iconPosition } = providerValue;
 
 	const sizes = {
-		xs: 'py-1 px-1 text-sm gap-0.5 [&>svg]:h-4 [&>svg]:w-4',
-		sm: 'py-2 px-2 text-base gap-1 [&>svg]:h-4 [&>svg]:w-4',
-		md: 'py-2.5 px-2.5 text-base gap-1 [&>svg]:h-5 [&>svg]:w-5',
+		xs: 'py-1 px-1 text-sm gap-0.5 [&>svg]:size-4',
+		sm: 'py-2 px-2 text-base gap-1 [&>svg]:size-4',
+		md: 'py-2.5 px-2.5 text-base gap-1 [&>svg]:size-5',
 	};
 
 	const baseClasses =

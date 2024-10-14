@@ -13,9 +13,6 @@ import {
 	Bell,
 } from 'lucide-react';
 
-Menu.displayName = 'Menu';
-Menu.List.displayName = 'Menu.List';
-Menu.Item.displayName = 'Menu.Item';
 export default {
 	title: 'Molecules/Menu',
 	component: Menu,
@@ -56,7 +53,7 @@ export default {
 };
 
 const Template = ( args ) => (
-	<Menu size={ args.size }>
+	<Menu size={ args.size } className="gap-6">
 		<Menu.List heading="Store" open={ true } arrow={ true }>
 			<Menu.Item
 				active={ args.menuItemActive }

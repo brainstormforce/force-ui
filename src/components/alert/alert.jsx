@@ -12,18 +12,13 @@ const Alert = ( {
 	icon = null,
 	onClose = () => {},
 	action = {
-		label: 'Action',
+		label: '',
 		onClick: () => {},
 		type: 'link',
 	},
 } ) => {
 	const closeAlert = () => {
 		onClose();
-	};
-
-	const containerVariantClassNames = {
-		stack: 'w-[22.5rem]',
-		inline: 'lg:w-[47.5rem] w-full',
 	};
 
 	// Variant classes - Based on the variant prop.
@@ -53,11 +48,10 @@ const Alert = ( {
 		return (
 			<div
 				className={ cn(
-					'flex items-center justify-start p-4 gap-2 relative border border-solid rounded-md shadow-lg',
+					'flex items-center justify-start p-4 gap-2 relative border border-solid rounded-md shadow-lg w-full',
 					theme === 'dark'
 						? variantClassNames.dark
 						: variantClassNames.light?.[ variant ],
-					containerVariantClassNames.inline,
 					className
 				) }
 			>
@@ -105,11 +99,10 @@ const Alert = ( {
 	return (
 		<div
 			className={ cn(
-				'flex items-center justify-between p-3 gap-2 relative border border-solid rounded-md shadow-lg',
+				'flex items-center justify-between p-3 gap-2 relative border border-solid rounded-lg shadow-lg',
 				theme === 'dark'
 					? variantClassNames.dark
 					: variantClassNames.light?.[ variant ],
-				containerVariantClassNames.inline,
 				className
 			) }
 		>
@@ -117,12 +110,12 @@ const Alert = ( {
 				<div className="self-start flex items-center justify-center [&_svg]:size-5 shrink-0">
 					{ getIcon( { variant, icon, theme } ) }
 				</div>
-				<div className="flex items-start justify-start gap-1 mr-10 [&>span:first-child]:shrink-0">
+				<div className="flex items-start justify-start gap-1 mr-10 [&>span:first-child]:shrink-0 px-1">
 					{ getTitle( { title, theme } ) }
 					{ getContent( { content, theme } ) }
 				</div>
 			</div>
-			<div className="flex items-center justify-start gap-4 [&_svg]:size-5">
+			<div className="flex items-center justify-start gap-4 [&_svg]:size-4">
 				{
 					action?.label && typeof action?.onClick === 'function' && (
 						/* eslint-disable */
@@ -139,7 +132,7 @@ const Alert = ( {
 				}
 				<button
 					className={ cn(
-						'bg-transparent m-0 p-0 border-none focus:outline-none active:outline-none cursor-pointer',
+						'bg-transparent m-0 border-none p-0.5 focus:outline-none active:outline-none cursor-pointer size-5',
 						closeIconClassNames[ theme ] ?? closeIconClassNames.light
 					) }
 					onClick={ () => closeAlert() }

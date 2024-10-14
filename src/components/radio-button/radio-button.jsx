@@ -9,7 +9,7 @@ import React, {
 	Fragment,
 } from 'react';
 import { nanoid } from 'nanoid';
-import { Check } from 'lucide-react';
+import { Check, Info } from 'lucide-react';
 
 import { cn, columnClasses } from '@/utilities/functions';
 import Switch from '../switch';
@@ -17,12 +17,14 @@ import {
 	colorClassNames,
 	disabledClassNames,
 	sizeClassNames,
+	textSizeClassNames,
 	sizes,
 	borderClasses,
 	baseClasses,
 	hoverClasses,
 	focusClasses,
 } from './styles';
+import Tooltip from '../tooltip';
 
 const RadioButtonContext = createContext();
 const useRadioButton = () => useContext( RadioButtonContext );
@@ -42,6 +44,7 @@ const RadioButtonGroup = ( {
 	vertical = false,
 	columns = 4,
 	multiSelection = false,
+	gapClassname = 'gap-2',
 } ) => {
 	const isControlled = useMemo( () => typeof value !== 'undefined', [ value ] );
 	const nameAttr = useMemo(
@@ -88,8 +91,9 @@ const RadioButtonGroup = ( {
 		[ onChange ]
 	);
 	className = cn(
-		`grid grid-cols-4 gap-2`,
+		`grid grid-cols-4`,
 		columnClasses[ columns ],
+		gapClassname,
 		style === 'tile' && 'gap-0',
 		vertical && 'grid-cols-1',
 		className
@@ -156,10 +160,13 @@ const RadioButtonComponent = (
 		borderOn = false,
 		badgeItem = null,
 		useSwitch = false,
+		info = null,
+		minWidth = true,
 		...props
 	},
 	ref
 ) => {
+	const { buttonWrapperClasses } = props;
 	const providerValue = useRadioButton();
 	const {
 		name,
@@ -222,7 +229,9 @@ const RadioButtonComponent = (
 				<div className={ cn( 'space-y-1.5' ) }>
 					<p
 						className={ cn(
-							'text-text-primary text-sm font-medium leading-4 m-0',
+							'text-text-primary font-medium m-0',
+							textSizeClassNames[ size ],
+							disabled && 'text-text-disabled cursor-not-allowed',
 							icon && 'mt-1'
 						) }
 					>
@@ -267,13 +276,15 @@ const RadioButtonComponent = (
 		<label
 			className={ cn(
 				'inline-flex items-center relative cursor-pointer transition-all duration-300',
-				!! label && 'items-start justify-between min-w-[180px] ',
+				!! label && 'items-start justify-between',
+				minWidth && 'min-w-[180px]',
+				buttonWrapperClasses,
 				borderOn &&
 					'border border-border-subtle border-solid rounded-md shadow-sm hover:ring-2 hover:ring-border-interactive',
 				borderOn && checkedValue && 'ring-2 ring-border-interactive',
 				size === 'sm' ? 'px-3 py-3' : 'px-4 py-4',
 				'pr-12',
-				isDisabled && 'cursor-not-allowed'
+				isDisabled && 'cursor-not-allowed opacity-40'
 			) }
 			htmlFor={ radioButtonId }
 			/** js */
@@ -290,9 +301,27 @@ const RadioButtonComponent = (
 					{ renderLabel() }
 				</label>
 			) }
+			{ !! info && (
+				<div className="absolute mr-0.5 bottom-1.5 right-3">
+					<Tooltip
+						arrow
+						title={ info?.heading }
+						content={ info?.description }
+						triggers={ [ 'hover', 'focus' ] }
+						placement="top"
+					>
+						<Info
+							className={ cn(
+								'text-text-primary',
+								sizeClassNames[ size ]?.info
+							) }
+						/>
+					</Tooltip>
+				</div>
+			) }
 			<label
 				className={ cn(
-					'absolute mr-[2px] right-3 flex items-center cursor-pointer rounded-full',
+					'absolute mr-0.5 right-3 flex items-center cursor-pointer rounded-full gap-2',
 					reversePosition && 'left-0',
 					isDisabled && 'cursor-not-allowed'
 				) }
@@ -315,7 +344,7 @@ const RadioButtonComponent = (
 							checked={ checkedValue }
 						/>
 					) : (
-						<span className="relative">
+						<span className="relative p-0.5">
 							<input
 								ref={ ref }
 								id={ radioButtonId }
