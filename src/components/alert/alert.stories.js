@@ -7,7 +7,7 @@ export default {
 	title: 'Atoms/Alert',
 	component: Alert,
 	parameters: {
-		layout: 'fullscreen',
+		layout: 'centered',
 	},
 	tags: [ 'autodocs' ],
 	argTypes: {
