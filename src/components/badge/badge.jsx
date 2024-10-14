@@ -110,14 +110,14 @@ const BadgeComponent = ( props, ref ) => {
 			{ label }
 			{ closable && (
 				<span
-					className={ buttonClasses }
+					className={ cn( buttonClasses, iconSizeClasses[ size ] ) }
 					onClick={ ! disabled ? onClose : null }
 					onMouseDown={ onMouseDown }
 					role="button"
 					tabIndex={ 0 }
 				>
 					<span className="sr-only">{ `Remove ${ label }` }</span>
-					<X className={ iconSizeClasses[ size ] } />{ ' ' }
+					<X />{ ' ' }
 					{ /* Apply the same size class to the X icon */ }
 					<span className="absolute -inset-1" />
 				</span>
