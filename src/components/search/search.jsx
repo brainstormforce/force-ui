@@ -187,7 +187,7 @@ const SearchBoxInput = forwardRef(
 				<span
 					className={ cn(
 						textSizeClassNames[ size ],
-						disabled ? 'text-icon-disabled' : IconClasses,
+						disabled ? 'text-icon-disabled' : iconClasses,
 						'bg-field-secondary-background border border-solid border-field-border',
 						sizeClassNames.slashIcon[ size ]
 					) }
