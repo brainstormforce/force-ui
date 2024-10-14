@@ -7,51 +7,43 @@ const DEFAULT_THEME = 'light';
 const DEFAULT_VARIANT = 'neutral';
 const DEFAULT_ACTION_TYPE = 'button';
 
+export const getIconColor = ( { theme = DEFAULT_THEME, variant = DEFAULT_VARIANT } ) => {
+	let color = theme === 'light' ? 'text-icon-secondary' : 'text-icon-inverse';
+	const variantClasses = {
+		info: theme === 'light' ? 'text-support-info' : 'text-support-info-inverse',
+		success: theme === 'light' ? 'text-support-success' : 'text-support-success-inverse',
+		warning: theme === 'light' ? 'text-support-warning' : 'text-support-warning-inverse',
+		error: theme === 'light' ? 'text-support-error' : 'text-support-error-inverse',
+	};
+	color = variantClasses[ variant ] || color;
+
+	return color;
+};
+
 export const getIcon = ( {
 	icon = null,
 	theme = DEFAULT_THEME,
 	variant = DEFAULT_VARIANT,
 } ) => {
 	const commonClasses = '[&>svg]:h-5 [&>svg]:w-5';
-	const nColor =
-		theme === 'light' ? 'text-icon-secondary' : 'text-icon-inverse';
+	let color = getIconColor( { theme, variant } );
+
 	if ( icon && isValidElement( icon ) ) {
 		const updatedIcon = cloneElement( icon, {
-			className: cn( commonClasses, nColor, icon.props.className ),
+			className: cn( commonClasses, color, icon.props.className ),
 		} );
 		return updatedIcon;
 	}
 
-	switch ( variant ) {
-		case 'neutral':
-			return <Info className={ cn( commonClasses, nColor ) } />;
-		case 'info':
-			const iColor =
-				theme === 'light'
-					? 'text-support-info'
-					: 'text-support-info-inverse';
-			return <Info className={ cn( commonClasses, iColor ) } />;
-		case 'success':
-			const sColor =
-				theme === 'light'
-					? 'text-support-success'
-					: 'text-support-success-inverse';
-			return <Check className={ cn( commonClasses, sColor ) } />;
-		case 'warning':
-			const wColor =
-				theme === 'light'
-					? 'text-support-warning'
-					: 'text-support-warning-inverse';
-			return <AlertTriangle className={ cn( commonClasses, wColor ) } />;
-		case 'error':
-			const dColor =
-				theme === 'light'
-					? 'text-support-error'
-					: 'text-support-error-inverse';
-			return <Trash2 className={ cn( commonClasses, dColor ) } />;
-		default:
-			return null;
-	}
+	const icons = {
+		neutral: <Info className={ cn( commonClasses, color ) } />,
+		info: <Info className={ cn( commonClasses, color ) } />,
+		success: <Check className={ cn( commonClasses, color ) } />,
+		warning: <AlertTriangle className={ cn( commonClasses, color ) } />,
+		error: <Trash2 className={ cn( commonClasses, color ) } />,
+	};
+
+	return icons[ variant ] || icons.neutral;
 };
 
 export const getAction = ( {
