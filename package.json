@@ -74,6 +74,7 @@
     "@storybook/react": "^8.3.3",
     "@storybook/react-webpack5": "^8.3.3",
     "@storybook/test": "^8.3.3",
+    "@tailwindcss/container-queries": "^0.1.1",
     "@wordpress/eslint-plugin": "^20.3.0",
     "@wordpress/prettier-config": "^4.4.0",
     "@wordpress/scripts": "^27.9.0",
