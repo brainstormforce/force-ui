@@ -49,7 +49,7 @@ export const variantClassNames = {
 	ghost: 'bg-field-secondary-background border border-solid border-transparent',
 };
 
-export const IconClasses =
+export const iconClasses =
 	'text-icon-secondary group-hover:text-icon-primary group-focus-within:text-icon-primary';
 
 export const disabledClassNames = {
