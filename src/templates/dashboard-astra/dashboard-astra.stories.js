@@ -471,24 +471,28 @@ export const AstraDashboard = () => {
 									} }
 									className="w-full"
 								>
-									{ defaultRadioButtonGroupData.map( ( option ) => (
-										<RadioButton.Button
-											key={ `option-${ option.id }` }
-											borderOn={ true }
-											value={ option.value }
-											icon={ option.icon }
-											hideSelection={ option.hideSelection }
-											toggleLabel={ option.toggleLabel }
-											label={ {
-												heading: option.label,
-											} }
-											useSwitch={ option.useSwitch }
-											className="px-2"
-											badgeItem={ option.badge }
-											disabled={ option.disabled }
-											buttonWrapperClasses="bg-background-primary"
-										/>
-									) ) }
+									{ defaultRadioButtonGroupData.map(
+										( option ) => (
+											<RadioButton.Button
+												key={ `option-${ option.id }` }
+												borderOn={ true }
+												value={ option.value }
+												icon={ option.icon }
+												hideSelection={
+													option.hideSelection
+												}
+												toggleLabel={ option.toggleLabel }
+												label={ {
+													heading: option.label,
+												} }
+												useSwitch={ option.useSwitch }
+												className="px-2"
+												badgeItem={ option.badge }
+												disabled={ option.disabled }
+												buttonWrapperClasses="bg-background-primary"
+											/>
+										)
+									) }
 								</RadioButton.Group>
 							</Container.Item>
 							<Container.Item className="flex items-center justify-center gap-2 text-text-primary text-sm bg-background-secondary rounded-lg p-3">
