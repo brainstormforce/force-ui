@@ -22,15 +22,15 @@ const BadgeComponent = ( props, ref ) => {
 
 	// Base classes - Mandatory classes
 	const baseClasses =
-		'font-medium ring-1 ring-badge-border-gray flex items-center justify-center';
+		'font-medium border-badge-border-gray flex items-center justify-center border border-solid box-border';
 
 	// Size classes - Based on the size prop
 	const sizeClasses = {
-		xxs: 'py-0.5 px-0.5 text-xs',
-		xs: 'py-0.5 px-1 text-xs',
-		sm: 'py-1 px-1.5 text-xs',
-		md: 'py-1 px-1.5 text-sm',
-		lg: 'py-1 px-1.5 text-base',
+		xxs: 'py-0.5 px-0.5 text-xs h-4',
+		xs: 'py-0.5 px-1 text-xs h-5',
+		sm: 'py-1 px-1.5 text-xs h-6',
+		md: 'py-1 px-1.5 text-sm h-7',
+		lg: 'py-1 px-1.5 text-base h-8',
 	};
 
 	// Type classes - Based on the type prop
@@ -42,15 +42,15 @@ const BadgeComponent = ( props, ref ) => {
 	// Variant classes - Based on the variant prop
 	const variantClasses = {
 		neutral:
-			'bg-badge-background-gray hover:bg-badge-hover-gray text-badge-color-gray ring-badge-border-gray',
-		red: 'bg-badge-background-red hover:bg-badge-hover-red text-badge-color-red ring-badge-border-red',
-		yellow: 'bg-badge-background-yellow hover:bg-badge-hover-yellow text-badge-color-yellow ring-badge-border-yellow',
-		green: 'bg-badge-background-green hover:bg-badge-hover-green text-badge-color-green ring-badge-border-green',
-		blue: 'bg-badge-background-sky hover:bg-badge-hover-sky text-badge-color-sky ring-badge-border-sky',
+			'bg-badge-background-gray hover:bg-badge-hover-gray text-badge-color-gray border-badge-border-gray',
+		red: 'bg-badge-background-red hover:bg-badge-hover-red text-badge-color-red border-badge-border-red',
+		yellow: 'bg-badge-background-yellow hover:bg-badge-hover-yellow text-badge-color-yellow border-badge-border-yellow',
+		green: 'bg-badge-background-green hover:bg-badge-hover-green text-badge-color-green border-badge-border-green',
+		blue: 'bg-badge-background-sky hover:bg-badge-hover-sky text-badge-color-sky border-badge-border-sky',
 		inverse:
-			'bg-background-inverse hover:bg-badge-hover-inverse text-text-inverse ring-background-inverse',
+			'bg-background-inverse hover:bg-badge-hover-inverse text-text-inverse border-background-inverse',
 		disabled:
-			'bg-badge-background-disabled hover:bg-badge-hover-disabled text-badge-color-disabled ring-badge-border-disabled disabled cursor-not-allowed',
+			'bg-badge-background-disabled hover:bg-badge-hover-disabled text-badge-color-disabled border-badge-border-disabled disabled cursor-not-allowed',
 	};
 
 	// Gap classes between icon, label, and X
@@ -107,7 +107,7 @@ const BadgeComponent = ( props, ref ) => {
 					{ icon }
 				</span>
 			) : null }
-			{ label }
+			<span className="px-1">{ label }</span>
 			{ closable && (
 				<span
 					className={ cn( buttonClasses, iconSizeClasses[ size ] ) }
