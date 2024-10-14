@@ -40,7 +40,6 @@ const Template = ( args ) => {
 							iconPosition="right"
 							variant="ghost"
 							size="xs"
-
 						>
 							Exit Guided Setup
 						</Button>
