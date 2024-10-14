@@ -13,9 +13,6 @@ import {
 	Bell,
 } from 'lucide-react';
 
-Menu.displayName = 'Menu';
-Menu.List.displayName = 'Menu.List';
-Menu.Item.displayName = 'Menu.Item';
 export default {
 	title: 'Molecules/Menu',
 	component: Menu,
