@@ -26,7 +26,7 @@ const BadgeComponent = ( props, ref ) => {
 
 	// Size classes - Based on the size prop
 	const sizeClasses = {
-		xxs: 'py-0.5 px-1 text-xs', // Assuming you have xxs text size as utility
+		xxs: 'py-0.5 px-1 text-xs',
 		xs: 'py-0.5 px-1 text-xs',
 		sm: 'py-1 px-1.5 text-xs',
 		md: 'py-1 px-1.5 text-sm',
@@ -74,6 +74,14 @@ const BadgeComponent = ( props, ref ) => {
 	let filteredClasses = '';
 	let buttonClasses =
 		'group relative justify-center flex items-center cursor-pointer';
+
+	const iconSizeClasses = {
+		xxs: '[&>svg]:size-3',
+		xs: '[&>svg]:size-3',
+		sm: '[&>svg]:size-3',
+		md: '[&>svg]:size-4',
+		lg: '[&>svg]:size-5',
+	};
 
 	if ( disabled ) {
 		filteredClasses = variantClasses.disabled;

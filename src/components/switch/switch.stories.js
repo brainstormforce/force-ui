@@ -13,7 +13,7 @@ export default {
 			name: 'Size',
 			description: 'Defines the size of the switch.',
 			control: 'radio',
-			options: [ 'sm', 'lg' ],
+			options: [ 'sm', 'md', 'lg' ],
 			table: {
 				type: { summary: 'string' },
 				defaultValue: { summary: 'lg' },

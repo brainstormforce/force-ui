@@ -1,6 +1,6 @@
 // RadioButtonGroup.stories.jsx
 import React from 'react';
-import RadioButton from '../radio-button-group/radio-button-group';
+import RadioButton from '../radio-button';
 import Container from '../container';
 import Label from '../label';
 import Badge from '../badge';
