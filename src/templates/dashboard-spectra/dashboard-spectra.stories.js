@@ -531,24 +531,29 @@ export const SpectraDashboard = () => {
 									} }
 									className="w-full gap-1"
 								>
-									{ defaultRadioButtonGroupData.map( ( option ) => (
-										<RadioButton.Button
-											key={ `option-${ option.id }` }
-											borderOn={ true }
-											value={ option.value }
-											icon={ option.icon }
-											hideSelection={ option.hideSelection }
-											toggleLabel={ option.toggleLabel }
-											label={ {
-												heading: option.label,
-												description: option.description,
-											} }
-											useSwitch={ option.useSwitch }
-											className="px-2"
-											badgeItem={ option.bagde }
-											buttonWrapperClasses="bg-background-primary"
-										/>
-									) ) }
+									{ defaultRadioButtonGroupData.map(
+										( option ) => (
+											<RadioButton.Button
+												key={ `option-${ option.id }` }
+												borderOn={ true }
+												value={ option.value }
+												icon={ option.icon }
+												hideSelection={
+													option.hideSelection
+												}
+												toggleLabel={ option.toggleLabel }
+												label={ {
+													heading: option.label,
+													description:
+														option.description,
+												} }
+												useSwitch={ option.useSwitch }
+												className="px-2"
+												badgeItem={ option.bagde }
+												buttonWrapperClasses="bg-background-primary"
+											/>
+										)
+									) }
 								</RadioButton.Group>
 							</Container.Item>
 						</Container>

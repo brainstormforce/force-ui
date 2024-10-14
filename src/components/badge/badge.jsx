@@ -26,7 +26,7 @@ const BadgeComponent = ( props, ref ) => {
 
 	// Size classes - Based on the size prop
 	const sizeClasses = {
-		xxs: 'py-0.5 px-1 text-xs',
+		xxs: 'py-0.5 px-1 text-xs', // Assuming you have xxs text size as utility
 		xs: 'py-0.5 px-1 text-xs',
 		sm: 'py-1 px-1.5 text-xs',
 		md: 'py-1 px-1.5 text-sm',
@@ -53,15 +53,6 @@ const BadgeComponent = ( props, ref ) => {
 			'bg-badge-background-disabled hover:bg-badge-hover-disabled text-badge-color-disabled border-badge-border-disabled disabled cursor-not-allowed',
 	};
 
-	// Icon size classes based on the badge size prop
-	const iconSizeClasses = {
-		xxs: 'size-3', // 12px
-		xs: 'size-3', // 12px
-		sm: 'size-3', // 12px
-		md: 'size-4', // 16px
-		lg: 'size-5', // 20px
-	};
-
 	// Gap classes between icon, label, and X
 	const gapClasses = {
 		xxs: 'gap-1', // 4px
@@ -76,11 +67,11 @@ const BadgeComponent = ( props, ref ) => {
 		'group relative justify-center flex items-center cursor-pointer';
 
 	const iconSizeClasses = {
-		xxs: '[&>svg]:size-3',
-		xs: '[&>svg]:size-3',
-		sm: '[&>svg]:size-3',
-		md: '[&>svg]:size-4',
-		lg: '[&>svg]:size-5',
+		xxs: '[&>svg]:size-3 size-3',
+		xs: '[&>svg]:size-3 size-3',
+		sm: '[&>svg]:size-3 size-3',
+		md: '[&>svg]:size-4 size-4',
+		lg: '[&>svg]:size-5 size-5',
 	};
 
 	if ( disabled ) {
