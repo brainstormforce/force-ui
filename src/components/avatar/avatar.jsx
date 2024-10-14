@@ -33,7 +33,7 @@ const Avatar = ( props ) => {
 
 	const borderClasses = {
 		none: '',
-		subtle: 'border border-solid border-border-transparent-subtle',
+		subtle: 'ring-1 ring-border-transparent-subtle',
 		ring: 'ring ring-border-subtle',
 	}?.[ effectiveBorder ];
 

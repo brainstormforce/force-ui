@@ -29,14 +29,14 @@ const Alert = ( {
 	// Variant classes - Based on the variant prop.
 	const variantClassNames = {
 		light: {
-			neutral: 'border-alert-border-neutral bg-alert-background-neutral',
-			custom: 'border-alert-border-neutral bg-alert-background-neutral',
-			info: 'border-alert-border-info bg-alert-background-info',
-			success: 'border-alert-border-green bg-alert-background-green',
-			warning: 'border-alert-border-warning bg-alert-background-warning',
-			error: 'border-alert-border-danger bg-alert-background-danger',
+			neutral: 'ring-alert-border-neutral bg-alert-background-neutral',
+			custom: 'ring-alert-border-neutral bg-alert-background-neutral',
+			info: 'ring-alert-border-info bg-alert-background-info',
+			success: 'ring-alert-border-green bg-alert-background-green',
+			warning: 'ring-alert-border-warning bg-alert-background-warning',
+			error: 'ring-alert-border-danger bg-alert-background-danger',
 		},
-		dark: 'bg-background-inverse border-background-inverse',
+		dark: 'bg-background-inverse ring-background-inverse',
 	};
 
 	// Close icon class names.
@@ -53,7 +53,7 @@ const Alert = ( {
 		return (
 			<div
 				className={ cn(
-					'flex items-center justify-start p-4 gap-2 relative border border-solid rounded-md shadow-lg',
+					'flex items-center justify-start p-4 gap-2 relative ring-1 rounded-md shadow-lg',
 					theme === 'dark'
 						? variantClassNames.dark
 						: variantClassNames.light?.[ variant ],
@@ -105,7 +105,7 @@ const Alert = ( {
 	return (
 		<div
 			className={ cn(
-				'flex items-center justify-between p-3 gap-2 relative border border-solid rounded-lg shadow-lg',
+				'flex items-center justify-between p-3 gap-2 relative ring-1 rounded-lg shadow-lg',
 				theme === 'dark'
 					? variantClassNames.dark
 					: variantClassNames.light?.[ variant ],
@@ -126,7 +126,7 @@ const Alert = ( {
 				{
 					action?.label && typeof action?.onClick === 'function' && (
 						/* eslint-disable */
-						<div className="flex">
+						<div className="flex h-5">
 							{getAction({
 								actionLabel: action?.label,
 								actionType: action?.type ?? 'button',

@@ -22,7 +22,7 @@ const BadgeComponent = ( props, ref ) => {
 
 	// Base classes - Mandatory classes
 	const baseClasses =
-		'font-medium border-badge-border-gray flex items-center justify-center border border-solid';
+		'font-medium ring-1 ring-badge-border-gray flex items-center justify-center';
 
 	// Size classes - Based on the size prop
 	const sizeClasses = {
@@ -42,15 +42,15 @@ const BadgeComponent = ( props, ref ) => {
 	// Variant classes - Based on the variant prop
 	const variantClasses = {
 		neutral:
-			'bg-badge-background-gray hover:bg-badge-hover-gray text-badge-color-gray border-badge-border-gray',
-		red: 'bg-badge-background-red hover:bg-badge-hover-red text-badge-color-red border-badge-border-red',
-		yellow: 'bg-badge-background-yellow hover:bg-badge-hover-yellow text-badge-color-yellow border-badge-border-yellow',
-		green: 'bg-badge-background-green hover:bg-badge-hover-green text-badge-color-green border-badge-border-green',
-		blue: 'bg-badge-background-sky hover:bg-badge-hover-sky text-badge-color-sky border-badge-border-sky',
+			'bg-badge-background-gray hover:bg-badge-hover-gray text-badge-color-gray ring-badge-border-gray',
+		red: 'bg-badge-background-red hover:bg-badge-hover-red text-badge-color-red ring-badge-border-red',
+		yellow: 'bg-badge-background-yellow hover:bg-badge-hover-yellow text-badge-color-yellow ring-badge-border-yellow',
+		green: 'bg-badge-background-green hover:bg-badge-hover-green text-badge-color-green ring-badge-border-green',
+		blue: 'bg-badge-background-sky hover:bg-badge-hover-sky text-badge-color-sky ring-badge-border-sky',
 		inverse:
-			'bg-background-inverse hover:bg-badge-hover-inverse text-text-inverse border-background-inverse',
+			'bg-background-inverse hover:bg-badge-hover-inverse text-text-inverse ring-background-inverse',
 		disabled:
-			'bg-badge-background-disabled hover:bg-badge-hover-disabled text-badge-color-disabled border-badge-border-disabled disabled cursor-not-allowed',
+			'bg-badge-background-disabled hover:bg-badge-hover-disabled text-badge-color-disabled ring-badge-border-disabled disabled cursor-not-allowed',
 	};
 
 	// Gap classes between icon, label, and X
