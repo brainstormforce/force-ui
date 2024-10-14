@@ -17,13 +17,18 @@ export interface DrawerDefaultCloseButtonProps extends CommonProps {
 
 export interface DrawerCloseButtonProps extends CommonProps {
 	/** Button content. */
-	children?: React.ReactNode | (( { close }: { close: () => void } ) => React.ReactNode);
+	children?:
+		| React.ReactNode
+		| ( ( { close }: { close: () => void } ) => React.ReactNode );
 	/** Button tag. */
 	as?: React.ElementType;
 }
 
 // Default close button for the drawer.
-const DefaultCloseButton = ( { className, ...props }: DrawerDefaultCloseButtonProps ) => {
+const DefaultCloseButton = ( {
+	className,
+	...props
+}: DrawerDefaultCloseButtonProps ) => {
 	return (
 		<button
 			className={ cn(
@@ -39,7 +44,11 @@ const DefaultCloseButton = ( { className, ...props }: DrawerDefaultCloseButtonPr
 };
 
 // Close button for the drawer.
-const DrawerCloseButton = ( { children, as: Tag = Fragment, ...props }: DrawerCloseButtonProps ) => {
+const DrawerCloseButton = ( {
+	children,
+	as: Tag = Fragment,
+	...props
+}: DrawerCloseButtonProps ) => {
 	const { handleClose } = useDrawerState();
 
 	if ( ! children ) {
@@ -55,7 +64,7 @@ const DrawerCloseButton = ( { children, as: Tag = Fragment, ...props }: DrawerCl
 			return <DefaultCloseButton onClick={ handleClose! } { ...props } />;
 		}
 		return cloneElement( children as React.ReactElement, {
-			onClick: handleClose
+			onClick: handleClose,
 		} );
 	}
 
@@ -68,4 +77,4 @@ const DrawerCloseButton = ( { children, as: Tag = Fragment, ...props }: DrawerCl
 
 DrawerCloseButton.displayName = 'Drawer.CloseButton';
 
-export default DrawerCloseButton
+export default DrawerCloseButton;

@@ -14,18 +14,17 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { callAll, cn } from '@/utilities/functions';
 import { X } from 'lucide-react';
 import { createPortal } from 'react-dom';
-import React from 'react';
 
 export interface DialogState {
 	open: boolean;
-	setOpen: (open: boolean) => void;
+	setOpen: ( open: boolean ) => void;
 	handleClose: () => void;
 	design: 'simple' | 'footer-divided';
 	dialogContainerRef: React.RefObject<HTMLDivElement | null>;
 	dialogRef: React.RefObject<HTMLDivElement>;
 }
 
-const DialogContext = createContext<Partial<DialogState>>({});
+const DialogContext = createContext<Partial<DialogState>>( {} );
 const useDialogState = () => useContext( DialogContext );
 
 const animationVariants = {
@@ -49,13 +48,13 @@ export interface DialogProps extends CommonProps {
 	/** Control the dialog open state. If not provided, the dialog will be controlled internally. */
 	open?: boolean;
 	/** Control the dialog open state. If not provided, the dialog will be controlled internally. */
-	setOpen?: (open: boolean) => void;
+	setOpen?: ( open: boolean ) => void;
 	/** Children of the dialog. */
 	children: React.ReactNode;
 	/** Trigger element for the dialog. */
 	trigger?:
 		| React.ReactNode
-		| ((props: { onClick: () => void }) => React.ReactElement);
+		| ( ( props: { onClick: () => void } ) => React.ReactElement );
 	/** Close the dialog on clicking outside the dialog. */
 	exitOnClickOutside?: boolean;
 	/** Close the dialog on pressing the escape key. */
@@ -110,9 +109,9 @@ const Dialog = ( {
 
 	const renderTrigger = useCallback( () => {
 		if ( isValidElement( trigger ) ) {
-			return cloneElement(trigger as React.ReactElement, {
-				onClick: callAll(handleOpen, trigger?.props?.onClick),
-			});
+			return cloneElement( trigger as React.ReactElement, {
+				onClick: callAll( handleOpen, trigger?.props?.onClick ),
+			} );
 		}
 
 		if ( typeof trigger === 'function' ) {
@@ -161,12 +160,12 @@ const Dialog = ( {
 		}
 		const htmlElement: HTMLElement | null = document.querySelector( 'html' );
 		if ( openState && htmlElement ) {
-			htmlElement.style.overflow = 'hidden'
+			htmlElement.style.overflow = 'hidden';
 		}
 
 		return () => {
 			if ( ! htmlElement ) {
-				return
+				return;
 			}
 			htmlElement.style.overflow = '';
 		};
@@ -202,10 +201,15 @@ Dialog.displayName = 'Dialog';
 
 export interface DialogPanelProps extends CommonProps {
 	/** Children of the dialog panel. */
-	children: React.ReactNode | ((param: {close: () => void}) => React.ReactNode);
+	children:
+		| React.ReactNode
+		| ( ( param: { close: () => void } ) => React.ReactNode );
 }
 
-export const DialogPanel = ( { children, className }: DialogPanelProps ): JSX.Element => {
+export const DialogPanel = ( {
+	children,
+	className,
+}: DialogPanelProps ): JSX.Element => {
 	const { open, handleClose, dialogRef } = useDialogState();
 
 	return (
@@ -229,7 +233,7 @@ export const DialogPanel = ( { children, className }: DialogPanelProps ): JSX.El
 							) }
 						>
 							{ typeof children === 'function'
-								? children({ close: handleClose! })
+								? children( { close: handleClose! } )
 								: children }
 						</div>
 					</div>
@@ -242,39 +246,39 @@ DialogPanel.displayName = 'Dialog.Panel';
 
 export interface DialogBackdropProps extends CommonProps {}
 
-export const DialogBackdrop = ({
+export const DialogBackdrop = ( {
 	className,
 	...props
-} : DialogBackdropProps ): JSX.Element | null => {
+}: DialogBackdropProps ): JSX.Element | null => {
 	const { open, dialogContainerRef } = useDialogState();
 
-	if (!dialogContainerRef?.current) {
+	if ( ! dialogContainerRef?.current ) {
 		return null;
 	}
 
 	return (
 		<>
-			{createPortal(
+			{ createPortal(
 				<AnimatePresence>
-					{open && (
+					{ open && (
 						<motion.div
-							className={cn(
+							className={ cn(
 								'fixed inset-0 -z-10 bg-background-inverse/90 backdrop-blur-sm',
 								className
-							)}
-							{...props}
+							) }
+							{ ...props }
 							initial="exit"
 							animate="open"
 							exit="exit"
-							variants={animationVariants}
-							transition={TRANSITION_DURATION}
+							variants={ animationVariants }
+							transition={ TRANSITION_DURATION }
 						/>
-					)}
+					) }
 				</AnimatePresence>,
 				dialogContainerRef.current
-			)}
+			) }
 		</>
-	); 
+	);
 };
 DialogBackdrop.displayName = 'Dialog.Backdrop';
 
@@ -284,7 +288,11 @@ export interface DialogHeaderProps extends CommonProps {
 }
 
 // Dialog header wrapper.
-export const DialogHeader = ( { children, className, ...props }: DialogHeaderProps ): JSX.Element => {
+export const DialogHeader = ( {
+	children,
+	className,
+	...props
+}: DialogHeaderProps ): JSX.Element => {
 	return (
 		<div className={ cn( 'space-y-2 px-5 pt-5 pb-1', className ) } { ...props }>
 			{ children }
@@ -301,21 +309,21 @@ export interface DialogTitleProp extends CommonProps {
 }
 
 // Dialog title.
-export const DialogTitle = ({
+export const DialogTitle = ( {
 	children,
 	as: Tag = 'h3',
 	className,
 	...props
-}: DialogTitleProp): JSX.Element => {
+}: DialogTitleProp ): JSX.Element => {
 	return (
 		<Tag
-			className={cn(
+			className={ cn(
 				'text-base font-semibold text-text-primary m-0 p-0',
 				className
-			)}
-			{...props}
+			) }
+			{ ...props }
 		>
-			{children}
+			{ children }
 		</Tag>
 	);
 };
@@ -361,7 +369,10 @@ export interface DialogCloseButtonProps extends CommonProps {
 }
 
 // Default close button for the dialog.
-export const DefaultCloseButton = ( { className, ...props }: DialogCloseButtonProps ): JSX.Element => {
+export const DefaultCloseButton = ( {
+	className,
+	...props
+}: DialogCloseButtonProps ): JSX.Element => {
 	return (
 		<button
 			className={ cn(
@@ -377,32 +388,32 @@ export const DefaultCloseButton = ( { className, ...props }: DialogCloseButtonPr
 };
 
 // Close button for the dialog.
-export const DialogCloseButton = ({
+export const DialogCloseButton = ( {
 	children,
 	as: Tag = Fragment,
 	...props
-}: DialogCloseButtonProps): JSX.Element | React.ReactNode => {
+}: DialogCloseButtonProps ): JSX.Element | React.ReactNode => {
 	const { handleClose } = useDialogState();
 
-	if (!children) {
-		return <DefaultCloseButton onClick={handleClose} {...props} />;
+	if ( ! children ) {
+		return <DefaultCloseButton onClick={ handleClose } { ...props } />;
 	}
 
-	if (Tag === Fragment) {
-		if (typeof children === 'function') {
+	if ( Tag === Fragment ) {
+		if ( typeof children === 'function' ) {
 			return (
-				children as (props: { close: () => void }) => React.ReactNode
-			)({ close: handleClose! });
+				children as ( args: { close: () => void } ) => React.ReactNode
+			)( { close: handleClose! } );
 		}
 
-		return cloneElement(children as React.ReactElement, {
+		return cloneElement( children as React.ReactElement, {
 			onClick: handleClose,
-		});
+		} );
 	}
 
 	return (
-		<Tag {...props} onClick={handleClose}>
-			{children}
+		<Tag { ...props } onClick={ handleClose }>
+			{ children }
 		</Tag>
 	);
 };
@@ -414,7 +425,11 @@ export interface DialogBodyProps extends CommonProps {
 }
 
 // Dialog body.
-export const DialogBody = ( { children, className, ...props }: DialogBodyProps ): JSX.Element => {
+export const DialogBody = ( {
+	children,
+	className,
+	...props
+}: DialogBodyProps ): JSX.Element => {
 	return (
 		<div className={ cn( 'px-5', className ) } { ...props }>
 			{ children }
@@ -426,10 +441,15 @@ DialogBody.displayName = 'Dialog.Body';
 // Dialog footer.
 export interface DialogFooterProps extends CommonProps {
 	/** Children of the dialog footer. */
-	children?: React.ReactNode | ((props: { close: () => void }) => React.ReactNode);
+	children?:
+		| React.ReactNode
+		| ( ( props: { close: () => void } ) => React.ReactNode );
 }
 
-export const DialogFooter = ( { children, className }: DialogFooterProps ): JSX.Element => {
+export const DialogFooter = ( {
+	children,
+	className,
+}: DialogFooterProps ): JSX.Element => {
 	const { design, handleClose } = useDialogState();
 
 	const renderChildren = () => {

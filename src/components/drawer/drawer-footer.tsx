@@ -3,7 +3,9 @@ import { useDrawerState } from './drawer';
 
 export interface DrawerFooterProps {
 	/** Footer content. */
-	children: React.ReactNode | (( { close }: { close: () => void } ) => React.ReactNode);
+	children:
+		| React.ReactNode
+		| ( ( { close }: { close: () => void } ) => React.ReactNode );
 	/** Additional class names. */
 	className?: string;
 }

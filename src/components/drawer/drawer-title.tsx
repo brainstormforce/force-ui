@@ -11,7 +11,12 @@ export interface DrawerTitleProps {
 }
 
 // Drawer title.
-const DrawerTitle = ( { children, as: Tag = 'h3', className, ...props }: DrawerTitleProps ) => {
+const DrawerTitle = ( {
+	children,
+	as: Tag = 'h3',
+	className,
+	...props
+}: DrawerTitleProps ) => {
 	return (
 		<Tag
 			className={ cn(

@@ -25,11 +25,13 @@ export interface DrawerProps {
 	/** Open state of the drawer. Optional for uncontrolled component. */
 	open?: boolean;
 	/** Set open state of the drawer. Optional for uncontrolled component. */
-	setOpen?: (open: boolean) => void;
+	setOpen?: ( open: boolean ) => void;
 	/** Drawer content. */
 	children: React.ReactNode;
 	/** Trigger element to open the drawer. Required for uncontrolled component. */
-	trigger?: React.ReactNode | ((props: { onClick: () => void }) => React.ReactNode);
+	trigger?:
+		| React.ReactNode
+		| ( ( props: { onClick: () => void } ) => React.ReactNode );
 	/** Additional class names. */
 	className?: string;
 	/** Close drawer when clicking outside of the drawer. */
@@ -48,7 +50,7 @@ export interface DrawerProps {
 
 export interface DrawerContextDefault {
 	open: DrawerProps['open'];
-	setOpen: (open: boolean) => void;
+	setOpen: ( open: boolean ) => void;
 	handleClose: () => void;
 	design: DrawerProps['design'];
 	position: DrawerProps['position'];
@@ -57,11 +59,11 @@ export interface DrawerContextDefault {
 	transitionDuration: { duration: number };
 }
 
-const DrawerContext = createContext<Partial<DrawerContextDefault>>({});
-export const useDrawerState = () => useContext(DrawerContext);
+const DrawerContext = createContext<Partial<DrawerContextDefault>>( {} );
+export const useDrawerState = () => useContext( DrawerContext );
 
 // Drawer component.
-const Drawer = ({
+const Drawer = ( {
 	open,
 	setOpen,
 	children,
@@ -75,53 +77,53 @@ const Drawer = ({
 	scrollLock = true,
 }: DrawerProps ) => {
 	const isControlled = open !== undefined && setOpen !== undefined;
-	const [isOpen, setIsOpen] = useState(false);
-	const drawerRef = useRef<HTMLDivElement>(null);
-	const drawerContainerRef = useRef<HTMLDivElement>(null);
+	const [ isOpen, setIsOpen ] = useState( false );
+	const drawerRef = useRef<HTMLDivElement>( null );
+	const drawerContainerRef = useRef<HTMLDivElement>( null );
 
 	const openState = useMemo(
-		() => (isControlled ? open : isOpen),
-		[open, isOpen]
+		() => ( isControlled ? open : isOpen ),
+		[ open, isOpen ]
 	);
 	const setOpenState = useMemo(
-		() => (isControlled ? setOpen : setIsOpen),
-		[setIsOpen, setIsOpen]
+		() => ( isControlled ? setOpen : setIsOpen ),
+		[ setIsOpen, setIsOpen ]
 	);
 
 	const handleOpen = () => {
-		if (openState) {
+		if ( openState ) {
 			return;
 		}
 
-		setOpenState(true);
+		setOpenState( true );
 	};
 
 	const handleClose = () => {
-		if (!openState) {
+		if ( ! openState ) {
 			return;
 		}
 
-		setOpenState(false);
+		setOpenState( false );
 	};
 
-	const renderTrigger = useCallback(() => {
-		if (isValidElement(trigger)) {
-			return cloneElement(trigger as React.ReactElement, {
-				onClick: callAll(handleOpen, trigger.props.onClick),
-			});
+	const renderTrigger = useCallback( () => {
+		if ( isValidElement( trigger ) ) {
+			return cloneElement( trigger as React.ReactElement, {
+				onClick: callAll( handleOpen, trigger.props.onClick ),
+			} );
 		}
 
-		if (typeof trigger === 'function') {
-			return trigger({ onClick: handleOpen });
+		if ( typeof trigger === 'function' ) {
+			return trigger( { onClick: handleOpen } );
 		}
 
 		return null;
-	}, [trigger, handleOpen, handleClose]);
+	}, [ trigger, handleOpen, handleClose ] );
 
-	const handleKeyDown = (event: KeyboardEvent) => {
-		switch (event.key) {
+	const handleKeyDown = ( event: KeyboardEvent ) => {
+		switch ( event.key ) {
 			case 'Escape':
-				if (exitOnEsc) {
+				if ( exitOnEsc ) {
 					handleClose();
 				}
 				break;
@@ -130,49 +132,49 @@ const Drawer = ({
 		}
 	};
 
-	const handleClickOutside = (event: MouseEvent) => {
+	const handleClickOutside = ( event: MouseEvent ) => {
 		if (
 			exitOnClickOutside &&
 			drawerRef.current &&
-			!drawerRef.current.contains(event.target as Node)
+			! drawerRef.current.contains( event.target as Node )
 		) {
 			handleClose();
 		}
 	};
 
-	useEffect(() => {
-		window.addEventListener('keydown', handleKeyDown);
-		document.addEventListener('mousedown', handleClickOutside);
+	useEffect( () => {
+		window.addEventListener( 'keydown', handleKeyDown );
+		document.addEventListener( 'mousedown', handleClickOutside );
 
 		return () => {
-			window.removeEventListener('keydown', handleKeyDown);
-			document.removeEventListener('mousedown', handleClickOutside);
+			window.removeEventListener( 'keydown', handleKeyDown );
+			document.removeEventListener( 'mousedown', handleClickOutside );
 		};
-	}, [openState]);
+	}, [ openState ] );
 
 	// Prevent scrolling when drawer is open.
-	useEffect(() => {
-		if (!scrollLock) {
+	useEffect( () => {
+		if ( ! scrollLock ) {
 			return;
 		}
-		const htmlElement = document.querySelector('html');
-		if (openState && htmlElement) {
+		const htmlElement = document.querySelector( 'html' );
+		if ( openState && htmlElement ) {
 			htmlElement.style.overflow = 'hidden';
 		}
 
 		return () => {
-			if (!htmlElement) {
+			if ( ! htmlElement ) {
 				return;
 			}
 			htmlElement.style.overflow = '';
 		};
-	}, [openState]);
+	}, [ openState ] );
 
 	return (
 		<>
-			{renderTrigger()}
+			{ renderTrigger() }
 			<DrawerContext.Provider
-				value={{
+				value={ {
 					open: openState,
 					setOpen: setOpenState,
 					handleClose,
@@ -181,17 +183,17 @@ const Drawer = ({
 					drawerContainerRef,
 					drawerRef,
 					transitionDuration: { duration: transitionDuration },
-				}}
+				} }
 			>
 				<div
-					className={cn(
+					className={ cn(
 						'fixed z-999999 w-0 h-0 overflow-visible',
 						className
-					)}
+					) }
 					role="dialog"
-					ref={drawerContainerRef}
+					ref={ drawerContainerRef }
 				>
-					{children}
+					{ children }
 				</div>
 			</DrawerContext.Provider>
 		</>

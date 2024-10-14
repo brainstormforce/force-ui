@@ -24,7 +24,9 @@ const animationVariants = {
 
 export interface DrawerPanelProps {
 	/** Drawer content. */
-	children: React.ReactNode | ((props: { close: () => void }) => React.ReactNode);
+	children:
+		| React.ReactNode
+		| ( ( props: { close: () => void } ) => React.ReactNode );
 	/** Additional class names. */
 	className?: string;
 }

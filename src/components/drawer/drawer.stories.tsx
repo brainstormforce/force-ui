@@ -24,9 +24,9 @@ const meta: Meta<typeof Drawer> = {
 		layout: 'fullscreen',
 		controls: { expanded: true },
 	},
-	tags: ['autodocs'],
+	tags: [ 'autodocs' ],
 	decorators: [
-		(Story) => (
+		( Story ) => (
 			<div className="font-sans [&_*]:font-sans h-[600px] flex items-center justify-center">
 				<Story />
 			</div>
@@ -55,14 +55,14 @@ const meta: Meta<typeof Drawer> = {
 
 export default meta;
 
-const Logo = ({ className }: Record<string, string>) => (
+const Logo = ( { className }: Record<string, string> ) => (
 	<svg
 		width="116"
 		height="24"
 		viewBox="0 0 116 24"
 		fill="none"
 		xmlns="http://www.w3.org/2000/svg"
-		className={className}
+		className={ className }
 	>
 		<g clipPath="url(#clip0_6645_69725)">
 			<path
@@ -87,20 +87,20 @@ const Logo = ({ className }: Record<string, string>) => (
 );
 
 type ComponentProps = Parameters<typeof Drawer>[0];
-type StoryWithCustomArg = StoryFn<ComponentProps & AdditionalArgTypes>
+type StoryWithCustomArg = StoryFn<ComponentProps & AdditionalArgTypes>;
 
 type Story = StoryFn<typeof Drawer>;
 
-const Template: StoryWithCustomArg = (args) => {
-	const [open, setOpen] = useState(false);
+const Template: StoryWithCustomArg = ( args ) => {
+	const [ open, setOpen ] = useState( false );
 
 	return (
-		<Drawer {...args} open={open} setOpen={setOpen}>
+		<Drawer { ...args } open={ open } setOpen={ setOpen }>
 			<Drawer.Panel>
 				<Drawer.Header>
 					<div className="flex items-center justify-between">
-						<Drawer.Title as={args?.titleTag}>
-							{args?.title ?? 'Drawer Title'}
+						<Drawer.Title as={ args?.titleTag }>
+							{ args?.title ?? 'Drawer Title' }
 						</Drawer.Title>
 						<Drawer.CloseButton />
 					</div>
@@ -115,10 +115,10 @@ const Template: StoryWithCustomArg = (args) => {
 					</div>
 				</Drawer.Body>
 				<Drawer.Footer>
-					<Button variant="outline" onClick={() => setOpen(false)}>
+					<Button variant="outline" onClick={ () => setOpen( false ) }>
 						Close
 					</Button>
-					<Button onClick={() => setOpen(false)}>Save</Button>
+					<Button onClick={ () => setOpen( false ) }>Save</Button>
 				</Drawer.Footer>
 			</Drawer.Panel>
 			<Drawer.Backdrop />
@@ -126,7 +126,7 @@ const Template: StoryWithCustomArg = (args) => {
 	);
 };
 
-export const Default = Template.bind({});
+export const Default = Template.bind( {} );
 Default.args = {
 	trigger: <Button>Open Drawer</Button>,
 	design: 'simple',
@@ -137,7 +137,7 @@ Default.args = {
 	scrollLock: true,
 };
 
-export const LogoInPlaceOfTheTitle = Template.bind({});
+export const LogoInPlaceOfTheTitle = Template.bind( {} );
 LogoInPlaceOfTheTitle.args = {
 	trigger: <Button>Open Drawer</Button>,
 	design: 'simple',
@@ -150,15 +150,15 @@ LogoInPlaceOfTheTitle.args = {
 	titleTag: Fragment,
 };
 
-const ControlledTemplate: Story = (args) => {
-	const [open, setOpen] = useState(false);
+const ControlledTemplate: Story = ( args ) => {
+	const [ open, setOpen ] = useState( false );
 
 	return (
 		<>
-			<Button onClick={() => setOpen(true)}>
+			<Button onClick={ () => setOpen( true ) }>
 				Open Controlled Drawer
 			</Button>
-			<Drawer open={open} setOpen={setOpen} {...args}>
+			<Drawer open={ open } setOpen={ setOpen } { ...args }>
 				<Drawer.Panel>
 					<Drawer.Header>
 						<div className="flex items-center justify-between">
@@ -183,7 +183,7 @@ const ControlledTemplate: Story = (args) => {
 						</div>
 						<Button variant="ghost">Details</Button>
 						<Button
-							onClick={() => setOpen(false)}
+							onClick={ () => setOpen( false ) }
 							variant="outline"
 						>
 							Cancel
@@ -197,15 +197,15 @@ const ControlledTemplate: Story = (args) => {
 	);
 };
 
-export const Controlled = ControlledTemplate.bind({});
+export const Controlled = ControlledTemplate.bind( {} );
 Controlled.args = {
 	scrollLock: false,
 };
 
-const UncontrolledTemplate: Story = (args) => (
-	<Drawer {...args}>
+const UncontrolledTemplate: Story = ( args ) => (
+	<Drawer { ...args }>
 		<Drawer.Panel>
-			{({ close }) => (
+			{ ( { close } ) => (
 				<>
 					<Drawer.Header>
 						<div className="flex items-center justify-between">
@@ -229,19 +229,19 @@ const UncontrolledTemplate: Story = (args) => (
 							Other option
 						</div>
 						<Button variant="ghost">Details</Button>
-						<Button onClick={close} variant="outline">
+						<Button onClick={ close } variant="outline">
 							Cancel
 						</Button>
 						<Button variant="primary">Save</Button>
 					</Drawer.Footer>
 				</>
-			)}
+			) }
 		</Drawer.Panel>
 		<Drawer.Backdrop />
 	</Drawer>
 );
 
-export const Uncontrolled = UncontrolledTemplate.bind({});
+export const Uncontrolled = UncontrolledTemplate.bind( {} );
 Uncontrolled.args = {
 	trigger: <Button>Open Uncontrolled Drawer</Button>,
 	scrollLock: false,
