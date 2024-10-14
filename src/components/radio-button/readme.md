@@ -34,6 +34,11 @@
 - **default value:** undefined
 - **description:** Used to customize the container when as value is not equal to a `Fragment`.
 
+### gapClassname
+- **type:** `string`
+- **default value:** `gap-2`
+- **description:** To customize the gap between Radio Buttons.
+
 ### style
 - **type:** `string`
 - **default value:** `simple`

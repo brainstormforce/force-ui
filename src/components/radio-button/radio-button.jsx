@@ -44,6 +44,7 @@ const RadioButtonGroup = ( {
 	vertical = false,
 	columns = 4,
 	multiSelection = false,
+	gapClassname = 'gap-2',
 } ) => {
 	const isControlled = useMemo( () => typeof value !== 'undefined', [ value ] );
 	const nameAttr = useMemo(
@@ -90,8 +91,9 @@ const RadioButtonGroup = ( {
 		[ onChange ]
 	);
 	className = cn(
-		`grid grid-cols-4 gap-2`,
+		`grid grid-cols-4`,
 		columnClasses[ columns ],
+		gapClassname,
 		style === 'tile' && 'gap-0',
 		vertical && 'grid-cols-1',
 		className
@@ -282,7 +284,7 @@ const RadioButtonComponent = (
 				borderOn && checkedValue && 'ring-2 ring-border-interactive',
 				size === 'sm' ? 'px-3 py-3' : 'px-4 py-4',
 				'pr-12',
-				isDisabled && 'cursor-not-allowed'
+				isDisabled && 'cursor-not-allowed opacity-40'
 			) }
 			htmlFor={ radioButtonId }
 			onClick={ handleLabelClick } // Toggle switch when label is clicked
@@ -318,7 +320,7 @@ const RadioButtonComponent = (
 			) }
 			<label
 				className={ cn(
-					'absolute mr-0.5 right-3 flex items-center cursor-pointer rounded-full w-7',
+					'absolute mr-0.5 right-3 flex items-center cursor-pointer rounded-full gap-2',
 					reversePosition && 'left-0',
 					isDisabled && 'cursor-not-allowed',
 					inlineIcon && 'mr-3'

@@ -96,8 +96,10 @@ const MenuList = ( {
 						{ isOpen ||
 						! showArrowOnHover ||
 						( showArrowOnHover && isHovered ) ? (
-								<ChevronDown />
-							) : null }
+							/* eslint-disable */
+							<ChevronDown />
+						) : /* eslint-enable */
+							null }
 					</motion.span>
 				) }
 			</div>

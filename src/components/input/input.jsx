@@ -17,6 +17,7 @@ const InputComponent = (
 		onError = () => {},
 		prefix = null,
 		suffix = null,
+		label = '',
 		...props
 	},
 	ref
@@ -76,9 +77,14 @@ const InputComponent = (
 		md: 'p-3.5 py-2.5 rounded-md max-h-10',
 		lg: 'p-4 py-3 rounded-lg max-h-12',
 	};
+	const labelClasses = {
+		sm: 'text-sm font-medium',
+		md: 'text-sm font-medium',
+		lg: 'text-base font-medium',
+	};
 	const textClasses = {
 		sm: 'text-xs',
-		md: 'text-base',
+		md: 'text-sm',
 		lg: 'text-base',
 	};
 	const sizeClassesWithPrefix = {
@@ -177,56 +183,90 @@ const InputComponent = (
 
 	if ( type === 'file' ) {
 		return (
-			<div className={ cn( 'relative flex focus-within:z-10', className ) }>
-				<input
-					ref={ inputRef }
-					id={ inputId }
-					type="file"
+			<div className="flex flex-col items-start gap-1.5 [&_*]:box-border box-border">
+				<label
+					className={ cn( labelClasses[ size ], 'text-field-label' ) }
+					htmlFor={ inputId }
+				>
+					{ label }
+				</label>
+				<div
 					className={ cn(
-						baseClasses,
-						disabledUploadFileClasses,
-						sizeClasses[ size ],
-						textClasses[ size ],
-						focusClasses,
-						hoverClasses,
-						errorFileClasses,
-						fileClasses
+						'w-full relative flex focus-within:z-10',
+						className
 					) }
-					disabled={ disabled }
-					onChange={ handleChange }
-					onInvalid={ onError }
-					{ ...props }
-				/>
-				{ getSuffix() }
+				>
+					<input
+						ref={ ref }
+						id={ inputId }
+						type="file"
+						className={ cn(
+							baseClasses,
+							disabledUploadFileClasses,
+							sizeClasses[ size ],
+							textClasses[ size ],
+							focusClasses,
+							hoverClasses,
+							errorFileClasses,
+							fileClasses
+						) }
+						disabled={ disabled }
+						onChange={ handleChange }
+						onInvalid={ onError }
+						{ ...props }
+					/>
+					<div
+						className={ cn(
+							uploadIconClasses,
+							'right-0 pr-3',
+							uploadIconSizeClasses[ size ]
+						) }
+					>
+						<Upload />
+					</div>
+				</div>
 			</div>
 		);
 	}
 
 	return (
-		<div className={ cn( 'relative flex focus-within:z-10', className ) }>
-			{ getPrefix() }
-			<input
-				ref={ ref }
-				id={ inputId }
-				type={ type }
+		<div className="flex flex-col items-start gap-1.5 [&_*]:box-border box-border">
+			<label
+				className={ cn( labelClasses[ size ], 'text-field-label' ) }
+				htmlFor={ inputId }
+			>
+				{ label }
+			</label>
+			<div
 				className={ cn(
-					baseClasses,
-					disabledClasses,
-					sizeClasses[ size ],
-					textClasses[ size ],
-					sizeClassesWithPrefix[ size ],
-					sizeClassesWithSuffix[ size ],
-					focusClasses,
-					hoverClasses,
-					errorClasses
+					'w-full relative flex focus-within:z-10',
+					className
 				) }
-				disabled={ disabled }
-				onChange={ handleChange }
-				onInvalid={ onError }
-				value={ getValue() }
-				{ ...props }
-			/>
-			{ getSuffix() }
+			>
+				{ getPrefix() }
+				<input
+					ref={ inputRef }
+					id={ inputId }
+					type={ type }
+					className={ cn(
+						baseClasses,
+						disabledClasses,
+						sizeClasses[ size ],
+						textClasses[ size ],
+						sizeClassesWithPrefix[ size ],
+						sizeClassesWithSuffix[ size ],
+						focusClasses,
+						hoverClasses,
+						errorClasses
+					) }
+					disabled={ disabled }
+					onChange={ handleChange }
+					onInvalid={ onError }
+					value={ getValue() }
+					{ ...props }
+				/>
+				{ getSuffix() }
+			</div>
 		</div>
 	);
 };

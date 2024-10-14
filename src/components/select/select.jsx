@@ -232,7 +232,7 @@ function SelectButton( {
 		</div>
 	);
 }
-
+SelectButton.displayName = 'Select.Button';
 function SelectOptions( {
 	children,
 	searchBy = 'id', // Used to identify searched value using the key. Default is 'id'.
@@ -423,7 +423,7 @@ function SelectOptions( {
 		</>
 	);
 }
-
+SelectOptions.displayName = 'Select.Options';
 function SelectItem( { value, selected, children, className, ...props } ) {
 	const {
 		sizeValue,
@@ -515,6 +515,7 @@ function SelectItem( { value, selected, children, className, ...props } ) {
 		</div>
 	);
 }
+SelectItem.displayName = 'Select.Option';
 
 const Select = ( {
 	id,
