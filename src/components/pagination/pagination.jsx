@@ -19,7 +19,7 @@ const Pagination = ( {
 			role="navigation"
 			aria-label="pagination"
 			className={ cn(
-				'flex w-full justify-center m-0 box-border',
+				'flex w-full justify-center box-border m-0',
 				className
 			) }
 			{ ...props }
@@ -91,13 +91,11 @@ const PaginationButton = ( {
 			variant={ 'ghost' }
 			className={ cn(
 				'no-underline bg-transparent p-0 m-0 border-none',
-				'flex justify-center items-center rounded text-button-secondary active:text-button-primary',
-				! disabled &&
-						isActive &&
-						'text-button-primary bg-brand-background-50',
-				disabled && 'hover:bg-transparent cursor-not-allowed',
-				'focus:border-border-subtle focus:bg-button-tertiary-hover',
+				'flex justify-center items-center rounded text-button-secondary',
+				'focus:border focus:border-solid focus:border-border-subtle focus:bg-button-tertiary-hover',
 				sizeClassNames[ size ].general,
+				! disabled && isActive && 'text-button-primary active:text-button-primary bg-brand-background-50',
+				disabled && [ disabledClassNames.general, disabledClassNames.icon, disabledClassNames.text, 'focus:ring-transparent cursor-not-allowed' ],
 				className
 			) }
 			disabled={ disabled }
