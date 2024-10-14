@@ -117,8 +117,7 @@ const BadgeComponent = ( props, ref ) => {
 					tabIndex={ 0 }
 				>
 					<span className="sr-only">{ `Remove ${ label }` }</span>
-					<X />{ ' ' }
-					{ /* Apply the same size class to the X icon */ }
+					<X />
 					<span className="absolute -inset-1" />
 				</span>
 			) }

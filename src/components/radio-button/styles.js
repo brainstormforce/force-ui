@@ -29,7 +29,7 @@ export const sizeClassNames = {
 };
 
 export const sizes = {
-	xs: 'py-1 px-1 text-sm gap-0.5 [&>svg]:h-4 [&>svg]:w-4',
+	xs: 'py-1 px-1 text-sm gap-0.5 [&>svg]:size-4',
 	sm: 'py-1 px-1.5 text-base gap-1 [&>svg]:size-4',
 	md: 'py-2 px-2.5 text-base gap-1 [&>svg]:size-5',
 	lg: 'py-2.5 px-3 text-base gap-1 [&>svg]:size-6',
