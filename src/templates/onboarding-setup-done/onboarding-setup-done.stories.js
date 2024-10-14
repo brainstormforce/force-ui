@@ -45,13 +45,15 @@ const Template = ( args ) => {
 					</Topbar.Item>
 				</Topbar.Right>
 			</Topbar>
-			<div className="md:w-[35rem] box-border mx-auto p-8 mt-10 border border-solid border-border-subtle bg-background-primary rounded-md space-y-4">
+			<div className="md:w-[35rem] box-border mx-auto p-8 mt-10 border border-solid border-border-subtle bg-background-primary rounded-md shadow-sm space-y-4">
 				<div className="flex justify-between gap-4">
 					<div>
 						<Title
 							size="md"
 							tag="h4"
-							title="You&#39;re Good to Go! 🚀"
+						className='text-text-primary'
+
+							title="You're Good to Go! 🚀"
 						/>
 						<Label className="text-text-secondary mt-1 text-sm">
 							You&#39;ve successfully set up SureEmails, and your

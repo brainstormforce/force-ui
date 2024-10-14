@@ -45,9 +45,9 @@ const Template = ( args ) => {
 					</Topbar.Item>
 				</Topbar.Right>
 			</Topbar>
-			<div className="md:w-[35rem] box-border mx-auto p-8 mt-10 border border-solid border-border-subtle bg-background-primary rounded-md space-y-6">
+			<div className="md:w-[35rem] box-border mx-auto p-8 mt-10 border border-solid border-border-subtle bg-background-primary rounded-md shadow-sm space-y-6">
 				<div>
-					<Label size="md" className="text-3xl font-semibold">
+					<Label size="md" className="text-3xl font-semibold text-text-primary">
 						Welcome to SureEmails
 					</Label>
 					<Label className="text-text-primary mt-2 text-base">

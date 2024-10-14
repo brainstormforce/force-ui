@@ -55,10 +55,12 @@ const Template = ( args ) => {
 				</Topbar.Right>
 			</Topbar>
 			<form onSubmit={ ( event ) => event.preventDefault() }>
-				<div className="md:w-[47rem] box-border mx-auto p-8 mt-10 border border-solid border-border-subtle bg-background-primary rounded-md">
+				<div className="md:w-[47rem] box-border mx-auto p-8 mt-10 border border-solid border-border-subtle bg-background-primary rounded-md shadow-sm">
 					<div>
 						<Title
 							size="md"
+						className='text-text-primary'
+
 							tag="h4"
 							title="Now, Let's Connect With [Selected SMTP Provider Name]"
 						/>
@@ -181,7 +183,12 @@ const Template = ( args ) => {
 						</Button>
 
 						<div className="flex justify-end items-center gap-3">
-							<Button variant="ghost">Skip</Button>
+							<Button
+								variant="ghost"
+								className="text-text-tertiary"
+							>
+								Skip
+							</Button>
 							<Button className="flex items-center gap-2">
 								Continue Setup <ChevronRight />
 							</Button>

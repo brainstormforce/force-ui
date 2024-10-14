@@ -54,11 +54,12 @@ const Template = ( args ) => {
 				</Topbar.Right>
 			</Topbar>
 			<form onSubmit={ ( event ) => event.preventDefault() }>
-				<div className="md:w-[47rem] box-border mx-auto p-8 mt-10 border border-solid border-border-subtle bg-background-primary rounded-md">
+				<div className="md:w-[47rem] box-border mx-auto p-8 mt-10 border border-solid border-border-subtle bg-background-primary rounded-md shadow-sm">
 					<div>
 						<Title
 							size="md"
 							tag="h4"
+						className='text-text-primary'
 							title="Say Goodbye to Spam Folders"
 						/>
 						<Label className="text-text-secondary mt-1 text-sm max-w-[35rem]">
@@ -105,7 +106,12 @@ const Template = ( args ) => {
 						</Button>
 
 						<div className="flex justify-end items-center gap-3">
-							<Button variant="ghost">Skip</Button>
+							<Button
+								variant="ghost"
+								className="text-text-tertiary"
+							>
+								Skip
+							</Button>
 							<Button className="flex items-center gap-2">
 								Continue Setup <ChevronRight />
 							</Button>

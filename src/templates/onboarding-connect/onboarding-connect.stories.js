@@ -1,6 +1,6 @@
 import { X } from 'lucide-react';
 import { ProgressSteps, Topbar, Button, Label } from '@/components';
-import { SureRankLogo } from '@/icons';
+import { SureEmailIcon } from '@/icons';
 
 export default {
 	title: 'Templates/Onboarding/Connect',
@@ -8,12 +8,6 @@ export default {
 		layout: 'fullscreen',
 	},
 	tags: [ 'autodocs' ],
-	argTypes: {
-		children: {
-			description: 'Content to render inside the OnboardingConnect.',
-			control: { type: 'none' },
-		},
-	},
 };
 
 const Template = ( args ) => {
@@ -25,7 +19,7 @@ const Template = ( args ) => {
 			<Topbar className="bg-background-secondary">
 				<Topbar.Left>
 					<Topbar.Item>
-						<SureRankLogo />
+						<SureEmailIcon />
 					</Topbar.Item>
 				</Topbar.Left>
 				<Topbar.Middle>
@@ -44,9 +38,9 @@ const Template = ( args ) => {
 					</Topbar.Item>
 				</Topbar.Right>
 			</Topbar>
-			<div className="grid md:grid-cols-2 md:w-[45rem] box-border mx-auto p-8 gap-10 mt-10 border border-solid border-border-subtle bg-background-primary rounded-md">
+			<div className="grid md:grid-cols-2 md:w-[45rem] box-border mx-auto p-8 gap-10 mt-10 border border-solid border-border-subtle bg-background-primary rounded-md shadow-sm">
 				<div>
-					<Label size="md" className="text-3xl font-semibold">
+					<Label size="md" className="text-3xl font-semibold text-text-primary">
 						Connect Your Site with SureRank
 					</Label>
 					<Label className="text-text-secondary text-sm mt-2">
