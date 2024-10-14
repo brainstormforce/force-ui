@@ -24,19 +24,20 @@ const Avatar = ( props ) => {
 	}?.[ variant ];
 
 	const sizeClasses = {
-		xs: 'w-5 h-5 [&>svg]:h-3 [&>svg]:w-3 text-xs',
-		sm: 'w-6 h-6 [&>svg]:h-4 [&>svg]:w-4 text-sm',
-		md: 'w-8 h-8 [&>svg]:h-5 [&>svg]:w-5 text-base',
-		lg: 'w-10 h-10 [&>svg]:h-6 [&>svg]:w-6 text-lg',
+		xxs: 'size-5 [&>svg]:size-3 text-xs',
+		xs: 'size-6 [&>svg]:size-4 text-sm',
+		sm: 'size-8 [&>svg]:size-5 text-base',
+		md: 'size-10 [&>svg]:size-6 text-lg',
+		lg: 'size-12 [&>svg]:size-12 text-lg',
 	}?.[ size ];
 
 	const borderClasses = {
 		none: '',
 		subtle: 'border border-solid border-border-transparent-subtle',
-		ring: 'border-4 border-solid border-border-white',
+		ring: 'ring ring-border-subtle',
 	}?.[ effectiveBorder ];
 
-	const contentClasses = url ? 'bg-cover bg-center bg-no-repeat' : '';
+	const contentClasses = url ? 'bg-cover bg-center' : '';
 
 	const getChildren = () => {
 		if ( ! children ) {

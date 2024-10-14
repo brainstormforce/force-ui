@@ -74,7 +74,7 @@ export default {
 			name: 'Size',
 			description: 'Defines the sizes of the editor input.',
 			control: 'select',
-			options: [ 'sm', 'md', 'lg' ],
+			options: [ 'xs', 'sm', 'md', 'lg' ],
 			table: {
 				type: { summary: 'string' },
 				defaultValue: { summary: 'md' },
