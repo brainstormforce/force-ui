@@ -53,15 +53,15 @@ const Template = ( args ) => {
 						Start by:
 					</Label>
 					<ul className="divide-y divide-gray-200 list-none pl-0 my-2 space-y-2">
-						<li className="flex items-center space-x-2 text-field-label text-sm">
+						<li className="flex items-center space-x-2 text-field-label text-sm font-medium	">
 							<ChevronRight className="size-4" />
 							<span>Analyzing your keywords</span>
 						</li>
-						<li className="flex items-center space-x-2 text-field-label text-sm">
+						<li className="flex items-center space-x-2 text-field-label text-sm font-medium	">
 							<ChevronRight className="size-4" />
 							<span>Optimizing your content</span>
 						</li>
-						<li className="flex items-center space-x-2 text-field-label text-sm">
+						<li className="flex items-center space-x-2 text-field-label text-sm font-medium	">
 							<ChevronRight className="size-4" />
 							<span>Improving your site&#39;s structure</span>
 						</li>

@@ -53,7 +53,7 @@ const Template = ( args ) => {
 					>
 						Welcome to SureEmails
 					</Label>
-					<Label className="text-text-primary mt-2 text-base">
+					<Label className="text-text-primary mt-2 font-semibold text-base">
 						Your Email Delivery Made Simple!
 					</Label>
 				</div>
@@ -66,28 +66,28 @@ const Template = ( args ) => {
 				</div>
 				<div>
 					<ul className="divide-y divide-gray-200 list-none pl-0 space-y-2">
-						<li className="flex items-start space-x-2 text-field-label text-sm">
+						<li className="flex items-start space-x-2 text-field-label text-sm font-medium">
 							<Check className="size-4 text-icon-primary" />
 							<span>
 								Reduce the chances of your emails getting lost
 								in spam.
 							</span>
 						</li>
-						<li className="flex items-start space-x-2 text-field-label text-sm">
+						<li className="flex items-start space-x-2 text-field-label text-sm font-medium">
 							<Check className="size-4 text-icon-primary" />
 							<span>
 								Quick and easy setup, no technical skills needed
 							</span>
 						</li>
-						<li className="flex items-start space-x-2 text-field-label text-sm">
+						<li className="flex items-start space-x-2 text-field-label text-sm font-medium">
 							<Check className="size-4 text-icon-primary" />
 							<span>Track, log, and resend emails with ease</span>
 						</li>
-						<li className="flex items-start space-x-2 text-field-label text-sm">
+						<li className="flex items-start space-x-2 text-field-label text-sm font-medium">
 							<Check className="size-4 text-icon-primary" />
 							<span>Connect to multiple email providers</span>
 						</li>
-						<li className="flex items-start space-x-2 text-field-label text-sm">
+						<li className="flex items-start space-x-2 text-field-label text-sm font-medium">
 							<Check className="size-4 text-icon-primary" />
 							<span>Auto-retry failed emails</span>
 						</li>

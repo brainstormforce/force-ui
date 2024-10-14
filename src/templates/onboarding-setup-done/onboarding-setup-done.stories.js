@@ -70,21 +70,21 @@ const Template = ( args ) => {
 						Here&#39;s What SureEmails Will Do for You Now:
 					</Label>
 					<ul className="divide-y divide-gray-200 list-none pl-0 space-y-2 my-2">
-						<li className="flex items-start space-x-2 text-field-label text-sm">
+						<li className="flex items-start space-x-2 text-field-label text-sm font-medium">
 							<Check className="size-4 text-brand-primary-600" />
 							<span>
 								Emails that land in inboxes: Reduce the chances
 								of getting lost in spam!
 							</span>
 						</li>
-						<li className="flex items-start space-x-2 text-field-label text-sm">
+						<li className="flex items-start space-x-2 text-field-label text-sm font-medium">
 							<Check className="size-4 text-brand-primary-600" />
 							<span>
 								Easy tracking: See every email you send in one
 								place
 							</span>
 						</li>
-						<li className="flex items-start space-x-2 text-field-label text-sm">
+						<li className="flex items-start space-x-2 text-field-label text-sm font-medium">
 							<Check className="size-4 text-brand-primary-600" />
 							<span>
 								Peace of mind: If sending fails, SureEmails will
