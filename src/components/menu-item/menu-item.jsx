@@ -96,7 +96,7 @@ const MenuList = ( {
 						{ isOpen ||
 						! showArrowOnHover ||
 						( showArrowOnHover && isHovered ) ? (
-							<ChevronDown />
+								<ChevronDown />
 							) : null }
 					</motion.span>
 				) }
