@@ -7,13 +7,28 @@ const DEFAULT_THEME = 'light';
 const DEFAULT_VARIANT = 'neutral';
 const DEFAULT_ACTION_TYPE = 'button';
 
-export const getIconColor = ( { theme = DEFAULT_THEME, variant = DEFAULT_VARIANT } ) => {
+export const getIconColor = ( {
+	theme = DEFAULT_THEME,
+	variant = DEFAULT_VARIANT,
+} ) => {
 	let color = theme === 'light' ? 'text-icon-secondary' : 'text-icon-inverse';
 	const variantClasses = {
-		info: theme === 'light' ? 'text-support-info' : 'text-support-info-inverse',
-		success: theme === 'light' ? 'text-support-success' : 'text-support-success-inverse',
-		warning: theme === 'light' ? 'text-support-warning' : 'text-support-warning-inverse',
-		error: theme === 'light' ? 'text-support-error' : 'text-support-error-inverse',
+		info:
+			theme === 'light'
+				? 'text-support-info'
+				: 'text-support-info-inverse',
+		success:
+			theme === 'light'
+				? 'text-support-success'
+				: 'text-support-success-inverse',
+		warning:
+			theme === 'light'
+				? 'text-support-warning'
+				: 'text-support-warning-inverse',
+		error:
+			theme === 'light'
+				? 'text-support-error'
+				: 'text-support-error-inverse',
 	};
 	color = variantClasses[ variant ] || color;
 
@@ -26,7 +41,7 @@ export const getIcon = ( {
 	variant = DEFAULT_VARIANT,
 } ) => {
 	const commonClasses = '[&>svg]:h-5 [&>svg]:w-5';
-	let color = getIconColor( { theme, variant } );
+	const color = getIconColor( { theme, variant } );
 
 	if ( icon && isValidElement( icon ) ) {
 		const updatedIcon = cloneElement( icon, {

@@ -57,6 +57,13 @@ export default {
 				type: { summary: 'string' },
 			},
 		},
+		gapClassName: {
+			description: 'To customize the gap between Radio Buttons.',
+			control: {
+				type: 'text',
+			},
+			defaultValue: 'gap-2',
+		},
 		by: {
 			description: 'Used to compare the checked value. Typically "id".',
 			table: {
