@@ -4,7 +4,6 @@ import RadioButton from '../radio-button';
 import Container from '../container';
 import Label from '../label';
 import Badge from '../badge';
-import Button from '../button';
 
 import { Headset, MessageSquare, HelpCircle, Star } from 'lucide-react';
 
@@ -94,9 +93,7 @@ const Template3 = () => {
 							<Container.Item>{ button.icon }</Container.Item>
 							<Container.Item>
 								<a href="#" className="no-underline">
-									<Label
-										className="py-0 font-normal cursor-pointer"
-									>
+									<Label className="py-0 font-normal cursor-pointer">
 										{ button.label }
 									</Label>
 								</a>

@@ -18,7 +18,7 @@ const Button = forwardRef( ( props, ref ) => {
 	} = props;
 
 	const commonClass =
-		'border border-solid cursor-not-allowed transition-colors duration-300 ease-in-out text-xs font-semibold focus:ring-2 focus:ring-toggle-on focus:ring-offset-2 disabled:text-text-disabled';
+		'border border-solid cursor-pointer transition-colors duration-300 ease-in-out text-xs font-semibold focus:ring-2 focus:ring-toggle-on focus:ring-offset-2 disabled:text-text-disabled';
 
 	const loadingClass = loading
 		? 'opacity-50 disabled:cursor-not-allowed'
@@ -84,7 +84,7 @@ const Button = forwardRef( ( props, ref ) => {
 			{ ...rest }
 		>
 			{ iconLeft }
-			<span className='px-1'>{ children }</span>
+			<span className="px-1">{ children }</span>
 			{ iconRight }
 		</Tag>
 	);

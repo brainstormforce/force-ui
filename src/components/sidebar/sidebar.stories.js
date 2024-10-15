@@ -144,7 +144,7 @@ const Template = ( args ) => {
 								<p className="text-text-tertiary p-1 m-0">
 									{ ! sidebarCollapsed && section.heading }
 								</p>
-								<div className='gap-0.5'>
+								<div className="gap-0.5">
 									{ section.items.map( ( item, itemIndex ) => (
 										<div
 											key={ itemIndex }
