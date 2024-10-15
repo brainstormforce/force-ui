@@ -264,7 +264,9 @@ const RadioButtonComponent = (
 		if ( ! isDisabled ) {
 			if ( multiSelection ) {
 				// In multi-selection, toggle each individual selection
-				onChange( value, ! checkedValue ); // Pass the toggled value
+				if ( useSwitch ) {
+					onChange( value, ! checkedValue );
+				}
 			} else {
 				// In single selection, toggle on and off
 				onChange( value ); // If it's selected, deselect it; otherwise, select it
