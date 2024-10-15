@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { RadioButtonGroup, RadioButton } from './radio-button-group.jsx';
+import RadioButton from './radio-button.jsx';
 import { Plus, Smile } from 'lucide-react';
 import Badge from '../badge/badge.jsx';
 
 export default {
-	title: 'Atoms/RadioButtonGroup',
-	component: RadioButtonGroup,
+	title: 'Atoms/RadioButton',
+	component: RadioButton,
 	parameters: {
 		layout: 'centered',
 	},
@@ -57,6 +57,13 @@ export default {
 				type: { summary: 'string' },
 			},
 		},
+		gapClassName: {
+			description: 'To customize the gap between Radio Buttons.',
+			control: {
+				type: 'text',
+			},
+			defaultValue: 'gap-2',
+		},
 		by: {
 			description: 'Used to compare the checked value. Typically "id".',
 			table: {
@@ -106,7 +113,7 @@ export default {
 		},
 		label: {
 			description:
-				'`RadioButton` : Object containing heading and description for each RadioButton.',
+				'`RadioButton.Button` : Object containing heading and description for each RadioButton.',
 			control: {
 				type: 'object',
 			},
@@ -121,8 +128,35 @@ export default {
 				},
 			},
 		},
+		info: {
+			description:
+				'`RadioButton.Button` : Object containing heading and description for each RadioButton Info.',
+			control: {
+				type: 'object',
+			},
+			defaultValue: {
+				heading: 'Info',
+				description: 'Description',
+			},
+			table: {
+				type: { summary: 'object' },
+				defaultValue: {
+					summary: `{ heading: 'Info', description: 'Description' }`,
+				},
+			},
+		},
 		borderOn: {
-			description: '`RadioButton` : Adds a border around the button.',
+			description:
+				'`RadioButton.Button` : Adds a border around the button.',
+			control: 'boolean',
+			table: {
+				type: { summary: 'boolean' },
+				defaultValue: { summary: 'false' },
+			},
+		},
+		minWidth: {
+			description:
+				'`RadioButton.Button` : Adds minimum width to the button.',
 			control: 'boolean',
 			table: {
 				type: { summary: 'boolean' },
@@ -130,7 +164,7 @@ export default {
 			},
 		},
 		useSwitch: {
-			description: '`RadioButton` :Uses a switch for selection.',
+			description: '`RadioButton.Button` :Uses a switch for selection.',
 			control: 'boolean',
 			table: {
 				type: { summary: 'boolean' },
@@ -139,14 +173,15 @@ export default {
 		},
 		icon: {
 			description:
-				'`RadioButton` :Custom icon component to be displayed.',
+				'`RadioButton.Button` :Custom icon component to be displayed.',
 			control: {
 				type: 'text',
 			},
 			defaultValue: null,
 		},
 		inlineIcon: {
-			description: '`RadioButton` : Positions icon inline to the label.',
+			description:
+				'`RadioButton.Button` : Positions icon inline to the label.',
 			control: 'boolean',
 			table: {
 				type: { summary: 'boolean' },
@@ -154,7 +189,8 @@ export default {
 			},
 		},
 		hideSelection: {
-			description: '`RadioButton` : Positions icon inline to the label.',
+			description:
+				'`RadioButton.Button` : Positions icon inline to the label.',
 			control: 'boolean',
 			table: {
 				type: { summary: 'boolean' },
@@ -162,7 +198,8 @@ export default {
 			},
 		},
 		reversePosition: {
-			description: '`RadioButton` : Positions icon inline to the label.',
+			description:
+				'`RadioButton.Button` : Positions icon inline to the label.',
 			control: 'boolean',
 			table: {
 				type: { summary: 'boolean' },
@@ -170,19 +207,27 @@ export default {
 			},
 		},
 		badgeItem: {
-			description: '`RadioButton` : Badge Item to be displayed.',
+			description: '`RadioButton.Button` : Badge Item to be displayed.',
 			control: {
 				type: 'text',
 			},
 			defaultValue: null,
 		},
 		disabled: {
-			description: '`RadioButton` : Disables radio button.',
+			description: '`RadioButton.Button` : Disables radio button.',
 			control: 'boolean',
 			table: {
 				type: { summary: 'boolean' },
 				defaultValue: { summary: 'false' },
 			},
+		},
+		buttonWrapperClasses: {
+			description:
+				'`RadioButton.Button` : Custom classes to be applied to the button wrapper.',
+			control: {
+				type: 'text',
+			},
+			defaultValue: 'bg-white',
 		},
 	},
 };
@@ -191,7 +236,7 @@ const Template = ( args ) => {
 	const [ value, setValue ] = useState( args.value || args.defaultValue );
 
 	return (
-		<RadioButtonGroup
+		<RadioButton.Group
 			{ ...args }
 			value={ value }
 			columns={ ( args.columns ?? args.style === 'tile' ) ? 6 : 3 }
@@ -202,15 +247,15 @@ const Template = ( args ) => {
 		>
 			{ [ 1, 2, 3, 4, 5, 6 ].map( ( num ) =>
 				args.style === 'tile' ? (
-					<RadioButton
+					<RadioButton.Button
 						value={ `option${ num }` }
 						key={ num }
 						disabled={ args.disabled }
 					>
 						<Plus />
-					</RadioButton>
+					</RadioButton.Button>
 				) : (
-					<RadioButton
+					<RadioButton.Button
 						key={ num }
 						value={ `option${ num }` }
 						label={
@@ -220,6 +265,8 @@ const Template = ( args ) => {
 							}
 						}
 						borderOn={ args.borderOn }
+						minWidth={ args.minWidth }
+						info={ args.info }
 						disabled={ args.disabled }
 						useSwitch={ args.useSwitch }
 						icon={ args.icon ? <Smile /> : null }
@@ -242,15 +289,15 @@ const Template = ( args ) => {
 					/>
 				)
 			) }
-		</RadioButtonGroup>
+		</RadioButton.Group>
 	);
 };
 
-export const SimpleRadioMd = ( args ) => <Template { ...args } />;
+export const SimpleRadioMd = Template.bind( {} );
 SimpleRadioMd.args = {};
 SimpleRadioMd.storyName = 'Simple Radio Group - size md';
 
-export const SimpleRadioMulti = ( args ) => <Template { ...args } />;
+export const SimpleRadioMulti = Template.bind( {} );
 SimpleRadioMulti.args = {
 	borderOn: true,
 	icon: true,
@@ -258,15 +305,14 @@ SimpleRadioMulti.args = {
 };
 SimpleRadioMulti.storyName = 'Multi Selection';
 
-// Example 2: Tile Radio Group with more options
-export const TileRadio = ( args ) => <Template { ...args } style="tile" />;
+export const TileRadio = Template.bind( {} );
 TileRadio.args = {
 	style: 'tile',
 	columns: 6,
 };
 TileRadio.storyName = 'Tile Radio Group';
 
-export const SimpleRadioSwitch = ( args ) => <Template { ...args } />;
+export const SimpleRadioSwitch = Template.bind( {} );
 SimpleRadioSwitch.args = {
 	borderOn: true,
 	useSwitch: true,
@@ -274,7 +320,7 @@ SimpleRadioSwitch.args = {
 };
 SimpleRadioSwitch.storyName = 'Switch Selection';
 
-export const SimpleRadioInline = ( args ) => <Template { ...args } />;
+export const SimpleRadioInline = Template.bind( {} );
 SimpleRadioInline.args = {
 	borderOn: true,
 	icon: true,
@@ -283,3 +329,11 @@ SimpleRadioInline.args = {
 	multiSelection: true,
 };
 SimpleRadioInline.storyName = 'Inline Icon';
+
+export const SimpleRadioWithInfo = Template.bind( {} );
+SimpleRadioWithInfo.args = {
+	borderOn: true,
+	label: { heading: 'Option', description: 'Description' },
+	info: { heading: 'Info', description: 'Description' },
+};
+SimpleRadioWithInfo.storyName = 'With Info';

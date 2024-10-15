@@ -38,9 +38,11 @@ const Sidebar = ( {
 	useEffect( () => {
 		const handleScreenResize = () => {
 			const isSmallScreen = window.innerWidth < 1280;
-			if ( isSmallScreen ) {
+			if ( ! collapsible ) {
+				setIsCollapsed( false );
+				localStorage.removeItem( 'sidebar-collapsed' );
+			} else if ( isSmallScreen ) {
 				setIsCollapsed( true );
-
 				localStorage.setItem( 'sidebar-collapsed', JSON.stringify( true ) );
 			} else {
 				const storedState = localStorage.getItem( 'sidebar-collapsed' );
@@ -62,7 +64,7 @@ const Sidebar = ( {
 		return () => {
 			window.removeEventListener( 'resize', handleScreenResize );
 		};
-	}, [ screenHeight ] );
+	}, [ screenHeight, collapsible ] );
 
 	return (
 		<SidebarContext.Provider
@@ -124,7 +126,10 @@ const SidebarFooter = ( { children } ) => {
 				>
 					{ isCollapsed ? (
 						<>
-							<Tooltip title="Expand" placement="right">
+							<Tooltip
+								label={ { heading: 'Expand' } }
+								placement="right"
+							>
 								<PanelLeftOpen className="size-5" />
 							</Tooltip>
 						</>

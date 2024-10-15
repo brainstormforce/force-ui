@@ -20,25 +20,26 @@ const BadgeComponent = ( props, ref ) => {
 		onMouseDown = () => {},
 	} = props;
 
-	// Base classes. - Mandatory classes.
+	// Base classes - Mandatory classes
 	const baseClasses =
-		'font-medium border-badge-border-gray flex gap-1 items-center justify-center border border-solid';
+		'font-medium border-badge-border-gray flex items-center justify-center border border-solid box-border';
 
-	// Size classes - Based on the size prop.
+	// Size classes - Based on the size prop
 	const sizeClasses = {
-		xs: 'py-0.5 px-1 text-xs',
-		sm: 'py-1 px-1.5 text-xs',
-		md: 'py-1 px-1.5 text-sm',
-		lg: 'py-1 px-1.5 text-base',
+		xxs: 'py-0.5 px-0.5 text-xs h-4',
+		xs: 'py-0.5 px-1 text-xs h-5',
+		sm: 'py-1 px-1.5 text-xs h-6',
+		md: 'py-1 px-1.5 text-sm h-7',
+		lg: 'py-1 px-1.5 text-base h-8',
 	};
 
-	// Type classes - Based on the type prop.
+	// Type classes - Based on the type prop
 	const typeClasses = {
 		pill: 'rounded-full',
 		rounded: 'rounded',
 	};
 
-	// Variant classes - Based on the variant prop.
+	// Variant classes - Based on the variant prop
 	const variantClasses = {
 		neutral:
 			'bg-badge-background-gray hover:bg-badge-hover-gray text-badge-color-gray border-badge-border-gray',
@@ -54,7 +55,15 @@ const BadgeComponent = ( props, ref ) => {
 
 	let filteredClasses = '';
 	let buttonClasses =
-		'group relative justify-center flex items-center [&>svg]:h-4 [&>svg]:w-4 cursor-pointer';
+		'group relative justify-center flex items-center cursor-pointer';
+
+	const iconSizeClasses = {
+		xxs: '[&>svg]:size-3',
+		xs: '[&>svg]:size-3',
+		sm: '[&>svg]:size-3',
+		md: '[&>svg]:size-4',
+		lg: '[&>svg]:size-5',
+	};
 
 	if ( disabled ) {
 		filteredClasses = variantClasses.disabled;
@@ -73,20 +82,26 @@ const BadgeComponent = ( props, ref ) => {
 				baseClasses,
 				sizeClasses[ size ],
 				typeClasses[ type ],
+				'gap-0.5',
 				filteredClasses,
 				className
 			) }
 			ref={ ref }
 		>
 			{ icon ? (
-				<span className="justify-center flex items-center [&>svg]:h-4 [&>svg]:w-4">
+				<span
+					className={ cn(
+						'justify-center flex items-center',
+						iconSizeClasses[ size ]
+					) }
+				>
 					{ icon }
 				</span>
 			) : null }
-			{ label }
+			<span className="px-1">{ label }</span>
 			{ closable && (
 				<span
-					className={ buttonClasses }
+					className={ cn( buttonClasses, iconSizeClasses[ size ] ) }
 					onClick={ ! disabled ? onClose : null }
 					onMouseDown={ onMouseDown }
 					role="button"

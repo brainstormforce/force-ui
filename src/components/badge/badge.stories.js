@@ -24,7 +24,7 @@ export default {
 			name: 'Size',
 			description: 'Defines the size of the badge.',
 			control: 'select',
-			options: [ 'xs', 'sm', 'md', 'lg' ],
+			options: [ 'xxs', 'xs', 'sm', 'md', 'lg' ],
 			table: {
 				type: { summary: 'string' },
 				defaultValue: { summary: 'md' },
