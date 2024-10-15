@@ -60,6 +60,7 @@ const EditorInputComponent = (
 		menuItemComponent,
 		className,
 		disabled = false,
+		autoSpaceAfterMention = true,
 	},
 	ref
 ) => {
@@ -123,6 +124,7 @@ const EditorInputComponent = (
 					by={ by }
 					optionsArray={ options }
 					trigger={ trigger }
+					autoSpace={ autoSpaceAfterMention }
 				/>
 				<OnChangePlugin
 					onChange={ handleOnChange }

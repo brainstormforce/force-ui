@@ -1,10 +1,28 @@
-import { useCallback, useState, useMemo } from 'react';
+import { useCallback, useState, useMemo, useEffect } from 'react';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import { LexicalTypeaheadMenuPlugin } from '@lexical/react/LexicalTypeaheadMenuPlugin';
-import { $createMentionNode } from './mention-node';
+import { $createMentionNode, $isMentionNode } from './mention-node';
 import OptionItem from './mention-option-item';
 import useMentionLookupService from './mention-hooks';
 import EditorCombobox from './mention-combobox';
+import {
+  $createTextNode,
+  $getSelection,
+  $isNodeSelection,
+  $isParagraphNode,
+  $setSelection,
+  BLUR_COMMAND,
+  BaseSelection,
+  COMMAND_PRIORITY_LOW,
+  COMMAND_PRIORITY_NORMAL,
+  KEY_BACKSPACE_COMMAND,
+  KEY_DOWN_COMMAND,
+  KEY_SPACE_COMMAND,
+  PASTE_COMMAND,
+  SELECTION_CHANGE_COMMAND,
+  TextNode,
+} from "lexical";
+import { mergeRegister } from '@lexical/utils';
 
 const MentionPlugin = ( {
 	optionsArray,
@@ -13,6 +31,7 @@ const MentionPlugin = ( {
 	trigger = '@', // Default trigger value
 	menuComponent: MenuComponent = EditorCombobox,
 	menuItemComponent: MenuItemComponent = EditorCombobox.Item,
+	autoSpace = true,
 } ) => {
 	// Define PUNCTUATION and other necessary variables inside the component
 	const PUNCTUATION =
@@ -95,6 +114,50 @@ const MentionPlugin = ( {
 	const options = useMemo( () => {
 		return results.map( ( result ) => new OptionItem( result ) );
 	}, [ editor, results ] );
+
+	const handleAutoSpaceAfterMention = useCallback((event) => {
+		if ( ! autoSpace ) {
+			return false;
+		}
+		const {key, ctrlKey, metaKey } = event;
+
+		if ( ctrlKey || metaKey || key === ' ' || key.length > 1 ) {
+			return false;
+		}
+		const selection = $getSelection(editor);
+		const {focus, anchor} = selection;
+		const [node] = selection.getNodes()
+		
+		if (
+			!anchor ||
+			!focus ||
+			anchor?.key !== focus?.key ||
+			anchor?.offset !== focus?.offset ||
+			!node
+		) {
+			return false;
+		}
+		
+		if( $isMentionNode(node) ) {
+			const textNode = $createTextNode(' ');
+			node.insertAfter(textNode);
+		}
+	}, [editor, trigger]);
+
+
+	useEffect(() => {
+		if (!editor) {
+			return;
+		}
+
+		return mergeRegister(
+			editor.registerCommand(
+				KEY_DOWN_COMMAND,
+				handleAutoSpaceAfterMention,
+				COMMAND_PRIORITY_LOW
+			),
+		)
+	}, [editor, handleAutoSpaceAfterMention]);
 
 	return (
 		<LexicalTypeaheadMenuPlugin
