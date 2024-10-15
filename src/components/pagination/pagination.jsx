@@ -79,7 +79,8 @@ const PaginationButton = ( {
 } ) => {
 	const { size, disabled } = usePageContext();
 
-	const validTag = tag && typeof tag === 'string' && tag.trim() !== '' ? tag : 'a';
+	const validTag =
+		tag && typeof tag === 'string' && tag.trim() !== '' ? tag : 'a';
 
 	return (
 		<Button

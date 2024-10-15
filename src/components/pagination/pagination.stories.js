@@ -72,8 +72,7 @@ export default {
 
 // Template function for rendering pagination
 const Template = ( args ) => {
-	useEffect( () => {
-	}, [ args ] );
+	useEffect( () => {}, [ args ] );
 
 	return (
 		<Pagination
@@ -82,10 +81,7 @@ const Template = ( args ) => {
 			className={ args.className }
 		>
 			<Pagination.Content>
-				<Pagination.Previous
-					tag={ args.tag }
-					icon={ args.icon }
-				/>
+				<Pagination.Previous tag={ args.tag } icon={ args.icon } />
 
 				<Pagination.Item
 					tag={ args.tag }
@@ -127,10 +123,7 @@ const Template = ( args ) => {
 					9
 				</Pagination.Item>
 
-				<Pagination.Next
-					tag={ args.tag }
-					icon={ args.icon }
-				/>
+				<Pagination.Next tag={ args.tag } icon={ args.icon } />
 			</Pagination.Content>
 		</Pagination>
 	);
