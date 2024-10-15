@@ -222,10 +222,11 @@ const RadioButtonComponent = (
 				className={ cn(
 					! inlineIcon && 'space-y-1.5 mt-[2px]',
 					reversePosition && ( useSwitch ? 'ml-10' : 'ml-4' ),
-					inlineIcon && 'flex gap-2'
+					inlineIcon && 'flex gap-2',
+					inlineIcon && ! label.description && 'items-center'
 				) }
 			>
-				{ icon && <span>{ icon } </span> }
+				{ icon && <>{ icon }</> }
 				<div className={ cn( 'space-y-1.5' ) }>
 					<p
 						className={ cn(
