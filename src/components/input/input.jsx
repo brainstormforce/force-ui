@@ -175,10 +175,10 @@ const InputComponent = (
 					<Upload />
 				</div>
 			);
-		}else if ( ! suffix ) {
+		} else if ( ! suffix ) {
 			return null;
 		}
-		
+
 		return (
 			<div className={ cn( iconClasses, 'right-0 pr-3', textClasses[ size ] ) }>
 				{ suffix }
