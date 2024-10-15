@@ -46,7 +46,7 @@ const PaginationContent = forwardRef( ( { className, ...props }, ref ) => {
 PaginationContent.displayName = 'Pagination.Content';
 
 const PaginationItem = forwardRef(
-	( { isActive = false, href = '', className, children, ...props }, ref ) => {
+	( { isActive = false, className, children, ...props }, ref ) => {
 		const { disabled } = usePageContext();
 		return (
 			<li
