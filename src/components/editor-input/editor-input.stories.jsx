@@ -130,7 +130,8 @@ export default {
 		},
 		wrapperClassName: {
 			name: 'wrapperClassName',
-			description: 'Custom class name to be added to the editor input wrapper.',
+			description:
+				'Custom class name to be added to the editor input wrapper.',
 			control: 'text',
 			table: {
 				type: { summary: 'string' },
@@ -140,7 +141,10 @@ export default {
 	},
 	decorators: [
 		( Story ) => (
-			<div style={ { maxWidth: '900px', height: '200px' } }>
+			<div
+				className="[&_*]:box-border box-border"
+				style={ { maxWidth: '900px', height: '200px' } }
+			>
 				<Story />
 			</div>
 		),
