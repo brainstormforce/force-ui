@@ -53,15 +53,6 @@ const BadgeComponent = ( props, ref ) => {
 			'bg-badge-background-disabled hover:bg-badge-hover-disabled text-badge-color-disabled border-badge-border-disabled disabled cursor-not-allowed',
 	};
 
-	// Gap classes between icon, label, and X
-	const gapClasses = {
-		xxs: 'gap-1', // 4px
-		xs: 'gap-1.5', // 6px
-		sm: 'gap-1.5', // 6px
-		md: 'gap-1.5', // 6px
-		lg: 'gap-1.5', // 6px
-	};
-
 	let filteredClasses = '';
 	let buttonClasses =
 		'group relative justify-center flex items-center cursor-pointer';
@@ -91,7 +82,7 @@ const BadgeComponent = ( props, ref ) => {
 				baseClasses,
 				sizeClasses[ size ],
 				typeClasses[ type ],
-				gapClasses[ size ], // Apply the gap class based on size
+				'gap-0.5',
 				filteredClasses,
 				className
 			) }

@@ -125,7 +125,8 @@ const Template = ( args ) => {
 					className={ sidebarCollapsed && 'flex justify-center' }
 				>
 					<img
-						width={ sidebarCollapsed ? '40px' : '180px' }
+						width={ sidebarCollapsed ? 'auto' : '180px' }
+						height={ sidebarCollapsed ? '24px' : 'auto' }
 						alt="Logo"
 						src={
 							sidebarCollapsed
@@ -137,19 +138,19 @@ const Template = ( args ) => {
 			</Sidebar.Header>
 			<Sidebar.Body>
 				<Sidebar.Item>
-					<div className="flex flex-col gap-2">
+					<div className="flex flex-col gap-6">
 						{ menuData.map( ( section, sectionIndex ) => (
 							<div key={ sectionIndex }>
-								<p className="text-slate-500">
+								<p className="text-text-tertiary p-1 m-0">
 									{ ! sidebarCollapsed && section.heading }
 								</p>
-								<div>
+								<div className='gap-0.5'>
 									{ section.items.map( ( item, itemIndex ) => (
 										<div
 											key={ itemIndex }
-											className={ `px-2 py-1 flex items-center gap-2 cursor-pointer rounded-md hover:bg-slate-100 ${ sidebarCollapsed && 'justify-center' }` }
+											className={ `p-1 flex items-center gap-1 cursor-pointer rounded-md hover:bg-slate-100  text-text-secondary ${ sidebarCollapsed && 'justify-center' }` }
 										>
-											<span className="mt-[4px]">
+											<span className="[&>svg]:size-5 [&>svg]:m-1.5 [&>*:not(svg)]:m-1 h-8">
 												{ item.icon }
 											</span>
 											{ ! sidebarCollapsed && (

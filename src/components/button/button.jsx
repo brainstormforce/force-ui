@@ -48,17 +48,17 @@ const Button = forwardRef( ( props, ref ) => {
 			: '';
 
 	const sizeClassNames = {
-		xs: 'p-1 rounded [&>svg]:size-4 h-6 gap-1',
-		sm: 'p-2 rounded [&>svg]:size-4 h-8 gap-1.5',
-		md: 'p-2.5 rounded-md text-sm [&>svg]:size-5 h-10 gap-2',
-		lg: 'p-3 rounded-lg text-base [&>svg]:size-6 h-12 gap-2',
+		xs: 'p-1 rounded [&>svg]:size-4 h-6',
+		sm: 'p-2 rounded [&>svg]:size-4 h-8 gap-0.5',
+		md: 'p-2.5 rounded-md text-sm [&>svg]:size-5 h-10 gap-1',
+		lg: 'p-3 rounded-lg text-base [&>svg]:size-6 h-12 gap-1',
 	}?.[ size ];
 
 	let iconLeft,
 		iconRight = null;
 	let iconClass = '';
 	if ( icon ) {
-		iconClass = 'flex items-center justify-center gap-1';
+		iconClass = 'flex items-center justify-center';
 		if ( iconPosition === 'left' ) {
 			iconLeft = icon;
 		} else {
@@ -84,7 +84,7 @@ const Button = forwardRef( ( props, ref ) => {
 			{ ...rest }
 		>
 			{ iconLeft }
-			{ children }
+			<span className='px-1'>{ children }</span>
 			{ iconRight }
 		</Tag>
 	);

@@ -93,12 +93,13 @@ const Template3 = () => {
 						>
 							<Container.Item>{ button.icon }</Container.Item>
 							<Container.Item>
-								<Button
-									variant="ghost"
-									className="py-0 font-normal"
-								>
-									{ button.label }
-								</Button>
+								<a href="#" className="no-underline">
+									<Label
+										className="py-0 font-normal cursor-pointer"
+									>
+										{ button.label }
+									</Label>
+								</a>
 							</Container.Item>
 							<Container.Item>{ button.bagde }</Container.Item>
 						</Container>

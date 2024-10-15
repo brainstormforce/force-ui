@@ -475,7 +475,7 @@ export const AstraDashboard = () => {
 										( option ) => (
 											<RadioButton.Button
 												key={ `option-${ option.id }` }
-												borderOn={ true }
+												borderOn={ false }
 												value={ option.value }
 												icon={ option.icon }
 												hideSelection={
@@ -489,7 +489,7 @@ export const AstraDashboard = () => {
 												className="px-2"
 												badgeItem={ option.badge }
 												disabled={ option.disabled }
-												buttonWrapperClasses="bg-background-primary"
+												buttonWrapperClasses="bg-background-primary rounded-md shadow-sm"
 											/>
 										)
 									) }
