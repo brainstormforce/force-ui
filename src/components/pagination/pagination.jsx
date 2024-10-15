@@ -58,7 +58,6 @@ const PaginationItem = forwardRef(
 					isActive={ isActive }
 					disabled={ disabled }
 					className={ className }
-					href={ href }
 					{ ...props }
 				>
 					{ children }
