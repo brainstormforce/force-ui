@@ -1,4 +1,4 @@
-import React from 'react'; // Import React
+import React, { useEffect } from 'react'; // Import React
 import Pagination from './pagination.jsx'; // Adjust the import path as necessary
 
 export default {
@@ -38,39 +38,14 @@ export default {
 				defaultValue: { summary: 'false' },
 			},
 		},
-		href: {
-			name: 'Href',
+		tag: {
+			name: 'Tag',
 			description:
-				'Link for the Pagination Item. Passed to each Pagination Item.',
+				'Specifies the HTML tag to be rendered for the pagination button. By default, it renders an `<a>` tag, but it can be customized to other tags like `<button>`, depending on the context or functionality required. Ensure that you pass the appropriate props (e.g., `href` for an `<a>` tag, `type` for a `<button>` tag) based on the tag you choose. These props will be forwarded to the underlying tag component.',
 			control: 'text',
 			table: {
 				type: { summary: 'string' },
-				defaultValue: { summary: '#' },
-			},
-		},
-		target: {
-			name: 'Target',
-			description:
-				'Specifies where to open the linked document. Default is "_self".',
-			control: {
-				type: 'select',
-			},
-			options: [ '_self', '_blank', '_parent', '_top' ], // Common target values
-			table: {
-				type: { summary: 'string' },
-				defaultValue: { summary: '_self' },
-			},
-		},
-		rel: {
-			name: 'Rel',
-			description:
-				'Specifies the relationship between the current document and the linked document. Default is "noopener noreferrer" for "_blank".',
-			control: {
-				type: 'text', // Allow users to input custom rel values
-			},
-			table: {
-				type: { summary: 'string' },
-				defaultValue: { summary: 'noopener noreferrer' },
+				defaultValue: { summary: 'a' },
 			},
 		},
 		icon: {
@@ -97,6 +72,9 @@ export default {
 
 // Template function for rendering pagination
 const Template = ( args ) => {
+	useEffect( () => {
+	}, [ args ] );
+
 	return (
 		<Pagination
 			size={ args.size }
@@ -105,32 +83,24 @@ const Template = ( args ) => {
 		>
 			<Pagination.Content>
 				<Pagination.Previous
-					href={ args.href }
-					target={ args.target }
-					rel={ args.rel }
+					tag={ args.tag }
 					icon={ args.icon }
 				/>
 
 				<Pagination.Item
-					href={ args.href }
-					target={ args.target }
-					rel={ args.rel }
+					tag={ args.tag }
 					isActive={ false || args.isActive }
 				>
 					1
 				</Pagination.Item>
 				<Pagination.Item
-					href={ args.href }
-					target={ args.target }
-					rel={ args.rel }
+					tag={ args.tag }
 					isActive={ true || args.isActive }
 				>
 					2
 				</Pagination.Item>
 				<Pagination.Item
-					href={ args.href }
-					target={ args.target }
-					rel={ args.rel }
+					tag={ args.tag }
 					isActive={ false || args.isActive }
 				>
 					3
@@ -139,34 +109,26 @@ const Template = ( args ) => {
 				<Pagination.Ellipsis />
 
 				<Pagination.Item
-					href={ args.href }
-					target={ args.target }
-					rel={ args.rel }
+					tag={ args.tag }
 					isActive={ false || args.isActive }
 				>
 					7
 				</Pagination.Item>
 				<Pagination.Item
-					href={ args.href }
-					target={ args.target }
-					rel={ args.rel }
+					tag={ args.tag }
 					isActive={ false || args.isActive }
 				>
 					8
 				</Pagination.Item>
 				<Pagination.Item
-					href={ args.href }
-					target={ args.target }
-					rel={ args.rel }
+					tag={ args.tag }
 					isActive={ false || args.isActive }
 				>
 					9
 				</Pagination.Item>
 
 				<Pagination.Next
-					href={ args.href }
-					target={ args.target }
-					rel={ args.rel }
+					tag={ args.tag }
 					icon={ args.icon }
 				/>
 			</Pagination.Content>
@@ -182,8 +144,7 @@ BasicPagination.args = {
 	disabled: false,
 	className: '',
 	isActive: false,
-	href: '#',
-	target: '_self',
+	tag: 'a',
 	rel: '',
 };
 

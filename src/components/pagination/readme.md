@@ -31,26 +31,10 @@ The `Pagination` component provides a navigational interface for page-based navi
 - **Default:** `false`
 - **Description:** If true, the pagination link will be styled as active.
 
-### `Href`
-- **Type:** `link`
-- **Default:** `#`
-- **Description:** Link for the Pagination Item. Passed to each Pagination Item.
-Here’s the documentation formatted for `target` and `rel` based on the structure:
-
-### `Target`
-- **Type:** `select`
-- **Options:** `'_self'`, `'_blank'`, `'_parent'`, `'_top'`
-- **Default:** `'_self'`
-- **Description:** Specifies where to open the linked document. Common values include:
-  - `_self`: Opens the link in the same frame.
-  - `_blank`: Opens the link in a new window or tab.
-  - `_parent`: Opens the link in the parent frame.
-  - `_top`: Opens the link in the full body of the window.
-
-### `Rel`
-- **Type:** `text`
-- **Default:** `'noopener noreferrer'`
-- **Description:** Specifies the relationship between the current document and the linked document. It’s especially useful when using `_blank` to prevent security vulnerabilities by using `'noopener noreferrer'`.
+### `Tag`
+- **Type:** `string`
+- **Default:** `'a'`
+- **Description:** Specifies the HTML tag to be rendered for the pagination button. By default, it renders an `<a>` tag, but it can be customized to other tags like `<button>`, depending on the context or functionality required. Ensure that you pass the appropriate props (e.g., `href` for an `<a>` tag, `type` for a `<button>` tag) based on the tag you choose. These props will be forwarded to the underlying tag component.
 
 ## `Pagination.Previous` Props
 
@@ -59,20 +43,10 @@ Here’s the documentation formatted for `target` and `rel` based on the structu
 - **Default:** `<ChevronLeft/>`
 - **Description:** Icon or text for the Pagination Previous component.
 
-### `Target`
-- **Type:** `select`
-- **Options:** `'_self'`, `'_blank'`, `'_parent'`, `'_top'`
-- **Default:** `'_self'`
-- **Description:** Specifies where to open the linked document. Common values include:
-  - `_self`: Opens the link in the same frame.
-  - `_blank`: Opens the link in a new window or tab.
-  - `_parent`: Opens the link in the parent frame.
-  - `_top`: Opens the link in the full body of the window.
-
-### `Rel`
-- **Type:** `text`
-- **Default:** `'noopener noreferrer'`
-- **Description:** Specifies the relationship between the current document and the linked document. It’s especially useful when using `_blank` to prevent security vulnerabilities by using `'noopener noreferrer'`.
+### `Tag`
+- **Type:** `string`
+- **Default:** `'a'`
+- **Description:** Specifies the HTML tag to be rendered for the pagination button. By default, it renders an `<a>` tag, but it can be customized to other tags like `<button>`, depending on the context or functionality required. Ensure that you pass the appropriate props (e.g., `href` for an `<a>` tag, `type` for a `<button>` tag) based on the tag you choose. These props will be forwarded to the underlying tag component.
 
 ## `Pagination.Next` Props
 
@@ -81,20 +55,10 @@ Here’s the documentation formatted for `target` and `rel` based on the structu
 - **Default:** `<ChevronRight/>`
 - **Description:** Icon or text for the Pagination Next component.
 
-### `Target`
-- **Type:** `select`
-- **Options:** `'_self'`, `'_blank'`, `'_parent'`, `'_top'`
-- **Default:** `'_self'`
-- **Description:** Specifies where to open the linked document. Common values include:
-  - `_self`: Opens the link in the same frame.
-  - `_blank`: Opens the link in a new window or tab.
-  - `_parent`: Opens the link in the parent frame.
-  - `_top`: Opens the link in the full body of the window.
-
-### `Rel`
-- **Type:** `text`
-- **Default:** `'noopener noreferrer'`
-- **Description:** Specifies the relationship between the current document and the linked document. It’s especially useful when using `_blank` to prevent security vulnerabilities by using `'noopener noreferrer'`.
+### `Tag`
+- **Type:** `string`
+- **Default:** `'a'`
+- **Description:** Specifies the HTML tag to be rendered for the pagination button. By default, it renders an `<a>` tag, but it can be customized to other tags like `<button>`, depending on the context or functionality required. Ensure that you pass the appropriate props (e.g., `href` for an `<a>` tag, `type` for a `<button>` tag) based on the tag you choose. These props will be forwarded to the underlying tag component.
 
 ## Usage Example
 

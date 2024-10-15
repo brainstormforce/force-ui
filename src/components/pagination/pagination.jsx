@@ -72,21 +72,18 @@ PaginationItem.displayName = 'Pagination.Item';
 const PaginationButton = ( {
 	icon = null,
 	isActive = false,
-	href = '',
-	target = '_self',
-	rel,
+	tag = 'a',
 	children,
 	className,
 	...props
 } ) => {
 	const { size, disabled } = usePageContext();
 
+	const validTag = tag && typeof tag === 'string' && tag.trim() !== '' ? tag : 'a';
+
 	return (
 		<Button
-			tag="a"
-			href={ href }
-			target={ target } // target attribute
-			rel={ target === '_blank' ? 'noopener noreferrer' : rel } // rel attribute for security if needed
+			tag={ validTag }
 			size={ size }
 			variant={ 'ghost' }
 			className={ cn(
