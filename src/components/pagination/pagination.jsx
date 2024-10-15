@@ -108,7 +108,7 @@ const PaginationButton = ( {
 	);
 };
 
-const PaginationPrevious = ( { icon = <ChevronLeft />, props } ) => {
+const PaginationPrevious = ( { icon = <ChevronLeft />, ...props } ) => {
 	const { size, disabled } = usePageContext();
 	return (
 		<li
