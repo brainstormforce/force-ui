@@ -647,6 +647,7 @@ export const SpectraDashboard = () => {
 									className="p-1"
 									justify="between"
 									gap="xs"
+									align="center"
 								>
 									<Container.Item>
 										<Label className="font-semibold text-text-primary">

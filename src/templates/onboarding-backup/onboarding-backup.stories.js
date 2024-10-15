@@ -63,7 +63,7 @@ const Template = ( args ) => {
 							tag="h4"
 							title="Want to Add a Backup Email Service?"
 						/>
-						<Label className="text-text-secondary mt-1 text-sm max-w-[41rem]">
+						<Label className="text-text-secondary mt-1 text-sm max-w-[41rem] font-normal">
 							This is an optional step, but it can be really
 							helpful. By adding a backup email service, your
 							emails will still be sent if your main service stops
@@ -297,14 +297,18 @@ const Template = ( args ) => {
 						<Button
 							variant="outline"
 							className="flex items-center gap-2"
+							icon={ <ChevronLeft /> }
 						>
-							<ChevronLeft />
 							Back
 						</Button>
 						<div className="flex justify-end items-center gap-3">
 							<Button variant="ghost"> Skip</Button>
-							<Button className="flex items-center gap-2">
-								Continue Setup <ChevronRight />
+							<Button
+								className="flex items-center gap-2"
+								icon={ <ChevronRight /> }
+								iconPosition="right"
+							>
+								Continue Setup
 							</Button>
 						</div>
 					</div>

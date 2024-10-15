@@ -56,7 +56,7 @@ const TextAreaComponent = (
 	const focusClasses =
 		'focus:border-focus-border focus:ring-2 focus:ring-toggle-on focus:ring-offset-2';
 	const errorClasses = error
-		? 'focus:border-focus-error-border focus:ring-field-color-error bg-field-background-error'
+		? 'focus:border-focus-error-border focus:ring-field-color-error border-focus-error-border'
 		: '';
 	const disabledClasses = disabled
 		? 'border-border-disabled bg-field-background-disabled cursor-not-allowed text-text-disabled'
