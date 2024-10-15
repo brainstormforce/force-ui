@@ -146,9 +146,6 @@ const PaginationNext = ( {
 				icon={ icon }
 				aria-label="Go to next page"
 				className={ sizeClassNames[ size ].icon }
-				href={ href }
-				target={ target }
-				rel={ rel }
 				{ ...props }
 			/>
 		</li>
