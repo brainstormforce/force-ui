@@ -6,22 +6,11 @@ import OptionItem from './mention-option-item';
 import useMentionLookupService from './mention-hooks';
 import EditorCombobox from './mention-combobox';
 import {
-  $createTextNode,
-  $getSelection,
-  $isNodeSelection,
-  $isParagraphNode,
-  $setSelection,
-  BLUR_COMMAND,
-  BaseSelection,
-  COMMAND_PRIORITY_LOW,
-  COMMAND_PRIORITY_NORMAL,
-  KEY_BACKSPACE_COMMAND,
-  KEY_DOWN_COMMAND,
-  KEY_SPACE_COMMAND,
-  PASTE_COMMAND,
-  SELECTION_CHANGE_COMMAND,
-  TextNode,
-} from "lexical";
+	$createTextNode,
+	$getSelection,
+	COMMAND_PRIORITY_LOW,
+	KEY_DOWN_COMMAND,
+} from 'lexical';
 import { mergeRegister } from '@lexical/utils';
 
 const MentionPlugin = ( {
@@ -115,38 +104,40 @@ const MentionPlugin = ( {
 		return results.map( ( result ) => new OptionItem( result ) );
 	}, [ editor, results ] );
 
-	const handleAutoSpaceAfterMention = useCallback((event) => {
-		if ( ! autoSpace ) {
-			return false;
-		}
-		const {key, ctrlKey, metaKey } = event;
+	const handleAutoSpaceAfterMention = useCallback(
+		( event ) => {
+			if ( ! autoSpace ) {
+				return false;
+			}
+			const { key, ctrlKey, metaKey } = event;
 
-		if ( ctrlKey || metaKey || key === ' ' || key.length > 1 ) {
-			return false;
-		}
-		const selection = $getSelection(editor);
-		const {focus, anchor} = selection;
-		const [node] = selection.getNodes()
-		
-		if (
-			!anchor ||
-			!focus ||
-			anchor?.key !== focus?.key ||
-			anchor?.offset !== focus?.offset ||
-			!node
-		) {
-			return false;
-		}
-		
-		if( $isMentionNode(node) ) {
-			const textNode = $createTextNode(' ');
-			node.insertAfter(textNode);
-		}
-	}, [editor, trigger]);
+			if ( ctrlKey || metaKey || key === ' ' || key.length > 1 ) {
+				return false;
+			}
+			const selection = $getSelection( editor );
+			const { focus, anchor } = selection;
+			const [ node ] = selection.getNodes();
 
+			if (
+				! anchor ||
+				! focus ||
+				anchor?.key !== focus?.key ||
+				anchor?.offset !== focus?.offset ||
+				! node
+			) {
+				return false;
+			}
 
-	useEffect(() => {
-		if (!editor) {
+			if ( $isMentionNode( node ) ) {
+				const textNode = $createTextNode( ' ' );
+				node.insertAfter( textNode );
+			}
+		},
+		[ editor, trigger ]
+	);
+
+	useEffect( () => {
+		if ( ! editor ) {
 			return;
 		}
 
@@ -155,9 +146,9 @@ const MentionPlugin = ( {
 				KEY_DOWN_COMMAND,
 				handleAutoSpaceAfterMention,
 				COMMAND_PRIORITY_LOW
-			),
-		)
-	}, [editor, handleAutoSpaceAfterMention]);
+			)
+		);
+	}, [ editor, handleAutoSpaceAfterMention ] );
 
 	return (
 		<LexicalTypeaheadMenuPlugin
