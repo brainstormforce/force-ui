@@ -138,6 +138,8 @@ BasicPagination.args = {
 	className: '',
 	isActive: false,
 	tag: 'a',
+	href: '#',
+	target: '_self',
 };
 
 export const ExtraSmallPagination = ( args ) => Template( { ...args } );
