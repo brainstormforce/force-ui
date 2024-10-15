@@ -32,7 +32,7 @@ The `Pagination` component provides a navigational interface for page-based navi
 - **Description:** If true, the pagination link will be styled as active.
 
 ### `Tag`
-- **Type:** `string`
+- **Type:** `String or Component`
 - **Default:** `'a'`
 - **Description:** Specifies the HTML tag to be rendered for the pagination button. By default, it renders an `<a>` tag, but it can be customized to other tags like `<button>`, depending on the context or functionality required. Ensure that you pass the appropriate props (e.g., `href` for an `<a>` tag, `type` for a `<button>` tag) based on the tag you choose. These props will be forwarded to the underlying tag component.
 
@@ -44,7 +44,7 @@ The `Pagination` component provides a navigational interface for page-based navi
 - **Description:** Icon or text for the Pagination Previous component.
 
 ### `Tag`
-- **Type:** `string`
+- **Type:** `String or Component`
 - **Default:** `'a'`
 - **Description:** Specifies the HTML tag to be rendered for the pagination button. By default, it renders an `<a>` tag, but it can be customized to other tags like `<button>`, depending on the context or functionality required. Ensure that you pass the appropriate props (e.g., `href` for an `<a>` tag, `type` for a `<button>` tag) based on the tag you choose. These props will be forwarded to the underlying tag component.
 
@@ -56,7 +56,7 @@ The `Pagination` component provides a navigational interface for page-based navi
 - **Description:** Icon or text for the Pagination Next component.
 
 ### `Tag`
-- **Type:** `string`
+- **Type:** `String or Component`
 - **Default:** `'a'`
 - **Description:** Specifies the HTML tag to be rendered for the pagination button. By default, it renders an `<a>` tag, but it can be customized to other tags like `<button>`, depending on the context or functionality required. Ensure that you pass the appropriate props (e.g., `href` for an `<a>` tag, `type` for a `<button>` tag) based on the tag you choose. These props will be forwarded to the underlying tag component.
 

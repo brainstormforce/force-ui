@@ -79,7 +79,10 @@ const PaginationButton = ( {
 	const { size, disabled } = usePageContext();
 
 	// Check if `tag` is a valid HTML tag (string) or a React component (function), default to 'a' if not
-	const validTag = ( tag && ( typeof tag === 'string' || typeof tag === 'function' ) ) ? tag : 'a';
+	const validTag =
+		tag && ( typeof tag === 'string' || typeof tag === 'function' )
+			? tag
+			: 'a';
 
 	return (
 		<Button
@@ -111,10 +114,7 @@ const PaginationButton = ( {
 	);
 };
 
-const PaginationPrevious = ( {
-	icon = <ChevronLeft />,
-	props,
-} ) => {
+const PaginationPrevious = ( { icon = <ChevronLeft />, props } ) => {
 	const { size, disabled } = usePageContext();
 	return (
 		<li
@@ -132,10 +132,7 @@ const PaginationPrevious = ( {
 };
 PaginationPrevious.displayName = 'Pagination.Previous';
 
-const PaginationNext = ( {
-	icon = <ChevronRight />,
-	props,
-} ) => {
+const PaginationNext = ( { icon = <ChevronRight />, props } ) => {
 	const { size, disabled } = usePageContext();
 	return (
 		<li
@@ -160,13 +157,13 @@ const PaginationEllipsis = ( props ) => {
 		<li
 			tabIndex={ 0 }
 			className={ cn( 'flex', disabled && disabledClassNames.general ) }
-			{ ...props }
 		>
 			<span
 				className={ cn(
 					sizeClassNames[ size ].ellipse,
 					disabled && disabledClassNames.general
 				) }
+				{ ...props }
 			>
 				...
 			</span>
