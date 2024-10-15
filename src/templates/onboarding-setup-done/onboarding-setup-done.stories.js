@@ -55,7 +55,7 @@ const Template = ( args ) => {
 							className="text-text-primary"
 							title="You're Good to Go! 🚀"
 						/>
-						<Label className="text-text-secondary mt-1 text-sm">
+						<Label className="text-text-secondary mt-1 text-sm font-normal">
 							You&#39;ve successfully set up SureEmails, and your
 							site is ready to send emails without a hitch! Now
 							you can focus on your business and let us handle the
@@ -96,12 +96,14 @@ const Template = ( args ) => {
 					<hr className="my-6 w-full border-b-0 border-x-0 border-t border-solid border-t-border-subtle" />
 				</div>
 				<div className="flex items-center gap-3">
-					<Button className="px-4 w-max">Go to Dashboard</Button>
+					<Button className="px-4 w-auto">Go to Dashboard</Button>
 					<Button
 						variant="link"
 						className="px-4 flex items-center gap-2"
+						icon={ <ExternalLink /> }
+						iconPosition="right"
 					>
-						Documentation <ExternalLink />
+						Documentation
 					</Button>
 				</div>
 			</div>

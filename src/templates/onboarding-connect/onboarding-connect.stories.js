@@ -46,7 +46,7 @@ const Template = ( args ) => {
 					>
 						Connect Your Site with SureRank
 					</Label>
-					<Label className="text-text-secondary text-sm mt-2">
+					<Label className="text-text-secondary text-sm mt-2 font-normal">
 						When you connect your free account with SureRank you
 						will get keyword suggestions from Google when entering
 						the keywords. Not only that, you will access to our AI

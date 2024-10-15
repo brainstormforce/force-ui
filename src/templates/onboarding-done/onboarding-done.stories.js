@@ -46,7 +46,7 @@ const Template = ( args ) => {
 					>
 						Congratulations!
 					</Label>
-					<Label className="text-text-secondary mt-2 text-sm">
+					<Label className="text-text-secondary mt-2 text-sm font-normal">
 						You&#39;ve taken the first step to SEO success. Now,
 						let&#39;s optimize your website for search engines.
 						<br />
@@ -71,8 +71,10 @@ const Template = ( args ) => {
 						<Button
 							variant="link"
 							className="px-4 flex items-center gap-2"
+							icon={ <ExternalLink /> }
+							iconPosition="right"
 						>
-							Documentation <ExternalLink />
+							Documentation
 						</Button>
 					</div>
 				</div>

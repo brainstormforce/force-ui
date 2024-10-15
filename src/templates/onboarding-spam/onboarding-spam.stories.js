@@ -63,7 +63,7 @@ const Template = ( args ) => {
 							className="text-text-primary"
 							title="Say Goodbye to Spam Folders"
 						/>
-						<Label className="text-text-secondary mt-1 text-sm max-w-[35rem]">
+						<Label className="text-text-secondary mt-1 text-sm max-w-[35rem] font-normal">
 							Enter your email address to receive a step-by-step
 							guide that will help you ensure your emails always
 							make it to the inbox.
@@ -101,8 +101,8 @@ const Template = ( args ) => {
 						<Button
 							variant="outline"
 							className="flex items-center gap-2"
+							icon={ <ChevronLeft /> }
 						>
-							<ChevronLeft />
 							Back
 						</Button>
 
@@ -113,8 +113,12 @@ const Template = ( args ) => {
 							>
 								Skip
 							</Button>
-							<Button className="flex items-center gap-2">
-								Continue Setup <ChevronRight />
+							<Button
+								className="flex items-center gap-2"
+								icon={ <ChevronRight /> }
+								iconPosition="right"
+							>
+								Continue Setup
 							</Button>
 						</div>
 					</div>

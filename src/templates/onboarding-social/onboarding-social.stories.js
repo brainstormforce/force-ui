@@ -54,7 +54,7 @@ const Template = ( args ) => {
 							className="text-text-primary"
 							title="Social Profiles"
 						/>
-						<Label className="text-text-secondary mt-1 text-sm max-w-[35rem]">
+						<Label className="text-text-secondary mt-1 text-sm max-w-[35rem] font-normal">
 							Please enter all your possible social media
 							profiles. These links can appear in the knowledge
 							panel of the search results for your website.
@@ -139,8 +139,8 @@ const Template = ( args ) => {
 						<Button
 							variant="outline"
 							className="flex items-center gap-2"
+							icon={ <ChevronLeft /> }
 						>
-							<ChevronLeft />
 							Back
 						</Button>
 						<div className="flex justify-end items-center gap-3">
@@ -150,8 +150,12 @@ const Template = ( args ) => {
 							>
 								Skip
 							</Button>
-							<Button className="flex items-center gap-2">
-								Next <ChevronRight />
+							<Button
+								className="flex items-center gap-2"
+								icon={ <ChevronRight /> }
+								iconPosition="right"
+							>
+								Next
 							</Button>
 						</div>
 					</div>

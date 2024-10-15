@@ -53,7 +53,7 @@ const Template = ( args ) => {
 						tag="h4"
 						title="Import Data From Your Current Plugins"
 					/>
-					<Label className="text-text-secondary mt-1 text-sm max-w-[35rem]">
+					<Label className="text-text-secondary mt-1 text-sm max-w-[35rem] font-normal">
 						We have deducted few SEO plugins installed on your
 						website. Select the plugin from which you want to import
 					</Label>
@@ -87,8 +87,12 @@ const Template = ( args ) => {
 					<Button variant="ghost" className="text-text-tertiary">
 						Skip
 					</Button>
-					<Button className="flex items-center gap-2">
-						Next <ChevronRight />
+					<Button
+						className="flex items-center gap-2"
+						icon={ <ChevronRight /> }
+						iconPosition="right"
+					>
+						Next
 					</Button>
 				</div>
 			</div>
