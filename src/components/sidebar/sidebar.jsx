@@ -126,7 +126,7 @@ const SidebarFooter = ( { children } ) => {
 				>
 					{ isCollapsed ? (
 						<>
-							<Tooltip title="Expand" placement="right">
+                            <Tooltip label={{heading: 'Expand'}} placement="right">
 								<PanelLeftOpen className="size-5" />
 							</Tooltip>
 						</>
