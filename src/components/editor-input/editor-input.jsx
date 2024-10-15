@@ -60,7 +60,7 @@ const EditorInputComponent = (
 		menuItemComponent,
 		className,
 		disabled = false,
-		autoSpaceAfterMention = true,
+		autoSpaceAfterMention = false,
 	},
 	ref
 ) => {
