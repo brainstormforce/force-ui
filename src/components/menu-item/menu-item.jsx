@@ -11,7 +11,7 @@ const Menu = ( { size = 'md', children, className } ) => {
 
 	return (
 		<MenuContext.Provider value={ { size } }>
-			<div className={ cn( baseClasses, className ) }>{ children }</div>
+			<div className={ cn( 'min-w-64', baseClasses, className ) }>{ children }</div>
 		</MenuContext.Provider>
 	);
 };

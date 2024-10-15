@@ -210,7 +210,7 @@ function SelectButton( {
 					{ ( multiple ? ! getValues()?.length : ! getValues() ) && (
 						<div
 							className={ cn(
-								'[grid-area:1/1/2/3] text-field-input',
+								'[grid-area:1/1/2/3] text-field-input px-1',
 								sizeClassNames[ sizeValue ].displaySelected,
 								disabledClassNames.text
 							) }
