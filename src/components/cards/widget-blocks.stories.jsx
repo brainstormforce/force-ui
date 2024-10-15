@@ -234,7 +234,7 @@ const Template1 = () => {
 			gap="xs"
 		>
 			<Container.Item className="md:w-full p-1 lg:w-full">
-				<Container justify="between" gap="xs">
+				<Container justify="between" gap="xs" align="center">
 					<Container.Item className="">
 						<Label className="font-semibold">Blocks</Label>
 					</Container.Item>

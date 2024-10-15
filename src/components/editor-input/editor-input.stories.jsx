@@ -141,7 +141,10 @@ export default {
 	},
 	decorators: [
 		( Story ) => (
-			<div style={ { maxWidth: '900px', height: '200px' } }>
+			<div
+				className="[&_*]:box-border box-border"
+				style={ { maxWidth: '900px', height: '200px' } }
+			>
 				<Story />
 			</div>
 		),

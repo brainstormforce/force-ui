@@ -63,7 +63,7 @@ const Template = ( args ) => {
 							className="text-text-primary"
 							title="Add More Power to Your Website"
 						/>
-						<Label className="text-text-secondary mt-1 text-sm max-w-[41rem]">
+						<Label className="text-text-secondary mt-1 text-sm max-w-[41rem] font-normal">
 							These tools can help you build your website faster
 							and easier. Try them out and see how they can help
 							your website grow.
@@ -215,14 +215,18 @@ const Template = ( args ) => {
 						<Button
 							variant="outline"
 							className="flex items-center gap-2"
+							icon={ <ChevronLeft /> }
 						>
-							<ChevronLeft />
 							Back
 						</Button>
 						<div className="flex justify-end items-center gap-3">
 							<Button variant="ghost"> Skip</Button>
-							<Button className="flex items-center gap-2">
-								Continue Setup <ChevronRight />
+							<Button
+								className="flex items-center gap-2"
+								icon={ <ChevronRight /> }
+								iconPosition="right"
+							>
+								Continue Setup
 							</Button>
 						</div>
 					</div>

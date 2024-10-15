@@ -55,7 +55,7 @@ const Template = ( args ) => {
 							className="text-text-primary"
 							title="Your Website Basic Details"
 						/>
-						<Label className="text-text-secondary mt-1 text-sm max-w-[35rem]">
+						<Label className="text-text-secondary mt-1 text-sm max-w-[35rem] font-normal">
 							Let&#39;s get started with the basic details of this
 							website.
 						</Label>
@@ -204,8 +204,8 @@ const Template = ( args ) => {
 						<Button
 							variant="outline"
 							className="flex items-center gap-2"
+							icon={ <ChevronLeft /> }
 						>
-							<ChevronLeft />
 							Back
 						</Button>
 						<div className="flex justify-end items-center gap-3">
@@ -215,8 +215,12 @@ const Template = ( args ) => {
 							>
 								Skip
 							</Button>
-							<Button className="flex items-center gap-2">
-								Next <ChevronRight />
+							<Button
+								className="flex items-center gap-2"
+								icon={ <ChevronRight /> }
+								iconPosition="right"
+							>
+								Next
 							</Button>
 						</div>
 					</div>
