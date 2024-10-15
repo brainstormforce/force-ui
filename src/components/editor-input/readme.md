@@ -86,6 +86,11 @@ The Editor Input component is a text input field that allows users to input text
 - **Default:** `false`
 - **Description:** If `true`, the editor input field will be focused when the component is mounted.
 
+### autoSpaceAfterMention
+- **Type:** `boolean`
+- **Default:** `true`
+- **Description:** If `true`, a space will be added after the mention/tag node. If any other character is pressed after selecting a mention/tag option, the space will be added automatically.
+
 ### className
 - **Type:** `string`
 - **Default:** `""`
@@ -97,6 +102,11 @@ The Editor Input component is a text input field that allows users to input text
         className="..."
     />
 ```
+
+### wrapperClassName
+- **Type:** `string`
+- **Default:** `""`
+- **Description:** Additional classes to be added to the editor input wrapper.
 
 ### disabled
 - **Type:** `boolean`
