@@ -71,22 +71,16 @@ PaginationItem.displayName = 'Pagination.Item';
 const PaginationButton = ( {
 	icon = null,
 	isActive = false,
-	tag,
+	tag = 'a',
 	children,
 	className,
 	...props
 } ) => {
 	const { size, disabled } = usePageContext();
 
-	// Check if `tag` is a valid HTML tag (string) or a React component (function), default to 'a' if not
-	const validTag =
-		tag && ( typeof tag === 'string' || typeof tag === 'function' )
-			? tag
-			: 'a';
-
 	return (
 		<Button
-			tag={ validTag }
+			tag={ tag }
 			size={ size }
 			variant={ 'ghost' }
 			className={ cn(
