@@ -489,7 +489,7 @@ export const AstraDashboard = () => {
 												className="px-2"
 												badgeItem={ option.badge }
 												disabled={ option.disabled }
-												buttonWrapperClasses="bg-background-primary"
+												buttonWrapperClasses="bg-background-primary border-0"
 											/>
 										)
 									) }
