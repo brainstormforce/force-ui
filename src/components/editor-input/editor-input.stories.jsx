@@ -128,6 +128,15 @@ export default {
 				defaultValue: { summary: '' },
 			},
 		},
+		wrapperClassName: {
+			name: 'wrapperClassName',
+			description: 'Custom class name to be added to the editor input wrapper.',
+			control: 'text',
+			table: {
+				type: { summary: 'string' },
+				defaultValue: { summary: '' },
+			},
+		},
 	},
 	decorators: [
 		( Story ) => (

@@ -103,6 +103,11 @@ The Editor Input component is a text input field that allows users to input text
     />
 ```
 
+### wrapperClassName
+- **Type:** `string`
+- **Default:** `""`
+- **Description:** Additional classes to be added to the editor input wrapper.
+
 ### disabled
 - **Type:** `boolean`
 - **Default:** `false`

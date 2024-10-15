@@ -59,6 +59,7 @@ const EditorInputComponent = (
 		menuComponent,
 		menuItemComponent,
 		className,
+		wrapperClassName,
 		disabled = false,
 		autoSpaceAfterMention = false,
 	},
@@ -95,7 +96,8 @@ const EditorInputComponent = (
 				'relative w-full',
 				editorCommonClassNames,
 				editorInputClassNames[ size ],
-				disabled && editorDisabledClassNames
+				disabled && editorDisabledClassNames,
+				wrapperClassName
 			) }
 		>
 			<LexicalComposer initialConfig={ initialConfig }>
