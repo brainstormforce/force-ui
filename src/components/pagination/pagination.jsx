@@ -86,7 +86,7 @@ const PaginationButton = ( {
 			className={ cn(
 				'no-underline bg-transparent p-0 m-0 border-none',
 				'flex justify-center items-center rounded text-button-secondary',
-				'focus:border focus:border-solid focus:border-border-subtle focus:bg-button-tertiary-hover',
+				'focus:outline focus:outline-1 focus:outline-border-subtle focus:bg-button-tertiary-hover',
 				sizeClassNames[ size ].general,
 				! disabled &&
 					isActive &&
