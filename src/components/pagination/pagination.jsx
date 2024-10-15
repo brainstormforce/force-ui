@@ -134,9 +134,6 @@ PaginationPrevious.displayName = 'Pagination.Previous';
 
 const PaginationNext = ( {
 	icon = <ChevronRight />,
-	href = '',
-	target = '_self',
-	rel,
 	props,
 } ) => {
 	const { size, disabled } = usePageContext();
