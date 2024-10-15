@@ -531,6 +531,7 @@ export const AstraDashboard = () => {
 								<Container
 									className="p-1"
 									justify="between"
+									align="center"
 									gap="xs"
 								>
 									<Container.Item>
