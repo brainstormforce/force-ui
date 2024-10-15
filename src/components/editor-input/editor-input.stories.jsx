@@ -157,7 +157,7 @@ export const Default = {
 		options,
 		onChange: ( editorState ) => editorState.toJSON(),
 	},
-}
+};
 
 // More on writing stories with args: https://storybook.js.org/docs/writing-stories/args
 export const Small = {
