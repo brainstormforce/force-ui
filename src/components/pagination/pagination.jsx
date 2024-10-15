@@ -126,7 +126,7 @@ const PaginationPrevious = ( { icon = <ChevronLeft />, ...props } ) => {
 };
 PaginationPrevious.displayName = 'Pagination.Previous';
 
-const PaginationNext = ( { icon = <ChevronRight />, props } ) => {
+const PaginationNext = ( { icon = <ChevronRight />, ...props } ) => {
 	const { size, disabled } = usePageContext();
 	return (
 		<li
