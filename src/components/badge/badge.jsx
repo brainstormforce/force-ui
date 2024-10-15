@@ -22,15 +22,15 @@ const BadgeComponent = ( props, ref ) => {
 
 	// Base classes - Mandatory classes
 	const baseClasses =
-		'font-medium border-badge-border-gray flex items-center justify-center border border-solid';
+		'font-medium border-badge-border-gray flex items-center justify-center border border-solid box-border';
 
 	// Size classes - Based on the size prop
 	const sizeClasses = {
-		xxs: 'py-0.5 px-0.5 text-xs',
-		xs: 'py-0.5 px-1 text-xs',
-		sm: 'py-1 px-1.5 text-xs',
-		md: 'py-1 px-1.5 text-sm',
-		lg: 'py-1 px-1.5 text-base',
+		xxs: 'py-0.5 px-0.5 text-xs h-4',
+		xs: 'py-0.5 px-1 text-xs h-5',
+		sm: 'py-1 px-1.5 text-xs h-6',
+		md: 'py-1 px-1.5 text-sm h-7',
+		lg: 'py-1 px-1.5 text-base h-8',
 	};
 
 	// Type classes - Based on the type prop
@@ -107,7 +107,7 @@ const BadgeComponent = ( props, ref ) => {
 					{ icon }
 				</span>
 			) : null }
-			{ label }
+			<span className="px-1">{ label }</span>
 			{ closable && (
 				<span
 					className={ cn( buttonClasses, iconSizeClasses[ size ] ) }

@@ -70,12 +70,12 @@ const InputComponent = (
 	};
 
 	const baseClasses =
-		'border border-solid border-border-subtle bg-field-secondary-background font-normal placeholder-text-tertiary text-text-primary w-full focus:outline-none';
+		'border border-solid border-border-subtle box-border bg-field-secondary-background font-normal placeholder-text-tertiary text-text-primary w-full focus:outline-none';
 	const sizeClasses = {
-		xs: 'p-2 rounded',
-		sm: 'p-3 rounded',
-		md: 'p-3.5 rounded-md',
-		lg: 'p-4 rounded-lg',
+		xs: 'p-2 rounded max-h-7',
+		sm: 'p-3 py-2 rounded max-h-8',
+		md: 'p-3.5 py-2.5 rounded-md max-h-10',
+		lg: 'p-4 py-3 rounded-lg max-h-12',
 	};
 	const labelClasses = {
 		sm: 'text-sm font-medium',

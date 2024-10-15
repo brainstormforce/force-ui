@@ -231,8 +231,7 @@ const RadioButtonComponent = (
 						className={ cn(
 							'text-text-primary font-medium m-0',
 							textSizeClassNames[ size ],
-							disabled && 'text-text-disabled cursor-not-allowed',
-							icon && 'mt-1'
+							disabled && 'text-text-disabled cursor-not-allowed'
 						) }
 					>
 						{ label.heading }
@@ -260,14 +259,15 @@ const RadioButtonComponent = (
 			</ButtonGroupItem>
 		);
 	}
+
 	const handleLabelClick = () => {
 		if ( ! isDisabled ) {
 			if ( multiSelection ) {
 				// In multi-selection, toggle each individual selection
 				onChange( value, ! checkedValue ); // Pass the toggled value
 			} else {
-				// In single selection, only one can be selected
-				onChange( value ); // Trigger onChange with the selected value
+				// In single selection, toggle on and off
+				onChange( checkedValue ? null : value ); // If it's selected, deselect it; otherwise, select it
 			}
 		}
 	};
@@ -287,7 +287,6 @@ const RadioButtonComponent = (
 				isDisabled && 'cursor-not-allowed opacity-40'
 			) }
 			htmlFor={ radioButtonId }
-			/** js */
 			onClick={ handleLabelClick } // Toggle switch when label is clicked
 		>
 			{ !! label && (
@@ -323,7 +322,8 @@ const RadioButtonComponent = (
 				className={ cn(
 					'absolute mr-0.5 right-3 flex items-center cursor-pointer rounded-full gap-2',
 					reversePosition && 'left-0',
-					isDisabled && 'cursor-not-allowed'
+					isDisabled && 'cursor-not-allowed',
+					inlineIcon && 'mr-3'
 				) }
 			>
 				{ !! badgeItem && badgeItem }
@@ -334,8 +334,8 @@ const RadioButtonComponent = (
 							size={ size === 'md' ? 'lg' : 'sm' }
 							onChange={ () => {
 								if ( ! multiSelection ) {
-									// In single selection, only one can be on
-									onChange( value ); // Update the state to select this option
+									// Toggle the switch on or off
+									onChange( checkedValue ? null : value );
 								} else {
 									// In multi-selection, toggle the current state
 									onChange( value, ! checkedValue );
