@@ -264,10 +264,12 @@ const RadioButtonComponent = (
 		if ( ! isDisabled ) {
 			if ( multiSelection ) {
 				// In multi-selection, toggle each individual selection
-				onChange( value, ! checkedValue ); // Pass the toggled value
+				if ( useSwitch ) {
+					onChange( value, ! checkedValue );
+				}
 			} else {
 				// In single selection, toggle on and off
-				onChange( checkedValue ? null : value ); // If it's selected, deselect it; otherwise, select it
+				onChange( value ); // If it's selected, deselect it; otherwise, select it
 			}
 		}
 	};
@@ -325,6 +327,7 @@ const RadioButtonComponent = (
 					isDisabled && 'cursor-not-allowed',
 					inlineIcon && 'mr-3'
 				) }
+				onClick={ handleLabelClick }
 			>
 				{ !! badgeItem && badgeItem }
 				{ ! hideSelection &&
@@ -335,7 +338,7 @@ const RadioButtonComponent = (
 							onChange={ () => {
 								if ( ! multiSelection ) {
 									// Toggle the switch on or off
-									onChange( checkedValue ? null : value );
+									onChange( value );
 								} else {
 									// In multi-selection, toggle the current state
 									onChange( value, ! checkedValue );
@@ -380,7 +383,7 @@ const RadioButtonComponent = (
 									<div
 										className={ cn(
 											'rounded-full bg-current',
-											size === 'sm' && 'mt-[2px]',
+											size === 'sm' && 'mt-[0.5px]',
 											sizeClassNames[ size ]?.icon
 										) }
 									/>
