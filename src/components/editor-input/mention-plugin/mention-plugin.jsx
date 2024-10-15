@@ -1,4 +1,4 @@
-import { useCallback, useState, useMemo, useEffect } from 'react';
+import { useCallback, useState, useMemo, useEffect, useRef } from 'react';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import { LexicalTypeaheadMenuPlugin } from '@lexical/react/LexicalTypeaheadMenuPlugin';
 import { $createMentionNode, $isMentionNode } from './mention-node';
@@ -10,6 +10,7 @@ import {
 	$getSelection,
 	COMMAND_PRIORITY_LOW,
 	KEY_DOWN_COMMAND,
+	KEY_BACKSPACE_COMMAND,
 } from 'lexical';
 import { mergeRegister } from '@lexical/utils';
 
@@ -22,6 +23,7 @@ const MentionPlugin = ( {
 	menuItemComponent: MenuItemComponent = EditorCombobox.Item,
 	autoSpace = true,
 } ) => {
+	const autoSpaceTempOff = useRef( false );
 	// Define PUNCTUATION and other necessary variables inside the component
 	const PUNCTUATION =
 		'\\.,\\+\\*\\?\\$\\@\\|#{}\\(\\)\\^\\-\\[\\]\\\\/!%\'"~=<>_:;';
@@ -111,7 +113,16 @@ const MentionPlugin = ( {
 			}
 			const { key, ctrlKey, metaKey } = event;
 
-			if ( ctrlKey || metaKey || key === ' ' || key.length > 1 ) {
+			if (
+				ctrlKey ||
+				metaKey ||
+				key === ' ' ||
+				key.length > 1 ||
+				autoSpaceTempOff.current
+			) {
+				if ( autoSpaceTempOff.current ) {
+					autoSpaceTempOff.current = false;
+				}
 				return false;
 			}
 			const selection = $getSelection( editor );
@@ -136,6 +147,16 @@ const MentionPlugin = ( {
 		[ editor, trigger ]
 	);
 
+	const turnOffAutoSpaceIfNecessary = useCallback(
+		( event ) => {
+			const { key } = event;
+			if ( key === 'Backspace' ) {
+				autoSpaceTempOff.current = true;
+			}
+		},
+		[ autoSpaceTempOff ]
+	);
+
 	useEffect( () => {
 		if ( ! editor ) {
 			return;
@@ -145,6 +166,11 @@ const MentionPlugin = ( {
 			editor.registerCommand(
 				KEY_DOWN_COMMAND,
 				handleAutoSpaceAfterMention,
+				COMMAND_PRIORITY_LOW
+			),
+			editor.registerCommand(
+				KEY_BACKSPACE_COMMAND,
+				turnOffAutoSpaceIfNecessary,
 				COMMAND_PRIORITY_LOW
 			)
 		);
