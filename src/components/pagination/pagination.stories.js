@@ -81,22 +81,33 @@ const Template = ( args ) => {
 			className={ args.className }
 		>
 			<Pagination.Content>
-				<Pagination.Previous tag={ args.tag } icon={ args.icon } />
+				<Pagination.Previous
+					tag={ args.tag }
+					href={ args.href }
+					target={ args.target }
+					icon={ args.icon }
+				/>
 
 				<Pagination.Item
 					tag={ args.tag }
+					href={ args.href }
+					target={ args.target }
 					isActive={ false || args.isActive }
 				>
 					1
 				</Pagination.Item>
 				<Pagination.Item
 					tag={ args.tag }
+					href={ args.href }
+					target={ args.target }
 					isActive={ true || args.isActive }
 				>
 					2
 				</Pagination.Item>
 				<Pagination.Item
 					tag={ args.tag }
+					href={ args.href }
+					target={ args.target }
 					isActive={ false || args.isActive }
 				>
 					3
@@ -106,24 +117,35 @@ const Template = ( args ) => {
 
 				<Pagination.Item
 					tag={ args.tag }
+					href={ args.href }
+					target={ args.target }
 					isActive={ false || args.isActive }
 				>
 					7
 				</Pagination.Item>
 				<Pagination.Item
 					tag={ args.tag }
+					href={ args.href }
+					target={ args.target }
 					isActive={ false || args.isActive }
 				>
 					8
 				</Pagination.Item>
 				<Pagination.Item
 					tag={ args.tag }
+					href={ args.href }
+					target={ args.target }
 					isActive={ false || args.isActive }
 				>
 					9
 				</Pagination.Item>
 
-				<Pagination.Next tag={ args.tag } icon={ args.icon } />
+				<Pagination.Next
+					tag={ args.tag }
+					href={ args.href }
+					target={ args.target }
+					icon={ args.icon }
+				/>
 			</Pagination.Content>
 		</Pagination>
 	);
