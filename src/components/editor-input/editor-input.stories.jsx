@@ -56,6 +56,16 @@ export default {
 				defaultValue: { summary: false },
 			},
 		},
+		autoSpaceAfterMention: {
+			name: 'autoSpaceAfterMention',
+			description:
+				'Defines if the editor input should add a space after selecting a mention/tag option.',
+			control: 'boolean',
+			table: {
+				type: { summary: 'boolean' },
+				defaultValue: { summary: false },
+			},
+		},
 		onChange: {
 			name: 'On Change',
 			description:
@@ -138,6 +148,16 @@ const options = [
 	'Purple',
 	'Pink',
 ];
+
+export const Default = {
+	args: {
+		size: 'md',
+		autoSpaceAfterMention: false,
+		autoFocus: false,
+		options,
+		onChange: ( editorState ) => editorState.toJSON(),
+	},
+}
 
 // More on writing stories with args: https://storybook.js.org/docs/writing-stories/args
 export const Small = {

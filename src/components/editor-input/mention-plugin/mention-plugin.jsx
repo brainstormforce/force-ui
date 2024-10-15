@@ -144,7 +144,7 @@ const MentionPlugin = ( {
 				node.insertAfter( textNode );
 			}
 		},
-		[ editor, trigger ]
+		[ editor, trigger, autoSpace ]
 	);
 
 	const turnOffAutoSpaceIfNecessary = useCallback(
