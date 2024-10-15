@@ -74,7 +74,7 @@ const Template2 = () => {
 			className="w-120 border border-solid rounded-md border-border-subtle p-4"
 		>
 			<Container.Item className="md:w-full lg:w-full">
-				<Container className="p-1" justify="between" gap="xs">
+				<Container className="p-1" justify="between" gap="xs" align="center">
 					<Container.Item>
 						<Label className="font-semibold">
 							Extend Your Website
