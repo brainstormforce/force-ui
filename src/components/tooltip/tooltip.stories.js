@@ -41,12 +41,18 @@ export default {
 				type: { summary: 'string' },
 			},
 		},
-		label: {
-			name: 'Label',
-			description:
-				'Defines the heading and description of the tooltip. Can be an object or a React element.',
+		title: {
+			description: 'Title for the tooltip.',
+			control: { type: 'text' },
 			table: {
-				type: { summary: 'object | ReactNode' },
+				type: { summary: 'string' },
+			},
+		},
+		content: {
+			description:
+				'Content of tooltip - description of tooltip in more detail.',
+			table: {
+				type: { summary: 'string | ReactElemenet' },
 			},
 		},
 		arrow: {
@@ -129,6 +135,7 @@ export const DefaultTooltip = ( args ) => {
 				{ ...args }
 				open={ args.open !== undefined ? args.open : isOpen }
 				setOpen={ args.open !== undefined ? setIsOpen : undefined }
+				content={ args.content }
 			>
 				<CircleHelp />
 			</Tooltip>
@@ -139,14 +146,12 @@ export const DefaultTooltip = ( args ) => {
 DefaultTooltip.args = {
 	variant: 'dark',
 	placement: 'bottom',
-	label: {
-		heading: 'Tooltip Heading',
-		description: (
-			<span>
-				This is <strong>custom JSX</strong> in the description.
-			</span>
-		),
-	},
+	title: 'Tooltip',
+	content: (
+		<span>
+			This is <strong>custom JSX</strong> in the description.
+		</span>
+	),
 	arrow: true,
 	triggers: [ 'hover', 'focus' ],
 	interactive: false,
@@ -187,21 +192,8 @@ DarkTooltipWithIcon.storyName = 'Tooltip with icon';
 
 DarkTooltipWithIcon.args = {
 	variant: 'dark',
-	label: {
-		heading: 'Tooltip Heading',
-		description: (
-			<div className="mt-2">
-				<div>
-					Tooltips are used to describe or identify an element. In
-					most scenarios, tooltips help the user understand meaning,
-					function or alt-text.
-				</div>
-				<Button variant="primary" size="sm" className="w-full mt-2">
-					Upgrade now
-				</Button>
-			</div>
-		),
-	},
+	title: 'Tooltip',
+	content: 'This is simple string description.',
 	arrow: true,
 };
 
@@ -238,9 +230,17 @@ DarkTooltipWithLabel.storyName = 'Tooltip with label';
 
 DarkTooltipWithLabel.args = {
 	variant: 'dark',
-	label: {
-		heading: 'Tooltip Heading',
-		description: 'This is a simple text description.',
-	},
+	title: 'Tooltip',
+	content: (
+		<div className="mt-2">
+			<div>
+				Tooltips are used to describe or identify an element. In most
+				scenarios, tooltips help the user understand meaning.
+			</div>
+			<Button variant="primary" size="sm" className="w-full mt-2">
+				Upgrade now
+			</Button>
+		</div>
+	),
 	arrow: true,
 };
