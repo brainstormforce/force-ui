@@ -175,7 +175,9 @@ const InputComponent = (
 					<Upload />
 				</div>
 			);
-		} else if ( ! suffix ) {
+		}
+
+		if ( ! suffix ) {
 			return null;
 		}
 
