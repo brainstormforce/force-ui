@@ -355,11 +355,11 @@ function SelectOptions( {
 						<div
 							ref={ refs.setFloating }
 							className={ cn(
-								'box-border [&_*]:box-border w-full bg-white outline-none shadow-lg outline outline-1 outline-border-subtle overflow-hidden',
+								'box-border [&_*]:box-border w-full bg-white outline-none shadow-lg outline outline-1 outline-border-subtle overflow-y-scroll',
 								combobox &&
 									'grid grid-cols-1 grid-rows-[auto_1fr] divide-y divide-x-0 divide-solid divide-border-subtle',
 								sizeClassNames[ sizeValue ].dropdown,
-								! combobox && 'h-full',
+								! combobox && 'h-auto',
 								className
 							) }
 							style={ {
