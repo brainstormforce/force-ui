@@ -550,7 +550,7 @@ export const SpectraDashboard = () => {
 												useSwitch={ option.useSwitch }
 												className="px-2"
 												badgeItem={ option.bagde }
-												buttonWrapperClasses="bg-background-primary"
+												buttonWrapperClasses="bg-background-primary border-0"
 											/>
 										)
 									) }
