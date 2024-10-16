@@ -394,7 +394,8 @@ const Template = () => {
 														<Tooltip
 															label={ {
 																heading: '',
-																description: "This is just a preview of how your page will look in search engine results",
+																description:
+																	'This is just a preview of how your page will look in search engine results',
 															} }
 															tooltipPortalId="story-root-tw"
 															content="."
