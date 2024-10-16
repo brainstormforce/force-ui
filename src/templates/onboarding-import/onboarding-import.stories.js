@@ -66,7 +66,6 @@ const Template = ( args ) => {
 								heading: `SEOPress`,
 							} }
 							borderOn={ true }
-							buttonWrapperClasses={ 'border-0' }
 						/>
 						<RadioButton.Button
 							value="aioSeo"
@@ -74,7 +73,6 @@ const Template = ( args ) => {
 								heading: `AIO SEO`,
 							} }
 							borderOn={ true }
-							buttonWrapperClasses={ 'border-0' }
 						/>
 						<RadioButton.Button
 							value="youstSeo"
@@ -82,7 +80,6 @@ const Template = ( args ) => {
 								heading: `Yoast SEO`,
 							} }
 							borderOn={ true }
-							buttonWrapperClasses={ 'border-0' }
 						/>
 					</RadioButton.Group>
 				</div>
