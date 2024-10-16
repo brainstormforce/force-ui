@@ -18,7 +18,8 @@
     "build-storybook": "storybook build",
     "chromatic": "npx chromatic --project-token CHROMATIC_PROJECT_TOKEN",
     "package": "sh bin/build.sh",
-    "release": "npm run build && npm run package "
+    "release": "npm run build && npm run package ",
+    "deploy-storybook": "storybook-to-ghpages"
   },
   "repository": {
     "type": "git",
@@ -73,6 +74,7 @@
     "@storybook/blocks": "^8.3.3",
     "@storybook/react": "^8.3.3",
     "@storybook/react-webpack5": "^8.3.3",
+    "@storybook/storybook-deployer": "^2.8.16",
     "@storybook/test": "^8.3.3",
     "@tailwindcss/container-queries": "^0.1.1",
     "@wordpress/eslint-plugin": "^20.3.0",
