@@ -89,7 +89,7 @@ const Template = ( args ) => {
 								badgeItem={
 									<Badge
 										label="Free"
-										size="xs"
+										size="xxs"
 										variant="green"
 										type="pill"
 									/>
@@ -97,7 +97,7 @@ const Template = ( args ) => {
 								borderOn
 								icon={ <PrestoPlayerLogo /> }
 								onChange={ () => {} }
-								buttonWrapperClasses="bg-white"
+								buttonWrapperClasses="bg-white border-0"
 							/>
 							<RadioButton.Button
 								value={ `Starter` }
@@ -111,7 +111,7 @@ const Template = ( args ) => {
 								badgeItem={
 									<Badge
 										label="Free"
-										size="xs"
+										size="xxs"
 										variant="green"
 										type="pill"
 									/>
@@ -119,7 +119,7 @@ const Template = ( args ) => {
 								borderOn
 								icon={ <PrestoPlayerLogo /> }
 								onChange={ () => {} }
-								buttonWrapperClasses="bg-white"
+								buttonWrapperClasses="bg-white border-0"
 							/>
 							<RadioButton.Button
 								value={ `SureCart` }
@@ -133,7 +133,7 @@ const Template = ( args ) => {
 								badgeItem={
 									<Badge
 										label="Free"
-										size="xs"
+										size="xxs"
 										variant="green"
 										type="pill"
 									/>
@@ -141,7 +141,7 @@ const Template = ( args ) => {
 								borderOn
 								icon={ <PrestoPlayerLogo /> }
 								onChange={ () => {} }
-								buttonWrapperClasses="bg-white"
+								buttonWrapperClasses="bg-white border-0"
 							/>
 							<RadioButton.Button
 								value={ `Presto` }
@@ -155,7 +155,7 @@ const Template = ( args ) => {
 								badgeItem={
 									<Badge
 										label="Free"
-										size="xs"
+										size="xxs"
 										variant="green"
 										type="pill"
 									/>
@@ -163,7 +163,7 @@ const Template = ( args ) => {
 								borderOn
 								icon={ <PrestoPlayerLogo /> }
 								onChange={ () => {} }
-								buttonWrapperClasses="bg-white"
+								buttonWrapperClasses="bg-white border-0"
 							/>
 							<RadioButton.Button
 								value={ `Astra2` }
@@ -177,7 +177,7 @@ const Template = ( args ) => {
 								badgeItem={
 									<Badge
 										label="Free"
-										size="xs"
+										size="xxs"
 										variant="green"
 										type="pill"
 									/>
@@ -185,7 +185,7 @@ const Template = ( args ) => {
 								borderOn
 								icon={ <PrestoPlayerLogo /> }
 								onChange={ () => {} }
-								buttonWrapperClasses="bg-white"
+								buttonWrapperClasses="bg-white border-0"
 							/>
 							<RadioButton.Button
 								value={ `Starter2` }
@@ -199,7 +199,7 @@ const Template = ( args ) => {
 								badgeItem={
 									<Badge
 										label="Free"
-										size="xs"
+										size="xxs"
 										variant="green"
 										type="pill"
 									/>
@@ -207,7 +207,7 @@ const Template = ( args ) => {
 								borderOn
 								icon={ <PrestoPlayerLogo /> }
 								onChange={ () => {} }
-								buttonWrapperClasses="bg-white"
+								buttonWrapperClasses="bg-white border-0"
 							/>
 						</RadioButton.Group>
 					</div>

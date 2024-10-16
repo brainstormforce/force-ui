@@ -66,7 +66,7 @@ const defaultRadioButtonGroupData = [
 		bagde: (
 			<Badge
 				label={ 'PRO' }
-				size="xs"
+				size="xxs"
 				icon={ null }
 				variant="inverse"
 				closable={ false }
@@ -86,7 +86,7 @@ const defaultRadioButtonGroupData = [
 		bagde: (
 			<Badge
 				label={ 'PRO' }
-				size="xs"
+				size="xxs"
 				icon={ null }
 				variant="inverse"
 				closable={ false }
@@ -106,7 +106,7 @@ const defaultRadioButtonGroupData = [
 		bagde: (
 			<Badge
 				label={ 'PRO' }
-				size="xs"
+				size="xxs"
 				icon={ null }
 				variant="inverse"
 				closable={ false }
@@ -126,7 +126,7 @@ const defaultRadioButtonGroupData = [
 		bagde: (
 			<Badge
 				label={ 'PRO' }
-				size="xs"
+				size="xxs"
 				icon={ null }
 				variant="inverse"
 				closable={ false }
@@ -196,7 +196,7 @@ const defaultRadioButtonGroupData = [
 		bagde: (
 			<Badge
 				label={ 'New' }
-				size="xs"
+				size="xxs"
 				icon={ null }
 				variant="green"
 				closable={ false }
@@ -226,7 +226,7 @@ const defaultRadioButtonGroupData = [
 		bagde: (
 			<Badge
 				label={ 'Extension' }
-				size="xs"
+				size="xxs"
 				icon={ null }
 				variant="yellow"
 				closable={ false }
@@ -524,6 +524,7 @@ export const SpectraDashboard = () => {
 							<Container.Item className="md:w-full lg:w-full p-1 bg-field-primary-background rounded-lg">
 								<RadioButton.Group
 									as="div"
+									size="sm"
 									defaultValue={ `option-${ defaultRadioButtonGroupData[ 0 ].id }` }
 									multiSelection={ true }
 									onChange={ ( value ) => {
@@ -550,7 +551,7 @@ export const SpectraDashboard = () => {
 												useSwitch={ option.useSwitch }
 												className="px-2"
 												badgeItem={ option.bagde }
-												buttonWrapperClasses="bg-background-primary"
+												buttonWrapperClasses="bg-background-primary border-0"
 											/>
 										)
 									) }
@@ -704,6 +705,7 @@ export const SpectraDashboard = () => {
 																		card.badgeText
 																	}
 																	icon={ null }
+																	size="xxs"
 																	variant="green"
 																	closable={
 																		false
@@ -721,17 +723,6 @@ export const SpectraDashboard = () => {
 																</Button>
 															</Container>
 														</Container.Item>
-														{ /* <Container.Item>
-															<Button
-																variant="link"
-																className="p-0 text-link-primary"
-																size="sm"
-															>
-																{
-																	card.buttonText
-																}
-															</Button>
-														</Container.Item> */ }
 													</Container>
 												</Container.Item>
 												<Container.Item className="gap-0.5 p-1">
@@ -810,12 +801,14 @@ export const SpectraDashboard = () => {
 												{ button.icon }
 											</Container.Item>
 											<Container.Item>
-												<Button
-													variant="ghost"
-													className="py-0 font-medium text-text-primary"
+												<a
+													href="#"
+													className="no-underline hover:underline hover:text-field-label"
 												>
-													{ button.label }
-												</Button>
+													<Label className="py-0 px-1 font-normal cursor-pointer">
+														{ button.label }
+													</Label>
+												</a>
 											</Container.Item>
 											<Container.Item>
 												{ button.bagde }

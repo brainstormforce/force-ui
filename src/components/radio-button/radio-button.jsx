@@ -222,10 +222,11 @@ const RadioButtonComponent = (
 				className={ cn(
 					! inlineIcon && 'space-y-1.5 mt-[2px]',
 					reversePosition && ( useSwitch ? 'ml-10' : 'ml-4' ),
-					inlineIcon && 'flex gap-2'
+					inlineIcon && 'flex gap-2',
+					inlineIcon && ! label.description && 'items-center'
 				) }
 			>
-				{ icon && <span>{ icon } </span> }
+				{ icon && <>{ icon }</> }
 				<div className={ cn( 'space-y-1.5' ) }>
 					<p
 						className={ cn(
@@ -280,13 +281,13 @@ const RadioButtonComponent = (
 				'inline-flex items-center relative cursor-pointer transition-all duration-300',
 				!! label && 'items-start justify-between',
 				minWidth && 'min-w-[180px]',
-				buttonWrapperClasses,
 				borderOn &&
 					'border border-border-subtle border-solid rounded-md shadow-sm hover:ring-2 hover:ring-border-interactive',
 				borderOn && checkedValue && 'ring-2 ring-border-interactive',
 				size === 'sm' ? 'px-3 py-3' : 'px-4 py-4',
 				'pr-12',
-				isDisabled && 'cursor-not-allowed opacity-40'
+				isDisabled && 'cursor-not-allowed opacity-40',
+				buttonWrapperClasses
 			) }
 			htmlFor={ radioButtonId }
 			onClick={ handleLabelClick } // Toggle switch when label is clicked
@@ -306,10 +307,12 @@ const RadioButtonComponent = (
 				<div className="absolute mr-0.5 bottom-1.5 right-3">
 					<Tooltip
 						arrow
-						title={ info?.heading }
-						content={ info?.description }
 						triggers={ [ 'hover', 'focus' ] }
 						placement="top"
+						label={ {
+							heading: info?.heading,
+							description: info?.description,
+						} }
 					>
 						<Info
 							className={ cn(

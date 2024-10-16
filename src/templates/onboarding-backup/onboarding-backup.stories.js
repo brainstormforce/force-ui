@@ -88,7 +88,7 @@ const Template = ( args ) => {
 								badgeItem={
 									<Badge
 										label="Primary"
-										size="sm"
+										size="xxs"
 										variant="green"
 										type="pill"
 									/>
@@ -96,7 +96,7 @@ const Template = ( args ) => {
 								borderOn
 								icon={ <SureEmailIcon /> }
 								onChange={ () => {} }
-								buttonWrapperClasses="bg-white"
+								buttonWrapperClasses="bg-white border-0"
 							/>
 							<RadioButton.Button
 								value={ `Email2` }
@@ -109,7 +109,7 @@ const Template = ( args ) => {
 								borderOn
 								icon={ <SureEmailIcon /> }
 								onChange={ () => {} }
-								buttonWrapperClasses="bg-white"
+								buttonWrapperClasses="bg-white border-0"
 							/>
 							<RadioButton.Button
 								value={ `Email3` }
@@ -122,7 +122,7 @@ const Template = ( args ) => {
 								badgeItem={
 									<Badge
 										label="Soon"
-										size="sm"
+										size="xxs"
 										variant="green"
 										type="pill"
 									/>
@@ -130,7 +130,7 @@ const Template = ( args ) => {
 								borderOn
 								icon={ <SureEmailIcon /> }
 								onChange={ () => {} }
-								buttonWrapperClasses="bg-white"
+								buttonWrapperClasses="bg-white border-0"
 							/>
 							<RadioButton.Button
 								value={ `Email4` }
@@ -143,7 +143,7 @@ const Template = ( args ) => {
 								borderOn
 								icon={ <SureEmailIcon /> }
 								onChange={ () => {} }
-								buttonWrapperClasses="bg-white"
+								buttonWrapperClasses="bg-white border-0"
 							/>
 							<RadioButton.Button
 								value={ `Email5` }
@@ -156,7 +156,7 @@ const Template = ( args ) => {
 								borderOn
 								icon={ <SureEmailIcon /> }
 								onChange={ () => {} }
-								buttonWrapperClasses="bg-white"
+								buttonWrapperClasses="bg-white border-0"
 							/>
 							<RadioButton.Button
 								value={ `Email6` }
@@ -169,7 +169,7 @@ const Template = ( args ) => {
 								badgeItem={
 									<Badge
 										label="Free"
-										size="sm"
+										size="xxs"
 										variant="green"
 										type="pill"
 									/>
@@ -177,7 +177,7 @@ const Template = ( args ) => {
 								borderOn
 								icon={ <SureEmailIcon /> }
 								onChange={ () => {} }
-								buttonWrapperClasses="bg-white"
+								buttonWrapperClasses="bg-white border-0"
 							/>
 							<RadioButton.Button
 								value={ `Email7` }
@@ -190,7 +190,7 @@ const Template = ( args ) => {
 								borderOn
 								icon={ <SureEmailIcon /> }
 								onChange={ () => {} }
-								buttonWrapperClasses="bg-white"
+								buttonWrapperClasses="bg-white border-0"
 							/>
 							<RadioButton.Button
 								value={ `Email8` }
@@ -203,7 +203,7 @@ const Template = ( args ) => {
 								badgeItem={
 									<Badge
 										label="Soon"
-										size="sm"
+										size="xxs"
 										variant="green"
 										type="pill"
 									/>
@@ -211,7 +211,7 @@ const Template = ( args ) => {
 								borderOn
 								icon={ <SureEmailIcon /> }
 								onChange={ () => {} }
-								buttonWrapperClasses="bg-white"
+								buttonWrapperClasses="bg-white border-0"
 							/>
 							<RadioButton.Button
 								value={ `Email9` }
@@ -224,7 +224,7 @@ const Template = ( args ) => {
 								borderOn
 								icon={ <SureEmailIcon /> }
 								onChange={ () => {} }
-								buttonWrapperClasses="bg-white"
+								buttonWrapperClasses="bg-white border-0"
 							/>
 							<RadioButton.Button
 								value={ `Email11` }
@@ -237,7 +237,7 @@ const Template = ( args ) => {
 								borderOn
 								icon={ <SureEmailIcon /> }
 								onChange={ () => {} }
-								buttonWrapperClasses="bg-white"
+								buttonWrapperClasses="bg-white border-0"
 							/>
 							<RadioButton.Button
 								value={ `Email12` }
@@ -250,7 +250,7 @@ const Template = ( args ) => {
 								borderOn
 								icon={ <SureEmailIcon /> }
 								onChange={ () => {} }
-								buttonWrapperClasses="bg-white"
+								buttonWrapperClasses="bg-white border-0"
 							/>
 							<RadioButton.Button
 								value={ `Starter64` }
@@ -263,7 +263,7 @@ const Template = ( args ) => {
 								borderOn
 								icon={ <SureEmailIcon /> }
 								onChange={ () => {} }
-								buttonWrapperClasses="bg-white"
+								buttonWrapperClasses="bg-white border-0"
 							/>
 							<RadioButton.Button
 								value={ `Email13` }
@@ -276,7 +276,7 @@ const Template = ( args ) => {
 								borderOn
 								icon={ <SureEmailIcon /> }
 								onChange={ () => {} }
-								buttonWrapperClasses="bg-white"
+								buttonWrapperClasses="bg-white border-0"
 							/>
 							<RadioButton.Button
 								value={ `Email14` }
@@ -289,7 +289,7 @@ const Template = ( args ) => {
 								borderOn
 								icon={ <SureEmailIcon /> }
 								onChange={ () => {} }
-								buttonWrapperClasses="bg-white"
+								buttonWrapperClasses="bg-white border-0"
 							/>
 						</RadioButton.Group>
 					</div>

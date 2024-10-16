@@ -124,6 +124,7 @@ const Template2 = () => {
 												label={ card.badgeText }
 												icon={ null }
 												variant="green"
+												size="xxs"
 												closable={ false }
 												className="py-0"
 											/>
