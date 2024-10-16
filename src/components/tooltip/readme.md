@@ -30,10 +30,13 @@ The `Tooltips` are small, interactive pop-up boxes that provide brief, informati
   - `"left-start"`
   - `"left-end"`
 
-### label
-**type:** `object` || `ReactComponent`
-- **Object properties/format:** `{heading: 'Tooltip heading,' description: 'Tooltip description'}`
-The label and label description also accepts a React component.
+### `title`
+- **Type:** `string`
+- **Description:** Defines the title of the tooltip. It should be a simple text string that provides the heading or main subject of the tooltip 
+
+### `content`
+- **Type:** `string` | `ReactElement`
+- **Description:** Provides detailed content for the tooltip. The content can be a plain string for a simple description or a custom ReactElement for more complex content, such as HTML or JSX components.
 
 ### `arrow`
 - **Type:** `boolean`
