@@ -80,7 +80,7 @@ const App = () => (
             required: true,
             placeholder: "Hello There"
         }} size="sm"/>
-    <Input size="lg" value={textval} onChange={((e)=>{console.log(e.target.value)})}/>
+    <Input size="lg" value={textval} onChange={((value)=>{console.log(value)})}/>
     <Input disabled={ true } size="md"/>
     <Input type="file" size="md" onChange={handleFileChange} />
   </div>
