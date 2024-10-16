@@ -801,12 +801,14 @@ export const SpectraDashboard = () => {
 												{ button.icon }
 											</Container.Item>
 											<Container.Item>
-												<Button
-													variant="ghost"
-													className="py-0 font-medium text-text-primary"
+												<a
+													href="#"
+													className="no-underline hover:underline hover:text-field-label"
 												>
-													{ button.label }
-												</Button>
+													<Label className="py-0 px-1 font-normal cursor-pointer">
+														{ button.label }
+													</Label>
+												</a>
 											</Container.Item>
 											<Container.Item>
 												{ button.bagde }

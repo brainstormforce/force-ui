@@ -43,10 +43,10 @@ export const sizeClassNames = {
 };
 export const variantClassNames = {
 	primary:
-		'bg-field-primary-background border border-solid border-field-border hover:border-border-strong',
+		'bg-field-primary-background outline outline-1 outline-field-border hover:outline-border-strong',
 	secondary:
-		'bg-field-secondary-background border border-solid border-field-border hover:border-border-strong',
-	ghost: 'bg-field-secondary-background border border-solid border-transparent',
+		'bg-field-secondary-background outline outline-1 outline-field-border hover:outline-border-strong',
+	ghost: 'bg-field-secondary-background outline outline-1 outline-transparent',
 };
 
 export const iconClasses =

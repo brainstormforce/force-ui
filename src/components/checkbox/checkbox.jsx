@@ -163,7 +163,7 @@ const CheckboxComponent = (
 			</label>
 			{ !! label && (
 				<label
-					className={ cn( ! disabled && 'cursor-pointer p-0.5' ) }
+					className={ cn( ! disabled && 'cursor-pointer' ) }
 					htmlFor={ checkboxId }
 				>
 					{ renderLabel() }

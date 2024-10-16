@@ -182,10 +182,10 @@ function SelectButton( {
 				id={ selectId }
 				ref={ refs.setReference }
 				className={ cn(
-					'flex items-center justify-between border border-solid w-full box-border transition-colors duration-150 bg-white',
-					'border focus-visible:outline-none border-solid border-field-border',
+					'flex items-center justify-between w-full box-border transition-colors duration-150 bg-white',
+					'outline outline-1 outline-field-border border-none',
 					! isOpen &&
-						'focus:ring-2 focus:ring-offset-4 focus:border-focus-border focus:ring-focus [&:hover:not(:focus):not(:disabled)]:border-border-strong',
+						'focus:ring-2 focus:ring-offset-4 focus:outline-focus-border focus:ring-focus [&:hover:not(:focus):not(:disabled)]:outline-border-strong',
 					sizeClassNames[ sizeValue ].selectButton,
 					multiple && sizeClassNames[ sizeValue ].multiSelect,
 					disabledClassNames.selectButton,
@@ -355,7 +355,7 @@ function SelectOptions( {
 						<div
 							ref={ refs.setFloating }
 							className={ cn(
-								'box-border [&_*]:box-border w-full bg-white outline-none shadow-lg border border-solid border-border-subtle overflow-hidden',
+								'box-border [&_*]:box-border w-full bg-white outline-none shadow-lg outline outline-1 outline-border-subtle overflow-hidden',
 								combobox &&
 									'grid grid-cols-1 grid-rows-[auto_1fr] divide-y divide-x-0 divide-solid divide-border-subtle',
 								sizeClassNames[ sizeValue ].dropdown,

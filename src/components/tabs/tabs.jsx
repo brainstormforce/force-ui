@@ -42,7 +42,7 @@ const TabsGroup = ( props ) => {
 	let borderRadius = 'rounded-full',
 		padding = 'p-1',
 		gap,
-		border = 'border border-tab-border border-solid';
+		border = 'ring-1 ring-tab-border';
 
 	if ( orientation === 'vertical' ) {
 		gap = 'gap-0.5';
