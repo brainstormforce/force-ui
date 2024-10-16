@@ -81,7 +81,7 @@ const Template = ( args ) => {
 							/>
 						</div>
 						<div>
-							<RadioButton.Group columns={ 1 }>
+							<RadioButton.Group size="md" columns={ 1 }>
 								<RadioButton.Button
 									value={ `help` }
 									label={
