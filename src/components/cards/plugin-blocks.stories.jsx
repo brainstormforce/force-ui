@@ -123,8 +123,8 @@ const Template2 = () => {
 											<Badge
 												label={ card.badgeText }
 												icon={ null }
-												variant="green"
 												size="xxs"
+												variant="green"
 												closable={ false }
 												className="py-0"
 											/>
