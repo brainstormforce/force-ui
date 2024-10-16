@@ -60,13 +60,18 @@ const MenuList = ( {
 		closed: { height: 0, opacity: 0 },
 	};
 
+	const arrowFadeVariants = {
+		visible: { opacity: 1 },
+		hidden: { opacity: 0 },
+	};
+
 	return (
 		<div>
 			<div
 				role="button"
 				tabIndex="0"
 				onClick={ handleToggle }
-				onKeyPress={ ( event ) => {
+				onKeyDown={ ( event ) => {
 					if ( event.key === 'Enter' || event.key === ' ' ) {
 						handleToggle();
 					}
@@ -93,13 +98,15 @@ const MenuList = ( {
 							iconSizeClasses
 						) }
 					>
-						{ isOpen ||
-						! showArrowOnHover ||
-						( showArrowOnHover && isHovered ) ? (
-							/* eslint-disable */
+						<motion.div
+							initial="hidden"
+							animate={ isOpen || isHovered ? 'visible' : 'hidden' }
+							exit="hidden"
+							variants={ arrowFadeVariants }
+							transition={ { duration: 0.15 } }
+						>
 							<ChevronDown />
-						) : /* eslint-enable */
-							null }
+						</motion.div>
 					</motion.span>
 				) }
 			</div>
@@ -154,7 +161,7 @@ const MenuItem = ( {
 			role="menuitem"
 			tabIndex="0"
 			onClick={ onClick }
-			onKeyPress={ ( event ) => {
+			onKeyDown={ ( event ) => {
 				if ( event.key === 'Enter' || event.key === ' ' ) {
 					onClick();
 				}

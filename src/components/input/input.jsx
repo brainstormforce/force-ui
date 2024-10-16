@@ -176,7 +176,16 @@ const InputComponent = (
 				</div>
 			);
 		}
-		return null;
+
+		if ( ! suffix ) {
+			return null;
+		}
+
+		return (
+			<div className={ cn( iconClasses, 'right-0 pr-3', textClasses[ size ] ) }>
+				{ suffix }
+			</div>
+		);
 	};
 
 	const fileClasses = selectedFile
