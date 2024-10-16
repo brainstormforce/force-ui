@@ -9,6 +9,7 @@ import {
 import { cn } from '@/utilities/functions';
 import { Search } from 'lucide-react';
 import Loader from '../loader';
+import Badge from '../badge';
 import {
 	textSizeClassNames,
 	variantClassNames,
@@ -126,7 +127,7 @@ const SearchBoxInput = forwardRef(
 			searchTerm,
 			setSearchTerm,
 		} = useSearchContext();
-
+		const bagdeSize = size === 'lg' ? 'sm' : 'xs';
 		const handleChange = ( event ) => {
 			const newValue = event.target.value;
 			setSearchTerm( newValue );
@@ -169,7 +170,7 @@ const SearchBoxInput = forwardRef(
 					ref={ ref }
 					className={ cn(
 						textSizeClassNames[ size ],
-						'flex-grow font-medium bg-transparent border-none outline-none border-transparent focus:ring-0',
+						'flex-grow font-medium bg-transparent border-none outline-none border-transparent focus:ring-0 py-0',
 						disabled
 							? disabledClassNames[ variant ]
 							: [
@@ -184,16 +185,12 @@ const SearchBoxInput = forwardRef(
 					placeholder={ placeholder }
 					{ ...props }
 				/>
-				<span
-					className={ cn(
-						textSizeClassNames[ size ],
-						disabled ? 'text-icon-disabled' : iconClasses,
-						'bg-field-secondary-background border border-solid border-field-border',
-						sizeClassNames.slashIcon[ size ]
-					) }
-				>
-					/
-				</span>
+				<Badge
+					label="/"
+					size={ bagdeSize }
+					type="rounded"
+					variant="neutral"
+				/>
 			</div>
 		);
 	}

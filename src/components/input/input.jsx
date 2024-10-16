@@ -70,12 +70,12 @@ const InputComponent = (
 	};
 
 	const baseClasses =
-		'border border-solid border-border-subtle box-border bg-field-secondary-background font-normal placeholder-text-tertiary text-text-primary w-full focus:outline-none';
+		'bg-field-secondary-background font-normal placeholder-text-tertiary text-text-primary w-full outline outline-1 outline-border-subtle border-none';
 	const sizeClasses = {
-		xs: 'px-2 py-1 rounded max-h-6',
-		sm: 'p-3 py-2 rounded max-h-8',
-		md: 'p-3.5 py-2.5 rounded-md max-h-10',
-		lg: 'p-4 py-3 rounded-lg max-h-12',
+		xs: 'px-2 py-1 rounded',
+		sm: 'p-3 py-2 rounded',
+		md: 'p-3.5 py-2.5 rounded-md',
+		lg: 'p-4 py-3 rounded-lg',
 	};
 	const labelClasses = {
 		xs: 'text-xs font-medium',
@@ -101,21 +101,21 @@ const InputComponent = (
 	};
 
 	const hoverClasses = disabled
-		? 'hover:border-border-disabled'
-		: 'hover:border-border-strong';
+		? 'hover:outline-border-disabled'
+		: 'hover:outline-border-strong';
 	const focusClasses =
-		'focus:border-focus-border focus:ring-2 focus:ring-toggle-on focus:ring-offset-2';
+		'focus:outline-focus-border focus:ring-2 focus:ring-toggle-on focus:ring-offset-2';
 	const errorClasses = error
-		? 'focus:border-focus-error-border focus:ring-field-color-error border-focus-error-border'
+		? 'focus:outline-focus-error-border focus:ring-field-color-error outline-focus-error-border'
 		: '';
 	const errorFileClasses = error
-		? 'focus:border-focus-error-border focus:ring-field-color-error border-focus-error-border'
+		? 'focus:outline-focus-error-border focus:ring-field-color-error outline-focus-error-border'
 		: '';
 	const disabledClasses = disabled
-		? 'border-border-disabled bg-field-background-disabled cursor-not-allowed text-text-disabled'
+		? 'outline-border-disabled bg-field-background-disabled cursor-not-allowed text-text-disabled'
 		: '';
 	const disabledUploadFileClasses = disabled
-		? 'border-border-disabled cursor-not-allowed text-text-disabled file:text-text-tertiary'
+		? 'outline-border-disabled cursor-not-allowed text-text-disabled file:text-text-tertiary'
 		: '';
 	const iconClasses =
 		'font-normal placeholder-text-tertiary text-text-primary pointer-events-none absolute inset-y-0 flex flex-1 items-center [&>svg]:h-4 [&>svg]:w-4';

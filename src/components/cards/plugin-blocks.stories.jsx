@@ -125,6 +125,7 @@ const Template2 = () => {
 												icon={ null }
 												size="xxs"
 												variant="green"
+												size="xxs"
 												closable={ false }
 												className="py-0"
 											/>
