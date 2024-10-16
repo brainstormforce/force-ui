@@ -29,3 +29,4 @@ export { default as SearchBox } from './search/index';
 export { default as DropdownMenu } from './dropdown-menu/index';
 export { default as Drawer } from './drawer/index';
 export { default as DatePicker } from './datepicker/index';
+export { default as Accordion } from './accordion/index';
