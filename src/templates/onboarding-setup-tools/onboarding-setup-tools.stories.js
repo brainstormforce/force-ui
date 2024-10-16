@@ -89,7 +89,7 @@ const Template = ( args ) => {
 								badgeItem={
 									<Badge
 										label="Free"
-										size="xs"
+										size="xxs"
 										variant="green"
 										type="pill"
 									/>
@@ -111,7 +111,7 @@ const Template = ( args ) => {
 								badgeItem={
 									<Badge
 										label="Free"
-										size="xs"
+										size="xxs"
 										variant="green"
 										type="pill"
 									/>
@@ -133,7 +133,7 @@ const Template = ( args ) => {
 								badgeItem={
 									<Badge
 										label="Free"
-										size="xs"
+										size="xxs"
 										variant="green"
 										type="pill"
 									/>
@@ -155,7 +155,7 @@ const Template = ( args ) => {
 								badgeItem={
 									<Badge
 										label="Free"
-										size="xs"
+										size="xxs"
 										variant="green"
 										type="pill"
 									/>
@@ -177,7 +177,7 @@ const Template = ( args ) => {
 								badgeItem={
 									<Badge
 										label="Free"
-										size="xs"
+										size="xxs"
 										variant="green"
 										type="pill"
 									/>
@@ -199,7 +199,7 @@ const Template = ( args ) => {
 								badgeItem={
 									<Badge
 										label="Free"
-										size="xs"
+										size="xxs"
 										variant="green"
 										type="pill"
 									/>

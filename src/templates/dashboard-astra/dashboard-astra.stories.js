@@ -71,7 +71,7 @@ const defaultRadioButtonGroupData = [
 		badge: (
 			<Badge
 				label={ 'New' }
-				size="md"
+				size="xxs"
 				icon={ null }
 				variant="blue"
 				closable={ false }
@@ -162,7 +162,7 @@ const defaultRadioButtonGroupData = [
 		badge: (
 			<Badge
 				label={ 'PRO' }
-				size="md"
+				size="xxs"
 				icon={ null }
 				variant="neutral"
 				closable={ false }
@@ -182,7 +182,7 @@ const defaultRadioButtonGroupData = [
 		badge: (
 			<Badge
 				label={ 'PRO' }
-				size="md"
+				size="xxs"
 				icon={ null }
 				variant="neutral"
 				closable={ false }
@@ -202,7 +202,7 @@ const defaultRadioButtonGroupData = [
 		badge: (
 			<Badge
 				label={ 'PRO' }
-				size="md"
+				size="xxs"
 				icon={ null }
 				variant="neutral"
 				closable={ false }
@@ -222,7 +222,7 @@ const defaultRadioButtonGroupData = [
 		badge: (
 			<Badge
 				label={ 'PRO' }
-				size="md"
+				size="xxs"
 				icon={ null }
 				variant="neutral"
 				closable={ false }
@@ -242,7 +242,7 @@ const defaultRadioButtonGroupData = [
 		badge: (
 			<Badge
 				label={ 'PRO' }
-				size="md"
+				size="xxs"
 				icon={ null }
 				variant="neutral"
 				closable={ false }
@@ -262,7 +262,7 @@ const defaultRadioButtonGroupData = [
 		badge: (
 			<Badge
 				label={ 'PRO' }
-				size="md"
+				size="xxs"
 				icon={ null }
 				variant="neutral"
 				closable={ false }
@@ -608,7 +608,7 @@ export const AstraDashboard = () => {
 									</div>
 									<Badge
 										label={ 'PRO' }
-										size="xs"
+										size="xxs"
 										icon={ null }
 										variant="inverse"
 										closable={ false }
