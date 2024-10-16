@@ -309,8 +309,8 @@ const RadioButtonComponent = (
 						arrow
 						triggers={ [ 'hover', 'focus' ] }
 						placement="top"
-                        title={info?.heading}
-                        content={info?.description}
+						title={ info?.heading }
+						content={ info?.description }
 					>
 						<Info
 							className={ cn(

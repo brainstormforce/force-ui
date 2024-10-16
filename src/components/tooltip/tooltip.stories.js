@@ -41,19 +41,20 @@ export default {
 				type: { summary: 'string' },
 			},
 		},
-        title: {
-            description: 'Title for the tooltip.',
-            control: { type: 'text' },
-            table: {
-                type: { summary: 'string' },
-            },
-        },
-        content: {
-            description: 'Content of tooltip - description of tooltip in more detail.',
-            table: {
-                type: { summary: 'string | ReactElemenet' },
-            },
-        },
+		title: {
+			description: 'Title for the tooltip.',
+			control: { type: 'text' },
+			table: {
+				type: { summary: 'string' },
+			},
+		},
+		content: {
+			description:
+				'Content of tooltip - description of tooltip in more detail.',
+			table: {
+				type: { summary: 'string | ReactElemenet' },
+			},
+		},
 		arrow: {
 			description:
 				'Defines whether the tooltip is displayed with an arrow or not.',
@@ -134,7 +135,7 @@ export const DefaultTooltip = ( args ) => {
 				{ ...args }
 				open={ args.open !== undefined ? args.open : isOpen }
 				setOpen={ args.open !== undefined ? setIsOpen : undefined }
-                content={args.content}
+				content={ args.content }
 			>
 				<CircleHelp />
 			</Tooltip>
@@ -145,8 +146,12 @@ export const DefaultTooltip = ( args ) => {
 DefaultTooltip.args = {
 	variant: 'dark',
 	placement: 'bottom',
-    title: 'Tooltip',
-    content: <span>This is <strong>custom JSX</strong> in the description.</span>,
+	title: 'Tooltip',
+	content: (
+		<span>
+			This is <strong>custom JSX</strong> in the description.
+		</span>
+	),
 	arrow: true,
 	triggers: [ 'hover', 'focus' ],
 	interactive: false,
@@ -187,8 +192,8 @@ DarkTooltipWithIcon.storyName = 'Tooltip with icon';
 
 DarkTooltipWithIcon.args = {
 	variant: 'dark',
-    title: 'Tooltip',
-    content: 'This is simple string description.',
+	title: 'Tooltip',
+	content: 'This is simple string description.',
 	arrow: true,
 };
 
@@ -225,15 +230,17 @@ DarkTooltipWithLabel.storyName = 'Tooltip with label';
 
 DarkTooltipWithLabel.args = {
 	variant: 'dark',
-    title: 'Tooltip',
-    content: <div className="mt-2">
-				<div>
-					Tooltips are used to describe or identify an element. In
-					most scenarios, tooltips help the user understand meaning.
-				</div>
-				<Button variant="primary" size="sm" className="w-full mt-2">
-					Upgrade now
-				</Button>
-			</div>,
+	title: 'Tooltip',
+	content: (
+		<div className="mt-2">
+			<div>
+				Tooltips are used to describe or identify an element. In most
+				scenarios, tooltips help the user understand meaning.
+			</div>
+			<Button variant="primary" size="sm" className="w-full mt-2">
+				Upgrade now
+			</Button>
+		</div>
+	),
 	arrow: true,
 };

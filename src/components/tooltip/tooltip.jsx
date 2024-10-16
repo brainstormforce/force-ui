@@ -29,8 +29,8 @@ import { mergeRefs } from '../toaster/utils';
 const Tooltip = ( {
 	variant = 'dark', // 'light' | 'dark';
 	placement = 'bottom', //  | 'top' | 'top-start' | 'top-end' | 'right' | 'right-start' | 'right-end' | 'bottom' | 'bottom-start' | 'bottom-end' | 'left' | 'left-start' | 'left-end';
-    title = '',
-    content,
+	title = '',
+	content,
 	arrow = false,
 	open,
 	setOpen,
@@ -141,12 +141,12 @@ const Tooltip = ( {
 						{ ...getFloatingProps() }
 					>
 						<div>
-                            {!!title && (
-                                <span className="font-semibold">{title}</span>
-                            )}
-                            {!!content && (
-                                <div className="font-normal">{content}</div>
-                            )}
+							{ !! title && (
+								<span className="font-semibold">{ title }</span>
+							) }
+							{ !! content && (
+								<div className="font-normal">{ content }</div>
+							) }
 						</div>
 						{ arrow && (
 							<FloatingArrow
