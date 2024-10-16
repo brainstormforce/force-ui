@@ -70,7 +70,7 @@ const Template = ( args ) => {
 						<Button className="w-max">Go to Dashboard</Button>
 						<Button
 							variant="link"
-							className="px-4 flex items-center gap-2"
+							className="px-2 flex items-center gap-2"
 							icon={ <ExternalLink /> }
 							iconPosition="right"
 						>

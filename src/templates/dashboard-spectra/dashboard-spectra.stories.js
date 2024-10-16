@@ -550,7 +550,7 @@ export const SpectraDashboard = () => {
 												useSwitch={ option.useSwitch }
 												className="px-2"
 												badgeItem={ option.bagde }
-												buttonWrapperClasses="bg-background-primary"
+												buttonWrapperClasses="bg-background-primary border-0"
 											/>
 										)
 									) }
@@ -721,17 +721,6 @@ export const SpectraDashboard = () => {
 																</Button>
 															</Container>
 														</Container.Item>
-														{ /* <Container.Item>
-															<Button
-																variant="link"
-																className="p-0 text-link-primary"
-																size="sm"
-															>
-																{
-																	card.buttonText
-																}
-															</Button>
-														</Container.Item> */ }
 													</Container>
 												</Container.Item>
 												<Container.Item className="gap-0.5 p-1">
