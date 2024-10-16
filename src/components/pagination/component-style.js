@@ -12,11 +12,11 @@ export const sizeClassNames = {
 	md: {
 		general: 'px-4 text-sm',
 		ellipse: 'px-2.5 text-sm',
-		icon: 'px-2 text-sm',
+		icon: 'px-2.5 text-sm',
 	},
 	lg: {
 		general: 'px-5 text-base',
-		ellipse: 'px-[18px] text-base',
+		ellipse: 'px-4 text-base',
 		icon: 'px-3 text-base',
 	},
 };
