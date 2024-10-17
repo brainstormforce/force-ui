@@ -14,6 +14,7 @@ const ProgressSteps = ( {
 	currentStep = 1,
 	children,
 	className,
+	lineProps = 'min-w-10',
 	...rest
 } ) => {
 	const totalSteps = React.Children.count( children );
@@ -56,6 +57,7 @@ const ProgressSteps = ( {
 			type,
 			isLast,
 			index,
+			lineProps,
 		};
 
 		return (
@@ -81,7 +83,7 @@ const ProgressSteps = ( {
 
 // ProgressStep component as {ProgressSteps.Step}
 const ProgressStep = ( {
-	labelText,
+	labelText = '',
 	icon = <Plus />,
 	isCurrent,
 	isCompleted,
@@ -92,6 +94,7 @@ const ProgressStep = ( {
 	size,
 	isLast,
 	index,
+	lineProps,
 	...rest
 } ) => {
 	const stepContent = createStepContent(
@@ -136,7 +139,8 @@ const ProgressStep = ( {
 				'block',
 				isCompleted
 					? 'border-brand-primary-600'
-					: 'border-border-subtle'
+					: 'border-border-subtle',
+				lineProps
 			);
 
 			if ( type === 'stack' ) {
@@ -164,8 +168,8 @@ const ProgressStep = ( {
 					<span
 						className={ cn(
 							lineClasses,
-							'mr-2',
-							'border-y border-solid'
+							'mr-2 border-y border-solid',
+							! labelText && 'ml-2'
 						) }
 					></span>
 				</div>
@@ -199,6 +203,7 @@ const ProgressStep = ( {
 		</>
 	);
 };
+ProgressStep.displayName = 'ProgressSteps.Step';
 
 // Create step content
 const createStepContent = (

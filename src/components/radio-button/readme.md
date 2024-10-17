@@ -34,6 +34,11 @@
 - **default value:** undefined
 - **description:** Used to customize the container when as value is not equal to a `Fragment`.
 
+### gapClassname
+- **type:** `string`
+- **default value:** `gap-2`
+- **description:** To customize the gap between Radio Buttons.
+
 ### style
 - **type:** `string`
 - **default value:** `simple`
@@ -75,6 +80,13 @@
 - **type:** `object` || `ReactComponent`
 - **Object properties/format:** `{heading: 'Label heading', description:** 'Label description'}`
 The label also accepts a React component.
+
+### info (optional)
+- **type:** `object` || `ReactComponent`
+- **Object properties/format:** `{heading: 'Info heading', description:** 'Info description'}`
+The info also accepts a React component.
+- **description:** The `info` prop allows adding info to the radio button.
+
 
 ### checked (optional)
 - **type:** `boolean`
@@ -120,6 +132,11 @@ The label also accepts a React component.
 - **type:** `boolean`
 - **default value:** `false`
 - **description:** Adds a border to the radio button when set to `true`.
+
+### borderOnActive
+- **type:** `boolean`
+- **default value:** `true`
+- **description:** Adds a border to the radio button when button is Checked/Selected.
 
 ### badgeItem
 - **type:** `String` or `ReactNode`

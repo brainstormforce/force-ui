@@ -42,7 +42,7 @@ const TabsGroup = ( props ) => {
 	let borderRadius = 'rounded-full',
 		padding = 'p-1',
 		gap,
-		border = 'border border-tab-border border-solid';
+		border = 'ring-1 ring-tab-border';
 
 	if ( orientation === 'vertical' ) {
 		gap = 'gap-0.5';
@@ -116,6 +116,7 @@ const TabsGroup = ( props ) => {
 		</div>
 	);
 };
+TabsGroup.displayName = 'Tabs.Group';
 
 // Tab component to be used within a TabsGroup.
 const TabComponent = ( props, ref ) => {
@@ -245,7 +246,7 @@ const TabComponent = ( props, ref ) => {
 	);
 };
 const Tab = forwardRef( TabComponent );
-Tab.displayName = 'Tab';
+Tab.displayName = 'Tabs.Tab';
 
 const exports = {
 	Group: TabsGroup,

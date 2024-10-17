@@ -59,7 +59,9 @@ const EditorInputComponent = (
 		menuComponent,
 		menuItemComponent,
 		className,
+		wrapperClassName,
 		disabled = false,
+		autoSpaceAfterMention = false,
 	},
 	ref
 ) => {
@@ -94,7 +96,8 @@ const EditorInputComponent = (
 				'relative w-full',
 				editorCommonClassNames,
 				editorInputClassNames[ size ],
-				disabled && editorDisabledClassNames
+				disabled && editorDisabledClassNames,
+				wrapperClassName
 			) }
 		>
 			<LexicalComposer initialConfig={ initialConfig }>
@@ -123,6 +126,7 @@ const EditorInputComponent = (
 					by={ by }
 					optionsArray={ options }
 					trigger={ trigger }
+					autoSpace={ autoSpaceAfterMention }
 				/>
 				<OnChangePlugin
 					onChange={ handleOnChange }

@@ -170,7 +170,7 @@ export const WithAction = {
 		action: {
 			label: 'My Action',
 			onClick: () => {},
-			type: 'button',
+			type: 'link',
 		},
 	},
 };
@@ -183,7 +183,7 @@ export const WithCustomIcon = {
 		action: {
 			label: 'My Action',
 			onClick: () => {},
-			type: 'button',
+			type: 'link',
 		},
 	},
 };

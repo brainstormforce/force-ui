@@ -52,7 +52,7 @@ const App = () => (
             required: true,
             placeholder: "Hello There"
         }} size="sm"/>
-    <TextArea size="lg" value={textval} onChange={((e)=>{console.log(e.target.value)})}/>
+    <TextArea size="lg" value={textval} onChange={((value)=>{console.log(value)})}/>
     <TextArea disabled={ true } size="md"/>
   </div>
 );

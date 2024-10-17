@@ -43,7 +43,7 @@ const TextAreaComponent = (
 	};
 
 	const baseClasses =
-		'py-2 rounded border border-solid border-border-subtle bg-field-secondary-background font-normal placeholder-text-tertiary text-text-primary';
+		'py-2 rounded border border-solid border-border-subtle bg-field-secondary-background font-normal placeholder-text-tertiary text-text-primary focus:outline-none';
 	const sizeClasses = {
 		sm: 'px-3 rounded text-xs',
 		md: 'px-3 rounded-md text-sm',
@@ -56,7 +56,7 @@ const TextAreaComponent = (
 	const focusClasses =
 		'focus:border-focus-border focus:ring-2 focus:ring-toggle-on focus:ring-offset-2';
 	const errorClasses = error
-		? 'focus:border-focus-error-border focus:ring-field-color-error bg-field-background-error'
+		? 'focus:border-focus-error-border focus:ring-field-color-error border-focus-error-border'
 		: '';
 	const disabledClasses = disabled
 		? 'border-border-disabled bg-field-background-disabled cursor-not-allowed text-text-disabled'

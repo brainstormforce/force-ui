@@ -32,11 +32,11 @@ The `Tooltips` are small, interactive pop-up boxes that provide brief, informati
 
 ### `title`
 - **Type:** `string`
-- **Description:** Defines the title of the tooltip. 
+- **Description:** Defines the title of the tooltip. It should be a simple text string that provides the heading or main subject of the tooltip 
 
 ### `content`
-- **Type:** `HTML content`
-- **Description:** Content of tooltip - description of tooltip in more detail.
+- **Type:** `string` | `ReactElement`
+- **Description:** Provides detailed content for the tooltip. The content can be a plain string for a simple description or a custom ReactElement for more complex content, such as HTML or JSX components.
 
 ### `arrow`
 - **Type:** `boolean`
@@ -115,7 +115,7 @@ import { Tooltip } from '@bsf/force-ui';
 const App = () => (
 	<div>
 		<Tooltip
-			title="Tooltip Title"
+            title="Tooltip Title"
 			content={
 				<span>
 					<strong>Tooltips</strong> are used to describe or identify
@@ -130,7 +130,7 @@ const App = () => (
 
 		{/* Click only mode */}
 		<Tooltip
-			title="Tooltip Title"
+            title="Tooltip Title"
 			content={
 				<span>
 					<strong>Tooltips</strong> are used to describe or identify
@@ -146,29 +146,28 @@ const App = () => (
 
 		{/* Interactive Tooltip */}
 		<Tooltip
-			title="Tooltip Title"
+            title="Tooltip Title"
 			content={
-				<span>
-					<strong>Tooltips</strong> are used to describe or identify
-					an element. In most scenarios, tooltips help the user
-					understand meaning, function or alt-text.
-				</span>
+				<div className="mt-2">
+                    <div>
+                        Tooltips are used to describe or identify an element. In
+                        most scenarios, tooltips help the user understand meaning.
+                    </div>
+                    <Button variant="primary" size="sm" className="w-full mt-2">
+                        Upgrade now
+                    </Button>
+			    </div>
 			}
 			arrow
 			interactive
 		>
 			<button>Hover over me</button>
 		</Tooltip>
+
 		{/* Controlled tooltip */}
 		<Tooltip
-			title="Tooltip Title"
-			content={
-				<span>
-					<strong>Tooltips</strong> are used to describe or identify
-					an element. In most scenarios, tooltips help the user
-					understand meaning, function or alt-text.
-				</span>
-			}
+            title="Tooltip Title"
+			content="This is a simple text description."
 			arrow
 			interactive
 			placement="top-start"
