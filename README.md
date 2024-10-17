@@ -1,168 +1,627 @@
 
-# Project Setup
 
-  
+## @bsf/force-ui
 
-## Prerequisites
+### Documentation
 
--  [Node.js](https://nodejs.org/) installed
+Visit <a href="https://github.com/brainstormforce/force-ui/wiki">https://github.com/brainstormforce/force-ui/wiki</a> for full documentation.
 
--  [Local by Flywheel](https://localwp.com/) for WordPress site setup
+<br />
 
-  
+### Components - Atoms
 
----
+<!-- <table>
+  <tr>
+    <td width="33.3333%">Accordion</td>
+    <td width="33.3333%">Alert</td>
+    <td width="33.3333%">Avatar</td>
+  </tr>
+  <tr>
+    <td width="33.3333%" style="padding: 0;">
+      <a href="https://www.material-tailwind.com/docs/react/accordion">
+        <img alt="accordion" src="./public/image/components/accordion-thumbnail.jpg">
+      </a>
+    </td>
+    <td width="33.3333%" style="padding: 0;">
+      <a href="https://www.material-tailwind.com/docs/react/alert">
+        <img alt="alert" src="./public/image/components/alert-thumbnail.jpg">
+      </a>
+    </td>
+    <td width="33.3333%" style="padding: 0;">
+      <a href="https://www.material-tailwind.com/docs/react/avatar">
+        <img alt="avatar" src="./public/image/components/avatar-thumbnail.jpg">
+      </a>
+    </td>
+  </tr>
+  <tr>
+    <td width="33.3333%">Badge</td>
+    <td width="33.3333%">Breadcrumbs</td>
+    <td width="33.3333%">Button</td>
+  </tr>
+  <tr>
+    <td width="33.3333%" style="padding: 0;">
+      <a href="https://www.material-tailwind.com/docs/react/badge">
+        <img alt="badge" src="./public/image/components/badge-thumbnail.jpg">
+      </a>
+    </td>
+    <td width="33.3333%" style="padding: 0;">
+      <a href="https://www.material-tailwind.com/docs/react/breadcrumbs">
+        <img alt="breadcrumbs" src="./public/image/components/breadcrumbs-thumbnail.jpg">
+      </a>
+    </td>
+    <td width="33.3333%" style="padding: 0;">
+      <a href="https://www.material-tailwind.com/docs/react/button">
+        <img alt="button" src="./public/image/components/button-thumbnail.jpg">
+      </a>
+    </td>
+  </tr>
+  <tr>
+    <td width="33.3333%">Button Group</td>
+    <td width="33.3333%">Card</td>
+    <td width="33.3333%">Checkbox</td>
+  </tr>
+  <tr>
+    <td width="33.3333%" style="padding: 0;">
+      <a href="https://www.material-tailwind.com/docs/react/button-group">
+        <img alt="button-group" src="./public/image/components/buttongroup-thumbnail.jpg">
+      </a>
+    </td>
+    <td width="33.3333%" style="padding: 0;">
+      <a href="https://www.material-tailwind.com/docs/react/card">
+        <img alt="card" src="./public/image/components/card-thumbnail.jpg">
+      </a>
+    </td>
+    <td width="33.3333%" style="padding: 0;">
+      <a href="https://www.material-tailwind.com/docs/react/checkbox">
+        <img alt="checkbox" src="./public/image/components/checkbox-thumbnail.jpg">
+      </a>
+    </td>
+  </tr>
+  <tr>
+    <td width="33.3333%">Chip</td>
+    <td width="33.3333%">Collapse</td>
+    <td width="33.3333%">Carousel</td>
+  </tr>
+  <tr>
+    <td width="33.3333%" style="padding: 0;">
+      <a href="https://www.material-tailwind.com/docs/react/chip">
+        <img alt="chip" src="./public/image/components/chip-thumbnail.jpg">
+      </a>
+    </td>
+    <td width="33.3333%" style="padding: 0;">
+      <a href="https://www.material-tailwind.com/docs/react/collapse">
+        <img alt="collapse" src="./public/image/components/collapse-thumbnail.jpg">
+      </a>
+    </td>
+    <td width="33.3333%" style="padding: 0;">
+      <a href="https://www.material-tailwind.com/docs/react/carousel">
+        <img alt="carousel" src="./public/image/components/carousel-thumbnail.jpg">
+      </a>
+    </td>
+  </tr>
+  <tr>
+    <td width="33.3333%">Dialog</td>
+    <td width="33.3333%">Drawer</td>
+    <td width="33.3333%">Icon Button</td>
+  </tr>
+  <tr>
+    <td width="33.3333%" style="padding: 0;">
+      <a href="https://www.material-tailwind.com/docs/react/dialog">
+        <img alt="dialog" src="./public/image/components/dialog-thumbnail.jpg">
+      </a>
+    </td>
+    <td width="33.3333%" style="padding: 0;">
+      <a href="https://www.material-tailwind.com/docs/react/drawer">
+        <img alt="drawer" src="./public/image/components/drawer-thumbnail.jpg">
+      </a>
+    </td>
+    <td width="33.3333%" style="padding: 0;">
+      <a href="https://www.material-tailwind.com/docs/react/icon-button">
+        <img alt="icon-button" src="./public/image/components/icon-button-thumbnail.jpg">
+      </a>
+    </td>
+  </tr>
+  <tr>
+    <td width="33.3333%">Input</td>
+    <td width="33.3333%">Form</td>
+    <td width="33.3333%">List</td>
+  </tr>
+  <tr>
+    <td width="33.3333%" style="padding: 0;">
+      <a href="https://www.material-tailwind.com/docs/react/input">
+        <img alt="input" src="./public/image/components/input-thumbnail.jpg">
+      </a>
+    </td>
+    <td width="33.3333%" style="padding: 0;">
+      <a href="https://www.material-tailwind.com/docs/react/form">
+        <img alt="form" src="./public/image/components/form-thumbnail.jpg">
+      </a>
+    </td>
+    <td width="33.3333%" style="padding: 0;">
+      <a href="https://www.material-tailwind.com/docs/react/list">
+        <img alt="list" src="./public/image/components/list-thumbnail.jpg">
+      </a>
+    </td>
+  </tr>
+  <tr>
+    <td width="33.3333%">Menu</td>
+    <td width="33.3333%">Navbar</td>
+    <td width="33.3333%">Popover</td>
+  </tr>
+  <tr>
+    <td width="33.3333%" style="padding: 0;">
+      <a href="https://www.material-tailwind.com/docs/react/menu">
+        <img alt="menu" src="./public/image/components/menu-thumbnail.jpg">
+      </a>
+    </td>
+    <td width="33.3333%" style="padding: 0;">
+      <a href="https://www.material-tailwind.com/docs/react/navbar">
+        <img alt="navbar" src="./public/image/components/navbar-thumbnail.jpg">
+      </a>
+    </td>
+    <td width="33.3333%" style="padding: 0;">
+      <a href="https://www.material-tailwind.com/docs/react/popover">
+        <img alt="popover" src="./public/image/components/popover-thumbnail.jpg">
+      </a>
+    </td>
+  </tr>
+  <tr>
+    <td width="33.3333%">Progress Bar</td>
+    <td width="33.3333%">Pagination</td>
+    <td width="33.3333%">Radio Button</td>
+  </tr>
+  <tr>
+    <td width="33.3333%" style="padding: 0;">
+      <a href="https://www.material-tailwind.com/docs/react/progress-bar">
+        <img alt="progress-bar" src="./public/image/components/progress-bar-thumbnail.jpg">
+      </a>
+    </td>
+    <td width="33.3333%" style="padding: 0;">
+      <a href="https://www.material-tailwind.com/docs/react/pagination">
+        <img alt="pagination" src="./public/image/components/pagination-thumbnail.jpg">
+      </a>
+    </td>
+    <td width="33.3333%" style="padding: 0;">
+      <a href="https://www.material-tailwind.com/docs/react/radio-button">
+        <img alt="radio-button" src="./public/image/components/radio-button-thumbnail.jpg">
+      </a>
+    </td>
+  </tr>
+  <tr>
+    <td width="33.3333%">Rating Bar</td>
+    <td width="33.3333%">Select</td>
+    <td width="33.3333%">Slider</td>
+  </tr>
+  <tr>
+    <td width="33.3333%" style="padding: 0;">
+      <a href="https://www.material-tailwind.com/docs/react/rating-bar">
+        <img alt="rating-bar" src="./public/image/components/ratingbar-thumbnail.jpg">
+      </a>
+    </td>
+    <td width="33.3333%" style="padding: 0;">
+      <a href="https://www.material-tailwind.com/docs/react/select">
+        <img alt="select" src="./public/image/components/select-thumbnail.jpg">
+      </a>
+    </td>
+    <td width="33.3333%" style="padding: 0;">
+      <a href="https://www.material-tailwind.com/docs/react/slider">
+        <img alt="slider" src="./public/image/components/slider-thumbnail.jpg">
+      </a>
+    </td>
+  </tr>
+  <tr>
+    <td width="33.3333%">Speed Dial</td>
+    <td width="33.3333%">Spinner</td>
+    <td width="33.3333%">Stepper</td>
+  </tr>
+  <tr>
+    <td width="33.3333%" style="padding: 0;">
+      <a href="https://www.material-tailwind.com/docs/react/speed-dial">
+        <img alt="speed-dial" src="./public/image/components/speeddial-thumbnail.jpg">
+      </a>
+    </td>
+    <td width="33.3333%" style="padding: 0;">
+      <a href="https://www.material-tailwind.com/docs/react/spinner">
+        <img alt="spinner" src="./public/image/components/spinner-thumbnail.jpg">
+      </a>
+    </td>
+    <td width="33.3333%" style="padding: 0;">
+      <a href="https://www.material-tailwind.com/docs/react/stepper">
+        <img alt="stepper" src="./public/image/components/stepper-thumbnail.jpg">
+      </a>
+    </td>
+  </tr>
+  <tr>
+    <td width="33.3333%">Switch</td>
+    <td width="33.3333%">Tabs</td>
+    <td width="33.3333%">Text Area</td>
+  </tr>
+  <tr>
+    <td width="33.3333%" style="padding: 0;">
+      <a href="https://www.material-tailwind.com/docs/react/switch">
+        <img alt="switch" src="./public/image/components/switch-thumbnail.jpg">
+      </a>
+    </td>
+    <td width="33.3333%" style="padding: 0;">
+      <a href="https://www.material-tailwind.com/docs/react/tabs">
+        <img alt="tabs" src="./public/image/components/tabs-thumbnail.jpg">
+      </a>
+    </td>
+    <td width="33.3333%" style="padding: 0;">
+      <a href="https://www.material-tailwind.com/docs/react/textarea">
+        <img alt="textarea" src="./public/image/components/text-area-thumbnail.jpg">
+      </a>
+    </td>
+  </tr>
+  <tr>
+    <td width="33.3333%">Timeline</td>
+    <td width="33.3333%">Tooltip</td>
+    <td width="33.3333%">Typography</td>
+  </tr>
+  <tr>
+    <td width="33.3333%" style="padding: 0;">
+      <a href="https://www.material-tailwind.com/docs/react/timeline">
+        <img alt="timeline" src="./public/image/components/timeline-thumbnail.jpg">
+      </a>
+    </td>
+    <td width="33.3333%" style="padding: 0;">
+      <a href="https://www.material-tailwind.com/docs/react/tooltip">
+        <img alt="tooltip" src="./public/image/components/tooltip-thumbnail.jpg">
+      </a>
+    </td>
+    <td width="33.3333%" style="padding: 0;">
+      <a href="https://www.material-tailwind.com/docs/react/typography">
+        <img alt="typography" src="./public/image/components/typography-thumbnail.jpg">
+      </a>
+    </td>
+  </tr>
+  <tr>
+    <td width="33.3333%">Footer</td>
+    <td width="33.3333%">Image</td>
+    <td width="33.3333%">Video</td>
+  </tr>
+  <tr>
+    <td width="33.3333%" style="padding: 0;">
+      <a href="https://www.material-tailwind.com/docs/react/footer">
+        <img alt="footer" src="./public/image/components/footer-thumbnail.jpg">
+      </a>
+    </td>
+    <td width="33.3333%" style="padding: 0;">
+      <a href="https://www.material-tailwind.com/docs/react/img">
+        <img alt="img" src="./public/image/components/img-thumbnail.jpg">
+      </a>
+    </td>
+    <td width="33.3333%" style="padding: 0;">
+      <a href="https://www.material-tailwind.com/docs/react/video">
+        <img alt="video" src="./public/image/components/video-thumbnail.jpg">
+      </a>
+    </td>
+  </tr>
+  <tr>
+    <td width="33.3333%">Sidebar</td>
+    <td width="33.3333%">Table</td>
+  </tr>
+  <tr>
+    <td width="33.3333%" style="padding: 0;">
+      <a href="https://www.material-tailwind.com/docs/react/sidebar">
+        <img alt="sidebar" src="./public/image/components/sidebar-thumbnail.jpg">
+      </a>
+    </td>
+    <td width="33.3333%" style="padding: 0;">
+      <a href="https://www.material-tailwind.com/docs/react/table">
+        <img alt="table" src="./public/image/components/table-thumbnail.jpg">
+      </a>
+    </td>
+  </tr>
+</table> -->
 
-  
+<br />
 
-## Step 1: Setup WordPress Site
+### Getting Started
 
-  
+Learn how to use @bsf/force-ui components to quickly and easily create elegant and flexible pages using Tailwind CSS.
 
-1.  **Create a WordPress site** using [Local by Flywheel](https://localwp.com/).
+@bsf/force-ui is working with Tailwind CSS classes and you need to have Tailwind CSS installed on your project - <a href="https://tailwindcss.com/docs/installation/framework-guides?ref=material-tailwind" target="_blank">Tailwind CSS Installation.</a>
 
-  
+<br />
 
-2.  **Navigate to the WordPress plugins folder**:
+1. Install `@bsf/force-ui`.
 
+Force UI library can be installed using npm package manager. Since this library is still in it's alpha phase, we need to use the staging branch.
+
+Using Force UI as a dependency in package.json -
+
+```json
+"dependencies": {
+  "@bsf/force-ui": "git+https://github.com/brainstormforce/force-ui#1.0.0"
+}
 ```
 
-<local-site-folder>/app/public/wp-content/plugins
+And run the following command to install the package -
 
-```
-
-  
-
-3.  **Clone  & Setup the library** for Force UI into the `plugins` folder:
-
-- For Force UI:
 
 ```bash
-
-git clone <forceui-repository-url>
-
-cd forceui
-
-npm run build
-
-```
-
-4.  **Install dependencies**:
-
-```bash
-
 npm install
+```
+
+<br />
+
+2. Once you install @bsf/force-ui you need to wrap your tailwind css configurations with the `withMT()` function coming from @bsf/force-ui/utils.
+
+```js
+const withTW = require( '@bsf/force-ui/withTW' );
+
+module.exports = withTW( {
+	content: [ './src/**/*.{js, jsx}' ],
+	theme: {
+		extend: {
+			colors: {
+				'button-primary': '#6B21A8',
+				'button-primary-hover': '#7E22CE',
+				'brand-800': '#6B21A8',
+				'brand-50': '#FAF5FF',
+				'border-interactive': '#6B21A8',
+				focus: '#9333EA',
+				'focus-border': '#D8B4FE',
+				'toggle-on': '#6B21A8',
+				'toggle-on-border': '#C084FC',
+				'toggle-on-hover': '#A855F7',
+			},
+			fontSize: {
+				xxs: '0.6875rem', // 11px
+			},
+			lineHeight: {
+				2.6: '0.6875rem', // 11px
+			},
+			boxShadow: {
+				'content-wrapper':
+					'0px 1px 1px 0px #0000000F, 0px 1px 2px 0px #0000001A',
+			},
+		},
+	},
+	plugins: [],
+	corePlugins: {
+		preflight: false,
+	},
+	important: '.surerank-styles',
+} );
+```
+
+<br />
+
+3. @bsf/force-ui comes with a default tailwind theme settings that set's the default theme/styles for components or to provide your own theme/styles to your components. You can override these give below variables in your tailwind.config.js file.
+
+```jsx
+theme: {
+  extend: {
+    colors: {
+      // brand
+      'brand-background-50': '#EFF6FF',
+      'brand-background-hover-100': '#DBEAFE',
+      'brand-200': '#BFDBFE',
+      'brand-border-300': '#93C5FD',
+      'brand-400': '#60A5FA',
+      'brand-500': '#3B82F6',
+      'brand-primary-600': '#2563EB',
+      'brand-hover-700': '#1D4ED8',
+      'brand-800': '#1E40AF',
+      'brand-900': '#1E3A8A',
+      'brand-text-950': '#172554',
+      // background
+      'background-primary': '#FFFFFF',
+      'background-secondary': '#F3F4F6',
+      'background-inverse': '#111827',
+      'background-brand': '#2563EB',
+      'background-important': '#DC2626',
+      // field
+      'field-primary-background': '#F9FAFB',
+      'field-secondary-background': '#FFFFFF',
+      'field-primary-hover': '#F3F4F6',
+      'field-secondary-hover': '#F3F4F6',
+      'field-dropzone-background': '#FFFFFF',
+      'field-border': '#E5E7EB',
+      'field-dropzone-background-hover': '#F9FAFB',
+      'field-dropzone-color': '#2563EB',
+      'field-label': '#111827',
+      'field-input': '#111827',
+      'field-helper': '#9CA3AF',
+      'field-background-disabled': '#F9FAFB',
+      'field-color-disabled': '#D1D5DB',
+      'field-placeholder': '#6B7280',
+      'field-border-disabled': '#F3F4F6',
+      'field-color-error': '#DC2626',
+      'field-border-error': '#FECACA',
+      'field-background-error': '#FEF2F2',
+      'field-required': '#DC2626',
+      // border
+      'border-interactive': '#2563EB',
+      'border-subtle': '#E5E7EB',
+      'border-strong': '#6B7280',
+      'border-inverse': '#374151',
+      'border-disabled': '#E5E7EB',
+      'border-muted': '#E5E7EB',
+      'border-error': '#DC2626',
+      'border-transparent-subtle': '#37415114',
+      'border-white': '#FFFFFF',
+      // text
+      'text-primary': '#111827',
+      'text-secondary': '#4B5563',
+      'text-tertiary': '#9CA3AF',
+      'text-on-color': '#FFFFFF',
+      'text-error': '#DC2626',
+      'text-error-inverse': '#F87171',
+      'text-inverse': '#FFFFFF',
+      'text-disabled': '#D1D5DB',
+      'text-on-button-disabled': '#9CA3AF',
+      // link
+      'link-primary': '#2563EB',
+      'link-primary-hover': '#1D4ED8',
+      'link-inverse': '#38BDF8',
+      'link-visited': '#7C3AED',
+      'link-visited-inverse': '#A78BFA',
+      'link-inverse-hover': '#7DD3FC',
+      // icon
+      'icon-primary': '#111827',
+      'icon-secondary': '#4B5563',
+      'icon-on-color': '#FFFFFF',
+      'icon-inverse': '#FFFFFF',
+      'icon-interactive': '#2563EB',
+      'icon-on-color-disabled': '#9CA3AF',
+      'icon-disabled': '#D1D5DB',
+      // support
+      'support-error': '#DC2626',
+      'support-success': '#16A34A',
+      'support-warning': '#EAB308',
+      'support-info': '#0284C7',
+      'support-error-inverse': '#F87171',
+      'support-success-inverse': '#4ADE80',
+      'support-warning-inverse': '#FDE047',
+      'support-info-inverse': '#38BDF8',
+      // button
+      'button-primary': '#2563EB',
+      'button-primary-hover': '#1D4ED8',
+      'button-secondary': '#1F2937',
+      'button-secondary-hover': '#374151',
+      'button-tertiary': '#FFFFFF',
+      'button-tertiary-hover': '#F9FAFB',
+      'button-danger': '#DC2626',
+      'button-danger-secondary': '#DC2626',
+      'button-danger-hover': '#B91C1C',
+      'button-disabled': '#F3F4F6',
+      'button-tertiary-border': '#E5E7EB',
+      'button-tertiary-color': '#111827',
+      // focus
+      focus: '#2563EB',
+      'focus-inset': '#FFFFFF',
+      'focus-inverse': '#38BDF8',
+      'focus-inverse-inset': '#111827',
+      'focus-error': '#DC2626',
+      'focus-border': '#BFDBFE',
+      'focus-error-border': '#FECACA',
+      // misc
+      'misc-highlight': '#BFDBFE',
+      'misc-overlay': '#11182780',
+      'misc-skeleton-background': '#F3F4F6',
+      'misc-skeleton-element': '#D1D5DB',
+      'misc-popup-button-hover': '#1118270D',
+      'misc-tab-item-hover': '#E5E7EB',
+      'misc-dropdown-hover': '#F3F4F6',
+      'misc-loader-base': '#1118270D',
+      'misc-loader-color': '#2563EB',
+      'misc-progress-background': '#E5E7EB',
+      // badge
+      'badge-background-gray': '#F9FAFB',
+      'badge-color-gray': '#1F2937',
+      'badge-hover-gray': '#F3F4F6',
+      'badge-border-gray': '#E5E7EB',
+      'badge-background-red': '#FEF2F2',
+      'badge-color-red': '#B91C1C',
+      'badge-hover-red': '#FEE2E2',
+      'badge-border-red': '#FECACA',
+      'badge-background-yellow': '#FEFCE8',
+      'badge-color-yellow': '#A16207',
+      'badge-hover-yellow': '#FEF9C3',
+      'badge-border-yellow': '#FEF08A',
+      'badge-hover-green': '#DCFCE7',
+      'badge-border-green': '#BBF7D0',
+      'badge-background-green': '#F0FDF4',
+      'badge-color-green': '#15803D',
+      'badge-background-sky': '#F0F9FF',
+      'badge-color-sky': '#0369A1',
+      'badge-hover-sky': '#E0F2FE',
+      'badge-border-sky': '#BAE6FD',
+      'badge-background-disabled': '#F3F4F6',
+      'badge-color-disabled': '#D1D5DB',
+      'badge-hover-disabled': '#F3F4F6',
+      'badge-border-disabled': '#E5E7EB',
+      'badge-background-important': '#DC2626',
+      // alert
+      'alert-background-neutral': '#FFFFFF',
+      'alert-border-neutral': '#E5E7EB',
+      'alert-background-danger': '#FEF2F2',
+      'alert-border-danger': '#FECACA',
+      'alert-background-warning': '#FEFCE8',
+      'alert-border-warning': '#FEF08A',
+      'alert-background-green': '#F0FDF4',
+      'alert-border-green': '#BBF7D0',
+      'alert-background-info': '#F0F9FF',
+      'alert-border-info': '#BAE6FD',
+      // tab
+      'tab-background': '#F3F4F6',
+      'tab-border': '#E5E7EB',
+      // tooltip
+      'tooltip-background-light': '#FFFFFF',
+      'tooltip-background-dark': '#111827',
+      // toggle
+      'toggle-off': '#E5E7EB',
+      'toggle-on': '#2563EB',
+      'toggle-dial-background': '#FFFFFF',
+      'toggle-off-hover': '#D1D5DB',
+      'toggle-off-border': '#D1D5DB',
+      'toggle-on-hover': '#3B82F6',
+      'toggle-on-border': '#60A5FA',
+      'toggle-off-disabled': '#F3F4F6',
+    },
+    width: {
+      '1/7': '14.2857143%',
+      '1/8': '12.5%',
+      '1/9': '11.1111111%',
+      '1/10': '10%',
+      '1/11': '9.0909091%',
+      '1/12': '8.3333333%',
+    },
+    boxShadow: {
+      'soft-shadow-sm':
+        '0px 6px 32px -12px rgba(149, 160, 178, 0.12)',
+      'soft-shadow': '0px 8px 32px -12px rgba(149, 160, 178, 0.16)',
+      'soft-shadow-md':
+        '0px 10px 32px -12px rgba(149, 160, 178, 0.2)',
+      'soft-shadow-lg':
+        '0px 12px 32px -12px rgba(149, 160, 178, 0.24)',
+      'soft-shadow-xl':
+        '0px 16px 32px -12px rgba(149, 160, 178, 0.32)',
+      'soft-shadow-2xl':
+        '0px 24px 64px -12px rgba(149, 160, 178, 0.32)',
+      'soft-shadow-inner': '0px 1px 1px 0px rgba(0, 0, 0, 0.05)',
+    },
+    fontSize: {
+      tiny: '0.625rem',
+    },
+    spacing: {
+      120: '30rem', // 480px
+      95: '23.75rem', // 380px
+      141.5: '35.375rem', // 566px
+      188: '47rem', // 752px
+    },
+    zIndex: {
+      999999: '999999',
+    },
+  },
+}
 
 ```
 
-5.  **Build the project**:
+<br />
 
-```bash
+4. Congratulations 🥳, you did it, now you're ready to use @bsf/force-ui.
 
-npm run build
+```jsx
+import { Button } from "@bsf/force-ui";
 
+export default function Example() {
+  return <Button>My Button</Button>;
+}
 ```
 
-  
+## Community
 
----
+We're excited to see the community adopt @bsf/force-ui, raise issues, and provide feedback.
+Whether it's a feature request, bug report, or a project to showcase, please get involved!
 
-  
+## Contributing
 
-  
+Contributions are always welcome!
 
-5.  **Start the application**:
+See `CONTRIBUTING.md` for ways to get started.
 
-```bash
-
-npm start
-
-```
-
-  
-
-6.  **For Storybook**:
-
-In a separate terminal, run:
-
-```bash
-
-npm run storybook
-
-```
-
-  
-
----
-
-  
-
-## Step 3: Setup SureRank
-
-  
-
-1.  **Navigate to the SureRank directory** (if not already there):
-
-```bash
-
-cd ../surerank
-
-```
-
-  
-
-2.  **Install dependencies**:
-
-```bash
-
-npm install
-
-```
-
-  
-
-3.  **Link ForceUI**:
-
-```bash
-
-npm link @bsf/force-ui
-
-```
-
-  
-
-4.  **Start the application**:
-
-```bash
-
-npm start
-
-```
-
-  
-
----
-
-  
-
-## Step 4: Making Changes
-
-  
-
--  **UI Changes in SureRank**:
-
-Modify the UI in the `surerank/sr/apps/fui-dashboard/` directory.
-
-  
-
--  **Component Changes in ForceUI**:
-
-Make changes to components in the `forceui/src/components/` directory.
-
-## Step 5: Viewing the UI 
-1. **Go to WordPress** and open the admin dashboard. 
-2. On the **left panel**, locate and open **SureRank**. 
-3. Inside SureRank, select **FUI** to view the UI.
-
-## Step 5: Viewing the Storybook
-1. Open http://localhost:6006 in the browser
+Please adhere to this project's `CODE_OF_CONDUCT.md`.
