@@ -8,7 +8,7 @@ Visit <a href="https://github.com/brainstormforce/force-ui/wiki">https://github.
 
 <br />
 
-### Components - Atoms
+<!-- ### Components - Atoms -->
 
 <!-- <table>
   <tr>
