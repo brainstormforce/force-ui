@@ -1,9 +1,8 @@
-const deepmerge = require( 'deepmerge' );
-
-const libraryConfig = require( '../theme/default-config' );
+import deepmerge from 'deepmerge';
+import libraryConfig from '../theme/default-config';
 
 const withTW = ( tailwindConfig ) => {
 	return deepmerge( libraryConfig, { ...tailwindConfig } );
 };
 
-module.exports = withTW;
+export default withTW;

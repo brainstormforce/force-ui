@@ -41,7 +41,6 @@ module.exports = {
 		'react-hooks/exhaustive-deps': 'off',
 		'jsx-a11y/label-has-associated-control': 'off',
 		'jsx-a11y/no-noninteractive-element-interactions': 'off',
-		'@typescript-eslint/no-explicit-any': 'off',
 		'jsx-a11y/anchor-is-valid': 'off',
 	},
 	globals: {

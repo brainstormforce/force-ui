@@ -1,6 +1,9 @@
+import React from 'react';
+import type { Preview } from "@storybook/react";
+
 /** @type { import('@storybook/react').Preview } */
-import '../dist/force-ui.css';
-const preview = {
+import '../dist/style.css';
+const preview: Preview = {
 	parameters: {
 		controls: {
 			matchers: {
