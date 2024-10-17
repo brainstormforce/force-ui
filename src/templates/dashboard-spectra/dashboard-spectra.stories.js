@@ -537,6 +537,7 @@ export const SpectraDashboard = () => {
 											<RadioButton.Button
 												key={ `option-${ option.id }` }
 												borderOn={ true }
+												borderOnActive={ false }
 												value={ option.value }
 												icon={ option.icon }
 												hideSelection={

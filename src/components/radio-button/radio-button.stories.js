@@ -154,6 +154,15 @@ export default {
 				defaultValue: { summary: 'false' },
 			},
 		},
+		borderOnActive: {
+			description:
+				'`RadioButton.Button` : Adds a border around the button when the button is Checked/Selected.',
+			control: 'boolean',
+			table: {
+				type: { summary: 'boolean' },
+				defaultValue: { summary: 'true' },
+			},
+		},
 		minWidth: {
 			description:
 				'`RadioButton.Button` : Adds minimum width to the button.',
@@ -265,6 +274,7 @@ const Template = ( args ) => {
 							}
 						}
 						borderOn={ args.borderOn }
+						borderOnActive={ args.borderOnActive }
 						minWidth={ args.minWidth }
 						info={ args.info }
 						disabled={ args.disabled }
