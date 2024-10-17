@@ -54,7 +54,7 @@ An ecosystem that views different template renders. We can create multiple ecosy
 File Structure
 Since React follows a component-based architecture, it’s pretty common to organise your components based on the type, rather than feature. All the components are inside of the components folder.
 
-This folder inclues the folowing files:
+This folder includes the folowing files:
 1. index.jsx
 2. Component js files
 3. readme.md file having the documentation for that component
