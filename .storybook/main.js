@@ -30,11 +30,9 @@ const config = {
 	webpackFinal: async (config) => {
 		config.resolve.alias = {
 			'@/icons': path.resolve(__dirname, '..', 'src/ui/icons'),
-			'@/components': path.resolve(__dirname, '..', 'src/components'),
 			'@/utilities': path.resolve(__dirname, '..', 'src/utilities'),
+			'@/components': path.resolve(__dirname, '..', 'src/components'),
 			'@': path.resolve(__dirname, '..', 'src'),
-			'@/components': path.resolve(__dirname, '..', 'src/components'),
-			'@/utilities': path.resolve(__dirname, '..', 'src/utilities'),
 		};
 
 		return config;
