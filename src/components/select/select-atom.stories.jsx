@@ -1,6 +1,10 @@
 import React from 'react';
 import Select from './select';
 
+Select.displayName = 'Select';
+Select.Button.displayName = 'Select.Button';
+Select.Options.displayName = 'Select.Options';
+Select.Option.displayName = 'Select.Option';
 const options = [
 	{ id: '1', name: 'Red' },
 	{ id: '2', name: 'Orange' },

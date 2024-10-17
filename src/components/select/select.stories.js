@@ -2,6 +2,11 @@ import React, { useState } from 'react';
 import Select from './select.jsx';
 import Label from '../label/label.jsx';
 
+Select.displayName = 'Select';
+Select.Button.displayName = 'Select.Button';
+Select.Options.displayName = 'Select.Options';
+Select.Option.displayName = 'Select.Option';
+
 export default {
 	title: 'Molecules/Select',
 	component: Select,

@@ -9,7 +9,7 @@ import React, {
 	Fragment,
 } from 'react';
 import { nanoid } from 'nanoid';
-import { Check } from 'lucide-react';
+import { Check, Info } from 'lucide-react';
 
 import { cn, columnClasses } from '@/utilities/functions';
 import Switch from '../switch';
@@ -17,12 +17,14 @@ import {
 	colorClassNames,
 	disabledClassNames,
 	sizeClassNames,
+	textSizeClassNames,
 	sizes,
 	borderClasses,
 	baseClasses,
 	hoverClasses,
 	focusClasses,
 } from './styles';
+import Tooltip from '../tooltip';
 
 const RadioButtonContext = createContext();
 const useRadioButton = () => useContext( RadioButtonContext );
@@ -42,6 +44,7 @@ const RadioButtonGroup = ( {
 	vertical = false,
 	columns = 4,
 	multiSelection = false,
+	gapClassname = 'gap-2',
 } ) => {
 	const isControlled = useMemo( () => typeof value !== 'undefined', [ value ] );
 	const nameAttr = useMemo(
@@ -88,8 +91,9 @@ const RadioButtonGroup = ( {
 		[ onChange ]
 	);
 	className = cn(
-		`grid grid-cols-4 gap-2`,
+		`grid grid-cols-4`,
 		columnClasses[ columns ],
+		gapClassname,
 		style === 'tile' && 'gap-0',
 		vertical && 'grid-cols-1',
 		className
@@ -154,12 +158,16 @@ const RadioButtonComponent = (
 		hideSelection = false,
 		reversePosition = false,
 		borderOn = false,
+		borderOnActive = true,
 		badgeItem = null,
 		useSwitch = false,
+		info = null,
+		minWidth = true,
 		...props
 	},
 	ref
 ) => {
+	const { buttonWrapperClasses } = props;
 	const providerValue = useRadioButton();
 	const {
 		name,
@@ -215,15 +223,17 @@ const RadioButtonComponent = (
 				className={ cn(
 					! inlineIcon && 'space-y-1.5 mt-[2px]',
 					reversePosition && ( useSwitch ? 'ml-10' : 'ml-4' ),
-					inlineIcon && 'flex gap-2'
+					inlineIcon && 'flex gap-2',
+					inlineIcon && ! label.description && 'items-center'
 				) }
 			>
-				{ icon && <span>{ icon } </span> }
+				{ icon && <>{ icon }</> }
 				<div className={ cn( 'space-y-1.5' ) }>
 					<p
 						className={ cn(
-							'text-text-primary text-sm font-medium leading-4 m-0',
-							icon && 'mt-1'
+							'text-text-primary font-medium m-0',
+							textSizeClassNames[ size ],
+							disabled && 'text-text-disabled cursor-not-allowed'
 						) }
 					>
 						{ label.heading }
@@ -251,14 +261,17 @@ const RadioButtonComponent = (
 			</ButtonGroupItem>
 		);
 	}
+
 	const handleLabelClick = () => {
 		if ( ! isDisabled ) {
 			if ( multiSelection ) {
 				// In multi-selection, toggle each individual selection
-				onChange( value, ! checkedValue ); // Pass the toggled value
+				if ( useSwitch ) {
+					onChange( value, ! checkedValue );
+				}
 			} else {
-				// In single selection, only one can be selected
-				onChange( value ); // Trigger onChange with the selected value
+				// In single selection, toggle on and off
+				onChange( value ); // If it's selected, deselect it; otherwise, select it
 			}
 		}
 	};
@@ -267,16 +280,20 @@ const RadioButtonComponent = (
 		<label
 			className={ cn(
 				'inline-flex items-center relative cursor-pointer transition-all duration-300',
-				!! label && 'items-start justify-between min-w-[180px] ',
+				!! label && 'items-start justify-between',
+				minWidth && 'min-w-[180px]',
 				borderOn &&
 					'border border-border-subtle border-solid rounded-md shadow-sm hover:ring-2 hover:ring-border-interactive',
-				borderOn && checkedValue && 'ring-2 ring-border-interactive',
+				borderOnActive &&
+					borderOn &&
+					checkedValue &&
+					'ring-2 ring-border-interactive',
 				size === 'sm' ? 'px-3 py-3' : 'px-4 py-4',
 				'pr-12',
-				isDisabled && 'cursor-not-allowed'
+				isDisabled && 'cursor-not-allowed opacity-40',
+				buttonWrapperClasses
 			) }
 			htmlFor={ radioButtonId }
-			/** js */
 			onClick={ handleLabelClick } // Toggle switch when label is clicked
 		>
 			{ !! label && (
@@ -290,12 +307,32 @@ const RadioButtonComponent = (
 					{ renderLabel() }
 				</label>
 			) }
+			{ !! info && (
+				<div className="absolute mr-0.5 bottom-1.5 right-3">
+					<Tooltip
+						arrow
+						triggers={ [ 'hover', 'focus' ] }
+						placement="top"
+						title={ info?.heading }
+						content={ info?.description }
+					>
+						<Info
+							className={ cn(
+								'text-text-primary',
+								sizeClassNames[ size ]?.info
+							) }
+						/>
+					</Tooltip>
+				</div>
+			) }
 			<label
 				className={ cn(
-					'absolute mr-[2px] right-3 flex items-center cursor-pointer rounded-full',
+					'absolute mr-0.5 right-3 flex items-center cursor-pointer rounded-full gap-2',
 					reversePosition && 'left-0',
-					isDisabled && 'cursor-not-allowed'
+					isDisabled && 'cursor-not-allowed',
+					inlineIcon && 'mr-3'
 				) }
+				onClick={ handleLabelClick }
 			>
 				{ !! badgeItem && badgeItem }
 				{ ! hideSelection &&
@@ -305,8 +342,8 @@ const RadioButtonComponent = (
 							size={ size === 'md' ? 'lg' : 'sm' }
 							onChange={ () => {
 								if ( ! multiSelection ) {
-									// In single selection, only one can be on
-									onChange( value ); // Update the state to select this option
+									// Toggle the switch on or off
+									onChange( value );
 								} else {
 									// In multi-selection, toggle the current state
 									onChange( value, ! checkedValue );
@@ -315,7 +352,7 @@ const RadioButtonComponent = (
 							checked={ checkedValue }
 						/>
 					) : (
-						<span className="relative">
+						<span className="relative p-0.5">
 							<input
 								ref={ ref }
 								id={ radioButtonId }
@@ -351,7 +388,7 @@ const RadioButtonComponent = (
 									<div
 										className={ cn(
 											'rounded-full bg-current',
-											size === 'sm' && 'mt-[2px]',
+											size === 'sm' && 'mt-[0.5px]',
 											sizeClassNames[ size ]?.icon
 										) }
 									/>

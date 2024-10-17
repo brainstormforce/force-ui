@@ -37,13 +37,17 @@ The `Menu.List` component organizes Menu.Item components under a heading. It sup
 
 ### `open`
 - **Type:** `boolean`
-- **Default:** `false`
+- **Default:** `true`
 - **Description:** Controls whether the Menu.List is initially open or closed
 
 ### `onClick`
 - **Type:** `function`
 - **Description:** Callback function that is called when the Menu.List heading is clicked.
 
+### `showArrowOnHover`
+- **Type:** `boolean`
+- **Default:** `false`
+- **Description:** If true, displays the arrow only when the Menu.List is hovered over.
 
 The `Menu.Item` component represents an individual clickable item in the Menu.List. It can handle various states like active or disabled, and accepts icons, text, or other content passed as children.
 
