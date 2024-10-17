@@ -133,6 +133,11 @@ The info also accepts a React component.
 - **default value:** `false`
 - **description:** Adds a border to the radio button when set to `true`.
 
+### borderOnActive
+- **type:** `boolean`
+- **default value:** `true`
+- **description:** Adds a border to the radio button when button is Checked/Selected.
+
 ### badgeItem
 - **type:** `String` or `ReactNode`
 - **default value:** `null`

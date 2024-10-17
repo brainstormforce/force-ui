@@ -158,6 +158,7 @@ const RadioButtonComponent = (
 		hideSelection = false,
 		reversePosition = false,
 		borderOn = false,
+		borderOnActive = true,
 		badgeItem = null,
 		useSwitch = false,
 		info = null,
@@ -283,7 +284,10 @@ const RadioButtonComponent = (
 				minWidth && 'min-w-[180px]',
 				borderOn &&
 					'border border-border-subtle border-solid rounded-md shadow-sm hover:ring-2 hover:ring-border-interactive',
-				borderOn && checkedValue && 'ring-2 ring-border-interactive',
+				borderOnActive &&
+					borderOn &&
+					checkedValue &&
+					'ring-2 ring-border-interactive',
 				size === 'sm' ? 'px-3 py-3' : 'px-4 py-4',
 				'pr-12',
 				isDisabled && 'cursor-not-allowed opacity-40',

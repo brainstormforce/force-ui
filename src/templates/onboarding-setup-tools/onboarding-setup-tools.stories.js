@@ -95,6 +95,7 @@ const Template = ( args ) => {
 									/>
 								}
 								borderOn
+								borderOnActive={ false }
 								icon={ <PrestoPlayerLogo /> }
 								onChange={ () => {} }
 								buttonWrapperClasses="bg-white border-0"
@@ -117,6 +118,7 @@ const Template = ( args ) => {
 									/>
 								}
 								borderOn
+								borderOnActive={ false }
 								icon={ <PrestoPlayerLogo /> }
 								onChange={ () => {} }
 								buttonWrapperClasses="bg-white border-0"
@@ -139,6 +141,7 @@ const Template = ( args ) => {
 									/>
 								}
 								borderOn
+								borderOnActive={ false }
 								icon={ <PrestoPlayerLogo /> }
 								onChange={ () => {} }
 								buttonWrapperClasses="bg-white border-0"
@@ -161,6 +164,7 @@ const Template = ( args ) => {
 									/>
 								}
 								borderOn
+								borderOnActive={ false }
 								icon={ <PrestoPlayerLogo /> }
 								onChange={ () => {} }
 								buttonWrapperClasses="bg-white border-0"
@@ -183,6 +187,7 @@ const Template = ( args ) => {
 									/>
 								}
 								borderOn
+								borderOnActive={ false }
 								icon={ <PrestoPlayerLogo /> }
 								onChange={ () => {} }
 								buttonWrapperClasses="bg-white border-0"
@@ -205,6 +210,7 @@ const Template = ( args ) => {
 									/>
 								}
 								borderOn
+								borderOnActive={ false }
 								icon={ <PrestoPlayerLogo /> }
 								onChange={ () => {} }
 								buttonWrapperClasses="bg-white border-0"
