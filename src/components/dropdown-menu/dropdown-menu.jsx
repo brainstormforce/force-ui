@@ -164,7 +164,11 @@ const DropdownMenuItem = ( { children, as: Tag = Menu.Item, ...props } ) => {
 	}
 
 	return (
-		<Tag { ...props } onClick={ callAll( props.onClick, handleClose ) }>
+		<Tag
+			{ ...props }
+			className="px-2"
+			onClick={ callAll( props.onClick, handleClose ) }
+		>
 			{ children }
 		</Tag>
 	);

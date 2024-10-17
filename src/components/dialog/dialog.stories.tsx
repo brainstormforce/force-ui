@@ -1,9 +1,9 @@
-import { Meta, StoryFn } from '@storybook/react';
-import React, { useState } from 'react';
+import type { Meta, StoryFn } from '@storybook/react';
+import { useState } from 'react';
 import Dialog from './dialog';
 import Button from '../button';
 
-const meta: Meta = {
+const meta: Meta<typeof Dialog> = {
 	title: 'Organisms/Dialog',
 	component: Dialog,
 	subcomponents: {
@@ -20,7 +20,7 @@ const meta: Meta = {
 		layout: 'fullscreen',
 	},
 	tags: [ 'autodocs' ],
-		decorators: [
+	decorators: [
 		( Story ) => (
 			<div className="font-sans [&_*]:font-sans h-[600px] flex items-center justify-center">
 				<Story />
@@ -29,20 +29,20 @@ const meta: Meta = {
 	],
 	argTypes: {
 		design: {
-			control: {type: 'select'},
-		}
-	}
-} satisfies Meta<typeof Dialog>;
+			control: { type: 'select' },
+		},
+	},
+};
 
 export default meta;
 
 type Story = StoryFn<typeof Dialog>;
 
-const Template: Story = (args ) => {
-	const [open, setOpen] = useState<boolean>(false);
+const Template: Story = ( args ) => {
+	const [ open, setOpen ] = useState<boolean>( false );
 
 	return (
-		<Dialog {...args} open={open} setOpen={setOpen} trigger={args.trigger}>
+		<Dialog { ...args } open={ open } setOpen={ setOpen } trigger={ args.trigger }>
 			<Dialog.Backdrop />
 			<Dialog.Panel>
 				<Dialog.Header>
@@ -59,32 +59,36 @@ const Template: Story = (args ) => {
 					<p className="m-0 text-text-secondary">Body content</p>
 				</Dialog.Body>
 				<Dialog.Footer>
-					<Button onClick={() => setOpen(false)}>Close</Button>
+					<Button onClick={ () => setOpen( false ) }>Close</Button>
 				</Dialog.Footer>
 			</Dialog.Panel>
 		</Dialog>
 	);
 };
 
-export const Default: Story = Template.bind({});
+export const Default: Story = Template.bind( {} );
 Default.args = {
 	trigger: <Button>Open Dialog</Button>,
 	exitOnEsc: true,
 	exitOnClickOutside: false,
 	scrollLock: true,
 	design: 'simple',
-}
+};
 
 const UncontrolledTemplate: Story = () => (
-	<Dialog trigger={(<Button>Open Uncontrolled Dialog</Button>)}>
+	<Dialog trigger={ <Button>Open Uncontrolled Dialog</Button> }>
 		<Dialog.Panel>
 			{ ( { close } ) => (
 				<>
 					<Dialog.Header>
 						<div className="flex items-center justify-between">
 							<Dialog.Title>Dialog Title</Dialog.Title>
-							{/* Custom Close button instead of default with Passes component/tag props. */}
-							<Dialog.CloseButton className='px-2 py-0.5' variant="ghost" as={Button}>
+							{ /* Custom Close button instead of default with Passes component/tag props. */ }
+							<Dialog.CloseButton
+								className="px-2 py-0.5"
+								variant="ghost"
+								as={ Button }
+							>
 								X
 							</Dialog.CloseButton>
 						</div>
@@ -101,29 +105,30 @@ const UncontrolledTemplate: Story = () => (
 							Other option
 						</div>
 						<Button variant="ghost">Details</Button>
-						<Dialog.CloseButton as={Button} variant="outline">
+						<Dialog.CloseButton as={ Button } variant="outline">
 							Cancel
 						</Dialog.CloseButton>
-						<Button onClick={close} variant="primary">Save</Button>
+						<Button onClick={ close } variant="primary">
+							Save
+						</Button>
 					</Dialog.Footer>
 					<Dialog.Backdrop />
 				</>
 			) }
 		</Dialog.Panel>
 	</Dialog>
-)
+);
 
-export const Controlled = Template.bind({});
+export const Controlled = Template.bind( {} );
 Controlled.args = {
 	trigger: <Button>Open Dialog</Button>,
 	exitOnEsc: true,
 	exitOnClickOutside: false,
 	scrollLock: true,
 	design: 'simple',
-}
-
-export const Uncontrolled: Story = UncontrolledTemplate.bind({});
-Uncontrolled.parameters = {
-	docs: { source: {type: 'code'} },
 };
 
+export const Uncontrolled: Story = UncontrolledTemplate.bind( {} );
+Uncontrolled.parameters = {
+	docs: { source: { type: 'code' } },
+};

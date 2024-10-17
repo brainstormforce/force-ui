@@ -9,11 +9,11 @@ const meta: Meta = {
 	parameters: {
 		layout: 'centered',
 	},
-	tags: ['autodocs'],
+	tags: [ 'autodocs' ],
 	argTypes: {
 		variant: {
 			control: 'select',
-			options: ['primary', 'secondary', 'outline', 'ghost', 'link'],
+			options: [ 'primary', 'secondary', 'outline', 'ghost', 'link' ],
 			table: {
 				type: { summary: 'string' },
 				defaultValue: { summary: 'primary' },

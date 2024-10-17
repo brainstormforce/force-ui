@@ -36,9 +36,10 @@ const config: StorybookConfig = {
 				alias: {
 					...config.resolve?.alias,
 					// 👇 Internal modules
-					// "@/components": path.resolve(process.cwd(), "src/components"),
-					// "@/utilities": path.resolve(process.cwd(), "src/utlities"),
-					// "@": path.resolve(process.cwd(), "src"),
+					'@/icons': path.resolve(__dirname, '..', 'src/ui/icons'),
+					'@/utilities': path.resolve(__dirname, '..', 'src/utilities'),
+					'@/components': path.resolve(__dirname, '..', 'src/components'),
+					'@': path.resolve(__dirname, '..', 'src'),
 				},
 			},
 		});

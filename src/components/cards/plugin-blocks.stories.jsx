@@ -1,12 +1,17 @@
 // RadioButtonGroup.stories.jsx
 import React from 'react';
-import RadioButton from '../radio-button-group/radio-button-group';
+import RadioButton from '../radio-button';
 import Container from '../container';
 import Button from '../button';
 import Label from '../label';
 import Badge from '../badge';
-import { Icons } from '@/globals/icons/icons';
 import { ArrowUpRight } from 'lucide-react';
+import {
+	AstraThemeLogo,
+	PrestoPlayerLogo,
+	StartersTemplatesLogo,
+	SureCartLogo,
+} from '@/icons';
 
 export default {
 	title: 'Organisms/Cards/Plugin Blocks',
@@ -29,7 +34,7 @@ const astraRadioButtonGroupData = [
 		id: '1',
 		badgeText: 'Free',
 		buttonText: 'Install',
-		svg: <Icons.AstraThemeSvg />,
+		svg: <AstraThemeLogo />,
 		title: 'Astra Theme',
 		description: 'Free WordPress Page Builder Plugin.',
 	},
@@ -37,7 +42,7 @@ const astraRadioButtonGroupData = [
 		id: '2',
 		badgeText: 'Free',
 		buttonText: 'Activate',
-		svg: <Icons.StartersTemplatesSvg />,
+		svg: <StartersTemplatesLogo />,
 		title: 'Starters Templates',
 		description: 'Build your dream website in minutes with AI.',
 	},
@@ -45,7 +50,7 @@ const astraRadioButtonGroupData = [
 		id: '3',
 		badgeText: 'Free',
 		buttonText: 'Install',
-		svg: <Icons.SureCartSvg />,
+		svg: <SureCartLogo />,
 		title: 'SureCart',
 		description: 'The new way to sell on WordPress.',
 	},
@@ -53,7 +58,7 @@ const astraRadioButtonGroupData = [
 		id: '4',
 		badgeText: 'Free',
 		buttonText: 'Install',
-		svg: <Icons.PrestoPlayerSvg />,
+		svg: <PrestoPlayerLogo />,
 		title: 'Presto Player',
 		description: 'Automate your WordPress setup.',
 	},
@@ -69,7 +74,12 @@ const Template2 = () => {
 			className="w-120 border border-solid rounded-md border-border-subtle p-4"
 		>
 			<Container.Item className="md:w-full lg:w-full">
-				<Container className="p-1" justify="between" gap="xs">
+				<Container
+					className="p-1"
+					justify="between"
+					gap="xs"
+					align="center"
+				>
 					<Container.Item>
 						<Label className="font-semibold">
 							Extend Your Website
@@ -113,6 +123,7 @@ const Template2 = () => {
 											<Badge
 												label={ card.badgeText }
 												icon={ null }
+												size="xxs"
 												variant="green"
 												closable={ false }
 												className="py-0"

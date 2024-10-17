@@ -56,6 +56,16 @@ export default {
 				defaultValue: { summary: false },
 			},
 		},
+		autoSpaceAfterMention: {
+			name: 'autoSpaceAfterMention',
+			description:
+				'Defines if the editor input should add a space after selecting a mention/tag option.',
+			control: 'boolean',
+			table: {
+				type: { summary: 'boolean' },
+				defaultValue: { summary: false },
+			},
+		},
 		onChange: {
 			name: 'On Change',
 			description:
@@ -74,7 +84,7 @@ export default {
 			name: 'Size',
 			description: 'Defines the sizes of the editor input.',
 			control: 'select',
-			options: [ 'sm', 'md', 'lg' ],
+			options: [ 'xs', 'sm', 'md', 'lg' ],
 			table: {
 				type: { summary: 'string' },
 				defaultValue: { summary: 'md' },
@@ -118,10 +128,23 @@ export default {
 				defaultValue: { summary: '' },
 			},
 		},
+		wrapperClassName: {
+			name: 'wrapperClassName',
+			description:
+				'Custom class name to be added to the editor input wrapper.',
+			control: 'text',
+			table: {
+				type: { summary: 'string' },
+				defaultValue: { summary: '' },
+			},
+		},
 	},
 	decorators: [
 		( Story ) => (
-			<div style={ { maxWidth: '900px', height: '200px' } }>
+			<div
+				className="[&_*]:box-border box-border"
+				style={ { maxWidth: '900px', height: '200px' } }
+			>
 				<Story />
 			</div>
 		),
@@ -138,6 +161,16 @@ const options = [
 	'Purple',
 	'Pink',
 ];
+
+export const Default = {
+	args: {
+		size: 'md',
+		autoSpaceAfterMention: false,
+		autoFocus: false,
+		options,
+		onChange: ( editorState ) => editorState.toJSON(),
+	},
+};
 
 // More on writing stories with args: https://storybook.js.org/docs/writing-stories/args
 export const Small = {

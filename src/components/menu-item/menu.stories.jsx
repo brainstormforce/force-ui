@@ -13,9 +13,6 @@ import {
 	Bell,
 } from 'lucide-react';
 
-Menu.displayName = 'Menu';
-Menu.List.displayName = 'Menu.List';
-Menu.Item.displayName = 'Menu.Item';
 export default {
 	title: 'Molecules/Menu',
 	component: Menu,
@@ -52,12 +49,28 @@ export default {
 			description: 'Content inside the Menu Item',
 			control: { type: 'text' },
 		},
+		showArrowOnHover: {
+			name: 'Show Down Arrow on Hover',
+			description:
+				'Controls if the arrow in Menu.List will only show on hover',
+			control: { type: 'boolean' },
+			defaultValue: true,
+			table: {
+				type: { summary: 'boolean' },
+				defaultValue: { summary: true },
+			},
+		},
 	},
 };
 
 const Template = ( args ) => (
-	<Menu size={ args.size }>
-		<Menu.List heading="Store" open={ true } arrow={ true }>
+	<Menu size={ args.size } className="gap-6 min-w-64">
+		<Menu.List
+			heading="Store"
+			open={ true }
+			arrow={ true }
+			showArrowOnHover={ args.showArrowOnHover }
+		>
 			<Menu.Item
 				active={ args.menuItemActive }
 				disabled={ args.menuItemDisabled }
@@ -70,7 +83,12 @@ const Template = ( args ) => (
 				<div>Design & Branding</div>
 			</Menu.Item>
 		</Menu.List>
-		<Menu.List heading="Orders & Sales" open={ true } arrow={ true }>
+		<Menu.List
+			heading="Orders & Sales"
+			open={ true }
+			arrow={ true }
+			showArrowOnHover={ args.showArrowOnHover }
+		>
 			<Menu.Item>
 				<ShoppingBag />
 				<div>Orders & Receipts</div>
@@ -89,7 +107,12 @@ const Template = ( args ) => (
 			</Menu.Item>
 		</Menu.List>
 		<Menu.Separator />
-		<Menu.List heading="Customers" open={ true } arrow={ true }>
+		<Menu.List
+			heading="Customers"
+			open={ true }
+			arrow={ true }
+			showArrowOnHover={ args.showArrowOnHover }
+		>
 			<Menu.Item>
 				<MousePointer />
 				<div>Affiliates</div>
@@ -99,7 +122,12 @@ const Template = ( args ) => (
 				<div>Subscriptions Saver</div>
 			</Menu.Item>
 		</Menu.List>
-		<Menu.List heading="Others" open={ true } arrow={ true }>
+		<Menu.List
+			heading="Others"
+			open={ true }
+			arrow={ true }
+			showArrowOnHover={ args.showArrowOnHover }
+		>
 			<Menu.Item>
 				<Layers />
 				<div>Data Export</div>
@@ -123,4 +151,5 @@ CombinedMenu.args = {
 	menuItemActive: false,
 	menuItemDisabled: false,
 	menuItemContent: 'Store Settings',
+	showArrowOnHover: true,
 };

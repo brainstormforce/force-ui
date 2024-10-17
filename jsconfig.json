@@ -3,10 +3,11 @@
 	  "jsx": "react",
       "baseUrl": "./",
       "paths": {
-        "@/*": ["src/*"],
         "@/components/*": ["src/components/*"],
         "@/components": ["src/components"],
-        "@/utilities/*": ["src/utilities/*"]
+        "@/utilities/*": ["src/utilities/*"],
+        "@/icons": ["src/ui/icons"],
+        "@/*": ["src/*"],
       }
     }
   }

@@ -20,6 +20,7 @@ const defaultTheme = {
 				'background-secondary': '#F3F4F6',
 				'background-inverse': '#111827',
 				'background-brand': '#2563EB',
+				'background-important': '#DC2626',
 				// field
 				'field-primary-background': '#F9FAFB',
 				'field-secondary-background': '#FFFFFF',
@@ -141,6 +142,7 @@ const defaultTheme = {
 				'badge-color-disabled': '#D1D5DB',
 				'badge-hover-disabled': '#F3F4F6',
 				'badge-border-disabled': '#E5E7EB',
+				'badge-background-important': '#DC2626',
 				// alert
 				'alert-background-neutral': '#FFFFFF',
 				'alert-border-neutral': '#E5E7EB',

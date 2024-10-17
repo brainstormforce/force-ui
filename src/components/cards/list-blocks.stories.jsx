@@ -1,10 +1,9 @@
 // RadioButtonGroup.stories.jsx
 import React from 'react';
-import RadioButton from '../radio-button-group/radio-button-group';
+import RadioButton from '../radio-button';
 import Container from '../container';
 import Label from '../label';
 import Badge from '../badge';
-import Button from '../button';
 
 import { Headset, MessageSquare, HelpCircle, Star } from 'lucide-react';
 
@@ -36,6 +35,7 @@ const containerRowButtons = [
 			<Badge
 				label={ 'PRO' }
 				icon={ null }
+				size="xxs"
 				variant="inverse"
 				closable={ false }
 			/>
@@ -93,12 +93,14 @@ const Template3 = () => {
 						>
 							<Container.Item>{ button.icon }</Container.Item>
 							<Container.Item>
-								<Button
-									variant="ghost"
-									className="py-0 font-normal"
+								<a
+									href="#"
+									className="no-underline hover:underline hover:text-field-label"
 								>
-									{ button.label }
-								</Button>
+									<Label className="py-0 px-1 font-normal cursor-pointer">
+										{ button.label }
+									</Label>
+								</a>
 							</Container.Item>
 							<Container.Item>{ button.bagde }</Container.Item>
 						</Container>

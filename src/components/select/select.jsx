@@ -43,6 +43,7 @@ function SelectButton( {
 	optionIcon = null, // Icon to show in the selected option.
 	displayBy = 'name', // Used to display the value. Default is 'name'.
 	label, // Label for the select component.
+	className,
 } ) {
 	const {
 		sizeValue,
@@ -128,6 +129,7 @@ function SelectButton( {
 		return (
 			<span
 				className={ cn(
+					'truncate',
 					sizeClassNames[ sizeValue ].displaySelected,
 					disabledClassNames.text
 				) }
@@ -165,26 +167,29 @@ function SelectButton( {
 
 	return (
 		<div className="flex flex-col items-start gap-1.5 [&_*]:box-border box-border">
-			<label
-				className={ cn(
-					sizeClassNames[ sizeValue ]?.label,
-					'text-field-label'
-				) }
-				htmlFor={ selectId }
-			>
-				{ label }
-			</label>
+			{ !! label && (
+				<label
+					className={ cn(
+						sizeClassNames[ sizeValue ]?.label,
+						'text-field-label'
+					) }
+					htmlFor={ selectId }
+				>
+					{ label }
+				</label>
+			) }
 			<button
 				id={ selectId }
 				ref={ refs.setReference }
 				className={ cn(
-					'flex items-center justify-between border border-solid w-full box-border transition-colors duration-150 bg-white',
-					'border focus-visible:outline-none border-solid border-field-border',
+					'flex items-center justify-between w-full box-border transition-colors duration-150 bg-white',
+					'outline outline-1 outline-field-border border-none',
 					! isOpen &&
-						'focus:ring-2 focus:ring-offset-4 focus:border-focus-border focus:ring-focus [&:hover:not(:focus):not(:disabled)]:border-border-strong',
+						'focus:ring-2 focus:ring-offset-4 focus:outline-focus-border focus:ring-focus [&:hover:not(:focus):not(:disabled)]:outline-border-strong',
 					sizeClassNames[ sizeValue ].selectButton,
 					multiple && sizeClassNames[ sizeValue ].multiSelect,
-					disabledClassNames.selectButton
+					disabledClassNames.selectButton,
+					className
 				) }
 				aria-labelledby="select-label"
 				tabIndex={ 0 }
@@ -194,7 +199,7 @@ function SelectButton( {
 				{ /* Input and selected item container */ }
 				<div
 					className={ cn(
-						'flex-1 grid items-center justify-start gap-1.5 ',
+						'flex-1 grid items-center justify-start gap-1.5 overflow-hidden',
 						getValues() && 'flex flex-wrap'
 					) }
 				>
@@ -205,7 +210,7 @@ function SelectButton( {
 					{ ( multiple ? ! getValues()?.length : ! getValues() ) && (
 						<div
 							className={ cn(
-								'[grid-area:1/1/2/3] text-field-input',
+								'[grid-area:1/1/2/3] text-field-input px-1',
 								sizeClassNames[ sizeValue ].displaySelected,
 								disabledClassNames.text
 							) }
@@ -227,13 +232,14 @@ function SelectButton( {
 		</div>
 	);
 }
-
+SelectButton.displayName = 'Select.Button';
 function SelectOptions( {
 	children,
 	searchBy = 'id', // Used to identify searched value using the key. Default is 'id'.
 	searchPlaceholder = 'Search...', // Placeholder text for search box.
 	dropdownPortalRoot = null, // Root element where the dropdown will be rendered.
 	dropdownPortalId = '', // Id of the dropdown portal where the dropdown will be rendered.
+	className, // Additional class name for the dropdown.
 } ) {
 	const {
 		isOpen,
@@ -349,11 +355,15 @@ function SelectOptions( {
 						<div
 							ref={ refs.setFloating }
 							className={ cn(
-								'box-border [&_*]:box-border w-full bg-white outline-none shadow-lg border border-solid border-border-subtle overflow-hidden',
+								'box-border [&_*]:box-border w-full bg-white outline-none shadow-lg outline outline-1 outline-border-subtle',
 								combobox &&
 									'grid grid-cols-1 grid-rows-[auto_1fr] divide-y divide-x-0 divide-solid divide-border-subtle',
 								sizeClassNames[ sizeValue ].dropdown,
-								! combobox && 'h-full'
+								! combobox && 'h-auto',
+								! combobox
+									? 'overflow-y-auto'
+									: 'overflow-hidden',
+								className
 							) }
 							style={ {
 								...floatingStyles,
@@ -416,8 +426,8 @@ function SelectOptions( {
 		</>
 	);
 }
-
-function SelectItem( { value, selected, children, ...props } ) {
+SelectOptions.displayName = 'Select.Options';
+function SelectItem( { value, selected, children, className, ...props } ) {
 	const {
 		sizeValue,
 		getItemProps,
@@ -434,12 +444,12 @@ function SelectItem( { value, selected, children, ...props } ) {
 
 	const selectItemClassNames = {
 		sm: 'py-1.5 px-2 text-sm font-normal',
-		md: 'p-2 text-base font-normal',
+		md: 'p-2 text-sm font-normal',
 		lg: 'p-2 text-base font-normal',
 	};
 	const selectedIconClassName = {
 		sm: 'size-4',
-		md: 'size-5',
+		md: 'size-4',
 		lg: 'size-5',
 	};
 
@@ -474,9 +484,10 @@ function SelectItem( { value, selected, children, ...props } ) {
 	return (
 		<div
 			className={ cn(
-				'w-full flex items-center justify-between text-text-primary hover:bg-button-tertiary-hover rounded-md transition-all duration-150 cursor-pointer',
+				'w-full flex items-center justify-between text-text-primary hover:bg-button-tertiary-hover rounded-md transition-all duration-150 cursor-pointer focus:outline-none focus-within:outline-none outline-none',
 				selectItemClassNames[ sizeValue ],
-				indx === activeIndex && 'bg-button-tertiary-hover'
+				indx === activeIndex && 'bg-button-tertiary-hover',
+				className
 			) }
 			ref={ ( node ) => {
 				updateListRef( indx, node );
@@ -507,6 +518,7 @@ function SelectItem( { value, selected, children, ...props } ) {
 		</div>
 	);
 }
+SelectItem.displayName = 'Select.Option';
 
 const Select = ( {
 	id,
@@ -699,6 +711,10 @@ const Select = ( {
 		</SelectContext.Provider>
 	);
 };
+
+SelectButton.displayName = 'Select.Button';
+SelectOptions.displayName = 'Select.Options';
+SelectItem.displayName = 'Select.Item';
 
 Select.Button = SelectButton;
 Select.Options = SelectOptions;
