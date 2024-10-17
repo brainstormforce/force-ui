@@ -60,6 +60,9 @@ This folder includes the folowing files:
 3. readme.md file having the documentation for that component
 4. stories.js file having the storybook story for that component
 
+![Folder Structure of a component](https://github.com/user-attachments/assets/82c92c75-853b-4cf0-9301-ce54e26f4021)
+
+
 ## Reporting Issues & Features Requests
 
 If you notice any bugs in the code, see some code that can be improved, or have features you would like to be added, please create a [bug report](https://github.com/brainstormforce/force-ui/issues/new) or a [feature request](https://github.com/brainstormforce/force-ui/issues/new)!
