@@ -1,10 +1,17 @@
-import React, { useState, forwardRef } from 'react';
+import React, { useState } from 'react';
+import { Plus, Minus, ChevronDown } from 'lucide-react';
 import { cn } from '@/utilities/functions';
 
-const Accordion = ({ children, className, defaultValue, type = "simple" }) => {
+const Accordion = ( props ) => {
+    const {
+        type = "simple",
+        defaultValue, 
+        disabled = false,
+        children, 
+        className, 
+    } = props;
     const [activeItem, setActiveItem] = useState(defaultValue);
 
-    // Handler to control the active item
     const handleToggle = (value) => {
         setActiveItem((prev) => (prev === value ? null : value));
     };
@@ -18,13 +25,23 @@ const Accordion = ({ children, className, defaultValue, type = "simple" }) => {
                     isActive: child.props.value === activeItem,
                     onToggle: () => handleToggle(child.props.value),
                     type,
+                    disabled: disabled || child.props.disabled
                 })
             )}
         </div>
     );
 };
 
-const AccordionItem = ({ children, className, isActive, onToggle, type }) => {
+const AccordionItem = ( props ) => {
+    const {
+        isActive, 
+        onToggle, 
+        type, 
+        value, 
+        disabled = false,
+        children, 
+        className, 
+    } = props;
     
     let typeClasses = 'border-0'
     if (type === 'separator') {
@@ -34,42 +51,77 @@ const AccordionItem = ({ children, className, isActive, onToggle, type }) => {
     }
 
     return (
-        <div className={cn("py-4 px-2", typeClasses, className)}>
+        <div className={cn("py-4 px-2", typeClasses, className)} value={value}>
             {React.Children.map(children, (child) =>
-                React.cloneElement(child, { isActive, onToggle })
+                React.cloneElement(child, { isActive, onToggle, disabled })
             )}
         </div>
     );
 };
 
-const AccordionTrigger = ({ children, onToggle, isActive, className, ...props }) => {
+const AccordionTrigger = ( props ) => {
+    const {
+        onToggle, 
+        isActive, 
+        iconType, // arrow, plus-minus
+        disabled = false, 
+        children, 
+        className, 
+    } = props;
+
+    const renderIcon = () => {
+        if (iconType === "arrow") {
+            return (
+                <ChevronDown
+                    className={cn(
+                        "text-icon-secondary transition-transform duration-500 ease-in-out",
+                        isActive ? "rotate-180" : "rotate-0"
+                    )}
+                />
+            );
+        }
+        if (iconType === "plus-minus") {
+            return isActive ? <Minus className='text-icon-secondary' /> : <Plus className='text-icon-secondary' />;
+        }
+        return null;
+    };
+
     return (
-        <div className="flex">
-            <button
-                className={cn(
-                    "flex flex-1 items-center justify-between text-sm font-medium transition-all appearance-none bg-transparent border-0 p-0",
-                    className
-                )}
-                onClick={onToggle}
-                aria-expanded={isActive}
-                {...props}
-            >
+        <button
+            className={cn(
+                "flex w-full items-center justify-between text-sm font-medium transition-all appearance-none bg-transparent border-0 p-0 cursor-pointer gap-3",
+                disabled && "cursor-not-allowed opacity-40",
+                className
+            )}
+            onClick={!disabled ? onToggle : null}
+            aria-expanded={isActive}
+            disabled={disabled}
+            {...props}
+        >
+            <div className="flex items-center gap-2">
                 {children}
-            </button>
-        </div>
+            </div>
+            {renderIcon()}
+        </button>
     );
 };
 
-const AccordionContent = ({ children, isActive, className, ...props }) => {
+const AccordionContent = ( props ) => {
+    const {
+        isActive, 
+        disabled = false, 
+        children, 
+        className, 
+    } = props;
     return (
         <div
             className={cn(
-                "overflow-hidden text-sm transition-[max-height] duration-300 ease-in-out",
-                isActive ? "max-h-screen" : "max-h-0",
+                "text-text-secondary overflow-hidden text-sm transition-[max-height, opacity, transform] duration-500 ease-in-out",
+                isActive ? "max-h-screen opacity-100 scale-y-100" : "max-h-0 opacity-0 scale-y-95",
+                disabled && "opacity-40",
                 className
             )}
             aria-hidden={!isActive}
-            {...props}
         >
             <div className={cn("pt-4", className)}>{children}</div>
         </div>
@@ -81,4 +133,3 @@ export default Object.assign(Accordion, {
     Trigger: AccordionTrigger,
     Content: AccordionContent,
 });
-
