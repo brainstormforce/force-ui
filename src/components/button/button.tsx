@@ -97,6 +97,8 @@ const Button: React.FunctionComponent<ButtonProps> = forwardRef(
 				? {
 						primary:
 							'bg-button-danger hover:bg-button-danger-hover outline-button-danger hover:outline-button-danger-hover',
+						secondary:
+							'bg-button-danger hover:bg-button-danger-hover outline-button-danger hover:outline-button-danger-hover',
 						outline:
 							'text-button-danger outline outline-1 outline-button-danger hover:outline-button-danger bg-button-tertiary hover:bg-field-background-error',
 						ghost: 'text-button-danger hover:bg-field-background-error',
