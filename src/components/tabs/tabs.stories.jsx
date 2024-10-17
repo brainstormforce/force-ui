@@ -1,9 +1,10 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Tabs from './tabs.jsx';
 import { House } from 'lucide-react';
 
 Tabs.Group.displayName = 'Tabs.Group';
 Tabs.Tab.displayName = 'Tabs.Tab';
+
 export default {
 	title: 'Atoms/Tabs',
 	component: Tabs.Group,
@@ -62,29 +63,26 @@ export default {
 				defaultValue: { summary: 'left' },
 			},
 		},
-		defaultValue: {
-			name: 'Default Value',
-			description: 'Default value for Tab (true/false).',
-			control: 'string',
+		activeItem: {
+			name: 'Active Item',
+			description: 'Controls the active tab.',
+			control: 'select',
+			options: [ 'tab1', 'tab2', 'tab3' ],
 			table: {
 				type: { summary: 'string' },
-				defaultValue: { summary: '' },
-			},
-		},
-		className: {
-			name: 'Class Name',
-			description: 'Defines the extra classes',
-			control: 'string',
-			table: {
-				type: { summary: 'string' },
-				defaultValue: { summary: '' },
+				defaultValue: { summary: 'tab1' },
 			},
 		},
 	},
 };
 
 const Template = ( args ) => {
-	const [ activeTab, setActiveTab ] = useState( args.defaultValue || 'tab1' );
+	const [ activeTab, setActiveTab ] = useState( args.activeItem );
+	useEffect( () => {
+		if ( args.activeItem !== activeTab ) {
+			setActiveTab( args.activeItem );
+		}
+	}, [ args.activeItem, activeTab ] );
 
 	const handleTabChange = ( data ) => {
 		const activeSlugName = data?.value?.slug || 'tab1';
@@ -95,9 +93,10 @@ const Template = ( args ) => {
 			}
 		}
 	};
-
+	const tabToShow =
+		activeTab !== args.activeItem ? args.activeItem : activeTab;
 	return (
-		<Tabs.Group { ...args } activeItem={ activeTab } onChange={ handleTabChange }>
+		<Tabs.Group { ...args } activeItem={ tabToShow } onChange={ handleTabChange }>
 			<Tabs.Tab slug="tab1" text="Tab 1" icon={ <House /> } />
 			<Tabs.Tab slug="tab2" text="Tab 2" icon={ <House /> } />
 			<Tabs.Tab slug="tab3" text="Tab 3" icon={ <House /> } />
@@ -112,7 +111,7 @@ Default.args = {
 	orientation: 'horizontal',
 	width: 'auto',
 	iconPosition: 'left',
-	defaultValue: 'tab1',
+	activeItem: 'tab1',
 };
 
 // Basic Tabs Story
@@ -123,7 +122,7 @@ export const Basic = {
 		orientation: 'horizontal',
 		width: 'auto',
 		iconPosition: 'left',
-		defaultValue: 'tab1',
+		activeItem: 'tab1',
 	},
 	render: Template,
 };
@@ -136,7 +135,7 @@ export const Rounded = {
 		orientation: 'horizontal',
 		width: 'auto',
 		iconPosition: 'left',
-		defaultValue: 'tab2',
+		activeItem: 'tab2',
 	},
 	render: Template,
 };
@@ -149,7 +148,7 @@ export const Vertical = {
 		orientation: 'vertical',
 		width: 'full',
 		iconPosition: 'right',
-		defaultValue: 'tab2',
+		activeItem: 'tab2',
 	},
 	render: Template,
 };
@@ -162,7 +161,7 @@ export const WithCustomIcons = {
 		orientation: 'horizontal',
 		width: 'auto',
 		iconPosition: 'right',
-		defaultValue: 'tab3',
+		activeItem: 'tab3',
 	},
 	render: Template,
 };
