@@ -1,0 +1,28 @@
+Version 1.0.0 - 17th October, 2024
+- New - Alert
+- New - Avatar
+- New - Badge
+- New - Button
+- New - Buttom Group
+- New - Cards
+- New - Checkbox
+- New - Datepicker
+- New - Drawer
+- New - Dropdown Menu
+- New - Editor Input
+- New - Input
+- New - Pagination
+- New - Menu Item
+- New - Progress Steps
+- New - Radio Button
+- New - Radio Button Group
+- New - Search
+- New - Select
+- New - Sidebar
+- New - Switch
+- New - Tabs
+- New - Text Area
+- New - Title
+- New - Toaster
+- New - Tooltip
+- New - Topbar
