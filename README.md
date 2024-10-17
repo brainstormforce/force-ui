@@ -2,7 +2,7 @@
 
 Learn how to use @bsf/force-ui components to quickly and easily create elegant and flexible pages using Tailwind CSS.
 
-@bsf/force-ui is working with Tailwind CSS classes and you need to have Tailwind CSS installed on your project - <a href="https://tailwindcss.com/docs/installation/framework-guides?ref=material-tailwind" target="_blank">Tailwind CSS Installation.</a>
+@bsf/force-ui is working with Tailwind CSS classes and you need to have Tailwind CSS installed on your project - <a href="https://tailwindcss.com/docs/installation/framework-guides?ref=bsf-force-ui" target="_blank">Tailwind CSS Installation.</a>
 
 <br />
 
@@ -284,7 +284,7 @@ theme: {
 
 <br />
 
-4. Congratulations 🥳, you did it, now you're ready to use @bsf/force-ui.
+4. Great 🥳, now you're ready to use @bsf/force-ui.
 
 ```jsx
 import { Button } from "@bsf/force-ui";
