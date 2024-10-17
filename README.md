@@ -33,9 +33,9 @@
 
   
 
-3.  **Clone the repositories** for ForceUI and SureRank into the `plugins` folder:
+3.  **Clone  & Setup the library** for Force UI into the `plugins` folder:
 
-- For ForceUI:
+- For Force UI:
 
 ```bash
 
@@ -43,43 +43,11 @@ git clone <forceui-repository-url>
 
 cd forceui
 
-git checkout staging
+npm run build
 
 ```
 
-- For SureRank:
-
-```bash
-
-git clone <surerank-repository-url>
-
-cd surerank
-
-git checkout fui-setup
-
-```
-
-  
-
----
-
-  
-
-## Step 2: Setup ForceUI
-
-  
-
-1.  **Navigate to the ForceUI directory** (if not already there):
-
-```bash
-
-cd force-ui
-
-```
-
-  
-
-2.  **Install dependencies**:
+4.  **Install dependencies**:
 
 ```bash
 
@@ -87,9 +55,7 @@ npm install
 
 ```
 
-  
-
-3.  **Build the project**:
+5.  **Build the project**:
 
 ```bash
 
@@ -99,13 +65,9 @@ npm run build
 
   
 
-4.  **Link the package**:
+---
 
-```bash
-
-npm link
-
-```
+  
 
   
 
