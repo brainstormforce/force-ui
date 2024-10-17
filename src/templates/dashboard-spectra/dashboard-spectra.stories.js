@@ -66,7 +66,7 @@ const defaultRadioButtonGroupData = [
 		bagde: (
 			<Badge
 				label={ 'PRO' }
-				size="xs"
+				size="xxs"
 				icon={ null }
 				variant="inverse"
 				closable={ false }
@@ -86,7 +86,7 @@ const defaultRadioButtonGroupData = [
 		bagde: (
 			<Badge
 				label={ 'PRO' }
-				size="xs"
+				size="xxs"
 				icon={ null }
 				variant="inverse"
 				closable={ false }
@@ -106,7 +106,7 @@ const defaultRadioButtonGroupData = [
 		bagde: (
 			<Badge
 				label={ 'PRO' }
-				size="xs"
+				size="xxs"
 				icon={ null }
 				variant="inverse"
 				closable={ false }
@@ -126,7 +126,7 @@ const defaultRadioButtonGroupData = [
 		bagde: (
 			<Badge
 				label={ 'PRO' }
-				size="xs"
+				size="xxs"
 				icon={ null }
 				variant="inverse"
 				closable={ false }
@@ -196,7 +196,7 @@ const defaultRadioButtonGroupData = [
 		bagde: (
 			<Badge
 				label={ 'New' }
-				size="xs"
+				size="xxs"
 				icon={ null }
 				variant="green"
 				closable={ false }
@@ -226,7 +226,7 @@ const defaultRadioButtonGroupData = [
 		bagde: (
 			<Badge
 				label={ 'Extension' }
-				size="xs"
+				size="xxs"
 				icon={ null }
 				variant="yellow"
 				closable={ false }
@@ -524,6 +524,7 @@ export const SpectraDashboard = () => {
 							<Container.Item className="md:w-full lg:w-full p-1 bg-field-primary-background rounded-lg">
 								<RadioButton.Group
 									as="div"
+									size="sm"
 									defaultValue={ `option-${ defaultRadioButtonGroupData[ 0 ].id }` }
 									multiSelection={ true }
 									onChange={ ( value ) => {
@@ -536,6 +537,7 @@ export const SpectraDashboard = () => {
 											<RadioButton.Button
 												key={ `option-${ option.id }` }
 												borderOn={ true }
+												borderOnActive={ false }
 												value={ option.value }
 												icon={ option.icon }
 												hideSelection={
@@ -704,6 +706,7 @@ export const SpectraDashboard = () => {
 																		card.badgeText
 																	}
 																	icon={ null }
+																	size="xxs"
 																	variant="green"
 																	closable={
 																		false

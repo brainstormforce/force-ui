@@ -9,7 +9,7 @@ import { X } from 'lucide-react';
 const BadgeComponent = ( props, ref ) => {
 	const {
 		label = '',
-		size = 'sm', // xs, sm, md, lg
+		size = 'sm', // xxs, xs, sm, md, lg
 		className = '',
 		type = 'pill', // pill, rounded
 		variant = 'neutral', // neutral, red, yellow, green, blue, inverse

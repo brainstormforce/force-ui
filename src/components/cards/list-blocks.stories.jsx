@@ -35,6 +35,7 @@ const containerRowButtons = [
 			<Badge
 				label={ 'PRO' }
 				icon={ null }
+				size="xxs"
 				variant="inverse"
 				closable={ false }
 			/>

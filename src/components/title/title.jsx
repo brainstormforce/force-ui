@@ -44,20 +44,20 @@ const Title = ( {
 
 	const getDescription = () => {
 		const descriptionClasses = {
-			xs: 'text-base',
-			sm: 'text-lg',
-			md: 'text-xl',
-			lg: 'text-2xl',
+			xs: 'text-sm',
+			sm: 'text-sm',
+			md: 'text-base',
+			lg: 'text-base',
 		};
 		return (
-			<span
+			<p
 				className={ cn(
-					'text-text-secondary font-normal',
+					'text-text-secondary font-normal my-0',
 					descriptionClasses[ size ]
 				) }
 			>
 				{ description }
-			</span>
+			</p>
 		);
 	};
 

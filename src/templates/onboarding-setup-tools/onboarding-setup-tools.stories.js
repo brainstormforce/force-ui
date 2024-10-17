@@ -89,12 +89,13 @@ const Template = ( args ) => {
 								badgeItem={
 									<Badge
 										label="Free"
-										size="xs"
+										size="xxs"
 										variant="green"
 										type="pill"
 									/>
 								}
 								borderOn
+								borderOnActive={ false }
 								icon={ <PrestoPlayerLogo /> }
 								onChange={ () => {} }
 								buttonWrapperClasses="bg-white border-0"
@@ -111,12 +112,13 @@ const Template = ( args ) => {
 								badgeItem={
 									<Badge
 										label="Free"
-										size="xs"
+										size="xxs"
 										variant="green"
 										type="pill"
 									/>
 								}
 								borderOn
+								borderOnActive={ false }
 								icon={ <PrestoPlayerLogo /> }
 								onChange={ () => {} }
 								buttonWrapperClasses="bg-white border-0"
@@ -133,12 +135,13 @@ const Template = ( args ) => {
 								badgeItem={
 									<Badge
 										label="Free"
-										size="xs"
+										size="xxs"
 										variant="green"
 										type="pill"
 									/>
 								}
 								borderOn
+								borderOnActive={ false }
 								icon={ <PrestoPlayerLogo /> }
 								onChange={ () => {} }
 								buttonWrapperClasses="bg-white border-0"
@@ -155,12 +158,13 @@ const Template = ( args ) => {
 								badgeItem={
 									<Badge
 										label="Free"
-										size="xs"
+										size="xxs"
 										variant="green"
 										type="pill"
 									/>
 								}
 								borderOn
+								borderOnActive={ false }
 								icon={ <PrestoPlayerLogo /> }
 								onChange={ () => {} }
 								buttonWrapperClasses="bg-white border-0"
@@ -177,12 +181,13 @@ const Template = ( args ) => {
 								badgeItem={
 									<Badge
 										label="Free"
-										size="xs"
+										size="xxs"
 										variant="green"
 										type="pill"
 									/>
 								}
 								borderOn
+								borderOnActive={ false }
 								icon={ <PrestoPlayerLogo /> }
 								onChange={ () => {} }
 								buttonWrapperClasses="bg-white border-0"
@@ -199,12 +204,13 @@ const Template = ( args ) => {
 								badgeItem={
 									<Badge
 										label="Free"
-										size="xs"
+										size="xxs"
 										variant="green"
 										type="pill"
 									/>
 								}
 								borderOn
+								borderOnActive={ false }
 								icon={ <PrestoPlayerLogo /> }
 								onChange={ () => {} }
 								buttonWrapperClasses="bg-white border-0"
