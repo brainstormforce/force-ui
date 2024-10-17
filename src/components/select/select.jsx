@@ -441,12 +441,12 @@ function SelectItem( { value, selected, children, className, ...props } ) {
 
 	const selectItemClassNames = {
 		sm: 'py-1.5 px-2 text-sm font-normal',
-		md: 'p-2 text-base font-normal',
+		md: 'p-2 text-sm font-normal',
 		lg: 'p-2 text-base font-normal',
 	};
 	const selectedIconClassName = {
 		sm: 'size-4',
-		md: 'size-5',
+		md: 'size-4',
 		lg: 'size-5',
 	};
 
