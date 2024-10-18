@@ -1,4 +1,5 @@
 import React from 'react';
+import { expect, userEvent, within } from '@storybook/test';
 import Select from './select';
 
 Select.displayName = 'Select';
@@ -78,7 +79,7 @@ export const SingleSelect = ( args ) => (
 	<div style={ { width: '300px' } }>
 		<Select { ...args }>
 			<Select.Button label={ args.label } />
-			<Select.Options dropdownPortalId="wpcontent">
+			<Select.Options dropdownPortalId='storybook-root'>
 				{ options.map( ( option ) => (
 					<Select.Option key={ option.id } value={ option }>
 						{ option.name }
@@ -98,13 +99,30 @@ SingleSelect.args = {
 	placeholder: 'Select an option',
 	label: 'Select Color',
 };
+SingleSelect.play = async ( { canvasElement } ) => {
+	const canvas = within( canvasElement );
+	// Click on the select button
+	const selectButton = await canvas.findByRole( 'combobox' );
+	await userEvent.click( selectButton );
+	
+	// Check if the listbox contains the option 'Red'
+	const listBox = await canvas.findByRole( 'listbox' );
+	expect(listBox).toHaveTextContent('Red');
+
+	// Click on the first option
+	const allOptions = await canvas.findAllByRole( 'option' );
+	await userEvent.click( allOptions[ 0 ] );
+
+	// Check if the button text is updated
+	expect( selectButton ).toHaveTextContent( 'Red' );
+}
 
 // Multi-select Story
 export const MultiSelect = ( args ) => (
 	<div style={ { width: '300px' } }>
 		<Select { ...args } multiple>
 			<Select.Button label={ args.label } />
-			<Select.Options dropdownPortalId="wpcontent">
+			<Select.Options dropdownPortalId="storybook-root">
 				{ options.map( ( option ) => (
 					<Select.Option key={ option.id } value={ option }>
 						{ option.name }
@@ -124,6 +142,29 @@ MultiSelect.args = {
 	placeholder: 'Select multiple options',
 	label: 'Select Multiple Colors',
 };
+MultiSelect.play = async ( { canvasElement, ...rest } ) => {
+	console.log( rest, canvasElement );
+	const canvas = within( canvasElement );
+	// Click on the select button
+	const selectButton = await canvas.findByRole( 'combobox' );
+	await userEvent.click( selectButton );
+	
+	// Check if the listbox contains the option 'Red'
+	const listBox = await canvas.findByRole( 'listbox' );
+	expect(listBox).toHaveTextContent('Red');
+
+	// Click on the first option
+	const allOptions = await canvas.findAllByRole( 'option' );
+	await userEvent.click( allOptions[ 0 ] );
+	
+	// Check if the listbox contains the option 'Orange'
+	await userEvent.click( selectButton );
+	const allOptions2 = await canvas.findAllByRole( 'option' );
+	await userEvent.click( allOptions2[ 1 ] );
+
+	// Check if the button text is updated
+	expect( selectButton ).toHaveTextContent( /Red.*Orange/ );
+}
 
 export const SelectWithSearch = ( args ) => (
 	<div style={ { width: '300px' } }>
@@ -131,7 +172,7 @@ export const SelectWithSearch = ( args ) => (
 			<Select.Button label={ args.label } />
 			<Select.Options
 				searchBy="name"
-				dropdownPortalId="wpcontent"
+				dropdownPortalId="storybook-root"
 				searchPlaceholder={ args.placeholder }
 			>
 				{ options.map( ( option ) => (
@@ -153,3 +194,26 @@ SelectWithSearch.args = {
 	placeholder: 'Search...',
 	label: 'Search Color',
 };
+SelectWithSearch.play = async ( { canvasElement } ) => {
+	const canvas = within( canvasElement );
+	// Click on the select button
+	const selectButton = await canvas.findByRole( 'combobox' );
+	await userEvent.click( selectButton );
+	
+	// Check if the listbox contains the option 'Red' and search input
+	const listBox = await canvas.findByRole( 'listbox' );
+	const searchInput = await canvas.findByPlaceholderText( 'Search...' );
+	expect(listBox).toContainElement( searchInput );
+	expect(listBox).toHaveTextContent('Red');
+	
+	// Type 'Pink' in the search input
+	await userEvent.type( searchInput, 'Pink' );
+	expect(listBox).toHaveTextContent('Pink');
+
+	// Click on the first option
+	const allOptions = await canvas.findAllByRole( 'option' );
+	await userEvent.click( allOptions[ 0 ] );
+
+	// Check if the button text is updated
+	expect( selectButton ).toHaveTextContent( 'Pink' );
+}
