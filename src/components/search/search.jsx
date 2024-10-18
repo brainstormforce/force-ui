@@ -1,5 +1,6 @@
 import {
 	useState,
+	useEffect,
 	forwardRef,
 	createContext,
 	useContext,
@@ -75,6 +76,29 @@ const SearchBox = forwardRef(
 			dismiss,
 		] );
 
+		useEffect( () => {
+			const handleKeyDown = ( event ) => {
+				if ( event.key === '/' ) {
+					event.preventDefault();
+
+					if ( refs.reference && refs.reference.current ) {
+						const inputElement =
+							refs.reference.current.querySelector( 'input' );
+
+						if ( inputElement ) {
+							inputElement.focus();
+						}
+					}
+				}
+			};
+
+			window.addEventListener( 'keydown', handleKeyDown );
+
+			return () => {
+				window.removeEventListener( 'keydown', handleKeyDown );
+			};
+		}, [ refs.reference ] );
+
 		return (
 			<SearchContext.Provider
 				value={ {
@@ -144,7 +168,7 @@ const SearchBoxInput = forwardRef(
 
 		return (
 			<div
-				tabIndex={ 0 }
+				// tabIndex={ 0 }
 				ref={ refs.setReference }
 				className={ cn(
 					'w-full group relative flex justify-center items-center gap-1.5 focus-within:z-10 transition-colors ease-in-out duration-150',
