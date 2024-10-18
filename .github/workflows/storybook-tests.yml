@@ -2,7 +2,7 @@ name: 'Storybook Tests'
 on: 
     push:
         branches:
-            - SUR-242-CI
+            - SUR-242
 jobs:
   test:
     timeout-minutes: 60
