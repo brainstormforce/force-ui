@@ -143,6 +143,7 @@ export const Primary = {
 	args: {
 		variant: 'primary',
 		children: 'Button',
+		// Adding role='img' to the icon to check if it is present in the button
 		icon: <Plus role='img' />,
 		iconPosition: 'left',
 	},
