@@ -4,3 +4,7 @@ dist/*
 *storybook.log
 storybook-static/*
 *.zip
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
