@@ -86,7 +86,7 @@ const SearchBox = forwardRef(
 							refs.reference.current.querySelector( 'input' );
 
 						if ( inputElement ) {
-							inputElement.focus(); 
+							inputElement.focus();
 						}
 					}
 				}
@@ -97,7 +97,7 @@ const SearchBox = forwardRef(
 			return () => {
 				window.removeEventListener( 'keydown', handleKeyDown );
 			};
-		}, [ refs.reference ] ); 
+		}, [ refs.reference ] );
 
 		return (
 			<SearchContext.Provider
