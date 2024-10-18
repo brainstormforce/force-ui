@@ -51,7 +51,7 @@ const PaginationItem = forwardRef(
 		return (
 			<li
 				ref={ ref }
-				tabIndex={ 0 }
+				// tabIndex={ 0 }
 				className={ cn( 'flex', disabled && disabledClassNames.general ) }
 			>
 				<PaginationButton
@@ -112,7 +112,7 @@ const PaginationPrevious = ( { icon = <ChevronLeft />, ...props } ) => {
 	const { size, disabled } = usePageContext();
 	return (
 		<li
-			tabIndex={ 0 }
+			// tabIndex={ 0 }
 			className={ cn( 'flex', disabled && disabledClassNames.general ) }
 		>
 			<PaginationButton
@@ -130,7 +130,7 @@ const PaginationNext = ( { icon = <ChevronRight />, ...props } ) => {
 	const { size, disabled } = usePageContext();
 	return (
 		<li
-			tabIndex={ 0 }
+			// tabIndex={ 0 }
 			className={ cn( 'flex', disabled && disabledClassNames.general ) }
 		>
 			<PaginationButton
