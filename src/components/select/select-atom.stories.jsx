@@ -79,7 +79,7 @@ export const SingleSelect = ( args ) => (
 	<div style={ { width: '300px' } }>
 		<Select { ...args }>
 			<Select.Button label={ args.label } />
-			<Select.Options dropdownPortalId='storybook-root'>
+			<Select.Options dropdownPortalId="storybook-root">
 				{ options.map( ( option ) => (
 					<Select.Option key={ option.id } value={ option }>
 						{ option.name }
@@ -104,10 +104,10 @@ SingleSelect.play = async ( { canvasElement } ) => {
 	// Click on the select button
 	const selectButton = await canvas.findByRole( 'combobox' );
 	await userEvent.click( selectButton );
-	
+
 	// Check if the listbox contains the option 'Red'
 	const listBox = await canvas.findByRole( 'listbox' );
-	expect(listBox).toHaveTextContent('Red');
+	expect( listBox ).toHaveTextContent( 'Red' );
 
 	// Click on the first option
 	const allOptions = await canvas.findAllByRole( 'option' );
@@ -115,7 +115,7 @@ SingleSelect.play = async ( { canvasElement } ) => {
 
 	// Check if the button text is updated
 	expect( selectButton ).toHaveTextContent( 'Red' );
-}
+};
 
 // Multi-select Story
 export const MultiSelect = ( args ) => (
@@ -142,21 +142,20 @@ MultiSelect.args = {
 	placeholder: 'Select multiple options',
 	label: 'Select Multiple Colors',
 };
-MultiSelect.play = async ( { canvasElement, ...rest } ) => {
-	console.log( rest, canvasElement );
+MultiSelect.play = async ( { canvasElement } ) => {
 	const canvas = within( canvasElement );
 	// Click on the select button
 	const selectButton = await canvas.findByRole( 'combobox' );
 	await userEvent.click( selectButton );
-	
+
 	// Check if the listbox contains the option 'Red'
 	const listBox = await canvas.findByRole( 'listbox' );
-	expect(listBox).toHaveTextContent('Red');
+	expect( listBox ).toHaveTextContent( 'Red' );
 
 	// Click on the first option
 	const allOptions = await canvas.findAllByRole( 'option' );
 	await userEvent.click( allOptions[ 0 ] );
-	
+
 	// Check if the listbox contains the option 'Orange'
 	await userEvent.click( selectButton );
 	const allOptions2 = await canvas.findAllByRole( 'option' );
@@ -164,7 +163,7 @@ MultiSelect.play = async ( { canvasElement, ...rest } ) => {
 
 	// Check if the button text is updated
 	expect( selectButton ).toHaveTextContent( /Red.*Orange/ );
-}
+};
 
 export const SelectWithSearch = ( args ) => (
 	<div style={ { width: '300px' } }>
@@ -199,16 +198,16 @@ SelectWithSearch.play = async ( { canvasElement } ) => {
 	// Click on the select button
 	const selectButton = await canvas.findByRole( 'combobox' );
 	await userEvent.click( selectButton );
-	
+
 	// Check if the listbox contains the option 'Red' and search input
 	const listBox = await canvas.findByRole( 'listbox' );
 	const searchInput = await canvas.findByPlaceholderText( 'Search...' );
-	expect(listBox).toContainElement( searchInput );
-	expect(listBox).toHaveTextContent('Red');
-	
+	expect( listBox ).toContainElement( searchInput );
+	expect( listBox ).toHaveTextContent( 'Red' );
+
 	// Type 'Pink' in the search input
 	await userEvent.type( searchInput, 'Pink' );
-	expect(listBox).toHaveTextContent('Pink');
+	expect( listBox ).toHaveTextContent( 'Pink' );
 
 	// Click on the first option
 	const allOptions = await canvas.findAllByRole( 'option' );
@@ -216,4 +215,4 @@ SelectWithSearch.play = async ( { canvasElement } ) => {
 
 	// Check if the button text is updated
 	expect( selectButton ).toHaveTextContent( 'Pink' );
-}
+};

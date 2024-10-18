@@ -111,31 +111,31 @@ export default {
 	},
 };
 
-const buttonTest = async({canvasElement}) => {
-	const canvas = within(canvasElement);
+const buttonTest = async ( { canvasElement } ) => {
+	const canvas = within( canvasElement );
 	// Find the button element
-	const button = await canvas.findByRole('button');
+	const button = await canvas.findByRole( 'button' );
 	// Check if the button contains the text 'Button'
-	await expect(button).toHaveTextContent('Button');
+	await expect( button ).toHaveTextContent( 'Button' );
 	// Check if svg tag is present.
-	await expect(button).toContainElement(canvas.getByRole('img'));
-	await userEvent.click(button);
+	await expect( button ).toContainElement( canvas.getByRole( 'img' ) );
+	await userEvent.click( button );
 	// Check if the button is focused
-	await expect(button).toHaveFocus();
-}
+	await expect( button ).toHaveFocus();
+};
 
-const disabledButtonTest = async ({ canvasElement }) => {
-	const canvas = within(canvasElement);
-	const button = await canvas.findByRole('button');
+const disabledButtonTest = async ( { canvasElement } ) => {
+	const canvas = within( canvasElement );
+	const button = await canvas.findByRole( 'button' );
 	// Check if the button contains the text 'Button'
-	await expect(button).toHaveTextContent('Button');
+	await expect( button ).toHaveTextContent( 'Button' );
 	// Check if svg tag is present.
-	await expect(button).toContainElement(canvas.getByRole('img'));
+	await expect( button ).toContainElement( canvas.getByRole( 'img' ) );
 	// Check if the button is disabled and contains the disabled attribute
-	await expect(button).toHaveAttribute('disabled');
-	await userEvent.click(button);
+	await expect( button ).toHaveAttribute( 'disabled' );
+	await userEvent.click( button );
 	// Check if the button is not focused
-	await expect(button).not.toHaveFocus();
+	await expect( button ).not.toHaveFocus();
 };
 
 // More on writing stories with args: https://storybook.js.org/docs/writing-stories/args
@@ -144,10 +144,10 @@ export const Primary = {
 		variant: 'primary',
 		children: 'Button',
 		// Adding role='img' to the icon to check if it is present in the button
-		icon: <Plus role='img' />,
+		icon: <Plus role="img" />,
 		iconPosition: 'left',
 	},
-	play: buttonTest
+	play: buttonTest,
 };
 
 export const Disabled = {
@@ -155,7 +155,7 @@ export const Disabled = {
 		...Primary.args,
 		disabled: true,
 	},
-	play: disabledButtonTest
+	play: disabledButtonTest,
 };
 
 export const Secondary = {
@@ -163,7 +163,7 @@ export const Secondary = {
 		...Primary.args,
 		variant: 'secondary',
 	},
-	play: buttonTest
+	play: buttonTest,
 };
 
 export const Ghost = {
@@ -171,7 +171,7 @@ export const Ghost = {
 		...Primary.args,
 		variant: 'ghost',
 	},
-	play: buttonTest
+	play: buttonTest,
 };
 
 export const Outline = {
@@ -179,7 +179,7 @@ export const Outline = {
 		...Primary.args,
 		variant: 'outline',
 	},
-	play: buttonTest
+	play: buttonTest,
 };
 
 export const Link = {
@@ -187,5 +187,5 @@ export const Link = {
 		...Primary.args,
 		variant: 'link',
 	},
-	play: buttonTest
+	play: buttonTest,
 };
