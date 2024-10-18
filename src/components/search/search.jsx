@@ -1,6 +1,6 @@
 import {
 	useState,
-    useEffect,
+	useEffect,
 	forwardRef,
 	createContext,
 	useContext,
@@ -76,37 +76,33 @@ const SearchBox = forwardRef(
 			dismiss,
 		] );
 
-        // Add useEffect for the `/` key event listener
-        useEffect(() => {
-            const handleKeyDown = (event) => {
-                console.log("Key pressed:", event.key);
+		// Add useEffect for the `/` key event listener
+		useEffect( () => {
+			const handleKeyDown = ( event ) => {
+				if ( event.key === '/' ) {
+					event.preventDefault(); // Prevent default behavior
 
-                if (event.key === '/') {
-                    event.preventDefault(); // Prevent default behavior
+					// Check if the div exists
+					if ( refs.reference && refs.reference.current ) {
+						// Find the input inside the div
+						const inputElement =
+							refs.reference.current.querySelector( 'input' );
 
-                    // Check if the div exists
-                    if (refs.reference && refs.reference.current) {
-                        // Find the input inside the div
-                        const inputElement = refs.reference.current.querySelector('input');
+						if ( inputElement ) {
+							inputElement.focus(); // Focus on the input when `/` is pressed
+						}
+					}
+				}
+			};
 
-                        if (inputElement) {
-                            console.log("Focusing input field");
-                            inputElement.focus(); // Focus on the input when `/` is pressed
-                        } else {
-                            console.log("Input field not found inside the div.");
-                        }
-                    }
-                }
-            };
+			// Attach the event listener for keydown
+			window.addEventListener( 'keydown', handleKeyDown );
 
-            // Attach the event listener for keydown
-            window.addEventListener('keydown', handleKeyDown);
-
-            // Clean up the event listener when the component unmounts
-            return () => {
-                window.removeEventListener('keydown', handleKeyDown);
-            };
-        }, [refs.reference]); // Dependency on refs.reference
+			// Clean up the event listener when the component unmounts
+			return () => {
+				window.removeEventListener( 'keydown', handleKeyDown );
+			};
+		}, [ refs.reference ] ); // Dependency on refs.reference
 
 		return (
 			<SearchContext.Provider
