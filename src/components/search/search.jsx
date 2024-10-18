@@ -1,5 +1,6 @@
 import {
 	useState,
+    useEffect,
 	forwardRef,
 	createContext,
 	useContext,
@@ -75,6 +76,38 @@ const SearchBox = forwardRef(
 			dismiss,
 		] );
 
+        // Add useEffect for the `/` key event listener
+        useEffect(() => {
+            const handleKeyDown = (event) => {
+                console.log("Key pressed:", event.key);
+
+                if (event.key === '/') {
+                    event.preventDefault(); // Prevent default behavior
+
+                    // Check if the div exists
+                    if (refs.reference && refs.reference.current) {
+                        // Find the input inside the div
+                        const inputElement = refs.reference.current.querySelector('input');
+
+                        if (inputElement) {
+                            console.log("Focusing input field");
+                            inputElement.focus(); // Focus on the input when `/` is pressed
+                        } else {
+                            console.log("Input field not found inside the div.");
+                        }
+                    }
+                }
+            };
+
+            // Attach the event listener for keydown
+            window.addEventListener('keydown', handleKeyDown);
+
+            // Clean up the event listener when the component unmounts
+            return () => {
+                window.removeEventListener('keydown', handleKeyDown);
+            };
+        }, [refs.reference]); // Dependency on refs.reference
+
 		return (
 			<SearchContext.Provider
 				value={ {
@@ -144,7 +177,7 @@ const SearchBoxInput = forwardRef(
 
 		return (
 			<div
-				tabIndex={ 0 }
+				// tabIndex={ 0 }
 				ref={ refs.setReference }
 				className={ cn(
 					'w-full group relative flex justify-center items-center gap-1.5 focus-within:z-10 transition-colors ease-in-out duration-150',
