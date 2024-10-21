@@ -23,6 +23,10 @@ An `Accordion` UI component is a vertically stacked list of items, where each it
 - **Default:** `false`
 - **Description:** Disables all accordion items when set to true.
 
+### `children`
+- **Type:** `ReactNode`
+- **Description:** Expects `Accordion.Item` components as children.
+
 ### `className`
 - **Type:** `string`
 - **Description:** Additional custom class names to style the accordion container.
@@ -66,7 +70,7 @@ An `Accordion` UI component is a vertically stacked list of items, where each it
 ### `disabled`
 - **Type:** `boolean`
 - **Default:** `false`
-- **Description:** Disables the specific accordion item when set to true.
+- **Description:** Disables the accordion trigger button when set to true
 
 ### `tag`
 - **Type:** `string`
@@ -99,4 +103,35 @@ An `Accordion` UI component is a vertically stacked list of items, where each it
 ### `className`
 - **Type:** `string`
 - **Description:** Additional custom class names to style the accordion content.
+
+```jsx
+import { Accordion } from '@bsf/force-ui';
+
+const App = () => {
+    return (
+        <Accordion type="simple" defaultValue="item1">
+            <Accordion.Item value="item1">
+                <Accordion.Trigger iconType="arrow">Item 1</Accordion.Trigger>
+                <Accordion.Content>
+                    This is the content for item 1.
+                </Accordion.Content>
+            </Accordion.Item>
+            <Accordion.Item value="item2">
+                <Accordion.Trigger iconType="arrow">Item 2</Accordion.Trigger>
+                <Accordion.Content>
+                    This is the content for item 2.
+                </Accordion.Content>
+            </Accordion.Item>
+            <Accordion.Item value="item3">
+                <Accordion.Trigger iconType="arrow">Item 3</Accordion.Trigger>
+                <Accordion.Content>
+                    This is the content for item 3.
+                </Accordion.Content>
+            </Accordion.Item>
+        </Accordion>
+    );
+};
+
+export default App;
+```
 
