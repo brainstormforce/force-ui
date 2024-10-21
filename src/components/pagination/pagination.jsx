@@ -68,7 +68,6 @@ const PaginationItem = forwardRef(
 PaginationItem.displayName = 'Pagination.Item';
 
 const PaginationButton = ( {
-	icon = null,
 	isActive = false,
 	tag = 'a',
 	children,
@@ -92,14 +91,12 @@ const PaginationButton = ( {
 					'text-button-primary active:text-button-primary bg-brand-background-50',
 				disabled && [
 					disabledClassNames.general,
-					disabledClassNames.icon,
 					disabledClassNames.text,
 					'focus:ring-transparent cursor-not-allowed',
 				],
 				className
 			) }
 			disabled={ disabled }
-			icon={ icon }
 			{ ...props }
 		>
 			{ children }
@@ -107,35 +104,37 @@ const PaginationButton = ( {
 	);
 };
 
-const PaginationPrevious = ( { icon = <ChevronLeft />, ...props } ) => {
+const PaginationPrevious = ( props ) => {
 	const { size, disabled } = usePageContext();
 	return (
 		<li
 			className={ cn( 'flex', disabled && disabledClassNames.general ) }
 		>
 			<PaginationButton
-				icon={ icon }
 				aria-label="Go to previous page"
-				className={ sizeClassNames[ size ].icon }
+                className={cn("[&>span]:flex [&>span]:items-center") }
 				{ ...props }
-			/>
+			>
+                <ChevronLeft  className={cn(sizeClassNames[size].icon)} />
+            </PaginationButton>
 		</li>
 	);
 };
 PaginationPrevious.displayName = 'Pagination.Previous';
 
-const PaginationNext = ( { icon = <ChevronRight />, ...props } ) => {
+const PaginationNext = ( props ) => {
 	const { size, disabled } = usePageContext();
 	return (
 		<li
 			className={ cn( 'flex', disabled && disabledClassNames.general ) }
 		>
 			<PaginationButton
-				icon={ icon }
 				aria-label="Go to next page"
-				className={ sizeClassNames[ size ].icon }
+                className={cn("[&>span]:flex [&>span]:items-center") }
 				{ ...props }
-			/>
+			>
+                <ChevronRight className={cn(sizeClassNames[size].icon)} />
+            </PaginationButton>
 		</li>
 	);
 };
@@ -146,17 +145,17 @@ const PaginationEllipsis = ( props ) => {
 	const { size, disabled } = usePageContext();
 	return (
 		<li
-			tabIndex={ 0 }
 			className={ cn( 'flex', disabled && disabledClassNames.general ) }
 		>
 			<span
 				className={ cn(
+                    "flex justify-center",
 					sizeClassNames[ size ].ellipse,
 					disabled && disabledClassNames.general
 				) }
 				{ ...props }
 			>
-				...
+                •••
 			</span>
 		</li>
 	);

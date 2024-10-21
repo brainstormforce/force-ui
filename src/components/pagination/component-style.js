@@ -1,28 +1,27 @@
 export const sizeClassNames = {
 	xs: {
-		general: 'px-2 text-xs',
-		ellipse: 'px-1.5 text-xs',
-		icon: 'px-1 text-xs',
+		general: 'text-xs min-w-6 h-6',
+		ellipse: 'text-xs min-w-6',
+		icon: 'size-4',
 	},
 	sm: {
-		general: 'px-3 text-xs',
-		ellipse: 'px-2.5 text-xs',
-		icon: 'px-2 text-xs',
+		general: 'text-xs min-w-8 h-8',
+		ellipse: 'text-xs min-w-8',
+		icon: 'size-4',
 	},
 	md: {
-		general: 'px-4 text-sm',
-		ellipse: 'px-2.5 text-sm',
-		icon: 'px-2.5 text-sm',
+		general: 'text-sm min-w-10 h-10',
+		ellipse: 'text-sm min-w-10',
+		icon: 'size-5',
 	},
 	lg: {
-		general: 'px-5 text-base',
-		ellipse: 'px-4 text-base',
-		icon: 'px-3 text-base',
+		general: 'text-base min-w-12 h-12',
+		ellipse: 'text-base min-w-12',
+		icon: 'size-6'
 	},
 };
 
 export const disabledClassNames = {
 	general: 'group disabled:border-field-border-disabled opacity-50',
-	icon: 'group-disabled:text-icon-disabled',
 	text: 'group-disabled:text-field-color-disabled',
 };

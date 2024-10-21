@@ -85,7 +85,6 @@ const Template = ( args ) => {
 					tag={ args.tag }
 					href={ args.href }
 					target={ args.target }
-					icon={ args.icon }
 				/>
 
 				<Pagination.Item
@@ -144,7 +143,6 @@ const Template = ( args ) => {
 					tag={ args.tag }
 					href={ args.href }
 					target={ args.target }
-					icon={ args.icon }
 				/>
 			</Pagination.Content>
 		</Pagination>
