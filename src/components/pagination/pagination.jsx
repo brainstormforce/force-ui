@@ -76,8 +76,8 @@ const PaginationButton = ( {
 } ) => {
 	const { size, disabled } = usePageContext();
 
-    // Set the tag to 'button' when disabled to avoid clickable links
-    const Tag = disabled ? 'button' : tag;
+	// Set the tag to 'button' when disabled to avoid clickable links
+	const Tag = disabled ? 'button' : tag;
 
 	return (
 		<Button
