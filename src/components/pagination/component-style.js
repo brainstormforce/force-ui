@@ -17,7 +17,7 @@ export const sizeClassNames = {
 	lg: {
 		general: 'text-base min-w-12 h-12',
 		ellipse: 'text-base min-w-12',
-		icon: 'size-6'
+		icon: 'size-6',
 	},
 };
 

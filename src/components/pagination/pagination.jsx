@@ -107,16 +107,14 @@ const PaginationButton = ( {
 const PaginationPrevious = ( props ) => {
 	const { size, disabled } = usePageContext();
 	return (
-		<li
-			className={ cn( 'flex', disabled && disabledClassNames.general ) }
-		>
+		<li className={ cn( 'flex', disabled && disabledClassNames.general ) }>
 			<PaginationButton
 				aria-label="Go to previous page"
-                className={cn("[&>span]:flex [&>span]:items-center") }
+				className={ cn( '[&>span]:flex [&>span]:items-center' ) }
 				{ ...props }
 			>
-                <ChevronLeft  className={cn(sizeClassNames[size].icon)} />
-            </PaginationButton>
+				<ChevronLeft className={ cn( sizeClassNames[ size ].icon ) } />
+			</PaginationButton>
 		</li>
 	);
 };
@@ -125,16 +123,14 @@ PaginationPrevious.displayName = 'Pagination.Previous';
 const PaginationNext = ( props ) => {
 	const { size, disabled } = usePageContext();
 	return (
-		<li
-			className={ cn( 'flex', disabled && disabledClassNames.general ) }
-		>
+		<li className={ cn( 'flex', disabled && disabledClassNames.general ) }>
 			<PaginationButton
 				aria-label="Go to next page"
-                className={cn("[&>span]:flex [&>span]:items-center") }
+				className={ cn( '[&>span]:flex [&>span]:items-center' ) }
 				{ ...props }
 			>
-                <ChevronRight className={cn(sizeClassNames[size].icon)} />
-            </PaginationButton>
+				<ChevronRight className={ cn( sizeClassNames[ size ].icon ) } />
+			</PaginationButton>
 		</li>
 	);
 };
@@ -144,18 +140,16 @@ PaginationNext.displayName = 'Pagination.Next';
 const PaginationEllipsis = ( props ) => {
 	const { size, disabled } = usePageContext();
 	return (
-		<li
-			className={ cn( 'flex', disabled && disabledClassNames.general ) }
-		>
+		<li className={ cn( 'flex', disabled && disabledClassNames.general ) }>
 			<span
 				className={ cn(
-                    "flex justify-center",
+					'flex justify-center',
 					sizeClassNames[ size ].ellipse,
 					disabled && disabledClassNames.general
 				) }
 				{ ...props }
 			>
-                •••
+				•••
 			</span>
 		</li>
 	);
