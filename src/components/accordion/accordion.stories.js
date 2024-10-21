@@ -9,7 +9,7 @@ export default {
 	tags: [ 'autodocs' ],
     decorators: [
 		( Story ) => (
-			<div style={ { width: '400px'} }>
+			<div style={ { width: '450px'} }>
 				<Story />
 			</div>
 		),
@@ -56,7 +56,7 @@ const Template = (args) => (
             Accordion Item 3
         </Accordion.Trigger>
         <Accordion.Content>
-            This is the content of the third accordion item, which is disabled.
+            This is the content of the third accordion item, which is disabled. This is the content of the third accordion item, which is disabled accordion item, which is disabled.
         </Accordion.Content>
         </Accordion.Item>
     </Accordion>

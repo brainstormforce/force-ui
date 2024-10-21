@@ -126,7 +126,7 @@ const AccordionContent = (props) => {
     return (
         <div
             className={cn(
-                "text-text-secondary overflow-hidden w-full text-sm transition-[max-height, opacity, transform] duration-500 ease-in-out",
+                "text-text-secondary overflow-hidden w-full text-sm transition-[max-height, opacity, transform] duration-500 ease-in-out box-border",
                 isActive ? "max-h-screen opacity-100 scale-y-100 pb-4 px-2" : "max-h-0 opacity-0 scale-y-95",
                 disabled && "opacity-40",
                 className
