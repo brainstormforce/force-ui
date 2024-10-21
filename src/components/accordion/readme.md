@@ -52,14 +52,6 @@ An `Accordion` UI component is a vertically stacked list of items, where each it
 
 ## `Accordion.Trigger` Props
 
-### `onToggle`
-- **Type:** `function`
-- **Description:** Callback function triggered when the accordion item is toggled open or closed.
-
-### `isActive`
-- **Type:** `boolean`
-- **Description:** Indicates whether the current accordion item is active (expanded).
-
 ### `iconType`
 - **Type:** `string`
 - **Default:** `null`
@@ -86,10 +78,6 @@ An `Accordion` UI component is a vertically stacked list of items, where each it
 - **Description:** Additional custom class names to style the accordion trigger button.
 
 ## `Accordion.Content` Props
-
-### `isActive`
-- **Type:** `boolean`
-- **Description:** Indicates whether the content of the current accordion item is active (expanded).
 
 ### `disabled`
 - **Type:** `boolean`
