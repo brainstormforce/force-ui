@@ -168,7 +168,6 @@ const SearchBoxInput = forwardRef(
 
 		return (
 			<div
-				// tabIndex={ 0 }
 				ref={ refs.setReference }
 				className={ cn(
 					'w-full group relative flex justify-center items-center gap-1.5 focus-within:z-10 transition-colors ease-in-out duration-150',
