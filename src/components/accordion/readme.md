@@ -15,13 +15,18 @@ An `Accordion` UI component is a vertically stacked list of items, where each it
   - `"boxed"`: Adds a border and rounded corners to each item.
 
 ### `defaultValue`
-- **Type:** `string`
-- **Description:** Sets the initial active accordion item. The value should match the value prop of an Accordion.Item.
+- **Type:** `string | []`
+- **Description:** Sets the initial active accordion item(s). The value(s) should match the value prop of an `Accordion.Item`. Accepts a single string or an array for multiple items.
+
+### `autoClose`
+- **Type:** `boolean`
+- **Default:** `false`
+- **Description:** If set to true, only one accordion item can be open at a time. Opening one will close the others.
 
 ### `disabled`
 - **Type:** `boolean`
 - **Default:** `false`
-- **Description:** Disables all accordion items when set to true.
+- **Description:** Disables all accordion items when set to `true`.
 
 ### `children`
 - **Type:** `ReactNode`
@@ -40,7 +45,7 @@ An `Accordion` UI component is a vertically stacked list of items, where each it
 ### `disabled`
 - **Type:** `boolean`
 - **Default:** `false`
-- **Description:** Disables the specific accordion item when set to true.
+- **Description:** Disables the specific accordion item when set to `true`.
 
 ### `children`
 - **Type:** `ReactNode`
@@ -54,7 +59,7 @@ An `Accordion` UI component is a vertically stacked list of items, where each it
 
 ### `iconType`
 - **Type:** `string`
-- **Default:** `null`
+- **Default:** `"arrow`
 - **Description:** Defines the type of icon to display on the trigger button. Options include:
   - `"arrow"`: Displays a chevron arrow that rotates when expanded.
   - `"plus-minus"`: Displays a plus icon when collapsed and a minus icon when expanded.
@@ -62,7 +67,7 @@ An `Accordion` UI component is a vertically stacked list of items, where each it
 ### `disabled`
 - **Type:** `boolean`
 - **Default:** `false`
-- **Description:** Disables the accordion trigger button when set to true
+- **Description:** Disables the accordion trigger button when set to `true`.
 
 ### `tag`
 - **Type:** `string`
@@ -71,18 +76,21 @@ An `Accordion` UI component is a vertically stacked list of items, where each it
 
 ### `children`
 - **Type:** `ReactNode`
-- **Description:** The label or content of the trigger button.
+- **Description:** The label or content of the trigger button. Text will be left-aligned inside the button.
+
+### `onToggle`
+- **Type:** `function`
+- **Description:** Callback function triggered when the accordion item is toggled.
+
+### `isOpen`
+- **Type:** `boolean`
+- **Description:** Indicates whether the accordion item is currently open. Automatically managed by the Accordion component.
 
 ### `className`
 - **Type:** `string`
 - **Description:** Additional custom class names to style the accordion trigger button.
 
 ## `Accordion.Content` Props
-
-### `disabled`
-- **Type:** `boolean`
-- **Default:** `false`
-- **Description:** Disables the accordion content when set to true.
 
 ### `children`
 - **Type:** `ReactNode`

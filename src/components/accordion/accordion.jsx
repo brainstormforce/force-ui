@@ -1,19 +1,27 @@
 import React, { useState } from 'react';
 import { Plus, Minus, ChevronDown } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '@/utilities/functions';
 
 const Accordion = ( props ) => {
 	const {
 		type = 'simple',
-		defaultValue,
+		defaultValue = [],
+        autoClose = false,
 		disabled = false,
 		children,
 		className,
 	} = props;
-	const [ activeItem, setActiveItem ] = useState( defaultValue );
+    const [activeItems, setActiveItems] = useState(Array.isArray(defaultValue) ? defaultValue : [defaultValue]);
 
 	const handleToggle = ( value ) => {
-		setActiveItem( ( prev ) => ( prev === value ? null : value ) );
+        setActiveItems( ( prev ) => {
+            if (autoClose) {
+                return prev.includes(value) ? [] : [value];
+            } else {
+                return prev.includes(value) ? prev.filter((item) => item !== value) : [...prev, value];
+            }
+        } );
 	};
 
 	const typeClasses = type === 'boxed' ? 'space-y-3' : '';
@@ -22,7 +30,7 @@ const Accordion = ( props ) => {
 		<div className={ cn( typeClasses, className ) }>
 			{ React.Children.map( children, ( child ) =>
 				React.cloneElement( child, {
-					isActive: child.props.value === activeItem,
+                    isOpen: activeItems.includes(child.props.value),
 					onToggle: () => handleToggle( child.props.value ),
 					type,
 					disabled: disabled || child.props.disabled,
@@ -36,26 +44,24 @@ Accordion.displayName = 'Accordion';
 
 const AccordionItem = ( props ) => {
 	const {
-		isActive,
+		isOpen,
 		onToggle,
 		type,
-		value,
 		disabled = false,
 		children,
 		className,
 	} = props;
 
-	let typeClasses = 'border-0';
-	if ( type === 'separator' ) {
-		typeClasses = 'border-0 border-b border-solid border-border-subtle';
-	} else if ( type === 'boxed' ) {
-		typeClasses = 'border border-solid border-border-subtle rounded-md';
-	}
+    const typeClasses = {
+        simple: 'border-0',
+        separator: 'border-0 border-b border-solid border-border-subtle',
+        boxed: 'border border-solid border-border-subtle rounded-md'
+    }?.[type];
 
 	return (
-		<div className={ cn( typeClasses, className ) } value={ value }>
+		<div className={ cn( typeClasses, className ) } >
 			{ React.Children.map( children, ( child ) =>
-				React.cloneElement( child, { isActive, onToggle, disabled } )
+				React.cloneElement( child, { isOpen, onToggle, disabled } )
 			) }
 		</div>
 	);
@@ -66,8 +72,8 @@ AccordionItem.displayName = 'Accordion.Item';
 const AccordionTrigger = ( props ) => {
 	const {
 		onToggle,
-		isActive,
-		iconType, // arrow, plus-minus
+		isOpen,
+		iconType = "arrow", // arrow, plus-minus
 		disabled = false,
 		tag = 'h3',
 		children,
@@ -79,18 +85,25 @@ const AccordionTrigger = ( props ) => {
 			return (
 				<ChevronDown
 					className={ cn(
-						'text-icon-secondary transition-transform duration-500 ease-in-out',
-						isActive ? 'rotate-180' : 'rotate-0'
+						'flex-shrink-0 text-icon-secondary transition-transform duration-300 ease-in-out',
+						isOpen ? 'rotate-180' : 'rotate-0'
 					) }
 				/>
 			);
 		}
 		if ( iconType === 'plus-minus' ) {
-			return isActive ? (
-				<Minus className="text-icon-secondary" />
-			) : (
-				<Plus className="text-icon-secondary" />
-			);
+            return (
+                <motion.span
+                    key={isOpen ? 'minus' : 'plus'} 
+                    initial={{ opacity: 0 }}         
+                    animate={{ opacity: 1 }}         
+                    exit={{ opacity: 0 }}           
+                    transition={{ duration: 0.2 }}   
+                    className="flex-shrink-0 text-icon-secondary"
+                >
+                    {isOpen ? <Minus /> : <Plus />}
+                </motion.span>
+            );
 		}
 		return null;
 	};
@@ -104,12 +117,12 @@ const AccordionTrigger = ( props ) => {
 					disabled && 'cursor-not-allowed opacity-40',
 					className
 				) }
-				onClick={ ! disabled ? onToggle : null }
-				aria-expanded={ isActive }
+				onClick={ ! disabled ? onToggle : () => {} }
+				aria-expanded={ isOpen }
 				disabled={ disabled }
 				{ ...props }
 			>
-				<div className="flex items-center gap-2">{ children }</div>
+                <div className="flex items-center gap-2 font-semibold text-left">{ children }</div>
 				{ renderIcon() }
 			</button>
 		</Tag>
@@ -119,21 +132,34 @@ const AccordionTrigger = ( props ) => {
 AccordionTrigger.displayName = 'Accordion.Trigger';
 
 const AccordionContent = ( props ) => {
-	const { isActive, disabled = false, children, className } = props;
+	const { isOpen, disabled = false, children, className } = props;
+
+    const contentVariants = {
+        open: { height: 'auto', opacity: 1 },
+        closed: { height: 0, opacity: 0 },
+    };
+
 	return (
-		<div
-			className={ cn(
-				'text-text-secondary overflow-hidden w-full text-sm transition-[max-height, opacity, transform] duration-500 ease-in-out box-border',
-				isActive
-					? 'max-h-screen opacity-100 scale-y-100 pb-4 px-2'
-					: 'max-h-0 opacity-0 scale-y-95',
-				disabled && 'opacity-40',
-				className
-			) }
-			aria-hidden={ ! isActive }
-		>
-			{ children }
-		</div>
+        <AnimatePresence initial={false}>
+            {isOpen && (
+                <motion.div
+                    key="content"
+                    variants={contentVariants}
+                    initial="closed"
+                    animate="open"
+                    exit="closed"
+                    transition={{ duration: 0.3, ease: 'easeInOut' }}
+                    className={cn(
+                        'overflow-hidden text-text-secondary w-full text-sm transition-[height, opacity, transform] ease-in box-border',
+                        disabled && 'opacity-40',
+                        className
+                    )}
+                    aria-hidden={!isOpen}
+                >
+                    <div className="pb-4 px-2">{children}</div>
+                </motion.div>
+            )}
+        </AnimatePresence>
 	);
 };
 
