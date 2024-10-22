@@ -138,6 +138,44 @@ SingleSelect.args = {
 	label: 'Select Color',
 };
 
+const SelectWithoutPortalTemplate = ( {
+	size,
+	multiple,
+	combobox,
+	disabled,
+	placeholder,
+	label,
+} ) => (
+	<div className="w-full h-[200px]">
+		<Select
+			key={ multiple }
+			size={ size }
+			multiple={ multiple }
+			combobox={ combobox }
+			disabled={ disabled }
+		>
+			<Select.Button label={ label } placeholder={ placeholder } />
+			<Select.Options>
+				{ options.map( ( option ) => (
+					<Select.Option key={ option.id } value={ option }>
+						{ option.name }
+					</Select.Option>
+				) ) }
+			</Select.Options>
+		</Select>
+	</div>
+);
+
+export const SingleSelectWithoutPortal = SelectWithoutPortalTemplate.bind( {} );
+SingleSelectWithoutPortal.args = {
+	size: 'md',
+	multiple: false,
+	combobox: false,
+	disabled: false,
+	placeholder: 'Select an option',
+	label: 'Select Color',
+};
+
 // Multi-select Story
 export const MultiSelect = ( {
 	size,
@@ -169,6 +207,16 @@ export const MultiSelect = ( {
 );
 
 MultiSelect.args = {
+	size: 'md',
+	multiple: true,
+	combobox: false,
+	disabled: false,
+	placeholder: 'Select multiple options',
+	label: 'Select Multiple Colors',
+};
+
+export const MultiSelectWithoutPortal = SelectWithoutPortalTemplate.bind( {} );
+MultiSelectWithoutPortal.args = {
 	size: 'md',
 	multiple: true,
 	combobox: false,
@@ -211,6 +259,19 @@ export const SelectWithSearch = ( {
 );
 
 SelectWithSearch.args = {
+	size: 'md',
+	multiple: false,
+	combobox: true,
+	disabled: false,
+	searchPlaceholder: 'Search...',
+	placeholder: 'Select an option',
+	label: 'Search Color',
+};
+
+export const SelectWithSearchWithoutPortal = SelectWithoutPortalTemplate.bind(
+	{}
+);
+SelectWithSearchWithoutPortal.args = {
 	size: 'md',
 	multiple: false,
 	combobox: true,
