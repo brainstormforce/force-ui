@@ -11,34 +11,34 @@ export default {
 	tags: [ 'autodocs' ],
 	decorators: [
 		( Story ) => (
-			<div className='w-[450px]'>
+			<div className="w-[450px]">
 				<Story />
 			</div>
 		),
 	],
 	argTypes: {
 		type: {
-            description:
-				'Defines the visual style of the accordion.',
+			description: 'Defines the visual style of the accordion.',
 			control: { type: 'select' },
 			options: [ 'simple', 'boxed', 'separator' ],
-            table: {
+			table: {
 				type: { summary: 'string' },
-                defaultValue: { summary: 'simple' },
+				defaultValue: { summary: 'simple' },
 			},
 		},
 		iconType: {
-            description:
+			description:
 				'Defines the type of icon to display on the trigger button.',
 			control: { type: 'select' },
 			options: [ 'arrow', 'plus-minus' ],
-            table: {
+			table: {
 				type: { summary: 'string' },
-                defaultValue: { summary: 'arrow' },
+				defaultValue: { summary: 'arrow' },
 			},
 		},
-        autoClose: {
-			description: 'Controls whether only one accordion item can be open at a time.',
+		autoClose: {
+			description:
+				'Controls whether only one accordion item can be open at a time.',
 			control: 'boolean',
 			table: {
 				type: { summary: 'boolean' },
@@ -46,39 +46,40 @@ export default {
 			},
 		},
 		disabled: {
-            description:
-				'Disables all accordion items when set to true.',
+			description: 'Disables all accordion items when set to true.',
 			control: 'boolean',
-            table: {
+			table: {
 				type: { summary: 'boolean' },
-                defaultValue: { summary: 'false' },
+				defaultValue: { summary: 'false' },
 			},
 		},
-        accordionItemDisabled: {
+		accordionItemDisabled: {
 			name: 'Accordion.Item: disabled',
 			description:
 				'Disables the specific accordion item when set to `true`. (This will apply to "2nd" accordion item only for demo)',
 			control: 'boolean',
-            table: {
+			table: {
 				type: { summary: 'boolean' },
-                defaultValue: { summary: 'false' },
+				defaultValue: { summary: 'false' },
 			},
 		},
 		defaultValue: {
-            description:
+			description:
 				'Sets the initial active accordion item. The value should match the value prop of an Accordion.Item.',
 			control: 'text',
 		},
-        className: {
-			description: 'Optional class to apply custom styles to the accordion wrapper.',
+		className: {
+			description:
+				'Optional class to apply custom styles to the accordion wrapper.',
 			control: 'text',
 			table: {
 				type: { summary: 'string' },
 			},
 		},
-        accordionItemclassName: {
-            name: 'Accordion.Item: className',
-			description: 'Optional class to apply custom styles to the accordion item. (This will apply to "3rd" accordion item only for demo)',
+		accordionItemclassName: {
+			name: 'Accordion.Item: className',
+			description:
+				'Optional class to apply custom styles to the accordion item. (This will apply to "3rd" accordion item only for demo)',
 			control: 'text',
 			table: {
 				type: { summary: 'string' },
@@ -88,35 +89,42 @@ export default {
 };
 
 const Template = ( args ) => (
-	<Accordion { ...args } className={args.className}>
+	<Accordion { ...args } className={ args.className }>
 		<Accordion.Item value="item1">
 			<Accordion.Trigger iconType={ args.iconType }>
-                <Settings className='flex-shrink-0'/>
+				<Settings className="flex-shrink-0" />
 				Accordion Item
-                <Badge label={ 'Badge' } size="xs" variant="neutral" />
+				<Badge label={ 'Badge' } size="xs" variant="neutral" />
 			</Accordion.Trigger>
 			<Accordion.Content>
-				Yes, Force Ui is an open-source project and is copyright 2022 Htmlstream.
+				Yes, Force Ui is an open-source project and is copyright 2022
+				Htmlstream.
 			</Accordion.Content>
 		</Accordion.Item>
-		<Accordion.Item value="item2" disabled={args.accordionItemDisabled} >
+		<Accordion.Item value="item2" disabled={ args.accordionItemDisabled }>
 			<Accordion.Trigger iconType={ args.iconType }>
 				<Settings />
-				Accordion Item 
-                <Badge label={ 'Badge' } size="xs" variant="neutral" />
+				Accordion Item
+				<Badge label={ 'Badge' } size="xs" variant="neutral" />
 			</Accordion.Trigger>
 			<Accordion.Content>
-				Yes, Force Ui is an open-source project and is copyright 2022 Htmlstream.
+				Yes, Force Ui is an open-source project and is copyright 2022
+				Htmlstream.
 			</Accordion.Content>
 		</Accordion.Item>
-		<Accordion.Item value="item3" disabled={ args.disabled } className={args.accordionItemclassName}>
+		<Accordion.Item
+			value="item3"
+			disabled={ args.disabled }
+			className={ args.accordionItemclassName }
+		>
 			<Accordion.Trigger iconType={ args.iconType }>
 				<Settings />
-				Accordion Item 
-                <Badge label={ 'Badge' } size="xs" variant="neutral" />
+				Accordion Item
+				<Badge label={ 'Badge' } size="xs" variant="neutral" />
 			</Accordion.Trigger>
 			<Accordion.Content>
-				Yes, Force Ui is an open-source project and is copyright 2022 Htmlstream.
+				Yes, Force Ui is an open-source project and is copyright 2022
+				Htmlstream.
 			</Accordion.Content>
 		</Accordion.Item>
 	</Accordion>
@@ -124,36 +132,36 @@ const Template = ( args ) => (
 
 export const SimpleAccordion = Template.bind( {} );
 SimpleAccordion.args = {
-    autoClose: false,
+	autoClose: false,
 	type: 'simple',
 	iconType: 'arrow',
 	defaultValue: 'item1',
 	disabled: false,
-    className: '',
+	className: '',
 };
 
 SimpleAccordion.storyName = 'Simple Accordion with Arrow Icon';
 
 export const BoxedAccordion = Template.bind( {} );
 BoxedAccordion.args = {
-    autoClose: true,
+	autoClose: true,
 	type: 'boxed',
 	iconType: 'plus-minus',
 	defaultValue: 'item2',
 	disabled: false,
-    className: '',
+	className: '',
 };
 
 BoxedAccordion.storyName = 'Boxed Accordion with Plus Icon';
 
 export const SeparatorAccordion = Template.bind( {} );
 SeparatorAccordion.args = {
-    autoClose: true,
+	autoClose: true,
 	type: 'separator',
 	iconType: 'arrow',
 	defaultValue: 'item3',
 	disabled: false,
-    className: '',
+	className: '',
 };
 
 SeparatorAccordion.storyName = 'Separator Accordion with Arrow Icon';
