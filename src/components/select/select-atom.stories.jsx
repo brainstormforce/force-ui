@@ -28,63 +28,103 @@ export default {
 			control: { type: 'radio' },
 			options: [ 'sm', 'md', 'lg' ],
 			description: 'Defines the size of the Select component.',
-			defaultValue: 'md',
+			table: {
+				type: { summary: 'string' },
+				defaultValue: { summary: 'md' },
+			},
 		},
 		multiple: {
 			control: { type: 'boolean' },
 			description: 'If true, multiple options can be selected.',
-			defaultValue: false,
+			table: {
+				type: { summary: 'boolean' },
+				defaultValue: { summary: 'false' },
+			},
 		},
 		combobox: {
 			control: { type: 'boolean' },
 			description: 'If true, it will enable search functionality.',
-			defaultValue: false,
+			table: {
+				type: { summary: 'boolean' },
+				defaultValue: { summary: 'false' },
+			},
 		},
 		disabled: {
 			control: { type: 'boolean' },
 			description: 'If true, disables the Select component.',
-			defaultValue: false,
+			table: {
+				type: { summary: 'boolean' },
+				defaultValue: { summary: 'false' },
+			},
 		},
 		onChange: {
 			action: 'onChange',
 			description: 'Callback function when the selection changes.',
+			table: {
+				type: { summary: 'function' },
+			},
 		},
 		value: {
 			control: { type: 'text' },
 			description: 'Controlled value for the select component.',
-			defaultValue: undefined,
+			table: {
+				type: { summary: 'string' },
+			},
 		},
 		defaultValue: {
 			control: { type: 'text' },
 			description:
 				'Default value for the select (for uncontrolled component).',
-			defaultValue: undefined,
+			table: {
+				type: { summary: 'string' },
+			},
 		},
 		placeholder: {
 			control: { type: 'text' },
 			description: 'Placeholder text when no option is selected.',
-			defaultValue: 'Select an option',
+			table: {
+				type: { summary: 'string' },
+				defaultValue: { summary: 'Select an option' },
+			},
 		},
 		label: {
 			control: { type: 'text' },
 			description: 'Label for the Select component.',
-			defaultValue: 'Select Color',
+			table: {
+				type: { summary: 'string' },
+				defaultValue: { summary: '' },
+			},
 		},
 	},
 };
 
 // Single Select Story
-export const SingleSelect = ( args ) => (
+export const SingleSelect = ( {
+	size,
+	multiple,
+	combobox,
+	disabled,
+	placeholder,
+	label,
+} ) => (
 	<div style={ { width: '300px' } }>
-		<Select { ...args }>
-			<Select.Button label={ args.label } />
-			<Select.Options dropdownPortalId="wpcontent">
-				{ options.map( ( option ) => (
-					<Select.Option key={ option.id } value={ option }>
-						{ option.name }
-					</Select.Option>
-				) ) }
-			</Select.Options>
+		<Select
+			key={ multiple }
+			size={ size }
+			multiple={ multiple }
+			combobox={ combobox }
+			disabled={ disabled }
+		>
+			<Select.Button label={ label } placeholder={ placeholder } />
+			<Select.Portal>
+				<Select.Options>
+					{ options.map( ( option ) => (
+						<Select.Option key={ option.id } value={ option }>
+							{ option.name }
+						</Select.Option>
+					) ) }
+				</Select.Options>
+			</Select.Portal>
 		</Select>
 	</div>
 );
@@ -94,23 +134,36 @@ SingleSelect.args = {
 	multiple: false,
 	combobox: false,
 	disabled: false,
-	defaultValue: undefined,
 	placeholder: 'Select an option',
 	label: 'Select Color',
 };
 
 // Multi-select Story
-export const MultiSelect = ( args ) => (
+export const MultiSelect = ( {
+	size,
+	multiple,
+	combobox,
+	disabled,
+	placeholder,
+	label,
+} ) => (
 	<div style={ { width: '300px' } }>
-		<Select { ...args } multiple>
-			<Select.Button label={ args.label } />
-			<Select.Options dropdownPortalId="wpcontent">
-				{ options.map( ( option ) => (
-					<Select.Option key={ option.id } value={ option }>
-						{ option.name }
-					</Select.Option>
-				) ) }
-			</Select.Options>
+		<Select
+			size={ size }
+			multiple={ multiple }
+			combobox={ combobox }
+			disabled={ disabled }
+		>
+			<Select.Button placeholder={ placeholder } label={ label } />
+			<Select.Portal>
+				<Select.Options>
+					{ options.map( ( option ) => (
+						<Select.Option key={ option.id } value={ option }>
+							{ option.name }
+						</Select.Option>
+					) ) }
+				</Select.Options>
+			</Select.Portal>
 		</Select>
 	</div>
 );
@@ -120,26 +173,39 @@ MultiSelect.args = {
 	multiple: true,
 	combobox: false,
 	disabled: false,
-	defaultValue: undefined,
 	placeholder: 'Select multiple options',
 	label: 'Select Multiple Colors',
 };
 
-export const SelectWithSearch = ( args ) => (
+export const SelectWithSearch = ( {
+	size,
+	multiple,
+	combobox,
+	disabled,
+	placeholder,
+	searchPlaceholder,
+	label,
+} ) => (
 	<div style={ { width: '300px' } }>
-		<Select { ...args } combobox>
-			<Select.Button label={ args.label } />
-			<Select.Options
-				searchBy="name"
-				dropdownPortalId="wpcontent"
-				searchPlaceholder={ args.placeholder }
-			>
-				{ options.map( ( option ) => (
-					<Select.Option key={ option.id } value={ option }>
-						{ option.name }
-					</Select.Option>
-				) ) }
-			</Select.Options>
+		<Select
+			size={ size }
+			multiple={ multiple }
+			combobox={ combobox }
+			disabled={ disabled }
+		>
+			<Select.Button label={ label } placeholder={ placeholder } />
+			<Select.Portal>
+				<Select.Options
+					searchBy="name"
+					searchPlaceholder={ searchPlaceholder }
+				>
+					{ options.map( ( option ) => (
+						<Select.Option key={ option.id } value={ option }>
+							{ option.name }
+						</Select.Option>
+					) ) }
+				</Select.Options>
+			</Select.Portal>
 		</Select>
 	</div>
 );
@@ -149,7 +215,7 @@ SelectWithSearch.args = {
 	multiple: false,
 	combobox: true,
 	disabled: false,
-	defaultValue: undefined,
-	placeholder: 'Search...',
+	searchPlaceholder: 'Search...',
+	placeholder: 'Select an option',
 	label: 'Search Color',
 };
