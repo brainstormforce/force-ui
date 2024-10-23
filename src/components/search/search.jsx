@@ -77,14 +77,14 @@ const SearchBox = forwardRef(
 		] );
 
 		useEffect( () => {
-            const operatingSystem = getOperatingSystem();
+			const operatingSystem = getOperatingSystem();
 
 			const handleKeyDown = ( event ) => {
-                const isMac = operatingSystem === 'Mac OS';
-                const metaOrCtrlKey = isMac ? event.metaKey : event.ctrlKey;
+				const isMac = operatingSystem === 'Mac OS';
+				const metaOrCtrlKey = isMac ? event.metaKey : event.ctrlKey;
 
 				// Check if the Meta (command/windows) key and '/' are pressed together
-                if (event.key === '/' && metaOrCtrlKey ) {
+				if ( event.key === '/' && metaOrCtrlKey ) {
 					event.preventDefault();
 
 					if ( refs.reference && refs.reference.current ) {

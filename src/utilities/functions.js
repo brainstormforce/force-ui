@@ -52,17 +52,23 @@ export const columnClasses = {
 };
 
 export const getOperatingSystem = () => {
-	const platform = window.navigator?.userAgentData?.platform || window.navigator.platform;
-	const macosPlatforms = ['macOS', 'Macintosh', 'MacIntel', 'MacPPC', 'Mac68K'];
-	const windowsPlatforms = ['Win32', 'Win64', 'Windows', 'WinCE'];
-  
+	const platform =
+		window.navigator?.userAgentData?.platform || window.navigator.platform;
+	const macosPlatforms = [
+		'macOS',
+		'Macintosh',
+		'MacIntel',
+		'MacPPC',
+		'Mac68K',
+	];
+	const windowsPlatforms = [ 'Win32', 'Win64', 'Windows', 'WinCE' ];
+
 	let operatingSystem = 'null';
-  
-	if (macosPlatforms.includes(platform)) {
+
+	if ( macosPlatforms.includes( platform ) ) {
 		operatingSystem = 'Mac OS';
-	} else if (windowsPlatforms.includes(platform)) {
+	} else if ( windowsPlatforms.includes( platform ) ) {
 		operatingSystem = 'Windows';
 	}
 	return operatingSystem;
-}
-
+};
