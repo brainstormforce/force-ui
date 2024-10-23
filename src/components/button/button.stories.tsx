@@ -13,32 +13,15 @@ const meta: Meta = {
 	argTypes: {
 		variant: {
 			control: 'select',
-			options: [ 'primary', 'secondary', 'outline', 'ghost', 'link' ],
-			table: {
-				type: { summary: 'string' },
-				defaultValue: { summary: 'primary' },
-			},
 		},
 		size: {
 			control: 'select',
-			table: {
-				type: { summary: 'string' },
-				defaultValue: { summary: 'md' },
-			},
 		},
 		type: {
 			control: 'select',
-			table: {
-				type: { summary: 'string' },
-				defaultValue: { summary: 'button' },
-			},
 		},
 		iconPosition: {
 			control: 'select',
-			table: {
-				type: { summary: 'string' },
-				defaultValue: { summary: 'left' },
-			},
 		},
 	},
 } satisfies Meta<typeof Button>;
