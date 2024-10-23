@@ -1,5 +1,5 @@
 import { createContext, useContext, forwardRef } from 'react';
-import { cn } from '@/utilities/functions';
+import { cn, callAll } from '@/utilities/functions';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { disabledClassNames, sizeClassNames } from './component-style';
 import Button from '../button';
@@ -76,12 +76,11 @@ const PaginationButton = ( {
 } ) => {
 	const { size, disabled } = usePageContext();
 
-	// Set the tag to 'button' when disabled to avoid clickable links
-	const Tag = disabled ? 'button' : tag;
+    const handleClick = (event) => event.preventDefault();
 
 	return (
 		<Button
-			tag={ Tag }
+			tag={ tag }
 			size={ size }
 			variant={ 'ghost' }
 			className={ cn(
@@ -101,6 +100,7 @@ const PaginationButton = ( {
 			) }
 			disabled={ disabled }
 			{ ...props }
+            onClick={ callAll(props.onClick, disabled ? handleClick : null)}
 		>
 			{ children }
 		</Button>
