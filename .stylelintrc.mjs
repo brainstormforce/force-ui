@@ -1,7 +1,5 @@
 export default {
-	extends: [
-		'@wordpress/stylelint-config',
-	],
+	extends: ['@wordpress/stylelint-config'],
 	rules: {
 		'font-family-name-quotes': 'always-where-recommended',
 		'function-url-quotes': 'always',
@@ -22,8 +20,8 @@ export default {
 				ignore: ['after-comment'],
 			},
 		],
-		"block-no-empty": true,
-		"no-empty-source": true,
+		'block-no-empty': true,
+		'no-empty-source': true,
 		'declaration-empty-line-before': [
 			'always',
 			{
