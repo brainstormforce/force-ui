@@ -7,7 +7,7 @@ import {
 	Children,
 	cloneElement,
 } from 'react';
-import { cn } from '@/utilities/functions';
+import { cn, getOperatingSystem } from '@/utilities/functions';
 import { Search } from 'lucide-react';
 import Loader from '../loader';
 import Badge from '../badge';
@@ -77,9 +77,14 @@ const SearchBox = forwardRef(
 		] );
 
 		useEffect( () => {
+            const operatingSystem = getOperatingSystem();
+
 			const handleKeyDown = ( event ) => {
+                const isMac = operatingSystem === 'Mac OS';
+                const metaOrCtrlKey = isMac ? event.metaKey : event.ctrlKey;
+
 				// Check if the Meta (command/windows) key and '/' are pressed together
-				if ( event.key === '/' && ( event.metaKey || event.ctrlKey ) ) {
+                if (event.key === '/' && metaOrCtrlKey ) {
 					event.preventDefault();
 
 					if ( refs.reference && refs.reference.current ) {
