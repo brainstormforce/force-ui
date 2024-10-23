@@ -53,8 +53,8 @@ export default {
 				defaultValue: { summary: 'false' },
 			},
 		},
-		accordionItemDisabled: {
-			name: 'Accordion.Item: disabled',
+		itemDisabled: {
+			name: 'disabled',
 			description:
 				'Disables the specific accordion item when set to `true`. (This will apply to "2nd" accordion item only for demo)',
 			control: 'boolean',
@@ -92,24 +92,68 @@ const Template = ( args ) => (
 	<Accordion { ...args } className={ args.className }>
 		<Accordion.Item value="item1">
 			<Accordion.Trigger iconType={ args.iconType }>
+				Accordion Item
+			</Accordion.Trigger>
+			<Accordion.Content>
+				Yes, Force Ui is an open-source project and is copyright 2022 Htmlstream.
+			</Accordion.Content>
+		</Accordion.Item>
+		<Accordion.Item value="item2" disabled={ args.itemDisabled }>
+			<Accordion.Trigger iconType={ args.iconType }>
+				Accordion Item
+			</Accordion.Trigger>
+			<Accordion.Content>
+				Yes, Force Ui is an open-source project and is copyright 2022 Htmlstream.
+			</Accordion.Content>
+		</Accordion.Item>
+		<Accordion.Item
+			value="item3"
+			disabled={ args.disabled }
+			className={ args.accordionItemclassName }
+		>
+			<Accordion.Trigger iconType={ args.iconType }>
+				Accordion Item
+			</Accordion.Trigger>
+			<Accordion.Content>
+				Yes, Force Ui is an open-source project and is copyright 2022 Htmlstream.
+			</Accordion.Content>
+		</Accordion.Item>
+	</Accordion>
+);
+
+// Basic Accordion without icons or badges
+export const BasicAccordion = Template.bind( {} );
+BasicAccordion.args = {
+	autoClose: false,
+	type: 'simple',
+	iconType: 'arrow',
+	defaultValue: 'item1',
+	disabled: false,
+	className: '',
+};
+
+BasicAccordion.storyName = 'Basic Accordion';
+
+const TemplateWithIcons = ( args ) => (
+	<Accordion { ...args } className={ args.className }>
+		<Accordion.Item value="item1">
+			<Accordion.Trigger iconType={ args.iconType }>
 				<Settings className="flex-shrink-0" />
 				Accordion Item
 				<Badge label={ 'Badge' } size="xs" variant="neutral" />
 			</Accordion.Trigger>
 			<Accordion.Content>
-				Yes, Force Ui is an open-source project and is copyright 2022
-				Htmlstream.
+				Yes, Force Ui is an open-source project and is copyright 2022 Htmlstream.
 			</Accordion.Content>
 		</Accordion.Item>
-		<Accordion.Item value="item2" disabled={ args.accordionItemDisabled }>
+		<Accordion.Item value="item2" disabled={ args.itemDisabled }>
 			<Accordion.Trigger iconType={ args.iconType }>
 				<Settings />
 				Accordion Item
 				<Badge label={ 'Badge' } size="xs" variant="neutral" />
 			</Accordion.Trigger>
 			<Accordion.Content>
-				Yes, Force Ui is an open-source project and is copyright 2022
-				Htmlstream.
+				Yes, Force Ui is an open-source project and is copyright 2022 Htmlstream.
 			</Accordion.Content>
 		</Accordion.Item>
 		<Accordion.Item
@@ -123,14 +167,13 @@ const Template = ( args ) => (
 				<Badge label={ 'Badge' } size="xs" variant="neutral" />
 			</Accordion.Trigger>
 			<Accordion.Content>
-				Yes, Force Ui is an open-source project and is copyright 2022
-				Htmlstream.
+				Yes, Force Ui is an open-source project and is copyright 2022 Htmlstream.
 			</Accordion.Content>
 		</Accordion.Item>
 	</Accordion>
 );
 
-export const SimpleAccordion = Template.bind( {} );
+export const SimpleAccordion = TemplateWithIcons.bind( {} );
 SimpleAccordion.args = {
 	autoClose: false,
 	type: 'simple',
@@ -142,7 +185,7 @@ SimpleAccordion.args = {
 
 SimpleAccordion.storyName = 'Simple Accordion with Arrow Icon';
 
-export const BoxedAccordion = Template.bind( {} );
+export const BoxedAccordion = TemplateWithIcons.bind( {} );
 BoxedAccordion.args = {
 	autoClose: true,
 	type: 'boxed',
@@ -154,7 +197,7 @@ BoxedAccordion.args = {
 
 BoxedAccordion.storyName = 'Boxed Accordion with Plus Icon';
 
-export const SeparatorAccordion = Template.bind( {} );
+export const SeparatorAccordion = TemplateWithIcons.bind( {} );
 SeparatorAccordion.args = {
 	autoClose: true,
 	type: 'separator',
@@ -165,3 +208,82 @@ SeparatorAccordion.args = {
 };
 
 SeparatorAccordion.storyName = 'Separator Accordion with Arrow Icon';
+
+
+// const Template = ( args ) => (
+// 	<Accordion { ...args } className={ args.className }>
+// 		<Accordion.Item value="item1">
+// 			<Accordion.Trigger iconType={ args.iconType }>
+// 				<Settings className="flex-shrink-0" />
+// 				Accordion Item
+// 				<Badge label={ 'Badge' } size="xs" variant="neutral" />
+// 			</Accordion.Trigger>
+// 			<Accordion.Content>
+// 				Yes, Force Ui is an open-source project and is copyright 2022
+// 				Htmlstream.
+// 			</Accordion.Content>
+// 		</Accordion.Item>
+// 		<Accordion.Item value="item2" disabled={ args.itemDisabled }>
+// 			<Accordion.Trigger iconType={ args.iconType }>
+// 				<Settings />
+// 				Accordion Item
+// 				<Badge label={ 'Badge' } size="xs" variant="neutral" />
+// 			</Accordion.Trigger>
+// 			<Accordion.Content>
+// 				Yes, Force Ui is an open-source project and is copyright 2022
+// 				Htmlstream.
+// 			</Accordion.Content>
+// 		</Accordion.Item>
+// 		<Accordion.Item
+// 			value="item3"
+// 			disabled={ args.disabled }
+// 			className={ args.accordionItemclassName }
+// 		>
+// 			<Accordion.Trigger iconType={ args.iconType }>
+// 				<Settings />
+// 				Accordion Item
+// 				<Badge label={ 'Badge' } size="xs" variant="neutral" />
+// 			</Accordion.Trigger>
+// 			<Accordion.Content>
+// 				Yes, Force Ui is an open-source project and is copyright 2022
+// 				Htmlstream.
+// 			</Accordion.Content>
+// 		</Accordion.Item>
+// 	</Accordion>
+// );
+
+// export const SimpleAccordion = Template.bind( {} );
+// SimpleAccordion.args = {
+// 	autoClose: false,
+// 	type: 'simple',
+// 	iconType: 'arrow',
+// 	defaultValue: 'item1',
+// 	disabled: false,
+// 	className: '',
+// };
+
+// SimpleAccordion.storyName = 'Simple Accordion with Arrow Icon';
+
+// export const BoxedAccordion = Template.bind( {} );
+// BoxedAccordion.args = {
+// 	autoClose: true,
+// 	type: 'boxed',
+// 	iconType: 'plus-minus',
+// 	defaultValue: 'item2',
+// 	disabled: false,
+// 	className: '',
+// };
+
+// BoxedAccordion.storyName = 'Boxed Accordion with Plus Icon';
+
+// export const SeparatorAccordion = Template.bind( {} );
+// SeparatorAccordion.args = {
+// 	autoClose: true,
+// 	type: 'separator',
+// 	iconType: 'arrow',
+// 	defaultValue: 'item3',
+// 	disabled: false,
+// 	className: '',
+// };
+
+// SeparatorAccordion.storyName = 'Separator Accordion with Arrow Icon';
