@@ -98,8 +98,8 @@ const AccordionTrigger = ( props ) => {
 			return (
 				<motion.span
 					key={ isOpen ? 'minus' : 'plus' }
-                    initial={{ opacity: 0, rotate: isOpen ? -180 : 0 } }
-                    animate={{ opacity: 1, rotate: isOpen ? 0 : 180 } }
+					initial={ { opacity: 0, rotate: isOpen ? -180 : 0 } }
+					animate={ { opacity: 1, rotate: isOpen ? 0 : 180 } }
 					exit={ { opacity: 0 } }
 					transition={ { duration: 0.3, ease: 'easeInOut' } }
 					className="flex-shrink-0 text-icon-secondary"

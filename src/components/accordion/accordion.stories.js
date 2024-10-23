@@ -95,7 +95,8 @@ const Template = ( args ) => (
 				Accordion Item
 			</Accordion.Trigger>
 			<Accordion.Content>
-				Yes, Force Ui is an open-source project and is copyright 2022 Htmlstream.
+				Yes, Force Ui is an open-source project and is copyright 2022
+				Htmlstream.
 			</Accordion.Content>
 		</Accordion.Item>
 		<Accordion.Item value="item2" disabled={ args.itemDisabled }>
@@ -103,7 +104,8 @@ const Template = ( args ) => (
 				Accordion Item
 			</Accordion.Trigger>
 			<Accordion.Content>
-				Yes, Force Ui is an open-source project and is copyright 2022 Htmlstream.
+				Yes, Force Ui is an open-source project and is copyright 2022
+				Htmlstream.
 			</Accordion.Content>
 		</Accordion.Item>
 		<Accordion.Item
@@ -115,7 +117,8 @@ const Template = ( args ) => (
 				Accordion Item
 			</Accordion.Trigger>
 			<Accordion.Content>
-				Yes, Force Ui is an open-source project and is copyright 2022 Htmlstream.
+				Yes, Force Ui is an open-source project and is copyright 2022
+				Htmlstream.
 			</Accordion.Content>
 		</Accordion.Item>
 	</Accordion>
@@ -131,8 +134,6 @@ BasicAccordion.args = {
 	className: '',
 };
 
-BasicAccordion.storyName = 'Basic Accordion';
-
 const TemplateWithIcons = ( args ) => (
 	<Accordion { ...args } className={ args.className }>
 		<Accordion.Item value="item1">
@@ -142,7 +143,8 @@ const TemplateWithIcons = ( args ) => (
 				<Badge label={ 'Badge' } size="xs" variant="neutral" />
 			</Accordion.Trigger>
 			<Accordion.Content>
-				Yes, Force Ui is an open-source project and is copyright 2022 Htmlstream.
+				Yes, Force Ui is an open-source project and is copyright 2022
+				Htmlstream.
 			</Accordion.Content>
 		</Accordion.Item>
 		<Accordion.Item value="item2" disabled={ args.itemDisabled }>
@@ -152,7 +154,8 @@ const TemplateWithIcons = ( args ) => (
 				<Badge label={ 'Badge' } size="xs" variant="neutral" />
 			</Accordion.Trigger>
 			<Accordion.Content>
-				Yes, Force Ui is an open-source project and is copyright 2022 Htmlstream.
+				Yes, Force Ui is an open-source project and is copyright 2022
+				Htmlstream.
 			</Accordion.Content>
 		</Accordion.Item>
 		<Accordion.Item
@@ -166,7 +169,8 @@ const TemplateWithIcons = ( args ) => (
 				<Badge label={ 'Badge' } size="xs" variant="neutral" />
 			</Accordion.Trigger>
 			<Accordion.Content>
-				Yes, Force Ui is an open-source project and is copyright 2022 Htmlstream.
+				Yes, Force Ui is an open-source project and is copyright 2022
+				Htmlstream.
 			</Accordion.Content>
 		</Accordion.Item>
 	</Accordion>
