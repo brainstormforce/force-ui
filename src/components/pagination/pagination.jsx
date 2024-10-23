@@ -76,7 +76,7 @@ const PaginationButton = ( {
 } ) => {
 	const { size, disabled } = usePageContext();
 
-    const handleClick = (event) => event.preventDefault();
+	const handleClick = ( event ) => event.preventDefault();
 
 	return (
 		<Button
@@ -100,7 +100,7 @@ const PaginationButton = ( {
 			) }
 			disabled={ disabled }
 			{ ...props }
-            onClick={ callAll(props.onClick, disabled ? handleClick : null)}
+			onClick={ callAll( props.onClick, disabled ? handleClick : null ) }
 		>
 			{ children }
 		</Button>

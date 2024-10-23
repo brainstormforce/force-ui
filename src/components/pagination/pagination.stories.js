@@ -99,7 +99,7 @@ const Template = ( args ) => {
 					tag={ args.tag }
 					href={ args.href }
 					target={ args.target }
-					isActive={ args.isActive}
+					isActive={ args.isActive }
 				>
 					2
 				</Pagination.Item>
