@@ -78,8 +78,8 @@ const SearchBox = forwardRef(
 
 		useEffect( () => {
 			const handleKeyDown = ( event ) => {
-                // Check if the Meta (command/windows) key and '/' are pressed together
-				if ( event.key === '/' && (event.metaKey || event.ctrlKey) ) {
+				// Check if the Meta (command/windows) key and '/' are pressed together
+				if ( event.key === '/' && ( event.metaKey || event.ctrlKey ) ) {
 					event.preventDefault();
 
 					if ( refs.reference && refs.reference.current ) {
