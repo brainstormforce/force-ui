@@ -1,12 +1,14 @@
 import { cn } from '@/utilities/functions';
 
 export interface DrawerDescriptionProps {
+	/** Description tag. */
+	as?: React.ElementType;
 	/** Description content. */
 	children: React.ReactNode;
 	/** Additional class names. */
 	className?: string;
 	/** Additional props. */
-	[key: string]: any;
+	[key: string]: unknown;
 }
 
 // Drawer description.

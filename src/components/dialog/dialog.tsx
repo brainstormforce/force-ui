@@ -244,12 +244,10 @@ export const DialogPanel = ( {
 };
 DialogPanel.displayName = 'Dialog.Panel';
 
-export interface DialogBackdropProps extends CommonProps {}
-
 export const DialogBackdrop = ( {
 	className,
 	...props
-}: DialogBackdropProps ): JSX.Element | null => {
+}: CommonProps ): JSX.Element | null => {
 	const { open, dialogContainerRef } = useDialogState();
 
 	if ( ! dialogContainerRef?.current ) {
@@ -364,15 +362,20 @@ export interface DialogCloseButtonProps extends CommonProps {
 	as?: React.ElementType;
 	/** Additional class name for the dialog close button. */
 	className?: string;
-	/** Additional props */
-	[key: string]: any;
+	/** Additional props based on the as value. */
+	[key: string]: unknown;
+}
+
+export interface DialogDefaultCloseButtonProps extends CommonProps {
+	/** On click event for the close button. */
+	onClick?: () => void;
 }
 
 // Default close button for the dialog.
 export const DefaultCloseButton = ( {
 	className,
 	...props
-}: DialogCloseButtonProps ): JSX.Element => {
+}: DialogDefaultCloseButtonProps ): JSX.Element => {
 	return (
 		<button
 			className={ cn(

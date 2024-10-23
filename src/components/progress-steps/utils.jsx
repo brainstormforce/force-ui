@@ -9,27 +9,27 @@ import { cn } from '@/utilities/functions';
  * @param {'sm' | 'md' | 'lg'}        size        - The size of the step indicator.
  * @return {string} The combined class names.
  */
-export const getVariantClasses = ( variant, isCurrent, sizeClasses, size ) => {
-	const baseClass = `absolute rounded-full transition-colors duration-500 ${ sizeClasses[ size ].dot }`;
+export const getVariantClasses = (variant, isCurrent, sizeClasses, size) => {
+	const baseClass = `absolute rounded-full transition-colors duration-500 ${sizeClasses[size].dot}`;
 
-	if ( variant === 'dot' ) {
+	if (variant === 'dot') {
 		return cn(
 			baseClass,
-			sizeClasses[ size ].dot,
+			sizeClasses[size].dot,
 			isCurrent ? 'bg-brand-primary-600' : 'bg-text-tertiary'
 		);
 	}
 
-	if ( variant === 'number' ) {
+	if (variant === 'number') {
 		return cn(
 			baseClass,
-			sizeClasses[ size ].dot,
+			sizeClasses[size].dot,
 			isCurrent ? 'text-brand-primary-600' : 'text-text-tertiary',
 			'flex items-center justify-center'
 		);
 	}
 
-	if ( variant === 'icon' ) {
+	if (variant === 'icon') {
 		return cn(
 			baseClass,
 			isCurrent ? 'text-brand-primary-600' : 'text-text-tertiary',
@@ -48,11 +48,11 @@ export const getVariantClasses = ( variant, isCurrent, sizeClasses, size ) => {
  * @param {'sm' | 'md' | 'lg'} size        - The size of the step indicator.
  * @return {string} The combined class names.
  */
-export const stepWrapperClasses = ( isCurrent, sizeClasses, size ) => {
+export const stepWrapperClasses = (isCurrent, sizeClasses, size) => {
 	return cn(
 		'relative flex items-center rounded-full justify-center transition-colors z-10 duration-500 ring-1',
 		isCurrent ? 'ring-brand-primary-600' : 'ring-border-subtle',
-		sizeClasses[ size ].ring
+		sizeClasses[size].ring
 	);
 };
 
@@ -63,10 +63,10 @@ export const stepWrapperClasses = ( isCurrent, sizeClasses, size ) => {
  * @param {'sm' | 'md' | 'lg'} size        - The size of the step indicator.
  * @return {string} The combined class names.
  */
-export const completedStepCommonClasses = ( sizeClasses, size ) => {
+export const completedStepCommonClasses = (sizeClasses, size) => {
 	return cn(
 		'rounded-full text-brand-primary-600 transition-colors duration-300',
-		sizeClasses[ size ].dot,
-		sizeClasses[ size ].ring
+		sizeClasses[size].dot,
+		sizeClasses[size].ring
 	);
 };

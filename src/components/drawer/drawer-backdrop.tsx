@@ -16,7 +16,7 @@ export interface DrawerBackdropProps {
 	/** Additional class names. */
 	className?: string;
 	/** Additional props. */
-	[key: string]: any;
+	[key: string]: unknown;
 }
 
 // Backdrop for the drawer.

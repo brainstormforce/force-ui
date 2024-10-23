@@ -7,7 +7,7 @@ interface CommonProps {
 	/** Additional class names. */
 	className?: string;
 	/** Additional props. */
-	[key: string]: any;
+	[key: string]: unknown;
 }
 
 export interface DrawerDefaultCloseButtonProps extends CommonProps {

@@ -49,16 +49,11 @@ export interface ButtonProps {
 
 	/** On click event. */
 	onClick?: ( event: React.MouseEvent<HTMLElement> ) => void;
-
-	/**
-	 * The rest of the props.
-	 */
-	[key: string]: any;
 }
 export type Ref = React.ForwardedRef<HTMLElement>;
 
 const Button: React.FunctionComponent<ButtonProps> = forwardRef(
-	(props: ButtonProps, ref: Ref) => {
+	( props: ButtonProps, ref: Ref ) => {
 		const {
 			variant = 'primary', // primary, secondary, outline, ghost, link
 			size = 'md', // xs, sm, md, lg
@@ -73,14 +68,14 @@ const Button: React.FunctionComponent<ButtonProps> = forwardRef(
 			loading = false,
 			...rest
 		} = props;
-	
+
 		const commonClass =
 			'outline outline-1 border-none cursor-pointer transition-colors duration-300 ease-in-out text-xs font-semibold focus:ring-2 focus:ring-toggle-on focus:ring-offset-2 disabled:text-text-disabled';
-	
+
 		const loadingClass = loading
 			? 'opacity-50 disabled:cursor-not-allowed'
 			: '';
-	
+
 		const variantClassNames = {
 			primary:
 				'text-text-on-color bg-button-primary hover:bg-button-primary-hover outline-button-primary hover:outline-button-primary-hover disabled:bg-button-disabled disabled:outline-button-disabled',
@@ -91,7 +86,7 @@ const Button: React.FunctionComponent<ButtonProps> = forwardRef(
 			ghost: 'text-text-primary bg-transparent outline-transparent hover:bg-button-tertiary-hover',
 			link: 'outline-none text-link-primary bg-transparent hover:text-link-primary-hover hover:underline p-0 border-0 leading-none',
 		}?.[ variant ];
-	
+
 		const destructiveClassNames =
 			destructive && ! disabled
 				? {
@@ -105,14 +100,14 @@ const Button: React.FunctionComponent<ButtonProps> = forwardRef(
 					link: 'text-button-danger hover:text-button-danger-secondary',
 				}?.[ variant ]
 				: '';
-	
+
 		const sizeClassNames = {
 			xs: 'p-1 rounded [&>svg]:size-4',
 			sm: 'p-2 rounded [&>svg]:size-4 gap-0.5',
 			md: 'p-2.5 rounded-md text-sm [&>svg]:size-5 gap-1',
 			lg: 'p-3 rounded-lg text-base [&>svg]:size-6 gap-1',
 		}?.[ size ];
-	
+
 		let iconLeft,
 			iconRight = null;
 		let iconClass = '';
@@ -124,7 +119,7 @@ const Button: React.FunctionComponent<ButtonProps> = forwardRef(
 				iconRight = icon;
 			}
 		}
-	
+
 		const Tag = tag;
 		return (
 			<Tag
@@ -151,4 +146,3 @@ const Button: React.FunctionComponent<ButtonProps> = forwardRef(
 );
 
 export default Button;
-

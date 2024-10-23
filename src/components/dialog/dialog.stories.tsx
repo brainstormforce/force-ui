@@ -15,7 +15,7 @@ const meta: Meta<typeof Dialog> = {
 		'Dialog.Footer': Dialog.Footer,
 		'Dialog.CloseButton': Dialog.CloseButton,
 		'Dialog.Backdrop': Dialog.Backdrop,
-	} as Record<string, React.ComponentType<any>>,
+	} as Record<string, React.ComponentType<unknown>>,
 	parameters: {
 		layout: 'fullscreen',
 	},

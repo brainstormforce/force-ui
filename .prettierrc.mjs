@@ -1,7 +1,7 @@
 // Import the default config file and expose it in the project root.
 // Useful for editor integrations.
 
-const config = require('@wordpress/prettier-config');
+import config from '@wordpress/prettier-config';
 
 config.overrides = [
 	{
@@ -13,4 +13,4 @@ config.overrides = [
 	},
 ];
 
-module.exports = config;
+export default config;

@@ -19,7 +19,7 @@ const meta: Meta<typeof Drawer> = {
 		'Drawer.Body': Drawer.Body,
 		'Drawer.Footer': Drawer.Footer,
 		'Drawer.CloseButton': Drawer.CloseButton,
-	} as Record<string, React.ComponentType<any>>,
+	} as Record<string, React.ComponentType<unknown>>,
 	parameters: {
 		layout: 'fullscreen',
 		controls: { expanded: true },
