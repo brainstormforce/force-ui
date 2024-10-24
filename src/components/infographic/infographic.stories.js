@@ -1,62 +1,126 @@
-// import LineChartComponent from './infographic.jsx';
-import AreaChartComponent from './infographic.jsx';
-// import BarChartComponent from './infographic.jsx';
-// import PieChartComponent from './infographic.jsx';
+import Infographic from "./infographic.jsx";
 
+// Sample data for charts
+const lineChartData = [
+    { name: 'Jan', revenue: 4000, profit: 2400 },
+    { name: 'Feb', revenue: 3000, profit: 1398 },
+    { name: 'Mar', revenue: 9800, profit: 2000 },
+];
 
-// Line chart
-// export default {
-//     title: "Molecules/LineChartComponent",
-//     component: LineChartComponent,
-//     tags: [ 'autodocs' ],
-// };
+const areaChartData = [
+    { name: 'Jan', product1: 4000, product2: 2400 },
+    { name: 'Feb', product1: 3000, product2: 2210 },
+    { name: 'Mar', product1: 2000, product2: 2290 },
+];
 
-// const Template = (args) => <LineChartComponent {...args} />;
+const barChartData = [
+    { name: 'Jan', revenue: 4000, profit: 2400 },
+    { name: 'Feb', revenue: 3000, profit: 1398 },
+    { name: 'Mar', revenue: 9800, profit: 2000 },
+];
 
-// // Basic Story for Infographic
-// export const Default = Template.bind({});
-// Default.args = {};
+const pieChartData = [
+    { name: 'Group A', value: 400 },
+    { name: 'Group B', value: 300 },
+    { name: 'Group C', value: 300 },
+    { name: 'Group D', value: 200 },
+];
 
-
-
-// Area chart
+// Export default story configuration
 export default {
-    title: "Molecules/AreaChartComponent",
-    component: AreaChartComponent,
-    tags: [ 'autodocs' ],
+    title: 'Molecules/Infographic',
+    component: Infographic,
+    argTypes: {
+        type: { 
+            control: { 
+                type: 'select', 
+                options: ['line', 'area', 'bar', 'pie'] 
+            } 
+        },
+        width: { 
+            control: { 
+                type: 'number' 
+            }, 
+            defaultValue: 500 
+        },
+        height: { 
+            control: { 
+                type: 'number' 
+            }, 
+            defaultValue: 300 
+        },
+        showXAxis: { 
+            control: { 
+                type: 'boolean' 
+            }, 
+            defaultValue: true 
+        },
+        showYAxis: { 
+            control: { 
+                type: 'boolean' 
+            }, 
+            defaultValue: true 
+        },
+        showTooltip: { 
+            control: { 
+                type: 'boolean' 
+            }, 
+            defaultValue: true 
+        },
+        showLegend: { 
+            control: { 
+                type: 'boolean' 
+            }, 
+            defaultValue: true 
+        },
+    },
 };
 
-const Template = (args) => <AreaChartComponent {...args} />;
+// Template for the stories
+const Template = (args) => <Infographic {...args} />;
 
-// Basic Story for Infographic
-export const Default = Template.bind({});
-Default.args = {};
+export const LineChart = Template.bind({});
+LineChart.args = {
+    type: 'line',
+    data: lineChartData,
+    width: 600,
+    height: 400,
+    showXAxis: true,
+    showYAxis: true,
+    showTooltip: true,
+    showLegend: true,
+};
 
+export const AreaChart = Template.bind({});
+AreaChart.args = {
+    type: 'area',
+    data: areaChartData,
+    width: 600,
+    height: 400,
+    showXAxis: true,
+    showYAxis: true,
+    showTooltip: true,
+    showLegend: true,
+};
 
-// Bar chart
-// export default {
-//     title: "Molecules/BarChartComponent",
-//     component: BarChartComponent,
-//     tags: [ 'autodocs' ],
+export const BarChart = Template.bind({});
+BarChart.args = {
+    type: 'bar',
+    data: barChartData,
+    width: 600,
+    height: 400,
+    showXAxis: true,
+    showYAxis: true,
+    showTooltip: true,
+    showLegend: true,
+};
+
+// export const PieChart = Template.bind({});
+// PieChart.args = {
+//     type: 'pie',
+//     data: pieChartData,
+//     width: 500,
+//     height: 400,
+//     showTooltip: true,
+//     showLegend: true,
 // };
-
-// const Template = (args) => <BarChartComponent {...args} />;
-
-// // Basic Story for Infographic
-// export const Default = Template.bind({});
-// Default.args = {};
-
-
-
-// Pie chart
-// export default {
-//     title: "Molecules/PieChartComponent",
-//     component: PieChartComponent,
-//     tags: [ 'autodocs' ],
-// };
-
-// const Template = (args) => <PieChartComponent {...args} />;
-
-// // Basic Story for Infographic
-// export const Default = Template.bind({});
-// Default.args = {};
