@@ -232,13 +232,11 @@ function SelectButton( {
 		</div>
 	);
 }
-SelectButton.displayName = 'Select.Button';
+
 function SelectOptions( {
 	children,
 	searchBy = 'id', // Used to identify searched value using the key. Default is 'id'.
 	searchPlaceholder = 'Search...', // Placeholder text for search box.
-	dropdownPortalRoot = null, // Root element where the dropdown will be rendered.
-	dropdownPortalId = '', // Id of the dropdown portal where the dropdown will be rendered.
 	className, // Additional class name for the dropdown.
 } ) {
 	const {
@@ -349,7 +347,7 @@ function SelectOptions( {
 		<>
 			{ /* Dropdown */ }
 			{ isOpen && (
-				<FloatingPortal id={ dropdownPortalId } root={ dropdownPortalRoot }>
+				<>
 					<FloatingFocusManager context={ context } modal={ false }>
 						{ /* Dropdown Wrapper */ }
 						<div
@@ -421,12 +419,20 @@ function SelectOptions( {
 							</div>
 						</div>
 					</FloatingFocusManager>
-				</FloatingPortal>
+				</>
 			) }
 		</>
 	);
 }
-SelectOptions.displayName = 'Select.Options';
+
+function SelectPortal( { children, root, id } ) {
+	return (
+		<FloatingPortal id={ id } root={ root }>
+			{ children }
+		</FloatingPortal>
+	);
+}
+
 function SelectItem( { value, selected, children, className, ...props } ) {
 	const {
 		sizeValue,
@@ -518,7 +524,6 @@ function SelectItem( { value, selected, children, className, ...props } ) {
 		</div>
 	);
 }
-SelectItem.displayName = 'Select.Option';
 
 const Select = ( {
 	id,
@@ -712,10 +717,12 @@ const Select = ( {
 	);
 };
 
+SelectPortal.displayName = 'Select.Portal';
 SelectButton.displayName = 'Select.Button';
 SelectOptions.displayName = 'Select.Options';
-SelectItem.displayName = 'Select.Item';
+SelectItem.displayName = 'Select.Option';
 
+Select.Portal = SelectPortal;
 Select.Button = SelectButton;
 Select.Options = SelectOptions;
 Select.Option = SelectItem;
