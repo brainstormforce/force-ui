@@ -280,7 +280,6 @@ const Template = ( args ) => {
 								description: `Description ${ num }`,
 							}
 						}
-						checked={ args.checked }
 						borderOn={ args.borderOn }
 						borderOnActive={ args.borderOnActive }
 						minWidth={ args.minWidth }
