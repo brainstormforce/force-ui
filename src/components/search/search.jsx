@@ -1,12 +1,13 @@
 import {
 	useState,
+	useEffect,
 	forwardRef,
 	createContext,
 	useContext,
 	Children,
 	cloneElement,
 } from 'react';
-import { cn } from '@/utilities/functions';
+import { cn, getOperatingSystem } from '@/utilities/functions';
 import { Search } from 'lucide-react';
 import Loader from '../loader';
 import Badge from '../badge';
@@ -74,6 +75,35 @@ const SearchBox = forwardRef(
 		const { getReferenceProps, getFloatingProps } = useInteractions( [
 			dismiss,
 		] );
+
+		useEffect( () => {
+			const operatingSystem = getOperatingSystem();
+
+			const handleKeyDown = ( event ) => {
+				const isMac = operatingSystem === 'Mac OS';
+				const metaOrCtrlKey = isMac ? event.metaKey : event.ctrlKey;
+
+				// Check if the Meta (command/windows) key and '/' are pressed together
+				if ( event.key === '/' && metaOrCtrlKey ) {
+					event.preventDefault();
+
+					if ( refs.reference && refs.reference.current ) {
+						const inputElement =
+							refs.reference.current.querySelector( 'input' );
+
+						if ( inputElement ) {
+							inputElement.focus();
+						}
+					}
+				}
+			};
+
+			window.addEventListener( 'keydown', handleKeyDown );
+
+			return () => {
+				window.removeEventListener( 'keydown', handleKeyDown );
+			};
+		}, [ refs.reference ] );
 
 		return (
 			<SearchContext.Provider
@@ -144,7 +174,6 @@ const SearchBoxInput = forwardRef(
 
 		return (
 			<div
-				tabIndex={ 0 }
 				ref={ refs.setReference }
 				className={ cn(
 					'w-full group relative flex justify-center items-center gap-1.5 focus-within:z-10 transition-colors ease-in-out duration-150',
