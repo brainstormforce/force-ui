@@ -36,7 +36,7 @@ export const getIconColor = ({
 };
 
 export const getIcon = ({
-	icon = null,
+	icon,
 	theme = DEFAULT_THEME,
 	variant = DEFAULT_VARIANT,
 }) => {

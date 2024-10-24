@@ -2,22 +2,58 @@ import { cn } from '@/utilities/functions';
 import { getIcon, getAction, getContent, getTitle } from '../toaster/utils';
 import { X } from 'lucide-react';
 
+declare interface AlertProps {
+	/** Defines the style variant of the alert. */
+	variant?: 'neutral' | 'info' | 'warning' | 'error' | 'success';
+
+	/** Defines the theme of the alert. */
+	theme?: 'light' | 'dark';
+
+	/** Defines the design of the alert. */
+	design?: 'inline' | 'stack';
+
+	/** Defines the title of the alert. */
+	title?: string;
+
+	/** Defines the content of the alert. */
+	content?: string;
+
+	/** Defines the extra classes. */
+	className?: string;
+
+	/** Callback function for close event. */
+	onClose?: () => void;
+
+	/** Custom Icon for the alert. */
+	icon?: React.ReactNode;
+
+	/** Defines the action of the alert. */
+	action?: {
+		label: string;
+		onClick: (close: () => void) => void;
+		type: 'link' | 'button';
+	};
+}
+
 const Alert = ({
 	design = 'inline', // stack/inline
 	theme = 'light', // light/dark
 	variant = 'neutral',
 	className = '',
-	title = 'Title',
+	title = '',
 	content = 'Description',
 	icon = null,
-	onClose = () => {},
+	onClose,
 	action = {
 		label: '',
 		onClick: () => {},
 		type: 'link',
 	},
-}) => {
+}: AlertProps) : JSX.Element => {
 	const closeAlert = () => {
+		if (typeof onClose !== 'function') {
+			return;
+		}
 		onClose();
 	};
 
@@ -41,7 +77,7 @@ const Alert = ({
 	};
 
 	const handleAction = () => {
-		action?.onClick?.(() => closeAlert());
+		action?.onClick?.(closeAlert);
 	};
 
 	if (design === 'stack') {
@@ -62,22 +98,17 @@ const Alert = ({
 					<div className="flex flex-col items-start justify-start gap-0.5">
 						{getTitle({ title, theme })}
 						{getContent({ content, theme })}
-						{
-							action?.label &&
-								typeof action?.onClick === 'function' && (
-									/* eslint-disable */
-									<div className="mt-2.5">
-										{getAction({
-											actionLabel: action?.label,
-											actionType:
-												action?.type ?? 'button',
-											onAction: handleAction,
-											theme,
-										})}
-									</div>
-								)
-							/* eslint-enable */
-						}
+						{action?.label &&
+							typeof action?.onClick === 'function' && (
+								<div className="mt-2.5">
+									{getAction({
+										actionLabel: action?.label,
+										actionType: action?.type ?? 'button',
+										onAction: handleAction,
+										theme,
+									})}
+								</div>
+							)}
 					</div>
 					<div className="absolute right-4 top-4 [&_svg]:size-5">
 						<button
@@ -116,29 +147,28 @@ const Alert = ({
 				</div>
 			</div>
 			<div className="flex items-center justify-start gap-4 [&_svg]:size-4">
-				{
-					action?.label && typeof action?.onClick === 'function' && (
-						/* eslint-disable */
-						<div className="flex h-5">
-							{getAction({
-								actionLabel: action?.label,
-								actionType: action?.type ?? 'button',
-								onAction: handleAction,
-								theme,
-							})}
-						</div>
-					)
-					/* eslint-enable */
-				}
-				<button
-					className={cn(
-						'bg-transparent m-0 border-none p-0.5 focus:outline-none active:outline-none cursor-pointer size-5',
-						closeIconClassNames[theme] ?? closeIconClassNames.light
-					)}
-					onClick={() => closeAlert()}
-				>
-					<X />
-				</button>
+				{action?.label && typeof action?.onClick === 'function' && (
+					<div className="flex h-5">
+						{getAction({
+							actionLabel: action?.label,
+							actionType: action?.type ?? 'button',
+							onAction: handleAction,
+							theme,
+						})}
+					</div>
+				)}
+				{typeof onClose === 'function' && (
+					<button
+						className={cn(
+							'bg-transparent m-0 border-none p-0.5 focus:outline-none active:outline-none cursor-pointer size-5',
+							closeIconClassNames[theme] ??
+								closeIconClassNames.light
+						)}
+						onClick={() => closeAlert()}
+					>
+						<X />
+					</button>
+				)}
 			</div>
 		</div>
 	);
