@@ -138,7 +138,7 @@ const TemplateWithIcons = ( args ) => (
 	<Accordion { ...args } className={ args.className }>
 		<Accordion.Item value="item1">
 			<Accordion.Trigger iconType={ args.iconType }>
-				<Settings className="flex-shrink-0" />
+				<Settings className="flex-shrink-0 size-5 text-icon-secondary" />
 				Accordion Item
 				<Badge label={ 'Badge' } size="xs" variant="neutral" />
 			</Accordion.Trigger>
@@ -149,7 +149,7 @@ const TemplateWithIcons = ( args ) => (
 		</Accordion.Item>
 		<Accordion.Item value="item2" disabled={ args.itemDisabled }>
 			<Accordion.Trigger iconType={ args.iconType }>
-				<Settings />
+				<Settings className="flex-shrink-0 size-5 text-icon-secondary"/>
 				Accordion Item
 				<Badge label={ 'Badge' } size="xs" variant="neutral" />
 			</Accordion.Trigger>
@@ -164,7 +164,7 @@ const TemplateWithIcons = ( args ) => (
 			className={ args.accordionItemclassName }
 		>
 			<Accordion.Trigger iconType={ args.iconType }>
-				<Settings />
+				<Settings className="flex-shrink-0 size-5 text-icon-secondary"/>
 				Accordion Item
 				<Badge label={ 'Badge' } size="xs" variant="neutral" />
 			</Accordion.Trigger>
