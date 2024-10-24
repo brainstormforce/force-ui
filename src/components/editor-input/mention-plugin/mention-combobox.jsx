@@ -8,40 +8,40 @@ import {
 } from '../editor-input-style';
 import { forwardRef } from 'react';
 
-const EditorComboboxWrapper = ( { size, className, children } ) => (
+const EditorComboboxWrapper = ({ size, className, children }) => (
 	<ul
 		role="menu"
-		className={ cn(
+		className={cn(
 			comboboxDropdownCommonClassNames,
-			comboboxDropdownClassNames[ size ],
+			comboboxDropdownClassNames[size],
 			className
-		) }
+		)}
 	>
-		{ children }
+		{children}
 	</ul>
 );
 
 const EditorComboboxItem = forwardRef(
-	( { size, children, selected = false, className, ...props }, ref ) => (
+	({ size, children, selected = false, className, ...props }, ref) => (
 		<li
 			role="option"
-			ref={ ref }
-			className={ cn(
+			ref={ref}
+			className={cn(
 				comboboxItemCommonClassNames,
-				comboboxItemClassNames[ size ],
+				comboboxItemClassNames[size],
 				selected && comboboxSelectedItemClassNames,
 				className
-			) }
-			{ ...props }
+			)}
+			{...props}
 		>
-			{ children }
+			{children}
 		</li>
 	)
 );
 EditorComboboxItem.displayName = 'Item';
 
-const EditorCombobox = Object.assign( EditorComboboxWrapper, {
+const EditorCombobox = Object.assign(EditorComboboxWrapper, {
 	Item: EditorComboboxItem,
-} );
+});
 
 export default EditorCombobox;

@@ -16,7 +16,7 @@ const ButtonGroupContext = createContext();
  * Hook to use the ButtonGroup context.
  * @return {Object} The context value of the ButtonGroup.
  */
-const useButtonGroup = () => useContext( ButtonGroupContext );
+const useButtonGroup = () => useContext(ButtonGroupContext);
 
 /**
  * ButtonGroup component to wrap Button components.
@@ -28,7 +28,7 @@ const useButtonGroup = () => useContext( ButtonGroupContext );
  * @param {string}          [props.size='md']           - Size of the buttons in the group ('xs', 'sm', 'md').
  * @param {string}          [props.iconPosition='left'] - Position of the icon in the button ('left' or 'right').
  */
-const ButtonGroup = ( props ) => {
+const ButtonGroup = (props) => {
 	const {
 		children,
 		activeItem = null,
@@ -39,12 +39,12 @@ const ButtonGroup = ( props ) => {
 	} = props;
 
 	const handleChange = useCallback(
-		( event, value ) => {
-			if ( onChange ) {
-				onChange( { event, value } );
+		(event, value) => {
+			if (onChange) {
+				onChange({ event, value });
 			}
 		},
-		[ onChange ]
+		[onChange]
 	);
 
 	const groupClassName = cn(
@@ -53,28 +53,28 @@ const ButtonGroup = ( props ) => {
 	);
 
 	return (
-		<div className={ groupClassName }>
+		<div className={groupClassName}>
 			<ButtonGroupContext.Provider
-				value={ {
+				value={{
 					activeItem,
 					onChange: handleChange,
 					size,
 					iconPosition,
-				} }
+				}}
 			>
-				{ React.Children.map( children, ( child, index ) => {
-					if ( ! isValidElement( child ) ) {
+				{React.Children.map(children, (child, index) => {
+					if (!isValidElement(child)) {
 						return null;
 					}
 					const isFirstChild = index === 0;
 					const isLastChild =
-						index === React.Children.count( children ) - 1;
-					return React.cloneElement( child, {
+						index === React.Children.count(children) - 1;
+					return React.cloneElement(child, {
 						index,
 						isFirstChild,
 						isLastChild,
-					} );
-				} ) }
+					});
+				})}
 			</ButtonGroupContext.Provider>
 		</div>
 	);
@@ -93,7 +93,7 @@ const ButtonGroup = ( props ) => {
  * @param {Object}          [props.rest]           - Other properties to be passed to the button element.
  * @param {React.Ref}       ref                    - Reference to the button element.
  */
-const ButtonComponent = ( props, ref ) => {
+const ButtonComponent = (props, ref) => {
 	const providerValue = useButtonGroup();
 	const {
 		slug,
@@ -106,8 +106,8 @@ const ButtonComponent = ( props, ref ) => {
 		...rest
 	} = props;
 
-	if ( ! providerValue ) {
-		throw new Error( 'Button should be used inside Button Group' );
+	if (!providerValue) {
+		throw new Error('Button should be used inside Button Group');
 	}
 
 	const { activeItem, onChange, size, iconPosition } = providerValue;
@@ -146,7 +146,7 @@ const ButtonComponent = ( props, ref ) => {
 		hoverClasses,
 		focusClasses,
 		disabledClasses,
-		sizes[ size ],
+		sizes[size],
 		borderClasses,
 		activeClasses,
 		firstChildClasses,
@@ -154,29 +154,29 @@ const ButtonComponent = ( props, ref ) => {
 		className
 	);
 
-	const handleClick = ( event ) => {
-		onChange( event, { slug, text } );
+	const handleClick = (event) => {
+		onChange(event, { slug, text });
 	};
 
 	return (
 		<button
-			ref={ ref }
-			className={ buttonClassName }
-			disabled={ disabled }
-			onClick={ handleClick }
-			{ ...rest }
+			ref={ref}
+			className={buttonClassName}
+			disabled={disabled}
+			onClick={handleClick}
+			{...rest}
 		>
-			{ iconPosition === 'left' && icon && (
-				<span className="mr-1">{ icon }</span>
-			) }
-			{ text }
-			{ iconPosition === 'right' && icon && (
-				<span className="ml-1">{ icon }</span>
-			) }
+			{iconPosition === 'left' && icon && (
+				<span className="mr-1">{icon}</span>
+			)}
+			{text}
+			{iconPosition === 'right' && icon && (
+				<span className="ml-1">{icon}</span>
+			)}
 		</button>
 	);
 };
-const Button = forwardRef( ButtonComponent );
+const Button = forwardRef(ButtonComponent);
 Button.displayName = 'Button';
 
 const exports = {

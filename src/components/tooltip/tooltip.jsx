@@ -26,7 +26,7 @@ import {
 import { cn } from '@/utilities/functions';
 import { mergeRefs } from '../toaster/utils';
 
-const Tooltip = ( {
+const Tooltip = ({
 	variant = 'dark', // 'light' | 'dark';
 	placement = 'bottom', //  | 'top' | 'top-start' | 'top-end' | 'right' | 'right-start' | 'right-end' | 'bottom' | 'bottom-start' | 'bottom-end' | 'left' | 'left-start' | 'left-end';
 	title = '',
@@ -41,64 +41,64 @@ const Tooltip = ( {
 	boundary = 'clippingAncestors',
 	strategy = 'fixed', // 'fixed' | 'absolute';
 	offset: offsetValue = 8, // Offset option or number value. Default is 8.
-	triggers = [ 'hover', 'focus' ], // 'click' | 'hover' | 'focus';
+	triggers = ['hover', 'focus'], // 'click' | 'hover' | 'focus';
 	interactive = false,
-} ) => {
+}) => {
 	const isControlled = useMemo(
 		() => typeof open === 'boolean' && typeof setOpen === 'function',
-		[ open, setOpen ]
+		[open, setOpen]
 	);
 
-	const [ isOpen, setIsOpen ] = useState( false );
-	const arrowRef = useRef( null );
+	const [isOpen, setIsOpen] = useState(false);
+	const arrowRef = useRef(null);
 
-	const { refs, floatingStyles, context } = useFloating( {
+	const { refs, floatingStyles, context } = useFloating({
 		open: isControlled ? open : isOpen,
 		onOpenChange: isControlled ? setOpen : setIsOpen,
 		placement,
 		strategy,
 		middleware: [
-			offset( offsetValue ),
-			flip( {
+			offset(offsetValue),
+			flip({
 				boundary,
-			} ),
-			shift( {
+			}),
+			shift({
 				boundary,
-			} ),
-			floatingArrow( { element: arrowRef } ),
+			}),
+			floatingArrow({ element: arrowRef }),
 		],
 		whileElementsMounted: autoUpdate,
-	} );
+	});
 
-	const click = useClick( context, {
-		enabled: ! isControlled && triggers.includes( 'click' ),
-	} );
-	const hover = useHover( context, {
+	const click = useClick(context, {
+		enabled: !isControlled && triggers.includes('click'),
+	});
+	const hover = useHover(context, {
 		move: false,
-		enabled: ! isControlled && triggers.includes( 'hover' ),
-		...( interactive && { handleClose: safePolygon() } ),
-	} );
-	const focus = useFocus( context, {
-		enabled: ! isControlled && triggers.includes( 'focus' ),
-	} );
-	const dismiss = useDismiss( context );
-	const role = useRole( context, { role: 'tooltip' } );
+		enabled: !isControlled && triggers.includes('hover'),
+		...(interactive && { handleClose: safePolygon() }),
+	});
+	const focus = useFocus(context, {
+		enabled: !isControlled && triggers.includes('focus'),
+	});
+	const dismiss = useDismiss(context);
+	const role = useRole(context, { role: 'tooltip' });
 
-	const { getReferenceProps, getFloatingProps } = useInteractions( [
+	const { getReferenceProps, getFloatingProps } = useInteractions([
 		click,
 		hover,
 		focus,
 		dismiss,
 		role,
-	] );
+	]);
 
 	// Fade-in and fade-out transition.
-	const { isMounted, styles } = useTransitionStyles( context, {
+	const { isMounted, styles } = useTransitionStyles(context, {
 		duration: 150,
 		initial: { opacity: 0 },
 		open: { opacity: 1 },
 		close: { opacity: 0 },
-	} );
+	});
 
 	const tooltipClasses =
 		'absolute z-20 py-2 px-3 rounded-md text-xs leading-4 shadow-soft-shadow-lg';
@@ -106,7 +106,7 @@ const Tooltip = ( {
 	const variantClasses = {
 		light: 'bg-tooltip-background-light text-text-primary',
 		dark: 'bg-tooltip-background-dark text-text-on-color',
-	}?.[ variant ];
+	}?.[variant];
 
 	const arrowClasses =
 		variant === 'dark'
@@ -117,47 +117,47 @@ const Tooltip = ( {
 
 	return (
 		<>
-			{ isValidElement( children ) &&
-				cloneElement( children, {
+			{isValidElement(children) &&
+				cloneElement(children, {
 					...children.props,
-					ref: mergeRefs( children.ref, refs.setReference ),
-					className: cn( children.props.className ),
+					ref: mergeRefs(children.ref, refs.setReference),
+					className: cn(children.props.className),
 					...getReferenceProps(),
-				} ) }
-			<FloatingPortal id={ tooltipPortalId } root={ tooltipPortalRoot }>
-				{ isMounted && (
+				})}
+			<FloatingPortal id={tooltipPortalId} root={tooltipPortalRoot}>
+				{isMounted && (
 					<div
-						className={ cn(
+						className={cn(
 							tooltipClasses,
 							variantClasses,
 							widthClasses,
 							className
-						) }
-						ref={ refs.setFloating }
-						style={ {
+						)}
+						ref={refs.setFloating}
+						style={{
 							...floatingStyles,
 							...styles,
-						} }
-						{ ...getFloatingProps() }
+						}}
+						{...getFloatingProps()}
 					>
 						<div>
-							{ !! title && (
-								<span className="font-semibold">{ title }</span>
-							) }
-							{ !! content && (
-								<div className="font-normal">{ content }</div>
-							) }
+							{!!title && (
+								<span className="font-semibold">{title}</span>
+							)}
+							{!!content && (
+								<div className="font-normal">{content}</div>
+							)}
 						</div>
-						{ arrow && (
+						{arrow && (
 							<FloatingArrow
-								ref={ arrowRef }
-								context={ context }
-								placement={ placement }
-								className={ cn( 'fill-current', arrowClasses ) }
+								ref={arrowRef}
+								context={context}
+								placement={placement}
+								className={cn('fill-current', arrowClasses)}
 							/>
-						) }
+						)}
 					</div>
-				) }
+				)}
 			</FloatingPortal>
 		</>
 	);
