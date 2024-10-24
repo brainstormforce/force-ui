@@ -233,7 +233,7 @@ function SelectButton({
 	);
 }
 
-function SelectOptions( {
+function SelectOptions({
 	children,
 	searchBy = 'id', // Used to identify searched value using the key. Default is 'id'.
 	searchPlaceholder = 'Search...', // Placeholder text for search box.
@@ -345,11 +345,11 @@ function SelectOptions( {
 
 	return (
 		<>
-			{ /* Dropdown */ }
-			{ isOpen && (
+			{/* Dropdown */}
+			{isOpen && (
 				<>
-					<FloatingFocusManager context={ context } modal={ false }>
-						{ /* Dropdown Wrapper */ }
+					<FloatingFocusManager context={context} modal={false}>
+						{/* Dropdown Wrapper */}
 						<div
 							ref={refs.setFloating}
 							className={cn(
@@ -420,20 +420,20 @@ function SelectOptions( {
 						</div>
 					</FloatingFocusManager>
 				</>
-			) }
+			)}
 		</>
 	);
 }
 
-function SelectPortal( { children, root, id } ) {
+function SelectPortal({ children, root, id }) {
 	return (
-		<FloatingPortal id={ id } root={ root }>
-			{ children }
+		<FloatingPortal id={id} root={root}>
+			{children}
 		</FloatingPortal>
 	);
 }
 
-function SelectItem( { value, selected, children, className, ...props } ) {
+function SelectItem({ value, selected, children, className, ...props }) {
 	const {
 		sizeValue,
 		getItemProps,

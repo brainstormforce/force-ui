@@ -76,34 +76,34 @@ const SearchBox = forwardRef(
 			dismiss,
 		]);
 
-		useEffect( () => {
+		useEffect(() => {
 			const operatingSystem = getOperatingSystem();
 
-			const handleKeyDown = ( event ) => {
+			const handleKeyDown = (event) => {
 				const isMac = operatingSystem === 'Mac OS';
 				const metaOrCtrlKey = isMac ? event.metaKey : event.ctrlKey;
 
 				// Check if the Meta (command/windows) key and '/' are pressed together
-				if ( event.key === '/' && metaOrCtrlKey ) {
+				if (event.key === '/' && metaOrCtrlKey) {
 					event.preventDefault();
 
-					if ( refs.reference && refs.reference.current ) {
+					if (refs.reference && refs.reference.current) {
 						const inputElement =
-							refs.reference.current.querySelector( 'input' );
+							refs.reference.current.querySelector('input');
 
-						if ( inputElement ) {
+						if (inputElement) {
 							inputElement.focus();
 						}
 					}
 				}
 			};
 
-			window.addEventListener( 'keydown', handleKeyDown );
+			window.addEventListener('keydown', handleKeyDown);
 
 			return () => {
-				window.removeEventListener( 'keydown', handleKeyDown );
+				window.removeEventListener('keydown', handleKeyDown);
 			};
-		}, [ refs.reference ] );
+		}, [refs.reference]);
 
 		return (
 			<SearchContext.Provider
@@ -174,8 +174,8 @@ const SearchBoxInput = forwardRef(
 
 		return (
 			<div
-				ref={ refs.setReference }
-				className={ cn(
+				ref={refs.setReference}
+				className={cn(
 					'w-full group relative flex justify-center items-center gap-1.5 focus-within:z-10 transition-colors ease-in-out duration-150',
 					variantClassNames[variant],
 					sizeClassNames.input[size],

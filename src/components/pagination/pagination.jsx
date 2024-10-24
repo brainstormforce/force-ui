@@ -50,8 +50,8 @@ const PaginationItem = forwardRef(
 		const { disabled } = usePageContext();
 		return (
 			<li
-				ref={ ref }
-				className={ cn( 'flex', disabled && disabledClassNames.general ) }
+				ref={ref}
+				className={cn('flex', disabled && disabledClassNames.general)}
 			>
 				<PaginationButton
 					isActive={isActive}
@@ -67,7 +67,7 @@ const PaginationItem = forwardRef(
 );
 PaginationItem.displayName = 'Pagination.Item';
 
-const PaginationButton = ( {
+const PaginationButton = ({
 	isActive = false,
 	tag = 'a',
 	children,
@@ -76,7 +76,7 @@ const PaginationButton = ( {
 }) => {
 	const { size, disabled } = usePageContext();
 
-	const handleClick = ( event ) => event.preventDefault();
+	const handleClick = (event) => event.preventDefault();
 
 	return (
 		<Button
@@ -97,42 +97,42 @@ const PaginationButton = ( {
 					'focus:ring-transparent cursor-not-allowed',
 				],
 				className
-			) }
-			disabled={ disabled }
-			{ ...props }
-			onClick={ callAll( props.onClick, disabled ? handleClick : null ) }
+			)}
+			disabled={disabled}
+			{...props}
+			onClick={callAll(props.onClick, disabled ? handleClick : null)}
 		>
 			{children}
 		</Button>
 	);
 };
 
-const PaginationPrevious = ( props ) => {
+const PaginationPrevious = (props) => {
 	const { size, disabled } = usePageContext();
 	return (
-		<li className={ cn( 'flex', disabled && disabledClassNames.general ) }>
+		<li className={cn('flex', disabled && disabledClassNames.general)}>
 			<PaginationButton
 				aria-label="Go to previous page"
-				className={ cn( '[&>span]:flex [&>span]:items-center' ) }
-				{ ...props }
+				className={cn('[&>span]:flex [&>span]:items-center')}
+				{...props}
 			>
-				<ChevronLeft className={ cn( sizeClassNames[ size ].icon ) } />
+				<ChevronLeft className={cn(sizeClassNames[size].icon)} />
 			</PaginationButton>
 		</li>
 	);
 };
 PaginationPrevious.displayName = 'Pagination.Previous';
 
-const PaginationNext = ( props ) => {
+const PaginationNext = (props) => {
 	const { size, disabled } = usePageContext();
 	return (
-		<li className={ cn( 'flex', disabled && disabledClassNames.general ) }>
+		<li className={cn('flex', disabled && disabledClassNames.general)}>
 			<PaginationButton
 				aria-label="Go to next page"
-				className={ cn( '[&>span]:flex [&>span]:items-center' ) }
-				{ ...props }
+				className={cn('[&>span]:flex [&>span]:items-center')}
+				{...props}
 			>
-				<ChevronRight className={ cn( sizeClassNames[ size ].icon ) } />
+				<ChevronRight className={cn(sizeClassNames[size].icon)} />
 			</PaginationButton>
 		</li>
 	);
@@ -143,11 +143,11 @@ PaginationNext.displayName = 'Pagination.Next';
 const PaginationEllipsis = (props) => {
 	const { size, disabled } = usePageContext();
 	return (
-		<li className={ cn( 'flex', disabled && disabledClassNames.general ) }>
+		<li className={cn('flex', disabled && disabledClassNames.general)}>
 			<span
-				className={ cn(
+				className={cn(
 					'flex justify-center',
-					sizeClassNames[ size ].ellipse,
+					sizeClassNames[size].ellipse,
 					disabled && disabledClassNames.general
 				)}
 				{...props}
