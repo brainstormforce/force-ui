@@ -348,8 +348,9 @@ const RadioButtonComponent = (
 									// In multi-selection, toggle the current state
 									onChange(value, !checkedValue);
 								}
-							}}
-							checked={checkedValue}
+							} }
+							checked={ checkedValue }
+							{ ...props }
 						/>
 					) : (
 						<span className="relative p-0.5">

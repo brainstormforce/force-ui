@@ -50,3 +50,25 @@ export const columnClasses = {
 	11: 'grid-cols-11',
 	12: 'grid-cols-12',
 };
+
+export const getOperatingSystem = () => {
+	const platform =
+		window.navigator?.userAgentData?.platform || window.navigator.platform;
+	const macosPlatforms = [
+		'macOS',
+		'Macintosh',
+		'MacIntel',
+		'MacPPC',
+		'Mac68K',
+	];
+	const windowsPlatforms = [ 'Win32', 'Win64', 'Windows', 'WinCE' ];
+
+	let operatingSystem = 'null';
+
+	if ( macosPlatforms.includes( platform ) ) {
+		operatingSystem = 'Mac OS';
+	} else if ( windowsPlatforms.includes( platform ) ) {
+		operatingSystem = 'Windows';
+	}
+	return operatingSystem;
+};

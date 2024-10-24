@@ -1,11 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Select from './select.jsx';
 import Label from '../label';
-
-Select.displayName = 'Select';
-Select.Button.displayName = 'Select.Button';
-Select.Options.displayName = 'Select.Options';
-Select.Option.displayName = 'Select.Option';
 
 export default {
 	title: 'Molecules/Select',
@@ -84,17 +79,32 @@ const options = [
 const Template = ( args ) => {
 	const [ selected, setSelected ] = useState( args.multiple ? [] : '' );
 
+	useEffect( () => {
+		if ( args?.multiple ) {
+			setSelected( [] );
+			return;
+		}
+		setSelected( '' );
+	}, [ args ] );
+
 	return (
 		<div style={ { width: '260px' } }>
-			<Select { ...args } onChange={ setSelected } selected={ selected }>
+			<Select
+				key={ args?.multiple }
+				{ ...args }
+				onChange={ setSelected }
+				selected={ selected }
+			>
 				<Select.Button label="Label" />
-				<Select.Options dropdownPortalId="surerank-dashboard">
-					{ options.map( ( option, index ) => (
-						<Select.Option key={ index } value={ option }>
-							{ option }
-						</Select.Option>
-					) ) }
-				</Select.Options>
+				<Select.Portal>
+					<Select.Options>
+						{ options.map( ( option, index ) => (
+							<Select.Option key={ index } value={ option }>
+								{ option }
+							</Select.Option>
+						) ) }
+					</Select.Options>
+				</Select.Portal>
 			</Select>
 			<Label size="sm" variant="help">
 				Hint text can be added here.

@@ -187,7 +187,7 @@ const Drawer = ( {
 			>
 				<div
 					className={ cn(
-						'fixed z-999999 w-0 h-0 overflow-visible',
+						'fixed z-auto w-0 h-0 overflow-visible',
 						className
 					) }
 					role="dialog"
