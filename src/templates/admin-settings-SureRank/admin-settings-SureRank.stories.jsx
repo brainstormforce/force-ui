@@ -34,7 +34,7 @@ import {
 	Type,
 	User,
 } from 'lucide-react';
-import { SureRankLogo as Logo } from '@/icons';
+import { SureRankLogo as Logo } from '@/ui/icons';
 
 export default {
 	title: 'Templates/Admin Settings/Admin Settings - SureRank',

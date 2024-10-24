@@ -24,6 +24,7 @@ export default defineConfig({
 	},
 	resolve: {
 		alias: {
+			'@/icons': resolve(process.cwd(), 'src/ui/icons.jsx'),
 			'@/components': resolve(process.cwd(), 'src/components'),
 			'@/utilities': resolve(process.cwd(), 'src/utilities'),
 			'@/globals': resolve(process.cwd(), 'src/globals'),

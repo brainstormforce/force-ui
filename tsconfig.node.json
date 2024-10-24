@@ -18,7 +18,7 @@
       "@/components": ["./src/components"],
       "@/components/*": ["./src/components/*"],
       "@/utilities/*": ["./src/utilities/*"],
-      "@/icons": ["./src/ui/icons.js"],
+      "@/icons": ["src/ui/icons.jsx"],
       "@/*": ["./src/*"],
     },
 

@@ -8,7 +8,7 @@ import {
 	Badge,
 	Title,
 } from '@/components';
-import { SureEmailLogo, PrestoPlayerLogo } from '@/icons';
+import { SureEmailLogo, PrestoPlayerLogo } from '@/ui/icons';
 
 export default {
 	title: 'Templates/Onboarding/Setup Tools',

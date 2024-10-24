@@ -1,5 +1,5 @@
 import { ChevronLeft, ChevronRight, Plus, X } from 'lucide-react';
-import { SureEmailIcon } from '@/icons';
+import { SureEmailIcon } from '@/ui/icons';
 import {
 	Input,
 	Label,

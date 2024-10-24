@@ -1,6 +1,6 @@
 import { Check, X } from 'lucide-react';
 import { Topbar, Button, Label, ProgressSteps } from '@/components';
-import { SureEmailLogo } from '@/icons';
+import { SureEmailLogo } from '@/ui/icons';
 
 export default {
 	title: 'Templates/Onboarding/Welcome',

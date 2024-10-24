@@ -34,7 +34,7 @@ import {
 	Instagram,
 	Infinity,
 } from 'lucide-react';
-import { SpectraLogo as Logo } from '@/icons';
+import { SpectraLogo as Logo } from '@/ui/icons';
 
 export default {
 	title: 'Templates/Dashboard/Spectra Dashboard',

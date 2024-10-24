@@ -28,7 +28,7 @@ import {
 	X,
 	Zap,
 } from 'lucide-react';
-import { SpectraLogo as Logo } from '@/icons';
+import { SpectraLogo as Logo } from '@/ui/icons';
 
 export default {
 	title: 'Templates/Admin Settings/Admin Settings - Spectra',

@@ -31,7 +31,7 @@ import {
 	PanelTopDashed,
 	PanelsTopLeft,
 } from 'lucide-react';
-import { AstraThemeLogo as Logo } from '@/icons';
+import { AstraThemeLogo as Logo } from '@/ui/icons';
 
 export default {
 	title: 'Templates/Dashboard/Astra Dashboard',

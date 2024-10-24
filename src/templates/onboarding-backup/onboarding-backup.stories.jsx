@@ -8,7 +8,7 @@ import {
 	Badge,
 	Title,
 } from '@/components';
-import { SureEmailLogo, SureEmailIcon } from '@/icons';
+import { SureEmailLogo, SureEmailIcon } from '@/ui/icons';
 
 export default {
 	title: 'Templates/Onboarding/Backup Email',

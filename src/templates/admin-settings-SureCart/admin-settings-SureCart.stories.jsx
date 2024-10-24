@@ -33,7 +33,7 @@ import {
 	Truck,
 	User,
 } from 'lucide-react';
-import { SureCartLogo as Logo } from '@/icons';
+import { SureCartLogo as Logo } from '@/ui/icons';
 
 export default {
 	title: 'Templates/Admin Settings/Admin Settings - SureCart',

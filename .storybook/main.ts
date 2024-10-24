@@ -5,7 +5,6 @@ import path from 'path';
 const config: StorybookConfig = {
 	stories: ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|mjs|ts|tsx)'],
 	addons: [
-		'@storybook/addon-webpack5-compiler-swc',
 		'@storybook/addon-onboarding',
 		'@storybook/addon-links',
 		'@storybook/addon-essentials',
@@ -39,7 +38,11 @@ const config: StorybookConfig = {
 				alias: {
 					...config.resolve?.alias,
 					// 👇 Internal modules
-					'@/icons': path.resolve(__dirname, '..', 'src/ui/icons'),
+					'@/icons': path.resolve(
+						__dirname,
+						'..',
+						'src/ui/icons.jsx'
+					),
 					'@/utilities': path.resolve(
 						__dirname,
 						'..',

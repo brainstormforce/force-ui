@@ -8,7 +8,7 @@ import {
 	ProgressSteps,
 	Title,
 } from '@/components';
-import { SureEmailIcon } from '@/icons';
+import { SureEmailIcon } from '@/ui/icons';
 
 export default {
 	title: 'Templates/Onboarding/Profile',
