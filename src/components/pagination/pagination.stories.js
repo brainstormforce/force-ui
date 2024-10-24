@@ -31,7 +31,7 @@ export default {
 		isActive: {
 			name: 'IsActive',
 			description:
-				'Defines if the page item is active. Passed to each Pagination Item.',
+				'Defines if the page item is active when set to `true`. (This will apply to "2nd" item only for demo)',
 			control: 'boolean',
 			table: {
 				type: { summary: 'boolean' },
@@ -85,14 +85,13 @@ const Template = ( args ) => {
 					tag={ args.tag }
 					href={ args.href }
 					target={ args.target }
-					icon={ args.icon }
 				/>
 
 				<Pagination.Item
 					tag={ args.tag }
 					href={ args.href }
 					target={ args.target }
-					isActive={ false || args.isActive }
+					isActive={ false }
 				>
 					1
 				</Pagination.Item>
@@ -100,7 +99,7 @@ const Template = ( args ) => {
 					tag={ args.tag }
 					href={ args.href }
 					target={ args.target }
-					isActive={ true || args.isActive }
+					isActive={ args.isActive }
 				>
 					2
 				</Pagination.Item>
@@ -108,7 +107,7 @@ const Template = ( args ) => {
 					tag={ args.tag }
 					href={ args.href }
 					target={ args.target }
-					isActive={ false || args.isActive }
+					isActive={ false }
 				>
 					3
 				</Pagination.Item>
@@ -119,7 +118,7 @@ const Template = ( args ) => {
 					tag={ args.tag }
 					href={ args.href }
 					target={ args.target }
-					isActive={ false || args.isActive }
+					isActive={ false }
 				>
 					7
 				</Pagination.Item>
@@ -127,7 +126,7 @@ const Template = ( args ) => {
 					tag={ args.tag }
 					href={ args.href }
 					target={ args.target }
-					isActive={ false || args.isActive }
+					isActive={ false }
 				>
 					8
 				</Pagination.Item>
@@ -135,7 +134,7 @@ const Template = ( args ) => {
 					tag={ args.tag }
 					href={ args.href }
 					target={ args.target }
-					isActive={ false || args.isActive }
+					isActive={ false }
 				>
 					9
 				</Pagination.Item>
@@ -144,7 +143,6 @@ const Template = ( args ) => {
 					tag={ args.tag }
 					href={ args.href }
 					target={ args.target }
-					icon={ args.icon }
 				/>
 			</Pagination.Content>
 		</Pagination>

@@ -1,5 +1,5 @@
 import { createContext, useContext, forwardRef } from 'react';
-import { cn } from '@/utilities/functions';
+import { cn, callAll } from '@/utilities/functions';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { disabledClassNames, sizeClassNames } from './component-style';
 import Button from '../button';
@@ -51,7 +51,6 @@ const PaginationItem = forwardRef(
 		return (
 			<li
 				ref={ ref }
-				tabIndex={ 0 }
 				className={ cn( 'flex', disabled && disabledClassNames.general ) }
 			>
 				<PaginationButton
@@ -69,7 +68,6 @@ const PaginationItem = forwardRef(
 PaginationItem.displayName = 'Pagination.Item';
 
 const PaginationButton = ( {
-	icon = null,
 	isActive = false,
 	tag = 'a',
 	children,
@@ -77,6 +75,8 @@ const PaginationButton = ( {
 	...props
 } ) => {
 	const { size, disabled } = usePageContext();
+
+	const handleClick = ( event ) => event.preventDefault();
 
 	return (
 		<Button
@@ -93,52 +93,47 @@ const PaginationButton = ( {
 					'text-button-primary active:text-button-primary bg-brand-background-50',
 				disabled && [
 					disabledClassNames.general,
-					disabledClassNames.icon,
 					disabledClassNames.text,
 					'focus:ring-transparent cursor-not-allowed',
 				],
 				className
 			) }
 			disabled={ disabled }
-			icon={ icon }
 			{ ...props }
+			onClick={ callAll( props.onClick, disabled ? handleClick : null ) }
 		>
 			{ children }
 		</Button>
 	);
 };
 
-const PaginationPrevious = ( { icon = <ChevronLeft />, ...props } ) => {
+const PaginationPrevious = ( props ) => {
 	const { size, disabled } = usePageContext();
 	return (
-		<li
-			tabIndex={ 0 }
-			className={ cn( 'flex', disabled && disabledClassNames.general ) }
-		>
+		<li className={ cn( 'flex', disabled && disabledClassNames.general ) }>
 			<PaginationButton
-				icon={ icon }
 				aria-label="Go to previous page"
-				className={ sizeClassNames[ size ].icon }
+				className={ cn( '[&>span]:flex [&>span]:items-center' ) }
 				{ ...props }
-			/>
+			>
+				<ChevronLeft className={ cn( sizeClassNames[ size ].icon ) } />
+			</PaginationButton>
 		</li>
 	);
 };
 PaginationPrevious.displayName = 'Pagination.Previous';
 
-const PaginationNext = ( { icon = <ChevronRight />, ...props } ) => {
+const PaginationNext = ( props ) => {
 	const { size, disabled } = usePageContext();
 	return (
-		<li
-			tabIndex={ 0 }
-			className={ cn( 'flex', disabled && disabledClassNames.general ) }
-		>
+		<li className={ cn( 'flex', disabled && disabledClassNames.general ) }>
 			<PaginationButton
-				icon={ icon }
 				aria-label="Go to next page"
-				className={ sizeClassNames[ size ].icon }
+				className={ cn( '[&>span]:flex [&>span]:items-center' ) }
 				{ ...props }
-			/>
+			>
+				<ChevronRight className={ cn( sizeClassNames[ size ].icon ) } />
+			</PaginationButton>
 		</li>
 	);
 };
@@ -148,18 +143,16 @@ PaginationNext.displayName = 'Pagination.Next';
 const PaginationEllipsis = ( props ) => {
 	const { size, disabled } = usePageContext();
 	return (
-		<li
-			tabIndex={ 0 }
-			className={ cn( 'flex', disabled && disabledClassNames.general ) }
-		>
+		<li className={ cn( 'flex', disabled && disabledClassNames.general ) }>
 			<span
 				className={ cn(
+					'flex justify-center',
 					sizeClassNames[ size ].ellipse,
 					disabled && disabledClassNames.general
 				) }
 				{ ...props }
 			>
-				...
+				•••
 			</span>
 		</li>
 	);
