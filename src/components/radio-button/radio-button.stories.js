@@ -154,15 +154,6 @@ export default {
 				defaultValue: { summary: 'false' },
 			},
 		},
-		checked: {
-			description:
-				'`RadioButton.Button` : Checks/Unchecks the radio button based on the true/false.',
-			control: 'boolean',
-			table: {
-				type: { summary: 'boolean' },
-				defaultValue: { summary: 'false' },
-			},
-		},
 		borderOnActive: {
 			description:
 				'`RadioButton.Button` : Adds a border around the button when the button is Checked/Selected.',
