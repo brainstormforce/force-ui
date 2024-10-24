@@ -154,6 +154,15 @@ export default {
 				defaultValue: { summary: 'false' },
 			},
 		},
+		checked: {
+			description:
+				'`RadioButton.Button` : Checks/Unchecks the radio button based on the true/false.',
+			control: 'boolean',
+			table: {
+				type: { summary: 'boolean' },
+				defaultValue: { summary: 'false' },
+			},
+		},
 		borderOnActive: {
 			description:
 				'`RadioButton.Button` : Adds a border around the button when the button is Checked/Selected.',
@@ -238,6 +247,13 @@ export default {
 			},
 			defaultValue: 'bg-white',
 		},
+		className: {
+			description:
+				'`RadioButton.Button` : Custom classes to be applied to the button.',
+			control: {
+				type: 'text',
+			},
+		},
 	},
 };
 
@@ -273,6 +289,7 @@ const Template = ( args ) => {
 								description: `Description ${ num }`,
 							}
 						}
+						checked={ args.checked }
 						borderOn={ args.borderOn }
 						borderOnActive={ args.borderOnActive }
 						minWidth={ args.minWidth }
