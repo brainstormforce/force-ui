@@ -64,7 +64,7 @@ const AccordionItem = ( props ) => {
 	return (
 		<div className={ cn( typeClasses, className ) }>
 			{ React.Children.map( children, ( child ) =>
-                React.cloneElement(child, { isOpen, onToggle, type, disabled } )
+				React.cloneElement( child, { isOpen, onToggle, type, disabled } )
 			) }
 		</div>
 	);
@@ -79,16 +79,16 @@ const AccordionTrigger = ( props ) => {
 		iconType = 'arrow', // arrow, plus-minus
 		disabled = false,
 		tag = 'h3',
-        type,
+		type,
 		children,
 		className,
 	} = props;
 
-    const paddingClasses = {
-        simple: 'px-2 py-3',
-        separator: 'px-2 py-4',
-        boxed: 'px-3 py-4',
-    }?.[type];
+	const paddingClasses = {
+		simple: 'px-2 py-3',
+		separator: 'px-2 py-4',
+		boxed: 'px-3 py-4',
+	}?.[ type ];
 
 	const renderIcon = () => {
 		if ( iconType === 'arrow' ) {
@@ -120,10 +120,11 @@ const AccordionTrigger = ( props ) => {
 
 	const Tag = tag;
 	return (
-        <Tag className="flex m-0 hover:bg-background-secondary">
+		<Tag className="flex m-0 hover:bg-background-secondary">
 			<button
 				className={ cn(
-                    'flex w-full items-center justify-between text-sm font-medium transition-all appearance-none bg-transparent border-0 cursor-pointer gap-3', paddingClasses,
+					'flex w-full items-center justify-between text-sm font-medium transition-all appearance-none bg-transparent border-0 cursor-pointer gap-3',
+					paddingClasses,
 					disabled && 'cursor-not-allowed opacity-40',
 					className
 				) }
@@ -151,11 +152,11 @@ const AccordionContent = ( props ) => {
 		closed: { height: 0, opacity: 0 },
 	};
 
-    const contentPaddingClasses = {
-        simple: 'px-2 pb-3',
-        separator: 'px-2 pb-4',
-        boxed: 'px-3 pb-4',
-    }?.[type];
+	const contentPaddingClasses = {
+		simple: 'px-2 pb-3',
+		separator: 'px-2 pb-4',
+		boxed: 'px-3 pb-4',
+	}?.[ type ];
 
 	return (
 		<AnimatePresence initial={ false }>
@@ -174,7 +175,7 @@ const AccordionContent = ( props ) => {
 					) }
 					aria-hidden={ ! isOpen }
 				>
-                    <div className={cn(contentPaddingClasses)}>{ children }</div>
+					<div className={ cn( contentPaddingClasses ) }>{ children }</div>
 				</motion.div>
 			) }
 		</AnimatePresence>
