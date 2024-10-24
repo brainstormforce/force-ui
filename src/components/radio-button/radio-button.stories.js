@@ -238,6 +238,13 @@ export default {
 			},
 			defaultValue: 'bg-white',
 		},
+		className: {
+			description:
+				'`RadioButton.Button` : Custom classes to be applied to the button.',
+			control: {
+				type: 'text',
+			},
+		},
 	},
 };
 

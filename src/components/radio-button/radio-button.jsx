@@ -350,6 +350,7 @@ const RadioButtonComponent = (
 								}
 							} }
 							checked={ checkedValue }
+							{ ...props }
 						/>
 					) : (
 						<span className="relative p-0.5">
