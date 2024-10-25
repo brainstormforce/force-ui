@@ -2,7 +2,36 @@ import React, { createContext, useContext } from 'react';
 import { cn } from '@/utilities/functions';
 import { ChevronRight, Ellipsis } from 'lucide-react';
 
-const BreadcrumbContext = createContext();
+export declare interface BreadcrumbCommonProps {
+	/** Defines the children of the breadcrumb. */
+	children: React.ReactNode;
+}
+
+export declare interface BreadcrumbProps extends BreadcrumbCommonProps {
+	/** Defines the size of the breadcrumb. */
+	size?: 'sm' | 'md';
+}
+
+export declare interface BreadcrumbLinkProps extends BreadcrumbCommonProps {
+	/** Defines the href of the link. */
+	href: string;
+	/** Defines the class name of the link. */
+	className?: string;
+	/** Defines the element type of the link. */
+	as?: React.ElementType;
+}
+
+export declare interface BreadcrumbSeparatorProps {
+	/** 
+	 * Defines the type of separator. 
+	 * 
+	 * Available options:
+	 * - arrow
+	 * - slash
+	*/
+	type: 'arrow' | 'slash';
+}
+
 
 const sizeClasses = {
 	sm: {
@@ -17,7 +46,9 @@ const sizeClasses = {
 	},
 };
 
-const Breadcrumb = ({ children, size = 'sm' }) => {
+const BreadcrumbContext = createContext({ sizes: sizeClasses.sm });
+
+const Breadcrumb = ({ children, size = 'sm' }: BreadcrumbProps) => {
 	const sizes = sizeClasses[size] || sizeClasses.sm;
 
 	return (
@@ -32,23 +63,23 @@ const Breadcrumb = ({ children, size = 'sm' }) => {
 };
 Breadcrumb.displayName = 'Breadcrumb';
 
-const BreadcrumbList = ({ children }) => {
+export const BreadcrumbList = ({ children }: BreadcrumbCommonProps) => {
 	return <>{children}</>;
 };
 BreadcrumbList.displayName = 'Breadcrumb.List';
 
-const BreadcrumbItem = ({ children }) => {
+export const BreadcrumbItem = ({ children }: BreadcrumbCommonProps) => {
 	return <li className="m-0 inline-flex items-center gap-2">{children}</li>;
 };
 BreadcrumbItem.displayName = 'Breadcrumb.Item';
 
-const BreadcrumbLink = ({
+export const BreadcrumbLink = ({
 	href,
 	children,
 	className,
 	as: AsElement = 'a',
 	...props
-}) => {
+}: BreadcrumbLinkProps) => {
 	const { sizes } = useContext(BreadcrumbContext);
 	return (
 		<AsElement
@@ -68,7 +99,7 @@ const BreadcrumbLink = ({
 };
 BreadcrumbLink.displayName = 'Breadcrumb.Link';
 
-const BreadcrumbSeparator = ({ type }) => {
+export const BreadcrumbSeparator = ({ type } : BreadcrumbSeparatorProps) => {
 	const { sizes } = useContext(BreadcrumbContext);
 	const separatorIcons = {
 		slash: <span className={cn('mx-1', sizes.separator)}>/</span>,
@@ -83,7 +114,7 @@ const BreadcrumbSeparator = ({ type }) => {
 };
 BreadcrumbSeparator.displayName = 'Breadcrumb.Separator';
 
-const BreadcrumbEllipsis = () => {
+export const BreadcrumbEllipsis = () => {
 	const { sizes } = useContext(BreadcrumbContext);
 
 	return (
@@ -95,7 +126,7 @@ const BreadcrumbEllipsis = () => {
 };
 BreadcrumbEllipsis.displayName = 'Breadcrumb.Ellipsis';
 
-const BreadcrumbPage = ({ children }) => {
+export const BreadcrumbPage = ({ children }: BreadcrumbCommonProps) => {
 	const { sizes } = useContext(BreadcrumbContext);
 
 	return (
@@ -106,11 +137,11 @@ const BreadcrumbPage = ({ children }) => {
 };
 BreadcrumbPage.displayName = 'Breadcrumb.Page';
 
-export default Object.assign(Breadcrumb, {
-	List: BreadcrumbList,
-	Item: BreadcrumbItem,
-	Link: BreadcrumbLink,
-	Separator: BreadcrumbSeparator,
-	Ellipsis: BreadcrumbEllipsis,
-	Page: BreadcrumbPage,
-});
+Breadcrumb.List = BreadcrumbList;
+Breadcrumb.Item = BreadcrumbItem;
+Breadcrumb.Link = BreadcrumbLink;
+Breadcrumb.Separator = BreadcrumbSeparator;
+Breadcrumb.Ellipsis = BreadcrumbEllipsis;
+Breadcrumb.Page = BreadcrumbPage;
+
+export default Breadcrumb;
