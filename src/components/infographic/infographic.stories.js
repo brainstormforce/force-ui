@@ -30,47 +30,63 @@ const pieChartData = [
 export default {
     title: 'Molecules/Infographic',
     component: Infographic,
+    parameters: {
+		layout: 'centered',
+	},
+    tags: [ 'autodocs' ],
     argTypes: {
+        data: { 
+            description:
+				'The source data in which each element is an object.',
+        },
         type: { 
-            control: { 
-                type: 'select', 
-                options: ['line', 'area', 'bar', 'pie'] 
-            } 
+            description:
+				'Specifies the type of the Infographic component',
+            control: { type: 'select' },
+            options: ['line', 'area', 'bar', 'pie'], 
         },
         width: { 
+            description:
+				'Specifies the width of the the Infographic component',
             control: { 
                 type: 'number' 
             }, 
             defaultValue: 500 
         },
         height: { 
-            control: { 
-                type: 'number' 
-            }, 
+            description:
+				'Specifies the height of the the Infographic component',
+            control: { type: 'number' }, 
             defaultValue: 300 
         },
         showXAxis: { 
-            control: { 
-                type: 'boolean' 
-            }, 
+            description:
+				"Render the `<XAxis />` component which present x axis",
+            control: { type: 'boolean' }, 
             defaultValue: true 
         },
-        showYAxis: { 
-            control: { 
-                type: 'boolean' 
-            }, 
+        showYAxis: {
+            description:
+				"Render the `<YAxis />` component which present y axis", 
+            control: { type: 'boolean' }, 
             defaultValue: true 
         },
         showTooltip: { 
-            control: { 
-                type: 'boolean' 
-            }, 
+            description:
+				"Render the `<Tooltip />` component which give more inforamtion", 
+            control: { type: 'boolean' }, 
             defaultValue: true 
         },
         showLegend: { 
-            control: { 
-                type: 'boolean' 
-            }, 
+            description:
+				"Render the `<Legend />` component",
+            control: { type: 'boolean' }, 
+            defaultValue: true 
+        },
+        showCartesianGrid: { 
+            description:
+				"Render the `<CartesianGrid />` component which adding horizontal and vertical lines across the chart area.",
+            control: { type: 'boolean' }, 
             defaultValue: true 
         },
     },
@@ -89,6 +105,7 @@ LineChart.args = {
     showYAxis: true,
     showTooltip: true,
     showLegend: true,
+    showCartesianGrid: true,
 };
 
 export const AreaChart = Template.bind({});
