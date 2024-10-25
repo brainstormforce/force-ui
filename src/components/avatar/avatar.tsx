@@ -15,15 +15,14 @@ export declare interface AvatarProps {
 	className?: string;
 }
 
-const Avatar = (props: AvatarProps) => {
-	const {
-		variant = 'primary',
-		size = 'md',
-		border = 'subtle',
-		url = '',
-		children,
-		className,
-	} = props;
+const Avatar = ({
+	variant = 'primary',
+	size = 'md',
+	border = 'subtle',
+	url = '',
+	children,
+	className,
+}: AvatarProps) => {
 
 	const effectiveBorder = url && border === 'none' ? 'subtle' : border;
 
