@@ -39,6 +39,8 @@ export const Neutral: Story = {
 	args: {
 		variant: 'neutral',
 		onClose: fn(),
+		title: 'Title',
+		content: 'Description',
 	},
 };
 
@@ -46,6 +48,8 @@ export const Info: Story = {
 	args: {
 		variant: 'info',
 		onClose: fn(),
+		title: 'Title',
+		content: 'Description',
 	},
 };
 
@@ -53,6 +57,8 @@ export const Warning: Story = {
 	args: {
 		variant: 'warning',
 		onClose: fn(),
+		title: 'Title',
+		content: 'Description',
 	},
 };
 
@@ -60,6 +66,8 @@ export const Error: Story = {
 	args: {
 		variant: 'error',
 		onClose: fn(),
+		title: 'Title',
+		content: 'Description',
 	},
 };
 
@@ -67,6 +75,8 @@ export const Success: Story = {
 	args: {
 		variant: 'success',
 		onClose: fn(),
+		title: 'Title',
+		content: 'Description',
 	},
 };
 
@@ -75,6 +85,8 @@ export const Stack: Story = {
 		variant: 'info',
 		design: 'stack',
 		onClose: fn(),
+		title: 'Title',
+		content: 'Description',
 	},
 };
 
@@ -83,12 +95,16 @@ export const Dark: Story = {
 		variant: 'error',
 		theme: 'dark',
 		onClose: fn(),
+		title: 'Title',
+		content: 'Description',
 	},
 };
 
 export const WithAction: Story = {
 	args: {
 		onClose: fn(),
+		title: 'Title',
+		content: 'Description',
 		variant: 'info',
 		design: 'stack',
 		action: {
@@ -102,6 +118,8 @@ export const WithAction: Story = {
 export const WithCustomIcon: Story = {
 	args: {
 		onClose: fn(),
+		title: 'Title',
+		content: 'Description',
 		variant: 'info',
 		icon: <Plus />,
 		action: {
