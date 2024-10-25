@@ -112,9 +112,10 @@ const colors = [
     { stroke: "#38BDF8", fill: "#BAE6FD" },
 ];
 
-// Custom tick formatter for months
+// Custom tick formatter function for months
 const monthFormatter = (value) => value.slice(0, 3);
 
+// Custom tick formatter function for months and days
 const monthFormatterInteractive = (value) => {
     const date = new Date(value)
     return date.toLocaleDateString("en-US", {
@@ -132,28 +133,23 @@ export default {
     tags: ['autodocs'],
     argTypes: {
         data: {
-            description:
-                'The source data in which each element is an object.',
+            description: 'An array of objects representing the source data for the chart.',
+            control: { type: 'object' },
         },
         width: {
-            description:
-                'Specifies the width of the the Infographic component',
-            control: {
-                type: 'number'
-            },
+            description: 'The width of the chart component in pixels.',
+            control: { type: 'number' },
             defaultValue: 500
         },
         height: {
-            description:
-                'Specifies the height of the the Infographic component',
+            description: 'The height of the chart component in pixels.',
             control: { type: 'number' },
             defaultValue: 300
         },
         showXAxis: {
-            description:
-                "Render the `<XAxis />` component which present x axis",
+            description: "Whether to render the `<XAxis />` component for the x-axis.",
             control: { type: 'boolean' },
-            defaultValue: true
+            defaultValue: true,
         },
         showYAxis: {
             description:
@@ -162,20 +158,17 @@ export default {
             defaultValue: true
         },
         showTooltip: {
-            description:
-                "Render the `<Tooltip />` component which give more inforamtion",
+            description: "Whether to render the `<YAxis />` component for the y-axis.",
             control: { type: 'boolean' },
             defaultValue: true
         },
         showLegend: {
-            description:
-                "Render the `<Legend />` component",
+            description: "Whether to render the `<Legend />` component to identify data series.",
             control: { type: 'boolean' },
             defaultValue: true
         },
         showCartesianGrid: {
-            description:
-                "Render the `<CartesianGrid />` component which adding horizontal and vertical lines across the chart area.",
+            description: "Whether to display the `<CartesianGrid />`, adding horizontal and vertical grid lines.",
             control: { type: 'boolean' },
             defaultValue: true
         },
