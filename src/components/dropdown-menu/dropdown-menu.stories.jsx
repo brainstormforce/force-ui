@@ -1,5 +1,5 @@
-import DropdownMenu from './dropdown-menu.jsx';
-import Avatar from '../avatar/avatar.jsx';
+import DropdownMenu from './dropdown-menu';
+import Avatar from '../avatar';
 import Button from '../button';
 import { House } from 'lucide-react';
 
