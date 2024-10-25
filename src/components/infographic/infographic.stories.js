@@ -7,12 +7,6 @@ const lineChartData = [
     { name: 'Mar', revenue: 9800, profit: 2000 },
 ];
 
-// const areaChartData = [
-//     { name: 'Jan', product1: 4000, product2: 2400 },
-//     { name: 'Feb', product1: 3000, product2: 2210 },
-//     { name: 'Mar', product1: 2000, product2: 2290 },
-// ];
-
 const areaChartData = [
   { month: "January", desktop: 186, mobile: 80 },
   { month: "February", desktop: 305, mobile: 200 },
@@ -114,6 +108,15 @@ const chartDataIteractive = [
   { date: "2024-06-28", desktop: 149, mobile: 200 },
   { date: "2024-06-29", desktop: 103, mobile: 160 },
   { date: "2024-06-30", desktop: 446, mobile: 400 },
+]
+
+const barChartDataSimple = [
+  { month: "January", desktop: 186 },
+  { month: "February", desktop: 305 },
+  { month: "March", desktop: 237 },
+  { month: "April", desktop: 73 },
+  { month: "May", desktop: 209 },
+  { month: "June", desktop: 214 },
 ]
 
 const barChartData = [
@@ -218,13 +221,14 @@ AreaChart.args = {
     width: 600,
     height: 400,
     showXAxis: true,
-    showYAxis: true,
+    showYAxis: false,
     showTooltip: true,
-    showLegend: true,
+    showLegend: false,
+    showCartesianGrid: true
 };
 
-export const AreaChart2 = Template.bind({});
-AreaChart2.args = {
+export const AreaChartGradient = Template.bind({});
+AreaChartGradient.args = {
     type: 'area',
     data: areaChartData,
     width: 600,
@@ -249,10 +253,23 @@ AreaChartInteractive.args = {
     showCartesianGrid: true
 };
 
+export const BarChartSimpleVertical = Template.bind({});
+BarChartSimpleVertical.args = {
+    type: 'bar',
+    data: barChartDataSimple,
+    width: 600,
+    height: 400,
+    showXAxis: true,
+    showYAxis: false,
+    showTooltip: true,
+    showLegend: false,
+    showCartesianGrid: true
+};
+
 export const BarChart = Template.bind({});
 BarChart.args = {
     type: 'bar',
-    data: barChartData,
+    data: barChartDataSimple,
     width: 600,
     height: 400,
     showXAxis: true,
