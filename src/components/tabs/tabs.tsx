@@ -8,28 +8,74 @@ import React, {
 import { cn } from '@/utilities/functions';
 import { motion } from 'framer-motion';
 
+declare type Ref = HTMLButtonElement;
+declare type OnChangeValue = {slug: string, text: string};
+declare type InternalOnChange = (event: React.MouseEvent<HTMLButtonElement>, value: OnChangeValue) => void;
+
+export declare interface TabsProps {
+	/** Controls the active tab. */
+	activeItem?: string | null;
+	/** Callback when the active item changes. */
+	onChange?: ({event, value}: {event: React.MouseEvent<HTMLButtonElement>, value: OnChangeValue}) => void;
+	/** Additional class names for styling. */
+	className?: string;
+	/** Defines the size of the tabs. */
+	size?: 'xs' | 'sm' | 'md' | 'lg';
+	/** Defines the orientation of the tabs. */
+	orientation?: 'horizontal' | 'vertical';
+	/** Defines the style variant of the tabs. */
+	variant?: 'pill' | 'rounded' | 'underline';
+	/** Defines the position of the icon. */
+	iconPosition?: 'left' | 'right';
+	/** Defines the width of the tabs. */
+	width?: 'auto' | 'full';
+	/** Tabs to display in the group. */
+	children: React.ReactNode;
+}
+
+export declare interface TabProps {
+	/** Unique identifier for the tab. */
+	slug: string;
+	/** Text to display in the tab. */
+	text: string;
+	/** Icon to display in the tab. */
+	icon?: React.ReactNode;
+	/** Additional class names for styling. */
+	className?: string;
+	/** Disables the tab. */
+	disabled?: boolean;
+	/** Badge to display in the tab. */
+	badge?: React.ReactNode;
+}
+
 // Context for managing the TabsGroup state.
-const TabsGroupContext = createContext();
+const TabsGroupContext = createContext<{
+	activeItem: string | null;
+	onChange: InternalOnChange;
+	size: 'xs' | 'sm' | 'md' | 'lg';
+	variant: 'pill' | 'rounded' | 'underline';
+	orientation: 'horizontal' | 'vertical';
+	iconPosition: 'left' | 'right';
+	width: 'auto' | 'full';
+} | null>(null);
 
 // Hook to use the TabsGroup context.
 const useTabsGroup = () => useContext(TabsGroupContext);
 
 // TabsGroup component to wrap Tab components.
-const TabsGroup = (props) => {
-	const {
-		children,
-		activeItem = null, // The currently active item in the group.
-		onChange, // Callback when the active item changes.
-		className, // Additional class names for styling.
-		size = 'sm', // Size of the tabs in the group ('xs', 'sm', 'md', 'lg').
-		orientation = 'horizontal', // Orientation of the tabs ('horizontal', 'vertical').
-		variant = 'pill', // Style variant of the tabs ('pill', 'rounded', 'underline').
-		iconPosition = 'left', // Position of the icon in the tab ('left' or 'right').
-		width = 'full', // Width of the tabs ('auto' or 'full').
-	} = props;
-
+export const TabsGroup = ({
+	children,
+	activeItem = null, // The currently active item in the group.
+	onChange, // Callback when the active item changes.
+	className, // Additional class names for styling.
+	size = 'sm', // Size of the tabs in the group ('xs', 'sm', 'md', 'lg').
+	orientation = 'horizontal', // Orientation of the tabs ('horizontal', 'vertical').
+	variant = 'pill', // Style variant of the tabs ('pill', 'rounded', 'underline').
+	iconPosition = 'left', // Position of the icon in the tab ('left' or 'right').
+	width = 'full', // Width of the tabs ('auto' or 'full').
+}: TabsProps) => {
 	// Handle change event.
-	const handleChange = useCallback(
+	const handleChange: InternalOnChange = useCallback(
 		(event, value) => {
 			if (onChange) {
 				onChange({ event, value });
@@ -119,17 +165,16 @@ const TabsGroup = (props) => {
 TabsGroup.displayName = 'Tabs.Group';
 
 // Tab component to be used within a TabsGroup.
-const TabComponent = (props, ref) => {
+export const Tab = forwardRef<Ref, TabProps>(({
+	slug,
+	text,
+	icon,
+	className,
+	disabled = false,
+	badge = null,
+	...rest
+}, ref) => {
 	const providerValue = useTabsGroup();
-	const {
-		slug,
-		text,
-		icon,
-		className,
-		disabled = false,
-		badge = null,
-		...rest
-	} = props;
 
 	if (!providerValue) {
 		throw new Error('Tab should be used inside Tabs Group');
@@ -210,7 +255,7 @@ const TabComponent = (props, ref) => {
 	const iconParentClasses = 'flex items-center gap-1';
 
 	// Handle click event.
-	const handleClick = (event) => {
+	const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
 		onChange(event, { slug, text });
 	};
 
@@ -244,8 +289,7 @@ const TabComponent = (props, ref) => {
 			{badge && isValidElement(badge) && badge}
 		</button>
 	);
-};
-const Tab = forwardRef(TabComponent);
+});
 Tab.displayName = 'Tabs.Tab';
 
 const exports = {
