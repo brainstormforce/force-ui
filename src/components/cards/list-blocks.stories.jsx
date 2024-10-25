@@ -35,6 +35,7 @@ const containerRowButtons = [
 			<Badge
 				label={ 'PRO' }
 				icon={ null }
+				size="xxs"
 				variant="inverse"
 				closable={ false }
 			/>
@@ -92,8 +93,11 @@ const Template3 = () => {
 						>
 							<Container.Item>{ button.icon }</Container.Item>
 							<Container.Item>
-								<a href="#" className="no-underline">
-									<Label className="py-0 font-normal cursor-pointer">
+								<a
+									href="#"
+									className="no-underline hover:underline hover:text-field-label"
+								>
+									<Label className="py-0 px-1 font-normal cursor-pointer">
 										{ button.label }
 									</Label>
 								</a>

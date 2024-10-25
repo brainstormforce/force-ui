@@ -52,7 +52,7 @@ const defaultRadioButtonGroupData = [
 		bagde: (
 			<Badge
 				label={ 'PRO' }
-				size="md"
+				size="xxs"
 				icon={ null }
 				variant="inverse"
 				closable={ false }
@@ -72,7 +72,7 @@ const defaultRadioButtonGroupData = [
 		bagde: (
 			<Badge
 				label={ 'PRO' }
-				size="md"
+				size="xxs"
 				icon={ null }
 				variant="inverse"
 				closable={ false }
@@ -92,7 +92,7 @@ const defaultRadioButtonGroupData = [
 		bagde: (
 			<Badge
 				label={ 'PRO' }
-				size="md"
+				size="xxs"
 				icon={ null }
 				variant="inverse"
 				closable={ false }
@@ -112,7 +112,7 @@ const defaultRadioButtonGroupData = [
 		bagde: (
 			<Badge
 				label={ 'PRO' }
-				size="md"
+				size="xxs"
 				icon={ null }
 				variant="inverse"
 				closable={ false }
@@ -182,11 +182,11 @@ const defaultRadioButtonGroupData = [
 		bagde: (
 			<Badge
 				label={ 'New' }
-				size="md"
+				size="xxs"
 				icon={ null }
 				variant="green"
 				closable={ false }
-				className="py-0 mr-2"
+				className="py-0"
 			/>
 		),
 	},
@@ -212,11 +212,11 @@ const defaultRadioButtonGroupData = [
 		bagde: (
 			<Badge
 				label={ 'Extension' }
-				size="md"
+				size="xxs"
 				icon={ null }
 				variant="yellow"
 				closable={ false }
-				className="py-0 mr-2"
+				className="py-0"
 			/>
 		),
 	},
@@ -258,6 +258,7 @@ const Template1 = () => {
 			<Container.Item className="md:w-full lg:w-full p-1 bg-field-primary-background rounded-lg">
 				<RadioButton.Group
 					as="div"
+					size="sm"
 					defaultValue={ `option-${ radioButtonGroupData[ 0 ].id }` }
 					multiSelection={ true }
 					onChange={ ( value ) => {
@@ -269,6 +270,7 @@ const Template1 = () => {
 						<RadioButton.Button
 							key={ `option-${ option.id }` }
 							borderOn={ true }
+							borderOnActive={ false }
 							value={ option.value }
 							icon={ option.icon }
 							hideSelection={ option.hideSelection }

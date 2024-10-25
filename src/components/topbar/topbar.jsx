@@ -1,81 +1,81 @@
 import React from 'react';
 import { cn, getGapClass } from '@/utilities/functions';
 
-const Topbar = ( { children, gap = 'lg', className, ...props } ) => {
+const Topbar = ({ children, gap = 'lg', className, ...props }) => {
 	return (
 		<div
-			className={ cn(
+			className={cn(
 				'w-full box-border flex items-center justify-between bg-background-primary p-5 min-h-16',
-				getGapClass( gap ),
+				getGapClass(gap),
 				className
-			) }
-			{ ...props }
+			)}
+			{...props}
 		>
-			{ children }
+			{children}
 		</div>
 	);
 };
 
 Topbar.displayName = 'Topbar';
 
-const Left = ( { gap = 'sm', children, className } ) => {
+const Left = ({ gap = 'sm', children, className }) => {
 	return (
-		<div className={ cn( 'flex items-center', getGapClass( gap ), className ) }>
-			{ children }
+		<div className={cn('flex items-center', getGapClass(gap), className)}>
+			{children}
 		</div>
 	);
 };
 
 Left.displayName = 'Topbar.Left';
 
-const Middle = ( { gap = 'md', children, align = 'center', className } ) => {
+const Middle = ({ gap = 'md', children, align = 'center', className }) => {
 	const alignmentClass = {
 		left: 'justify-start',
 		center: 'justify-center',
 		right: 'justify-end',
-	}?.[ align ];
+	}?.[align];
 
 	return (
 		<div
-			className={ cn(
+			className={cn(
 				'flex items-center grow',
-				getGapClass( gap ),
+				getGapClass(gap),
 				alignmentClass,
 				className
-			) }
+			)}
 		>
-			{ children }
+			{children}
 		</div>
 	);
 };
 
 Middle.displayName = 'Topbar.Middle';
 
-const Right = ( { gap = 'sm', children, className } ) => {
+const Right = ({ gap = 'sm', children, className }) => {
 	return (
-		<div className={ cn( 'flex items-center', getGapClass( gap ), className ) }>
-			{ children }
+		<div className={cn('flex items-center', getGapClass(gap), className)}>
+			{children}
 		</div>
 	);
 };
 
 Right.displayName = 'Topbar.Right';
 
-const Item = ( { children, className } ) => {
+const Item = ({ children, className }) => {
 	return (
 		<div
-			className={ cn( 'flex items-center [&>svg]:block h-full', className ) }
+			className={cn('flex items-center [&>svg]:block h-full', className)}
 		>
-			{ children }
+			{children}
 		</div>
 	);
 };
 
 Item.displayName = 'Topbar.Item';
 
-export default Object.assign( Topbar, {
+export default Object.assign(Topbar, {
 	Left,
 	Middle,
 	Right,
 	Item,
-} );
+});

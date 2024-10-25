@@ -22,60 +22,60 @@ const InputComponent = (
 	},
 	ref
 ) => {
-	const inputRef = useRef( null );
-	const inputId = useMemo( () => id || `input-${ type }-${ nanoid() }`, [ id ] );
-	const isControlled = useMemo( () => typeof value !== 'undefined', [ value ] );
-	const [ inputValue, setInputValue ] = useState( defaultValue );
-	const [ selectedFile, setSelectedFile ] = useState( null );
+	const inputRef = useRef(null);
+	const inputId = useMemo(() => id || `input-${type}-${nanoid()}`, [id]);
+	const isControlled = useMemo(() => typeof value !== 'undefined', [value]);
+	const [inputValue, setInputValue] = useState(defaultValue);
+	const [selectedFile, setSelectedFile] = useState(null);
 
 	const getValue = useCallback(
-		() => ( isControlled ? value : inputValue ),
-		[ isControlled, value, inputValue ]
+		() => (isControlled ? value : inputValue),
+		[isControlled, value, inputValue]
 	);
 
-	const handleChange = ( event ) => {
-		if ( disabled ) {
+	const handleChange = (event) => {
+		if (disabled) {
 			return;
 		}
 
 		let newValue;
-		if ( type === 'file' ) {
+		if (type === 'file') {
 			newValue = event.target.files;
-			if ( newValue.length > 0 ) {
-				setSelectedFile( newValue[ 0 ].name );
+			if (newValue.length > 0) {
+				setSelectedFile(newValue[0].name);
 			} else {
-				setSelectedFile( null );
+				setSelectedFile(null);
 			}
 		} else {
 			newValue = event.target.value;
 		}
 
-		if ( ! isControlled && type !== 'file' ) {
-			setInputValue( newValue );
+		if (!isControlled && type !== 'file') {
+			setInputValue(newValue);
 		}
 
-		if ( typeof onChange !== 'function' ) {
+		if (typeof onChange !== 'function') {
 			return;
 		}
-		onChange( newValue );
+		onChange(newValue);
 	};
 
 	const handleReset = () => {
 		// Reset file selection when "X" icon is clicked
-		setSelectedFile( null );
-		if ( inputRef.current ) {
+		setSelectedFile(null);
+		if (inputRef.current) {
 			inputRef.current.value = null;
 		}
-		onChange( null );
+		onChange(null);
 	};
 
 	const baseClasses =
-		'border border-solid border-border-subtle box-border bg-field-secondary-background font-normal placeholder-text-tertiary text-text-primary w-full focus:outline-none';
+		'bg-field-secondary-background font-normal placeholder-text-tertiary text-text-primary w-full outline outline-1 outline-border-subtle border-none';
 	const sizeClasses = {
-		xs: 'px-2 py-1 rounded max-h-6',
-		sm: 'p-3 py-2 rounded max-h-8',
-		md: 'p-3.5 py-2.5 rounded-md max-h-10',
-		lg: 'p-4 py-3 rounded-lg max-h-12',
+		xs: 'px-2 py-1 rounded',
+		sm: 'p-3 py-2 rounded',
+		md: 'p-3.5 py-2.5 rounded-md',
+		lg: 'p-4 py-3 rounded-lg',
 	};
 	const labelClasses = {
 		xs: 'text-xs font-medium',
@@ -101,21 +101,21 @@ const InputComponent = (
 	};
 
 	const hoverClasses = disabled
-		? 'hover:border-border-disabled'
-		: 'hover:border-border-strong';
+		? 'hover:outline-border-disabled'
+		: 'hover:outline-border-strong';
 	const focusClasses =
-		'focus:border-focus-border focus:ring-2 focus:ring-toggle-on focus:ring-offset-2';
+		'focus:outline-focus-border focus:ring-2 focus:ring-toggle-on focus:ring-offset-2';
 	const errorClasses = error
-		? 'focus:border-focus-error-border focus:ring-field-color-error border-focus-error-border'
+		? 'focus:outline-focus-error-border focus:ring-field-color-error outline-focus-error-border'
 		: '';
 	const errorFileClasses = error
-		? 'focus:border-focus-error-border focus:ring-field-color-error border-focus-error-border'
+		? 'focus:outline-focus-error-border focus:ring-field-color-error outline-focus-error-border'
 		: '';
 	const disabledClasses = disabled
-		? 'border-border-disabled bg-field-background-disabled cursor-not-allowed text-text-disabled'
+		? 'outline-border-disabled bg-field-background-disabled cursor-not-allowed text-text-disabled'
 		: '';
 	const disabledUploadFileClasses = disabled
-		? 'border-border-disabled cursor-not-allowed text-text-disabled file:text-text-tertiary'
+		? 'outline-border-disabled cursor-not-allowed text-text-disabled file:text-text-tertiary'
 		: '';
 	const iconClasses =
 		'font-normal placeholder-text-tertiary text-text-primary pointer-events-none absolute inset-y-0 flex flex-1 items-center [&>svg]:h-4 [&>svg]:w-4';
@@ -131,34 +131,34 @@ const InputComponent = (
 	};
 
 	const getPrefix = () => {
-		if ( ! prefix ) {
+		if (!prefix) {
 			return null;
 		}
 		return (
-			<div className={ cn( iconClasses, 'left-0 pl-3', textClasses[ size ] ) }>
-				{ prefix }
+			<div className={cn(iconClasses, 'left-0 pl-3', textClasses[size])}>
+				{prefix}
 			</div>
 		);
 	};
 
 	const getSuffix = () => {
-		if ( type === 'file' ) {
-			if ( selectedFile ) {
+		if (type === 'file') {
+			if (selectedFile) {
 				return (
 					<div
-						className={ cn(
+						className={cn(
 							uploadIconClasses,
 							'right-0 pr-3 cursor-pointer z-20 pointer-events-auto',
-							uploadIconSizeClasses[ size ]
-						) }
-						onClick={ handleReset }
+							uploadIconSizeClasses[size]
+						)}
+						onClick={handleReset}
 						role="button"
-						tabIndex={ 0 }
-						onKeyDown={ ( e ) => {
-							if ( e.key === 'Enter' || e.key === ' ' ) {
+						tabIndex={0}
+						onKeyDown={(e) => {
+							if (e.key === 'Enter' || e.key === ' ') {
 								handleReset();
 							}
-						} }
+						}}
 					>
 						<X />
 					</div>
@@ -166,63 +166,72 @@ const InputComponent = (
 			}
 			return (
 				<div
-					className={ cn(
+					className={cn(
 						uploadIconClasses,
 						'right-0 pr-3',
-						uploadIconSizeClasses[ size ]
-					) }
+						uploadIconSizeClasses[size]
+					)}
 				>
 					<Upload />
 				</div>
 			);
 		}
-		return null;
+
+		if (!suffix) {
+			return null;
+		}
+
+		return (
+			<div className={cn(iconClasses, 'right-0 pr-3', textClasses[size])}>
+				{suffix}
+			</div>
+		);
 	};
 
 	const fileClasses = selectedFile
 		? 'file:border-0 file:bg-transparent pr-10'
 		: 'text-text-tertiary file:border-0 file:bg-transparent pr-10';
 
-	if ( type === 'file' ) {
+	if (type === 'file') {
 		return (
 			<div className="flex flex-col items-start gap-1.5 [&_*]:box-border box-border">
 				<label
-					className={ cn( labelClasses[ size ], 'text-field-label' ) }
-					htmlFor={ inputId }
+					className={cn(labelClasses[size], 'text-field-label')}
+					htmlFor={inputId}
 				>
-					{ label }
+					{label}
 				</label>
 				<div
-					className={ cn(
+					className={cn(
 						'w-full relative flex focus-within:z-10',
 						className
-					) }
+					)}
 				>
 					<input
-						ref={ ref }
-						id={ inputId }
+						ref={ref}
+						id={inputId}
 						type="file"
-						className={ cn(
+						className={cn(
 							baseClasses,
 							disabledUploadFileClasses,
-							sizeClasses[ size ],
-							textClasses[ size ],
+							sizeClasses[size],
+							textClasses[size],
 							focusClasses,
 							hoverClasses,
 							errorFileClasses,
 							fileClasses
-						) }
-						disabled={ disabled }
-						onChange={ handleChange }
-						onInvalid={ onError }
-						{ ...props }
+						)}
+						disabled={disabled}
+						onChange={handleChange}
+						onInvalid={onError}
+						{...props}
 					/>
 					<div
-						className={ cn(
+						className={cn(
 							uploadIconClasses,
 							'right-0 pr-3',
-							uploadIconSizeClasses[ size ]
-						) }
+							uploadIconSizeClasses[size]
+						)}
 					>
 						<Upload />
 					</div>
@@ -234,46 +243,46 @@ const InputComponent = (
 	return (
 		<div className="flex flex-col items-start gap-1.5 [&_*]:box-border box-border">
 			<label
-				className={ cn( labelClasses[ size ], 'text-field-label' ) }
-				htmlFor={ inputId }
+				className={cn(labelClasses[size], 'text-field-label')}
+				htmlFor={inputId}
 			>
-				{ label }
+				{label}
 			</label>
 			<div
-				className={ cn(
+				className={cn(
 					'w-full relative flex focus-within:z-10',
 					className
-				) }
+				)}
 			>
-				{ getPrefix() }
+				{getPrefix()}
 				<input
-					ref={ inputRef }
-					id={ inputId }
-					type={ type }
-					className={ cn(
+					ref={inputRef}
+					id={inputId}
+					type={type}
+					className={cn(
 						baseClasses,
 						disabledClasses,
-						sizeClasses[ size ],
-						textClasses[ size ],
-						sizeClassesWithPrefix[ size ],
-						sizeClassesWithSuffix[ size ],
+						sizeClasses[size],
+						textClasses[size],
+						sizeClassesWithPrefix[size],
+						sizeClassesWithSuffix[size],
 						focusClasses,
 						hoverClasses,
 						errorClasses
-					) }
-					disabled={ disabled }
-					onChange={ handleChange }
-					onInvalid={ onError }
-					value={ getValue() }
-					{ ...props }
+					)}
+					disabled={disabled}
+					onChange={handleChange}
+					onInvalid={onError}
+					value={getValue()}
+					{...props}
 				/>
-				{ getSuffix() }
+				{getSuffix()}
 			</div>
 		</div>
 	);
 };
 
-const Input = forwardRef( InputComponent );
+const Input = forwardRef(InputComponent);
 Input.displayName = 'Input';
 
 export default Input;

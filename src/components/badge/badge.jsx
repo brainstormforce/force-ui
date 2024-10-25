@@ -6,10 +6,10 @@ import { X } from 'lucide-react';
  * Badge component.
  */
 
-const BadgeComponent = ( props, ref ) => {
+const BadgeComponent = (props, ref) => {
 	const {
 		label = '',
-		size = 'sm', // xs, sm, md, lg
+		size = 'sm', // xxs, xs, sm, md, lg
 		className = '',
 		type = 'pill', // pill, rounded
 		variant = 'neutral', // neutral, red, yellow, green, blue, inverse
@@ -65,58 +65,58 @@ const BadgeComponent = ( props, ref ) => {
 		lg: '[&>svg]:size-5',
 	};
 
-	if ( disabled ) {
+	if (disabled) {
 		filteredClasses = variantClasses.disabled;
 		buttonClasses += ' cursor-not-allowed disabled';
 	} else {
-		filteredClasses = variantClasses[ variant ];
+		filteredClasses = variantClasses[variant];
 	}
 
-	if ( ! label ) {
+	if (!label) {
 		return null;
 	}
 
 	return (
 		<span
-			className={ cn(
+			className={cn(
 				baseClasses,
-				sizeClasses[ size ],
-				typeClasses[ type ],
+				sizeClasses[size],
+				typeClasses[type],
 				'gap-0.5',
 				filteredClasses,
 				className
-			) }
-			ref={ ref }
+			)}
+			ref={ref}
 		>
-			{ icon ? (
+			{icon ? (
 				<span
-					className={ cn(
+					className={cn(
 						'justify-center flex items-center',
-						iconSizeClasses[ size ]
-					) }
+						iconSizeClasses[size]
+					)}
 				>
-					{ icon }
+					{icon}
 				</span>
-			) : null }
-			<span className="px-1">{ label }</span>
-			{ closable && (
+			) : null}
+			<span className="px-1">{label}</span>
+			{closable && (
 				<span
-					className={ cn( buttonClasses, iconSizeClasses[ size ] ) }
-					onClick={ ! disabled ? onClose : null }
-					onMouseDown={ onMouseDown }
+					className={cn(buttonClasses, iconSizeClasses[size])}
+					onClick={!disabled ? onClose : null}
+					onMouseDown={onMouseDown}
 					role="button"
-					tabIndex={ 0 }
+					tabIndex={0}
 				>
-					<span className="sr-only">{ `Remove ${ label }` }</span>
+					<span className="sr-only">{`Remove ${label}`}</span>
 					<X />
 					<span className="absolute -inset-1" />
 				</span>
-			) }
+			)}
 		</span>
 	);
 };
 
-const Badge = forwardRef( BadgeComponent );
+const Badge = forwardRef(BadgeComponent);
 Badge.displayName = 'Badge';
 
 export default Badge;
