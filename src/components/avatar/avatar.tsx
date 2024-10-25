@@ -1,6 +1,21 @@
 import { cn } from '@/utilities/functions';
 
-const Avatar = (props) => {
+export declare interface AvatarProps {
+	/** Defines the style variant of the avatar. */
+	variant?: 'white' | 'gray' | 'primary' | 'primaryLight' | 'dark';
+	/** Defines the size of the avatar. */
+	size?: 'xxs' | 'xs' | 'sm' | 'md' | 'lg';
+	/** Defines the border of the avatar. */
+	border?: 'none' | 'subtle' | 'ring';
+	/** The URL of the Avatar image */
+	url?: string;
+	/** Defines the children of the avatar. */
+	children?: string | React.ReactNode;
+	/** Defines the extra classes */
+	className?: string;
+}
+
+const Avatar = (props: AvatarProps) => {
 	const {
 		variant = 'primary',
 		size = 'md',
