@@ -120,7 +120,7 @@ const AccordionTrigger = ( props ) => {
 
 	const Tag = tag;
 	return (
-		<Tag className="flex m-0 hover:bg-background-secondary transition duration-300 ease-in-out">
+		<Tag className="flex m-0 hover:bg-background-secondary transition duration-150 ease-in-out">
 			<button
 				className={ cn(
 					'flex w-full items-center justify-between text-sm font-medium transition-all appearance-none bg-transparent border-0 cursor-pointer gap-3',
