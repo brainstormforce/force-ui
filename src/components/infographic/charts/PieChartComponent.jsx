@@ -48,8 +48,8 @@ const PieChartComponent = ({
                     <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                 ))}
             </Pie>
-            {showTooltip && <Tooltip />}
-            {showLegend && <Legend />}
+            {/* {showTooltip && <Tooltip />} */}
+            {/* {showLegend && <Legend />} */}
         </PieChart>
     );
 };
