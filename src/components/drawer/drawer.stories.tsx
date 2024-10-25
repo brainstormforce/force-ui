@@ -91,7 +91,7 @@ type StoryWithCustomArg = StoryFn<ComponentProps & AdditionalArgTypes>;
 
 type Story = StoryFn<typeof Drawer>;
 
-const Template: StoryWithCustomArg = ( args ) => {
+const Template: StoryWithCustomArg = ( {title, titleTag, ...args} ) => {
 	const [ open, setOpen ] = useState( false );
 
 	return (
@@ -99,8 +99,8 @@ const Template: StoryWithCustomArg = ( args ) => {
 			<Drawer.Panel>
 				<Drawer.Header>
 					<div className="flex items-center justify-between">
-						<Drawer.Title as={ args?.titleTag }>
-							{ args?.title ?? 'Drawer Title' }
+						<Drawer.Title as={ titleTag }>
+							{ title ?? 'Drawer Title' }
 						</Drawer.Title>
 						<Drawer.CloseButton />
 					</div>
