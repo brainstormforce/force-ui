@@ -1,7 +1,24 @@
 import React from 'react';
 import { cn, getGapClass } from '@/utilities/functions';
 
-const Topbar = ({ children, gap = 'lg', className, ...props }) => {
+export declare interface TopbarCommonProps {
+	/** Children to be rendered inside the Topbar. */
+	children?: React.ReactNode;
+	/** Additional classes to be added to the Topbar. */
+	className?: string;
+}
+
+export declare interface TopbarProps extends TopbarCommonProps {
+	/** Defines the gap between items. */
+	gap?: '0' | 'xxs' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl';
+}
+
+export declare interface TopbarMiddleProps extends TopbarProps {
+	/** Defines how the content inside the Middle section is aligned. */
+	align?: 'left' | 'center' | 'right';
+}
+
+const Topbar = ({ children, gap = 'lg', className, ...props }: TopbarProps) => {
 	return (
 		<div
 			className={cn(
@@ -18,7 +35,7 @@ const Topbar = ({ children, gap = 'lg', className, ...props }) => {
 
 Topbar.displayName = 'Topbar';
 
-const Left = ({ gap = 'sm', children, className }) => {
+export const Left = ({ gap = 'sm', children, className }: TopbarProps) => {
 	return (
 		<div className={cn('flex items-center', getGapClass(gap), className)}>
 			{children}
@@ -28,7 +45,7 @@ const Left = ({ gap = 'sm', children, className }) => {
 
 Left.displayName = 'Topbar.Left';
 
-const Middle = ({ gap = 'md', children, align = 'center', className }) => {
+export const Middle = ({ gap = 'md', children, align = 'center', className }: TopbarMiddleProps ) => {
 	const alignmentClass = {
 		left: 'justify-start',
 		center: 'justify-center',
@@ -51,7 +68,7 @@ const Middle = ({ gap = 'md', children, align = 'center', className }) => {
 
 Middle.displayName = 'Topbar.Middle';
 
-const Right = ({ gap = 'sm', children, className }) => {
+export const Right = ({ gap = 'sm', children, className }: TopbarProps) => {
 	return (
 		<div className={cn('flex items-center', getGapClass(gap), className)}>
 			{children}
@@ -61,7 +78,7 @@ const Right = ({ gap = 'sm', children, className }) => {
 
 Right.displayName = 'Topbar.Right';
 
-const Item = ({ children, className }) => {
+export const Item = ({ children, className }: TopbarCommonProps) => {
 	return (
 		<div
 			className={cn('flex items-center [&>svg]:block h-full', className)}
@@ -73,9 +90,9 @@ const Item = ({ children, className }) => {
 
 Item.displayName = 'Topbar.Item';
 
-export default Object.assign(Topbar, {
-	Left,
-	Middle,
-	Right,
-	Item,
-});
+Topbar.Left = Left
+Topbar.Middle = Middle
+Topbar.Right = Right
+Topbar.Item = Item
+
+export default Topbar;
