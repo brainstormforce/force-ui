@@ -1,11 +1,17 @@
-import React from 'react';
 import { cn } from '@/utilities/functions';
+
+export declare interface SkeletonProps {
+	/** Defines the style variant of the skeleton. */
+	variant?: 'rectangular' | 'circular';
+	/** Allows you to pass custom classes to control the size and styles. */
+	className?: string;
+}
 
 const Skeleton = ({
 	variant = 'rectangular', // rectangular, circular
 	className,
 	...props
-}) => {
+}: SkeletonProps): JSX.Element => {
 	const variantClasses = {
 		circular: 'rounded-full bg-gray-200 ',
 		rectangular: 'rounded-md bg-gray-200',
@@ -25,7 +31,7 @@ const Skeleton = ({
 				className
 			)}
 			{...props}
-		></div>
+		/>
 	);
 };
 
