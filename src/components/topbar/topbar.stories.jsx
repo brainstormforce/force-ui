@@ -2,7 +2,7 @@ import React from 'react';
 import Topbar from './topbar.jsx';
 import Button from '../button';
 import { ArrowUpRight, CircleHelp, Megaphone, User } from 'lucide-react';
-import Badge from '../badge/badge.jsx';
+import Badge from '../badge';
 import Avatar from '../avatar/avatar.jsx';
 
 export default {

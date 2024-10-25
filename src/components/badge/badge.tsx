@@ -2,11 +2,52 @@ import { forwardRef } from 'react';
 import { cn } from '@/utilities/functions';
 import { X } from 'lucide-react';
 
-/**
- * Badge component.
- */
+export declare interface BadgeProps {
+	/**
+	 * Defines the Label of the badge.
+	 */
+	label?: string;
+	/**
+	 * Defines the size of the badge.
+	 */
+	size?: 'xxs' | 'xs' | 'sm' | 'md' | 'lg';
+	/**
+	 * Defines the extra classes
+	 */
+	className?: string;
+	/**
+	 * Defines the type of the badge.
+	 */
+	type?: 'pill' | 'rounded';
+	/**
+	 * Defines the style variant of the badge.
+	 */
+	variant?: 'neutral' | 'red' | 'yellow' | 'green' | 'blue' | 'inverse';
+	/**
+	 * Custom Icon for the badge.
+	 */
+	icon?: React.ReactNode;
+	/**
+	 * Defines if the badge is disabled.
+	 */
+	disabled?: boolean;
+	/**
+	 * Callback function for close event
+	 */
+	onClose?: () => void;
+	/**
+	 * Defines if the badge is closable.
+	 */
+	closable?: boolean;
+	/**
+	 * Callback function for mouse down event.
+	 */
+	onMouseDown?: () => void;
+}
 
-const BadgeComponent = (props, ref) => {
+export type Ref = HTMLSpanElement;
+
+const Badge = forwardRef<Ref, BadgeProps>((props, ref) => {
 	const {
 		label = '',
 		size = 'sm', // xxs, xs, sm, md, lg
@@ -102,10 +143,12 @@ const BadgeComponent = (props, ref) => {
 			{closable && (
 				<span
 					className={cn(buttonClasses, iconSizeClasses[size])}
-					onClick={!disabled ? onClose : null}
 					onMouseDown={onMouseDown}
 					role="button"
 					tabIndex={0}
+					{...(!disabled && {
+						onClick: onClose,
+					})}
 				>
 					<span className="sr-only">{`Remove ${label}`}</span>
 					<X />
@@ -114,9 +157,8 @@ const BadgeComponent = (props, ref) => {
 			)}
 		</span>
 	);
-};
+});
 
-const Badge = forwardRef(BadgeComponent);
 Badge.displayName = 'Badge';
 
 export default Badge;

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import RadioButton from './radio-button.jsx';
 import { Plus, Smile } from 'lucide-react';
-import Badge from '../badge/badge.jsx';
+import Badge from '../badge';
 
 export default {
 	title: 'Atoms/RadioButton',
