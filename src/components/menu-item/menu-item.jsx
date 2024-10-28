@@ -6,7 +6,7 @@ import { cn } from '@/utilities/functions';
 const MenuContext = createContext();
 const useMenuContext = () => useContext(MenuContext);
 
-const Menu = ({ size = 'md', children, className }) => {
+const Menu = ({ size = 'md', children, className = '' }) => {
 	const baseClasses = 'flex flex-col bg-background-primary p-2';
 
 	return (
@@ -18,14 +18,14 @@ const Menu = ({ size = 'md', children, className }) => {
 
 Menu.displayName = 'Menu';
 
-const MenuList = ({
-	heading,
+export const MenuList = ({
+	heading = '',
 	arrow = false,
 	showArrowOnHover = true, // Prop to toggle hover-based arrow display
 	open: initialOpen = true,
-	onClick,
+	onClick = undefined,
 	children,
-	className,
+	className = '',
 }) => {
 	const [isOpen, setIsOpen] = useState(initialOpen);
 	const [isHovered, setIsHovered] = useState(false);
@@ -131,7 +131,7 @@ const MenuList = ({
 
 MenuList.displayName = 'Menu.List';
 
-const MenuItem = ({
+export const MenuItem = ({
 	disabled = false,
 	active,
 	onClick,
@@ -183,7 +183,7 @@ const MenuItem = ({
 
 MenuItem.displayName = 'Menu.Item';
 
-const MenuSeparator = ({ variant = 'solid', className }) => {
+export const MenuSeparator = ({ variant = 'solid', className }) => {
 	const variantClasses = {
 		solid: 'border-solid',
 		dashed: 'border-dashed',
@@ -208,8 +208,9 @@ const MenuSeparator = ({ variant = 'solid', className }) => {
 
 MenuSeparator.displayName = 'Menu.Separator';
 
-export default Object.assign(Menu, {
-	List: MenuList,
-	Item: MenuItem,
-	Separator: MenuSeparator,
-});
+Menu.List = MenuList;
+Menu.Item = MenuItem;
+Menu.Separator = MenuSeparator;
+
+export default Menu;
+

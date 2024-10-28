@@ -1,4 +1,4 @@
-import Menu from './menu-item.jsx';
+import Menu from './menu-item';
 import {
 	Store,
 	PenTool,

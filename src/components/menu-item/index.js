@@ -1,1 +1,1 @@
-export { default } from './menu-item.jsx';
+export { default } from './menu-item';
