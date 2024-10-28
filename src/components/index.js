@@ -30,3 +30,4 @@ export { default as DropdownMenu } from './dropdown-menu/index';
 export { default as Drawer } from './drawer/index';
 export { default as Pagination } from './pagination/index';
 export { default as DatePicker } from './datepicker/index';
+export { default as AreaChartComponent } from './area-chart/index';
