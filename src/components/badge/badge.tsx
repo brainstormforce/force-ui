@@ -2,7 +2,7 @@ import { forwardRef } from 'react';
 import { cn } from '@/utilities/functions';
 import { X } from 'lucide-react';
 
-export declare interface BadgeProps {
+export interface BadgeProps {
 	/**
 	 * Defines the Label of the badge.
 	 */

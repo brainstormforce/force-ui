@@ -8,11 +8,11 @@ import React, {
 import { cn } from '@/utilities/functions';
 import { motion } from 'framer-motion';
 
-declare type Ref = HTMLButtonElement;
-declare type OnChangeValue = {slug: string, text: string};
-declare type InternalOnChange = (event: React.MouseEvent<HTMLButtonElement>, value: OnChangeValue) => void;
+type Ref = HTMLButtonElement;
+type OnChangeValue = {slug: string, text: string};
+type InternalOnChange = (event: React.MouseEvent<HTMLButtonElement>, value: OnChangeValue) => void;
 
-export declare interface TabsProps {
+export interface TabsProps {
 	/** Controls the active tab. */
 	activeItem?: string | null;
 	/** Callback when the active item changes. */
@@ -33,7 +33,7 @@ export declare interface TabsProps {
 	children: React.ReactNode;
 }
 
-export declare interface TabProps {
+export interface TabProps {
 	/** Unique identifier for the tab. */
 	slug: string;
 	/** Text to display in the tab. */

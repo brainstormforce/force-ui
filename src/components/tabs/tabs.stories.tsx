@@ -37,7 +37,7 @@ const meta: Meta<typeof Tabs.Group> = {
 
 export default meta;
 
-declare type Story = StoryFn<typeof Tabs.Group>;
+type Story = StoryFn<typeof Tabs.Group>;
 
 const Template: Story = ( args ) => {
 	const [ activeTab, setActiveTab ] = useState( args?.activeItem ?? 'tab1' );

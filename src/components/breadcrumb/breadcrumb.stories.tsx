@@ -1,7 +1,7 @@
 import Breadcrumb from './breadcrumb';
 import type { Meta, StoryFn } from '@storybook/react';
 
-declare interface AdditionalArgTypes {
+interface AdditionalArgTypes {
 	separatorType: 'arrow' | 'slash';
 }
 type ComponentProps = typeof Breadcrumb extends ( props: infer P ) => JSX.Element ? P : never;

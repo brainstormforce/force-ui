@@ -2,7 +2,7 @@ import { cn } from '@/utilities/functions';
 import { getIcon, getAction, getContent, getTitle } from '../toaster/utils';
 import { X } from 'lucide-react';
 
-export declare interface AlertProps {
+export interface AlertProps {
 	/** Defines the style variant of the alert. */
 	variant?: 'neutral' | 'info' | 'warning' | 'error' | 'success';
 

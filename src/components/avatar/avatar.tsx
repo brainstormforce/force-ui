@@ -1,6 +1,6 @@
 import { cn } from '@/utilities/functions';
 
-export declare interface AvatarProps {
+export interface AvatarProps {
 	/** Defines the style variant of the avatar. */
 	variant?: 'white' | 'gray' | 'primary' | 'primaryLight' | 'dark';
 	/** Defines the size of the avatar. */

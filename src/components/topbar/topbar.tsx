@@ -1,19 +1,19 @@
 import React from 'react';
 import { cn, getGapClass } from '@/utilities/functions';
 
-export declare interface TopbarCommonProps {
+export interface TopbarCommonProps {
 	/** Children to be rendered inside the Topbar. */
 	children?: React.ReactNode;
 	/** Additional classes to be added to the Topbar. */
 	className?: string;
 }
 
-export declare interface TopbarProps extends TopbarCommonProps {
+export interface TopbarProps extends TopbarCommonProps {
 	/** Defines the gap between items. */
 	gap?: '0' | 'xxs' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl';
 }
 
-export declare interface TopbarMiddleProps extends TopbarProps {
+export interface TopbarMiddleProps extends TopbarProps {
 	/** Defines how the content inside the Middle section is aligned. */
 	align?: 'left' | 'center' | 'right';
 }
