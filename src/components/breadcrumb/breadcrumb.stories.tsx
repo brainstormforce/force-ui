@@ -4,7 +4,9 @@ import type { Meta, StoryFn } from '@storybook/react';
 interface AdditionalArgTypes {
 	separatorType: 'arrow' | 'slash';
 }
-type ComponentProps = typeof Breadcrumb extends ( props: infer P ) => JSX.Element ? P : never;
+type ComponentProps = typeof Breadcrumb extends ( props: infer P ) => JSX.Element
+	? P
+	: never;
 type StoryWithCustomArg = StoryFn<ComponentProps & AdditionalArgTypes>;
 
 const meta: Meta<typeof Breadcrumb> = {
@@ -29,13 +31,13 @@ const meta: Meta<typeof Breadcrumb> = {
 		children: {
 			// Don't display the children prop control.
 			control: false,
-		}
+		},
 	},
 } satisfies Meta<typeof Breadcrumb>;
 
 export default meta;
 
-const Template: StoryWithCustomArg = ( {separatorType, ...args} ) => (
+const Template: StoryWithCustomArg = ( { separatorType, ...args } ) => (
 	<Breadcrumb size={ args.size }>
 		<Breadcrumb.List>
 			<Breadcrumb.Item>

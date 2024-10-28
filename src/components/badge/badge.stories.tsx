@@ -1,6 +1,6 @@
 import Badge from './badge';
 import { Info } from 'lucide-react';
-import type { Meta, StoryObj } from '@storybook/react'; 
+import type { Meta, StoryObj } from '@storybook/react';
 
 // Badge component story configuration
 const meta: Meta = {
