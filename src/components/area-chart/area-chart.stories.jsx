@@ -1,4 +1,9 @@
 import AreaChartComponent from "./area-chart";
+import Label from "../label";
+import Button from "../button";
+import Badge from "../badge";
+import Container from "../container";
+import { ArrowUpRight, ArrowUp } from 'lucide-react';
 
 const areaChartData = [
     { name: "January", sales: 186, expenses: 80 },
@@ -175,7 +180,17 @@ export default {
     },
 };
 
-const Template = (args) => <AreaChartComponent {...args} />;
+const Template = (args) => (
+    <div className="w-[350px] h-[200px]">
+        <AreaChartComponent {...args} />
+    </div>
+);
+
+const TemplateInteractive = (args) => (
+    <div className="w-[1000px] h-[350px]">
+        <AreaChartComponent {...args} />
+    </div>
+);
 
 export const AreaChartSimple = Template.bind({});
 AreaChartSimple.args = {
@@ -203,12 +218,10 @@ AreaChartGradient.args = {
     showLegend: false,
 };
 
-export const AreaChartInteractive = Template.bind({});
+export const AreaChartInteractive = TemplateInteractive.bind({});
 AreaChartInteractive.args = {
     data: chartDataIteractive,
     dataKeys: dataKeysInteractive,
-    width: 1220,
-    height: 400,
     colors: colors,
     variant: "gradient", // stacked, gradient
     showXAxis: true,
@@ -216,3 +229,52 @@ AreaChartInteractive.args = {
     showYAxis: false,
     tickFormatter: monthFormatterInteractive,
 };
+
+export const AreaChartCard = () => (
+    <Container containerType="grid" gap="xs"  className="p-4 bg-background-primary rounded-lg shadow-sm">
+        <Container.Item className="p-1">
+            <Container containerType="flex" justify="between" align="center">
+                <Label size="sm" className="text-text-tertiary font-medium">
+                    Cloned Sites
+                </Label>
+                <Button className="p-0" variant="ghost">
+                    <ArrowUpRight className="text-icon-secondary size-4"/>
+                </Button>
+            </Container>
+            <Container containerType="flex" align="center" gap="xs">
+                <div className="text-4xl text-text-primary font-semibold">316</div>
+                <Badge
+                    label={'12%'}
+                    size="sm"
+                    type="pill"
+                    variant="green"
+                    icon={<ArrowUp />}
+                />
+            </Container>
+            <Container containerType="flex" align="center" gap="0" className="space-x-1">
+                <span className="text-field-helper text-xs">Compare to</span> 
+                <Badge
+                    label={'298'}
+                    size="sm"
+                    type="pill"
+                    variant="neutral"
+                    icon={null}
+                />
+                <span className="text-field-helper text-xs">previous week</span>
+            </Container>
+        </Container.Item>
+        <Container.Item className="w-[330px] h-[196px]">
+            <AreaChartComponent
+                data={areaChartData}
+                dataKeys={dataKeys}
+                colors={colors}
+                variant= "stacked"
+                tickFormatter={monthFormatter}
+                showXAxis={true}
+                xAxisDataKey= "name"
+                showYAxis={false}
+                showLegend={false}
+            />
+        </Container.Item>
+    </Container>
+);

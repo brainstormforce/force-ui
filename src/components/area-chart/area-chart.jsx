@@ -1,5 +1,5 @@
 import {
-    AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, Legend
+    AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer
 } from 'recharts';
 import ChartLegendContent from './chart-legend-content.jsx';
 
@@ -7,8 +7,6 @@ const AreaChartComponent = ({
     data,
     dataKeys,
     colors,
-    width = 500,
-    height = 400,
     variant = 'stacked',
     showXAxis = true,
     showYAxis = true,
@@ -18,6 +16,8 @@ const AreaChartComponent = ({
     tickFormatter,
     xAxisDataKey,
     yAxisDataKey,
+    xAxisFontSize = 12,
+    className,
 }) => {
     const renderGradients = () => (
         <defs>
@@ -31,34 +31,37 @@ const AreaChartComponent = ({
     );
 
     return (
-        <AreaChart width={width} height={height} data={data} margin={{ left: 40, right: 40 }}>
-            {showCartesianGrid && <CartesianGrid vertical={false} />}
-            {showXAxis && (
-                <XAxis
-                    dataKey={xAxisDataKey}
-                    tickLine={false}
-                    axisLine={false}
-                    tickMargin={8}
-                    tickFormatter={tickFormatter || ((value) => value.slice(0, 3))}
-                />
-            )}
-            {showYAxis && <YAxis dataKey={yAxisDataKey} />}
-            {showTooltip && <Tooltip />}
-            {showLegend && <Legend content={<ChartLegendContent />}  />}
+        <ResponsiveContainer width="100%" height="100%" className={className}>
+            <AreaChart data={data} margin={{ left: 14, right: 14 }}>
+                {showCartesianGrid && <CartesianGrid vertical={false} />}
+                {showXAxis && (
+                    <XAxis
+                        dataKey={xAxisDataKey}
+                        tickLine={false}
+                        axisLine={false}
+                        tickMargin={8}
+                        tickFormatter={tickFormatter || ((value) => value.slice(0, 3))}
+                        tick={{ fontSize: xAxisFontSize, fill: "#4B5563" }}
+                    />
+                )}
+                {showYAxis && <YAxis dataKey={yAxisDataKey} />}
+                {showTooltip && <Tooltip />}
+                {showLegend && <Legend content={<ChartLegendContent />}  />}
 
-            {variant === 'gradient' && renderGradients()}
+                {variant === 'gradient' && renderGradients()}
 
-            {dataKeys.map((key, index) => (
-                <Area
-                    key={key}
-                    type="monotone"
-                    dataKey={key}
-                    stroke={colors[index].stroke}
-                    fill={variant === 'gradient' ? `url(#fill${index})` : colors[index].fill}
-                    stackId="1"
-                />
-            ))}
-        </AreaChart>
+                {dataKeys.map((key, index) => (
+                    <Area
+                        key={key}
+                        type="monotone"
+                        dataKey={key}
+                        stroke={colors[index].stroke}
+                        fill={variant === 'gradient' ? `url(#fill${index})` : colors[index].fill}
+                        stackId="1"
+                    />
+                ))}
+            </AreaChart>
+        </ResponsiveContainer>
     );
 };
 
