@@ -277,6 +277,8 @@ AreaChartInteractive.args = {
     tickFormatter: monthFormatterInteractive,
 };
 
+AreaChartInteractive.storyName = 'Area Chart Gradient with Legend';
+
 export const AreaChartCard1 = () => (
     <Container containerType="grid" gap="xs"  className="p-4 bg-background-primary rounded-lg shadow-sm">
         <Container.Item className="p-1 space-y-2">
@@ -373,7 +375,7 @@ export const AreaChartCard2 = () => (
                 showXAxis={true}
                 xAxisDataKey="date"
                 showYAxis={false}
-                showLegend={false}
+                showLegend={true}
             />
         </Container.Item>
     </Container>
