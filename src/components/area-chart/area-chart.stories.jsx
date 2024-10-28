@@ -120,7 +120,6 @@ const colors = [
 // Custom tick formatter function for months
 const monthFormatter = (value) => value.slice(0, 3);
 
-// Custom tick formatter function for months and days
 const monthFormatterInteractive = (value) => {
     const date = new Date(value)
     return date.toLocaleDateString("en-US", {
@@ -141,76 +140,120 @@ export default {
             description: 'An array of objects representing the source data for the chart.',
             control: { type: 'object' },
         },
+        dataKeys: {
+            description: 'An array of strings representing the keys to access data in each data object. Used for identifying different data series.',
+            control: { type: 'array' },
+        },
+        colors: {
+            description: 'An array of color strings that determine the colors for each data series in the chart.',
+            control: { type: 'array' },
+        },
+        variant: {
+            description: 'Defines the variant of Area Chart.',
+            control: { type: 'select' },
+            options: ['solid','gradient' ],
+            table: {
+                type: { summary: 'string' },
+            },
+        },
+        tickFormatter: {
+            description: 'A function used to format the ticks on the axes, e.g., for formatting dates or numbers.',
+            control: { type: 'function' },
+        },
         width: {
-            description: 'The width of the chart component in pixels.',
-            control: { type: 'number' },
-            defaultValue: 500
+            description: 'Width of the chart container in pixels.',
+            table: {
+                type: { summary: 'number' },
+            },
         },
         height: {
-            description: 'The height of the chart component in pixels.',
+            description: 'Height of the chart container in pixels.',
+            table: {
+                type: { summary: 'number' },
+            },
+        },
+        xAxisDataKey: {
+            description: 'The key in the data objects representing values for the x-axis. This is used to access the x-axis values from each data entry.',
+            control: { type: 'text' },
+            table: {
+                type: { summary: 'string' },
+            },
+        },
+        xAxisFontSize: {
+            description: "Font size for the labels on the x-axis.",
             control: { type: 'number' },
-            defaultValue: 300
+            table: {
+                type: { summary: 'number' },
+            },
         },
         showXAxis: {
             description: "Whether to render the `<XAxis />` component for the x-axis.",
             control: { type: 'boolean' },
             defaultValue: true,
+            table: {
+                type: { summary: 'boolean' },
+            },
         },
+       
         showYAxis: {
             description:
                 "Render the `<YAxis />` component which present y axis",
             control: { type: 'boolean' },
-            defaultValue: true
+            defaultValue: true,
+            table: {
+                type: { summary: 'boolean' },
+            },
         },
         showTooltip: {
             description: "Whether to render the `<YAxis />` component for the y-axis.",
             control: { type: 'boolean' },
-            defaultValue: true
+            defaultValue: true,
+            table: {
+                type: { summary: 'boolean' },
+            },
         },
         showLegend: {
             description: "Whether to render the `<Legend />` component to identify data series.",
             control: { type: 'boolean' },
-            defaultValue: true
+            defaultValue: true,
+            table: {
+                type: { summary: 'boolean' },
+            },
         },
         showCartesianGrid: {
             description: "Whether to display the `<CartesianGrid />`, adding horizontal and vertical grid lines.",
             control: { type: 'boolean' },
-            defaultValue: true
+            defaultValue: true,
+            table: {
+                type: { summary: 'boolean' },
+            },
         },
     },
 };
 
-const Template = (args) => (
-    <div className="w-[350px] h-[200px]">
-        <AreaChartComponent {...args} />
-    </div>
-);
-
-const TemplateInteractive = (args) => (
-    <div className="w-[1000px] h-[350px]">
-        <AreaChartComponent {...args} />
-    </div>
-);
+const Template = (args) => <AreaChartComponent {...args} />;
 
 export const AreaChartSimple = Template.bind({});
 AreaChartSimple.args = {
     data: areaChartData, 
     dataKeys: dataKeys,
     colors: colors, 
-    variant: "stacked", // stacked, gradient
+    variant: "solid", // solid, gradient
     tickFormatter: monthFormatter,
     showXAxis: true,
     xAxisDataKey: "name",
     showYAxis: false,
     showLegend: false,
 };
+
+AreaChartSimple.storyName = 'Area Chart Solid';
 
 export const AreaChartGradient = Template.bind({});
 AreaChartGradient.args = {
     data: areaChartData, 
     dataKeys: dataKeys,
     colors: colors, 
-    variant: "gradient", // stacked, gradient
+    variant: "gradient", // solid, gradient
     tickFormatter: monthFormatter,
     showXAxis: true,
     xAxisDataKey: "name",
@@ -218,19 +261,23 @@ AreaChartGradient.args = {
     showLegend: false,
 };
 
-export const AreaChartInteractive = TemplateInteractive.bind({});
+AreaChartGradient.storyName = 'Area Chart Gradient';
+
+export const AreaChartInteractive = Template.bind({});
 AreaChartInteractive.args = {
+    width: 1000,
+    height: 250,
     data: chartDataIteractive,
     dataKeys: dataKeysInteractive,
     colors: colors,
-    variant: "gradient", // stacked, gradient
+    variant: "gradient", // solid, gradient
     showXAxis: true,
     xAxisDataKey: "date",
     showYAxis: false,
     tickFormatter: monthFormatterInteractive,
 };
 
-export const AreaChartCard = () => (
+export const AreaChartCard1 = () => (
     <Container containerType="grid" gap="xs"  className="p-4 bg-background-primary rounded-lg shadow-sm">
         <Container.Item className="p-1">
             <Container containerType="flex" justify="between" align="center">
@@ -263,12 +310,12 @@ export const AreaChartCard = () => (
                 <span className="text-field-helper text-xs">previous week</span>
             </Container>
         </Container.Item>
-        <Container.Item className="w-[330px] h-[196px]">
+        <Container.Item>
             <AreaChartComponent
                 data={areaChartData}
                 dataKeys={dataKeys}
                 colors={colors}
-                variant= "stacked"
+                variant= "solid"
                 tickFormatter={monthFormatter}
                 showXAxis={true}
                 xAxisDataKey= "name"
@@ -278,3 +325,58 @@ export const AreaChartCard = () => (
         </Container.Item>
     </Container>
 );
+
+AreaChartCard1.storyName = 'Clone Sites Card With Area Chart';
+
+export const AreaChartCard2 = () => (
+    <Container containerType="grid" gap="xs" className="p-4 bg-background-primary rounded-lg shadow-sm">
+        <Container.Item className="p-1">
+            <Container containerType="flex" justify="between" align="center">
+                <Label size="sm" className="text-text-tertiary font-medium">
+                    Revenue
+                </Label>
+                <Button className="p-0" variant="ghost">
+                    <ArrowUpRight className="text-icon-secondary size-4" />
+                </Button>
+            </Container>
+            <Container containerType="flex" align="center" gap="xs">
+                <div className="text-4xl text-text-primary font-semibold">$3,169</div>
+                <Badge
+                    label={'12%'}
+                    size="sm"
+                    type="pill"
+                    variant="green"
+                    icon={<ArrowUp />}
+                />
+            </Container>
+            <Container containerType="flex" align="center" gap="0" className="space-x-1">
+                <span className="text-field-helper text-xs">Compared to</span>
+                <Badge
+                    label={'$2,984'}
+                    size="sm"
+                    type="pill"
+                    variant="neutral"
+                    icon={null}
+                />
+                <span className="text-field-helper text-xs">previous week</span>
+            </Container>
+        </Container.Item>
+        <Container.Item>
+            <AreaChartComponent
+                width={1000}
+                height={250}
+                data={chartDataIteractive}
+                dataKeys={dataKeysInteractive}
+                colors={colors}
+                variant="gradient"
+                tickFormatter={monthFormatterInteractive}
+                showXAxis={true}
+                xAxisDataKey="date"
+                showYAxis={false}
+                showLegend={false}
+            />
+        </Container.Item>
+    </Container>
+);
+
+AreaChartCard2.storyName = 'Revenue Card With Area Chart';

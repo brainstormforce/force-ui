@@ -7,7 +7,7 @@ const AreaChartComponent = ({
     data,
     dataKeys,
     colors,
-    variant = 'stacked',
+    variant = 'solid',
     showXAxis = true,
     showYAxis = true,
     showTooltip = true,
@@ -17,7 +17,8 @@ const AreaChartComponent = ({
     xAxisDataKey,
     yAxisDataKey,
     xAxisFontSize = 12,
-    className,
+    width = 350,
+    height = 200,
 }) => {
     const renderGradients = () => (
         <defs>
@@ -31,7 +32,7 @@ const AreaChartComponent = ({
     );
 
     return (
-        <ResponsiveContainer width="100%" height="100%" className={className}>
+        <ResponsiveContainer width="100%" height="100%" initialDimension={{ width: width, height: height }}>
             <AreaChart data={data} margin={{ left: 14, right: 14 }}>
                 {showCartesianGrid && <CartesianGrid vertical={false} />}
                 {showXAxis && (
@@ -40,7 +41,7 @@ const AreaChartComponent = ({
                         tickLine={false}
                         axisLine={false}
                         tickMargin={8}
-                        tickFormatter={tickFormatter || ((value) => value.slice(0, 3))}
+                        tickFormatter={tickFormatter}
                         tick={{ fontSize: xAxisFontSize, fill: "#4B5563" }}
                     />
                 )}
