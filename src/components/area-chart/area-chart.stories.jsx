@@ -279,7 +279,7 @@ AreaChartInteractive.args = {
 
 export const AreaChartCard1 = () => (
     <Container containerType="grid" gap="xs"  className="p-4 bg-background-primary rounded-lg shadow-sm">
-        <Container.Item className="p-1">
+        <Container.Item className="p-1 space-y-2">
             <Container containerType="flex" justify="between" align="center">
                 <Label size="sm" className="text-text-tertiary font-medium">
                     Cloned Sites
@@ -330,7 +330,7 @@ AreaChartCard1.storyName = 'Clone Sites Card With Area Chart';
 
 export const AreaChartCard2 = () => (
     <Container containerType="grid" gap="xs" className="p-4 bg-background-primary rounded-lg shadow-sm">
-        <Container.Item className="p-1">
+        <Container.Item className="p-1 space-y-2">
             <Container containerType="flex" justify="between" align="center">
                 <Label size="sm" className="text-text-tertiary font-medium">
                     Revenue
