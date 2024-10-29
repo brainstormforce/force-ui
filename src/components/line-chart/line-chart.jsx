@@ -1,7 +1,6 @@
 import {
     LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend
 } from 'recharts';
-import ChartLegendContent from './chart-legend-content';
 
 const LineChartComponent = ({
     data,
