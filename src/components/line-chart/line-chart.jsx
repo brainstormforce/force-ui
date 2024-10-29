@@ -9,7 +9,6 @@ const LineChartComponent = ({
     showXAxis = true,
     showYAxis = true,
     showTooltip = true,
-    showLegend = true,
     showCartesianGrid = true,
     tickFormatter,
     xAxisDataKey,
@@ -40,8 +39,6 @@ const LineChartComponent = ({
             {showYAxis && <YAxis dataKey={yAxisDataKey} />}
 
             {showTooltip && <Tooltip />}
-            {showLegend && <Legend content={<ChartLegendContent />} />}
-
 
             {dataKeys.map((key, index) => (
                 <Line
