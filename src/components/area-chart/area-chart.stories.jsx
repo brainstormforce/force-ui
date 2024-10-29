@@ -212,7 +212,7 @@ export default {
 		},
 		showTooltip: {
 			description:
-				'Whether to render the `<YAxis />` component for the y-axis.',
+				'Toggle the visibility of the tooltip on hover, displaying detailed information for each data point.',
 			control: { type: 'boolean' },
 			defaultValue: true,
 			table: {
