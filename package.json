@@ -57,6 +57,7 @@
         "@floating-ui/react": "^0.26.20",
         "@lexical/react": "^0.17.0",
         "@lexical/utils": "^0.17.0",
+        "ajv": "^8.13.0",
         "clsx": "^2.1.1",
         "date-fns": "^4.1.0",
         "deepmerge": "^4.3.1",
