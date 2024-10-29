@@ -4,7 +4,7 @@ import { cn } from '@/utilities/functions';
  * Title component.
  */
 
-const Title = ( {
+const Title = ({
 	title = null,
 	description = null,
 	icon = null,
@@ -12,7 +12,7 @@ const Title = ( {
 	tag = 'h2', // h1, h2, h3, h4, h5, h6
 	size = 'sm', // xs, sm, md, lg
 	className = '',
-} ) => {
+}) => {
 	// Base classes. - Mandatory classes.
 	const iconGap = {
 		xs: 'gap-1 [&>svg]:size-3.5',
@@ -21,7 +21,7 @@ const Title = ( {
 		lg: 'gap-1.5 [&>svg]:size-5',
 	};
 
-	if ( ! title ) {
+	if (!title) {
 		return null;
 	}
 
@@ -36,8 +36,8 @@ const Title = ( {
 			lg: 'text-2xl [&>*]:text-2xl gap-1.5',
 		};
 		return (
-			<Tag className={ cn( titleCommonClasses, sizeClasses[ size ] ) }>
-				{ title }
+			<Tag className={cn(titleCommonClasses, sizeClasses[size])}>
+				{title}
 			</Tag>
 		);
 	};
@@ -51,54 +51,54 @@ const Title = ( {
 		};
 		return (
 			<p
-				className={ cn(
+				className={cn(
 					'text-text-secondary font-normal my-0',
-					descriptionClasses[ size ]
-				) }
+					descriptionClasses[size]
+				)}
 			>
-				{ description }
+				{description}
 			</p>
 		);
 	};
 
-	if ( description ) {
+	if (description) {
 		return (
-			<div className={ className }>
+			<div className={className}>
 				<div>
-					{ icon && iconPosition === 'left' && (
-						<div className={ cn( 'flex items-center', iconGap[ size ] ) }>
-							{ icon }
-							{ getTitle() }
+					{icon && iconPosition === 'left' && (
+						<div className={cn('flex items-center', iconGap[size])}>
+							{icon}
+							{getTitle()}
 						</div>
-					) }
-					{ icon && iconPosition === 'right' && (
-						<div className={ cn( 'flex items-center', iconGap[ size ] ) }>
-							{ getTitle() }
-							{ icon }
+					)}
+					{icon && iconPosition === 'right' && (
+						<div className={cn('flex items-center', iconGap[size])}>
+							{getTitle()}
+							{icon}
 						</div>
-					) }
-					{ ! icon && getTitle() }
+					)}
+					{!icon && getTitle()}
 				</div>
-				{ getDescription() }
+				{getDescription()}
 			</div>
 		);
 	}
 
 	return (
-		<div className={ className }>
-			{ icon && iconPosition === 'left' && (
-				<div className={ cn( 'flex items-center', iconGap[ size ] ) }>
-					{ icon }
-					{ getTitle() }
+		<div className={className}>
+			{icon && iconPosition === 'left' && (
+				<div className={cn('flex items-center', iconGap[size])}>
+					{icon}
+					{getTitle()}
 				</div>
-			) }
-			{ icon && iconPosition === 'right' && (
-				<div className={ cn( 'flex items-center', iconGap[ size ] ) }>
-					{ getTitle() }
-					{ icon }
+			)}
+			{icon && iconPosition === 'right' && (
+				<div className={cn('flex items-center', iconGap[size])}>
+					{getTitle()}
+					{icon}
 				</div>
-			) }
-			{ ! icon && getTitle() }
+			)}
+			{!icon && getTitle()}
 		</div>
 	);
 };

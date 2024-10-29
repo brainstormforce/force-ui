@@ -11,7 +11,7 @@ import {
 	PrestoPlayerLogo,
 	StartersTemplatesLogo,
 	SureCartLogo,
-} from '@/icons';
+} from '@/ui/icons';
 
 export default {
 	title: 'Organisms/Cards/Plugin Blocks',
@@ -123,8 +123,8 @@ const Template2 = () => {
 											<Badge
 												label={ card.badgeText }
 												icon={ null }
-												variant="green"
 												size="xxs"
+												variant="green"
 												closable={ false }
 												className="py-0"
 											/>

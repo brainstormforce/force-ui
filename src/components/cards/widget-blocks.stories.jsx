@@ -186,7 +186,7 @@ const defaultRadioButtonGroupData = [
 				icon={ null }
 				variant="green"
 				closable={ false }
-				className="py-0 mr-2"
+				className="py-0"
 			/>
 		),
 	},
@@ -216,7 +216,7 @@ const defaultRadioButtonGroupData = [
 				icon={ null }
 				variant="yellow"
 				closable={ false }
-				className="py-0 mr-2"
+				className="py-0"
 			/>
 		),
 	},
@@ -270,6 +270,7 @@ const Template1 = () => {
 						<RadioButton.Button
 							key={ `option-${ option.id }` }
 							borderOn={ true }
+							borderOnActive={ false }
 							value={ option.value }
 							icon={ option.icon }
 							hideSelection={ option.hideSelection }

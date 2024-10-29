@@ -6,8 +6,8 @@ class MentionNode extends DecoratorNode {
 	__by;
 	__size;
 
-	constructor( data, by, size, key ) {
-		super( key );
+	constructor(data, by, size, key) {
+		super(key);
 		this.__data = data;
 		this.__by = by;
 		this.__size = size;
@@ -17,11 +17,11 @@ class MentionNode extends DecoratorNode {
 		return 'mention';
 	}
 
-	static clone( node ) {
-		return new MentionNode( node.__data, node.__by, node.__size, node.__key );
+	static clone(node) {
+		return new MentionNode(node.__data, node.__by, node.__size, node.__key);
 	}
 
-	static importJSON( serializeNode ) {
+	static importJSON(serializeNode) {
 		const node = $createMentionNode(
 			serializeNode.data,
 			serializeNode.by,
@@ -31,7 +31,7 @@ class MentionNode extends DecoratorNode {
 	}
 
 	createDOM() {
-		return document.createElement( 'span' );
+		return document.createElement('span');
 	}
 
 	updateDOM() {
@@ -39,7 +39,7 @@ class MentionNode extends DecoratorNode {
 	}
 
 	exportDOM() {
-		const element = document.createElement( 'span' );
+		const element = document.createElement('span');
 
 		return { element };
 	}
@@ -57,18 +57,18 @@ class MentionNode extends DecoratorNode {
 	decorate() {
 		return (
 			<MentionComponent
-				data={ this.__data }
-				by={ this.__by }
-				size={ this.__size }
-				nodeKey={ this.__key }
+				data={this.__data}
+				by={this.__by}
+				size={this.__size}
+				nodeKey={this.__key}
 			/>
 		);
 	}
 }
 
-export const $createMentionNode = ( data, by, size ) =>
-	new MentionNode( data, by, size );
+export const $createMentionNode = (data, by, size) =>
+	new MentionNode(data, by, size);
 
-export const $isMentionNode = ( node ) => node instanceof MentionNode;
+export const $isMentionNode = (node) => node instanceof MentionNode;
 
 export default MentionNode;
