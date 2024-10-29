@@ -1,4 +1,4 @@
-import { cloneElement, isValidElement } from 'react';
+import React,{ cloneElement, isValidElement } from 'react';
 import { Check, Info, AlertTriangle, Trash2 } from 'lucide-react';
 import { cn } from '@/utilities/functions';
 import Button from '../button';
@@ -30,7 +30,7 @@ export const getIconColor = ({
 				? 'text-support-error'
 				: 'text-support-error-inverse',
 	};
-	color = variantClasses[variant] || color;
+	color = variantClasses[variant as keyof typeof variantClasses] || color;
 
 	return color;
 };
@@ -39,13 +39,21 @@ export const getIcon = ({
 	icon,
 	theme = DEFAULT_THEME,
 	variant = DEFAULT_VARIANT,
+}: {
+	icon?: React.ReactElement | null;
+	theme?: string;
+	variant?: string;
 }) => {
 	const commonClasses = '[&>svg]:h-5 [&>svg]:w-5';
 	const color = getIconColor({ theme, variant });
 
 	if (icon && isValidElement(icon)) {
-		const updatedIcon = cloneElement(icon, {
-			className: cn(commonClasses, color, icon.props.className),
+		const updatedIcon = cloneElement(icon as React.ReactElement, {
+			className: cn(
+				commonClasses,
+				color,
+				(icon as React.ReactElement)?.props?.className ?? ''
+			),
 		});
 		return updatedIcon;
 	}
@@ -58,7 +66,7 @@ export const getIcon = ({
 		error: <Trash2 className={cn(commonClasses, color)} />,
 	};
 
-	return icons[variant] || icons.neutral;
+	return icons[variant as keyof typeof icons] || icons.neutral;
 };
 
 export const getAction = ({
@@ -110,8 +118,14 @@ export const getAction = ({
 	}
 };
 
-export const getTitle = ({ theme = DEFAULT_THEME, title = '' }) => {
-	if (!title && isNaN(title)) {
+export const getTitle = ({
+	theme = DEFAULT_THEME,
+	title = '',
+}: {
+	theme?: string;
+	title?: string | React.ReactNode;
+}) => {
+	if (!title && Number.isNaN(title)) {
 		return null;
 	}
 	const titleClasses = {
@@ -122,7 +136,7 @@ export const getTitle = ({ theme = DEFAULT_THEME, title = '' }) => {
 		<span
 			className={cn(
 				'block',
-				titleClasses[theme],
+				titleClasses[theme as keyof typeof titleClasses],
 				'text-sm leading-5 font-semibold'
 			)}
 		>
@@ -131,8 +145,14 @@ export const getTitle = ({ theme = DEFAULT_THEME, title = '' }) => {
 	);
 };
 
-export const getContent = ({ theme = DEFAULT_THEME, content = '' }) => {
-	if (!content && isNaN(content)) {
+export const getContent = ({
+	theme = DEFAULT_THEME,
+	content = '',
+}: {
+	theme?: string;
+	content?: string | React.ReactNode;
+}) => {
+	if (!content && Number.isNaN(content)) {
 		return null;
 	}
 	const contentClasses = {
@@ -142,7 +162,7 @@ export const getContent = ({ theme = DEFAULT_THEME, content = '' }) => {
 	return (
 		<span
 			className={cn(
-				contentClasses[theme],
+				contentClasses[theme as keyof typeof contentClasses],
 				'block text-sm [&_*]:text-sm leading-5 [&_*]:leading-5 font-normal'
 			)}
 		>
@@ -157,13 +177,17 @@ export const getContent = ({ theme = DEFAULT_THEME, content = '' }) => {
  *
  * @return {Function} A function that will call all refs with the node.
  */
-export const mergeRefs = (...refs) => {
-	return (node) => {
+interface MergeRefs {
+	(node: HTMLElement | null): void;
+}
+
+export const mergeRefs = (...refs: (React.Ref<HTMLElement> | undefined)[]): MergeRefs => {
+	return (node: HTMLElement | null) => {
 		refs.forEach((ref) => {
 			if (typeof ref === 'function') {
 				ref(node);
 			} else if (ref) {
-				ref.current = node;
+				(ref as React.MutableRefObject<HTMLElement | null>).current = node;
 			}
 		});
 	};

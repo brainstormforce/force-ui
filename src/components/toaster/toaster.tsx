@@ -12,16 +12,17 @@ import {
 } from './component-style';
 import { flushSync } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
+import type { ToasterProps, ToastProps, ToastType } from './toaster-types';
 
-const Toaster = ({
+export const Toaster = ({
 	position = 'top-right', // top-right/top-left/bottom-right/bottom-left
 	design = 'stack', // stack/inline
 	theme = 'light', // light/dark
 	className = '',
 	autoDismiss = true, // Auto dismiss the toast after a certain time.
 	dismissAfter = 5000, // Time in milliseconds after which the toast will be dismissed.
-}) => {
-	const [toasts, setToasts] = useState([]);
+}: ToasterProps ) => {
+	const [toasts, setToasts] = useState<ToastType[] | []>([]);
 
 	useEffect(() => {
 		ToastState.subscribe((toastItem) => {
@@ -58,7 +59,7 @@ const Toaster = ({
 		});
 	}, []);
 
-	const removeToast = (id) => {
+	const removeToast = (id: number) => {
 		setToasts((prevToasts) => prevToasts.filter((t) => t.id !== id));
 	};
 
@@ -75,7 +76,7 @@ const Toaster = ({
 				{toasts.map((toastItem) => (
 					<motion.li
 						key={toastItem.id}
-						positionTransition
+						// positionTransition
 						initial={{ opacity: 0, y: 50, scale: 0.7 }}
 						animate={{ opacity: 1, y: 0, scale: 1 }}
 						exit={{
@@ -89,7 +90,7 @@ const Toaster = ({
 							toastItem={toastItem}
 							title={toastItem.title}
 							content={toastItem?.description}
-							icon={toastItem?.icon ?? null}
+							icon={toastItem?.icon ?? undefined}
 							design={toastItem?.design ?? design}
 							autoDismiss={toastItem?.autoDismiss ?? autoDismiss}
 							dismissAfter={
@@ -108,21 +109,21 @@ const Toaster = ({
 
 export const Toast = ({
 	toastItem,
-	title = null,
-	content = null,
+	title = '',
+	content = '',
 	autoDismiss = true,
 	dismissAfter = 5000,
 	theme = 'light', // light/dark
 	design = 'stack', // inline/stack
-	icon = null,
+	icon,
 	variant = 'neutral', // neutral/info/success/warning/danger
 	removeToast, // Function to remove the toast.
-}) => {
+}: ToastProps ) => {
 	const closeTimerStart = useRef(0);
 	const lastCloseTimerStart = useRef(0);
-	const timeoutId = useRef(0);
+	const timeoutId = useRef<NodeJS.Timeout | undefined>();
 
-	const startTimer = (tItem, remainingTime = dismissAfter) => {
+	const startTimer = (tItem: Partial<ToastType>, remainingTime = dismissAfter) => {
 		// If auto dismiss is disabled, or the dismissAfter is less than 0, return.
 		if (!autoDismiss || dismissAfter < 0) {
 			return;
@@ -130,7 +131,10 @@ export const Toast = ({
 
 		closeTimerStart.current = new Date().getTime();
 		return setTimeout(() => {
-			removeToast(tItem.id);
+			if (typeof removeToast !== 'function'){
+				return;
+			}
+			removeToast(tItem.id!);
 		}, remainingTime);
 	};
 
@@ -158,14 +162,17 @@ export const Toast = ({
 	}, []);
 
 	useEffect(() => {
-		if (!toastItem?.dismiss) {
+		if (!toastItem?.dismiss || typeof removeToast !== 'function') {
 			return;
 		}
-		removeToast(toastItem.id);
+		removeToast(toastItem.id!);
 	}, [toastItem]);
 
 	const handleAction = () => {
-		toastItem?.action?.onClick?.(() => removeToast(toastItem.id));
+		if (typeof removeToast !== 'function'){
+			return;
+		}
+		toastItem?.action?.onClick?.(() => removeToast(toastItem.id!));
 	};
 
 	let render = null;
@@ -217,7 +224,12 @@ export const Toast = ({
 									closeIconClassNames[theme] ??
 										closeIconClassNames.light
 								)}
-								onClick={() => removeToast(toastItem.id)}
+								onClick={() => {
+									if (typeof removeToast !== 'function'){
+										return;
+									}
+									removeToast(toastItem.id!)
+								}}
 							>
 								<X />
 							</button>
@@ -225,7 +237,7 @@ export const Toast = ({
 					</>
 				) : (
 					toastItem?.jsx?.({
-						close: () => removeToast(toastItem.id),
+						close: () => removeToast!(toastItem.id!),
 						action: toastItem?.action
 							? { ...toastItem?.action, onClick: handleAction }
 							: null,
@@ -260,7 +272,7 @@ export const Toast = ({
 							closeIconClassNames[theme] ??
 								closeIconClassNames.light
 						)}
-						onClick={() => removeToast(toastItem.id)}
+						onClick={() => removeToast!(toastItem.id!)}
 					>
 						<X />
 					</button>

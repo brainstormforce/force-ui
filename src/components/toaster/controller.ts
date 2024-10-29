@@ -1,8 +1,11 @@
+import React from "react";
+import type { ToastType, Subscriber } from "./toaster-types";
+
 let toastCounter = 1;
 
 class ToastController {
-	#toasts;
-	#subscribers;
+	#toasts: ToastType[];
+	#subscribers: Subscriber[];
 
 	constructor() {
 		this.#toasts = [];
@@ -10,7 +13,7 @@ class ToastController {
 	}
 
 	// Subscriber pattern.
-	subscribe( callback ) {
+	subscribe( callback: Subscriber ) {
 		this.#subscribers.push( callback );
 
 		// Return a callback for unsubscribe.
@@ -21,18 +24,13 @@ class ToastController {
 		};
 	}
 
-	// Notify subscribers.
-	notify() {
-		this.#subscribers.forEach( ( subscriber ) => subscriber( this.#toasts ) );
-	}
-
 	// Publish a new toast.
-	publish( toast ) {
+	publish( toast: ToastType ) {
 		this.#subscribers.forEach( ( subscriber ) => subscriber( toast ) );
 	}
 
 	// Add a new toast.
-	add( toast ) {
+	add( toast: ToastType ) {
 		this.#toasts.push( toast );
 
 		// Publish the new toast.
@@ -40,14 +38,14 @@ class ToastController {
 	}
 
 	// Remove a toast.
-	remove( id ) {
+	remove( id: number ) {
 		this.#toasts = this.#toasts.filter( ( toast ) => toast.id !== id );
 
 		return id;
 	}
 
 	// Create a new toast.
-	create( data ) {
+	create( data: Partial<ToastType & {message: string | React.ReactElement}> ) {
 		const {
 			id = undefined,
 			message = '',
@@ -85,7 +83,7 @@ class ToastController {
 	}
 
 	// Update a toast.
-	update( id, data ) {
+	update( id: number, data: Partial<ToastType> ) {
 		const { render = undefined } = data;
 		let updatedData = data;
 		switch ( typeof render ) {
@@ -115,7 +113,7 @@ class ToastController {
 	}
 
 	// Dismiss toast.
-	dismiss( id ) {
+	dismiss( id: number ) {
 		if ( ! id ) {
 			this.#toasts.forEach( ( toast ) =>
 				this.#subscribers.forEach( ( subscriber ) =>
@@ -138,32 +136,32 @@ class ToastController {
 	// Types of toasts.
 
 	// Default toast.
-	default( message = '', options = {} ) {
+	default( message: string | React.ReactElement = '', options: Partial<ToastType> = {} ) {
 		return this.create( { message, type: 'neutral', ...options } );
 	}
 
 	// Success toast.
-	success( message = '', options = {} ) {
+	success( message: string | React.ReactElement = '', options: Partial<ToastType> = {} ) {
 		return this.create( { message, type: 'success', ...options } );
 	}
 
 	// Error toast.
-	error( message = '', options = {} ) {
+	error( message: string | React.ReactElement = '', options: Partial<ToastType> = {} ) {
 		return this.create( { message, type: 'error', ...options } );
 	}
 
 	// Warning toast.
-	warning( message = '', options = {} ) {
+	warning( message: string | React.ReactElement = '', options: Partial<ToastType> = {} ) {
 		return this.create( { message, type: 'warning', ...options } );
 	}
 
 	// Info toast
-	info( message = '', options = {} ) {
+	info( message: string | React.ReactElement = '', options: Partial<ToastType> = {} ) {
 		return this.create( { message, type: 'info', ...options } );
 	}
 
 	// Custom toast.
-	custom( jsx = () => {}, options = {} ) {
+	custom( jsx: ToastType['jsx'], options: Partial<ToastType> = {} ) {
 		return this.create( {
 			jsx,
 			type: 'custom',
@@ -174,7 +172,7 @@ class ToastController {
 
 export const ToastState = new ToastController();
 
-const defaultToast = ( message, options ) => ToastState.default( message, options );
+const defaultToast = ( message: string | React.ReactElement, options: ToastType ) => ToastState.default( message, options );
 
 export const toast = Object.seal(
 	Object.assign(

@@ -25,7 +25,7 @@ export interface AlertProps {
 	onClose?: () => void;
 
 	/** Custom Icon for the alert. */
-	icon?: React.ReactNode;
+	icon?: React.ReactElement | null;
 
 	/** Defines the action of the alert. */
 	action?: {
