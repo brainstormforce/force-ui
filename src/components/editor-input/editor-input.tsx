@@ -54,33 +54,33 @@ const EMPTY_CONTENT = `{
 export type TOptionItem = Record<string, unknown> | string;
 
 interface EditorInputProps<T = TOptionItem> {
-	/** The default value of the editor. */
+	/** Default value for the editor input field. */
 	defaultValue?: string;
-	/** The placeholder of the editor. */
+	/** Placeholder text for the editor input field. */
 	placeholder?: string;
-	/** The function to be called when the editor content changes. */
+	/** Callback function that is called when the value of the input changes. The function receives the updated value as an argument. */
 	onChange?: ( editorState: EditorState, editor: LexicalEditor ) => void;
-	/** The size of the editor. */
+	/** Defines the sizes of the editor input. */
 	size?: keyof typeof editorInputClassNames;
-	/** Whether the editor should be focused automatically. */
+	/** Defines if the editor input is focused automatically. */
 	autoFocus?: boolean;
-	/** The options to be shown in the mention menu. */
+	/** Array of options to be displayed in the editor input. Each option should be an object  or string. */
 	options: T[];
-	/** The key to be used for the mention options. */
+	/** The key to be used to display the label of the option in the editor input and in the editor after selecting any mention/tag option. */
 	by?: T extends Record<string, unknown> ? keyof T : string;
-	/** The trigger to be used for the mention options. */
+	/** The trigger to be used to show the mention options. */
 	trigger?: string;
 	/** The component to be used for the mention menu. */
 	menuComponent?: TMenuComponent;
 	/** The component to be used for the mention menu items. */
 	menuItemComponent?: TMenuItemComponent;
-	/** The class name of the editor. */
+	/** Additional class names to be added to the editor input. */
 	className?: string;
-	/** The class name of the wrapper. */
+	/** Additional class names to be added to the editor input wrapper. */
 	wrapperClassName?: string;
-	/** Whether the editor is disabled. */
+	/** Defines if the editor input is disabled. */
 	disabled?: boolean;
-	/** Whether to add a space after the mention. */
+	/** Defines if the editor input should add a space after selecting a mention/tag option. */
 	autoSpaceAfterMention?: boolean;
 }
 
