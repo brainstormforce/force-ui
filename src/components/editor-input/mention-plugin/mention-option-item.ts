@@ -15,7 +15,9 @@ import { type TOptionItem } from '../editor-input';
 
 class OptionItem implements MenuOption {
 	data: TOptionItem;
-	key: TOptionItem extends Record<string, unknown> ? keyof TOptionItem : string;
+	key: TOptionItem extends Record<string, unknown>
+		? keyof TOptionItem
+		: string;
 	ref: React.RefObject<HTMLLIElement>;
 	setRefElement: ( element: HTMLLIElement ) => void;
 

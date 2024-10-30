@@ -3,40 +3,45 @@ import { OptionsArray } from './mention-plugin';
 
 const mentionsCache = new Map();
 
-type TBy<T> = T extends Array<infer U> ? U extends Record<string, unknown> ? keyof U & (string & {}) : string : string;
+type TBy<T> =
+	T extends Array<infer U>
+		? U extends Record<string, unknown>
+			? keyof U & ( string & {} )
+			: string
+		: string;
 
 function useMentionLookupService<T = OptionsArray>(
 	options: T,
 	mentionString: string | null,
 	by: TBy<T> = 'name' as TBy<T>
 ): OptionsArray {
-	const [results, setResults] = useState<OptionsArray>([]);
+	const [ results, setResults ] = useState<OptionsArray>( [] );
 
-	useEffect(() => {
-		if (mentionString === null) {
-			setResults([]);
+	useEffect( () => {
+		if ( mentionString === null ) {
+			setResults( [] );
 			return;
 		}
 
-		const cachedResults = mentionsCache.get(mentionString);
-		if (cachedResults === null) {
+		const cachedResults = mentionsCache.get( mentionString );
+		if ( cachedResults === null ) {
 			return;
-		} else if (cachedResults !== undefined) {
-			setResults(cachedResults);
+		} else if ( cachedResults !== undefined ) {
+			setResults( cachedResults );
 			return;
 		}
 
-		mentionsCache.set(mentionString, null);
+		mentionsCache.set( mentionString, null );
 		lookupService.search(
 			options,
 			mentionString,
-			(newResults) => {
-				mentionsCache.set(mentionString, newResults);
-				setResults(newResults as OptionsArray);
+			( newResults ) => {
+				mentionsCache.set( mentionString, newResults );
+				setResults( newResults as OptionsArray );
 			},
 			by
 		);
-	}, [mentionString]);
+	}, [ mentionString ] );
 
 	return results;
 }
@@ -46,7 +51,11 @@ const lookupService = {
 		options: T,
 		string: string,
 		callback: ( result: T ) => void,
-		by: T extends Array<infer U> ? U extends Record<string, unknown> ? keyof U : string : string
+		by: T extends Array<infer U>
+			? U extends Record<string, unknown>
+				? keyof U
+				: string
+			: string
 	) {
 		setTimeout( () => {
 			if ( ! Array.isArray( options ) ) {
