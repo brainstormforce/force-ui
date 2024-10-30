@@ -8,11 +8,13 @@ import {
 	$isDecoratorNode,
 	$isElementNode,
 	$isTextNode,
+	CommandListener,
 } from 'lexical';
 import { mergeRegister } from '@lexical/utils';
 import { Badge } from '@/components';
+import type { OptionItem } from '../editor-input';
 
-const mapSizeToBadgeSize = (size) => {
+const mapSizeToBadgeSize = (size: string) => {
 	switch (size) {
 		case 'sm':
 			return 'xs';
@@ -25,11 +27,16 @@ const mapSizeToBadgeSize = (size) => {
 	}
 };
 
-const MentionComponent = ({ data, by, size, nodeKey }) => {
+const MentionComponent = ({ data, by, size, nodeKey }: {
+	data: OptionItem;
+	by: keyof OptionItem;
+	size: string;
+	nodeKey: string;
+}) => {
 	const [editor] = useLexicalComposerContext();
 	const disabled = !editor.isEditable();
 
-	const removeMention = (event) => {
+	const removeMention = (event: React.MouseEvent) => {
 		event.stopPropagation();
 		event.preventDefault();
 
@@ -46,12 +53,12 @@ const MentionComponent = ({ data, by, size, nodeKey }) => {
 		});
 	};
 
-	let renderLabel = data;
+	let renderLabel = data as unknown as string;
 	if (typeof data === 'object') {
-		renderLabel = data[by];
+		renderLabel = data[by] as string;
 	}
 
-	const onArrowLeftPress = useCallback(
+	const onArrowLeftPress = useCallback<CommandListener<KeyboardEvent>>(
 		(event) => {
 			const node = $getNodeByKey(nodeKey);
 			if (!node || !node.isSelected()) {
@@ -83,7 +90,7 @@ const MentionComponent = ({ data, by, size, nodeKey }) => {
 		[nodeKey]
 	);
 
-	const onArrowRightPress = useCallback(
+	const onArrowRightPress = useCallback<CommandListener<KeyboardEvent>>(
 		(event) => {
 			const node = $getNodeByKey(nodeKey);
 			if (!node || !node.isSelected()) {

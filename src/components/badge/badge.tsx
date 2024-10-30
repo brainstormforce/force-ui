@@ -34,7 +34,7 @@ export interface BadgeProps {
 	/**
 	 * Callback function for close event
 	 */
-	onClose?: () => void;
+	onClose?: (event: React.MouseEvent) => void;
 	/**
 	 * Defines if the badge is closable.
 	 */

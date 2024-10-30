@@ -25,10 +25,11 @@ import {
 	type CommandListener,
 } from 'lexical';
 import { mergeRegister } from '@lexical/utils';
+import { type TOptionItem } from '../editor-input';
 
 export type Trigger = '@' | '#' | ( string & {} );
 export type Sizes = 'lg' | 'md' | 'sm' | 'xs';
-export type OptionsArray = Array<Record<string, unknown>>;
+export type OptionsArray = Array<TOptionItem>;
 export type TMenuComponent = React.ComponentType<
 	React.ComponentProps<typeof EditorCombobox>
 >;

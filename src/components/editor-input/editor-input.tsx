@@ -14,7 +14,6 @@ import {
 	editorInputClassNames,
 } from './editor-input-style';
 import MentionPlugin, {
-	type OptionsArray,
 	type TMenuComponent,
 	type TMenuItemComponent,
 } from './mention-plugin/mention-plugin';
@@ -52,7 +51,9 @@ const EMPTY_CONTENT = `{
     }
 }`;
 
-interface EditorInputProps<T = string | number | Record<string, unknown>> {
+export type TOptionItem = Record<string, unknown>;
+
+interface EditorInputProps<T = TOptionItem> {
 	/** The default value of the editor. */
 	defaultValue?: string;
 	/** The placeholder of the editor. */
@@ -64,7 +65,7 @@ interface EditorInputProps<T = string | number | Record<string, unknown>> {
 	/** Whether the editor should be focused automatically. */
 	autoFocus?: boolean;
 	/** The options to be shown in the mention menu. */
-	options?: T[];
+	options: T[];
 	/** The key to be used for the mention options. */
 	by?: T extends Record<string, unknown> ? keyof T : string;
 	/** The trigger to be used for the mention options. */
@@ -167,7 +168,7 @@ const EditorInput = forwardRef<LexicalEditor, EditorInputProps>(
 						menuItemComponent={ menuItemComponentToUse }
 						size={ size }
 						by={ by }
-						optionsArray={ options as OptionsArray }
+						optionsArray={ options }
 						trigger={ trigger }
 						autoSpace={ autoSpaceAfterMention }
 					/>
