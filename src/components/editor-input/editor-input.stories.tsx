@@ -1,7 +1,6 @@
 import EditorInput from './editor-input';
 import type { Meta, StoryObj } from '@storybook/react';
 
-
 const meta: Meta<typeof EditorInput> = {
 	title: 'Atoms/EditorInput',
 	component: EditorInput,

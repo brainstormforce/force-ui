@@ -42,15 +42,15 @@ export type SelectContextValueTypes = {
 };
 
 type ConditionalProps = {
-			/** Multi select mode. */
-			multiple?: boolean;
-			/** Defines the width of the Select Component. */
-			value: SelectOptionValue | SelectOptionValue[];
-			/** onChange event to be triggered when the value of the Select Component changes. */
-			onChange: ( value: SelectOptionValue | SelectOptionValue[] ) => void;
-			/** Defines the default value of the Select Component. */
-			defaultValue?: SelectOptionValue | SelectOptionValue[];
-	  }
+	/** Multi select mode. */
+	multiple?: boolean;
+	/** Defines the width of the Select Component. */
+	value: SelectOptionValue | SelectOptionValue[];
+	/** onChange event to be triggered when the value of the Select Component changes. */
+	onChange: ( value: SelectOptionValue | SelectOptionValue[] ) => void;
+	/** Defines the default value of the Select Component. */
+	defaultValue?: SelectOptionValue | SelectOptionValue[];
+};
 
 export type SelectGetValues = () => SelectOptionValue | SelectOptionValue[];
 

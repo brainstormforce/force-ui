@@ -21,7 +21,15 @@ import {
 } from '@floating-ui/react';
 import { callAll, cn } from '@/utilities/functions';
 import Menu from '../menu-item/menu-item';
-import { AdditionalProps, DropdownCommonProps, DropdownMenuItemProps, DropdownMenuListProps, DropdownMenuProps, DropdownMenuSeparatorProps, HandleClose } from './dropdown-types';
+import {
+	AdditionalProps,
+	DropdownCommonProps,
+	DropdownMenuItemProps,
+	DropdownMenuListProps,
+	DropdownMenuProps,
+	DropdownMenuSeparatorProps,
+	HandleClose,
+} from './dropdown-types';
 
 const DropdownMenuContext = createContext<Record<string, unknown>>( {} );
 const useDropdownMenuContext = () => useContext( DropdownMenuContext );
@@ -143,7 +151,11 @@ export const DropdownMenuTrigger = React.forwardRef<
 
 DropdownMenuTrigger.displayName = 'DropdownMenu.Trigger';
 
-export const DropdownMenuContent = ( { children, className, ...props }: DropdownCommonProps & AdditionalProps ) => {
+export const DropdownMenuContent = ( {
+	children,
+	className,
+	...props
+}: DropdownCommonProps & AdditionalProps ) => {
 	return (
 		<div
 			className={ cn(
@@ -163,7 +175,11 @@ export const DropdownMenuList = ( props: DropdownMenuListProps ) => {
 
 DropdownMenuList.displayName = 'DropdownMenu.List';
 
-export const DropdownMenuItem: React.FC<DropdownMenuItemProps> = ( { children, as: Tag = Menu.Item, ...props } ) => {
+export const DropdownMenuItem: React.FC<DropdownMenuItemProps> = ( {
+	children,
+	as: Tag = Menu.Item,
+	...props
+} ) => {
 	const { handleClose } = useDropdownMenuContext();
 
 	if ( ! children ) {
@@ -192,9 +208,7 @@ export const DropdownMenuItem: React.FC<DropdownMenuItemProps> = ( { children, a
 
 DropdownMenuItem.displayName = 'DropdownMenu.Item';
 
-export const DropdownMenuSeparator = (
-	props: DropdownMenuSeparatorProps
-) => {
+export const DropdownMenuSeparator = ( props: DropdownMenuSeparatorProps ) => {
 	return <Menu.Separator { ...props } />;
 };
 

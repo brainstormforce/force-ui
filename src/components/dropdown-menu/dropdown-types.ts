@@ -38,9 +38,11 @@ export interface DropdownMenuProps extends DropdownCommonProps {
 export interface DropdownMenuItemProps {
 	children: React.ReactNode;
 	as?: React.ElementType;
-    onClick?: () => void;
+	onClick?: () => void;
 }
 
-export type DropdownMenuSeparatorProps = React.ComponentProps<typeof Menu.Separator>
+export type DropdownMenuSeparatorProps = React.ComponentProps<
+	typeof Menu.Separator
+>;
 
-export type DropdownMenuListProps = React.ComponentProps<typeof Menu.List>
+export type DropdownMenuListProps = React.ComponentProps<typeof Menu.List>;

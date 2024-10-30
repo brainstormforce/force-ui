@@ -1,13 +1,17 @@
 import React, { useState } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { DayPicker, useDayPicker, type CustomComponents } from 'react-day-picker';
+import {
+	DayPicker,
+	useDayPicker,
+	type CustomComponents,
+} from 'react-day-picker';
 import { format, subMonths } from 'date-fns';
 import { cn } from '@/utilities/functions';
 import Button from '../button';
 import { currentTimeDot, formatWeekdayName, generateYearRange } from './utils';
 import { JSX } from 'react/jsx-runtime';
 
-export type TDateRange = { from: Date | null; to: Date | null }
+export type TDateRange = { from: Date | null; to: Date | null };
 
 export interface DatePickerProps {
 	/** The width of the date picker. */
@@ -232,7 +236,13 @@ const DatePickerComponent = ( {
 							<Button
 								key={ yearValue }
 								variant="ghost"
-								onClick={ () => handleYearClick( yearValue as unknown as {yearValue: number} ) }
+								onClick={ () =>
+									handleYearClick(
+										yearValue as unknown as {
+											yearValue: number;
+										}
+									)
+								}
 								className={ cn(
 									'h-10 w-full text-center font-normal relative',
 									yearValue === selectedYear &&
@@ -304,7 +314,11 @@ const DatePickerComponent = ( {
 		);
 	};
 
-	const CustomDayButton = ( { day, modifiers, onSelect }: CustomDayButtonProps ) => {
+	const CustomDayButton = ( {
+		day,
+		modifiers,
+		onSelect,
+	}: CustomDayButtonProps ) => {
 		const {
 			selected: isSelected,
 			today: isToday,
@@ -319,7 +333,9 @@ const DatePickerComponent = ( {
 		const handleClick = () => ! isDisabled && onSelect( day.date );
 
 		const today = new Date();
-		const rangeEnd = ( selectedDates as { from: Date | null; to: Date | null } )?.to;
+		const rangeEnd = (
+			selectedDates as { from: Date | null; to: Date | null }
+		)?.to;
 
 		const isThisMonth =
 			format( day.displayMonth, 'yyyy-MM' ) === format( today, 'yyyy-MM' );
@@ -428,7 +444,8 @@ const DatePickerComponent = ( {
 		if ( mode === 'range' ) {
 			if (
 				! ( selectedDates as TDateRange )?.from ||
-				( ( selectedDates as TDateRange )?.from && ( selectedDates as TDateRange )?.to )
+				( ( selectedDates as TDateRange )?.from &&
+					( selectedDates as TDateRange )?.to )
 			) {
 				setSelectedDates( { from: selectedDate, to: null } );
 			} else {
@@ -479,7 +496,11 @@ const DatePickerComponent = ( {
 		<>
 			<DayPicker
 				mode={ mode }
-				selected={ mode === 'single' ? ( selectedDates as Date ) : ( selectedDates as Date[] ) }
+				selected={
+					mode === 'single'
+						? ( selectedDates as Date )
+						: ( selectedDates as Date[] )
+				}
 				onSelect={ handleSelect }
 				hideNavigation
 				captionLayout="label"
@@ -502,63 +523,72 @@ const DatePickerComponent = ( {
 					...classNames,
 				} }
 				components={ {
-					MonthCaption: ( CustomMonthCaption as unknown as CustomComponents['MonthCaption'] ),
+					MonthCaption:
+						CustomMonthCaption as unknown as CustomComponents['MonthCaption'],
 					Day: ( singleDayProps ) => {
 						const modifiers = {
-							selected: singleDayProps.modifiers.selected || false,
+							selected:
+								singleDayProps.modifiers.selected || false,
 							today: singleDayProps.modifiers.today || false,
-							disabled: singleDayProps.modifiers.disabled || false,
+							disabled:
+								singleDayProps.modifiers.disabled || false,
 							outside: singleDayProps.modifiers.outside || false,
-							range_middle: singleDayProps.modifiers.range_middle || false,
-							range_start: singleDayProps.modifiers.range_start || false,
-							range_end: singleDayProps.modifiers.range_end || false,
+							range_middle:
+								singleDayProps.modifiers.range_middle || false,
+							range_start:
+								singleDayProps.modifiers.range_start || false,
+							range_end:
+								singleDayProps.modifiers.range_end || false,
 						};
-						return <Day { ...singleDayProps } modifiers={ modifiers } onSelect={ handleSelect } />;
+						return (
+							<Day
+								{ ...singleDayProps }
+								modifiers={ modifiers }
+								onSelect={ handleSelect }
+							/>
+						);
 					},
 					Weekdays: () => <></>,
 					Months: ( monthsProps ) => (
 						<>
 							<div className={ monthsClassName }>
-								{ ( monthsProps as { children: React.ReactElement[] } )?.children?.map(
-									( months, monthIndex ) => {
-										if ( ! months ) {
-											return null;
-										}
-										return (
-											<React.Fragment key={ monthIndex }>
-												{ ( months as unknown as React.ReactElement[] ).map(
-													(
-														month,
-														innerMonthIndex
-													) => (
-														<React.Fragment
-															key={
-																innerMonthIndex
-															}
-														>
-															{ innerMonthIndex >
-																0 && (
-																<div className="border border-solid border-border-subtle border-l-0"></div>
-															) }
-															{ month }
-														</React.Fragment>
-													)
-												) }
-											</React.Fragment>
-										);
+								{ (
+									monthsProps as {
+										children: React.ReactElement[];
 									}
-								) }
+								)?.children?.map( ( months, monthIndex ) => {
+									if ( ! months ) {
+										return null;
+									}
+									return (
+										<React.Fragment key={ monthIndex }>
+											{ (
+												months as unknown as React.ReactElement[]
+											).map( ( month, innerMonthIndex ) => (
+												<React.Fragment
+													key={ innerMonthIndex }
+												>
+													{ innerMonthIndex > 0 && (
+														<div className="border border-solid border-border-subtle border-l-0"></div>
+													) }
+													{ month }
+												</React.Fragment>
+											) ) }
+										</React.Fragment>
+									);
+								} ) }
 							</div>
 						</>
 					),
-					MonthGrid: ( monthGridProps ) => (
+					MonthGrid: ( monthGridProps ) =>
 						! showMonthSelect && ! showYearSelect ? (
 							<CustomMonths
 								monthGridProps={ monthGridProps }
 								onSelect={ handleSelect }
 							/>
-						) : <></>
-					),
+						) : (
+							<></>
+						),
 				} }
 				{ ...props }
 			/>

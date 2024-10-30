@@ -1,30 +1,46 @@
 export type ToastTheme = 'light' | 'dark';
-export type ToastVariant = 'neutral' | 'success' | 'error' | 'warning' | 'info' | 'custom';
+export type ToastVariant =
+	| 'neutral'
+	| 'success'
+	| 'error'
+	| 'warning'
+	| 'info'
+	| 'custom';
 export type ToastDesign = 'stack' | 'inline';
 
-export type ToastAction ={
-    label: string;
-    onClick: (callback?: (toast: ToastType) => void) => void;
-    type?: 'button' | 'link';
-}
+export type ToastAction = {
+	label: string;
+	onClick: ( callback?: ( toast: ToastType ) => void ) => void;
+	type?: 'button' | 'link';
+};
 
 export interface ToastType {
 	id?: number;
 	title?: string | React.ReactElement;
 	description?: string | React.ReactElement;
 	type?: ToastVariant;
-	jsx?: ( { close, action }: {close: () => void; action?: ToastAction | null} ) => JSX.Element;
-	render?: string | (() => JSX.Element);
+	jsx?: ( {
+		close,
+		action,
+	}: {
+		close: () => void;
+		action?: ToastAction | null;
+	} ) => JSX.Element;
+	render?: string | ( () => JSX.Element );
 	autoDismiss?: boolean;
 	dismissAfter?: number;
 	theme?: ToastTheme;
 	design?: ToastDesign;
 	dismiss?: boolean;
-    icon?: React.ReactElement;
-    action?: ToastAction;
+	icon?: React.ReactElement;
+	action?: ToastAction;
 }
 
-export type ToastOrArray = ToastType[]| Partial<ToastType> | Partial<ToastType>[] | (ToastType | Partial<ToastType>)[];
+export type ToastOrArray =
+	| ToastType[]
+	| Partial<ToastType>
+	| Partial<ToastType>[]
+	| ( ToastType | Partial<ToastType> )[];
 
 export type Subscriber = ( toast: ToastType ) => void;
 
@@ -63,5 +79,5 @@ export interface ToastProps {
 	/** The variant of the toast. */
 	variant?: ToastType['type'];
 	/** Function to remove the toast. */
-	removeToast?: (id: number) => void;
+	removeToast?: ( id: number ) => void;
 }

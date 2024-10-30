@@ -54,9 +54,7 @@ const Template: Story = ( args ) => {
 	return (
 		<div>
 			<Toaster { ...args } key={ args.position } />
-			<div
-				className='h-[100dvh] flex flex-col items-center justify-center'
-			>
+			<div className="h-[100dvh] flex flex-col items-center justify-center">
 				<div className="flex gap-2">
 					<button
 						onClick={ () =>

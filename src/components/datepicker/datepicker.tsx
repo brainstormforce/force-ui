@@ -42,7 +42,9 @@ const DatePicker = ( {
 	showOutsideDays = true,
 	...props
 }: DatePickerProps ) => {
-	const [ selectedDates, setSelectedDates ] = useState<TDateRange | Date[] | null>( () => {
+	const [ selectedDates, setSelectedDates ] = useState<
+		TDateRange | Date[] | null
+	>( () => {
 		if ( selectionType === 'multiple' ) {
 			return [];
 		} else if ( selectionType === 'range' ) {
@@ -120,7 +122,11 @@ const DatePicker = ( {
 				width="w-[18.5rem]"
 				selectedDates={ selectedDates }
 				showOutsideDays={ showOutsideDays }
-				setSelectedDates={ setSelectedDates as ( dates: Date | Date[] | TDateRange | null ) => void }
+				setSelectedDates={
+					setSelectedDates as (
+						dates: Date | Date[] | TDateRange | null
+					) => void
+				}
 			/>
 		);
 	}
@@ -132,7 +138,11 @@ const DatePicker = ( {
 				numberOfMonths={ 2 }
 				alignment="horizontal"
 				selectedDates={ selectedDates }
-				setSelectedDates={ setSelectedDates as ( dates: Date | Date[] | TDateRange | null ) => void }
+				setSelectedDates={
+					setSelectedDates as (
+						dates: Date | Date[] | TDateRange | null
+					) => void
+				}
 				showOutsideDays={ showOutsideDays }
 				variant={ variant }
 				width="w-auto"
@@ -169,7 +179,11 @@ const DatePicker = ( {
 					{ ...props }
 					mode={ selectionType }
 					selectedDates={ selectedDates }
-					setSelectedDates={ setSelectedDates as ( dates: Date | Date[] | TDateRange | null ) => void }
+					setSelectedDates={
+						setSelectedDates as (
+							dates: Date | Date[] | TDateRange | null
+						) => void
+					}
 					variant={ variant }
 					showOutsideDays={ showOutsideDays }
 					width="w-auto"

@@ -1,5 +1,5 @@
-import React from "react";
-import type { ToastType, Subscriber } from "./toaster-types";
+import React from 'react';
+import type { ToastType, Subscriber } from './toaster-types';
 
 let toastCounter = 1;
 
@@ -45,7 +45,9 @@ class ToastController {
 	}
 
 	// Create a new toast.
-	create( data: Partial<ToastType & {message: string | React.ReactElement}> ) {
+	create(
+		data: Partial<ToastType & { message: string | React.ReactElement }>
+	) {
 		const {
 			id = undefined,
 			message = '',
@@ -136,27 +138,42 @@ class ToastController {
 	// Types of toasts.
 
 	// Default toast.
-	default( message: string | React.ReactElement = '', options: Partial<ToastType> = {} ) {
+	default(
+		message: string | React.ReactElement = '',
+		options: Partial<ToastType> = {}
+	) {
 		return this.create( { message, type: 'neutral', ...options } );
 	}
 
 	// Success toast.
-	success( message: string | React.ReactElement = '', options: Partial<ToastType> = {} ) {
+	success(
+		message: string | React.ReactElement = '',
+		options: Partial<ToastType> = {}
+	) {
 		return this.create( { message, type: 'success', ...options } );
 	}
 
 	// Error toast.
-	error( message: string | React.ReactElement = '', options: Partial<ToastType> = {} ) {
+	error(
+		message: string | React.ReactElement = '',
+		options: Partial<ToastType> = {}
+	) {
 		return this.create( { message, type: 'error', ...options } );
 	}
 
 	// Warning toast.
-	warning( message: string | React.ReactElement = '', options: Partial<ToastType> = {} ) {
+	warning(
+		message: string | React.ReactElement = '',
+		options: Partial<ToastType> = {}
+	) {
 		return this.create( { message, type: 'warning', ...options } );
 	}
 
 	// Info toast
-	info( message: string | React.ReactElement = '', options: Partial<ToastType> = {} ) {
+	info(
+		message: string | React.ReactElement = '',
+		options: Partial<ToastType> = {}
+	) {
 		return this.create( { message, type: 'info', ...options } );
 	}
 
@@ -172,7 +189,10 @@ class ToastController {
 
 export const ToastState = new ToastController();
 
-const defaultToast = ( message: string | React.ReactElement, options: ToastType ) => ToastState.default( message, options );
+const defaultToast = (
+	message: string | React.ReactElement,
+	options: ToastType
+) => ToastState.default( message, options );
 
 export const toast = Object.seal(
 	Object.assign(
