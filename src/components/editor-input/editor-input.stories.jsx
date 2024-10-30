@@ -1,4 +1,4 @@
-import EditorInput from './editor-input.jsx';
+import EditorInput from './editor-input';
 
 // Avatar component story configuration
 export default {
