@@ -28,7 +28,7 @@ import { mergeRegister } from '@lexical/utils';
 import { type TOptionItem } from '../editor-input';
 
 export type Trigger = '@' | '#' | ( string & {} );
-export type Sizes = 'lg' | 'md' | 'sm' | 'xs';
+export type TSizes = 'lg' | 'md' | 'sm' | 'xs';
 export type OptionsArray = Array<TOptionItem>;
 export type TMenuComponent = React.ComponentType<
 	React.ComponentProps<typeof EditorCombobox>
@@ -40,7 +40,7 @@ export type TMenuItemComponent = React.ComponentType<
 export interface MentionPluginProps<T = OptionsArray> {
 	optionsArray: T;
 	by: T extends Array<infer U> ? keyof U : string;
-	size: Sizes;
+	size: TSizes;
 	trigger: Trigger;
 	menuComponent?: TMenuComponent;
 	menuItemComponent?: TMenuItemComponent;
