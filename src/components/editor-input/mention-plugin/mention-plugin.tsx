@@ -39,7 +39,11 @@ export type TMenuItemComponent = React.ComponentType<
 
 export interface MentionPluginProps<T = OptionsArray> {
 	optionsArray: T;
-	by: T extends Array<infer U> ? keyof U : string;
+	by: T extends Array<infer U>
+		? U extends Record<string, unknown>
+			? keyof U
+			: string
+		: string;
 	size: TSizes;
 	trigger: Trigger;
 	menuComponent?: TMenuComponent;
@@ -49,7 +53,7 @@ export interface MentionPluginProps<T = OptionsArray> {
 
 const MentionPlugin = ( {
 	optionsArray,
-	by = 'name' as keyof ( typeof optionsArray )[0],
+	by = 'name',
 	size = 'md',
 	trigger = '@', // Default trigger value
 	menuComponent: MenuComponent = EditorCombobox,
@@ -120,14 +124,14 @@ const MentionPlugin = ( {
 
 	const onSelectOption = useCallback<
 		TypeaheadMenuPluginProps<
-			MenuOption & { data: Record<string, unknown> }
+			MenuOption & { data: TOptionItem }
 		>['onSelectOption']
 	>(
 		( selectedOption, nodeToReplace, closeMenu ) => {
 			editor.update( () => {
 				const mentionNode = $createMentionNode(
 					selectedOption.data,
-					by,
+					by as keyof TOptionItem,
 					size
 				);
 				if ( nodeToReplace ) {

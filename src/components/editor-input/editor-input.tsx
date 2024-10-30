@@ -51,7 +51,7 @@ const EMPTY_CONTENT = `{
     }
 }`;
 
-export type TOptionItem = Record<string, unknown>;
+export type TOptionItem = Record<string, unknown> | string;
 
 interface EditorInputProps<T = TOptionItem> {
 	/** The default value of the editor. */

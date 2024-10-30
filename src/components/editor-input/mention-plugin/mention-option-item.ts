@@ -11,14 +11,15 @@
 
 import { MenuOption } from '@lexical/react/LexicalTypeaheadMenuPlugin';
 import React from 'react';
+import { type TOptionItem } from '../editor-input';
 
 class OptionItem implements MenuOption {
-	data: Record<string, unknown>;
-	key: string;
+	data: TOptionItem;
+	key: TOptionItem extends Record<string, unknown> ? keyof TOptionItem : string;
 	ref: React.RefObject<HTMLLIElement>;
 	setRefElement: ( element: HTMLLIElement ) => void;
 
-	constructor( public initData: Record<string, unknown> ) {
+	constructor( public initData: TOptionItem ) {
 		this.key = '';
 		this.data = initData;
 		this.ref = { current: null };
