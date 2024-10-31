@@ -32,7 +32,9 @@ export default meta;
 
 type Story = StoryFn<typeof DatePicker>;
 
-const Template: Story = ( args ) => <DatePicker key={args.selectionType} { ...args } />;
+const Template: Story = ( args ) => (
+	<DatePicker key={ args.selectionType } { ...args } />
+);
 
 export const Default = Template.bind( {} );
 Default.args = {
