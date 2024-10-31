@@ -11,7 +11,7 @@ import {
 	PrestoPlayerLogo,
 	StartersTemplatesLogo,
 	SureCartLogo,
-} from '@/icons';
+} from '@/ui/icons';
 
 export default {
 	title: 'Organisms/Cards/Plugin Blocks',

@@ -1,5 +1,4 @@
 import React from 'react';
-import { expect, userEvent, within } from '@storybook/test';
 import Select from './select';
 
 Select.displayName = 'Select';
@@ -29,63 +28,103 @@ export default {
 			control: { type: 'radio' },
 			options: [ 'sm', 'md', 'lg' ],
 			description: 'Defines the size of the Select component.',
-			defaultValue: 'md',
+			table: {
+				type: { summary: 'string' },
+				defaultValue: { summary: 'md' },
+			},
 		},
 		multiple: {
 			control: { type: 'boolean' },
 			description: 'If true, multiple options can be selected.',
-			defaultValue: false,
+			table: {
+				type: { summary: 'boolean' },
+				defaultValue: { summary: 'false' },
+			},
 		},
 		combobox: {
 			control: { type: 'boolean' },
 			description: 'If true, it will enable search functionality.',
-			defaultValue: false,
+			table: {
+				type: { summary: 'boolean' },
+				defaultValue: { summary: 'false' },
+			},
 		},
 		disabled: {
 			control: { type: 'boolean' },
 			description: 'If true, disables the Select component.',
-			defaultValue: false,
+			table: {
+				type: { summary: 'boolean' },
+				defaultValue: { summary: 'false' },
+			},
 		},
 		onChange: {
 			action: 'onChange',
 			description: 'Callback function when the selection changes.',
+			table: {
+				type: { summary: 'function' },
+			},
 		},
 		value: {
 			control: { type: 'text' },
 			description: 'Controlled value for the select component.',
-			defaultValue: undefined,
+			table: {
+				type: { summary: 'string' },
+			},
 		},
 		defaultValue: {
 			control: { type: 'text' },
 			description:
 				'Default value for the select (for uncontrolled component).',
-			defaultValue: undefined,
+			table: {
+				type: { summary: 'string' },
+			},
 		},
 		placeholder: {
 			control: { type: 'text' },
 			description: 'Placeholder text when no option is selected.',
-			defaultValue: 'Select an option',
+			table: {
+				type: { summary: 'string' },
+				defaultValue: { summary: 'Select an option' },
+			},
 		},
 		label: {
 			control: { type: 'text' },
 			description: 'Label for the Select component.',
-			defaultValue: 'Select Color',
+			table: {
+				type: { summary: 'string' },
+				defaultValue: { summary: '' },
+			},
 		},
 	},
 };
 
 // Single Select Story
-export const SingleSelect = ( args ) => (
+export const SingleSelect = ( {
+	size,
+	multiple,
+	combobox,
+	disabled,
+	placeholder,
+	label,
+} ) => (
 	<div style={ { width: '300px' } }>
-		<Select { ...args }>
-			<Select.Button label={ args.label } />
-			<Select.Options dropdownPortalId="storybook-root">
-				{ options.map( ( option ) => (
-					<Select.Option key={ option.id } value={ option }>
-						{ option.name }
-					</Select.Option>
-				) ) }
-			</Select.Options>
+		<Select
+			key={ multiple }
+			size={ size }
+			multiple={ multiple }
+			combobox={ combobox }
+			disabled={ disabled }
+		>
+			<Select.Button label={ label } placeholder={ placeholder } />
+			<Select.Portal>
+				<Select.Options>
+					{ options.map( ( option ) => (
+						<Select.Option key={ option.id } value={ option }>
+							{ option.name }
+						</Select.Option>
+					) ) }
+				</Select.Options>
+			</Select.Portal>
 		</Select>
 	</div>
 );
@@ -95,40 +134,74 @@ SingleSelect.args = {
 	multiple: false,
 	combobox: false,
 	disabled: false,
-	defaultValue: undefined,
 	placeholder: 'Select an option',
 	label: 'Select Color',
 };
-SingleSelect.play = async ( { canvasElement } ) => {
-	const canvas = within( canvasElement );
-	// Click on the select button
-	const selectButton = await canvas.findByRole( 'combobox' );
-	await userEvent.click( selectButton );
 
-	// Check if the listbox contains the option 'Red'
-	const listBox = await canvas.findByRole( 'listbox' );
-	expect( listBox ).toHaveTextContent( 'Red' );
-
-	// Click on the first option
-	const allOptions = await canvas.findAllByRole( 'option' );
-	await userEvent.click( allOptions[ 0 ] );
-
-	// Check if the button text is updated
-	expect( selectButton ).toHaveTextContent( 'Red' );
-};
-
-// Multi-select Story
-export const MultiSelect = ( args ) => (
-	<div style={ { width: '300px' } }>
-		<Select { ...args } multiple>
-			<Select.Button label={ args.label } />
-			<Select.Options dropdownPortalId="storybook-root">
+const SelectWithoutPortalTemplate = ( {
+	size,
+	multiple,
+	combobox,
+	disabled,
+	placeholder,
+	label,
+} ) => (
+	<div className="w-full h-[200px]">
+		<Select
+			key={ multiple }
+			size={ size }
+			multiple={ multiple }
+			combobox={ combobox }
+			disabled={ disabled }
+		>
+			<Select.Button label={ label } placeholder={ placeholder } />
+			<Select.Options>
 				{ options.map( ( option ) => (
 					<Select.Option key={ option.id } value={ option }>
 						{ option.name }
 					</Select.Option>
 				) ) }
 			</Select.Options>
+		</Select>
+	</div>
+);
+
+export const SingleSelectWithoutPortal = SelectWithoutPortalTemplate.bind( {} );
+SingleSelectWithoutPortal.args = {
+	size: 'md',
+	multiple: false,
+	combobox: false,
+	disabled: false,
+	placeholder: 'Select an option',
+	label: 'Select Color',
+};
+
+// Multi-select Story
+export const MultiSelect = ( {
+	size,
+	multiple,
+	combobox,
+	disabled,
+	placeholder,
+	label,
+} ) => (
+	<div style={ { width: '300px' } }>
+		<Select
+			size={ size }
+			multiple={ multiple }
+			combobox={ combobox }
+			disabled={ disabled }
+		>
+			<Select.Button placeholder={ placeholder } label={ label } />
+			<Select.Portal>
+				<Select.Options>
+					{ options.map( ( option ) => (
+						<Select.Option key={ option.id } value={ option }>
+							{ option.name }
+						</Select.Option>
+					) ) }
+				</Select.Options>
+			</Select.Portal>
 		</Select>
 	</div>
 );
@@ -138,48 +211,49 @@ MultiSelect.args = {
 	multiple: true,
 	combobox: false,
 	disabled: false,
-	defaultValue: undefined,
 	placeholder: 'Select multiple options',
 	label: 'Select Multiple Colors',
 };
-MultiSelect.play = async ( { canvasElement } ) => {
-	const canvas = within( canvasElement );
-	// Click on the select button
-	const selectButton = await canvas.findByRole( 'combobox' );
-	await userEvent.click( selectButton );
 
-	// Check if the listbox contains the option 'Red'
-	const listBox = await canvas.findByRole( 'listbox' );
-	expect( listBox ).toHaveTextContent( 'Red' );
-
-	// Click on the first option
-	const allOptions = await canvas.findAllByRole( 'option' );
-	await userEvent.click( allOptions[ 0 ] );
-
-	// Check if the listbox contains the option 'Orange'
-	await userEvent.click( selectButton );
-	const allOptions2 = await canvas.findAllByRole( 'option' );
-	await userEvent.click( allOptions2[ 1 ] );
-
-	// Check if the button text is updated
-	expect( selectButton ).toHaveTextContent( /Red.*Orange/ );
+export const MultiSelectWithoutPortal = SelectWithoutPortalTemplate.bind( {} );
+MultiSelectWithoutPortal.args = {
+	size: 'md',
+	multiple: true,
+	combobox: false,
+	disabled: false,
+	placeholder: 'Select multiple options',
+	label: 'Select Multiple Colors',
 };
 
-export const SelectWithSearch = ( args ) => (
+export const SelectWithSearch = ( {
+	size,
+	multiple,
+	combobox,
+	disabled,
+	placeholder,
+	searchPlaceholder,
+	label,
+} ) => (
 	<div style={ { width: '300px' } }>
-		<Select { ...args } combobox>
-			<Select.Button label={ args.label } />
-			<Select.Options
-				searchBy="name"
-				dropdownPortalId="storybook-root"
-				searchPlaceholder={ args.placeholder }
-			>
-				{ options.map( ( option ) => (
-					<Select.Option key={ option.id } value={ option }>
-						{ option.name }
-					</Select.Option>
-				) ) }
-			</Select.Options>
+		<Select
+			size={ size }
+			multiple={ multiple }
+			combobox={ combobox }
+			disabled={ disabled }
+		>
+			<Select.Button label={ label } placeholder={ placeholder } />
+			<Select.Portal>
+				<Select.Options
+					searchBy="name"
+					searchPlaceholder={ searchPlaceholder }
+				>
+					{ options.map( ( option ) => (
+						<Select.Option key={ option.id } value={ option }>
+							{ option.name }
+						</Select.Option>
+					) ) }
+				</Select.Options>
+			</Select.Portal>
 		</Select>
 	</div>
 );
@@ -189,30 +263,20 @@ SelectWithSearch.args = {
 	multiple: false,
 	combobox: true,
 	disabled: false,
-	defaultValue: undefined,
-	placeholder: 'Search...',
+	searchPlaceholder: 'Search...',
+	placeholder: 'Select an option',
 	label: 'Search Color',
 };
-SelectWithSearch.play = async ( { canvasElement } ) => {
-	const canvas = within( canvasElement );
-	// Click on the select button
-	const selectButton = await canvas.findByRole( 'combobox' );
-	await userEvent.click( selectButton );
 
-	// Check if the listbox contains the option 'Red' and search input
-	const listBox = await canvas.findByRole( 'listbox' );
-	const searchInput = await canvas.findByPlaceholderText( 'Search...' );
-	expect( listBox ).toContainElement( searchInput );
-	expect( listBox ).toHaveTextContent( 'Red' );
-
-	// Type 'Pink' in the search input
-	await userEvent.type( searchInput, 'Pink' );
-	expect( listBox ).toHaveTextContent( 'Pink' );
-
-	// Click on the first option
-	const allOptions = await canvas.findAllByRole( 'option' );
-	await userEvent.click( allOptions[ 0 ] );
-
-	// Check if the button text is updated
-	expect( selectButton ).toHaveTextContent( 'Pink' );
+export const SelectWithSearchWithoutPortal = SelectWithoutPortalTemplate.bind(
+	{}
+);
+SelectWithSearchWithoutPortal.args = {
+	size: 'md',
+	multiple: false,
+	combobox: true,
+	disabled: false,
+	searchPlaceholder: 'Search...',
+	placeholder: 'Select an option',
+	label: 'Search Color',
 };

@@ -22,51 +22,51 @@ const InputComponent = (
 	},
 	ref
 ) => {
-	const inputRef = useRef( null );
-	const inputId = useMemo( () => id || `input-${ type }-${ nanoid() }`, [ id ] );
-	const isControlled = useMemo( () => typeof value !== 'undefined', [ value ] );
-	const [ inputValue, setInputValue ] = useState( defaultValue );
-	const [ selectedFile, setSelectedFile ] = useState( null );
+	const inputRef = useRef(null);
+	const inputId = useMemo(() => id || `input-${type}-${nanoid()}`, [id]);
+	const isControlled = useMemo(() => typeof value !== 'undefined', [value]);
+	const [inputValue, setInputValue] = useState(defaultValue);
+	const [selectedFile, setSelectedFile] = useState(null);
 
 	const getValue = useCallback(
-		() => ( isControlled ? value : inputValue ),
-		[ isControlled, value, inputValue ]
+		() => (isControlled ? value : inputValue),
+		[isControlled, value, inputValue]
 	);
 
-	const handleChange = ( event ) => {
-		if ( disabled ) {
+	const handleChange = (event) => {
+		if (disabled) {
 			return;
 		}
 
 		let newValue;
-		if ( type === 'file' ) {
+		if (type === 'file') {
 			newValue = event.target.files;
-			if ( newValue.length > 0 ) {
-				setSelectedFile( newValue[ 0 ].name );
+			if (newValue.length > 0) {
+				setSelectedFile(newValue[0].name);
 			} else {
-				setSelectedFile( null );
+				setSelectedFile(null);
 			}
 		} else {
 			newValue = event.target.value;
 		}
 
-		if ( ! isControlled && type !== 'file' ) {
-			setInputValue( newValue );
+		if (!isControlled && type !== 'file') {
+			setInputValue(newValue);
 		}
 
-		if ( typeof onChange !== 'function' ) {
+		if (typeof onChange !== 'function') {
 			return;
 		}
-		onChange( newValue );
+		onChange(newValue);
 	};
 
 	const handleReset = () => {
 		// Reset file selection when "X" icon is clicked
-		setSelectedFile( null );
-		if ( inputRef.current ) {
+		setSelectedFile(null);
+		if (inputRef.current) {
 			inputRef.current.value = null;
 		}
-		onChange( null );
+		onChange(null);
 	};
 
 	const baseClasses =
@@ -131,34 +131,34 @@ const InputComponent = (
 	};
 
 	const getPrefix = () => {
-		if ( ! prefix ) {
+		if (!prefix) {
 			return null;
 		}
 		return (
-			<div className={ cn( iconClasses, 'left-0 pl-3', textClasses[ size ] ) }>
-				{ prefix }
+			<div className={cn(iconClasses, 'left-0 pl-3', textClasses[size])}>
+				{prefix}
 			</div>
 		);
 	};
 
 	const getSuffix = () => {
-		if ( type === 'file' ) {
-			if ( selectedFile ) {
+		if (type === 'file') {
+			if (selectedFile) {
 				return (
 					<div
-						className={ cn(
+						className={cn(
 							uploadIconClasses,
 							'right-0 pr-3 cursor-pointer z-20 pointer-events-auto',
-							uploadIconSizeClasses[ size ]
-						) }
-						onClick={ handleReset }
+							uploadIconSizeClasses[size]
+						)}
+						onClick={handleReset}
 						role="button"
-						tabIndex={ 0 }
-						onKeyDown={ ( e ) => {
-							if ( e.key === 'Enter' || e.key === ' ' ) {
+						tabIndex={0}
+						onKeyDown={(e) => {
+							if (e.key === 'Enter' || e.key === ' ') {
 								handleReset();
 							}
-						} }
+						}}
 					>
 						<X />
 					</div>
@@ -166,24 +166,24 @@ const InputComponent = (
 			}
 			return (
 				<div
-					className={ cn(
+					className={cn(
 						uploadIconClasses,
 						'right-0 pr-3',
-						uploadIconSizeClasses[ size ]
-					) }
+						uploadIconSizeClasses[size]
+					)}
 				>
 					<Upload />
 				</div>
 			);
 		}
 
-		if ( ! suffix ) {
+		if (!suffix) {
 			return null;
 		}
 
 		return (
-			<div className={ cn( iconClasses, 'right-0 pr-3', textClasses[ size ] ) }>
-				{ suffix }
+			<div className={cn(iconClasses, 'right-0 pr-3', textClasses[size])}>
+				{suffix}
 			</div>
 		);
 	};
@@ -192,46 +192,46 @@ const InputComponent = (
 		? 'file:border-0 file:bg-transparent pr-10'
 		: 'text-text-tertiary file:border-0 file:bg-transparent pr-10';
 
-	if ( type === 'file' ) {
+	if (type === 'file') {
 		return (
 			<div className="flex flex-col items-start gap-1.5 [&_*]:box-border box-border">
 				<label
-					className={ cn( labelClasses[ size ], 'text-field-label' ) }
-					htmlFor={ inputId }
+					className={cn(labelClasses[size], 'text-field-label')}
+					htmlFor={inputId}
 				>
-					{ label }
+					{label}
 				</label>
 				<div
-					className={ cn(
+					className={cn(
 						'w-full relative flex focus-within:z-10',
 						className
-					) }
+					)}
 				>
 					<input
-						ref={ ref }
-						id={ inputId }
+						ref={ref}
+						id={inputId}
 						type="file"
-						className={ cn(
+						className={cn(
 							baseClasses,
 							disabledUploadFileClasses,
-							sizeClasses[ size ],
-							textClasses[ size ],
+							sizeClasses[size],
+							textClasses[size],
 							focusClasses,
 							hoverClasses,
 							errorFileClasses,
 							fileClasses
-						) }
-						disabled={ disabled }
-						onChange={ handleChange }
-						onInvalid={ onError }
-						{ ...props }
+						)}
+						disabled={disabled}
+						onChange={handleChange}
+						onInvalid={onError}
+						{...props}
 					/>
 					<div
-						className={ cn(
+						className={cn(
 							uploadIconClasses,
 							'right-0 pr-3',
-							uploadIconSizeClasses[ size ]
-						) }
+							uploadIconSizeClasses[size]
+						)}
 					>
 						<Upload />
 					</div>
@@ -243,46 +243,46 @@ const InputComponent = (
 	return (
 		<div className="flex flex-col items-start gap-1.5 [&_*]:box-border box-border">
 			<label
-				className={ cn( labelClasses[ size ], 'text-field-label' ) }
-				htmlFor={ inputId }
+				className={cn(labelClasses[size], 'text-field-label')}
+				htmlFor={inputId}
 			>
-				{ label }
+				{label}
 			</label>
 			<div
-				className={ cn(
+				className={cn(
 					'w-full relative flex focus-within:z-10',
 					className
-				) }
+				)}
 			>
-				{ getPrefix() }
+				{getPrefix()}
 				<input
-					ref={ inputRef }
-					id={ inputId }
-					type={ type }
-					className={ cn(
+					ref={inputRef}
+					id={inputId}
+					type={type}
+					className={cn(
 						baseClasses,
 						disabledClasses,
-						sizeClasses[ size ],
-						textClasses[ size ],
-						sizeClassesWithPrefix[ size ],
-						sizeClassesWithSuffix[ size ],
+						sizeClasses[size],
+						textClasses[size],
+						sizeClassesWithPrefix[size],
+						sizeClassesWithSuffix[size],
 						focusClasses,
 						hoverClasses,
 						errorClasses
-					) }
-					disabled={ disabled }
-					onChange={ handleChange }
-					onInvalid={ onError }
-					value={ getValue() }
-					{ ...props }
+					)}
+					disabled={disabled}
+					onChange={handleChange}
+					onInvalid={onError}
+					value={getValue()}
+					{...props}
 				/>
-				{ getSuffix() }
+				{getSuffix()}
 			</div>
 		</div>
 	);
 };
 
-const Input = forwardRef( InputComponent );
+const Input = forwardRef(InputComponent);
 Input.displayName = 'Input';
 
 export default Input;

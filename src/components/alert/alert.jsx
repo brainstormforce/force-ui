@@ -2,7 +2,7 @@ import { cn } from '@/utilities/functions';
 import { getIcon, getAction, getContent, getTitle } from '../toaster/utils';
 import { X } from 'lucide-react';
 
-const Alert = ( {
+const Alert = ({
 	design = 'inline', // stack/inline
 	theme = 'light', // light/dark
 	variant = 'neutral',
@@ -16,7 +16,7 @@ const Alert = ( {
 		onClick: () => {},
 		type: 'link',
 	},
-} ) => {
+}) => {
 	const closeAlert = () => {
 		onClose();
 	};
@@ -41,31 +41,31 @@ const Alert = ( {
 	};
 
 	const handleAction = () => {
-		action?.onClick?.( () => closeAlert() );
+		action?.onClick?.(() => closeAlert());
 	};
 
-	if ( design === 'stack' ) {
+	if (design === 'stack') {
 		return (
 			<div
-				className={ cn(
+				className={cn(
 					'flex items-center justify-start p-4 gap-2 relative ring-1 rounded-md shadow-lg',
 					theme === 'dark'
 						? variantClassNames.dark
-						: variantClassNames.light?.[ variant ],
+						: variantClassNames.light?.[variant],
 					className
-				) }
+				)}
 			>
 				<>
 					<div className="self-start flex items-center justify-center [&_svg]:size-5 shrink-0">
-						{ getIcon( { variant, icon, theme } ) }
+						{getIcon({ variant, icon, theme })}
 					</div>
 					<div className="flex flex-col items-start justify-start gap-0.5">
-						{ getTitle( { title, theme } ) }
-						{ getContent( { content, theme } ) }
+						{getTitle({ title, theme })}
+						{getContent({ content, theme })}
 						{
 							action?.label &&
 								typeof action?.onClick === 'function' && (
-							/* eslint-disable */
+									/* eslint-disable */
 									<div className="mt-2.5">
 										{getAction({
 											actionLabel: action?.label,
@@ -81,12 +81,12 @@ const Alert = ( {
 					</div>
 					<div className="absolute right-4 top-4 [&_svg]:size-5">
 						<button
-							className={ cn(
+							className={cn(
 								'bg-transparent m-0 p-0 border-none focus:outline-none active:outline-none cursor-pointer',
-								closeIconClassNames[ theme ] ??
+								closeIconClassNames[theme] ??
 									closeIconClassNames.light
-							) }
-							onClick={ () => closeAlert() }
+							)}
+							onClick={() => closeAlert()}
 						>
 							<X />
 						</button>
@@ -98,21 +98,21 @@ const Alert = ( {
 
 	return (
 		<div
-			className={ cn(
+			className={cn(
 				'flex items-center justify-between p-3 gap-2 relative ring-1 rounded-lg shadow-lg',
 				theme === 'dark'
 					? variantClassNames.dark
-					: variantClassNames.light?.[ variant ],
+					: variantClassNames.light?.[variant],
 				className
-			) }
+			)}
 		>
 			<div className="flex items-center justify-start gap-2">
 				<div className="self-start flex items-center justify-center [&_svg]:size-5 shrink-0">
-					{ getIcon( { variant, icon, theme } ) }
+					{getIcon({ variant, icon, theme })}
 				</div>
 				<div className="flex items-start justify-start gap-1 mr-10 [&>span:first-child]:shrink-0 px-1">
-					{ getTitle( { title, theme } ) }
-					{ getContent( { content, theme } ) }
+					{getTitle({ title, theme })}
+					{getContent({ content, theme })}
 				</div>
 			</div>
 			<div className="flex items-center justify-start gap-4 [&_svg]:size-4">
@@ -131,11 +131,11 @@ const Alert = ( {
 					/* eslint-enable */
 				}
 				<button
-					className={ cn(
+					className={cn(
 						'bg-transparent m-0 border-none p-0.5 focus:outline-none active:outline-none cursor-pointer size-5',
-						closeIconClassNames[ theme ] ?? closeIconClassNames.light
-					) }
-					onClick={ () => closeAlert() }
+						closeIconClassNames[theme] ?? closeIconClassNames.light
+					)}
+					onClick={() => closeAlert()}
 				>
 					<X />
 				</button>
