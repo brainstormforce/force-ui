@@ -10,63 +10,6 @@ const meta: Meta<typeof Select> = {
 		layout: 'centered',
 	},
 	tags: [ 'autodocs' ],
-	// argTypes: {
-	// 	size: {
-	// 		name: 'Size',
-	// 		description: 'Defines the size variant of the select',
-	// 		control: { type: 'select' },
-	// 		options: [ 'sm', 'md', 'lg' ],
-	// 		table: {
-	// 			type: { summary: 'string' },
-	// 			defaultValue: { summary: 'md' },
-	// 		},
-	// 	},
-	// 	multiple: {
-	// 		name: 'Multiple',
-	// 		description: 'If true, it will allow multiple selection.',
-	// 		control: 'boolean',
-	// 		table: {
-	// 			type: { summary: 'boolean' },
-	// 		},
-	// 	},
-	// 	combobox: {
-	// 		name: 'Combobox',
-	// 		description: 'If true, it will show a search box.',
-	// 		control: 'boolean',
-	// 		table: {
-	// 			type: { summary: 'boolean' },
-	// 		},
-	// 	},
-	// 	id: {
-	// 		name: 'ID',
-	// 		description: 'The `id` attribute of the select element.',
-	// 		table: {
-	// 			type: { summary: 'string' },
-	// 		},
-	// 	},
-	// 	onChange: {
-	// 		name: 'On Change Event',
-	// 		description: 'Callback function to handle the change event.',
-	// 		table: {
-	// 			type: { summary: 'function' },
-	// 		},
-	// 	},
-	// 	by: {
-	// 		name: 'By',
-	// 		description:
-	// 			'Used to identify the selected value when value type is an `object`. Default is `"id"`.',
-	// 		table: {
-	// 			type: { summary: 'string' },
-	// 		},
-	// 	},
-	// 	disabled: {
-	// 		name: 'Disabled',
-	// 		description: 'If true, the select will be disabled.',
-	// 		table: {
-	// 			type: { summary: 'boolean' },
-	// 		},
-	// 	},
-	// },
 } satisfies Meta<typeof Select>;
 
 export default meta;
@@ -82,9 +25,11 @@ const options = [
 ];
 
 const Template: Story = ( args ) => {
-	const [ selected, setSelected ] = useState<
-		string | string[] | Record<string, unknown>
-	>( args.multiple ? [] : '' );
+	const [ selected, setSelected ] = useState<string | []>();
+
+	const handleSelect = ( value: unknown ) => {
+		setSelected( value as unknown as string | [] );
+	};
 
 	useEffect( () => {
 		if ( args?.multiple ) {
@@ -99,7 +44,7 @@ const Template: Story = ( args ) => {
 			<Select
 				key={ args?.multiple ? 1 : 0 }
 				{ ...args }
-				onChange={ setSelected }
+				onChange={ handleSelect }
 				value={ selected }
 			>
 				<Select.Button label="Label" />

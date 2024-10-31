@@ -107,14 +107,20 @@ export function SelectButton( {
 
 		if ( typeof children === 'function' ) {
 			const childProps = {
-				value: selectedValue,
-				...( multiple ? { onClose: handleOnCloseItem } : {} ),
+				value: selectedValue as SelectOptionValue,
+				...( multiple
+					? {
+						onClose: handleOnCloseItem(
+								selectedValue as SelectOptionValue
+						),
+					}
+					: {} ),
 			};
 			return children( childProps );
 		}
 
 		if ( multiple ) {
-			return selectedValue.map(
+			return ( selectedValue as SelectOptionValue[] ).map(
 				( valueItem: SelectOptionValue, index: number ) => (
 					<Badge
 						icon={ optionIcon }
@@ -124,8 +130,8 @@ export function SelectButton( {
 						onMouseDown={ handleOnCloseItem( valueItem ) }
 						label={
 							typeof valueItem === 'object'
-								? valueItem[ displayBy ]
-								: valueItem
+								? valueItem[ displayBy ]?.toString()
+								: valueItem.toString()
 						}
 						closable={ true }
 						disabled={ disabled }
@@ -136,7 +142,7 @@ export function SelectButton( {
 
 		let renderValue =
 			typeof selectedValue === 'object'
-				? selectedValue[ displayBy ]
+				? ( selectedValue as Record<string, unknown> )[ displayBy ]
 				: selectedValue;
 
 		if ( isValidElement( children ) ) {
@@ -151,7 +157,7 @@ export function SelectButton( {
 					disabledClassNames.text
 				) }
 			>
-				{ renderValue }
+				{ renderValue as React.ReactNode }
 			</span>
 		);
 	}, [ getValues ] );
@@ -162,7 +168,9 @@ export function SelectButton( {
 				event?.preventDefault();
 				event?.stopPropagation();
 
-				const selectedValues = [ ...( getValues() ?? [] ) ];
+				const selectedValues = [
+					...( ( getValues() as SelectOptionValue[] ) ?? [] ),
+				];
 				const selectedIndex = selectedValues.findIndex( ( val ) => {
 					if ( val !== null && value !== null && typeof val === 'object' ) {
 						return (
@@ -230,7 +238,9 @@ export function SelectButton( {
 					{ renderSelected() }
 
 					{ /* Placeholder */ }
-					{ ( multiple ? ! getValues()?.length : ! getValues() ) && (
+					{ ( multiple
+						? ! ( getValues() as SelectOptionValue[] )?.length
+						: ! getValues() ) && (
 						<div
 							className={ cn(
 								'[grid-area:1/1/2/3] text-field-input px-1',
@@ -293,7 +303,10 @@ export function SelectOptions( {
 						return false;
 					}
 					if ( typeof child.props.value === 'object' ) {
-						return child.props.value[ by ] === currentValue[ by ];
+						return (
+							child.props.value[ by ] ===
+							( currentValue as Record<string, unknown> )[ by ]
+						);
 					}
 					return child.props.value === currentValue;
 				}
@@ -506,7 +519,7 @@ export function SelectItem( {
 		if ( ! currentValue ) {
 			return false;
 		}
-		return currentValue.some( ( val ) => {
+		return ( currentValue as SelectOptionValue[] ).some( ( val ) => {
 			if ( val !== null && value !== null && typeof val === 'object' ) {
 				return (
 					( val as Record<string, unknown> )[ by ] ===
@@ -659,7 +672,9 @@ const Select = ( {
 		] );
 
 	const handleMultiSelect: OnClick = ( index, newValue ) => {
-		const selectedValues = [ ...( getValues() ?? [] ) ];
+		const selectedValues = [
+			...( ( getValues() as SelectOptionValue[] ) ?? [] ),
+		];
 		const valueIndex = selectedValues.findIndex( ( selectedValue ) => {
 			if (
 				selectedValue !== null &&

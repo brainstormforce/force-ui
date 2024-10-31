@@ -4,15 +4,17 @@ import type {
 } from '@floating-ui/react';
 
 export type SelectOptionValue = string | number | Record<string, unknown>;
+export type SelectOnChange = (
+	value: SelectOptionValue | SelectOptionValue[]
+) => void;
+export type SelectOnClose = ( event: React.MouseEvent ) => void;
 
 export type SelectFunctionChildren = ( {
 	value,
 	onClose,
 }: {
 	value: SelectOptionValue;
-	onClose?: (
-		optionValue: SelectOptionValue
-	) => ( event: React.MouseEvent<HTMLElement> ) => void;
+	onClose?: ( event: React.MouseEvent<HTMLElement> ) => void;
 } ) => React.JSX.Element;
 
 export type MultiTypeChildren =
@@ -41,17 +43,6 @@ export type SelectContextValueTypes = {
 	displayBy: string;
 };
 
-type ConditionalProps = {
-	/** Multi select mode. */
-	multiple?: boolean;
-	/** Defines the width of the Select Component. */
-	value: SelectOptionValue | SelectOptionValue[];
-	/** onChange event to be triggered when the value of the Select Component changes. */
-	onChange: ( value: SelectOptionValue | SelectOptionValue[] ) => void;
-	/** Defines the default value of the Select Component. */
-	defaultValue?: SelectOptionValue | SelectOptionValue[];
-};
-
 export type SelectGetValues = () => SelectOptionValue | SelectOptionValue[];
 
 export type SelectProps = {
@@ -67,7 +58,15 @@ export type SelectProps = {
 	combobox?: boolean;
 	/** Disables the Select Component. */
 	disabled?: boolean;
-} & ConditionalProps;
+	/** Multi select mode. */
+	multiple?: boolean;
+	/** Defines the width of the Select Component. */
+	value?: SelectOptionValue | SelectOptionValue[];
+	/** onChange event to be triggered when the value of the Select Component changes. */
+	onChange: SelectOnChange;
+	/** Defines the default value of the Select Component. */
+	defaultValue?: SelectOptionValue | SelectOptionValue[];
+};
 
 export interface SelectPortalProps {
 	/** Expects the `Select.Options` children of the Select.Portal Component. */
@@ -129,12 +128,11 @@ export type SelectContextValue = {
 	activeIndex: number | null;
 	setActiveIndex: ( index: number ) => void;
 	selected: SelectOptionValue | SelectOptionValue[];
-	setSelected: ( selected: SelectOptionValue ) => void;
+	setSelected: ( selected: SelectOptionValue | SelectOptionValue[] ) => void;
 	handleSelect: OnClick;
 	combobox: boolean;
 	sizeValue: SelectSizes;
 	multiple: boolean;
-	// onChange?: ( value: SelectOptionValue ) => void;
 	isTypingRef: React.MutableRefObject<boolean>;
 	onClickItem: OnClick;
 	onKeyDownItem: OnKeyDown;
@@ -148,11 +146,12 @@ export type SelectContextValue = {
 	setSearchKeyword: ( keyword: string ) => void;
 	disabled: boolean;
 	isControlled: boolean;
-	// value?: SelectOptionValue;
 	getItemProps: UseInteractionsReturn['getItemProps'];
 	getReferenceProps: UseInteractionsReturn['getReferenceProps'];
 	getFloatingProps: UseInteractionsReturn['getFloatingProps'];
 	floatingStyles: UseFloatingReturn['floatingStyles'];
 	context: UseFloatingReturn['context'];
 	searchKeyword: string;
-} & ConditionalProps;
+	onChange: SelectOnChange;
+	value?: SelectOptionValue | SelectOptionValue[];
+};
