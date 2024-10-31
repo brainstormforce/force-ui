@@ -108,55 +108,55 @@ const Badge = forwardRef<Ref, BadgeProps>(
 			lg: '[&>svg]:size-5',
 		};
 
-		if (disabled) {
+		if ( disabled ) {
 			filteredClasses = variantClasses.disabled;
 			buttonClasses += ' cursor-not-allowed disabled';
 		} else {
-			filteredClasses = variantClasses[variant];
+			filteredClasses = variantClasses[ variant ];
 		}
 
-		if (!label) {
+		if ( ! label ) {
 			return null;
 		}
 
 		return (
 			<span
-				className={cn(
+				className={ cn(
 					baseClasses,
-					sizeClasses[size],
-					typeClasses[type],
+					sizeClasses[ size ],
+					typeClasses[ type ],
 					'gap-0.5',
 					filteredClasses,
 					className
-				)}
-				ref={ref}
+				) }
+				ref={ ref }
 			>
-				{icon ? (
+				{ icon ? (
 					<span
-						className={cn(
+						className={ cn(
 							'justify-center flex items-center',
-							iconSizeClasses[size]
-						)}
+							iconSizeClasses[ size ]
+						) }
 					>
-						{icon}
+						{ icon }
 					</span>
-				) : null}
-				<span className="px-1">{label}</span>
-				{closable && (
+				) : null }
+				<span className="px-1">{ label }</span>
+				{ closable && (
 					<span
-						className={cn(buttonClasses, iconSizeClasses[size])}
-						onMouseDown={onMouseDown}
+						className={ cn( buttonClasses, iconSizeClasses[ size ] ) }
+						onMouseDown={ onMouseDown }
 						role="button"
-						tabIndex={0}
-						{...(!disabled && {
+						tabIndex={ 0 }
+						{ ...( ! disabled && {
 							onClick: onClose,
-						})}
+						} ) }
 					>
-						<span className="sr-only">{`Remove ${label}`}</span>
+						<span className="sr-only">{ `Remove ${ label }` }</span>
 						<X />
 						<span className="absolute -inset-1" />
 					</span>
-				)}
+				) }
 			</span>
 		);
 	}

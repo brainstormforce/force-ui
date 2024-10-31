@@ -7,7 +7,7 @@ const meta: Meta<typeof Tabs.Group> = {
 	title: 'Atoms/Tabs',
 	component: Tabs.Group,
 	subcomponents: {
-		"Tabs.Tab": Tabs.Tab,
+		'Tabs.Tab': Tabs.Tab,
 	} as Record<string, React.ComponentType<unknown>>,
 	parameters: {
 		layout: 'centered',
@@ -31,7 +31,7 @@ const meta: Meta<typeof Tabs.Group> = {
 		},
 		children: {
 			control: false,
-		}
+		},
 	},
 };
 
@@ -42,12 +42,12 @@ declare type Story = StoryFn<typeof Tabs.Group>;
 const Template: Story = ( args ) => {
 	const [ activeTab, setActiveTab ] = useState( args?.activeItem ?? 'tab1' );
 
-	const handleTabChange: TabsProps['onChange'] = ({ event, value }) => {
+	const handleTabChange: TabsProps['onChange'] = ( { event, value } ) => {
 		const activeSlugName = value.slug;
-		if (activeSlugName) {
-			setActiveTab(activeSlugName);
-			if (typeof args.onChange === 'function') {
-				args.onChange({ event, value });
+		if ( activeSlugName ) {
+			setActiveTab( activeSlugName );
+			if ( typeof args.onChange === 'function' ) {
+				args.onChange( { event, value } );
 			}
 		}
 	};

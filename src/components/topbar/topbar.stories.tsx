@@ -16,12 +16,12 @@ declare interface AdditionalArgs {
 const meta: Meta<typeof Topbar> = {
 	title: 'Organisms/Topbar',
 	component: Topbar,
-	subcomponents: { 
-		"Topbar.Left": Topbar.Left,
-		"Topbar.Middle": Topbar.Middle,
-		"Topbar.Right": Topbar.Right,
-		"Topbar.Item": Topbar.Item,
-	 } as Record<string, React.ComponentType<unknown>>,
+	subcomponents: {
+		'Topbar.Left': Topbar.Left,
+		'Topbar.Middle': Topbar.Middle,
+		'Topbar.Right': Topbar.Right,
+		'Topbar.Item': Topbar.Item,
+	} as Record<string, React.ComponentType<unknown>>,
 	parameters: {
 		layout: 'fullscreen',
 	},
@@ -31,15 +31,14 @@ const meta: Meta<typeof Topbar> = {
 			control: { type: 'select' },
 		},
 		children: {
-			control: false
-		}
+			control: false,
+		},
 	},
 };
 
 export default meta;
 
 type Story = StoryFn<ComponentProps<typeof Topbar> & AdditionalArgs>;
-
 
 const Template: Story = ( args ) => (
 	<Topbar gap={ args.gap }>
@@ -106,21 +105,21 @@ const Template: Story = ( args ) => (
 	</Topbar>
 );
 
-export const Default = Template.bind({});
+export const Default = Template.bind( {} );
 
-export const WithMiddleAlignment = Template.bind({});
+export const WithMiddleAlignment = Template.bind( {} );
 WithMiddleAlignment.args = {
 	topbarMiddleAlign: 'center',
 };
 WithMiddleAlignment.storyName = 'Topbar with Center-Aligned Middle Section';
 
-export const WithLeftAlignment = Template.bind({});
+export const WithLeftAlignment = Template.bind( {} );
 WithLeftAlignment.args = {
 	topbarMiddleAlign: 'left',
 };
 WithLeftAlignment.storyName = 'Topbar with Left-Aligned Middle Section';
 
-export const WithRightAlignment = Template.bind({});
+export const WithRightAlignment = Template.bind( {} );
 WithRightAlignment.args = {
 	topbarMiddleAlign: 'right',
 };

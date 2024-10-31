@@ -19,15 +19,14 @@ export default meta;
 
 type Story = StoryObj<typeof Skeleton>;
 
-
 export const Rectangular: Story = {
 	args: {
 		variant: 'rectangular',
-	}
-}
+	},
+};
 
 export const Circular = {
 	args: {
 		variant: 'circular',
-	}
-}
+	},
+};

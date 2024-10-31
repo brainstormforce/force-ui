@@ -91,7 +91,7 @@ type StoryWithCustomArg = StoryFn<ComponentProps & AdditionalArgTypes>;
 
 type Story = StoryFn<typeof Drawer>;
 
-const Template: StoryWithCustomArg = ( {title, titleTag, ...args} ) => {
+const Template: StoryWithCustomArg = ( { title, titleTag, ...args } ) => {
 	const [ open, setOpen ] = useState( false );
 
 	return (
