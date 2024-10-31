@@ -12,7 +12,7 @@ import {
 } from 'lexical';
 import { mergeRegister } from '@lexical/utils';
 import { Badge } from '@/components';
-import type { OptionItem } from '../editor-input';
+import type { TOptionItem } from '../editor-input';
 
 const mapSizeToBadgeSize = ( size: string ) => {
 	switch ( size ) {
@@ -33,8 +33,8 @@ const MentionComponent = ( {
 	size,
 	nodeKey,
 }: {
-	data: OptionItem;
-	by: keyof OptionItem;
+	data: TOptionItem;
+	by: keyof TOptionItem;
 	size: string;
 	nodeKey: string;
 } ) => {
