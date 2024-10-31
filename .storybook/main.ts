@@ -29,10 +29,7 @@ const config: StorybookConfig = {
 
 		return mergeConfig(config, {
 			optimizeDeps: {
-				include: [
-					'storybook-dark-mode',
-					'storybook-addon-interactions',
-				],
+				...config?.optimizeDeps
 			},
 			resolve: {
 				...config.resolve,
