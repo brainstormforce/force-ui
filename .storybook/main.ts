@@ -27,7 +27,17 @@ const config: StorybookConfig = {
 		// Merge custom configuration into the default config
 		const { mergeConfig } = await import('vite');
 
-		return mergeConfig(config, {
+		// Remove the dts plugin from the default config.
+		config.plugins = [
+			...(config.plugins ?? []).filter((plugin) => {
+				return (
+					(plugin as typeof plugin & Record<string, unknown>).name !==
+					'vite:dts'
+				);
+			}),
+		];
+
+		return mergeConfig(config, {		
 			optimizeDeps: {
 				...config?.optimizeDeps
 			},

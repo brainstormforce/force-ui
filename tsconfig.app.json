@@ -23,7 +23,6 @@
     "declaration": true,
 		"declarationMap": true,
 		"composite": true,
-		"emitDeclarationOnly": true,
     "typeRoots": ["node_modules/@types"],
 
     // Alias for vite
