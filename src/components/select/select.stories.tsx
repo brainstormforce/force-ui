@@ -6,6 +6,12 @@ import Label from '../label';
 const meta: Meta<typeof Select> = {
 	title: 'Molecules/Select',
 	component: Select,
+	subcomponents: {
+		'Select.Button': Select.Button,
+		'Select.Portal': Select.Portal,
+		'Select.Options': Select.Options,
+		'Select.Option': Select.Option,
+	} as Record<string, React.ComponentType<unknown>>,
 	parameters: {
 		layout: 'centered',
 	},
