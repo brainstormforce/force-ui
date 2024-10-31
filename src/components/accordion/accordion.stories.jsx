@@ -1,6 +1,6 @@
-import Accordion from './accordion.jsx';
+import Accordion from './accordion';
 import { Settings } from 'lucide-react';
-import Badge from '../badge/index.js';
+import Badge from '../badge';
 
 export default {
 	title: 'Molecules/Accordion',
