@@ -4,6 +4,7 @@ import {
 	DayPicker,
 	useDayPicker,
 	type CustomComponents,
+	type PropsRangeRequired,
 } from 'react-day-picker';
 import { format, subMonths } from 'date-fns';
 import { cn } from '@/utilities/functions';
@@ -496,11 +497,15 @@ const DatePickerComponent = ( {
 		<>
 			<DayPicker
 				mode={ mode }
-				selected={
-					mode === 'single'
-						? ( selectedDates as Date )
-						: ( selectedDates as Date[] )
-				}
+				selected={ ( () => {
+					if ( mode === 'range' ) {
+						return selectedDates as PropsRangeRequired['selected'];
+					}
+					if ( mode === 'multiple' ) {
+						return selectedDates as Date[];
+					}
+					return selectedDates as Date;
+				} )() }
 				onSelect={ handleSelect }
 				hideNavigation
 				captionLayout="label"
@@ -590,6 +595,8 @@ const DatePickerComponent = ( {
 							<></>
 						),
 				} }
+				// eslint-disable-next-line @typescript-eslint/no-explicit-any
+				{ ...( ( mode === 'range' ? { required: true } : {} ) as any ) }
 				{ ...props }
 			/>
 		</>
