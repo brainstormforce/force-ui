@@ -164,13 +164,13 @@ export default {
 				'A function used to format the ticks on the axes, e.g., for formatting dates or numbers.',
 			control: { type: 'function' },
 		},
-        chartWidth: {
+		chartWidth: {
 			description: 'Width of the chart container in pixels.',
 			table: {
 				type: { summary: 'number' },
 			},
 		},
-        chartHeight: {
+		chartHeight: {
 			description: 'Height of the chart container in pixels.',
 			table: {
 				type: { summary: 'number' },
@@ -186,14 +186,14 @@ export default {
 		},
 		xAxisFontSize: {
 			description: 'Font size for the labels on the x-axis.',
-            control: { type: 'select' },
-            options: ['sm', 'md', 'lg'],
-            table: {
-                type: { summary: 'string' },
-                defaultValue: { summary: 'sm' },
-            },
+			control: { type: 'select' },
+			options: [ 'sm', 'md', 'lg' ],
+			table: {
+				type: { summary: 'string' },
+				defaultValue: { summary: 'sm' },
+			},
 		},
-        xAxisFontColor: {
+		xAxisFontColor: {
 			description: 'Font color for the labels on the x-axis.',
 			table: {
 				type: { summary: 'string' },
@@ -274,15 +274,15 @@ AreaChartGradient.args = {
 	xAxisDataKey: 'name',
 	showYAxis: false,
 	showLegend: false,
-    xAxisFontColor: "#ff0000"
+	xAxisFontColor: '#ff0000',
 };
 
 AreaChartGradient.storyName = 'Area Chart Gradiend With Red xAxis Label Color';
 
 export const AreaChartInteractive = Template.bind( {} );
 AreaChartInteractive.args = {
-    chartWidth: 1000,
-    chartHeight: 250,
+	chartWidth: 1000,
+	chartHeight: 250,
 	data: chartDataIteractive,
 	dataKeys: dataKeysInteractive,
 	colors,
@@ -403,8 +403,8 @@ export const AreaChartCard2 = () => (
 		</Container.Item>
 		<Container.Item>
 			<AreaChartComponent
-                chartWidth={ 1000 }
-                chartHeight={ 250 }
+				chartWidth={ 1000 }
+				chartHeight={ 250 }
 				data={ chartDataIteractive }
 				dataKeys={ dataKeysInteractive }
 				colors={ colors }
