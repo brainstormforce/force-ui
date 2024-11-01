@@ -1,4 +1,5 @@
 import React from 'react';
+import { cn } from '@/utilities/functions';
 
 const ChartLegendContent = React.forwardRef(
 	(
@@ -8,6 +9,7 @@ const ChartLegendContent = React.forwardRef(
 			payload = [], // array of objects that represents the data for each legend item
 			verticalAlign = 'bottom', // top | bottom
 			nameKey = 'value',
+            fontSizeVariant,
 		},
 		ref
 	) => {
@@ -16,9 +18,9 @@ const ChartLegendContent = React.forwardRef(
 		return (
 			<div
 				ref={ref}
-				className={`flex items-center justify-center gap-4 ${
-					verticalAlign === 'top' ? 'pb-3' : 'pt-3'
-				} ${className}`}
+				className={cn('flex items-center justify-center gap-4',
+					verticalAlign === 'top' ? 'pb-3' : 'pt-3', 
+                    className)}
 			>
 				{payload.map((item) => (
 					<div key={item.value} className="flex items-center gap-1.5">
@@ -30,7 +32,7 @@ const ChartLegendContent = React.forwardRef(
 								}}
 							/>
 						)}
-						<span className="capitalize">{item[nameKey]}</span>
+						<span className="capitalize" style={{fontSize: fontSizeVariant}}>{item[nameKey]}</span>
 					</div>
 				))}
 			</div>

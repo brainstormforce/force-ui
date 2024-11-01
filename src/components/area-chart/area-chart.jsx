@@ -8,7 +8,7 @@ import {
 	Legend,
 	ResponsiveContainer,
 } from 'recharts';
-import ChartLegendContent from './chart-legend-content.jsx';
+import ChartLegendContent from './chart-legend-content';
 
 const AreaChartComponent = ({
 	data,
@@ -23,10 +23,20 @@ const AreaChartComponent = ({
 	tickFormatter,
 	xAxisDataKey,
 	yAxisDataKey,
-	xAxisFontSize = 12,
-	width = 350,
-	height = 200,
+	xAxisFontSize = 'sm', // sm, md, lg
+    xAxisFontColor = "#4B5563",
+	chartWidth = 350,
+	chartHeight = 200,
 }) => {
+
+    const fontSizeMap = {
+        sm: '12px',
+        md: '14px',
+        lg: '16px'
+    };
+
+    const fontSizeVariant = fontSizeMap[xAxisFontSize] || fontSizeMap.sm;
+
 	const renderGradients = () => (
 		<defs>
 			{colors.map((color, index) => (
@@ -57,7 +67,7 @@ const AreaChartComponent = ({
 		<ResponsiveContainer
 			width="100%"
 			height="100%"
-			initialDimension={{ width: width, height: height }}
+            initialDimension={{ width: chartWidth, height: chartHeight }}
 		>
 			<AreaChart data={data} margin={{ left: 14, right: 14 }}>
 				{showCartesianGrid && <CartesianGrid vertical={false} />}
@@ -68,12 +78,12 @@ const AreaChartComponent = ({
 						axisLine={false}
 						tickMargin={8}
 						tickFormatter={tickFormatter}
-						tick={{ fontSize: xAxisFontSize, fill: '#4B5563' }}
+                        tick={{ fontSize: fontSizeVariant, fill: xAxisFontColor }}
 					/>
 				)}
 				{showYAxis && <YAxis dataKey={yAxisDataKey} />}
 				{showTooltip && <Tooltip />}
-				{showLegend && <Legend content={<ChartLegendContent />} />}
+                {showLegend && <Legend content={<ChartLegendContent fontSizeVariant={fontSizeVariant} />} />}
 
 				{variant === 'gradient' && renderGradients()}
 

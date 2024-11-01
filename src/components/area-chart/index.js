@@ -1,1 +1,1 @@
-export { default } from './area-chart.jsx';
+export { default } from './area-chart';
