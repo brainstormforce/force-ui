@@ -2,7 +2,7 @@ import { forwardRef } from 'react';
 import { cn } from '@/utilities/functions';
 import { X } from 'lucide-react';
 
-export declare interface BadgeProps {
+export interface BadgeProps {
 	/**
 	 * Defines the Label of the badge.
 	 */
@@ -34,7 +34,7 @@ export declare interface BadgeProps {
 	/**
 	 * Callback function for close event
 	 */
-	onClose?: () => void;
+	onClose?: ( event: React.MouseEvent ) => void;
 	/**
 	 * Defines if the badge is closable.
 	 */

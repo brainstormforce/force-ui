@@ -1,6 +1,6 @@
 import { cn } from '@/utilities/functions';
 
-export declare interface SkeletonProps {
+export interface SkeletonProps {
 	/** Defines the style variant of the skeleton. */
 	variant?: 'rectangular' | 'circular';
 	/** Allows you to pass custom classes to control the size and styles. */

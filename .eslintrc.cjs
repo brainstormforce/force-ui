@@ -42,8 +42,9 @@ module.exports = {
 		'jsx-a11y/label-has-associated-control': 'off',
 		'jsx-a11y/no-noninteractive-element-interactions': 'off',
 		'jsx-a11y/anchor-is-valid': 'off',
-		'@typescript-eslint/no-explicit-any': 'off',
+		// '@typescript-eslint/no-explicit-any': 'off',
 		 
+		'no-mixed-spaces-and-tabs': 'off',
 	},
 	globals: {
 		localStorage: 'readonly',

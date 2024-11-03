@@ -4,7 +4,7 @@
  * @param T - React component.
  * @return Props type of the React component.
  *
- * @example declare type TopbarProps = ComponentProps<typeof Topbar>;
+ * @example type TopbarProps = ComponentProps<typeof Topbar>;
  */
-export declare type ComponentProps<T> =
+export type ComponentProps<T> =
 	T extends React.ComponentType<infer P> ? P : never;

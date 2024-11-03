@@ -6,7 +6,7 @@ import { ArrowUpRight, CircleHelp, Megaphone, User } from 'lucide-react';
 import Badge from '../badge';
 import Avatar from '../avatar';
 
-declare interface AdditionalArgs {
+interface AdditionalArgs {
 	topbarLeftGap?: ComponentProps<typeof Topbar.Left>['gap'];
 	topbarMiddleGap?: ComponentProps<typeof Topbar.Middle>['gap'];
 	topbarRightGap?: ComponentProps<typeof Topbar.Right>['gap'];

@@ -1,10 +1,7 @@
-import React from 'react';
+import type { Meta, StoryFn } from '@storybook/react';
 import Select from './select';
+import type { ComponentProps } from '@/utilities/ts-helper';
 
-Select.displayName = 'Select';
-Select.Button.displayName = 'Select.Button';
-Select.Options.displayName = 'Select.Options';
-Select.Option.displayName = 'Select.Option';
 const options = [
 	{ id: '1', name: 'Red' },
 	{ id: '2', name: 'Orange' },
@@ -16,90 +13,37 @@ const options = [
 	{ id: '8', name: 'Pink' },
 ];
 
-export default {
+interface AdditionalArgs {
+	size: 'sm' | 'md' | 'lg';
+	multiple: boolean;
+	combobox: boolean;
+	disabled: boolean;
+	placeholder: string;
+	searchPlaceholder: string;
+	label: string;
+}
+
+const meta: Meta<typeof Select> = {
 	title: 'Atoms/Select',
 	component: Select,
+	subcomponents: {
+		'Select.Button': Select.Button,
+		'Select.Portal': Select.Portal,
+		'Select.Options': Select.Options,
+		'Select.Option': Select.Option,
+	} as Record<string, React.ComponentType<unknown>>,
 	parameters: {
 		layout: 'centered',
 	},
 	tags: [ 'atoms', 'autodocs' ],
-	argTypes: {
-		size: {
-			control: { type: 'radio' },
-			options: [ 'sm', 'md', 'lg' ],
-			description: 'Defines the size of the Select component.',
-			table: {
-				type: { summary: 'string' },
-				defaultValue: { summary: 'md' },
-			},
-		},
-		multiple: {
-			control: { type: 'boolean' },
-			description: 'If true, multiple options can be selected.',
-			table: {
-				type: { summary: 'boolean' },
-				defaultValue: { summary: 'false' },
-			},
-		},
-		combobox: {
-			control: { type: 'boolean' },
-			description: 'If true, it will enable search functionality.',
-			table: {
-				type: { summary: 'boolean' },
-				defaultValue: { summary: 'false' },
-			},
-		},
-		disabled: {
-			control: { type: 'boolean' },
-			description: 'If true, disables the Select component.',
-			table: {
-				type: { summary: 'boolean' },
-				defaultValue: { summary: 'false' },
-			},
-		},
-		onChange: {
-			action: 'onChange',
-			description: 'Callback function when the selection changes.',
-			table: {
-				type: { summary: 'function' },
-			},
-		},
-		value: {
-			control: { type: 'text' },
-			description: 'Controlled value for the select component.',
-			table: {
-				type: { summary: 'string' },
-			},
-		},
-		defaultValue: {
-			control: { type: 'text' },
-			description:
-				'Default value for the select (for uncontrolled component).',
-			table: {
-				type: { summary: 'string' },
-			},
-		},
-		placeholder: {
-			control: { type: 'text' },
-			description: 'Placeholder text when no option is selected.',
-			table: {
-				type: { summary: 'string' },
-				defaultValue: { summary: 'Select an option' },
-			},
-		},
-		label: {
-			control: { type: 'text' },
-			description: 'Label for the Select component.',
-			table: {
-				type: { summary: 'string' },
-				defaultValue: { summary: '' },
-			},
-		},
-	},
-};
+} satisfies Meta<typeof Select>;
+
+export default meta;
+
+type Story = StoryFn<ComponentProps<typeof Select> & AdditionalArgs>;
 
 // Single Select Story
-export const SingleSelect = ( {
+export const SingleSelect: Story = ( {
 	size,
 	multiple,
 	combobox,
@@ -109,11 +53,12 @@ export const SingleSelect = ( {
 } ) => (
 	<div style={ { width: '300px' } }>
 		<Select
-			key={ multiple }
+			key={ multiple as unknown as string }
 			size={ size }
 			multiple={ multiple }
 			combobox={ combobox }
 			disabled={ disabled }
+			onChange={ ( value ) => value }
 		>
 			<Select.Button label={ label } placeholder={ placeholder } />
 			<Select.Portal>
@@ -138,7 +83,7 @@ SingleSelect.args = {
 	label: 'Select Color',
 };
 
-const SelectWithoutPortalTemplate = ( {
+const SelectWithoutPortalTemplate: Story = ( {
 	size,
 	multiple,
 	combobox,
@@ -148,11 +93,11 @@ const SelectWithoutPortalTemplate = ( {
 } ) => (
 	<div className="w-full h-[200px]">
 		<Select
-			key={ multiple }
 			size={ size }
 			multiple={ multiple }
 			combobox={ combobox }
 			disabled={ disabled }
+			onChange={ ( value ) => value }
 		>
 			<Select.Button label={ label } placeholder={ placeholder } />
 			<Select.Options>
@@ -177,7 +122,7 @@ SingleSelectWithoutPortal.args = {
 };
 
 // Multi-select Story
-export const MultiSelect = ( {
+export const MultiSelect: Story = ( {
 	size,
 	multiple,
 	combobox,
@@ -191,6 +136,7 @@ export const MultiSelect = ( {
 			multiple={ multiple }
 			combobox={ combobox }
 			disabled={ disabled }
+			onChange={ ( value ) => value }
 		>
 			<Select.Button placeholder={ placeholder } label={ label } />
 			<Select.Portal>
@@ -225,7 +171,7 @@ MultiSelectWithoutPortal.args = {
 	label: 'Select Multiple Colors',
 };
 
-export const SelectWithSearch = ( {
+export const SelectWithSearch: Story = ( {
 	size,
 	multiple,
 	combobox,
@@ -240,6 +186,7 @@ export const SelectWithSearch = ( {
 			multiple={ multiple }
 			combobox={ combobox }
 			disabled={ disabled }
+			onChange={ ( value ) => value }
 		>
 			<Select.Button label={ label } placeholder={ placeholder } />
 			<Select.Portal>

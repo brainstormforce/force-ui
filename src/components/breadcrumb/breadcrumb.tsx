@@ -2,17 +2,17 @@ import React, { createContext, useContext } from 'react';
 import { cn } from '@/utilities/functions';
 import { ChevronRight, Ellipsis } from 'lucide-react';
 
-export declare interface BreadcrumbCommonProps {
+export interface BreadcrumbCommonProps {
 	/** Defines the children of the breadcrumb. */
 	children: React.ReactNode;
 }
 
-export declare interface BreadcrumbProps extends BreadcrumbCommonProps {
+export interface BreadcrumbProps extends BreadcrumbCommonProps {
 	/** Defines the size of the breadcrumb. */
 	size?: 'sm' | 'md';
 }
 
-export declare interface BreadcrumbLinkProps extends BreadcrumbCommonProps {
+export interface BreadcrumbLinkProps extends BreadcrumbCommonProps {
 	/** Defines the href of the link. */
 	href: string;
 	/** Defines the class name of the link. */
