@@ -1,1 +1,1 @@
-export { default } from './radio-button.tsx';
+export { default } from './radio-button';

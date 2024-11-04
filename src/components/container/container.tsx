@@ -16,6 +16,7 @@ import {
 	gapYClassNames,
 	justifyClassNames,
 	justifySelfClassNames,
+	gridColumnClassNames,
 } from './container-styles';
 
 const ContainerContext = createContext<{
@@ -29,7 +30,7 @@ export interface BaseContainerProps {
 	/** Defines the type of the container (default: 'flex'). */
 	containerType?: 'flex' | 'grid';
 	/** Defines the gap between child elements. */
-	gap?: string;
+	gap?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl';
 	/** Defines the horizontal gap between child elements. */
 	gapX?: string;
 	/** Defines the vertical gap between child elements. */
@@ -37,13 +38,20 @@ export interface BaseContainerProps {
 	/** Defines the flex direction of the container. */
 	direction?: 'row' | 'row-reverse' | 'column' | 'column-reverse';
 	/** Defines how child elements are justified along the main axis. */
-	justify?: string;
+	justify?:
+		| 'start'
+		| 'center'
+		| 'end'
+		| 'between'
+		| 'around'
+		| 'evenly'
+		| 'stretch';
 	/** Defines how child elements are aligned along the cross axis. */
-	align?: string;
+	align?: 'start' | 'center' | 'end' | 'stretch';
 	/** Defines the wrapping behavior of child elements. */
 	wrap?: 'nowrap' | 'wrap' | 'wrap-reverse';
 	/** Defines the number of columns (if using a grid container). */
-	cols?: number | string;
+	cols?: keyof ( typeof gridColumnClassNames )['sm'];
 	/** Defines any additional CSS classes for the container. */
 	className?: string;
 	/** Defines the children of the container. */
@@ -58,10 +66,10 @@ export const Container = ( {
 	gapX = '',
 	gapY = '',
 	direction, // row, row-reverse, column, column-reverse
-	justify = '', // justify-content (normal, start, end, center, between, around, evenly, stretch)
-	align = '', // align-items (start, end, center, baseline, stretch)
+	justify = 'start', // justify-content (normal, start, end, center, between, around, evenly, stretch)
+	align = 'start', // align-items (start, end, center, baseline, stretch)
 	wrap, // nowrap, wrap, wrap-reverse
-	cols = '',
+	cols = 1,
 	className,
 	children,
 	...props
@@ -183,7 +191,7 @@ export const Item = ( {
 	const growClassName = getClassNames( grow || 0, flexGrowClassNames, {
 		0: 0,
 	} );
-	const shrinkClassName = getClassNames( shrink || 0, flexShrinkClassNames, {
+	const shrinkClassName = getClassNames( shrink || 1, flexShrinkClassNames, {
 		0: 0,
 	} );
 	const orderClassName = getClassNames( order || 0, flexOrderClassNames, {

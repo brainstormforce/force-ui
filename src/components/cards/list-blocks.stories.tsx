@@ -14,7 +14,7 @@ export default {
 	},
 	tags: [ 'autodocs' ],
 	decorators: [
-		( Story: any ) => (
+		( Story: React.FC ) => (
 			<div style={ { width: '1100px', padding: '10px' } }>
 				<Story />
 			</div>

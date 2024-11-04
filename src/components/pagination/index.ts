@@ -1,1 +1,1 @@
-export { default } from './pagination.tsx';
+export { default } from './pagination';

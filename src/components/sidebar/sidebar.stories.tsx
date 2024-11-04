@@ -1,6 +1,5 @@
 import Sidebar from './sidebar';
 import Button from '../button';
-// import { useState } from 'react';
 import {
 	Store,
 	PenTool,

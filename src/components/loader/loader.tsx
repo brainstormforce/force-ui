@@ -24,7 +24,7 @@ export const Loader = ( {
 }: LoaderProps ) => {
 	const variantClassNames = {
 		primary: 'text-brand-primary-600 bg-background-primary',
-		secondary: 'text-background-primary bg-brand-primary-600',
+		secondary: 'text-background-primary',
 	}?.[ variant ];
 
 	const sizeClassNames = {

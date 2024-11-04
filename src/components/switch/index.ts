@@ -1,1 +1,1 @@
-export { default } from './switch.tsx';
+export { default } from './switch';

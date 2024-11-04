@@ -1,5 +1,5 @@
 import { StoryFn } from '@storybook/react';
-import Title from './title.tsx';
+import Title from './title';
 import { House } from 'lucide-react';
 
 export default {

@@ -1,4 +1,4 @@
-import Checkbox from './checkbox.tsx';
+import Checkbox from './checkbox';
 import type { Meta, StoryFn } from '@storybook/react';
 
 // Meta configuration for Checkbox

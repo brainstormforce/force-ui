@@ -1,1 +1,1 @@
-export { default } from './progress-bar.tsx';
+export { default } from './progress-bar';

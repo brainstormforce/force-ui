@@ -18,7 +18,12 @@ export interface TopbarMiddleProps extends TopbarProps {
 	align?: 'left' | 'center' | 'right';
 }
 
-const Topbar = ( { children, gap = 'lg', className, ...props }: TopbarProps ) => {
+export const Topbar = ( {
+	children,
+	gap = 'lg',
+	className,
+	...props
+}: TopbarProps ) => {
 	return (
 		<div
 			className={ cn(

@@ -19,17 +19,24 @@ export interface GridContainerProps {
 	/** Additional CSS classes. */
 	className?: string;
 	/** Number of columns in the grid. */
-	cols?: number | string;
+	cols?: keyof ( typeof gridColumnClassNames )['sm'];
 	/** Gap between grid items. */
-	gap?: string;
+	gap?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl';
 	/** Horizontal gap between grid items. */
 	gapX?: string;
 	/** Vertical gap between grid items. */
 	gapY?: string;
 	/** Alignment of grid items along the cross axis. */
-	align?: string;
+	align?: 'start' | 'center' | 'end' | 'stretch';
 	/** Justification of grid items along the main axis. */
-	justify?: string;
+	justify?:
+		| 'start'
+		| 'center'
+		| 'end'
+		| 'between'
+		| 'around'
+		| 'evenly'
+		| 'stretch';
 	/** CSS grid-flow property (default: ''). */
 	gridFlow?: string;
 	/** Enables subgrid columns. */

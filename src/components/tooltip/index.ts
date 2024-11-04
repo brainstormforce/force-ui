@@ -1,1 +1,1 @@
-export { default } from './tooltip.tsx';
+export { default } from './tooltip';

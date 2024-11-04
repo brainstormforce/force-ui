@@ -79,8 +79,8 @@ export const CheckboxComponent = (
 	};
 	const disabledClassNames = {
 		checkbox:
-			'disabled:bg-white checked:disabled:bg-white disabled:border-border-disabled checked:disabled:border-border-disabled',
-		icon: 'peer-disabled:text-border-disabled',
+			'cursor-not-allowed disabled:bg-white checked:disabled:bg-white disabled:border-border-disabled checked:disabled:border-border-disabled',
+		icon: 'cursor-not-allowed peer-disabled:text-border-disabled',
 	};
 
 	const getValue = useCallback(
@@ -144,7 +144,8 @@ export const CheckboxComponent = (
 		<div
 			className={ cn(
 				'inline-flex items-center gap-2',
-				!! label && 'items-start'
+				!! label && 'items-start',
+				disabled && 'cursor-not-allowed'
 			) }
 		>
 			<label
@@ -186,7 +187,10 @@ export const CheckboxComponent = (
 			</label>
 			{ !! label && (
 				<label
-					className={ cn( ! disabled && 'cursor-pointer' ) }
+					className={ cn(
+						'cursor-pointer',
+						disabled && 'cursor-not-allowed'
+					) }
 					htmlFor={ checkboxId }
 				>
 					{ renderLabel() }

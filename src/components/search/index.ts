@@ -1,1 +1,1 @@
-export { default } from './search.tsx';
+export { default } from './search';
