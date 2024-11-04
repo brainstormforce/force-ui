@@ -7,7 +7,7 @@ const ChartTooltipContent = React.forwardRef(
             active,
             payload,
             className,
-            indicator = 'dot',
+            indicator = 'dot', //dot, line, dashed
             hideLabel = false,
             hideIndicator = false,
             label,
@@ -16,7 +16,7 @@ const ChartTooltipContent = React.forwardRef(
             formatter,
             color,
             nameKey = 'name',
-            labelKey = 'value',
+            labelKey,
         },
         ref
     ) => {
@@ -37,7 +37,7 @@ const ChartTooltipContent = React.forwardRef(
             <div
                 ref={ref}
                 className={cn(
-                    'tooltip-container grid min-w-[8rem] items-start gap-1.5 rounded-lg border bg-background px-2.5 py-1.5 text-xs shadow-xl',
+                    'grid min-w-[8rem] items-start gap-1.5 rounded-lg border bg-tooltip-background-light px-3 py-2 text-xs shadow-xl',
                     className
                 )}
             >
@@ -57,12 +57,12 @@ const ChartTooltipContent = React.forwardRef(
                                 {!hideIndicator && (
                                     <div
                                         className={cn({
-                                            'h-2.5 w-2.5 rounded-full bg-primary': indicator === 'dot',
-                                            'w-1 h-full bg-primary': indicator === 'line',
-                                            'w-0 border-dashed border-primary': indicator === 'dashed',
+                                            'h-2.5 w-2.5 ': indicator === 'dot',
+                                            'w-1 h-full': indicator === 'line',
+                                            'w-0 border-[0.5px] border-dashed': indicator === 'dashed',
                                         })}
                                         style={{
-                                            backgroundColor: indicator === 'dot' ? indicatorColor : undefined,
+                                            backgroundColor: indicator === 'dot' || indicator === 'line' ? indicatorColor : undefined,
                                             borderColor: indicator === 'dashed' ? indicatorColor : undefined,
                                         }}
                                     />
@@ -83,3 +83,4 @@ const ChartTooltipContent = React.forwardRef(
 ChartTooltipContent.displayName = 'ChartTooltipContent';
 
 export default ChartTooltipContent;
+

@@ -1,25 +1,38 @@
 import {
-    LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend
+    LineChart as LineChartWrapper, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend
 } from 'recharts';
+import ChartTooltipContent from './chart-tooltip-content';
 
-const LineChartComponent = ({
+const LineChart = ({
     data,
     dataKeys = [],
     colors = [],
     showXAxis = true,
     showYAxis = true,
     showTooltip = true,
+    tooltipIndicator = 'dot', // dot, line, dashed
+    tooltipLabelKey,
     showCartesianGrid = true,
     tickFormatter,
     xAxisDataKey,
     yAxisDataKey,
-    xAxisFontSize = 12,
+    xAxisFontSize = 'sm', // sm, md, lg
+    xAxisFontColor = "#4B5563",
     width = 350,
     height = 200,
     withDots = false,
 }) => {
+
+    const fontSizeMap = {
+        sm: '12px',
+        md: '14px',
+        lg: '16px'
+    };
+
+    const fontSizeVariant = fontSizeMap[xAxisFontSize] || fontSizeMap.sm;
+
     return (
-        <LineChart
+        <LineChartWrapper
             width={width}
             height={height}
             data={data}
@@ -33,12 +46,12 @@ const LineChartComponent = ({
                     axisLine={false}
                     tickMargin={8}
                     tickFormatter={tickFormatter}
-                    tick={{ fontSize: xAxisFontSize, fill: '#4B5563' }}
+                    tick={{ fontSize: fontSizeVariant, fill: xAxisFontColor }}
                 />
             )}
             {showYAxis && <YAxis dataKey={yAxisDataKey} />}
 
-            {showTooltip && <Tooltip />}
+            {showTooltip && <Tooltip content={<ChartTooltipContent indicator={tooltipIndicator} labelKey={tooltipLabelKey} />} />}
 
             {dataKeys.map((key, index) => (
                 <Line
@@ -51,8 +64,8 @@ const LineChartComponent = ({
                     dot={withDots}
                 />
             ))}
-        </LineChart>
+        </LineChartWrapper>
     );
 };
 
-export default LineChartComponent;
+export default LineChart;

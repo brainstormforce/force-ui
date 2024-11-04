@@ -1,4 +1,4 @@
-import LineChartComponent from './line-chart';
+import LineChart from './line-chart';
 
 
 const chartData = [
@@ -27,8 +27,8 @@ const colors = [
 ];
 
 export default {
-    title: 'Atoms/LineChartComponent',
-    component: LineChartComponent,
+    title: 'Atoms/LineChart',
+    component: LineChart,
     parameters: {
         layout: 'centered',
     },
@@ -82,6 +82,14 @@ export default {
                 type: { summary: 'boolean' },
             },
         },
+        tooltipIndicator: {
+            description: 'The tooltip indicator. It can be `dot`, `line` or `dashed`',
+            control: { type: 'select' },
+            options: ['dot', 'line', 'dashed'],
+            table: {
+                type: { summary: 'string' },
+            },
+        },
         showCartesianGrid: {
             description:
                 'Whether to display the `<CartesianGrid />`, adding horizontal and vertical grid lines.',
@@ -127,9 +135,17 @@ export default {
         },
         xAxisFontSize: {
             description: 'Font size for the labels on the x-axis.',
-            control: { type: 'number' },
+            control: { type: 'select' },
+            options: ['sm', 'md', 'lg'],
             table: {
-                type: { summary: 'number' },
+                type: { summary: 'string' },
+                defaultValue: { summary: 'sm' },
+            },
+        },
+        xAxisFontColor: {
+            description: 'Font color for the labels on the x-axis.',
+            table: {
+                type: { summary: 'string' },
             },
         },
     }
@@ -138,7 +154,7 @@ export default {
 // Custom tick formatter function for months
 const monthFormatter = (value) => value.slice(0, 3);
 
-const Template = (args) => <LineChartComponent {...args} />;
+const Template = (args) => <LineChart {...args} />;
 
 export const LineChartSimple = Template.bind({});
 LineChartSimple.args = {
@@ -171,8 +187,11 @@ LineChartWithDots.args = {
     xAxisFontSize: 12,
     width: 500,
     height: 300,
-    withDots: true
+    withDots: true,
+    xAxisFontColor: '#ff0000',
 };
+
+LineChartWithDots.storyName = 'Line Chart With Dots and Red xAxis Label Color';
 
 export const LineChartMultiple = Template.bind({});
 LineChartMultiple.args = {

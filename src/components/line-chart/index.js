@@ -1,1 +1,1 @@
-export { default } from './line-chart.jsx';
+export { default } from './line-chart';

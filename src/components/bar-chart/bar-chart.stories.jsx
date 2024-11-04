@@ -1,4 +1,4 @@
-import BarChartComponent from "./bar-chart";
+import BarChart from "./bar-chart";
 import Label from "../label";
 import Button from "../button";
 import Badge from "../badge";
@@ -136,8 +136,8 @@ const monthFormatterInteractive = (value) => {
 };
 
 export default {
-    title: 'Atoms/BarChartComponent',
-    component: BarChartComponent,
+    title: 'Atoms/BarChart',
+    component: BarChart,
     parameters: {
         layout: 'centered',
     },
@@ -238,9 +238,17 @@ export default {
         },
         xAxisFontSize: {
             description: 'Font size for the labels on the x-axis.',
-            control: { type: 'number' },
+            control: { type: 'select' },
+            options: ['sm', 'md', 'lg'],
             table: {
-                type: { summary: 'number' },
+                type: { summary: 'string' },
+                defaultValue: { summary: 'sm' },
+            },
+        },
+        xAxisFontColor: {
+            description: 'Font color for the labels on the x-axis.',
+            table: {
+                type: { summary: 'string' },
             },
         },
         layout: {
@@ -278,7 +286,7 @@ export default {
     }
 }
 
-const Template = (args) => <BarChartComponent {...args} />
+const Template = (args) => <BarChart {...args} />
 
 export const BarChartSimple = Template.bind({});
 BarChartSimple.args = {
@@ -416,7 +424,7 @@ export const BarChartCard1 = () => (
             </Container>
         </Container.Item>
         <Container.Item>
-            <BarChartComponent
+            <BarChart
                 data={chartData}
                 dataKeys={["desktop"]}
                 showCartesianGrid={true}
@@ -477,7 +485,7 @@ export const BarChartCard2 = () => (
             </Container>
         </Container.Item>
         <Container.Item>
-            <BarChartComponent
+            <BarChart
                 data={chartDataMultiple}
                 dataKeys={dataKeys}
                 layout="horizontal"
@@ -541,7 +549,7 @@ export const BarChartCard3 = () => (
             </Container>
         </Container.Item>
         <Container.Item>
-            <BarChartComponent
+            <BarChart
                 data={chartDataMultiple}
                 dataKeys={dataKeys}
                 layout="horizontal"
@@ -606,7 +614,7 @@ export const BarChartCard4 = () => (
             </Container>
         </Container.Item>
         <Container.Item>
-            <BarChartComponent
+            <BarChart
                 data={chartData}
                 dataKeys={["desktop"]}
                 layout="vertical"
@@ -670,7 +678,7 @@ export const AreaChartCard5 = () => (
             </Container>
         </Container.Item>
         <Container.Item>
-            <BarChartComponent
+            <BarChart
                 data={chartDataIteractive}
                 dataKeys={['desktop']}
                 tickFormatter={monthFormatterInteractive}

@@ -1,10 +1,10 @@
 import {
-    BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer
+    BarChart as BarChartWrapper, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer
 } from 'recharts';
 import ChartLegendContent from './chart-legend-content';
 import ChartTooltipContent from './chart-tooltip-content';
 
-const BarChartComponent = ({
+const BarChart = ({
     data,
     dataKeys = [],
     colors = [],
@@ -20,16 +20,26 @@ const BarChartComponent = ({
     tickFormatter,
     xAxisDataKey,
     yAxisDataKey,
-    xAxisFontSize = 12,
+    xAxisFontSize = 'sm', // sm, md, lg
+    xAxisFontColor = "#4B5563",
     width = 350,
     height = 200,
     borderRadius = 8,
 }) => {
+
+    const fontSizeMap = {
+        sm: '12px',
+        md: '14px',
+        lg: '16px'
+    };
+
+    const fontSizeVariant = fontSizeMap[xAxisFontSize] || fontSizeMap.sm;
+
     return (
         <ResponsiveContainer width="100%"
             height="100%"
             initialDimension={{ width: width, height: height }}>
-            <BarChart data={data} margin={{ left: 14, right: 14 }} layout={layout}>
+            <BarChartWrapper data={data} margin={{ left: 14, right: 14 }} layout={layout}>
                 {showCartesianGrid && <CartesianGrid vertical={false} />}
 
                 {layout === "horizontal" && showXAxis && (
@@ -39,7 +49,7 @@ const BarChartComponent = ({
                         axisLine={false}
                         tickMargin={8}
                         tickFormatter={tickFormatter}
-                        tick={{ fontSize: xAxisFontSize, fill: '#4B5563' }}
+                        tick={{ fontSize: fontSizeVariant, fill: xAxisFontColor }}
                     />
                 )}
 
@@ -89,9 +99,9 @@ const BarChartComponent = ({
                         />
                     );
                 })}
-            </BarChart>
+            </BarChartWrapper>
         </ResponsiveContainer>
     );
 };
 
-export default BarChartComponent;
+export default BarChart;

@@ -31,4 +31,5 @@ export { default as Drawer } from './drawer/index';
 export { default as Pagination } from './pagination/index';
 export { default as DatePicker } from './datepicker/index';
 export { default as Accordion } from './accordion/index';
-export { default as LineChartComponent } from './line-chart/index';
+export { default as LineChart } from './line-chart/index';
+export { default as BarChart } from './bar-chart/index';
