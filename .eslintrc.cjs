@@ -9,7 +9,7 @@ module.exports = {
 	settings: {
 		'import/resolver': {
 			node: {
-				extensions: ['.js', '.jsx', '.ts', ' '],
+				extensions: ['.js', '.jsx', '.ts', '.tsx'],
 			},
 			alias: {
 				map: [
@@ -18,7 +18,7 @@ module.exports = {
 					['@/utilities', './src/utilities'],
 					['@', './src'],
 				],
-				extensions: ['.js', '.jsx', '.ts', ' '],
+				extensions: ['.js', '.jsx', '.ts', '.tsx'],
 			},
 		},
 	},
