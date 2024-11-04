@@ -20,6 +20,9 @@ const meta: Meta = {
 		border: {
 			control: 'select',
 		},
+		children: {
+			control: 'text',
+		},
 	},
 } satisfies Meta<typeof Avatar>;
 
@@ -28,10 +31,21 @@ export default meta;
 type Story = StoryObj<typeof Avatar>;
 
 // More on writing stories with args: https://storybook.js.org/docs/writing-stories/args
+export const Default: Story = {
+	args: {
+		children: 'Avatar',
+		src: '',
+		alt: '',
+	},
+};
+
+// More on writing stories with args: https://storybook.js.org/docs/writing-stories/args
 export const Primary: Story = {
 	args: {
 		variant: 'primary',
 		children: 'Avatar',
+		src: '',
+		alt: '',
 	},
 };
 
@@ -51,7 +65,7 @@ export const Gray: Story = {
 
 export const PrimaryLight: Story = {
 	args: {
-		variant: 'primaryLight',
+		variant: 'primary-light',
 		children: <Bell />,
 	},
 };
@@ -66,6 +80,7 @@ export const Dark: Story = {
 export const URLAvatar: Story = {
 	args: {
 		variant: 'primary',
-		url: 'https://0.gravatar.com/avatar/05d8f4a5468440075f82adcea83d5cc3?s=128&d=mm&r=g',
+		alt: 'Vrunda Kansara',
+		src: 'https://0.gravatar.com/avatar/05d8f4a5468440075f82adcea83d5cc3?s=128&d=mm&r=g',
 	},
 };
