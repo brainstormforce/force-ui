@@ -2,6 +2,7 @@ import {
     BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer
 } from 'recharts';
 import ChartLegendContent from './chart-legend-content';
+import ChartTooltipContent from './chart-tooltip-content';
 
 const BarChartComponent = ({
     data,
@@ -12,6 +13,8 @@ const BarChartComponent = ({
     showXAxis = true,
     showYAxis = true,
     showTooltip = true,
+    tooltipIndicator = 'dot', // dot, line, dashed
+    tooltipLabelKey,
     showLegend = false,
     showCartesianGrid = true,
     tickFormatter,
@@ -58,7 +61,7 @@ const BarChartComponent = ({
                 )}
                 
                 {showYAxis && <YAxis dataKey={yAxisDataKey} />}
-                {showTooltip && <Tooltip />}
+                {showTooltip && <Tooltip content={<ChartTooltipContent indicator={tooltipIndicator} labelKey={tooltipLabelKey} />}/>}
                 {showLegend && <Legend content={<ChartLegendContent />} />}
                 
                 {dataKeys.map((key, index) => {

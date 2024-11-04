@@ -191,6 +191,20 @@ export default {
                 type: { summary: 'boolean' },
             },
         },
+        tooltipIndicator: {
+            description: 'The tooltip indicator. It can be `dot`, `line` or `dashed`',
+            control: { type: 'select' },
+            options: ['dot', 'line', 'dashed'],
+            table: {
+                type: { summary: 'string' },
+            },
+        },
+        tooltipLabelKey: {
+            description: "Present tooltip lable key. E.g. for this data element: `{ month: 'January', desktop: 186, mobile: 80 }` if set lableKye to 'month' the tooltip will display the month name (like 'January')",
+            table: {
+                type: { summary: 'string' },
+            },
+        },
         showCartesianGrid: {
             description:
                 'Whether to display the `<CartesianGrid />`, adding horizontal and vertical grid lines.',
@@ -273,6 +287,7 @@ BarChartSimple.args = {
     showXAxis: true,
     showYAxis: false,
     showTooltip: true,
+    tooltipIndicator: "line",
     showCartesianGrid: true,
     tickFormatter: monthFormatter,
     xAxisDataKey: 'month',
@@ -304,6 +319,8 @@ BarChartMultiple.args = {
     showXAxis: true,
     showYAxis: false,
     showTooltip: true,
+    tooltipIndicator: "dashed",
+    tooltipLabelKey: "month",
     showCartesianGrid: true,
     tickFormatter: monthFormatter,
     xAxisDataKey: 'month',
