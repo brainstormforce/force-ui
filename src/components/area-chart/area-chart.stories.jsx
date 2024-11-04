@@ -14,7 +14,7 @@ const areaChartData = [
 	{ month: 'June', sales: 214, expenses: 140 },
 ];
 
-const dataKeys = ['sales', 'expenses'];
+const dataKeys = [ 'sales', 'expenses' ];
 
 const chartDataIteractive = [
 	{ date: '2024-04-01', desktop: 222, mobile: 150 },
@@ -110,7 +110,7 @@ const chartDataIteractive = [
 	{ date: '2024-06-30', desktop: 446, mobile: 400 },
 ];
 
-const dataKeysInteractive = ['desktop', 'mobile'];
+const dataKeysInteractive = [ 'desktop', 'mobile' ];
 
 const colors = [
 	{ stroke: '#2563EB', fill: '#BFDBFE' },
@@ -118,14 +118,14 @@ const colors = [
 ];
 
 // Custom tick formatter function for months
-const monthFormatter = (value) => value.slice(0, 3);
+const monthFormatter = ( value ) => value.slice( 0, 3 );
 
-const monthFormatterInteractive = (value) => {
-	const date = new Date(value);
-	return date.toLocaleDateString('en-US', {
+const monthFormatterInteractive = ( value ) => {
+	const date = new Date( value );
+	return date.toLocaleDateString( 'en-US', {
 		month: 'short',
 		day: 'numeric',
-	});
+	} );
 };
 
 export default {
@@ -134,7 +134,7 @@ export default {
 	parameters: {
 		layout: 'centered',
 	},
-	tags: ['autodocs'],
+	tags: [ 'autodocs' ],
 	argTypes: {
 		data: {
 			description:
@@ -154,7 +154,7 @@ export default {
 		variant: {
 			description: 'Defines the variant of Area Chart.',
 			control: { type: 'select' },
-			options: ['solid', 'gradient'],
+			options: [ 'solid', 'gradient' ],
 			table: {
 				type: { summary: 'string' },
 			},
@@ -189,7 +189,7 @@ export default {
 		xAxisFontSize: {
 			description: 'Font size for the labels on the x-axis.',
 			control: { type: 'select' },
-			options: ['sm', 'md', 'lg'],
+			options: [ 'sm', 'md', 'lg' ],
 			table: {
 				type: { summary: 'string' },
 				defaultValue: { summary: 'sm' },
@@ -234,7 +234,7 @@ export default {
 			description:
 				'The tooltip indicator. It can be `dot`, `line` or `dashed`',
 			control: { type: 'select' },
-			options: ['dot', 'line', 'dashed'],
+			options: [ 'dot', 'line', 'dashed' ],
 			table: {
 				type: { summary: 'string' },
 			},
@@ -260,9 +260,9 @@ export default {
 	},
 };
 
-const Template = (args) => <AreaChart {...args} />;
+const Template = ( args ) => <AreaChart { ...args } />;
 
-export const AreaChartSimple = Template.bind({});
+export const AreaChartSimple = Template.bind( {} );
 AreaChartSimple.args = {
 	data: areaChartData,
 	dataKeys,
@@ -277,7 +277,7 @@ AreaChartSimple.args = {
 	tooltipIndicator: 'dot',
 };
 
-export const AreaChartGradient = Template.bind({});
+export const AreaChartGradient = Template.bind( {} );
 AreaChartGradient.args = {
 	data: areaChartData,
 	dataKeys,
@@ -290,7 +290,7 @@ AreaChartGradient.args = {
 	showLegend: false,
 };
 
-export const AreaChartInteractive = Template.bind({});
+export const AreaChartInteractive = Template.bind( {} );
 AreaChartInteractive.args = {
 	chartWidth: 1000,
 	chartHeight: 250,
@@ -326,11 +326,11 @@ export const AreaChartCard1 = () => (
 					316
 				</div>
 				<Badge
-					label={'12%'}
+					label={ '12%' }
 					size="sm"
 					type="pill"
 					variant="green"
-					icon={<ArrowUp />}
+					icon={ <ArrowUp /> }
 				/>
 			</Container>
 			<Container
@@ -341,26 +341,26 @@ export const AreaChartCard1 = () => (
 			>
 				<span className="text-field-helper text-xs">Compare to</span>
 				<Badge
-					label={'298'}
+					label={ '298' }
 					size="sm"
 					type="pill"
 					variant="neutral"
-					icon={null}
+					icon={ null }
 				/>
 				<span className="text-field-helper text-xs">previous week</span>
 			</Container>
 		</Container.Item>
 		<Container.Item>
 			<AreaChart
-				data={areaChartData}
-				dataKeys={dataKeys}
-				colors={colors}
+				data={ areaChartData }
+				dataKeys={ dataKeys }
+				colors={ colors }
 				variant="solid"
-				tickFormatter={monthFormatter}
-				showXAxis={true}
+				tickFormatter={ monthFormatter }
+				showXAxis={ true }
 				xAxisDataKey="month"
-				showYAxis={false}
-				showLegend={false}
+				showYAxis={ false }
+				showLegend={ false }
 			/>
 		</Container.Item>
 	</Container>
@@ -388,11 +388,11 @@ export const AreaChartCard2 = () => (
 					$3,169
 				</div>
 				<Badge
-					label={'12%'}
+					label={ '12%' }
 					size="sm"
 					type="pill"
 					variant="green"
-					icon={<ArrowUp />}
+					icon={ <ArrowUp /> }
 				/>
 			</Container>
 			<Container
@@ -403,28 +403,28 @@ export const AreaChartCard2 = () => (
 			>
 				<span className="text-field-helper text-xs">Compared to</span>
 				<Badge
-					label={'$2,984'}
+					label={ '$2,984' }
 					size="sm"
 					type="pill"
 					variant="neutral"
-					icon={null}
+					icon={ null }
 				/>
 				<span className="text-field-helper text-xs">previous week</span>
 			</Container>
 		</Container.Item>
 		<Container.Item>
 			<AreaChart
-				chartWidth={1000}
-				chartHeight={250}
-				data={chartDataIteractive}
-				dataKeys={dataKeysInteractive}
-				colors={colors}
+				chartWidth={ 1000 }
+				chartHeight={ 250 }
+				data={ chartDataIteractive }
+				dataKeys={ dataKeysInteractive }
+				colors={ colors }
 				variant="gradient"
-				tickFormatter={monthFormatterInteractive}
-				showXAxis={true}
+				tickFormatter={ monthFormatterInteractive }
+				showXAxis={ true }
 				xAxisDataKey="date"
-				showYAxis={false}
-				showLegend={true}
+				showYAxis={ false }
+				showLegend={ true }
 			/>
 		</Container.Item>
 	</Container>
