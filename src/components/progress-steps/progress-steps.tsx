@@ -7,6 +7,33 @@ import {
 	stepWrapperClasses,
 } from './utils';
 
+
+const sizeClasses = {
+	sm: {
+		dot: 'size-2.5',
+		ring: 'size-5',
+		numberIcon: 'size-5 text-tiny',
+		icon: 'size-5',
+		label: 'text-xs',
+	},
+	md: {
+		dot: 'size-3',
+		ring: 'size-6',
+		numberIcon: 'size-6 text-sm',
+		icon: 'size-6',
+		label: 'text-sm',
+	},
+	lg: {
+		dot: 'size-3.5',
+		ring: 'size-7',
+		numberIcon: 'size-7 text-md',
+		icon: 'size-7',
+		label: 'text-sm',
+	},
+};
+
+type StepSizeClasses = typeof sizeClasses;
+
 // Common props interface
 export interface ProgressCommonProps {
 	/** Defines the children of the progress steps. */
@@ -18,7 +45,7 @@ export interface ProgressCommonProps {
 // Progress Steps props interface
 export interface ProgressStepsProps extends ProgressCommonProps {
 	/** Defines the variant of the progress step. */
-	variant?: 'dot' | 'number' | 'icon' | undefined;
+	variant?: 'dot' | 'number' | 'icon';
 	/** Defines the size of the progress step. */
 	size?: 'sm' | 'md' | 'lg';
 	/** Defines the type of layout. */
@@ -32,25 +59,25 @@ export interface ProgressStepsProps extends ProgressCommonProps {
 // Progress Step props interface
 export interface ProgressStepProps extends ProgressCommonProps {
 	/** Text label for the step. */
-	labelText?: string | undefined;
+	labelText?: string;
 
 	/** Custom icon for the step. */
 	icon?: React.ReactNode;
 
 	/** Indicates if this step is currently active. */
-	isCurrent?: boolean | undefined;
+	isCurrent?: boolean;
 
 	/** Indicates if this step has been completed. */
-	isCompleted?: boolean | undefined;
+	isCompleted?: boolean;
 
 	/** Defines the layout type: 'inline' or 'stack'. */
 	type?: 'inline' | 'stack';
 
 	/** Specifies the variant style: 'dot', 'number', or 'icon'. */
-	variant?: 'dot' | 'number' | 'icon' | undefined;
+	variant?: 'dot' | 'number' | 'icon';
 
 	/** Size-specific CSS classes for the step. */
-	sizeClasses?: Record<string, any>;
+	sizeClasses?: StepSizeClasses;
 
 	/** Defines the size of the step: 'sm', 'md', or 'lg'. */
 	size: 'sm' | 'md' | 'lg';
@@ -76,30 +103,6 @@ export const ProgressSteps = ( {
 	...rest
 }: ProgressStepsProps ) => {
 	const totalSteps = React.Children.count( children );
-
-	const sizeClasses = {
-		sm: {
-			dot: 'size-2.5',
-			ring: 'size-5',
-			numberIcon: 'size-5 text-tiny',
-			icon: 'size-5',
-			label: 'text-xs',
-		},
-		md: {
-			dot: 'size-3',
-			ring: 'size-6',
-			numberIcon: 'size-6 text-sm',
-			icon: 'size-6',
-			label: 'text-sm',
-		},
-		lg: {
-			dot: 'size-3.5',
-			ring: 'size-7',
-			numberIcon: 'size-7 text-md',
-			icon: 'size-7',
-			label: 'text-sm',
-		},
-	};
 
 	const steps = React.Children.map( children, ( child, index ) => {
 		const isCompleted = index + 1 < currentStep;
@@ -150,7 +153,7 @@ export const ProgressStep = ( {
 	className,
 	type,
 	variant,
-	sizeClasses = {},
+	sizeClasses,
 	size,
 	isLast,
 	index,
@@ -161,7 +164,7 @@ export const ProgressStep = ( {
 		variant,
 		isCompleted,
 		isCurrent,
-		sizeClasses as Record<string, any>,
+		sizeClasses!,
 		size,
 		icon,
 		index as number
@@ -182,7 +185,7 @@ export const ProgressStep = ( {
 	const renderLabel = () => {
 		if ( labelText ) {
 			const labelClasses = cn(
-				sizeClasses[ size ].label,
+				sizeClasses![ size ].label,
 				'text-text-tertiary',
 				isCurrent ? 'text-brand-primary-600' : '',
 				'break-word', // max width for inline and stack
@@ -270,7 +273,7 @@ export const createStepContent = (
 	variant: 'dot' | 'number' | 'icon' | undefined,
 	isCompleted: boolean | undefined,
 	isCurrent: boolean | undefined,
-	sizeClasses: Record<string, any>,
+	sizeClasses: StepSizeClasses,
 	size: 'sm' | 'md' | 'lg',
 	icon: React.ReactNode,
 	index: number
