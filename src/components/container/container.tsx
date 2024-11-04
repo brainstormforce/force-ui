@@ -1,4 +1,4 @@
-import { createContext, useContext, ReactNode } from 'react';
+import { createContext, useContext } from 'react';
 import { cn } from '@/utilities/functions';
 import GridContainer from './grid-container';
 import { getClassNames } from './container-utils';
@@ -18,6 +18,7 @@ import {
 	justifySelfClassNames,
 	gridColumnClassNames,
 } from './container-styles';
+import { type ContainerCommonProps } from './container-types';
 
 const ContainerContext = createContext<{
 	containerType: 'flex' | 'grid';
@@ -26,7 +27,7 @@ const ContainerContext = createContext<{
 const useContainerState = () => useContext( ContainerContext );
 
 /** Base interface for container props. */
-export interface BaseContainerProps {
+export interface BaseContainerProps extends ContainerCommonProps {
 	/** Defines the type of the container (default: 'flex'). */
 	containerType?: 'flex' | 'grid';
 	/** Defines the gap between child elements. */
@@ -52,12 +53,6 @@ export interface BaseContainerProps {
 	wrap?: 'nowrap' | 'wrap' | 'wrap-reverse';
 	/** Defines the number of columns (if using a grid container). */
 	cols?: keyof ( typeof gridColumnClassNames )['sm'];
-	/** Defines any additional CSS classes for the container. */
-	className?: string;
-	/** Defines the children of the container. */
-	children?: ReactNode;
-	/** Additional CSS styles. */
-	style?: React.CSSProperties;
 }
 
 export const Container = ( {
@@ -121,7 +116,7 @@ export const Container = ( {
 
 	const renderContainerBasedOnType = () => {
 		if ( containerType === ( 'grid' as 'flex' | 'grid' ) ) {
-			return <GridContainer { ...( props as any ) } />;
+			return <GridContainer { ...props } />;
 		}
 
 		return (
@@ -143,7 +138,7 @@ export const Container = ( {
 	);
 };
 
-export interface ItemProps {
+export interface ItemProps extends ContainerCommonProps {
 	/** Defines how much the item will grow relative to others. */
 	grow?: number;
 	/** Defines how much the item will shrink relative to others. */
@@ -155,11 +150,6 @@ export interface ItemProps {
 	/** Defines the justification of the item along the main axis. */
 	justifySelf?: string;
 	/** Defines any additional CSS classes for the item. */
-	className?: string;
-	/** Defines the children of the item. */
-	children?: ReactNode;
-	/** Additional CSS styles. */
-	style?: React.CSSProperties;
 }
 
 export const Item = ( {
@@ -175,7 +165,7 @@ export const Item = ( {
 	const { containerType, cols } = useContainerState();
 
 	if ( containerType === 'grid' ) {
-		return <GridContainer.Item { ...( props as any ) } />;
+		return <GridContainer.Item { ...props } />;
 	}
 
 	const alignSelfClassName = getClassNames(
@@ -223,6 +213,6 @@ export const Item = ( {
 Container.Item = Item;
 
 Container.displayName = 'Container';
-( Item as any ).displayName = 'Container.Item';
+Item.displayName = 'Container.Item';
 
 export default Container;

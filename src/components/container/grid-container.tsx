@@ -14,10 +14,9 @@ import {
 } from './container-styles';
 import { getClassNames } from './container-utils';
 import { ReactNode } from 'react';
+import { type ContainerCommonProps } from './container-types';
 
-export interface GridContainerProps {
-	/** Additional CSS classes. */
-	className?: string;
+export interface GridContainerProps extends ContainerCommonProps {
 	/** Number of columns in the grid. */
 	cols?: keyof ( typeof gridColumnClassNames )['sm'];
 	/** Gap between grid items. */
@@ -47,8 +46,6 @@ export interface GridContainerProps {
 	autoRows?: boolean;
 	/** Enables auto columns. */
 	autoCols?: boolean;
-	/** Children elements. */
-	children?: ReactNode;
 }
 
 export const GridContainer = ( {
@@ -114,11 +111,7 @@ export const GridContainer = ( {
 };
 
 /** Props for GridItem component. */
-export interface GridItemProps {
-	/** Additional CSS classes. */
-	className?: string;
-	/** Children elements. */
-	children?: ReactNode;
+export interface GridItemProps extends ContainerCommonProps {
 	/** Column span for the item. */
 	colSpan?: number | string;
 	/** Starting column for the item. */
