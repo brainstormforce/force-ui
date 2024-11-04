@@ -166,12 +166,14 @@ export default {
 		},
 		chartWidth: {
 			description: 'Width of the chart container in pixels.',
+            control: { type: 'number' },
 			table: {
 				type: { summary: 'number' },
 			},
 		},
 		chartHeight: {
 			description: 'Height of the chart container in pixels.',
+            control: { type: 'number' },
 			table: {
 				type: { summary: 'number' },
 			},
@@ -195,6 +197,7 @@ export default {
 		},
 		xAxisFontColor: {
 			description: 'Font color for the labels on the x-axis.',
+            control: { type: 'text' },
 			table: {
 				type: { summary: 'string' },
 			},
@@ -285,10 +288,7 @@ AreaChartGradient.args = {
 	xAxisDataKey: 'month',
 	showYAxis: false,
 	showLegend: false,
-	xAxisFontColor: '#ff0000',
 };
-
-AreaChartGradient.storyName = 'Area Chart Gradiend With Red xAxis Label Color';
 
 export const AreaChartInteractive = Template.bind( {} );
 AreaChartInteractive.args = {

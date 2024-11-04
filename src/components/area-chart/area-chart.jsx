@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import {
 	AreaChart as AreaChartWrapper,
 	Area,
@@ -31,6 +32,14 @@ const AreaChart = ({
 	chartWidth = 350,
 	chartHeight = 200,
 }) => {
+
+    const [width, setWidth] = useState(chartWidth);
+    const [height, setHeight] = useState(chartHeight);
+
+    useEffect(() => {
+        setWidth(chartWidth);
+        setHeight(chartHeight);
+    }, [chartWidth, chartHeight]);
 
     const fontSizeMap = {
         sm: '12px',
@@ -68,9 +77,9 @@ const AreaChart = ({
 
 	return (
 		<ResponsiveContainer
-			width="100%"
-			height="100%"
-            initialDimension={{ width: chartWidth, height: chartHeight }}
+			width={width}
+			height={height}
+            // initialDimension={{ width: width, height: height }}
 		>
 			<AreaChartWrapper data={data} margin={{ left: 14, right: 14 }}>
 				{showCartesianGrid && <CartesianGrid vertical={false} />}
@@ -84,7 +93,15 @@ const AreaChart = ({
                         tick={{ fontSize: fontSizeVariant, fill: xAxisFontColor }}
 					/>
 				)}
-				{showYAxis && <YAxis dataKey={yAxisDataKey} />}
+				{showYAxis && (
+                    <YAxis 
+                        dataKey={yAxisDataKey} 
+                        tickLine={false}
+                        axisLine={false}
+                        tickMargin={8}
+                        tick={{ fontSize: fontSizeVariant, fill: xAxisFontColor }}
+                    />
+                ) }
                 {showTooltip && <Tooltip content={<ChartTooltipContent indicator={tooltipIndicator} labelKey={tooltipLabelKey} />} />}
                 {showLegend && <Legend content={<ChartLegendContent fontSizeVariant={fontSizeVariant} />} />}
 
