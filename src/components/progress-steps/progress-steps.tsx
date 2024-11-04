@@ -7,7 +7,6 @@ import {
 	stepWrapperClasses,
 } from './utils';
 
-
 const sizeClasses = {
 	sm: {
 		dot: 'size-2.5',

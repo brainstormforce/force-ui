@@ -29,21 +29,30 @@ import {
 	useDismiss,
 	useFloating,
 	useInteractions,
+	type UseFloatingReturn,
+	type UseInteractionsReturn,
 } from '@floating-ui/react';
 
+type TSearchContentValue = Partial<{
+	size: 'sm' | 'md' | 'lg';
+	searchTerm: string;
+	isLoading: boolean;
+	onOpenChange: ( open: boolean ) => void;
+	refs: UseFloatingReturn['refs'];
+	floatingStyles: UseFloatingReturn['floatingStyles'];
+	getReferenceProps: UseInteractionsReturn['getReferenceProps'];
+	getFloatingProps: UseInteractionsReturn['getFloatingProps'];
+	setSearchTerm: React.Dispatch<React.SetStateAction<string | undefined>>;
+	open: boolean;
+	context: UseFloatingReturn['context'];
+	setIsLoading: ( loading: boolean ) => void;
+}>;
+
 // Define a context for the SearchBox
-const SearchContext = createContext<any>( null );
+const SearchContext = createContext<TSearchContentValue>( {} );
 
 const useSearchContext = () => {
-	return useContext( SearchContext ) as {
-		size: 'sm' | 'md' | 'lg';
-		searchTerm: string;
-		isLoading: boolean;
-		onOpenChange: ( open: boolean ) => void;
-		refs: any;
-		getReferenceProps: any;
-		setSearchTerm: ( term: string ) => void;
-	};
+	return useContext<TSearchContentValue>( SearchContext );
 };
 
 // Define the Size type
@@ -55,7 +64,7 @@ export interface BaseSearchBoxProps {
 	className?: string;
 
 	/** Size of the SearchBox. */
-	size: 'sm' | 'md' | 'lg';
+	size?: 'sm' | 'md' | 'lg';
 
 	/** Whether the dropdown is open. */
 	open?: boolean;
@@ -93,8 +102,8 @@ export const SearchBox = forwardRef<HTMLDivElement, BaseSearchBoxProps>(
 		},
 		ref
 	) => {
-		const [ searchTerm, setSearchTerm ] = useState( '' );
-		const [ isLoading, setIsLoading ] = useState( loading ?? false );
+		const [ searchTerm, setSearchTerm ] = useState<string | undefined>( '' );
+		const [ isLoading, setIsLoading ] = useState<boolean>( loading ?? false );
 
 		const { refs, floatingStyles, context } = useFloating( {
 			open,
@@ -222,18 +231,11 @@ export const SearchBoxInput = forwardRef<HTMLInputElement, SearchBoxInputProps>(
 			getReferenceProps,
 			searchTerm,
 			setSearchTerm,
-		} = useSearchContext() as {
-			size: 'sm' | 'md' | 'lg';
-			onOpenChange: ( open: boolean ) => void;
-			refs: any;
-			getReferenceProps: any;
-			searchTerm: string;
-			setSearchTerm: ( term: string ) => void;
-		};
+		} = useSearchContext();
 		const bagdeSize = size === 'lg' ? 'sm' : 'xs';
 		const handleChange = ( event: React.ChangeEvent<HTMLInputElement> ) => {
 			const newValue = event.target.value;
-			setSearchTerm( newValue );
+			setSearchTerm!( newValue );
 			onChange( newValue );
 
 			if ( typeof onOpenChange === 'function' ) {
@@ -247,11 +249,11 @@ export const SearchBoxInput = forwardRef<HTMLInputElement, SearchBoxInputProps>(
 
 		return (
 			<div
-				ref={ refs.setReference }
+				ref={ refs!.setReference }
 				className={ cn(
 					'w-full group relative flex justify-center items-center gap-1.5 focus-within:z-10 transition-colors ease-in-out duration-150',
 					variantClassNames[ variant ],
-					sizeClassNames.input[ size ],
+					sizeClassNames.input[ size! ],
 					disabled
 						? disabledClassNames[ variant ]
 						: 'focus-within:ring-2 focus-within:ring-focus focus-within:ring-offset-2 focus-within:border-focus-border focus-within:hover:border-focus-border'
@@ -260,7 +262,7 @@ export const SearchBoxInput = forwardRef<HTMLInputElement, SearchBoxInputProps>(
 			>
 				<span
 					className={ cn(
-						textSizeClassNames[ size ],
+						textSizeClassNames[ size! ],
 						disabled ? 'text-icon-disabled' : iconClasses,
 						'flex justify-center items-center'
 					) }
@@ -271,7 +273,7 @@ export const SearchBoxInput = forwardRef<HTMLInputElement, SearchBoxInputProps>(
 					type={ type }
 					ref={ ref }
 					className={ cn(
-						textSizeClassNames[ size ],
+						textSizeClassNames[ size! ],
 						'flex-grow font-medium bg-transparent border-none outline-none border-transparent focus:ring-0 py-0',
 						disabled
 							? disabledClassNames[ variant ]
@@ -328,18 +330,7 @@ export const SearchBoxContent = ( {
 	...props
 }: SearchBoxContentProps ) => {
 	const { size, open, refs, floatingStyles, getFloatingProps } =
-		useSearchContext() as {
-			size: 'sm' | 'md' | 'lg';
-			open: boolean;
-			refs: any;
-			floatingStyles: any;
-			getFloatingProps: any;
-			searchTerm: string;
-			isLoading: boolean;
-			onOpenChange: ( newOpen: boolean ) => void;
-			getReferenceProps: any;
-			setSearchTerm: ( term: string ) => void;
-		};
+		useSearchContext();
 
 	if ( ! open ) {
 		return null;
@@ -348,16 +339,16 @@ export const SearchBoxContent = ( {
 	return (
 		<FloatingPortal id={ dropdownPortalId } root={ dropdownPortalRoot }>
 			<div
-				ref={ refs.setFloating }
+				ref={ refs!.setFloating }
 				style={ {
 					...floatingStyles,
 				} }
 				className={ cn(
 					'bg-background-primary rounded-md border border-solid border-border-subtle shadow-soft-shadow-lg overflow-y-auto text-wrap',
-					sizeClassNames.dialog[ size ],
+					sizeClassNames.dialog[ size! ],
 					className
 				) }
-				{ ...getFloatingProps() }
+				{ ...getFloatingProps!() }
 				{ ...props }
 			>
 				{ children }
@@ -396,7 +387,7 @@ export const SearchBoxList = ( {
 						typeof item.props.children === 'string' &&
 						item.props.children
 							.toLowerCase()
-							.includes( searchTerm.toLowerCase() )
+							.includes( searchTerm!.toLowerCase() )
 				);
 				return filteredItems.length > 0
 					? cloneElement( child as React.ReactElement, {
@@ -436,12 +427,12 @@ export interface SearchBoxEmptyProps {
 export const SearchBoxEmpty = ( {
 	children = 'No results found.',
 }: SearchBoxEmptyProps ) => {
-	const { size } = useSearchContext() as { size: 'sm' | 'md' | 'lg' };
+	const { size } = useSearchContext();
 	return (
 		<div
 			className={ cn(
 				'flex justify-center items-center',
-				sizeClassNames.item[ size ],
+				sizeClassNames.item[ size! ],
 				'text-text-tertiary p-4'
 			) }
 		>
@@ -461,18 +452,18 @@ export interface SearchBoxGroupProps {
 }
 
 export const SearchBoxGroup = ( { heading, children }: SearchBoxGroupProps ) => {
-	const { size } = useSearchContext() as { size: 'sm' | 'md' | 'lg' };
+	const { size } = useSearchContext();
 	return (
 		<div
 			className={ cn(
 				sizeClassNames.content[ size as 'sm' | 'md' | 'lg' ],
-				sizeClassNames.item[ size ]
+				sizeClassNames.item[ size! ]
 			) }
 		>
 			{ heading && (
 				<div
 					className={ cn(
-						sizeClassNames.title[ size ],
+						sizeClassNames.title[ size! ],
 						'text-text-secondary'
 					) }
 				>
@@ -505,14 +496,14 @@ export const SearchBoxItem = forwardRef<HTMLDivElement, SearchBoxItemProps>(
 				ref={ ref }
 				className={ cn(
 					'flex items-center justify-start gap-1 p-1 hover:bg-background-secondary focus:bg-background-secondary cursor-pointer',
-					sizeClassNames.item[ size ]
+					sizeClassNames.item[ size! ]
 				) }
 				{ ...props }
 			>
 				{ icon && (
 					<span
 						className={ cn(
-							sizeClassNames.icon[ size ],
+							sizeClassNames.icon[ size! ],
 							'flex items-center justify-center'
 						) }
 					>
@@ -522,7 +513,7 @@ export const SearchBoxItem = forwardRef<HTMLDivElement, SearchBoxItemProps>(
 				<span
 					className={ cn(
 						'flex-grow p-1 font-normal cursor-pointer',
-						sizeClassNames.item[ size ],
+						sizeClassNames.item[ size! ],
 						className
 					) }
 				>
@@ -537,7 +528,7 @@ SearchBoxItem.displayName = 'SearchBox.Item';
 // Define props for SearchBoxLoading
 export interface SearchBoxLoadingProps {
 	/** Loading icon to display while loading. */
-	loadingIcon?: ReactNode;
+	loadingIcon?: ReactNode & { size?: string };
 }
 
 export const SearchBoxLoading = ( {
@@ -547,17 +538,14 @@ export const SearchBoxLoading = ( {
 
 	// Clone the loadingIcon element to pass the size prop
 	const loadingIconWithSize = React.isValidElement( loadingIcon )
-		? cloneElement(
-				loadingIcon as React.ReactElement<{ size: 'sm' | 'md' | 'lg' }>,
-				{ size }
-		)
+		? cloneElement( loadingIcon, { size } )
 		: loadingIcon;
 	return (
 		<div
 			className={ cn(
 				'flex justify-center p-4',
-				textSizeClassNames[ size ],
-				sizeClassNames.item[ size ]
+				textSizeClassNames[ size! ],
+				sizeClassNames.item[ size! ]
 			) }
 		>
 			{ loadingIconWithSize }
