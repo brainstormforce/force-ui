@@ -121,8 +121,8 @@ export const Tooltip = ( {
 		strategy,
 		middleware: [
 			offset( offsetValue ),
-			flip( { boundary: boundary as any } ), // Ensure this is correctly cast
-			shift( { boundary: boundary as any } ), // Ensure this is correctly cast
+			flip( { boundary: boundary as Element } ), // Ensure this is correctly cast
+			shift( { boundary: boundary as Element } ), // Ensure this is correctly cast
 			floatingArrow( { element: arrowRef } ),
 		],
 		whileElementsMounted: autoUpdate,
@@ -176,7 +176,7 @@ export const Tooltip = ( {
 	return (
 		<>
 			{ isValidElement( children ) &&
-				cloneElement( children, {
+				cloneElement( children as React.ReactElement, {
 					...children.props,
 					ref: mergeRefs( ( children as any ).ref, refs.setReference ),
 					className: cn( children.props.className ),

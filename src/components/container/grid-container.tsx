@@ -13,7 +13,6 @@ import {
 	justifySelfClassNames,
 } from './container-styles';
 import { getClassNames } from './container-utils';
-import { ReactNode } from 'react';
 import { type ContainerCommonProps } from './container-types';
 
 export interface GridContainerProps extends ContainerCommonProps {
