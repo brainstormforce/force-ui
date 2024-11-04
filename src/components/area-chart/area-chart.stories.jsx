@@ -1,4 +1,4 @@
-import AreaChartComponent from './area-chart';
+import AreaChart from './area-chart';
 import Label from '../label';
 import Button from '../button';
 import Badge from '../badge';
@@ -6,12 +6,12 @@ import Container from '../container';
 import { ArrowUpRight, ArrowUp } from 'lucide-react';
 
 const areaChartData = [
-	{ name: 'January', sales: 186, expenses: 80 },
-	{ name: 'February', sales: 305, expenses: 200 },
-	{ name: 'March', sales: 237, expenses: 120 },
-	{ name: 'April', sales: 73, expenses: 190 },
-	{ name: 'May', sales: 209, expenses: 130 },
-	{ name: 'June', sales: 214, expenses: 140 },
+	{ month: 'January', sales: 186, expenses: 80 },
+	{ month: 'February', sales: 305, expenses: 200 },
+	{ month: 'March', sales: 237, expenses: 120 },
+	{ month: 'April', sales: 73, expenses: 190 },
+	{ month: 'May', sales: 209, expenses: 130 },
+	{ month: 'June', sales: 214, expenses: 140 },
 ];
 
 const dataKeys = [ 'sales', 'expenses' ];
@@ -129,8 +129,8 @@ const monthFormatterInteractive = ( value ) => {
 };
 
 export default {
-	title: 'Atoms/AreaChartComponent',
-	component: AreaChartComponent,
+	title: 'Atoms/AreaChart',
+	component: AreaChart,
 	parameters: {
 		layout: 'centered',
 	},
@@ -227,6 +227,14 @@ export default {
 				type: { summary: 'boolean' },
 			},
 		},
+        tooltipIndicator: {
+            description: 'The tooltip indicator. It can be `dot`, `line` or `dashed`',
+            control: { type: 'select' },
+            options: ['dot', 'line', 'dashed'],
+            table: {
+                type: { summary: 'string' },
+            },
+        },
 		showLegend: {
 			description:
 				'Whether to render the `<Legend />` component to identify data series.',
@@ -248,7 +256,7 @@ export default {
 	},
 };
 
-const Template = ( args ) => <AreaChartComponent { ...args } />;
+const Template = ( args ) => <AreaChart { ...args } />;
 
 export const AreaChartSimple = Template.bind( {} );
 AreaChartSimple.args = {
@@ -258,9 +266,11 @@ AreaChartSimple.args = {
 	variant: 'solid', // solid, gradient
 	tickFormatter: monthFormatter,
 	showXAxis: true,
-	xAxisDataKey: 'name',
+	xAxisDataKey: 'month',
 	showYAxis: false,
 	showLegend: false,
+    showTooltip: true,
+    tooltipIndicator: "dot",
 };
 
 export const AreaChartGradient = Template.bind( {} );
@@ -271,7 +281,7 @@ AreaChartGradient.args = {
 	variant: 'gradient', // solid, gradient
 	tickFormatter: monthFormatter,
 	showXAxis: true,
-	xAxisDataKey: 'name',
+    xAxisDataKey: 'month',
 	showYAxis: false,
 	showLegend: false,
 	xAxisFontColor: '#ff0000',
@@ -340,14 +350,14 @@ export const AreaChartCard1 = () => (
 			</Container>
 		</Container.Item>
 		<Container.Item>
-			<AreaChartComponent
+			<AreaChart
 				data={ areaChartData }
 				dataKeys={ dataKeys }
 				colors={ colors }
 				variant="solid"
 				tickFormatter={ monthFormatter }
 				showXAxis={ true }
-				xAxisDataKey="name"
+                xAxisDataKey="month"
 				showYAxis={ false }
 				showLegend={ false }
 			/>
@@ -402,7 +412,7 @@ export const AreaChartCard2 = () => (
 			</Container>
 		</Container.Item>
 		<Container.Item>
-			<AreaChartComponent
+			<AreaChart
 				chartWidth={ 1000 }
 				chartHeight={ 250 }
 				data={ chartDataIteractive }

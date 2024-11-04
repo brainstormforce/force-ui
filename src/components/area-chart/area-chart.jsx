@@ -1,5 +1,5 @@
 import {
-	AreaChart,
+	AreaChart as AreaChartWrapper,
 	Area,
 	XAxis,
 	YAxis,
@@ -9,8 +9,9 @@ import {
 	ResponsiveContainer,
 } from 'recharts';
 import ChartLegendContent from './chart-legend-content';
+import ChartTooltipContent from './chart-tooltip-content';
 
-const AreaChartComponent = ({
+const AreaChart = ({
 	data,
 	dataKeys,
 	colors,
@@ -18,6 +19,8 @@ const AreaChartComponent = ({
 	showXAxis = true,
 	showYAxis = true,
 	showTooltip = true,
+    tooltipIndicator = 'dot', // dot, line, dashed
+    tooltipLabelKey,
 	showLegend = true,
 	showCartesianGrid = true,
 	tickFormatter,
@@ -69,7 +72,7 @@ const AreaChartComponent = ({
 			height="100%"
             initialDimension={{ width: chartWidth, height: chartHeight }}
 		>
-			<AreaChart data={data} margin={{ left: 14, right: 14 }}>
+			<AreaChartWrapper data={data} margin={{ left: 14, right: 14 }}>
 				{showCartesianGrid && <CartesianGrid vertical={false} />}
 				{showXAxis && (
 					<XAxis
@@ -82,7 +85,7 @@ const AreaChartComponent = ({
 					/>
 				)}
 				{showYAxis && <YAxis dataKey={yAxisDataKey} />}
-				{showTooltip && <Tooltip />}
+                {showTooltip && <Tooltip content={<ChartTooltipContent indicator={tooltipIndicator} labelKey={tooltipLabelKey} />} />}
                 {showLegend && <Legend content={<ChartLegendContent fontSizeVariant={fontSizeVariant} />} />}
 
 				{variant === 'gradient' && renderGradients()}
@@ -101,9 +104,9 @@ const AreaChartComponent = ({
 						stackId="1"
 					/>
 				))}
-			</AreaChart>
+			</AreaChartWrapper>
 		</ResponsiveContainer>
 	);
 };
 
-export default AreaChartComponent;
+export default AreaChart;
