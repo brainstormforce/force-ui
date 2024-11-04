@@ -399,7 +399,7 @@ export const SearchBoxList = ( {
 							.includes( searchTerm.toLowerCase() )
 				);
 				return filteredItems.length > 0
-					? cloneElement( child as React.ReactElement<any>, {
+					? cloneElement( child as React.ReactElement, {
 						children: filteredItems,
 					} )
 					: null;
