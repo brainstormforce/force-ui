@@ -28,7 +28,21 @@ import {
 } from './styles';
 import Tooltip from '../tooltip';
 
-const RadioButtonContext = createContext<any>( null );
+const RadioButtonContext = createContext<
+	Partial<{
+		name: string;
+		value: string | string[];
+		by: string;
+		onChange:( value: string | string[] ) => void;
+		isControlled: boolean;
+		disableAll: boolean;
+		style: 'simple' | 'tile';
+		columns: number;
+		multiSelection: boolean;
+		size: 'sm' | 'md';
+		checked?: boolean;
+			}>
+			>( {} );
 const useRadioButton = () => useContext( RadioButtonContext );
 
 /** Common props used across the radio button components */
@@ -141,31 +155,28 @@ export const RadioButtonGroup = ( {
 	const [ selectedValue, setSelectedValue ] = useState( initialSelectedValue );
 
 	const handleChange = useCallback(
-		( newValue: string ) => {
+		( newValue: string | string[] ) => {
 			if ( multiSelection ) {
 				// Handles multi-selection logic
 				setSelectedValue( ( prevValue ) => {
-					const isAlreadySelected = prevValue?.includes( newValue );
-					let updatedValue;
+					const isAlreadySelected =
+						Array.isArray( prevValue ) &&
+						typeof newValue === 'string' &&
+						prevValue.includes( newValue );
+					let updatedValue: string[];
 					if ( isAlreadySelected ) {
-						if ( Array.isArray( prevValue ) ) {
-							updatedValue = prevValue.filter(
-								( val ) => val !== newValue
-							);
-						} else {
-							updatedValue = prevValue;
-						}
+						updatedValue = ( prevValue as string[] ).filter(
+							( val ) => val !== newValue
+						);
 					} else {
 						updatedValue = [
 							...( Array.isArray( prevValue ) ? prevValue : [] ),
-							newValue,
+							...( typeof newValue === 'string' ? [ newValue ] : [] ),
 						];
 					}
 
 					if ( typeof onChange === 'function' ) {
-						if ( updatedValue !== undefined ) {
-							onChange( updatedValue );
-						}
+						onChange( updatedValue );
 					}
 					return updatedValue;
 				} );
@@ -273,7 +284,7 @@ export const RadioButtonComponent = (
 	} = providerValue as {
 		name: string;
 		value: string | string[];
-		by: number;
+		by: string;
 		onChange: ( newValue: string | string[], newChecked?: boolean ) => void;
 		disableAll: boolean;
 		checked?: boolean;
@@ -308,7 +319,10 @@ export const RadioButtonComponent = (
 			return selectedValue.includes( value );
 		}
 
-		return selectedValue[ by ] === value[ by ];
+		return (
+			( selectedValue as Record<string, unknown> )[ by ] ===
+			( value as unknown as Record<string, unknown> )[ by ]
+		);
 	}, [ selectedValue, value, checked ] );
 
 	const renderLabel = useCallback( () => {
@@ -507,7 +521,7 @@ export interface ButtonGroupItemProps {
 	value: string;
 	disabled?: boolean;
 	size?: 'sm' | 'md';
-	[key: string]: any;
+	[key: string]: unknown;
 }
 
 export const ButtonGroupItem = ( {
@@ -551,7 +565,10 @@ export const ButtonGroupItem = ( {
 			return selectedValue.includes( value );
 		}
 
-		return selectedValue[ by ] === value[ by ];
+		return selectedValue && by
+			? ( selectedValue as Record<string, unknown> )[ by ] ===
+					( value as unknown as Record<string, unknown> )[ by ]
+			: false;
 	}, [ selectedValue, value, checked, by ] );
 
 	const handleClick = () => {
@@ -591,7 +608,7 @@ export const ButtonGroupItem = ( {
 					value={ value }
 					name={ name }
 					checked={ checkedValue }
-					onChange={ onChange }
+					onChange={ ( e ) => onChange?.( e.target.value ) }
 				/>
 				{ children }
 			</button>

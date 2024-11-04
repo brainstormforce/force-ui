@@ -7,7 +7,7 @@ import {
 	stepWrapperClasses,
 } from './utils';
 
-const sizeClasses = {
+const sizeClassnames = {
 	sm: {
 		dot: 'size-2.5',
 		ring: 'size-5',
@@ -31,7 +31,7 @@ const sizeClasses = {
 	},
 };
 
-type StepSizeClasses = typeof sizeClasses;
+type StepSizeClasses = typeof sizeClassnames;
 
 // Common props interface
 export interface ProgressCommonProps {
@@ -111,7 +111,7 @@ export const ProgressSteps = ( {
 		const stepProps = {
 			isCompleted,
 			isCurrent,
-			sizeClasses,
+			sizeClasses: sizeClassnames,
 			size,
 			variant,
 			type,

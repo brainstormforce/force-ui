@@ -178,7 +178,14 @@ export const Tooltip = ( {
 			{ isValidElement( children ) &&
 				cloneElement( children as React.ReactElement, {
 					...children.props,
-					ref: mergeRefs( ( children as any ).ref, refs.setReference ),
+					ref: mergeRefs(
+						(
+							children as React.ReactElement & {
+								ref?: React.Ref<HTMLElement>;
+							}
+						).ref,
+						refs.setReference
+					),
 					className: cn( children.props.className ),
 					...getReferenceProps(),
 				} ) }
