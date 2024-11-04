@@ -227,14 +227,15 @@ export default {
 				type: { summary: 'boolean' },
 			},
 		},
-        tooltipIndicator: {
-            description: 'The tooltip indicator. It can be `dot`, `line` or `dashed`',
-            control: { type: 'select' },
-            options: ['dot', 'line', 'dashed'],
-            table: {
-                type: { summary: 'string' },
-            },
-        },
+		tooltipIndicator: {
+			description:
+				'The tooltip indicator. It can be `dot`, `line` or `dashed`',
+			control: { type: 'select' },
+			options: [ 'dot', 'line', 'dashed' ],
+			table: {
+				type: { summary: 'string' },
+			},
+		},
 		showLegend: {
 			description:
 				'Whether to render the `<Legend />` component to identify data series.',
@@ -269,8 +270,8 @@ AreaChartSimple.args = {
 	xAxisDataKey: 'month',
 	showYAxis: false,
 	showLegend: false,
-    showTooltip: true,
-    tooltipIndicator: "dot",
+	showTooltip: true,
+	tooltipIndicator: 'dot',
 };
 
 export const AreaChartGradient = Template.bind( {} );
@@ -281,7 +282,7 @@ AreaChartGradient.args = {
 	variant: 'gradient', // solid, gradient
 	tickFormatter: monthFormatter,
 	showXAxis: true,
-    xAxisDataKey: 'month',
+	xAxisDataKey: 'month',
 	showYAxis: false,
 	showLegend: false,
 	xAxisFontColor: '#ff0000',
@@ -357,7 +358,7 @@ export const AreaChartCard1 = () => (
 				variant="solid"
 				tickFormatter={ monthFormatter }
 				showXAxis={ true }
-                xAxisDataKey="month"
+				xAxisDataKey="month"
 				showYAxis={ false }
 				showLegend={ false }
 			/>
