@@ -132,6 +132,9 @@ const Button: React.FunctionComponent<ButtonProps> = forwardRef(
 					variantClassNames,
 					destructiveClassNames,
 					loadingClass,
+					{
+						'cursor-default': disabled
+					},
 					className
 				) }
 				disabled={ disabled }
