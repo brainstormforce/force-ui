@@ -38,7 +38,11 @@ export interface DropdownMenuProps extends DropdownCommonProps {
 export interface DropdownMenuItemProps {
 	/** Children of the component. */
 	children: React.ReactNode;
-	/** Use your own custom menu item component or HTML tag. */
+	/**
+	 * Use your own custom menu item component or HTML tag.
+	 *
+	 * @default 'Menu.Item'.
+	 */
 	as?: React.ElementType;
 	/** On click event. */
 	onClick?: () => void;
