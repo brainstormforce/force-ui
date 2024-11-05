@@ -13,10 +13,55 @@ const meta: Meta<typeof Container> = {
 	>,
 	tags: [ 'autodocs' ],
 	argTypes: {
+		// Flex props.
+		direction: {
+			control: 'select',
+			if: { arg: 'containerType', eq: 'flex' },
+		},
+		wrap: {
+			control: 'select',
+			if: { arg: 'containerType', eq: 'flex' },
+		},
+		// Grid props.
 		cols: {
 			control: 'select',
-			options: [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 ],
 			if: { arg: 'containerType', eq: 'grid' },
+		},
+		gridFlow: {
+			control: 'select',
+			if: { arg: 'containerType', eq: 'grid' },
+		},
+		colsSubGrid: {
+			control: 'boolean',
+			if: { arg: 'containerType', eq: 'grid' },
+		},
+		rowsSubGrid: {
+			control: 'boolean',
+			if: { arg: 'containerType', eq: 'grid' },
+		},
+		autoRows: {
+			control: 'boolean',
+			if: { arg: 'containerType', eq: 'grid' },
+		},
+		autoCols: {
+			control: 'boolean',
+			if: { arg: 'containerType', eq: 'grid' },
+		},
+		// Common props.
+		justify: {
+			control: 'select',
+		},
+		align: {
+			control: 'select',
+		},
+		gap: {
+			control: 'select',
+		},
+		gapX: {
+			control: 'select',
+		},
+		gapY: {
+			control: 'select',
 		},
 	},
 };
@@ -27,17 +72,38 @@ type Story = StoryObj<typeof Container>;
 export const BasicContainer: Story = {
 	args: {
 		className: 'bg-gray-200 p-4',
+		cols: 3,
+		containerType: 'flex',
+		gap: 'sm',
+		justify: 'start',
+		align: 'start',
+		direction: 'row',
 	},
 	render: ( args ) => {
 		return (
 			<Container { ...args }>
-				<Container.Item className="bg-red-500 p-4">
+				<Container.Item
+					className="bg-red-500 p-4"
+					{ ...( args.containerType === 'flex'
+						? { grow: 0, shrink: 1 }
+						: {} ) }
+				>
 					Item 1
 				</Container.Item>
-				<Container.Item className="bg-green-500 p-4">
+				<Container.Item
+					className="bg-green-500 p-4"
+					{ ...( args.containerType === 'flex'
+						? { grow: 0, shrink: 1 }
+						: {} ) }
+				>
 					Item 2
 				</Container.Item>
-				<Container.Item className="bg-blue-500 p-4">
+				<Container.Item
+					className="bg-blue-500 p-4"
+					{ ...( args.containerType === 'flex'
+						? { grow: 0, shrink: 1 }
+						: {} ) }
+				>
 					Item 3
 				</Container.Item>
 			</Container>
