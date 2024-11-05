@@ -26,7 +26,7 @@ const ChartLegendContent = React.forwardRef(
 					<div key={item.value} className="flex items-center gap-1.5">
 						{!hideIcon && (
 							<div
-								className="h-2 w-2 shrink-0 rounded-[2px]"
+								className="size-2 shrink-0 rounded-sm"
 								style={{
 									backgroundColor: item.color,
 								}}

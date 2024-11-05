@@ -79,7 +79,6 @@ const AreaChart = ({
 		<ResponsiveContainer
 			width={width}
 			height={height}
-            // initialDimension={{ width: width, height: height }}
 		>
 			<AreaChartWrapper data={data} margin={{ left: 14, right: 14 }}>
 				{showCartesianGrid && <CartesianGrid vertical={false} />}
