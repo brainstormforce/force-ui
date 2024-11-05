@@ -1,4 +1,4 @@
-import React, { useState, createContext, useContext } from 'react';
+import React, { useState, createContext, useContext, ReactNode } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronDown } from 'lucide-react';
 import { cn } from '@/utilities/functions';
@@ -17,7 +17,7 @@ export interface MenuProps extends BaseMenuProps {
 	/** Defines the size of the menu (e.g., 'sm', 'md'). */
 	size?: 'sm' | 'md';
 	/** Child elements of the menu. */
-	children: React.ReactNode;
+	children: ReactNode;
 }
 
 export const Menu = ( { size = 'md', children, className }: MenuProps ) => {
@@ -41,7 +41,7 @@ export interface MenuListProps extends BaseMenuProps {
 	/** Callback function triggered when the menu list is clicked. */
 	onClick?: ( isOpen: boolean ) => void;
 	/** Child elements of the menu list. */
-	children: React.ReactNode;
+	children: ReactNode;
 	/** Shows the arrow only when hovering. */
 	showArrowOnHover?: boolean;
 }
@@ -168,7 +168,7 @@ export interface MenuItemProps extends BaseMenuProps {
 	/** Callback function triggered when the menu item is clicked. */
 	onClick?: () => void;
 	/** Child elements of the menu item. */
-	children: React.ReactNode;
+	children: ReactNode;
 }
 export const MenuItem = ( {
 	disabled = false,

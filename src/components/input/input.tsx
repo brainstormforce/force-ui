@@ -8,7 +8,7 @@ export declare interface InputProps {
 	id?: string;
 
 	/** Specifies the type of the input element (e.g., text, file). */
-	type?: string;
+	type?: 'text' | 'password' | 'email' | 'file';
 
 	/** Initial value of the input element. */
 	defaultValue?: string;

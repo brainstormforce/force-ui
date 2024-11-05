@@ -10,14 +10,7 @@ const meta: Meta<typeof Checkbox> = {
 	},
 	tags: [ 'autodocs' ],
 	argTypes: {
-		id: { control: 'text' },
-		label: { control: 'object' },
-		defaultChecked: { control: 'boolean' },
-		checked: { control: 'boolean' },
-		onChange: { action: 'changed' }, // Logs actions in Storybook
-		indeterminate: { control: 'boolean' },
-		disabled: { control: 'boolean' },
-		size: { control: 'select', options: [ 'sm', 'md' ] },
+		size: { control: 'select' },
 	},
 };
 

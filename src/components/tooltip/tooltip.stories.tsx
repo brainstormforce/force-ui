@@ -12,6 +12,11 @@ const meta: Meta<typeof Tooltip> = {
 		layout: 'centered',
 	},
 	tags: [ 'autodocs' ],
+	argTypes: {
+		variant: { control: 'select' },
+		placement: { control: 'select' },
+		children: { control: false },
+	},
 };
 
 export default meta;

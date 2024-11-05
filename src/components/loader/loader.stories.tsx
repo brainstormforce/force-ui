@@ -12,20 +12,15 @@ export default {
 		variant: {
 			control: {
 				type: 'select',
-				options: [ 'primary', 'secondary' ],
 			},
 		},
 		size: {
 			control: {
 				type: 'select',
-				options: [ 'sm', 'md', 'lg', 'xl' ],
 			},
 		},
 		icon: {
-			control: 'none',
-		},
-		className: {
-			control: 'text',
+			control: false,
 		},
 	},
 };

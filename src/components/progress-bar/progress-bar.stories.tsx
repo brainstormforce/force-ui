@@ -12,12 +12,6 @@ export default {
 		progress: {
 			control: { type: 'range', min: 0, max: 100 },
 		},
-		speed: {
-			control: { type: 'number' },
-		},
-		className: {
-			control: 'text',
-		},
 	},
 	decorators: [
 		( Story: StoryFn ) => (

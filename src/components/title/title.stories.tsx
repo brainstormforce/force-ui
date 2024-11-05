@@ -12,27 +12,12 @@ export default {
 	argTypes: {
 		size: {
 			control: 'select',
-			options: [ 'xs', 'sm', 'md', 'lg' ],
 		},
 		tag: {
 			control: 'select',
-			options: [ 'h1', 'h2', 'h3', 'h4', 'h5', 'h6' ],
-		},
-		title: {
-			control: 'text',
-		},
-		description: {
-			control: 'text',
 		},
 		icon: {
-			control: 'none',
-		},
-		iconPosition: {
-			control: 'select',
-			options: [ 'left', 'right' ],
-		},
-		className: {
-			control: 'text',
+			control: false,
 		},
 	},
 };

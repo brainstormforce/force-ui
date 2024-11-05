@@ -21,7 +21,6 @@ const meta: Meta<typeof SearchBox> = {
 	argTypes: {
 		size: {
 			control: { type: 'select' },
-			options: [ 'sm', 'md', 'lg' ],
 		},
 	},
 } satisfies Meta<typeof SearchBox>;

@@ -18,21 +18,18 @@ const meta: Meta<typeof ProgressSteps> = {
 	argTypes: {
 		variant: {
 			control: 'select',
-			options: [ 'dot', 'number', 'icon' ],
 		},
 		size: {
 			control: 'select',
-			options: [ 'sm', 'md', 'lg' ],
 		},
 		type: {
 			control: 'select',
-			options: [ 'inline', 'stack' ],
 		},
 		currentStep: {
 			control: { type: 'number', min: 1, max: 5 },
 		},
-		lineProps: {
-			control: 'text',
+		children: {
+			control: false,
 		},
 	},
 } satisfies Meta<typeof ProgressSteps>;

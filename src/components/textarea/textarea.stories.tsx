@@ -11,51 +11,6 @@ const meta: Meta<TextAreaProps> = {
 	argTypes: {
 		size: {
 			control: 'select',
-			options: [ 'sm', 'md', 'lg' ],
-			table: {
-				type: { summary: 'string' },
-				defaultValue: { summary: 'sm' },
-			},
-		},
-		disabled: {
-			control: 'boolean',
-			table: {
-				type: { summary: 'boolean' },
-				defaultValue: { summary: 'false' },
-			},
-		},
-		error: {
-			control: 'boolean',
-			table: {
-				type: { summary: 'boolean' },
-				defaultValue: { summary: 'false' },
-			},
-		},
-		defaultValue: {
-			control: 'text',
-			table: {
-				type: { summary: 'string' },
-				defaultValue: { summary: '' },
-			},
-		},
-		value: {
-			control: 'text',
-			table: { type: { summary: 'string' } },
-		},
-		onChange: {
-			action: 'changed',
-			table: { type: { summary: 'function' } },
-		},
-		onError: {
-			action: 'changed',
-			table: { type: { summary: 'function' } },
-		},
-		className: {
-			control: 'text',
-			table: {
-				type: { summary: 'string' },
-				defaultValue: { summary: '' },
-			},
 		},
 	},
 };

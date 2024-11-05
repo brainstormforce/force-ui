@@ -1,5 +1,5 @@
 import { cn } from '@/utilities/functions';
-import { ElementType, ReactNode } from 'react';
+import { ReactNode } from 'react';
 
 /**
  * Title component.
@@ -22,7 +22,7 @@ export declare interface TitleProps {
 	iconPosition?: 'left' | 'right';
 
 	/** HTML tag to use for the title (e.g., h1, h2, h3). */
-	tag?: ElementType;
+	tag?: 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
 
 	/** Size variant of the title (affects both title and description styles) - xs, sm, md, lg. */
 	size?: 'xs' | 'sm' | 'md' | 'lg';

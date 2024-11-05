@@ -24,9 +24,8 @@ const meta: Meta<typeof Pagination> = {
 	},
 	tags: [ 'autodocs' ],
 	argTypes: {
-		size: { control: { type: 'select' }, options: [ 'sm', 'md' ] },
-		disabled: { control: 'boolean' },
-		className: { control: 'text' },
+		size: { control: { type: 'select' } },
+		children: { control: false },
 	},
 };
 

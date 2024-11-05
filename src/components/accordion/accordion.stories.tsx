@@ -1,3 +1,4 @@
+import { Meta, StoryFn } from '@storybook/react';
 import Accordion from './accordion';
 import { Settings } from 'lucide-react';
 import Badge from '../badge';
@@ -9,6 +10,11 @@ export default {
 		layout: 'centered',
 	},
 	tags: [ 'autodocs' ],
+	subcomponents: {
+		Item: Accordion.Item,
+		Trigger: Accordion.Trigger,
+		Content: Accordion.Content,
+	},
 	decorators: [
 		( Story ) => (
 			<div className="w-[450px]">
@@ -18,85 +24,22 @@ export default {
 	],
 	argTypes: {
 		type: {
-			description: 'Defines the visual style of the accordion.',
 			control: { type: 'select' },
-			options: [ 'simple', 'boxed', 'separator' ],
-			table: {
-				type: { summary: 'string' },
-				defaultValue: { summary: 'simple' },
-			},
 		},
 		iconType: {
-			description:
-				'Defines the type of icon to display on the trigger button.',
 			control: { type: 'select' },
-			options: [ 'arrow', 'plus-minus' ],
-			table: {
-				type: { summary: 'string' },
-				defaultValue: { summary: 'arrow' },
-			},
-		},
-		autoClose: {
-			description:
-				'Controls whether only one accordion item can be open at a time.',
-			control: 'boolean',
-			table: {
-				type: { summary: 'boolean' },
-				defaultValue: { summary: 'false' },
-			},
-		},
-		disabled: {
-			description: 'Disables all accordion items when set to true.',
-			control: 'boolean',
-			table: {
-				type: { summary: 'boolean' },
-				defaultValue: { summary: 'false' },
-			},
-		},
-		itemDisabled: {
-			name: 'disabled',
-			description:
-				'Disables the specific accordion item when set to `true`. (This will apply to "2nd" accordion item only for demo)',
-			control: 'boolean',
-			table: {
-				type: { summary: 'boolean' },
-				defaultValue: { summary: 'false' },
-			},
-		},
-		defaultValue: {
-			description:
-				'Sets the initial active accordion item. The value should match the value prop of an Accordion.Item.',
-			control: 'text',
-		},
-		className: {
-			description:
-				'Optional class to apply custom styles to the accordion wrapper.',
-			control: 'text',
-			table: {
-				type: { summary: 'string' },
-			},
-		},
-		accordionItemclassName: {
-			name: 'Accordion.Item: className',
-			description:
-				'Optional class to apply custom styles to the accordion item. (This will apply to "3rd" accordion item only for demo)',
-			control: 'text',
-			table: {
-				type: { summary: 'string' },
-			},
 		},
 	},
-};
+} as Meta;
 
-const Template = ( args ) => (
+const Template: StoryFn = ( args ) => (
 	<Accordion { ...args } className={ args.className }>
 		<Accordion.Item value="item1">
 			<Accordion.Trigger iconType={ args.iconType }>
 				Accordion Item
 			</Accordion.Trigger>
 			<Accordion.Content>
-				Yes, Force Ui is an open-source project and is copyright 2022
-				Htmlstream.
+				Yes, Force UI is an open-source project, copyright 2022.
 			</Accordion.Content>
 		</Accordion.Item>
 		<Accordion.Item value="item2" disabled={ args.itemDisabled }>
@@ -104,8 +47,7 @@ const Template = ( args ) => (
 				Accordion Item
 			</Accordion.Trigger>
 			<Accordion.Content>
-				Yes, Force Ui is an open-source project and is copyright 2022
-				Htmlstream.
+				Yes, Force UI is an open-source project, copyright 2022.
 			</Accordion.Content>
 		</Accordion.Item>
 		<Accordion.Item
@@ -117,8 +59,7 @@ const Template = ( args ) => (
 				Accordion Item
 			</Accordion.Trigger>
 			<Accordion.Content>
-				Yes, Force Ui is an open-source project and is copyright 2022
-				Htmlstream.
+				Yes, Force UI is an open-source project, copyright 2022.
 			</Accordion.Content>
 		</Accordion.Item>
 	</Accordion>
@@ -134,28 +75,26 @@ BasicAccordion.args = {
 	className: '',
 };
 
-const TemplateWithIcons = ( args ) => (
+const TemplateWithIcons: StoryFn = ( args ) => (
 	<Accordion { ...args } className={ args.className }>
 		<Accordion.Item value="item1">
 			<Accordion.Trigger iconType={ args.iconType }>
 				<Settings className="flex-shrink-0 size-5 text-icon-secondary" />
 				Accordion Item
-				<Badge label={ 'Badge' } size="xs" variant="neutral" />
+				<Badge label="Badge" size="xs" variant="neutral" />
 			</Accordion.Trigger>
 			<Accordion.Content>
-				Yes, Force Ui is an open-source project and is copyright 2022
-				Htmlstream.
+				Yes, Force UI is an open-source project, copyright 2022.
 			</Accordion.Content>
 		</Accordion.Item>
 		<Accordion.Item value="item2" disabled={ args.itemDisabled }>
 			<Accordion.Trigger iconType={ args.iconType }>
 				<Settings className="flex-shrink-0 size-5 text-icon-secondary" />
 				Accordion Item
-				<Badge label={ 'Badge' } size="xs" variant="neutral" />
+				<Badge label="Badge" size="xs" variant="neutral" />
 			</Accordion.Trigger>
 			<Accordion.Content>
-				Yes, Force Ui is an open-source project and is copyright 2022
-				Htmlstream.
+				Yes, Force UI is an open-source project, copyright 2022.
 			</Accordion.Content>
 		</Accordion.Item>
 		<Accordion.Item
@@ -166,11 +105,10 @@ const TemplateWithIcons = ( args ) => (
 			<Accordion.Trigger iconType={ args.iconType }>
 				<Settings className="flex-shrink-0 size-5 text-icon-secondary" />
 				Accordion Item
-				<Badge label={ 'Badge' } size="xs" variant="neutral" />
+				<Badge label="Badge" size="xs" variant="neutral" />
 			</Accordion.Trigger>
 			<Accordion.Content>
-				Yes, Force Ui is an open-source project and is copyright 2022
-				Htmlstream.
+				Yes, Force UI is an open-source project, copyright 2022.
 			</Accordion.Content>
 		</Accordion.Item>
 	</Accordion>

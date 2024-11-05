@@ -26,24 +26,6 @@ const meta: Meta<typeof Sidebar> = {
 		children: {
 			control: false,
 		},
-		className: {
-			control: { type: 'text' },
-		},
-		borderOn: {
-			control: { type: 'boolean' },
-			defaultValue: true,
-		},
-		collapsible: {
-			control: { type: 'boolean' },
-			defaultValue: true,
-		},
-		screenHeight: {
-			control: { type: 'boolean' },
-			defaultValue: true,
-		},
-		onCollapseChange: {
-			action: 'onCollapseChange',
-		},
 	},
 	subcomponents: {
 		'Sidebar.Header': Sidebar.Header,

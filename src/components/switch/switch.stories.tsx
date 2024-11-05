@@ -11,49 +11,7 @@ const meta: Meta = {
 	tags: [ 'autodocs' ],
 	argTypes: {
 		size: {
-			control: 'radio',
-			options: [ 'sm', 'md', 'lg' ],
-			table: {
-				type: { summary: 'string' },
-				defaultValue: { summary: 'lg' },
-			},
-		},
-		disabled: {
-			control: 'boolean',
-			table: {
-				type: { summary: 'boolean' },
-				defaultValue: { summary: 'false' },
-			},
-		},
-		label: {
-			table: {
-				type: { summary: 'object | ReactNode' },
-			},
-		},
-		name: {
-			control: 'text',
-			table: {
-				type: { summary: 'string' },
-			},
-		},
-		onChange: {
-			table: {
-				type: { summary: 'function' },
-			},
-		},
-		defaultValue: {
-			control: 'boolean',
-			table: {
-				type: { summary: 'boolean' },
-				defaultValue: { summary: 'false' },
-			},
-		},
-		className: {
-			control: 'text',
-			table: {
-				type: { summary: 'string' },
-				defaultValue: { summary: '' },
-			},
+			control: 'select',
 		},
 	},
 };

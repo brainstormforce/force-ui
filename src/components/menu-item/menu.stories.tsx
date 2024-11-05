@@ -29,7 +29,9 @@ const meta: Meta<typeof Menu> = {
 	argTypes: {
 		size: {
 			control: { type: 'select' },
-			options: [ 'sm', 'md' ],
+		},
+		children: {
+			control: false,
 		},
 	},
 };

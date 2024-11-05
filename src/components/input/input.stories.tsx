@@ -11,35 +11,9 @@ export default {
 	argTypes: {
 		type: {
 			control: 'select',
-			options: [ 'text', 'password', 'email', 'file' ],
 		},
 		size: {
 			control: 'select',
-			options: [ 'xs', 'sm', 'md', 'lg' ],
-		},
-		disabled: {
-			control: 'boolean',
-		},
-		error: {
-			control: 'boolean',
-		},
-		defaultValue: {
-			control: 'text',
-		},
-		prefix: {
-			control: 'text',
-		},
-		suffix: {
-			control: 'text',
-		},
-		className: {
-			control: 'text',
-		},
-		onChange: {
-			control: 'function',
-		},
-		onError: {
-			control: 'function',
 		},
 	},
 };

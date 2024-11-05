@@ -14,10 +14,8 @@ const meta: Meta<typeof RadioButton.Group> = {
 	parameters: { layout: 'centered' },
 	tags: [ 'autodocs' ],
 	argTypes: {
-		style: { control: 'radio', options: [ 'simple', 'tile' ] },
-		size: { control: 'radio', options: [ 'sm', 'md' ] },
-		disabled: { control: 'boolean' },
-		multiSelection: { control: 'boolean' },
+		style: { control: 'select' },
+		size: { control: 'select' },
 	},
 };
 export default meta;
