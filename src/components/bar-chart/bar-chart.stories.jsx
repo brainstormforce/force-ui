@@ -247,14 +247,20 @@ export default {
         },
         xAxisFontColor: {
             description: 'Font color for the labels on the x-axis.',
+            control: { type: 'text' },
+            table: {
+                type: { summary: 'string' },
+            },
+        },
+        yAxisFontColor: {
+            description: 'Font color for the labels on the y-axis.',
+            control: { type: 'text' },
             table: {
                 type: { summary: 'string' },
             },
         },
         layout: {
-            description: 'The layout of bars in the chart.',
-            control: { type: 'select' },
-            options: ['horizontal', 'vertical'],
+            description: 'The layout of bars in the chart. It can be horizontal or vertical',
             table: {
                 type: { summary: 'string' },
             },
@@ -265,20 +271,23 @@ export default {
                 type: { summary: 'boolean' },
             },
         },
-        width: {
+        chartWidth: {
             description: 'Width of the chart container in pixels.',
+            control: { type: 'number' },
             table: {
                 type: { summary: 'number' },
             },
         },
-        height: {
+        chartHeight: {
             description: 'Height of the chart container in pixels.',
+            control: { type: 'number' },
             table: {
                 type: { summary: 'number' },
             },
         },
         borderRadius: {
             description: 'Border radius of bars.',
+            control: { type: 'number' },
             table: {
                 type: { summary: 'number' },
             },
@@ -299,7 +308,6 @@ BarChartSimple.args = {
     showCartesianGrid: true,
     tickFormatter: monthFormatter,
     xAxisDataKey: 'month',
-    xAxisFontSize: 12,
 }
 
 export const BarChartHorizontal = Template.bind({});
@@ -313,7 +321,7 @@ BarChartHorizontal.args = {
     showCartesianGrid: false,
     tickFormatter: monthFormatter,
     yAxisDataKey: 'month',
-    xAxisFontSize: 12,
+    xAxisFontSize: 'sm',
     height: 300,
     borderRadius: 5
 }
@@ -332,7 +340,7 @@ BarChartMultiple.args = {
     showCartesianGrid: true,
     tickFormatter: monthFormatter,
     xAxisDataKey: 'month',
-    xAxisFontSize: 12,
+    xAxisFontSize: 'sm',
     width: 500,
     height: 300,
     borderRadius: 4
@@ -352,7 +360,7 @@ BarChartStucked.args = {
     showCartesianGrid: true,
     tickFormatter: monthFormatter,
     xAxisDataKey: 'month',
-    xAxisFontSize: 12,
+    xAxisFontSize: 'sm',
     width: 500,
     height: 300,
 }
@@ -369,13 +377,13 @@ BarChartInteractive.args = {
     showXAxis: true,
     showYAxis: false,
     showTooltip: true,
-    showLegend: true,
+    showLegend: false,
     showCartesianGrid: true,
     tickFormatter: monthFormatterInteractive,
     xAxisDataKey: 'date',
-    xAxisFontSize: 12,
-    width: 1000,
-    height: 250,
+    xAxisFontSize: 'sm',
+    chartWidth: 900,
+    chartHeight: 250,
     borderRadius: 0
 }
 
@@ -624,7 +632,7 @@ export const BarChartCard4 = () => (
                 showCartesianGrid={false}
                 tickFormatter={monthFormatter}
                 yAxisDataKey="month"
-                xAxisFontSize={12}
+                xAxisFontSize='sm'
                 borderRadius={5}
             />
         </Container.Item>
@@ -686,8 +694,8 @@ export const AreaChartCard5 = () => (
                 xAxisDataKey="date"
                 showYAxis={false}
                 showLegend={false}
-                width={1000}
-                height={250}
+                chartWidth={900}
+                chartHeight={250}
                 borderRadius={0}
             />
         </Container.Item>

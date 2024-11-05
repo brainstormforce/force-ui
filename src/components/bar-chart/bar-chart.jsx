@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import {
     BarChart as BarChartWrapper, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer
 } from 'recharts';
@@ -22,10 +23,19 @@ const BarChart = ({
     yAxisDataKey,
     xAxisFontSize = 'sm', // sm, md, lg
     xAxisFontColor = "#4B5563",
-    width = 350,
-    height = 200,
+    yAxisFontColor = "#4B5563",
+    chartWidth = 350,
+    chartHeight = 200,
     borderRadius = 8,
 }) => {
+
+    const [width, setWidth] = useState(chartWidth);
+    const [height, setHeight] = useState(chartHeight);
+
+    useEffect(() => {
+        setWidth(chartWidth);
+        setHeight(chartHeight);
+    }, [chartWidth, chartHeight]);
 
     const fontSizeMap = {
         sm: '12px',
@@ -36,9 +46,7 @@ const BarChart = ({
     const fontSizeVariant = fontSizeMap[xAxisFontSize] || fontSizeMap.sm;
 
     return (
-        <ResponsiveContainer width="100%"
-            height="100%"
-            initialDimension={{ width: width, height: height }}>
+        <ResponsiveContainer width={width} height={height}>
             <BarChartWrapper data={data} margin={{ left: 14, right: 14 }} layout={layout}>
                 {showCartesianGrid && <CartesianGrid vertical={false} />}
 
@@ -53,7 +61,15 @@ const BarChart = ({
                     />
                 )}
 
-                {layout === "horizontal" && showYAxis && <YAxis dataKey={yAxisDataKey} />}
+                {layout === "horizontal" && showYAxis && (
+                    <YAxis 
+                        dataKey={yAxisDataKey} 
+                        tickLine={false}
+                        tickMargin={10}
+                        axisLine={false}
+                        tick={{ fontSize: fontSizeVariant, fill: yAxisFontColor }}
+                    />
+                )}
 
                 {layout === "vertical" && (
                     <>
@@ -65,7 +81,7 @@ const BarChart = ({
                             tickMargin={10}
                             axisLine={false}
                             tickFormatter={tickFormatter}
-                            tick={{ fontSize: xAxisFontSize, fill: '#4B5563' }}
+                            tick={{ fontSize: fontSizeVariant, fill: yAxisFontColor }}
                         />
                     </>
                 )}

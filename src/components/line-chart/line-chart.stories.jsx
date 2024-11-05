@@ -1,6 +1,5 @@
 import LineChart from './line-chart';
 
-
 const chartData = [
     { month: "January", desktop: 186 },
     { month: "February", desktop: 305 },
@@ -112,14 +111,16 @@ export default {
                 type: { summary: 'string' },
             },
         },
-        width: {
+        chartWidth: {
             description: 'Width of the chart container in pixels.',
+            control: { type: 'number' },
             table: {
                 type: { summary: 'number' },
             },
         },
-        height: {
+        chartHeight: {
             description: 'Height of the chart container in pixels.',
+            control: { type: 'number' },
             table: {
                 type: { summary: 'number' },
             },
@@ -144,6 +145,14 @@ export default {
         },
         xAxisFontColor: {
             description: 'Font color for the labels on the x-axis.',
+            control: { type: 'text' },
+            table: {
+                type: { summary: 'string' },
+            },
+        },
+        yAxisFontColor: {
+            description: 'Font color for the labels on the y-axis.',
+            control: { type: 'text' },
             table: {
                 type: { summary: 'string' },
             },
@@ -168,8 +177,8 @@ LineChartSimple.args = {
     tickFormatter: monthFormatter,
     xAxisDataKey: 'month',
     xAxisFontSize: 12,
-    width: 500,
-    height: 300,
+    // chartWidth: 400,
+    // chartHeight: 300,
     withDots: false
 };
 
@@ -185,8 +194,8 @@ LineChartWithDots.args = {
     tickFormatter: monthFormatter,
     xAxisDataKey: 'month',
     xAxisFontSize: 12,
-    width: 500,
-    height: 300,
+    // chartWidth: 400,
+    // chartHeight: 300,
     withDots: true,
     xAxisFontColor: '#ff0000',
 };
@@ -205,7 +214,7 @@ LineChartMultiple.args = {
     tickFormatter: monthFormatter,
     xAxisDataKey: 'month',
     xAxisFontSize: 12,
-    width: 500,
-    height: 300,
+    // chartWidth: 400,
+    // chartHeight: 300,
     withDots: false
 };

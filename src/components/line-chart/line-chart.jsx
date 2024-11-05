@@ -18,8 +18,9 @@ const LineChart = ({
     yAxisDataKey,
     xAxisFontSize = 'sm', // sm, md, lg
     xAxisFontColor = "#4B5563",
-    width = 350,
-    height = 200,
+    yAxisFontColor = "#4B5563",
+    chartWidth = 350,
+    chartHeight = 200,
     withDots = false,
 }) => {
 
@@ -33,8 +34,8 @@ const LineChart = ({
 
     return (
         <LineChartWrapper
-            width={width}
-            height={height}
+            width={chartWidth}
+            height={chartHeight}
             data={data}
             margin={{ left: 14, right: 14 }}
         >
@@ -49,7 +50,15 @@ const LineChart = ({
                     tick={{ fontSize: fontSizeVariant, fill: xAxisFontColor }}
                 />
             )}
-            {showYAxis && <YAxis dataKey={yAxisDataKey} />}
+            {showYAxis && (
+                <YAxis 
+                    dataKey={yAxisDataKey}
+                    tickLine={false}
+                    axisLine={false}
+                    tickMargin={8}
+                    tick={{ fontSize: fontSizeVariant, fill: yAxisFontColor }}
+                />
+            )}
 
             {showTooltip && <Tooltip content={<ChartTooltipContent indicator={tooltipIndicator} labelKey={tooltipLabelKey} />} />}
 
