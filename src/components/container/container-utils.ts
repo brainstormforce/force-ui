@@ -42,6 +42,9 @@ export const getClassNames = (
 			);
 			break;
 		default:
+			if ( valueKeys === undefined ) {
+				break;
+			}
 			classNamesArray.push(
 				classNames?.[ defaultScreenSize ]?.[
 					defaultValueKeys as StringOrNumber

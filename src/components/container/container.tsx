@@ -35,15 +35,15 @@ const ContainerContext = createContext<
 const useContainerState = () => useContext( ContainerContext );
 
 export const Container = ( {
-	containerType = 'flex',
+	containerType = 'flex', // flex, (grid - functionality not implemented)
 	gap = 'sm', // xs, sm, md, lg, xl, 2xl
 	gapX,
 	gapY,
-	direction = 'row', // row, row-reverse, column, column-reverse
-	justify = 'start', // justify-content (normal, start, end, center, between, around, evenly, stretch)
-	align = 'start', // align-items (start, end, center, baseline, stretch)
+	direction, // row, row-reverse, column, column reverse
+	justify, // justify-content (normal, start, end, center, between, around, evenly, stretch)
+	align, // align-items (start, end, center, baseline, stretch)
 	wrap, // nowrap, wrap, wrap-reverse
-	cols = 1,
+	cols,
 	className,
 	children,
 	...extraProps
@@ -80,11 +80,11 @@ export const Container = ( {
 		''
 	);
 	const justifyContentClassName = getClassNames(
-		justify,
+		justify!,
 		justifyClassNames,
 		''
 	);
-	const alignItemsClassName = getClassNames( align, alignClassNames, '' );
+	const alignItemsClassName = getClassNames( align!, alignClassNames, '' );
 
 	const combinedClasses = cn(
 		'flex',
