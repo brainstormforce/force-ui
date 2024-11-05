@@ -108,7 +108,7 @@ const Template2 = () => {
 										<Container.Item
 											className="&>svg]:size-5"
 											grow={ 1 }
-											order={ 0 }
+											order="none"
 											shrink={ 1 }
 										>
 											{ card.svg }

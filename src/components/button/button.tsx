@@ -1,4 +1,4 @@
-import React, { forwardRef, ElementType, type ReactNode } from 'react';
+import React, { forwardRef, type ElementType, type ReactNode } from 'react';
 import { cn } from '@/utilities/functions';
 
 export interface ButtonProps {

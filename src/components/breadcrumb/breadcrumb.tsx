@@ -1,4 +1,9 @@
-import { createContext, useContext, type ReactNode, ElementType } from 'react';
+import {
+	createContext,
+	useContext,
+	type ReactNode,
+	type ElementType,
+} from 'react';
 import { cn } from '@/utilities/functions';
 import { ChevronRight, Ellipsis } from 'lucide-react';
 

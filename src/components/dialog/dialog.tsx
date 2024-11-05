@@ -1,6 +1,7 @@
 import {
 	cloneElement,
 	createContext,
+	type ElementType,
 	Fragment,
 	isValidElement,
 	useCallback,
@@ -302,7 +303,7 @@ export interface DialogTitleProp extends CommonProps {
 	/** Children of the dialog title. */
 	children: ReactNode;
 	/** Additional class name for the dialog title. */
-	as?: React.ElementType;
+	as?: ElementType;
 }
 
 // Dialog title.
@@ -330,7 +331,7 @@ export interface DialogDescriptionProp extends CommonProps {
 	/** Children of the dialog description. */
 	children: ReactNode;
 	/** Additional class name for the dialog description. */
-	as?: React.ElementType;
+	as?: ElementType;
 }
 
 // Dialog description.
@@ -358,7 +359,7 @@ export interface DialogCloseButtonProps extends CommonProps {
 	/** Children of the dialog close button. */
 	children?: ReactNode;
 	/** Additional class name for the dialog close button. */
-	as?: React.ElementType;
+	as?: ElementType;
 	/** Additional class name for the dialog close button. */
 	className?: string;
 	/** Additional props based on the as value. */

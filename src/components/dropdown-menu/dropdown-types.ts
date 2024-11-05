@@ -7,7 +7,7 @@ import {
 	type MenuListProps,
 	type MenuSeparatorProps,
 } from '../menu-item/menu-item';
-import { type ReactNode } from 'react';
+import { type ElementType, type ReactNode } from 'react';
 
 export type HandleClose = () => void;
 
@@ -52,7 +52,7 @@ export interface DropdownMenuProps extends DropdownCommonProps {
 
 export interface DropdownMenuItemProps {
 	children: ReactNode;
-	as?: React.ElementType;
+	as?: ElementType;
 	onClick?: () => void;
 }
 

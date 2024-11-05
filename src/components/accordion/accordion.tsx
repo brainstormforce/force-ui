@@ -1,4 +1,4 @@
-import React, { useState, type ReactNode, ElementType } from 'react';
+import React, { useState, type ReactNode, type ElementType } from 'react';
 import { Plus, Minus, ChevronDown } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '@/utilities/functions';

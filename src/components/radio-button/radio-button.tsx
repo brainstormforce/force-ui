@@ -8,7 +8,7 @@ import React, {
 	useContext,
 	Fragment,
 	type ReactNode,
-	ElementType,
+	type ElementType,
 } from 'react';
 import { nanoid } from 'nanoid';
 import { Check, Info } from 'lucide-react';

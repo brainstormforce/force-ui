@@ -1,4 +1,10 @@
-import { createContext, useContext, forwardRef, type ReactNode } from 'react';
+import {
+	createContext,
+	useContext,
+	forwardRef,
+	type ReactNode,
+	type ElementType,
+} from 'react';
 import { cn, callAll } from '@/utilities/functions';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { disabledClassNames, sizeClassNames } from './component-style';
@@ -31,7 +37,7 @@ export interface PaginationItemProps extends PaginationCommonProps {
 
 export interface PaginationButtonProps extends PaginationCommonProps {
 	/** The element type of the pagination button. */
-	as?: React.ElementType;
+	as?: ElementType;
 	/** Marks the button as active. */
 	isActive?: boolean;
 	/** Disables the button. */
@@ -67,7 +73,7 @@ Pagination.displayName = 'Pagination';
 
 export const PaginationContent = forwardRef<
 	HTMLUListElement,
-	PaginationItemProps
+	PaginationCommonProps
 >( ( { className, ...props }, ref ) => {
 	return (
 		<ul
@@ -183,7 +189,7 @@ export const PaginationNext = ( props: PaginationButtonProps ) => {
 
 PaginationNext.displayName = 'Pagination.Next';
 
-export const PaginationEllipsis = ( props: PaginationItemProps ) => {
+export const PaginationEllipsis = ( props: PaginationCommonProps ) => {
 	const { size, disabled } = usePageContext();
 	return (
 		<li className={ cn( 'flex', disabled && disabledClassNames.general ) }>
