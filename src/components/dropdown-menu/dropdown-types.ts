@@ -36,9 +36,14 @@ export interface DropdownMenuProps extends DropdownCommonProps {
 }
 
 export interface DropdownMenuItemProps {
+	/** Children of the component. */
 	children: React.ReactNode;
+	/** Use your own custom menu item component or HTML tag. */
 	as?: React.ElementType;
+	/** On click event. */
 	onClick?: () => void;
+	/** Additional class name. */
+	className?: string;
 }
 
 export type DropdownMenuSeparatorProps = React.ComponentProps<
