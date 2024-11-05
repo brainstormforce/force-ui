@@ -124,8 +124,6 @@ SimpleAccordion.args = {
 	className: '',
 };
 
-SimpleAccordion.storyName = 'Simple Accordion with Arrow Icon';
-
 export const BoxedAccordion = TemplateWithIcons.bind( {} );
 BoxedAccordion.args = {
 	autoClose: true,
@@ -136,8 +134,6 @@ BoxedAccordion.args = {
 	className: '',
 };
 
-BoxedAccordion.storyName = 'Boxed Accordion with Plus Icon';
-
 export const SeparatorAccordion = TemplateWithIcons.bind( {} );
 SeparatorAccordion.args = {
 	autoClose: true,
@@ -147,5 +143,3 @@ SeparatorAccordion.args = {
 	disabled: false,
 	className: '',
 };
-
-SeparatorAccordion.storyName = 'Separator Accordion with Arrow Icon';

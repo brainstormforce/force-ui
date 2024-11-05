@@ -4,6 +4,7 @@ import {
 	useCallback,
 	forwardRef,
 	isValidElement,
+	type ReactNode,
 } from 'react';
 import { nanoid } from 'nanoid';
 import { cn } from '@/utilities/functions';
@@ -53,7 +54,7 @@ export const SwitchLabel = ( {
 	label: SwitchProps['label'];
 	switchId: string;
 	disabled?: boolean;
-	children: React.ReactNode;
+	children: ReactNode;
 	size: 'sm' | 'md' | 'lg';
 } ) => {
 	const headingClasses = {

@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React, { type ReactNode } from 'react';
 import { cn } from '@/utilities/functions';
 import { Plus, Check } from 'lucide-react';
 import {

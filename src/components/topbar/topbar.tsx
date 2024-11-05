@@ -1,9 +1,9 @@
-import React from 'react';
+import { type ReactNode } from 'react';
 import { cn, getGapClass } from '@/utilities/functions';
 
 export interface TopbarCommonProps {
 	/** Children to be rendered inside the Topbar. */
-	children?: React.ReactNode;
+	children?: ReactNode;
 	/** Additional classes to be added to the Topbar. */
 	className?: string;
 }

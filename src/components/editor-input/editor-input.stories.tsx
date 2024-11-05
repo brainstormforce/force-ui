@@ -15,6 +15,11 @@ const meta: Meta<typeof EditorInput> = {
 			</div>
 		),
 	],
+	argTypes: {
+		size: {
+			control: { type: 'select' },
+		},
+	},
 } satisfies Meta<typeof EditorInput>;
 
 export default meta;

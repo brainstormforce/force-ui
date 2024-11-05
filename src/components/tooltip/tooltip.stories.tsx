@@ -15,7 +15,9 @@ const meta: Meta<typeof Tooltip> = {
 	argTypes: {
 		variant: { control: 'select' },
 		placement: { control: 'select' },
+		strategy: { control: 'select' },
 		children: { control: false },
+		content: { control: false },
 	},
 };
 

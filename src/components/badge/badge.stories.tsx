@@ -20,6 +20,9 @@ const meta: Meta = {
 		type: {
 			control: 'select',
 		},
+		icon: {
+			control: false,
+		},
 	},
 } satisfies Meta<typeof Badge>;
 

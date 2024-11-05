@@ -1,6 +1,6 @@
 import React, {
 	useState,
-	ReactNode,
+	type ReactNode,
 	useEffect,
 	forwardRef,
 	createContext,

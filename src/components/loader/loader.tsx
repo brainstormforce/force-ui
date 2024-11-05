@@ -1,6 +1,6 @@
 import { cn } from '@/utilities/functions';
 import { LoaderCircle } from 'lucide-react';
-import { ReactNode } from 'react';
+import { type ReactNode } from 'react';
 
 export interface LoaderProps {
 	/** Defines the variant of the loader. Options are 'primary' or 'secondary'. */

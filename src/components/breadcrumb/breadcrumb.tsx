@@ -1,10 +1,10 @@
-import React, { createContext, useContext } from 'react';
+import { createContext, useContext, type ReactNode, ElementType } from 'react';
 import { cn } from '@/utilities/functions';
 import { ChevronRight, Ellipsis } from 'lucide-react';
 
 export interface BreadcrumbCommonProps {
 	/** Defines the children of the breadcrumb. */
-	children: React.ReactNode;
+	children: ReactNode;
 }
 
 export interface BreadcrumbProps extends BreadcrumbCommonProps {
@@ -18,7 +18,7 @@ export interface BreadcrumbLinkProps extends BreadcrumbCommonProps {
 	/** Defines the class name of the link. */
 	className?: string;
 	/** Defines the element type of the link. */
-	as?: React.ElementType;
+	as?: ElementType;
 }
 
 export declare interface BreadcrumbSeparatorProps {

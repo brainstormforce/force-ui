@@ -3,7 +3,7 @@ import React, {
 	forwardRef,
 	isValidElement,
 	createContext,
-	ReactNode,
+	type ReactNode,
 	ReactElement,
 } from 'react';
 import { cn } from '@/utilities/functions';

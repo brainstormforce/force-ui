@@ -1,4 +1,4 @@
-import { createContext, useContext, forwardRef, ReactNode } from 'react';
+import { createContext, useContext, forwardRef, type ReactNode } from 'react';
 import { cn, callAll } from '@/utilities/functions';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { disabledClassNames, sizeClassNames } from './component-style';
@@ -12,24 +12,24 @@ const usePageContext = () => useContext( PageContext );
 
 export declare interface PaginationCommonProps {
 	/** Defines the children of the pagination component. */
-	children: ReactNode;
+	children?: ReactNode;
 	/** Additional CSS classes. */
 	className?: string;
 }
 
-export declare interface PaginationProps extends PaginationCommonProps {
+export interface PaginationProps extends PaginationCommonProps {
 	/** Defines the size of pagination items. */
 	size?: 'sm' | 'md';
 	/** Disables all pagination controls. */
 	disabled?: boolean;
 }
 
-export declare interface PaginationItemProps extends PaginationCommonProps {
+export interface PaginationItemProps extends PaginationCommonProps {
 	/** Marks the pagination item as active. */
 	isActive?: boolean;
 }
 
-export declare interface PaginationButtonProps extends PaginationCommonProps {
+export interface PaginationButtonProps extends PaginationCommonProps {
 	/** The element type of the pagination button. */
 	as?: React.ElementType;
 	/** Marks the button as active. */

@@ -1,4 +1,4 @@
-import { cloneElement, Fragment, isValidElement } from 'react';
+import { cloneElement, Fragment, isValidElement, type ReactNode } from 'react';
 import { useDrawerState } from './drawer';
 import { cn } from '@/utilities/functions';
 import { X } from 'lucide-react';
@@ -17,9 +17,7 @@ export interface DrawerDefaultCloseButtonProps extends CommonProps {
 
 export interface DrawerCloseButtonProps extends CommonProps {
 	/** Button content. */
-	children?:
-		| React.ReactNode
-		| ( ( { close }: { close: () => void } ) => React.ReactNode );
+	children?: ReactNode | ( ( { close }: { close: () => void } ) => ReactNode );
 	/** Button tag. */
 	as?: React.ElementType;
 }

@@ -7,7 +7,7 @@ import React, {
 	createContext,
 	useContext,
 	Fragment,
-	ReactNode,
+	type ReactNode,
 	ElementType,
 } from 'react';
 import { nanoid } from 'nanoid';

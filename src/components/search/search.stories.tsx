@@ -29,7 +29,7 @@ export default meta;
 
 const Template: StoryFn<BaseSearchBoxProps> = ( args ) => (
 	<SearchBox { ...args }>
-		<SearchBox.Input size={ args.size } placeholder="Search..." />
+		<SearchBox.Input placeholder="Search..." />
 		{ args.loading && <SearchBox.Loading /> }
 		<SearchBox.Content>
 			<SearchBox.List>

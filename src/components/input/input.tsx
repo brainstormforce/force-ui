@@ -1,4 +1,11 @@
-import { useState, useCallback, useMemo, forwardRef, useRef } from 'react';
+import {
+	useState,
+	useCallback,
+	useMemo,
+	forwardRef,
+	useRef,
+	type ReactNode,
+} from 'react';
 import { nanoid } from 'nanoid';
 import { cn } from '@/utilities/functions';
 import { Upload, X } from 'lucide-react';
@@ -35,10 +42,10 @@ export declare interface InputProps {
 	onError?: () => void;
 
 	/** React node displayed as a prefix inside the input. */
-	prefix?: React.ReactNode;
+	prefix?: ReactNode;
 
 	/** React node displayed as a suffix inside the input. */
-	suffix?: React.ReactNode;
+	suffix?: ReactNode;
 
 	/** Label displayed above the input field. */
 	label?: string;

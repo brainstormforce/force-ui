@@ -1,5 +1,5 @@
 import { cn } from '@/utilities/functions';
-import { ReactNode } from 'react';
+import { type ReactNode } from 'react';
 
 /**
  * Title component.

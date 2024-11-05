@@ -1,6 +1,6 @@
 import {
 	useRef,
-	ReactNode,
+	type ReactNode,
 	useState,
 	isValidElement,
 	cloneElement,

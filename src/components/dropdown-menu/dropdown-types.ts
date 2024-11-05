@@ -1,5 +1,4 @@
 import type {
-	Placement,
 	Boundary,
 	OffsetOptions,
 	FloatingPortalProps,
@@ -8,12 +7,13 @@ import {
 	type MenuListProps,
 	type MenuSeparatorProps,
 } from '../menu-item/menu-item';
+import { type ReactNode } from 'react';
 
 export type HandleClose = () => void;
 
 export interface DropdownCommonProps {
 	/** Children of the component */
-	children: React.ReactNode;
+	children: ReactNode;
 	/** Additional class name */
 	className?: string;
 }
@@ -25,7 +25,19 @@ export interface AdditionalProps {
 
 export interface DropdownMenuProps extends DropdownCommonProps {
 	/** Defines the position of the dropdown menu. */
-	placement?: Placement;
+	placement?:
+		| 'top'
+		| 'right'
+		| 'bottom'
+		| 'left'
+		| 'top-start'
+		| 'top-end'
+		| 'right-start'
+		| 'right-end'
+		| 'bottom-start'
+		| 'bottom-end'
+		| 'left-start'
+		| 'left-end';
 	/** Defines the offset of the dropdown menu. */
 	offset?: OffsetOptions;
 	/** Defines the boundary of the dropdown menu. */
@@ -39,7 +51,7 @@ export interface DropdownMenuProps extends DropdownCommonProps {
 }
 
 export interface DropdownMenuItemProps {
-	children: React.ReactNode;
+	children: ReactNode;
 	as?: React.ElementType;
 	onClick?: () => void;
 }

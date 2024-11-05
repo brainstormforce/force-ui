@@ -1,10 +1,10 @@
-import { useState, Fragment } from 'react';
+import { useState, Fragment, type ReactNode } from 'react';
 import type { Meta, StoryFn } from '@storybook/react';
 import Drawer from './drawer';
 import Button from '../button';
 
 interface AdditionalArgTypes {
-	title?: string | React.ReactNode;
+	title?: string | ReactNode;
 	titleTag?: React.ElementType;
 }
 
