@@ -63,7 +63,6 @@ const meta: Meta<typeof Container> = {
 		gapY: {
 			control: 'select',
 		},
-
 	},
 };
 
@@ -82,28 +81,28 @@ export const BasicContainer: Story = {
 	},
 	render: ( args ) => {
 		return (
-			<Container {...args}>
+			<Container { ...args }>
 				<Container.Item
 					className="bg-red-500 p-4"
-					{...(args.containerType === 'flex'
+					{ ...( args.containerType === 'flex'
 						? { grow: 0, shrink: 1 }
-						: {})}
+						: {} ) }
 				>
 					Item 1
 				</Container.Item>
 				<Container.Item
 					className="bg-green-500 p-4"
-					{...(args.containerType === 'flex'
+					{ ...( args.containerType === 'flex'
 						? { grow: 0, shrink: 1 }
-						: {})}
+						: {} ) }
 				>
 					Item 2
 				</Container.Item>
 				<Container.Item
 					className="bg-blue-500 p-4"
-					{...(args.containerType === 'flex'
+					{ ...( args.containerType === 'flex'
 						? { grow: 0, shrink: 1 }
-						: {})}
+						: {} ) }
 				>
 					Item 3
 				</Container.Item>

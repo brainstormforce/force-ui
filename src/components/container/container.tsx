@@ -26,13 +26,15 @@ import {
 	type GridItemProps,
 } from './container-types';
 
-const ContainerContext = createContext<Partial<{
-	containerType: TContainerType;
-	cols: TCols;
-}>>( {} );
+const ContainerContext = createContext<
+	Partial<{
+		containerType: TContainerType;
+		cols: TCols;
+	}>
+>( {} );
 const useContainerState = () => useContext( ContainerContext );
 
-export const Container = ({
+export const Container = ( {
 	containerType = 'flex',
 	gap = 'sm', // xs, sm, md, lg, xl, 2xl
 	gapX,
@@ -45,33 +47,33 @@ export const Container = ({
 	className,
 	children,
 	...extraProps
-}: FlexContainerProps & GridContainerProps) => {
-	if (containerType === 'grid') {
+}: FlexContainerProps & GridContainerProps ) => {
+	if ( containerType === 'grid' ) {
 		return (
 			<ContainerContext.Provider
-				value={{
+				value={ {
 					containerType,
-				}}
+				} }
 			>
 				<GridContainer
-					className={className}
-					gap={gap}
-					gapX={gapX}
-					gapY={gapY}
-					cols={cols}
-					children={children}
-					align={align}
-					justify={justify}
-					{...extraProps}
+					className={ className }
+					gap={ gap }
+					gapX={ gapX }
+					gapY={ gapY }
+					cols={ cols }
+					children={ children }
+					align={ align }
+					justify={ justify }
+					{ ...extraProps }
 				/>
 			</ContainerContext.Provider>
 		);
 	}
 
-	const wrapClassName = getClassNames(wrap!, flexWrapClassNames, '');
-	const gapClassName = getClassNames(gap, gapClassNames, 'sm');
-	const gapXClassName = getClassNames(gapX!, gapXClassNames, '');
-	const gapYClassName = getClassNames(gapY!, gapYClassNames, '');
+	const wrapClassName = getClassNames( wrap!, flexWrapClassNames, '' );
+	const gapClassName = getClassNames( gap, gapClassNames, 'sm' );
+	const gapXClassName = getClassNames( gapX!, gapXClassNames, '' );
+	const gapYClassName = getClassNames( gapY!, gapYClassNames, '' );
 	const directionClassName = getClassNames(
 		direction!,
 		flexDirectionClassNames,
@@ -82,7 +84,7 @@ export const Container = ({
 		justifyClassNames,
 		''
 	);
-	const alignItemsClassName = getClassNames(align, alignClassNames, '');
+	const alignItemsClassName = getClassNames( align, alignClassNames, '' );
 
 	const combinedClasses = cn(
 		'flex',
@@ -97,37 +99,36 @@ export const Container = ({
 	);
 
 	const renderContainerBasedOnType = () => {
-		if ('flex' === containerType) {
-			return <div className={combinedClasses}>{children}</div>;
+		if ( 'flex' === containerType ) {
+			return <div className={ combinedClasses }>{ children }</div>;
 		}
 
 		return (
 			<GridContainer
-				className={className}
-				gap={gap}
-				gapX={gapX}
-				gapY={gapY}
-				cols={cols}
-				children={children}
-				align={align}
-				justify={justify}
-				{...extraProps}
+				className={ className }
+				gap={ gap }
+				gapX={ gapX }
+				gapY={ gapY }
+				cols={ cols }
+				children={ children }
+				align={ align }
+				justify={ justify }
+				{ ...extraProps }
 			/>
 		);
 	};
 
 	return (
 		<ContainerContext.Provider
-			value={{
+			value={ {
 				containerType,
 				cols,
-			}}
+			} }
 		>
-			{renderContainerBasedOnType()}
+			{ renderContainerBasedOnType() }
 		</ContainerContext.Provider>
 	);
 };
-
 
 export const Item = ( {
 	grow,
@@ -141,14 +142,16 @@ export const Item = ( {
 }: FlexItemProps & GridItemProps ) => {
 	const { containerType, cols } = useContainerState();
 
-	if (containerType === 'grid') {
-		return <GridContainer.Item 
-			className={className}
-			alignSelf={alignSelf}
-			justifySelf={justifySelf}
-			children={children}
-			{...props}
-		/>;
+	if ( containerType === 'grid' ) {
+		return (
+			<GridContainer.Item
+				className={ className }
+				alignSelf={ alignSelf }
+				justifySelf={ justifySelf }
+				children={ children }
+				{ ...props }
+			/>
+		);
 	}
 
 	const alignSelfClassName = getClassNames(
@@ -161,14 +164,14 @@ export const Item = ( {
 		justifySelfClassNames,
 		''
 	);
-	const growClassName = getClassNames(grow!, flexGrowClassNames, 0);
-	const shrinkClassName = getClassNames(shrink!, flexShrinkClassNames, 0);
-	const orderClassName = getClassNames(order!, flexOrderClassNames, 0);
-	const columnClassName = getClassNames(cols!, flexColumnClassNames, 1);
+	const growClassName = getClassNames( grow!, flexGrowClassNames, 0 );
+	const shrinkClassName = getClassNames( shrink!, flexShrinkClassNames, 0 );
+	const orderClassName = getClassNames( order!, flexOrderClassNames, 0 );
+	const columnClassName = getClassNames( cols!, flexColumnClassNames, 1 );
 
 	return (
 		<div
-			className={cn(
+			className={ cn(
 				'box-border',
 				growClassName,
 				shrinkClassName,
@@ -177,9 +180,9 @@ export const Item = ( {
 				justifySelfClassName,
 				columnClassName,
 				className
-			)}
+			) }
 		>
-			{children}
+			{ children }
 		</div>
 	);
 };

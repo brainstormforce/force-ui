@@ -15,7 +15,7 @@ import {
 import { getClassNames } from './container-utils';
 import { type GridContainerProps, type GridItemProps } from './container-types';
 
-const GridContainer = ({
+const GridContainer = ( {
 	className,
 	cols,
 	gap,
@@ -30,18 +30,18 @@ const GridContainer = ({
 	autoCols = false,
 	children,
 	...props
-}: GridContainerProps) => {
-	const columnClassName = getClassNames(cols!, gridColumnClassNames, 1);
-	const gapClassName = getClassNames(gap!, gapClassNames, 'sm');
-	const gapXClassName = getClassNames(gapX!, gapXClassNames, '');
-	const gapYClassName = getClassNames(gapY!, gapYClassNames, '');
-	const alignClassName = getClassNames(align!, alignClassNames, '');
-	const justifyClassName = getClassNames(justify!, justifyClassNames, '');
-	const gridFlowClassName = getClassNames(gridFlow!, gridFlowClassNames, '');
+}: GridContainerProps ) => {
+	const columnClassName = getClassNames( cols!, gridColumnClassNames, 1 );
+	const gapClassName = getClassNames( gap!, gapClassNames, 'sm' );
+	const gapXClassName = getClassNames( gapX!, gapXClassNames, '' );
+	const gapYClassName = getClassNames( gapY!, gapYClassNames, '' );
+	const alignClassName = getClassNames( align!, alignClassNames, '' );
+	const justifyClassName = getClassNames( justify!, justifyClassNames, '' );
+	const gridFlowClassName = getClassNames( gridFlow!, gridFlowClassNames, '' );
 
 	return (
 		<div
-			className={cn(
+			className={ cn(
 				'grid',
 				{
 					'grid-cols-subgrid': colsSubGrid,
@@ -57,15 +57,15 @@ const GridContainer = ({
 				justifyClassName,
 				gridFlowClassName,
 				className
-			)}
-			{...props}
+			) }
+			{ ...props }
 		>
-			{children}
+			{ children }
 		</div>
 	);
 };
 
-export const GridItem = ({
+export const GridItem = ( {
 	className,
 	children,
 	colSpan,
@@ -73,8 +73,8 @@ export const GridItem = ({
 	alignSelf,
 	justifySelf,
 	...props
-}: GridItemProps) => {
-	const colSpanClassName = getClassNames(colSpan!, gridColSpanClassNames, 0);
+}: GridItemProps ) => {
+	const colSpanClassName = getClassNames( colSpan!, gridColSpanClassNames, 0 );
 	const colStartClassName = getClassNames(
 		colStart!,
 		gridColStartClassNames,
@@ -93,16 +93,16 @@ export const GridItem = ({
 
 	return (
 		<div
-			className={cn(
+			className={ cn(
 				colSpanClassName,
 				colStartClassName,
 				alignSelfClassName,
 				justifySelfClassName,
 				className
-			)}
-			{...props}
+			) }
+			{ ...props }
 		>
-			{children}
+			{ children }
 		</div>
 	);
 };

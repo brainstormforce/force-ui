@@ -1,5 +1,8 @@
-import { type ObjectOfStringOrNumber, type StringOrNumber, type StringOrNumberOrObject } from "./container-types";
-
+import {
+	type ObjectOfStringOrNumber,
+	type StringOrNumber,
+	type StringOrNumberOrObject,
+} from './container-types';
 
 export const getClassNames = (
 	valueKeys: StringOrNumber | ObjectOfStringOrNumber,
@@ -16,7 +19,9 @@ export const getClassNames = (
 					classNamesArray.push(
 						classNames?.[ screenSize ]?.[ valueKey ] ??
 							classNames?.[ screenSize ]?.[
-								(defaultValueKeys as ObjectOfStringOrNumber)?.[ screenSize ]
+								( defaultValueKeys as ObjectOfStringOrNumber )?.[
+									screenSize
+								]
 							] ??
 							''
 					);
@@ -29,14 +34,18 @@ export const getClassNames = (
 			classNamesArray.push(
 				classNames?.[ screenSize ]?.[ valueKeys ] ??
 					classNames?.[ screenSize ]?.[
-						(defaultValueKeys as ObjectOfStringOrNumber)?.[ screenSize ]
+						( defaultValueKeys as ObjectOfStringOrNumber )?.[
+							screenSize
+						]
 					] ??
 					''
 			);
 			break;
 		default:
 			classNamesArray.push(
-				classNames?.[ defaultScreenSize ]?.[ defaultValueKeys as StringOrNumber ] ?? ''
+				classNames?.[ defaultScreenSize ]?.[
+					defaultValueKeys as StringOrNumber
+				] ?? ''
 			);
 			break;
 	}
