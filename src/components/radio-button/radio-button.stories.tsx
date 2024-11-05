@@ -16,6 +16,7 @@ const meta: Meta<typeof RadioButton.Group> = {
 	argTypes: {
 		style: { control: 'select' },
 		size: { control: 'select' },
+		children: { control: false },
 	},
 };
 export default meta;
@@ -29,8 +30,8 @@ const RadioTemplate: StoryFn<RadioButtonGroupProps> = ( args ) => {
 			columns={ args.columns ?? ( args.style === 'tile' ? 6 : 3 ) }
 			onChange={ ( val ) => {
 				setValue( val as string );
-				args.onChange?.( val as string );
 			} }
+			{ ...args }
 		>
 			{ [ 1, 2, 3, 4, 5, 6 ].map( ( num ) =>
 				args.style === 'tile' ? (
@@ -57,10 +58,6 @@ const RadioTemplate: StoryFn<RadioButtonGroupProps> = ( args ) => {
 								className="mr-2"
 							/>
 						}
-						info={ {
-							heading: 'Info',
-							description: 'This is a description of the option',
-						} }
 						disabled={ args.disabled }
 					/>
 				)
@@ -80,15 +77,12 @@ SimpleRadioMulti.args = {
 	multiSelection: true,
 };
 
-export const SimpleRadioSwitch = RadioTemplate.bind( {} );
-SimpleRadioSwitch.args = {
-	multiSelection: true,
+export const SimpleRadioTile = RadioTemplate.bind( {} );
+SimpleRadioTile.args = {
+	style: 'tile',
 };
 
-export const SimpleRadioInline = RadioTemplate.bind( {} );
-SimpleRadioInline.args = {
-	multiSelection: true,
+export const SimpleRadioVertical = RadioTemplate.bind( {} );
+SimpleRadioVertical.args = {
+	vertical: true,
 };
-
-export const SimpleRadioWithInfo = RadioTemplate.bind( {} );
-SimpleRadioWithInfo.args = {};

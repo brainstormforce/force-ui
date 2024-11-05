@@ -264,7 +264,7 @@ export const RadioButtonComponent = (
 		borderOnActive = true,
 		badgeItem = null,
 		useSwitch = false,
-		info = { heading: '', description: '' },
+		info = undefined,
 		minWidth = true,
 		...props
 	}: RadioButtonProps,

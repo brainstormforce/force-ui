@@ -44,7 +44,6 @@ const Template: StoryFn = ( args ) => (
 			heading="Store"
 			open={ true }
 			arrow={ true }
-			showArrowOnHover={ args.showArrowOnHover }
 		>
 			<Menu.Item
 				active={ args.menuItemActive }
@@ -62,7 +61,6 @@ const Template: StoryFn = ( args ) => (
 			heading="Orders & Sales"
 			open={ true }
 			arrow={ true }
-			showArrowOnHover={ args.showArrowOnHover }
 		>
 			<Menu.Item>
 				<ShoppingBag />
@@ -86,7 +84,6 @@ const Template: StoryFn = ( args ) => (
 			heading="Customers"
 			open={ true }
 			arrow={ true }
-			showArrowOnHover={ args.showArrowOnHover }
 		>
 			<Menu.Item>
 				<MousePointer />
@@ -101,7 +98,6 @@ const Template: StoryFn = ( args ) => (
 			heading="Others"
 			open={ true }
 			arrow={ true }
-			showArrowOnHover={ args.showArrowOnHover }
 		>
 			<Menu.Item>
 				<Layers />
@@ -123,8 +119,4 @@ export const CombinedMenu = Template.bind( {} );
 
 CombinedMenu.args = {
 	size: 'md',
-	menuItemActive: false,
-	menuItemDisabled: false,
-	menuItemContent: 'Store Settings',
-	showArrowOnHover: true,
 };
