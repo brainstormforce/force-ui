@@ -1,8 +1,11 @@
+import { type ObjectOfStringOrNumber, type StringOrNumber, type StringOrNumberOrObject } from "./container-types";
+
+
 export const getClassNames = (
-	valueKeys: string | number | Record<string, string | number>,
+	valueKeys: StringOrNumber | ObjectOfStringOrNumber,
 	classNames: Record<string, Record<string, string>>,
-	defaultValueKeys: Record<string, string | number>,
-	defaultScreenSize = 'sm'
+	defaultValueKeys: StringOrNumberOrObject,
+	defaultScreenSize: string = 'sm'
 ) => {
 	const classNamesArray = [];
 
@@ -13,7 +16,7 @@ export const getClassNames = (
 					classNamesArray.push(
 						classNames?.[ screenSize ]?.[ valueKey ] ??
 							classNames?.[ screenSize ]?.[
-								defaultValueKeys?.[ screenSize ]
+								(defaultValueKeys as ObjectOfStringOrNumber)?.[ screenSize ]
 							] ??
 							''
 					);
@@ -26,16 +29,14 @@ export const getClassNames = (
 			classNamesArray.push(
 				classNames?.[ screenSize ]?.[ valueKeys ] ??
 					classNames?.[ screenSize ]?.[
-						defaultValueKeys?.[ screenSize ]
+						(defaultValueKeys as ObjectOfStringOrNumber)?.[ screenSize ]
 					] ??
 					''
 			);
 			break;
 		default:
 			classNamesArray.push(
-				classNames?.[ defaultScreenSize ]?.[
-					defaultValueKeys[ defaultScreenSize ]
-				] ?? ''
+				classNames?.[ defaultScreenSize ]?.[ defaultValueKeys as StringOrNumber ] ?? ''
 			);
 			break;
 	}
