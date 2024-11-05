@@ -1,10 +1,13 @@
-import Menu from '../menu-item';
 import type {
 	Placement,
 	Boundary,
 	OffsetOptions,
 	FloatingPortalProps,
 } from '@floating-ui/react';
+import {
+	type MenuListProps,
+	type MenuSeparatorProps,
+} from '../menu-item/menu-item';
 
 export type HandleClose = () => void;
 
@@ -41,8 +44,6 @@ export interface DropdownMenuItemProps {
 	onClick?: () => void;
 }
 
-export type DropdownMenuSeparatorProps = React.ComponentProps<
-	typeof Menu.Separator
->;
+export type DropdownMenuSeparatorProps = MenuSeparatorProps;
 
-export type DropdownMenuListProps = React.ComponentProps<typeof Menu.List>;
+export type DropdownMenuListProps = MenuListProps;

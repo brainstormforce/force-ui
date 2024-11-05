@@ -255,8 +255,8 @@ export const MenuSeparator = ( {
 
 MenuSeparator.displayName = 'Menu.Separator';
 
-export default Object.assign( Menu, {
-	List: MenuList,
-	Item: MenuItem,
-	Separator: MenuSeparator,
-} );
+Menu.List = MenuList;
+Menu.Item = MenuItem;
+Menu.Separator = MenuSeparator;
+
+export default Menu;
