@@ -199,7 +199,7 @@ export const DropdownMenuItem: React.FC<DropdownMenuItemProps> = ( {
 	return (
 		<Tag
 			{ ...props }
-			className="px-2"
+			className={ cn( 'px-2', props.className ) }
 			onClick={ callAll( props.onClick!, handleClose as HandleClose ) }
 		>
 			{ children }
