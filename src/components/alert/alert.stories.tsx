@@ -12,15 +12,6 @@ const meta: Meta = {
 	},
 	tags: [ 'autodocs' ],
 	argTypes: {
-		variant: {
-			control: 'select',
-		},
-		theme: {
-			control: 'select',
-		},
-		design: {
-			control: 'select',
-		},
 		title: {
 			control: 'text',
 		},
@@ -77,6 +68,19 @@ export const Success: Story = {
 		onClose: fn(),
 		title: 'Title',
 		content: 'Description',
+	},
+};
+
+export const WithLongStringAndWithoutCloseButton: Story = {
+	args: {
+		variant: 'neutral',
+		content: (
+			<p className="m-0">
+				<b className="mr-1">Designer’s Note:</b>Adjusting or changing
+				components here will update it on all other pages or templates
+				where it is been used
+			</p>
+		),
 	},
 };
 

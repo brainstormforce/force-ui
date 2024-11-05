@@ -121,11 +121,13 @@ export const getAction = ( {
 export const getTitle = ( {
 	theme = DEFAULT_THEME,
 	title = '',
+	shrink = true,
 }: {
 	theme?: string;
 	title?: string | React.ReactNode;
-} ) => {
-	if ( ! title && Number.isNaN( title ) ) {
+	shrink?: boolean;
+} ): React.JSX.Element | null => {
+	if ( ! title ) {
 		return null;
 	}
 	const titleClasses = {
@@ -137,7 +139,8 @@ export const getTitle = ( {
 			className={ cn(
 				'block',
 				titleClasses[ theme as keyof typeof titleClasses ],
-				'text-sm leading-5 font-semibold'
+				'text-sm leading-5 font-semibold',
+				shrink ? 'shrink' : 'shrink-0'
 			) }
 		>
 			{ title }
@@ -151,8 +154,8 @@ export const getContent = ( {
 }: {
 	theme?: string;
 	content?: string | React.ReactNode;
-} ) => {
-	if ( ! content && Number.isNaN( content ) ) {
+} ): React.JSX.Element | null => {
+	if ( ! content ) {
 		return null;
 	}
 	const contentClasses = {
