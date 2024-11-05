@@ -40,11 +40,7 @@ export default meta;
 
 const Template: StoryFn = ( args ) => (
 	<Menu size={ args.size } className="gap-6 min-w-64">
-		<Menu.List
-			heading="Store"
-			open={ true }
-			arrow={ true }
-		>
+		<Menu.List heading="Store" open={ true } arrow={ true }>
 			<Menu.Item
 				active={ args.menuItemActive }
 				disabled={ args.menuItemDisabled }
@@ -57,11 +53,7 @@ const Template: StoryFn = ( args ) => (
 				<div>Design & Branding</div>
 			</Menu.Item>
 		</Menu.List>
-		<Menu.List
-			heading="Orders & Sales"
-			open={ true }
-			arrow={ true }
-		>
+		<Menu.List heading="Orders & Sales" open={ true } arrow={ true }>
 			<Menu.Item>
 				<ShoppingBag />
 				<div>Orders & Receipts</div>
@@ -80,11 +72,7 @@ const Template: StoryFn = ( args ) => (
 			</Menu.Item>
 		</Menu.List>
 		<Menu.Separator />
-		<Menu.List
-			heading="Customers"
-			open={ true }
-			arrow={ true }
-		>
+		<Menu.List heading="Customers" open={ true } arrow={ true }>
 			<Menu.Item>
 				<MousePointer />
 				<div>Affiliates</div>
@@ -94,11 +82,7 @@ const Template: StoryFn = ( args ) => (
 				<div>Subscriptions Saver</div>
 			</Menu.Item>
 		</Menu.List>
-		<Menu.List
-			heading="Others"
-			open={ true }
-			arrow={ true }
-		>
+		<Menu.List heading="Others" open={ true } arrow={ true }>
 			<Menu.Item>
 				<Layers />
 				<div>Data Export</div>
