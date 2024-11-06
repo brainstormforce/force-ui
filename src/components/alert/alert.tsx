@@ -133,10 +133,10 @@ const Alert = ( {
 				<div className="self-start flex items-center justify-center [&_svg]:size-5 shrink-0">
 					{ getIcon( { variant, icon, theme } ) }
 				</div>
-				<div className="flex items-start justify-start gap-1 mr-10 px-1">
-					{ getTitle( { title, theme, shrink: false } ) }
-					{ getContent( { content, theme } ) }
-				</div>
+				<p className="content-start space-x-1 my-0 mr-10 px-1">
+					{ getTitle( { title, theme, inline: true } ) }
+					{ getContent( { content, theme, inline: true } ) }
+				</p>
 			</div>
 			<div className="flex h-full justify-start gap-4 [&_svg]:size-4">
 				{ action?.label && typeof action?.onClick === 'function' && (

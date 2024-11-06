@@ -121,11 +121,11 @@ export const getAction = ( {
 export const getTitle = ( {
 	theme = DEFAULT_THEME,
 	title = '',
-	shrink = true,
+	inline = false,
 }: {
 	theme?: string;
 	title?: string | React.ReactNode;
-	shrink?: boolean;
+	inline?: boolean;
 } ): React.JSX.Element | null => {
 	if ( ! title ) {
 		return null;
@@ -140,7 +140,7 @@ export const getTitle = ( {
 				'block',
 				titleClasses[ theme as keyof typeof titleClasses ],
 				'text-sm leading-5 font-semibold',
-				shrink ? 'shrink' : 'shrink-0'
+				inline ? 'inline' : 'block'
 			) }
 		>
 			{ title }
@@ -151,9 +151,11 @@ export const getTitle = ( {
 export const getContent = ( {
 	theme = DEFAULT_THEME,
 	content = '',
+	inline = false,
 }: {
 	theme?: string;
 	content?: string | React.ReactNode;
+	inline?: boolean;
 } ): React.JSX.Element | null => {
 	if ( ! content ) {
 		return null;
@@ -166,7 +168,8 @@ export const getContent = ( {
 		<span
 			className={ cn(
 				contentClasses[ theme as keyof typeof contentClasses ],
-				'block text-sm [&_*]:text-sm leading-5 [&_*]:leading-5 font-normal'
+				'block text-sm [&_*]:text-sm leading-5 [&_*]:leading-5 font-normal',
+				inline ? 'inline' : 'block'
 			) }
 		>
 			{ content }
