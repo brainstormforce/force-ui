@@ -11,11 +11,12 @@ import {
 } from 'recharts';
 import ChartLegendContent from './chart-legend-content';
 import ChartTooltipContent from './chart-tooltip-content';
+import Label from '../label';
 
 const AreaChart = ({
 	data,
 	dataKeys,
-	colors,
+	colors = [],
 	variant = 'solid',
 	showXAxis = true,
 	showYAxis = true,
@@ -35,6 +36,14 @@ const AreaChart = ({
 	const [width, setWidth] = useState(chartWidth);
 	const [height, setHeight] = useState(chartHeight);
 
+    // Default colors
+    const defaultColors = [
+        { stroke: '#2563EB', fill: '#BFDBFE' },
+        { stroke: '#38BDF8', fill: '#BAE6FD' },
+    ];
+
+    const appliedColors = colors.length > 0 ? colors : defaultColors;
+
 	useEffect(() => {
 		setWidth(chartWidth);
 		setHeight(chartHeight);
@@ -50,7 +59,7 @@ const AreaChart = ({
 
 	const renderGradients = () => (
 		<defs>
-			{colors.map((color, index) => (
+            {appliedColors.map((color, index) => (
 				<linearGradient
 					key={`gradient${index}`}
 					id={`fill${index}`}
@@ -73,6 +82,17 @@ const AreaChart = ({
 			))}
 		</defs>
 	);
+
+    if (!data || data.length === 0 ) {
+        return (
+            <Label
+                size="sm"
+                variant="help"
+            >
+                No data available
+            </Label>
+        );
+    }
 
 	return (
 		<ResponsiveContainer width={width} height={height}>
@@ -130,12 +150,12 @@ const AreaChart = ({
 						key={key}
 						type="monotone"
 						dataKey={key}
-						stroke={colors[index].stroke}
-						fill={
-							variant === 'gradient'
-								? `url(#fill${index})`
-								: colors[index].fill
-						}
+                        stroke={appliedColors[index % appliedColors.length].stroke}
+                        fill={
+                            variant === 'gradient'
+                                ? `url(#fill${index})`
+                                : appliedColors[index % appliedColors.length].fill
+                        }
 						stackId="1"
 					/>
 				))}

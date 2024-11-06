@@ -292,7 +292,7 @@ AreaChartGradient.args = {
 
 export const AreaChartInteractive = Template.bind( {} );
 AreaChartInteractive.args = {
-	chartWidth: 1000,
+	chartWidth: 900,
 	chartHeight: 250,
 	data: chartDataIteractive,
 	dataKeys: dataKeysInteractive,
@@ -416,7 +416,7 @@ export const AreaChartCard2 = ( args ) => (
 		</Container.Item>
 		<Container.Item>
 			<AreaChart
-				chartWidth={ 1000 }
+				chartWidth={ 900 }
 				chartHeight={ 250 }
 				data={ chartDataIteractive }
 				dataKeys={ dataKeysInteractive }
