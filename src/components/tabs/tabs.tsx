@@ -4,13 +4,14 @@ import React, {
 	isValidElement,
 	createContext,
 	useContext,
+	type ReactNode,
 } from 'react';
 import { cn } from '@/utilities/functions';
 import { motion } from 'framer-motion';
 
-type Ref = HTMLButtonElement;
-type OnChangeValue = { slug: string; text: string };
-type InternalOnChange = (
+declare type Ref = HTMLButtonElement;
+declare type OnChangeValue = { slug: string; text: string };
+declare type InternalOnChange = (
 	event: React.MouseEvent<HTMLButtonElement>,
 	value: OnChangeValue
 ) => void;
@@ -39,7 +40,7 @@ export interface TabsProps {
 	/** Defines the width of the tabs. */
 	width?: 'auto' | 'full';
 	/** Tabs to display in the group. */
-	children: React.ReactNode;
+	children: ReactNode;
 }
 
 export interface TabProps {
@@ -48,13 +49,13 @@ export interface TabProps {
 	/** Text to display in the tab. */
 	text: string;
 	/** Icon to display in the tab. */
-	icon?: React.ReactNode;
+	icon?: ReactNode;
 	/** Additional class names for styling. */
 	className?: string;
 	/** Disables the tab. */
 	disabled?: boolean;
 	/** Badge to display in the tab. */
-	badge?: React.ReactNode;
+	badge?: ReactNode;
 }
 
 // Context for managing the TabsGroup state.

@@ -26,6 +26,14 @@ const meta: Meta = {
 			</div>
 		),
 	],
+	argTypes: {
+		selectionType: {
+			control: { type: 'select' },
+		},
+		variant: {
+			control: { type: 'select' },
+		},
+	},
 } satisfies Meta<typeof DatePicker>;
 
 export default meta;

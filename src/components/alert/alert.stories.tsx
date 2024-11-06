@@ -12,11 +12,17 @@ const meta: Meta = {
 	},
 	tags: [ 'autodocs' ],
 	argTypes: {
-		title: {
-			control: 'text',
+		variant: {
+			control: 'select',
 		},
-		content: {
-			control: 'text',
+		theme: {
+			control: 'select',
+		},
+		design: {
+			control: 'select',
+		},
+		icon: {
+			control: false,
 		},
 	},
 } satisfies Meta<typeof Alert>;

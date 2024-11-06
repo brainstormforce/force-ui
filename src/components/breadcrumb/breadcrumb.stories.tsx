@@ -61,12 +61,6 @@ const Template: StoryWithCustomArg = ( { separatorType, ...args } ) => (
 
 export const Default = Template.bind( {} );
 
-export const Basic = Template.bind( {} );
-Basic.args = {
-	size: 'sm',
-	separatorType: 'arrow',
-};
-
 export const MediumSizeWithSlashSeparator = Template.bind( {} );
 MediumSizeWithSlashSeparator.args = {
 	size: 'md',

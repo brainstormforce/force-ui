@@ -1,4 +1,4 @@
-import React, { forwardRef, useEffect, useState } from 'react';
+import React, { forwardRef, useEffect, useState, type ReactNode } from 'react';
 import { cn } from '@/utilities/functions';
 import { User } from 'lucide-react';
 
@@ -9,14 +9,16 @@ export type AvatarProps = {
 	size?: 'xxs' | 'xs' | 'sm' | 'md' | 'lg';
 	/** Defines the border of the avatar. */
 	border?: 'none' | 'subtle' | 'ring';
-	/** Defines the extra classes. */
+	/** The URL of the Avatar image */
+	url?: string;
+	/** Defines the children of the avatar. */
+	children?: ReactNode;
+	/** Defines the extra classes */
 	className?: string;
 	/** The URL of the Avatar image. */
 	src?: string;
 	/** Alt text for the avatar image. */
 	alt?: string;
-	/** Defines the children of the avatar. */
-	children?: React.ReactNode;
 } & Pick<React.HTMLAttributes<HTMLImageElement>, 'title'>;
 
 type Ref = HTMLImageElement;

@@ -36,6 +36,10 @@ const meta: Meta<typeof Select> = {
 		layout: 'centered',
 	},
 	tags: [ 'atoms', 'autodocs' ],
+	argTypes: {
+		size: { control: 'select' },
+		children: { control: false },
+	},
 } satisfies Meta<typeof Select>;
 
 export default meta;
