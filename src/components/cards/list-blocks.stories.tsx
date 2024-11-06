@@ -96,7 +96,9 @@ const Template3 = ( args: Template3Props ) => {
 							className="gap-1 p-1"
 							align="center"
 						>
-							<Container.Item className="flex">{ button.icon }</Container.Item>
+							<Container.Item className="flex">
+								{ button.icon }
+							</Container.Item>
 							<Container.Item className="flex">
 								<a
 									href="#"
