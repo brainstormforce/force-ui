@@ -16,7 +16,7 @@ declare type InternalOnChange = (
 	value: OnChangeValue
 ) => void;
 
-export interface TabsProps {
+export interface TabsGroupProps {
 	/** Controls the active tab. */
 	activeItem?: string | null;
 	/** Callback when the active item changes. */
@@ -58,6 +58,10 @@ export interface TabProps {
 	badge?: ReactNode;
 }
 
+// Context for Tab Panels.
+const TabsContext = createContext<Partial<Record<string, unknown>>>({});
+const useTabs = () => useContext( TabsContext );
+
 // Context for managing the TabsGroup state.
 const TabsGroupContext = createContext<{
 	activeItem: string | null;
@@ -75,7 +79,7 @@ const useTabsGroup = () => useContext( TabsGroupContext );
 // TabsGroup component to wrap Tab components.
 export const TabsGroup = ( {
 	children,
-	activeItem = null, // The currently active item in the group.
+	activeItem: activeTabSlug = null, // The currently active item in the group.
 	onChange, // Callback when the active item changes.
 	className, // Additional class names for styling.
 	size = 'sm', // Size of the tabs in the group ('xs', 'sm', 'md', 'lg').
@@ -83,7 +87,12 @@ export const TabsGroup = ( {
 	variant = 'pill', // Style variant of the tabs ('pill', 'rounded', 'underline').
 	iconPosition = 'left', // Position of the icon in the tab ('left' or 'right').
 	width = 'full', // Width of the tabs ('auto' or 'full').
-}: TabsProps ) => {
+}: TabsGroupProps ) => {
+	const tabsState = useTabs();
+
+	// Determine the active item based on the activeTabSlug prop.
+	const activeItem = (tabsState?.activeItem as string | null) || activeTabSlug;
+
 	// Handle change event.
 	const handleChange: InternalOnChange = useCallback(
 		( event, value ) => {
@@ -246,7 +255,7 @@ export const Tab = forwardRef<Ref, TabProps>(
 		const hoverClasses = 'hover:text-text-primary group';
 		const focusClasses = 'focus:outline-none';
 		const disabledClasses = disabled
-			? 'text-text-disabled cursor-not-allowed'
+			? 'text-text-disabled cursor-not-allowed hover:text-text-disabled'
 			: '';
 		const activeClasses =
 			activeItem === slug
@@ -260,13 +269,16 @@ export const Tab = forwardRef<Ref, TabProps>(
 			variantClasses,
 			hoverClasses,
 			focusClasses,
-			disabledClasses,
 			sizes,
 			activeClasses,
+			disabledClasses,
 			className
 		);
 
-		const iconParentClasses = 'flex items-center gap-1';
+		const iconParentClasses = cn(
+			'flex items-center gap-1 group-hover:text-text-primary',
+			disabled && 'group-hover:text-text-disabled'
+		);
 
 		// Handle click event.
 		const handleClick = ( event: React.MouseEvent<HTMLButtonElement> ) => {
@@ -289,13 +301,13 @@ export const Tab = forwardRef<Ref, TabProps>(
 				) }
 				<span className={ iconParentClasses }>
 					{ iconPosition === 'left' && icon && (
-						<span className="mr-1 contents center-center group-hover:text-text-primary">
+						<span className="mr-1 contents center-center transition duration-150">
 							{ icon }
 						</span>
 					) }
 					{ text }
 					{ iconPosition === 'right' && icon && (
-						<span className="ml-1 contents center-center group-hover:text-text-primary">
+						<span className="ml-1 contents center-center transition duration-150">
 							{ icon }
 						</span>
 					) }
@@ -307,9 +319,45 @@ export const Tab = forwardRef<Ref, TabProps>(
 );
 Tab.displayName = 'Tabs.Tab';
 
-const exports = {
-	Group: TabsGroup,
-	Tab,
-};
+export interface TabsProps {
+	/** The active tab value to identify active tab. */
+	activeItem: string | null;
+	/** Tabs and their content to display. */
+	children: ReactNode;
+}
 
-export default exports;
+const Tabs = ( {activeItem, children}: TabsProps ) => {
+	return (
+		<TabsContext.Provider value={ { activeItem } }>
+			{ children }
+		</TabsContext.Provider>
+	);
+}
+
+
+export interface TabPanelProps {
+	/** Unique identifier for the tab panel that is used for the tab. */
+	slug: string;
+	/** Content to display in the tab panel. */
+	children: ReactNode;
+}
+
+export const TabPanel = ({slug, children}: TabPanelProps) => {
+	const providerValue = useTabs();
+
+	if ( ! providerValue ) {
+		throw new Error( 'TabPanel should be used inside Tabs' );
+	}
+
+	return slug === providerValue.activeItem ? <>{children}</> : null;
+}
+TabPanel.displayName = 'Tabs.Panel';
+
+
+
+Tabs.Group = TabsGroup;
+Tabs.Tab = Tab;
+Tabs.Panel = TabPanel;
+
+
+export default Tabs;
