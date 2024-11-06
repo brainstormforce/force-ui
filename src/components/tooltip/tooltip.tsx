@@ -82,7 +82,7 @@ export declare interface TooltipProps {
 	/** Events that trigger the tooltip. */
 	triggers?: ( 'click' | 'hover' | 'focus' )[];
 
-	/** Indicates whether the tooltip is interactive. */
+	/** Indicates whether the tooltip content is interactive. Keeps the tooltip open while the user interacts with its content. */
 	interactive?: boolean;
 	/** Defines the boundary for positioning the tooltip, accepting 'viewport', 'clippingAncestors', or an HTML element reference. */
 	boundary?: 'viewport' | 'clippingAncestors' | HTMLElement | null;
