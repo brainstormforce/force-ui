@@ -664,8 +664,7 @@ export const SpectraDashboard = ( args ) => {
 											className="text-icon-secondary"
 											variant="ghost"
 											icon={ <ArrowUpRight /> }
-										>
-										</Button>
+										></Button>
 									</Container.Item>
 								</Container>
 							</Container.Item>
@@ -796,10 +795,10 @@ export const SpectraDashboard = ( args ) => {
 											className="gap-1 p-1"
 											align="center"
 										>
-											<Container.Item className='flex'>
+											<Container.Item className="flex">
 												{ button.icon }
 											</Container.Item>
-											<Container.Item className='flex'>
+											<Container.Item className="flex">
 												<a
 													href="#"
 													className="no-underline hover:underline hover:text-field-label"
@@ -809,9 +808,11 @@ export const SpectraDashboard = ( args ) => {
 													</Label>
 												</a>
 											</Container.Item>
-											{ button?.bagde ? <Container.Item>
-												{ button.bagde }
-											</Container.Item> : null }
+											{ button?.bagde ? (
+												<Container.Item>
+													{ button.bagde }
+												</Container.Item>
+											) : null }
 										</Container>
 									</div>
 								) ) }

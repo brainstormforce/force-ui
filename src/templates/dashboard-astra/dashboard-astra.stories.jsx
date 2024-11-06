@@ -450,14 +450,12 @@ export const AstraDashboard = ( args ) => {
 											variant="ghost"
 											className="leading-none text-icon-secondary"
 											icon={ <Ellipsis /> }
-										>
-										</Button>
+										></Button>
 										<Button
 											variant="ghost"
 											className="leading-none text-icon-secondary"
 											icon={ <ArrowUpRight /> }
-										>
-										</Button>
+										></Button>
 									</Container.Item>
 								</Container>
 							</Container.Item>
@@ -549,8 +547,7 @@ export const AstraDashboard = ( args ) => {
 											className="p-0 text-text-secondary"
 											variant="ghost"
 											icon={ <ArrowUpRight /> }
-										>
-										</Button>
+										></Button>
 									</Container.Item>
 								</Container>
 							</Container.Item>
