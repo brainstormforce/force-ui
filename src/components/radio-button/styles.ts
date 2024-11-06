@@ -27,6 +27,16 @@ export const sizeClassNames = {
 		info: 'size-5',
 	},
 };
+export const positionClassNames = {
+	sm: {
+		switch: 'mt-1',
+		radio: 'mt-0.5',
+	},
+	md: {
+		switch: 'mt-0.5',
+		radio: 'mt-px',
+	},
+};
 
 export const sizes = {
 	xs: 'py-1 px-1 text-sm gap-0.5 [&>svg]:size-4',
