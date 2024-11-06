@@ -168,6 +168,7 @@ const defaultTheme = {
 				'toggle-off-border': '#D1D5DB',
 				'toggle-on-hover': '#3B82F6',
 				'toggle-on-border': '#60A5FA',
+				'toggle-on-disabled': '#EFF6FF',
 				'toggle-off-disabled': '#F3F4F6',
 			},
 			width: {

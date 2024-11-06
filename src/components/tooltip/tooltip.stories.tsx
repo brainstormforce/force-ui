@@ -101,5 +101,6 @@ TooltipWithLabel.args = {
 			</Button>
 		</div>
 	),
+	interactive: true,
 	arrow: true,
 };
