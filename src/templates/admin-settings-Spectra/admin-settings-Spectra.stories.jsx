@@ -45,9 +45,10 @@ export default {
 	tags: [ 'autodocs' ],
 };
 
-const Template = () => {
+const Template = (args) => {
 	return (
 		<Container
+			{ ...args }
 			containerType="flex"
 			direction="column"
 			gap={ 0 }

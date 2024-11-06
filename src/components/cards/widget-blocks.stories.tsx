@@ -23,7 +23,6 @@ import {
 
 export default {
 	title: 'Organisms/Cards/Widget Blocks',
-	component: RadioButton.Group,
 	parameters: {
 		layout: 'fullscreen',
 	},
@@ -220,13 +219,19 @@ const defaultRadioButtonGroupData = [
 		),
 	},
 ];
-
+interface Template1Props {
+		containerType?: string;
+		direction?: string;
+		className?: string;
+		gap?: string;
+}
 // Template for Type 1
-const Template1 = () => {
+const Template1 = (args: Template1Props) => {
 	const radioButtonGroupData = defaultRadioButtonGroupData;
 
 	return (
 		<Container
+			{ ...args }
 			containerType="flex"
 			direction="column"
 			className="md:w-full lg:w-full border border-solid rounded-s-xl border-border-subtle p-4"

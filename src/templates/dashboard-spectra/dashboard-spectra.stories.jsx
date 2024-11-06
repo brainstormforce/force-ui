@@ -315,9 +315,11 @@ const containerRowButtons = [
 	},
 ];
 
-export const SpectraDashboard = () => {
+export const SpectraDashboard = (args) => {
 	return (
-		<>
+		<div
+		{...args}
+		>
 			<Container
 				containerType="flex"
 				align="center"
@@ -822,6 +824,6 @@ export const SpectraDashboard = () => {
 					</Container.Item>
 				</Container>
 			</div>
-		</>
+		</div>
 	);
 };

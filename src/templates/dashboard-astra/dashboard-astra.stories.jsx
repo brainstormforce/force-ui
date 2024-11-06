@@ -300,9 +300,11 @@ const astraRadioButtonGroupData = [
 	},
 ];
 
-export const AstraDashboard = () => {
+export const AstraDashboard = (args) => {
 	return (
-		<>
+		<div
+		{...args}
+		>
 			{ /* Navigation Topbar */ }
 			<Topbar gap={ 0 } className="h-16 p-0 shadow-sm">
 				<Topbar.Left className="p-5">
@@ -658,6 +660,6 @@ export const AstraDashboard = () => {
 					</Container.Item>
 				</Container>
 			</div>
-		</>
+		</div>
 	);
 };

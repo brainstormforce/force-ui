@@ -1,5 +1,4 @@
 // RadioButtonGroup.stories.jsx
-import RadioButton from '../radio-button';
 import Container from '../container';
 import Button from '../button';
 import Label from '../label';
@@ -14,7 +13,6 @@ import {
 
 export default {
 	title: 'Organisms/Cards/Plugin Blocks',
-	component: RadioButton.Group,
 	parameters: {
 		layout: 'fullscreen',
 	},
@@ -62,11 +60,18 @@ const astraRadioButtonGroupData = [
 		description: 'Automate your WordPress setup.',
 	},
 ];
-
+interface Template2Props {
+	containerType?: string;
+	gap?: string;
+	direction?: string;
+	className?: string;
+}
 // Template for Type 2
-const Template2 = () => {
+const Template2 = (args: Template2Props) => {
+	
 	return (
 		<Container
+			{...args}
 			containerType="flex"
 			gap="xs"
 			direction="column"
