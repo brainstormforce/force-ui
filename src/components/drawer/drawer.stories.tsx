@@ -1,11 +1,11 @@
-import { useState, Fragment } from 'react';
+import { useState, Fragment, type ReactNode, type ElementType } from 'react';
 import type { Meta, StoryFn } from '@storybook/react';
 import Drawer from './drawer';
 import Button from '../button';
 
 interface AdditionalArgTypes {
-	title?: string | React.ReactNode;
-	titleTag?: React.ElementType;
+	title?: string | ReactNode;
+	titleTag?: ElementType;
 }
 
 const meta: Meta<typeof Drawer> = {
@@ -37,11 +37,6 @@ const meta: Meta<typeof Drawer> = {
 			control: 'select',
 			table: {
 				type: { summary: 'string' },
-			},
-		},
-		trigger: {
-			table: {
-				type: { summary: 'React.ElementType' },
 			},
 		},
 		position: {

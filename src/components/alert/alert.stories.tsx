@@ -21,11 +21,8 @@ const meta: Meta = {
 		design: {
 			control: 'select',
 		},
-		title: {
-			control: 'text',
-		},
-		content: {
-			control: 'text',
+		icon: {
+			control: false,
 		},
 	},
 } satisfies Meta<typeof Alert>;

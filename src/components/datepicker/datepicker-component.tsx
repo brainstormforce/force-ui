@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, type ReactNode } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import {
 	DayPicker,
@@ -59,7 +59,7 @@ export interface DatePickerProps {
 	/** The number of months to display. */
 	numberOfMonths?: number;
 	/** Footer content to be displayed at the bottom of the date picker. */
-	footer?: React.ReactNode;
+	footer?: ReactNode;
 }
 
 interface CustomMonthsProps {

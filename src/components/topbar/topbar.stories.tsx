@@ -1,10 +1,10 @@
 import type { Meta, StoryFn } from '@storybook/react';
 import type { ComponentProps } from '@/utilities/ts-helper';
-import Topbar from './topbar';
 import Button from '../button';
 import { ArrowUpRight, CircleHelp, Megaphone, User } from 'lucide-react';
 import Badge from '../badge';
 import Avatar from '../avatar';
+import Topbar from './topbar';
 
 interface AdditionalArgs {
 	topbarLeftGap?: ComponentProps<typeof Topbar.Left>['gap'];

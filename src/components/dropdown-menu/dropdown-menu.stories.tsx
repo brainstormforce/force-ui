@@ -19,8 +19,8 @@ const meta: Meta<typeof DropdownMenu> = {
 	},
 	tags: [ 'autodocs' ],
 	argTypes: {
-		placement: {
-			control: { type: 'select' },
+		children: {
+			control: false,
 		},
 	},
 };
@@ -30,7 +30,7 @@ export default meta;
 type Story = StoryFn<typeof DropdownMenu>;
 
 export const ButtonTrigger: Story = ( args ) => (
-	<DropdownMenu { ...args } placement={ args.placement }>
+	<DropdownMenu { ...args }>
 		<DropdownMenu.Trigger>
 			<Button>Dropdown</Button>
 		</DropdownMenu.Trigger>

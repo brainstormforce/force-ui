@@ -44,6 +44,17 @@ const meta: Meta<typeof Toaster> = {
 			</div>
 		),
 	],
+	argTypes: {
+		position: {
+			control: { type: 'select' },
+		},
+		design: {
+			control: { type: 'select' },
+		},
+		theme: {
+			control: { type: 'select' },
+		},
+	},
 } satisfies Meta<typeof Toaster>;
 
 export default meta;

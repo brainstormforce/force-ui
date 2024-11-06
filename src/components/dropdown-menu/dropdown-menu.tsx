@@ -5,6 +5,7 @@ import React, {
 	cloneElement,
 	Fragment,
 	isValidElement,
+	type ReactNode,
 } from 'react';
 import {
 	useFloating,
@@ -34,7 +35,7 @@ import {
 const DropdownMenuContext = createContext<Record<string, unknown>>( {} );
 const useDropdownMenuContext = () => useContext( DropdownMenuContext );
 
-const DropdownMenu = ( {
+export const DropdownMenu = ( {
 	placement = 'bottom',
 	offset: offsetValue = 10,
 	boundary = 'clippingAncestors',
@@ -93,7 +94,7 @@ const DropdownMenu = ( {
 					{ React.Children.map( children, ( child ) => {
 						if (
 							(
-								child as React.ReactNode & {
+								child as ReactNode & {
 									type: { displayName: string };
 								}
 							)?.type?.displayName === 'DropdownMenu.Trigger'
@@ -120,7 +121,7 @@ const DropdownMenu = ( {
 							{ React.Children.map( children, ( child ) => {
 								if (
 									(
-										child as React.ReactNode & {
+										child as ReactNode & {
 											type?: { displayName: string };
 										}
 									)?.type?.displayName ===

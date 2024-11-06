@@ -1,4 +1,4 @@
-import React, { forwardRef } from 'react';
+import React, { forwardRef, type ElementType, type ReactNode } from 'react';
 import { cn } from '@/utilities/functions';
 
 export interface ButtonProps {
@@ -17,7 +17,7 @@ export interface ButtonProps {
 	/**
 	 * Defines the tag of the button.
 	 */
-	tag?: React.ElementType;
+	tag?: ElementType;
 	/**
 	 * The class name of the button
 	 */
@@ -25,7 +25,7 @@ export interface ButtonProps {
 	/**
 	 * The children of the button
 	 */
-	children?: React.ReactNode;
+	children?: ReactNode;
 	/**
 	 * Defines if the button is disabled.
 	 */
@@ -37,7 +37,7 @@ export interface ButtonProps {
 	/**
 	 * Custom Icon for the button.
 	 */
-	icon?: React.ReactNode;
+	icon?: ReactNode;
 	/**
 	 * Defines the position of the icon.
 	 */

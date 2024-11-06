@@ -2,6 +2,7 @@ import type {
 	UseFloatingReturn,
 	UseInteractionsReturn,
 } from '@floating-ui/react';
+import { type ReactNode, type ReactElement } from 'react';
 
 export type SelectOptionValue = string | number | Record<string, unknown>;
 export type SelectOnChange = (
@@ -18,8 +19,8 @@ export type SelectFunctionChildren = ( {
 } ) => React.JSX.Element;
 
 export type MultiTypeChildren =
-	| React.ReactElement
-	| React.ReactNode
+	| ReactElement
+	| ReactNode
 	| SelectFunctionChildren;
 
 export type OnClick = ( index: number, value: SelectOptionValue ) => void;
@@ -53,7 +54,7 @@ export type SelectProps = {
 	/** When the value is an object, a key is required to compare the selected value. The default value is `id`. */
 	by?: string;
 	/** Expects the `Select.Portal`/`Select.Options` and `Select.Button` children of the Select Component. */
-	children?: React.ReactNode;
+	children?: ReactNode;
 	/** Combobox mode. */
 	combobox?: boolean;
 	/** Disables the Select Component. */
@@ -70,7 +71,7 @@ export type SelectProps = {
 
 export interface SelectPortalProps {
 	/** Expects the `Select.Options` children of the Select.Portal Component. */
-	children?: React.ReactNode;
+	children?: ReactNode;
 	/**
 	 * Root element where the `Select.Options` will be rendered.  If not provided Select.Options will be rendered in the body.
 	 */
@@ -85,11 +86,11 @@ export interface SelectButtonProps {
 	/** Expects the `Select.Button` children of the Select Component. */
 	children?: MultiTypeChildren;
 	/** Option Icon to show at the right of the option trigger/button. By default it will show chevron down icon. */
-	icon?: React.ReactNode | null;
+	icon?: ReactNode | null;
 	/** Placeholder text when no option is selected. */
 	placeholder?: string;
 	/** Icon to show in the selected option badge (Multi-select mode only). By default it won't show unknown icon. */
-	optionIcon?: React.ReactNode | null;
+	optionIcon?: ReactNode | null;
 	/** Key to display selected item when the selected value is an object. Default value is `name`. */
 	displayBy?: string;
 	/** Label for the Select component. */
@@ -100,7 +101,7 @@ export interface SelectButtonProps {
 
 export interface SelectOptionsProps {
 	/** Expects the `Select.Option` children of the Select.Options Component. */
-	children?: React.ReactNode;
+	children?: ReactNode;
 	/** Key used to identify searched value using the key. Default is 'id'. */
 	searchBy?: string;
 	/** Placeholder text for search box. */
@@ -115,7 +116,7 @@ export interface SelectOptionProps {
 	/** Selected state of the option. */
 	selected?: boolean;
 	/** Expects the `Select.Option` children of the Select Component. */
-	children?: React.ReactNode;
+	children?: ReactNode;
 	/** Additional class name for the Select Option. */
 	className?: string;
 	/** Additional Props */

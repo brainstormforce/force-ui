@@ -1,4 +1,4 @@
-import { forwardRef } from 'react';
+import { forwardRef, type ReactNode } from 'react';
 import { cn } from '@/utilities/functions';
 import { X } from 'lucide-react';
 
@@ -26,7 +26,7 @@ export interface BadgeProps {
 	/**
 	 * Custom Icon for the badge.
 	 */
-	icon?: React.ReactNode;
+	icon?: ReactNode;
 	/**
 	 * Defines if the badge is disabled.
 	 */

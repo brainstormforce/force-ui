@@ -6,7 +6,7 @@ import {
 	comboboxItemCommonClassNames,
 	comboboxSelectedItemClassNames,
 } from '../editor-input-style';
-import { forwardRef } from 'react';
+import { forwardRef, type ReactNode } from 'react';
 
 interface EditorComboboxProps {
 	/** The size of the combobox. */
@@ -14,7 +14,7 @@ interface EditorComboboxProps {
 	/** The class name of the combobox. */
 	className?: string;
 	/** The children of the combobox. */
-	children: React.ReactNode;
+	children: ReactNode;
 }
 
 const EditorCombobox = ( { size, className, children }: EditorComboboxProps ) => (
@@ -38,7 +38,7 @@ interface EditorComboboxItemProps extends React.HTMLAttributes<HTMLLIElement> {
 	/** The class name of the combobox item. */
 	className?: string;
 	/** The children of the combobox item. */
-	children: React.ReactNode;
+	children: ReactNode;
 	/** Whether the combobox item is selected. */
 	selected?: boolean;
 }

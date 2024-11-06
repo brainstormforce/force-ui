@@ -1,4 +1,5 @@
 import { cn } from '@/utilities/functions';
+import { type ReactNode } from 'react';
 
 export interface AvatarProps {
 	/** Defines the style variant of the avatar. */
@@ -10,7 +11,7 @@ export interface AvatarProps {
 	/** The URL of the Avatar image */
 	url?: string;
 	/** Defines the children of the avatar. */
-	children?: string | React.ReactNode;
+	children?: string | ReactNode;
 	/** Defines the extra classes */
 	className?: string;
 }
