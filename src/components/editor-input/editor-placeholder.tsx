@@ -3,9 +3,12 @@ interface EditorPlaceHolder {
 	content: string | React.ReactNode;
 }
 
-const EditorPlaceholder = ( { content }: EditorPlaceHolder ) => (
-	<div className="pointer-events-none absolute inset-0 flex items-center justify-start text-field-placeholder">
-		{ content }
+const EditorPlaceholder = ({ content }: EditorPlaceHolder) => (
+	<div
+		aria-hidden="true"
+		className="pointer-events-none absolute inset-0 flex items-center justify-start text-field-placeholder w-full"
+	>
+		<span className="truncate">{content}</span>
 	</div>
 );
 
