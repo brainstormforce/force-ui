@@ -1,10 +1,11 @@
 import { cn } from '@/utilities/functions';
+import { type ElementType, type ReactNode } from 'react';
 
 export interface DrawerDescriptionProps {
 	/** Description tag. */
-	as?: React.ElementType;
+	as?: ElementType;
 	/** Description content. */
-	children: React.ReactNode;
+	children: ReactNode;
 	/** Additional class names. */
 	className?: string;
 	/** Additional props. */
