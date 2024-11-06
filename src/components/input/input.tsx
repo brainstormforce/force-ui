@@ -1,4 +1,4 @@
-import {
+import React, {
 	useState,
 	useCallback,
 	useMemo,
@@ -49,7 +49,10 @@ export declare interface InputProps {
 
 	/** Label displayed above the input field. */
 	label?: string;
-}
+
+	/** Placeholder text for the input field. */
+	placeholder?: string;
+};
 
 export const InputComponent = (
 	{
@@ -67,7 +70,7 @@ export const InputComponent = (
 		suffix = null,
 		label = '',
 		...props
-	}: InputProps,
+	}: InputProps & Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size' | 'prefix'>,
 	ref: React.ForwardedRef<HTMLInputElement>
 ) => {
 	const inputRef = useRef<HTMLInputElement>( null );
