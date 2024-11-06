@@ -448,15 +448,15 @@ export const AstraDashboard = ( args ) => {
 									<Container.Item className="items-center flex gap-2">
 										<Button
 											variant="ghost"
-											className="p-0 leading-none text-icon-secondary"
+											className="leading-none text-icon-secondary"
+											icon={ <Ellipsis /> }
 										>
-											<Ellipsis />
 										</Button>
 										<Button
 											variant="ghost"
-											className="p-0 leading-none text-icon-secondary"
+											className="leading-none text-icon-secondary"
+											icon={ <ArrowUpRight /> }
 										>
-											<ArrowUpRight />
 										</Button>
 									</Container.Item>
 								</Container>
@@ -548,8 +548,8 @@ export const AstraDashboard = ( args ) => {
 										<Button
 											className="p-0 text-text-secondary"
 											variant="ghost"
+											icon={ <ArrowUpRight /> }
 										>
-											<ArrowUpRight />
 										</Button>
 									</Container.Item>
 								</Container>

@@ -43,6 +43,7 @@ export const Default: Story = {
 		icon: null,
 		iconPosition: 'left',
 		loading: false,
+		icon: <Plus />,
 	},
 };
 
