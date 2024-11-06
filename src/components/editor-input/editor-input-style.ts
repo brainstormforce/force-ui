@@ -2,10 +2,10 @@ export const editableContentAreaCommonClassNames =
 	'w-full [&>p]:w-full [&>p]:m-0';
 
 export const editorCommonClassNames =
-	'focus-within:ring-2 focus-within:ring-offset-2 hover:border-border-strong focus-within:!border-focus-border focus-within:ring-focus transition duration-150 ease-in-out outline outline-1 outline-field-border';
+	'focus-within:ring-2 focus-within:ring-offset-2 hover:outline-border-strong hover:focus-within:outline-focus-border focus-within:outline-focus-border focus-within:ring-focus transition-[color,outline,box-shadow] duration-150 ease-in-out outline outline-1 outline-field-border';
 
 export const editorDisabledClassNames =
-	'bg-field-secondary-background border-field-border-disabled hover:border-field-border-disabled [&_p]:text-badge-color-disabled cursor-not-allowed';
+	'bg-field-secondary-background outline-field-border-disabled hover:outline-field-border-disabled [&_p]:text-badge-color-disabled cursor-not-allowed';
 
 export const editorInputClassNames = {
 	sm: 'px-3 py-1.5 rounded [&_.editor-content>p]:text-xs [&_.editor-content>p]:font-normal [&_.pointer-events-none]:text-xs [&_.pointer-events-none]:font-normal [&_.editor-content>p]:content-center [&_.editor-content>p]:min-h-5',
