@@ -1,11 +1,11 @@
 import { cn } from '@/utilities/functions';
-import React, { forwardRef } from 'react';
+import React, { type ElementType, forwardRef, type ReactNode } from 'react';
 
 export interface LabelProps {
 	/** The content of the label. */
-	children: React.ReactNode;
+	children: ReactNode;
 	/** Defines the HTML tag to use for the label. */
-	tag?: string | React.ElementType;
+	tag?: string | ElementType;
 	/** Defines the size of the label. */
 	size?: 'xs' | 'sm' | 'md';
 	/** Defines the extra classes. */

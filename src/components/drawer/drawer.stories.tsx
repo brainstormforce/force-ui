@@ -1,11 +1,11 @@
-import { useState, Fragment } from 'react';
+import { useState, Fragment, type ReactNode, type ElementType } from 'react';
 import type { Meta, StoryFn } from '@storybook/react';
 import Drawer from './drawer';
 import Button from '../button';
 
 interface AdditionalArgTypes {
-	title?: string | React.ReactNode;
-	titleTag?: React.ElementType;
+	title?: string | ReactNode;
+	titleTag?: ElementType;
 }
 
 const meta: Meta<typeof Drawer> = {
@@ -37,11 +37,6 @@ const meta: Meta<typeof Drawer> = {
 			control: 'select',
 			table: {
 				type: { summary: 'string' },
-			},
-		},
-		trigger: {
-			table: {
-				type: { summary: 'React.ElementType' },
 			},
 		},
 		position: {
@@ -91,7 +86,7 @@ type StoryWithCustomArg = StoryFn<ComponentProps & AdditionalArgTypes>;
 
 type Story = StoryFn<typeof Drawer>;
 
-const Template: StoryWithCustomArg = ( args ) => {
+const Template: StoryWithCustomArg = ( { title, titleTag, ...args } ) => {
 	const [ open, setOpen ] = useState( false );
 
 	return (
@@ -99,8 +94,8 @@ const Template: StoryWithCustomArg = ( args ) => {
 			<Drawer.Panel>
 				<Drawer.Header>
 					<div className="flex items-center justify-between">
-						<Drawer.Title as={ args?.titleTag }>
-							{ args?.title ?? 'Drawer Title' }
+						<Drawer.Title as={ titleTag }>
+							{ title ?? 'Drawer Title' }
 						</Drawer.Title>
 						<Drawer.CloseButton />
 					</div>

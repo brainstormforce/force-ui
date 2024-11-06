@@ -1,11 +1,11 @@
-import React from 'react';
+import { type ReactNode, type ElementType } from 'react';
 import { cn } from '@/utilities/functions';
 
 export interface DrawerTitleProps {
 	/** Title content. */
-	children: React.ReactNode;
+	children: ReactNode;
 	/** HTML element to render. */
-	as?: React.ElementType;
+	as?: ElementType;
 	/** Additional class names. */
 	className?: string;
 }

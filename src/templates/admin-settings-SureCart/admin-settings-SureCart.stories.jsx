@@ -154,7 +154,7 @@ const LANGUAGE_OPTIONS = [
 	},
 ];
 
-const Template = () => {
+const Template = ( args ) => {
 	const [ activeTab, setActiveTab ] = useState( TABS[ 0 ].slug );
 
 	const handleChangeTab = ( { event, value: { slug } } ) => {
@@ -183,6 +183,7 @@ const Template = () => {
 
 	return (
 		<Container
+			{ ...args }
 			containerType="flex"
 			direction="column"
 			gap={ 0 }

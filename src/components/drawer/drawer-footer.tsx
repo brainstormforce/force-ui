@@ -1,11 +1,10 @@
 import { cn } from '@/utilities/functions';
 import { useDrawerState } from './drawer';
+import { type ReactNode } from 'react';
 
 export interface DrawerFooterProps {
 	/** Footer content. */
-	children:
-		| React.ReactNode
-		| ( ( { close }: { close: () => void } ) => React.ReactNode );
+	children: ReactNode | ( ( { close }: { close: () => void } ) => ReactNode );
 	/** Additional class names. */
 	className?: string;
 }
