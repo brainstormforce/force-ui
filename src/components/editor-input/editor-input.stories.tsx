@@ -1,5 +1,5 @@
 import EditorInput from './editor-input';
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryFn } from '@storybook/react';
 
 const meta: Meta<typeof EditorInput> = {
 	title: 'Atoms/EditorInput',
@@ -24,7 +24,7 @@ const meta: Meta<typeof EditorInput> = {
 
 export default meta;
 
-type Story = StoryObj<typeof EditorInput>;
+type Story = StoryFn<typeof EditorInput>;
 
 const options = [
 	'Red',
@@ -37,37 +37,34 @@ const options = [
 	'Pink',
 ];
 
-export const Default: Story = {
-	args: {
-		size: 'md',
-		autoSpaceAfterMention: false,
-		autoFocus: false,
-		options,
-		onChange: ( editorState ) => editorState.toJSON(),
-	},
-};
+const Template: Story = ( args ) => <EditorInput key={args.size} { ...args } />;
 
-// More on writing stories with args: https://storybook.js.org/docs/writing-stories/args
-export const Small: Story = {
-	args: {
-		size: 'sm',
-		options,
-		onChange: ( editorState ) => editorState.toJSON(),
-	},
-};
+export const Default: Story = Template.bind( {} );
+Default.args = {
+	size: 'md',
+	autoSpaceAfterMention: false,
+	autoFocus: false,
+	options,
+	onChange: ( editorState ) => editorState.toJSON(),
+}
 
-export const Medium: Story = {
-	args: {
-		size: 'md',
-		options,
-		onChange: ( editorState ) => editorState.toJSON(),
-	},
-};
+export const Small: Story = Template.bind( {} );
+Small.args = {
+	size: 'sm',
+	options,
+	onChange: ( editorState ) => editorState.toJSON(),
+}
 
-export const Large: Story = {
-	args: {
-		size: 'lg',
-		options,
-		onChange: ( editorState ) => editorState.toJSON(),
-	},
-};
+export const Medium: Story = Template.bind( {} );
+Medium.args = {
+	size: 'md',
+	options,
+	onChange: ( editorState ) => editorState.toJSON(),
+}
+
+export const Large: Story = Template.bind( {} );
+Large.args = {
+	size: 'lg',
+	options,
+	onChange: ( editorState ) => editorState.toJSON(),
+}

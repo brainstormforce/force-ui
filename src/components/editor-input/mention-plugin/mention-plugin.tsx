@@ -28,7 +28,7 @@ import { mergeRegister } from '@lexical/utils';
 import { type TOptionItem } from '../editor-input';
 
 export type Trigger = '@' | '#' | ( string & {} );
-export type TSizes = 'lg' | 'md' | 'sm' | 'xs';
+export type TSizes = 'lg' | 'md' | 'sm';
 export type OptionsArray = Array<TOptionItem>;
 export type TMenuComponent = React.ComponentType<
 	React.ComponentProps<typeof EditorCombobox>
