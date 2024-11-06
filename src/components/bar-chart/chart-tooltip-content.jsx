@@ -57,13 +57,13 @@ const ChartTooltipContent = React.forwardRef(
                                 {!hideIndicator && (
                                     <div
                                         className={cn({
-                                            'h-2.5 w-2.5 ': indicator === 'dot',
+                                            'size-2.5': indicator === 'dot',
                                             'w-1 h-full': indicator === 'line',
                                             'w-0 border-[0.5px] border-dashed': indicator === 'dashed',
                                         })}
                                         style={{
-                                            backgroundColor: indicator === 'dot' || indicator === 'line' ? indicatorColor : undefined,
-                                            borderColor: indicator === 'dashed' ? indicatorColor : undefined,
+                                            backgroundColor: indicator === 'dot' || indicator === 'line' ? indicatorColor : '',
+                                            borderColor: indicator === 'dashed' ? indicatorColor : '',
                                         }}
                                     />
                                 )}

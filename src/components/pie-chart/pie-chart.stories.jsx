@@ -6,11 +6,10 @@ import Container from "../container";
 import { ArrowUpRight, ArrowUp } from 'lucide-react';
 
 const chartData = [
-    { name: "chrome", visitors: 275, fill: '#1E3A8A' },
-    { name: "safari", visitors: 200, fill: '#2563EB' },
+    { name: "chrome", visitors: 345, fill: '#1E3A8A' },
+    { name: "safari", visitors: 210, fill: '#2563EB' },
     { name: "firefox", visitors: 287, fill: '#497ef2' },
-    { name: "edge", visitors: 173, fill: '#7DD3FC' },
-    { name: "other", visitors: 190, fill: '#45bcf5' },
+    { name: "edge", visitors: 153, fill: '#7DD3FC' },
 ];
 
 const totalVisitors = () => {
@@ -74,9 +73,45 @@ export default {
         },
         label: {
             description: 'When is true it show the label inside `donut` pie chart',
-            // control: { type: 'boolean' },
+            control: { type: 'boolean' },
             table: {
                 type: { summary: 'boolean' },
+            },
+        },
+        labelName: {
+            description:
+                'Label name which will be displayed inside donut pie chart.',
+            control: { type: 'string' },
+            table: {
+                type: { summary: 'string' },
+            },
+        },
+        chartWidth: {
+            description: 'Width of the chart container in pixels.',
+            control: { type: 'number' },
+            table: {
+                type: { summary: 'number' },
+            },
+        },
+        chartHeight: {
+            description: 'Height of the chart container in pixels.',
+            control: { type: 'number' },
+            table: {
+                type: { summary: 'number' },
+            },
+        },
+        pieOuterRadius: {
+            description: 'Outer radius of the pie chart in pixels.',
+            control: { type: 'number' },
+            table: {
+                type: { summary: 'number' },
+            },
+        },
+        pieInnerRadius: {
+            description: 'Inner radius of the pie chart in pixels.',
+            control: { type: 'number' },
+            table: {
+                type: { summary: 'number' },
             },
         },
         
@@ -103,6 +138,7 @@ PieChartDonut.args = {
     showTooltip: true,
     tooltipIndicator: "dot",
     label: true,
+    labelName: "Visitors",
     labelValue: totalVisitors(),
     showLegend: false
 }
@@ -123,9 +159,8 @@ export const PieChartCard1 = () => (
                 </Button>
             </Container>
             <Container containerType="flex" align="center" gap="xs">
-                <div className="text-4xl text-text-primary font-semibold">
-                    16/20
-                </div>
+                <span className="text-4xl text-text-primary font-semibold">16 </span>
+                <span className="text-xl text-text-tertiary font-semibold">/ 20</span>
             </Container>
         </Container.Item>
         <Container.Item>
@@ -167,6 +202,7 @@ export const PieChartCard2 = () => (
                 tooltipIndicator="dot"
                 showLegend={true}
                 label={true}
+                labelName= "Visitors"
                 labelValue={totalVisitors()}
             />
         </Container.Item>

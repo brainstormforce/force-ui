@@ -177,8 +177,6 @@ LineChartSimple.args = {
     tickFormatter: monthFormatter,
     xAxisDataKey: 'month',
     xAxisFontSize: 12,
-    // chartWidth: 400,
-    // chartHeight: 300,
     withDots: false
 };
 
@@ -194,13 +192,10 @@ LineChartWithDots.args = {
     tickFormatter: monthFormatter,
     xAxisDataKey: 'month',
     xAxisFontSize: 12,
-    // chartWidth: 400,
-    // chartHeight: 300,
     withDots: true,
-    xAxisFontColor: '#ff0000',
 };
 
-LineChartWithDots.storyName = 'Line Chart With Dots and Red xAxis Label Color';
+LineChartWithDots.storyName = 'Line Chart With Dots';
 
 export const LineChartMultiple = Template.bind({});
 LineChartMultiple.args = {
@@ -214,7 +209,5 @@ LineChartMultiple.args = {
     tickFormatter: monthFormatter,
     xAxisDataKey: 'month',
     xAxisFontSize: 12,
-    // chartWidth: 400,
-    // chartHeight: 300,
     withDots: false
 };

@@ -88,7 +88,7 @@ const BarChart = ({
                 
                 {showYAxis && <YAxis dataKey={yAxisDataKey} />}
                 {showTooltip && <Tooltip content={<ChartTooltipContent indicator={tooltipIndicator} labelKey={tooltipLabelKey} />}/>}
-                {showLegend && <Legend content={<ChartLegendContent />} />}
+                {showLegend && <Legend content={<ChartLegendContent fontSizeVariant={fontSizeVariant} />} />}
                 
                 {dataKeys.map((key, index) => {
                     let radius;
