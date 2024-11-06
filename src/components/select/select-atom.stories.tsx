@@ -36,12 +36,7 @@ export default meta;
 type Story = StoryFn<typeof Select>;
 
 // Single Select Story
-export const SingleSelect: Story = ( {
-	size,
-	multiple,
-	combobox,
-	disabled,
-} ) => (
+export const SingleSelect: Story = ( { size, multiple, combobox, disabled } ) => (
 	<div style={ { width: '300px' } }>
 		<Select
 			key={ multiple as unknown as string }
@@ -51,7 +46,12 @@ export const SingleSelect: Story = ( {
 			disabled={ disabled }
 			onChange={ ( value ) => value }
 		>
-			<Select.Button placeholder={ multiple ? "Select multiple options" : 'Select an option'} label={ multiple ? "Select Multiple Colors" : 'Select a Color'} />
+			<Select.Button
+				placeholder={
+					multiple ? 'Select multiple options' : 'Select an option'
+				}
+				label={ multiple ? 'Select Multiple Colors' : 'Select a Color' }
+			/>
 			<Select.Portal>
 				<Select.Options>
 					{ options.map( ( option ) => (
@@ -86,7 +86,12 @@ const SelectWithoutPortalTemplate: Story = ( {
 			disabled={ disabled }
 			onChange={ ( value ) => value }
 		>
-			<Select.Button placeholder={ multiple ? "Select multiple options" : 'Select an option'} label={ multiple ? "Select Multiple Colors" : 'Select a Color'} />
+			<Select.Button
+				placeholder={
+					multiple ? 'Select multiple options' : 'Select an option'
+				}
+				label={ multiple ? 'Select Multiple Colors' : 'Select a Color' }
+			/>
 			<Select.Options>
 				{ options.map( ( option ) => (
 					<Select.Option key={ option.id } value={ option }>
@@ -107,12 +112,7 @@ SingleSelectWithoutPortal.args = {
 };
 
 // Multi-select Story
-export const MultiSelect: Story = ( {
-	size,
-	multiple,
-	combobox,
-	disabled,
-} ) => (
+export const MultiSelect: Story = ( { size, multiple, combobox, disabled } ) => (
 	<div style={ { width: '300px' } }>
 		<Select
 			size={ size }
@@ -121,7 +121,12 @@ export const MultiSelect: Story = ( {
 			disabled={ disabled }
 			onChange={ ( value ) => value }
 		>
-			<Select.Button placeholder={ multiple ? "Select multiple options" : 'Select an option'} label={ multiple ? "Select Multiple Colors" : 'Select a Color'} />
+			<Select.Button
+				placeholder={
+					multiple ? 'Select multiple options' : 'Select an option'
+				}
+				label={ multiple ? 'Select Multiple Colors' : 'Select a Color' }
+			/>
 			<Select.Portal>
 				<Select.Options>
 					{ options.map( ( option ) => (
@@ -164,12 +169,12 @@ export const SelectWithSearch: Story = ( {
 			disabled={ disabled }
 			onChange={ ( value ) => value }
 		>
-			<Select.Button label='Select Color' placeholder='Select an option' />
+			<Select.Button
+				label="Select Color"
+				placeholder="Select an option"
+			/>
 			<Select.Portal>
-				<Select.Options
-					searchBy="name"
-					searchPlaceholder="Search..."
-				>
+				<Select.Options searchBy="name" searchPlaceholder="Search...">
 					{ options.map( ( option ) => (
 						<Select.Option key={ option.id } value={ option }>
 							{ option.name }

@@ -123,7 +123,7 @@ export function SelectButton( {
 			return ( selectedValue as SelectOptionValue[] ).map(
 				( valueItem: SelectOptionValue, index: number ) => (
 					<Badge
-						className='cursor-default'
+						className="cursor-default"
 						icon={ optionIcon }
 						type="rounded"
 						key={ index }

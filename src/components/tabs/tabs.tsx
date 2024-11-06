@@ -59,7 +59,7 @@ export interface TabProps {
 }
 
 // Context for Tab Panels.
-const TabsContext = createContext<Partial<Record<string, unknown>>>({});
+const TabsContext = createContext<Partial<Record<string, unknown>>>( {} );
 const useTabs = () => useContext( TabsContext );
 
 // Context for managing the TabsGroup state.
@@ -91,7 +91,8 @@ export const TabsGroup = ( {
 	const tabsState = useTabs();
 
 	// Determine the active item based on the activeTabSlug prop.
-	const activeItem = (tabsState?.activeItem as string | null) || activeTabSlug;
+	const activeItem =
+		( tabsState?.activeItem as string | null ) || activeTabSlug;
 
 	// Handle change event.
 	const handleChange: InternalOnChange = useCallback(
@@ -326,14 +327,13 @@ export interface TabsProps {
 	children: ReactNode;
 }
 
-const Tabs = ( {activeItem, children}: TabsProps ) => {
+const Tabs = ( { activeItem, children }: TabsProps ) => {
 	return (
 		<TabsContext.Provider value={ { activeItem } }>
 			{ children }
 		</TabsContext.Provider>
 	);
-}
-
+};
 
 export interface TabPanelProps {
 	/** Unique identifier for the tab panel that is used for the tab. */
@@ -342,22 +342,19 @@ export interface TabPanelProps {
 	children: ReactNode;
 }
 
-export const TabPanel = ({slug, children}: TabPanelProps) => {
+export const TabPanel = ( { slug, children }: TabPanelProps ) => {
 	const providerValue = useTabs();
 
 	if ( ! providerValue ) {
 		throw new Error( 'TabPanel should be used inside Tabs' );
 	}
 
-	return slug === providerValue.activeItem ? <>{children}</> : null;
-}
+	return slug === providerValue.activeItem ? <>{ children }</> : null;
+};
 TabPanel.displayName = 'Tabs.Panel';
-
-
 
 Tabs.Group = TabsGroup;
 Tabs.Tab = Tab;
 Tabs.Panel = TabPanel;
-
 
 export default Tabs;

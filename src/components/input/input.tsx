@@ -52,7 +52,7 @@ export declare interface InputProps {
 
 	/** Placeholder text for the input field. */
 	placeholder?: string;
-};
+}
 
 export const InputComponent = (
 	{
@@ -70,7 +70,8 @@ export const InputComponent = (
 		suffix = null,
 		label = '',
 		...props
-	}: InputProps & Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size' | 'prefix'>,
+	}: InputProps &
+		Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size' | 'prefix'>,
 	ref: React.ForwardedRef<HTMLInputElement>
 ) => {
 	const inputRef = useRef<HTMLInputElement>( null );
@@ -239,7 +240,7 @@ export const InputComponent = (
 		);
 	};
 
-	const renderLabel = useMemo(() => {
+	const renderLabel = useMemo( () => {
 		if ( ! label ) {
 			return null;
 		}
@@ -251,7 +252,7 @@ export const InputComponent = (
 				{ label }
 			</label>
 		);
-	}, [ label, size, inputId ]);
+	}, [ label, size, inputId ] );
 
 	const fileClasses = selectedFile
 		? 'file:border-0 file:bg-transparent pr-10'

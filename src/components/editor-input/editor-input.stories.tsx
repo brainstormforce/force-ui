@@ -37,7 +37,7 @@ const options = [
 	'Pink',
 ];
 
-const Template: Story = ( args ) => <EditorInput key={args.size} { ...args } />;
+const Template: Story = ( args ) => <EditorInput key={ args.size } { ...args } />;
 
 export const Default: Story = Template.bind( {} );
 Default.args = {
@@ -46,25 +46,25 @@ Default.args = {
 	autoFocus: false,
 	options,
 	onChange: ( editorState ) => editorState.toJSON(),
-}
+};
 
 export const Small: Story = Template.bind( {} );
 Small.args = {
 	size: 'sm',
 	options,
 	onChange: ( editorState ) => editorState.toJSON(),
-}
+};
 
 export const Medium: Story = Template.bind( {} );
 Medium.args = {
 	size: 'md',
 	options,
 	onChange: ( editorState ) => editorState.toJSON(),
-}
+};
 
 export const Large: Story = Template.bind( {} );
 Large.args = {
 	size: 'lg',
 	options,
 	onChange: ( editorState ) => editorState.toJSON(),
-}
+};

@@ -8,13 +8,13 @@ const meta: Meta<typeof Tabs.Group> = {
 	component: Tabs.Group,
 	subcomponents: {
 		'Tabs.Tab': Tabs.Tab,
-		Tabs: Tabs,
+		Tabs,
 		'Tabs.Panel': Tabs.Panel,
 	} as Record<string, React.ComponentType<unknown>>,
 	parameters: {
 		layout: 'centered',
 	},
-	tags: ['autodocs'],
+	tags: [ 'autodocs' ],
 	argTypes: {
 		size: {
 			control: 'select',
@@ -41,29 +41,29 @@ export default meta;
 
 type Story = StoryFn<typeof Tabs.Group>;
 
-const Template: Story = (args) => {
-	const [activeTab, setActiveTab] = useState(args?.activeItem ?? 'tab1');
+const Template: Story = ( args ) => {
+	const [ activeTab, setActiveTab ] = useState( args?.activeItem ?? 'tab1' );
 
-	const handleTabChange: TabsGroupProps['onChange'] = ({ event, value }) => {
+	const handleTabChange: TabsGroupProps['onChange'] = ( { event, value } ) => {
 		const activeSlugName = value.slug;
-		if (activeSlugName) {
-			setActiveTab(activeSlugName);
-			if (typeof args.onChange === 'function') {
-				args.onChange({ event, value });
+		if ( activeSlugName ) {
+			setActiveTab( activeSlugName );
+			if ( typeof args.onChange === 'function' ) {
+				args.onChange( { event, value } );
 			}
 		}
 	};
 
 	return (
-		<Tabs.Group {...args} activeItem={activeTab} onChange={handleTabChange}>
-			<Tabs.Tab slug="tab1" text="Tab 1" icon={<House />} />
-			<Tabs.Tab slug="tab2" text="Tab 2" icon={<House />} />
-			<Tabs.Tab slug="tab3" text="Tab 3" icon={<House />} />
+		<Tabs.Group { ...args } activeItem={ activeTab } onChange={ handleTabChange }>
+			<Tabs.Tab slug="tab1" text="Tab 1" icon={ <House /> } />
+			<Tabs.Tab slug="tab2" text="Tab 2" icon={ <House /> } />
+			<Tabs.Tab slug="tab3" text="Tab 3" icon={ <House /> } />
 		</Tabs.Group>
 	);
 };
 
-export const Default = Template.bind({});
+export const Default = Template.bind( {} );
 Default.args = {
 	size: 'sm',
 	variant: 'pill',
@@ -125,24 +125,24 @@ export const WithCustomIcons = {
 	render: Template,
 };
 
-export const TabsWithPanel: Story = (args) => {
-	const [activeTab, setActiveTab] = useState('tab1');
+export const TabsWithPanel: Story = ( args ) => {
+	const [ activeTab, setActiveTab ] = useState( 'tab1' );
 
-	const handleTabChange: TabsGroupProps['onChange'] = ({ value }) => {
+	const handleTabChange: TabsGroupProps['onChange'] = ( { value } ) => {
 		const selectedTab = value.slug;
-		if (selectedTab) {
-			setActiveTab(selectedTab);
+		if ( selectedTab ) {
+			setActiveTab( selectedTab );
 		}
 	};
 
 	return (
-		<Tabs {...args} activeItem={activeTab}>
-			<Tabs.Group onChange={handleTabChange}>
-				<Tabs.Tab slug="tab1" text="Tab 1" icon={<House />} />
-				<Tabs.Tab slug="tab2" text="Tab 2" icon={<House />} />
-				<Tabs.Tab slug="tab3" text="Tab 3" icon={<House />} />
+		<Tabs { ...args } activeItem={ activeTab }>
+			<Tabs.Group onChange={ handleTabChange }>
+				<Tabs.Tab slug="tab1" text="Tab 1" icon={ <House /> } />
+				<Tabs.Tab slug="tab2" text="Tab 2" icon={ <House /> } />
+				<Tabs.Tab slug="tab3" text="Tab 3" icon={ <House /> } />
 			</Tabs.Group>
-			<div className='my-5 p-5 rounded-md bg-slate-100 shadow-md'>
+			<div className="my-5 p-5 rounded-md bg-slate-100 shadow-md">
 				<Tabs.Panel slug="tab1">
 					<p>Tab 1 content</p>
 				</Tabs.Panel>
