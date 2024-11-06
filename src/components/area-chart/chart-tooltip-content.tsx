@@ -1,7 +1,33 @@
-import React from 'react';
+import { useMemo, forwardRef } from 'react';
 import { cn } from '@/utilities/functions';
 
-const ChartTooltipContent = React.forwardRef(
+type IndicatorType = 'dot' | 'line' | 'dashed';
+
+interface PayloadItem {
+    color?: string;
+    dataKey?: string;
+    name?: string;
+    value?: number | string;
+    [key: string]: any; // Allow additional properties in each payload item
+}
+
+interface ChartTooltipContentProps {
+    active?: boolean;
+    payload?: PayloadItem[];
+    className?: string;
+    indicator?: IndicatorType; // dot, line, dashed
+    hideLabel?: boolean;
+    hideIndicator?: boolean;
+    label?: string;
+    labelFormatter?: (label: string) => string;
+    labelClassName?: string;
+    formatter?: (value: number | string) => string | number;
+    color?: string;
+    nameKey?: string;
+    labelKey?: string;
+}
+
+const ChartTooltipContent = forwardRef<HTMLDivElement, ChartTooltipContentProps>(
 	(
 		{
 			active,
@@ -20,13 +46,13 @@ const ChartTooltipContent = React.forwardRef(
 		},
 		ref
 	) => {
-		const tooltipLabel = React.useMemo(() => {
+		const tooltipLabel = useMemo(() => {
 			if (hideLabel || !payload?.length) return null;
 
 			const [item] = payload;
 			const value = labelFormatter
-				? labelFormatter(label)
-				: item[labelKey] || label;
+				? labelFormatter(label || '')
+				: item[labelKey as keyof PayloadItem] || label;
 
 			return value ? (
 				<div className={cn('font-medium', labelClassName)}>{value}</div>
@@ -90,8 +116,8 @@ const ChartTooltipContent = React.forwardRef(
 									<span>{item[nameKey] || item.dataKey}</span>
 									<span className="font-mono font-medium">
 										{formatter
-											? formatter(item.value)
-											: item.value}
+											? formatter(item.value ?? '')
+											: item.value ?? ''}
 									</span>
 								</div>
 							</div>

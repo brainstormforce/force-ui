@@ -13,6 +13,67 @@ import ChartLegendContent from './chart-legend-content';
 import ChartTooltipContent from './chart-tooltip-content';
 import Label from '../label';
 
+interface Color {
+    stroke: string;
+    fill: string;
+}
+
+interface AreaChartProps {
+    /** An array of objects representing the source data for the chart. */
+    data: Array<Record<string, any>>;
+
+    /** An array of strings representing the keys to access data in each data object. Used for identifying different data series. */
+    dataKeys: string[];
+
+    /** An array of color strings that determine the colors for each data series in the chart. */
+    colors?: Color[];
+
+    /** Defines the variant of Area Chart. */
+    variant?: 'solid' | 'gradient';
+
+    /** Whether to render the `<XAxis />` component for the x-axis. */
+    showXAxis?: boolean;
+
+    /** Whether to render the `<XAxis />` component for the y-axis. */
+    showYAxis?: boolean;
+
+    /** Toggle the visibility of the tooltip on hover, displaying detailed information for each data point. */
+    showTooltip?: boolean;
+
+    /** The tooltip indicator. It can be `dot`, `line` or `dashed`. */
+    tooltipIndicator?: 'dot' | 'line' | 'dashed';
+
+    /** An array of objects representing the source data for the chart. */
+    tooltipLabelKey?: string;
+
+    /** Whether to render the `<Legend />` component to identify data series. */
+    showLegend?: boolean;
+
+    /** Whether to display the `<CartesianGrid />`, adding horizontal and vertical grid lines. */
+    showCartesianGrid?: boolean;
+
+    /** A function used to format the ticks on the axes, e.g., for formatting dates or numbers. */
+    tickFormatter?: (value: any) => string;
+
+    /** The key in the data objects representing values for the x-axis. This is used to access the x-axis values from each data entry. */
+    xAxisDataKey?: string;
+
+    /** The key in the data objects representing values for the y-axis. This is used to access the y-axis values from each data entry. */
+    yAxisDataKey?: string;
+
+    /** Font size for the labels on the x-axis. */
+    xAxisFontSize?: 'sm' | 'md' | 'lg';
+
+    /** Font color for the labels on the x-axis. */
+    xAxisFontColor?: string;
+
+    /** Width of the chart container. */
+    chartWidth?: number;
+
+    /** Height of the chart container. */
+    chartHeight?: number;
+}
+
 const AreaChart = ({
 	data,
 	dataKeys,
@@ -32,12 +93,12 @@ const AreaChart = ({
 	xAxisFontColor = '#4B5563',
 	chartWidth = 350,
 	chartHeight = 200,
-}) => {
+}: AreaChartProps) => {
 	const [width, setWidth] = useState(chartWidth);
 	const [height, setHeight] = useState(chartHeight);
 
     // Default colors
-    const defaultColors = [
+    const defaultColors: Color[] = [
         { stroke: '#2563EB', fill: '#BFDBFE' },
         { stroke: '#38BDF8', fill: '#BAE6FD' },
     ];
