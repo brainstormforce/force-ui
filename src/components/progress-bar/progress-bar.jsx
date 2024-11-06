@@ -5,7 +5,7 @@ const ProgressBar = ({
 	speed = 200,
 	className = '',
 }) => {
-	if (!progress) {
+	if (isNaN(progress)) {
 		return null;
 	}
 	let percent = progress;
