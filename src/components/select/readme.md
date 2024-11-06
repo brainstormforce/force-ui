@@ -86,6 +86,21 @@ The `Select` component is a versatile, customizable select component built with 
 - **Default:** `undefined`
 - **Description:** Label for the select component.
 
+## `Select.Portal` Props
+
+> **Note:** This component is used to render the dropdown outside the parent container. `Select.Portal` By default, renders content in the `document.body`. You can use the following props to render the dropdown in a specific container. Use this to wrap the `Select.Options` component to render the dropdown in a specific container when overflow is hidden in the parent container causing the dropdown to be hidden.
+
+### `root`
+- **Type:** `HTMLElement | null`
+- **Default:** `null`
+- **Description:** Root element where the dropdown will be rendered. It's helpful when the dropdown is rendered outside the parent container and scopped Tailwind CSS styles.
+
+### `id`
+- **Type:** `string`
+- **Default:** `""`
+- **Description:** Id of the dropdown portal where the dropdown will be rendered. It's helpful when the dropdown is rendered outside the parent container and scopped Tailwind CSS styles.
+
+
 ## `Select.Options` Props
 
 ### `searchBy` 
@@ -98,16 +113,6 @@ The `Select` component is a versatile, customizable select component built with 
 - **Default:** `"Search..."`
 - **Description:** Placeholder text for search box.
 - **Default:** `"Search..."`
-
-### `dropdownPortalRoot`
-- **Type:** `HTMLElement | null`
-- **Default:** `null`
-- **Description:** Root element where the dropdown will be rendered. It's helpful when the dropdown is rendered outside the parent container and scopped Tailwind CSS styles.
-
-### `dropdownPortalId`
-- **Type:** `string`
-- **Default:** `""`
-- **Description:** Id of the dropdown portal where the dropdown will be rendered. It's helpful when the dropdown is rendered outside the parent container and scopped Tailwind CSS styles.
 
 
 ## `Select.Option` Props
@@ -140,13 +145,32 @@ const options = [
 
 const App = () => (
   <div>
+
     <Select
         onChange={ ( value ) => console.log( value ) }
         multiple
     >
         <Select.Button label="Color" />
+        { /* Portal will render options inside the `wp-content` container */ }
+        <Select.Portal id="wp-content">
+            <Select.Options
+            >
+                { options.map( ( option, index ) => (
+                    <Select.Option key={ index } value={ option }>
+                        { option }
+                    </Select.Option>
+                ) ) }
+            </Select.Options>
+        </Select.Portal>
+    </Select>
+
+    <Select
+        onChange={ ( value ) => console.log( value ) }
+        multiple
+    >
+        <Select.Button label="Color" />
+        { /* Without Select.Portal will render options inside the parent container */ }
         <Select.Options
-            dropdownPortalId="wpcontent"
         >
             { options.map( ( option, index ) => (
                 <Select.Option key={ index } value={ option }>
