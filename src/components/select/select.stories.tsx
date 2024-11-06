@@ -70,7 +70,7 @@ const Template: Story = ( args ) => {
 					</Select.Options>
 				</Select.Portal>
 			</Select>
-			<Label size="sm" variant="help">
+			<Label className='mt-1.5' size="sm" variant="help" tag='span'>
 				Hint text can be added here.
 				<a href="https://example.com">Link</a>.
 			</Label>
