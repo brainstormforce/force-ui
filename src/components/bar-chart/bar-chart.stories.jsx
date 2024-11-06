@@ -388,11 +388,12 @@ BarChartInteractive.args = {
 	borderRadius: 0,
 };
 
-export const BarChartCard1 = () => (
+export const BarChartCard1 = (args) => (
 	<Container
 		containerType="grid"
 		gap="xs"
 		className="p-4 bg-background-primary rounded-lg shadow-sm"
+        {...args}
 	>
 		<Container.Item className="p-1 space-y-2">
 			<Container containerType="flex" justify="between" align="center">
@@ -449,11 +450,12 @@ export const BarChartCard1 = () => (
 
 BarChartCard1.storyName = 'Clone Sites Card With Bar Chart';
 
-export const BarChartCard2 = () => (
+export const BarChartCard2 = (args) => (
 	<Container
 		containerType="grid"
 		gap="xs"
 		className="p-4 bg-background-primary rounded-lg shadow-sm"
+        {...args}
 	>
 		<Container.Item className="p-1 space-y-2">
 			<Container containerType="flex" justify="between" align="center">
@@ -513,11 +515,12 @@ export const BarChartCard2 = () => (
 
 BarChartCard2.storyName = 'Clone Sites Card With Bar Chart Multiple';
 
-export const BarChartCard3 = () => (
+export const BarChartCard3 = (args) => (
 	<Container
 		containerType="grid"
 		gap="xs"
 		className="p-4 bg-background-primary rounded-lg shadow-sm"
+        {...args}
 	>
 		<Container.Item className="p-1 space-y-2">
 			<Container containerType="flex" justify="between" align="center">
@@ -578,11 +581,12 @@ export const BarChartCard3 = () => (
 
 BarChartCard3.storyName = 'Clone Sites Card With Stacked Bar Chart + Legend';
 
-export const BarChartCard4 = () => (
+export const BarChartCard4 = (args) => (
 	<Container
 		containerType="grid"
 		gap="xs"
 		className="p-4 bg-background-primary rounded-lg shadow-sm"
+        {...args}
 	>
 		<Container.Item className="p-1 space-y-2">
 			<Container containerType="flex" justify="between" align="center">
@@ -642,11 +646,12 @@ export const BarChartCard4 = () => (
 
 BarChartCard4.storyName = 'Clone Sites Card With Bar Chart Horizontal';
 
-export const AreaChartCard5 = () => (
+export const AreaChartCard5 = (args) => (
 	<Container
 		containerType="grid"
 		gap="xs"
 		className="p-4 bg-background-primary rounded-lg shadow-sm"
+        {...args}
 	>
 		<Container.Item className="p-1 space-y-2">
 			<Container containerType="flex" justify="between" align="center">

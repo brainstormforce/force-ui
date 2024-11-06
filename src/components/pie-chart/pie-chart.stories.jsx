@@ -142,11 +142,12 @@ PieChartDonut.args = {
 	showLegend: false,
 };
 
-export const PieChartCard1 = () => (
+export const PieChartCard1 = (args) => (
 	<Container
 		containerType="grid"
 		gap="xs"
 		className="p-4 bg-background-primary rounded-lg shadow-sm"
+        {...args}
 	>
 		<Container.Item className="p-1 space-y-2">
 			<Container containerType="flex" justify="between" align="center">
@@ -180,11 +181,12 @@ export const PieChartCard1 = () => (
 
 PieChartCard1.storyName = 'Clone Sites Card with Pie Chart';
 
-export const PieChartCard2 = () => (
+export const PieChartCard2 = (args) => (
 	<Container
 		containerType="grid"
 		gap="xs"
 		className="p-4 bg-background-primary rounded-lg shadow-sm"
+        {...args}
 	>
 		<Container.Item className="p-1 space-y-2">
 			<Container containerType="flex" justify="between" align="center">
