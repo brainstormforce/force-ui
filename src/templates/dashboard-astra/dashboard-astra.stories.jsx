@@ -544,7 +544,7 @@ export const AstraDashboard = ( args ) => {
 										gap="xs"
 									>
 										<Button
-											className="p-0 text-text-secondary"
+											className="text-text-secondary"
 											variant="ghost"
 											icon={ <ArrowUpRight /> }
 										></Button>
