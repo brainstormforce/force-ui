@@ -151,7 +151,7 @@ export const PaginationButton = ( {
 				)( event )
 			}
 		>
-			{ children }
+			<span className="px-1">{ children }</span>
 		</Button>
 	);
 };

@@ -16,9 +16,6 @@ export const ProgressBar = ( {
 	speed = 200,
 	className = '',
 }: ProgressBarProps ) => {
-	if ( ! progress ) {
-		return null;
-	}
 	let percent = progress;
 	if ( progress < 0 ) {
 		percent = 0;

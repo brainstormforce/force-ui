@@ -38,14 +38,6 @@ export const FullProgress = {
 	},
 };
 
-// Slow ProgressBar
-export const SlowProgress = {
-	args: {
-		progress: 75,
-		speed: 1000,
-	},
-};
-
 // Zero Progress
 export const ZeroProgress = {
 	args: {
