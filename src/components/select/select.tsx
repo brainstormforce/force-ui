@@ -123,6 +123,7 @@ export function SelectButton( {
 			return ( selectedValue as SelectOptionValue[] ).map(
 				( valueItem: SelectOptionValue, index: number ) => (
 					<Badge
+						className='cursor-default'
 						icon={ optionIcon }
 						type="rounded"
 						key={ index }
@@ -160,7 +161,7 @@ export function SelectButton( {
 				{ renderValue as React.ReactNode }
 			</span>
 		);
-	}, [ getValues ] );
+	}, [ getValues, disabled ] );
 
 	const handleOnCloseItem =
 		( value: SelectOptionValue ) =>
@@ -213,7 +214,7 @@ export function SelectButton( {
 				ref={ refs.setReference }
 				className={ cn(
 					'flex items-center justify-between w-full box-border transition-colors duration-150 bg-white',
-					'outline outline-1 outline-field-border border-none',
+					'outline outline-1 outline-field-border border-none cursor-pointer',
 					! isOpen &&
 						'focus:ring-2 focus:ring-offset-4 focus:outline-focus-border focus:ring-focus [&:hover:not(:focus):not(:disabled)]:outline-border-strong',
 					sizeClassNames[ sizeValue as SelectSizes ].selectButton,

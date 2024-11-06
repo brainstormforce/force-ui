@@ -45,7 +45,7 @@ export const sizeClassNames = {
 
 export const disabledClassNames = {
 	selectButton:
-		'group disabled:outline-field-border-disabled [&:hover:has(:disabled)]:outline-field-border-disabled',
+		'group disabled:outline-field-border-disabled [&:hover:has(:disabled)]:outline-field-border-disabled disabled:cursor-default',
 	icon: 'group-disabled:text-icon-disabled',
 	text: 'group-disabled:text-field-color-disabled',
 };
