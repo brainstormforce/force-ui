@@ -315,9 +315,9 @@ const containerRowButtons = [
 	},
 ];
 
-export const SpectraDashboard = () => {
+export const SpectraDashboard = ( args ) => {
 	return (
-		<>
+		<div { ...args }>
 			<Container
 				containerType="flex"
 				align="center"
@@ -513,11 +513,9 @@ export const SpectraDashboard = () => {
 										</Label>
 										<Button
 											variant="ghost"
-											className="p-0 leading-none	"
-										>
-											{ ' ' }
-											<Ellipsis />
-										</Button>
+											className="leading-none"
+											icon={ <Ellipsis /> }
+										></Button>
 									</Container.Item>
 								</Container>
 							</Container.Item>
@@ -663,11 +661,10 @@ export const SpectraDashboard = () => {
 										gap="xs"
 									>
 										<Button
-											className="p-0 text-icon-secondary"
+											className="text-icon-secondary"
 											variant="ghost"
-										>
-											<ArrowUpRight />
-										</Button>
+											icon={ <ArrowUpRight /> }
+										></Button>
 									</Container.Item>
 								</Container>
 							</Container.Item>
@@ -798,10 +795,10 @@ export const SpectraDashboard = () => {
 											className="gap-1 p-1"
 											align="center"
 										>
-											<Container.Item>
+											<Container.Item className="flex">
 												{ button.icon }
 											</Container.Item>
-											<Container.Item>
+											<Container.Item className="flex">
 												<a
 													href="#"
 													className="no-underline hover:underline hover:text-field-label"
@@ -811,9 +808,11 @@ export const SpectraDashboard = () => {
 													</Label>
 												</a>
 											</Container.Item>
-											<Container.Item>
-												{ button.bagde }
-											</Container.Item>
+											{ button?.bagde ? (
+												<Container.Item>
+													{ button.bagde }
+												</Container.Item>
+											) : null }
 										</Container>
 									</div>
 								) ) }
@@ -822,6 +821,6 @@ export const SpectraDashboard = () => {
 					</Container.Item>
 				</Container>
 			</div>
-		</>
+		</div>
 	);
 };

@@ -138,7 +138,7 @@ const Button: React.FunctionComponent<ButtonProps> = forwardRef(
 				{ ...rest }
 			>
 				{ iconLeft }
-				<span className="px-1">{ children }</span>
+				{ children ? <span className="px-1">{ children }</span> : null }
 				{ iconRight }
 			</Tag>
 		);

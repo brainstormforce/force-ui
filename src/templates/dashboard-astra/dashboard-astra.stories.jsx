@@ -300,9 +300,9 @@ const astraRadioButtonGroupData = [
 	},
 ];
 
-export const AstraDashboard = () => {
+export const AstraDashboard = ( args ) => {
 	return (
-		<>
+		<div { ...args }>
 			{ /* Navigation Topbar */ }
 			<Topbar gap={ 0 } className="h-16 p-0 shadow-sm">
 				<Topbar.Left className="p-5">
@@ -448,16 +448,14 @@ export const AstraDashboard = () => {
 									<Container.Item className="items-center flex gap-2">
 										<Button
 											variant="ghost"
-											className="p-0 leading-none text-icon-secondary"
-										>
-											<Ellipsis />
-										</Button>
+											className="leading-none text-icon-secondary"
+											icon={ <Ellipsis /> }
+										></Button>
 										<Button
 											variant="ghost"
-											className="p-0 leading-none text-icon-secondary"
-										>
-											<ArrowUpRight />
-										</Button>
+											className="leading-none text-icon-secondary"
+											icon={ <ArrowUpRight /> }
+										></Button>
 									</Container.Item>
 								</Container>
 							</Container.Item>
@@ -548,9 +546,8 @@ export const AstraDashboard = () => {
 										<Button
 											className="p-0 text-text-secondary"
 											variant="ghost"
-										>
-											<ArrowUpRight />
-										</Button>
+											icon={ <ArrowUpRight /> }
+										></Button>
 									</Container.Item>
 								</Container>
 							</Container.Item>
@@ -658,6 +655,6 @@ export const AstraDashboard = () => {
 					</Container.Item>
 				</Container>
 			</div>
-		</>
+		</div>
 	);
 };

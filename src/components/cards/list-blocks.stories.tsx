@@ -1,5 +1,4 @@
 // RadioButtonGroup.stories.jsx
-import RadioButton from '../radio-button';
 import Container from '../container';
 import Label from '../label';
 import Badge from '../badge';
@@ -8,7 +7,6 @@ import { Headset, MessageSquare, HelpCircle, Star } from 'lucide-react';
 
 export default {
 	title: 'Organisms/Cards/List Blocks',
-	component: RadioButton.Group,
 	parameters: {
 		layout: 'fullscreen',
 	},
@@ -66,9 +64,17 @@ const containerRowButtons = [
 	},
 ];
 
-const Template3 = () => {
+interface Template3Props {
+	containerType?: string;
+	direction?: string;
+	className?: string;
+	gap?: string;
+}
+
+const Template3 = ( args: Template3Props ) => {
 	return (
 		<Container
+			{ ...args }
 			containerType="flex"
 			direction="column"
 			className="w-96 border border-solid rounded-xl border-border-subtle p-4"
@@ -81,7 +87,7 @@ const Template3 = () => {
 				{ containerRowButtons.map( ( button ) => (
 					<div
 						key={ button.id }
-						className='p-2 gap-1 className="items-cente bg-background-primary rounded-md shadow-soft-shadow-inner'
+						className="p-2 gap-1 items-center bg-background-primary rounded-md shadow-soft-shadow-inner"
 					>
 						<Container
 							key={ button.id }
@@ -90,7 +96,9 @@ const Template3 = () => {
 							className="gap-1 p-1"
 							align="center"
 						>
-							<Container.Item className="flex">{ button.icon }</Container.Item>
+							<Container.Item className="flex">
+								{ button.icon }
+							</Container.Item>
 							<Container.Item className="flex">
 								<a
 									href="#"
