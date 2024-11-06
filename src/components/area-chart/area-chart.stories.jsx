@@ -306,11 +306,12 @@ AreaChartInteractive.args = {
 
 AreaChartInteractive.storyName = 'Area Chart Gradient with Legend';
 
-export const AreaChartCard1 = () => (
+export const AreaChartCard1 = (args) => (
 	<Container
 		containerType="grid"
 		gap="xs"
 		className="p-4 bg-background-primary rounded-lg shadow-sm"
+        {...args}
 	>
 		<Container.Item className="p-1 space-y-2">
 			<Container containerType="flex" justify="between" align="center">
@@ -368,11 +369,12 @@ export const AreaChartCard1 = () => (
 
 AreaChartCard1.storyName = 'Clone Sites Card With Area Chart';
 
-export const AreaChartCard2 = () => (
+export const AreaChartCard2 = (args) => (
 	<Container
 		containerType="grid"
 		gap="xs"
 		className="p-4 bg-background-primary rounded-lg shadow-sm"
+        {...args}
 	>
 		<Container.Item className="p-1 space-y-2">
 			<Container containerType="flex" justify="between" align="center">
