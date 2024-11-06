@@ -32,6 +32,13 @@ const meta: Meta<typeof ProgressSteps> = {
 			control: false,
 		},
 	},
+	decorators: [
+		( Story ) => (
+			<div style={ { width: '700px', margin: '0 auto' } }>
+				<Story />
+			</div>
+		),
+	],
 } satisfies Meta<typeof ProgressSteps>;
 
 export default meta;
