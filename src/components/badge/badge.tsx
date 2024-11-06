@@ -65,7 +65,7 @@ const Badge = forwardRef<Ref, BadgeProps>(
 	) => {
 		// Base classes - Mandatory classes
 		const baseClasses =
-			'font-medium border-badge-border-gray flex items-center justify-center border border-solid box-border';
+			'font-medium border-badge-border-gray flex items-center justify-center border border-solid box-border max-w-full';
 
 		// Size classes - Based on the size prop
 		const sizeClasses = {
@@ -141,7 +141,7 @@ const Badge = forwardRef<Ref, BadgeProps>(
 						{ icon }
 					</span>
 				) : null }
-				<span className="px-1">{ label }</span>
+				<span className="px-1 truncate">{ label }</span>
 				{ closable && (
 					<span
 						className={ cn( buttonClasses, iconSizeClasses[ size ] ) }
