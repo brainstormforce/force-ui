@@ -90,8 +90,8 @@ const Template3 = () => {
 							className="gap-1 p-1"
 							align="center"
 						>
-							<Container.Item>{ button.icon }</Container.Item>
-							<Container.Item>
+							<Container.Item className="flex">{ button.icon }</Container.Item>
+							<Container.Item className="flex">
 								<a
 									href="#"
 									className="no-underline hover:underline hover:text-field-label"
@@ -101,7 +101,9 @@ const Template3 = () => {
 									</Label>
 								</a>
 							</Container.Item>
-							<Container.Item>{ button.bagde }</Container.Item>
+							{ button.bagde ? (
+								<Container.Item>{ button.bagde }</Container.Item>
+							) : null }
 						</Container>
 					</div>
 				) ) }
