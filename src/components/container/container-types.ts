@@ -55,7 +55,7 @@ export interface ContainerCommonProps extends ContainerCoreCommonProps {
 export type TRange = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
 export type TContainerType = 'grid' | 'flex';
 export type TCols = TRange;
-export type TGap = 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+export type TGap = 'none' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl';
 export type TJustify =
 	| 'start'
 	| 'center'
