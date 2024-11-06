@@ -8,6 +8,7 @@ import React, {
 	useMemo,
 	useRef,
 	useState,
+	type ReactNode,
 } from 'react';
 import { callAll, cn } from '@/utilities/functions';
 import DrawerPanel from './drawer-panel';
@@ -27,11 +28,9 @@ export interface DrawerProps {
 	/** Set open state of the drawer. Optional for uncontrolled component. */
 	setOpen?: ( open: boolean ) => void;
 	/** Drawer content. */
-	children: React.ReactNode;
+	children: ReactNode;
 	/** Trigger element to open the drawer. Required for uncontrolled component. */
-	trigger?:
-		| React.ReactNode
-		| ( ( props: { onClick: () => void } ) => React.ReactNode );
+	trigger?: ReactNode | ( ( props: { onClick: () => void } ) => ReactNode );
 	/** Additional class names. */
 	className?: string;
 	/** Close drawer when clicking outside of the drawer. */

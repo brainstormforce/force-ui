@@ -1,4 +1,4 @@
-import React from 'react';
+import { type ReactNode } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useDrawerState } from './drawer';
 import { cn } from '@/utilities/functions';
@@ -24,9 +24,7 @@ const animationVariants = {
 
 export interface DrawerPanelProps {
 	/** Drawer content. */
-	children:
-		| React.ReactNode
-		| ( ( props: { close: () => void } ) => React.ReactNode );
+	children: ReactNode | ( ( props: { close: () => void } ) => ReactNode );
 	/** Additional class names. */
 	className?: string;
 }
