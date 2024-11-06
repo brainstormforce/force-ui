@@ -67,11 +67,10 @@ interface Template2Props {
 	className?: string;
 }
 // Template for Type 2
-const Template2 = (args: Template2Props) => {
-	
+const Template2 = ( args: Template2Props ) => {
 	return (
 		<Container
-			{...args}
+			{ ...args }
 			containerType="flex"
 			gap="xs"
 			direction="column"

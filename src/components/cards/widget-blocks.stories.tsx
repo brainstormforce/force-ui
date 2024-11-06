@@ -220,13 +220,13 @@ const defaultRadioButtonGroupData = [
 	},
 ];
 interface Template1Props {
-		containerType?: string;
-		direction?: string;
-		className?: string;
-		gap?: string;
+	containerType?: string;
+	direction?: string;
+	className?: string;
+	gap?: string;
 }
 // Template for Type 1
-const Template1 = (args: Template1Props) => {
+const Template1 = ( args: Template1Props ) => {
 	const radioButtonGroupData = defaultRadioButtonGroupData;
 
 	return (

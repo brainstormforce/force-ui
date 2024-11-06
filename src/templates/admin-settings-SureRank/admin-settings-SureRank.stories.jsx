@@ -75,7 +75,7 @@ const INPUT_SUGGESTIONS = [
 	{ value: '%separator%', label: 'Separator' },
 ];
 
-const Template = (args) => {
+const Template = ( args ) => {
 	const [ activeTab, setActiveTab ] = useState( TABS[ 0 ].slug );
 
 	const handleChangeTab = ( { event, value: { slug } } ) => {

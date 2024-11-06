@@ -45,7 +45,7 @@ export default {
 	tags: [ 'autodocs' ],
 };
 
-const Template = (args) => {
+const Template = ( args ) => {
 	return (
 		<Container
 			{ ...args }

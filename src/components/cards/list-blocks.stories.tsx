@@ -10,10 +10,10 @@ export default {
 	parameters: {
 		layout: 'fullscreen',
 	},
-	tags: ['autodocs'],
+	tags: [ 'autodocs' ],
 	decorators: [
-		(Story: React.FC) => (
-			<div style={{ width: '1100px', padding: '10px' }}>
+		( Story: React.FC ) => (
+			<div style={ { width: '1100px', padding: '10px' } }>
 				<Story />
 			</div>
 		),
@@ -30,11 +30,11 @@ const containerRowButtons = [
 		useSwitch: false,
 		bagde: (
 			<Badge
-				label={'PRO'}
-				icon={null}
+				label={ 'PRO' }
+				icon={ null }
 				size="xxs"
 				variant="inverse"
-				closable={false}
+				closable={ false }
 			/>
 		),
 	},
@@ -71,10 +71,10 @@ interface Template3Props {
 	gap?: string;
 }
 
-const Template3 = (args: Template3Props) => {
+const Template3 = ( args: Template3Props ) => {
 	return (
 		<Container
-			{...args}
+			{ ...args }
 			containerType="flex"
 			direction="column"
 			className="w-96 border border-solid rounded-xl border-border-subtle p-4"
@@ -84,36 +84,36 @@ const Template3 = (args: Template3Props) => {
 				<Label className="font-semibold">Quick Access</Label>
 			</Container.Item>
 			<Container.Item className="flex flex-col md:w-full lg:w-full bg-field-primary-background gap-1 p-1 rounded-lg">
-				{containerRowButtons.map((button) => (
+				{ containerRowButtons.map( ( button ) => (
 					<div
-						key={button.id}
+						key={ button.id }
 						className="p-2 gap-1 items-center bg-background-primary rounded-md shadow-soft-shadow-inner"
 					>
 						<Container
-							key={button.id}
+							key={ button.id }
 							containerType="flex"
 							direction="row"
 							className="gap-1 p-1"
 							align="center"
 						>
-							<Container.Item>{button.icon}</Container.Item>
+							<Container.Item>{ button.icon }</Container.Item>
 							<Container.Item>
 								<a
 									href="#"
 									className="no-underline hover:underline hover:text-field-label"
 								>
 									<Label className="py-0 px-1 font-normal cursor-pointer">
-										{button.label}
+										{ button.label }
 									</Label>
 								</a>
 							</Container.Item>
-							<Container.Item>{button.bagde}</Container.Item>
+							<Container.Item>{ button.bagde }</Container.Item>
 						</Container>
 					</div>
-				))}
+				) ) }
 			</Container.Item>
 		</Container>
 	);
 };
 
-export const ListBlocks = Template3.bind({});
+export const ListBlocks = Template3.bind( {} );
