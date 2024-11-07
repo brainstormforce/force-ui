@@ -47,7 +47,7 @@ DefaultTooltip.args = {
 	interactive: false,
 };
 
-export const TooltipWithIcon = ( args: typeof DefaultTooltip.args ) => (
+export const TooltipWithIcon: StoryFn<typeof Tooltip> = ( args ) => (
 	<div
 		style={ {
 			display: 'grid',
@@ -71,7 +71,7 @@ TooltipWithIcon.args = {
 	arrow: true,
 };
 
-export const TooltipWithLabel = ( args: typeof DefaultTooltip.args ) => (
+export const TooltipWithLabel: StoryFn<typeof Tooltip> = ( args ) => (
 	<div
 		style={ {
 			display: 'grid',
