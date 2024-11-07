@@ -1,6 +1,5 @@
 import type { Meta, StoryFn } from '@storybook/react';
 import Select from './select';
-import type { ComponentProps } from '@/utilities/ts-helper';
 
 const options = [
 	{ id: '1', name: 'Red' },
@@ -12,16 +11,6 @@ const options = [
 	{ id: '7', name: 'Purple' },
 	{ id: '8', name: 'Pink' },
 ];
-
-interface AdditionalArgs {
-	size: 'sm' | 'md' | 'lg';
-	multiple: boolean;
-	combobox: boolean;
-	disabled: boolean;
-	placeholder: string;
-	searchPlaceholder: string;
-	label: string;
-}
 
 const meta: Meta<typeof Select> = {
 	title: 'Atoms/Select',
@@ -44,17 +33,10 @@ const meta: Meta<typeof Select> = {
 
 export default meta;
 
-type Story = StoryFn<ComponentProps<typeof Select> & AdditionalArgs>;
+type Story = StoryFn<typeof Select>;
 
 // Single Select Story
-export const SingleSelect: Story = ( {
-	size,
-	multiple,
-	combobox,
-	disabled,
-	placeholder,
-	label,
-} ) => (
+export const SingleSelect: Story = ( { size, multiple, combobox, disabled } ) => (
 	<div style={ { width: '300px' } }>
 		<Select
 			key={ multiple as unknown as string }
@@ -64,7 +46,12 @@ export const SingleSelect: Story = ( {
 			disabled={ disabled }
 			onChange={ ( value ) => value }
 		>
-			<Select.Button label={ label } placeholder={ placeholder } />
+			<Select.Button
+				placeholder={
+					multiple ? 'Select multiple options' : 'Select an option'
+				}
+				label={ multiple ? 'Select Multiple Colors' : 'Select a Color' }
+			/>
 			<Select.Portal>
 				<Select.Options>
 					{ options.map( ( option ) => (
@@ -83,8 +70,6 @@ SingleSelect.args = {
 	multiple: false,
 	combobox: false,
 	disabled: false,
-	placeholder: 'Select an option',
-	label: 'Select Color',
 };
 
 const SelectWithoutPortalTemplate: Story = ( {
@@ -92,8 +77,6 @@ const SelectWithoutPortalTemplate: Story = ( {
 	multiple,
 	combobox,
 	disabled,
-	placeholder,
-	label,
 } ) => (
 	<div className="w-full h-[200px]">
 		<Select
@@ -103,7 +86,12 @@ const SelectWithoutPortalTemplate: Story = ( {
 			disabled={ disabled }
 			onChange={ ( value ) => value }
 		>
-			<Select.Button label={ label } placeholder={ placeholder } />
+			<Select.Button
+				placeholder={
+					multiple ? 'Select multiple options' : 'Select an option'
+				}
+				label={ multiple ? 'Select Multiple Colors' : 'Select a Color' }
+			/>
 			<Select.Options>
 				{ options.map( ( option ) => (
 					<Select.Option key={ option.id } value={ option }>
@@ -121,19 +109,10 @@ SingleSelectWithoutPortal.args = {
 	multiple: false,
 	combobox: false,
 	disabled: false,
-	placeholder: 'Select an option',
-	label: 'Select Color',
 };
 
 // Multi-select Story
-export const MultiSelect: Story = ( {
-	size,
-	multiple,
-	combobox,
-	disabled,
-	placeholder,
-	label,
-} ) => (
+export const MultiSelect: Story = ( { size, multiple, combobox, disabled } ) => (
 	<div style={ { width: '300px' } }>
 		<Select
 			size={ size }
@@ -142,7 +121,12 @@ export const MultiSelect: Story = ( {
 			disabled={ disabled }
 			onChange={ ( value ) => value }
 		>
-			<Select.Button placeholder={ placeholder } label={ label } />
+			<Select.Button
+				placeholder={
+					multiple ? 'Select multiple options' : 'Select an option'
+				}
+				label={ multiple ? 'Select Multiple Colors' : 'Select a Color' }
+			/>
 			<Select.Portal>
 				<Select.Options>
 					{ options.map( ( option ) => (
@@ -161,8 +145,6 @@ MultiSelect.args = {
 	multiple: true,
 	combobox: false,
 	disabled: false,
-	placeholder: 'Select multiple options',
-	label: 'Select Multiple Colors',
 };
 
 export const MultiSelectWithoutPortal = SelectWithoutPortalTemplate.bind( {} );
@@ -171,8 +153,6 @@ MultiSelectWithoutPortal.args = {
 	multiple: true,
 	combobox: false,
 	disabled: false,
-	placeholder: 'Select multiple options',
-	label: 'Select Multiple Colors',
 };
 
 export const SelectWithSearch: Story = ( {
@@ -180,9 +160,6 @@ export const SelectWithSearch: Story = ( {
 	multiple,
 	combobox,
 	disabled,
-	placeholder,
-	searchPlaceholder,
-	label,
 } ) => (
 	<div style={ { width: '300px' } }>
 		<Select
@@ -192,12 +169,12 @@ export const SelectWithSearch: Story = ( {
 			disabled={ disabled }
 			onChange={ ( value ) => value }
 		>
-			<Select.Button label={ label } placeholder={ placeholder } />
+			<Select.Button
+				label="Select Color"
+				placeholder="Select an option"
+			/>
 			<Select.Portal>
-				<Select.Options
-					searchBy="name"
-					searchPlaceholder={ searchPlaceholder }
-				>
+				<Select.Options searchBy="name" searchPlaceholder="Search...">
 					{ options.map( ( option ) => (
 						<Select.Option key={ option.id } value={ option }>
 							{ option.name }
@@ -214,9 +191,6 @@ SelectWithSearch.args = {
 	multiple: false,
 	combobox: true,
 	disabled: false,
-	searchPlaceholder: 'Search...',
-	placeholder: 'Select an option',
-	label: 'Search Color',
 };
 
 export const SelectWithSearchWithoutPortal = SelectWithoutPortalTemplate.bind(
@@ -227,7 +201,4 @@ SelectWithSearchWithoutPortal.args = {
 	multiple: false,
 	combobox: true,
 	disabled: false,
-	searchPlaceholder: 'Search...',
-	placeholder: 'Select an option',
-	label: 'Search Color',
 };

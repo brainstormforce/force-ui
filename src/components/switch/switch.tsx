@@ -19,7 +19,7 @@ export interface SwitchProps {
 	/** Controlled value of the switch (checked or unchecked). */
 	value?: boolean;
 
-	/** Initial value of the switch (checked or unchecked). */
+	/** Initial value of the switch (checked or unchecked) when used as an uncontrolled component. */
 	defaultValue?: boolean;
 
 	/** Defines the size of the switch (e.g., 'sm', 'md', 'lg'). */
@@ -187,7 +187,7 @@ export const SwitchComponent = (
 	};
 
 	const disabledClassNames = {
-		input: 'bg-toggle-off-disabled disabled:border-transparent shadow-none disabled:cursor-not-allowed',
+		input: 'bg-toggle-off-disabled disabled:border-transparent shadow-none disabled:cursor-not-allowed checked:disabled:bg-toggle-on-disabled',
 		toggleDial: 'peer-disabled:cursor-not-allowed',
 	};
 

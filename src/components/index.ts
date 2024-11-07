@@ -31,3 +31,4 @@ export { default as Drawer } from './drawer';
 export { default as Pagination } from './pagination';
 export { default as DatePicker } from './datepicker';
 export { default as Accordion } from './accordion';
+export { default as AreaChart } from './area-chart';

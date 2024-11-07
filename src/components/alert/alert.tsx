@@ -5,28 +5,20 @@ import { X } from 'lucide-react';
 export interface AlertProps {
 	/** Defines the style variant of the alert. */
 	variant?: 'neutral' | 'info' | 'warning' | 'error' | 'success';
-
 	/** Defines the theme of the alert. */
 	theme?: 'light' | 'dark';
-
 	/** Defines the design of the alert. */
 	design?: 'inline' | 'stack';
-
 	/** Defines the title of the alert. */
-	title?: string;
-
+	title?: React.ReactNode;
 	/** Defines the content of the alert. */
-	content?: string;
-
+	content?: React.ReactNode;
 	/** Defines the extra classes. */
 	className?: string;
-
 	/** Callback function for close event. */
 	onClose?: () => void;
-
 	/** Custom Icon for the alert. */
 	icon?: React.ReactElement | null;
-
 	/** Defines the action of the alert. */
 	action?: {
 		label: string;
@@ -95,7 +87,7 @@ const Alert = ( {
 					<div className="self-start flex items-center justify-center [&_svg]:size-5 shrink-0">
 						{ getIcon( { variant, icon, theme } ) }
 					</div>
-					<div className="flex flex-col items-start justify-start gap-0.5">
+					<div className="flex flex-col items-start justify-start gap-0.5 mr-7">
 						{ getTitle( { title, theme } ) }
 						{ getContent( { content, theme } ) }
 						{ action?.label &&
@@ -141,14 +133,14 @@ const Alert = ( {
 				<div className="self-start flex items-center justify-center [&_svg]:size-5 shrink-0">
 					{ getIcon( { variant, icon, theme } ) }
 				</div>
-				<div className="flex items-start justify-start gap-1 mr-10 [&>span:first-child]:shrink-0 px-1">
-					{ getTitle( { title, theme } ) }
-					{ getContent( { content, theme } ) }
-				</div>
+				<p className="content-start space-x-1 my-0 mr-10 px-1">
+					{ getTitle( { title, theme, inline: true } ) }
+					{ getContent( { content, theme, inline: true } ) }
+				</p>
 			</div>
-			<div className="flex items-center justify-start gap-4 [&_svg]:size-4">
+			<div className="flex h-full justify-start gap-4 [&_svg]:size-4">
 				{ action?.label && typeof action?.onClick === 'function' && (
-					<div className="flex h-5">
+					<div className="self-center flex h-5">
 						{ getAction( {
 							actionLabel: action?.label,
 							actionType: action?.type ?? 'button',
@@ -160,7 +152,7 @@ const Alert = ( {
 				{ typeof onClose === 'function' && (
 					<button
 						className={ cn(
-							'bg-transparent m-0 border-none p-0.5 focus:outline-none active:outline-none cursor-pointer size-5',
+							'self-start bg-transparent m-0 border-none p-0.5 focus:outline-none active:outline-none cursor-pointer size-5',
 							closeIconClassNames[ theme ] ??
 								closeIconClassNames.light
 						) }
