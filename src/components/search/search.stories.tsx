@@ -19,7 +19,7 @@ const meta: Meta<typeof SearchBox> = {
 	parameters: {
 		layout: 'centered',
 	},
-	tags: ['autodocs'],
+	tags: [ 'autodocs' ],
 	argTypes: {
 		size: {
 			control: { type: 'select' },
@@ -32,47 +32,47 @@ const meta: Meta<typeof SearchBox> = {
 
 export default meta;
 
-const Template: StoryFn<typeof SearchBox> = (args) => {
-	const [open, setOpen] = useState(false);
-	const inputRef = useRef(null);
+const Template: StoryFn<typeof SearchBox> = ( args ) => {
+	const [ open, setOpen ] = useState( false );
+	const inputRef = useRef( null );
 
 	const handleSearch = () => {
 		// Logic for handling search input change
 	};
 
-	const handleOpenChange = (isOpen: boolean) => {
-		setOpen(isOpen);
+	const handleOpenChange = ( isOpen: boolean ) => {
+		setOpen( isOpen );
 	};
 
 	return (
 		<SearchBox
-			{...args}
-			open={open || args.open}
-			onOpenChange={handleOpenChange}
+			{ ...args }
+			open={ open || args.open }
+			onOpenChange={ handleOpenChange }
 		>
-			<SearchBox.Input ref={inputRef} onChange={handleSearch} />
+			<SearchBox.Input ref={ inputRef } onChange={ handleSearch } />
 			<SearchBox.Content>
 				<SearchBox.List>
 					<SearchBox.Group heading="Suggestions">
-						<SearchBox.Item icon={<File />}>
+						<SearchBox.Item icon={ <File /> }>
 							Calendar
 						</SearchBox.Item>
-						<SearchBox.Item icon={<File />}>
+						<SearchBox.Item icon={ <File /> }>
 							Document
 						</SearchBox.Item>
-						<SearchBox.Item icon={<File />}>
+						<SearchBox.Item icon={ <File /> }>
 							Attendance
 						</SearchBox.Item>
 					</SearchBox.Group>
 					<SearchBox.Separator />
 					<SearchBox.Group heading="Folders">
-						<SearchBox.Item icon={<Folder />}>
+						<SearchBox.Item icon={ <Folder /> }>
 							Calendar Folder
 						</SearchBox.Item>
-						<SearchBox.Item icon={<Folder />}>
+						<SearchBox.Item icon={ <Folder /> }>
 							Document Folder
 						</SearchBox.Item>
-						<SearchBox.Item icon={<Folder />}>
+						<SearchBox.Item icon={ <Folder /> }>
 							Attendance Folder
 						</SearchBox.Item>
 					</SearchBox.Group>
@@ -82,14 +82,13 @@ const Template: StoryFn<typeof SearchBox> = (args) => {
 	);
 };
 
-export const BasicSearchBox = Template.bind({});
+export const BasicSearchBox = Template.bind( {} );
 BasicSearchBox.args = {
 	size: 'sm',
 };
 
-export const SecondarySearchBox = Template.bind({});
-SecondarySearchBox.args = {
-};
+export const SecondarySearchBox = Template.bind( {} );
+SecondarySearchBox.args = {};
 SecondarySearchBox.decorators = [
 	() => (
 		<SearchBox>
@@ -98,9 +97,8 @@ SecondarySearchBox.decorators = [
 	),
 ];
 
-export const GhostSearchBox = Template.bind({});
-GhostSearchBox.args = {
-};
+export const GhostSearchBox = Template.bind( {} );
+GhostSearchBox.args = {};
 GhostSearchBox.decorators = [
 	() => (
 		<SearchBox>
@@ -109,18 +107,17 @@ GhostSearchBox.decorators = [
 	),
 ];
 
-export const DisabledSearchBox = Template.bind({});
-DisabledSearchBox.args = {
-};
+export const DisabledSearchBox = Template.bind( {} );
+DisabledSearchBox.args = {};
 DisabledSearchBox.decorators = [
 	() => (
 		<SearchBox>
-			<SearchBox.Input disabled={true} />
+			<SearchBox.Input disabled={ true } />
 		</SearchBox>
 	),
 ];
 
-export const LoadingSearchBox = Template.bind({});
+export const LoadingSearchBox = Template.bind( {} );
 LoadingSearchBox.args = {
 	open: true,
 	loading: true,
