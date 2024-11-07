@@ -10,7 +10,10 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { disabledClassNames, sizeClassNames } from './component-style';
 import Button from '../button';
 
-const PageContext = createContext<{ size: 'sm' | 'md'; disabled: boolean }>( {
+const PageContext = createContext<{
+	size: 'xs' | 'sm' | 'md' | 'lg';
+	disabled: boolean;
+}>( {
 	size: 'sm',
 	disabled: false,
 } );
