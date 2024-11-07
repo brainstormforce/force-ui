@@ -49,7 +49,7 @@ export interface ProgressStepsProps extends ProgressCommonProps {
 	size?: 'sm' | 'md' | 'lg';
 	/** Defines the type of layout. */
 	type?: 'inline' | 'stack';
-	/** Defines the current step number. '-1' keeps all steps completed. */
+	/** Defines the current step number. `-1` keeps all steps completed. */
 	currentStep?: number;
 	/** Additional props for the connecting line. */
 	lineClassName?: string;
