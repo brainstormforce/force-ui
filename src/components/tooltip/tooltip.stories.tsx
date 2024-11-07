@@ -11,7 +11,7 @@ const meta: Meta<typeof Tooltip> = {
 	parameters: {
 		layout: 'centered',
 	},
-	tags: [ 'autodocs' ],
+	tags: ['autodocs'],
 	argTypes: {
 		variant: { control: 'select' },
 		placement: { control: 'select' },
@@ -23,44 +23,44 @@ const meta: Meta<typeof Tooltip> = {
 
 export default meta;
 
-const Template: StoryFn<typeof Tooltip> = ( args ) => {
-	const [ isOpen, setIsOpen ] = useState( false );
+const Template: StoryFn<typeof Tooltip> = (args) => {
+	const [isOpen, setIsOpen] = useState(false);
 	return (
 		<Tooltip
-			{ ...args }
-			open={ args.open ?? isOpen }
-			setOpen={ args.open ? setIsOpen : undefined }
+			{...args}
+			open={args.open ?? isOpen}
+			setOpen={args.open ? setIsOpen : undefined}
 		>
 			<CircleHelp className="cursor-pointer" />
 		</Tooltip>
 	);
 };
 
-export const DefaultTooltip = Template.bind( {} );
+export const DefaultTooltip = Template.bind({});
 DefaultTooltip.args = {
 	variant: 'dark',
 	placement: 'bottom',
 	title: 'Tooltip',
 	content: <span>This is custom JSX content.</span>,
 	arrow: true,
-	triggers: [ 'hover', 'focus' ],
+	triggers: ['hover', 'focus'],
 	interactive: false,
 };
 
-export const TooltipWithIcon = ( args: typeof DefaultTooltip.args ) => (
+export const TooltipWithIcon: StoryFn<typeof Tooltip> = (args) => (
 	<div
-		style={ {
+		style={{
 			display: 'grid',
 			gap: '10px',
 			justifyContent: 'center',
 			padding: '20px',
-		} }
+		}}
 	>
-		{ ( [ 'top', 'bottom', 'left', 'right' ] as const ).map( ( placement ) => (
-			<Tooltip key={ placement } { ...args } placement={ placement }>
+		{(['top', 'bottom', 'left', 'right'] as const).map((placement) => (
+			<Tooltip key={placement} {...args} placement={placement}>
 				<CircleHelp className="cursor-pointer" />
 			</Tooltip>
-		) ) }
+		))}
 	</div>
 );
 
@@ -71,22 +71,22 @@ TooltipWithIcon.args = {
 	arrow: true,
 };
 
-export const TooltipWithLabel = ( args: typeof DefaultTooltip.args ) => (
+export const TooltipWithLabel: StoryFn<typeof Tooltip> = (args) => (
 	<div
-		style={ {
+		style={{
 			display: 'grid',
 			gap: '10px',
 			justifyContent: 'center',
 			padding: '20px',
-		} }
+		}}
 	>
-		{ ( [ 'top', 'bottom', 'left', 'right' ] as const ).map( ( placement ) => (
-			<Tooltip key={ placement } { ...args } placement={ placement }>
+		{(['top', 'bottom', 'left', 'right'] as const).map((placement) => (
+			<Tooltip key={placement} {...args} placement={placement}>
 				<Label size="md" className="cursor-pointer">
 					Label
 				</Label>
 			</Tooltip>
-		) ) }
+		))}
 	</div>
 );
 
