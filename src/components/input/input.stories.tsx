@@ -8,7 +8,7 @@ const meta: Meta<typeof Input> = {
 	parameters: {
 		layout: 'centered',
 	},
-	tags: ['autodocs'],
+	tags: [ 'autodocs' ],
 	argTypes: {
 		type: {
 			control: 'select',

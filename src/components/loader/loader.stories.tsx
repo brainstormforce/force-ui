@@ -8,7 +8,7 @@ const meta: Meta<typeof Loader> = {
 	parameters: {
 		layout: 'centered',
 	},
-	tags: ['autodocs'],
+	tags: [ 'autodocs' ],
 	argTypes: {
 		variant: {
 			control: {
@@ -31,15 +31,15 @@ export default meta;
 type Story = StoryFn<typeof Loader>;
 
 // Template function for Loader stories
-const Template: Story = (args) => (
+const Template: Story = ( args ) => (
 	<Loader
-		className={args.variant === 'secondary' ? 'bg-brand-primary-600' : ''}
-		{...args}
+		className={ args.variant === 'secondary' ? 'bg-brand-primary-600' : '' }
+		{ ...args }
 	/>
 );
 
 // Basic Loader
-export const Basic: Story = Template.bind({});
+export const Basic: Story = Template.bind( {} );
 Basic.args = {
 	variant: 'primary',
 	size: 'md',
@@ -47,7 +47,7 @@ Basic.args = {
 };
 
 // Secondary Variant Loader
-export const Secondary: Story = Template.bind({});
+export const Secondary: Story = Template.bind( {} );
 Secondary.args = {
 	variant: 'secondary',
 	size: 'md',
@@ -55,7 +55,7 @@ Secondary.args = {
 };
 
 // Large Loader
-export const Large: Story = Template.bind({});
+export const Large: Story = Template.bind( {} );
 Large.args = {
 	variant: 'primary',
 	size: 'lg',
@@ -63,7 +63,7 @@ Large.args = {
 };
 
 // Loader with Custom Icon
-export const CustomIcon: Story = Template.bind({});
+export const CustomIcon: Story = Template.bind( {} );
 CustomIcon.args = {
 	variant: 'primary',
 	size: 'md',

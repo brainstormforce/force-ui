@@ -20,7 +20,7 @@ const meta: Meta<typeof Menu> = {
 	parameters: {
 		layout: 'centered',
 	},
-	tags: ['autodocs'],
+	tags: [ 'autodocs' ],
 	subcomponents: {
 		'Menu.List': Menu.List,
 		'Menu.Item': Menu.Item,
@@ -40,9 +40,9 @@ export default meta;
 
 type Story = StoryFn<typeof Menu>;
 
-const Template: Story = (args) => (
-	<Menu size={args.size} className="gap-6 min-w-64">
-		<Menu.List heading="Store" open={true} arrow={true}>
+const Template: Story = ( args ) => (
+	<Menu size={ args.size } className="gap-6 min-w-64">
+		<Menu.List heading="Store" open={ true } arrow={ true }>
 			<Menu.Item>
 				<Store />
 				<div>Store Settings</div>
@@ -52,7 +52,7 @@ const Template: Story = (args) => (
 				<div>Design & Branding</div>
 			</Menu.Item>
 		</Menu.List>
-		<Menu.List heading="Orders & Sales" open={true} arrow={true}>
+		<Menu.List heading="Orders & Sales" open={ true } arrow={ true }>
 			<Menu.Item>
 				<ShoppingBag />
 				<div>Orders & Receipts</div>
@@ -71,7 +71,7 @@ const Template: Story = (args) => (
 			</Menu.Item>
 		</Menu.List>
 		<Menu.Separator />
-		<Menu.List heading="Customers" open={true} arrow={true}>
+		<Menu.List heading="Customers" open={ true } arrow={ true }>
 			<Menu.Item>
 				<MousePointer />
 				<div>Affiliates</div>
@@ -81,7 +81,7 @@ const Template: Story = (args) => (
 				<div>Subscriptions Saver</div>
 			</Menu.Item>
 		</Menu.List>
-		<Menu.List heading="Others" open={true} arrow={true}>
+		<Menu.List heading="Others" open={ true } arrow={ true }>
 			<Menu.Item>
 				<Layers />
 				<div>Data Export</div>
@@ -98,7 +98,7 @@ const Template: Story = (args) => (
 	</Menu>
 );
 
-export const CombinedMenu: Story = Template.bind({});
+export const CombinedMenu: Story = Template.bind( {} );
 
 CombinedMenu.args = {
 	size: 'md',
