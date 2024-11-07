@@ -25,7 +25,7 @@ export declare interface PaginationCommonProps {
 
 export interface PaginationProps extends PaginationCommonProps {
 	/** Defines the size of pagination items. */
-	size?: 'sm' | 'md';
+	size?: 'xs' | 'sm' | 'md' | 'lg';
 	/** Disables all pagination controls. */
 	disabled?: boolean;
 }
