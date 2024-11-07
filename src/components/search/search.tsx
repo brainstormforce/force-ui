@@ -74,6 +74,9 @@ export interface BaseSearchBoxProps {
 
 	/** Whether to show loading state. */
 	loading?: boolean;
+
+	/** Child components to be rendered. */
+	children?: ReactNode;
 }
 
 // Extend the type to allow assigning subcomponents to SearchBox
@@ -202,13 +205,16 @@ export interface SearchBoxInputProps extends BaseSearchBoxProps {
 	placeholder?: string;
 
 	/** Style variant of the input. */
-	variant?: 'primary' | 'secondary';
+	variant?: 'primary' | 'secondary' | 'ghost';
 
 	/** Whether the input is disabled. */
 	disabled?: boolean;
 
 	/** Callback for input changes. */
 	onChange?: ( value: string ) => void;
+
+	/** Child components to be rendered. */
+	children?: ReactNode;
 }
 
 export const SearchBoxInput = forwardRef<HTMLInputElement, SearchBoxInputProps>(
@@ -296,7 +302,7 @@ export const SearchBoxInput = forwardRef<HTMLInputElement, SearchBoxInputProps>(
 					] ) }
 				/>
 				<Badge
-					label="/"
+					label={ `⌘/` }
 					size={ bagdeSize }
 					type="rounded"
 					variant="neutral"
