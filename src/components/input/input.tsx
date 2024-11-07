@@ -1,4 +1,4 @@
-import {
+import React, {
 	useState,
 	useCallback,
 	useMemo,
@@ -49,6 +49,9 @@ export declare interface InputProps {
 
 	/** Label displayed above the input field. */
 	label?: string;
+
+	/** Placeholder text for the input field. */
+	placeholder?: string;
 }
 
 export const InputComponent = (
@@ -67,7 +70,8 @@ export const InputComponent = (
 		suffix = null,
 		label = '',
 		...props
-	}: InputProps,
+	}: InputProps &
+		Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size' | 'prefix'>,
 	ref: React.ForwardedRef<HTMLInputElement>
 ) => {
 	const inputRef = useRef<HTMLInputElement>( null );
@@ -236,6 +240,20 @@ export const InputComponent = (
 		);
 	};
 
+	const renderLabel = useMemo( () => {
+		if ( ! label ) {
+			return null;
+		}
+		return (
+			<label
+				className={ cn( labelClasses[ size ], 'text-field-label' ) }
+				htmlFor={ inputId }
+			>
+				{ label }
+			</label>
+		);
+	}, [ label, size, inputId ] );
+
 	const fileClasses = selectedFile
 		? 'file:border-0 file:bg-transparent pr-10'
 		: 'text-text-tertiary file:border-0 file:bg-transparent pr-10';
@@ -243,12 +261,7 @@ export const InputComponent = (
 	if ( type === 'file' ) {
 		return (
 			<div className="flex flex-col items-start gap-1.5 [&_*]:box-border box-border">
-				<label
-					className={ cn( labelClasses[ size ], 'text-field-label' ) }
-					htmlFor={ inputId }
-				>
-					{ label }
-				</label>
+				{ renderLabel }
 				<div
 					className={ cn(
 						'w-full relative flex focus-within:z-10',
@@ -290,12 +303,7 @@ export const InputComponent = (
 
 	return (
 		<div className="flex flex-col items-start gap-1.5 [&_*]:box-border box-border">
-			<label
-				className={ cn( labelClasses[ size ], 'text-field-label' ) }
-				htmlFor={ inputId }
-			>
-				{ label }
-			</label>
+			{ renderLabel }
 			<div
 				className={ cn(
 					'w-full relative flex focus-within:z-10',

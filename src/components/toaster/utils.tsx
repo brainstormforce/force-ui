@@ -121,11 +121,13 @@ export const getAction = ( {
 export const getTitle = ( {
 	theme = DEFAULT_THEME,
 	title = '',
+	inline = false,
 }: {
 	theme?: string;
 	title?: string | React.ReactNode;
-} ) => {
-	if ( ! title && Number.isNaN( title ) ) {
+	inline?: boolean;
+} ): React.JSX.Element | null => {
+	if ( ! title ) {
 		return null;
 	}
 	const titleClasses = {
@@ -137,7 +139,8 @@ export const getTitle = ( {
 			className={ cn(
 				'block',
 				titleClasses[ theme as keyof typeof titleClasses ],
-				'text-sm leading-5 font-semibold'
+				'text-sm leading-5 font-semibold',
+				inline ? 'inline' : 'block'
 			) }
 		>
 			{ title }
@@ -148,11 +151,13 @@ export const getTitle = ( {
 export const getContent = ( {
 	theme = DEFAULT_THEME,
 	content = '',
+	inline = false,
 }: {
 	theme?: string;
 	content?: string | React.ReactNode;
-} ) => {
-	if ( ! content && Number.isNaN( content ) ) {
+	inline?: boolean;
+} ): React.JSX.Element | null => {
+	if ( ! content ) {
 		return null;
 	}
 	const contentClasses = {
@@ -163,7 +168,8 @@ export const getContent = ( {
 		<span
 			className={ cn(
 				contentClasses[ theme as keyof typeof contentClasses ],
-				'block text-sm [&_*]:text-sm leading-5 [&_*]:leading-5 font-normal'
+				'block text-sm [&_*]:text-sm leading-5 [&_*]:leading-5 font-normal',
+				inline ? 'inline' : 'block'
 			) }
 		>
 			{ content }

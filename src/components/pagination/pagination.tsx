@@ -10,7 +10,10 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { disabledClassNames, sizeClassNames } from './component-style';
 import Button from '../button';
 
-const PageContext = createContext<{ size: 'sm' | 'md'; disabled: boolean }>( {
+const PageContext = createContext<{
+	size: 'xs' | 'sm' | 'md' | 'lg';
+	disabled: boolean;
+}>( {
 	size: 'sm',
 	disabled: false,
 } );
@@ -25,7 +28,7 @@ export declare interface PaginationCommonProps {
 
 export interface PaginationProps extends PaginationCommonProps {
 	/** Defines the size of pagination items. */
-	size?: 'sm' | 'md';
+	size?: 'xs' | 'sm' | 'md' | 'lg';
 	/** Disables all pagination controls. */
 	disabled?: boolean;
 }
@@ -151,7 +154,7 @@ export const PaginationButton = ( {
 				)( event )
 			}
 		>
-			{ children }
+			<span className="px-1 flex">{ children }</span>
 		</Button>
 	);
 };

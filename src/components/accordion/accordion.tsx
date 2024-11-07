@@ -153,7 +153,7 @@ export const AccordionTrigger = ( {
 			return (
 				<ChevronDown
 					className={ cn(
-						'flex-shrink-0 text-icon-secondary transition-transform duration-300 ease-in-out',
+						'flex-shrink-0 text-icon-secondary size-5 transition-transform duration-300 ease-in-out',
 						isOpen ? 'rotate-180' : 'rotate-0'
 					) }
 				/>

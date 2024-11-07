@@ -120,7 +120,8 @@ export const CheckboxComponent = (
 						className={ cn(
 							'text-text-primary font-medium leading-4 m-0',
 							sizeClassNames[ size ].text,
-							sizeClassNames[ size ].gap
+							sizeClassNames[ size ].gap,
+							disabled && 'text-text-disabled'
 						) }
 					>
 						{ label?.heading }
@@ -130,7 +131,8 @@ export const CheckboxComponent = (
 					<p
 						className={ cn(
 							'text-text-secondary font-normal leading-5 m-0',
-							sizeClassNames[ size ].description
+							sizeClassNames[ size ].description,
+							disabled && 'text-text-disabled'
 						) }
 					>
 						{ label?.description }
@@ -138,7 +140,7 @@ export const CheckboxComponent = (
 				) }
 			</div>
 		);
-	}, [ label, size ] );
+	}, [ label, size, disabled ] );
 
 	return (
 		<div
