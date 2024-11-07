@@ -154,7 +154,7 @@ export const PaginationButton = ( {
 				)( event )
 			}
 		>
-			<span className="px-1">{ children }</span>
+			<span className="px-1 flex">{ children }</span>
 		</Button>
 	);
 };
