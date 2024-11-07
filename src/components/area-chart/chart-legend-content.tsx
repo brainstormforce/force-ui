@@ -2,19 +2,22 @@ import React from 'react';
 import { cn } from '@/utilities/functions';
 
 interface ChartLegendContentProps {
-    className?: string;
-    hideIcon?: boolean;
-    payload?: {
-        color: string;
-        value: string | number;
-        [key: string]: any;
-    }[];
-    verticalAlign?: 'top' | 'bottom';
-    nameKey?: string;
-    fontSizeVariant?: string | number;
+	className?: string;
+	hideIcon?: boolean;
+	payload?: {
+		color: string;
+		value: string | number;
+		[key: string]: string | number;
+	}[];
+	verticalAlign?: 'top' | 'bottom';
+	nameKey?: string;
+	fontSizeVariant?: string | number;
 }
 
-const ChartLegendContent = React.forwardRef<HTMLDivElement, ChartLegendContentProps>(
+const ChartLegendContent = React.forwardRef<
+	HTMLDivElement,
+	ChartLegendContentProps
+>(
 	(
 		{
 			className,
@@ -26,35 +29,37 @@ const ChartLegendContent = React.forwardRef<HTMLDivElement, ChartLegendContentPr
 		},
 		ref
 	) => {
-		if (!payload.length) return null;
+		if ( ! payload.length ) {
+			return null;
+		}
 
 		return (
 			<div
-				ref={ref}
-				className={cn(
+				ref={ ref }
+				className={ cn(
 					'flex items-center justify-center gap-4',
 					verticalAlign === 'top' ? 'pb-3' : 'pt-3',
 					className
-				)}
+				) }
 			>
-				{payload.map((item) => (
-					<div key={item.value} className="flex items-center gap-1.5">
-						{!hideIcon && (
+				{ payload.map( ( item ) => (
+					<div key={ item.value } className="flex items-center gap-1.5">
+						{ ! hideIcon && (
 							<div
 								className="size-2 shrink-0 rounded-sm"
-								style={{
+								style={ {
 									backgroundColor: item.color,
-								}}
+								} }
 							/>
-						)}
+						) }
 						<span
 							className="capitalize"
-							style={{ fontSize: fontSizeVariant }}
+							style={ { fontSize: fontSizeVariant } }
 						>
-							{item[nameKey]}
+							{ item[ nameKey ] }
 						</span>
 					</div>
-				))}
+				) ) }
 			</div>
 		);
 	}

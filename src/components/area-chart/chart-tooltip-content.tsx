@@ -4,30 +4,33 @@ import { cn } from '@/utilities/functions';
 type IndicatorType = 'dot' | 'line' | 'dashed';
 
 interface PayloadItem {
-    color?: string;
-    dataKey?: string;
-    name?: string;
-    value?: number | string;
-    [key: string]: any; // Allow additional properties in each payload item
+	color?: string;
+	dataKey?: string;
+	name?: string;
+	value?: number | string;
+	[key: string]: string | number | undefined; // Allow additional properties in each payload item
 }
 
 interface ChartTooltipContentProps {
-    active?: boolean;
-    payload?: PayloadItem[];
-    className?: string;
-    indicator?: IndicatorType; // dot, line, dashed
-    hideLabel?: boolean;
-    hideIndicator?: boolean;
-    label?: string;
-    labelFormatter?: (label: string) => string;
-    labelClassName?: string;
-    formatter?: (value: number | string) => string | number;
-    color?: string;
-    nameKey?: string;
-    labelKey?: string;
+	active?: boolean;
+	payload?: PayloadItem[];
+	className?: string;
+	indicator?: IndicatorType; // dot, line, dashed
+	hideLabel?: boolean;
+	hideIndicator?: boolean;
+	label?: string;
+	labelFormatter?: ( label: string ) => string;
+	labelClassName?: string;
+	formatter?: ( value: number | string ) => string | number;
+	color?: string;
+	nameKey?: string;
+	labelKey?: string;
 }
 
-const ChartTooltipContent = forwardRef<HTMLDivElement, ChartTooltipContentProps>(
+const ChartTooltipContent = forwardRef<
+	HTMLDivElement,
+	ChartTooltipContentProps
+>(
 	(
 		{
 			active,
@@ -46,16 +49,18 @@ const ChartTooltipContent = forwardRef<HTMLDivElement, ChartTooltipContentProps>
 		},
 		ref
 	) => {
-		const tooltipLabel = useMemo(() => {
-			if (hideLabel || !payload?.length) return null;
+		const tooltipLabel = useMemo( () => {
+			if ( hideLabel || ! payload?.length ) {
+				return null;
+			}
 
-			const [item] = payload;
+			const [ item ] = payload;
 			const value = labelFormatter
-				? labelFormatter(label || '')
-				: item[labelKey as keyof PayloadItem] || label;
+				? labelFormatter( label || '' )
+				: item[ labelKey as keyof PayloadItem ] || label;
 
 			return value ? (
-				<div className={cn('font-medium', labelClassName)}>{value}</div>
+				<div className={ cn( 'font-medium', labelClassName ) }>{ value }</div>
 			) : null;
 		}, [
 			label,
@@ -64,42 +69,44 @@ const ChartTooltipContent = forwardRef<HTMLDivElement, ChartTooltipContentProps>
 			hideLabel,
 			labelClassName,
 			labelKey,
-		]);
+		] );
 
-		if (!active || !payload?.length) return null;
+		if ( ! active || ! payload?.length ) {
+			return null;
+		}
 
 		const isSinglePayload = payload.length === 1 && indicator !== 'dot';
 
 		return (
 			<div
-				ref={ref}
-				className={cn(
+				ref={ ref }
+				className={ cn(
 					'grid min-w-[8rem] items-start gap-1.5 rounded-lg border bg-tooltip-background-light px-3 py-2 text-xs shadow-xl',
 					className
-				)}
+				) }
 			>
-				{!isSinglePayload ? tooltipLabel : null}
+				{ ! isSinglePayload ? tooltipLabel : null }
 				<div className="grid gap-1.5">
-					{payload.map((item, index) => {
+					{ payload.map( ( item, index ) => {
 						const indicatorColor = color || item.color || '#000';
 
 						return (
 							<div
-								key={item.dataKey || index}
-								className={cn(
+								key={ item.dataKey || index }
+								className={ cn(
 									'flex w-full items-stretch gap-2',
 									indicator === 'dot' && 'items-center'
-								)}
+								) }
 							>
-								{!hideIndicator && (
+								{ ! hideIndicator && (
 									<div
-										className={cn({
+										className={ cn( {
 											'size-2.5': indicator === 'dot',
 											'w-1 h-full': indicator === 'line',
 											'w-0 border-[0.5px] border-dashed':
 												indicator === 'dashed',
-										})}
-										style={{
+										} ) }
+										style={ {
 											backgroundColor:
 												indicator === 'dot' ||
 												indicator === 'line'
@@ -109,20 +116,20 @@ const ChartTooltipContent = forwardRef<HTMLDivElement, ChartTooltipContentProps>
 												indicator === 'dashed'
 													? indicatorColor
 													: '',
-										}}
+										} }
 									/>
-								)}
+								) }
 								<div className="flex-1 flex justify-between items-center">
-									<span>{item[nameKey] || item.dataKey}</span>
+									<span>{ item[ nameKey ] || item.dataKey }</span>
 									<span className="font-mono font-medium">
-										{formatter
-											? formatter(item.value ?? '')
-											: item.value ?? ''}
+										{ formatter
+											? formatter( item.value ?? '' )
+											: ( item.value ?? '' ) }
 									</span>
 								</div>
 							</div>
 						);
-					})}
+					} ) }
 				</div>
 			</div>
 		);

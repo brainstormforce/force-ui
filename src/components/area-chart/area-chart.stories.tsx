@@ -143,176 +143,176 @@ export default meta;
 type Story = StoryObj<typeof AreaChart>;
 
 export const AreaChartSimple: Story = {
-    args: {
-        data: areaChartData,
-        dataKeys,
-        colors,
-        variant: 'solid', // solid, gradient
-        tickFormatter: monthFormatter,
-        showXAxis: true,
-        xAxisDataKey: 'month',
-        showYAxis: false,
-        showLegend: false,
-        showTooltip: true,
-        tooltipIndicator: 'dot',
-    }
-}
+	args: {
+		data: areaChartData,
+		dataKeys,
+		colors,
+		variant: 'solid', // solid, gradient
+		tickFormatter: monthFormatter,
+		showXAxis: true,
+		xAxisDataKey: 'month',
+		showYAxis: false,
+		showLegend: false,
+		showTooltip: true,
+		tooltipIndicator: 'dot',
+	},
+};
 
 export const AreaChartGradient: Story = {
-    args: {
-        data: areaChartData,
-        dataKeys,
-        colors,
-        variant: 'gradient', // solid, gradient
-        tickFormatter: monthFormatter,
-        showXAxis: true,
-        xAxisDataKey: 'month',
-        showYAxis: false,
-        showLegend: false,
-    }
-}
+	args: {
+		data: areaChartData,
+		dataKeys,
+		colors,
+		variant: 'gradient', // solid, gradient
+		tickFormatter: monthFormatter,
+		showXAxis: true,
+		xAxisDataKey: 'month',
+		showYAxis: false,
+		showLegend: false,
+	},
+};
 
 export const AreaChartInteractive: Story = {
-    args: {
-        chartWidth: 900,
-        chartHeight: 250,
-        data: chartDataIteractive,
-        dataKeys: dataKeysInteractive,
-        colors,
-        variant: 'gradient', // solid, gradient
-        showXAxis: true,
-        xAxisDataKey: 'date',
-        showYAxis: false,
-        tickFormatter: monthFormatterInteractive,
-    }
-}
+	args: {
+		chartWidth: 900,
+		chartHeight: 250,
+		data: chartDataIteractive,
+		dataKeys: dataKeysInteractive,
+		colors,
+		variant: 'gradient', // solid, gradient
+		showXAxis: true,
+		xAxisDataKey: 'date',
+		showYAxis: false,
+		tickFormatter: monthFormatterInteractive,
+	},
+};
 
 AreaChartInteractive.storyName = 'Area Chart Gradient with Legend';
 
 type Story1 = StoryFn<typeof AreaChart>;
 
-export const AreaChartCard1: Story1 = (args) => (
-    <Container
-        containerType="grid"
-        gap="xs"
-        className="p-4 bg-background-primary rounded-lg shadow-sm"
-        {...args}
-    >
-        <Container.Item className="p-1 space-y-2">
-            <Container containerType="flex" justify="between" align="center">
-                <Label size="sm" className="text-text-tertiary font-medium">
-                    Cloned Sites
-                </Label>
-                <Button className="p-0" variant="ghost">
-                    <ArrowUpRight className="text-icon-secondary size-4" />
-                </Button>
-            </Container>
-            <Container containerType="flex" align="center" gap="xs">
-                <div className="text-4xl text-text-primary font-semibold">
-                    316
-                </div>
-                <Badge
-                    label={'12%'}
-                    size="sm"
-                    type="pill"
-                    variant="green"
-                    icon={<ArrowUp />}
-                />
-            </Container>
-            <Container
-                containerType="flex"
-                align="center"
-                className="gap-0 space-x-1"
-            >
-                <span className="text-field-helper text-xs">Compare to</span>
-                <Badge
-                    label={'298'}
-                    size="sm"
-                    type="pill"
-                    variant="neutral"
-                    icon={null}
-                />
-                <span className="text-field-helper text-xs">previous week</span>
-            </Container>
-        </Container.Item>
-        <Container.Item>
-            <AreaChart
-                data={areaChartData}
-                dataKeys={dataKeys}
-                colors={colors}
-                variant="solid"
-                tickFormatter={monthFormatter}
-                showXAxis={true}
-                xAxisDataKey="month"
-                showYAxis={false}
-                showLegend={false}
-            />
-        </Container.Item>
-    </Container>
+export const AreaChartCard1: Story1 = ( args ) => (
+	<Container
+		containerType="grid"
+		gap="xs"
+		className="p-4 bg-background-primary rounded-lg shadow-sm"
+		{ ...args }
+	>
+		<Container.Item className="p-1 space-y-2">
+			<Container containerType="flex" justify="between" align="center">
+				<Label size="sm" className="text-text-tertiary font-medium">
+					Cloned Sites
+				</Label>
+				<Button className="p-0" variant="ghost">
+					<ArrowUpRight className="text-icon-secondary size-4" />
+				</Button>
+			</Container>
+			<Container containerType="flex" align="center" gap="xs">
+				<div className="text-4xl text-text-primary font-semibold">
+					316
+				</div>
+				<Badge
+					label={ '12%' }
+					size="sm"
+					type="pill"
+					variant="green"
+					icon={ <ArrowUp /> }
+				/>
+			</Container>
+			<Container
+				containerType="flex"
+				align="center"
+				className="gap-0 space-x-1"
+			>
+				<span className="text-field-helper text-xs">Compare to</span>
+				<Badge
+					label={ '298' }
+					size="sm"
+					type="pill"
+					variant="neutral"
+					icon={ null }
+				/>
+				<span className="text-field-helper text-xs">previous week</span>
+			</Container>
+		</Container.Item>
+		<Container.Item>
+			<AreaChart
+				data={ areaChartData }
+				dataKeys={ dataKeys }
+				colors={ colors }
+				variant="solid"
+				tickFormatter={ monthFormatter }
+				showXAxis={ true }
+				xAxisDataKey="month"
+				showYAxis={ false }
+				showLegend={ false }
+			/>
+		</Container.Item>
+	</Container>
 );
 
 AreaChartCard1.storyName = 'Clone Sites Card With Area Chart';
 
-export const AreaChartCard2: Story1 = (args) => (
-    <Container
-        containerType="grid"
-        gap="xs"
-        className="p-4 bg-background-primary rounded-lg shadow-sm"
-        {...args}
-    >
-        <Container.Item className="p-1 space-y-2">
-            <Container containerType="flex" justify="between" align="center">
-                <Label size="sm" className="text-text-tertiary font-medium">
-                    Revenue
-                </Label>
-                <Button className="p-0" variant="ghost">
-                    <ArrowUpRight className="text-icon-secondary size-4" />
-                </Button>
-            </Container>
-            <Container containerType="flex" align="center" gap="xs">
-                <div className="text-4xl text-text-primary font-semibold">
-                    $3,169
-                </div>
-                <Badge
-                    label={'12%'}
-                    size="sm"
-                    type="pill"
-                    variant="green"
-                    icon={<ArrowUp />}
-                />
-            </Container>
-            <Container
-                containerType="flex"
-                align="center"
-                className="gap-0 space-x-1"
-            >
-                <span className="text-field-helper text-xs">Compared to</span>
-                <Badge
-                    label={'$2,984'}
-                    size="sm"
-                    type="pill"
-                    variant="neutral"
-                    icon={null}
-                />
-                <span className="text-field-helper text-xs">previous week</span>
-            </Container>
-        </Container.Item>
-        <Container.Item>
-            <AreaChart
-                chartWidth={900}
-                chartHeight={250}
-                data={chartDataIteractive}
-                dataKeys={dataKeysInteractive}
-                colors={colors}
-                variant="gradient"
-                tickFormatter={monthFormatterInteractive}
-                showXAxis={true}
-                xAxisDataKey="date"
-                showYAxis={false}
-                showLegend={true}
-            />
-        </Container.Item>
-    </Container>
+export const AreaChartCard2: Story1 = ( args ) => (
+	<Container
+		containerType="grid"
+		gap="xs"
+		className="p-4 bg-background-primary rounded-lg shadow-sm"
+		{ ...args }
+	>
+		<Container.Item className="p-1 space-y-2">
+			<Container containerType="flex" justify="between" align="center">
+				<Label size="sm" className="text-text-tertiary font-medium">
+					Revenue
+				</Label>
+				<Button className="p-0" variant="ghost">
+					<ArrowUpRight className="text-icon-secondary size-4" />
+				</Button>
+			</Container>
+			<Container containerType="flex" align="center" gap="xs">
+				<div className="text-4xl text-text-primary font-semibold">
+					$3,169
+				</div>
+				<Badge
+					label={ '12%' }
+					size="sm"
+					type="pill"
+					variant="green"
+					icon={ <ArrowUp /> }
+				/>
+			</Container>
+			<Container
+				containerType="flex"
+				align="center"
+				className="gap-0 space-x-1"
+			>
+				<span className="text-field-helper text-xs">Compared to</span>
+				<Badge
+					label={ '$2,984' }
+					size="sm"
+					type="pill"
+					variant="neutral"
+					icon={ null }
+				/>
+				<span className="text-field-helper text-xs">previous week</span>
+			</Container>
+		</Container.Item>
+		<Container.Item>
+			<AreaChart
+				chartWidth={ 900 }
+				chartHeight={ 250 }
+				data={ chartDataIteractive }
+				dataKeys={ dataKeysInteractive }
+				colors={ colors }
+				variant="gradient"
+				tickFormatter={ monthFormatterInteractive }
+				showXAxis={ true }
+				xAxisDataKey="date"
+				showYAxis={ false }
+				showLegend={ true }
+			/>
+		</Container.Item>
+	</Container>
 );
 
 AreaChartCard2.storyName = 'Revenue Card With Area Chart';
