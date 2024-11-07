@@ -4,8 +4,11 @@ interface EditorPlaceHolder {
 }
 
 const EditorPlaceholder = ( { content }: EditorPlaceHolder ) => (
-	<div className="pointer-events-none absolute inset-0 flex items-center justify-start text-field-placeholder">
-		{ content }
+	<div
+		aria-hidden="true"
+		className="pointer-events-none absolute inset-0 flex items-center justify-start text-field-placeholder w-full"
+	>
+		<span className="truncate">{ content }</span>
 	</div>
 );
 

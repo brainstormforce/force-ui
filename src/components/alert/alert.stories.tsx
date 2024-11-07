@@ -77,6 +77,19 @@ export const Success: Story = {
 	},
 };
 
+export const WithLongStringAndWithoutCloseButton: Story = {
+	args: {
+		variant: 'neutral',
+		content: (
+			<p className="m-0">
+				<b className="mr-1">Designer’s Note:</b>Adjusting or changing
+				components here will update it on all other pages or templates
+				where it is been used
+			</p>
+		),
+	},
+};
+
 export const Stack: Story = {
 	args: {
 		variant: 'info',

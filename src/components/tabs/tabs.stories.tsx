@@ -1,6 +1,6 @@
 import type { Meta, StoryFn } from '@storybook/react';
 import { useState } from 'react';
-import Tabs, { TabsProps } from './tabs';
+import Tabs, { type TabsGroupProps } from './tabs';
 import { House } from 'lucide-react';
 
 const meta: Meta<typeof Tabs.Group> = {
@@ -8,6 +8,8 @@ const meta: Meta<typeof Tabs.Group> = {
 	component: Tabs.Group,
 	subcomponents: {
 		'Tabs.Tab': Tabs.Tab,
+		Tabs,
+		'Tabs.Panel': Tabs.Panel,
 	} as Record<string, React.ComponentType<unknown>>,
 	parameters: {
 		layout: 'centered',
@@ -42,7 +44,7 @@ type Story = StoryFn<typeof Tabs.Group>;
 const Template: Story = ( args ) => {
 	const [ activeTab, setActiveTab ] = useState( args?.activeItem ?? 'tab1' );
 
-	const handleTabChange: TabsProps['onChange'] = ( { event, value } ) => {
+	const handleTabChange: TabsGroupProps['onChange'] = ( { event, value } ) => {
 		const activeSlugName = value.slug;
 		if ( activeSlugName ) {
 			setActiveTab( activeSlugName );
@@ -121,4 +123,36 @@ export const WithCustomIcons = {
 		activeItem: 'tab3',
 	},
 	render: Template,
+};
+
+export const TabsWithPanel: Story = ( args ) => {
+	const [ activeTab, setActiveTab ] = useState( 'tab1' );
+
+	const handleTabChange: TabsGroupProps['onChange'] = ( { value } ) => {
+		const selectedTab = value.slug;
+		if ( selectedTab ) {
+			setActiveTab( selectedTab );
+		}
+	};
+
+	return (
+		<Tabs { ...args } activeItem={ activeTab }>
+			<Tabs.Group onChange={ handleTabChange }>
+				<Tabs.Tab slug="tab1" text="Tab 1" icon={ <House /> } />
+				<Tabs.Tab slug="tab2" text="Tab 2" icon={ <House /> } />
+				<Tabs.Tab slug="tab3" text="Tab 3" icon={ <House /> } />
+			</Tabs.Group>
+			<div className="my-5 p-5 rounded-md bg-slate-100 shadow-md">
+				<Tabs.Panel slug="tab1">
+					<p>Tab 1 content</p>
+				</Tabs.Panel>
+				<Tabs.Panel slug="tab2">
+					<p>Tab 2 content</p>
+				</Tabs.Panel>
+				<Tabs.Panel slug="tab3">
+					<p>Tab 3 content</p>
+				</Tabs.Panel>
+			</div>
+		</Tabs>
+	);
 };
