@@ -1,3 +1,4 @@
+import { Meta, StoryObj, StoryFn } from '@storybook/react';
 import BarChart from './bar-chart';
 import Label from '../label';
 import Button from '../button';
@@ -122,9 +123,9 @@ const dataKeys = [ 'desktop', 'mobile' ];
 const colors = [ { fill: '#7DD3FC' }, { fill: '#2563EB' } ];
 
 // Custom tick formatter function for months
-const monthFormatter = ( value ) => value.slice( 0, 3 );
+const monthFormatter = ( value: string ) => value.slice( 0, 3 );
 
-const monthFormatterInteractive = ( value ) => {
+const monthFormatterInteractive = ( value: string ) => {
 	const date = new Date( value );
 	return date.toLocaleDateString( 'en-US', {
 		month: 'short',
@@ -132,263 +133,112 @@ const monthFormatterInteractive = ( value ) => {
 	} );
 };
 
-export default {
+const meta: Meta = {
 	title: 'Atoms/BarChart',
 	component: BarChart,
 	parameters: {
 		layout: 'centered',
 	},
 	tags: [ 'autodocs' ],
-	argTypes: {
-		data: {
-			description:
-				'An array of objects representing the source data for the chart.',
-			control: { type: 'object' },
-		},
-		dataKeys: {
-			description:
-				'An array of strings representing the keys to access data in each data object. Used for identifying different data series.',
-			control: { type: 'array' },
-			table: {
-				type: { summary: 'array' },
-			},
-		},
-		colors: {
-			description:
-				'An array of color strings that determine the colors for each data series in the chart.',
-			control: { type: 'array' },
-			table: {
-				type: { summary: 'array' },
-			},
-		},
-		showXAxis: {
-			description:
-				'Whether to render the `<XAxis />` component for the x-axis.',
-			control: { type: 'boolean' },
-			defaultValue: true,
-			table: {
-				type: { summary: 'boolean' },
-			},
-		},
-		showYAxis: {
-			description:
-				'Render the `<YAxis />` component which present y axis',
-			control: { type: 'boolean' },
-			defaultValue: true,
-			table: {
-				type: { summary: 'boolean' },
-			},
-		},
-		showTooltip: {
-			description:
-				'Toggle the visibility of the tooltip on hover, displaying detailed information for each data point.',
-			control: { type: 'boolean' },
-			defaultValue: true,
-			table: {
-				type: { summary: 'boolean' },
-			},
-		},
-		tooltipIndicator: {
-			description:
-				'The tooltip indicator. It can be `dot`, `line` or `dashed`',
-			control: { type: 'select' },
-			options: [ 'dot', 'line', 'dashed' ],
-			table: {
-				type: { summary: 'string' },
-			},
-		},
-		tooltipLabelKey: {
-			description:
-				"Present tooltip lable key. E.g. for this data element: `{ month: 'January', desktop: 186, mobile: 80 }` if set lableKye to 'month' the tooltip will display the month name (like 'January')",
-			table: {
-				type: { summary: 'string' },
-			},
-		},
-		showCartesianGrid: {
-			description:
-				'Whether to display the `<CartesianGrid />`, adding horizontal and vertical grid lines.',
-			control: { type: 'boolean' },
-			defaultValue: true,
-			table: {
-				type: { summary: 'boolean' },
-			},
-		},
-		tickFormatter: {
-			description:
-				'A function used to format the ticks on the axes, e.g., for formatting dates or numbers.',
-			control: { type: 'function' },
-		},
-		xAxisDataKey: {
-			description:
-				'The key in the data objects representing values for the x-axis. This is used to access the x-axis values from each data entry.',
-			control: { type: 'text' },
-			table: {
-				type: { summary: 'string' },
-			},
-		},
-		showLegend: {
-			description:
-				'Whether to render the `<Legend />` component to identify data series.',
-			control: { type: 'boolean' },
-			defaultValue: true,
-			table: {
-				type: { summary: 'boolean' },
-			},
-		},
-		xAxisFontSize: {
-			description: 'Font size for the labels on the x-axis.',
-			control: { type: 'select' },
-			options: [ 'sm', 'md', 'lg' ],
-			table: {
-				type: { summary: 'string' },
-				defaultValue: { summary: 'sm' },
-			},
-		},
-		xAxisFontColor: {
-			description: 'Font color for the labels on the x-axis.',
-			control: { type: 'text' },
-			table: {
-				type: { summary: 'string' },
-			},
-		},
-		yAxisFontColor: {
-			description: 'Font color for the labels on the y-axis.',
-			control: { type: 'text' },
-			table: {
-				type: { summary: 'string' },
-			},
-		},
-		layout: {
-			description:
-				'The layout of bars in the chart. It can be horizontal or vertical',
-			table: {
-				type: { summary: 'string' },
-			},
-		},
-		stacked: {
-			description:
-				'The stack id of bar, when two bars have the same value axis and same stackId, then the two bars are stacked in order.',
-			table: {
-				type: { summary: 'boolean' },
-			},
-		},
-		chartWidth: {
-			description: 'Width of the chart container in pixels.',
-			control: { type: 'number' },
-			table: {
-				type: { summary: 'number' },
-			},
-		},
-		chartHeight: {
-			description: 'Height of the chart container in pixels.',
-			control: { type: 'number' },
-			table: {
-				type: { summary: 'number' },
-			},
-		},
-		borderRadius: {
-			description: 'Border radius of bars.',
-			control: { type: 'number' },
-			table: {
-				type: { summary: 'number' },
-			},
-		},
-	},
-};
+} satisfies Meta<typeof BarChart>;
 
-const Template = ( args ) => <BarChart { ...args } />;
+export default meta;
 
-export const BarChartSimple = Template.bind( {} );
-BarChartSimple.args = {
-	data: chartData,
-	dataKeys: [ 'desktop' ],
-	showXAxis: true,
-	showYAxis: false,
-	showTooltip: true,
-	tooltipIndicator: 'dot',
-	showCartesianGrid: true,
-	tickFormatter: monthFormatter,
-	xAxisDataKey: 'month',
-};
+type Story = StoryObj<typeof BarChart>;
 
-export const BarChartHorizontal = Template.bind( {} );
-BarChartHorizontal.args = {
-	data: chartData,
-	dataKeys: [ 'desktop' ],
-	layout: 'vertical',
-	showXAxis: false,
-	showYAxis: true,
-	showTooltip: true,
-	showCartesianGrid: false,
-	tickFormatter: monthFormatter,
-	yAxisDataKey: 'month',
-	xAxisFontSize: 'sm',
-	height: 300,
-	borderRadius: 5,
-};
+export const BarChartSimple: Story = {
+    args: {
+        data: chartData,
+        dataKeys: [ 'desktop' ],
+        showXAxis: true,
+        showYAxis: false,
+        showTooltip: true,
+        tooltipIndicator: 'dot',
+        showCartesianGrid: true,
+        tickFormatter: monthFormatter,
+        xAxisDataKey: 'month',
+    }
+}
 
-export const BarChartMultiple = Template.bind( {} );
-BarChartMultiple.args = {
-	data: chartDataMultiple,
-	dataKeys,
-	layout: 'horizontal',
-	colors,
-	showXAxis: true,
-	showYAxis: false,
-	showTooltip: true,
-	tooltipIndicator: 'dashed',
-	tooltipLabelKey: 'month',
-	showCartesianGrid: true,
-	tickFormatter: monthFormatter,
-	xAxisDataKey: 'month',
-	xAxisFontSize: 'sm',
-	width: 500,
-	height: 300,
-	borderRadius: 4,
-};
+export const BarChartHorizontal: Story = {
+    args: {
+        data: chartData,
+        dataKeys: [ 'desktop' ],
+        layout: 'vertical',
+        showXAxis: false,
+        showYAxis: true,
+        showTooltip: true,
+        showCartesianGrid: false,
+        tickFormatter: monthFormatter,
+        yAxisDataKey: 'month',
+        xAxisFontSize: 'sm',
+        borderRadius: 5,
+    }
+}
 
-export const BarChartStucked = Template.bind( {} );
-BarChartStucked.args = {
-	data: chartDataMultiple,
-	dataKeys,
-	layout: 'horizontal',
-	stacked: true,
-	colors,
-	showXAxis: true,
-	showYAxis: false,
-	showTooltip: true,
-	showLegend: true,
-	showCartesianGrid: true,
-	tickFormatter: monthFormatter,
-	xAxisDataKey: 'month',
-	xAxisFontSize: 'sm',
-	width: 500,
-	height: 300,
-};
+export const BarChartMultiple: Story = {
+    args: {
+        data: chartDataMultiple,
+        dataKeys,
+        layout: 'horizontal',
+        colors,
+        showXAxis: true,
+        showYAxis: false,
+        showTooltip: true,
+        tooltipIndicator: 'dashed',
+        tooltipLabelKey: 'month',
+        showCartesianGrid: true,
+        tickFormatter: monthFormatter,
+        xAxisDataKey: 'month',
+        xAxisFontSize: 'sm',
+        borderRadius: 4,
+    }
+}
+
+export const BarChartStucked: Story = {
+    args: {
+        data: chartDataMultiple,
+        dataKeys,
+        layout: 'horizontal',
+        stacked: true,
+        colors,
+        showXAxis: true,
+        showYAxis: false,
+        showTooltip: true,
+        showLegend: true,
+        showCartesianGrid: true,
+        tickFormatter: monthFormatter,
+        xAxisDataKey: 'month',
+        xAxisFontSize: 'sm',
+    }
+}
 
 BarChartStucked.storyName = 'Bar Chart Stucked + Legend';
 
-export const BarChartInteractive = Template.bind( {} );
-BarChartInteractive.args = {
-	data: chartDataIteractive,
-	dataKeys: [ 'desktop' ],
-	layout: 'horizontal',
-	stacked: false,
-	colors,
-	showXAxis: true,
-	showYAxis: false,
-	showTooltip: true,
-	showLegend: false,
-	showCartesianGrid: true,
-	tickFormatter: monthFormatterInteractive,
-	xAxisDataKey: 'date',
-	xAxisFontSize: 'sm',
-	chartWidth: 900,
-	chartHeight: 250,
-	borderRadius: 0,
-};
+export const BarChartInteractive: Story = {
+    args: {
+        data: chartDataIteractive,
+        dataKeys: [ 'desktop' ],
+        layout: 'horizontal',
+        stacked: false,
+        colors,
+        showXAxis: true,
+        showYAxis: false,
+        showTooltip: true,
+        showLegend: false,
+        showCartesianGrid: true,
+        tickFormatter: monthFormatterInteractive,
+        xAxisDataKey: 'date',
+        xAxisFontSize: 'sm',
+        chartWidth: 900,
+        chartHeight: 250,
+        borderRadius: 0,
+    }
+}
 
-export const BarChartCard1 = (args) => (
+type Story1 = StoryFn<typeof BarChart>;
+
+export const BarChartCard1: Story1 = (args) => (
 	<Container
 		containerType="grid"
 		gap="xs"
@@ -419,8 +269,7 @@ export const BarChartCard1 = (args) => (
 			<Container
 				containerType="flex"
 				align="center"
-				gap="0"
-				className="space-x-1"
+				className="gap-0 space-x-1"
 			>
 				<span className="text-field-helper text-xs">Compare to</span>
 				<Badge
@@ -450,7 +299,7 @@ export const BarChartCard1 = (args) => (
 
 BarChartCard1.storyName = 'Clone Sites Card With Bar Chart';
 
-export const BarChartCard2 = (args) => (
+export const BarChartCard2: Story1 = (args) => (
 	<Container
 		containerType="grid"
 		gap="xs"
@@ -481,8 +330,7 @@ export const BarChartCard2 = (args) => (
 			<Container
 				containerType="flex"
 				align="center"
-				gap="0"
-				className="space-x-1"
+				className="gap-0 space-x-1"
 			>
 				<span className="text-field-helper text-xs">Compare to</span>
 				<Badge
@@ -515,7 +363,7 @@ export const BarChartCard2 = (args) => (
 
 BarChartCard2.storyName = 'Clone Sites Card With Bar Chart Multiple';
 
-export const BarChartCard3 = (args) => (
+export const BarChartCard3: Story1 = (args) => (
 	<Container
 		containerType="grid"
 		gap="xs"
@@ -546,8 +394,7 @@ export const BarChartCard3 = (args) => (
 			<Container
 				containerType="flex"
 				align="center"
-				gap="0"
-				className="space-x-1"
+				className="gap-0 space-x-1"
 			>
 				<span className="text-field-helper text-xs">Compare to</span>
 				<Badge
@@ -581,7 +428,7 @@ export const BarChartCard3 = (args) => (
 
 BarChartCard3.storyName = 'Clone Sites Card With Stacked Bar Chart + Legend';
 
-export const BarChartCard4 = (args) => (
+export const BarChartCard4: Story1 = (args) => (
 	<Container
 		containerType="grid"
 		gap="xs"
@@ -612,8 +459,7 @@ export const BarChartCard4 = (args) => (
 			<Container
 				containerType="flex"
 				align="center"
-				gap="0"
-				className="space-x-1"
+				className="gap-0 space-x-1"
 			>
 				<span className="text-field-helper text-xs">Compare to</span>
 				<Badge
@@ -646,7 +492,7 @@ export const BarChartCard4 = (args) => (
 
 BarChartCard4.storyName = 'Clone Sites Card With Bar Chart Horizontal';
 
-export const AreaChartCard5 = (args) => (
+export const AreaChartCard5: Story1 = (args) => (
 	<Container
 		containerType="grid"
 		gap="xs"
@@ -677,8 +523,7 @@ export const AreaChartCard5 = (args) => (
 			<Container
 				containerType="flex"
 				align="center"
-				gap="0"
-				className="space-x-1"
+				className="gap-0 space-x-1"
 			>
 				<span className="text-field-helper text-xs">Compared to</span>
 				<Badge

@@ -1,7 +1,20 @@
 import React from 'react';
 import { cn } from '@/utilities/functions';
 
-const ChartLegendContent = React.forwardRef(
+interface ChartLegendContentProps {
+    className?: string;
+    hideIcon?: boolean;
+    payload?: {
+        color: string;
+        value: string | number;
+        [key: string]: string | number;
+    }[];
+    verticalAlign?: 'top' | 'bottom';
+    nameKey?: string;
+    fontSizeVariant?: string | number;
+}
+
+const ChartLegendContent = React.forwardRef<HTMLDivElement,ChartLegendContentProps>(
     (
         {
             className,

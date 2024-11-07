@@ -6,6 +6,78 @@ import ChartLegendContent from './chart-legend-content';
 import ChartTooltipContent from './chart-tooltip-content';
 import Label from '../label';
 
+interface DataItem {
+    [key: string]: number | string; // Adjust based on your data structure
+}
+interface Color {
+    fill: string;
+}
+
+interface BarChartProps {
+    /** An array of objects representing the source data for the chart. */
+    data: DataItem[];
+
+    /** An array of strings representing the keys to access data in each data object. Used for identifying different data series. */
+    dataKeys: string[];
+
+    /** An array of color strings that determine the colors for each data series in the chart. */
+    colors?: Color[];
+
+    /** Defines the layout of Bar Chart. */
+    layout?: 'horizontal' | 'vertical';
+
+    /** Defines are the chart bars are stacked. */
+    stacked?: boolean;
+
+    /** Whether to render the `<XAxis />` component for the x-axis. */
+    showXAxis?: boolean;
+
+    /** Whether to render the `<YAxis />` component for the y-axis. */
+    showYAxis?: boolean;
+
+    /** Toggle the visibility of the tooltip on hover, displaying detailed information for each data point. */
+    showTooltip?: boolean;
+
+    /** The tooltip indicator. It can be `dot`, `line` or `dashed`. */
+    tooltipIndicator?: 'dot' | 'line' | 'dashed';
+
+    /** Present tooltip lable key. E.g. for this data element: `{ month: 'January', desktop: 186, mobile: 80 }` if set lableKye to 'month' the tooltip will display the month name (like 'January'). */
+    tooltipLabelKey?: string;
+
+    /** Whether to render the `<Legend />` component to identify data series. */
+    showLegend?: boolean;
+
+    /** Whether to display the `<CartesianGrid />`, adding horizontal and vertical grid lines. */
+    showCartesianGrid?: boolean;
+
+    /** A function used to format the ticks on the axes, e.g., for formatting dates or numbers. */
+    tickFormatter?: (value: string) => string;
+
+    /** The key in the data objects representing values for the x-axis. This is used to access the x-axis values from each data entry. */
+    xAxisDataKey?: string;
+
+    /** The key in the data objects representing values for the y-axis. This is used to access the y-axis values from each data entry. */
+    yAxisDataKey?: string;
+
+    /** Font size for the labels on the x-axis. */
+    xAxisFontSize?: 'sm' | 'md' | 'lg';
+
+    /** Font color for the labels on the x-axis. */
+    xAxisFontColor?: string;
+
+    /** Font color for the labels on the y-axis. */
+    yAxisFontColor?: string;
+
+    /** Width of the chart container. */
+    chartWidth?: number;
+
+    /** Height of the chart container. */
+    chartHeight?: number;
+
+    /** Border radius of chart bar. */
+    borderRadius?: number;
+}
+
 const BarChart = ({
     data,
     dataKeys = [],
@@ -28,7 +100,7 @@ const BarChart = ({
     chartWidth = 350,
     chartHeight = 200,
     borderRadius = 8,
-}) => {
+}: BarChartProps ) => {
 
     const [width, setWidth] = useState(chartWidth);
     const [height, setHeight] = useState(chartHeight);
@@ -111,7 +183,7 @@ const BarChart = ({
                 {showLegend && <Legend content={<ChartLegendContent fontSizeVariant={fontSizeVariant} />} />}
                 
                 {dataKeys.map((key, index) => {
-                    let radius;
+                    let radius: number | [number, number, number, number];
 
                     if (stacked) {
                         if (index === 0) {

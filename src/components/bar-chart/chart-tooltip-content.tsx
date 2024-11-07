@@ -1,7 +1,33 @@
 import React from 'react';
 import { cn } from '@/utilities/functions';
 
-const ChartTooltipContent = React.forwardRef(
+type IndicatorType = 'dot' | 'line' | 'dashed';
+
+interface PayloadItem {
+    color?: string;
+    dataKey?: string;
+    name?: string;
+    value?: number | string;
+    [key: string]: string | number | undefined; // Allow additional properties in each payload item
+}
+
+interface ChartTooltipContentProps {
+    active?: boolean;
+    payload?: PayloadItem[];
+    className?: string;
+    indicator?: IndicatorType; // dot, line, dashed
+    hideLabel?: boolean;
+    hideIndicator?: boolean;
+    label?: string;
+    labelFormatter?: (label: string) => string;
+    labelClassName?: string;
+    formatter?: (value: number | string) => string | number;
+    color?: string;
+    nameKey?: string;
+    labelKey?: string;
+}
+
+const ChartTooltipContent = React.forwardRef<HTMLDivElement,ChartTooltipContentProps>(
     (
         {
             active,
@@ -24,7 +50,7 @@ const ChartTooltipContent = React.forwardRef(
             if (hideLabel || !payload?.length) return null;
 
             const [item] = payload;
-            const value = labelFormatter ? labelFormatter(label) : item[labelKey] || label;
+            const value = labelFormatter ? labelFormatter(label || '') : item[labelKey as keyof PayloadItem] || label;
 
             return value ? <div className={cn('font-medium', labelClassName)}>{value}</div> : null;
         }, [label, labelFormatter, payload, hideLabel, labelClassName, labelKey]);
@@ -69,7 +95,7 @@ const ChartTooltipContent = React.forwardRef(
                                 )}
                                 <div className="flex-1 flex justify-between items-center">
                                     <span>{item[nameKey] || item.dataKey}</span>
-                                    <span className="font-mono font-medium">{formatter ? formatter(item.value) : item.value}</span>
+                                    <span className="font-mono font-medium">{formatter ? formatter(item.value ?? '') : (item.value ?? '')}</span>
                                 </div>
                             </div>
                         );
