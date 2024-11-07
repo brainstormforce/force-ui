@@ -1,7 +1,52 @@
-import { PieChart as PieChartWrapper, Pie, Label as PieLabel, Tooltip, Legend,  ResponsiveContainer } from 'recharts';
+import { PieChart as PieChartWrapper, Pie, Label as PieLabel, Tooltip, Legend } from 'recharts';
 import ChartTooltipContent from './chart-tooltip-content';
 import ChartLegendContent from './chart-legend-content';
 import Label from '../label';
+
+interface DataItem {
+    [key: string]: number | string; 
+}
+
+export interface PieChartProps {
+    /** An array of objects representing the source data for the chart. */
+    data: DataItem[];
+
+    /** A string which representing the key to access data in each data object. Used for identifying different data series. */
+    dataKey: string;
+
+    /** Type of pie chart. It can be `simple` or `donut` */
+    type?: 'simple' | 'donut';
+
+    /** Toggle the visibility of the tooltip on hover, displaying detailed information for each data point. */
+    showTooltip?: boolean;
+
+    /** The tooltip indicator. It can be `dot`, `line`, or `dashed`. */
+    tooltipIndicator?: 'dot' | 'line' | 'dashed';
+
+    /** The key to use for the tooltip label. */
+    tooltipLabelKey?: string;
+
+    /** When is true it show the label inside `donut` pie chart */
+    label?: boolean;
+
+    /** Label name which will be displayed inside donut pie chart. */
+    labelName?: string;
+
+    /** Label value which will be displayed inside donut pie chart. */
+    labelValue?: number | string;
+
+    /** Whether to render the `<Legend />` component to identify data series. */
+    showLegend?: boolean;
+
+    /** Width of the chart container. */
+    chartWidth?: number;
+
+    /** Outer radius of the pie chart. */
+    pieOuterRadius?: number;
+
+    /** Inner radius of the pie chart. */
+    pieInnerRadius?: number;
+}
 
 const PieChart = ({
     data,
@@ -15,10 +60,9 @@ const PieChart = ({
     labelValue,
     showLegend = false,
     chartWidth = 300,
-    chartHeight = 300,
     pieOuterRadius = 90,
     pieInnerRadius = 60,
-}) => {
+}: PieChartProps) => {
 
     const isDonut = type === 'donut';
     const outerRadius = pieOuterRadius; // adjust as needed
@@ -38,7 +82,7 @@ const PieChart = ({
     return (
         <PieChartWrapper width={chartWidth} height={chartWidth}>
             {showTooltip && <Tooltip content={<ChartTooltipContent indicator={tooltipIndicator} labelKey={tooltipLabelKey} />} />}
-            {showLegend && <Legend content={<ChartLegendContent horizontalAlign="right" />} />}
+            {showLegend && <Legend content={<ChartLegendContent />} />}
             <Pie
                 data={data}
                 cx='50%'

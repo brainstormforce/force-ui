@@ -1,27 +1,34 @@
 import React from 'react';
 
-const ChartLegendContent = React.forwardRef(
+interface ChartLegendContentProps {
+    className?: string;
+    hideIcon?: boolean;
+    payload?: {
+        color: string;
+        value: string | number;
+        [key: string]: string | number;
+    }[];
+    verticalAlign?: 'top' | 'bottom';
+    nameKey?: string;
+}
+
+const ChartLegendContent = React.forwardRef<HTMLDivElement, ChartLegendContentProps>(
     (
         {
             className,
             hideIcon = false,
             payload = [], // array of objects that represents the data for each legend item
             verticalAlign = 'bottom', // top | bottom
-            horizontalAlign = 'center', // left | center | right
             nameKey = 'value',
         },
         ref
     ) => {
         if (!payload.length) return null;
 
-        // Set flex direction and alignment based on props
-        const justifyClass = horizontalAlign === 'left' ? 'justify-start' :
-            horizontalAlign === 'right' ? 'justify-end' : 'justify-center';
-
         return (
             <div
                 ref={ref}
-                className={`flex items-center ${justifyClass} gap-4 ${verticalAlign === 'top' ? 'pb-3' : 'pt-3'} ${className}`}
+                className={`flex items-center justify-center gap-4 ${verticalAlign === 'top' ? 'pb-3' : 'pt-3'} ${className}`}
             >
                 {payload.map((item) => (
                     <div key={item.value} className="flex items-center gap-1.5">

@@ -7,7 +7,7 @@ import ChartTooltipContent from './chart-tooltip-content';
 import Label from '../label';
 
 interface DataItem {
-    [key: string]: number | string; // Adjust based on your data structure
+    [key: string]: number | string; 
 }
 interface Color {
     fill: string;

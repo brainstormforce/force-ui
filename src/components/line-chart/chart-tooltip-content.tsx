@@ -8,7 +8,7 @@ interface PayloadItem {
     dataKey?: string;
     name?: string;
     value?: number | string;
-    [key: string]: string | number | undefined; // Allow additional properties in each payload item
+    [key: string]: string | number | undefined; 
 }
 
 interface ChartTooltipContentProps {
