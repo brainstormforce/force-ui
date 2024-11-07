@@ -302,7 +302,7 @@ export const SearchBoxInput = forwardRef<HTMLInputElement, SearchBoxInputProps>(
 					] ) }
 				/>
 				<Badge
-					label="/"
+					label={ `⌘/` }
 					size={ bagdeSize }
 					type="rounded"
 					variant="neutral"
