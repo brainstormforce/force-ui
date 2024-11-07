@@ -4,6 +4,7 @@ import {
 } from 'recharts';
 import ChartLegendContent from './chart-legend-content';
 import ChartTooltipContent from './chart-tooltip-content';
+import Label from '../label';
 
 const BarChart = ({
     data,
@@ -32,6 +33,13 @@ const BarChart = ({
     const [width, setWidth] = useState(chartWidth);
     const [height, setHeight] = useState(chartHeight);
 
+    const defaultColors = [
+        { fill: '#7DD3FC' },
+        { fill: '#2563EB' },
+    ];
+
+    const appliedColors = colors.length > 0 ? colors : defaultColors;
+
     useEffect(() => {
         setWidth(chartWidth);
         setHeight(chartHeight);
@@ -44,6 +52,18 @@ const BarChart = ({
     };
 
     const fontSizeVariant = fontSizeMap[xAxisFontSize] || fontSizeMap.sm;
+
+    if (!data || data.length === 0) {
+        return (
+            <Label
+                size="sm"
+                variant="help"
+            >
+                No data available
+            </Label>
+        );
+    }
+
 
     return (
         <ResponsiveContainer width={width} height={height}>
@@ -109,7 +129,7 @@ const BarChart = ({
                         <Bar
                             key={key}
                             dataKey={key}
-                            fill={colors[index]?.fill || '#7DD3FC'}
+                            fill={appliedColors[index]?.fill}
                             radius={radius}
                             stackId={stacked ? "a" : undefined}
                         />

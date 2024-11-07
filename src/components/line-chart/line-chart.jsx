@@ -2,6 +2,7 @@ import {
     LineChart as LineChartWrapper, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend
 } from 'recharts';
 import ChartTooltipContent from './chart-tooltip-content';
+import Label from '../label';
 
 const LineChart = ({
     data,
@@ -24,6 +25,13 @@ const LineChart = ({
     withDots = false,
 }) => {
 
+    const defaultColors = [
+        { stroke: '#2563EB' },
+        { stroke: '#38BDF8' },
+    ];
+
+    const appliedColors = colors.length > 0 ? colors : defaultColors;
+
     const fontSizeMap = {
         sm: '12px',
         md: '14px',
@@ -31,6 +39,17 @@ const LineChart = ({
     };
 
     const fontSizeVariant = fontSizeMap[xAxisFontSize] || fontSizeMap.sm;
+
+    if (!data || data.length === 0) {
+        return (
+            <Label
+                size="sm"
+                variant="help"
+            >
+                No data available
+            </Label>
+        );
+    }
 
     return (
         <LineChartWrapper
@@ -67,8 +86,8 @@ const LineChart = ({
                     key={key}
                     type="natural"
                     dataKey={key}
-                    stroke={colors[index].stroke}
-                    fill={colors[index].stroke}
+                    stroke={appliedColors[index].stroke}
+                    fill={appliedColors[index].stroke}
                     strokeWidth={2}
                     dot={withDots}
                 />

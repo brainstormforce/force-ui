@@ -1,6 +1,7 @@
-import { PieChart as PieChartWrapper, Pie, Label, Tooltip, Legend,  ResponsiveContainer } from 'recharts';
+import { PieChart as PieChartWrapper, Pie, Label as PieLabel, Tooltip, Legend,  ResponsiveContainer } from 'recharts';
 import ChartTooltipContent from './chart-tooltip-content';
 import ChartLegendContent from './chart-legend-content';
+import Label from '../label';
 
 const PieChart = ({
     data,
@@ -23,6 +24,16 @@ const PieChart = ({
     const outerRadius = pieOuterRadius; // adjust as needed
     const innerRadius = isDonut ? pieInnerRadius : 0; // innerRadius = 0 for simple pie, non-zero for donut
 
+    if (!data || data.length === 0) {
+        return (
+            <Label
+                size="sm"
+                variant="help"
+            >
+                No data available
+            </Label>
+        );
+    }
 
     return (
         <PieChartWrapper width={chartWidth} height={chartWidth}>
@@ -37,7 +48,7 @@ const PieChart = ({
                 dataKey={dataKey}
             >
                 {isDonut && label && (
-                    <Label
+                    <PieLabel
                     content={({ viewBox }) => {
                         if (viewBox && "cx" in viewBox && "cy" in viewBox) {
                             return (
