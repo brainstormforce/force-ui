@@ -40,49 +40,49 @@ const monthFormatter = ( value: string ) => value.slice( 0, 3 );
 type Story = StoryObj<typeof LineChart>;
 
 export const LineChartSimple: Story = {
-    args: {
-        data: chartData,
-        dataKeys: [ 'desktop' ],
-        colors: [ { stroke: '#3b82f6' } ],
-        showXAxis: true,
-        showYAxis: false,
-        showTooltip: true,
-        showCartesianGrid: true,
-        tickFormatter: monthFormatter,
-        xAxisDataKey: 'month',
-        xAxisFontSize: 'sm',
-        withDots: false,
-    }
-}
+	args: {
+		data: chartData,
+		dataKeys: [ 'desktop' ],
+		colors: [ { stroke: '#3b82f6' } ],
+		showXAxis: true,
+		showYAxis: false,
+		showTooltip: true,
+		showCartesianGrid: true,
+		tickFormatter: monthFormatter,
+		xAxisDataKey: 'month',
+		xAxisFontSize: 'sm',
+		withDots: false,
+	},
+};
 
 export const LineChartWithDots: Story = {
-    args: {
-        data: chartData,
-        dataKeys: [ 'desktop' ],
-        colors: [ { stroke: '#3b82f6' } ],
-        showXAxis: true,
-        showYAxis: false,
-        showTooltip: true,
-        showCartesianGrid: true,
-        tickFormatter: monthFormatter,
-        xAxisDataKey: 'month',
-        xAxisFontSize: 'sm',
-        withDots: true,
-    }
-}
+	args: {
+		data: chartData,
+		dataKeys: [ 'desktop' ],
+		colors: [ { stroke: '#3b82f6' } ],
+		showXAxis: true,
+		showYAxis: false,
+		showTooltip: true,
+		showCartesianGrid: true,
+		tickFormatter: monthFormatter,
+		xAxisDataKey: 'month',
+		xAxisFontSize: 'sm',
+		withDots: true,
+	},
+};
 
 export const LineChartMultiple: Story = {
-    args: {
-        data: chartDataMultiple,
-        dataKeys,
-        colors,
-        showXAxis: true,
-        showYAxis: false,
-        showTooltip: true,
-        showCartesianGrid: true,
-        tickFormatter: monthFormatter,
-        xAxisDataKey: 'month',
-        xAxisFontSize: 'sm',
-        withDots: false,
-    }
-}
+	args: {
+		data: chartDataMultiple,
+		dataKeys,
+		colors,
+		showXAxis: true,
+		showYAxis: false,
+		showTooltip: true,
+		showCartesianGrid: true,
+		tickFormatter: monthFormatter,
+		xAxisDataKey: 'month',
+		xAxisFontSize: 'sm',
+		withDots: false,
+	},
+};

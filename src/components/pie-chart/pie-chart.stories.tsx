@@ -30,37 +30,37 @@ export default meta;
 type Story = StoryObj<typeof PieChart>;
 
 export const PieChartSimple: Story = {
-    args: {
-        data: chartData,
-        dataKey: 'visitors',
-        showTooltip: true,
-        tooltipIndicator: 'dot',
-        showLegend: false,
-    }
-}
+	args: {
+		data: chartData,
+		dataKey: 'visitors',
+		showTooltip: true,
+		tooltipIndicator: 'dot',
+		showLegend: false,
+	},
+};
 
 export const PieChartDonut: Story = {
-    args: {
-        type: 'donut',
-        data: chartData,
-        dataKey: 'visitors',
-        showTooltip: true,
-        tooltipIndicator: 'dot',
-        label: true,
-        labelName: 'Visitors',
-        labelValue: totalVisitors(),
-        showLegend: false,
-    }
-}
+	args: {
+		type: 'donut',
+		data: chartData,
+		dataKey: 'visitors',
+		showTooltip: true,
+		tooltipIndicator: 'dot',
+		label: true,
+		labelName: 'Visitors',
+		labelValue: totalVisitors(),
+		showLegend: false,
+	},
+};
 
 type Story1 = StoryFn<typeof PieChart>;
 
-export const PieChartCard1: Story1 = (args) => (
+export const PieChartCard1: Story1 = ( args ) => (
 	<Container
 		containerType="grid"
 		gap="xs"
 		className="p-4 bg-background-primary rounded-lg shadow-sm"
-        {...args}
+		{ ...args }
 	>
 		<Container.Item className="p-1 space-y-2">
 			<Container containerType="flex" justify="between" align="center">
@@ -94,12 +94,12 @@ export const PieChartCard1: Story1 = (args) => (
 
 PieChartCard1.storyName = 'Clone Sites Card with Pie Chart';
 
-export const PieChartCard2: Story1 = (args) => (
+export const PieChartCard2: Story1 = ( args ) => (
 	<Container
 		containerType="grid"
 		gap="xs"
 		className="p-4 bg-background-primary rounded-lg shadow-sm"
-        {...args}
+		{ ...args }
 	>
 		<Container.Item className="p-1 space-y-2">
 			<Container containerType="flex" justify="between" align="center">

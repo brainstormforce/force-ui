@@ -147,103 +147,103 @@ export default meta;
 type Story = StoryObj<typeof BarChart>;
 
 export const BarChartSimple: Story = {
-    args: {
-        data: chartData,
-        dataKeys: [ 'desktop' ],
-        showXAxis: true,
-        showYAxis: false,
-        showTooltip: true,
-        tooltipIndicator: 'dot',
-        showCartesianGrid: true,
-        tickFormatter: monthFormatter,
-        xAxisDataKey: 'month',
-    }
-}
+	args: {
+		data: chartData,
+		dataKeys: [ 'desktop' ],
+		showXAxis: true,
+		showYAxis: false,
+		showTooltip: true,
+		tooltipIndicator: 'dot',
+		showCartesianGrid: true,
+		tickFormatter: monthFormatter,
+		xAxisDataKey: 'month',
+	},
+};
 
 export const BarChartHorizontal: Story = {
-    args: {
-        data: chartData,
-        dataKeys: [ 'desktop' ],
-        layout: 'vertical',
-        showXAxis: false,
-        showYAxis: true,
-        showTooltip: true,
-        showCartesianGrid: false,
-        tickFormatter: monthFormatter,
-        yAxisDataKey: 'month',
-        xAxisFontSize: 'sm',
-        borderRadius: 5,
-    }
-}
+	args: {
+		data: chartData,
+		dataKeys: [ 'desktop' ],
+		layout: 'vertical',
+		showXAxis: false,
+		showYAxis: true,
+		showTooltip: true,
+		showCartesianGrid: false,
+		tickFormatter: monthFormatter,
+		yAxisDataKey: 'month',
+		xAxisFontSize: 'sm',
+		borderRadius: 5,
+	},
+};
 
 export const BarChartMultiple: Story = {
-    args: {
-        data: chartDataMultiple,
-        dataKeys,
-        layout: 'horizontal',
-        colors,
-        showXAxis: true,
-        showYAxis: false,
-        showTooltip: true,
-        tooltipIndicator: 'dashed',
-        tooltipLabelKey: 'month',
-        showCartesianGrid: true,
-        tickFormatter: monthFormatter,
-        xAxisDataKey: 'month',
-        xAxisFontSize: 'sm',
-        borderRadius: 4,
-    }
-}
+	args: {
+		data: chartDataMultiple,
+		dataKeys,
+		layout: 'horizontal',
+		colors,
+		showXAxis: true,
+		showYAxis: false,
+		showTooltip: true,
+		tooltipIndicator: 'dashed',
+		tooltipLabelKey: 'month',
+		showCartesianGrid: true,
+		tickFormatter: monthFormatter,
+		xAxisDataKey: 'month',
+		xAxisFontSize: 'sm',
+		borderRadius: 4,
+	},
+};
 
 export const BarChartStucked: Story = {
-    args: {
-        data: chartDataMultiple,
-        dataKeys,
-        layout: 'horizontal',
-        stacked: true,
-        colors,
-        showXAxis: true,
-        showYAxis: false,
-        showTooltip: true,
-        showLegend: true,
-        showCartesianGrid: true,
-        tickFormatter: monthFormatter,
-        xAxisDataKey: 'month',
-        xAxisFontSize: 'sm',
-    }
-}
+	args: {
+		data: chartDataMultiple,
+		dataKeys,
+		layout: 'horizontal',
+		stacked: true,
+		colors,
+		showXAxis: true,
+		showYAxis: false,
+		showTooltip: true,
+		showLegend: true,
+		showCartesianGrid: true,
+		tickFormatter: monthFormatter,
+		xAxisDataKey: 'month',
+		xAxisFontSize: 'sm',
+	},
+};
 
 BarChartStucked.storyName = 'Bar Chart Stucked + Legend';
 
 export const BarChartInteractive: Story = {
-    args: {
-        data: chartDataIteractive,
-        dataKeys: [ 'desktop' ],
-        layout: 'horizontal',
-        stacked: false,
-        colors,
-        showXAxis: true,
-        showYAxis: false,
-        showTooltip: true,
-        showLegend: false,
-        showCartesianGrid: true,
-        tickFormatter: monthFormatterInteractive,
-        xAxisDataKey: 'date',
-        xAxisFontSize: 'sm',
-        chartWidth: 900,
-        chartHeight: 250,
-        borderRadius: 0,
-    }
-}
+	args: {
+		data: chartDataIteractive,
+		dataKeys: [ 'desktop' ],
+		layout: 'horizontal',
+		stacked: false,
+		colors,
+		showXAxis: true,
+		showYAxis: false,
+		showTooltip: true,
+		showLegend: false,
+		showCartesianGrid: true,
+		tickFormatter: monthFormatterInteractive,
+		xAxisDataKey: 'date',
+		xAxisFontSize: 'sm',
+		chartWidth: 900,
+		chartHeight: 250,
+		borderRadius: 0,
+	},
+};
 
 type Story1 = StoryFn<typeof BarChart>;
 
-export const BarChartCard1: Story1 = (args) => (
+export const BarChartCard1: Story1 = ( args ) => (
 	<Container
 		containerType="grid"
 		gap="xs"
 		className="p-4 bg-background-primary rounded-lg shadow-sm"
-        {...args}
+		{ ...args }
 	>
 		<Container.Item className="p-1 space-y-2">
 			<Container containerType="flex" justify="between" align="center">
@@ -299,12 +299,12 @@ export const BarChartCard1: Story1 = (args) => (
 
 BarChartCard1.storyName = 'Clone Sites Card With Bar Chart';
 
-export const BarChartCard2: Story1 = (args) => (
+export const BarChartCard2: Story1 = ( args ) => (
 	<Container
 		containerType="grid"
 		gap="xs"
 		className="p-4 bg-background-primary rounded-lg shadow-sm"
-        {...args}
+		{ ...args }
 	>
 		<Container.Item className="p-1 space-y-2">
 			<Container containerType="flex" justify="between" align="center">
@@ -363,12 +363,12 @@ export const BarChartCard2: Story1 = (args) => (
 
 BarChartCard2.storyName = 'Clone Sites Card With Bar Chart Multiple';
 
-export const BarChartCard3: Story1 = (args) => (
+export const BarChartCard3: Story1 = ( args ) => (
 	<Container
 		containerType="grid"
 		gap="xs"
 		className="p-4 bg-background-primary rounded-lg shadow-sm"
-        {...args}
+		{ ...args }
 	>
 		<Container.Item className="p-1 space-y-2">
 			<Container containerType="flex" justify="between" align="center">
@@ -428,12 +428,12 @@ export const BarChartCard3: Story1 = (args) => (
 
 BarChartCard3.storyName = 'Clone Sites Card With Stacked Bar Chart + Legend';
 
-export const BarChartCard4: Story1 = (args) => (
+export const BarChartCard4: Story1 = ( args ) => (
 	<Container
 		containerType="grid"
 		gap="xs"
 		className="p-4 bg-background-primary rounded-lg shadow-sm"
-        {...args}
+		{ ...args }
 	>
 		<Container.Item className="p-1 space-y-2">
 			<Container containerType="flex" justify="between" align="center">
@@ -492,12 +492,12 @@ export const BarChartCard4: Story1 = (args) => (
 
 BarChartCard4.storyName = 'Clone Sites Card With Bar Chart Horizontal';
 
-export const AreaChartCard5: Story1 = (args) => (
+export const AreaChartCard5: Story1 = ( args ) => (
 	<Container
 		containerType="grid"
 		gap="xs"
 		className="p-4 bg-background-primary rounded-lg shadow-sm"
-        {...args}
+		{ ...args }
 	>
 		<Container.Item className="p-1 space-y-2">
 			<Container containerType="flex" justify="between" align="center">
