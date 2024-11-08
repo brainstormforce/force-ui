@@ -107,7 +107,6 @@ const BarChart = ( {
 	chartHeight = 200,
 	borderRadius = 8,
 }: BarChartProps ) => {
-
 	const defaultColors = [ { fill: '#7DD3FC' }, { fill: '#2563EB' } ];
 
 	const appliedColors = colors.length > 0 ? colors : defaultColors;
@@ -129,7 +128,7 @@ const BarChart = ( {
 	}
 
 	return (
-        <ResponsiveContainer width={chartWidth} height={chartHeight }>
+		<ResponsiveContainer width={ chartWidth } height={ chartHeight }>
 			<BarChartWrapper
 				data={ data }
 				margin={ { left: 14, right: 14 } }
