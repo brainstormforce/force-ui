@@ -107,6 +107,7 @@ const DatePickerComponent = ( {
 	numberOfMonths,
 	...props
 }: DatePickerProps ) => {
+	const isFooter = props.footer !== undefined;
 	const [ showMonthSelect, setShowMonthSelect ] = useState( false );
 	const [ showYearSelect, setShowYearSelect ] = useState( false ); // New state for year selection
 	const [ selectedYear, setSelectedYear ] = useState( new Date().getFullYear() );
@@ -483,14 +484,15 @@ const DatePickerComponent = ( {
 		width,
 		alignment === 'vertical' ? 'flex flex-col' : 'flex flex-row  gap-3',
 		variant === 'normal'
-			? 'rounded-md border border-solid border-border-subtle'
+			? 'rounded-tr-md rounded-tl-md border border-solid border-border-subtle'
 			: '',
 		variant === 'presets'
 			? 'rounded-tr-md border border-solid border-border-subtle'
 			: '',
 		variant === 'dualdate'
 			? 'rounded-tr-md rounded-tl-md border border-solid border-border-subtle'
-			: ''
+			: '',
+		isFooter ? 'rounded-b-none' : 'rounded-bl-md rounded-br-md'
 	);
 
 	return (

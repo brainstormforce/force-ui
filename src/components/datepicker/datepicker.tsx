@@ -56,13 +56,18 @@ const DatePicker = ( {
 		return null;
 	} );
 
-	const handleSelect = (selectedDate: Date | Date[] | { from: Date | null; to: Date | null } | null) => {
-		setSelectedDates(selectedDate as TDateRange | Date[] | null);
-		if (onDateSelect) {
-			onDateSelect(selectedDate as Date);
+	const handleSelect = (
+		selectedDate:
+			| Date
+			| Date[]
+			| { from: Date | null; to: Date | null }
+			| null
+	) => {
+		setSelectedDates( selectedDate as TDateRange | Date[] | null );
+		if ( onDateSelect ) {
+			onDateSelect( selectedDate as Date );
 		}
 	};
-	
 
 	const defaultPresets = [
 		{
