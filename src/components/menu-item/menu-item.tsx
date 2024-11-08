@@ -49,7 +49,7 @@ export interface MenuListProps extends BaseMenuProps {
 export const MenuList = ( {
 	heading,
 	arrow = false,
-	showArrowOnHover = true, // Prop to toggle hover-based arrow display
+	showArrowOnHover = false, // Prop to toggle hover-based arrow display
 	open: initialOpen = true,
 	onClick,
 	children,
@@ -93,6 +93,14 @@ export const MenuList = ( {
 		hidden: { opacity: 0 },
 	};
 
+	const getArrowAnimationVariant = () => {
+		if ( ! showArrowOnHover ) {
+			return 'visible';
+		}
+
+		return isOpen || isHovered ? 'visible' : 'hidden';
+	};
+
 	return (
 		<div>
 			<div
@@ -128,7 +136,7 @@ export const MenuList = ( {
 					>
 						<motion.div
 							initial="hidden"
-							animate={ isOpen || isHovered ? 'visible' : 'hidden' }
+							animate={ getArrowAnimationVariant() }
 							exit="hidden"
 							variants={ arrowFadeVariants }
 							transition={ { duration: 0.15 } }
