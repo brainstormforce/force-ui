@@ -76,9 +76,9 @@ const BreadcrumbSeparator = ({ type }) => {
 	};
 
 	return (
-		<span className="flex items-center text-text-tertiary mx-2">
+		<li className="flex items-center text-text-tertiary mx-2">
 			{separatorIcons[type] || separatorIcons.arrow}
-		</span>
+		</li>
 	);
 };
 BreadcrumbSeparator.displayName = 'Breadcrumb.Separator';
