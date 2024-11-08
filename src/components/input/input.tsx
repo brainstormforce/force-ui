@@ -122,7 +122,7 @@ export const InputComponent = (
 	};
 
 	const baseClasses =
-		'bg-field-secondary-background font-normal placeholder-text-tertiary text-text-primary w-full outline outline-1 outline-border-subtle border-none';
+		'bg-field-secondary-background font-normal placeholder-text-tertiary text-text-primary w-full outline outline-1 outline-border-subtle border-none transition-[color,box-shadow,outline] duration-200';
 	const sizeClasses = {
 		xs: 'px-2 py-1 rounded',
 		sm: 'p-3 py-2 rounded',
