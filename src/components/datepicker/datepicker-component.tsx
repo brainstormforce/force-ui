@@ -107,8 +107,10 @@ const DatePickerComponent = ( {
 	numberOfMonths,
 	...props
 }: DatePickerProps ) => {
-	// check footer is a valide compoenent 
-	const isFooter = React.isValidElement(props.footer) || typeof props.footer === 'function';
+	// check footer is a valide compoenent
+	const isFooter =
+		React.isValidElement( props.footer ) ||
+		typeof props.footer === 'function';
 	const [ showMonthSelect, setShowMonthSelect ] = useState( false );
 	const [ showYearSelect, setShowYearSelect ] = useState( false ); // New state for year selection
 	const [ selectedYear, setSelectedYear ] = useState( new Date().getFullYear() );

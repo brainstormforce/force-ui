@@ -182,10 +182,7 @@ const DatePicker = ( {
 				width="w-auto"
 				footer={
 					<div className="flex justify-end p-2 gap-3 border border-solid border-border-subtle border-t-0 rounded-md rounded-tl-none rounded-tr-none">
-						<Button
-							variant="outline"
-							onClick={ handleCancelClick }
-						>
+						<Button variant="outline" onClick={ handleCancelClick }>
 							{ cancelButtonText }
 						</Button>
 						<Button onClick={ handleApplyClick }>
