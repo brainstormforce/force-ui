@@ -38,15 +38,14 @@ const meta: Meta<typeof Menu> = {
 
 export default meta;
 
-const Template: StoryFn = ( args ) => (
+type Story = StoryFn<typeof Menu>;
+
+const Template: Story = ( args ) => (
 	<Menu size={ args.size } className="gap-6 min-w-64">
 		<Menu.List heading="Store" open={ true } arrow={ true }>
-			<Menu.Item
-				active={ args.menuItemActive }
-				disabled={ args.menuItemDisabled }
-			>
+			<Menu.Item>
 				<Store />
-				<div>{ args.menuItemContent || 'Store Settings' }</div>
+				<div>Store Settings</div>
 			</Menu.Item>
 			<Menu.Item disabled>
 				<PenTool />
@@ -99,7 +98,7 @@ const Template: StoryFn = ( args ) => (
 	</Menu>
 );
 
-export const CombinedMenu = Template.bind( {} );
+export const CombinedMenu: Story = Template.bind( {} );
 
 CombinedMenu.args = {
 	size: 'md',

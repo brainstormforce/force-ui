@@ -1,5 +1,5 @@
 import ProgressSteps, { ProgressStepsProps } from './progress-steps';
-import { Check } from 'lucide-react';
+import { Check, Home } from 'lucide-react';
 import type { Meta, StoryFn } from '@storybook/react';
 
 // ProgressSteps.Step display name for better documentation in Storybook
@@ -32,6 +32,13 @@ const meta: Meta<typeof ProgressSteps> = {
 			control: false,
 		},
 	},
+	decorators: [
+		( Story ) => (
+			<div style={ { width: '700px', margin: '0 auto' } }>
+				<Story />
+			</div>
+		),
+	],
 } satisfies Meta<typeof ProgressSteps>;
 
 export default meta;
@@ -39,7 +46,7 @@ export default meta;
 // Template for ProgressSteps stories
 const Template: StoryFn<ProgressStepsProps> = ( args ) => (
 	<ProgressSteps { ...args }>
-		<ProgressSteps.Step labelText="Step 1" size="md">
+		<ProgressSteps.Step icon={ <Home /> } labelText="Step 1" size="md">
 			Step 1
 		</ProgressSteps.Step>
 		<ProgressSteps.Step labelText="Step 2" size="md">

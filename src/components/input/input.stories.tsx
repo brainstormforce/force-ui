@@ -1,7 +1,8 @@
 import Input from './input';
 import { Phone } from 'lucide-react';
+import { Meta, StoryObj } from '@storybook/react';
 
-export default {
+const meta: Meta<typeof Input> = {
 	title: 'Atoms/Input',
 	component: Input,
 	parameters: {
@@ -18,8 +19,12 @@ export default {
 	},
 };
 
+export default meta;
+
+type Story = StoryObj<typeof Input>;
+
 // Basic Input
-export const Basic = {
+export const Basic: Story = {
 	args: {
 		type: 'text',
 		size: 'sm',
@@ -30,7 +35,7 @@ export const Basic = {
 };
 
 // Input with Error
-export const ErrorState = {
+export const ErrorState: Story = {
 	args: {
 		type: 'text',
 		size: 'sm',
@@ -41,7 +46,7 @@ export const ErrorState = {
 };
 
 // Disabled Input
-export const Disabled = {
+export const Disabled: Story = {
 	args: {
 		type: 'text',
 		size: 'sm',
@@ -52,7 +57,7 @@ export const Disabled = {
 };
 
 // File Input
-export const FileInput = {
+export const FileInput: Story = {
 	args: {
 		type: 'file',
 		size: 'md',
@@ -62,7 +67,7 @@ export const FileInput = {
 };
 
 // Input with Prefix and Suffix
-export const WithPrefixSuffix = {
+export const WithPrefixSuffix: Story = {
 	args: {
 		type: 'text',
 		size: 'md',

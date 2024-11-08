@@ -49,10 +49,10 @@ export interface ProgressStepsProps extends ProgressCommonProps {
 	size?: 'sm' | 'md' | 'lg';
 	/** Defines the type of layout. */
 	type?: 'inline' | 'stack';
-	/** Defines the current step number. */
+	/** Defines the current step number. `-1` keeps all steps completed. */
 	currentStep?: number;
 	/** Additional props for the connecting line. */
-	lineProps?: string;
+	lineClassName?: string;
 }
 
 // Progress Step props interface
@@ -61,7 +61,7 @@ export interface ProgressStepProps extends ProgressCommonProps {
 	labelText?: string;
 
 	/** Custom icon for the step. */
-	icon?: React.ReactNode;
+	icon?: ReactNode;
 
 	/** Indicates if this step is currently active. */
 	isCurrent?: boolean;
@@ -88,7 +88,7 @@ export interface ProgressStepProps extends ProgressCommonProps {
 	index?: number;
 
 	/** Additional class names for the connecting line. */
-	lineProps?: string;
+	lineClassName?: string;
 }
 
 export const ProgressSteps = ( {
@@ -98,11 +98,13 @@ export const ProgressSteps = ( {
 	currentStep = 1,
 	children,
 	className,
-	lineProps = 'min-w-10',
+	lineClassName = 'min-w-10',
 	...rest
 }: ProgressStepsProps ) => {
 	const totalSteps = React.Children.count( children );
-
+	if ( currentStep === -1 ) {
+		currentStep = totalSteps + 1;
+	}
 	const steps = React.Children.map( children, ( child, index ) => {
 		const isCompleted = index + 1 < currentStep;
 		const isCurrent = index + 1 === currentStep;
@@ -117,7 +119,7 @@ export const ProgressSteps = ( {
 			type,
 			isLast,
 			index,
-			lineProps,
+			lineClassName,
 		};
 
 		return (
@@ -156,7 +158,7 @@ export const ProgressStep = ( {
 	size,
 	isLast,
 	index,
-	lineProps,
+	lineClassName,
 	...rest
 }: ProgressStepProps ) => {
 	const stepContent = createStepContent(
@@ -202,7 +204,7 @@ export const ProgressStep = ( {
 				isCompleted
 					? 'border-brand-primary-600'
 					: 'border-border-subtle',
-				lineProps
+				lineClassName
 			);
 
 			if ( type === 'stack' ) {
@@ -229,9 +231,9 @@ export const ProgressStep = ( {
 				<div className="flex-1">
 					<span
 						className={ cn(
-							lineClasses,
 							'mr-2 border-y border-solid',
-							! labelText && 'ml-2'
+							! labelText && 'ml-2',
+							lineClasses
 						) }
 					></span>
 				</div>
@@ -274,7 +276,7 @@ export const createStepContent = (
 	isCurrent: boolean | undefined,
 	sizeClasses: StepSizeClasses,
 	size: 'sm' | 'md' | 'lg',
-	icon: React.ReactNode,
+	icon: ReactNode,
 	index: number
 ) => {
 	if ( isCompleted ) {
