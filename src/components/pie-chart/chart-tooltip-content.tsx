@@ -7,11 +7,11 @@ interface PayloadItem {
 	color?: string;
 	payload?: {
 		fill?: string;
-		[key: string]: any;
+		[key: string]: string | number | undefined; // Allow additional properties in each payload item
 	};
 	dataKey?: string;
 	value: string | number;
-	[key: string]: any;
+	[key: string]: string | number | undefined; // Allow additional properties in each payload item
 }
 
 interface ChartTooltipContentProps {
@@ -52,7 +52,7 @@ const ChartTooltipContent = React.forwardRef<
 		},
 		ref
 	) => {
-		const tooltipLabel = React.useMemo( () => {
+		const tooltipLabel = () => {
 			if ( hideLabel || ! payload?.length ) {
 				return null;
 			}
@@ -65,14 +65,7 @@ const ChartTooltipContent = React.forwardRef<
 			return value ? (
 				<div className={ cn( 'font-medium', labelClassName ) }>{ value }</div>
 			) : null;
-		}, [
-			label,
-			labelFormatter,
-			payload,
-			hideLabel,
-			labelClassName,
-			labelKey,
-		] );
+		};
 
 		if ( ! active || ! payload?.length ) {
 			return null;
@@ -88,7 +81,7 @@ const ChartTooltipContent = React.forwardRef<
 					className
 				) }
 			>
-				{ ! isSinglePayload ? tooltipLabel : null }
+				{ ! isSinglePayload ? tooltipLabel() : null }
 				<div className="grid gap-1.5">
 					{ payload.map( ( item, index ) => {
 						const indicatorColor =

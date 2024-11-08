@@ -49,7 +49,7 @@ const ChartTooltipContent = React.forwardRef<
 		},
 		ref
 	) => {
-		const tooltipLabel = React.useMemo( () => {
+		const tooltipLabel = () => {
 			if ( hideLabel || ! payload?.length ) {
 				return null;
 			}
@@ -62,14 +62,7 @@ const ChartTooltipContent = React.forwardRef<
 			return value ? (
 				<div className={ cn( 'font-medium', labelClassName ) }>{ value }</div>
 			) : null;
-		}, [
-			label,
-			labelFormatter,
-			payload,
-			hideLabel,
-			labelClassName,
-			labelKey,
-		] );
+		};
 
 		if ( ! active || ! payload?.length ) {
 			return null;
@@ -85,7 +78,7 @@ const ChartTooltipContent = React.forwardRef<
 					className
 				) }
 			>
-				{ ! isSinglePayload ? tooltipLabel : null }
+				{ ! isSinglePayload ? tooltipLabel() : null }
 				<div className="grid gap-1.5">
 					{ payload.map( ( item, index ) => {
 						const indicatorColor = color || item.color || '#000';
