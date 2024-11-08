@@ -45,11 +45,7 @@ const Template: StoryFn<typeof Dropzone> = ( args ) => <Dropzone { ...args } />;
 
 export const Basic = Template.bind( {} );
 Basic.args = {
-	label: 'Drag & drop or browse files',
-	size: 'sm',
-	inlineIcon: false,
-	helpText: 'Supports PNG, JPG, and PDF files',
-	disabled: false,
+	helpText: 'Click to upload your files',
 };
 
 export const LargeSize = Template.bind( {} );
