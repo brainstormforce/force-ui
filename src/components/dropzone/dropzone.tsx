@@ -1,14 +1,11 @@
-import { useState, createContext, useContext } from 'react';
-import { X, CloudUpload, File, Loader } from 'lucide-react';
+import { useState, createContext, useContext, useRef } from 'react';
+import { CloudUpload, File, ImageOff, Trash } from 'lucide-react';
 import { cn, formatFileSize } from '@/utilities/functions';
+import Loader from '../loader';
+import { nanoid } from 'nanoid';
 
-// Common interface for props shared between Dropzone and FilePreview
-export interface BaseProps {
-	/** Indicates if the component is disabled */
-	disabled?: boolean;
-}
 
-export interface DropzoneProps extends BaseProps {
+export interface DropzoneProps {
 	/** Callback function when a file is uploaded */
 	onFileUpload?: (file: File) => void;
 	/** Determines if the icon should be inline */
@@ -19,6 +16,10 @@ export interface DropzoneProps extends BaseProps {
 	helpText?: string;
 	/** Size variant of the dropzone */
 	size?: 'sm' | 'md' | 'lg';
+	/** Indicates if the component is disabled */
+	disabled?: boolean;
+	/** Indicates if the component is in error state */
+	error?: boolean;
 }
 
 // Context interface for file data sharing
@@ -26,6 +27,7 @@ export interface FileUploadContextType {
 	file: File | null;
 	removeFile: () => void;
 	isLoading: boolean;
+	error: boolean;
 }
 
 // Create a context to share file data between Dropzone and FilePreview
@@ -33,51 +35,76 @@ const FileUploadContext = createContext<FileUploadContextType | null>(null);
 
 const useFileUploadContext = () => useContext(FileUploadContext);
 
-// FilePreview subcomponent
+// FilePreview
 export const FilePreview = () => {
-	const { file, removeFile, isLoading } = useFileUploadContext()!;
+	const { file, removeFile, isLoading, error } = useFileUploadContext()!;
 
 	if (!file) {
 		return null;
 	}
 
 	return (
-		<div className="flex items-center justify-between mt-4 bg-field-primary-background">
-			<div className="flex items-center space-x-2">
-				{isLoading && <Loader className="w-6 h-6" />}
-
+		<div
+			className={cn(
+				'border border-solid border-transparent flex items-start justify-between rounded mt-2 bg-field-primary-background p-3 gap-3',
+				error &&
+					'border-alert-border-danger bg-alert-background-danger'
+			)}
+		>
+			<div className="flex items-center gap-3">
+				{isLoading && <File className="size-6" />}
 				{!isLoading &&
 					(file.type.startsWith('image/') ? (
-						<div className="w-10 h-10 flex items-center justify-center">
-							<img
-								src={URL.createObjectURL(file)}
-								alt="Preview"
-								className="w-full object-cover"
-							/>
+						<div
+							className={cn(
+								'w-10 h-10 rounded-sm flex items-center justify-center',
+								error && 'bg-gray-200 '
+							)}
+						>
+							{error ? (
+								<ImageOff className="size-6 text-field-helper" />
+							) : (
+								<img
+									src={URL.createObjectURL(file)}
+									alt="Preview"
+									className="w-full object-cover"
+								/>
+							)}
 						</div>
 					) : (
 						<span>
-							<File className="w-6 h-6" />
+							<File className="size-6 text-icon-primary" />
 						</span>
 					))}
 
 				<div className="text-left flex flex-col">
-					<span className="text-sm font-medium text-gray-700">
+					<span className="text-sm font-medium text-field-label">
 						{isLoading ? 'Loading...' : file.name}
 					</span>
 					{!isLoading && (
-						<span className="text-xs text-gray-500">
-							{formatFileSize(file.size)}
+						<span
+							className={cn(
+								'text-xs text-field-helper',
+								error && 'text-support-error'
+							)}
+						>
+							{error
+								? 'Upload failed, please try again.'
+								: formatFileSize(file.size)}
 						</span>
 					)}
 				</div>
 			</div>
-			<button
-				onClick={removeFile}
-				className="cursor-pointer bg-transparent border-0 p-0 m-0 ring-0 text-gray-500 focus:outline-none"
-			>
-				<X className="h-6 w-6" />
-			</button>
+			{isLoading ? (
+				<Loader />
+			) : (
+				<button
+					onClick={removeFile}
+					className="cursor-pointer bg-transparent border-0 p-0 m-0 ring-0 focus:outline-none"
+				>
+					<Trash className="size-4 text-support-error" />
+				</button>
+			)}
 		</div>
 	);
 };
@@ -90,6 +117,7 @@ export const Dropzone = ({
 	helpText = 'Help Text',
 	size = 'sm',
 	disabled = false,
+	error = false,
 }: DropzoneProps) => {
 	const [isLoading, setIsLoading] = useState(false);
 	const [file, setFile] = useState<File | null>(null);
@@ -154,31 +182,40 @@ export const Dropzone = ({
 			label: 'text-sm',
 			helpText: 'text-xs',
 			icon: 'w-5 h-5',
+			padding: inlineIcon ? 'p-3' : 'p-5',
+			gap: 'gap-2.5',
 		},
 		md: {
 			label: 'text-sm',
 			helpText: 'text-xs',
 			icon: 'w-5 h-5',
+			padding: inlineIcon ? 'p-4' : 'p-6',
+			gap: 'gap-3',
 		},
 		lg: {
 			label: 'text-base',
 			helpText: 'text-sm',
 			icon: 'w-6 h-6',
+			padding: inlineIcon ? 'p-4' : 'p-6',
+			gap: 'gap-3',
 		},
 	};
-
+	const uploadInputID = useRef(`fui-file-upload-${nanoid()}`);
 	return (
-		<FileUploadContext.Provider value={{ file, removeFile, isLoading }}>
+		<FileUploadContext.Provider
+			value={{ file, removeFile, isLoading, error }}
+		>
 			<div>
-				<label htmlFor="fui-file-upload">
+				<label htmlFor={uploadInputID.current}>
 					<div
 						className={cn(
-							'min-w-80 cursor-pointer p-4 mx-auto border-dotted border-2 rounded-md text-center hover:border-field-dropzone-color hover:bg-field-dropzone-background-hover',
+							'min-w-80 cursor-pointer mx-auto border-dotted border-2 rounded-md text-center hover:border-field-dropzone-color hover:bg-field-dropzone-background-hover',
 							isDragging
 								? 'border-field-dropzone-color bg-field-dropzone-background-hover'
 								: 'border-field-border',
 							disabled &&
-								'border-field-border bg-field-background-disabled cursor-not-allowed hover:border-field-border'
+								'border-field-border bg-field-background-disabled cursor-not-allowed hover:border-field-border',
+							sizeClasses[size].padding
 						)}
 						onDragOver={handleDragOver}
 						onDragLeave={handleDragLeave}
@@ -187,7 +224,8 @@ export const Dropzone = ({
 						<div
 							className={cn(
 								'flex flex-col items-center justify-center',
-								inlineIcon && 'flex-row items-start gap-4'
+								inlineIcon &&
+									`flex-row items-start ${sizeClasses[size].gap}`
 							)}
 						>
 							<div>
@@ -226,7 +264,7 @@ export const Dropzone = ({
 							</div>
 						</div>
 						<input
-							id="fui-file-upload"
+							id={uploadInputID.current}
 							type="file"
 							className="sr-only"
 							onChange={handleFileChange}
