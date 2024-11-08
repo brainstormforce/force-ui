@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import DatePickerComponent, { TDateRange } from './datepicker-component';
 import Button from '../button';
 import {
@@ -31,6 +31,8 @@ export interface DatePickerProps {
 	cancelButtonText?: string;
 	/** Show or hide days outside of the current month. */
 	showOutsideDays?: boolean;
+	/** Show or hide the footer. */
+	isFooter?: boolean;
 }
 
 const DatePicker = ( {
@@ -43,6 +45,7 @@ const DatePicker = ( {
 	applyButtonText = 'Apply',
 	cancelButtonText = 'Cancel',
 	showOutsideDays = true,
+	isFooter = true,
 	...props
 }: DatePickerProps ) => {
 	const [ selectedDates, setSelectedDates ] = useState<
@@ -144,14 +147,19 @@ const DatePicker = ( {
 					) => void
 				}
 				footer={
-					<div className="flex justify-end p-2 gap-3 border border-solid border-border-subtle border-t-0 rounded-md rounded-tl-none rounded-tr-none">
-						<Button variant="outline" onClick={ handleCancelClick }>
-							{ cancelButtonText }
-						</Button>
-						<Button onClick={ handleApplyClick }>
-							{ applyButtonText }
-						</Button>
-					</div>
+					isFooter && (
+						<div className="flex justify-end p-2 gap-3 border border-solid border-border-subtle border-t-0 rounded-md rounded-tl-none rounded-tr-none">
+							<Button
+								variant="outline"
+								onClick={ handleCancelClick }
+							>
+								{ cancelButtonText }
+							</Button>
+							<Button onClick={ handleApplyClick }>
+								{ applyButtonText }
+							</Button>
+						</div>
+					)
 				}
 			/>
 		);
@@ -174,7 +182,10 @@ const DatePicker = ( {
 				width="w-auto"
 				footer={
 					<div className="flex justify-end p-2 gap-3 border border-solid border-border-subtle border-t-0 rounded-md rounded-tl-none rounded-tr-none">
-						<Button variant="outline" onClick={ handleCancelClick }>
+						<Button
+							variant="outline"
+							onClick={ handleCancelClick }
+						>
 							{ cancelButtonText }
 						</Button>
 						<Button onClick={ handleApplyClick }>
@@ -182,6 +193,7 @@ const DatePicker = ( {
 						</Button>
 					</div>
 				}
+				{ ...props }
 			/>
 		);
 	}
@@ -215,7 +227,7 @@ const DatePicker = ( {
 					width="w-auto"
 					numberOfMonths={ 2 }
 					footer={
-						<div className="flex justify-end p-2 gap-3 border border-solid border-border-subtle border-t-0 rounded-br-md">
+						<div className="flex justify-end p-2 gap-3 border border-solid border-border-subtle border-t-0 rounded-md rounded-tl-none rounded-tr-none">
 							<Button
 								variant="outline"
 								onClick={ handleCancelClick }
