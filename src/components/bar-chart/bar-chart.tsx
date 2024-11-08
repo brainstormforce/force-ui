@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import {
 	BarChart as BarChartWrapper,
 	Bar,
@@ -108,17 +107,10 @@ const BarChart = ( {
 	chartHeight = 200,
 	borderRadius = 8,
 }: BarChartProps ) => {
-	const [ width, setWidth ] = useState( chartWidth );
-	const [ height, setHeight ] = useState( chartHeight );
 
 	const defaultColors = [ { fill: '#7DD3FC' }, { fill: '#2563EB' } ];
 
 	const appliedColors = colors.length > 0 ? colors : defaultColors;
-
-	useEffect( () => {
-		setWidth( chartWidth );
-		setHeight( chartHeight );
-	}, [ chartWidth, chartHeight ] );
 
 	const fontSizeMap = {
 		sm: '12px',
@@ -137,7 +129,7 @@ const BarChart = ( {
 	}
 
 	return (
-		<ResponsiveContainer width={ width } height={ height }>
+        <ResponsiveContainer width={chartWidth} height={chartHeight }>
 			<BarChartWrapper
 				data={ data }
 				margin={ { left: 14, right: 14 } }
