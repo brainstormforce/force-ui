@@ -60,15 +60,11 @@ const DatePicker = ( {
 	} );
 
 	const handleSelect = (
-		selectedDate:
-			| Date
-			| Date[]
-			| { from: Date | null; to: Date | null }
-			| null
+		selectedDate: Date | Date[] | TDateRange | null
 	) => {
-		setSelectedDates( selectedDate as TDateRange | Date[] | null );
+		setSelectedDates( selectedDate );
 		if ( onDateSelect ) {
-			onDateSelect( selectedDate as Date );
+			onDateSelect( selectedDate );
 		}
 	};
 
