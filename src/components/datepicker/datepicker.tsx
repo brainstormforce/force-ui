@@ -24,7 +24,7 @@ export interface DatePickerProps {
 	/** Callback function to be executed when the apply button is clicked. */
 	onApply?: ( selectedDates: Date | { from: Date; to: Date } | Date[] ) => void;
 	/** Callback function to be executed when a date is selected. */
-	onDateSelect?: ( date:  Date | Date[] | TDateRange | null ) => void;
+	onDateSelect?: ( date: Date | Date[] | TDateRange | null ) => void;
 	/** Text displayed on the Apply button. */
 	applyButtonText?: string;
 	/** Text displayed on the Cancel button. */
@@ -59,9 +59,7 @@ const DatePicker = ( {
 		return null;
 	} );
 
-	const handleSelect = (
-		selectedDate: Date | Date[] | TDateRange | null
-	) => {
+	const handleSelect = ( selectedDate: Date | Date[] | TDateRange | null ) => {
 		setSelectedDates( selectedDate );
 		if ( onDateSelect ) {
 			onDateSelect( selectedDate );

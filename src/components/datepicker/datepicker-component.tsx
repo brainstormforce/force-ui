@@ -532,6 +532,7 @@ const DatePickerComponent = ( {
 					day: 'h-10 w-10 p-0 font-normal bg-background-primary text-current',
 					...classNames,
 				} }
+				numberOfMonths={ numberOfMonths }
 				components={ {
 					MonthCaption:
 						CustomMonthCaption as unknown as CustomComponents['MonthCaption'],
