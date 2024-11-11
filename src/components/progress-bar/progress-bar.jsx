@@ -29,6 +29,7 @@ const ProgressBar = ({
 			aria-valuenow={percent}
 			aria-valuemin="0"
 			aria-valuemax="100"
+            aria-label="Progress Bar"
 		>
 			<div
 				className={innerClasses}
