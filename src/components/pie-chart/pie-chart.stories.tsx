@@ -1,4 +1,4 @@
-import { Meta, StoryObj, StoryFn } from '@storybook/react';
+import type { Meta, StoryObj, StoryFn } from '@storybook/react';
 import PieChart from './pie-chart';
 import Button from '../button';
 import Label from '../label';

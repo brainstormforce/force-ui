@@ -1,4 +1,4 @@
-import { Meta, StoryObj, StoryFn } from '@storybook/react';
+import type { Meta, StoryObj, StoryFn } from '@storybook/react';
 import BarChart from './bar-chart';
 import Label from '../label';
 import Button from '../button';

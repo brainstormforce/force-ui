@@ -38,6 +38,9 @@ export interface PieChartProps {
 	/** Label name which will be displayed inside donut pie chart. */
 	labelName?: string;
 
+    /** Label name color which will be displayed inside donut pie chart. */
+    labelNameColor?: string;
+
 	/** Label value which will be displayed inside donut pie chart. */
 	labelValue?: number | string;
 
@@ -63,6 +66,7 @@ const PieChart = ( {
 	tooltipLabelKey,
 	label = false,
 	labelName = '',
+    labelNameColor = '#9CA3AF',
 	labelValue,
 	showLegend = false,
 	chartWidth = 300,
@@ -125,7 +129,7 @@ const PieChart = ( {
 											x={ viewBox.cx }
 											dy="24"
 											className="text-sm"
-											style={ { fill: '#9CA3AF' } }
+                                            style={{ fill: labelNameColor } }
 										>
 											{ labelName }
 										</tspan>
