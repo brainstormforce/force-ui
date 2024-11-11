@@ -101,6 +101,7 @@ const PaginationButton = ({
 			disabled={disabled}
 			{...props}
 			onClick={callAll(props.onClick, disabled ? handleClick : null)}
+            role='button'
 		>
 			{children}
 		</Button>
