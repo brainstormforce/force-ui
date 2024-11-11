@@ -8,7 +8,6 @@ import {
 	subWeeks,
 	subMonths,
 } from 'date-fns';
-import React from 'react';
 import DatePicker from './datepicker';
 import { Meta, StoryFn } from '@storybook/react';
 

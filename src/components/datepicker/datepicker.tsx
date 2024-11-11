@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import DatePickerComponent, { TDateRange } from './datepicker-component';
 import Button from '../button';
 import {
@@ -49,7 +49,7 @@ const DatePicker = ( {
 	...props
 }: DatePickerProps ) => {
 	const [ selectedDates, setSelectedDates ] = useState<
-		TDateRange | Date[] | null
+		TDateRange | Date | Date[] | null
 	>( () => {
 		if ( selectionType === 'multiple' ) {
 			return [];
