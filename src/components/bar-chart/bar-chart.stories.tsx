@@ -150,6 +150,7 @@ export const BarChartSimple: Story = {
 	args: {
 		data: chartData,
 		dataKeys: [ 'desktop' ],
+        layout: 'horizontal',
 		showXAxis: true,
 		showYAxis: false,
 		showTooltip: true,
@@ -157,6 +158,7 @@ export const BarChartSimple: Story = {
 		showCartesianGrid: true,
 		tickFormatter: monthFormatter,
 		xAxisDataKey: 'month',
+        yAxisDataKey: 'month',
 	},
 };
 

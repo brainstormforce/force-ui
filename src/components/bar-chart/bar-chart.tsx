@@ -29,7 +29,7 @@ interface BarChartProps {
 	/** An array of color strings that determine the colors for each data series in the chart. */
 	colors?: Color[];
 
-	/** Defines the layout of Bar Chart. */
+	/** Defines the layout of Bar Chart. if you want to check how layout `vertical` works, then you need to clear the xAxisDataKey value and set showCartesianGrid to false. */
 	layout?: 'horizontal' | 'vertical';
 
 	/** Defines are the chart bars are stacked. */
