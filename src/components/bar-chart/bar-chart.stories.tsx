@@ -157,9 +157,15 @@ export const BarChartSimple: Story = {
 		tooltipIndicator: 'dot',
 		showCartesianGrid: true,
 		tickFormatter: monthFormatter,
-		xAxisDataKey: 'month',
 		yAxisDataKey: 'month',
 	},
+    render: (args) => (
+        <BarChart
+            {...args}
+            xAxisDataKey={args.layout === 'vertical' ? '' : 'month'}
+            showCartesianGrid={args.layout === 'vertical' ? false : true}
+        />
+    ),
 };
 
 export const BarChartHorizontal: Story = {

@@ -56,7 +56,7 @@ interface BarChartProps {
 	/** Whether to display the `<CartesianGrid />`, adding horizontal and vertical grid lines. */
 	showCartesianGrid?: boolean;
 
-	/** A function used to format the ticks on the axes, e.g., for formatting dates or numbers. */
+	/** A function used to format the ticks on the axes, e.g., ```const monthFormatter = ( value: string ) => value.slice( 0, 3 );``` */
 	tickFormatter?: ( value: string ) => string;
 
 	/** The key in the data objects representing values for the x-axis. This is used to access the x-axis values from each data entry. */
