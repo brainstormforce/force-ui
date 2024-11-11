@@ -34,13 +34,17 @@ const ChartLegendContent = React.forwardRef<
 		return (
 			<div
 				ref={ ref }
-				className={ cn('flex items-center justify-center gap-4', verticalAlign === 'top' ? 'pb-3' : 'pt-3', className)  }
+				className={ cn(
+					'flex items-center justify-center gap-4',
+					verticalAlign === 'top' ? 'pb-3' : 'pt-3',
+					className
+				) }
 			>
 				{ payload.map( ( item ) => (
 					<div key={ item.value } className="flex items-center gap-1.5">
 						{ ! hideIcon && (
 							<div
-                                className="h-2 w-2 shrink-0 rounded-sm"
+								className="h-2 w-2 shrink-0 rounded-sm"
 								style={ {
 									backgroundColor: item.color,
 								} }
