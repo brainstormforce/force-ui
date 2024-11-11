@@ -23,7 +23,7 @@ export const Loader = ( {
 	className = '',
 }: LoaderProps ) => {
 	const variantClassNames = {
-		primary: 'text-brand-primary-600 bg-background-primary',
+		primary: 'text-brand-primary-600',
 		secondary: 'text-background-primary',
 	}?.[ variant ];
 

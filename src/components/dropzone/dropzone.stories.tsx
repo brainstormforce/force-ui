@@ -13,28 +13,6 @@ const meta: Meta<typeof Dropzone> = {
 	argTypes: {
 		size: {
 			control: { type: 'select' },
-			options: [ 'sm', 'md', 'lg' ],
-			description: 'Size of the dropzone component',
-			defaultValue: 'sm',
-		},
-		inlineIcon: {
-			control: { type: 'boolean' },
-			description: 'Display the icon inline with the label',
-			defaultValue: false,
-		},
-		label: {
-			control: { type: 'text' },
-			description: 'Label for the dropzone component',
-			defaultValue: 'Drag & drop or browse files',
-		},
-		helpText: {
-			control: { type: 'text' },
-			description: 'Help text for the dropzone component',
-		},
-		disabled: {
-			control: { type: 'boolean' },
-			description: 'Disable the dropzone component',
-			defaultValue: false,
 		},
 	},
 };
@@ -45,7 +23,13 @@ const Template: StoryFn<typeof Dropzone> = ( args ) => <Dropzone { ...args } />;
 
 export const Basic = Template.bind( {} );
 Basic.args = {
+	size: 'md',
+	label: 'Drag and drop or browse files',
 	helpText: 'Click to upload your files',
+	inlineIcon: false,
+	disabled: false,
+	error: false,
+	errorText: 'Upload failed, please try again.',
 };
 
 export const LargeSize = Template.bind( {} );

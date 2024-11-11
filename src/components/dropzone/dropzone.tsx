@@ -19,6 +19,8 @@ export interface DropzoneProps {
 	disabled?: boolean;
 	/** Indicates if the component is in error state */
 	error?: boolean;
+	/** Error text to display */
+	errorText?: string;
 }
 
 // Context interface for file data sharing
@@ -27,6 +29,7 @@ export interface FileUploadContextType {
 	removeFile: () => void;
 	isLoading: boolean;
 	error: boolean;
+	errorText?: string;
 }
 
 // Create a context to share file data between Dropzone and FilePreview
@@ -36,7 +39,8 @@ const useFileUploadContext = () => useContext( FileUploadContext );
 
 // FilePreview
 export const FilePreview = () => {
-	const { file, removeFile, isLoading, error } = useFileUploadContext()!;
+	const { file, removeFile, isLoading, error, errorText } =
+		useFileUploadContext()!;
 
 	if ( ! file ) {
 		return null;
@@ -55,7 +59,7 @@ export const FilePreview = () => {
 					( file.type.startsWith( 'image/' ) ? (
 						<div
 							className={ cn(
-								'w-10 h-10 rounded-sm flex items-center justify-center',
+								'size-10 rounded-sm flex items-center justify-center shrink-0',
 								error && 'bg-gray-200 '
 							) }
 						>
@@ -86,9 +90,7 @@ export const FilePreview = () => {
 								error && 'text-support-error'
 							) }
 						>
-							{ error
-								? 'Upload failed, please try again.'
-								: formatFileSize( file.size ) }
+							{ error ? errorText : formatFileSize( file.size ) }
 						</span>
 					) }
 				</div>
@@ -98,7 +100,7 @@ export const FilePreview = () => {
 			) : (
 				<button
 					onClick={ removeFile }
-					className="cursor-pointer bg-transparent border-0 p-0 m-0 ring-0 focus:outline-none"
+					className="mt-1.5 cursor-pointer bg-transparent border-0 p-0 m-0 ring-0 focus:outline-none"
 				>
 					<Trash className="size-4 text-support-error" />
 				</button>
@@ -116,6 +118,7 @@ export const Dropzone = ( {
 	size = 'sm',
 	disabled = false,
 	error = false,
+	errorText = 'Upload failed, please try again.',
 }: DropzoneProps ) => {
 	const [ isLoading, setIsLoading ] = useState( false );
 	const [ file, setFile ] = useState<File | null>( null );
@@ -132,11 +135,11 @@ export const Dropzone = ( {
 		const droppedFile = e.dataTransfer.files[ 0 ];
 		if ( droppedFile ) {
 			setFile( droppedFile );
-			setIsLoading( false );
 			if ( onFileUpload ) {
 				onFileUpload( droppedFile );
 			}
 		}
+		setIsLoading( false );
 	};
 
 	const handleDragOver = ( e: React.DragEvent<HTMLDivElement> ) => {
@@ -165,11 +168,11 @@ export const Dropzone = ( {
 		const selectedFile = files[ 0 ];
 		if ( selectedFile ) {
 			setFile( selectedFile );
-			setIsLoading( false );
 			if ( onFileUpload ) {
 				onFileUpload( selectedFile );
 			}
 		}
+		setIsLoading( false );
 	};
 
 	const removeFile = () => {
@@ -179,21 +182,21 @@ export const Dropzone = ( {
 		sm: {
 			label: 'text-sm',
 			helpText: 'text-xs',
-			icon: 'w-5 h-5',
+			icon: 'size-5',
 			padding: inlineIcon ? 'p-3' : 'p-5',
 			gap: 'gap-2.5',
 		},
 		md: {
 			label: 'text-sm',
 			helpText: 'text-xs',
-			icon: 'w-5 h-5',
+			icon: 'size-5',
 			padding: inlineIcon ? 'p-4' : 'p-6',
 			gap: 'gap-3',
 		},
 		lg: {
 			label: 'text-base',
 			helpText: 'text-sm',
-			icon: 'w-6 h-6',
+			icon: 'size-6',
 			padding: inlineIcon ? 'p-4' : 'p-6',
 			gap: 'gap-3',
 		},
@@ -201,13 +204,13 @@ export const Dropzone = ( {
 	const uploadInputID = useRef( `fui-file-upload-${ nanoid() }` );
 	return (
 		<FileUploadContext.Provider
-			value={ { file, removeFile, isLoading, error } }
+			value={ { file, removeFile, isLoading, error, errorText } }
 		>
 			<div>
 				<label htmlFor={ uploadInputID.current }>
 					<div
 						className={ cn(
-							'min-w-80 cursor-pointer mx-auto border-dotted border-2 rounded-md text-center hover:border-field-dropzone-color hover:bg-field-dropzone-background-hover',
+							'min-w-80 cursor-pointer mx-auto border-dotted border-2 rounded-md text-center hover:border-field-dropzone-color hover:bg-field-dropzone-background-hover focus:outline-none focus:ring focus:ring-toggle-on focus:ring-offset-2 transition-[border,box-shadow] duration-300 ease-in-out',
 							isDragging
 								? 'border-field-dropzone-color bg-field-dropzone-background-hover'
 								: 'border-field-border',
@@ -229,7 +232,7 @@ export const Dropzone = ( {
 							<div>
 								<CloudUpload
 									className={ cn(
-										'text-field-dropzone-color w-6 h-6',
+										'text-field-dropzone-color size-6',
 										sizeClasses[ size ].icon,
 										disabled && 'text-field-color-disabled'
 									) }
