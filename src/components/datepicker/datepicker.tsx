@@ -24,7 +24,7 @@ export interface DatePickerProps {
 	/** Callback function to be executed when the apply button is clicked. */
 	onApply?: ( selectedDates: Date | { from: Date; to: Date } | Date[] ) => void;
 	/** Callback function to be executed when a date is selected. */
-	onDateSelect?: ( date: Date ) => void;
+	onDateSelect?: ( date:  Date | Date[] | TDateRange | null ) => void;
 	/** Text displayed on the Apply button. */
 	applyButtonText?: string;
 	/** Text displayed on the Cancel button. */
