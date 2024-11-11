@@ -159,13 +159,13 @@ export const BarChartSimple: Story = {
 		tickFormatter: monthFormatter,
 		yAxisDataKey: 'month',
 	},
-    render: (args) => (
-        <BarChart
-            {...args}
-            xAxisDataKey={args.layout === 'vertical' ? '' : 'month'}
-            showCartesianGrid={args.layout === 'vertical' ? false : true}
-        />
-    ),
+	render: ( args ) => (
+		<BarChart
+			{ ...args }
+			xAxisDataKey={ args.layout === 'vertical' ? '' : 'month' }
+			showCartesianGrid={ args.layout === 'vertical' ? false : true }
+		/>
+	),
 };
 
 export const BarChartHorizontal: Story = {
