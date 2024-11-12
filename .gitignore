@@ -12,3 +12,4 @@ tsconfig.app.tsbuildinfo
 tsconfig.node.tsbuildinfo
 *.app.tsbuildinfo
 *.node.tsbuildinfo
+tsconfig.app.tsbuildinfo
