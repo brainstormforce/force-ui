@@ -1,8 +1,9 @@
 import { cn } from '@/utilities/functions';
+import { type ReactNode } from 'react';
 
 export interface DrawerHeaderProps {
 	/** Header content. */
-	children: React.ReactNode;
+	children: ReactNode;
 	/** Additional class names. */
 	className?: string;
 	/** Additional props. */

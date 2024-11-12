@@ -40,9 +40,9 @@ export const Default: Story = {
 		className: '',
 		disabled: false,
 		destructive: false,
-		icon: null,
 		iconPosition: 'left',
 		loading: false,
+		icon: <Plus />,
 	},
 };
 

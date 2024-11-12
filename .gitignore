@@ -10,3 +10,5 @@ storybook-static/*
 /playwright/.cache/
 tsconfig.app.tsbuildinfo
 tsconfig.node.tsbuildinfo
+*.app.tsbuildinfo
+*.node.tsbuildinfo
