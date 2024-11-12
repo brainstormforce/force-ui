@@ -91,7 +91,7 @@ You will need to import date-fns library to use custom presets.
 ### Basic Example (Normal Variant)
 
 ```jsx
-import DatePicker from './datepicker';
+import DatePicker from '@bsf/force-ui';
 
 const App = () => {
   return (
@@ -109,7 +109,7 @@ export default App;
 
 ### Example with Presets Variant
 ```jsx
-import DatePicker from './datepicker';
+import DatePicker from '@bsf/force-ui';
 
 const App = () => {
   return (
@@ -127,7 +127,7 @@ export default App;
 
 ### Dual Date Variant Example
 ```jsx
-import DatePicker from './datepicker';
+import DatePicker from '@bsf/force-ui';
 
 const App = () => {
   return (
@@ -136,6 +136,65 @@ const App = () => {
       variant="dualdate"
       selectedDates={{ from: new Date(), to: new Date() }}
       setSelectedDates={(dates) => console.log(dates)}
+    />
+  );
+};
+
+export default App;
+```
+
+### Datepicker with onDateSelect 
+This will select the date on click of date.
+
+```jsx
+import DatePicker from '@bsf/force-ui';
+
+const Dashboard = () => {
+	const handleDateSelect = (selectedDate) => {
+		console.log("Selected Date:", selectedDate); // Logs the date immediately upon selection
+	};
+
+	return (
+		<>
+			<PageContentWrapper title="Dashboard">
+				<DatePicker
+					applyButtonText="Apply"
+					cancelButtonText="Cancel"
+					selectionType="single"
+					showOutsideDays
+					variant="normal"
+					onDateSelect={handleDateSelect} // Pass the handler here
+				/>
+			</PageContentWrapper>
+		</>
+	);
+};
+```
+
+
+### Datepicker with Apply and Cancel Buttons
+```jsx
+import React from 'react';
+import DatePicker from '@bsf/force-ui';
+
+const App = () => {
+  const handleApply = (selectedDates) => {
+    console.log("Applied Dates:", selectedDates); // Logs selected dates upon applying
+  };
+
+  const handleCancel = () => {
+    console.log("Selection canceled"); // Logs when selection is canceled
+  };
+
+  return (
+    <DatePicker
+      selectionType="range" // Supports other types as well (e.g., "single", "multiple")
+      variant="dualdate"
+      applyButtonText="Apply Selection"
+      cancelButtonText="Clear"
+      onApply={handleApply} // Handles the apply action
+      onCancel={handleCancel} // Handles the cancel action
+      showOutsideDays
     />
   );
 };

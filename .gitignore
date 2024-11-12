@@ -4,3 +4,6 @@ dist/*
 *storybook.log
 storybook-static/*
 *.zip
+*.app.tsbuildinfo
+*.node.tsbuildinfo
+tsconfig.app.tsbuildinfo
