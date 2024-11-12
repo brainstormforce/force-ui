@@ -19,7 +19,7 @@ jobs:
                   node-version: 20
             - name: Install dependencies
               # ⚠️ See your package manager's documentation for the correct command to install dependencies in a CI environment.
-              run: npm install && npm run build && npm run deploy-storybook -- --ci
+              run: npm install && npm run build && npm run build-storybook && npm run deploy-storybook -- --ci
               env:
                   GH_TOKEN: ${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}
 
