@@ -1,5 +1,8 @@
 Version 1.1.0 - 11th November, 2024
 - New - Area Chart
+- New - Bar Chart
+- New - Line Chart
+- New - Pie Chart
 - New - Accordion
 - New - Search
 - New - Pagination

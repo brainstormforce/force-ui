@@ -8,7 +8,6 @@ import {
 	subWeeks,
 	subMonths,
 } from 'date-fns';
-
 import DatePicker from './datepicker';
 import { Meta, StoryFn } from '@storybook/react';
 
@@ -29,9 +28,11 @@ const meta: Meta = {
 	argTypes: {
 		selectionType: {
 			control: { type: 'select' },
+			options: [ 'single', 'range', 'multiple' ],
 		},
 		variant: {
 			control: { type: 'select' },
+			options: [ 'normal', 'dualdate', 'presets' ],
 		},
 	},
 } satisfies Meta<typeof DatePicker>;
@@ -51,6 +52,15 @@ Default.args = {
 	applyButtonText: 'Apply',
 	cancelButtonText: 'Cancel',
 	showOutsideDays: true,
+	onApply: () => {
+		//code
+	},
+	onCancel: () => {
+		//code
+	},
+	onDateSelect: () => {
+		//code
+	},
 };
 
 export const Range = Template.bind( {} );
@@ -60,6 +70,15 @@ Range.args = {
 	applyButtonText: 'Apply',
 	cancelButtonText: 'Cancel',
 	showOutsideDays: true,
+	onApply: () => {
+		//code
+	},
+	onCancel: () => {
+		//code
+	},
+	onDateSelect: () => {
+		//code
+	},
 };
 
 export const Multiple = Template.bind( {} );
@@ -69,6 +88,15 @@ Multiple.args = {
 	applyButtonText: 'Apply',
 	cancelButtonText: 'Cancel',
 	showOutsideDays: true,
+	onApply: () => {
+		//code
+	},
+	onCancel: () => {
+		//code
+	},
+	onDateSelect: () => {
+		//code
+	},
 };
 
 export const DualDate = Template.bind( {} );
@@ -78,6 +106,15 @@ DualDate.args = {
 	applyButtonText: 'Apply',
 	cancelButtonText: 'Cancel',
 	showOutsideDays: true,
+	onApply: () => {
+		//code
+	},
+	onCancel: () => {
+		//code
+	},
+	onDateSelect: () => {
+		//code
+	},
 };
 
 export const WithPresets = Template.bind( {} );
@@ -125,4 +162,13 @@ WithPresets.args = {
 			},
 		},
 	],
+	onApply: () => {
+		//code
+	},
+	onCancel: () => {
+		//code
+	},
+	onDateSelect: () => {
+		//code
+	},
 };
