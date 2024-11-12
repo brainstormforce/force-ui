@@ -72,7 +72,7 @@ export const Default: Story = {
 		destructive: false,
 		iconPosition: 'left',
 		loading: false,
-		icon: <Plus role="img" />,
+		icon: <Plus role="img" aria-label="icon" />,
 	},
 	play: buttonTest,
 };
@@ -82,7 +82,7 @@ export const Primary: Story = {
 	args: {
 		variant: 'primary',
 		children: 'Button',
-		icon: <Plus role="img" />,
+		icon: <Plus role="img" aria-label="icon" />,
 		iconPosition: 'left',
 	},
 	play: buttonTest,
