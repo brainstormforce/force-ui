@@ -8,3 +8,20 @@
  */
 export type ComponentProps<T> =
 	T extends React.ComponentType<infer P> ? P : never;
+
+/**
+ * Extract the type of the Play function from a Story object.
+ *
+ * @param T - Story object.
+ *
+ * @return Type of the Play function.
+ *
+ * @example
+ *
+ * type PlayFunction = PlayFunc<Story>;
+ * // or
+ * type PlayFunction = PlayFunc<StoryFn<typeof YourComponent>>;
+ * // or
+ * type PlayFunction = PlayFunc<StoryObj<typeof YourComponent>>;
+ */
+export type PlayFunc<T> = T extends { play?: infer P } ? P : never;
