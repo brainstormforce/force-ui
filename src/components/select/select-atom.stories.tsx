@@ -1,6 +1,6 @@
 import type { Meta, StoryFn } from '@storybook/react';
 import Select from './select';
-import { expect, userEvent, within } from '@storybook/test';
+import { expect, userEvent, within, screen } from '@storybook/test';
 
 const options = [
 	{ id: '1', name: 'Red' },
@@ -79,11 +79,11 @@ SingleSelect.play = async ( { canvasElement } ) => {
 	await userEvent.click( selectButton );
 
 	// Check if the listbox contains the option 'Red'
-	const listBox = await canvas.findByRole( 'listbox' );
+	const listBox = await screen.findByRole( 'listbox' );
 	expect( listBox ).toHaveTextContent( 'Red' );
 
 	// Click on the first option
-	const allOptions = await canvas.findAllByRole( 'option' );
+	const allOptions = await screen.findAllByRole( 'option' );
 	await userEvent.click( allOptions[ 0 ] );
 
 	// Check if the button text is updated
@@ -172,16 +172,16 @@ MultiSelect.play = async ( { canvasElement } ) => {
 	await userEvent.click( selectButton );
 
 	// Check if the listbox contains the option 'Red'
-	const listBox = await canvas.findByRole( 'listbox' );
+	const listBox = await screen.findByRole( 'listbox' );
 	expect( listBox ).toHaveTextContent( 'Red' );
 
 	// Click on the first option
-	const allOptions = await canvas.findAllByRole( 'option' );
+	const allOptions = await screen.findAllByRole( 'option' );
 	await userEvent.click( allOptions[ 0 ] );
 
 	// Check if the listbox contains the option 'Orange'
 	await userEvent.click( selectButton );
-	const allOptions2 = await canvas.findAllByRole( 'option' );
+	const allOptions2 = await screen.findAllByRole( 'option' );
 	await userEvent.click( allOptions2[ 1 ] );
 
 	// Check if the button text is updated
@@ -241,8 +241,8 @@ SelectWithSearch.play = async ( { canvasElement } ) => {
 	await userEvent.click( selectButton );
 
 	// Check if the listbox contains the option 'Red' and search input
-	const listBox = await canvas.findByRole( 'listbox' );
-	const searchInput = await canvas.findByPlaceholderText( 'Search...' );
+	const listBox = await screen.findByRole( 'listbox' );
+	const searchInput = await screen.findByPlaceholderText( 'Search...' );
 	expect( listBox ).toContainElement( searchInput );
 	expect( listBox ).toHaveTextContent( 'Red' );
 
@@ -251,7 +251,7 @@ SelectWithSearch.play = async ( { canvasElement } ) => {
 	expect( listBox ).toHaveTextContent( 'Pink' );
 
 	// Click on the first option
-	const allOptions = await canvas.findAllByRole( 'option' );
+	const allOptions = await screen.findAllByRole( 'option' );
 	await userEvent.click( allOptions[ 0 ] );
 
 	// Check if the button text is updated
