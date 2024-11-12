@@ -37,9 +37,9 @@ const config: StorybookConfig = {
 			}),
 		];
 
-		return mergeConfig(config, {		
+		return mergeConfig(config, {
 			optimizeDeps: {
-				...config?.optimizeDeps
+				...config?.optimizeDeps,
 			},
 			resolve: {
 				...config.resolve,
