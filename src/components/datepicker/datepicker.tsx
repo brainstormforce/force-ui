@@ -23,12 +23,16 @@ export interface DatePickerProps {
 	onCancel?: () => void;
 	/** Callback function to be executed when the apply button is clicked. */
 	onApply?: ( selectedDates: Date | { from: Date; to: Date } | Date[] ) => void;
+	/** Callback function to be executed when a date is selected. */
+	onDateSelect?: ( date: Date | Date[] | TDateRange | null ) => void;
 	/** Text displayed on the Apply button. */
 	applyButtonText?: string;
 	/** Text displayed on the Cancel button. */
 	cancelButtonText?: string;
 	/** Show or hide days outside of the current month. */
 	showOutsideDays?: boolean;
+	/** Show or hide the footer. */
+	isFooter?: boolean;
 }
 
 const DatePicker = ( {
@@ -37,13 +41,15 @@ const DatePicker = ( {
 	presets: customPresets = [],
 	onCancel,
 	onApply,
+	onDateSelect,
 	applyButtonText = 'Apply',
 	cancelButtonText = 'Cancel',
 	showOutsideDays = true,
+	isFooter = true,
 	...props
 }: DatePickerProps ) => {
 	const [ selectedDates, setSelectedDates ] = useState<
-		TDateRange | Date[] | null
+		TDateRange | Date | Date[] | null
 	>( () => {
 		if ( selectionType === 'multiple' ) {
 			return [];
@@ -52,6 +58,13 @@ const DatePicker = ( {
 		}
 		return null;
 	} );
+
+	const handleSelect = ( selectedDate: Date | Date[] | TDateRange | null ) => {
+		setSelectedDates( selectedDate );
+		if ( onDateSelect ) {
+			onDateSelect( selectedDate );
+		}
+	};
 
 	const defaultPresets = [
 		{
@@ -123,9 +136,24 @@ const DatePicker = ( {
 				selectedDates={ selectedDates }
 				showOutsideDays={ showOutsideDays }
 				setSelectedDates={
-					setSelectedDates as (
+					handleSelect as (
 						dates: Date | Date[] | TDateRange | null
 					) => void
+				}
+				footer={
+					isFooter && (
+						<div className="flex justify-end p-2 gap-3 border border-solid border-border-subtle border-t-0 rounded-md rounded-tl-none rounded-tr-none">
+							<Button
+								variant="outline"
+								onClick={ handleCancelClick }
+							>
+								{ cancelButtonText }
+							</Button>
+							<Button onClick={ handleApplyClick }>
+								{ applyButtonText }
+							</Button>
+						</div>
+					)
 				}
 			/>
 		);
@@ -139,7 +167,7 @@ const DatePicker = ( {
 				alignment="horizontal"
 				selectedDates={ selectedDates }
 				setSelectedDates={
-					setSelectedDates as (
+					handleSelect as (
 						dates: Date | Date[] | TDateRange | null
 					) => void
 				}
@@ -156,6 +184,7 @@ const DatePicker = ( {
 						</Button>
 					</div>
 				}
+				{ ...props }
 			/>
 		);
 	}
@@ -180,7 +209,7 @@ const DatePicker = ( {
 					mode={ selectionType }
 					selectedDates={ selectedDates }
 					setSelectedDates={
-						setSelectedDates as (
+						handleSelect as (
 							dates: Date | Date[] | TDateRange | null
 						) => void
 					}
@@ -189,7 +218,7 @@ const DatePicker = ( {
 					width="w-auto"
 					numberOfMonths={ 2 }
 					footer={
-						<div className="flex justify-end p-2 gap-3 border border-solid border-border-subtle border-t-0 rounded-br-md">
+						<div className="flex justify-end p-2 gap-3 border border-solid border-border-subtle border-t-0 rounded-md rounded-tl-none rounded-tr-none">
 							<Button
 								variant="outline"
 								onClick={ handleCancelClick }
