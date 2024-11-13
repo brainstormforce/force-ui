@@ -67,7 +67,7 @@ export const PieChartCard1: Story1 = ( args ) => (
 				<Label size="sm" className="text-text-tertiary font-medium">
 					Staging Sites
 				</Label>
-                <Button className="p-0" variant="ghost" aria-label="Arrow Up Right Button">
+                <Button className="p-0" variant="ghost">
 					<ArrowUpRight className="text-icon-secondary size-4" />
 					<span className='sr-only'>View Details</span>
 				</Button>
@@ -107,7 +107,7 @@ export const PieChartCard2: Story1 = ( args ) => (
 				<Label size="sm" className="text-text-tertiary font-medium">
 					Staging Sites
 				</Label>
-                <Button className="p-0" variant="ghost" aria-label="Arrow Up Right Button">
+                <Button className="p-0" variant="ghost">
 					<ArrowUpRight className="text-icon-secondary size-4" />
 					<span className='sr-only'>View Details</span>
 				</Button>
