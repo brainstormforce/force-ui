@@ -66,7 +66,7 @@ const PieChart = ( {
 	tooltipLabelKey,
 	label = false,
 	labelName = '',
-	labelNameColor = '#9CA3AF',
+    labelNameColor = '#6B7280',
 	labelValue,
 	showLegend = false,
 	chartWidth = 300,
