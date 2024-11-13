@@ -32,7 +32,7 @@ const defaultTheme = {
 				'field-dropzone-color': '#2563EB',
 				'field-label': '#111827',
 				'field-input': '#111827',
-				'field-helper': '#9CA3AF',
+				'field-helper': '#6B7280',
 				'field-background-disabled': '#F9FAFB',
 				'field-color-disabled': '#BDC1C7',
 				'field-placeholder': '#6B7280',
@@ -54,7 +54,7 @@ const defaultTheme = {
 				// text
 				'text-primary': '#111827',
 				'text-secondary': '#4B5563',
-				'text-tertiary': '#9CA3AF',
+				'text-tertiary': '#6B7280',
 				'text-on-color': '#FFFFFF',
 				'text-error': '#DC2626',
 				'text-error-inverse': '#F87171',
