@@ -150,6 +150,7 @@ export const MenuList = ( {
 			<AnimatePresence initial={ false }>
 				{ isOpen && (
 					<motion.ul
+						role='menu'
 						variants={ listAnimationVariants }
 						initial="closed"
 						animate="open"
@@ -249,7 +250,7 @@ export const MenuSeparator = ( {
 	}?.[ variant ];
 
 	return (
-		<>
+		<li className='m-0 p-0 list-none' role='separator' aria-hidden='true'>
 			<hr
 				className={ cn(
 					'w-full border-0 border-t border-border-subtle',
@@ -257,7 +258,7 @@ export const MenuSeparator = ( {
 					className
 				) }
 			/>
-		</>
+		</li>
 	);
 };
 
