@@ -189,8 +189,10 @@ const Drawer = ( {
 						'fixed z-auto w-0 h-0 overflow-visible',
 						className
 					) }
-					role="dialog"
 					ref={ drawerContainerRef }
+					role='dialog'
+					aria-modal='true'
+					aria-label='drawer'
 				>
 					{ children }
 				</div>
