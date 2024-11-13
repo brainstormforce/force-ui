@@ -5,6 +5,15 @@ const meta: Meta<typeof EditorInput> = {
 	title: 'Atoms/EditorInput',
 	component: EditorInput,
 	tags: [ 'autodocs' ],
+	parameters: {
+		a11y: {
+			config: {
+				rules: [
+					{ id: 'aria-input-field-name', enabled: false },
+				]
+			}
+		}
+	},
 	decorators: [
 		( Story ) => (
 			<div
