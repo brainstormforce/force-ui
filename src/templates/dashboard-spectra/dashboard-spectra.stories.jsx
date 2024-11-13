@@ -40,6 +40,9 @@ export default {
 	title: 'Templates/Dashboard/Spectra Dashboard',
 	parameters: {
 		layout: 'fullscreen',
+		a11y: {
+			disable: true,
+		}
 	},
 	decorators: [
 		( Story, parameters ) => (

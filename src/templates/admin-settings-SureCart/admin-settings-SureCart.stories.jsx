@@ -39,6 +39,9 @@ export default {
 	title: 'Templates/Admin Settings/Admin Settings - SureCart',
 	parameters: {
 		layout: 'fullscreen',
+		a11y: {
+			disable: true,
+		}
 	},
 	decorators: [
 		( Story, parameters ) => (

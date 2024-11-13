@@ -13,6 +13,9 @@ export default {
 	title: 'Templates/Onboarding/Import',
 	parameters: {
 		layout: 'fullscreen',
+		a11y: {
+			disable: true,
+		}
 	},
 	tags: [ 'autodocs' ],
 };

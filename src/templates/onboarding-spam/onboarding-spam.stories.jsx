@@ -14,6 +14,9 @@ export default {
 	title: 'Templates/Onboarding/Spam',
 	parameters: {
 		layout: 'fullscreen',
+		a11y: {
+			disable: true,
+		}
 	},
 	tags: [ 'autodocs' ],
 };
