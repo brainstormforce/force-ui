@@ -598,6 +598,7 @@ export const ButtonGroupItem = ( {
 			<button
 				type="button"
 				id={ radioButtonId }
+                aria-label="Radio Button"
 				className={ cn(
 					buttonClassName,
 					'first:rounded-tl first:rounded-bl first:border-0 first:border-r first:border-border-subtle last:rounded-tr last:rounded-br last:border-0',
