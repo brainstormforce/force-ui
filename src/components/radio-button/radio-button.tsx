@@ -452,21 +452,25 @@ export const RadioButtonComponent = (
 				{ !! badgeItem && badgeItem }
 				{ ! hideSelection &&
 					( useSwitch ? (
-						<Switch
-							defaultValue={ false }
-							size={ size === 'md' ? 'lg' : 'sm' }
-							onChange={ () => {
-								if ( ! multiSelection ) {
-									// Toggle the switch on or off
-									onChange( value );
-								} else {
-									// In multi-selection, toggle the current state
-									onChange( value, ! checkedValue );
-								}
-							} }
-							checked={ checkedValue }
-							{ ...props }
-						/>
+                        <>
+                        <label htmlFor={`switch-${radioButtonId}`} className='sr-only'>Switch Element</label>
+                            <Switch
+                                id={`switch-${radioButtonId}`}
+                                defaultValue={ false }
+                                size={ size === 'md' ? 'lg' : 'sm' }
+                                onChange={ () => {
+                                    if ( ! multiSelection ) {
+                                        // Toggle the switch on or off
+                                        onChange( value );
+                                    } else {
+                                        // In multi-selection, toggle the current state
+                                        onChange( value, ! checkedValue );
+                                    }
+                                } }
+                                checked={ checkedValue }
+                                { ...props }
+                            />
+                        </>
 					) : (
 						<span className="relative p-0.5">
 							<input
