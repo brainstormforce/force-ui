@@ -39,8 +39,8 @@ export const DropdownMenu = ( {
 	placement = 'bottom',
 	offset: offsetValue = 10,
 	boundary = 'clippingAncestors',
-	dropdownPortalRoot = null,
-	dropdownPortalId = '',
+	dropdownPortalRoot,
+	dropdownPortalId,
 	children,
 	className,
 }: DropdownMenuProps ) => {
