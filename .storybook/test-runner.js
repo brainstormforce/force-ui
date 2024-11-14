@@ -25,7 +25,6 @@ module.exports = {
 			detailedReportOptions: {
 				html: true,
 			},
-			rules: [{ 'color-contrast': { enabled: false } }],
 		});
 	},
 };
