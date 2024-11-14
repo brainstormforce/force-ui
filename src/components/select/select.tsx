@@ -59,6 +59,7 @@ export function SelectButton( {
 	displayBy = 'name', // Used to display the value. Default is 'name'.
 	label, // Label for the select component.
 	className,
+	...props
 }: SelectButtonProps ) {
 	const {
 		sizeValue,
@@ -223,9 +224,9 @@ export function SelectButton( {
 					disabledClassNames.selectButton,
 					className
 				) }
-				aria-label={ placeholder ?? 'Select an option' }
 				tabIndex={ 0 }
 				disabled={ disabled }
+				{ ...props }
 				{ ...getReferenceProps() }
 			>
 				{ /* Input and selected item container */ }

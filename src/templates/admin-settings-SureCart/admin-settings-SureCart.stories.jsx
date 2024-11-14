@@ -480,7 +480,7 @@ const Template = ( args ) => {
 										</Container>
 
 										<div className="w-full space-y-1.5">
-											<Label required>
+											<Label id="currency" required>
 												Store currency
 											</Label>
 											<Select
@@ -492,7 +492,10 @@ const Template = ( args ) => {
 												size="md"
 												combobox
 											>
-												<Select.Button displayBy="label" />
+												<Select.Button
+													displayBy="label"
+													aria-labelledby="currency"
+												/>
 												<Select.Options
 													searchBy="label"
 													className="font-sans [&_*]:font-sans"
@@ -537,7 +540,7 @@ const Template = ( args ) => {
 											cols={ { sm: 1, md: 1, lg: 2 } }
 										>
 											<Container.Item className="space-y-1.5">
-												<Label required>
+												<Label id="time-zone" required>
 													Time zone
 												</Label>
 												<Select
@@ -550,7 +553,10 @@ const Template = ( args ) => {
 													combobox
 													by="label"
 												>
-													<Select.Button displayBy="label" />
+													<Select.Button
+														displayBy="label"
+														aria-labelledby="time-zone"
+													/>
 													<Select.Options
 														searchBy="label"
 														className="font-sans [&_*]:font-sans"
@@ -590,7 +596,7 @@ const Template = ( args ) => {
 												</Label>
 											</Container.Item>
 											<Container.Item className="space-y-1.5">
-												<Label required>
+												<Label id="language" required>
 													Store language
 												</Label>
 												<Select
@@ -603,7 +609,10 @@ const Template = ( args ) => {
 													combobox
 													by="label"
 												>
-													<Select.Button displayBy="label" />
+													<Select.Button
+														displayBy="label"
+														aria-labelledby="language"
+													/>
 													<Select.Options
 														searchBy="label"
 														className="font-sans [&_*]:font-sans"

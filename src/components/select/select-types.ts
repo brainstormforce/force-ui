@@ -2,7 +2,7 @@ import type {
 	UseFloatingReturn,
 	UseInteractionsReturn,
 } from '@floating-ui/react';
-import { type ReactNode, type ReactElement } from 'react';
+import type { ReactNode, ReactElement, AriaAttributes } from 'react';
 
 export type SelectOptionValue = string | number | Record<string, unknown>;
 export type SelectOnChange = (
@@ -82,7 +82,7 @@ export interface SelectPortalProps {
 	id?: string;
 }
 
-export interface SelectButtonProps {
+export interface SelectButtonProps extends AriaAttributes {
 	/** Expects the `Select.Button` children of the Select Component. */
 	children?: MultiTypeChildren;
 	/** Option Icon to show at the right of the option trigger/button. By default it will show chevron down icon. */
