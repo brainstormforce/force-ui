@@ -111,7 +111,10 @@ export const BreadcrumbSeparator = ( { type }: BreadcrumbSeparatorProps ) => {
 	};
 
 	return (
-		<li className="flex items-center text-text-tertiary mx-2">
+		<li
+			role="separator"
+			className="flex items-center text-text-tertiary mx-2 p-0 list-none"
+		>
 			{ separatorIcons[ type ] || separatorIcons.arrow }
 		</li>
 	);
