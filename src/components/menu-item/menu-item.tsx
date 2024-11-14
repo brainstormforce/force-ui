@@ -103,7 +103,7 @@ export const MenuList = ( {
 
 	return (
 		<div>
-			<div
+			{ !! heading && (<div
 				role="button"
 				tabIndex={ 0 }
 				onClick={ handleToggle }
@@ -145,7 +145,7 @@ export const MenuList = ( {
 						</motion.div>
 					</motion.span>
 				) }
-			</div>
+			</div>)}
 
 			<AnimatePresence initial={ false }>
 				{ isOpen && (
