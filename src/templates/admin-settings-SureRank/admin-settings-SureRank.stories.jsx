@@ -42,7 +42,13 @@ export default {
 		layout: 'fullscreen',
 		a11y: {
 			config: {
-				rules: [ { id: 'aria-input-field-name', enabled: false } ],
+				rules: [
+					{
+						selector: '.editor-content',
+						id: 'aria-input-field-name',
+						enabled: false,
+					},
+				],
 			},
 		},
 	},
