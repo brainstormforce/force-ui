@@ -453,14 +453,7 @@ export const RadioButtonComponent = (
 				{ ! hideSelection &&
 					( useSwitch ? (
 						<>
-							<label
-								htmlFor={ `switch-${ radioButtonId }` }
-								className="sr-only"
-							>
-								Switch Element
-							</label>
 							<Switch
-								id={ `switch-${ radioButtonId }` }
 								defaultValue={ false }
 								size={ size === 'md' ? 'lg' : 'sm' }
 								onChange={ () => {
@@ -474,6 +467,7 @@ export const RadioButtonComponent = (
 								} }
 								checked={ checkedValue }
 								{ ...props }
+								aria-label={ label?.heading ?? 'Switch' }
 							/>
 						</>
 					) : (
