@@ -341,7 +341,7 @@ export const SpectraDashboard = ( args ) => {
 				</div>
 				<button className="inline-flex items-center justify-center absolute right-2 top-2 p-0 bg-transparent shadow-none border-0 outline-none focus:outline-none cursor-pointer">
 					<X className="size-4" />
-					<span className='sr-only'>close</span>
+					<span className="sr-only">close</span>
 				</button>
 			</Container>
 			{ /* Navigation Topbar */ }

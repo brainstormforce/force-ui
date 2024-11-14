@@ -437,7 +437,10 @@ const Template = ( args ) => {
 											cols={ { sm: 1, md: 1, lg: 2 } }
 										>
 											<Container.Item className="space-y-1.5">
-												<Label required htmlFor="store-name">
+												<Label
+													required
+													htmlFor="store-name"
+												>
 													Store name
 												</Label>
 												<Input
@@ -456,7 +459,9 @@ const Template = ( args ) => {
 												</Label>
 											</Container.Item>
 											<Container.Item className="space-y-1.5">
-												<Label htmlFor="store-url">Store URL</Label>
+												<Label htmlFor="store-url">
+													Store URL
+												</Label>
 												<Input
 													id="store-url"
 													size="md"
@@ -645,7 +650,9 @@ const Template = ( args ) => {
 											cols={ { sm: 1, md: 1, lg: 2 } }
 										>
 											<Container.Item className="space-y-1.5">
-												<Label htmlFor="terms-page">Terms page</Label>
+												<Label htmlFor="terms-page">
+													Terms page
+												</Label>
 												<Input
 													id="terms-page"
 													size="md"

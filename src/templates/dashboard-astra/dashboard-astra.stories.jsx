@@ -451,8 +451,7 @@ export const AstraDashboard = ( args ) => {
 											className="leading-none text-icon-secondary"
 											icon={ <Ellipsis /> }
 											aria-label="Options"
-										>
-										</Button>
+										></Button>
 										<Button
 											variant="ghost"
 											className="leading-none text-icon-secondary"

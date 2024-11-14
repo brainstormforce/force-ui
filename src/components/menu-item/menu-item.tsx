@@ -103,49 +103,51 @@ export const MenuList = ( {
 
 	return (
 		<div>
-			{ !! heading && (<div
-				role="button"
-				tabIndex={ 0 }
-				onClick={ handleToggle }
-				onKeyDown={ ( event ) => {
-					if ( event.key === 'Enter' || event.key === ' ' ) {
-						handleToggle();
-					}
-				} }
-				onMouseEnter={ () => showArrowOnHover && setIsHovered( true ) }
-				onMouseLeave={ () => showArrowOnHover && setIsHovered( false ) }
-				className={ cn(
-					baseClasses,
-					sizeClasses,
-					heading ? 'p-1' : 'p-0',
-					className
-				) }
-				aria-expanded={ isOpen }
-			>
-				<span className="text-text-tertiary">{ heading }</span>
+			{ !! heading && (
+				<div
+					role="button"
+					tabIndex={ 0 }
+					onClick={ handleToggle }
+					onKeyDown={ ( event ) => {
+						if ( event.key === 'Enter' || event.key === ' ' ) {
+							handleToggle();
+						}
+					} }
+					onMouseEnter={ () => showArrowOnHover && setIsHovered( true ) }
+					onMouseLeave={ () => showArrowOnHover && setIsHovered( false ) }
+					className={ cn(
+						baseClasses,
+						sizeClasses,
+						heading ? 'p-1' : 'p-0',
+						className
+					) }
+					aria-expanded={ isOpen }
+				>
+					<span className="text-text-tertiary">{ heading }</span>
 
-				{ arrow && (
-					<motion.span
-						variants={ arrowAnimationVariants }
-						animate={ isOpen ? 'open' : 'closed' }
-						transition={ { duration: 0.15 } }
-						className={ cn(
-							'flex items-center text-border-strong',
-							iconSizeClasses
-						) }
-					>
-						<motion.div
-							initial="hidden"
-							animate={ getArrowAnimationVariant() }
-							exit="hidden"
-							variants={ arrowFadeVariants }
+					{ arrow && (
+						<motion.span
+							variants={ arrowAnimationVariants }
+							animate={ isOpen ? 'open' : 'closed' }
 							transition={ { duration: 0.15 } }
+							className={ cn(
+								'flex items-center text-border-strong',
+								iconSizeClasses
+							) }
 						>
-							<ChevronDown />
-						</motion.div>
-					</motion.span>
-				) }
-			</div>)}
+							<motion.div
+								initial="hidden"
+								animate={ getArrowAnimationVariant() }
+								exit="hidden"
+								variants={ arrowFadeVariants }
+								transition={ { duration: 0.15 } }
+							>
+								<ChevronDown />
+							</motion.div>
+						</motion.span>
+					) }
+				</div>
+			) }
 
 			<AnimatePresence initial={ false }>
 				{ isOpen && (
