@@ -498,7 +498,7 @@ const Template = ( args ) => {
 												/>
 												<Select.Options
 													searchBy="label"
-													className="font-sans [&_*]:font-sans"
+													className="font-sans [&_*]:font-sans z-10"
 												>
 													{ CURRENCY_OPTIONS.map(
 														( optionItem ) => (
@@ -559,7 +559,7 @@ const Template = ( args ) => {
 													/>
 													<Select.Options
 														searchBy="label"
-														className="font-sans [&_*]:font-sans"
+														className="font-sans [&_*]:font-sans z-10"
 													>
 														{ TIME_ZONE_OPTIONS.map(
 															( optionItem ) => (
@@ -615,7 +615,7 @@ const Template = ( args ) => {
 													/>
 													<Select.Options
 														searchBy="label"
-														className="font-sans [&_*]:font-sans"
+														className="font-sans [&_*]:font-sans z-10"
 													>
 														{ LANGUAGE_OPTIONS.map(
 															( optionItem ) => (
