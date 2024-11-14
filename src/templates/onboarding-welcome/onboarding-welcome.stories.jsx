@@ -6,9 +6,6 @@ export default {
 	title: 'Templates/Onboarding/Welcome',
 	parameters: {
 		layout: 'fullscreen',
-		a11y: {
-			disable: true,
-		},
 	},
 	tags: [ 'autodocs' ],
 };

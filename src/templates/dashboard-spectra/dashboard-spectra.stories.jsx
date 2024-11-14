@@ -40,9 +40,6 @@ export default {
 	title: 'Templates/Dashboard/Spectra Dashboard',
 	parameters: {
 		layout: 'fullscreen',
-		a11y: {
-			disable: true,
-		},
 	},
 	decorators: [
 		( Story, parameters ) => (
@@ -344,6 +341,7 @@ export const SpectraDashboard = ( args ) => {
 				</div>
 				<button className="inline-flex items-center justify-center absolute right-2 top-2 p-0 bg-transparent shadow-none border-0 outline-none focus:outline-none cursor-pointer">
 					<X className="size-4" />
+					<span className='sr-only'>close</span>
 				</button>
 			</Container>
 			{ /* Navigation Topbar */ }
@@ -518,6 +516,7 @@ export const SpectraDashboard = ( args ) => {
 											variant="ghost"
 											className="leading-none"
 											icon={ <Ellipsis /> }
+											aria-label="Options"
 										></Button>
 									</Container.Item>
 								</Container>
@@ -579,7 +578,7 @@ export const SpectraDashboard = ( args ) => {
 								<div>
 									<Title
 										title="Limitless Design with Spectra Pro!"
-										tag="h5"
+										tag="h1"
 										className="text-text-primary"
 									/>
 									<p className="text-sm text-text-secondary m-0">
@@ -666,6 +665,7 @@ export const SpectraDashboard = ( args ) => {
 											className="text-icon-secondary"
 											variant="ghost"
 											icon={ <ArrowUpRight /> }
+											aria-label="View More"
 										></Button>
 									</Container.Item>
 								</Container>

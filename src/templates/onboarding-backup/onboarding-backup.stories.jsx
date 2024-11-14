@@ -14,9 +14,6 @@ export default {
 	title: 'Templates/Onboarding/Backup Email',
 	parameters: {
 		layout: 'fullscreen',
-		a11y: {
-			disable: true,
-		},
 	},
 	tags: [ 'autodocs' ],
 };

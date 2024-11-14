@@ -41,7 +41,9 @@ export default {
 	parameters: {
 		layout: 'fullscreen',
 		a11y: {
-			disable: true,
+			config: {
+				rules: [ { id: 'aria-input-field-name', enabled: false } ],
+			},
 		},
 	},
 	decorators: [

@@ -37,9 +37,6 @@ export default {
 	title: 'Templates/Dashboard/Astra Dashboard',
 	parameters: {
 		layout: 'fullscreen',
-		a11y: {
-			disable: true,
-		},
 	},
 	decorators: [
 		( Story, parameters ) => (
@@ -453,11 +450,14 @@ export const AstraDashboard = ( args ) => {
 											variant="ghost"
 											className="leading-none text-icon-secondary"
 											icon={ <Ellipsis /> }
-										></Button>
+											aria-label="Options"
+										>
+										</Button>
 										<Button
 											variant="ghost"
 											className="leading-none text-icon-secondary"
 											icon={ <ArrowUpRight /> }
+											aria-label="View More"
 										></Button>
 									</Container.Item>
 								</Container>
@@ -550,6 +550,7 @@ export const AstraDashboard = ( args ) => {
 											className="text-text-secondary"
 											variant="ghost"
 											icon={ <ArrowUpRight /> }
+											aria-label="View More"
 										></Button>
 									</Container.Item>
 								</Container>

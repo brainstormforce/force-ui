@@ -13,9 +13,6 @@ export default {
 	title: 'Templates/Onboarding/Social',
 	parameters: {
 		layout: 'fullscreen',
-		a11y: {
-			disable: true,
-		},
 	},
 	tags: [ 'autodocs' ],
 };

@@ -39,9 +39,6 @@ export default {
 	title: 'Templates/Admin Settings/Admin Settings - SureCart',
 	parameters: {
 		layout: 'fullscreen',
-		a11y: {
-			disable: true,
-		},
 	},
 	decorators: [
 		( Story, parameters ) => (
@@ -440,10 +437,11 @@ const Template = ( args ) => {
 											cols={ { sm: 1, md: 1, lg: 2 } }
 										>
 											<Container.Item className="space-y-1.5">
-												<Label required>
+												<Label required htmlFor="store-name">
 													Store name
 												</Label>
 												<Input
+													id="store-name"
 													size="md"
 													onChange={ () => {} }
 												/>
@@ -458,8 +456,9 @@ const Template = ( args ) => {
 												</Label>
 											</Container.Item>
 											<Container.Item className="space-y-1.5">
-												<Label>Store URL</Label>
+												<Label htmlFor="store-url">Store URL</Label>
 												<Input
+													id="store-url"
 													size="md"
 													onChange={ () => {} }
 												/>
@@ -646,8 +645,9 @@ const Template = ( args ) => {
 											cols={ { sm: 1, md: 1, lg: 2 } }
 										>
 											<Container.Item className="space-y-1.5">
-												<Label>Terms page</Label>
+												<Label htmlFor="terms-page">Terms page</Label>
 												<Input
+													id="terms-page"
 													size="md"
 													onChange={ () => {} }
 												/>
@@ -662,10 +662,11 @@ const Template = ( args ) => {
 												</Label>
 											</Container.Item>
 											<Container.Item className="space-y-1.5">
-												<Label>
+												<Label htmlFor="privacy-policy-page">
 													Privacy policy page
 												</Label>
 												<Input
+													id="privacy-policy-page"
 													size="md"
 													onChange={ () => {} }
 												/>

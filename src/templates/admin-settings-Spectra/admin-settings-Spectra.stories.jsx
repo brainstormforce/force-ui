@@ -34,9 +34,6 @@ export default {
 	title: 'Templates/Admin Settings/Admin Settings - Spectra',
 	parameters: {
 		layout: 'fullscreen',
-		a11y: {
-			disable: true,
-		},
 	},
 	decorators: [
 		( Story, parameters ) => (
@@ -76,6 +73,7 @@ const Template = ( args ) => {
 				</div>
 				<button className="inline-flex items-center justify-center absolute right-2 top-2 p-0 bg-transparent shadow-none border-0 outline-none focus:outline-none cursor-pointer">
 					<X className="size-4" />
+					<span className='sr-only'>Close</span>
 				</button>
 			</div>
 			{ /* Info-bar End */ }
@@ -259,7 +257,7 @@ const Template = ( args ) => {
 							{ /* Setting Section */ }
 							<Container className="mb-0.5" align="center">
 								<Container.Item className="w-full max-w-120 space-y-1">
-									<Label size="md" className="font-semibold">
+									<Label htmlFor="default-width" size="md" className="font-semibold">
 										Default Content Width
 									</Label>
 									<Label
@@ -283,6 +281,7 @@ const Template = ( args ) => {
 									</Label>
 								</Container.Item>
 								<Input
+									id='default-width'
 									defaultValue={ 1280 }
 									suffix={
 										<span className="text-badge-color-gray rounded border border-solid border-border-subtle p-0.5 text-center text-xs font-medium bg-badge-background-gray">
@@ -298,7 +297,7 @@ const Template = ( args ) => {
 							{ /* Setting Section */ }
 							<Container className="mb-0.5" align="center">
 								<Container.Item className="w-full max-w-120 space-y-1">
-									<Label size="md" className="font-semibold">
+									<Label htmlFor="container-padding" size="md" className="font-semibold">
 										Container Padding
 									</Label>
 									<Label
@@ -312,6 +311,7 @@ const Template = ( args ) => {
 									</Label>
 								</Container.Item>
 								<Input
+									id='container-padding'
 									defaultValue={ 10 }
 									suffix={
 										<span className="text-badge-color-gray rounded border border-solid border-border-subtle p-0.5 text-center text-xs font-medium bg-badge-background-gray">
@@ -327,7 +327,7 @@ const Template = ( args ) => {
 							{ /* Setting Section */ }
 							<Container className="mb-0.5" align="center">
 								<Container.Item className="w-full max-w-120 space-y-1">
-									<Label size="md" className="font-semibold">
+									<Label htmlFor="container-element-gap" size="md" className="font-semibold">
 										Container Elements Gap
 									</Label>
 									<Label
@@ -341,6 +341,7 @@ const Template = ( args ) => {
 									</Label>
 								</Container.Item>
 								<Input
+									id='container-element-gap'
 									defaultValue={ 20 }
 									suffix={
 										<span className="text-badge-color-gray rounded border border-solid border-border-subtle p-0.5 text-center text-xs font-medium bg-badge-background-gray">
@@ -418,7 +419,7 @@ const Template = ( args ) => {
 							{ /* Setting Section */ }
 							<Container className="mb-0.5" align="center">
 								<Container.Item className="w-full max-w-120 space-y-1">
-									<Label size="md" className="font-semibold">
+									<Label htmlFor="inherit" size="md" className="font-semibold">
 										Inherit Theme Button
 									</Label>
 									<Label
@@ -433,7 +434,7 @@ const Template = ( args ) => {
 									</Label>
 								</Container.Item>
 								<Container.Item className="ml-auto">
-									<Switch size="lg" defaultValue={ false } />
+									<Switch id='inherit' size="lg" defaultValue={ false } />
 								</Container.Item>
 							</Container>
 
@@ -442,7 +443,7 @@ const Template = ( args ) => {
 							{ /* Setting Section */ }
 							<Container className="mb-0.5" align="center">
 								<Container.Item className="w-full max-w-120 space-y-1">
-									<Label size="md" className="font-semibold">
+									<Label htmlFor="custom-css" size="md" className="font-semibold">
 										Custom CSS
 									</Label>
 									<Label
@@ -458,7 +459,7 @@ const Template = ( args ) => {
 									</Label>
 								</Container.Item>
 								<Container.Item className="ml-auto">
-									<Switch size="lg" defaultValue={ true } />
+									<Switch id='custom-css' size="lg" defaultValue={ true } />
 								</Container.Item>
 							</Container>
 
@@ -467,7 +468,7 @@ const Template = ( args ) => {
 							{ /* Setting Section */ }
 							<Container className="mb-0.5" align="center">
 								<Container.Item className="w-full max-w-120 space-y-1">
-									<Label size="md" className="font-semibold">
+									<Label htmlFor="copy-paste-styles" size="md" className="font-semibold">
 										Copy Paste Styles
 									</Label>
 									<Label
@@ -483,7 +484,7 @@ const Template = ( args ) => {
 									</Label>
 								</Container.Item>
 								<Container.Item className="ml-auto">
-									<Switch size="lg" defaultValue={ true } />
+									<Switch id="copy-paste-styles" size="lg" defaultValue={ true } />
 								</Container.Item>
 							</Container>
 
@@ -492,7 +493,7 @@ const Template = ( args ) => {
 							{ /* Setting Section */ }
 							<Container className="mb-0.5" align="center">
 								<Container.Item className="w-full max-w-120 space-y-1">
-									<Label size="md" className="font-semibold">
+									<Label htmlFor="block-recovery" size="md" className="font-semibold">
 										Automatic Block Recovery
 									</Label>
 									<Label
@@ -509,7 +510,7 @@ const Template = ( args ) => {
 									</Label>
 								</Container.Item>
 								<Container.Item className="ml-auto">
-									<Switch size="lg" defaultValue={ true } />
+									<Switch id="block-recovery" size="lg" defaultValue={ true } />
 								</Container.Item>
 							</Container>
 
@@ -518,7 +519,7 @@ const Template = ( args ) => {
 							{ /* Setting Section */ }
 							<Container className="mb-0.5" align="center">
 								<Container.Item className="w-full max-w-120 space-y-1">
-									<Label size="md" className="font-semibold">
+									<Label htmlFor="font-awesome-support" size="md" className="font-semibold">
 										Load Font Awesome 5 Support
 									</Label>
 									<Label
@@ -534,7 +535,7 @@ const Template = ( args ) => {
 									</Label>
 								</Container.Item>
 								<Container.Item className="ml-auto">
-									<Switch size="lg" defaultValue={ true } />
+									<Switch id="font-awesome-support" size="lg" defaultValue={ true } />
 								</Container.Item>
 							</Container>
 						</Container>
