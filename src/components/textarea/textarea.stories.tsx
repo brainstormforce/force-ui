@@ -20,10 +20,7 @@ export default meta;
 const Template: StoryFn<typeof TextArea> = ( args ) => {
 	return (
 		<>
-			<label htmlFor="textarea" className="sr-only">
-				Textarea
-			</label>
-			<TextArea id="textarea" { ...args } />
+			<TextArea id="textarea" { ...args } aria-label="Textarea" />
 		</>
 	);
 };

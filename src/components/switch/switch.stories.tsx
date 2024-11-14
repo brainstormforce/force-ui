@@ -34,15 +34,13 @@ const Template: StoryFn<SwitchProps> = ( { defaultValue, size, ...args } ) => {
 
 	return (
 		<>
-			<label htmlFor="switch-element" className="sr-only">
-				Switch Element
-			</label>
 			<Switch
 				id="switch-element"
 				{ ...args }
 				size={ size }
 				value={ checked }
 				onChange={ handleChange }
+				aria-label="Switch Element"
 			/>
 		</>
 	);

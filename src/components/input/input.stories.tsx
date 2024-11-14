@@ -24,10 +24,7 @@ export default meta;
 const Template: StoryFn<typeof Input> = ( args ) => {
 	return (
 		<>
-			<label htmlFor="input-element" className="sr-only">
-				Input Element
-			</label>
-			<Input id="input-element" { ...args } />
+			<Input id="input-element" { ...args } aria-label="Text Input" />
 		</>
 	);
 };
