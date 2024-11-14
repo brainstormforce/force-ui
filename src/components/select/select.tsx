@@ -223,7 +223,7 @@ export function SelectButton( {
 					disabledClassNames.selectButton,
 					className
 				) }
-				aria-labelledby="select-label"
+				aria-label={ placeholder ?? 'Select an option' }
 				tabIndex={ 0 }
 				disabled={ disabled }
 				{ ...getReferenceProps() }
