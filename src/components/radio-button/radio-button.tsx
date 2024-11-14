@@ -452,25 +452,30 @@ export const RadioButtonComponent = (
 				{ !! badgeItem && badgeItem }
 				{ ! hideSelection &&
 					( useSwitch ? (
-                        <>
-                        <label htmlFor={`switch-${radioButtonId}`} className='sr-only'>Switch Element</label>
-                            <Switch
-                                id={`switch-${radioButtonId}`}
-                                defaultValue={ false }
-                                size={ size === 'md' ? 'lg' : 'sm' }
-                                onChange={ () => {
-                                    if ( ! multiSelection ) {
-                                        // Toggle the switch on or off
-                                        onChange( value );
-                                    } else {
-                                        // In multi-selection, toggle the current state
-                                        onChange( value, ! checkedValue );
-                                    }
-                                } }
-                                checked={ checkedValue }
-                                { ...props }
-                            />
-                        </>
+						<>
+							<label
+								htmlFor={ `switch-${ radioButtonId }` }
+								className="sr-only"
+							>
+								Switch Element
+							</label>
+							<Switch
+								id={ `switch-${ radioButtonId }` }
+								defaultValue={ false }
+								size={ size === 'md' ? 'lg' : 'sm' }
+								onChange={ () => {
+									if ( ! multiSelection ) {
+										// Toggle the switch on or off
+										onChange( value );
+									} else {
+										// In multi-selection, toggle the current state
+										onChange( value, ! checkedValue );
+									}
+								} }
+								checked={ checkedValue }
+								{ ...props }
+							/>
+						</>
 					) : (
 						<span className="relative p-0.5">
 							<input
@@ -602,7 +607,7 @@ export const ButtonGroupItem = ( {
 			<button
 				type="button"
 				id={ radioButtonId }
-                aria-label="Radio Button"
+				aria-label="Radio Button"
 				className={ cn(
 					buttonClassName,
 					'first:rounded-tl first:rounded-bl first:border-0 first:border-r first:border-border-subtle last:rounded-tr last:rounded-br last:border-0',

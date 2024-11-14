@@ -199,7 +199,7 @@ const DatePickerComponent = ( {
 						variant="ghost"
 						onClick={ handlePrevButtonClick }
 						className="bg-background-primary border-none cursor-pointer"
-                        aria-label="Previous Button"
+						aria-label="Previous Button"
 					>
 						<ChevronLeft className="h-4 w-4" />
 					</Button>
@@ -227,7 +227,7 @@ const DatePickerComponent = ( {
 						variant="ghost"
 						onClick={ handleNextButtonClick }
 						className="bg-background-primary border-none cursor-pointer"
-                        aria-label="Next Button"
+						aria-label="Next Button"
 					>
 						<ChevronRight className="h-4 w-4" />
 					</Button>

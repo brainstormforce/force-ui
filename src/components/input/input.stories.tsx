@@ -21,62 +21,64 @@ const meta: Meta<typeof Input> = {
 
 export default meta;
 
-const Template: StoryFn<typeof Input> = (args) => {
-    return (
-        <>
-            <label htmlFor="input-element" className='sr-only'>Input Element</label>
-            <Input id="input-element" {...args}/>
-        </>
-    )
-} 
+const Template: StoryFn<typeof Input> = ( args ) => {
+	return (
+		<>
+			<label htmlFor="input-element" className="sr-only">
+				Input Element
+			</label>
+			<Input id="input-element" { ...args } />
+		</>
+	);
+};
 
 // Basic Input
-export const Basic = Template.bind({}); 
+export const Basic = Template.bind( {} );
 Basic.args = {
-    type: 'text',
-    size: 'sm',
-    disabled: false,
-    error: false,
-    defaultValue: 'Basic Input',
+	type: 'text',
+	size: 'sm',
+	disabled: false,
+	error: false,
+	defaultValue: 'Basic Input',
 };
 
 // Input with Error
-export const ErrorState = Template.bind({}); 
+export const ErrorState = Template.bind( {} );
 ErrorState.args = {
-    type: 'text',
-    size: 'sm',
-    disabled: false,
-    error: true,
-    defaultValue: 'Input with Error',
+	type: 'text',
+	size: 'sm',
+	disabled: false,
+	error: true,
+	defaultValue: 'Input with Error',
 };
 
 // // Disabled Input
-export const Disabled = Template.bind({}); 
+export const Disabled = Template.bind( {} );
 Disabled.args = {
-    type: 'text',
-    size: 'sm',
-    disabled: true,
-    error: false,
-    defaultValue: 'Disabled Input',
+	type: 'text',
+	size: 'sm',
+	disabled: true,
+	error: false,
+	defaultValue: 'Disabled Input',
 };
 
 // // File Input
-export const FileInput = Template.bind({}); 
+export const FileInput = Template.bind( {} );
 FileInput.args = {
-    type: 'file',
-    size: 'md',
-    disabled: false,
-    error: false,
+	type: 'file',
+	size: 'md',
+	disabled: false,
+	error: false,
 };
 
 // // Input with Prefix and Suffix
-export const WithPrefixSuffix = Template.bind({}); 
+export const WithPrefixSuffix = Template.bind( {} );
 WithPrefixSuffix.args = {
-    type: 'text',
-    size: 'md',
-    disabled: false,
-    error: false,
-    prefix: <Phone />,
-    suffix: '#',
-    defaultValue: '',
+	type: 'text',
+	size: 'md',
+	disabled: false,
+	error: false,
+	prefix: <Phone />,
+	suffix: '#',
+	defaultValue: '',
 };

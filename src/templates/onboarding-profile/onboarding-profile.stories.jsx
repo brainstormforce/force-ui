@@ -16,7 +16,7 @@ export default {
 		layout: 'fullscreen',
 		a11y: {
 			disable: true,
-		}
+		},
 	},
 	tags: [ 'autodocs' ],
 };

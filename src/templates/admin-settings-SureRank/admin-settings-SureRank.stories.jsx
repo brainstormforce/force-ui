@@ -42,7 +42,7 @@ export default {
 		layout: 'fullscreen',
 		a11y: {
 			disable: true,
-		}
+		},
 	},
 	decorators: [
 		( Story, parameters ) => (

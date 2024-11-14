@@ -19,8 +19,8 @@ const preview: Preview = {
 						enabled: false,
 					},
 				],
-			}
-		}
+			},
+		},
 	},
 	decorators: [
 		(Story) => (

@@ -162,7 +162,10 @@ export const PaginationButton = ( {
 export const PaginationPrevious = ( props: PaginationButtonProps ) => {
 	const { size, disabled } = usePageContext();
 	return (
-		<li className={ cn( 'flex', disabled && disabledClassNames.general ) } aria-label="Go to previous page">
+		<li
+			className={ cn( 'flex', disabled && disabledClassNames.general ) }
+			aria-label="Go to previous page"
+		>
 			<PaginationButton
 				className={ cn( '[&>span]:flex [&>span]:items-center' ) }
 				{ ...props }
@@ -177,7 +180,10 @@ PaginationPrevious.displayName = 'Pagination.Previous';
 export const PaginationNext = ( props: PaginationButtonProps ) => {
 	const { size, disabled } = usePageContext();
 	return (
-		<li className={ cn( 'flex', disabled && disabledClassNames.general ) } aria-label="Go to next page">
+		<li
+			className={ cn( 'flex', disabled && disabledClassNames.general ) }
+			aria-label="Go to next page"
+		>
 			<PaginationButton
 				className={ cn( '[&>span]:flex [&>span]:items-center' ) }
 				{ ...props }

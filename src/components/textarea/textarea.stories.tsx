@@ -17,47 +17,49 @@ const meta: Meta<TextAreaProps> = {
 
 export default meta;
 
-const Template: StoryFn<typeof TextArea> = (args) => {
-    return (
-        <>
-            <label htmlFor="textarea" className='sr-only'>Textarea</label>
-            <TextArea id="textarea" {...args} />
-        </>
-    )
-}
+const Template: StoryFn<typeof TextArea> = ( args ) => {
+	return (
+		<>
+			<label htmlFor="textarea" className="sr-only">
+				Textarea
+			</label>
+			<TextArea id="textarea" { ...args } />
+		</>
+	);
+};
 
 // Basic TextArea Example
-export const Basic = Template.bind({});
+export const Basic = Template.bind( {} );
 Basic.args = {
-    size: 'sm',
-    disabled: false,
-    error: false,
-    defaultValue: 'Basic TextArea',
+	size: 'sm',
+	disabled: false,
+	error: false,
+	defaultValue: 'Basic TextArea',
 };
 
 // Disabled TextArea Example
-export const Disabled = Template.bind({});
+export const Disabled = Template.bind( {} );
 Disabled.args = {
-    size: 'md',
-    disabled: true,
-    error: false,
-    defaultValue: 'Disabled TextArea',
+	size: 'md',
+	disabled: true,
+	error: false,
+	defaultValue: 'Disabled TextArea',
 };
 
 // TextArea with Error State Example
-export const ErrorState = Template.bind({});
+export const ErrorState = Template.bind( {} );
 ErrorState.args = {
-    size: 'md',
-    disabled: false,
-    error: true,
-    defaultValue: 'TextArea with Error',
+	size: 'md',
+	disabled: false,
+	error: true,
+	defaultValue: 'TextArea with Error',
 };
 
 // Large TextArea Example
-export const Large = Template.bind({});
+export const Large = Template.bind( {} );
 Large.args = {
-    size: 'lg',
-    disabled: false,
-    error: false,
-    defaultValue: 'Large TextArea',
+	size: 'lg',
+	disabled: false,
+	error: false,
+	defaultValue: 'Large TextArea',
 };

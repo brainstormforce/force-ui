@@ -190,9 +190,9 @@ const Drawer = ( {
 						className
 					) }
 					ref={ drawerContainerRef }
-					role='dialog'
-					aria-modal='true'
-					aria-label='drawer'
+					role="dialog"
+					aria-modal="true"
+					aria-label="drawer"
 				>
 					{ children }
 				</div>

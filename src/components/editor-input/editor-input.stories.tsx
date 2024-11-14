@@ -8,11 +8,9 @@ const meta: Meta<typeof EditorInput> = {
 	parameters: {
 		a11y: {
 			config: {
-				rules: [
-					{ id: 'aria-input-field-name', enabled: false },
-				]
-			}
-		}
+				rules: [ { id: 'aria-input-field-name', enabled: false } ],
+			},
+		},
 	},
 	decorators: [
 		( Story ) => (

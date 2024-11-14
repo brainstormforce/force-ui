@@ -18,7 +18,8 @@ module.exports = {
 			return;
 		}
 
-		const element = storyContext.parameters?.a11y?.element ?? '#storybook-root';
+		const element =
+			storyContext.parameters?.a11y?.element ?? '#storybook-root';
 		await checkA11y(page, element, {
 			detailedReport: true,
 			detailedReportOptions: {
