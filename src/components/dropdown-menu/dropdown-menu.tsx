@@ -142,15 +142,11 @@ export const DropdownMenuTrigger = React.forwardRef<
 	DropdownCommonProps
 >( ( { children, className, ...props }, ref ) => {
 	if ( isValidElement( children ) ) {
-		const clonedElement = React.cloneElement(
-			children as React.ReactElement,
-			{
-				className,
-				ref,
-				...props,
-			}
-		);
-		return clonedElement;
+		return React.cloneElement( children as React.ReactElement, {
+			className,
+			ref,
+			...props,
+		} );
 	}
 
 	return (
