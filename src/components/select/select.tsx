@@ -271,7 +271,7 @@ export function SelectButton( {
 
 export function SelectOptions( {
 	children,
-	searchBy = 'id', // Used to identify searched value using the key. Default is 'id'.
+	searchBy = 'name', // Used to identify searched value using the key. Default is 'id'.
 	searchPlaceholder = 'Search...', // Placeholder text for search box.
 	className, // Additional class name for the dropdown.
 }: SelectOptionsProps ) {
@@ -382,7 +382,11 @@ export function SelectOptions( {
 					}
 				}
 
-				listContentRef.current.push( child.props.value );
+				listContentRef.current.push(
+					typeof child.props.value === 'object'
+						? child.props.value[ searchBy || by ]
+						: child.props.value
+				);
 			}
 		} );
 	}, [ searchKeyword ] );
