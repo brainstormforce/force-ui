@@ -214,7 +214,7 @@ export function SelectButton( {
 				id={ selectId }
 				ref={ refs.setReference }
 				className={ cn(
-					'flex items-center justify-between w-full box-border transition-colors duration-150 bg-white',
+					'flex items-center justify-between w-full box-border transition-[outline,background-color,color,box-shadow] duration-200 bg-white',
 					'outline outline-1 outline-field-border border-none cursor-pointer',
 					! isOpen &&
 						'focus:ring-2 focus:ring-offset-4 focus:outline-focus-border focus:ring-focus [&:hover:not(:focus):not(:disabled)]:outline-border-strong',
