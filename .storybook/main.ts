@@ -10,6 +10,7 @@ const config: StorybookConfig = {
 		'@storybook/addon-essentials',
 		'@chromatic-com/storybook',
 		'@storybook/addon-interactions',
+		'@storybook/addon-a11y',
 	],
 	framework: {
 		name: '@storybook/react-vite',
@@ -26,12 +27,19 @@ const config: StorybookConfig = {
 		// Merge custom configuration into the default config
 		const { mergeConfig } = await import('vite');
 
+		// Remove the dts plugin from the default config.
+		config.plugins = [
+			...(config.plugins ?? []).filter((plugin) => {
+				return (
+					(plugin as typeof plugin & Record<string, unknown>).name !==
+					'vite:dts'
+				);
+			}),
+		];
+
 		return mergeConfig(config, {
 			optimizeDeps: {
-				include: [
-					'storybook-dark-mode',
-					'storybook-addon-interactions',
-				],
+				...config?.optimizeDeps,
 			},
 			resolve: {
 				...config.resolve,

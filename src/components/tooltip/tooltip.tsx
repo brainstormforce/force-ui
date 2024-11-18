@@ -98,8 +98,8 @@ export const Tooltip = ( {
 	setOpen,
 	children,
 	className,
-	tooltipPortalRoot = null, // Root element where the dropdown will be rendered.
-	tooltipPortalId = '', // Id of the dropdown portal where the dropdown will be rendered.
+	tooltipPortalRoot, // Root element where the dropdown will be rendered.
+	tooltipPortalId, // Id of the dropdown portal where the dropdown will be rendered.
 	boundary = 'clippingAncestors',
 	strategy = 'fixed', // 'fixed' | 'absolute';
 	offset: offsetValue = 8, // Offset option or number value. Default is 8.

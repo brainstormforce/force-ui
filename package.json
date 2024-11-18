@@ -17,13 +17,7 @@
             "require": "./dist/withTW.cjs"
         }
     },
-    "./withTW": {
-        "import": "./dist/withTW.js",
-        "types": "./dist/withTW.d.ts",
-        "require": "./dist/withTW.cjs"
-    },
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1",
         "build": "cross-env tsc -b && vite build",
         "start": "cross-env tsc -b && vite build -w",
         "pretty-fix": "prettier --write .",
@@ -34,6 +28,8 @@
         "lint:css": "stylelint **/*.{scss,css}",
         "lint:css-fix": "stylelint **/*.{scss,css} --fix",
         "storybook": "storybook dev -p 6006",
+        "test": "test-storybook",
+        "test:watch": "test-storybook --watch",
         "build-storybook": "storybook build",
         "chromatic": "npx chromatic --project-token CHROMATIC_PROJECT_TOKEN",
         "package": "sh bin/build.sh",
@@ -77,9 +73,11 @@
         "tailwindcss-scoped-preflight": "^3.4.3"
     },
     "devDependencies": {
-        "@chromatic-com/storybook": "^1.9.0",
+        "@chromatic-com/storybook": "^2.0.2",
         "@eslint/eslintrc": "^3.1.0",
         "@eslint/js": "^9.13.0",
+        "@playwright/test": "^1.48.1",
+        "@storybook/addon-a11y": "^8.3.5",
         "@storybook/addon-essentials": "^8.3.5",
         "@storybook/addon-interactions": "^8.3.5",
         "@storybook/addon-links": "^8.3.5",
@@ -89,8 +87,10 @@
         "@storybook/react-vite": "^8.3.5",
         "@storybook/storybook-deployer": "^2.8.16",
         "@storybook/test": "^8.3.5",
+        "@storybook/test-runner": "^0.19.1",
         "@tailwindcss/container-queries": "^0.1.1",
         "@types/lodash": "^4.17.13",
+        "@types/node": "^22.7.6",
         "@types/react": "^18.3.10",
         "@types/react-dom": "^18.3.0",
         "@typescript-eslint/eslint-plugin": "^8.11.0",
@@ -99,6 +99,7 @@
         "@wordpress/prettier-config": "^4.4.0",
         "@wordpress/stylelint-config": "^23.2.0",
         "autoprefixer": "^10.4.19",
+        "axe-playwright": "^2.0.3",
         "chromatic": "^11.7.1",
         "cross-env": "^7.0.3",
         "eslint": "^8.41.0",
@@ -110,6 +111,7 @@
         "globals": "^15.9.0",
         "postcss": "^8.4.39",
         "prettier": "^3.2.5",
+        "rollup-preserve-directives": "^1.1.2",
         "storybook": "^8.3.5",
         "storybook-addon-paddings": "^6.0.2",
         "stylelint": "^16.8.2",

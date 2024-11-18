@@ -255,6 +255,7 @@ const Template1 = ( args: Template1Props ) => {
 						<Button variant="ghost" className="p-0 leading-none	">
 							{ ' ' }
 							<Ellipsis />
+							<span className="sr-only">Option</span>
 						</Button>
 					</Container.Item>
 				</Container>

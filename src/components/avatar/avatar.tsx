@@ -33,6 +33,7 @@ const Avatar = forwardRef<Ref, AvatarProps>(
 			alt,
 			children,
 			className,
+			...props
 		},
 		ref
 	) => {
@@ -116,6 +117,7 @@ const Avatar = forwardRef<Ref, AvatarProps>(
 				{ ...( textAvatar
 					? { children: getChildren() }
 					: { src: url, alt, onError: handleImageError } ) }
+				{ ...props }
 			/>
 		);
 	}

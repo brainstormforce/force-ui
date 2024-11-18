@@ -59,6 +59,7 @@ export function SelectButton( {
 	displayBy = 'name', // Used to display the value. Default is 'name'.
 	label, // Label for the select component.
 	className,
+	...props
 }: SelectButtonProps ) {
 	const {
 		sizeValue,
@@ -213,7 +214,7 @@ export function SelectButton( {
 				id={ selectId }
 				ref={ refs.setReference }
 				className={ cn(
-					'flex items-center justify-between w-full box-border transition-colors duration-150 bg-white',
+					'flex items-center justify-between w-full box-border transition-[outline,background-color,color,box-shadow] duration-200 bg-white',
 					'outline outline-1 outline-field-border border-none cursor-pointer',
 					! isOpen &&
 						'focus:ring-2 focus:ring-offset-4 focus:outline-focus-border focus:ring-focus [&:hover:not(:focus):not(:disabled)]:outline-border-strong',
@@ -223,9 +224,9 @@ export function SelectButton( {
 					disabledClassNames.selectButton,
 					className
 				) }
-				aria-labelledby="select-label"
 				tabIndex={ 0 }
 				disabled={ disabled }
+				{ ...props }
 				{ ...getReferenceProps() }
 			>
 				{ /* Input and selected item container */ }
@@ -270,7 +271,7 @@ export function SelectButton( {
 
 export function SelectOptions( {
 	children,
-	searchBy = 'id', // Used to identify searched value using the key. Default is 'id'.
+	searchBy = 'name', // Used to identify searched value using the key. Default is 'id'.
 	searchPlaceholder = 'Search...', // Placeholder text for search box.
 	className, // Additional class name for the dropdown.
 }: SelectOptionsProps ) {
@@ -381,7 +382,11 @@ export function SelectOptions( {
 					}
 				}
 
-				listContentRef.current.push( child.props.value );
+				listContentRef.current.push(
+					typeof child.props.value === 'object'
+						? child.props.value[ searchBy || by ]
+						: child.props.value
+				);
 			}
 		} );
 	}, [ searchKeyword ] );
