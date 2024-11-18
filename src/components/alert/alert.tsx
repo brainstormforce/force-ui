@@ -110,6 +110,7 @@ const Alert = ( {
 									closeIconClassNames.light
 							) }
 							onClick={ () => closeAlert() }
+							aria-label="Close alert"
 						>
 							<X />
 						</button>
@@ -157,6 +158,7 @@ const Alert = ( {
 								closeIconClassNames.light
 						) }
 						onClick={ () => closeAlert() }
+						aria-label="Close alert"
 					>
 						<X />
 					</button>

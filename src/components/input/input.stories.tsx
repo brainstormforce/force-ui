@@ -1,6 +1,6 @@
 import Input from './input';
 import { Phone } from 'lucide-react';
-import { Meta, StoryObj } from '@storybook/react';
+import { Meta, StoryFn } from '@storybook/react';
 
 const meta: Meta<typeof Input> = {
 	title: 'Atoms/Input',
@@ -21,60 +21,61 @@ const meta: Meta<typeof Input> = {
 
 export default meta;
 
-type Story = StoryObj<typeof Input>;
+const Template: StoryFn<typeof Input> = ( args ) => {
+	return (
+		<>
+			<Input id="input-element" { ...args } aria-label="Text Input" />
+		</>
+	);
+};
 
 // Basic Input
-export const Basic: Story = {
-	args: {
-		type: 'text',
-		size: 'sm',
-		disabled: false,
-		error: false,
-		defaultValue: 'Basic Input',
-	},
+export const Basic = Template.bind( {} );
+Basic.args = {
+	type: 'text',
+	size: 'sm',
+	disabled: false,
+	error: false,
+	defaultValue: 'Basic Input',
 };
 
 // Input with Error
-export const ErrorState: Story = {
-	args: {
-		type: 'text',
-		size: 'sm',
-		disabled: false,
-		error: true,
-		defaultValue: 'Input with Error',
-	},
+export const ErrorState = Template.bind( {} );
+ErrorState.args = {
+	type: 'text',
+	size: 'sm',
+	disabled: false,
+	error: true,
+	defaultValue: 'Input with Error',
 };
 
-// Disabled Input
-export const Disabled: Story = {
-	args: {
-		type: 'text',
-		size: 'sm',
-		disabled: true,
-		error: false,
-		defaultValue: 'Disabled Input',
-	},
+// // Disabled Input
+export const Disabled = Template.bind( {} );
+Disabled.args = {
+	type: 'text',
+	size: 'sm',
+	disabled: true,
+	error: false,
+	defaultValue: 'Disabled Input',
 };
 
-// File Input
-export const FileInput: Story = {
-	args: {
-		type: 'file',
-		size: 'md',
-		disabled: false,
-		error: false,
-	},
+// // File Input
+export const FileInput = Template.bind( {} );
+FileInput.args = {
+	type: 'file',
+	size: 'md',
+	disabled: false,
+	error: false,
 };
 
-// Input with Prefix and Suffix
-export const WithPrefixSuffix: Story = {
-	args: {
-		type: 'text',
-		size: 'md',
-		disabled: false,
-		error: false,
-		prefix: <Phone />,
-		suffix: '#',
-		defaultValue: '',
-	},
+// // Input with Prefix and Suffix
+export const WithPrefixSuffix = Template.bind( {} );
+WithPrefixSuffix.args = {
+	type: 'text',
+	size: 'md',
+	disabled: false,
+	error: false,
+	prefix: <Phone />,
+	suffix: '#',
+	defaultValue: '',
 };

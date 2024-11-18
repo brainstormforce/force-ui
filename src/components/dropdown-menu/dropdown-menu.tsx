@@ -5,7 +5,7 @@ import React, {
 	cloneElement,
 	Fragment,
 	isValidElement,
-	type ReactNode,
+	type ReactElement,
 } from 'react';
 import {
 	useFloating,
@@ -39,8 +39,8 @@ export const DropdownMenu = ( {
 	placement = 'bottom',
 	offset: offsetValue = 10,
 	boundary = 'clippingAncestors',
-	dropdownPortalRoot = null,
-	dropdownPortalId = '',
+	dropdownPortalRoot,
+	dropdownPortalId,
 	children,
 	className,
 }: DropdownMenuProps ) => {
@@ -83,27 +83,23 @@ export const DropdownMenu = ( {
 	return (
 		<DropdownMenuContext.Provider value={ { handleClose } }>
 			<div className={ cn( 'relative inline-block', className ) }>
-				<div
-					ref={ refs.setReference }
-					onClick={ toggleMenu }
-					role="button"
-					tabIndex={ 0 }
-					{ ...getReferenceProps() }
-					className="cursor-pointer"
-				>
-					{ React.Children.map( children, ( child ) => {
-						if (
-							(
-								child as ReactNode & {
-									type: { displayName: string };
-								}
-							)?.type?.displayName === 'DropdownMenu.Trigger'
-						) {
-							return child;
-						}
-						return null;
-					} ) }
-				</div>
+				{ React.Children.map( children, ( child ) => {
+					if (
+						React.isValidElement( child ) &&
+						(
+							child as ReactElement & {
+								type: { displayName: string };
+							}
+						)?.type?.displayName === 'DropdownMenu.Trigger'
+					) {
+						return cloneElement( child as ReactElement, {
+							ref: refs.setReference,
+							onClick: toggleMenu,
+							...getReferenceProps(),
+						} );
+					}
+					return null;
+				} ) }
 
 				{ isMounted && (
 					<FloatingPortal
@@ -121,7 +117,7 @@ export const DropdownMenu = ( {
 							{ React.Children.map( children, ( child ) => {
 								if (
 									(
-										child as ReactNode & {
+										child as ReactElement & {
 											type?: { displayName: string };
 										}
 									)?.type?.displayName ===
@@ -144,11 +140,27 @@ DropdownMenu.displayName = 'DropdownMenu';
 export const DropdownMenuTrigger = React.forwardRef<
 	HTMLDivElement,
 	DropdownCommonProps
->( ( { children, className }, ref ) => (
-	<div ref={ ref } role="button" tabIndex={ 0 } className={ className }>
-		{ children }
-	</div>
-) );
+>( ( { children, className, ...props }, ref ) => {
+	if ( isValidElement( children ) ) {
+		return React.cloneElement( children as React.ReactElement, {
+			className,
+			ref,
+			...props,
+		} );
+	}
+
+	return (
+		<div
+			ref={ ref }
+			className={ cn( 'cursor-pointer', className ) }
+			role="button"
+			tabIndex={ 0 }
+			{ ...props }
+		>
+			{ children }
+		</div>
+	);
+} );
 
 DropdownMenuTrigger.displayName = 'DropdownMenu.Trigger';
 

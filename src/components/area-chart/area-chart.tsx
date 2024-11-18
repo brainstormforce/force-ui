@@ -93,7 +93,7 @@ const AreaChart = ( {
 	xAxisDataKey,
 	yAxisDataKey,
 	xAxisFontSize = 'sm', // sm, md, lg
-	xAxisFontColor = '#4B5563',
+	xAxisFontColor = '#6B7280',
 	chartWidth = 350,
 	chartHeight = 200,
 }: AreaChartProps ) => {
