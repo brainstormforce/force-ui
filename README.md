@@ -27,7 +27,7 @@ npm install
 
 <br />
 
-2. Once you install @bsf/force-ui you need to wrap your tailwind css configurations with the `withMT()` function coming from @bsf/force-ui/utils.
+2. Once you install @bsf/force-ui you need to wrap your tailwind css configurations with the `withTW()` function coming from @bsf/force-ui/withTW.
 
 ```js
 const withTW = require( '@bsf/force-ui/withTW' );

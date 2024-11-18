@@ -107,6 +107,10 @@ const DatePickerComponent = ( {
 	numberOfMonths,
 	...props
 }: DatePickerProps ) => {
+	// check footer is a valide compoenent
+	const isFooter =
+		React.isValidElement( props.footer ) ||
+		typeof props.footer === 'function';
 	const [ showMonthSelect, setShowMonthSelect ] = useState( false );
 	const [ showYearSelect, setShowYearSelect ] = useState( false ); // New state for year selection
 	const [ selectedYear, setSelectedYear ] = useState( new Date().getFullYear() );
@@ -485,14 +489,15 @@ const DatePickerComponent = ( {
 		width,
 		alignment === 'vertical' ? 'flex flex-col' : 'flex flex-row  gap-3',
 		variant === 'normal'
-			? 'rounded-md border border-solid border-border-subtle'
+			? 'rounded-tr-md rounded-tl-md border border-solid border-border-subtle'
 			: '',
 		variant === 'presets'
 			? 'rounded-tr-md border border-solid border-border-subtle'
 			: '',
 		variant === 'dualdate'
 			? 'rounded-tr-md rounded-tl-md border border-solid border-border-subtle'
-			: ''
+			: '',
+		isFooter ? 'rounded-b-none' : 'rounded-bl-md rounded-br-md'
 	);
 
 	return (
@@ -529,6 +534,7 @@ const DatePickerComponent = ( {
 					day: 'h-10 w-10 p-0 font-normal bg-background-primary text-current',
 					...classNames,
 				} }
+				numberOfMonths={ numberOfMonths }
 				components={ {
 					MonthCaption:
 						CustomMonthCaption as unknown as CustomComponents['MonthCaption'],
