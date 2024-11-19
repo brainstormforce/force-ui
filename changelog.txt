@@ -1,3 +1,6 @@
+Version 1.1.1 - 19th November, 2024
+- Improvement - Added new props to the Bar Chart component for customizability.
+
 Version 1.1.0 - 11th November, 2024
 - New - Area Chart
 - New - Bar Chart
