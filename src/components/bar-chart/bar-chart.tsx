@@ -7,6 +7,7 @@ import {
 	Tooltip,
 	Legend,
 	ResponsiveContainer,
+	type BarProps,
 } from 'recharts';
 import ChartLegendContent from './chart-legend-content';
 import ChartTooltipContent from './chart-tooltip-content';
@@ -82,6 +83,34 @@ interface BarChartProps {
 
 	/** Border radius of chart bar. */
 	borderRadius?: number;
+
+	/**
+	 * xAxis related props.
+	 *
+	 * @see https://recharts.org/en-US/api/XAxis
+	 */
+	xAxisProps?: Record<string, unknown>;
+
+	/**
+	 * yAxis related props.
+	 *
+	 * @see https://recharts.org/en-US/api/YAxis
+	 */
+	yAxisProps?: Record<string, unknown>;
+
+	/**
+	 * Tooltip related props.
+	 *
+	 * @see https://recharts.org/en-US/api/Tooltip
+	 */
+	tooltipProps?: Record<string, unknown>;
+
+	/**
+	 * Active bar index.
+	 *
+	 * @see https://recharts.org/en-US/api/Bar#activeBar
+	 */
+	activeBar?: BarProps['activeBar'];
 }
 
 const BarChart = ( {
@@ -106,6 +135,10 @@ const BarChart = ( {
 	chartWidth = 350,
 	chartHeight = 200,
 	borderRadius = 8,
+	xAxisProps,
+	yAxisProps,
+	tooltipProps,
+	activeBar,
 }: BarChartProps ) => {
 	const defaultColors = [ { fill: '#7DD3FC' }, { fill: '#2563EB' } ];
 
@@ -138,6 +171,7 @@ const BarChart = ( {
 
 				{ layout === 'horizontal' && showXAxis && (
 					<XAxis
+						{ ...xAxisProps }
 						dataKey={ xAxisDataKey }
 						tickLine={ false }
 						axisLine={ false }
@@ -152,6 +186,7 @@ const BarChart = ( {
 
 				{ layout === 'horizontal' && showYAxis && (
 					<YAxis
+						{ ...yAxisProps }
 						dataKey={ yAxisDataKey }
 						tickLine={ false }
 						tickMargin={ 10 }
@@ -165,8 +200,14 @@ const BarChart = ( {
 
 				{ layout === 'vertical' && (
 					<>
-						<XAxis type="number" dataKey={ xAxisDataKey } hide />
+						<XAxis
+							{ ...xAxisProps }
+							type="number"
+							dataKey={ xAxisDataKey }
+							hide
+						/>
 						<YAxis
+							{ ...yAxisProps }
 							dataKey={ yAxisDataKey }
 							type="category"
 							tickLine={ false }
@@ -184,6 +225,7 @@ const BarChart = ( {
 				{ showYAxis && <YAxis dataKey={ yAxisDataKey } /> }
 				{ showTooltip && (
 					<Tooltip
+						{ ...tooltipProps }
 						content={
 							<ChartTooltipContent
 								indicator={ tooltipIndicator }
@@ -224,6 +266,7 @@ const BarChart = ( {
 							fill={ appliedColors[ index ]?.fill }
 							radius={ radius }
 							stackId={ stacked ? 'a' : undefined }
+							activeBar={ activeBar }
 						/>
 					);
 				} ) }
