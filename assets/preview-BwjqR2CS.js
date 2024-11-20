@@ -1,0 +1,1 @@
+import{j as r}from"./jsx-runtime-CfatFE5O.js";import"./index-ClcD9ViR.js";import"./_commonjsHelpers-Cpj98o6Y.js";const a={parameters:{controls:{matchers:{color:/(background|color)$/i,date:/Date$/i}},a11y:{config:{rules:[{id:"color-contrast",enabled:!1}]}}},decorators:[o=>r.jsx("div",{style:{fontFamily:"Figtree, sans-serif"},children:r.jsx(o,{})})]};export{a as default};
