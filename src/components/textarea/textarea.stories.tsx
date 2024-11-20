@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from '@storybook/react';
+import { Meta, StoryFn } from '@storybook/react';
 import TextArea, { TextAreaProps } from './textarea';
 
 const meta: Meta<TextAreaProps> = {
@@ -17,44 +17,46 @@ const meta: Meta<TextAreaProps> = {
 
 export default meta;
 
-type Story = StoryObj<TextAreaProps>;
+const Template: StoryFn<typeof TextArea> = ( args ) => {
+	return (
+		<>
+			<TextArea id="textarea" { ...args } aria-label="Textarea" />
+		</>
+	);
+};
 
 // Basic TextArea Example
-export const Basic: Story = {
-	args: {
-		size: 'sm',
-		disabled: false,
-		error: false,
-		defaultValue: 'Basic TextArea',
-	},
+export const Basic = Template.bind( {} );
+Basic.args = {
+	size: 'sm',
+	disabled: false,
+	error: false,
+	defaultValue: 'Basic TextArea',
 };
 
 // Disabled TextArea Example
-export const Disabled: Story = {
-	args: {
-		size: 'md',
-		disabled: true,
-		error: false,
-		defaultValue: 'Disabled TextArea',
-	},
+export const Disabled = Template.bind( {} );
+Disabled.args = {
+	size: 'md',
+	disabled: true,
+	error: false,
+	defaultValue: 'Disabled TextArea',
 };
 
 // TextArea with Error State Example
-export const ErrorState: Story = {
-	args: {
-		size: 'md',
-		disabled: false,
-		error: true,
-		defaultValue: 'TextArea with Error',
-	},
+export const ErrorState = Template.bind( {} );
+ErrorState.args = {
+	size: 'md',
+	disabled: false,
+	error: true,
+	defaultValue: 'TextArea with Error',
 };
 
 // Large TextArea Example
-export const Large: Story = {
-	args: {
-		size: 'lg',
-		disabled: false,
-		error: false,
-		defaultValue: 'Large TextArea',
-	},
+export const Large = Template.bind( {} );
+Large.args = {
+	size: 'lg',
+	disabled: false,
+	error: false,
+	defaultValue: 'Large TextArea',
 };

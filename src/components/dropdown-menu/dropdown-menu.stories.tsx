@@ -50,6 +50,7 @@ export const AvatarTrigger: Story = ( args ) => (
 	<DropdownMenu { ...args } placement="bottom-start">
 		<DropdownMenu.Trigger>
 			<Avatar>John</Avatar>
+			<span className="sr-only">Open Menu</span>
 		</DropdownMenu.Trigger>
 		<DropdownMenu.Content className="w-60">
 			<DropdownMenu.List>
@@ -67,6 +68,7 @@ export const IconTrigger: Story = ( args ) => (
 	<DropdownMenu { ...args } placement="bottom-end">
 		<DropdownMenu.Trigger>
 			<House />
+			<span className="sr-only">Open Menu</span>
 		</DropdownMenu.Trigger>
 		<DropdownMenu.Content className="w-60">
 			<DropdownMenu.List>

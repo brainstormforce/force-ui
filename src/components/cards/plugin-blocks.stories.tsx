@@ -91,6 +91,7 @@ const Template2 = ( args: Template2Props ) => {
 					<Container.Item className="items-center">
 						<Button className="p-0" variant="ghost">
 							<ArrowUpRight />
+							<span className="sr-only">View Details</span>
 						</Button>
 					</Container.Item>
 				</Container>

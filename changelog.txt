@@ -1,3 +1,9 @@
+Version 1.2.0 - 20th November, 2024
+- New - Dropzone
+- New - Added Unit Tests setup and a11y CI setup
+- Improvement - All components are a11y compatible.
+- Fixes - Issues reported by internal dev team.
+
 Version 1.1.0 - 11th November, 2024
 - New - Area Chart
 - New - Bar Chart
