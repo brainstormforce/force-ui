@@ -1,32 +1,39 @@
-name: 'Chromatic GitHub Deployment'
-
+# Workflow name
+name: Build and Publish Storybook to GitHub Pages
+ 
 on:
-    push:
-        branches:
-            - master
-
+  # Event for the workflow to run on
+  push:
+    branches:
+      - master
+ 
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+ 
+# List of jobs
 jobs:
-    chromatic:
-        name: Run Chromatic
-        runs-on: ubuntu-latest
-        steps:
-            - name: Checkout code
-              uses: actions/checkout@v4
-              with:
-                  fetch-depth: 0
-            - uses: actions/setup-node@v4
-              with:
-                  node-version: 20
-            - name: Install dependencies
-              # ⚠️ See your package manager's documentation for the correct command to install dependencies in a CI environment.
-              run: npm install && npm run build && npm run build-storybook && npm run deploy-storybook -- --ci
-              env:
-                  GH_TOKEN: ${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}
-
-            - name: Run Chromatic
-              uses: chromaui/action@latest
-              with:
-                  # ⚠️ Make sure to configure a `CHROMATIC_PROJECT_TOKEN` repository secret
-                  projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
-                  zip: true
-                  onlyChanged: true # 👈 Required option to enable TurboSnap
+  deploy:
+    environment:
+        name: github-pages
+        url: ${{ steps.build-publish.outputs.page_url }}
+    runs-on: ubuntu-latest
+    # Job steps
+    steps:
+      # Manual Checkout
+      - uses: actions/checkout@v4
+ 
+      # Set up Node
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+ 
+      #👇 Add Storybook build and deploy to GitHub Pages as a step in the workflow
+      - id: build-publish
+        uses: bitovi/github-actions-storybook-to-github-pages@v1.0.3
+        with:
+          install_command: npm install # default: npm ci
+          build_command: npm run build && npm run build-storybook # default: npm run build-storybook
+          path: storybook-static # default: dist/storybook
+          checkout: false # default: true
