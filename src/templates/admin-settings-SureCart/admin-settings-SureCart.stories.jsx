@@ -437,10 +437,14 @@ const Template = ( args ) => {
 											cols={ { sm: 1, md: 1, lg: 2 } }
 										>
 											<Container.Item className="space-y-1.5">
-												<Label required>
+												<Label
+													required
+													htmlFor="store-name"
+												>
 													Store name
 												</Label>
 												<Input
+													id="store-name"
 													size="md"
 													onChange={ () => {} }
 												/>
@@ -455,8 +459,11 @@ const Template = ( args ) => {
 												</Label>
 											</Container.Item>
 											<Container.Item className="space-y-1.5">
-												<Label>Store URL</Label>
+												<Label htmlFor="store-url">
+													Store URL
+												</Label>
 												<Input
+													id="store-url"
 													size="md"
 													onChange={ () => {} }
 												/>
@@ -473,7 +480,7 @@ const Template = ( args ) => {
 										</Container>
 
 										<div className="w-full space-y-1.5">
-											<Label required>
+											<Label id="currency" required>
 												Store currency
 											</Label>
 											<Select
@@ -485,10 +492,13 @@ const Template = ( args ) => {
 												size="md"
 												combobox
 											>
-												<Select.Button displayBy="label" />
+												<Select.Button
+													displayBy="label"
+													aria-labelledby="currency"
+												/>
 												<Select.Options
 													searchBy="label"
-													className="font-sans [&_*]:font-sans"
+													className="font-sans [&_*]:font-sans z-10"
 												>
 													{ CURRENCY_OPTIONS.map(
 														( optionItem ) => (
@@ -530,7 +540,7 @@ const Template = ( args ) => {
 											cols={ { sm: 1, md: 1, lg: 2 } }
 										>
 											<Container.Item className="space-y-1.5">
-												<Label required>
+												<Label id="time-zone" required>
 													Time zone
 												</Label>
 												<Select
@@ -543,10 +553,13 @@ const Template = ( args ) => {
 													combobox
 													by="label"
 												>
-													<Select.Button displayBy="label" />
+													<Select.Button
+														displayBy="label"
+														aria-labelledby="time-zone"
+													/>
 													<Select.Options
 														searchBy="label"
-														className="font-sans [&_*]:font-sans"
+														className="font-sans [&_*]:font-sans z-10"
 													>
 														{ TIME_ZONE_OPTIONS.map(
 															( optionItem ) => (
@@ -583,7 +596,7 @@ const Template = ( args ) => {
 												</Label>
 											</Container.Item>
 											<Container.Item className="space-y-1.5">
-												<Label required>
+												<Label id="language" required>
 													Store language
 												</Label>
 												<Select
@@ -596,10 +609,13 @@ const Template = ( args ) => {
 													combobox
 													by="label"
 												>
-													<Select.Button displayBy="label" />
+													<Select.Button
+														displayBy="label"
+														aria-labelledby="language"
+													/>
 													<Select.Options
 														searchBy="label"
-														className="font-sans [&_*]:font-sans"
+														className="font-sans [&_*]:font-sans z-10"
 													>
 														{ LANGUAGE_OPTIONS.map(
 															( optionItem ) => (
@@ -643,8 +659,11 @@ const Template = ( args ) => {
 											cols={ { sm: 1, md: 1, lg: 2 } }
 										>
 											<Container.Item className="space-y-1.5">
-												<Label>Terms page</Label>
+												<Label htmlFor="terms-page">
+													Terms page
+												</Label>
 												<Input
+													id="terms-page"
 													size="md"
 													onChange={ () => {} }
 												/>
@@ -659,10 +678,11 @@ const Template = ( args ) => {
 												</Label>
 											</Container.Item>
 											<Container.Item className="space-y-1.5">
-												<Label>
+												<Label htmlFor="privacy-policy-page">
 													Privacy policy page
 												</Label>
 												<Input
+													id="privacy-policy-page"
 													size="md"
 													onChange={ () => {} }
 												/>

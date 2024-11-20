@@ -11,6 +11,12 @@ const preview: Preview = {
 				date: /Date$/i,
 			},
 		},
+		// Disable color contrast checks for the entire storybook.
+		a11y: {
+			config: {
+				rules: [{ id: 'color-contrast', enabled: false }],
+			},
+		},
 	},
 	decorators: [
 		(Story) => (

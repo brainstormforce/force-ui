@@ -238,7 +238,7 @@ export const SearchBoxInput = forwardRef<HTMLInputElement, SearchBoxInputProps>(
 			searchTerm,
 			setSearchTerm,
 		} = useSearchContext();
-		const bagdeSize = size === 'lg' ? 'sm' : 'xs';
+		const badgeSize = size === 'lg' ? 'sm' : 'xs';
 		const handleChange = ( event: React.ChangeEvent<HTMLInputElement> ) => {
 			const newValue = event.target.value;
 			setSearchTerm!( newValue );
@@ -303,7 +303,7 @@ export const SearchBoxInput = forwardRef<HTMLInputElement, SearchBoxInputProps>(
 				/>
 				<Badge
 					label={ `⌘/` }
-					size={ bagdeSize }
+					size={ badgeSize }
 					type="rounded"
 					variant="neutral"
 				/>

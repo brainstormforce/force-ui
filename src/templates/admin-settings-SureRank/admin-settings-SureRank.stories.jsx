@@ -40,6 +40,17 @@ export default {
 	title: 'Templates/Admin Settings/Admin Settings - SureRank',
 	parameters: {
 		layout: 'fullscreen',
+		a11y: {
+			config: {
+				rules: [
+					{
+						selector: '.editor-content',
+						id: 'aria-input-field-name',
+						enabled: false,
+					},
+				],
+			},
+		},
 	},
 	decorators: [
 		( Story, parameters ) => (

@@ -101,8 +101,8 @@ const BarChart = ( {
 	xAxisDataKey,
 	yAxisDataKey,
 	xAxisFontSize = 'sm', // sm, md, lg
-	xAxisFontColor = '#4B5563',
-	yAxisFontColor = '#4B5563',
+	xAxisFontColor = '#6B7280',
+	yAxisFontColor = '#6B7280',
 	chartWidth = 350,
 	chartHeight = 200,
 	borderRadius = 8,

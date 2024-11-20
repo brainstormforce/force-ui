@@ -1,3 +1,5 @@
+'use client';
+
 export { default as Button } from './button';
 export { default as Switch } from './switch';
 export { default as Checkbox } from './checkbox';
@@ -35,3 +37,4 @@ export { default as BarChart } from './bar-chart';
 export { default as LineChart } from './line-chart';
 export { default as PieChart } from './pie-chart';
 export { default as AreaChart } from './area-chart';
+export { default as Dropzone } from './dropzone';
