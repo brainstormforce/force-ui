@@ -567,3 +567,35 @@ export const AreaChartCard5: Story1 = ( args ) => (
 );
 
 AreaChartCard5.storyName = 'Revenue Card With Bar Chart Interactive';
+
+export const BarChartCard6: Story = {
+	args: {
+		data: chartData,
+		dataKeys: [ 'desktop' ],
+		layout: 'horizontal',
+		showXAxis: true,
+		showYAxis: false,
+		showTooltip: true,
+		tooltipIndicator: 'dot',
+		showCartesianGrid: true,
+		tickFormatter: monthFormatter,
+		yAxisDataKey: 'month',
+		activeBar: {
+			fill: '#2563EB',
+		},
+		tooltipProps: {
+			cursor: {
+				fill: 'transparent',
+			},
+		},
+	},
+	render: ( args ) => (
+		<BarChart
+			{ ...args }
+			xAxisDataKey={ args.layout === 'vertical' ? '' : 'month' }
+			showCartesianGrid={ args.layout === 'vertical' ? false : true }
+		/>
+	),
+};
+
+BarChartCard6.storyName = 'Customize hover effect';
