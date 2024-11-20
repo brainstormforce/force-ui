@@ -15,6 +15,9 @@ permissions:
 # List of jobs
 jobs:
   deploy:
+    environment:
+        name: github-pages
+        url: ${{ steps.build-publish.outputs.page_url }}
     runs-on: ubuntu-latest
     # Job steps
     steps:
@@ -27,7 +30,8 @@ jobs:
           node-version: '20.x'
  
       #👇 Add Storybook build and deploy to GitHub Pages as a step in the workflow
-      - uses: bitovi/github-actions-storybook-to-github-pages@v1.0.3
+      - id: build-publish
+        uses: bitovi/github-actions-storybook-to-github-pages@v1.0.3
         with:
           install_command: npm install # default: npm ci
           build_command: npm run build && npm run build-storybook # default: npm run build-storybook
