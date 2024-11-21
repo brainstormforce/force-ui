@@ -1,7 +1,7 @@
 import { useState, createContext, useContext, useRef, useMemo } from 'react';
 import { CloudUpload, File, ImageOff, Trash } from 'lucide-react';
 import { cn, formatFileSize } from '@/utilities/functions';
-import Loader from '../loader';
+import Loader from '@/components/loader';
 import { nanoid } from 'nanoid';
 
 export interface DropzoneProps {
@@ -218,7 +218,7 @@ export const Dropzone = ( {
 				<label htmlFor={ uploadInputID.current }>
 					<div
 						className={ cn(
-							'min-w-80 cursor-pointer mx-auto border-dotted border-2 rounded-md text-center hover:border-field-dropzone-color hover:bg-field-dropzone-background-hover focus:outline-none focus:ring focus:ring-toggle-on focus:ring-offset-2 transition duration-200 ease-in-out',
+							'min-w-80 cursor-pointer mx-auto border-dashed border rounded-md text-center hover:border-field-dropzone-color hover:bg-field-dropzone-background-hover focus:outline-none focus:ring focus:ring-toggle-on focus:ring-offset-2 transition duration-200 ease-in-out',
 							isDragging
 								? 'border-field-dropzone-color bg-field-dropzone-background-hover'
 								: 'border-field-border',
