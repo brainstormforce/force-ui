@@ -1,4 +1,4 @@
-import { useState, createContext, useContext, useRef } from 'react';
+import { useState, createContext, useContext, useRef, useMemo } from 'react';
 import { CloudUpload, File, ImageOff, Trash } from 'lucide-react';
 import { cn, formatFileSize } from '@/utilities/functions';
 import Loader from '../loader';
@@ -46,6 +46,14 @@ export const FilePreview = () => {
 		return null;
 	}
 
+	const renderFileIcon = useMemo(() => {
+		return (
+			<span className="inline-flex self-start p-0.5">
+				<File className="size-5 text-icon-primary" />
+			</span>
+		);
+	} , [ file ]);
+
 	return (
 		<div
 			className={ cn(
@@ -53,8 +61,8 @@ export const FilePreview = () => {
 				error && 'border-alert-border-danger bg-alert-background-danger'
 			) }
 		>
-			<div className="flex items-center gap-3">
-				{ isLoading && <File className="size-6" /> }
+			<div className="flex items-center gap-3 w-full">
+				{ isLoading && renderFileIcon }
 				{ ! isLoading &&
 					( file.type.startsWith( 'image/' ) ? (
 						<div
@@ -74,13 +82,11 @@ export const FilePreview = () => {
 							) }
 						</div>
 					) : (
-						<span>
-							<File className="size-6 text-icon-primary" />
-						</span>
+						renderFileIcon
 					) ) }
 
-				<div className="text-left flex flex-col">
-					<span className="text-sm font-medium text-field-label">
+				<div className="text-left flex flex-col gap-1 w-[calc(100%_-_5.5rem)]">
+					<span className="text-sm font-medium text-field-label truncate">
 						{ isLoading ? 'Loading...' : file.name }
 					</span>
 					{ ! isLoading && (
@@ -94,17 +100,19 @@ export const FilePreview = () => {
 						</span>
 					) }
 				</div>
+				{ isLoading ? (
+					<span className='inline-flex ml-auto p-0.5'>
+						<Loader className='inline-flex' />
+					</span>
+				) : (
+					<button
+						onClick={ removeFile }
+						className="inline-flex cursor-pointer bg-transparent border-0 p-1 my-0 ml-auto mr-0 ring-0 focus:outline-none self-start"
+					>
+						<Trash className="size-4 text-support-error" />
+					</button>
+				) }
 			</div>
-			{ isLoading ? (
-				<Loader />
-			) : (
-				<button
-					onClick={ removeFile }
-					className="mt-1.5 cursor-pointer bg-transparent border-0 p-0 m-0 ring-0 focus:outline-none"
-				>
-					<Trash className="size-4 text-support-error" />
-				</button>
-			) }
 		</div>
 	);
 };
@@ -210,7 +218,7 @@ export const Dropzone = ( {
 				<label htmlFor={ uploadInputID.current }>
 					<div
 						className={ cn(
-							'min-w-80 cursor-pointer mx-auto border-dotted border-2 rounded-md text-center hover:border-field-dropzone-color hover:bg-field-dropzone-background-hover focus:outline-none focus:ring focus:ring-toggle-on focus:ring-offset-2 transition-[border,box-shadow] duration-300 ease-in-out',
+							'min-w-80 cursor-pointer mx-auto border-dotted border-2 rounded-md text-center hover:border-field-dropzone-color hover:bg-field-dropzone-background-hover focus:outline-none focus:ring focus:ring-toggle-on focus:ring-offset-2 transition duration-200 ease-in-out',
 							isDragging
 								? 'border-field-dropzone-color bg-field-dropzone-background-hover'
 								: 'border-field-border',
