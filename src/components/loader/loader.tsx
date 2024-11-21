@@ -28,17 +28,17 @@ export const Loader = ( {
 	}?.[ variant ];
 
 	const sizeClassNames = {
-		sm: '[&>svg]:h-4 [&>svg]:w-4',
-		md: '[&>svg]:h-5 [&>svg]:w-5',
-		lg: '[&>svg]:h-6 [&>svg]:w-6',
-		xl: '[&>svg]:h-8 [&>svg]:w-8',
+		sm: '[&>svg]:size-4',
+		md: '[&>svg]:size-5',
+		lg: '[&>svg]:size-6',
+		xl: '[&>svg]:size-8',
 	}?.[ size ];
 
 	return (
 		<span
 			className={ cn( 'flex', sizeClassNames, variantClassNames, className ) }
 		>
-			{ icon ? icon : <LoaderCircle className="animate-spin" /> }
+			{ icon ? icon : <LoaderCircle className="animate-spin shrink-0" /> }
 		</span>
 	);
 };
