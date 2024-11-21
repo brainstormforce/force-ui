@@ -16,7 +16,7 @@ const meta: Meta<typeof Dropzone> = {
 		},
 	},
 	decorators: ( Story ) => (
-		<div className="box-border [&_*]:box-border">
+		<div className="box-border [&_*]:box-border w-96">
 			<Story />
 		</div>
 	),
