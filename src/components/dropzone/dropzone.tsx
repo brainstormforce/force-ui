@@ -42,17 +42,17 @@ export const FilePreview = () => {
 	const { file, removeFile, isLoading, error, errorText } =
 		useFileUploadContext()!;
 
-	if ( ! file ) {
-		return null;
-	}
-
-	const renderFileIcon = useMemo(() => {
+	const renderFileIcon = useMemo( () => {
 		return (
 			<span className="inline-flex self-start p-0.5">
 				<File className="size-5 text-icon-primary" />
 			</span>
 		);
-	} , [ file ]);
+	}, [ file ] );
+
+	if ( ! file ) {
+		return null;
+	}
 
 	return (
 		<div
@@ -101,8 +101,8 @@ export const FilePreview = () => {
 					) }
 				</div>
 				{ isLoading ? (
-					<span className='inline-flex ml-auto p-0.5'>
-						<Loader className='inline-flex' />
+					<span className="inline-flex ml-auto p-0.5">
+						<Loader className="inline-flex" />
 					</span>
 				) : (
 					<button
