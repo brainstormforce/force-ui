@@ -77,7 +77,7 @@ export const FilePreview = () => {
 								<img
 									src={ URL.createObjectURL( file ) }
 									alt="Preview"
-									className="max-w-full h-10 object-contain"
+									className="w-full h-10 object-contain"
 								/>
 							) }
 						</div>
