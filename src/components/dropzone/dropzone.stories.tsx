@@ -15,6 +15,11 @@ const meta: Meta<typeof Dropzone> = {
 			control: { type: 'select' },
 		},
 	},
+	decorators: ( Story ) => (
+		<div className="box-border [&_*]:box-border w-96">
+			<Story />
+		</div>
+	),
 };
 
 export default meta;

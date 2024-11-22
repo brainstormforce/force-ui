@@ -1,39 +1,39 @@
 # Workflow name
 name: Build and Publish Storybook to GitHub Pages
- 
+
 on:
-  # Event for the workflow to run on
-  push:
-    branches:
-      - master
- 
+    # Event for the workflow to run on
+    push:
+        branches:
+            - master
+
 permissions:
-  contents: read
-  pages: write
-  id-token: write
- 
+    contents: read
+    pages: write
+    id-token: write
+
 # List of jobs
 jobs:
-  deploy:
-    environment:
-        name: github-pages
-        url: ${{ steps.build-publish.outputs.page_url }}
-    runs-on: ubuntu-latest
-    # Job steps
-    steps:
-      # Manual Checkout
-      - uses: actions/checkout@v4
- 
-      # Set up Node
-      - uses: actions/setup-node@v4
-        with:
-          node-version: '20.x'
- 
-      #👇 Add Storybook build and deploy to GitHub Pages as a step in the workflow
-      - id: build-publish
-        uses: bitovi/github-actions-storybook-to-github-pages@v1.0.3
-        with:
-          install_command: npm install # default: npm ci
-          build_command: npm run build && npm run build-storybook # default: npm run build-storybook
-          path: storybook-static # default: dist/storybook
-          checkout: false # default: true
+    deploy:
+        environment:
+            name: github-pages
+            url: ${{ steps.build-publish.outputs.page_url }}
+        runs-on: ubuntu-latest
+        # Job steps
+        steps:
+            # Manual Checkout
+            - uses: actions/checkout@v4
+
+            # Set up Node
+            - uses: actions/setup-node@v4
+              with:
+                  node-version: '20.x'
+
+            #👇 Add Storybook build and deploy to GitHub Pages as a step in the workflow
+            - id: build-publish
+              uses: bitovi/github-actions-storybook-to-github-pages@v1.0.3
+              with:
+                  install_command: npm install # default: npm ci
+                  build_command: npm run build && npm run build-storybook # default: npm run build-storybook
+                  path: storybook-static # default: dist/storybook
+                  checkout: false # default: true
