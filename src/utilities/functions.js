@@ -86,3 +86,45 @@ export const formatFileSize = ( size ) => {
 	}
 	return `${ ( size / ( 1024 * 1024 * 1024 ) ).toFixed( 2 ) } GB`; // Format size to GB
 };
+
+/**
+ * Safe local storage set, get and remove functions.
+ *
+ */
+export const safeLocalStorage = {
+	set: ( key, value ) => {
+		if ( typeof window === 'undefined' ) {
+			return;
+		}
+		try {
+			localStorage.setItem( key, JSON.stringify( value ) );
+		} catch ( error ) {
+			// eslint-disable-next-line no-console
+			console.error( error );
+		}
+	},
+	get: ( key ) => {
+		if ( typeof window === 'undefined' ) {
+			return null;
+		}
+		try {
+			const value = localStorage.getItem( key );
+			return value ? JSON.parse( value ) : null;
+		} catch ( error ) {
+			// eslint-disable-next-line no-console
+			console.error( error );
+			return null;
+		}
+	},
+	remove: ( key ) => {
+		if ( typeof window === 'undefined' ) {
+			return;
+		}
+		try {
+			localStorage.removeItem( key );
+		} catch ( error ) {
+			// eslint-disable-next-line no-console
+			console.error( error );
+		}
+	},
+};

@@ -6,7 +6,7 @@ import React, {
 	useRef,
 	useEffect,
 } from 'react';
-import { cn } from '@/utilities/functions';
+import { cn, safeLocalStorage } from '@/utilities/functions';
 import { PanelLeftClose, PanelLeftOpen } from 'lucide-react';
 import Tooltip from '../tooltip';
 
@@ -61,10 +61,10 @@ export const Sidebar = ( {
 }: SidebarProps ) => {
 	const sideBarRef = useRef<HTMLDivElement>( null );
 	const [ isCollapsed, setIsCollapsed ] = useState( () => {
-		const storedState = localStorage.getItem( 'sidebar-collapsed' );
+		const storedState = safeLocalStorage.get( 'sidebar-collapsed' );
 		const isSmallScreen = window.innerWidth < 1280;
 		if ( storedState ) {
-			return JSON.parse( storedState );
+			return storedState;
 		}
 		return isSmallScreen;
 	} );
@@ -80,13 +80,13 @@ export const Sidebar = ( {
 			const isSmallScreen = window.innerWidth < 1280;
 			if ( ! collapsible ) {
 				setIsCollapsed( false );
-				localStorage.removeItem( 'sidebar-collapsed' );
+				safeLocalStorage.remove( 'sidebar-collapsed' );
 			} else if ( isSmallScreen ) {
 				setIsCollapsed( true );
-				localStorage.setItem( 'sidebar-collapsed', JSON.stringify( true ) );
+				safeLocalStorage.set( 'sidebar-collapsed', true );
 			} else {
-				const storedState = localStorage.getItem( 'sidebar-collapsed' );
-				setIsCollapsed( storedState ? JSON.parse( storedState ) : false );
+				const storedState = safeLocalStorage.get( 'sidebar-collapsed' );
+				setIsCollapsed( storedState ? storedState : false );
 			}
 
 			if ( sideBarRef.current ) {
@@ -155,10 +155,7 @@ export const SidebarFooter = ( { children }: SidebarCommonProps ) => {
 					onClick={ () => {
 						setIsCollapsed( ! isCollapsed );
 
-						localStorage.setItem(
-							'sidebar-collapsed',
-							JSON.stringify( ! isCollapsed )
-						);
+						safeLocalStorage.set( 'sidebar-collapsed', ! isCollapsed );
 					} }
 					aria-label={
 						isCollapsed ? 'Expand sidebar' : 'Collapse sidebar'
