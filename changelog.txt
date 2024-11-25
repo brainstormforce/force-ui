@@ -1,3 +1,6 @@
+Version 1.2.1 - 21st November, 2024
+- Improvement - Added new props to the Bar Chart component for customizability.
+
 Version 1.2.0 - 20th November, 2024
 - New - Dropzone
 - New - Added Unit Tests setup and a11y CI setup
