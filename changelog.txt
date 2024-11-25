@@ -1,0 +1,58 @@
+Version 1.2.1 - 25th November, 2024
+- Improvement - Added new props to the Bar Chart component for customizability.
+- Improvement - Dropzone UAT improvements.
+- Improvement - Sidebar Compatibility fixes with NextJS.
+- Improvement - Improved the storybook deployment workflow to use latest library.
+
+Version 1.2.0 - 20th November, 2024
+- New - Dropzone
+- New - Added Unit Tests setup and a11y CI setup
+- Improvement - All components are a11y compatible.
+- Fixes - Issues reported by internal dev team.
+
+Version 1.1.0 - 11th November, 2024
+- New - Area Chart
+- New - Bar Chart
+- New - Line Chart
+- New - Pie Chart
+- New - Accordion
+- New - Search
+- New - Pagination
+- New - Breadcrumb
+- Improvement - Used vite instead of webpack for better build performance
+- Improvement - Used typescript for better storybook development and easy documentation
+- Fixes - Button component used in dropdown component
+- Fixed - Fixed multiple issues suggested in developer UAT.
+
+Version 1.0.0 - 17th October, 2024
+- New - Alert
+- New - Avatar
+- New - Badge
+- New - Button
+- New - Buttom Group
+- New - Cards
+- New - Container
+- New - Checkbox
+- New - Datepicker
+- New - Dialog
+- New - Drawer
+- New - Dropdown Menu
+- New - Editor Input
+- New - Input
+- New - Label
+- New - Loader
+- New - Menu Item
+- New - Progress Bar
+- New - Progress Steps
+- New - Radio Button Group
+- New - Search
+- New - Select
+- New - Sidebar
+- New - Skeleton
+- New - Switch
+- New - Tabs
+- New - Text Area
+- New - Title
+- New - Toaster
+- New - Tooltip
+- New - Topbar
