@@ -13,6 +13,7 @@ const meta: Meta<typeof DropdownMenu> = {
 		'DropdownMenu.List': DropdownMenu.List,
 		'DropdownMenu.Item': DropdownMenu.Item,
 		'DropdownMenu.Separator': DropdownMenu.Separator,
+		'DropdownMenu.Portal': DropdownMenu.Portal,
 	} as Record<string, React.ComponentType<unknown>>,
 	parameters: {
 		layout: 'centered',
@@ -34,15 +35,17 @@ export const ButtonTrigger: Story = ( args ) => (
 		<DropdownMenu.Trigger>
 			<Button>Dropdown</Button>
 		</DropdownMenu.Trigger>
-		<DropdownMenu.Content className="w-60">
-			<DropdownMenu.List>
-				<DropdownMenu.Item>Menu Item 1</DropdownMenu.Item>
-				<DropdownMenu.Item>Menu Item 2</DropdownMenu.Item>
-				<DropdownMenu.Item>Menu Item 3</DropdownMenu.Item>
-				<DropdownMenu.Item>Menu Item 4</DropdownMenu.Item>
-				<DropdownMenu.Item>Menu Item 5</DropdownMenu.Item>
-			</DropdownMenu.List>
-		</DropdownMenu.Content>
+		<DropdownMenu.Portal>
+			<DropdownMenu.Content className="w-60">
+				<DropdownMenu.List>
+					<DropdownMenu.Item>Menu Item 1</DropdownMenu.Item>
+					<DropdownMenu.Item>Menu Item 2</DropdownMenu.Item>
+					<DropdownMenu.Item>Menu Item 3</DropdownMenu.Item>
+					<DropdownMenu.Item>Menu Item 4</DropdownMenu.Item>
+					<DropdownMenu.Item>Menu Item 5</DropdownMenu.Item>
+				</DropdownMenu.List>
+			</DropdownMenu.Content>
+		</DropdownMenu.Portal>
 	</DropdownMenu>
 );
 
@@ -52,15 +55,17 @@ export const AvatarTrigger: Story = ( args ) => (
 			<Avatar>John</Avatar>
 			<span className="sr-only">Open Menu</span>
 		</DropdownMenu.Trigger>
-		<DropdownMenu.Content className="w-60">
-			<DropdownMenu.List>
-				<DropdownMenu.Item>Menu Item 1</DropdownMenu.Item>
-				<DropdownMenu.Item>Menu Item 2</DropdownMenu.Item>
-				<DropdownMenu.Item>Menu Item 3</DropdownMenu.Item>
-				<DropdownMenu.Item>Menu Item 4</DropdownMenu.Item>
-				<DropdownMenu.Item>Menu Item 5</DropdownMenu.Item>
-			</DropdownMenu.List>
-		</DropdownMenu.Content>
+		<DropdownMenu.Portal>
+			<DropdownMenu.Content className="w-60">
+				<DropdownMenu.List>
+					<DropdownMenu.Item>Menu Item 1</DropdownMenu.Item>
+					<DropdownMenu.Item>Menu Item 2</DropdownMenu.Item>
+					<DropdownMenu.Item>Menu Item 3</DropdownMenu.Item>
+					<DropdownMenu.Item>Menu Item 4</DropdownMenu.Item>
+					<DropdownMenu.Item>Menu Item 5</DropdownMenu.Item>
+				</DropdownMenu.List>
+			</DropdownMenu.Content>
+		</DropdownMenu.Portal>
 	</DropdownMenu>
 );
 
@@ -70,14 +75,16 @@ export const IconTrigger: Story = ( args ) => (
 			<House />
 			<span className="sr-only">Open Menu</span>
 		</DropdownMenu.Trigger>
-		<DropdownMenu.Content className="w-60">
-			<DropdownMenu.List>
-				<DropdownMenu.Item>Menu Item 1</DropdownMenu.Item>
-				<DropdownMenu.Item>Menu Item 2</DropdownMenu.Item>
-				<DropdownMenu.Item>Menu Item 3</DropdownMenu.Item>
-				<DropdownMenu.Item>Menu Item 4</DropdownMenu.Item>
-				<DropdownMenu.Item>Menu Item 5</DropdownMenu.Item>
-			</DropdownMenu.List>
-		</DropdownMenu.Content>
+		<DropdownMenu.Portal>
+			<DropdownMenu.Content className="w-60">
+				<DropdownMenu.List>
+					<DropdownMenu.Item>Menu Item 1</DropdownMenu.Item>
+					<DropdownMenu.Item>Menu Item 2</DropdownMenu.Item>
+					<DropdownMenu.Item>Menu Item 3</DropdownMenu.Item>
+					<DropdownMenu.Item>Menu Item 4</DropdownMenu.Item>
+					<DropdownMenu.Item>Menu Item 5</DropdownMenu.Item>
+				</DropdownMenu.List>
+			</DropdownMenu.Content>
+		</DropdownMenu.Portal>
 	</DropdownMenu>
 );
