@@ -19,6 +19,8 @@ import {
 	FloatingPortal,
 	useInteractions,
 	useTransitionStyles,
+	type UseFloatingReturn,
+	type UseInteractionsReturn,
 } from '@floating-ui/react';
 import { callAll, cn } from '@/utilities/functions';
 import Menu from '../menu-item/menu-item';
@@ -29,6 +31,7 @@ import {
 	DropdownMenuListProps,
 	DropdownMenuProps,
 	DropdownMenuSeparatorProps,
+	DropdownPortalProps,
 	HandleClose,
 } from './dropdown-types';
 
@@ -39,8 +42,6 @@ export const DropdownMenu = ( {
 	placement = 'bottom',
 	offset: offsetValue = 10,
 	boundary = 'clippingAncestors',
-	dropdownPortalRoot,
-	dropdownPortalId,
 	children,
 	className,
 }: DropdownMenuProps ) => {
@@ -81,7 +82,16 @@ export const DropdownMenu = ( {
 	const handleClose = () => setIsOpen( false );
 
 	return (
-		<DropdownMenuContext.Provider value={ { handleClose } }>
+		<DropdownMenuContext.Provider
+			value={ {
+				refs,
+				handleClose,
+				isMounted,
+				styles,
+				floatingStyles,
+				getFloatingProps,
+			} }
+		>
 			<div className={ cn( 'relative inline-block', className ) }>
 				{ React.Children.map( children, ( child ) => {
 					if (
@@ -101,35 +111,19 @@ export const DropdownMenu = ( {
 					return null;
 				} ) }
 
-				{ isMounted && (
-					<FloatingPortal
-						id={ dropdownPortalId }
-						root={ dropdownPortalRoot }
-					>
-						<div
-							ref={ refs.setFloating }
-							style={ {
-								...floatingStyles,
-								...styles,
-							} }
-							{ ...getFloatingProps() }
-						>
-							{ React.Children.map( children, ( child ) => {
-								if (
-									(
-										child as ReactElement & {
-											type?: { displayName: string };
-										}
-									)?.type?.displayName ===
-									'DropdownMenu.Content'
-								) {
-									return child;
-								}
-								return null;
-							} ) }
-						</div>
-					</FloatingPortal>
-				) }
+				{ React.Children.map( children, ( child ) => {
+					if (
+						React.isValidElement( child ) &&
+						(
+							child as ReactElement & {
+								type: { displayName: string };
+							}
+						)?.type?.displayName === 'DropdownMenu.Portal'
+					) {
+						return child;
+					}
+					return null;
+				} ) }
 			</div>
 		</DropdownMenuContext.Provider>
 	);
@@ -137,13 +131,60 @@ export const DropdownMenu = ( {
 
 DropdownMenu.displayName = 'DropdownMenu';
 
+export const DropdownMenuPortal = ( {
+	children,
+	className,
+	root,
+	id,
+}: DropdownPortalProps ) => {
+	const { refs, floatingStyles, getFloatingProps, isMounted, styles } =
+		useDropdownMenuContext() as {
+			refs: UseFloatingReturn['refs'];
+			floatingStyles: UseFloatingReturn['floatingStyles'];
+			getFloatingProps: UseInteractionsReturn['getFloatingProps'];
+			isMounted: boolean;
+			styles: React.CSSProperties;
+		};
+
+	return (
+		isMounted && (
+			<FloatingPortal id={ id } root={ root }>
+				<div
+					ref={ refs.setFloating }
+					className={ className }
+					style={ {
+						...floatingStyles!,
+						...styles!,
+					} }
+					{ ...getFloatingProps() }
+				>
+					{ React.Children.map( children, ( child ) => {
+						if (
+							(
+								child as ReactElement & {
+									type?: { displayName: string };
+								}
+							)?.type?.displayName === 'DropdownMenu.Content'
+						) {
+							return child;
+						}
+						return null;
+					} ) }
+				</div>
+			</FloatingPortal>
+		)
+	);
+};
+
+DropdownMenuPortal.displayName = 'DropdownMenu.Portal';
+
 export const DropdownMenuTrigger = React.forwardRef<
 	HTMLDivElement,
 	DropdownCommonProps
->( ( { children, className, ...props }, ref ) => {
+>( ( { children, className, ...props }: DropdownCommonProps, ref ) => {
 	if ( isValidElement( children ) ) {
 		return React.cloneElement( children as React.ReactElement, {
-			className,
+			className: cn( className, children.props.className ),
 			ref,
 			...props,
 		} );
@@ -188,11 +229,11 @@ export const DropdownMenuList = ( props: DropdownMenuListProps ) => {
 
 DropdownMenuList.displayName = 'DropdownMenu.List';
 
-export const DropdownMenuItem: React.FC<DropdownMenuItemProps> = ( {
+export const DropdownMenuItem = ( {
 	children,
 	as: Tag = Menu.Item,
 	...props
-} ) => {
+}: DropdownMenuItemProps ) => {
 	const { handleClose } = useDropdownMenuContext();
 
 	if ( ! children ) {
@@ -232,5 +273,6 @@ DropdownMenu.Content = DropdownMenuContent;
 DropdownMenu.List = DropdownMenuList;
 DropdownMenu.Item = DropdownMenuItem;
 DropdownMenu.Separator = DropdownMenuSeparator;
+DropdownMenu.Portal = DropdownMenuPortal;
 
 export default DropdownMenu;
