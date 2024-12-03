@@ -42,10 +42,6 @@ export interface DropdownMenuProps extends DropdownCommonProps {
 	offset?: OffsetOptions;
 	/** Defines the boundary of the dropdown menu. */
 	boundary?: Boundary;
-	/** Defines the trigger element of the dropdown menu. */
-	dropdownPortalRoot?: FloatingPortalProps['root'];
-	/** Defines the trigger element of the dropdown menu. */
-	dropdownPortalId?: FloatingPortalProps['id'];
 	/** Additional class name */
 	className?: string;
 }
@@ -59,6 +55,20 @@ export interface DropdownMenuItemProps {
 	onClick?: () => void;
 	/** Additional class name. */
 	className?: string;
+}
+
+export interface DropdownPortalProps extends DropdownCommonProps {
+	/**
+	 * The ID of the portal where the dropdown will be rendered.
+	 * @default undefined
+	 */
+	id?: FloatingPortalProps['id'];
+
+	/**
+	 * The root element where the dropdown will be rendered.
+	 * @default undefined
+	 */
+	root?: FloatingPortalProps['root'];
 }
 
 export type DropdownMenuSeparatorProps = MenuSeparatorProps;
