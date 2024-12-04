@@ -1,8 +1,11 @@
 Version 1.2.2 - 4th December, 2024
 - Improvement - Removed margin and added new props to the Line Chart component for customizability.
 
-Version 1.2.1 - 21st November, 2024
+Version 1.2.1 - 25th November, 2024
 - Improvement - Added new props to the Bar Chart component for customizability.
+- Improvement - Dropzone UAT improvements.
+- Improvement - Sidebar Compatibility fixes with NextJS.
+- Improvement - Improved the storybook deployment workflow to use latest library.
 
 Version 1.2.0 - 20th November, 2024
 - New - Dropzone
