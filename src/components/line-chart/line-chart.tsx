@@ -8,6 +8,7 @@ import {
 } from 'recharts';
 import ChartTooltipContent from './chart-tooltip-content';
 import Label from '../label';
+import type { CategoricalChartProps } from 'recharts/types/chart/generateCategoricalChart';
 
 interface DataItem {
 	[key: string]: number | string;
@@ -70,6 +71,15 @@ interface LineChartProps {
 
 	/** Determines whether dots are shown on each data point. */
 	withDots?: boolean;
+
+	/**
+	 * Line chart Wrapper props to apply additional props to the wrapper component. Ex. `margin`, or `onClick` etc.
+	 * @see https://recharts.org/en-US/api/LineChart
+	 */
+	lineChartWrapperProps?: Omit<
+		CategoricalChartProps,
+		'width' | 'height' | 'data'
+	>;
 }
 
 const LineChart = ( {
@@ -91,6 +101,7 @@ const LineChart = ( {
 	chartWidth = 350,
 	chartHeight = 200,
 	withDots = false,
+	lineChartWrapperProps,
 }: LineChartProps ) => {
 	const defaultColors = [ { stroke: '#2563EB' }, { stroke: '#38BDF8' } ];
 
@@ -114,10 +125,10 @@ const LineChart = ( {
 
 	return (
 		<LineChartWrapper
+			{ ...lineChartWrapperProps }
 			width={ chartWidth }
 			height={ chartHeight }
 			data={ data }
-			margin={ { left: 14, right: 14 } }
 		>
 			{ showCartesianGrid && <CartesianGrid vertical={ false } /> }
 			{ showXAxis && (
