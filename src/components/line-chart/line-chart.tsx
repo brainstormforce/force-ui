@@ -76,7 +76,7 @@ interface LineChartProps {
 	 * Line chart Wrapper props.
 	 * @see https://recharts.org/en-US/api/LineChart
 	 */
-	wrapperProps?: Omit<CategoricalChartProps, 'width' | 'height' | 'data'>;
+	lineChartWrapperProps?: Omit<CategoricalChartProps, 'width' | 'height' | 'data'>;
 }
 
 const LineChart = ( {
@@ -98,7 +98,7 @@ const LineChart = ( {
 	chartWidth = 350,
 	chartHeight = 200,
 	withDots = false,
-	wrapperProps,
+	lineChartWrapperProps,
 }: LineChartProps ) => {
 	const defaultColors = [ { stroke: '#2563EB' }, { stroke: '#38BDF8' } ];
 
@@ -122,7 +122,7 @@ const LineChart = ( {
 
 	return (
 		<LineChartWrapper
-			{ ...wrapperProps }
+			{ ...lineChartWrapperProps }
 			width={ chartWidth }
 			height={ chartHeight }
 			data={ data }
