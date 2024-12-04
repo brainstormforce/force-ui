@@ -73,10 +73,13 @@ interface LineChartProps {
 	withDots?: boolean;
 
 	/**
-	 * Line chart Wrapper props.
+	 * Line chart Wrapper props to apply additional props to the wrapper component. Ex. `margin`, or `onClick` etc.
 	 * @see https://recharts.org/en-US/api/LineChart
 	 */
-	lineChartWrapperProps?: Omit<CategoricalChartProps, 'width' | 'height' | 'data'>;
+	lineChartWrapperProps?: Omit<
+		CategoricalChartProps,
+		'width' | 'height' | 'data'
+	>;
 }
 
 const LineChart = ( {
