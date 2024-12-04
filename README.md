@@ -14,7 +14,7 @@ Using Force UI as a dependency in package.json -
 
 ```json
 "dependencies": {
-  "@bsf/force-ui": "git+https://github.com/brainstormforce/force-ui#1.0.0"
+  "@bsf/force-ui": "git+https://github.com/brainstormforce/force-ui#1.2.2"
 }
 ```
 
