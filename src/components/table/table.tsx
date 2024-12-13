@@ -75,13 +75,13 @@ export interface TableContextType<T> {
 	/**
 	 * On checkbox selection change.
 	 */
-	onCheckboxSelectionChange?: ( checked: boolean, value: T | undefined ) => void;
+	onChangeSelection?: ( checked: boolean, value: T ) => void;
 }
 
 /**
  * Interface for base table props.
  */
-export interface BaseTableProps<T> extends TableCommonProps {
+export interface BaseTableProps extends TableCommonProps {
 	/**
 	 * Child components to render within the table.
 	 *
@@ -92,11 +92,6 @@ export interface BaseTableProps<T> extends TableCommonProps {
 	 * Whether to show checkboxes for row selection.
 	 */
 	checkboxSelection?: boolean;
-
-	/**
-	 * On checkbox selection change.
-	 */
-	onCheckboxSelectionChange?: ( checked: boolean, value: T | undefined ) => void;
 }
 
 /**
@@ -123,7 +118,9 @@ export interface TableHeadProps extends TableCommonProps {
 	disabled?: boolean;
 
 	/**
-	 * On checkbox change.
+	 * On checkbox change for bulk selection/deselection.
+	 *
+	 * @default undefined
 	 */
 	onChangeSelection?: ( checked: boolean ) => void;
 }
@@ -166,6 +163,11 @@ export interface TableRowProps<T> extends TableCommonProps {
 	selected?: boolean;
 
 	/**
+	 * On checkbox selection change.
+	 */
+	onChangeSelection?: ( checked: boolean, value: T ) => void;
+
+	/**
 	 * Whether the row is disabled.
 	 */
 	disabled?: boolean;
@@ -201,15 +203,13 @@ const useTableContext = () => {
 	return context;
 };
 
-export const Table = <T, >( {
+export const Table = ( {
 	children,
 	className,
 	checkboxSelection = false,
-	onCheckboxSelectionChange,
-}: BaseTableProps<T> ) => {
-	const contextValue: TableContextType<T> = {
+}: BaseTableProps ) => {
+	const contextValue: TableContextType<unknown> = {
 		checkboxSelection,
-		onCheckboxSelectionChange,
 	};
 
 	// Extract footer from children
@@ -248,11 +248,26 @@ export const TableHead: React.FC<TableHeadProps> = ( { children, className, sele
 	};
 
 	return (
-		<thead className={ cn( 'bg-background-secondary [clip-path:inset(0_0_0_0_round_0.375rem)]', className ) }>
+		<thead
+			className={ cn(
+				'bg-background-secondary [clip-path:inset(0_0_0_0_round_0.375rem)]',
+				className
+			) }
+		>
 			<tr>
 				{ checkboxSelection && (
-					<th scope="col" className="relative p-3.5 w-11 align-middle">
-						<Checkbox size="sm" checked={ selected } indeterminate={ indeterminate } disabled={ disabled } onChange={ handleCheckboxChange } />
+					<th
+						scope="col"
+						className="relative p-3.5 w-11 align-middle"
+					>
+						<Checkbox
+							size="sm"
+							checked={ selected }
+							indeterminate={ indeterminate }
+							disabled={ disabled }
+							onChange={ handleCheckboxChange }
+							aria-label={ selected ? 'Deselect all' : 'Select all' }
+						/>
 					</th>
 				) }
 				{ children }
@@ -300,21 +315,22 @@ export const TableRow = <T, >( {
 	selected,
 	value,
 	className,
+	onChangeSelection,
 }: TableRowProps<T> ) => {
-	const { checkboxSelection, onCheckboxSelectionChange } = useTableContext();
+	const { checkboxSelection } = useTableContext();
 
 	const handleCheckboxChange = ( checked: boolean ) => {
-		if ( typeof onCheckboxSelectionChange !== 'function' ) {
+		if ( typeof onChangeSelection !== 'function' ) {
 			return;
 		}
-		onCheckboxSelectionChange( checked, value );
+		onChangeSelection( checked, value as T );
 	};
 
 	return (
 		<tr className={ cn( selected && 'bg-background-secondary', className ) }>
 			{ checkboxSelection && (
 				<td className="px-3.5 py-4.5">
-					<Checkbox size="sm" onChange={ handleCheckboxChange } aria-label="Select row" />
+					<Checkbox size="sm" checked={ selected } onChange={ handleCheckboxChange } aria-label="Select row" />
 				</td>
 			) }
 			{ children }
