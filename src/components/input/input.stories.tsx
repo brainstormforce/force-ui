@@ -79,3 +79,13 @@ WithPrefixSuffix.args = {
 	suffix: '#',
 	defaultValue: '',
 };
+
+// Required Input with Label
+export const Required = Template.bind( {} );
+Required.args = {
+	type: 'text',
+	size: 'sm',
+	required: true,
+	label: 'Required Input',
+	defaultValue: 'Required Input',
+};
