@@ -35,3 +35,6 @@ Disabled.args = {
 	label: { heading: 'Checkbox Label', description: 'Checkbox Description' },
 	disabled: true,
 };
+
+export const WithOutLabel = Template.bind( {} );
+WithOutLabel.args = {};
