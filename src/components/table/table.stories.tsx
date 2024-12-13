@@ -1,7 +1,7 @@
 import { useState, type ComponentType } from 'react';
 import { StoryFn, Meta } from '@storybook/react';
 import Table from './table';
-import { Button, Pagination, Tooltip } from '@/components';
+import { Button, Container, Pagination, Tooltip } from '@/components';
 import { Edit, Trash } from 'lucide-react';
 
 const meta = {
@@ -83,7 +83,7 @@ const Template: Story = ( { checkboxSelection } ) => {
 				<Table.HeadCell>Age</Table.HeadCell>
 				<Table.HeadCell>Email</Table.HeadCell>
 				<Table.HeadCell>Phone</Table.HeadCell>
-				<Table.HeadCell>
+				<Table.HeadCell className="w-14">
 					<span className="sr-only">Actions</span>
 				</Table.HeadCell>
 			</Table.Head>
@@ -100,7 +100,7 @@ const Template: Story = ( { checkboxSelection } ) => {
 						<Table.Cell>{ item.email }</Table.Cell>
 						<Table.Cell>{ item.phone }</Table.Cell>
 						<Table.Cell>
-							<div className="flex items-center gap-2">
+							<Container align="center" justify="end" className="gap-2">
 								<Tooltip content="Delete" arrow placement="top">
 									<Button
 										variant="ghost"
@@ -119,7 +119,7 @@ const Template: Story = ( { checkboxSelection } ) => {
 										aria-label="Edit"
 									/>
 								</Tooltip>
-							</div>
+							</Container>
 						</Table.Cell>
 					</Table.Row>
 				) ) }
@@ -152,7 +152,12 @@ export const Default = Template.bind( {} );
 Default.args = {
 	checkboxSelection: false,
 };
-Default.parameters = {
+
+export const WithCheckboxSelection = Template.bind( {} );
+WithCheckboxSelection.args = {
+	checkboxSelection: true,
+};
+WithCheckboxSelection.parameters = {
 	docs: {
 		source: {
 			code: `
