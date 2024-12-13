@@ -20,7 +20,7 @@ const preview: Preview = {
 	},
 	decorators: [
 		(Story) => (
-			<div style={{ fontFamily: 'Figtree, sans-serif' }}>
+			<div className="[&_*]:[font-family:Figtree,sans-serif] [&_*]:box-border">
 				<Story />
 			</div>
 		),
