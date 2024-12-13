@@ -22,26 +22,6 @@ export interface TableCommonProps {
 }
 
 /**
- * Interface for table props.
- */
-export interface TableProps<T>
-	extends TableCommonProps,
-		Omit<React.HTMLAttributes<HTMLTableElement>, 'className' | 'children'> {
-	/**
-	 * Whether to show checkboxes for row selection.
-	 */
-	showCheckbox?: boolean;
-	/**
-	 * Callback fired when row selection changes.
-	 */
-	onSelectionChange?: ( selectedItems: T[] ) => void;
-	/**
-	 * Child components to render within the table.
-	 */
-	children?: ReactNode;
-}
-
-/**
  * Interface for table context.
  */
 export interface TableContextType<T> {
