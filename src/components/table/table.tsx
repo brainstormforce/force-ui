@@ -221,10 +221,10 @@ export const Table = ( {
 	);
 	return (
 		<TableContext.Provider value={ contextValue as TableContextType<unknown> }>
-			<div className="overflow-x-auto">
+			<div className="overflow-x-auto divide-y divide-x-0 divide-solid divide-border-subtle">
 				<table
 					className={ cn(
-						'table-fixed min-w-full border-collapse border-spacing-0 mb-1',
+						'table-fixed min-w-full border-collapse border-spacing-0',
 						className
 					) }
 				>
@@ -327,9 +327,9 @@ export const TableRow = <T, >( {
 	};
 
 	return (
-		<tr className={ cn( selected && 'bg-background-secondary', className ) }>
+		<tr className={ cn( 'hover:bg-background-secondary', selected && 'bg-background-secondary', className ) }>
 			{ checkboxSelection && (
-				<td className="px-3.5 py-4.5">
+				<td className="px-3.5 py-4.5 align-middle text-center">
 					<Checkbox size="sm" checked={ selected } onChange={ handleCheckboxChange } aria-label="Select row" />
 				</td>
 			) }
@@ -363,8 +363,8 @@ export const TableFooter: React.FC<TableFooterProps> = ( {
 	return (
 		<div
 			className={ cn(
-				'px-3 py-4.5 border-t border-x-0 border-b-0 border-solid border-border-subtle',
-				checkboxSelection && 'px-4 py-4.5',
+				'px-3 pb-4.5 pt-5.5',
+				checkboxSelection && 'px-4',
 				className,
 			) }
 		>
