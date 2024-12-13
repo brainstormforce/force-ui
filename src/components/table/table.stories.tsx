@@ -51,7 +51,10 @@ const data = [
 const Template: Story = ( { checkboxSelection } ) => {
 	const [ selected, setSelected ] = useState<string[]>( [] );
 
-	const handleCheckboxChange = ( checked: boolean, value: typeof data[ number ] ) => {
+	const handleCheckboxChange = (
+		checked: boolean,
+		value: ( typeof data )[number]
+	) => {
 		if ( checked ) {
 			setSelected( [ ...selected, value.name ] );
 		} else {
@@ -68,13 +71,13 @@ const Template: Story = ( { checkboxSelection } ) => {
 	};
 
 	return (
-		<Table
-			checkboxSelection={ checkboxSelection }
-		>
+		<Table checkboxSelection={ checkboxSelection }>
 			<Table.Head
 				selected={ selected.length > 0 }
 				onChangeSelection={ toggleSelectAll }
-				indeterminate={ selected.length > 0 && selected.length < data.length }
+				indeterminate={
+					selected.length > 0 && selected.length < data.length
+				}
 			>
 				<Table.HeadCell>Name</Table.HeadCell>
 				<Table.HeadCell>Age</Table.HeadCell>
@@ -97,10 +100,20 @@ const Template: Story = ( { checkboxSelection } ) => {
 						<Table.Cell>
 							<div className="flex items-center gap-2">
 								<Tooltip content="Delete" arrow placement="top">
-									<Button variant="ghost" icon={ <Trash /> } size="xs" className="text-icon-secondary hover:text-icon-primary" />
+									<Button
+										variant="ghost"
+										icon={ <Trash /> }
+										size="xs"
+										className="text-icon-secondary hover:text-icon-primary"
+									/>
 								</Tooltip>
 								<Tooltip content="Edit" arrow placement="top">
-									<Button variant="ghost" icon={ <Edit /> } size="xs" className="text-icon-secondary hover:text-icon-primary" />
+									<Button
+										variant="ghost"
+										icon={ <Edit /> }
+										size="xs"
+										className="text-icon-secondary hover:text-icon-primary"
+									/>
 								</Tooltip>
 							</div>
 						</Table.Cell>

@@ -1,5 +1,10 @@
 import { cn } from '@/utilities/functions';
-import React, { Children, createContext, useContext, type ReactNode } from 'react';
+import React, {
+	Children,
+	createContext,
+	useContext,
+	type ReactNode,
+} from 'react';
 import { Checkbox } from '@/components';
 
 /**
@@ -193,7 +198,9 @@ export interface TableFooterProps extends TableCommonProps {
 	children?: ReactNode;
 }
 
-const TableContext = createContext<TableContextType<unknown> | undefined>( undefined );
+const TableContext = createContext<TableContextType<unknown> | undefined>(
+	undefined
+);
 
 const useTableContext = () => {
 	const context = useContext( TableContext );
@@ -220,7 +227,9 @@ export const Table = ( {
 		( child ) => React.isValidElement( child ) && child.type !== TableFooter
 	);
 	return (
-		<TableContext.Provider value={ contextValue as TableContextType<unknown> }>
+		<TableContext.Provider
+			value={ contextValue as TableContextType<unknown> }
+		>
 			<div className="overflow-x-auto divide-y divide-x-0 divide-solid divide-border-subtle">
 				<table
 					className={ cn(
@@ -237,7 +246,14 @@ export const Table = ( {
 };
 
 // Head Components
-export const TableHead: React.FC<TableHeadProps> = ( { children, className, selected, onChangeSelection, indeterminate, disabled } ) => {
+export const TableHead: React.FC<TableHeadProps> = ( {
+	children,
+	className,
+	selected,
+	onChangeSelection,
+	indeterminate,
+	disabled,
+} ) => {
 	const { checkboxSelection } = useTableContext();
 
 	const handleCheckboxChange = ( checked: boolean ) => {
@@ -266,7 +282,9 @@ export const TableHead: React.FC<TableHeadProps> = ( { children, className, sele
 							indeterminate={ indeterminate }
 							disabled={ disabled }
 							onChange={ handleCheckboxChange }
-							aria-label={ selected ? 'Deselect all' : 'Select all' }
+							aria-label={
+								selected ? 'Deselect all' : 'Select all'
+							}
 						/>
 					</th>
 				) }
@@ -327,10 +345,21 @@ export const TableRow = <T, >( {
 	};
 
 	return (
-		<tr className={ cn( 'hover:bg-background-secondary', selected && 'bg-background-secondary', className ) }>
+		<tr
+			className={ cn(
+				'hover:bg-background-secondary',
+				selected && 'bg-background-secondary',
+				className
+			) }
+		>
 			{ checkboxSelection && (
 				<td className="px-3.5 py-4.5 align-middle text-center">
-					<Checkbox size="sm" checked={ selected } onChange={ handleCheckboxChange } aria-label="Select row" />
+					<Checkbox
+						size="sm"
+						checked={ selected }
+						onChange={ handleCheckboxChange }
+						aria-label="Select row"
+					/>
 				</td>
 			) }
 			{ children }
@@ -365,7 +394,7 @@ export const TableFooter: React.FC<TableFooterProps> = ( {
 			className={ cn(
 				'px-3 pb-4.5 pt-5.5',
 				checkboxSelection && 'px-4',
-				className,
+				className
 			) }
 		>
 			{ children }
