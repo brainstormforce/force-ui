@@ -100,7 +100,11 @@ const Template: Story = ( { checkboxSelection } ) => {
 						<Table.Cell>{ item.email }</Table.Cell>
 						<Table.Cell>{ item.phone }</Table.Cell>
 						<Table.Cell>
-							<Container align="center" justify="end" className="gap-2">
+							<Container
+								align="center"
+								justify="end"
+								className="gap-2"
+							>
 								<Tooltip content="Delete" arrow placement="top">
 									<Button
 										variant="ghost"
