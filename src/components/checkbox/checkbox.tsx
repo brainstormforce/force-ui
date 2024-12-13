@@ -145,14 +145,14 @@ export const CheckboxComponent = (
 	return (
 		<div
 			className={ cn(
-				'inline-flex items-center gap-2',
+				'inline-flex items-center justify-center gap-2',
 				!! label && 'items-start',
 				disabled && 'cursor-not-allowed'
 			) }
 		>
 			<label
 				className={ cn(
-					'relative flex items-center rounded-full p-0.5',
+					'relative flex items-center justify-center rounded-full p-0.5',
 					! disabled && 'cursor-pointer'
 				) }
 				htmlFor={ checkboxId }

@@ -197,6 +197,8 @@ const defaultTheme = {
 				tiny: '0.625rem',
 			},
 			spacing: {
+				4.5: '1.125rem', // 18px
+				5.5: '1.375rem', // 22px
 				120: '30rem', // 480px
 				95: '23.75rem', // 380px
 				141.5: '35.375rem', // 566px
