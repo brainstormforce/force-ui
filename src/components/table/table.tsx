@@ -75,7 +75,7 @@ export interface TableContextType<T> {
 	/**
 	 * On checkbox selection change.
 	 */
-	onCheckboxSelectionChange?: ( selectedItems: T[] ) => void;
+	onCheckboxSelectionChange?: ( checked: boolean, value: T | undefined ) => void;
 }
 
 /**
@@ -96,7 +96,7 @@ export interface BaseTableProps<T> extends TableCommonProps {
 	/**
 	 * On checkbox selection change.
 	 */
-	onCheckboxSelectionChange?: ( selectedItems: T[] ) => void;
+	onCheckboxSelectionChange?: ( checked: boolean, value: T | undefined ) => void;
 }
 
 /**
@@ -107,6 +107,25 @@ export interface TableHeadProps extends TableCommonProps {
 	 * Child components to render within the table head.
 	 */
 	children?: ReactNode;
+	/**
+	 * Whether any of the rows are selected.
+	 */
+	selected?: boolean;
+
+	/**
+	 * Whether the checkbox is indeterminate.
+	 */
+	indeterminate?: boolean;
+
+	/**
+	 * Whether the checkbox is disabled.
+	 */
+	disabled?: boolean;
+
+	/**
+	 * On checkbox change.
+	 */
+	onChangeSelection?: ( checked: boolean ) => void;
 }
 
 /**
@@ -132,7 +151,7 @@ export interface TableBodyProps extends TableCommonProps {
 /**
  * Interface for table row props.
  */
-export interface TableRowProps extends TableCommonProps {
+export interface TableRowProps<T> extends TableCommonProps {
 	/**
 	 * Child components to render within the table row.
 	 */
@@ -140,11 +159,16 @@ export interface TableRowProps extends TableCommonProps {
 	/**
 	 * value of the row.
 	 */
-	value?: string;
+	value?: T | undefined;
 	/**
 	 * Whether the row is selected.
 	 */
 	selected?: boolean;
+
+	/**
+	 * Whether the row is disabled.
+	 */
+	disabled?: boolean;
 }
 
 /**
@@ -167,7 +191,7 @@ export interface TableFooterProps extends TableCommonProps {
 	children?: ReactNode;
 }
 
-const TableContext = createContext<TableContextType<unknown[]> | undefined>( undefined );
+const TableContext = createContext<TableContextType<unknown> | undefined>( undefined );
 
 const useTableContext = () => {
 	const context = useContext( TableContext );
@@ -196,7 +220,7 @@ export const Table = <T, >( {
 		( child ) => React.isValidElement( child ) && child.type !== TableFooter
 	);
 	return (
-		<TableContext.Provider value={ contextValue as TableContextType<unknown[]> }>
+		<TableContext.Provider value={ contextValue as TableContextType<unknown> }>
 			<div className="overflow-x-auto">
 				<table
 					className={ cn(
@@ -213,14 +237,22 @@ export const Table = <T, >( {
 };
 
 // Head Components
-export const TableHead: React.FC<TableHeadProps> = ( { children, className } ) => {
+export const TableHead: React.FC<TableHeadProps> = ( { children, className, selected, onChangeSelection, indeterminate, disabled } ) => {
 	const { checkboxSelection } = useTableContext();
+
+	const handleCheckboxChange = ( checked: boolean ) => {
+		if ( typeof onChangeSelection !== 'function' ) {
+			return;
+		}
+		onChangeSelection( checked );
+	};
+
 	return (
 		<thead className={ cn( 'bg-background-secondary [clip-path:inset(0_0_0_0_round_0.375rem)]', className ) }>
 			<tr>
 				{ checkboxSelection && (
 					<th scope="col" className="relative p-3.5 w-11 align-middle">
-						<Checkbox size="sm" />
+						<Checkbox size="sm" checked={ selected } indeterminate={ indeterminate } disabled={ disabled } onChange={ handleCheckboxChange } />
 					</th>
 				) }
 				{ children }
@@ -263,17 +295,26 @@ export const TableBody: React.FC<TableBodyProps> = ( {
 	);
 };
 
-export const TableRow: React.FC<TableRowProps> = ( {
+export const TableRow = <T, >( {
 	children,
 	selected,
+	value,
 	className,
-} ) => {
-	const { checkboxSelection } = useTableContext();
+}: TableRowProps<T> ) => {
+	const { checkboxSelection, onCheckboxSelectionChange } = useTableContext();
+
+	const handleCheckboxChange = ( checked: boolean ) => {
+		if ( typeof onCheckboxSelectionChange !== 'function' ) {
+			return;
+		}
+		onCheckboxSelectionChange( checked, value );
+	};
+
 	return (
 		<tr className={ cn( selected && 'bg-background-secondary', className ) }>
 			{ checkboxSelection && (
 				<td className="px-3.5 py-4.5">
-					<Checkbox size="sm" />
+					<Checkbox size="sm" onChange={ handleCheckboxChange } aria-label="Select row" />
 				</td>
 			) }
 			{ children }
