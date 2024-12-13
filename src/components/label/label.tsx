@@ -17,7 +17,7 @@ export interface LabelProps {
 }
 
 const Label = forwardRef(
-	(
+	<T extends object>(
 		{
 			children = null,
 			tag: Tag = 'label',
@@ -26,7 +26,7 @@ const Label = forwardRef(
 			variant = 'neutral', // neutral, help, error, disabled
 			required = false,
 			...props
-		}: LabelProps,
+		}: LabelProps & T,
 		ref: React.Ref<HTMLElement>
 	) => {
 		// Base classes. - Mandatory classes.
@@ -78,4 +78,7 @@ const Label = forwardRef(
 	}
 );
 
-export default Label;
+export default Label as <T extends object>(
+	props: LabelProps & T,
+	ref: React.Ref<HTMLElement>
+) => React.ReactNode;
