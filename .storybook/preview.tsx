@@ -1,8 +1,8 @@
 import React from 'react';
 import type { Preview } from '@storybook/react';
-
+import '../src/tailwind.css';
 /** @type { import('@storybook/react').Preview } */
-import '../dist/style.css';
+
 const preview: Preview = {
 	parameters: {
 		controls: {
