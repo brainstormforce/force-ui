@@ -1,8 +1,8 @@
 import React from 'react';
 import type { Preview } from '@storybook/react';
-
+import '../src/tailwind.css';
 /** @type { import('@storybook/react').Preview } */
-import '../dist/style.css';
+
 const preview: Preview = {
 	parameters: {
 		controls: {
@@ -20,7 +20,7 @@ const preview: Preview = {
 	},
 	decorators: [
 		(Story) => (
-			<div style={{ fontFamily: 'Figtree, sans-serif' }}>
+			<div className="[&_*]:[font-family:Figtree,sans-serif] [&_*]:box-border">
 				<Story />
 			</div>
 		),
