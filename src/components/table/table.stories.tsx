@@ -83,7 +83,9 @@ const Template: Story = ( { checkboxSelection } ) => {
 				<Table.HeadCell>Age</Table.HeadCell>
 				<Table.HeadCell>Email</Table.HeadCell>
 				<Table.HeadCell>Phone</Table.HeadCell>
-				<Table.HeadCell></Table.HeadCell>
+				<Table.HeadCell>
+					<span className="sr-only">Actions</span>
+				</Table.HeadCell>
 			</Table.Head>
 			<Table.Body>
 				{ data.map( ( item, index ) => (
@@ -105,6 +107,7 @@ const Template: Story = ( { checkboxSelection } ) => {
 										icon={ <Trash /> }
 										size="xs"
 										className="text-icon-secondary hover:text-icon-primary"
+										aria-label="Delete"
 									/>
 								</Tooltip>
 								<Tooltip content="Edit" arrow placement="top">
@@ -113,6 +116,7 @@ const Template: Story = ( { checkboxSelection } ) => {
 										icon={ <Edit /> }
 										size="xs"
 										className="text-icon-secondary hover:text-icon-primary"
+										aria-label="Edit"
 									/>
 								</Tooltip>
 							</div>
@@ -215,7 +219,9 @@ const App = () => {
 				<Table.HeadCell>Age</Table.HeadCell>
 				<Table.HeadCell>Email</Table.HeadCell>
 				<Table.HeadCell>Phone</Table.HeadCell>
-				<Table.HeadCell></Table.HeadCell>
+				<Table.HeadCell>
+					<span className="sr-only">Actions</span>
+				</Table.HeadCell>
 			</Table.Head>
 			<Table.Body>
 				{ data.map( ( item, index ) => (
@@ -232,10 +238,10 @@ const App = () => {
 						<Table.Cell>
 							<div className="flex items-center gap-2">
 								<Tooltip content="Delete" arrow placement="top">
-									<Button variant="ghost" icon={ <Trash /> } size="xs" className="text-icon-secondary hover:text-icon-primary" />
+									<Button variant="ghost" icon={ <Trash /> } size="xs" className="text-icon-secondary hover:text-icon-primary" aria-label="Delete" />
 								</Tooltip>
 								<Tooltip content="Edit" arrow placement="top">
-									<Button variant="ghost" icon={ <Edit /> } size="xs" className="text-icon-secondary hover:text-icon-primary" />
+									<Button variant="ghost" icon={ <Edit /> } size="xs" className="text-icon-secondary hover:text-icon-primary" aria-label="Edit" />
 								</Tooltip>
 							</div>
 						</Table.Cell>

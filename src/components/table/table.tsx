@@ -22,35 +22,11 @@ export interface TableCommonProps {
 }
 
 /**
- * Interface for column configurations.
- */
-export interface Column<T> {
-	/**
-	 * Header text to display in the column.
-	 */
-	header: string;
-	/**
-	 * Property key from data object to display in this column.
-	 */
-	accessor: keyof T;
-	/**
-	 * Whether this column can be sorted.
-	 */
-	sortable?: boolean;
-	/**
-	 * Custom sort function for this column.
-	 */
-	sortFn?: ( a: T, b: T ) => number;
-	/**
-	 * Custom cell renderer for this column.
-	 */
-	Cell?: ( props: { value: unknown; row: T; index: number } ) => ReactNode;
-}
-
-/**
  * Interface for table props.
  */
-export interface TableProps<T> extends TableCommonProps {
+export interface TableProps<T>
+	extends TableCommonProps,
+		Omit<React.HTMLAttributes<HTMLTableElement>, 'className' | 'children'> {
 	/**
 	 * Whether to show checkboxes for row selection.
 	 */
@@ -86,7 +62,9 @@ export interface TableContextType<T> {
 /**
  * Interface for base table props.
  */
-export interface BaseTableProps extends TableCommonProps {
+export interface BaseTableProps
+	extends TableCommonProps,
+		Omit<React.HTMLAttributes<HTMLTableElement>, 'className' | 'children'> {
 	/**
 	 * Child components to render within the table.
 	 *
@@ -102,7 +80,12 @@ export interface BaseTableProps extends TableCommonProps {
 /**
  * Interface for table head props.
  */
-export interface TableHeadProps extends TableCommonProps {
+export interface TableHeadProps
+	extends TableCommonProps,
+		Omit<
+			React.HTMLAttributes<HTMLTableSectionElement>,
+			'className' | 'children'
+		> {
 	/**
 	 * Child components to render within the table head.
 	 */
@@ -133,7 +116,12 @@ export interface TableHeadProps extends TableCommonProps {
 /**
  * Interface for table head cell props.
  */
-export interface TableHeadCellProps extends TableCommonProps {
+export interface TableHeadCellProps
+	extends TableCommonProps,
+		Omit<
+			React.HTMLAttributes<HTMLTableCellElement>,
+			'className' | 'children'
+		> {
 	/**
 	 * Content to display in the header cell.
 	 */
@@ -143,7 +131,12 @@ export interface TableHeadCellProps extends TableCommonProps {
 /**
  * Interface for table body props.
  */
-export interface TableBodyProps extends TableCommonProps {
+export interface TableBodyProps
+	extends TableCommonProps,
+		Omit<
+			React.HTMLAttributes<HTMLTableSectionElement>,
+			'className' | 'children'
+		> {
 	/**
 	 * Child components to render within the table body.
 	 */
@@ -153,7 +146,12 @@ export interface TableBodyProps extends TableCommonProps {
 /**
  * Interface for table row props.
  */
-export interface TableRowProps<T> extends TableCommonProps {
+export interface TableRowProps<T>
+	extends TableCommonProps,
+		Omit<
+			React.HTMLAttributes<HTMLTableRowElement>,
+			'className' | 'children'
+		> {
 	/**
 	 * Child components to render within the table row.
 	 */
@@ -181,7 +179,12 @@ export interface TableRowProps<T> extends TableCommonProps {
 /**
  * Interface for table cell props.
  */
-export interface TableCellProps extends TableCommonProps {
+export interface TableCellProps
+	extends TableCommonProps,
+		Omit<
+			React.HTMLAttributes<HTMLTableCellElement>,
+			'className' | 'children'
+		> {
 	/**
 	 * Content to display in the table cell.
 	 */
@@ -191,7 +194,9 @@ export interface TableCellProps extends TableCommonProps {
 /**
  * Interface for table footer props.
  */
-export interface TableFooterProps extends TableCommonProps {
+export interface TableFooterProps
+	extends TableCommonProps,
+		Omit<React.HTMLAttributes<HTMLDivElement>, 'className' | 'children'> {
 	/**
 	 * Child components to render within the table footer.
 	 */
@@ -214,6 +219,7 @@ export const Table = ( {
 	children,
 	className,
 	checkboxSelection = false,
+	...props
 }: BaseTableProps ) => {
 	const contextValue: TableContextType<unknown> = {
 		checkboxSelection,
@@ -230,12 +236,13 @@ export const Table = ( {
 		<TableContext.Provider
 			value={ contextValue as TableContextType<unknown> }
 		>
-			<div className="overflow-x-auto divide-y divide-x-0 divide-solid divide-border-subtle">
+			<div className="overflow-x-auto">
 				<table
 					className={ cn(
 						'table-fixed min-w-full border-collapse border-spacing-0',
 						className
 					) }
+					{ ...props }
 				>
 					{ restChildren }
 				</table>
@@ -253,6 +260,7 @@ export const TableHead: React.FC<TableHeadProps> = ( {
 	onChangeSelection,
 	indeterminate,
 	disabled,
+	...props
 } ) => {
 	const { checkboxSelection } = useTableContext();
 
@@ -269,6 +277,7 @@ export const TableHead: React.FC<TableHeadProps> = ( {
 				'bg-background-secondary [clip-path:inset(0_0_0_0_round_0.375rem)]',
 				className
 			) }
+			{ ...props }
 		>
 			<tr>
 				{ checkboxSelection && (
@@ -297,6 +306,7 @@ export const TableHead: React.FC<TableHeadProps> = ( {
 export const TableHeadCell: React.FC<TableHeadCellProps> = ( {
 	children,
 	className,
+	...props
 } ) => {
 	return (
 		<th
@@ -305,6 +315,7 @@ export const TableHeadCell: React.FC<TableHeadCellProps> = ( {
 				'p-3 text-left text-sm font-medium leading-5 text-text-primary',
 				className
 			) }
+			{ ...props }
 		>
 			{ children }
 		</th>
@@ -315,6 +326,7 @@ export const TableHeadCell: React.FC<TableHeadCellProps> = ( {
 export const TableBody: React.FC<TableBodyProps> = ( {
 	children,
 	className,
+	...props
 } ) => {
 	return (
 		<tbody
@@ -322,6 +334,7 @@ export const TableBody: React.FC<TableBodyProps> = ( {
 				'bg-background-primary divide-y divide-x-0 divide-solid divide-border-subtle',
 				className
 			) }
+			{ ...props }
 		>
 			{ children }
 		</tbody>
@@ -334,6 +347,7 @@ export const TableRow = <T, >( {
 	value,
 	className,
 	onChangeSelection,
+	...props
 }: TableRowProps<T> ) => {
 	const { checkboxSelection } = useTableContext();
 
@@ -351,6 +365,7 @@ export const TableRow = <T, >( {
 				selected && 'bg-background-secondary',
 				className
 			) }
+			{ ...props }
 		>
 			{ checkboxSelection && (
 				<td className="px-3.5 py-4.5 align-middle text-center">
@@ -370,6 +385,7 @@ export const TableRow = <T, >( {
 export const TableCell: React.FC<TableCellProps> = ( {
 	children,
 	className,
+	...props
 } ) => {
 	return (
 		<td
@@ -377,6 +393,7 @@ export const TableCell: React.FC<TableCellProps> = ( {
 				'px-3 py-4.5 text-sm font-normal leading-5 text-text-secondary',
 				className
 			) }
+			{ ...props }
 		>
 			{ children }
 		</td>
@@ -387,6 +404,7 @@ export const TableCell: React.FC<TableCellProps> = ( {
 export const TableFooter: React.FC<TableFooterProps> = ( {
 	children,
 	className,
+	...props
 } ) => {
 	const { checkboxSelection } = useTableContext();
 	return (
@@ -396,6 +414,7 @@ export const TableFooter: React.FC<TableFooterProps> = ( {
 				checkboxSelection && 'px-4',
 				className
 			) }
+			{ ...props }
 		>
 			{ children }
 		</div>
