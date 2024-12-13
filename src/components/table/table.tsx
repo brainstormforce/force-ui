@@ -1,5 +1,6 @@
 import { cn } from '@/utilities/functions';
 import React, { Children, createContext, useContext, type ReactNode } from 'react';
+import { Checkbox } from '@/components';
 
 /**
  * Common props for all table components.
@@ -62,7 +63,7 @@ export interface TableProps<T> extends TableCommonProps {
 /**
  * Interface for table context.
  */
-export interface TableContextType {
+export interface TableContextType<T> {
 	/**
 	 * Set of indices for selected rows.
 	 */
@@ -71,12 +72,16 @@ export interface TableContextType {
 	 * Whether to show checkboxes for row selection.
 	 */
 	checkboxSelection?: boolean;
+	/**
+	 * On checkbox selection change.
+	 */
+	onCheckboxSelectionChange?: ( selectedItems: T[] ) => void;
 }
 
 /**
  * Interface for base table props.
  */
-export interface BaseTableProps extends TableCommonProps {
+export interface BaseTableProps<T> extends TableCommonProps {
 	/**
 	 * Child components to render within the table.
 	 *
@@ -87,6 +92,11 @@ export interface BaseTableProps extends TableCommonProps {
 	 * Whether to show checkboxes for row selection.
 	 */
 	checkboxSelection?: boolean;
+
+	/**
+	 * On checkbox selection change.
+	 */
+	onCheckboxSelectionChange?: ( selectedItems: T[] ) => void;
 }
 
 /**
@@ -157,7 +167,7 @@ export interface TableFooterProps extends TableCommonProps {
 	children?: ReactNode;
 }
 
-const TableContext = createContext<TableContextType | undefined>( undefined );
+const TableContext = createContext<TableContextType<unknown[]> | undefined>( undefined );
 
 const useTableContext = () => {
 	const context = useContext( TableContext );
@@ -167,13 +177,15 @@ const useTableContext = () => {
 	return context;
 };
 
-export const Table = ( {
+export const Table = <T, >( {
 	children,
 	className,
 	checkboxSelection = false,
-}: BaseTableProps ) => {
-	const contextValue: TableContextType = {
+	onCheckboxSelectionChange,
+}: BaseTableProps<T> ) => {
+	const contextValue: TableContextType<T> = {
 		checkboxSelection,
+		onCheckboxSelectionChange,
 	};
 
 	// Extract footer from children
@@ -183,13 +195,12 @@ export const Table = ( {
 	const restChildren = Children.toArray( children ).filter(
 		( child ) => React.isValidElement( child ) && child.type !== TableFooter
 	);
-
 	return (
-		<TableContext.Provider value={ contextValue }>
+		<TableContext.Provider value={ contextValue as TableContextType<unknown[]> }>
 			<div className="overflow-x-auto">
 				<table
 					className={ cn(
-						'min-w-full border-collapse border-spacing-0 mb-1',
+						'table-fixed min-w-full border-collapse border-spacing-0 mb-1',
 						className
 					) }
 				>
@@ -202,10 +213,18 @@ export const Table = ( {
 };
 
 // Head Components
-export const TableHead: React.FC<TableHeadProps> = ( { children } ) => {
+export const TableHead: React.FC<TableHeadProps> = ( { children, className } ) => {
+	const { checkboxSelection } = useTableContext();
 	return (
-		<thead className="bg-background-secondary [clip-path:inset(0_0_0_0_round_0.375rem)]">
-			<tr>{ children }</tr>
+		<thead className={ cn( 'bg-background-secondary [clip-path:inset(0_0_0_0_round_0.375rem)]', className ) }>
+			<tr>
+				{ checkboxSelection && (
+					<th scope="col" className="relative p-3.5 w-11 align-middle">
+						<Checkbox size="sm" />
+					</th>
+				) }
+				{ children }
+			</tr>
 		</thead>
 	);
 };
@@ -249,8 +268,14 @@ export const TableRow: React.FC<TableRowProps> = ( {
 	selected,
 	className,
 } ) => {
+	const { checkboxSelection } = useTableContext();
 	return (
 		<tr className={ cn( selected && 'bg-background-secondary', className ) }>
+			{ checkboxSelection && (
+				<td className="px-3.5 py-4.5">
+					<Checkbox size="sm" />
+				</td>
+			) }
 			{ children }
 		</tr>
 	);
