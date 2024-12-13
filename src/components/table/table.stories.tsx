@@ -171,17 +171,17 @@ const data = [
 ];
 
 const App = () => {
-	const [ selected, setSelected ] = useState<string[]>( [] );
+	const [ selected, setSelected ] = useState( [] );
 
-	const handleCheckboxChange = ( checked: boolean, value: typeof data[ number ] ) => {
+	const handleCheckboxChange = ( checked, value ) => {
 		if ( checked ) {
 			setSelected( [ ...selected, value.name ] );
 		} else {
-			setSelected( selected.filter( ( item: string ) => item !== value.name ) );
+			setSelected( selected.filter( ( item ) => item !== value.name ) );
 		}
 	};
 
-	const toggleSelectAll = ( checked: boolean ) => {
+	const toggleSelectAll = ( checked ) => {
 		if ( checked ) {
 			setSelected( data.map( ( item ) => item.name ) );
 		} else {
