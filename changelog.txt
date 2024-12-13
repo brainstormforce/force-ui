@@ -1,3 +1,6 @@
+Version x.x.x - x x, x
+- Fixed - Asterisk missing on required input label.
+
 Version 1.2.2 - 4th December, 2024
 - Improvement - Removed margin and added new props to the Line Chart component for customizability.
 
