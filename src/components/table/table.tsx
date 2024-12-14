@@ -216,7 +216,7 @@ export const Table = ( {
 		<TableContext.Provider
 			value={ contextValue as TableContextType<unknown> }
 		>
-			<div className="w-full overflow-x-auto divide-y divide-x-0 divide-solid divide-border-subtle">
+			<div className="flow-root overflow-x-auto divide-y divide-x-0 divide-solid divide-border-subtle">
 				<table
 					className={ cn(
 						'table-fixed min-w-full border-collapse border-spacing-0',
