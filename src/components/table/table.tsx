@@ -263,18 +263,20 @@ export const TableHead: React.FC<TableHeadProps> = ( {
 				{ checkboxSelection && (
 					<th
 						scope="col"
-						className="relative p-3.5 w-11 align-middle"
+						className="relative px-5.5 w-11 overflow-hidden"
 					>
-						<Checkbox
-							size="sm"
-							checked={ selected }
-							indeterminate={ indeterminate }
-							disabled={ disabled }
-							onChange={ handleCheckboxChange }
-							aria-label={
-								selected ? 'Deselect all' : 'Select all'
-							}
-						/>
+						<div className="absolute inset-0 grid grid-cols-1 place-content-center">
+							<Checkbox
+								size="sm"
+								checked={ selected }
+								indeterminate={ indeterminate }
+								disabled={ disabled }
+								onChange={ handleCheckboxChange }
+								aria-label={
+									selected ? 'Deselect all' : 'Select all'
+								}
+							/>
+						</div>
 					</th>
 				) }
 				{ children }
@@ -348,13 +350,15 @@ export const TableRow = <T, >( {
 			{ ...props }
 		>
 			{ checkboxSelection && (
-				<td className="px-3.5 py-4.5 align-middle text-center">
-					<Checkbox
-						size="sm"
-						checked={ selected }
-						onChange={ handleCheckboxChange }
-						aria-label="Select row"
-					/>
+				<td className="relative px-5.5 w-11 overflow-hidden">
+					<div className="absolute inset-0 grid grid-cols-1 place-content-center">
+						<Checkbox
+							size="sm"
+							checked={ selected }
+							onChange={ handleCheckboxChange }
+							aria-label="Select row"
+						/>
+					</div>
 				</td>
 			) }
 			{ children }
