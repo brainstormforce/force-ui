@@ -5,10 +5,12 @@ import React, {
 	forwardRef,
 	useRef,
 	type ReactNode,
+	LabelHTMLAttributes,
 } from 'react';
 import { nanoid } from 'nanoid';
 import { cn } from '@/utilities/functions';
 import { Upload, X } from 'lucide-react';
+import Label from '../label';
 
 export declare interface InputProps {
 	/** Unique identifier for the input element. */
@@ -52,6 +54,9 @@ export declare interface InputProps {
 
 	/** Placeholder text for the input field. */
 	placeholder?: string;
+
+	/** Indicates whether the input is required. */
+	required?: boolean;
 }
 
 export const InputComponent = (
@@ -245,12 +250,13 @@ export const InputComponent = (
 			return null;
 		}
 		return (
-			<label
-				className={ cn( labelClasses[ size ], 'text-field-label' ) }
+			<Label<LabelHTMLAttributes<HTMLLabelElement>>
+				className={ cn( labelClasses[ size ] ) }
 				htmlFor={ inputId }
+				{ ...( props?.required && { required: true } ) }
 			>
 				{ label }
-			</label>
+			</Label>
 		);
 	}, [ label, size, inputId ] );
 
