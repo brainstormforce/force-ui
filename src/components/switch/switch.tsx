@@ -68,6 +68,10 @@ export const SwitchLabel = ( {
 		sm: 'text-xs leading-4 font-normal',
 		md: 'text-sm leading-5 font-normal',
 	};
+	const gapClassNames = {
+		sm: 'space-y-0.5',
+		md: 'space-y-1',
+	};
 	const isLabelAComponent = isValidElement( label );
 	if ( isLabelAComponent ) {
 		return (
@@ -82,7 +86,7 @@ export const SwitchLabel = ( {
 	const renderLabel = () => {
 		const { heading = '', description = '' } = label || {};
 		return (
-			<div className="space-y-0.5">
+			<div className={ cn( 'space-y-0.5', gapClassNames[ size ] ) }>
 				{ heading && (
 					<p
 						className={ cn(
