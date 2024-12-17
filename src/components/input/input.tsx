@@ -11,6 +11,7 @@ import { nanoid } from 'nanoid';
 import { cn } from '@/utilities/functions';
 import { Upload, X } from 'lucide-react';
 import Label from '../label';
+import { mergeRefs } from '@/components/toaster/utils';
 
 export declare interface InputProps {
 	/** Unique identifier for the input element. */
@@ -275,7 +276,7 @@ export const InputComponent = (
 					) }
 				>
 					<input
-						ref={ ref }
+						ref={ mergeRefs( inputRef, ref ) }
 						id={ inputId }
 						type="file"
 						className={ cn(
@@ -318,7 +319,7 @@ export const InputComponent = (
 			>
 				{ getPrefix() }
 				<input
-					ref={ inputRef }
+					ref={ mergeRefs( inputRef, ref ) }
 					id={ inputId }
 					type={ type }
 					className={ cn(
