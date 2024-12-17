@@ -204,9 +204,8 @@ const DatePickerComponent = ( {
 						onClick={ handlePrevButtonClick }
 						className="bg-background-primary border-none cursor-pointer"
 						aria-label="Previous Button"
-					>
-						<ChevronLeft className="h-4 w-4" />
-					</Button>
+						icon={ <ChevronLeft className="h-4 w-4 text-button-tertiary-color" /> }
+					/>
 
 					<Button
 						variant="ghost"
@@ -232,9 +231,8 @@ const DatePickerComponent = ( {
 						onClick={ handleNextButtonClick }
 						className="bg-background-primary border-none cursor-pointer"
 						aria-label="Next Button"
-					>
-						<ChevronRight className="h-4 w-4" />
-					</Button>
+						icon={ <ChevronRight className="h-4 w-4 text-button-tertiary-color" /> }
+					/>
 				</div>
 
 				{ showYearSelect && (
@@ -255,7 +253,9 @@ const DatePickerComponent = ( {
 									yearValue === selectedYear &&
 										yearValue !==
 											new Date().getFullYear() &&
-										'bg-background-brand text-text-on-color hover:bg-background-brand hover:text-black'
+										'bg-background-brand text-text-on-color hover:bg-background-brand hover:text-black',
+									yearValue === new Date().getFullYear() &&
+										'font-semibold'
 								) }
 							>
 								{ yearValue }
@@ -287,7 +287,10 @@ const DatePickerComponent = ( {
 											customMonthProps.calendarMonth.date.getFullYear() &&
 										customMonthProps.calendarMonth.date.getFullYear() !==
 											new Date().getFullYear() &&
-										'bg-background-brand text-text-on-color hover:bg-background-brand hover:text-black'
+										'bg-background-brand text-text-on-color hover:bg-background-brand hover:text-black',
+									monthIndex === new Date().getMonth() &&
+										new Date().getFullYear() === selectedYear &&
+										'font-semibold'
 								) }
 							>
 								{ format( new Date( 0, monthIndex ), 'MMM' ) }
@@ -312,7 +315,7 @@ const DatePickerComponent = ( {
 				{ weekdays.map( ( weekday, weekdayIndex ) => (
 					<button
 						key={ weekdayIndex }
-						className="h-10 w-10 px-1.5 py-2 text-center text-muted-foreground text-[0.8rem] font-normal content-center bg-transparent border-none"
+						className="h-10 w-10 px-1.5 py-2 text-center text-text-secondary text-[0.8rem] font-normal content-center bg-transparent border-none shrink-0"
 					>
 						{ weekday }
 					</button>
@@ -383,7 +386,7 @@ const DatePickerComponent = ( {
 		return (
 			<button
 				onClick={ handleClick }
-				className={ buttonClasses }
+				className={ cn( buttonClasses, isToday && 'font-semibold' ) }
 				disabled={ isDisabled || isOutside }
 				aria-label={ format( day.date, 'EEEE, MMMM do, yyyy' ) }
 			>
@@ -523,7 +526,7 @@ const DatePickerComponent = ( {
 				// showHead={false}
 				classNames={ {
 					months: monthsClassName,
-					month: 'flex flex-col p-2 gap-1 text-center border border-border-subtle rounded-md w-full',
+					month: 'flex flex-col p-2 gap-1 text-center w-full',
 					caption: 'relative flex justify-center items-center',
 					table: 'w-full border-separate border-spacing-0',
 					head_row: 'flex mb-1',
