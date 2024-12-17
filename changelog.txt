@@ -1,5 +1,5 @@
 Version 1.3.1 - 17th December, 2024
-Fixed - The the underline issue to enhance visual consistency.
+Fixed - The underline issue to enhance visual consistency.
 Fixed - Select component issue, where a check mark was displaying even when no item was selected.
 Fixed - Switch component design mismatch.
 Fixed - Text, icon size, alignment, and color inconsistencies to ensure uniform appearance of the Date Picker.
