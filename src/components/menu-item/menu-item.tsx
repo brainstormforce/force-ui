@@ -67,8 +67,8 @@ export const MenuList = ( {
 		md: 'text-sm',
 	}?.[ size ?? 'md' ];
 	const iconSizeClasses = {
-		sm: '[&>svg]:size-4',
-		md: '[&>svg]:size-5',
+		sm: 'size-4',
+		md: 'size-5',
 	}?.[ size ?? 'md' ];
 
 	const handleToggle = () => {
@@ -127,23 +127,21 @@ export const MenuList = ( {
 
 					{ arrow && (
 						<motion.span
-							variants={ arrowAnimationVariants }
-							animate={ isOpen ? 'open' : 'closed' }
+							className="flex items-center text-border-strong"
+							initial="hidden"
+							animate={ getArrowAnimationVariant() }
+							exit="hidden"
+							variants={ arrowFadeVariants }
 							transition={ { duration: 0.15 } }
-							className={ cn(
-								'flex items-center text-border-strong',
-								iconSizeClasses
-							) }
 						>
-							<motion.div
-								initial="hidden"
-								animate={ getArrowAnimationVariant() }
-								exit="hidden"
-								variants={ arrowFadeVariants }
+							<motion.span
+								className="inline-flex p-1"
+								variants={ arrowAnimationVariants }
+								animate={ isOpen ? 'open' : 'closed' }
 								transition={ { duration: 0.15 } }
 							>
-								<ChevronDown />
-							</motion.div>
+								<ChevronDown className={ cn( 'shrink-0', iconSizeClasses ) } />
+							</motion.span>
 						</motion.span>
 					) }
 				</div>
