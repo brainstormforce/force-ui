@@ -187,7 +187,7 @@ export const SwitchComponent = (
 	};
 	const colorHoverClassNames = {
 		primary: {
-			input: 'hover:bg-toggle-off-hover checked:hover:bg-toggle-on',
+			input: 'group-hover/switch:bg-toggle-off-hover checked:group-hover/switch:bg-toggle-on-hover checked:group-hover/switch:border-toggle-on-border',
 		},
 	};
 
@@ -244,7 +244,7 @@ export const SwitchComponent = (
 				<label
 					htmlFor={ switchId }
 					className={ cn(
-						"bg-white border rounded-full absolute cursor-pointer shadow-md before:content[''] before:transition-opacity before:opacity-0 hover:before:opacity-10 before:hidden border-none transition-all duration-300 top-2/4 left-1 -translate-y-2/4 before:w-10 before:h-10 before:rounded-full before:absolute before:top-2/4 before:left-2/4 before:-translate-y-2/4 before:-translate-x-2/4",
+						"peer/toggle-dial bg-white border rounded-full absolute cursor-pointer shadow-md before:content[''] before:transition-opacity before:opacity-0 hover:before:opacity-10 before:hidden border-none transition-all duration-300 top-2/4 left-1 -translate-y-2/4 before:w-10 before:h-10 before:rounded-full before:absolute before:top-2/4 before:left-2/4 before:-translate-y-2/4 before:-translate-x-2/4",
 						sizeClassNames[ normalSize ].toggleDial,
 						colorClassNames[ color ].toggleDial,
 						disabled && disabledClassNames.toggleDial,
