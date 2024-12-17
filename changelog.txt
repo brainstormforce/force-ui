@@ -1,3 +1,6 @@
+Version 1.3.2 - 17th December, 2024
+Fixed - Adjusted the color of the Switch component label and help text.
+
 Version 1.3.1 - 17th December, 2024
 Fixed - The underline issue to enhance visual consistency.
 Fixed - Issue with the Select component where a check mark was displayed even when no item was selected.
