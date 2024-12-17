@@ -142,7 +142,7 @@ const DatePicker = ( {
 				}
 				footer={
 					isFooter && (
-						<div className="flex justify-end p-2 gap-3 border border-solid border-border-subtle border-t-0 rounded-md rounded-tl-none rounded-tr-none">
+						<div className="flex bg-background-primary justify-end p-2 gap-3 border border-solid border-border-subtle border-t-0 rounded-md rounded-tl-none rounded-tr-none">
 							<Button
 								variant="outline"
 								onClick={ handleCancelClick }
@@ -175,7 +175,7 @@ const DatePicker = ( {
 				variant={ variant }
 				width="w-auto"
 				footer={
-					<div className="flex justify-end p-2 gap-3 border border-solid border-border-subtle border-t-0 rounded-md rounded-tl-none rounded-tr-none">
+					<div className="flex bg-background-primary justify-end p-2 gap-3 border border-solid border-border-subtle border-t-0 rounded-md rounded-tl-none rounded-tr-none">
 						<Button variant="outline" onClick={ handleCancelClick }>
 							{ cancelButtonText }
 						</Button>
@@ -218,7 +218,7 @@ const DatePicker = ( {
 					width="w-auto"
 					numberOfMonths={ 2 }
 					footer={
-						<div className="flex justify-end p-2 gap-3 border border-solid border-border-subtle border-t-0 rounded-md rounded-tl-none rounded-tr-none">
+						<div className="flex justify-end p-2 gap-3 border border-solid border-border-subtle border-t-0 rounded-md rounded-tl-none rounded-tr-none bg-background-primary">
 							<Button
 								variant="outline"
 								onClick={ handleCancelClick }

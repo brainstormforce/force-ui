@@ -36,8 +36,6 @@ export interface SidebarProps extends SidebarCommonProps {
 	onCollapseChange?: ( isCollapsed: boolean ) => void;
 	/** Determines if the Sidebar can be collapsed or not. If true, a collapse button is shown. */
 	collapsible?: boolean;
-	/** Determines whether the Sidebar should occupy the full screen height. */
-	screenHeight?: boolean;
 	/** Controls whether a border should appear on the right of the Sidebar. */
 	borderOn?: boolean;
 }
@@ -55,7 +53,6 @@ export const Sidebar = ( {
 	className,
 	onCollapseChange,
 	collapsible = true,
-	screenHeight = true,
 	borderOn = true,
 	...props
 }: SidebarProps ) => {
@@ -88,14 +85,6 @@ export const Sidebar = ( {
 				const storedState = safeLocalStorage.get( 'sidebar-collapsed' );
 				setIsCollapsed( storedState ? storedState : false );
 			}
-
-			if ( sideBarRef.current ) {
-				if ( !! screenHeight ) {
-					sideBarRef.current.style.height = `${ window.innerHeight }px`;
-				} else {
-					sideBarRef.current.style.height = 'auto';
-				}
-			}
 		};
 
 		window.addEventListener( 'resize', handleScreenResize );
@@ -104,7 +93,7 @@ export const Sidebar = ( {
 		return () => {
 			window.removeEventListener( 'resize', handleScreenResize );
 		};
-	}, [ screenHeight, collapsible ] );
+	}, [ collapsible ] );
 
 	return (
 		<SidebarContext.Provider
@@ -113,10 +102,9 @@ export const Sidebar = ( {
 			<div
 				ref={ sideBarRef }
 				className={ cn(
-					'overflow-auto w-72 px-4 py-4 gap-4 flex flex-col bg-background-primary',
+					'h-full overflow-auto w-72 px-4 py-4 gap-4 flex flex-col bg-background-primary',
 					borderOn &&
 						'border-0 border-r border-solid border-border-subtle',
-					!! screenHeight && 'h-screen',
 					'transition-all duration-200',
 					isCollapsed && 'w-16 px-2',
 					className

@@ -22,8 +22,11 @@ export interface SwitchProps {
 	/** Initial value of the switch (checked or unchecked) when used as an uncontrolled component. */
 	defaultValue?: boolean;
 
-	/** Defines the size of the switch (e.g., 'sm', 'md', 'lg'). */
-	size?: 'sm' | 'md' | 'lg';
+	/**
+	 *  Defines the size of the switch (e.g., 'sm', 'md').
+	 *  @default 'sm'
+	 */
+	size?: 'sm' | 'md';
 
 	/** Disables the switch if true. */
 	disabled?: boolean;
@@ -55,12 +58,19 @@ export const SwitchLabel = ( {
 	switchId: string;
 	disabled?: boolean;
 	children: ReactNode;
-	size: 'sm' | 'md' | 'lg';
+	size: 'sm' | 'md';
 } ) => {
 	const headingClasses = {
-		sm: 'text-sm leading-4 font-medium',
-		md: 'text-base leading-5 font-medium',
-		lg: 'text-lg leading-6 font-medium',
+		sm: 'text-sm leading-5 font-medium',
+		md: 'text-base leading-6 font-medium',
+	};
+	const descriptionClasses = {
+		sm: 'text-xs leading-4 font-normal',
+		md: 'text-sm leading-5 font-normal',
+	};
+	const gapClassNames = {
+		sm: 'space-y-0.5',
+		md: 'space-y-1',
 	};
 	const isLabelAComponent = isValidElement( label );
 	if ( isLabelAComponent ) {
@@ -76,11 +86,11 @@ export const SwitchLabel = ( {
 	const renderLabel = () => {
 		const { heading = '', description = '' } = label || {};
 		return (
-			<div className="space-y-1.5">
+			<div className={ cn( 'space-y-0.5', gapClassNames[ size ] ) }>
 				{ heading && (
 					<p
 						className={ cn(
-							'text-text-primary m-0', // text-base font-medium leading-4
+							'text-text-primary m-0',
 							headingClasses[ size ],
 							disabled && 'text-text-disabled'
 						) }
@@ -91,8 +101,9 @@ export const SwitchLabel = ( {
 				{ description && (
 					<p
 						className={ cn(
-							'text-text-secondary text-sm font-normal leading-5 m-0',
-							disabled && 'text-text-disabled'
+							'text-text-secondary text-xs font-normal leading-5 m-0',
+							disabled && 'text-text-disabled',
+							descriptionClasses[ size ]
 						) }
 					>
 						{ description }
@@ -129,7 +140,7 @@ export const SwitchComponent = (
 		onChange,
 		value,
 		defaultValue = false,
-		size = 'lg',
+		size = 'sm',
 		disabled = false,
 		label = { heading: '', description: '' },
 		name,
@@ -138,6 +149,9 @@ export const SwitchComponent = (
 	}: SwitchProps,
 	ref: React.ForwardedRef<HTMLInputElement>
 ) => {
+	// For backwards compatibility.
+	const normalSize = ( size as 'sm' | 'md' | 'lg' ) === 'lg' ? 'md' : size;
+
 	const isControlled = useMemo( () => typeof value !== 'undefined', [ value ] );
 	const switchId = useMemo( () => ( id ? id : `switch-${ nanoid() }` ), [] );
 	const [ checked, setChecked ] = useState( defaultValue );
@@ -172,17 +186,15 @@ export const SwitchComponent = (
 	};
 
 	const sizeClassNames = {
-		lg: {
-			container: 'w-11 h-6',
-			toggleDial: 'size-4 peer-checked:translate-x-5',
-		},
 		md: {
-			container: 'w-10 h-5',
-			toggleDial: 'size-3 peer-checked:translate-x-5',
+			container: 'w-11 h-6',
+			toggleDial:
+				'size-4 peer-checked:translate-x-5 group-hover/switch:size-5 group-focus-within/switch:size-5 group-focus-within/switch:left-0.5 group-hover/switch:left-0.5',
 		},
 		sm: {
-			container: 'w-8 h-4',
-			toggleDial: 'size-2.5 peer-checked:translate-x-3.5',
+			container: 'w-10 h-5',
+			toggleDial:
+				'size-3 peer-checked:translate-x-5 group-hover/switch:size-4 group-focus-within/switch:size-4 group-focus-within/switch:left-0.5 group-hover/switch:left-0.5',
 		},
 	};
 
@@ -196,12 +208,12 @@ export const SwitchComponent = (
 			label={ label }
 			switchId={ switchId }
 			disabled={ disabled }
-			size={ size }
+			size={ normalSize }
 		>
 			<div
 				className={ cn(
-					'relative inline-block cursor-pointer rounded-full shrink-0',
-					sizeClassNames[ size ].container,
+					'relative group/switch inline-block cursor-pointer rounded-full shrink-0',
+					sizeClassNames[ normalSize ].container,
 					className
 				) }
 			>
@@ -210,7 +222,7 @@ export const SwitchComponent = (
 					id={ switchId }
 					type="checkbox"
 					className={ cn(
-						"peer appearance-none absolute bg-blue-gray-100 rounded-full cursor-pointer transition-colors duration-300 h-full w-full  before:content-[''] checked:before:content-[''] m-0 checked:[background-image:none]",
+						"peer appearance-none absolute rounded-full cursor-pointer transition-colors duration-300 h-full w-full  before:content-[''] checked:before:content-[''] m-0 checked:[background-image:none]",
 						colorClassNames[ color ].input,
 						disabled && disabledClassNames.input
 					) }
@@ -223,8 +235,8 @@ export const SwitchComponent = (
 				<label
 					htmlFor={ switchId }
 					className={ cn(
-						"bg-white border border-blue-gray-100 rounded-full absolute cursor-pointer shadow-md before:content[''] before:transition-opacity before:opacity-0 hover:before:opacity-10 before:hidden border-none transition-all duration-300 top-2/4 left-1 -translate-y-2/4 before:w-10 before:h-10 before:rounded-full before:absolute before:top-2/4 before:left-2/4 before:-translate-y-2/4 before:-translate-x-2/4",
-						sizeClassNames[ size ].toggleDial,
+						"bg-white border rounded-full absolute cursor-pointer shadow-md before:content[''] before:transition-opacity before:opacity-0 hover:before:opacity-10 before:hidden border-none transition-all duration-300 top-2/4 left-1 -translate-y-2/4 before:w-10 before:h-10 before:rounded-full before:absolute before:top-2/4 before:left-2/4 before:-translate-y-2/4 before:-translate-x-2/4",
+						sizeClassNames[ normalSize ].toggleDial,
 						colorClassNames[ color ].toggleDial,
 						disabled && disabledClassNames.toggleDial
 					) }

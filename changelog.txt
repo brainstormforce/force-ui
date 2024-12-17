@@ -1,3 +1,13 @@
+Version 1.3.1 - 17th December, 2024
+Fixed - The underline issue to enhance visual consistency.
+Fixed - Issue with the Select component where a check mark was displayed even when no item was selected.
+Fixed - Design mismatch in the Switch component.
+Fixed - Text, icon size, alignment, and color inconsistencies in the Date Picker to ensure a uniform appearance.
+Fixed - Input ref not pointing to the input field.
+Fixed - Icon size and alignment issues in the Menu component for better visual clarity.
+Fixed - Sidebar height not being overridable.
+Improvement - Removed backdrop blur to enhance performance and visual clarity.
+
 Version 1.3.0 - 16th December, 2024
 - New - Table component.
 - Fixed - Asterisk missing on required input label.
