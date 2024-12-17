@@ -296,7 +296,7 @@ export function SelectOptions( {
 
 	const initialSelectedValueIndex = useMemo( () => {
 		const currentValue = getValues();
-		let indexValue = 0;
+		let indexValue = -1;
 
 		if ( currentValue ) {
 			indexValue = Children.toArray( children ).findIndex(
@@ -315,7 +315,7 @@ export function SelectOptions( {
 			);
 		}
 
-		return indexValue === -1 ? 0 : indexValue;
+		return indexValue;
 	}, [ value, selected, children ] );
 
 	useLayoutEffect( () => {

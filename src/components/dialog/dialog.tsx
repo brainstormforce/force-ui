@@ -261,7 +261,7 @@ export const DialogBackdrop = ( {
 					{ open && (
 						<motion.div
 							className={ cn(
-								'fixed inset-0 -z-10 bg-background-inverse/90 backdrop-blur-sm',
+								'fixed inset-0 -z-10 bg-background-inverse/90',
 								className
 							) }
 							{ ...props }

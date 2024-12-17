@@ -49,21 +49,21 @@ const Template: StoryFn<SwitchProps> = ( { defaultValue, size, ...args } ) => {
 export const Basic = Template.bind( {} );
 Basic.args = {
 	defaultValue: false,
-	size: 'lg',
+	size: 'sm',
 	disabled: false,
 };
 
 export const WithLabel = Template.bind( {} );
 WithLabel.args = {
 	defaultValue: true,
-	size: 'lg',
+	size: 'sm',
 	disabled: false,
 	label: { heading: 'Switch Label', description: 'Switch Description' },
 };
 
 export const Disabled = Template.bind( {} );
 Disabled.args = {
-	size: 'lg',
+	size: 'sm',
 	disabled: true,
 	label: {
 		heading: 'Disabled Switch',

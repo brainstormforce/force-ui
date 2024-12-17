@@ -7,7 +7,8 @@ import React, {
 	type ReactNode,
 } from 'react';
 import { cn } from '@/utilities/functions';
-import { motion } from 'framer-motion';
+import { LayoutGroup, motion } from 'framer-motion';
+import { nanoid } from 'nanoid';
 
 declare type Ref = HTMLButtonElement;
 declare type OnChangeValue = { slug: string; text: string };
@@ -88,6 +89,7 @@ export const TabsGroup = ( {
 	iconPosition = 'left', // Position of the icon in the tab ('left' or 'right').
 	width = 'full', // Width of the tabs ('auto' or 'full').
 }: TabsGroupProps ) => {
+	const tabGroupId = nanoid();
 	const tabsState = useTabs();
 
 	// Determine the active item based on the activeTabSlug prop.
@@ -172,12 +174,14 @@ export const TabsGroup = ( {
 					width,
 				} }
 			>
-				{ React.Children.map( children, ( child ) => {
-					if ( ! isValidElement( child ) ) {
-						return null;
-					}
-					return React.cloneElement( child );
-				} ) }
+				<LayoutGroup id={ tabGroupId }>
+					{ React.Children.map( children, ( child ) => {
+						if ( ! isValidElement( child ) ) {
+							return null;
+						}
+						return React.cloneElement( child );
+					} ) }
+				</LayoutGroup>
 			</TabsGroupContext.Provider>
 		</div>
 	);
@@ -287,16 +291,18 @@ export const Tab = forwardRef<Ref, TabProps>(
 		};
 
 		return (
-			<button
+			<motion.button
 				ref={ ref }
 				className={ tabClassName }
 				disabled={ disabled }
 				onClick={ handleClick }
 				{ ...rest }
+				layoutRoot
 			>
 				{ activeItem === slug && variant === 'underline' && (
 					<motion.span
 						layoutId="underline"
+						layoutDependency={ activeItem }
 						className="absolute right-0 left-0 -bottom-px h-px bg-border-interactive"
 					/>
 				) }
@@ -314,7 +320,7 @@ export const Tab = forwardRef<Ref, TabProps>(
 					) }
 				</span>
 				{ badge && isValidElement( badge ) && badge }
-			</button>
+			</motion.button>
 		);
 	}
 );
