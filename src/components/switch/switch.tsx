@@ -8,6 +8,7 @@ import {
 } from 'react';
 import { nanoid } from 'nanoid';
 import { cn } from '@/utilities/functions';
+import Label from '@/components/label';
 
 export interface SwitchProps {
 	/** Unique identifier for the switch component. */
@@ -88,26 +89,26 @@ export const SwitchLabel = ( {
 		return (
 			<div className={ cn( 'space-y-0.5', gapClassNames[ size ] ) }>
 				{ heading && (
-					<p
-						className={ cn(
-							'text-text-primary m-0',
-							headingClasses[ size ],
-							disabled && 'text-text-disabled'
-						) }
+					<Label
+						tag="p"
+						className={ cn( 'm-0', headingClasses[ size ] ) }
+						{ ...( disabled && { variant: 'disabled' } ) }
 					>
 						{ heading }
-					</p>
+					</Label>
 				) }
 				{ description && (
-					<p
+					<Label
+						tag="p"
+						variant="help"
 						className={ cn(
-							'text-text-secondary text-xs font-normal leading-5 m-0',
-							disabled && 'text-text-disabled',
+							'text-xs font-normal leading-5 m-0',
 							descriptionClasses[ size ]
 						) }
+						{ ...( disabled && { variant: 'disabled' } ) }
 					>
 						{ description }
-					</p>
+					</Label>
 				) }
 			</div>
 		);
@@ -180,22 +181,29 @@ export const SwitchComponent = (
 
 	const colorClassNames = {
 		primary: {
-			input: 'bg-toggle-off hover:bg-toggle-off-hover checked:bg-toggle-on focus:ring focus:ring-toggle-on focus:ring-offset-4 checked:hover:bg-toggle-on border border-solid border-toggle-off-border checked:border-toggle-on-border shadow-toggleContainer focus:outline-none checked:focus:border-toggle-on-border focus:border-toggle-off-border',
+			input: 'bg-toggle-off checked:bg-toggle-on focus:ring focus:ring-toggle-on focus:ring-offset-4 border border-solid border-toggle-off-border checked:border-toggle-on-border shadow-toggleContainer focus:outline-none checked:focus:border-toggle-on-border focus:border-toggle-off-border',
 			toggleDial: 'bg-toggle-dial-background shadow-toggleDial',
+		},
+	};
+	const colorHoverClassNames = {
+		primary: {
+			input: 'hover:bg-toggle-off-hover checked:hover:bg-toggle-on',
 		},
 	};
 
 	const sizeClassNames = {
 		md: {
 			container: 'w-11 h-6',
-			toggleDial:
-				'size-4 peer-checked:translate-x-5 group-hover/switch:size-5 group-focus-within/switch:size-5 group-focus-within/switch:left-0.5 group-hover/switch:left-0.5',
+			toggleDial: 'size-4 peer-checked:translate-x-5',
 		},
 		sm: {
 			container: 'w-10 h-5',
-			toggleDial:
-				'size-3 peer-checked:translate-x-5 group-hover/switch:size-4 group-focus-within/switch:size-4 group-focus-within/switch:left-0.5 group-hover/switch:left-0.5',
+			toggleDial: 'size-3 peer-checked:translate-x-5',
 		},
+	};
+	const toggleDialHoverClassNames = {
+		md: 'group-hover/switch:size-5 group-focus-within/switch:size-5 group-focus-within/switch:left-0.5 group-hover/switch:left-0.5',
+		sm: 'group-hover/switch:size-4 group-focus-within/switch:size-4 group-focus-within/switch:left-0.5 group-hover/switch:left-0.5',
 	};
 
 	const disabledClassNames = {
@@ -224,7 +232,8 @@ export const SwitchComponent = (
 					className={ cn(
 						"peer appearance-none absolute rounded-full cursor-pointer transition-colors duration-300 h-full w-full  before:content-[''] checked:before:content-[''] m-0 checked:[background-image:none]",
 						colorClassNames[ color ].input,
-						disabled && disabledClassNames.input
+						disabled && disabledClassNames.input,
+						! disabled && colorHoverClassNames[ color ].input
 					) }
 					checked={ getValue() }
 					onChange={ handleChange }
@@ -238,7 +247,8 @@ export const SwitchComponent = (
 						"bg-white border rounded-full absolute cursor-pointer shadow-md before:content[''] before:transition-opacity before:opacity-0 hover:before:opacity-10 before:hidden border-none transition-all duration-300 top-2/4 left-1 -translate-y-2/4 before:w-10 before:h-10 before:rounded-full before:absolute before:top-2/4 before:left-2/4 before:-translate-y-2/4 before:-translate-x-2/4",
 						sizeClassNames[ normalSize ].toggleDial,
 						colorClassNames[ color ].toggleDial,
-						disabled && disabledClassNames.toggleDial
+						disabled && disabledClassNames.toggleDial,
+						! disabled && toggleDialHoverClassNames[ normalSize ]
 					) }
 				/>
 			</div>
