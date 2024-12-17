@@ -61,8 +61,12 @@ export const SwitchLabel = ( {
 	size: 'sm' | 'md';
 } ) => {
 	const headingClasses = {
-		sm: 'text-sm leading-4 font-medium',
-		md: 'text-base leading-5 font-medium',
+		sm: 'text-sm leading-5 font-medium',
+		md: 'text-base leading-6 font-medium',
+	};
+	const descriptionClasses = {
+		sm: 'text-xs leading-4 font-normal',
+		md: 'text-sm leading-5 font-normal',
 	};
 	const isLabelAComponent = isValidElement( label );
 	if ( isLabelAComponent ) {
@@ -78,11 +82,11 @@ export const SwitchLabel = ( {
 	const renderLabel = () => {
 		const { heading = '', description = '' } = label || {};
 		return (
-			<div className="space-y-1.5">
+			<div className="space-y-0.5">
 				{ heading && (
 					<p
 						className={ cn(
-							'text-text-primary m-0', // text-base font-medium leading-4
+							'text-text-primary m-0',
 							headingClasses[ size ],
 							disabled && 'text-text-disabled'
 						) }
@@ -93,8 +97,9 @@ export const SwitchLabel = ( {
 				{ description && (
 					<p
 						className={ cn(
-							'text-text-secondary text-sm font-normal leading-5 m-0',
-							disabled && 'text-text-disabled'
+							'text-text-secondary text-xs font-normal leading-5 m-0',
+							disabled && 'text-text-disabled',
+							descriptionClasses[ size ]
 						) }
 					>
 						{ description }
