@@ -176,11 +176,13 @@ export const SwitchComponent = (
 	const sizeClassNames = {
 		md: {
 			container: 'w-11 h-6',
-			toggleDial: 'size-4 peer-checked:translate-x-5 group-hover/switch:size-5 group-focus-within/switch:size-5 group-focus-within/switch:left-0.5 group-hover/switch:left-0.5',
+			toggleDial:
+				'size-4 peer-checked:translate-x-5 group-hover/switch:size-5 group-focus-within/switch:size-5 group-focus-within/switch:left-0.5 group-hover/switch:left-0.5',
 		},
 		sm: {
 			container: 'w-10 h-5',
-			toggleDial: 'size-3 peer-checked:translate-x-5 group-hover/switch:size-4 group-focus-within/switch:size-4 group-focus-within/switch:left-0.5 group-hover/switch:left-0.5',
+			toggleDial:
+				'size-3 peer-checked:translate-x-5 group-hover/switch:size-4 group-focus-within/switch:size-4 group-focus-within/switch:left-0.5 group-hover/switch:left-0.5',
 		},
 	};
 

@@ -204,7 +204,9 @@ const DatePickerComponent = ( {
 						onClick={ handlePrevButtonClick }
 						className="bg-background-primary border-none cursor-pointer"
 						aria-label="Previous Button"
-						icon={ <ChevronLeft className="h-4 w-4 text-button-tertiary-color" /> }
+						icon={
+							<ChevronLeft className="h-4 w-4 text-button-tertiary-color" />
+						}
 					/>
 
 					<Button
@@ -231,7 +233,9 @@ const DatePickerComponent = ( {
 						onClick={ handleNextButtonClick }
 						className="bg-background-primary border-none cursor-pointer"
 						aria-label="Next Button"
-						icon={ <ChevronRight className="h-4 w-4 text-button-tertiary-color" /> }
+						icon={
+							<ChevronRight className="h-4 w-4 text-button-tertiary-color" />
+						}
 					/>
 				</div>
 
@@ -289,7 +293,8 @@ const DatePickerComponent = ( {
 											new Date().getFullYear() &&
 										'bg-background-brand text-text-on-color hover:bg-background-brand hover:text-black',
 									monthIndex === new Date().getMonth() &&
-										new Date().getFullYear() === selectedYear &&
+										new Date().getFullYear() ===
+											selectedYear &&
 										'font-semibold'
 								) }
 							>

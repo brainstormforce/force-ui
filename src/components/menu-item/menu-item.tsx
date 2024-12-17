@@ -140,7 +140,9 @@ export const MenuList = ( {
 								animate={ isOpen ? 'open' : 'closed' }
 								transition={ { duration: 0.15 } }
 							>
-								<ChevronDown className={ cn( 'shrink-0', iconSizeClasses ) } />
+								<ChevronDown
+									className={ cn( 'shrink-0', iconSizeClasses ) }
+								/>
 							</motion.span>
 						</motion.span>
 					) }
