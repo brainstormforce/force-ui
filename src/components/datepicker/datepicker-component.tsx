@@ -315,7 +315,7 @@ const DatePickerComponent = ( {
 				{ weekdays.map( ( weekday, weekdayIndex ) => (
 					<button
 						key={ weekdayIndex }
-						className="h-10 w-10 px-1.5 py-2 text-center text-text-secondary text-[0.8rem] font-normal content-center bg-transparent border-none shrink-0"
+						className="h-10 w-10 px-1.5 py-2 text-center text-text-secondary text-sm font-normal content-center bg-transparent border-none shrink-0"
 					>
 						{ weekday }
 					</button>
@@ -365,7 +365,7 @@ const DatePickerComponent = ( {
 			'bg-transperant opacity-50 text-text-disabled cursor-auto';
 
 		const buttonClasses = cn(
-			'h-10 w-10 flex items-center justify-center transition text-text-secondary relative',
+			'h-10 w-10 flex items-center justify-center transition text-text-secondary relative text-sm',
 			'border-none rounded',
 			( isSelected || isPartOfRange ) && ( ! isOutside || isPreviousMonth )
 				? 'bg-background-brand text-text-on-color'
@@ -531,7 +531,7 @@ const DatePickerComponent = ( {
 					table: 'w-full border-separate border-spacing-0',
 					head_row: 'flex mb-1',
 					head_cell:
-						'text-muted-foreground rounded-md w-10 font-normal text-[0.8rem]',
+						'text-muted-foreground rounded-md w-10 font-normal text-sm',
 					row: 'flex w-full mt-2',
 					cell: 'h-10 w-10 text-center text-sm p-0 relative',
 					day: 'h-10 w-10 p-0 font-normal bg-background-primary text-current',
