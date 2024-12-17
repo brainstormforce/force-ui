@@ -455,7 +455,7 @@ export const RadioButtonComponent = (
 						<>
 							<Switch
 								defaultValue={ false }
-								size={ size === 'md' ? 'lg' : 'sm' }
+								size={ size }
 								onChange={ () => {
 									if ( ! multiSelection ) {
 										// Toggle the switch on or off

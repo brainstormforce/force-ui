@@ -452,7 +452,7 @@ const Template = ( args ) => {
 								<Container.Item className="ml-auto">
 									<Switch
 										id="inherit"
-										size="lg"
+										size="md"
 										defaultValue={ false }
 									/>
 								</Container.Item>
@@ -485,7 +485,7 @@ const Template = ( args ) => {
 								<Container.Item className="ml-auto">
 									<Switch
 										id="custom-css"
-										size="lg"
+										size="md"
 										defaultValue={ true }
 									/>
 								</Container.Item>
@@ -518,7 +518,7 @@ const Template = ( args ) => {
 								<Container.Item className="ml-auto">
 									<Switch
 										id="copy-paste-styles"
-										size="lg"
+										size="md"
 										defaultValue={ true }
 									/>
 								</Container.Item>
@@ -552,7 +552,7 @@ const Template = ( args ) => {
 								<Container.Item className="ml-auto">
 									<Switch
 										id="block-recovery"
-										size="lg"
+										size="md"
 										defaultValue={ true }
 									/>
 								</Container.Item>
@@ -585,7 +585,7 @@ const Template = ( args ) => {
 								<Container.Item className="ml-auto">
 									<Switch
 										id="font-awesome-support"
-										size="lg"
+										size="md"
 										defaultValue={ true }
 									/>
 								</Container.Item>
