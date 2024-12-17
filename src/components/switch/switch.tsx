@@ -145,6 +145,9 @@ export const SwitchComponent = (
 	}: SwitchProps,
 	ref: React.ForwardedRef<HTMLInputElement>
 ) => {
+	// For backwards compatibility.
+	const normalSize = ( size as 'sm' | 'md' | 'lg' ) === 'lg' ? 'md' : size;
+
 	const isControlled = useMemo( () => typeof value !== 'undefined', [ value ] );
 	const switchId = useMemo( () => ( id ? id : `switch-${ nanoid() }` ), [] );
 	const [ checked, setChecked ] = useState( defaultValue );
@@ -201,12 +204,12 @@ export const SwitchComponent = (
 			label={ label }
 			switchId={ switchId }
 			disabled={ disabled }
-			size={ size }
+			size={ normalSize }
 		>
 			<div
 				className={ cn(
 					'relative group/switch inline-block cursor-pointer rounded-full shrink-0',
-					sizeClassNames[ size ].container,
+					sizeClassNames[ normalSize ].container,
 					className
 				) }
 			>
@@ -229,7 +232,7 @@ export const SwitchComponent = (
 					htmlFor={ switchId }
 					className={ cn(
 						"bg-white border rounded-full absolute cursor-pointer shadow-md before:content[''] before:transition-opacity before:opacity-0 hover:before:opacity-10 before:hidden border-none transition-all duration-300 top-2/4 left-1 -translate-y-2/4 before:w-10 before:h-10 before:rounded-full before:absolute before:top-2/4 before:left-2/4 before:-translate-y-2/4 before:-translate-x-2/4",
-						sizeClassNames[ size ].toggleDial,
+						sizeClassNames[ normalSize ].toggleDial,
 						colorClassNames[ color ].toggleDial,
 						disabled && disabledClassNames.toggleDial
 					) }
