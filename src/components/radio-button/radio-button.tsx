@@ -271,7 +271,7 @@ export const RadioButtonComponent = (
 	}: RadioButtonProps,
 	ref: React.ForwardedRef<HTMLInputElement>
 ) => {
-	const { buttonWrapperClasses } = props;
+	const { buttonWrapperClasses, ...restProps } = props;
 	const providerValue = useRadioButton();
 	const {
 		name,
@@ -466,7 +466,7 @@ export const RadioButtonComponent = (
 									}
 								} }
 								checked={ checkedValue }
-								{ ...props }
+								{ ...restProps }
 								aria-label={ label?.heading ?? 'Switch' }
 							/>
 						</>
@@ -488,7 +488,7 @@ export const RadioButtonComponent = (
 								onChange={ ( e ) => onChange( e.target.value ) }
 								checked={ checkedValue }
 								disabled={ isDisabled }
-								{ ...props }
+								{ ...restProps }
 							/>
 							<span
 								className={ cn(
