@@ -5,6 +5,7 @@ import {
 	isValidElement,
 	cloneElement,
 	useMemo,
+	Fragment,
 } from 'react';
 import {
 	useFloating,
@@ -174,10 +175,11 @@ export const Tooltip = ( {
 	const widthClasses = 'max-w-80 w-fit';
 
 	return (
-		<>
+		<Fragment>
 			{ isValidElement( children ) &&
+			<Fragment key="tooltip-reference">
+				{
 				cloneElement( children as React.ReactElement, {
-					...children.props,
 					ref: mergeRefs(
 						(
 							children as React.ReactElement & {
@@ -189,6 +191,7 @@ export const Tooltip = ( {
 					className: cn( children.props.className ),
 					...getReferenceProps(),
 				} ) }
+			</Fragment> }
 			<FloatingPortal id={ tooltipPortalId } root={ tooltipPortalRoot }>
 				{ isMounted && (
 					<div
@@ -207,10 +210,14 @@ export const Tooltip = ( {
 					>
 						<div>
 							{ !! title && (
-								<span className="font-semibold">{ title }</span>
+								<span key='tooltip-title' className="font-semibold">
+									{ title }
+								</span>
 							) }
 							{ !! content && (
-								<div className="font-normal">{ content }</div>
+								<div key="tooltip-content" className="font-normal">
+									{ content }
+								</div>
 							) }
 						</div>
 						{ arrow && (
@@ -223,8 +230,10 @@ export const Tooltip = ( {
 					</div>
 				) }
 			</FloatingPortal>
-		</>
+		</Fragment>
 	);
 };
+
+Tooltip.displayName = 'Tooltip';
 
 export default Tooltip;

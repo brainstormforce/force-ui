@@ -1,4 +1,4 @@
-import React, { forwardRef, type ElementType, type ReactNode } from 'react';
+import React, { forwardRef, Fragment, type ElementType, type ReactNode } from 'react';
 import { cn } from '@/utilities/functions';
 
 export interface ButtonProps {
@@ -140,12 +140,18 @@ const Button: React.FunctionComponent<ButtonProps> = forwardRef(
 				disabled={ disabled }
 				{ ...rest }
 			>
-				{ iconLeft }
+				<Fragment key="left-icon">
+					{ iconLeft }
+				</Fragment>
 				{ children ? <span className="px-1">{ children }</span> : null }
-				{ iconRight }
+				<Fragment key="right-icon">
+					{ iconRight }
+				</Fragment>
 			</Tag>
 		);
 	}
 );
+
+Button.displayName = 'Button';
 
 export default Button;
