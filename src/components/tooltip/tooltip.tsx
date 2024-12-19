@@ -176,22 +176,22 @@ export const Tooltip = ( {
 
 	return (
 		<Fragment>
-			{ isValidElement( children ) &&
-			<Fragment key="tooltip-reference">
-				{
-				cloneElement( children as React.ReactElement, {
-					ref: mergeRefs(
-						(
-							children as React.ReactElement & {
-								ref?: React.Ref<HTMLElement>;
-							}
-						).ref,
-						refs.setReference
-					),
-					className: cn( children.props.className ),
-					...getReferenceProps(),
-				} ) }
-			</Fragment> }
+			{ isValidElement( children ) && (
+				<Fragment key="tooltip-reference">
+					{ cloneElement( children as React.ReactElement, {
+						ref: mergeRefs(
+							(
+								children as React.ReactElement & {
+									ref?: React.Ref<HTMLElement>;
+								}
+							).ref,
+							refs.setReference
+						),
+						className: cn( children.props.className ),
+						...getReferenceProps(),
+					} ) }
+				</Fragment>
+			) }
 			<FloatingPortal id={ tooltipPortalId } root={ tooltipPortalRoot }>
 				{ isMounted && (
 					<div
@@ -210,12 +210,18 @@ export const Tooltip = ( {
 					>
 						<div>
 							{ !! title && (
-								<span key='tooltip-title' className="font-semibold">
+								<span
+									key="tooltip-title"
+									className="font-semibold"
+								>
 									{ title }
 								</span>
 							) }
 							{ !! content && (
-								<div key="tooltip-content" className="font-normal">
+								<div
+									key="tooltip-content"
+									className="font-normal"
+								>
 									{ content }
 								</div>
 							) }
