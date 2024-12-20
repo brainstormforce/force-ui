@@ -197,7 +197,7 @@ export const Toast = ( {
 						<div className="self-start flex items-center justify-center [&_svg]:size-5 shrink-0">
 							{ getIcon( { variant, icon, theme } ) }
 						</div>
-						<div className="flex flex-col items-start justify-start gap-0.5">
+						<div className="flex flex-col items-start justify-start gap-0.5 mr-6">
 							{ getTitle( { title, theme } ) }
 							{ getContent( { content, theme } ) }
 							{
