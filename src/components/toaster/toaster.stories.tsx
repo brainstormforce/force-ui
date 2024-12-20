@@ -1,6 +1,8 @@
 import type { Meta, StoryFn } from '@storybook/react';
 import { Toaster } from './toaster';
 import { toast } from './controller';
+import { nanoid } from 'nanoid';
+import { useState, useEffect } from 'react';
 
 const meta: Meta<typeof Toaster> = {
 	title: 'Atoms/Toaster',
@@ -62,9 +64,15 @@ export default meta;
 type Story = StoryFn<typeof Toaster>;
 
 const Template: Story = ( args ) => {
+	const [ keyId, setKeyId ] = useState( nanoid() );
+
+	useEffect( () => {
+		setKeyId( nanoid() );
+	}, [ args ] );
+
 	return (
 		<div>
-			<Toaster { ...args } key={ args.position } />
+			<Toaster { ...args } key={ keyId } />
 			<div className="h-[100dvh] flex flex-col items-center justify-center">
 				<div className="flex gap-2">
 					<button
