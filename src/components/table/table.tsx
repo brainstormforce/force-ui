@@ -216,16 +216,20 @@ export const Table = ( {
 		<TableContext.Provider
 			value={ contextValue as TableContextType<unknown> }
 		>
-			<div className="flow-root overflow-x-auto divide-y divide-x-0 divide-solid divide-border-subtle">
-				<table
-					className={ cn(
-						'table-fixed min-w-full border-collapse border-spacing-0',
-						className
-					) }
-					{ ...props }
-				>
-					{ restChildren }
-				</table>
+			<div className="flow-root divide-y divide-x-0 divide-solid divide-border-subtle">
+				<div className="overflow-x-auto w-full">
+					<div className="relative">
+						<table
+							className={ cn(
+								'table-fixed min-w-full border-collapse border-spacing-0',
+								className
+							) }
+							{ ...props }
+						>
+							{ restChildren }
+						</table>
+					</div>
+				</div>
 				{ footer }
 			</div>
 		</TableContext.Provider>
