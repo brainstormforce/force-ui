@@ -43,6 +43,7 @@ import type {
 	SelectPortalProps,
 	SelectProps,
 	SelectSizes,
+	SelectOptionGroupProps,
 } from './select-types';
 
 // Context to manage the state of the select component.
@@ -269,6 +270,46 @@ export function SelectButton( {
 	);
 }
 
+export function SelectOptionGroup( {
+	label,
+	children,
+	className,
+}: SelectOptionGroupProps ) {
+	const { sizeValue } = useSelectContext();
+
+	const groupClassNames = {
+		sm: 'text-xs py-1',
+		md: 'text-sm py-1.5',
+		lg: 'text-base py-2',
+	};
+
+	return (
+		<div
+			className="flex flex-col"
+			role="group"
+			aria-label={ label }
+		>
+			<div
+				className={ cn(
+					'px-2 font-medium text-text-secondary',
+					groupClassNames[ sizeValue as SelectSizes ],
+					className
+				) }
+				id={ `group-${ label?.toLowerCase().replace( /\s+/g, '-' ) }` }
+			>
+				{ label }
+			</div>
+			<div
+				className="flex flex-col"
+				role="presentation"
+				aria-labelledby={ `group-${ label?.toLowerCase().replace( /\s+/g, '-' ) }` }
+			>
+				{ children }
+			</div>
+		</div>
+	);
+}
+
 export function SelectOptions( {
 	children,
 	searchBy = 'name', // Used to identify searched value using the key. Default is 'id'.
@@ -325,10 +366,26 @@ export function SelectOptions( {
 
 	// Render children based on the search keyword.
 	const renderChildren = useMemo( () => {
-		return Children.map( children, ( child, index ) => {
+		let childIndex = 0;
+		const processChild = ( child: React.ReactNode ): React.ReactNode => {
 			if ( ! isValidElement( child ) ) {
 				return null;
 			}
+
+			// Handle option groups
+			if ( child.type === SelectOptionGroup ) {
+				// Recursively process children of the option group.
+				const groupChildren = Children.map( child.props.children, processChild );
+				// Only render group if it has visible children
+				return groupChildren?.some( ( c ) => c !== null ) ? (
+					cloneElement( child, {
+						...child.props,
+						children: groupChildren,
+					} )
+				) : null;
+			}
+
+			// Handle regular options
 			if ( searchKeyword ) {
 				const valueProp = child.props.value;
 				if ( typeof valueProp === 'object' ) {
@@ -349,19 +406,37 @@ export function SelectOptions( {
 			}
 			return cloneElement( child, {
 				...child.props,
-				index,
+				index: childIndex++,
 			} );
-		} );
+		};
+
+		return Children.map( children, processChild );
 	}, [ searchKeyword, value, selected, children ] );
 	const childrenCount = Children.count( renderChildren );
 
 	// Update the content list reference.
 	useEffect( () => {
 		listContentRef.current = [];
-		Children.forEach( children, ( child ) => {
+		// Get all children as an array.
+		let allChildren = Children.toArray( children );
+		// If it's an option group and has children.
+		if (
+			allChildren &&
+			isValidElement( allChildren[ 0 ] ) &&
+			allChildren[ 0 ].type === SelectOptionGroup
+		) {
+			allChildren = Children.toArray( allChildren )
+				.map( ( child ) =>
+					isValidElement( child ) ? child.props.children : null
+				)
+				.filter( Boolean );
+		}
+		// Update the list content reference.
+		Children.forEach( allChildren, ( child ) => {
 			if ( ! isValidElement( child ) ) {
 				return;
 			}
+
 			if ( child.props.value ) {
 				if ( searchKeyword ) {
 					const valueProp = child.props.value;
@@ -794,10 +869,12 @@ SelectPortal.displayName = 'Select.Portal';
 SelectButton.displayName = 'Select.Button';
 SelectOptions.displayName = 'Select.Options';
 SelectItem.displayName = 'Select.Option';
+SelectOptionGroup.displayName = 'Select.OptionGroup';
 
 Select.Portal = SelectPortal;
 Select.Button = SelectButton;
 Select.Options = SelectOptions;
 Select.Option = SelectItem;
+Select.OptionGroup = SelectOptionGroup;
 
 export default Select;

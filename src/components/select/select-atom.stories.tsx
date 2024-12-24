@@ -13,6 +13,32 @@ const options = [
 	{ id: '8', name: 'Pink' },
 ];
 
+const groupedOptions = [
+	{
+		label: 'Warm Colors',
+		options: [
+			{ id: '1', name: 'Red' },
+			{ id: '2', name: 'Orange' },
+			{ id: '3', name: 'Yellow' },
+		],
+	},
+	{
+		label: 'Cool Colors',
+		options: [
+			{ id: '4', name: 'Green' },
+			{ id: '5', name: 'Cyan' },
+			{ id: '6', name: 'Blue' },
+		],
+	},
+	{
+		label: 'Other Colors',
+		options: [
+			{ id: '7', name: 'Purple' },
+			{ id: '8', name: 'Pink' },
+		],
+	},
+];
+
 const meta: Meta<typeof Select> = {
 	title: 'Atoms/Select',
 	component: Select,
@@ -21,6 +47,7 @@ const meta: Meta<typeof Select> = {
 		'Select.Portal': Select.Portal,
 		'Select.Options': Select.Options,
 		'Select.Option': Select.Option,
+		'Select.OptionGroup': Select.OptionGroup,
 	} as Record<string, React.ComponentType<unknown>>,
 	parameters: {
 		layout: 'centered',
@@ -267,3 +294,57 @@ SelectWithSearchWithoutPortal.args = {
 	combobox: true,
 	disabled: false,
 };
+
+const GroupedSelectTemplate: Story = ( { size, multiple, combobox, disabled } ) => (
+	<div className="w-80">
+		<Select
+			size={ size }
+			multiple={ multiple }
+			combobox={ combobox }
+			disabled={ disabled }
+			onChange={ ( value ) => value }
+		>
+			<Select.Button
+				placeholder={ multiple ? 'Select multiple options' : 'Select an option' }
+				label={ multiple ? 'Select Multiple Colors' : 'Select a Color' }
+			/>
+			<Select.Portal>
+				<Select.Options>
+					{ groupedOptions.map( ( group ) => (
+						<Select.OptionGroup key={ group.label } label={ group.label }>
+							{ group.options.map( ( option ) => (
+								<Select.Option key={ option.id } value={ option }>
+									{ option.name }
+								</Select.Option>
+							) ) }
+						</Select.OptionGroup>
+					) ) }
+				</Select.Options>
+			</Select.Portal>
+		</Select>
+	</div>
+);
+
+export const GroupedSelect = GroupedSelectTemplate.bind( {} );
+GroupedSelect.args = {
+	size: 'md',
+	multiple: false,
+	combobox: false,
+	disabled: false,
+};
+
+// GroupedSelect.play = async ( { canvasElement } ) => {
+// 	const canvas = within( canvasElement );
+// 	const selectButton = await canvas.findByRole( 'combobox' );
+// 	await userEvent.click( selectButton );
+
+// 	const listBox = await screen.findByRole( 'listbox' );
+// 	expect( listBox ).toHaveTextContent( 'Warm Colors' );
+// 	expect( listBox ).toHaveTextContent( 'Cool Colors' );
+// 	expect( listBox ).toHaveTextContent( 'Red' );
+
+// 	const allOptions = await screen.findAllByRole( 'option' );
+// 	await userEvent.click( allOptions[ 0 ] );
+
+// 	expect( selectButton ).toHaveTextContent( 'Red' );
+// };
