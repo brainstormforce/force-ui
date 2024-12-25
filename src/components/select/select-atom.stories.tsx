@@ -344,6 +344,14 @@ GroupedSelect.args = {
 	disabled: false,
 };
 
+export const GroupedSelectWithSearch = GroupedSelectTemplate.bind( {} );
+GroupedSelectWithSearch.args = {
+	size: 'md',
+	multiple: false,
+	combobox: true,
+	disabled: false,
+};
+
 GroupedSelect.play = async ( { canvasElement } ) => {
 	const canvas = within( canvasElement );
 	const selectButton = await canvas.findByRole( 'combobox' );
