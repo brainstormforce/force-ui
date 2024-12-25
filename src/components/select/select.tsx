@@ -10,6 +10,7 @@ import {
 	isValidElement,
 	useEffect,
 	useLayoutEffect,
+	Fragment,
 } from 'react';
 import { cn } from '@/utilities/functions';
 import { CheckIcon, ChevronDown, ChevronsUpDown, Search } from 'lucide-react';
@@ -30,7 +31,12 @@ import {
 } from '@floating-ui/react';
 import Badge from '../badge';
 import { nanoid } from 'nanoid';
-import { disabledClassNames, sizeClassNames } from './component-style';
+import {
+	disabledClassNames,
+	optionGroupDividerClassNames,
+	optionGroupDividerSizeClassNames,
+	sizeClassNames,
+} from './component-style';
 import type {
 	OnClick,
 	OnKeyDown,
@@ -274,39 +280,53 @@ export function SelectOptionGroup( {
 	label,
 	children,
 	className,
+	...props
 }: SelectOptionGroupProps ) {
+	const { index, totalGroups } = props as {
+		index: number;
+		totalGroups: number;
+	};
 	const { sizeValue } = useSelectContext();
 
 	const groupClassNames = {
-		sm: 'text-xs py-1',
-		md: 'text-sm py-1.5',
-		lg: 'text-base py-2',
+		sm: 'text-xs',
+		md: 'text-xs',
+		lg: 'text-sm',
 	};
 
 	return (
-		<div
-			className="flex flex-col"
-			role="group"
-			aria-label={ label }
-		>
-			<div
-				className={ cn(
-					'px-2 font-medium text-text-secondary',
-					groupClassNames[ sizeValue as SelectSizes ],
-					className
-				) }
-				id={ `group-${ label?.toLowerCase().replace( /\s+/g, '-' ) }` }
-			>
-				{ label }
+		<Fragment>
+			<div className="flex flex-col" role="group" aria-label={ label }>
+				<div
+					className={ cn(
+						'p-2 font-normal text-text-tertiary',
+						groupClassNames[ sizeValue as SelectSizes ],
+						className
+					) }
+					id={ `group-${ label?.toLowerCase().replace( /\s+/g, '-' ) }` }
+				>
+					{ label }
+				</div>
+				<div
+					className="flex flex-col"
+					role="presentation"
+					aria-labelledby={ `group-${ label?.toLowerCase().replace( /\s+/g, '-' ) }` }
+				>
+					{ children }
+				</div>
 			</div>
-			<div
-				className="flex flex-col"
-				role="presentation"
-				aria-labelledby={ `group-${ label?.toLowerCase().replace( /\s+/g, '-' ) }` }
-			>
-				{ children }
-			</div>
-		</div>
+			{ index < totalGroups &&
+				!! ( children && Children.count( children ) > 0 ) && (
+				<hr
+					className={ cn(
+						optionGroupDividerClassNames,
+						optionGroupDividerSizeClassNames[
+								sizeValue as SelectSizes
+						]
+					) }
+				/>
+			) }
+		</Fragment>
 	);
 }
 
@@ -366,7 +386,45 @@ export function SelectOptions( {
 
 	// Render children based on the search keyword.
 	const renderChildren = useMemo( () => {
+		// Track actual visible groups after filtering
+		let visibleGroups = 0;
+		let totalGroups = 0;
+
+		// First pass - count total visible groups
+		Children.forEach( children, ( child ) => {
+			if ( isValidElement( child ) && child.type === SelectOptionGroup ) {
+				const hasVisibleChildren = Children.toArray(
+					child.props.children
+				).some( ( groupChild ) => {
+					if ( ! isValidElement( groupChild ) ) {
+						return false;
+					}
+
+					if ( searchKeyword ) {
+						const valueProp = groupChild.props.value;
+						if ( typeof valueProp === 'object' ) {
+							return valueProp[ searchBy ]
+								.toLowerCase()
+								.includes( searchKeyword.toLowerCase() );
+						}
+						return valueProp
+							.toLowerCase()
+							.includes( searchKeyword.toLowerCase() );
+					}
+					return true;
+				} );
+
+				if ( hasVisibleChildren ) {
+					visibleGroups++;
+				}
+			}
+		} );
+
+		totalGroups = Math.max( 0, visibleGroups - 1 ); // Subtract 1 since we don't need divider after last group
 		let childIndex = 0;
+		let groupIndex = 0;
+
+		// Process child to render
 		const processChild = ( child: React.ReactNode ): React.ReactNode => {
 			if ( ! isValidElement( child ) ) {
 				return null;
@@ -374,15 +432,27 @@ export function SelectOptions( {
 
 			// Handle option groups
 			if ( child.type === SelectOptionGroup ) {
-				// Recursively process children of the option group.
-				const groupChildren = Children.map( child.props.children, processChild );
+				// Recursively process children of the option group
+				const groupChildren = Children.map(
+					child.props.children,
+					processChild
+				);
 				// Only render group if it has visible children
-				return groupChildren?.some( ( c ) => c !== null ) ? (
-					cloneElement( child, {
-						...child.props,
-						children: groupChildren,
-					} )
-				) : null;
+				const hasChildren = groupChildren?.some( ( c ) => c !== null );
+
+				if ( ! hasChildren ) {
+					return null;
+				}
+
+				const groupProps = {
+					...child.props,
+					children: groupChildren,
+					index: groupIndex,
+					totalGroups,
+				};
+
+				groupIndex++;
+				return cloneElement( child, groupProps );
 			}
 
 			// Handle regular options
@@ -390,20 +460,21 @@ export function SelectOptions( {
 				const valueProp = child.props.value;
 				if ( typeof valueProp === 'object' ) {
 					if (
-						valueProp[ searchBy ]
+						! valueProp[ searchBy ]
 							.toLowerCase()
-							.indexOf( searchKeyword.toLowerCase() ) === -1
+							.includes( searchKeyword.toLowerCase() )
 					) {
 						return null;
 					}
 				} else if (
-					valueProp
+					! valueProp
 						.toLowerCase()
-						.indexOf( searchKeyword.toLowerCase() ) === -1
+						.includes( searchKeyword.toLowerCase() )
 				) {
 					return null;
 				}
 			}
+
 			return cloneElement( child, {
 				...child.props,
 				index: childIndex++,
@@ -483,7 +554,7 @@ export function SelectOptions( {
 									.dropdown,
 								! combobox && 'h-auto',
 								! combobox
-									? 'overflow-y-auto'
+									? 'overflow-y-auto overflow-x-hidden'
 									: 'overflow-hidden',
 								className
 							) }
@@ -528,7 +599,7 @@ export function SelectOptions( {
 							{ /* Dropdown Items Wrapper */ }
 							<div
 								className={ cn(
-									'overflow-y-auto',
+									'overflow-y-auto overflow-x-hidden',
 									! combobox && 'w-full h-full',
 									sizeClassNames[ sizeValue as SelectSizes ]
 										.dropdownItemsWrapper

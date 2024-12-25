@@ -295,9 +295,15 @@ SelectWithSearchWithoutPortal.args = {
 	disabled: false,
 };
 
-const GroupedSelectTemplate: Story = ( { size, multiple, combobox, disabled } ) => (
+const GroupedSelectTemplate: Story = ( {
+	size,
+	multiple,
+	combobox,
+	disabled,
+} ) => (
 	<div className="w-80">
 		<Select
+			key={ `${ size }-${ multiple }-${ combobox }-${ disabled }` }
 			size={ size }
 			multiple={ multiple }
 			combobox={ combobox }
@@ -305,13 +311,18 @@ const GroupedSelectTemplate: Story = ( { size, multiple, combobox, disabled } ) 
 			onChange={ ( value ) => value }
 		>
 			<Select.Button
-				placeholder={ multiple ? 'Select multiple options' : 'Select an option' }
+				placeholder={
+					multiple ? 'Select multiple options' : 'Select an option'
+				}
 				label={ multiple ? 'Select Multiple Colors' : 'Select a Color' }
 			/>
 			<Select.Portal>
 				<Select.Options>
 					{ groupedOptions.map( ( group ) => (
-						<Select.OptionGroup key={ group.label } label={ group.label }>
+						<Select.OptionGroup
+							key={ group.label }
+							label={ group.label }
+						>
 							{ group.options.map( ( option ) => (
 								<Select.Option key={ option.id } value={ option }>
 									{ option.name }
@@ -333,18 +344,18 @@ GroupedSelect.args = {
 	disabled: false,
 };
 
-// GroupedSelect.play = async ( { canvasElement } ) => {
-// 	const canvas = within( canvasElement );
-// 	const selectButton = await canvas.findByRole( 'combobox' );
-// 	await userEvent.click( selectButton );
+GroupedSelect.play = async ( { canvasElement } ) => {
+	const canvas = within( canvasElement );
+	const selectButton = await canvas.findByRole( 'combobox' );
+	await userEvent.click( selectButton );
 
-// 	const listBox = await screen.findByRole( 'listbox' );
-// 	expect( listBox ).toHaveTextContent( 'Warm Colors' );
-// 	expect( listBox ).toHaveTextContent( 'Cool Colors' );
-// 	expect( listBox ).toHaveTextContent( 'Red' );
+	const listBox = await screen.findByRole( 'listbox' );
+	expect( listBox ).toHaveTextContent( 'Warm Colors' );
+	expect( listBox ).toHaveTextContent( 'Cool Colors' );
+	expect( listBox ).toHaveTextContent( 'Red' );
 
-// 	const allOptions = await screen.findAllByRole( 'option' );
-// 	await userEvent.click( allOptions[ 0 ] );
+	const allOptions = await screen.findAllByRole( 'option' );
+	await userEvent.click( allOptions[ 0 ] );
 
-// 	expect( selectButton ).toHaveTextContent( 'Red' );
-// };
+	expect( selectButton ).toHaveTextContent( 'Red' );
+};
