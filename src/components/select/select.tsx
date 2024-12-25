@@ -651,6 +651,7 @@ export function SelectItem( {
 		multiple,
 	} = useSelectContext();
 	const { index: indx } = props;
+	const initialIndxRef = useRef( indx );
 
 	const selectItemClassNames = {
 		sm: 'py-1.5 px-2 text-sm font-normal',
@@ -711,11 +712,15 @@ export function SelectItem( {
 			{ ...getItemProps( {
 				// Handle pointer select.
 				onClick() {
-					onClickItem( indx as number, value );
+					onClickItem( initialIndxRef.current as number, value );
 				},
 				// Handle keyboard select.
 				onKeyDown( event: React.KeyboardEvent ) {
-					onKeyDownItem( event, indx as number, value );
+					onKeyDownItem(
+						event,
+						initialIndxRef.current as number,
+						value
+					);
 				},
 			} ) }
 		>
