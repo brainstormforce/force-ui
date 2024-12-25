@@ -205,7 +205,7 @@ export function SelectButton( {
 			};
 
 	return (
-		<div className="flex flex-col items-start gap-1.5 [&_*]:box-border box-border">
+		<div className="w-full flex flex-col items-start gap-1.5 [&_*]:box-border box-border">
 			{ !! label && (
 				<label
 					className={ cn(
