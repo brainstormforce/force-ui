@@ -133,7 +133,7 @@ export const CheckboxComponent = (
 					<Label
 						tag="p"
 						className={ cn(
-							'text-text-secondary font-normal leading-5 m-0',
+							'font-normal leading-5 m-0',
 							sizeClassNames[ size ].description,
 							disabled && 'text-text-disabled'
 						) }
