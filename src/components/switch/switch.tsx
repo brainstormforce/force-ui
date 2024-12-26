@@ -90,7 +90,7 @@ export const SwitchLabel = ( {
 			<div className={ cn( 'space-y-0.5', gapClassNames[ size ] ) }>
 				{ heading && (
 					<Label
-						tag="p"
+						htmlFor={ switchId }
 						className={ cn( 'm-0', headingClasses[ size ] ) }
 						{ ...( disabled && { variant: 'disabled' } ) }
 					>
@@ -125,12 +125,7 @@ export const SwitchLabel = ( {
 	return (
 		<div className={ cn( 'inline-flex', alignmentClass, 'gap-3' ) }>
 			{ children }
-			<label
-				htmlFor={ switchId }
-				className={ cn( ! disabled && 'cursor-pointer' ) }
-			>
-				{ renderLabel() }
-			</label>
+			{ renderLabel() }
 		</div>
 	);
 };
