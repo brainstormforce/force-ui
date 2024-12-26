@@ -60,7 +60,7 @@ export const CheckboxComponent = (
 			checkbox: 'size-4 rounded gap-1',
 			icon: 'size-3',
 			text: 'text-sm', // text class for sm
-			description: 'text-xs',
+			description: 'text-sm',
 			gap: 'gap-0.5',
 		},
 		md: {
