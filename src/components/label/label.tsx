@@ -49,6 +49,13 @@ const Label = forwardRef(
 				'text-field-color-disabled disabled cursor-not-allowed [&>*]:text-field-color-disabled',
 		};
 
+		const fontWeightClassNames: Record<string, string> = {
+			neutral: '',
+			help: 'font-normal',
+			error: 'font-normal',
+			disabled: '',
+		};
+
 		if ( ! children ) {
 			return null;
 		}
@@ -68,6 +75,7 @@ const Label = forwardRef(
 					sizeClasses[ size ],
 					variantClasses[ variant ],
 					requiredClasses,
+					fontWeightClassNames?.[ variant ],
 					className
 				) }
 				{ ...props }
