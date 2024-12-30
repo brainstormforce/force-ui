@@ -397,11 +397,7 @@ export const TableFooter: React.FC<TableFooterProps> = ( {
 	const { checkboxSelection } = useTableContext();
 	return (
 		<div
-			className={ cn(
-				'px-3 py-3',
-				checkboxSelection && 'px-4',
-				className
-			) }
+			className={ cn( 'px-3 py-3', checkboxSelection && 'px-4', className ) }
 			{ ...props }
 		>
 			{ children }
