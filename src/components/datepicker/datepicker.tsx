@@ -208,7 +208,7 @@ const DatePicker = ( {
 	if ( variant === 'presets' ) {
 		return (
 			<div className="flex flex-row shadow-datepicker-wrapper">
-				<div className="flex flex-col gap-1 p-3 items-start border border-solid border-border-subtle border-r-0 rounded-tl-md rounded-bl-md">
+				<div className="flex flex-col gap-1 p-3 items-start border border-solid border-border-subtle border-r-0 rounded-tl-md rounded-bl-md bg-background-primary">
 					{ presets.map( ( preset, index ) => (
 						<Button
 							key={ index }
