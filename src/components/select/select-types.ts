@@ -99,8 +99,17 @@ export interface SelectButtonProps extends AriaAttributes {
 	className?: string;
 }
 
+export interface SelectOptionGroupProps {
+	/** Label for the option group */
+	label: string;
+	/** Children options */
+	children: ReactNode;
+	/** Additional class name for the option group */
+	className?: string;
+}
+
 export interface SelectOptionsProps {
-	/** Expects the `Select.Option` children of the Select.Options Component. */
+	/** Expects the `Select.Option` or `Select.OptionGroup` children */
 	children?: ReactNode;
 	/** Key used to identify searched value using the key. Default is 'id'. */
 	searchBy?: string;
