@@ -8,6 +8,7 @@ import {
 import { nanoid } from 'nanoid';
 import { cn } from '@/utilities/functions';
 import { Check, Minus } from 'lucide-react';
+import Label from '../label/label';
 
 // Types for Component Props
 export declare interface CheckboxProps {
@@ -59,7 +60,7 @@ export const CheckboxComponent = (
 			checkbox: 'size-4 rounded gap-1',
 			icon: 'size-3',
 			text: 'text-sm', // text class for sm
-			description: 'text-xs',
+			description: 'text-sm',
 			gap: 'gap-0.5',
 		},
 		md: {
@@ -116,27 +117,30 @@ export const CheckboxComponent = (
 		return (
 			<div className={ sizeClassNames[ size ].gap }>
 				{ label?.heading && (
-					<p
+					<Label
 						className={ cn(
 							'text-text-primary font-medium leading-4 m-0',
 							sizeClassNames[ size ].text,
 							sizeClassNames[ size ].gap,
 							disabled && 'text-text-disabled'
 						) }
+						htmlFor={ checkboxId }
 					>
 						{ label?.heading }
-					</p>
+					</Label>
 				) }
 				{ label?.description && (
-					<p
+					<Label
+						tag="p"
 						className={ cn(
-							'text-text-secondary font-normal leading-5 m-0',
+							'font-normal leading-5 m-0',
 							sizeClassNames[ size ].description,
 							disabled && 'text-text-disabled'
 						) }
+						variant="help"
 					>
 						{ label?.description }
-					</p>
+					</Label>
 				) }
 			</div>
 		);
@@ -187,17 +191,7 @@ export const CheckboxComponent = (
 					) }
 				</span>
 			</label>
-			{ !! label && (
-				<label
-					className={ cn(
-						'cursor-pointer',
-						disabled && 'cursor-not-allowed'
-					) }
-					htmlFor={ checkboxId }
-				>
-					{ renderLabel() }
-				</label>
-			) }
+			{ !! label && renderLabel() }
 		</div>
 	);
 };

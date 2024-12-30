@@ -66,7 +66,7 @@ export const SwitchLabel = ( {
 		md: 'text-base leading-6 font-medium',
 	};
 	const descriptionClasses = {
-		sm: 'text-xs leading-4 font-normal',
+		sm: 'text-sm leading-5 font-normal',
 		md: 'text-sm leading-5 font-normal',
 	};
 	const gapClassNames = {
@@ -90,7 +90,7 @@ export const SwitchLabel = ( {
 			<div className={ cn( 'space-y-0.5', gapClassNames[ size ] ) }>
 				{ heading && (
 					<Label
-						tag="p"
+						htmlFor={ switchId }
 						className={ cn( 'm-0', headingClasses[ size ] ) }
 						{ ...( disabled && { variant: 'disabled' } ) }
 					>
@@ -102,7 +102,7 @@ export const SwitchLabel = ( {
 						tag="p"
 						variant="help"
 						className={ cn(
-							'text-xs font-normal leading-5 m-0',
+							'text-sm font-normal leading-5 m-0',
 							descriptionClasses[ size ]
 						) }
 						{ ...( disabled && { variant: 'disabled' } ) }
@@ -125,12 +125,7 @@ export const SwitchLabel = ( {
 	return (
 		<div className={ cn( 'inline-flex', alignmentClass, 'gap-3' ) }>
 			{ children }
-			<label
-				htmlFor={ switchId }
-				className={ cn( ! disabled && 'cursor-pointer' ) }
-			>
-				{ renderLabel() }
-			</label>
+			{ renderLabel() }
 		</div>
 	);
 };
