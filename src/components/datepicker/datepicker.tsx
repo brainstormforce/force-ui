@@ -11,6 +11,7 @@ import {
 	subWeeks,
 	subMonths,
 } from 'date-fns';
+import { getDefaultSelectedValue } from './utils';
 
 export interface DatePickerProps {
 	/** Defines the selection selectionType of the date picker: single, range, or multiple dates. */
@@ -33,6 +34,8 @@ export interface DatePickerProps {
 	showOutsideDays?: boolean;
 	/** Show or hide the footer. */
 	isFooter?: boolean;
+	/** Selected date value. */
+	selected?: Date | Date[] | TDateRange | null;
 }
 
 const DatePicker = ( {
@@ -46,17 +49,30 @@ const DatePicker = ( {
 	cancelButtonText = 'Cancel',
 	showOutsideDays = true,
 	isFooter = true,
+	selected,
 	...props
 }: DatePickerProps ) => {
 	const [ selectedDates, setSelectedDates ] = useState<
 		TDateRange | Date | Date[] | null
 	>( () => {
-		if ( selectionType === 'multiple' ) {
-			return [];
-		} else if ( selectionType === 'range' ) {
-			return { from: null, to: null };
+		if ( ! selected ) {
+			return getDefaultSelectedValue( selectionType );
 		}
-		return null;
+
+		// Type guards for different selection types
+		const isValidMultiple =
+			selectionType === 'multiple' && Array.isArray( selected );
+		const isValidRange =
+			selectionType === 'range' && 'from' in selected && 'to' in selected;
+		const isValidSingle =
+			selectionType === 'single' && selected instanceof Date;
+
+		// Return selected if valid, otherwise return default value
+		if ( isValidMultiple || isValidRange || isValidSingle ) {
+			return selected;
+		}
+
+		return getDefaultSelectedValue( selectionType );
 	} );
 
 	const handleSelect = ( selectedDate: Date | Date[] | TDateRange | null ) => {

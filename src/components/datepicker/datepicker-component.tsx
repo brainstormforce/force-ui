@@ -175,7 +175,7 @@ const DatePickerComponent = ( {
 			}
 		};
 
-		const handleYearClick = ( { yearValue }: { yearValue: number } ) => {
+		const handleYearClick = ( yearValue: number ) => {
 			setSelectedYear( yearValue );
 			setShowYearSelect( false );
 			setShowMonthSelect( true );
@@ -245,13 +245,7 @@ const DatePickerComponent = ( {
 							<Button
 								key={ yearValue }
 								variant="ghost"
-								onClick={ () =>
-									handleYearClick(
-										yearValue as unknown as {
-											yearValue: number;
-										}
-									)
-								}
+								onClick={ () => handleYearClick( yearValue ) }
 								className={ cn(
 									'h-10 w-full text-center font-normal relative',
 									yearValue === selectedYear &&

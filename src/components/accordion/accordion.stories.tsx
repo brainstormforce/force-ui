@@ -11,9 +11,9 @@ export default {
 	},
 	tags: [ 'autodocs' ],
 	subcomponents: {
-		Item: Accordion.Item,
-		Trigger: Accordion.Trigger,
-		Content: Accordion.Content,
+		'Accordion.Item': Accordion.Item,
+		'Accordion.Trigger': Accordion.Trigger,
+		'Accordion.Content': Accordion.Content,
 	},
 	decorators: [
 		( Story ) => (
