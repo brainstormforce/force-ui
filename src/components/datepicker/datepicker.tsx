@@ -33,6 +33,8 @@ export interface DatePickerProps {
 	showOutsideDays?: boolean;
 	/** Show or hide the footer. */
 	isFooter?: boolean;
+	/** Selected date value. */
+	selected?: Date | Date[] | TDateRange | null;
 }
 
 const DatePicker = ( {
@@ -46,11 +48,15 @@ const DatePicker = ( {
 	cancelButtonText = 'Cancel',
 	showOutsideDays = true,
 	isFooter = true,
+	selected,
 	...props
 }: DatePickerProps ) => {
 	const [ selectedDates, setSelectedDates ] = useState<
 		TDateRange | Date | Date[] | null
 	>( () => {
+		if ( selected ) {
+			return selected;
+		}
 		if ( selectionType === 'multiple' ) {
 			return [];
 		} else if ( selectionType === 'range' ) {
