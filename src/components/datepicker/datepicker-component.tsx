@@ -361,7 +361,7 @@ const DatePickerComponent = ( {
 
 		// Common class for disabled outside days
 		const disabledOutsideClass =
-			'bg-transperant opacity-50 text-text-disabled cursor-auto';
+			'bg-transparent opacity-50 text-text-disabled cursor-auto';
 
 		const buttonClasses = cn(
 			'h-10 w-10 flex items-center justify-center transition text-text-secondary relative text-sm',
@@ -391,7 +391,7 @@ const DatePickerComponent = ( {
 			>
 				{ ( ! showOutsideDates || ( isPartOfRange && shouldShowDay ) ) &&
 					format( day.date, 'd' ) }
-				{ isToday && (
+				{ isToday && shouldShowDay && (
 					<span className="absolute h-1 w-1 bg-background-brand rounded-full bottom-1"></span>
 				) }
 			</button>
