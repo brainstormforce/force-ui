@@ -10,7 +10,7 @@ export const sizeClassNames = {
 		dropdownItemsWrapper: 'p-1.5',
 		searchbarWrapper: 'p-3 flex items-center gap-0.5',
 		searchbar: 'font-medium text-sm',
-		searchbarIcon: '[&>svg]:size-4',
+		searchbarIcon: 'size-4',
 		label: 'text-sm font-medium',
 	},
 	md: {
@@ -24,7 +24,7 @@ export const sizeClassNames = {
 		dropdownItemsWrapper: 'p-2',
 		searchbarWrapper: 'p-2.5 flex items-center gap-1',
 		searchbar: 'font-medium text-sm',
-		searchbarIcon: '[&>svg]:size-5',
+		searchbarIcon: 'size-5',
 		label: 'text-sm font-medium',
 	},
 	lg: {
@@ -38,7 +38,7 @@ export const sizeClassNames = {
 		dropdownItemsWrapper: 'p-2',
 		searchbarWrapper: 'p-2.5 flex items-center gap-1',
 		searchbar: 'font-medium text-sm',
-		searchbarIcon: '[&>svg]:size-5',
+		searchbarIcon: 'size-5',
 		label: 'text-base font-medium',
 	},
 };
