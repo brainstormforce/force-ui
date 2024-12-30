@@ -214,7 +214,7 @@ const DatePicker = ( {
 							key={ index }
 							onClick={ () => handlePresetClick( preset.range ) }
 							variant="ghost"
-							className="font-medium text-sm text-nowrap"
+							className="text-left font-medium text-sm text-nowrap w-full"
 						>
 							{ preset.label }
 						</Button>
