@@ -214,7 +214,7 @@ const DatePicker = ( {
 							key={ index }
 							onClick={ () => handlePresetClick( preset.range ) }
 							variant="ghost"
-							className="font-medium text-sm"
+							className="font-medium text-sm text-nowrap"
 						>
 							{ preset.label }
 						</Button>
@@ -234,7 +234,7 @@ const DatePicker = ( {
 					width="w-auto"
 					numberOfMonths={ 2 }
 					footer={
-						<div className="flex justify-end p-2 gap-3 border border-solid border-border-subtle border-t-0 rounded-md rounded-tl-none rounded-tr-none bg-background-primary">
+						<div className="flex justify-end p-2 gap-3 border-l border-r border-t-0 border-b border-solid border-border-subtle bg-background-primary rounded-br-md">
 							<Button
 								variant="outline"
 								onClick={ handleCancelClick }
