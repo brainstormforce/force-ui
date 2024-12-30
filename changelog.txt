@@ -1,4 +1,4 @@
-Version 1.3.4 - 27th December, 2024
+Version 1.3.4 - 30th December, 2024
 - Improvement - Enhanced the UI of the Table and Line chart component for responsive design.
 - Improvement - Added option group to the Select component.
 - Improvement - Updated the Table component design.
