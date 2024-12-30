@@ -13,3 +13,13 @@ export const formatWeekdayName = ( date: Date ) => {
 export const generateYearRange = ( start: number, count = 24 ) => {
 	return Array.from( { length: count }, ( _, i ) => start + i );
 };
+
+export const getDefaultSelectedValue = ( type: string ) => {
+	if ( type === 'multiple' ) {
+		return [];
+	}
+	if ( type === 'range' ) {
+		return { from: null, to: null };
+	}
+	return null;
+};
