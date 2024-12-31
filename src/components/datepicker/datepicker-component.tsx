@@ -175,7 +175,7 @@ const DatePickerComponent = ( {
 			}
 		};
 
-		const handleYearClick = ( { yearValue }: { yearValue: number } ) => {
+		const handleYearClick = ( yearValue: number ) => {
 			setSelectedYear( yearValue );
 			setShowYearSelect( false );
 			setShowMonthSelect( true );
@@ -245,13 +245,7 @@ const DatePickerComponent = ( {
 							<Button
 								key={ yearValue }
 								variant="ghost"
-								onClick={ () =>
-									handleYearClick(
-										yearValue as unknown as {
-											yearValue: number;
-										}
-									)
-								}
+								onClick={ () => handleYearClick( yearValue ) }
 								className={ cn(
 									'h-10 w-full text-center font-normal relative',
 									yearValue === selectedYear &&
@@ -367,7 +361,7 @@ const DatePickerComponent = ( {
 
 		// Common class for disabled outside days
 		const disabledOutsideClass =
-			'bg-transperant opacity-50 text-text-disabled cursor-auto';
+			'bg-transparent opacity-50 text-text-disabled cursor-auto';
 
 		const buttonClasses = cn(
 			'h-10 w-10 flex items-center justify-center transition text-text-secondary relative text-sm',
@@ -397,7 +391,7 @@ const DatePickerComponent = ( {
 			>
 				{ ( ! showOutsideDates || ( isPartOfRange && shouldShowDay ) ) &&
 					format( day.date, 'd' ) }
-				{ isToday && (
+				{ isToday && shouldShowDay && (
 					<span className="absolute h-1 w-1 bg-background-brand rounded-full bottom-1"></span>
 				) }
 			</button>

@@ -11,6 +11,7 @@ import {
 	subWeeks,
 	subMonths,
 } from 'date-fns';
+import { getDefaultSelectedValue } from './utils';
 
 export interface DatePickerProps {
 	/** Defines the selection selectionType of the date picker: single, range, or multiple dates. */
@@ -33,6 +34,8 @@ export interface DatePickerProps {
 	showOutsideDays?: boolean;
 	/** Show or hide the footer. */
 	isFooter?: boolean;
+	/** Selected date value. */
+	selected?: Date | Date[] | TDateRange | null;
 }
 
 const DatePicker = ( {
@@ -46,17 +49,30 @@ const DatePicker = ( {
 	cancelButtonText = 'Cancel',
 	showOutsideDays = true,
 	isFooter = true,
+	selected,
 	...props
 }: DatePickerProps ) => {
 	const [ selectedDates, setSelectedDates ] = useState<
 		TDateRange | Date | Date[] | null
 	>( () => {
-		if ( selectionType === 'multiple' ) {
-			return [];
-		} else if ( selectionType === 'range' ) {
-			return { from: null, to: null };
+		if ( ! selected ) {
+			return getDefaultSelectedValue( selectionType );
 		}
-		return null;
+
+		// Type guards for different selection types
+		const isValidMultiple =
+			selectionType === 'multiple' && Array.isArray( selected );
+		const isValidRange =
+			selectionType === 'range' && 'from' in selected && 'to' in selected;
+		const isValidSingle =
+			selectionType === 'single' && selected instanceof Date;
+
+		// Return selected if valid, otherwise return default value
+		if ( isValidMultiple || isValidRange || isValidSingle ) {
+			return selected;
+		}
+
+		return getDefaultSelectedValue( selectionType );
 	} );
 
 	const handleSelect = ( selectedDate: Date | Date[] | TDateRange | null ) => {
@@ -192,13 +208,13 @@ const DatePicker = ( {
 	if ( variant === 'presets' ) {
 		return (
 			<div className="flex flex-row shadow-datepicker-wrapper">
-				<div className="flex flex-col gap-1 p-3 items-start border border-solid border-border-subtle border-r-0 rounded-tl-md rounded-bl-md">
+				<div className="flex flex-col gap-1 p-3 items-start border border-solid border-border-subtle border-r-0 rounded-tl-md rounded-bl-md bg-background-primary">
 					{ presets.map( ( preset, index ) => (
 						<Button
 							key={ index }
 							onClick={ () => handlePresetClick( preset.range ) }
 							variant="ghost"
-							className="font-medium text-sm"
+							className="text-left font-medium text-sm text-nowrap w-full"
 						>
 							{ preset.label }
 						</Button>
@@ -218,7 +234,7 @@ const DatePicker = ( {
 					width="w-auto"
 					numberOfMonths={ 2 }
 					footer={
-						<div className="flex justify-end p-2 gap-3 border border-solid border-border-subtle border-t-0 rounded-md rounded-tl-none rounded-tr-none bg-background-primary">
+						<div className="flex justify-end p-2 gap-3 border-l border-r border-t-0 border-b border-solid border-border-subtle bg-background-primary rounded-br-md">
 							<Button
 								variant="outline"
 								onClick={ handleCancelClick }

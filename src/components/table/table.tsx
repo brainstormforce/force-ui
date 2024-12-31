@@ -216,16 +216,20 @@ export const Table = ( {
 		<TableContext.Provider
 			value={ contextValue as TableContextType<unknown> }
 		>
-			<div className="flow-root overflow-x-auto divide-y divide-x-0 divide-solid divide-border-subtle">
-				<table
-					className={ cn(
-						'table-fixed min-w-full border-collapse border-spacing-0',
-						className
-					) }
-					{ ...props }
-				>
-					{ restChildren }
-				</table>
+			<div className="flow-root border-0.5 border-solid border-border-subtle rounded-md divide-y-0.5 divide-x-0 divide-solid divide-border-subtle overflow-hidden">
+				<div className="overflow-x-auto w-full">
+					<div className="relative">
+						<table
+							className={ cn(
+								'table-fixed min-w-full border-collapse border-spacing-0',
+								className
+							) }
+							{ ...props }
+						>
+							{ restChildren }
+						</table>
+					</div>
+				</div>
 				{ footer }
 			</div>
 		</TableContext.Provider>
@@ -254,7 +258,7 @@ export const TableHead: React.FC<TableHeadProps> = ( {
 	return (
 		<thead
 			className={ cn(
-				'bg-background-secondary [clip-path:inset(0_0_0_0_round_0.375rem)]',
+				'bg-background-secondary border-x-0 border-t-0 border-b-0.5 border-solid border-border-subtle',
 				className
 			) }
 			{ ...props }
@@ -313,7 +317,7 @@ export const TableBody: React.FC<TableBodyProps> = ( {
 	return (
 		<tbody
 			className={ cn(
-				'bg-background-primary divide-y divide-x-0 divide-solid divide-border-subtle',
+				'bg-background-primary divide-y-0.5 divide-x-0 divide-solid divide-border-subtle',
 				className
 			) }
 			{ ...props }
@@ -374,7 +378,7 @@ export const TableCell: React.FC<TableCellProps> = ( {
 	return (
 		<td
 			className={ cn(
-				'px-3 py-4.5 text-sm font-normal leading-5 text-text-secondary',
+				'px-3 py-3.5 text-sm font-normal leading-5 text-text-secondary',
 				className
 			) }
 			{ ...props }
@@ -393,11 +397,7 @@ export const TableFooter: React.FC<TableFooterProps> = ( {
 	const { checkboxSelection } = useTableContext();
 	return (
 		<div
-			className={ cn(
-				'px-3 pb-4.5 pt-5.5',
-				checkboxSelection && 'px-4',
-				className
-			) }
+			className={ cn( 'px-3 py-3', checkboxSelection && 'px-4', className ) }
 			{ ...props }
 		>
 			{ children }

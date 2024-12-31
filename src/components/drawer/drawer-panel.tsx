@@ -49,7 +49,7 @@ const DrawerPanel = ( { children, className }: DrawerPanelProps ) => {
 						<motion.div
 							ref={ drawerRef }
 							className={ cn(
-								'flex flex-col gap-5 w-120 h-full bg-background-primary shadow-2xl my-5 overflow-hidden',
+								'flex flex-col w-120 h-full bg-background-primary shadow-2xl my-5 overflow-hidden',
 								className
 							) }
 							initial="exit"

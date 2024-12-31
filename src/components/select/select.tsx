@@ -10,6 +10,7 @@ import {
 	isValidElement,
 	useEffect,
 	useLayoutEffect,
+	Fragment,
 } from 'react';
 import { cn } from '@/utilities/functions';
 import { CheckIcon, ChevronDown, ChevronsUpDown, Search } from 'lucide-react';
@@ -30,7 +31,12 @@ import {
 } from '@floating-ui/react';
 import Badge from '../badge';
 import { nanoid } from 'nanoid';
-import { disabledClassNames, sizeClassNames } from './component-style';
+import {
+	disabledClassNames,
+	optionGroupDividerClassNames,
+	optionGroupDividerSizeClassNames,
+	sizeClassNames,
+} from './component-style';
 import type {
 	OnClick,
 	OnKeyDown,
@@ -43,6 +49,7 @@ import type {
 	SelectPortalProps,
 	SelectProps,
 	SelectSizes,
+	SelectOptionGroupProps,
 } from './select-types';
 
 // Context to manage the state of the select component.
@@ -198,7 +205,7 @@ export function SelectButton( {
 			};
 
 	return (
-		<div className="flex flex-col items-start gap-1.5 [&_*]:box-border box-border">
+		<div className="w-full flex flex-col items-start gap-1.5 [&_*]:box-border box-border">
 			{ !! label && (
 				<label
 					className={ cn(
@@ -217,7 +224,7 @@ export function SelectButton( {
 					'flex items-center justify-between w-full box-border transition-[outline,background-color,color,box-shadow] duration-200 bg-white',
 					'outline outline-1 outline-field-border border-none cursor-pointer',
 					! isOpen &&
-						'focus:ring-2 focus:ring-offset-4 focus:outline-focus-border focus:ring-focus [&:hover:not(:focus):not(:disabled)]:outline-border-strong',
+						'focus:ring-2 focus:ring-offset-2 focus:outline-focus-border focus:ring-focus [&:hover:not(:focus):not(:disabled)]:outline-border-strong',
 					sizeClassNames[ sizeValue as SelectSizes ].selectButton,
 					multiple &&
 						sizeClassNames[ sizeValue as SelectSizes ].multiSelect,
@@ -266,6 +273,60 @@ export function SelectButton( {
 				</div>
 			</button>
 		</div>
+	);
+}
+
+export function SelectOptionGroup( {
+	label,
+	children,
+	className,
+	...props
+}: SelectOptionGroupProps ) {
+	const { index, totalGroups } = props as {
+		index: number;
+		totalGroups: number;
+	};
+	const { sizeValue } = useSelectContext();
+
+	const groupClassNames = {
+		sm: 'text-xs',
+		md: 'text-xs',
+		lg: 'text-sm',
+	};
+
+	return (
+		<Fragment>
+			<div className="flex flex-col" role="group" aria-label={ label }>
+				<div
+					className={ cn(
+						'p-2 font-normal text-text-tertiary',
+						groupClassNames[ sizeValue as SelectSizes ],
+						className
+					) }
+					id={ `group-${ label?.toLowerCase().replace( /\s+/g, '-' ) }` }
+				>
+					{ label }
+				</div>
+				<div
+					className="flex flex-col"
+					role="presentation"
+					aria-labelledby={ `group-${ label?.toLowerCase().replace( /\s+/g, '-' ) }` }
+				>
+					{ children }
+				</div>
+			</div>
+			{ index < totalGroups &&
+				!! ( children && Children.count( children ) > 0 ) && (
+				<hr
+					className={ cn(
+						optionGroupDividerClassNames,
+						optionGroupDividerSizeClassNames[
+								sizeValue as SelectSizes
+						]
+					) }
+				/>
+			) }
+		</Fragment>
 	);
 }
 
@@ -325,43 +386,128 @@ export function SelectOptions( {
 
 	// Render children based on the search keyword.
 	const renderChildren = useMemo( () => {
-		return Children.map( children, ( child, index ) => {
+		// Track actual visible groups after filtering
+		let visibleGroups = 0;
+		let totalGroups = 0;
+
+		// First pass - count total visible groups
+		Children.forEach( children, ( child ) => {
+			if ( isValidElement( child ) && child.type === SelectOptionGroup ) {
+				const hasVisibleChildren = Children.toArray(
+					child.props.children
+				).some( ( groupChild ) => {
+					if ( ! isValidElement( groupChild ) ) {
+						return false;
+					}
+
+					if ( searchKeyword ) {
+						const valueProp = groupChild.props.value;
+						if ( typeof valueProp === 'object' ) {
+							return valueProp[ searchBy ]
+								.toLowerCase()
+								.includes( searchKeyword.toLowerCase() );
+						}
+						return valueProp
+							.toLowerCase()
+							.includes( searchKeyword.toLowerCase() );
+					}
+					return true;
+				} );
+
+				if ( hasVisibleChildren ) {
+					visibleGroups++;
+				}
+			}
+		} );
+
+		totalGroups = Math.max( 0, visibleGroups - 1 ); // Subtract 1 since we don't need divider after last group
+		let childIndex = 0;
+		let groupIndex = 0;
+
+		// Process child to render
+		const processChild = ( child: React.ReactNode ): React.ReactNode => {
 			if ( ! isValidElement( child ) ) {
 				return null;
 			}
+
+			// Handle option groups
+			if ( child.type === SelectOptionGroup ) {
+				// Recursively process children of the option group
+				const groupChildren = Children.map(
+					child.props.children,
+					processChild
+				);
+				// Only render group if it has visible children
+				const hasChildren = groupChildren?.some( ( c ) => c !== null );
+
+				if ( ! hasChildren ) {
+					return null;
+				}
+
+				const groupProps = {
+					...child.props,
+					children: groupChildren,
+					index: groupIndex,
+					totalGroups,
+				};
+
+				groupIndex++;
+				return cloneElement( child, groupProps );
+			}
+
+			// Handle regular options
 			if ( searchKeyword ) {
 				const valueProp = child.props.value;
 				if ( typeof valueProp === 'object' ) {
 					if (
-						valueProp[ searchBy ]
+						! valueProp[ searchBy ]
 							.toLowerCase()
-							.indexOf( searchKeyword.toLowerCase() ) === -1
+							.includes( searchKeyword.toLowerCase() )
 					) {
 						return null;
 					}
 				} else if (
-					valueProp
+					! valueProp
 						.toLowerCase()
-						.indexOf( searchKeyword.toLowerCase() ) === -1
+						.includes( searchKeyword.toLowerCase() )
 				) {
 					return null;
 				}
 			}
+
 			return cloneElement( child, {
 				...child.props,
-				index,
+				index: childIndex++,
 			} );
-		} );
+		};
+
+		return Children.map( children, processChild );
 	}, [ searchKeyword, value, selected, children ] );
 	const childrenCount = Children.count( renderChildren );
 
 	// Update the content list reference.
 	useEffect( () => {
 		listContentRef.current = [];
-		Children.forEach( children, ( child ) => {
+		// Get all children as an array.
+		let allChildren = Children.toArray( children );
+		// If it's an option group and has children.
+		if (
+			allChildren &&
+			isValidElement( allChildren[ 0 ] ) &&
+			allChildren[ 0 ].type === SelectOptionGroup
+		) {
+			allChildren = Children.toArray( allChildren )
+				.map( ( child ) =>
+					isValidElement( child ) ? child.props.children : null
+				)
+				.filter( Boolean );
+		}
+		// Update the list content reference.
+		Children.forEach( allChildren, ( child ) => {
 			if ( ! isValidElement( child ) ) {
 				return;
 			}
+
 			if ( child.props.value ) {
 				if ( searchKeyword ) {
 					const valueProp = child.props.value;
@@ -408,7 +554,7 @@ export function SelectOptions( {
 									.dropdown,
 								! combobox && 'h-auto',
 								! combobox
-									? 'overflow-y-auto'
+									? 'overflow-y-auto overflow-x-hidden'
 									: 'overflow-hidden',
 								className
 							) }
@@ -453,7 +599,7 @@ export function SelectOptions( {
 							{ /* Dropdown Items Wrapper */ }
 							<div
 								className={ cn(
-									'overflow-y-auto',
+									'overflow-y-auto overflow-x-hidden',
 									! combobox && 'w-full h-full',
 									sizeClassNames[ sizeValue as SelectSizes ]
 										.dropdownItemsWrapper
@@ -505,6 +651,7 @@ export function SelectItem( {
 		multiple,
 	} = useSelectContext();
 	const { index: indx } = props;
+	const initialIndxRef = useRef( indx );
 
 	const selectItemClassNames = {
 		sm: 'py-1.5 px-2 text-sm font-normal',
@@ -565,11 +712,15 @@ export function SelectItem( {
 			{ ...getItemProps( {
 				// Handle pointer select.
 				onClick() {
-					onClickItem( indx as number, value );
+					onClickItem( initialIndxRef.current as number, value );
 				},
 				// Handle keyboard select.
 				onKeyDown( event: React.KeyboardEvent ) {
-					onKeyDownItem( event, indx as number, value );
+					onKeyDownItem(
+						event,
+						initialIndxRef.current as number,
+						value
+					);
 				},
 			} ) }
 		>
@@ -794,10 +945,12 @@ SelectPortal.displayName = 'Select.Portal';
 SelectButton.displayName = 'Select.Button';
 SelectOptions.displayName = 'Select.Options';
 SelectItem.displayName = 'Select.Option';
+SelectOptionGroup.displayName = 'Select.OptionGroup';
 
 Select.Portal = SelectPortal;
 Select.Button = SelectButton;
 Select.Options = SelectOptions;
 Select.Option = SelectItem;
+Select.OptionGroup = SelectOptionGroup;
 
 export default Select;

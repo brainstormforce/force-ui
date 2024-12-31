@@ -5,6 +5,7 @@ import {
 	YAxis,
 	CartesianGrid,
 	Tooltip,
+	ResponsiveContainer,
 } from 'recharts';
 import ChartTooltipContent from './chart-tooltip-content';
 import Label from '../label';
@@ -64,10 +65,10 @@ interface LineChartProps {
 	yAxisFontColor?: string;
 
 	/** Width of the chart container. */
-	chartWidth?: number;
+	chartWidth?: number | string;
 
 	/** Height of the chart container. */
-	chartHeight?: number;
+	chartHeight?: number | string;
 
 	/** Determines whether dots are shown on each data point. */
 	withDots?: boolean;
@@ -124,56 +125,59 @@ const LineChart = ( {
 	}
 
 	return (
-		<LineChartWrapper
-			{ ...lineChartWrapperProps }
-			width={ chartWidth }
-			height={ chartHeight }
-			data={ data }
-		>
-			{ showCartesianGrid && <CartesianGrid vertical={ false } /> }
-			{ showXAxis && (
-				<XAxis
-					dataKey={ xAxisDataKey }
-					tickLine={ false }
-					axisLine={ false }
-					tickMargin={ 8 }
-					tickFormatter={ tickFormatter }
-					tick={ { fontSize: fontSizeVariant, fill: xAxisFontColor } }
-				/>
-			) }
-			{ showYAxis && (
-				<YAxis
-					dataKey={ yAxisDataKey }
-					tickLine={ false }
-					axisLine={ false }
-					tickMargin={ 8 }
-					tick={ { fontSize: fontSizeVariant, fill: yAxisFontColor } }
-				/>
-			) }
+		<ResponsiveContainer width={ chartWidth } height={ chartHeight }>
+			<LineChartWrapper { ...lineChartWrapperProps } data={ data }>
+				{ showCartesianGrid && <CartesianGrid vertical={ false } /> }
+				{ showXAxis && (
+					<XAxis
+						dataKey={ xAxisDataKey }
+						tickLine={ false }
+						axisLine={ false }
+						tickMargin={ 8 }
+						tickFormatter={ tickFormatter }
+						tick={ {
+							fontSize: fontSizeVariant,
+							fill: xAxisFontColor,
+						} }
+					/>
+				) }
+				{ showYAxis && (
+					<YAxis
+						dataKey={ yAxisDataKey }
+						tickLine={ false }
+						axisLine={ false }
+						tickMargin={ 8 }
+						tick={ {
+							fontSize: fontSizeVariant,
+							fill: yAxisFontColor,
+						} }
+					/>
+				) }
 
-			{ showTooltip && (
-				<Tooltip
-					content={
-						<ChartTooltipContent
-							indicator={ tooltipIndicator }
-							labelKey={ tooltipLabelKey }
-						/>
-					}
-				/>
-			) }
+				{ showTooltip && (
+					<Tooltip
+						content={
+							<ChartTooltipContent
+								indicator={ tooltipIndicator }
+								labelKey={ tooltipLabelKey }
+							/>
+						}
+					/>
+				) }
 
-			{ dataKeys.map( ( key, index ) => (
-				<Line
-					key={ key }
-					type="natural"
-					dataKey={ key }
-					stroke={ appliedColors[ index ].stroke }
-					fill={ appliedColors[ index ].stroke }
-					strokeWidth={ 2 }
-					dot={ withDots }
-				/>
-			) ) }
-		</LineChartWrapper>
+				{ dataKeys.map( ( key, index ) => (
+					<Line
+						key={ key }
+						type="natural"
+						dataKey={ key }
+						stroke={ appliedColors[ index ].stroke }
+						fill={ appliedColors[ index ].stroke }
+						strokeWidth={ 2 }
+						dot={ withDots }
+					/>
+				) ) }
+			</LineChartWrapper>
+		</ResponsiveContainer>
 	);
 };
 

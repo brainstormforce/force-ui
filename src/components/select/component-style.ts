@@ -10,7 +10,7 @@ export const sizeClassNames = {
 		dropdownItemsWrapper: 'p-1.5',
 		searchbarWrapper: 'p-3 flex items-center gap-0.5',
 		searchbar: 'font-medium text-sm',
-		searchbarIcon: '[&>svg]:size-4',
+		searchbarIcon: 'size-4',
 		label: 'text-sm font-medium',
 	},
 	md: {
@@ -24,7 +24,7 @@ export const sizeClassNames = {
 		dropdownItemsWrapper: 'p-2',
 		searchbarWrapper: 'p-2.5 flex items-center gap-1',
 		searchbar: 'font-medium text-sm',
-		searchbarIcon: '[&>svg]:size-5',
+		searchbarIcon: 'size-5',
 		label: 'text-sm font-medium',
 	},
 	lg: {
@@ -38,7 +38,7 @@ export const sizeClassNames = {
 		dropdownItemsWrapper: 'p-2',
 		searchbarWrapper: 'p-2.5 flex items-center gap-1',
 		searchbar: 'font-medium text-sm',
-		searchbarIcon: '[&>svg]:size-5',
+		searchbarIcon: 'size-5',
 		label: 'text-base font-medium',
 	},
 };
@@ -48,4 +48,12 @@ export const disabledClassNames = {
 		'group disabled:outline-field-border-disabled [&:hover:has(:disabled)]:outline-field-border-disabled disabled:cursor-default',
 	icon: 'group-disabled:text-icon-disabled',
 	text: 'group-disabled:text-field-color-disabled',
+};
+
+export const optionGroupDividerClassNames =
+	'h-px my-2 w-full border-border-subtle border-b border-t-0 border-solid';
+export const optionGroupDividerSizeClassNames = {
+	sm: 'w-[calc(100%+0.75rem)] translate-x-[-0.375rem]',
+	md: 'w-[calc(100%+1rem)] translate-x-[-0.5rem]',
+	lg: 'w-[calc(100%+1rem)] translate-x-[-0.5rem]',
 };

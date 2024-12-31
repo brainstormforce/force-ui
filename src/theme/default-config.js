@@ -207,6 +207,9 @@ const defaultTheme = {
 			zIndex: {
 				999999: '999999',
 			},
+			borderWidth: {
+				0.5: '0.5px',
+			},
 		},
 	},
 	plugins: [],
