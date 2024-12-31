@@ -1,5 +1,5 @@
 import type { Meta, StoryFn } from '@storybook/react';
-import { useEffect, useState } from 'react';
+import { startTransition, useLayoutEffect, useState } from 'react';
 import Select from './select';
 import Label from '../label';
 
@@ -43,22 +43,22 @@ const Template: Story = ( args ) => {
 		setSelected( value as unknown as string | [] );
 	};
 
-	useEffect( () => {
+	// Reset selected value when multiple prop changes.
+	useLayoutEffect( () => {
 		if ( args?.multiple ) {
-			setSelected( [] );
+			startTransition( () => {
+				setSelected( [] );
+			} );
 			return;
 		}
-		setSelected( '' );
+		startTransition( () => {
+			setSelected( '' );
+		} );
 	}, [ args ] );
 
 	return (
 		<div style={ { width: '260px' } }>
-			<Select
-				key={ args?.multiple ? 1 : 0 }
-				{ ...args }
-				onChange={ handleSelect }
-				value={ selected }
-			>
+			<Select { ...args } onChange={ handleSelect } value={ selected }>
 				<Select.Button label="Label" />
 				<Select.Portal>
 					<Select.Options>

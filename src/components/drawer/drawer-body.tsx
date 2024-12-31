@@ -15,7 +15,7 @@ const DrawerBody = ( { children, className, ...props }: DrawerBodyProps ) => {
 	return (
 		<div
 			className={ cn(
-				'px-5 flex flex-col flex-1 overflow-y-auto overflow-x-hidden',
+				'px-5 pb-4 pt-2 flex flex-col flex-1 overflow-y-auto overflow-x-hidden',
 				className
 			) }
 			{ ...props }
