@@ -31,7 +31,7 @@ const DrawerFooter = ( { children, className }: DrawerFooterProps ) => {
 				'px-5 py-4 flex justify-end gap-3 mt-auto',
 				{
 					'bg-background-secondary': design === 'footer-divided',
-					'border-t border-solid border-border-subtle':
+					'border-t border-b-0 border-x-0 border-solid border-border-subtle':
 						design === 'footer-bordered',
 				},
 				className
