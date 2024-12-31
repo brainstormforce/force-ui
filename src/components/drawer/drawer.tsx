@@ -38,7 +38,7 @@ export interface DrawerProps {
 	/** Close drawer when pressing the escape key. */
 	exitOnEsc?: boolean;
 	/** Design of the drawer. */
-	design?: 'simple' | 'footer-divided';
+	design?: 'simple' | 'footer-divided' | 'footer-bordered';
 	/** Position of the drawer. */
 	position?: 'left' | 'right';
 	/** Duration of the drawer transition. */

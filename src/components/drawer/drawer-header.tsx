@@ -13,7 +13,7 @@ export interface DrawerHeaderProps {
 // Drawer header wrapper.
 const DrawerHeader = ( { children, className, ...props }: DrawerHeaderProps ) => {
 	return (
-		<div className={ cn( 'space-y-2 px-5 pt-5 pb-1', className ) } { ...props }>
+		<div className={ cn( 'space-y-2 px-5 pt-5 pb-4', className ) } { ...props }>
 			{ children }
 		</div>
 	);
