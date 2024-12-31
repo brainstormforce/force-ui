@@ -28,6 +28,11 @@ export interface BadgeProps {
 	 */
 	icon?: ReactNode;
 	/**
+	 * Disable hover effect.
+	 * @default false
+	 */
+	disableHover?: boolean;
+	/**
 	 * Defines if the badge is disabled.
 	 */
 	disabled?: boolean;
@@ -60,12 +65,13 @@ const Badge = forwardRef<Ref, BadgeProps>(
 			onClose = () => {},
 			closable = false,
 			onMouseDown = () => {},
+			disableHover = false,
 		},
 		ref
 	) => {
 		// Base classes - Mandatory classes
 		const baseClasses =
-			'font-medium border-badge-border-gray flex items-center justify-center border border-solid box-border max-w-full';
+			'font-medium border-badge-border-gray flex items-center justify-center border border-solid box-border max-w-full transition-colors duration-150 ease-in-out';
 
 		// Size classes - Based on the size prop
 		const sizeClasses = {
@@ -82,18 +88,29 @@ const Badge = forwardRef<Ref, BadgeProps>(
 			rounded: 'rounded',
 		};
 
+		// Hover classes - Based on the variant prop
+		const hoverClasses = {
+			neutral: 'hover:bg-badge-hover-gray',
+			red: 'hover:bg-badge-hover-red',
+			yellow: 'hover:bg-badge-hover-yellow',
+			green: 'hover:bg-badge-hover-green',
+			blue: 'hover:bg-badge-hover-sky',
+			inverse: 'hover:bg-badge-hover-inverse',
+			disabled: 'hover:bg-badge-hover-disabled',
+		};
+
 		// Variant classes - Based on the variant prop
 		const variantClasses = {
 			neutral:
-				'bg-badge-background-gray hover:bg-badge-hover-gray text-badge-color-gray border-badge-border-gray',
-			red: 'bg-badge-background-red hover:bg-badge-hover-red text-badge-color-red border-badge-border-red',
-			yellow: 'bg-badge-background-yellow hover:bg-badge-hover-yellow text-badge-color-yellow border-badge-border-yellow',
-			green: 'bg-badge-background-green hover:bg-badge-hover-green text-badge-color-green border-badge-border-green',
-			blue: 'bg-badge-background-sky hover:bg-badge-hover-sky text-badge-color-sky border-badge-border-sky',
+				'bg-badge-background-gray text-badge-color-gray border-badge-border-gray',
+			red: 'bg-badge-background-red text-badge-color-red border-badge-border-red',
+			yellow: 'bg-badge-background-yellow text-badge-color-yellow border-badge-border-yellow',
+			green: 'bg-badge-background-green text-badge-color-green border-badge-border-green',
+			blue: 'bg-badge-background-sky text-badge-color-sky border-badge-border-sky',
 			inverse:
-				'bg-background-inverse hover:bg-badge-hover-inverse text-text-inverse border-background-inverse',
+				'bg-background-inverse text-text-inverse border-background-inverse',
 			disabled:
-				'bg-badge-background-disabled hover:bg-badge-hover-disabled text-badge-color-disabled border-badge-border-disabled disabled cursor-not-allowed',
+				'bg-badge-background-disabled text-badge-color-disabled border-badge-border-disabled disabled cursor-not-allowed',
 		};
 
 		let filteredClasses = '';
@@ -127,6 +144,7 @@ const Badge = forwardRef<Ref, BadgeProps>(
 					typeClasses[ type ],
 					'gap-0.5',
 					filteredClasses,
+					! disableHover && hoverClasses[ variant ],
 					className
 				) }
 				ref={ ref }
