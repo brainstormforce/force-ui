@@ -1,0 +1,95 @@
+Version 1.3.4 - 31th December, 2024
+- Improvement - Enhanced the UI of the Table and Line chart component for responsive design.
+- Improvement - Added option group to the Select component.
+- Improvement - Updated the Table component design.
+- Improvement - Added support for controlling selected dates through the 'selected' prop in DatePicker component.
+- Improvement - Enhanced the UI of the Drawer component.
+- Improvement - Added a new prop to the Badge component to disable hover effect.
+- Fixed - Adjusted search icon size in Select combobox for better visual consistency.
+- Fixed - Focus ring offset of Select, Switch, Checkbox, and dropdown component.
+- Fixed - Checkbox/Switch toggle behavior with hint text and adjusted help text size.
+- Fixed - DatePicker component crash when navigating through years.
+- Fixed - DatePicker component UI styles for better visual consistency.
+
+Version 1.3.3 - 20th December, 2024
+- Fixed - React `Each child in a list should have a unique "key" prop` console warning.
+- Fixed - Toaster content overlapping with the close button.
+
+Version 1.3.2 - 17th December, 2024
+- Fixed - Adjusted the color of the Switch component label and help text.
+
+Version 1.3.1 - 17th December, 2024
+- Fixed - The underline issue to enhance visual consistency.
+- Fixed - Issue with the Select component where a check mark was displayed even when no item was selected.
+- Fixed - Design mismatch in the Switch component.
+- Fixed - Text, icon size, alignment, and color inconsistencies in the Date Picker to ensure a uniform appearance.
+- Fixed - Input ref not pointing to the input field.
+- Fixed - Icon size and alignment issues in the Menu component for better visual clarity.
+- Fixed - Sidebar height not being overridable.
+- Improvement - Removed backdrop blur to enhance performance and visual clarity.
+
+Version 1.3.0 - 16th December, 2024
+- New - Table component.
+- Fixed - Asterisk missing on required input label.
+
+Version 1.2.2 - 4th December, 2024
+- Improvement - Removed margin and added new props to the Line Chart component for customizability.
+
+Version 1.2.1 - 25th November, 2024
+- Improvement - Added new props to the Bar Chart component for customizability.
+- Improvement - Dropzone UAT improvements.
+- Improvement - Sidebar Compatibility fixes with NextJS.
+- Improvement - Improved the storybook deployment workflow to use latest library.
+
+Version 1.2.0 - 20th November, 2024
+- New - Dropzone
+- New - Added Unit Tests setup and a11y CI setup
+- Improvement - All components are a11y compatible.
+- Fixes - Issues reported by internal dev team.
+
+Version 1.1.0 - 11th November, 2024
+- New - Area Chart
+- New - Bar Chart
+- New - Line Chart
+- New - Pie Chart
+- New - Accordion
+- New - Search
+- New - Pagination
+- New - Breadcrumb
+- Improvement - Used vite instead of webpack for better build performance
+- Improvement - Used typescript for better storybook development and easy documentation
+- Fixes - Button component used in dropdown component
+- Fixed - Fixed multiple issues suggested in developer UAT.
+
+Version 1.0.0 - 17th October, 2024
+- New - Alert
+- New - Avatar
+- New - Badge
+- New - Button
+- New - Buttom Group
+- New - Cards
+- New - Container
+- New - Checkbox
+- New - Datepicker
+- New - Dialog
+- New - Drawer
+- New - Dropdown Menu
+- New - Editor Input
+- New - Input
+- New - Label
+- New - Loader
+- New - Menu Item
+- New - Progress Bar
+- New - Progress Steps
+- New - Radio Button Group
+- New - Search
+- New - Select
+- New - Sidebar
+- New - Skeleton
+- New - Switch
+- New - Tabs
+- New - Text Area
+- New - Title
+- New - Toaster
+- New - Tooltip
+- New - Topbar
