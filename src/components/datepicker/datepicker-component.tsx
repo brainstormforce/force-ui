@@ -56,6 +56,8 @@ export interface DatePickerProps {
 	numberOfMonths?: number;
 	/** Footer content to be displayed at the bottom of the date picker. */
 	footer?: ReactNode;
+	/** Additional props to be passed to the date picker. */
+	[key: string]: unknown;
 }
 
 interface CustomMonthCaptionProps {
@@ -97,6 +99,7 @@ const DatePickerComponent = ( {
 	variant = 'normal',
 	alignment = 'horizontal',
 	numberOfMonths,
+	disabled,
 	...props
 }: DatePickerProps ) => {
 	// check footer is a valid component.
@@ -704,6 +707,7 @@ const DatePickerComponent = ( {
 						);
 					} );
 				} }
+				disabled={ disabled }
 			/>
 		</>
 	);

@@ -12,6 +12,7 @@ import {
 	subMonths,
 } from 'date-fns';
 import { getDefaultSelectedValue } from './utils';
+import { type PropsBase } from 'react-day-picker';
 
 export interface DatePickerProps {
 	/** Defines the selection selectionType of the date picker: single, range, or multiple dates. */
@@ -36,6 +37,16 @@ export interface DatePickerProps {
 	isFooter?: boolean;
 	/** Selected date value. */
 	selected?: Date | Date[] | TDateRange | undefined;
+	/**
+	 * Disable the date picker based on the condition.
+	 * Example:
+	 * To disable future dates, set the condition as:
+	 * ```jsx
+	 * disabled={{ after: new Date(), before:"" }}
+	 * ```
+	 * @default undefined
+	 */
+	disabled?: PropsBase['disabled'];
 }
 
 const DatePicker = ( {
@@ -50,6 +61,7 @@ const DatePicker = ( {
 	showOutsideDays = true,
 	isFooter = true,
 	selected,
+	disabled,
 	...props
 }: DatePickerProps ) => {
 	const [ selectedDates, setSelectedDates ] = useState<
@@ -175,6 +187,7 @@ const DatePicker = ( {
 						</div>
 					)
 				}
+				disabled={ disabled }
 			/>
 		);
 	}
@@ -204,6 +217,7 @@ const DatePicker = ( {
 						</Button>
 					</div>
 				}
+				disabled={ disabled }
 				{ ...props }
 			/>
 		);
@@ -250,6 +264,7 @@ const DatePicker = ( {
 							</Button>
 						</div>
 					}
+					disabled={ disabled }
 				/>
 			</div>
 		);
