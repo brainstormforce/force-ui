@@ -10,7 +10,6 @@ import { format, subMonths } from 'date-fns';
 import { cn } from '@/utilities/functions';
 import Button from '../button';
 import { currentTimeDot, formatWeekdayName, generateYearRange } from './utils';
-import { JSX } from 'react/jsx-runtime';
 
 export type TDateRange = { from: Date | null; to: Date | null };
 
@@ -52,19 +51,10 @@ export interface DatePickerProps {
 	variant?: 'normal' | 'dualdate' | 'presets';
 	/** Defines the alignment of the date picker: horizontal or vertical. */
 	alignment?: 'horizontal' | 'vertical';
-	// /** Callback when the date picker loses focus. */
-	// onBlur?: ( event: React.FocusEvent<HTMLDivElement> ) => void;
-	// /** Callback when the selected date changes. */
-	// onChange?: ( date: Date | Date[] | { from: Date; to: Date } | null ) => void;
 	/** The number of months to display. */
 	numberOfMonths?: number;
 	/** Footer content to be displayed at the bottom of the date picker. */
 	footer?: ReactNode;
-}
-
-interface CustomMonthsProps {
-	monthGridProps: React.ComponentProps<'table'>;
-	onSelect: (date: Date) => void;
 }
 
 interface CustomMonthCaptionProps {
@@ -95,10 +85,6 @@ interface CustomDayButtonProps {
 	children: ReactNode;
 }
 
-interface DayProps extends CustomDayButtonProps {
-	className?: string;
-}
-
 const DatePickerComponent = ({
 	width,
 	className: outerClassName, // Renamed to avoid shadowing
@@ -109,8 +95,6 @@ const DatePickerComponent = ({
 	mode = 'single',
 	variant = 'normal',
 	alignment = 'horizontal',
-	// onBlur,
-	// onChange,
 	numberOfMonths,
 	...props
 }: DatePickerProps) => {
@@ -346,7 +330,6 @@ const DatePickerComponent = ({
 		} = modifiers;
 
 		const isPartOfRange = isRangeStart || isRangeEnd || isRangeMiddle;
-		// const handleClick = () => ! isDisabled && onSelect( day.date );
 
 		const today = new Date();
 		const rangeEnd = (selectedDates as TDateRange)?.to;
@@ -409,7 +392,6 @@ const DatePickerComponent = ({
 
 		return (
 			<button
-				// onClick={ handleClick }
 				className={cn(
 					buttonClasses,
 					isToday && 'font-semibold',
@@ -429,8 +411,6 @@ const DatePickerComponent = ({
 				aria-label={format(day.date, 'EEEE, MMMM do, yyyy')}
 				aria-selected={isSelected}
 			>
-				{/* { ( ! showOutsideDates || ( isPartOfRange && shouldShowDay ) ) &&
-					format( day.date, 'd' ) } */}
 				{(!showOutsideDates || (isPartOfRange && shouldShowDay)) &&
 					customDayProps.children}
 				{/* { customDayProps.children } */}
@@ -441,20 +421,7 @@ const DatePickerComponent = ({
 		);
 	};
 
-	// const Day = ( dayProps: DayProps ) => {
-	// 	const { day, modifiers, className, onSelect } = dayProps;
-	// 	return (
-	// 		<td className={ className }>
-	// 			<CustomDayButton
-	// 				day={ day }
-	// 				modifiers={ modifiers }
-	// 				onSelect={ onSelect }
-	// 			/>
-	// 		</td>
-	// 	);
-	// };
-
-	const CustomMonths = ({ monthGridProps, onSelect }: CustomMonthsProps) => {
+	const CustomMonths = ( monthGridProps ) => {
 		return (
 			<div className="flex flex-col bsf-force-ui-month-weeks">
 				{(
@@ -467,24 +434,6 @@ const DatePickerComponent = ({
 							key={index}
 							className="flex flex-row justify-between"
 						>
-							{/* { (
-								month as React.ReactElement
-							).props.children[ 1 ].map(
-								(
-									week: {
-										props: JSX.IntrinsicAttributes &
-											CustomDayButtonProps;
-									},
-									weekIndex: React.Key | null | undefined
-								) => (
-									<div key={ weekIndex } className="flex gap-1">
-										<CustomDayButton
-											{ ...week.props }
-											onSelect={ onSelect }
-										/>
-									</div>
-								)
-							) } */}
 							{month}
 						</div>
 					)
@@ -568,7 +517,6 @@ const DatePickerComponent = ({
 				formatters={{
 					formatWeekdayName,
 				}}
-				// showHead={false}
 				classNames={{
 					months: monthsClassName,
 					month: 'flex flex-col p-2 gap-1 text-center w-full',
@@ -579,10 +527,8 @@ const DatePickerComponent = ({
 						'text-muted-foreground rounded-md w-10 font-normal text-sm',
 					row: 'flex w-full mt-2',
 					cell: 'h-10 w-10 text-center text-sm p-0 relative',
-					// day: 'h-10 w-10 p-0 font-normal bg-background-primary text-current',
 					...classNames,
 				}}
-				// [&:has([data-hover=true])]:bg-brand-background-50 [&:has([data-hover=true])>button]:bg-brand-background-50 [&.rdp-range\\_start>button]:!bg-background-brand [&.rdp-range\\_end>button]:!bg-background-brand
 				numberOfMonths={numberOfMonths}
 				components={{
 					MonthCaption:
@@ -649,23 +595,15 @@ const DatePickerComponent = ({
 							</div>
 						</>
 					),
-					// Day(dayProps) {
-					// 	console.log('Day', dayProps);
-					// 	return (
-					// 		<div { ...dayProps } className={cn('inline-block', dayProps.className)} />
-					// 	)
-					// },
 					MonthGrid: (monthGridProps) =>
 						!showMonthSelect && !showYearSelect ? (
 							<CustomMonths
-								monthGridProps={monthGridProps}
-								// onSelect={handleSelect}
+								{...monthGridProps}
 							/>
 						) : (
 							<></>
 						),
 				}}
-				// eslint-disable-next-line @typescript-eslint/no-explicit-any
 				{...props}
 				onDayMouseEnter={(_, __, event) => {
 					if (mode !== 'range') {
@@ -683,7 +621,7 @@ const DatePickerComponent = ({
 							document.querySelectorAll('[data-hover]')
 						);
 
-						resetButtons.forEach((item: any) => {
+						resetButtons.forEach((item: Element) => {
 							item.setAttribute('data-hover', 'false');
 						});
 						return;
@@ -692,14 +630,14 @@ const DatePickerComponent = ({
 					// Get the current target button
 					const currentButton = event.target as HTMLButtonElement;
 
-					// Find the closest ancestor <tbody> element
-					const tbody = currentButton.closest(
+					// Find the closest ancestor container element
+					const datesContainer = currentButton.closest(
 						'.bsf-force-ui-month-weeks'
 					) as any;
 
-					// Find all buttons within the <tbody> element
-					const buttons = Array.from(
-						tbody.querySelectorAll('button')
+					// Find all buttons within the container element
+					const buttons: HTMLButtonElement[] = Array.from(
+						datesContainer.querySelectorAll('button')
 					);
 
 					// Find the index of the current button in the buttons array
@@ -712,7 +650,7 @@ const DatePickerComponent = ({
 					);
 
 					// Create an array to store the selected buttons
-					const selectedButtons = [] as any[];
+					const selectedButtons: HTMLButtonElement[] = [];
 
 					// Determine the range of buttons to select
 					const start = Math.min(currentIndex, selectedIndex);
@@ -726,7 +664,7 @@ const DatePickerComponent = ({
 						}
 					}
 
-					buttons.forEach((item: any) => {
+					buttons.forEach((item: HTMLButtonElement) => {
 						// run over all buttons and set data-hover true to those who in range
 						item.setAttribute(
 							'data-hover',
