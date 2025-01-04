@@ -599,7 +599,7 @@ const DatePickerComponent = ( {
 							<></>
 						),
 				} }
-				{ ...( mode === 'range' && { required: true } ) }
+				{ ...( mode === 'range' && { required: false } ) }
 				{ ...props }
 				onDayMouseEnter={ ( _, __, event ) => {
 					if ( mode !== 'range' ) {
