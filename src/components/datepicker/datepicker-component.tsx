@@ -667,7 +667,7 @@ const DatePickerComponent = ( {
 
 					// Find the closest ancestor container element
 					const datesContainer = currentButton.closest(
-						'.bsf-force-ui-month-weeks'
+						'.bsf-force-ui-date-picker-month'
 					) as Element;
 
 					// Find all buttons within the container element
