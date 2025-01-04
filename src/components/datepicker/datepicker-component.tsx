@@ -5,8 +5,9 @@ import {
 	useDayPicker,
 	type MonthGridProps,
 	type CustomComponents,
+	type OnSelectHandler,
 } from 'react-day-picker';
-import { format, subMonths } from 'date-fns';
+import { format, isEqual, subMonths } from 'date-fns';
 import { cn } from '@/utilities/functions';
 import Button from '../button';
 import { currentTimeDot, formatWeekdayName, generateYearRange } from './utils';
@@ -440,20 +441,42 @@ const DatePickerComponent = ( {
 		);
 	};
 
-	const handleSelect = (
-		selectedDate: Date | TDateRange | Date[],
-		trigger: Date
-	) => {
+	const handleSelect: OnSelectHandler<
+		Date | Date[] | TDateRange | undefined
+	> = ( selectedDate, trigger ) => {
 		if ( mode === 'range' ) {
 			const currentSelectedValue = selectedDates as TDateRange;
 			if (
-				( currentSelectedValue?.from && currentSelectedValue?.to ) ||
-				( ! currentSelectedValue?.from && ! currentSelectedValue?.to )
+				( ! currentSelectedValue?.from && ! currentSelectedValue?.to ) ||
+				( currentSelectedValue?.from && currentSelectedValue?.to )
 			) {
+				if (
+					( currentSelectedValue.from &&
+						isEqual( trigger, currentSelectedValue?.from ) ) ||
+					( currentSelectedValue.to &&
+						isEqual( trigger, currentSelectedValue?.to ) )
+				) {
+					setSelectedDates( { from: undefined, to: undefined } );
+					return;
+				}
 				setSelectedDates( { from: trigger, to: undefined } );
 				return;
 			}
-			setSelectedDates( selectedDate );
+			if ( currentSelectedValue?.from && ! currentSelectedValue?.to ) {
+				if ( trigger < currentSelectedValue.from ) {
+					setSelectedDates( {
+						from: trigger,
+						to: currentSelectedValue.from,
+					} );
+					return;
+				}
+				setSelectedDates( {
+					from: currentSelectedValue.from,
+					to: trigger,
+				} );
+				return;
+			}
+			setSelectedDates( selectedDate as TDateRange );
 		} else if ( mode === 'multiple' ) {
 			if (
 				( selectedDates as Date[] )!.some(
@@ -473,7 +496,7 @@ const DatePickerComponent = ( {
 				setSelectedDates( [ ...( selectedDates as Date[] ), trigger ] );
 			}
 		} else if ( mode === 'single' ) {
-			setSelectedDates( selectedDate );
+			setSelectedDates( selectedDate as Date );
 		}
 	};
 
@@ -495,7 +518,6 @@ const DatePickerComponent = ( {
 
 	return (
 		<>
-			{ /* @ts-expect-error: Type mismatch due to mode type. */ }
 			<DayPicker
 				mode={ mode }
 				selected={ ( () => {
@@ -533,14 +555,27 @@ const DatePickerComponent = ( {
 					DayButton:
 						CustomDayButton as unknown as CustomComponents['DayButton'],
 					Day: ( singleDayProps ) => {
+						const dataAttributes = Object.entries(
+							singleDayProps
+						).reduce(
+							( acc: { [key: string]: unknown }, [ key, value ] ) => {
+								if ( key.startsWith( 'data-' ) ) {
+									acc[ key ] = value;
+								}
+								return acc;
+							},
+							{}
+						);
 						return (
 							<div
-								{ ...singleDayProps }
+								{ ...dataAttributes }
 								className={ cn(
 									singleDayProps.className,
 									'inline-flex'
 								) }
-							/>
+							>
+								{ singleDayProps.children }
+							</div>
 						);
 					},
 					Weekdays: () => <></>,
@@ -599,7 +634,8 @@ const DatePickerComponent = ( {
 							<></>
 						),
 				} }
-				{ ...( mode === 'range' && { required: false } ) }
+				/* eslint-disable  @typescript-eslint/no-explicit-any */
+				{ ...( ( mode === 'range' ? { required: false } : {} ) as any ) }
 				{ ...props }
 				onDayMouseEnter={ ( _, __, event ) => {
 					if ( mode !== 'range' ) {
