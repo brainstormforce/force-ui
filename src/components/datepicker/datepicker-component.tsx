@@ -358,10 +358,10 @@ const DatePickerComponent = ( {
 		const buttonClasses = cn(
 			'h-10 w-10 flex items-center justify-center transition text-text-secondary relative text-sm',
 			'border-none rounded',
-			( isSelected || isPartOfRange ) && ( ! isOutside  )
+			( isSelected || isPartOfRange ) && ! isOutside
 				? 'bg-background-brand text-text-on-color'
 				: 'bg-transparent hover:bg-button-tertiary-hover',
-			isRangeMiddle && shouldShowDay && ( ! isOutside  )
+			isRangeMiddle && shouldShowDay && ! isOutside
 				? 'bg-brand-background-50 text-text-secondary rounded-none'
 				: '',
 			isDisabled
@@ -369,7 +369,8 @@ const DatePickerComponent = ( {
 				: 'cursor-pointer',
 			( isOutside && ! isPartOfRange ) ||
 				( ! shouldShowDay && isOutside ) ||
-				( isOutside && ! isPreviousMonth ) || isOutside
+				( isOutside && ! isPreviousMonth ) ||
+				isOutside
 				? disabledOutsideClass
 				: ''
 		);
@@ -665,7 +666,9 @@ const DatePickerComponent = ( {
 					// Get the current target button
 					const currentButton = event.target as HTMLButtonElement;
 					// Get the date of the current button
-					const currentButtonDate = new Date( currentButton.dataset.day! );
+					const currentButtonDate = new Date(
+						currentButton.dataset.day!
+					);
 					// Check if the current button is before or after the selected range
 					const isCurrentButtonBefore = isBefore(
 						currentButtonDate,
