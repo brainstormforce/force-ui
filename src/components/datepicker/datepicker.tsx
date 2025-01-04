@@ -75,7 +75,9 @@ const DatePicker = ( {
 		return getDefaultSelectedValue( selectionType );
 	} );
 
-	const handleSelect = ( selectedDate: Date | Date[] | TDateRange | undefined ) => {
+	const handleSelect = (
+		selectedDate: Date | Date[] | TDateRange | undefined
+	) => {
 		setSelectedDates( selectedDate );
 		if ( onDateSelect ) {
 			onDateSelect( selectedDate );
@@ -129,7 +131,9 @@ const DatePicker = ( {
 
 	const handleCancelClick = () => {
 		setSelectedDates(
-			selectionType === 'multiple' ? [] : { from: undefined, to: undefined }
+			selectionType === 'multiple'
+				? []
+				: { from: undefined, to: undefined }
 		);
 		if ( onCancel ) {
 			onCancel();
