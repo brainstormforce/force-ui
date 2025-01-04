@@ -7,7 +7,7 @@ import {
 	type CustomComponents,
 	type OnSelectHandler,
 } from 'react-day-picker';
-import { format, isEqual, subMonths } from 'date-fns';
+import { format, isAfter, isBefore, isEqual, subMonths } from 'date-fns';
 import { cn } from '@/utilities/functions';
 import Button from '../button';
 import { currentTimeDot, formatWeekdayName, generateYearRange } from './utils';
@@ -416,7 +416,6 @@ const DatePickerComponent = ( {
 			>
 				{ ( ! showOutsideDates || ( isPartOfRange && shouldShowDay ) ) &&
 					customDayProps.children }
-				{ /* { customDayProps.children } */ }
 				{ isToday && shouldShowDay && (
 					<span className="absolute h-1 w-1 bg-background-brand rounded-full bottom-1"></span>
 				) }
@@ -665,6 +664,17 @@ const DatePickerComponent = ( {
 
 					// Get the current target button
 					const currentButton = event.target as HTMLButtonElement;
+					// Get the date of the current button
+					const currentButtonDate = new Date( currentButton.dataset.day! );
+					// Check if the current button is before or after the selected range
+					const isCurrentButtonBefore = isBefore(
+						currentButtonDate,
+						selected.from!
+					);
+					const isCurrentButtonAfter = isAfter(
+						currentButtonDate,
+						selected.to!
+					);
 
 					// Find the closest ancestor container element
 					// Selector based on the variant of the date picker
@@ -688,6 +698,28 @@ const DatePickerComponent = ( {
 					const buttons: HTMLButtonElement[] = Array.from(
 						datesContainer.querySelectorAll( 'button' )
 					);
+
+					// Sort if the current button is before or after the selected range
+					if ( isCurrentButtonAfter ) {
+						buttons.sort( ( a, b ) =>
+							isAfter(
+								new Date( a.dataset.day! ),
+								new Date( b.dataset.day! )
+							)
+								? -1
+								: 1
+						);
+					}
+					if ( isCurrentButtonBefore ) {
+						buttons.sort( ( a, b ) =>
+							isBefore(
+								new Date( a.dataset.day! ),
+								new Date( b.dataset.day! )
+							)
+								? 1
+								: -1
+						);
+					}
 
 					// Find the index of the current button in the buttons array
 					const currentIndex = buttons.indexOf( currentButton );
