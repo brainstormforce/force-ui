@@ -5,7 +5,6 @@ import {
 	useDayPicker,
 	type MonthGridProps,
 	type CustomComponents,
-	type PropsRangeRequired,
 } from 'react-day-picker';
 import { format, subMonths } from 'date-fns';
 import { cn } from '@/utilities/functions';
@@ -41,9 +40,9 @@ export interface DatePickerProps {
 		day?: string;
 	};
 	/** The selected dates. */
-	selectedDates?: Date | Date[] | TDateRange | null;
+	selectedDates?: Date | Date[] | TDateRange | undefined;
 	/** Sets the selected dates. */
-	setSelectedDates: (dates: Date | Date[] | TDateRange | null) => void;
+	setSelectedDates: (dates: Date | Date[] | TDateRange | undefined) => void;
 	/** Show or hide days outside of the current month. */
 	showOutsideDays?: boolean;
 	/** Defines the selection selectionType of the date picker: single, range, or multiple dates. */
@@ -498,6 +497,7 @@ const DatePickerComponent = ({
 
 	return (
 		<>
+			{/* @ts-ignore */}
 			<DayPicker
 				mode={mode}
 				selected={(() => {

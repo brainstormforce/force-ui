@@ -25,7 +25,7 @@ export interface DatePickerProps {
 	/** Callback function to be executed when the apply button is clicked. */
 	onApply?: ( selectedDates: Date | { from: Date; to: Date } | Date[] ) => void;
 	/** Callback function to be executed when a date is selected. */
-	onDateSelect?: ( date: Date | Date[] | TDateRange | null ) => void;
+	onDateSelect?: ( date: Date | Date[] | TDateRange | undefined ) => void;
 	/** Text displayed on the Apply button. */
 	applyButtonText?: string;
 	/** Text displayed on the Cancel button. */
@@ -35,7 +35,7 @@ export interface DatePickerProps {
 	/** Show or hide the footer. */
 	isFooter?: boolean;
 	/** Selected date value. */
-	selected?: Date | Date[] | TDateRange | null;
+	selected?: Date | Date[] | TDateRange | undefined;
 }
 
 const DatePicker = ( {
@@ -53,7 +53,7 @@ const DatePicker = ( {
 	...props
 }: DatePickerProps ) => {
 	const [ selectedDates, setSelectedDates ] = useState<
-		TDateRange | Date | Date[] | null
+		TDateRange | Date | Date[] | undefined
 	>( () => {
 		if ( ! selected ) {
 			return getDefaultSelectedValue( selectionType );
@@ -75,7 +75,7 @@ const DatePicker = ( {
 		return getDefaultSelectedValue( selectionType );
 	} );
 
-	const handleSelect = ( selectedDate: Date | Date[] | TDateRange | null ) => {
+	const handleSelect = ( selectedDate: Date | Date[] | TDateRange | undefined ) => {
 		setSelectedDates( selectedDate );
 		if ( onDateSelect ) {
 			onDateSelect( selectedDate );
@@ -129,7 +129,7 @@ const DatePicker = ( {
 
 	const handleCancelClick = () => {
 		setSelectedDates(
-			selectionType === 'multiple' ? [] : { from: null, to: null }
+			selectionType === 'multiple' ? [] : { from: undefined, to: undefined }
 		);
 		if ( onCancel ) {
 			onCancel();
@@ -153,7 +153,7 @@ const DatePicker = ( {
 				showOutsideDays={ showOutsideDays }
 				setSelectedDates={
 					handleSelect as (
-						dates: Date | Date[] | TDateRange | null
+						dates: Date | Date[] | TDateRange | undefined
 					) => void
 				}
 				footer={
@@ -184,7 +184,7 @@ const DatePicker = ( {
 				selectedDates={ selectedDates }
 				setSelectedDates={
 					handleSelect as (
-						dates: Date | Date[] | TDateRange | null
+						dates: Date | Date[] | TDateRange | undefined
 					) => void
 				}
 				showOutsideDays={ showOutsideDays }
@@ -226,7 +226,7 @@ const DatePicker = ( {
 					selectedDates={ selectedDates }
 					setSelectedDates={
 						handleSelect as (
-							dates: Date | Date[] | TDateRange | null
+							dates: Date | Date[] | TDateRange | undefined
 						) => void
 					}
 					variant={ variant }
