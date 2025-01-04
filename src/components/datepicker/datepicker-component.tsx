@@ -3,6 +3,7 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 import {
 	DayPicker,
 	useDayPicker,
+	type MonthGridProps,
 	type CustomComponents,
 	type PropsRangeRequired,
 } from 'react-day-picker';
@@ -11,7 +12,7 @@ import { cn } from '@/utilities/functions';
 import Button from '../button';
 import { currentTimeDot, formatWeekdayName, generateYearRange } from './utils';
 
-export type TDateRange = { from: Date | null; to: Date | null };
+export type TDateRange = { from: Date | undefined; to: Date | undefined };
 
 export interface DatePickerProps {
 	/** The width of the date picker. */
@@ -98,7 +99,7 @@ const DatePickerComponent = ({
 	numberOfMonths,
 	...props
 }: DatePickerProps) => {
-	// check footer is a valide compoenent
+	// check footer is a valid component.
 	const isFooter =
 		React.isValidElement(props.footer) ||
 		typeof props.footer === 'function';
@@ -109,13 +110,13 @@ const DatePickerComponent = ({
 		selectedYear - (selectedYear % 24)
 	);
 
-	if (selectedDates === null || selectedDates === undefined) {
+	if (selectedDates === undefined ) {
 		if (mode === 'multiple') {
 			selectedDates = [];
 		} else if (mode === 'range') {
-			selectedDates = { from: null, to: null };
+			selectedDates = { from: undefined, to: undefined };
 		} else {
-			selectedDates = null;
+			selectedDates = undefined;
 		}
 	}
 
@@ -421,7 +422,7 @@ const DatePickerComponent = ({
 		);
 	};
 
-	const CustomMonths = ( monthGridProps ) => {
+	const CustomMonths = ( monthGridProps: MonthGridProps ) => {
 		return (
 			<div className="flex flex-col bsf-force-ui-month-weeks">
 				{(
@@ -452,7 +453,7 @@ const DatePickerComponent = ({
 				(currentSelectedValue?.from && currentSelectedValue?.to) ||
 				(!currentSelectedValue?.from && !currentSelectedValue?.to)
 			) {
-				setSelectedDates({ from: trigger, to: null });
+				setSelectedDates({ from: trigger, to: undefined });
 				return;
 			}
 			setSelectedDates(selectedDate);
@@ -495,20 +496,18 @@ const DatePickerComponent = ({
 		isFooter ? 'rounded-b-none' : 'rounded-bl-md rounded-br-md'
 	);
 
-	console.log('selectedDates', selectedDates);
-
 	return (
 		<>
 			<DayPicker
 				mode={mode}
 				selected={(() => {
 					if (mode === 'range') {
-						return selectedDates as PropsRangeRequired['selected'];
+						return selectedDates as TDateRange;
 					}
 					if (mode === 'multiple') {
 						return selectedDates as Date[];
 					}
-					return selectedDates as Date;
+					return selectedDates as Date | undefined;
 				})()}
 				onSelect={handleSelect}
 				hideNavigation
@@ -597,13 +596,12 @@ const DatePickerComponent = ({
 					),
 					MonthGrid: (monthGridProps) =>
 						!showMonthSelect && !showYearSelect ? (
-							<CustomMonths
-								{...monthGridProps}
-							/>
+							<CustomMonths {...monthGridProps} />
 						) : (
 							<></>
 						),
 				}}
+				{...(mode === 'range' && { required: true })}
 				{...props}
 				onDayMouseEnter={(_, __, event) => {
 					if (mode !== 'range') {
