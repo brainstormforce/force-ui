@@ -43,7 +43,7 @@ export interface DatePickerProps {
 	/** The selected dates. */
 	selectedDates?: Date | Date[] | TDateRange | null;
 	/** Sets the selected dates. */
-	setSelectedDates: ( dates: Date | Date[] | TDateRange | null ) => void;
+	setSelectedDates: (dates: Date | Date[] | TDateRange | null) => void;
 	/** Show or hide days outside of the current month. */
 	showOutsideDays?: boolean;
 	/** Defines the selection selectionType of the date picker: single, range, or multiple dates. */
@@ -64,11 +64,11 @@ export interface DatePickerProps {
 
 interface CustomMonthsProps {
 	monthGridProps: React.ComponentProps<'table'>;
-	onSelect: ( date: Date ) => void;
+	onSelect: (date: Date) => void;
 }
 
 interface CustomMonthCaptionProps {
-	goToMonth: ( date: Date ) => void;
+	goToMonth: (date: Date) => void;
 	nextMonth: Date;
 	previousMonth: Date;
 	calendarMonth: { date: Date };
@@ -85,13 +85,13 @@ interface CustomDayButtonProps {
 		range_start: boolean;
 		range_end: boolean;
 	};
-	onSelect: ( date: Date ) => void;
-	onMouseEnter?: ( event: React.MouseEvent<HTMLButtonElement> ) => void;
-	onMouseLeave?: ( event: React.MouseEvent<HTMLButtonElement> ) => void;
-	onClick?: ( event: React.MouseEvent<HTMLButtonElement> ) => void;
-	onKeyDown?: ( event: React.KeyboardEvent<HTMLButtonElement> ) => void;
-	onFocus?: ( event: React.FocusEvent<HTMLButtonElement> ) => void;
-	onBlur?: ( event: React.FocusEvent<HTMLButtonElement> ) => void;
+	onSelect: (date: Date) => void;
+	onMouseEnter?: (event: React.MouseEvent<HTMLButtonElement>) => void;
+	onMouseLeave?: (event: React.MouseEvent<HTMLButtonElement>) => void;
+	onClick?: (event: React.MouseEvent<HTMLButtonElement>) => void;
+	onKeyDown?: (event: React.KeyboardEvent<HTMLButtonElement>) => void;
+	onFocus?: (event: React.FocusEvent<HTMLButtonElement>) => void;
+	onBlur?: (event: React.FocusEvent<HTMLButtonElement>) => void;
 	children: ReactNode;
 }
 
@@ -99,7 +99,7 @@ interface DayProps extends CustomDayButtonProps {
 	className?: string;
 }
 
-const DatePickerComponent = ( {
+const DatePickerComponent = ({
 	width,
 	className: outerClassName, // Renamed to avoid shadowing
 	classNames,
@@ -113,79 +113,79 @@ const DatePickerComponent = ( {
 	// onChange,
 	numberOfMonths,
 	...props
-}: DatePickerProps ) => {
+}: DatePickerProps) => {
 	// check footer is a valide compoenent
 	const isFooter =
-		React.isValidElement( props.footer ) ||
+		React.isValidElement(props.footer) ||
 		typeof props.footer === 'function';
-	const [ showMonthSelect, setShowMonthSelect ] = useState( false );
-	const [ showYearSelect, setShowYearSelect ] = useState( false ); // New state for year selection
-	const [ selectedYear, setSelectedYear ] = useState( new Date().getFullYear() );
-	const [ yearRangeStart, setYearRangeStart ] = useState(
-		selectedYear - ( selectedYear % 24 )
+	const [showMonthSelect, setShowMonthSelect] = useState(false);
+	const [showYearSelect, setShowYearSelect] = useState(false); // New state for year selection
+	const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
+	const [yearRangeStart, setYearRangeStart] = useState(
+		selectedYear - (selectedYear % 24)
 	);
 
-	if ( selectedDates === null || selectedDates === undefined ) {
-		if ( mode === 'multiple' ) {
+	if (selectedDates === null || selectedDates === undefined) {
+		if (mode === 'multiple') {
 			selectedDates = [];
-		} else if ( mode === 'range' ) {
+		} else if (mode === 'range') {
 			selectedDates = { from: null, to: null };
 		} else {
 			selectedDates = null;
 		}
 	}
 
-	function CustomMonthCaption( customMonthProps: CustomMonthCaptionProps ) {
+	function CustomMonthCaption(customMonthProps: CustomMonthCaptionProps) {
 		const { goToMonth, nextMonth, previousMonth } = useDayPicker();
 		const yearFormatted = format(
 			customMonthProps.calendarMonth.date,
 			'yyyy'
 		);
-		const month = format( customMonthProps.calendarMonth.date, 'MMMM' );
+		const month = format(customMonthProps.calendarMonth.date, 'MMMM');
 
-		const startOfWeek = new Date( customMonthProps.calendarMonth.date );
-		startOfWeek.setDate( startOfWeek.getDate() - startOfWeek.getDay() );
+		const startOfWeek = new Date(customMonthProps.calendarMonth.date);
+		startOfWeek.setDate(startOfWeek.getDate() - startOfWeek.getDay());
 
-		const weekdays = Array.from( { length: 7 }, ( _, i ) => {
-			const date = new Date( startOfWeek );
-			date.setDate( startOfWeek.getDate() + i );
-			return formatWeekdayName( date );
-		} );
+		const weekdays = Array.from({ length: 7 }, (_, i) => {
+			const date = new Date(startOfWeek);
+			date.setDate(startOfWeek.getDate() + i);
+			return formatWeekdayName(date);
+		});
 
 		const handlePrevButtonClick = () => {
-			if ( showYearSelect ) {
-				setYearRangeStart( yearRangeStart - 24 );
-			} else if ( showMonthSelect ) {
+			if (showYearSelect) {
+				setYearRangeStart(yearRangeStart - 24);
+			} else if (showMonthSelect) {
 				const prevYear = new Date(
 					selectedYear - 1,
 					customMonthProps.calendarMonth.date.getMonth()
 				);
-				setSelectedYear( prevYear.getFullYear() );
-				goToMonth( prevYear );
+				setSelectedYear(prevYear.getFullYear());
+				goToMonth(prevYear);
 			} else {
-				goToMonth( previousMonth! );
+				goToMonth(previousMonth!);
 			}
 		};
 
 		const handleNextButtonClick = () => {
-			if ( showYearSelect ) {
-				setYearRangeStart( yearRangeStart + 24 );
-			} else if ( showMonthSelect ) {
+			if (showYearSelect) {
+				setYearRangeStart(yearRangeStart + 24);
+			} else if (showMonthSelect) {
 				const nextYear = new Date(
 					selectedYear + 1,
 					customMonthProps.calendarMonth.date.getMonth()
 				);
-				setSelectedYear( nextYear.getFullYear() );
-				goToMonth( nextYear );
+				setSelectedYear(nextYear.getFullYear());
+				goToMonth(nextYear);
 			} else {
-				goToMonth( nextMonth! );
+				goToMonth(nextMonth!);
 			}
 		};
 
-		const handleYearClick = ( yearValue: number ) => {
-			setSelectedYear( yearValue );
-			setShowYearSelect( false );
-			setShowMonthSelect( true );
+		const handleYearClick = (yearValue: number) => {
+			setSelectedYear(yearValue);
+			setShowYearSelect(false);
+			setShowMonthSelect(true);
 			goToMonth(
 				new Date(
 					yearValue,
@@ -195,12 +195,12 @@ const DatePickerComponent = ( {
 		};
 
 		let displayText;
-		if ( showYearSelect ) {
-			displayText = `${ yearRangeStart } - ${ yearRangeStart + 23 }`;
-		} else if ( showMonthSelect ) {
+		if (showYearSelect) {
+			displayText = `${yearRangeStart} - ${yearRangeStart + 23}`;
+		} else if (showMonthSelect) {
 			displayText = yearFormatted;
 		} else {
-			displayText = `${ month } ${ yearFormatted }`;
+			displayText = `${month} ${yearFormatted}`;
 		}
 
 		return (
@@ -208,7 +208,7 @@ const DatePickerComponent = ( {
 				<div className="flex justify-between">
 					<Button
 						variant="ghost"
-						onClick={ handlePrevButtonClick }
+						onClick={handlePrevButtonClick}
 						className="bg-background-primary border-none cursor-pointer"
 						aria-label="Previous Button"
 						icon={
@@ -218,26 +218,26 @@ const DatePickerComponent = ( {
 
 					<Button
 						variant="ghost"
-						onClick={ () => {
-							if ( numberOfMonths! > 1 ) {
+						onClick={() => {
+							if (numberOfMonths! > 1) {
 								return;
 							}
-							if ( showMonthSelect ) {
-								setShowYearSelect( true );
-								setShowMonthSelect( false );
-							} else if ( showYearSelect ) {
-								setShowYearSelect( false );
+							if (showMonthSelect) {
+								setShowYearSelect(true);
+								setShowMonthSelect(false);
+							} else if (showYearSelect) {
+								setShowYearSelect(false);
 							} else {
-								setShowMonthSelect( ! showMonthSelect );
+								setShowMonthSelect(!showMonthSelect);
 							}
-						} }
+						}}
 					>
-						{ displayText }
+						{displayText}
 					</Button>
 
 					<Button
 						variant="ghost"
-						onClick={ handleNextButtonClick }
+						onClick={handleNextButtonClick}
 						className="bg-background-primary border-none cursor-pointer"
 						aria-label="Next Button"
 						icon={
@@ -246,14 +246,14 @@ const DatePickerComponent = ( {
 					/>
 				</div>
 
-				{ showYearSelect && (
+				{showYearSelect && (
 					<div className="grid grid-cols-4 w-full">
-						{ generateYearRange( yearRangeStart ).map( ( yearValue ) => (
+						{generateYearRange(yearRangeStart).map((yearValue) => (
 							<Button
-								key={ yearValue }
+								key={yearValue}
 								variant="ghost"
-								onClick={ () => handleYearClick( yearValue ) }
-								className={ cn(
+								onClick={() => handleYearClick(yearValue)}
+								className={cn(
 									'h-10 w-full text-center font-normal relative',
 									yearValue === selectedYear &&
 										yearValue !==
@@ -261,29 +261,29 @@ const DatePickerComponent = ( {
 										'bg-background-brand text-text-on-color hover:bg-background-brand hover:text-black',
 									yearValue === new Date().getFullYear() &&
 										'font-semibold'
-								) }
+								)}
 							>
-								{ yearValue }
-								{ yearValue === new Date().getFullYear() &&
-									currentTimeDot() }
+								{yearValue}
+								{yearValue === new Date().getFullYear() &&
+									currentTimeDot()}
 							</Button>
-						) ) }
+						))}
 					</div>
-				) }
+				)}
 
-				{ showMonthSelect && ! showYearSelect && (
+				{showMonthSelect && !showYearSelect && (
 					<div className="grid grid-cols-4 gap-2 my-12">
-						{ Array.from( { length: 12 }, ( _, monthIndex ) => (
+						{Array.from({ length: 12 }, (_, monthIndex) => (
 							<Button
-								key={ monthIndex }
+								key={monthIndex}
 								variant="ghost"
-								onClick={ () => {
-									setShowMonthSelect( false );
+								onClick={() => {
+									setShowMonthSelect(false);
 									goToMonth(
-										new Date( selectedYear, monthIndex )
+										new Date(selectedYear, monthIndex)
 									);
-								} }
-								className={ cn(
+								}}
+								className={cn(
 									'px-1.5 py-2 h-10 w-[4.375rem] text-center font-normal relative',
 									monthIndex ===
 										customMonthProps.calendarMonth.date.getMonth() &&
@@ -297,44 +297,44 @@ const DatePickerComponent = ( {
 										new Date().getFullYear() ===
 											selectedYear &&
 										'font-semibold'
-								) }
+								)}
 							>
-								{ format( new Date( 0, monthIndex ), 'MMM' ) }
-								{ new Date().getMonth() === monthIndex &&
+								{format(new Date(0, monthIndex), 'MMM')}
+								{new Date().getMonth() === monthIndex &&
 									new Date().getFullYear() === selectedYear &&
-									currentTimeDot() }
+									currentTimeDot()}
 							</Button>
-						) ) }
+						))}
 					</div>
-				) }
+				)}
 
-				{ ! showMonthSelect && ! showYearSelect && (
-					<MonthSelectors weekdays={ weekdays } />
-				) }
+				{!showMonthSelect && !showYearSelect && (
+					<MonthSelectors weekdays={weekdays} />
+				)}
 			</>
 		);
 	}
 
-	const MonthSelectors = ( { weekdays }: { weekdays: string[] } ) => {
+	const MonthSelectors = ({ weekdays }: { weekdays: string[] }) => {
 		return (
 			<div className="flex justify-between">
-				{ weekdays.map( ( weekday, weekdayIndex ) => (
+				{weekdays.map((weekday, weekdayIndex) => (
 					<button
-						key={ weekdayIndex }
+						key={weekdayIndex}
 						className="h-10 w-10 px-1.5 py-2 text-center text-text-secondary text-sm font-normal content-center bg-transparent border-none shrink-0"
 					>
-						{ weekday }
+						{weekday}
 					</button>
-				) ) }
+				))}
 			</div>
 		);
 	};
 
-	const CustomDayButton = ( {
+	const CustomDayButton = ({
 		day,
 		modifiers,
 		...customDayProps
-	}: CustomDayButtonProps ) => {
+	}: CustomDayButtonProps) => {
 		const {
 			selected: isSelected,
 			today: isToday,
@@ -349,22 +349,20 @@ const DatePickerComponent = ( {
 		// const handleClick = () => ! isDisabled && onSelect( day.date );
 
 		const today = new Date();
-		const rangeEnd = (
-			selectedDates as TDateRange
-		)?.to;
+		const rangeEnd = (selectedDates as TDateRange)?.to;
 
 		const isThisMonth =
-			format( day.displayMonth, 'yyyy-MM' ) === format( today, 'yyyy-MM' );
+			format(day.displayMonth, 'yyyy-MM') === format(today, 'yyyy-MM');
 		const isRangeEndInCurrentMonth =
 			rangeEnd &&
-			format( rangeEnd, 'yyyy-MM' ) === format( day.date, 'yyyy-MM' );
-		const previousMonth = subMonths( today, 1 );
+			format(rangeEnd, 'yyyy-MM') === format(day.date, 'yyyy-MM');
+		const previousMonth = subMonths(today, 1);
 		const isPreviousMonth =
-			format( day.date, 'yyyy-MM' ) === format( previousMonth, 'yyyy-MM' );
+			format(day.date, 'yyyy-MM') === format(previousMonth, 'yyyy-MM');
 
 		const shouldShowDay =
 			isThisMonth || isRangeEndInCurrentMonth || isPartOfRange;
-		const showOutsideDates = ! showOutsideDays && isOutside;
+		const showOutsideDates = !showOutsideDays && isOutside;
 
 		// Common class for disabled outside days
 		const disabledOutsideClass =
@@ -373,71 +371,72 @@ const DatePickerComponent = ( {
 		const buttonClasses = cn(
 			'h-10 w-10 flex items-center justify-center transition text-text-secondary relative text-sm',
 			'border-none rounded',
-			( isSelected || isPartOfRange ) && ( ! isOutside || isPreviousMonth )
+			(isSelected || isPartOfRange) && (!isOutside || isPreviousMonth)
 				? 'bg-background-brand text-text-on-color'
 				: 'bg-transparent hover:bg-button-tertiary-hover',
-			isRangeMiddle && shouldShowDay && ( ! isOutside || isPartOfRange )
+			isRangeMiddle && shouldShowDay && (!isOutside || isPartOfRange)
 				? 'bg-brand-background-50 text-text-secondary rounded-none'
 				: '',
 			isDisabled
 				? 'opacity-50 cursor-not-allowed text-text-disabled'
 				: 'cursor-pointer',
-			( isOutside && ! isPartOfRange ) ||
-				( ! shouldShowDay && isOutside ) ||
-				( isOutside && ! isPreviousMonth )
+			(isOutside && !isPartOfRange) ||
+				(!shouldShowDay && isOutside) ||
+				(isOutside && !isPreviousMonth)
 				? disabledOutsideClass
 				: ''
 		);
 
-		
-		const handleHover = ( event: React.MouseEvent<HTMLButtonElement> ) => {
-			if ( typeof customDayProps.onMouseEnter === 'function' ) {
-				customDayProps.onMouseEnter( event );
+		const handleHover = (event: React.MouseEvent<HTMLButtonElement>) => {
+			if (typeof customDayProps.onMouseEnter === 'function') {
+				customDayProps.onMouseEnter(event);
 			}
-			event.currentTarget.setAttribute( 'data-hover', 'true' );
-		}
-		const handleLeave = ( event: React.MouseEvent<HTMLButtonElement> ) => {
-			if ( typeof customDayProps.onMouseLeave === 'function' ) {
-				customDayProps.onMouseLeave( event );
+			event.currentTarget.setAttribute('data-hover', 'true');
+		};
+		const handleLeave = (event: React.MouseEvent<HTMLButtonElement>) => {
+			if (typeof customDayProps.onMouseLeave === 'function') {
+				customDayProps.onMouseLeave(event);
 			}
-			event.currentTarget.setAttribute( 'data-hover', 'false' );
-		}
-		const handleClick = ( event: React.MouseEvent<HTMLButtonElement> ) => {
-			if ( typeof customDayProps.onClick === 'function' ) {
-				customDayProps.onClick( event );
+			event.currentTarget.setAttribute('data-hover', 'false');
+		};
+		const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+			if (typeof customDayProps.onClick === 'function') {
+				customDayProps.onClick(event);
 			}
-		}
+		};
 
 		console.log('isSelected', isSelected);
 
 		return (
 			<button
 				// onClick={ handleClick }
-				className={ cn( 
-					buttonClasses, isToday && 'font-semibold', showOutsideDates && 'opacity-0',
+				className={cn(
+					buttonClasses,
+					isToday && 'font-semibold',
+					showOutsideDates && 'opacity-0',
 					isRangeStart && 'fui-range-start',
 					isRangeEnd && 'fui-range-end',
 					isRangeMiddle && 'fui-range-middle',
 					{
-						'[&:is([data-hover=true])]:bg-brand-background-50 [&:is([data-hover=true])]:rounded-none': ! isPartOfRange && ! isSelected,
-					},
-
-				) }
-				disabled={ isDisabled || isOutside }
-				onClick={ handleClick }
+						'[&:is([data-hover=true])]:bg-brand-background-50 [&:is([data-hover=true])]:rounded-none':
+							!isPartOfRange && !isSelected,
+					}
+				)}
+				disabled={isDisabled || isOutside}
+				onClick={handleClick}
 				onMouseEnter={handleHover}
 				onMouseLeave={handleLeave}
-				aria-label={ format( day.date, 'EEEE, MMMM do, yyyy' ) }
-				aria-selected={ isSelected }
+				aria-label={format(day.date, 'EEEE, MMMM do, yyyy')}
+				aria-selected={isSelected}
 			>
 				{/* { ( ! showOutsideDates || ( isPartOfRange && shouldShowDay ) ) &&
 					format( day.date, 'd' ) } */}
-				{ ( ! showOutsideDates || ( isPartOfRange && shouldShowDay ) ) &&
-				customDayProps.children }
-					{/* { customDayProps.children } */}
-				{ isToday && shouldShowDay && (
+				{(!showOutsideDates || (isPartOfRange && shouldShowDay)) &&
+					customDayProps.children}
+				{/* { customDayProps.children } */}
+				{isToday && shouldShowDay && (
 					<span className="absolute h-1 w-1 bg-background-brand rounded-full bottom-1"></span>
-				) }
+				)}
 			</button>
 		);
 	};
@@ -455,17 +454,17 @@ const DatePickerComponent = ( {
 	// 	);
 	// };
 
-	const CustomMonths = ( { monthGridProps, onSelect }: CustomMonthsProps ) => {
+	const CustomMonths = ({ monthGridProps, onSelect }: CustomMonthsProps) => {
 		return (
 			<div className="flex flex-col bsf-force-ui-month-weeks">
-				{ (
+				{(
 					monthGridProps as {
 						children: React.ReactElement[];
 					}
-				).children[ 1 ].props.children.map(
-					( month: React.ReactElement, index: number ) => (
+				).children[1].props.children.map(
+					(month: React.ReactElement, index: number) => (
 						<div
-							key={ index }
+							key={index}
 							className="flex flex-row justify-between"
 						>
 							{/* { (
@@ -489,51 +488,45 @@ const DatePickerComponent = ( {
 							{month}
 						</div>
 					)
-				) }
+				)}
 			</div>
 		);
 	};
 
-	const handleSelect = ( selectedDate: Date, trigger, mod ) => {
-		// console.log( 'selectedDate:\t', selectedDate, '\ntrigger:\t', trigger, '\nmod:\t', mod );
+	const handleSelect = (
+		selectedDate: Date | TDateRange | Date[],
+		trigger: Date
+	) => {
 		if (mode === 'range') {
-			// if (
-			// 	!(selectedDates as TDateRange)?.from ||
-			// 	((selectedDates as TDateRange)?.from &&
-			// 		(selectedDates as TDateRange)?.to)
-			// ) {
-			// 	setSelectedDates({ from: selectedDate, to: null });
-			// } else {
-			// 	setSelectedDates({
-			// 		from: (selectedDates as TDateRange).from,
-			// 		to: selectedDate?.to,
-			// 	});
-			// }
-			if ( (selectedDates?.from && selectedDates?.to) || (! selectedDates?.from && ! selectedDates?.to) ) {
-				setSelectedDates( { from: trigger, to: null } );
-				return
+			const currentSelectedValue = selectedDates as TDateRange;
+			if (
+				(currentSelectedValue?.from && currentSelectedValue?.to) ||
+				(!currentSelectedValue?.from && !currentSelectedValue?.to)
+			) {
+				setSelectedDates({ from: trigger, to: null });
+				return;
 			}
-			setSelectedDates( selectedDate )
+			setSelectedDates(selectedDate);
 		} else if (mode === 'multiple') {
 			if (
 				(selectedDates as Date[])!.some(
 					(date) =>
 						format(date, 'yyyy-MM-dd') ===
-						format(selectedDate, 'yyyy-MM-dd')
+						format(trigger, 'yyyy-MM-dd')
 				)
 			) {
 				setSelectedDates(
 					(selectedDates as Date[])!.filter(
 						(date) =>
 							format(date, 'yyyy-MM-dd') !==
-							format(selectedDate, 'yyyy-MM-dd')
+							format(trigger, 'yyyy-MM-dd')
 					)
 				);
 			} else {
-				setSelectedDates([...(selectedDates as Date[]), selectedDate]);
+				setSelectedDates([...(selectedDates as Date[]), trigger]);
 			}
 		} else if (mode === 'single') {
-			setSelectedDates([selectedDate]);
+			setSelectedDates(selectedDate);
 		}
 	};
 
@@ -553,7 +546,7 @@ const DatePickerComponent = ( {
 		isFooter ? 'rounded-b-none' : 'rounded-bl-md rounded-br-md'
 	);
 
-	console.log( 'selectedDates', selectedDates );
+	console.log('selectedDates', selectedDates);
 
 	return (
 		<>
@@ -596,10 +589,10 @@ const DatePickerComponent = ( {
 						CustomMonthCaption as unknown as CustomComponents['MonthCaption'],
 					DayButton:
 						CustomDayButton as unknown as CustomComponents['DayButton'],
-					Day: ( singleDayProps ) => {
+					Day: (singleDayProps) => {
 						return (
 							<div
-								{ ...singleDayProps }
+								{...singleDayProps}
 								className={cn(
 									singleDayProps.className,
 									'inline-flex'
@@ -607,18 +600,18 @@ const DatePickerComponent = ( {
 							/>
 						);
 					},
-					Weekdays: () => (<></>),
+					Weekdays: () => <></>,
 					Week: (weekProps: any) => {
 						return (
 							<div
 								className={cn(
 									'bsf-force-ui-month-week flex flex-row',
-									weekProps.className,
+									weekProps.className
 								)}
 							>
 								{weekProps.children}
 							</div>
-						)
+						);
 					},
 					Months: (monthsProps) => (
 						<>
@@ -728,7 +721,7 @@ const DatePickerComponent = ( {
 					// Select the buttons between the current button and the button with aria-selected="true" (inclusive)
 					// eslint-disable-next-line no-plusplus
 					for (let i = start; i <= end; i++) {
-						if (! buttons[i]?.disabled) {
+						if (!buttons[i]?.disabled) {
 							selectedButtons.push(buttons[i]);
 						}
 					}
