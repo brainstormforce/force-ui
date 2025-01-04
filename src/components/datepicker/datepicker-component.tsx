@@ -358,10 +358,10 @@ const DatePickerComponent = ( {
 		const buttonClasses = cn(
 			'h-10 w-10 flex items-center justify-center transition text-text-secondary relative text-sm',
 			'border-none rounded',
-			( isSelected || isPartOfRange ) && ( ! isOutside || isPreviousMonth )
+			( isSelected || isPartOfRange ) && ( ! isOutside  )
 				? 'bg-background-brand text-text-on-color'
 				: 'bg-transparent hover:bg-button-tertiary-hover',
-			isRangeMiddle && shouldShowDay && ( ! isOutside || isPartOfRange )
+			isRangeMiddle && shouldShowDay && ( ! isOutside  )
 				? 'bg-brand-background-50 text-text-secondary rounded-none'
 				: '',
 			isDisabled
@@ -369,7 +369,7 @@ const DatePickerComponent = ( {
 				: 'cursor-pointer',
 			( isOutside && ! isPartOfRange ) ||
 				( ! shouldShowDay && isOutside ) ||
-				( isOutside && ! isPreviousMonth )
+				( isOutside && ! isPreviousMonth ) || isOutside
 				? disabledOutsideClass
 				: ''
 		);
@@ -412,6 +412,7 @@ const DatePickerComponent = ( {
 				onMouseLeave={ handleLeave }
 				aria-label={ format( day.date, 'EEEE, MMMM do, yyyy' ) }
 				data-selected={ isSelected }
+				data-day={ format( day.date, 'yyyy-MM-dd' ) }
 			>
 				{ ( ! showOutsideDates || ( isPartOfRange && shouldShowDay ) ) &&
 					customDayProps.children }
@@ -666,9 +667,22 @@ const DatePickerComponent = ( {
 					const currentButton = event.target as HTMLButtonElement;
 
 					// Find the closest ancestor container element
-					const datesContainer = currentButton.closest(
-						'.bsf-force-ui-date-picker-month'
-					) as Element;
+					// Selector based on the variant of the date picker
+					let datesContainer: Element | undefined;
+					switch ( variant ) {
+						case 'dualdate':
+						case 'presets':
+							datesContainer = currentButton.closest(
+								'.bsf-force-ui-date-picker-month'
+							) as Element;
+							break;
+						case 'normal':
+						default:
+							datesContainer = currentButton.closest(
+								'.bsf-force-ui-month-weeks'
+							) as Element;
+							break;
+					}
 
 					// Find all buttons within the container element
 					const buttons: HTMLButtonElement[] = Array.from(
@@ -692,7 +706,6 @@ const DatePickerComponent = ( {
 					const end = Math.max( currentIndex, selectedIndex );
 
 					// Select the buttons between the current button and the button with data-selected="true" (inclusive)
-					// eslint-disable-next-line no-plusplus
 					for ( let i = start; i <= end; i++ ) {
 						if ( ! buttons[ i ]?.disabled ) {
 							selectedButtons.push( buttons[ i ] );
