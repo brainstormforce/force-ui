@@ -19,7 +19,7 @@ export const getDefaultSelectedValue = ( type: string ) => {
 		return [];
 	}
 	if ( type === 'range' ) {
-		return { from: null, to: null };
+		return { from: undefined, to: undefined };
 	}
-	return null;
+	return undefined;
 };

@@ -8,10 +8,10 @@ import {
 	endOfWeek,
 	startOfMonth,
 	endOfMonth,
-	subWeeks,
-	subMonths,
+	subDays,
 } from 'date-fns';
 import { getDefaultSelectedValue } from './utils';
+import { type PropsBase } from 'react-day-picker';
 
 export interface DatePickerProps {
 	/** Defines the selection selectionType of the date picker: single, range, or multiple dates. */
@@ -25,7 +25,7 @@ export interface DatePickerProps {
 	/** Callback function to be executed when the apply button is clicked. */
 	onApply?: ( selectedDates: Date | { from: Date; to: Date } | Date[] ) => void;
 	/** Callback function to be executed when a date is selected. */
-	onDateSelect?: ( date: Date | Date[] | TDateRange | null ) => void;
+	onDateSelect?: ( date: Date | Date[] | TDateRange | undefined ) => void;
 	/** Text displayed on the Apply button. */
 	applyButtonText?: string;
 	/** Text displayed on the Cancel button. */
@@ -35,7 +35,17 @@ export interface DatePickerProps {
 	/** Show or hide the footer. */
 	isFooter?: boolean;
 	/** Selected date value. */
-	selected?: Date | Date[] | TDateRange | null;
+	selected?: Date | Date[] | TDateRange | undefined;
+	/**
+	 * Disable the date picker based on the condition.
+	 * Example:
+	 * To disable future dates, set the condition as:
+	 * ```jsx
+	 * disabled={{ after: new Date(), before:"" }}
+	 * ```
+	 * @default undefined
+	 */
+	disabled?: PropsBase['disabled'];
 }
 
 const DatePicker = ( {
@@ -50,10 +60,11 @@ const DatePicker = ( {
 	showOutsideDays = true,
 	isFooter = true,
 	selected,
+	disabled,
 	...props
 }: DatePickerProps ) => {
 	const [ selectedDates, setSelectedDates ] = useState<
-		TDateRange | Date | Date[] | null
+		TDateRange | Date | Date[] | undefined
 	>( () => {
 		if ( ! selected ) {
 			return getDefaultSelectedValue( selectionType );
@@ -75,7 +86,9 @@ const DatePicker = ( {
 		return getDefaultSelectedValue( selectionType );
 	} );
 
-	const handleSelect = ( selectedDate: Date | Date[] | TDateRange | null ) => {
+	const handleSelect = (
+		selectedDate: Date | Date[] | TDateRange | undefined
+	) => {
 		setSelectedDates( selectedDate );
 		if ( onDateSelect ) {
 			onDateSelect( selectedDate );
@@ -99,10 +112,10 @@ const DatePicker = ( {
 			},
 		},
 		{
-			label: 'Last Week',
+			label: 'Last 7 Days',
 			range: {
-				from: startOfWeek( subWeeks( new Date(), 1 ), { weekStartsOn: 1 } ),
-				to: endOfWeek( subWeeks( new Date(), 1 ), { weekStartsOn: 1 } ),
+				from: subDays( new Date(), 6 ),
+				to: new Date(),
 			},
 		},
 		{
@@ -113,10 +126,10 @@ const DatePicker = ( {
 			},
 		},
 		{
-			label: 'Last Month',
+			label: 'Last 30 Days',
 			range: {
-				from: startOfMonth( subMonths( new Date(), 1 ) ),
-				to: endOfMonth( subMonths( new Date(), 1 ) ),
+				from: subDays( new Date(), 29 ),
+				to: new Date(),
 			},
 		},
 	];
@@ -129,7 +142,9 @@ const DatePicker = ( {
 
 	const handleCancelClick = () => {
 		setSelectedDates(
-			selectionType === 'multiple' ? [] : { from: null, to: null }
+			selectionType === 'multiple'
+				? []
+				: { from: undefined, to: undefined }
 		);
 		if ( onCancel ) {
 			onCancel();
@@ -153,7 +168,7 @@ const DatePicker = ( {
 				showOutsideDays={ showOutsideDays }
 				setSelectedDates={
 					handleSelect as (
-						dates: Date | Date[] | TDateRange | null
+						dates: Date | Date[] | TDateRange | undefined
 					) => void
 				}
 				footer={
@@ -171,6 +186,7 @@ const DatePicker = ( {
 						</div>
 					)
 				}
+				disabled={ disabled }
 			/>
 		);
 	}
@@ -184,7 +200,7 @@ const DatePicker = ( {
 				selectedDates={ selectedDates }
 				setSelectedDates={
 					handleSelect as (
-						dates: Date | Date[] | TDateRange | null
+						dates: Date | Date[] | TDateRange | undefined
 					) => void
 				}
 				showOutsideDays={ showOutsideDays }
@@ -200,6 +216,7 @@ const DatePicker = ( {
 						</Button>
 					</div>
 				}
+				disabled={ disabled }
 				{ ...props }
 			/>
 		);
@@ -226,7 +243,7 @@ const DatePicker = ( {
 					selectedDates={ selectedDates }
 					setSelectedDates={
 						handleSelect as (
-							dates: Date | Date[] | TDateRange | null
+							dates: Date | Date[] | TDateRange | undefined
 						) => void
 					}
 					variant={ variant }
@@ -246,6 +263,7 @@ const DatePicker = ( {
 							</Button>
 						</div>
 					}
+					disabled={ disabled }
 				/>
 			</div>
 		);

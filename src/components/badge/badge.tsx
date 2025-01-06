@@ -159,7 +159,7 @@ const Badge = forwardRef<Ref, BadgeProps>(
 						{ icon }
 					</span>
 				) : null }
-				<span className="px-1 truncate">{ label }</span>
+				<span className="px-1 truncate inline-block">{ label }</span>
 				{ closable && (
 					<span
 						className={ cn( buttonClasses, iconSizeClasses[ size ] ) }
