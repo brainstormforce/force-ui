@@ -22,7 +22,7 @@ jobs:
           ACTION_CONTEXT: 'CHECK_SHORTCODE'
           EXCLUDE_EXTENSIONS: "md, yml, lock"
           INCLUDE_EXTENSIONS: "php, js, jsx, ts, tsx, css, scss, html, json"
-          EXCLUDE_PATHS: "node_modules/,vendor/"
+          EXCLUDE_PATHS: "node_modules/"
 
   CODE_REVIEW:
     needs: CHECK_SHORTCODE
@@ -40,4 +40,4 @@ jobs:
           ACTION_CONTEXT: "CODE_REVIEW"
           EXCLUDE_EXTENSIONS: "md, yml, lock"
           INCLUDE_EXTENSIONS: "php, js, jsx, ts, tsx, css, scss, html, json"
-          EXCLUDE_PATHS: "node_modules/,vendor/"
+          EXCLUDE_PATHS: "node_modules/"
