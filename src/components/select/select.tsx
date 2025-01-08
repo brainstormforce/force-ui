@@ -366,27 +366,42 @@ export function SelectOptions( {
 		let indexValue = -1;
 
 		if ( currentValue ) {
-			indexValue = Children.toArray( children ).findIndex(
-				( child: React.ReactNode ) => {
-					if ( ! isValidElement( child ) ) {
-						return false;
-					}
-					if (
-						typeof child.props.value === 'object' &&
-						typeof currentValue === 'object'
-					) {
-						return (
-							child.props.value[ by ] ===
-							( currentValue as Record<string, unknown> )[ by ]
-						);
-					}
-					return child.props.value === currentValue;
+			// Get all children as an array
+			let allChildren = Children.toArray( children );
+
+			// If it's an option group, flatten the children
+			if (
+				allChildren.length > 0 &&
+				isValidElement( allChildren[ 0 ] ) &&
+				allChildren[ 0 ].type === SelectOptionGroup
+			) {
+				allChildren = Children.toArray( children )
+					.map( ( group ) =>
+						isValidElement( group )
+							? Children.toArray( group.props.children )
+							: []
+					)
+					.flat();
+			}
+
+			indexValue = allChildren.findIndex( ( child: React.ReactNode ) => {
+				if ( ! isValidElement( child ) ) {
+					return false;
 				}
-			);
+
+				const childValue = child.props.value;
+
+				if ( typeof childValue === 'object' && typeof currentValue === 'object' ) {
+					return childValue[ by ] === ( currentValue as Record<string, unknown> )[ by ];
+				}
+
+				// For non-object values, do a direct comparison
+				return childValue === currentValue;
+			} );
 		}
 
 		return indexValue;
-	}, [ value, selected, children, searchKeyword ] );
+	}, [ value, selected, children, by ] );
 
 	// Initialize active and selected index.
 	useLayoutEffect( () => {
