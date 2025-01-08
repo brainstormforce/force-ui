@@ -11,6 +11,7 @@ import {
 	useEffect,
 	useLayoutEffect,
 	Fragment,
+	type ReactNode,
 } from 'react';
 import { cn } from '@/utilities/functions';
 import { CheckIcon, ChevronDown, ChevronsUpDown, Search } from 'lucide-react';
@@ -64,7 +65,7 @@ export function SelectButton( {
 	icon = null, // Icon to show in the select button.
 	placeholder = 'Select an option', // Placeholder text.
 	optionIcon = null, // Icon to show in the selected option.
-	displayBy = 'name', // Used to display the value. Default is 'name'.
+	render,
 	label, // Label for the select component.
 	className,
 	...props
@@ -114,20 +115,6 @@ export function SelectButton( {
 			return null;
 		}
 
-		if ( typeof children === 'function' ) {
-			const childProps = {
-				value: selectedValue as SelectOptionValue,
-				...( multiple
-					? {
-						onClose: handleOnCloseItem(
-								selectedValue as SelectOptionValue
-						),
-					}
-					: {} ),
-			};
-			return children( childProps );
-		}
-
 		if ( multiple ) {
 			return ( selectedValue as SelectOptionValue[] ).map(
 				( valueItem: SelectOptionValue, index: number ) => (
@@ -139,8 +126,8 @@ export function SelectButton( {
 						size={ badgeSize as SelectSizes }
 						onMouseDown={ handleOnCloseItem( valueItem ) }
 						label={
-							typeof valueItem === 'object'
-								? valueItem[ displayBy ]?.toString()
+							typeof render === 'function'
+								? render( valueItem as SelectOptionValue )
 								: valueItem.toString()
 						}
 						closable={ true }
@@ -150,12 +137,30 @@ export function SelectButton( {
 			);
 		}
 
-		let renderValue =
-			typeof selectedValue === 'object'
-				? ( selectedValue as Record<string, unknown> )[ displayBy ]
-				: selectedValue;
+		let renderValue: ReactNode = typeof selectedValue === 'string' ? selectedValue : '';
 
-		if ( isValidElement( children ) ) {
+		if ( typeof render === 'function' ) {
+			renderValue = render( selectedValue as SelectOptionValue );
+		}
+
+		if ( typeof children === 'function' && typeof render !== 'function' ) {
+			const childProps = {
+				value: selectedValue as SelectOptionValue,
+				...( multiple
+					? {
+						onClose: handleOnCloseItem(
+								selectedValue as SelectOptionValue
+						),
+					}
+					: {} ),
+			};
+			renderValue = children( childProps );
+		}
+
+		if (
+			( isValidElement( children ) || typeof children === 'string' ) &&
+			typeof render !== 'function'
+		) {
 			renderValue = children;
 		}
 
@@ -244,7 +249,7 @@ export function SelectButton( {
 						getValues() && 'flex flex-wrap'
 					) }
 				>
-					{ /* Show Selected item/items (Multiselector) */ }
+					{ /* Show Selected item/items (Multi-selector) */ }
 					{ renderSelected() }
 
 					{ /* Placeholder */ }
@@ -353,6 +358,7 @@ export function SelectOptions( {
 		listContentRef,
 		by,
 		searchPlaceholder,
+		activeIndex,
 	} = useSelectContext();
 
 	const initialSelectedValueIndex = useMemo( () => {
@@ -365,7 +371,10 @@ export function SelectOptions( {
 					if ( ! isValidElement( child ) ) {
 						return false;
 					}
-					if ( typeof child.props.value === 'object' ) {
+					if (
+						typeof child.props.value === 'object' &&
+						typeof currentValue === 'object'
+					) {
 						return (
 							child.props.value[ by ] ===
 							( currentValue as Record<string, unknown> )[ by ]
@@ -377,18 +386,27 @@ export function SelectOptions( {
 		}
 
 		return indexValue;
-	}, [ value, selected, children ] );
+	}, [ value, selected, children, searchKeyword ] );
 
 	// Initialize active and selected index.
 	useLayoutEffect( () => {
+		if ( isOpen ) {
+			return;
+		}
 		setActiveIndex( initialSelectedValueIndex );
 		setSelectedIndex( initialSelectedValueIndex );
-	}, [] );
+	}, [ initialSelectedValueIndex, isOpen ] );
 
 	// Reset active index when search keyword changes.
 	useLayoutEffect( () => {
-		setActiveIndex( initialSelectedValueIndex );
-	}, [ searchKeyword ] );
+		if ( ! isOpen ) {
+			return;
+		}
+		if ( combobox && [ -1, null ].includes( activeIndex ) ) {
+			return;
+		}
+		setActiveIndex( -1 );
+	}, [ searchKeyword, isOpen ] );
 
 	// Render children based on the search keyword.
 	const renderChildren = useMemo( () => {
@@ -407,24 +425,12 @@ export function SelectOptions( {
 					}
 
 					if ( searchKeyword ) {
-						const valueProp = groupChild.props.value;
-						const exactValue =
-							typeof valueProp === 'object'
-								? valueProp[ by ]
-								: valueProp;
 						const textContent = getTextContent(
 							groupChild.props.children
 						)?.toLowerCase();
 						const searchTerm = searchKeyword.toLowerCase();
 
-						// For non-object values, search directly in the value and text content
-						return (
-							exactValue
-								.toString()
-								.toLowerCase()
-								.includes( searchTerm ) ||
-							textContent.includes( searchTerm )
-						);
+						return textContent.includes( searchTerm );
 					}
 					return true;
 				} );
@@ -472,22 +478,14 @@ export function SelectOptions( {
 
 			// Handle regular options
 			if ( searchKeyword ) {
-				const valueProp = child.props.value;
 				const textContent = getTextContent(
 					child.props?.children
 				)?.toLowerCase();
 				const searchTerm = searchKeyword.toLowerCase();
 
-				const valueMatch =
-					typeof valueProp === 'object'
-						? valueProp[ by ]?.toLowerCase()?.includes( searchTerm )
-						: valueProp
-							.toString()
-							.toLowerCase()
-							.includes( searchTerm );
 				const textMatch = textContent?.includes( searchTerm );
 
-				if ( ! valueMatch && ! textMatch ) {
+				if ( ! textMatch ) {
 					return null;
 				}
 			}
@@ -528,18 +526,11 @@ export function SelectOptions( {
 			const textContent = getTextContent(
 				child.props?.children
 			)?.toLowerCase();
-			const valueProp = child.props.value;
-			const exactValue =
-				typeof valueProp === 'object' ? valueProp[ by ] : valueProp;
 			if ( searchKeyword ) {
 				const searchTerm = searchKeyword.toLowerCase();
-				const valueMatch = exactValue
-					.toString()
-					.toLowerCase()
-					.includes( searchTerm );
 				const textMatch = textContent?.includes( searchTerm );
 
-				if ( ! valueMatch && ! textMatch ) {
+				if ( ! textMatch ) {
 					return;
 				}
 			}
@@ -603,6 +594,7 @@ export function SelectOptions( {
 										onChange={ ( event ) =>
 											setSearchKeyword( event.target.value )
 										}
+										value={ searchKeyword }
 										autoComplete="off"
 									/>
 								</div>
