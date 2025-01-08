@@ -236,13 +236,14 @@ export const SelectWithSearch: Story = ( {
 			combobox={ combobox }
 			disabled={ disabled }
 			onChange={ ( value ) => value }
+			searchPlaceholder="Search..."
 		>
 			<Select.Button
 				label="Select Color"
 				placeholder="Select an option"
 			/>
 			<Select.Portal>
-				<Select.Options searchBy="name" searchPlaceholder="Search...">
+				<Select.Options>
 					{ options.map( ( option ) => (
 						<Select.Option key={ option.id } value={ option }>
 							{ option.name }
