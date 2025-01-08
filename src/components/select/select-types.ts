@@ -67,6 +67,8 @@ export type SelectProps = {
 	onChange: SelectOnChange;
 	/** Defines the default value of the Select Component. */
 	defaultValue?: SelectOptionValue | SelectOptionValue[];
+	/** Placeholder text for search box. */
+	searchPlaceholder?: string;
 };
 
 export interface SelectPortalProps {
@@ -110,11 +112,7 @@ export interface SelectOptionGroupProps {
 
 export interface SelectOptionsProps {
 	/** Expects the `Select.Option` or `Select.OptionGroup` children */
-	children?: ReactNode;
-	/** Key used to identify searched value using the key. Default is 'id'. */
-	searchBy?: string;
-	/** Placeholder text for search box. */
-	searchPlaceholder?: string;
+	children: React.ReactNode;
 	/** Additional class name for the Select Options wrapper. */
 	className?: string;
 }
@@ -164,4 +162,5 @@ export type SelectContextValue = {
 	searchKeyword: string;
 	onChange: SelectOnChange;
 	value?: SelectOptionValue | SelectOptionValue[];
+	searchPlaceholder?: string;
 };

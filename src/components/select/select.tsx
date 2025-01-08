@@ -51,6 +51,7 @@ import type {
 	SelectSizes,
 	SelectOptionGroupProps,
 } from './select-types';
+import { getTextContent } from './utils';
 
 // Context to manage the state of the select component.
 const SelectContext = createContext<SelectContextValue>(
@@ -332,8 +333,6 @@ export function SelectOptionGroup( {
 
 export function SelectOptions( {
 	children,
-	searchBy = 'name', // Used to identify searched value using the key. Default is 'id'.
-	searchPlaceholder = 'Search...', // Placeholder text for search box.
 	className, // Additional class name for the dropdown.
 }: SelectOptionsProps ) {
 	const {
@@ -353,6 +352,7 @@ export function SelectOptions( {
 		searchKeyword,
 		listContentRef,
 		by,
+		searchPlaceholder,
 	} = useSelectContext();
 
 	const initialSelectedValueIndex = useMemo( () => {
@@ -379,10 +379,16 @@ export function SelectOptions( {
 		return indexValue;
 	}, [ value, selected, children ] );
 
+	// Initialize active and selected index.
 	useLayoutEffect( () => {
 		setActiveIndex( initialSelectedValueIndex );
 		setSelectedIndex( initialSelectedValueIndex );
 	}, [] );
+
+	// Reset active index when search keyword changes.
+	useLayoutEffect( () => {
+		setActiveIndex( initialSelectedValueIndex );
+	}, [ searchKeyword ] );
 
 	// Render children based on the search keyword.
 	const renderChildren = useMemo( () => {
@@ -402,14 +408,23 @@ export function SelectOptions( {
 
 					if ( searchKeyword ) {
 						const valueProp = groupChild.props.value;
-						if ( typeof valueProp === 'object' ) {
-							return valueProp[ searchBy ]
+						const exactValue =
+							typeof valueProp === 'object'
+								? valueProp[ by ]
+								: valueProp;
+						const textContent = getTextContent(
+							groupChild.props.children
+						)?.toLowerCase();
+						const searchTerm = searchKeyword.toLowerCase();
+
+						// For non-object values, search directly in the value and text content
+						return (
+							exactValue
+								.toString()
 								.toLowerCase()
-								.includes( searchKeyword.toLowerCase() );
-						}
-						return valueProp
-							.toLowerCase()
-							.includes( searchKeyword.toLowerCase() );
+								.includes( searchTerm ) ||
+							textContent.includes( searchTerm )
+						);
 					}
 					return true;
 				} );
@@ -458,19 +473,21 @@ export function SelectOptions( {
 			// Handle regular options
 			if ( searchKeyword ) {
 				const valueProp = child.props.value;
-				if ( typeof valueProp === 'object' ) {
-					if (
-						! valueProp[ searchBy ]
+				const textContent = getTextContent(
+					child.props?.children
+				)?.toLowerCase();
+				const searchTerm = searchKeyword.toLowerCase();
+
+				const valueMatch =
+					typeof valueProp === 'object'
+						? valueProp[ by ]?.toLowerCase()?.includes( searchTerm )
+						: valueProp
+							.toString()
 							.toLowerCase()
-							.includes( searchKeyword.toLowerCase() )
-					) {
-						return null;
-					}
-				} else if (
-					! valueProp
-						.toLowerCase()
-						.includes( searchKeyword.toLowerCase() )
-				) {
+							.includes( searchTerm );
+				const textMatch = textContent?.includes( searchTerm );
+
+				if ( ! valueMatch && ! textMatch ) {
 					return null;
 				}
 			}
@@ -508,32 +525,26 @@ export function SelectOptions( {
 				return;
 			}
 
-			if ( child.props.value ) {
-				if ( searchKeyword ) {
-					const valueProp = child.props.value;
-					if ( typeof valueProp === 'object' ) {
-						if (
-							valueProp[ searchBy ]
-								.toLowerCase()
-								.indexOf( searchKeyword.toLowerCase() ) === -1
-						) {
-							return;
-						}
-					} else if (
-						valueProp
-							.toLowerCase()
-							.indexOf( searchKeyword.toLowerCase() ) === -1
-					) {
-						return;
-					}
-				}
+			const textContent = getTextContent(
+				child.props?.children
+			)?.toLowerCase();
+			const valueProp = child.props.value;
+			const exactValue =
+				typeof valueProp === 'object' ? valueProp[ by ] : valueProp;
+			if ( searchKeyword ) {
+				const searchTerm = searchKeyword.toLowerCase();
+				const valueMatch = exactValue
+					.toString()
+					.toLowerCase()
+					.includes( searchTerm );
+				const textMatch = textContent?.includes( searchTerm );
 
-				listContentRef.current.push(
-					typeof child.props.value === 'object'
-						? child.props.value[ searchBy || by ]
-						: child.props.value
-				);
+				if ( ! valueMatch && ! textMatch ) {
+					return;
+				}
 			}
+
+			listContentRef.current.push( textContent );
 		} );
 	}, [ searchKeyword ] );
 
@@ -748,6 +759,7 @@ const Select = ( {
 	multiple = false, // If true, it will allow multiple selection.
 	combobox = false, // If true, it will show a search box.
 	disabled = false, // If true, it will disable the select component.
+	searchPlaceholder = 'Search...', // Placeholder text for search box.
 }: SelectProps ) => {
 	const selectId = useMemo( () => id || `select-${ nanoid() }`, [ id ] );
 	const isControlled = useMemo( () => typeof value !== 'undefined', [ value ] );
@@ -934,6 +946,7 @@ const Select = ( {
 				setSearchKeyword,
 				disabled,
 				isControlled,
+				searchPlaceholder,
 			} }
 		>
 			{ children }
