@@ -137,7 +137,8 @@ export function SelectButton( {
 			);
 		}
 
-		let renderValue: ReactNode = typeof selectedValue === 'string' ? selectedValue : '';
+		let renderValue: ReactNode =
+			typeof selectedValue === 'string' ? selectedValue : '';
 
 		if ( typeof render === 'function' ) {
 			renderValue = render( selectedValue as SelectOptionValue );
@@ -391,8 +392,14 @@ export function SelectOptions( {
 
 				const childValue = child.props.value;
 
-				if ( typeof childValue === 'object' && typeof currentValue === 'object' ) {
-					return childValue[ by ] === ( currentValue as Record<string, unknown> )[ by ];
+				if (
+					typeof childValue === 'object' &&
+					typeof currentValue === 'object'
+				) {
+					return (
+						childValue[ by ] ===
+						( currentValue as Record<string, unknown> )[ by ]
+					);
 				}
 
 				// For non-object values, do a direct comparison
