@@ -1,5 +1,6 @@
 Version 1.3.6 - 8th January, 2025
 - Improvement: Optimized the component item search logic and reorganized props for improved usability.
+- Improvement: Added a vertical dashed line feature to the LineChart.
 - Fixed: LineChart component Tooltip does not show the required information.
 
 Version 1.3.5 - 6th January, 2025
