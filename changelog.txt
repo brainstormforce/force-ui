@@ -1,4 +1,4 @@
-Version 1.3.6 - 8th January, 2025
+Version 1.3.6 - 9th January, 2025
 - Improvement: Optimized the Select component item search logic and reorganized props for improved usability.
 - Improvement: Updated Select component props and logic for better useability.
 - Improvement: Added a vertical dashed line feature to the LineChart.
