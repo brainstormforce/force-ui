@@ -87,8 +87,8 @@ const LineChart = ( {
 	data,
 	dataKeys = [],
 	colors = [],
-	showXAxis = true,
-	showYAxis = true,
+	showXAxis = false,
+	showYAxis = false,
 	showTooltip = true,
 	tooltipIndicator = 'dot', // dot, line, dashed
 	tooltipLabelKey,
@@ -128,31 +128,29 @@ const LineChart = ( {
 		<ResponsiveContainer width={ chartWidth } height={ chartHeight }>
 			<LineChartWrapper { ...lineChartWrapperProps } data={ data }>
 				{ showCartesianGrid && <CartesianGrid vertical={ false } /> }
-				{ showXAxis && (
-					<XAxis
-						dataKey={ xAxisDataKey }
-						tickLine={ false }
-						axisLine={ false }
-						tickMargin={ 8 }
-						tickFormatter={ tickFormatter }
-						tick={ {
-							fontSize: fontSizeVariant,
-							fill: xAxisFontColor,
-						} }
-					/>
-				) }
-				{ showYAxis && (
-					<YAxis
-						dataKey={ yAxisDataKey }
-						tickLine={ false }
-						axisLine={ false }
-						tickMargin={ 8 }
-						tick={ {
-							fontSize: fontSizeVariant,
-							fill: yAxisFontColor,
-						} }
-					/>
-				) }
+				<XAxis
+					dataKey={ xAxisDataKey }
+					tickLine={ false }
+					axisLine={ false }
+					tickMargin={ 8 }
+					tickFormatter={ tickFormatter }
+					tick={ {
+						fontSize: fontSizeVariant,
+						fill: xAxisFontColor,
+					} }
+					hide={ ! showXAxis }
+				/>
+				<YAxis
+					dataKey={ yAxisDataKey }
+					tickLine={ false }
+					axisLine={ false }
+					tickMargin={ 8 }
+					tick={ {
+						fontSize: fontSizeVariant,
+						fill: yAxisFontColor,
+					} }
+					hide={ ! showYAxis }
+				/>
 
 				{ showTooltip && (
 					<Tooltip
