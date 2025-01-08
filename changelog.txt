@@ -1,3 +1,7 @@
+Version 1.3.6 - 8th January, 2025
+- Improvement: Optimized the component item search logic and reorganized props for improved usability.
+- Fixed: LineChart component Tooltip does not show the required information.
+
 Version 1.3.5 - 6th January, 2025
 - Improvement: Display a light blue color on hover when selecting a date range.
 
