@@ -66,34 +66,40 @@ const Template = ( args ) => {
 								onChange={ () => {} }
 								placeholder="Select an option"
 								size="md"
+								by="id"
 							>
-								<Select.Button label="This Website Represents" />
-								<Select.Options dropdownPortalId="Website">
-									<Select.Option
-										value={ {
-											id: '1',
-											name: 'Personal',
-										} }
-									>
-										Personal Website
-									</Select.Option>
-									<Select.Option
-										value={ {
-											id: '2',
-											name: 'Company',
-										} }
-									>
-										Company Website
-									</Select.Option>
-									<Select.Option
-										value={ {
-											id: '3',
-											name: 'Client',
-										} }
-									>
-										Client Website
-									</Select.Option>
-								</Select.Options>
+								<Select.Button
+									label="This Website Represents"
+									render={ ( selected ) => selected.name }
+								/>
+								<Select.Portal>
+									<Select.Options dropdownPortalId="Website">
+										<Select.Option
+											value={ {
+												id: '1',
+												name: 'Personal',
+											} }
+										>
+											Personal Website
+										</Select.Option>
+										<Select.Option
+											value={ {
+												id: '2',
+												name: 'Company',
+											} }
+										>
+											Company Website
+										</Select.Option>
+										<Select.Option
+											value={ {
+												id: '3',
+												name: 'Client',
+											} }
+										>
+											Client Website
+										</Select.Option>
+									</Select.Options>
+								</Select.Portal>
 							</Select>
 						</div>
 						<div>
@@ -134,34 +140,40 @@ const Template = ( args ) => {
 								onChange={ () => {} }
 								placeholder="Select an option"
 								size="md"
+								by="id"
 							>
-								<Select.Button label="Select About Page" />
-								<Select.Options dropdownPortalId="aboutpage">
-									<Select.Option
-										value={ {
-											id: '1',
-											name: 'Personal',
-										} }
-									>
-										Personal Website
-									</Select.Option>
-									<Select.Option
-										value={ {
-											id: '2',
-											name: 'Company',
-										} }
-									>
-										Company Website
-									</Select.Option>
-									<Select.Option
-										value={ {
-											id: '3',
-											name: 'Client',
-										} }
-									>
-										Client Website
-									</Select.Option>
-								</Select.Options>
+								<Select.Button
+									label="Select About Page"
+									render={ ( selected ) => selected.name }
+								/>
+								<Select.Portal>
+									<Select.Options dropdownPortalId="aboutpage">
+										<Select.Option
+											value={ {
+												id: '1',
+												name: 'Personal',
+											} }
+										>
+											Personal Website
+										</Select.Option>
+										<Select.Option
+											value={ {
+												id: '2',
+												name: 'Company',
+											} }
+										>
+											Company Website
+										</Select.Option>
+										<Select.Option
+											value={ {
+												id: '3',
+												name: 'Client',
+											} }
+										>
+											Client Website
+										</Select.Option>
+									</Select.Options>
+								</Select.Portal>
 							</Select>
 						</div>
 						<div>
@@ -169,34 +181,40 @@ const Template = ( args ) => {
 								onChange={ () => {} }
 								placeholder="Select an option"
 								size="md"
+								by="id"
 							>
-								<Select.Button label="Select Contact Page" />
-								<Select.Options dropdownPortalId="contactpage">
-									<Select.Option
-										value={ {
-											id: '1',
-											name: 'Personal',
-										} }
-									>
-										Personal Contact
-									</Select.Option>
-									<Select.Option
-										value={ {
-											id: '2',
-											name: 'Company',
-										} }
-									>
-										Company Contact
-									</Select.Option>
-									<Select.Option
-										value={ {
-											id: '3',
-											name: 'Client',
-										} }
-									>
-										Client Contact
-									</Select.Option>
-								</Select.Options>
+								<Select.Button
+									label="Select Contact Page"
+									render={ ( selected ) => selected.name }
+								/>
+								<Select.Portal>
+									<Select.Options dropdownPortalId="contactpage">
+										<Select.Option
+											value={ {
+												id: '1',
+												name: 'Personal',
+											} }
+										>
+											Personal Contact
+										</Select.Option>
+										<Select.Option
+											value={ {
+												id: '2',
+												name: 'Company',
+											} }
+										>
+											Company Contact
+										</Select.Option>
+										<Select.Option
+											value={ {
+												id: '3',
+												name: 'Client',
+											} }
+										>
+											Client Contact
+										</Select.Option>
+									</Select.Options>
+								</Select.Portal>
 							</Select>
 						</div>
 					</div>

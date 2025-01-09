@@ -6,7 +6,7 @@ export interface BadgeProps {
 	/**
 	 * Defines the Label of the badge.
 	 */
-	label?: string;
+	label?: ReactNode;
 	/**
 	 * Defines the size of the badge.
 	 */

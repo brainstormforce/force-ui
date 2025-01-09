@@ -150,8 +150,12 @@ const Template = ( args ) => {
 								onChange={ () => {} }
 								placeholder="Select an option"
 								size="md"
+								by="id"
 							>
-								<Select.Button label="Encryption" />
+								<Select.Button
+									label="Encryption"
+									render={ ( selected ) => selected.name }
+								/>
 								<Select.Options dropdownPortalId="Encryption">
 									<Select.Option
 										value={ {

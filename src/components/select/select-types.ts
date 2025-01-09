@@ -67,6 +67,8 @@ export type SelectProps = {
 	onChange: SelectOnChange;
 	/** Defines the default value of the Select Component. */
 	defaultValue?: SelectOptionValue | SelectOptionValue[];
+	/** Placeholder text for search box. */
+	searchPlaceholder?: string;
 };
 
 export interface SelectPortalProps {
@@ -91,8 +93,12 @@ export interface SelectButtonProps extends AriaAttributes {
 	placeholder?: string;
 	/** Icon to show in the selected option badge (Multi-select mode only). By default it won't show unknown icon. */
 	optionIcon?: ReactNode | null;
-	/** Key to display selected item when the selected value is an object. Default value is `name`. */
-	displayBy?: string;
+	/**
+	 * Render function to display the selected option (Must use for multi-select mode).
+	 * For multi-select mode, the selected option will be displayed as a badge but the render function will be used to display the selected options.
+	 * For single-select mode, the render function will be used to display the selected option.
+	 */
+	render?: ( selected: SelectOptionValue ) => ReactNode | string;
 	/** Label for the Select component. */
 	label?: string;
 	/** Additional class name for the Select Button. */
@@ -110,11 +116,7 @@ export interface SelectOptionGroupProps {
 
 export interface SelectOptionsProps {
 	/** Expects the `Select.Option` or `Select.OptionGroup` children */
-	children?: ReactNode;
-	/** Key used to identify searched value using the key. Default is 'id'. */
-	searchBy?: string;
-	/** Placeholder text for search box. */
-	searchPlaceholder?: string;
+	children: React.ReactNode;
 	/** Additional class name for the Select Options wrapper. */
 	className?: string;
 }
@@ -164,4 +166,5 @@ export type SelectContextValue = {
 	searchKeyword: string;
 	onChange: SelectOnChange;
 	value?: SelectOptionValue | SelectOptionValue[];
+	searchPlaceholder?: string;
 };
