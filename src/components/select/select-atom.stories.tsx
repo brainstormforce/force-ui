@@ -1,6 +1,8 @@
 import type { Meta, StoryFn } from '@storybook/react';
 import Select from './select';
 import { expect, userEvent, within, screen } from '@storybook/test';
+import { SelectOptionValue } from './select-types';
+import { useState } from 'react';
 
 const options = [
 	{ id: '1', name: 'Red' },
@@ -45,9 +47,9 @@ const meta: Meta<typeof Select> = {
 	subcomponents: {
 		'Select.Button': Select.Button,
 		'Select.Portal': Select.Portal,
+		'Select.OptionGroup': Select.OptionGroup,
 		'Select.Options': Select.Options,
 		'Select.Option': Select.Option,
-		'Select.OptionGroup': Select.OptionGroup,
 	} as Record<string, React.ComponentType<unknown>>,
 	parameters: {
 		layout: 'centered',
@@ -64,34 +66,44 @@ export default meta;
 type Story = StoryFn<typeof Select>;
 
 // Single Select Story
-export const SingleSelect: Story = ( { size, multiple, combobox, disabled } ) => (
-	<div style={ { width: '300px' } }>
-		<Select
-			key={ multiple as unknown as string }
-			size={ size }
-			multiple={ multiple }
-			combobox={ combobox }
-			disabled={ disabled }
-			onChange={ ( value ) => value }
-		>
-			<Select.Button
-				placeholder={
-					multiple ? 'Select multiple options' : 'Select an option'
-				}
-				label={ multiple ? 'Select Multiple Colors' : 'Select a Color' }
-			/>
-			<Select.Portal>
-				<Select.Options>
-					{ options.map( ( option ) => (
-						<Select.Option key={ option.id } value={ option }>
-							{ option.name }
-						</Select.Option>
-					) ) }
-				</Select.Options>
-			</Select.Portal>
-		</Select>
-	</div>
-);
+export const SingleSelect: Story = ( { size, multiple, combobox, disabled } ) => {
+	const [ selected, setSelected ] = useState<SelectOptionValue | null>( null );
+	return (
+		<div style={ { width: '300px' } }>
+			<Select
+				key={ multiple as unknown as string }
+				size={ size }
+				multiple={ multiple }
+				combobox={ combobox }
+				disabled={ disabled }
+				onChange={ ( value ) => setSelected( value as SelectOptionValue ) }
+				value={ selected as SelectOptionValue }
+			>
+				<Select.Button
+					placeholder={
+						multiple
+							? 'Select multiple options'
+							: 'Select an option'
+					}
+					label={
+						multiple ? 'Select Multiple Colors' : 'Select a Color'
+					}
+				>
+					{ ( selected as Record<string, string> )?.name }
+				</Select.Button>
+				<Select.Portal>
+					<Select.Options>
+						{ options.map( ( option ) => (
+							<Select.Option key={ option.id } value={ option }>
+								{ option.name }
+							</Select.Option>
+						) ) }
+					</Select.Options>
+				</Select.Portal>
+			</Select>
+		</div>
+	);
+};
 
 SingleSelect.args = {
 	size: 'md',
@@ -136,6 +148,9 @@ const SelectWithoutPortalTemplate: Story = ( {
 					multiple ? 'Select multiple options' : 'Select an option'
 				}
 				label={ multiple ? 'Select Multiple Colors' : 'Select a Color' }
+				render={ ( selected ) =>
+					( selected as Record<string, string> )?.name
+				}
 			/>
 			<Select.Options>
 				{ options.map( ( option ) => (
@@ -157,33 +172,44 @@ SingleSelectWithoutPortal.args = {
 };
 
 // Multi-select Story
-export const MultiSelect: Story = ( { size, multiple, combobox, disabled } ) => (
-	<div style={ { width: '300px' } }>
-		<Select
-			size={ size }
-			multiple={ multiple }
-			combobox={ combobox }
-			disabled={ disabled }
-			onChange={ ( value ) => value }
-		>
-			<Select.Button
-				placeholder={
-					multiple ? 'Select multiple options' : 'Select an option'
-				}
-				label={ multiple ? 'Select Multiple Colors' : 'Select a Color' }
-			/>
-			<Select.Portal>
-				<Select.Options>
-					{ options.map( ( option ) => (
-						<Select.Option key={ option.id } value={ option }>
-							{ option.name }
-						</Select.Option>
-					) ) }
-				</Select.Options>
-			</Select.Portal>
-		</Select>
-	</div>
-);
+export const MultiSelect: Story = ( { size, multiple, combobox, disabled } ) => {
+	const [ selected, setSelected ] = useState<SelectOptionValue[]>( [] );
+	return (
+		<div style={ { width: '300px' } }>
+			<Select
+				size={ size }
+				multiple={ multiple }
+				combobox={ combobox }
+				disabled={ disabled }
+				onChange={ ( value ) => setSelected( value as SelectOptionValue[] ) }
+				value={ selected as SelectOptionValue[] }
+			>
+				<Select.Button
+					placeholder={
+						multiple
+							? 'Select multiple options'
+							: 'Select an option'
+					}
+					label={
+						multiple ? 'Select Multiple Colors' : 'Select a Color'
+					}
+					render={ ( currentSelected ) =>
+						( currentSelected as Record<string, string> )?.name
+					}
+				/>
+				<Select.Portal>
+					<Select.Options>
+						{ options.map( ( option ) => (
+							<Select.Option key={ option.id } value={ option }>
+								{ option.name }
+							</Select.Option>
+						) ) }
+					</Select.Options>
+				</Select.Portal>
+			</Select>
+		</div>
+	);
+};
 
 MultiSelect.args = {
 	size: 'md',
@@ -236,13 +262,17 @@ export const SelectWithSearch: Story = ( {
 			combobox={ combobox }
 			disabled={ disabled }
 			onChange={ ( value ) => value }
+			searchPlaceholder="Search..."
 		>
 			<Select.Button
 				label="Select Color"
 				placeholder="Select an option"
+				render={ ( selected ) =>
+					( selected as Record<string, string> )?.name
+				}
 			/>
 			<Select.Portal>
-				<Select.Options searchBy="name" searchPlaceholder="Search...">
+				<Select.Options>
 					{ options.map( ( option ) => (
 						<Select.Option key={ option.id } value={ option }>
 							{ option.name }
@@ -300,41 +330,58 @@ const GroupedSelectTemplate: Story = ( {
 	multiple,
 	combobox,
 	disabled,
-} ) => (
-	<div className="w-80">
-		<Select
-			key={ `${ size }-${ multiple }-${ combobox }-${ disabled }` }
-			size={ size }
-			multiple={ multiple }
-			combobox={ combobox }
-			disabled={ disabled }
-			onChange={ ( value ) => value }
-		>
-			<Select.Button
-				placeholder={
-					multiple ? 'Select multiple options' : 'Select an option'
+} ) => {
+	const [ selectedValue, setSelectedValue ] =
+		useState<SelectOptionValue | null>( null );
+	return (
+		<div className="w-80">
+			<Select
+				key={ `${ size }-${ multiple }-${ combobox }-${ disabled }` }
+				size={ size }
+				multiple={ multiple }
+				combobox={ combobox }
+				disabled={ disabled }
+				onChange={ ( value ) =>
+					setSelectedValue( value as SelectOptionValue )
 				}
-				label={ multiple ? 'Select Multiple Colors' : 'Select a Color' }
-			/>
-			<Select.Portal>
-				<Select.Options>
-					{ groupedOptions.map( ( group ) => (
-						<Select.OptionGroup
-							key={ group.label }
-							label={ group.label }
-						>
-							{ group.options.map( ( option ) => (
-								<Select.Option key={ option.id } value={ option }>
-									{ option.name }
-								</Select.Option>
-							) ) }
-						</Select.OptionGroup>
-					) ) }
-				</Select.Options>
-			</Select.Portal>
-		</Select>
-	</div>
-);
+				value={ selectedValue as SelectOptionValue }
+			>
+				<Select.Button
+					placeholder={
+						multiple
+							? 'Select multiple options'
+							: 'Select an option'
+					}
+					label={
+						multiple ? 'Select Multiple Colors' : 'Select a Color'
+					}
+					render={ ( selected ) =>
+						( selected as Record<string, string> )?.name
+					}
+				/>
+				<Select.Portal>
+					<Select.Options>
+						{ groupedOptions.map( ( group ) => (
+							<Select.OptionGroup
+								key={ group.label }
+								label={ group.label }
+							>
+								{ group.options.map( ( option ) => (
+									<Select.Option
+										key={ option.id }
+										value={ option }
+									>
+										{ option.name }
+									</Select.Option>
+								) ) }
+							</Select.OptionGroup>
+						) ) }
+					</Select.Options>
+				</Select.Portal>
+			</Select>
+		</div>
+	);
+};
 
 export const GroupedSelect = GroupedSelectTemplate.bind( {} );
 GroupedSelect.args = {

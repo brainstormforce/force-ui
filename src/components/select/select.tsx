@@ -11,6 +11,7 @@ import {
 	useEffect,
 	useLayoutEffect,
 	Fragment,
+	type ReactNode,
 } from 'react';
 import { cn } from '@/utilities/functions';
 import { CheckIcon, ChevronDown, ChevronsUpDown, Search } from 'lucide-react';
@@ -51,6 +52,7 @@ import type {
 	SelectSizes,
 	SelectOptionGroupProps,
 } from './select-types';
+import { getTextContent } from './utils';
 
 // Context to manage the state of the select component.
 const SelectContext = createContext<SelectContextValue>(
@@ -63,7 +65,7 @@ export function SelectButton( {
 	icon = null, // Icon to show in the select button.
 	placeholder = 'Select an option', // Placeholder text.
 	optionIcon = null, // Icon to show in the selected option.
-	displayBy = 'name', // Used to display the value. Default is 'name'.
+	render,
 	label, // Label for the select component.
 	className,
 	...props
@@ -113,20 +115,6 @@ export function SelectButton( {
 			return null;
 		}
 
-		if ( typeof children === 'function' ) {
-			const childProps = {
-				value: selectedValue as SelectOptionValue,
-				...( multiple
-					? {
-						onClose: handleOnCloseItem(
-								selectedValue as SelectOptionValue
-						),
-					}
-					: {} ),
-			};
-			return children( childProps );
-		}
-
 		if ( multiple ) {
 			return ( selectedValue as SelectOptionValue[] ).map(
 				( valueItem: SelectOptionValue, index: number ) => (
@@ -138,8 +126,8 @@ export function SelectButton( {
 						size={ badgeSize as SelectSizes }
 						onMouseDown={ handleOnCloseItem( valueItem ) }
 						label={
-							typeof valueItem === 'object'
-								? valueItem[ displayBy ]?.toString()
+							typeof render === 'function'
+								? render( valueItem as SelectOptionValue )
 								: valueItem.toString()
 						}
 						closable={ true }
@@ -149,12 +137,31 @@ export function SelectButton( {
 			);
 		}
 
-		let renderValue =
-			typeof selectedValue === 'object'
-				? ( selectedValue as Record<string, unknown> )[ displayBy ]
-				: selectedValue;
+		let renderValue: ReactNode =
+			typeof selectedValue === 'string' ? selectedValue : '';
 
-		if ( isValidElement( children ) ) {
+		if ( typeof render === 'function' ) {
+			renderValue = render( selectedValue as SelectOptionValue );
+		}
+
+		if ( typeof children === 'function' && typeof render !== 'function' ) {
+			const childProps = {
+				value: selectedValue as SelectOptionValue,
+				...( multiple
+					? {
+						onClose: handleOnCloseItem(
+								selectedValue as SelectOptionValue
+						),
+					}
+					: {} ),
+			};
+			renderValue = children( childProps );
+		}
+
+		if (
+			( isValidElement( children ) || typeof children === 'string' ) &&
+			typeof render !== 'function'
+		) {
 			renderValue = children;
 		}
 
@@ -243,7 +250,7 @@ export function SelectButton( {
 						getValues() && 'flex flex-wrap'
 					) }
 				>
-					{ /* Show Selected item/items (Multiselector) */ }
+					{ /* Show Selected item/items (Multi-selector) */ }
 					{ renderSelected() }
 
 					{ /* Placeholder */ }
@@ -332,8 +339,6 @@ export function SelectOptionGroup( {
 
 export function SelectOptions( {
 	children,
-	searchBy = 'name', // Used to identify searched value using the key. Default is 'id'.
-	searchPlaceholder = 'Search...', // Placeholder text for search box.
 	className, // Additional class name for the dropdown.
 }: SelectOptionsProps ) {
 	const {
@@ -353,6 +358,8 @@ export function SelectOptions( {
 		searchKeyword,
 		listContentRef,
 		by,
+		searchPlaceholder,
+		activeIndex,
 	} = useSelectContext();
 
 	const initialSelectedValueIndex = useMemo( () => {
@@ -360,29 +367,68 @@ export function SelectOptions( {
 		let indexValue = -1;
 
 		if ( currentValue ) {
-			indexValue = Children.toArray( children ).findIndex(
-				( child: React.ReactNode ) => {
-					if ( ! isValidElement( child ) ) {
-						return false;
-					}
-					if ( typeof child.props.value === 'object' ) {
-						return (
-							child.props.value[ by ] ===
-							( currentValue as Record<string, unknown> )[ by ]
-						);
-					}
-					return child.props.value === currentValue;
+			// Get all children as an array
+			let allChildren = Children.toArray( children );
+
+			// If it's an option group, flatten the children
+			if (
+				allChildren.length > 0 &&
+				isValidElement( allChildren[ 0 ] ) &&
+				allChildren[ 0 ].type === SelectOptionGroup
+			) {
+				allChildren = Children.toArray( children )
+					.map( ( group ) =>
+						isValidElement( group )
+							? Children.toArray( group.props.children )
+							: []
+					)
+					.flat();
+			}
+
+			indexValue = allChildren.findIndex( ( child: React.ReactNode ) => {
+				if ( ! isValidElement( child ) ) {
+					return false;
 				}
-			);
+
+				const childValue = child.props.value;
+
+				if (
+					typeof childValue === 'object' &&
+					typeof currentValue === 'object'
+				) {
+					return (
+						childValue[ by ] ===
+						( currentValue as Record<string, unknown> )[ by ]
+					);
+				}
+
+				// For non-object values, do a direct comparison
+				return childValue === currentValue;
+			} );
 		}
 
 		return indexValue;
-	}, [ value, selected, children ] );
+	}, [ value, selected, children, by ] );
 
+	// Initialize active and selected index.
 	useLayoutEffect( () => {
+		if ( isOpen ) {
+			return;
+		}
 		setActiveIndex( initialSelectedValueIndex );
 		setSelectedIndex( initialSelectedValueIndex );
-	}, [] );
+	}, [ initialSelectedValueIndex, isOpen ] );
+
+	// Reset active index when search keyword changes.
+	useLayoutEffect( () => {
+		if ( ! isOpen ) {
+			return;
+		}
+		if ( combobox && [ -1, null ].includes( activeIndex ) ) {
+			return;
+		}
+		setActiveIndex( -1 );
+	}, [ searchKeyword, isOpen ] );
 
 	// Render children based on the search keyword.
 	const renderChildren = useMemo( () => {
@@ -401,15 +447,12 @@ export function SelectOptions( {
 					}
 
 					if ( searchKeyword ) {
-						const valueProp = groupChild.props.value;
-						if ( typeof valueProp === 'object' ) {
-							return valueProp[ searchBy ]
-								.toLowerCase()
-								.includes( searchKeyword.toLowerCase() );
-						}
-						return valueProp
-							.toLowerCase()
-							.includes( searchKeyword.toLowerCase() );
+						const textContent = getTextContent(
+							groupChild.props.children
+						)?.toLowerCase();
+						const searchTerm = searchKeyword.toLowerCase();
+
+						return textContent.includes( searchTerm );
 					}
 					return true;
 				} );
@@ -457,20 +500,14 @@ export function SelectOptions( {
 
 			// Handle regular options
 			if ( searchKeyword ) {
-				const valueProp = child.props.value;
-				if ( typeof valueProp === 'object' ) {
-					if (
-						! valueProp[ searchBy ]
-							.toLowerCase()
-							.includes( searchKeyword.toLowerCase() )
-					) {
-						return null;
-					}
-				} else if (
-					! valueProp
-						.toLowerCase()
-						.includes( searchKeyword.toLowerCase() )
-				) {
+				const textContent = getTextContent(
+					child.props?.children
+				)?.toLowerCase();
+				const searchTerm = searchKeyword.toLowerCase();
+
+				const textMatch = textContent?.includes( searchTerm );
+
+				if ( ! textMatch ) {
 					return null;
 				}
 			}
@@ -508,32 +545,19 @@ export function SelectOptions( {
 				return;
 			}
 
-			if ( child.props.value ) {
-				if ( searchKeyword ) {
-					const valueProp = child.props.value;
-					if ( typeof valueProp === 'object' ) {
-						if (
-							valueProp[ searchBy ]
-								.toLowerCase()
-								.indexOf( searchKeyword.toLowerCase() ) === -1
-						) {
-							return;
-						}
-					} else if (
-						valueProp
-							.toLowerCase()
-							.indexOf( searchKeyword.toLowerCase() ) === -1
-					) {
-						return;
-					}
-				}
+			const textContent = getTextContent(
+				child.props?.children
+			)?.toLowerCase();
+			if ( searchKeyword ) {
+				const searchTerm = searchKeyword.toLowerCase();
+				const textMatch = textContent?.includes( searchTerm );
 
-				listContentRef.current.push(
-					typeof child.props.value === 'object'
-						? child.props.value[ searchBy || by ]
-						: child.props.value
-				);
+				if ( ! textMatch ) {
+					return;
+				}
 			}
+
+			listContentRef.current.push( textContent );
 		} );
 	}, [ searchKeyword ] );
 
@@ -592,6 +616,7 @@ export function SelectOptions( {
 										onChange={ ( event ) =>
 											setSearchKeyword( event.target.value )
 										}
+										value={ searchKeyword }
 										autoComplete="off"
 									/>
 								</div>
@@ -748,6 +773,7 @@ const Select = ( {
 	multiple = false, // If true, it will allow multiple selection.
 	combobox = false, // If true, it will show a search box.
 	disabled = false, // If true, it will disable the select component.
+	searchPlaceholder = 'Search...', // Placeholder text for search box.
 }: SelectProps ) => {
 	const selectId = useMemo( () => id || `select-${ nanoid() }`, [ id ] );
 	const isControlled = useMemo( () => typeof value !== 'undefined', [ value ] );
@@ -934,6 +960,7 @@ const Select = ( {
 				setSearchKeyword,
 				disabled,
 				isControlled,
+				searchPlaceholder,
 			} }
 		>
 			{ children }
