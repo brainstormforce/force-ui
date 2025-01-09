@@ -156,7 +156,7 @@ export const BarChartSimple: Story = {
 		showTooltip: true,
 		tooltipIndicator: 'dot',
 		showCartesianGrid: true,
-		tickFormatter: monthFormatter,
+		xTickFormatter: monthFormatter,
 		yAxisDataKey: 'month',
 	},
 	render: ( args ) => (
@@ -177,7 +177,7 @@ export const BarChartHorizontal: Story = {
 		showYAxis: true,
 		showTooltip: true,
 		showCartesianGrid: false,
-		tickFormatter: monthFormatter,
+		xTickFormatter: monthFormatter,
 		yAxisDataKey: 'month',
 		xAxisFontSize: 'sm',
 		borderRadius: 5,
@@ -196,7 +196,7 @@ export const BarChartMultiple: Story = {
 		tooltipIndicator: 'dashed',
 		tooltipLabelKey: 'month',
 		showCartesianGrid: true,
-		tickFormatter: monthFormatter,
+		xTickFormatter: monthFormatter,
 		xAxisDataKey: 'month',
 		xAxisFontSize: 'sm',
 		borderRadius: 4,
@@ -215,7 +215,7 @@ export const BarChartStucked: Story = {
 		showTooltip: true,
 		showLegend: true,
 		showCartesianGrid: true,
-		tickFormatter: monthFormatter,
+		xTickFormatter: monthFormatter,
 		xAxisDataKey: 'month',
 		xAxisFontSize: 'sm',
 	},
@@ -235,7 +235,7 @@ export const BarChartInteractive: Story = {
 		showTooltip: true,
 		showLegend: false,
 		showCartesianGrid: true,
-		tickFormatter: monthFormatterInteractive,
+		xTickFormatter: monthFormatterInteractive,
 		xAxisDataKey: 'date',
 		xAxisFontSize: 'sm',
 		chartWidth: 900,
@@ -296,7 +296,7 @@ export const BarChartCard1: Story1 = ( args ) => (
 				data={ chartData }
 				dataKeys={ [ 'desktop' ] }
 				showCartesianGrid={ true }
-				tickFormatter={ monthFormatter }
+				xTickFormatter={ monthFormatter }
 				showXAxis={ true }
 				xAxisDataKey="month"
 				showYAxis={ false }
@@ -363,7 +363,7 @@ export const BarChartCard2: Story1 = ( args ) => (
 				showYAxis={ false }
 				showTooltip={ true }
 				showCartesianGrid={ true }
-				tickFormatter={ monthFormatter }
+				xTickFormatter={ monthFormatter }
 				xAxisDataKey="month"
 				borderRadius={ 4 }
 			/>
@@ -430,7 +430,7 @@ export const BarChartCard3: Story1 = ( args ) => (
 				showTooltip={ true }
 				showLegend={ true }
 				showCartesianGrid={ true }
-				tickFormatter={ monthFormatter }
+				xTickFormatter={ monthFormatter }
 				xAxisDataKey="month"
 			/>
 		</Container.Item>
@@ -493,7 +493,7 @@ export const BarChartCard4: Story1 = ( args ) => (
 				showYAxis={ true }
 				showTooltip={ true }
 				showCartesianGrid={ false }
-				tickFormatter={ monthFormatter }
+				xTickFormatter={ monthFormatter }
 				yAxisDataKey="month"
 				xAxisFontSize="sm"
 				borderRadius={ 5 }
@@ -553,7 +553,7 @@ export const AreaChartCard5: Story1 = ( args ) => (
 			<BarChart
 				data={ chartDataIteractive }
 				dataKeys={ [ 'desktop' ] }
-				tickFormatter={ monthFormatterInteractive }
+				xTickFormatter={ monthFormatterInteractive }
 				showXAxis={ true }
 				xAxisDataKey="date"
 				showYAxis={ false }
@@ -578,7 +578,7 @@ export const BarChartCard6: Story = {
 		showTooltip: true,
 		tooltipIndicator: 'dot',
 		showCartesianGrid: true,
-		tickFormatter: monthFormatter,
+		xTickFormatter: monthFormatter,
 		yAxisDataKey: 'month',
 		activeBar: {
 			fill: '#2563EB',
