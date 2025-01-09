@@ -490,16 +490,16 @@ const Template = ( args ) => {
 												onChange={ () => {} }
 												placeholder="Select an option"
 												size="md"
+												by="value"
 												combobox
 											>
 												<Select.Button
-													displayBy="label"
 													aria-labelledby="currency"
+													render={ ( selected ) =>
+														selected.label
+													}
 												/>
-												<Select.Options
-													searchBy="label"
-													className="font-sans [&_*]:font-sans z-10"
-												>
+												<Select.Options className="font-sans [&_*]:font-sans z-10">
 													{ CURRENCY_OPTIONS.map(
 														( optionItem ) => (
 															<Select.Option
@@ -551,11 +551,13 @@ const Template = ( args ) => {
 													placeholder="Select an option"
 													size="md"
 													combobox
-													by="label"
+													by="value"
 												>
 													<Select.Button
-														displayBy="label"
 														aria-labelledby="time-zone"
+														render={ ( selected ) =>
+															selected.label
+														}
 													/>
 													<Select.Options
 														searchBy="label"
@@ -607,11 +609,13 @@ const Template = ( args ) => {
 													placeholder="Select an option"
 													size="md"
 													combobox
-													by="label"
+													by="value"
 												>
 													<Select.Button
-														displayBy="label"
 														aria-labelledby="language"
+														render={ ( selected ) =>
+															selected.label
+														}
 													/>
 													<Select.Options
 														searchBy="label"

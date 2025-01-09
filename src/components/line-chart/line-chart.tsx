@@ -81,14 +81,26 @@ interface LineChartProps {
 		CategoricalChartProps,
 		'width' | 'height' | 'data'
 	>;
+	/**
+	 * The stroke dasharray for the Cartesian grid.
+	 * @default '3 3'
+	 * @see https://recharts.org/en-US/api/CartesianGrid
+	 */
+	strokeDasharray?: string;
+
+	/**
+	 * The color of the Cartesian grid lines.
+	 * @default '#E5E7EB'
+	 */
+	gridColor?: string;
 }
 
 const LineChart = ( {
 	data,
 	dataKeys = [],
 	colors = [],
-	showXAxis = true,
-	showYAxis = true,
+	showXAxis = false,
+	showYAxis = false,
 	showTooltip = true,
 	tooltipIndicator = 'dot', // dot, line, dashed
 	tooltipLabelKey,
@@ -103,6 +115,8 @@ const LineChart = ( {
 	chartHeight = 200,
 	withDots = false,
 	lineChartWrapperProps,
+	strokeDasharray = '3 3',
+	gridColor = '#E5E7EB',
 }: LineChartProps ) => {
 	const defaultColors = [ { stroke: '#2563EB' }, { stroke: '#38BDF8' } ];
 
@@ -127,32 +141,36 @@ const LineChart = ( {
 	return (
 		<ResponsiveContainer width={ chartWidth } height={ chartHeight }>
 			<LineChartWrapper { ...lineChartWrapperProps } data={ data }>
-				{ showCartesianGrid && <CartesianGrid vertical={ false } /> }
-				{ showXAxis && (
-					<XAxis
-						dataKey={ xAxisDataKey }
-						tickLine={ false }
-						axisLine={ false }
-						tickMargin={ 8 }
-						tickFormatter={ tickFormatter }
-						tick={ {
-							fontSize: fontSizeVariant,
-							fill: xAxisFontColor,
-						} }
+				{ showCartesianGrid && (
+					<CartesianGrid
+						strokeDasharray={ strokeDasharray }
+						horizontal={ false }
+						stroke={ gridColor }
 					/>
 				) }
-				{ showYAxis && (
-					<YAxis
-						dataKey={ yAxisDataKey }
-						tickLine={ false }
-						axisLine={ false }
-						tickMargin={ 8 }
-						tick={ {
-							fontSize: fontSizeVariant,
-							fill: yAxisFontColor,
-						} }
-					/>
-				) }
+				<XAxis
+					dataKey={ xAxisDataKey }
+					tickLine={ false }
+					axisLine={ false }
+					tickMargin={ 8 }
+					tickFormatter={ tickFormatter }
+					tick={ {
+						fontSize: fontSizeVariant,
+						fill: xAxisFontColor,
+					} }
+					hide={ ! showXAxis }
+				/>
+				<YAxis
+					dataKey={ yAxisDataKey }
+					tickLine={ false }
+					axisLine={ false }
+					tickMargin={ 8 }
+					tick={ {
+						fontSize: fontSizeVariant,
+						fill: yAxisFontColor,
+					} }
+					hide={ ! showYAxis }
+				/>
 
 				{ showTooltip && (
 					<Tooltip
