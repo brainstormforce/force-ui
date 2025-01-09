@@ -47,9 +47,9 @@ const meta: Meta<typeof Select> = {
 	subcomponents: {
 		'Select.Button': Select.Button,
 		'Select.Portal': Select.Portal,
+		'Select.OptionGroup': Select.OptionGroup,
 		'Select.Options': Select.Options,
 		'Select.Option': Select.Option,
-		'Select.OptionGroup': Select.OptionGroup,
 	} as Record<string, React.ComponentType<unknown>>,
 	parameters: {
 		layout: 'centered',
