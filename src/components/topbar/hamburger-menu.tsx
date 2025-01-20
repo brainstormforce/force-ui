@@ -6,10 +6,11 @@ import {
 	useRef,
 	createContext,
 	useContext,
-	type RefObject,
 	type ReactNode,
 	useState,
+	startTransition,
 } from 'react';
+import { getElementPositionRelativeToScreen } from './utils';
 
 type MenuToggleFn = () => void;
 type NavigationOption = { label: ReactNode; path: string; icon: React.ElementType };
@@ -30,6 +31,10 @@ interface MenuItemProps {
 	children: React.ReactNode;
 }
 
+interface MenuOptionsProps {
+	options: NavigationOption[];
+}
+
 interface PathProps extends React.SVGProps<SVGPathElement> {
 	variants: {
 		closed: Record<string, string | number>;
@@ -42,7 +47,9 @@ interface HamBurgerContextType {
 	isOpen?: boolean;
 	toggleOpen?: MenuToggleFn;
 	setTriggerRef?: ( ref: HTMLButtonElement ) => void;
-	triggerRef?: HTMLButtonElement;
+	triggerRef?: HTMLButtonElement | null;
+	triggerOnRight?: boolean;
+	triggerOnLeft?: boolean;
 }
 
 // Hamburger context
@@ -65,14 +72,24 @@ export const useDimensions = ( ref: React.RefObject<HTMLElement> ) => {
 	return dimensions.current;
 };
 
-const sidebar = ( triggerButton: RefObject<HTMLButtonElement> ) => {
-	// Calculate the position of the trigger button
-	const buttonData = triggerButton?.getBoundingClientRect();
-	const buttonX = ( buttonData?.x ?? 0 ) + ( ( buttonData?.width ?? 0 ) / 2 );
-	const buttonY = ( buttonData?.y ?? 0 ) + ( ( buttonData?.height ?? 0 ) / 2 );
-	const buttonArea = ( buttonData?.width ?? 0 ) / 2;
+const sidebar = ( triggerButton: HTMLButtonElement, isLeft: boolean ) => {
+	// Calculate the position of the trigger button (For left side menu)
+	let buttonX = 0;
+	let buttonY = 0;
+	let buttonArea = 0;
 
-	console.log( buttonX, buttonY, buttonArea );
+	if ( isLeft ) {
+		const buttonData = triggerButton?.getBoundingClientRect();
+		buttonX = ( buttonData?.x ?? 0 ) + ( ( buttonData?.width ?? 0 ) / 2 );
+		buttonY = ( buttonData?.y ?? 0 ) + ( ( buttonData?.height ?? 0 ) / 2 );
+		buttonArea = ( buttonData?.width ?? 0 ) / 2;
+	} else {
+		const nextSiblingData = ( triggerButton?.nextSibling as Element )?.getBoundingClientRect();
+		const buttonData = triggerButton?.getBoundingClientRect();
+		buttonX = nextSiblingData?.width - ( document.body.clientWidth - ( ( buttonData?.x ?? 0 ) + ( ( buttonData?.width ?? 0 ) / 2 ) ) );
+		buttonY = document.body.clientHeight - ( ( buttonData?.y ?? 0 ) + ( ( buttonData?.height ?? 0 ) / 2 ) );
+		buttonArea = ( buttonData?.width ?? 0 ) / 2;
+	}
 
 	return {
 		open: ( height: number = 1000 ) => ( {
@@ -176,7 +193,8 @@ export const Navigation = ( { options }: NavigationProps ) => {
 	return (
 		<motion.ul
 			variants={ navVariants }
-			className="absolute top-12 w-full px-5 pb-5 pt-2 flex flex-col items-start justify-center gap-0.5"
+			// className="absolute top-12 w-full px-5 pb-5 pt-2 flex flex-col items-start justify-center gap-0.5"
+			className="relative mt-14 w-full px-5 pb-5 pt-2 flex flex-col items-start justify-center gap-0.5"
 		>
 			{ options.map( ( { label, path, icon: Icon }, indx ) => (
 				<MenuItem key={ indx }>
@@ -238,18 +256,30 @@ export const MenuItem = ( { children }: MenuItemProps ) => {
 };
 
 const MenuOptions = ( { options }: MenuOptionsProps ) => {
-	const { triggerRef } = useHamBurgerState();
+	const { triggerRef, triggerOnRight, triggerOnLeft } = useHamBurgerState();
+	const [ container, setContainer ] = useState<HTMLDivElement | null>( null );
+
 	if ( ! triggerRef ) {
 		return null;
 	}
 
 	return (
-		<motion.div layoutRoot className="absolute top-0 left-0 bottom-0 w-80 h-full">
-			<motion.div
-				className="bg-background-primary shadow-lg fixed top-0 bottom-0 left-0 w-80 border-y-0 border-l-0 border-r border-solid border-border-subtle"
-				variants={ sidebar( triggerRef ) }
-				layoutId="hamburger-menu-options"
-			/>
+		<motion.div
+			ref={ setContainer }
+			className={ cn(
+				'absolute top-0 bottom-0 w-80 h-full',
+				triggerOnRight ? 'right-0' : 'left-0'
+			) }
+		>
+			{ container && (
+				<motion.div
+					className={ cn(
+						'bg-background-primary shadow-lg fixed top-0 bottom-0 w-80 border-y-0 border-l-0 border-r border-solid border-border-subtle',
+						triggerOnRight ? 'right-0' : 'left-0'
+					) }
+					variants={ sidebar( triggerRef, triggerOnLeft ?? false ) }
+				/>
+			) }
 			<Navigation options={ options } />
 		</motion.div>
 	);
@@ -257,22 +287,32 @@ const MenuOptions = ( { options }: MenuOptionsProps ) => {
 
 const HamburgerMenu = ( { options }: HamburgerMenuProps ) => {
 	const [ isOpen, toggleOpen ] = useCycle( false, true );
-	const [ triggerRef, setTriggerRef ] = useState( null );
+	const [ trigger, setTrigger ] = useState<HTMLButtonElement | null>( null );
 	const containerRef = useRef( null );
 	const { height } = useDimensions( containerRef );
+
+	const { isRight = false, isLeft = true } = getElementPositionRelativeToScreen( trigger );
+
+	const setTriggerRef = ( ref: HTMLButtonElement ) => {
+		startTransition( () => {
+			setTrigger( ref );
+		} );
+	};
 
 	const providerValue = {
 		isOpen,
 		toggleOpen,
 		setTriggerRef,
-		triggerRef,
+		triggerRef: trigger,
+		triggerOnRight: isRight,
+		triggerOnLeft: isLeft,
 	};
 
 	return (
 		<HamBurgerProvider value={ providerValue }>
 			<div className="size-6">
 				<motion.nav
-					className="w-80 h-full"
+					className="h-full"
 					initial={ false }
 					animate={ isOpen ? 'open' : 'closed' }
 					custom={ height }
