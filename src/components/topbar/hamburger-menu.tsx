@@ -16,15 +16,26 @@ type MenuToggleFn = () => void;
 type NavigationOption = { label: ReactNode; path: string; icon: React.ElementType };
 
 interface HamburgerMenuProps {
+	/**
+	 * The options to display in the menu.
+	 */
 	options: NavigationOption[];
+	/**
+	 * The class name to apply to the hamburger menu root container.
+	 */
+	className?: string;
 }
 
 interface MenuToggleProps {
+	/**
+	 * The class name to apply to the hamburger menu toggle button.
+	 */
 	className?: string;
 }
 
 interface NavigationProps {
 	options: NavigationOption[];
+	className?: string;
 }
 
 interface MenuItemProps {
@@ -33,6 +44,7 @@ interface MenuItemProps {
 
 interface MenuOptionsProps {
 	options: NavigationOption[];
+	className?: string;
 }
 
 interface PathProps extends React.SVGProps<SVGPathElement> {
@@ -130,7 +142,6 @@ export const MenuToggle = ( { className }: MenuToggleProps ) => {
 		<Button
 			// @ts-expect-error Ref is not present in Button component type, but we need it for the hamburger menu
 			ref={ setTriggerRef }
-			// className="absolute top-5 left-5 rounded-full hover:shadow-sm focus:[box-shadow:none] pointer-events-auto"
 			className={ cn( 'relative z-[1] rounded-full hover:shadow-sm focus:[box-shadow:none] pointer-events-auto', className ) }
 			variant="ghost"
 			size="xs"
@@ -184,7 +195,7 @@ const navVariants = {
 	},
 };
 
-export const Navigation = ( { options }: NavigationProps ) => {
+export const Navigation = ( { options, className }: NavigationProps ) => {
 	const currentPath = window.location.search;
 	const activeNavbarLinkIndx = options.findIndex(
 		( { path } ) => currentPath === path
@@ -193,8 +204,10 @@ export const Navigation = ( { options }: NavigationProps ) => {
 	return (
 		<motion.ul
 			variants={ navVariants }
-			// className="absolute top-12 w-full px-5 pb-5 pt-2 flex flex-col items-start justify-center gap-0.5"
-			className="relative mt-14 w-full px-5 pb-5 pt-2 flex flex-col items-start justify-center gap-0.5"
+			className={ cn(
+				'relative mt-14 w-full px-5 pb-5 pt-2 flex flex-col items-start justify-center gap-0.5',
+				className
+			) }
 		>
 			{ options.map( ( { label, path, icon: Icon }, indx ) => (
 				<MenuItem key={ indx }>
@@ -255,7 +268,7 @@ export const MenuItem = ( { children }: MenuItemProps ) => {
 	);
 };
 
-const MenuOptions = ( { options }: MenuOptionsProps ) => {
+const MenuOptions = ( { options, className }: MenuOptionsProps ) => {
 	const { triggerRef, triggerOnRight, triggerOnLeft } = useHamBurgerState();
 	const [ container, setContainer ] = useState<HTMLDivElement | null>( null );
 
@@ -268,7 +281,8 @@ const MenuOptions = ( { options }: MenuOptionsProps ) => {
 			ref={ setContainer }
 			className={ cn(
 				'absolute top-0 bottom-0 w-80 h-full',
-				triggerOnRight ? 'right-0' : 'left-0'
+				triggerOnRight ? 'right-0' : 'left-0',
+				className
 			) }
 		>
 			{ container && (
@@ -285,7 +299,7 @@ const MenuOptions = ( { options }: MenuOptionsProps ) => {
 	);
 };
 
-const HamburgerMenu = ( { options }: HamburgerMenuProps ) => {
+const HamburgerMenu = ( { options, className }: HamburgerMenuProps ) => {
 	const [ isOpen, toggleOpen ] = useCycle( false, true );
 	const [ trigger, setTrigger ] = useState<HTMLButtonElement | null>( null );
 	const containerRef = useRef( null );
@@ -310,7 +324,7 @@ const HamburgerMenu = ( { options }: HamburgerMenuProps ) => {
 
 	return (
 		<HamBurgerProvider value={ providerValue }>
-			<div className="size-6">
+			<div className={ cn( 'size-6', className ) }>
 				<motion.nav
 					className="h-full"
 					initial={ false }
