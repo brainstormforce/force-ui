@@ -1,6 +1,14 @@
 import type { Meta, StoryFn } from '@storybook/react';
 import HamburgerMenu from './hamburger-menu';
-import { ArrowUpRight, CircleHelp, Mail, Home, Info, Megaphone, User } from 'lucide-react';
+import {
+	ArrowUpRight,
+	CircleHelp,
+	Mail,
+	Home,
+	Info,
+	Megaphone,
+	User,
+} from 'lucide-react';
 import { Topbar, Badge } from '@/components';
 import { Avatar, Button } from '@/index';
 
@@ -35,17 +43,22 @@ const options = [
 	{ label: 'Contact', path: '/contact', icon: Mail },
 ];
 
-const HamburgerMenuTemplate: Story = () => (
-	<Topbar className="bg-gray-300 h-fit py-1">
+const HamburgerMenuTemplate: Story = ( args ) => (
+	<Topbar className="bg-gray-300 h-fit py-1" { ...args }>
 		<Topbar.Left>
 			<HamburgerMenu>
 				<HamburgerMenu.Toggle className="size-6" />
 				<HamburgerMenu.Options>
 					{ options.map( ( option ) => (
 						<HamburgerMenu.Option
+							tag="a"
 							key={ option.path }
 							href={ option.path }
 							icon={ <option.icon /> }
+							iconPosition="left"
+							active={ option.path === '/' }
+							rel="noopener noreferrer"
+							target="_self"
 						>
 							{ option.label }
 						</HamburgerMenu.Option>
@@ -70,8 +83,7 @@ const HamburgerMenuTemplate: Story = () => (
 			</Topbar.Item>
 		</Topbar.Left>
 
-		<Topbar.Middle
-		>
+		<Topbar.Middle>
 			<Topbar.Item>
 				<div className="flex gap-2">
 					<div>Nav Item 1</div>
