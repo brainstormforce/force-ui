@@ -115,29 +115,24 @@ export const useDimensions = ( ref: React.RefObject<HTMLElement> ) => {
 	return dimensions.current;
 };
 
-const sidebar = ( triggerButton: HTMLButtonElement, isLeft: boolean ) => {
-	// Calculate the position of the trigger button (For left side menu)
-	let buttonX = 0;
-	let buttonY = 0;
-	let buttonArea = 0;
-
-	if ( isLeft ) {
-		const buttonData = triggerButton?.getBoundingClientRect();
-		buttonX = ( buttonData?.x ?? 0 ) + ( ( buttonData?.width ?? 0 ) / 2 );
-		buttonY = ( buttonData?.y ?? 0 ) + ( ( buttonData?.height ?? 0 ) / 2 );
-		buttonArea = ( buttonData?.width ?? 0 ) / 2;
-	} else {
-		const nextSiblingData = (
-			triggerButton?.nextSibling as Element
-		)?.getBoundingClientRect();
-		const buttonData = triggerButton?.getBoundingClientRect();
-		buttonX =
-			nextSiblingData?.width -
-			( document.body.clientWidth -
-				( ( buttonData?.x ?? 0 ) + ( ( buttonData?.width ?? 0 ) / 2 ) ) );
-		buttonY = ( buttonData?.y ?? 0 ) + ( ( buttonData?.height ?? 0 ) / 2 );
-		buttonArea = ( buttonData?.width ?? 0 ) / 2;
+const sidebar = ( triggerButton: HTMLButtonElement, menuContainer: HTMLElement, isLeft: boolean ) => {
+	if ( ! triggerButton || ! menuContainer ) {
+		return {
+			open: () => ( {} ),
+			closed: () => ( {} ),
+		};
 	}
+
+	const buttonData = triggerButton?.getBoundingClientRect();
+	const containerData = menuContainer?.getBoundingClientRect();
+
+	// Calculate position relative to the menu container
+	const buttonX = isLeft
+		? buttonData?.x - containerData?.x + ( buttonData?.width / 2 )
+		: containerData?.width - ( containerData?.right - buttonData?.x ) + ( buttonData?.width / 2 );
+
+	const buttonY = buttonData?.y - containerData?.y + ( buttonData?.height / 2 );
+	const buttonArea = buttonData?.width / 2;
 
 	return {
 		open: ( height: number = 1000 ) => ( {
@@ -357,7 +352,7 @@ export const MenuOptions: FC<MenuOptionsProps> = ( { children, className } ) => 
 						'bg-background-primary shadow-lg fixed top-0 bottom-0 w-80 border-y-0 border-l-0 border-r border-solid border-border-subtle',
 						triggerOnRight ? 'right-0' : 'left-0'
 					) }
-					variants={ sidebar( triggerRef, triggerOnLeft ?? false ) }
+					variants={ sidebar( triggerRef, container, triggerOnLeft ?? false ) }
 				/>
 			) }
 			<motion.ul
