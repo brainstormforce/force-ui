@@ -1,4 +1,6 @@
-export const getElementPositionRelativeToScreen = ( element: HTMLElement | null ) => {
+export const getElementPositionRelativeToScreen = (
+	element: HTMLElement | null
+) => {
 	if ( ! element ) {
 		return { error: 'Element not found.' };
 	}

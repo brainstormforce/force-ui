@@ -26,7 +26,7 @@ export { default as Menu } from './menu-item';
 export { default as Sidebar } from './sidebar';
 export { default as Breadcrumb } from './breadcrumb';
 export { default as Dialog } from './dialog';
-export { default as Topbar } from './topbar';
+export { default as Topbar, HamburgerMenu } from './topbar';
 export { default as SearchBox } from './search';
 export { default as DropdownMenu } from './dropdown-menu';
 export { default as Drawer } from './drawer';

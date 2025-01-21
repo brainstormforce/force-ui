@@ -1,7 +1,7 @@
 import { Button } from '@/components';
 import { cn } from '@/utilities/functions';
 import { motion, useCycle } from 'framer-motion';
-import {
+import React, {
 	useEffect,
 	useRef,
 	createContext,
@@ -9,21 +9,23 @@ import {
 	type ReactNode,
 	useState,
 	startTransition,
+	type ElementType,
+	cloneElement,
+	isValidElement,
 } from 'react';
 import { getElementPositionRelativeToScreen } from './utils';
 
 type MenuToggleFn = () => void;
-type NavigationOption = { label: ReactNode; path: string; icon: React.ElementType };
 
 interface HamburgerMenuProps {
-	/**
-	 * The options to display in the menu.
-	 */
-	options: NavigationOption[];
 	/**
 	 * The class name to apply to the hamburger menu root container.
 	 */
 	className?: string;
+	/**
+	 * The children to render in the menu options.
+	 */
+	children: React.ReactNode;
 }
 
 interface MenuToggleProps {
@@ -33,9 +35,31 @@ interface MenuToggleProps {
 	className?: string;
 }
 
-interface NavigationProps {
-	options: NavigationOption[];
+interface MenuOptionProps<T extends ElementType = 'a'> {
+	/**
+	 * The tag or component to render the option as.
+	 */
+	tag?: T;
+	/**
+	 * Whether the option is active.
+	 */
+	active?: boolean;
+	/**
+	 * Icon component to display.
+	 */
+	icon?: React.ReactElement;
+	/**
+	 * Position of the icon.
+	 */
+	iconPosition?: 'left' | 'right';
+	/**
+	 * Additional class name for styling.
+	 */
 	className?: string;
+	/**
+	 * Children elements.
+	 */
+	children?: ReactNode;
 }
 
 interface MenuItemProps {
@@ -43,7 +67,13 @@ interface MenuItemProps {
 }
 
 interface MenuOptionsProps {
-	options: NavigationOption[];
+	/**
+	 * The children to render in the menu options.
+	 */
+	children: React.ReactNode;
+	/**
+	 * The class name to apply to the menu options container.
+	 */
 	className?: string;
 }
 
@@ -92,20 +122,25 @@ const sidebar = ( triggerButton: HTMLButtonElement, isLeft: boolean ) => {
 
 	if ( isLeft ) {
 		const buttonData = triggerButton?.getBoundingClientRect();
-		buttonX = ( buttonData?.x ?? 0 ) + ( ( buttonData?.width ?? 0 ) / 2 );
-		buttonY = ( buttonData?.y ?? 0 ) + ( ( buttonData?.height ?? 0 ) / 2 );
+		buttonX = ( buttonData?.x ?? 0 ) + (( buttonData?.width ?? 0 ) / 2);
+		buttonY = ( buttonData?.y ?? 0 ) + (( buttonData?.height ?? 0 ) / 2);
 		buttonArea = ( buttonData?.width ?? 0 ) / 2;
 	} else {
-		const nextSiblingData = ( triggerButton?.nextSibling as Element )?.getBoundingClientRect();
+		const nextSiblingData = (
+			triggerButton?.nextSibling as Element
+		)?.getBoundingClientRect();
 		const buttonData = triggerButton?.getBoundingClientRect();
-		buttonX = nextSiblingData?.width - ( document.body.clientWidth - ( ( buttonData?.x ?? 0 ) + ( ( buttonData?.width ?? 0 ) / 2 ) ) );
-		buttonY = document.body.clientHeight - ( ( buttonData?.y ?? 0 ) + ( ( buttonData?.height ?? 0 ) / 2 ) );
+		buttonX =
+			nextSiblingData?.width -
+			( document.body.clientWidth -
+				( ( buttonData?.x ?? 0 ) + ( buttonData?.width ?? 0 ) / 2 ) );
+		buttonY = ( buttonData?.y ?? 0 ) + ( buttonData?.height ?? 0 ) / 2;
 		buttonArea = ( buttonData?.width ?? 0 ) / 2;
 	}
 
 	return {
 		open: ( height: number = 1000 ) => ( {
-			clipPath: `circle(${ ( height * 2 ) + 200 }px at ${ buttonX }px ${ buttonY }px)`,
+			clipPath: `circle(${ height * 2 + 200 }px at ${ buttonX }px ${ buttonY }px)`,
 			transition: {
 				type: 'spring',
 				stiffness: 20,
@@ -142,7 +177,10 @@ export const MenuToggle = ( { className }: MenuToggleProps ) => {
 		<Button
 			// @ts-expect-error Ref is not present in Button component type, but we need it for the hamburger menu
 			ref={ setTriggerRef }
-			className={ cn( 'relative z-[1] rounded-full hover:shadow-sm focus:[box-shadow:none] pointer-events-auto', className ) }
+			className={ cn(
+				'relative z-[1] rounded-full hover:shadow-sm focus:[box-shadow:none] pointer-events-auto',
+				className
+			) }
 			variant="ghost"
 			size="xs"
 			onClick={ toggleOpen }
@@ -195,46 +233,64 @@ const navVariants = {
 	},
 };
 
-export const Navigation = ( { options, className }: NavigationProps ) => {
-	const currentPath = window.location.search;
-	const activeNavbarLinkIndx = options.findIndex(
-		( { path } ) => currentPath === path
-	);
+type MenuOptionComponent = <T extends ElementType = 'a'>(
+	props: MenuOptionProps<T> &
+		Omit<React.ComponentPropsWithoutRef<T>, keyof MenuOptionProps<T>>
+) => React.ReactElement | null;
+
+export const MenuOption: MenuOptionComponent = ( {
+	tag: Tag = 'a',
+	active,
+	icon,
+	iconPosition = 'left',
+	className,
+	children,
+	...props
+} ) => {
+	let leftIcon = null;
+	let rightIcon = null;
+	const renderIcon =
+		icon && isValidElement( icon )
+			? cloneElement( icon, {
+				key: 'left-icon',
+				className: cn(
+					'size-5',
+					active ? 'text-brand-800' : 'text-icon-secondary',
+					( icon.props as { className?: string } )?.className ?? ''
+				),
+			} as React.SVGProps<SVGSVGElement> )
+			: null;
+
+	switch ( iconPosition ) {
+		case 'left':
+			leftIcon = renderIcon;
+			break;
+		case 'right':
+			rightIcon = renderIcon;
+			break;
+		default:
+			leftIcon = null;
+			rightIcon = null;
+			break;
+	}
 
 	return (
-		<motion.ul
-			variants={ navVariants }
-			className={ cn(
-				'relative mt-14 w-full px-5 pb-5 pt-2 flex flex-col items-start justify-center gap-0.5',
-				className
-			) }
-		>
-			{ options.map( ( { label, path, icon: Icon }, indx ) => (
-				<MenuItem key={ indx }>
-					<a
-						href={ path }
-						className={ cn(
-							'w-full no-underline hover:no-underline text-text-primary text-lg font-medium flex items-center gap-2 px-2.5 py-1.5 rounded-md hover:bg-background-secondary hover:text-text-primary focus:outline-none focus:shadow-none transition ease-in-out duration-150',
-							indx === activeNavbarLinkIndx
-								? 'text-text-primary bg-background-secondary'
-								: 'text-text-secondary'
-						) }
-						target="_self"
-						rel="noopener noreferrer"
-					>
-						<Icon
-							className={ cn(
-								'size-5',
-								indx === activeNavbarLinkIndx
-									? 'text-brand-800'
-									: 'text-icon-secondary'
-							) }
-						/>
-						<span>{ label }</span>
-					</a>
-				</MenuItem>
-			) ) }
-		</motion.ul>
+		<MenuItem>
+			<Tag
+				className={ cn(
+					'w-full no-underline hover:no-underline text-text-primary text-lg font-medium flex items-center gap-2 px-2.5 py-1.5 rounded-md hover:bg-background-secondary hover:text-text-primary focus:outline-none focus:shadow-none transition ease-in-out duration-150',
+					active
+						? 'text-text-primary bg-background-secondary'
+						: 'text-text-secondary',
+					className
+				) }
+				{ ...props }
+			>
+				{ !! leftIcon && leftIcon }
+				<span className="contents">{ children }</span>
+				{ !! rightIcon && rightIcon }
+			</Tag>
+		</MenuItem>
 	);
 };
 
@@ -268,7 +324,7 @@ export const MenuItem = ( { children }: MenuItemProps ) => {
 	);
 };
 
-const MenuOptions = ( { options, className }: MenuOptionsProps ) => {
+const MenuOptions = ( { children, className }: MenuOptionsProps ) => {
 	const { triggerRef, triggerOnRight, triggerOnLeft } = useHamBurgerState();
 	const [ container, setContainer ] = useState<HTMLDivElement | null>( null );
 
@@ -294,18 +350,27 @@ const MenuOptions = ( { options, className }: MenuOptionsProps ) => {
 					variants={ sidebar( triggerRef, triggerOnLeft ?? false ) }
 				/>
 			) }
-			<Navigation options={ options } />
+			<motion.ul
+				variants={ navVariants }
+				className={ cn(
+					'relative mt-14 w-full px-5 pb-5 pt-2 flex flex-col items-start justify-center gap-0.5',
+					className
+				) }
+			>
+				{ children }
+			</motion.ul>
 		</motion.div>
 	);
 };
 
-const HamburgerMenu = ( { options, className }: HamburgerMenuProps ) => {
+const HamburgerMenu = ( { className, children }: HamburgerMenuProps ) => {
 	const [ isOpen, toggleOpen ] = useCycle( false, true );
 	const [ trigger, setTrigger ] = useState<HTMLButtonElement | null>( null );
 	const containerRef = useRef( null );
 	const { height } = useDimensions( containerRef );
 
-	const { isRight = false, isLeft = true } = getElementPositionRelativeToScreen( trigger );
+	const { isRight = false, isLeft = true } =
+		getElementPositionRelativeToScreen( trigger );
 
 	const setTriggerRef = ( ref: HTMLButtonElement ) => {
 		startTransition( () => {
@@ -324,7 +389,7 @@ const HamburgerMenu = ( { options, className }: HamburgerMenuProps ) => {
 
 	return (
 		<HamBurgerProvider value={ providerValue }>
-			<div className={ cn( 'size-6', className ) }>
+			<div className={ cn( 'size-6 z-[1]', className ) }>
 				<motion.nav
 					className="h-full"
 					initial={ false }
@@ -340,13 +405,22 @@ const HamburgerMenu = ( { options, className }: HamburgerMenuProps ) => {
 					} }
 					ref={ containerRef }
 				>
-
-					<MenuToggle />
-					<MenuOptions options={ options } />
+					{ children }
 				</motion.nav>
 			</div>
 		</HamBurgerProvider>
 	);
 };
+
+// Update display name
+HamburgerMenu.displayName = 'HamburgerMenu';
+MenuToggle.displayName = 'HamburgerMenu.Toggle';
+MenuOptions.displayName = 'HamburgerMenu.Options';
+( MenuOption as React.ComponentType ).displayName = 'HamburgerMenu.Option';
+
+// Assign Components
+HamburgerMenu.Options = MenuOptions;
+HamburgerMenu.Option = MenuOption;
+HamburgerMenu.Toggle = MenuToggle;
 
 export default HamburgerMenu;
