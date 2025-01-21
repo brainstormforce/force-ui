@@ -12,12 +12,13 @@ import React, {
 	type ElementType,
 	cloneElement,
 	isValidElement,
+	type FC,
 } from 'react';
-import { getElementPositionRelativeToScreen } from './utils';
+import { getElementPositionRelativeToScreen } from '../topbar/utils';
 
 type MenuToggleFn = () => void;
 
-interface HamburgerMenuProps {
+export interface HamburgerMenuProps {
 	/**
 	 * The class name to apply to the hamburger menu root container.
 	 */
@@ -28,14 +29,14 @@ interface HamburgerMenuProps {
 	children: React.ReactNode;
 }
 
-interface MenuToggleProps {
+export interface MenuToggleProps {
 	/**
 	 * The class name to apply to the hamburger menu toggle button.
 	 */
 	className?: string;
 }
 
-interface MenuOptionProps<T extends ElementType = 'a'> {
+export interface MenuOptionProps<T extends ElementType = 'a'> {
 	/**
 	 * The tag or component to render the option as.
 	 */
@@ -62,11 +63,11 @@ interface MenuOptionProps<T extends ElementType = 'a'> {
 	children?: ReactNode;
 }
 
-interface MenuItemProps {
+export interface MenuItemProps {
 	children: React.ReactNode;
 }
 
-interface MenuOptionsProps {
+export interface MenuOptionsProps {
 	/**
 	 * The children to render in the menu options.
 	 */
@@ -77,7 +78,7 @@ interface MenuOptionsProps {
 	className?: string;
 }
 
-interface PathProps extends React.SVGProps<SVGPathElement> {
+export interface PathProps extends React.SVGProps<SVGPathElement> {
 	variants: {
 		closed: Record<string, string | number>;
 		open: Record<string, string | number>;
@@ -85,7 +86,7 @@ interface PathProps extends React.SVGProps<SVGPathElement> {
 	transition?: Record<string, string | number>;
 }
 
-interface HamBurgerContextType {
+export interface HamBurgerContextType {
 	isOpen?: boolean;
 	toggleOpen?: MenuToggleFn;
 	setTriggerRef?: ( ref: HTMLButtonElement ) => void;
@@ -122,8 +123,8 @@ const sidebar = ( triggerButton: HTMLButtonElement, isLeft: boolean ) => {
 
 	if ( isLeft ) {
 		const buttonData = triggerButton?.getBoundingClientRect();
-		buttonX = ( buttonData?.x ?? 0 ) + (( buttonData?.width ?? 0 ) / 2);
-		buttonY = ( buttonData?.y ?? 0 ) + (( buttonData?.height ?? 0 ) / 2);
+		buttonX = ( buttonData?.x ?? 0 ) + ( ( buttonData?.width ?? 0 ) / 2 );
+		buttonY = ( buttonData?.y ?? 0 ) + ( ( buttonData?.height ?? 0 ) / 2 );
 		buttonArea = ( buttonData?.width ?? 0 ) / 2;
 	} else {
 		const nextSiblingData = (
@@ -133,27 +134,36 @@ const sidebar = ( triggerButton: HTMLButtonElement, isLeft: boolean ) => {
 		buttonX =
 			nextSiblingData?.width -
 			( document.body.clientWidth -
-				( ( buttonData?.x ?? 0 ) + ( buttonData?.width ?? 0 ) / 2 ) );
-		buttonY = ( buttonData?.y ?? 0 ) + ( buttonData?.height ?? 0 ) / 2;
+				( ( buttonData?.x ?? 0 ) + ( ( buttonData?.width ?? 0 ) / 2 ) ) );
+		buttonY = ( buttonData?.y ?? 0 ) + ( ( buttonData?.height ?? 0 ) / 2 );
 		buttonArea = ( buttonData?.width ?? 0 ) / 2;
 	}
 
 	return {
 		open: ( height: number = 1000 ) => ( {
-			clipPath: `circle(${ height * 2 + 200 }px at ${ buttonX }px ${ buttonY }px)`,
+			clipPath: `circle(${ ( height * 2 ) + 200 }px at ${ buttonX }px ${ buttonY }px)`,
+			background: 'rgb(255, 255, 255, 1)',
 			transition: {
 				type: 'spring',
 				stiffness: 20,
 				restDelta: 2,
+				background: {
+					duration: 0,
+				},
 			},
 		} ),
 		closed: {
 			clipPath: `circle(${ buttonArea }px at ${ buttonX }px ${ buttonY }px)`,
+			background: 'rgb(255, 255, 255, 0)',
 			transition: {
 				delay: 0.5,
 				type: 'spring',
 				stiffness: 400,
 				damping: 40,
+				background: {
+					duration: 0,
+					delay: 1000,
+				},
 			},
 		},
 	};
@@ -178,7 +188,7 @@ export const MenuToggle = ( { className }: MenuToggleProps ) => {
 			// @ts-expect-error Ref is not present in Button component type, but we need it for the hamburger menu
 			ref={ setTriggerRef }
 			className={ cn(
-				'relative z-[1] rounded-full hover:shadow-sm focus:[box-shadow:none] pointer-events-auto',
+				'relative z-[1] rounded-full hover:shadow-sm focus:[box-shadow:none] pointer-events-auto bg-background-primary',
 				className
 			) }
 			variant="ghost"
@@ -324,7 +334,7 @@ export const MenuItem = ( { children }: MenuItemProps ) => {
 	);
 };
 
-const MenuOptions = ( { children, className }: MenuOptionsProps ) => {
+export const MenuOptions: FC<MenuOptionsProps> = ( { children, className } ) => {
 	const { triggerRef, triggerOnRight, triggerOnLeft } = useHamBurgerState();
 	const [ container, setContainer ] = useState<HTMLDivElement | null>( null );
 
@@ -363,7 +373,7 @@ const MenuOptions = ( { children, className }: MenuOptionsProps ) => {
 	);
 };
 
-const HamburgerMenu = ( { className, children }: HamburgerMenuProps ) => {
+export const HamburgerMenu = ( { className, children }: HamburgerMenuProps ) => {
 	const [ isOpen, toggleOpen ] = useCycle( false, true );
 	const [ trigger, setTrigger ] = useState<HTMLButtonElement | null>( null );
 	const containerRef = useRef( null );
