@@ -195,6 +195,7 @@ export const MenuToggle = ( { className }: MenuToggleProps ) => {
 			variant="ghost"
 			size="xs"
 			onClick={ toggleOpen }
+			aria-label="Toggle menu"
 			icon={
 				<motion.svg
 					className="shrink-0 stroke-icon-primary"
