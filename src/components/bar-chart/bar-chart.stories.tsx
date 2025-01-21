@@ -599,3 +599,62 @@ export const BarChartCard6: Story = {
 };
 
 BarChartCard6.storyName = 'Customize hover effect';
+
+export const BarChartWithAxisFormatters: Story = {
+	args: {
+		data: chartDataMultiple,
+		dataKeys: [ 'desktop', 'mobile' ],
+		layout: 'horizontal',
+		colors: [ { fill: '#7DD3FC' }, { fill: '#2563EB' } ],
+		showXAxis: true,
+		showYAxis: true,
+		showTooltip: true,
+		tooltipIndicator: 'dot',
+		showCartesianGrid: true,
+		xTickFormatter: monthFormatter,
+		yTickFormatter: ( value: string ) => `$${ value }`,
+		xAxisFontSize: 'md',
+		borderRadius: 4,
+	},
+	render: ( args ) => (
+		<BarChart
+			{ ...args }
+			// Dynamically set axis keys based on layout
+			xAxisDataKey={ args.layout === 'vertical' ? 'desktop' : 'month' }
+			yAxisDataKey={ args.layout === 'vertical' ? 'month' : 'desktop' }
+			showCartesianGrid={ args.layout === 'vertical' ? false : true }
+		/>
+	),
+	parameters: {
+		docs: {
+			source: {
+				code: `
+import { BarChart } from './bar-chart';
+
+const xTickFormatter = (value: string | number) => value.toString().slice(0, 3);
+const yTickFormatter = (value: number) => \`$\${value}\`;
+
+<BarChart
+  data={chartDataMultiple}
+  dataKeys={['desktop', 'mobile']}
+  layout="horizontal"
+  colors={[{ fill: '#7DD3FC' }, { fill: '#2563EB' }]}
+  showXAxis={true}
+  showYAxis={true}
+  showTooltip={true}
+  tooltipIndicator="dot"
+  showCartesianGrid={true}
+  xTickFormatter={xTickFormatter}
+  yTickFormatter={yTickFormatter}
+  xAxisDataKey={layout === 'vertical' ? 'desktop' : 'month'}
+  yAxisDataKey={layout === 'vertical' ? 'month' : 'desktop'}
+  xAxisFontSize="md"
+  borderRadius={4}
+/>;
+        `,
+			},
+		},
+	},
+};
+
+BarChartWithAxisFormatters.storyName = 'Bar Chart with Axis Formatters';
