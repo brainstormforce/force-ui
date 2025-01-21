@@ -358,7 +358,7 @@ export const MenuOptions: FC<MenuOptionsProps> = ( { children, className } ) => 
 			<motion.ul
 				variants={ navVariants }
 				className={ cn(
-					'relative mt-14 w-full px-5 pb-5 pt-2 flex flex-col items-start justify-center gap-0.5',
+					'relative mt-14 mb-0 w-full px-5 pb-5 pt-2 flex flex-col items-start justify-start gap-0.5',
 					className
 				) }
 			>
