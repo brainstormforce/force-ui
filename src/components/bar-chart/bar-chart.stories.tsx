@@ -629,10 +629,10 @@ export const BarChartWithAxisFormatters: Story = {
 		docs: {
 			source: {
 				code: `
-import { BarChart } from './bar-chart';
+import { BarChart } from '@bsf/force-ui';
 
-const xTickFormatter = (value: string | number) => value.toString().slice(0, 3);
-const yTickFormatter = (value: number) => \`$\${value}\`;
+const xTickFormatter = (value: string) => value.toString().slice(0, 3);
+const yTickFormatter = (value: string) => \`$\${value}\`;
 
 <BarChart
   data={chartDataMultiple}
