@@ -347,7 +347,7 @@ export const MenuOptions: FC<MenuOptionsProps> = ( { children, className } ) => 
 		<motion.div
 			ref={ setContainer }
 			className={ cn(
-				'absolute top-0 bottom-0 w-80 h-full',
+				'absolute top-0 bottom-0 w-80 h-screen',
 				triggerOnRight ? 'right-0' : 'left-0',
 				className
 			) }
@@ -355,7 +355,7 @@ export const MenuOptions: FC<MenuOptionsProps> = ( { children, className } ) => 
 			{ container && (
 				<motion.div
 					className={ cn(
-						'bg-background-primary shadow-lg fixed top-0 bottom-0 w-80 border-y-0 border-l-0 border-r border-solid border-border-subtle',
+						'bg-background-primary shadow-lg absolute top-0 bottom-0 w-80 border-y-0 border-l-0 border-r border-solid border-border-subtle',
 						triggerOnRight ? 'right-0' : 'left-0'
 					) }
 					variants={ sidebar(
