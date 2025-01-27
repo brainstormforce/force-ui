@@ -44,6 +44,7 @@ module.exports = {
 		'jsx-a11y/anchor-is-valid': 'off',
 		 
 		'no-mixed-spaces-and-tabs': 'off',
+		'no-mixed-operators': 'off',
 	},
 	globals: {
 		localStorage: 'readonly',
