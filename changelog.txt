@@ -1,5 +1,6 @@
-Version x.x.x - xth x, 2025
+Version 1.4.0 - 27th January, 2025
 - New: Added a Hamburger Menu component.
+- Improvement: Added Y-axis tick formatter to the BarChart component.
 
 Version 1.3.6 - 9th January, 2025
 - Improvement: Optimized the Select component item search logic and reorganized props for improved usability.
