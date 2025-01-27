@@ -58,7 +58,10 @@ interface BarChartProps {
 	showCartesianGrid?: boolean;
 
 	/** A function used to format the ticks on the axes, e.g., ```const monthFormatter = ( value: string ) => value.slice( 0, 3 );``` */
-	tickFormatter?: ( value: string ) => string;
+	xTickFormatter?: ( value: string ) => string;
+
+	/** A function used to format the ticks on the y-axis. */
+	yTickFormatter?: ( value: string ) => string;
 
 	/** The key in the data objects representing values for the x-axis. This is used to access the x-axis values from each data entry. */
 	xAxisDataKey?: string;
@@ -126,7 +129,8 @@ const BarChart = ( {
 	tooltipLabelKey,
 	showLegend = false,
 	showCartesianGrid = true,
-	tickFormatter,
+	xTickFormatter,
+	yTickFormatter,
 	xAxisDataKey,
 	yAxisDataKey,
 	xAxisFontSize = 'sm', // sm, md, lg
@@ -176,7 +180,7 @@ const BarChart = ( {
 						tickLine={ false }
 						axisLine={ false }
 						tickMargin={ 8 }
-						tickFormatter={ tickFormatter }
+						tickFormatter={ xTickFormatter }
 						tick={ {
 							fontSize: fontSizeVariant,
 							fill: xAxisFontColor,
@@ -191,6 +195,7 @@ const BarChart = ( {
 						tickLine={ false }
 						tickMargin={ 10 }
 						axisLine={ false }
+						tickFormatter={ yTickFormatter }
 						tick={ {
 							fontSize: fontSizeVariant,
 							fill: yAxisFontColor,
@@ -213,7 +218,7 @@ const BarChart = ( {
 							tickLine={ false }
 							tickMargin={ 10 }
 							axisLine={ false }
-							tickFormatter={ tickFormatter }
+							tickFormatter={ xTickFormatter }
 							tick={ {
 								fontSize: fontSizeVariant,
 								fill: yAxisFontColor,

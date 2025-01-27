@@ -53,9 +53,9 @@ export interface ButtonProps {
 	loading?: boolean;
 
 	/** On click event. */
-	onClick?: ( event: React.MouseEvent<HTMLElement> ) => void;
+	onClick?: ( event: React.MouseEvent<HTMLButtonElement> ) => void;
 }
-export type Ref = React.ForwardedRef<HTMLElement>;
+export type Ref = React.ForwardedRef<HTMLButtonElement>;
 
 const Button: React.FunctionComponent<ButtonProps> = forwardRef(
 	( props: ButtonProps, ref: Ref ) => {
