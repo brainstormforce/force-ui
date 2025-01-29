@@ -232,8 +232,10 @@ const DatePicker = ( {
 							selectedDates &&
 							'from' in selectedDates &&
 							'to' in selectedDates &&
-							selectedDates.from?.getTime() === preset.range.from.getTime() &&
-							selectedDates.to?.getTime() === preset.range.to.getTime();
+							selectedDates.from?.getTime() ===
+								preset.range.from.getTime() &&
+							selectedDates.to?.getTime() ===
+								preset.range.to.getTime();
 
 						return (
 							<Button
