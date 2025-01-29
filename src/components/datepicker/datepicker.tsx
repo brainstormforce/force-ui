@@ -9,6 +9,7 @@ import {
 	startOfMonth,
 	endOfMonth,
 	subDays,
+	startOfDay,
 } from 'date-fns';
 import { getDefaultSelectedValue } from './utils';
 import { type PropsBase } from 'react-day-picker';
@@ -115,8 +116,8 @@ const DatePicker = ( {
 		{
 			label: 'Last 7 Days',
 			range: {
-				from: subDays( new Date(), 6 ),
-				to: new Date(),
+				from: startOfDay( subDays( new Date(), 6 ) ),
+				to: startOfDay( new Date() ),
 			},
 		},
 		{
@@ -129,8 +130,8 @@ const DatePicker = ( {
 		{
 			label: 'Last 30 Days',
 			range: {
-				from: subDays( new Date(), 29 ),
-				to: new Date(),
+				from: startOfDay( subDays( new Date(), 29 ) ),
+				to: startOfDay( new Date() ),
 			},
 		},
 	];
