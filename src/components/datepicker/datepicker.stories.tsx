@@ -164,8 +164,8 @@ WithPresets.args = {
 	],
 	// set last_week selected for testing.
 	selected: {
-		from: startOfWeek( subWeeks( new Date(), 1 ), { weekStartsOn: 1 } ),
-		to: endOfWeek( subWeeks( new Date(), 1 ), { weekStartsOn: 1 } ),
+		from: startOfMonth( new Date() ),
+		to: endOfMonth( new Date() ),
 	},
 	onApply: () => {
 		//code
