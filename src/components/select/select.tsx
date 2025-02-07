@@ -54,7 +54,7 @@ import type {
 	SelectOptionGroupProps,
 } from './select-types';
 import { getTextContent } from './utils';
-import { debounceAsync, useDebouncedCallback } from '@/utilities/hooks';
+import { useDebouncedCallback } from '@/utilities/hooks';
 
 // Context to manage the state of the select component.
 const SelectContext = createContext<SelectContextValue>(
@@ -812,7 +812,7 @@ export function SelectItem( {
 	);
 }
 
-const Select = ( {
+const SelectComponent = ( {
 	id,
 	size: sizeValue = 'md', // sm, md, lg
 	value, // Value of the select (for controlled component).
@@ -1022,16 +1022,20 @@ const Select = ( {
 	);
 };
 
+SelectComponent.displayName = 'Select';
+
+const Select = Object.assign(memo(SelectComponent), {
+	Portal: memo(SelectPortal),
+	Button: memo(SelectButton),
+	Options: memo(SelectOptions),
+	Option: memo(SelectItem),
+	OptionGroup: memo(SelectOptionGroup),
+});
+
 SelectPortal.displayName = 'Select.Portal';
 SelectButton.displayName = 'Select.Button';
 SelectOptions.displayName = 'Select.Options';
 SelectItem.displayName = 'Select.Option';
 SelectOptionGroup.displayName = 'Select.OptionGroup';
-
-Select.Portal = memo(SelectPortal);
-Select.Button = memo(SelectButton);
-Select.Options = memo(SelectOptions);
-Select.Option = memo(SelectItem);
-Select.OptionGroup = memo(SelectOptionGroup);
 
 export default Select;
