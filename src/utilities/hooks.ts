@@ -26,17 +26,23 @@ export const useDebounce = ( value: unknown, delay: number = 500 ) => {
  * @param {number}   delay - The delay in milliseconds
  * @return {Function} The debounced function
  */
-export const useDebouncedCallback = ( func: AsyncFunction<unknown[], void>, delay: number = 500 ) => {
+export const useDebouncedCallback = (
+	func: AsyncFunction<unknown[], void>,
+	delay: number = 500
+) => {
 	const timeoutRef = useRef<NodeJS.Timeout | null>( null );
 
-	return useCallback( ( ...args: unknown[] ) => {
-		if ( timeoutRef.current ) {
-			clearTimeout( timeoutRef.current );
-		}
+	return useCallback(
+		( ...args: unknown[] ) => {
+			if ( timeoutRef.current ) {
+				clearTimeout( timeoutRef.current );
+			}
 
-		timeoutRef.current = setTimeout(
-			() => func( ...( args as [unknown] ) ),
-			delay
-		);
-	}, [ func, delay ] );
+			timeoutRef.current = setTimeout(
+				() => func( ...( args as [unknown] ) ),
+				delay
+			);
+		},
+		[ func, delay ]
+	);
 };

@@ -588,10 +588,7 @@ export function SelectOptions( {
 	}, [ searchKeyword ] );
 
 	// Debounce the search function.
-	const initiateSearch = useDebouncedCallback(
-		handleSearchFn,
-		debounceDelay!
-	);
+	const initiateSearch = useDebouncedCallback( handleSearchFn, debounceDelay! );
 
 	// Initiate search when searchFn is a function.
 	useEffect( () => {
@@ -1024,13 +1021,13 @@ const SelectComponent = ( {
 
 SelectComponent.displayName = 'Select';
 
-const Select = Object.assign(memo(SelectComponent), {
-	Portal: memo(SelectPortal),
-	Button: memo(SelectButton),
-	Options: memo(SelectOptions),
-	Option: memo(SelectItem),
-	OptionGroup: memo(SelectOptionGroup),
-});
+const Select = Object.assign( memo( SelectComponent ), {
+	Portal: memo( SelectPortal ),
+	Button: memo( SelectButton ),
+	Options: memo( SelectOptions ),
+	Option: memo( SelectItem ),
+	OptionGroup: memo( SelectOptionGroup ),
+} );
 
 SelectPortal.displayName = 'Select.Portal';
 SelectButton.displayName = 'Select.Button';
