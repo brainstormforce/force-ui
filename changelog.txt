@@ -1,5 +1,6 @@
 Version x.x.x - xth x, 2025
 - Improvement: Show active preset with background color in the DatePicker component.
+- Improvement: Introduced a new property in the Select component for personalized search beyond the component.
 
 Version 1.4.0 - 27th January, 2025
 - New: Added a Hamburger Menu component.
