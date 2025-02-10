@@ -9,9 +9,11 @@ import {
 	startOfMonth,
 	endOfMonth,
 	subDays,
+	startOfDay,
 } from 'date-fns';
 import { getDefaultSelectedValue } from './utils';
 import { type PropsBase } from 'react-day-picker';
+import { cn } from '@/utilities/functions';
 
 export interface DatePickerProps {
 	/** Defines the selection selectionType of the date picker: single, range, or multiple dates. */
@@ -114,8 +116,8 @@ const DatePicker = ( {
 		{
 			label: 'Last 7 Days',
 			range: {
-				from: subDays( new Date(), 6 ),
-				to: new Date(),
+				from: startOfDay( subDays( new Date(), 6 ) ),
+				to: startOfDay( new Date() ),
 			},
 		},
 		{
@@ -128,8 +130,8 @@ const DatePicker = ( {
 		{
 			label: 'Last 30 Days',
 			range: {
-				from: subDays( new Date(), 29 ),
-				to: new Date(),
+				from: startOfDay( subDays( new Date(), 29 ) ),
+				to: startOfDay( new Date() ),
 			},
 		},
 	];
@@ -226,16 +228,30 @@ const DatePicker = ( {
 		return (
 			<div className="flex flex-row shadow-datepicker-wrapper">
 				<div className="flex flex-col gap-1 p-3 items-start border border-solid border-border-subtle border-r-0 rounded-tl-md rounded-bl-md bg-background-primary">
-					{ presets.map( ( preset, index ) => (
-						<Button
-							key={ index }
-							onClick={ () => handlePresetClick( preset.range ) }
-							variant="ghost"
-							className="text-left font-medium text-sm text-nowrap w-full"
-						>
-							{ preset.label }
-						</Button>
-					) ) }
+					{ presets.map( ( preset, index ) => {
+						const isSelected =
+							selectedDates &&
+							'from' in selectedDates &&
+							'to' in selectedDates &&
+							selectedDates.from?.getTime() ===
+								preset.range.from.getTime() &&
+							selectedDates.to?.getTime() ===
+								preset.range.to.getTime();
+
+						return (
+							<Button
+								key={ index }
+								onClick={ () => handlePresetClick( preset.range ) }
+								variant="ghost"
+								className={ cn(
+									'text-left font-medium text-sm text-nowrap w-full',
+									isSelected && 'bg-brand-background-50'
+								) }
+							>
+								{ preset.label }
+							</Button>
+						);
+					} ) }
 				</div>
 				<DatePickerComponent
 					{ ...props }

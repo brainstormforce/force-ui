@@ -1,6 +1,6 @@
 {
     "name": "@bsf/force-ui",
-    "version": "1.4.0",
+    "version": "1.4.1",
     "description": "Library of components for the BSF project",
     "main": "./dist/force-ui.js",
     "module": "./dist/force-ui.js",
