@@ -36,7 +36,7 @@ function updateVersion( newVersion ) {
 }
 
 // Bump version in all files
-gulp.task( 'bump', function( done ) {
+gulp.task( 'bump-and-update', function( done ) {
 	// Get the new version from the command line
 	let newVersion = process.argv[ 3 ];
 
@@ -76,4 +76,4 @@ gulp.task( 'update-package-lock', function( done ) {
 } );
 
 // Bump version and update package-lock.json
-gulp.task( 'bump-and-update', gulp.series( 'bump', 'update-package-lock' ) );
+gulp.task( 'bump', gulp.series( 'bump-and-update', 'update-package-lock' ) );
