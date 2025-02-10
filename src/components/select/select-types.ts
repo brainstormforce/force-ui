@@ -69,6 +69,10 @@ export type SelectProps = {
 	defaultValue?: SelectOptionValue | SelectOptionValue[];
 	/** Placeholder text for search box. */
 	searchPlaceholder?: string;
+	/** Function to fetch options. If provided, the search functionality will be handled outside of the select component. */
+	searchFn?: ( keyword: string ) => Promise<void>;
+	/** Delay in milliseconds for debounced search. If the searchFn is provided, the debounceDelay will be used to debounce the search. */
+	debounceDelay?: number;
 };
 
 export interface SelectPortalProps {
@@ -167,4 +171,6 @@ export type SelectContextValue = {
 	onChange: SelectOnChange;
 	value?: SelectOptionValue | SelectOptionValue[];
 	searchPlaceholder?: string;
+	searchFn?: ( keyword: string ) => Promise<void>;
+	debounceDelay?: number;
 };
