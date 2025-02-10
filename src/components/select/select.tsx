@@ -12,6 +12,7 @@ import {
 	useLayoutEffect,
 	Fragment,
 	type ReactNode,
+	memo,
 } from 'react';
 import { cn } from '@/utilities/functions';
 import { CheckIcon, ChevronDown, ChevronsUpDown, Search } from 'lucide-react';
@@ -30,7 +31,7 @@ import {
 	autoUpdate,
 	FloatingPortal,
 } from '@floating-ui/react';
-import Badge from '../badge';
+import { Badge, Loader } from '@/components';
 import { nanoid } from 'nanoid';
 import {
 	disabledClassNames,
@@ -53,6 +54,7 @@ import type {
 	SelectOptionGroupProps,
 } from './select-types';
 import { getTextContent } from './utils';
+import { useDebouncedCallback } from '@/utilities/hooks';
 
 // Context to manage the state of the select component.
 const SelectContext = createContext<SelectContextValue>(
@@ -360,6 +362,8 @@ export function SelectOptions( {
 		by,
 		searchPlaceholder,
 		activeIndex,
+		searchFn,
+		debounceDelay,
 	} = useSelectContext();
 
 	const initialSelectedValueIndex = useMemo( () => {
@@ -446,7 +450,9 @@ export function SelectOptions( {
 						return false;
 					}
 
-					if ( searchKeyword ) {
+					// Handle option groups when searchFn is not provided
+					// Search functionality will be handled outside of the select component
+					if ( searchKeyword && ! searchFn ) {
 						const textContent = getTextContent(
 							groupChild.props.children
 						)?.toLowerCase();
@@ -498,8 +504,8 @@ export function SelectOptions( {
 				return cloneElement( child, groupProps );
 			}
 
-			// Handle regular options
-			if ( searchKeyword ) {
+			// Handle regular options when searchFn is not provided
+			if ( searchKeyword && ! searchFn ) {
 				const textContent = getTextContent(
 					child.props?.children
 				)?.toLowerCase();
@@ -519,7 +525,7 @@ export function SelectOptions( {
 		};
 
 		return Children.map( children, processChild );
-	}, [ searchKeyword, value, selected, children ] );
+	}, [ searchKeyword, value, selected, children, searchFn ] );
 	const childrenCount = Children.count( renderChildren );
 
 	// Update the content list reference.
@@ -548,7 +554,8 @@ export function SelectOptions( {
 			const textContent = getTextContent(
 				child.props?.children
 			)?.toLowerCase();
-			if ( searchKeyword ) {
+			// Handle regular options when searchFn is not provided
+			if ( searchKeyword && ! searchFn ) {
 				const searchTerm = searchKeyword.toLowerCase();
 				const textMatch = textContent?.includes( searchTerm );
 
@@ -559,7 +566,37 @@ export function SelectOptions( {
 
 			listContentRef.current.push( textContent );
 		} );
+	}, [ searchKeyword, searchFn ] );
+
+	const [ searching, setSearching ] = useState( false );
+
+	// Create a function to handle the search function.
+	const handleSearchFn = useCallback( async () => {
+		if ( ! searchFn || typeof searchFn !== 'function' || searching ) {
+			return;
+		}
+
+		setSearching( true );
+		try {
+			await searchFn( searchKeyword );
+		} catch ( error ) {
+			// eslint-disable-next-line no-console
+			console.error( error );
+		} finally {
+			setSearching( false );
+		}
 	}, [ searchKeyword ] );
+
+	// Debounce the search function.
+	const initiateSearch = useDebouncedCallback( handleSearchFn, debounceDelay! );
+
+	// Initiate search when searchFn is a function.
+	useEffect( () => {
+		if ( typeof searchFn !== 'function' ) {
+			return;
+		}
+		initiateSearch();
+	}, [ initiateSearch ] );
 
 	return (
 		<>
@@ -595,14 +632,24 @@ export function SelectOptions( {
 											.searchbarWrapper
 									) }
 								>
-									<Search
-										className={ cn(
-											'text-icon-secondary shrink-0',
-											sizeClassNames[
-												sizeValue as SelectSizes
-											].searchbarIcon
-										) }
-									/>
+									{ searching ? (
+										<Loader
+											className={
+												sizeClassNames[
+													sizeValue as SelectSizes
+												].searchbarIcon
+											}
+										/>
+									) : (
+										<Search
+											className={ cn(
+												'text-icon-secondary shrink-0',
+												sizeClassNames[
+													sizeValue as SelectSizes
+												].searchbarIcon
+											) }
+										/>
+									) }
 									<input
 										className={ cn(
 											'px-1 w-full placeholder:text-field-placeholder border-0 focus:outline-none focus:shadow-none',
@@ -762,7 +809,7 @@ export function SelectItem( {
 	);
 }
 
-const Select = ( {
+const SelectComponent = ( {
 	id,
 	size: sizeValue = 'md', // sm, md, lg
 	value, // Value of the select (for controlled component).
@@ -774,6 +821,8 @@ const Select = ( {
 	combobox = false, // If true, it will show a search box.
 	disabled = false, // If true, it will disable the select component.
 	searchPlaceholder = 'Search...', // Placeholder text for search box.
+	searchFn, // Function to handle the search.
+	debounceDelay = 500, // Debounce delay for the search.
 }: SelectProps ) => {
 	const selectId = useMemo( () => id || `select-${ nanoid() }`, [ id ] );
 	const isControlled = useMemo( () => typeof value !== 'undefined', [ value ] );
@@ -961,6 +1010,8 @@ const Select = ( {
 				disabled,
 				isControlled,
 				searchPlaceholder,
+				searchFn,
+				debounceDelay,
 			} }
 		>
 			{ children }
@@ -968,16 +1019,20 @@ const Select = ( {
 	);
 };
 
+SelectComponent.displayName = 'Select';
+
+const Select = Object.assign( memo( SelectComponent ), {
+	Portal: memo( SelectPortal ),
+	Button: memo( SelectButton ),
+	Options: memo( SelectOptions ),
+	Option: memo( SelectItem ),
+	OptionGroup: memo( SelectOptionGroup ),
+} );
+
 SelectPortal.displayName = 'Select.Portal';
 SelectButton.displayName = 'Select.Button';
 SelectOptions.displayName = 'Select.Options';
 SelectItem.displayName = 'Select.Option';
 SelectOptionGroup.displayName = 'Select.OptionGroup';
-
-Select.Portal = SelectPortal;
-Select.Button = SelectButton;
-Select.Options = SelectOptions;
-Select.Option = SelectItem;
-Select.OptionGroup = SelectOptionGroup;
 
 export default Select;
