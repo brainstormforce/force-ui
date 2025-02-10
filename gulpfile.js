@@ -45,7 +45,7 @@ function updateVersion( newVersion ) {
 
 // Bump version in all files
 gulp.task( 'bump-and-update', function( done ) {
-	// Get the new version from the command line
+	// Get the new version from command line arguments
 	let newVersion = process.argv[ 3 ];
 
 	// If the version is not provided as an argument, prompt for it
@@ -61,11 +61,24 @@ gulp.task( 'bump-and-update', function( done ) {
 			.then( ( answers ) => {
 				newVersion = answers.version;
 				updateVersion( newVersion );
+				console.log( '✅ Bumped version successfully' );
 				done();
+			} )
+			.catch( ( error ) => {
+				console.error( `Error: ${ error.message }` );
+				console.error( '❌ Failed to bump version' );
+				done( error );
 			} );
 	} else {
-		updateVersion( newVersion );
-		done();
+		try {
+			updateVersion( newVersion );
+			console.log( '✅ Bumped version successfully' );
+			done();
+		} catch ( error ) {
+			console.error( `Error: ${ error.message }` );
+			console.error( '❌ Failed to bump version' );
+			done( error );
+		}
 	}
 } );
 
@@ -81,6 +94,7 @@ gulp.task( 'update-package-lock', function( done ) {
 			console.error( `stderr: ${ stderr }` );
 		}
 		console.log( `stdout: ${ stdout }` );
+		console.log( '✅ Updated package-lock.json successfully' );
 		done();
 	} );
 } );
