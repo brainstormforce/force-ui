@@ -8,8 +8,8 @@ import React, {
 	LabelHTMLAttributes,
 } from 'react';
 import { nanoid } from 'nanoid';
-import { cn } from '@/utilities/functions';
-import { Upload, X } from 'lucide-react';
+import { cn, formatFileSize } from '@/utilities/functions';
+import { Upload, X, File, ImageOff, Trash } from 'lucide-react';
 import Label from '../label';
 import { mergeRefs } from '@/components/toaster/utils';
 
@@ -58,7 +58,121 @@ export declare interface InputProps {
 
 	/** Indicates whether the input is required. */
 	required?: boolean;
+
+	/** Function called when file is removed */
+	onFileRemove?: () => void;
 }
+
+const commonFilePreviewClasses = {
+	sm: {
+		image: 'w-8 h-8',
+		name: 'text-xs',
+		fileIcon: 'h-8',
+		uploadText: 'text-xs',
+	},
+	md: {
+		image: 'w-10 h-10',
+		name: 'text-sm',
+		fileIcon: 'h-10',
+		uploadText: 'text-xs',
+	},
+	lg: {
+		image: 'w-10 h-10',
+		name: 'text-sm',
+		fileIcon: 'h-10',
+		uploadText: 'text-xs',
+	},
+};
+
+const FilePreview = ( {
+	file,
+	onRemove,
+	error,
+	disabled,
+	size = 'sm',
+}: {
+	file: File;
+	onRemove: () => void;
+	error?: boolean;
+	disabled?: boolean;
+	size?: 'sm' | 'md' | 'lg';
+} ) => {
+	const renderFileIcon = useMemo( () => {
+		return (
+			<span
+				className={ cn(
+					'inline-flex self-start p-0.5',
+					commonFilePreviewClasses[ size ].fileIcon
+				) }
+			>
+				<File className="size-5 text-icon-primary" />
+			</span>
+		);
+	}, [] );
+
+	return (
+		<div
+			className={ cn(
+				'w-full flex items-start justify-between rounded mt-2 bg-field-primary-background p-2 gap-3',
+				error && 'border-alert-border-danger bg-alert-background-danger'
+			) }
+		>
+			<div className="flex items-center gap-3 w-full">
+				{ file.type.startsWith( 'image/' ) ? (
+					<div
+						className={ cn(
+							'rounded-sm flex items-center justify-center shrink-0',
+							error && 'bg-gray-200'
+						) }
+					>
+						{ error ? (
+							<ImageOff className="size-6 text-field-helper" />
+						) : (
+							<img
+								src={ URL.createObjectURL( file ) }
+								alt="Preview"
+								className={ cn(
+									'w-full object-contain rounded-sm',
+									commonFilePreviewClasses[ size ].image
+								) }
+							/>
+						) }
+					</div>
+				) : (
+					renderFileIcon
+				) }
+
+				<div className="text-left flex flex-col gap-0 w-[calc(100%_-_5.5rem)]">
+					<span
+						className={ cn(
+							commonFilePreviewClasses[ size ].name,
+							'font-medium text-field-label truncate'
+						) }
+					>
+						{ file.name }
+					</span>
+					<span
+						className={ cn(
+							commonFilePreviewClasses[ size ].uploadText,
+							'text-xs text-field-helper',
+							error && 'text-support-error'
+						) }
+					>
+						{ formatFileSize( file.size ) }
+					</span>
+				</div>
+				{ ! disabled && (
+					<button
+						onClick={ onRemove }
+						className="inline-flex cursor-pointer bg-transparent border-0 p-1 my-0 ml-auto mr-0 ring-0 focus:outline-none self-start"
+					>
+						<Trash className="size-4 text-support-error" />
+					</button>
+				) }
+			</div>
+		</div>
+	);
+};
 
 export const InputComponent = (
 	{
@@ -75,6 +189,7 @@ export const InputComponent = (
 		prefix = null,
 		suffix = null,
 		label = '',
+		onFileRemove,
 		...props
 	}: InputProps &
 		Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size' | 'prefix'>,
@@ -126,6 +241,13 @@ export const InputComponent = (
 		}
 		onChange( null );
 	};
+
+	const selectedFileObject = useMemo( () => {
+		if ( ! inputRef.current?.files?.length ) {
+			return null;
+		}
+		return inputRef.current.files[ 0 ];
+	}, [ selectedFile ] );
 
 	const baseClasses =
 		'bg-field-secondary-background font-normal placeholder-text-tertiary text-text-primary w-full outline outline-1 outline-border-subtle border-none transition-[color,box-shadow,outline] duration-200';
@@ -304,6 +426,18 @@ export const InputComponent = (
 						<Upload />
 					</div>
 				</div>
+				{ selectedFileObject && (
+					<FilePreview
+						file={ selectedFileObject }
+						onRemove={ () => {
+							handleReset();
+							onFileRemove?.();
+						} }
+						error={ error }
+						disabled={ disabled }
+						size={ size }
+					/>
+				) }
 			</div>
 		);
 	}

@@ -89,3 +89,11 @@ Required.args = {
 	label: 'Required Input',
 	defaultValue: 'Required Input',
 };
+
+export const FileInputWithPreview = Template.bind( {} );
+FileInputWithPreview.args = {
+	type: 'file',
+	size: 'md',
+	disabled: false,
+	error: false,
+};
