@@ -20,6 +20,9 @@ export declare interface InputProps {
 	/** Specifies the type of the input element (e.g., text, file). */
 	type?: 'text' | 'password' | 'email' | 'file';
 
+	/** Determines the input variant (default or file preview). */
+	variant?: 'default' | 'preview';
+
 	/** Initial value of the input element. */
 	defaultValue?: string;
 
@@ -61,6 +64,14 @@ export declare interface InputProps {
 
 	/** Function called when file is removed */
 	onFileRemove?: () => void;
+
+	/** Data of the selected file */
+	selectedFileData?: {
+		name: string;
+		url: string;
+		type: string;
+		size?: number;
+	};
 }
 
 const commonFilePreviewClasses = {
@@ -91,24 +102,22 @@ const FilePreview = ( {
 	disabled,
 	size = 'sm',
 }: {
-	file: File;
+	file: File | { name: string; url: string; type: string; size: number };
 	onRemove: () => void;
 	error?: boolean;
 	disabled?: boolean;
 	size?: 'sm' | 'md' | 'lg';
 } ) => {
-	const renderFileIcon = useMemo( () => {
-		return (
-			<span
-				className={ cn(
-					'inline-flex self-start p-0.5',
-					commonFilePreviewClasses[ size ].fileIcon
-				) }
-			>
-				<File className="size-5 text-icon-primary" />
-			</span>
-		);
-	}, [] );
+	const renderFileIcon = () => (
+		<span
+			className={ cn(
+				'inline-flex self-start p-0.5',
+				commonFilePreviewClasses[ size ].fileIcon
+			) }
+		>
+			<File className="size-5 text-icon-primary" />
+		</span>
+	);
 
 	return (
 		<div
@@ -118,7 +127,7 @@ const FilePreview = ( {
 			) }
 		>
 			<div className="flex items-center gap-3 w-full">
-				{ file.type.startsWith( 'image/' ) ? (
+				{ file.type.startsWith( 'image' ) ? (
 					<div
 						className={ cn(
 							'rounded-sm flex items-center justify-center shrink-0',
@@ -129,7 +138,11 @@ const FilePreview = ( {
 							<ImageOff className="size-6 text-field-helper" />
 						) : (
 							<img
-								src={ URL.createObjectURL( file ) }
+								src={
+									'url' in file
+										? file.url
+										: URL.createObjectURL( file )
+								}
 								alt="Preview"
 								className={ cn(
 									'w-full object-contain rounded-sm',
@@ -139,7 +152,7 @@ const FilePreview = ( {
 						) }
 					</div>
 				) : (
-					renderFileIcon
+					renderFileIcon()
 				) }
 
 				<div className="text-left flex flex-col gap-0 w-[calc(100%_-_5.5rem)]">
@@ -151,15 +164,17 @@ const FilePreview = ( {
 					>
 						{ file.name }
 					</span>
-					<span
-						className={ cn(
-							commonFilePreviewClasses[ size ].uploadText,
-							'text-xs text-field-helper',
-							error && 'text-support-error'
-						) }
-					>
-						{ formatFileSize( file.size ) }
-					</span>
+					{ file.size && file.size > 0 && (
+						<span
+							className={ cn(
+								commonFilePreviewClasses[ size ].uploadText,
+								'text-xs text-field-helper',
+								error && 'text-support-error'
+							) }
+						>
+							{ formatFileSize( file.size ) }
+						</span>
+					) }
 				</div>
 				{ ! disabled && (
 					<button
@@ -190,6 +205,8 @@ export const InputComponent = (
 		suffix = null,
 		label = '',
 		onFileRemove,
+		selectedFileData = { name: '', url: '', type: '', size: 0 },
+		variant = 'default',
 		...props
 	}: InputProps &
 		Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size' | 'prefix'>,
@@ -243,11 +260,23 @@ export const InputComponent = (
 	};
 
 	const selectedFileObject = useMemo( () => {
+		if (
+			selectedFileData &&
+			selectedFileData.size &&
+			selectedFileData.size > 0
+		) {
+			return {
+				name: selectedFileData.name,
+				url: selectedFileData.url,
+				type: selectedFileData.type,
+				size: selectedFileData.size ?? 0, // Default size if not provided
+			};
+		}
 		if ( ! inputRef.current?.files?.length ) {
 			return null;
 		}
 		return inputRef.current.files[ 0 ];
-	}, [ selectedFile ] );
+	}, [ selectedFileData ] );
 
 	const baseClasses =
 		'bg-field-secondary-background font-normal placeholder-text-tertiary text-text-primary w-full outline outline-1 outline-border-subtle border-none transition-[color,box-shadow,outline] duration-200';
@@ -426,7 +455,9 @@ export const InputComponent = (
 						<Upload />
 					</div>
 				</div>
-				{ selectedFileObject && (
+				{ selectedFileObject &&
+					variant === 'preview' &&
+					selectedFileObject.size > 0 && (
 					<FilePreview
 						file={ selectedFileObject }
 						onRemove={ () => {

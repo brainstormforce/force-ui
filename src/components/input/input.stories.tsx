@@ -96,4 +96,5 @@ FileInputWithPreview.args = {
 	size: 'md',
 	disabled: false,
 	error: false,
+	variant: 'preview',
 };
