@@ -1,8 +1,6 @@
 Version 1.4.2 - xxth February, 2025
-- New - Added a variant in Input component to show uploaded file preview.
-
-Version 1.4.2 - xxth February, 2025
 - Improvement - Adjusted the font size of the help text in the Switch and Checkbox component.
+- New - Added a variant in Input component to show uploaded file preview.
 
 Version 1.4.1 - 10th February, 2025
 - Improvement - Show active preset with background color in the DatePicker component.
