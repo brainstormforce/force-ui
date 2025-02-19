@@ -401,11 +401,11 @@ export const RadioButtonComponent = (
 				!! label && 'items-start justify-between',
 				minWidth && 'min-w-[180px]',
 				borderOn &&
-					'border border-border-subtle border-solid rounded-md shadow-sm hover:ring-2 hover:ring-border-interactive',
+					'border border-border-subtle border-solid rounded-md shadow-sm hover:ring-1 hover:ring-border-interactive',
 				borderOnActive &&
 					borderOn &&
 					checkedValue &&
-					'ring-2 ring-border-interactive',
+					'ring-1 ring-border-interactive',
 				size === 'sm' ? 'px-3 py-3' : 'px-4 py-4',
 				'pr-12',
 				isDisabled && 'cursor-not-allowed opacity-40',
