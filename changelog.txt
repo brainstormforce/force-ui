@@ -1,6 +1,4 @@
-
 Version 1.4.2 - xxth February, 2025
-- Improvement - Adjusted the font size of the help text in the Switch and Checkbox component.
 - Improvement - Adjusted the ring width of the Radio Button component.
 
 Version 1.4.1 - 10th February, 2025
