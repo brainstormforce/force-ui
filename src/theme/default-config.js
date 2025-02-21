@@ -192,6 +192,7 @@ const defaultTheme = {
 				'soft-shadow-2xl':
 					'0px 24px 64px -12px rgba(149, 160, 178, 0.32)',
 				'soft-shadow-inner': '0px 1px 1px 0px rgba(0, 0, 0, 0.05)',
+				'toggle-disabled': '1px 1px 2px 0px rgba(0, 0, 0, 0.1) inset',
 			},
 			fontSize: {
 				tiny: '0.625rem',
