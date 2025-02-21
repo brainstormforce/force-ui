@@ -202,7 +202,7 @@ export const SwitchComponent = (
 	};
 
 	const disabledClassNames = {
-		input: 'bg-toggle-off-disabled disabled:border-transparent shadow-none disabled:cursor-not-allowed checked:disabled:bg-toggle-on-disabled',
+		input: 'bg-toggle-off-disabled disabled:border-transparent disabled:cursor-not-allowed checked:disabled:bg-toggle-on-disabled disabled:shadow-toggle-disabled',
 		toggleDial: 'peer-disabled:cursor-not-allowed',
 	};
 
