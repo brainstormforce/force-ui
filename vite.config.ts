@@ -29,14 +29,16 @@ export default defineConfig({
 					preserveModules: true,
 					preserveModulesRoot: 'src',
 					entryFileNames: '[name].es.js',
-					chunkFileNames: '[name]-[hash].es.js'
+					chunkFileNames: '[name]-[hash].es.js',
+					exports: 'named',
 				},
 				{
 					format: 'cjs',
 					preserveModules: true,
 					preserveModulesRoot: 'src',
 					entryFileNames: '[name].cjs.js',
-					chunkFileNames: '[name]-[hash].cjs.js'
+					chunkFileNames: '[name]-[hash].cjs.js',
+					exports: 'named',
 				}
 			],
 			treeshake: {
