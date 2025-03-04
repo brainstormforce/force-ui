@@ -14,27 +14,29 @@ export default defineConfig({
 			},
 			name: '[name]',
 			fileName: (format, entryName) => `${entryName}.${format}.js`,
-			formats: ['es', 'cjs'],
 		},
 		outDir: 'dist',
 		rollupOptions: {
-			external: ['react', 'react-dom', 'react/jsx-runtime'],
+			external: [
+				'react', 
+				'react-dom', 
+				'react/jsx-runtime',
+				/node_modules/,
+			],
 			output: [
 				{
 					format: 'es',
 					preserveModules: true,
 					preserveModulesRoot: 'src',
 					entryFileNames: '[name].es.js',
-					chunkFileNames: '[name]-[hash].es.js',
-					manualChunks: undefined,
+					chunkFileNames: '[name]-[hash].es.js'
 				},
 				{
 					format: 'cjs',
 					preserveModules: true,
 					preserveModulesRoot: 'src',
 					entryFileNames: '[name].cjs.js',
-					chunkFileNames: '[name]-[hash].cjs.js',
-					manualChunks: undefined,
+					chunkFileNames: '[name]-[hash].cjs.js'
 				}
 			],
 			treeshake: {
@@ -66,6 +68,7 @@ export default defineConfig({
 			rollupTypes: true,
 			tsconfigPath: './tsconfig.app.json',
 			insertTypesEntry: true,
+			exclude: ['**/node_modules/**', '**/_virtual/**'],
 		}),
 		preserveDirectives(),
 	],
