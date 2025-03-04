@@ -83,11 +83,11 @@ const Button: React.FunctionComponent<ButtonProps> = forwardRef(
 
 		const variantClassNames = {
 			primary:
-				'text-text-on-color bg-button-primary hover:bg-button-primary-hover outline-button-primary hover:outline-button-primary-hover disabled:bg-button-disabled disabled:outline-button-disabled',
+				'text-text-on-color bg-button-primary hover:bg-button-primary-hover outline-button-primary hover:outline-button-primary-hover shadow-xs disabled:shadow-none focus:shadow-none disabled:bg-button-disabled disabled:outline-button-disabled',
 			secondary:
-				'text-text-on-color bg-button-secondary hover:bg-button-secondary-hover outline-button-secondary hover:outline-button-secondary-hover disabled:bg-button-disabled disabled:outline-button-disabled',
+				'text-text-on-color bg-button-secondary hover:bg-button-secondary-hover outline-button-secondary hover:outline-button-secondary-hover shadow-xs focus:shadow-none disabled:shadow-none disabled:bg-button-disabled disabled:outline-button-disabled',
 			outline:
-				'text-button-tertiary-color outline-border-subtle bg-button-tertiary hover:bg-button-tertiary-hover hover:outline-border-subtle disabled:bg-button-tertiary disabled:outline-border-disabled',
+				'text-button-tertiary-color outline-border-subtle bg-button-tertiary shadow-sm focus:shadow-none hover:bg-button-tertiary-hover hover:outline-border-subtle disabled:bg-button-tertiary disabled:outline-border-disabled',
 			ghost: 'text-text-primary bg-transparent outline-transparent hover:bg-button-tertiary-hover',
 			link: 'outline-none text-link-primary bg-transparent hover:text-link-primary-hover hover:underline p-0 border-0 leading-none',
 		}?.[ variant ];

@@ -1,6 +1,6 @@
 {
     "name": "@bsf/force-ui",
-    "version": "1.4.1",
+    "version": "1.4.2",
     "description": "Library of components for the BSF project",
     "main": "./dist/force-ui.js",
     "module": "./dist/force-ui.js",
@@ -22,8 +22,8 @@
         "start": "cross-env tsc -b && vite build -w",
         "pretty-fix": "prettier --write .",
         "pretty-lint": "prettier --check .",
-        "lint:js": "eslint ./src",
-        "eslint:js-fix": "eslint ./src --fix",
+        "lint:js": "eslint ./src gulpfile.js --fix",
+        "eslint:js-fix": "eslint ./src gulpfile.js --fix",
         "lint:js-fix": "npm run pretty-fix && npm run eslint:js-fix",
         "lint:css": "stylelint **/*.{scss,css}",
         "lint:css-fix": "stylelint **/*.{scss,css} --fix",
