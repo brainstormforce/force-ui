@@ -1,5 +1,5 @@
 import Input from './input';
-import { Phone } from 'lucide-react';
+import { Phone, Info } from 'lucide-react';
 import { Meta, StoryFn } from '@storybook/react';
 
 const meta: Meta<typeof Input> = {
@@ -88,4 +88,22 @@ Required.args = {
 	required: true,
 	label: 'Required Input',
 	defaultValue: 'Required Input',
+};
+
+export const FileInputWithPreview = Template.bind( {} );
+FileInputWithPreview.args = {
+	type: 'file',
+	size: 'md',
+	disabled: false,
+	error: false,
+	variant: 'preview',
+	helpText: (
+		<>
+			<div className="flex items-center gap-2">
+				<Info className="size-4" />
+				<span>Hint text can be added here.</span>
+				<a href="#">Link</a>
+			</div>
+		</>
+	),
 };

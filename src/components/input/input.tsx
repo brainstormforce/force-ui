@@ -8,8 +8,8 @@ import React, {
 	LabelHTMLAttributes,
 } from 'react';
 import { nanoid } from 'nanoid';
-import { cn } from '@/utilities/functions';
-import { Upload, X } from 'lucide-react';
+import { cn, formatFileSize } from '@/utilities/functions';
+import { Upload, X, File, ImageOff, Trash } from 'lucide-react';
 import Label from '../label';
 import { mergeRefs } from '@/components/toaster/utils';
 
@@ -19,6 +19,9 @@ export declare interface InputProps {
 
 	/** Specifies the type of the input element (e.g., text, file). */
 	type?: 'text' | 'password' | 'email' | 'file';
+
+	/** Determines the input variant (default or file preview). */
+	variant?: 'default' | 'preview';
 
 	/** Initial value of the input element. */
 	defaultValue?: string;
@@ -58,7 +61,136 @@ export declare interface InputProps {
 
 	/** Indicates whether the input is required. */
 	required?: boolean;
+
+	/** Function called when file is removed */
+	onFileRemove?: () => void;
+
+	/** Data of the selected file */
+	selectedFileData?: {
+		name: string;
+		url: string;
+		type: string;
+		size?: number;
+	};
+
+	/** Help text displayed below the input field. It could be string or react node. */
+	helpText?: string | ReactNode;
 }
+
+const commonFilePreviewClasses = {
+	sm: {
+		image: 'w-8 h-8',
+		name: 'text-xs',
+		fileIcon: 'h-8',
+		uploadText: 'text-xs',
+	},
+	md: {
+		image: 'w-10 h-10',
+		name: 'text-sm',
+		fileIcon: 'h-10',
+		uploadText: 'text-xs',
+	},
+	lg: {
+		image: 'w-10 h-10',
+		name: 'text-sm',
+		fileIcon: 'h-10',
+		uploadText: 'text-xs',
+	},
+};
+
+const FilePreview = ( {
+	file,
+	onRemove,
+	error,
+	disabled,
+	size = 'sm',
+}: {
+	file: File | { name: string; url: string; type: string; size: number };
+	onRemove: () => void;
+	error?: boolean;
+	disabled?: boolean;
+	size?: 'sm' | 'md' | 'lg';
+} ) => {
+	const renderFileIcon = () => (
+		<span
+			className={ cn(
+				'inline-flex self-start p-0.5',
+				commonFilePreviewClasses[ size ].fileIcon
+			) }
+		>
+			<File className="size-5 text-icon-primary" />
+		</span>
+	);
+
+	return (
+		<div
+			className={ cn(
+				'w-full flex items-start justify-between rounded mt-1 bg-field-primary-background p-2 gap-3',
+				error && 'border-alert-border-danger bg-alert-background-danger'
+			) }
+		>
+			<div className="flex items-center gap-3 w-full">
+				{ file.type.startsWith( 'image' ) ? (
+					<div
+						className={ cn(
+							'rounded-sm flex items-center justify-center shrink-0',
+							error && 'bg-gray-200'
+						) }
+					>
+						{ error ? (
+							<ImageOff className="size-6 text-field-helper" />
+						) : (
+							<img
+								src={
+									'url' in file
+										? file.url
+										: URL.createObjectURL( file )
+								}
+								alt="Preview"
+								className={ cn(
+									'w-full object-contain rounded-sm',
+									commonFilePreviewClasses[ size ].image
+								) }
+							/>
+						) }
+					</div>
+				) : (
+					renderFileIcon()
+				) }
+
+				<div className="text-left flex flex-col gap-0 w-[calc(100%_-_5.5rem)]">
+					<span
+						className={ cn(
+							commonFilePreviewClasses[ size ].name,
+							'font-medium text-field-label truncate'
+						) }
+					>
+						{ file.name }
+					</span>
+					{ file.size && file.size > 0 && (
+						<span
+							className={ cn(
+								commonFilePreviewClasses[ size ].uploadText,
+								'text-xs text-field-helper',
+								error && 'text-support-error'
+							) }
+						>
+							{ formatFileSize( file.size ) }
+						</span>
+					) }
+				</div>
+				{ ! disabled && (
+					<button
+						onClick={ onRemove }
+						className="inline-flex cursor-pointer bg-transparent border-0 p-1 my-0 ml-auto mr-0 ring-0 focus:outline-none self-start"
+					>
+						<Trash className="size-4 text-support-error" />
+					</button>
+				) }
+			</div>
+		</div>
+	);
+};
 
 export const InputComponent = (
 	{
@@ -75,6 +207,10 @@ export const InputComponent = (
 		prefix = null,
 		suffix = null,
 		label = '',
+		onFileRemove,
+		selectedFileData = { name: '', url: '', type: '', size: 0 },
+		helpText = '',
+		variant = 'default',
 		...props
 	}: InputProps &
 		Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size' | 'prefix'>,
@@ -127,6 +263,25 @@ export const InputComponent = (
 		onChange( null );
 	};
 
+	const selectedFileObject = useMemo( () => {
+		if (
+			selectedFileData &&
+			selectedFileData.size &&
+			selectedFileData.size > 0
+		) {
+			return {
+				name: selectedFileData.name,
+				url: selectedFileData.url,
+				type: selectedFileData.type,
+				size: selectedFileData.size ?? 0, // Default size if not provided
+			};
+		}
+		if ( ! inputRef.current?.files?.length ) {
+			return null;
+		}
+		return inputRef.current.files[ 0 ];
+	}, [ selectedFileData ] );
+
 	const baseClasses =
 		'bg-field-secondary-background font-normal placeholder-text-tertiary text-text-primary w-full outline outline-1 outline-border-subtle border-none transition-[color,box-shadow,outline] duration-200';
 	const sizeClasses = {
@@ -156,6 +311,14 @@ export const InputComponent = (
 		sm: suffix ? 'pr-8' : '',
 		md: suffix ? 'pr-9' : '',
 		lg: suffix ? 'pr-10' : '',
+	};
+
+	const filePreviewClasses = {
+		gap: {
+			sm: 'gap-1',
+			md: 'gap-1.5',
+			lg: 'gap-1.5',
+		},
 	};
 
 	const hoverClasses = disabled
@@ -267,7 +430,12 @@ export const InputComponent = (
 
 	if ( type === 'file' ) {
 		return (
-			<div className="flex flex-col items-start gap-1.5 [&_*]:box-border box-border">
+			<div
+				className={ cn(
+					'flex flex-col items-start gap-1.5 [&_*]:box-border box-border',
+					filePreviewClasses.gap[ size ]
+				) }
+			>
 				{ renderLabel }
 				<div
 					className={ cn(
@@ -304,6 +472,23 @@ export const InputComponent = (
 						<Upload />
 					</div>
 				</div>
+				{ helpText && (
+					<p className="text-xs text-field-helper m-0">{ helpText }</p>
+				) }
+				{ selectedFileObject &&
+					variant === 'preview' &&
+					selectedFileObject.size > 0 && (
+					<FilePreview
+						file={ selectedFileObject }
+						onRemove={ () => {
+							handleReset();
+							onFileRemove?.();
+						} }
+						error={ error }
+						disabled={ disabled }
+						size={ size }
+					/>
+				) }
 			</div>
 		);
 	}
