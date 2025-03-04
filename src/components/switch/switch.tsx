@@ -65,10 +65,9 @@ export const SwitchLabel = ( {
 		sm: 'text-sm leading-5 font-medium',
 		md: 'text-base leading-6 font-medium',
 	};
-	const descriptionSize = {
-		sm: 'xs',
-		md: 'sm',
-		lg: 'sm',
+	const descriptionClasses = {
+		sm: 'text-sm leading-5 font-normal',
+		md: 'text-sm leading-5 font-normal',
 	};
 	const gapClassNames = {
 		sm: 'space-y-0.5',
@@ -102,8 +101,10 @@ export const SwitchLabel = ( {
 					<Label
 						tag="p"
 						variant="help"
-						className="m-0"
-						size={ descriptionSize[ size ] as 'xs' | 'sm' }
+						className={ cn(
+							'text-sm font-normal leading-5 m-0',
+							descriptionClasses[ size ]
+						) }
 						{ ...( disabled && { variant: 'disabled' } ) }
 					>
 						{ description }
@@ -201,7 +202,7 @@ export const SwitchComponent = (
 	};
 
 	const disabledClassNames = {
-		input: 'bg-toggle-off-disabled disabled:border-transparent shadow-none disabled:cursor-not-allowed checked:disabled:bg-toggle-on-disabled',
+		input: 'bg-toggle-off-disabled disabled:border-transparent disabled:cursor-not-allowed checked:disabled:bg-toggle-on-disabled disabled:shadow-toggle-disabled',
 		toggleDial: 'peer-disabled:cursor-not-allowed',
 	};
 
