@@ -180,6 +180,7 @@ const defaultTheme = {
 				'1/12': '8.3333333%',
 			},
 			boxShadow: {
+				xs: '0px 1px 2px 0px rgba(16, 24, 40, 0.05)',
 				'soft-shadow-sm':
 					'0px 6px 32px -12px rgba(149, 160, 178, 0.12)',
 				'soft-shadow': '0px 8px 32px -12px rgba(149, 160, 178, 0.16)',
