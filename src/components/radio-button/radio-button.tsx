@@ -25,7 +25,6 @@ import {
 	baseClasses,
 	hoverClasses,
 	focusClasses,
-	positionClassNames,
 } from './styles';
 import Tooltip from '../tooltip';
 
@@ -337,7 +336,7 @@ export const RadioButtonComponent = (
 		return (
 			<div
 				className={ cn(
-					! inlineIcon && 'space-y-1.5 mt-[2px]',
+					! inlineIcon && 'space-y-1.5',
 					reversePosition && ( useSwitch ? 'ml-10' : 'ml-4' ),
 					inlineIcon && 'flex gap-2',
 					inlineIcon && ! label.description && 'items-center'
@@ -401,12 +400,12 @@ export const RadioButtonComponent = (
 				!! label && 'items-start justify-between',
 				minWidth && 'min-w-[180px]',
 				borderOn &&
-					'border border-border-subtle border-solid rounded-md shadow-sm hover:ring-1 hover:ring-border-interactive',
+					'outline outline-field-border outline-1 rounded-md shadow-sm hover:outline-border-interactive',
 				borderOnActive &&
 					borderOn &&
 					checkedValue &&
-					'ring-1 ring-border-interactive',
-				size === 'sm' ? 'px-3 py-3' : 'px-4 py-4',
+					'outline-border-interactive',
+				size === 'sm' ? 'px-3.5 py-2.5' : 'px-4 py-3',
 				'pr-12',
 				isDisabled && 'cursor-not-allowed opacity-40',
 				buttonWrapperClasses
@@ -443,9 +442,6 @@ export const RadioButtonComponent = (
 					reversePosition && 'left-0',
 					isDisabled && 'cursor-not-allowed',
 					inlineIcon && 'mr-3',
-					useSwitch
-						? positionClassNames[ size ].switch
-						: positionClassNames[ size ].radio
 				) }
 				onClick={ handleLabelClick }
 			>
@@ -507,7 +503,6 @@ export const RadioButtonComponent = (
 									<div
 										className={ cn(
 											'rounded-full bg-current',
-											size === 'sm' && 'mt-[0.5px]',
 											sizeClassNames[ size ]?.icon
 										) }
 									/>

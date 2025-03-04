@@ -86,3 +86,59 @@ export const SimpleRadioVertical = RadioTemplate.bind( {} );
 SimpleRadioVertical.args = {
 	vertical: true,
 };
+
+const RadioWithBorderTemplate: StoryFn<RadioButtonGroupProps> = ( args ) => {
+	const [ value, setValue ] = useState( args.value || args.defaultValue );
+
+	return (
+		<RadioButton.Group
+			value={ value }
+			columns={ args.columns ?? ( args.style === 'tile' ? 6 : 3 ) }
+			onChange={ ( val ) => {
+				setValue( val as string );
+			} }
+			{ ...args }
+		>
+			{ [ 1, 2, 3, 4, 5, 6 ].map( ( num ) =>
+				args.style === 'tile' ? (
+					<RadioButton.Button
+						key={ num }
+						value={ `option${ num }` }
+						disabled={ args.disabled }
+						borderOn={ true }
+					>
+						<Plus />
+					</RadioButton.Button>
+				) : (
+					<RadioButton.Button
+						key={ num }
+						value={ `option${ num }` }
+						label={ {
+							heading: `Option ${ num }`,
+						} }
+						badgeItem={
+							<Badge
+								type="rounded"
+								size="sm"
+								variant="green"
+								className="mr-2"
+							/>
+						}
+						disabled={ args.disabled }
+						borderOn={ true }
+					/>
+				)
+			) }
+		</RadioButton.Group>
+	);
+};
+
+export const RadioWithBorderMediumSize = RadioWithBorderTemplate.bind( {} );
+RadioWithBorderMediumSize.args = {
+	size: 'md',
+};
+
+export const RadioWithBorderSmallSize = RadioWithBorderTemplate.bind( {} );
+RadioWithBorderSmallSize.args = {
+	size: 'sm',
+};
