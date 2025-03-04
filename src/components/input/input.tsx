@@ -72,6 +72,9 @@ export declare interface InputProps {
 		type: string;
 		size?: number;
 	};
+
+	/** Help text displayed below the input field. It could be string or react node. */
+	helpText?: string | ReactNode;
 }
 
 const commonFilePreviewClasses = {
@@ -122,7 +125,7 @@ const FilePreview = ( {
 	return (
 		<div
 			className={ cn(
-				'w-full flex items-start justify-between rounded mt-2 bg-field-primary-background p-2 gap-3',
+				'w-full flex items-start justify-between rounded mt-1 bg-field-primary-background p-2 gap-3',
 				error && 'border-alert-border-danger bg-alert-background-danger'
 			) }
 		>
@@ -206,6 +209,7 @@ export const InputComponent = (
 		label = '',
 		onFileRemove,
 		selectedFileData = { name: '', url: '', type: '', size: 0 },
+		helpText = '',
 		variant = 'default',
 		...props
 	}: InputProps &
@@ -307,6 +311,14 @@ export const InputComponent = (
 		sm: suffix ? 'pr-8' : '',
 		md: suffix ? 'pr-9' : '',
 		lg: suffix ? 'pr-10' : '',
+	};
+
+	const filePreviewClasses = {
+		gap: {
+			sm: 'gap-1',
+			md: 'gap-1.5',
+			lg: 'gap-1.5',
+		},
 	};
 
 	const hoverClasses = disabled
@@ -418,7 +430,12 @@ export const InputComponent = (
 
 	if ( type === 'file' ) {
 		return (
-			<div className="flex flex-col items-start gap-1.5 [&_*]:box-border box-border">
+			<div
+				className={ cn(
+					'flex flex-col items-start gap-1.5 [&_*]:box-border box-border',
+					filePreviewClasses.gap[ size ]
+				) }
+			>
 				{ renderLabel }
 				<div
 					className={ cn(
@@ -455,6 +472,9 @@ export const InputComponent = (
 						<Upload />
 					</div>
 				</div>
+				{ helpText && (
+					<p className="text-xs text-field-helper m-0">{ helpText }</p>
+				) }
 				{ selectedFileObject &&
 					variant === 'preview' &&
 					selectedFileObject.size > 0 && (
