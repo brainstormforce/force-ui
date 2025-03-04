@@ -102,9 +102,7 @@ FileInputWithPreview.args = {
 			<div className="flex items-center gap-2">
 				<Info className="size-4" />
 				<span>Hint text can be added here.</span>
-				<a href="#">
-					Link
-				</a>
+				<a href="#">Link</a>
 			</div>
 		</>
 	),
