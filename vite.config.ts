@@ -13,15 +13,43 @@ export default defineConfig({
 				withTW: resolve(process.cwd(), 'src/utilities/withTW.js'),
 			},
 			name: '[name]',
-			fileName: '[name]',
+			fileName: (format, entryName) => `${entryName}.${format}.js`,
 			formats: ['es', 'cjs'],
 		},
 		outDir: 'dist',
 		rollupOptions: {
-			// make sure to externalize deps that shouldn't be bundled
-			// into your library
 			external: ['react', 'react-dom', 'react/jsx-runtime'],
+			output: [
+				{
+					format: 'es',
+					preserveModules: true,
+					preserveModulesRoot: 'src',
+					entryFileNames: '[name].es.js',
+					chunkFileNames: '[name]-[hash].es.js',
+					manualChunks: undefined,
+				},
+				{
+					format: 'cjs',
+					preserveModules: true,
+					preserveModulesRoot: 'src',
+					entryFileNames: '[name].cjs.js',
+					chunkFileNames: '[name]-[hash].cjs.js',
+					manualChunks: undefined,
+				}
+			],
+			treeshake: {
+				moduleSideEffects: false,
+				propertyReadSideEffects: false,
+				tryCatchDeoptimization: false
+			},
 		},
+		minify: 'esbuild',
+		sourcemap: true,
+		emptyOutDir: true,
+		target: 'esnext',
+		cssCodeSplit: true,
+		reportCompressedSize: true,
+		chunkSizeWarningLimit: 100,
 	},
 	resolve: {
 		alias: {
@@ -34,7 +62,15 @@ export default defineConfig({
 	},
 	plugins: [
 		react(),
-		dts({ rollupTypes: true, tsconfigPath: './tsconfig.app.json' }),
+		dts({ 
+			rollupTypes: true,
+			tsconfigPath: './tsconfig.app.json',
+			insertTypesEntry: true,
+		}),
 		preserveDirectives(),
 	],
+	esbuild: {
+		treeShaking: true,
+		legalComments: 'none',
+	},
 });
