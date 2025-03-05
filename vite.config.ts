@@ -3,6 +3,7 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import { resolve } from 'path';
 import dts from 'vite-plugin-dts';
+import pkg from './package.json';
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -21,7 +22,10 @@ export default defineConfig({
 				'react', 
 				'react-dom', 
 				'react/jsx-runtime',
-				/node_modules/,
+				...Object.keys(pkg.dependencies),
+				...Object.keys(pkg.peerDependencies),
+				...Object.keys(pkg.devDependencies),
+				/^@lexical\//,
 			],
 			output: [
 				{
