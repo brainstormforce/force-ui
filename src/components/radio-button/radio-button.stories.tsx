@@ -290,7 +290,7 @@ const defaultRadioButtonGroupData = [
 				icon={ null }
 				variant="green"
 				closable={ false }
-				className="py-0 mr-2"
+				className="py-0"
 			/>
 		),
 	},
@@ -320,7 +320,7 @@ const defaultRadioButtonGroupData = [
 				icon={ null }
 				variant="yellow"
 				closable={ false }
-				className="py-0 mr-2"
+				className="py-0"
 			/>
 		),
 	},
