@@ -88,9 +88,10 @@ export const SingleSelect: Story = ( { size, multiple, combobox, disabled } ) =>
 					label={
 						multiple ? 'Select Multiple Colors' : 'Select a Color'
 					}
-				>
-					{ ( selected as Record<string, string> )?.name }
-				</Select.Button>
+					render={ ( currentSelected ) =>
+						( currentSelected as Record<string, string> )?.name
+					}
+				/>
 				<Select.Portal>
 					<Select.Options>
 						{ options.map( ( option ) => (

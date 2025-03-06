@@ -1,5 +1,5 @@
 const defaultTheme = {
-	content: [ 'node_modules/@bsf/force-ui/dist/force-ui.js' ],
+	content: [ 'node_modules/@bsf/force-ui/dist/components/**/*.js' ],
 	theme: {
 		extend: {
 			colors: {
@@ -180,6 +180,7 @@ const defaultTheme = {
 				'1/12': '8.3333333%',
 			},
 			boxShadow: {
+				xs: '0px 1px 2px 0px rgba(16, 24, 40, 0.05)',
 				'soft-shadow-sm':
 					'0px 6px 32px -12px rgba(149, 160, 178, 0.12)',
 				'soft-shadow': '0px 8px 32px -12px rgba(149, 160, 178, 0.16)',
@@ -192,9 +193,16 @@ const defaultTheme = {
 				'soft-shadow-2xl':
 					'0px 24px 64px -12px rgba(149, 160, 178, 0.32)',
 				'soft-shadow-inner': '0px 1px 1px 0px rgba(0, 0, 0, 0.05)',
+				'toggle-disabled': '1px 1px 2px 0px rgba(0, 0, 0, 0.1) inset',
 			},
 			fontSize: {
 				tiny: '0.625rem',
+			},
+			size: {
+				3.25: '0.8125rem', // 13px
+			},
+			translate: {
+				3.75: '0.9375rem', // 15px
 			},
 			spacing: {
 				4.5: '1.125rem', // 18px

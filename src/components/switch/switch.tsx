@@ -24,10 +24,10 @@ export interface SwitchProps {
 	defaultValue?: boolean;
 
 	/**
-	 *  Defines the size of the switch (e.g., 'sm', 'md').
+	 *  Defines the size of the switch (e.g., 'xs', 'sm', 'md').
 	 *  @default 'sm'
 	 */
-	size?: 'sm' | 'md';
+	size?: 'xs' | 'sm' | 'md';
 
 	/** Disables the switch if true. */
 	disabled?: boolean;
@@ -59,17 +59,20 @@ export const SwitchLabel = ( {
 	switchId: string;
 	disabled?: boolean;
 	children: ReactNode;
-	size: 'sm' | 'md';
+	size: SwitchProps['size'];
 } ) => {
 	const headingClasses = {
+		xs: 'text-xs leading-4 font-medium',
 		sm: 'text-sm leading-5 font-medium',
 		md: 'text-base leading-6 font-medium',
 	};
 	const descriptionClasses = {
+		xs: 'text-xs leading-4 font-normal',
 		sm: 'text-sm leading-5 font-normal',
 		md: 'text-sm leading-5 font-normal',
 	};
 	const gapClassNames = {
+		xs: 'space-y-0.5',
 		sm: 'space-y-0.5',
 		md: 'space-y-1',
 	};
@@ -87,11 +90,11 @@ export const SwitchLabel = ( {
 	const renderLabel = () => {
 		const { heading = '', description = '' } = label || {};
 		return (
-			<div className={ cn( 'space-y-0.5', gapClassNames[ size ] ) }>
+			<div className={ cn( 'space-y-0.5', gapClassNames[ size! ] ) }>
 				{ heading && (
 					<Label
 						htmlFor={ switchId }
-						className={ cn( 'm-0', headingClasses[ size ] ) }
+						className={ cn( 'm-0', headingClasses[ size! ] ) }
 						{ ...( disabled && { variant: 'disabled' } ) }
 					>
 						{ heading }
@@ -103,7 +106,7 @@ export const SwitchLabel = ( {
 						variant="help"
 						className={ cn(
 							'text-sm font-normal leading-5 m-0',
-							descriptionClasses[ size ]
+							descriptionClasses[ size! ]
 						) }
 						{ ...( disabled && { variant: 'disabled' } ) }
 					>
@@ -146,7 +149,7 @@ export const SwitchComponent = (
 	ref: React.ForwardedRef<HTMLInputElement>
 ) => {
 	// For backwards compatibility.
-	const normalSize = ( size as 'sm' | 'md' | 'lg' ) === 'lg' ? 'md' : size;
+	const normalSize = ( size as SwitchProps['size'] & 'lg' ) === 'lg' ? 'md' : size;
 
 	const isControlled = useMemo( () => typeof value !== 'undefined', [ value ] );
 	const switchId = useMemo( () => ( id ? id : `switch-${ nanoid() }` ), [] );
@@ -195,14 +198,19 @@ export const SwitchComponent = (
 			container: 'w-10 h-5',
 			toggleDial: 'size-3 peer-checked:translate-x-5',
 		},
+		xs: {
+			container: 'w-8 h-4',
+			toggleDial: 'size-2.5 peer-checked:translate-x-3.75',
+		},
 	};
 	const toggleDialHoverClassNames = {
 		md: 'group-hover/switch:size-5 group-focus-within/switch:size-5 group-focus-within/switch:left-0.5 group-hover/switch:left-0.5',
 		sm: 'group-hover/switch:size-4 group-focus-within/switch:size-4 group-focus-within/switch:left-0.5 group-hover/switch:left-0.5',
+		xs: 'group-hover/switch:size-3.25 group-focus-within/switch:size-3.25 group-focus-within/switch:left-0.5 group-hover/switch:left-0.5',
 	};
 
 	const disabledClassNames = {
-		input: 'bg-toggle-off-disabled disabled:border-transparent shadow-none disabled:cursor-not-allowed checked:disabled:bg-toggle-on-disabled',
+		input: 'bg-toggle-off-disabled disabled:border-transparent disabled:cursor-not-allowed checked:disabled:bg-toggle-on-disabled disabled:shadow-toggle-disabled',
 		toggleDial: 'peer-disabled:cursor-not-allowed',
 	};
 
