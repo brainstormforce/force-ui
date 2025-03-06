@@ -3,6 +3,7 @@ Version 1.4.2 - 6th March, 2025
 - Improvement - Adjusted the ring width and padding of the Radio Button component.
 - Improvement - Added shadow to the disabled switch component for better visual consistency.
 - Improvement - Add box-shadow to the Button component.
+- Improvement - Update destructive button ring color.
 - Fixed - Undefined JSX error when @wordpress/scripts version is above 28.
 - Fixed - Tree shaking not working.
 
