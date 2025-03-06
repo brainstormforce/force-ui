@@ -336,14 +336,17 @@ export const RadioButtonComponent = (
 		return (
 			<div
 				className={ cn(
-					! inlineIcon && 'space-y-1.5',
+					! inlineIcon && {
+						'space-y-3': size === 'sm',
+						'space-y-4': size === 'md',
+					},
 					reversePosition && ( useSwitch ? 'ml-10' : 'ml-4' ),
 					inlineIcon && 'flex gap-2',
 					inlineIcon && ! label.description && 'items-center'
 				) }
 			>
 				{ icon && <>{ icon }</> }
-				<div className={ cn( 'space-y-1.5' ) }>
+				<div className={ cn( 'space-y-0.5' ) }>
 					<p
 						className={ cn(
 							'text-text-primary font-medium m-0',
@@ -393,6 +396,13 @@ export const RadioButtonComponent = (
 		}
 	};
 
+	const paddingClasses = {
+		'pl-3.5 pr-2.5 py-2.5': size === 'sm' && ! ( icon && useSwitch ),
+		'p-3': size === 'sm' && ( ( icon && useSwitch ) || ( icon && badgeItem ) ),
+		'pl-4 pr-3 py-3': size === 'md' && ! ( icon && useSwitch ),
+		'p-4': size === 'md' && ( ( icon && useSwitch ) || ( icon && badgeItem ) ),
+	};
+
 	return (
 		<label
 			className={ cn(
@@ -405,8 +415,7 @@ export const RadioButtonComponent = (
 					borderOn &&
 					checkedValue &&
 					'outline-border-interactive',
-				size === 'sm' ? 'px-3.5 py-2.5' : 'px-4 py-3',
-				'pr-12',
+				paddingClasses,
 				isDisabled && 'cursor-not-allowed opacity-40',
 				buttonWrapperClasses
 			) }
