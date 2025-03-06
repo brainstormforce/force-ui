@@ -1,5 +1,5 @@
 const defaultTheme = {
-	content: [ 'node_modules/@bsf/force-ui/dist/force-ui.js' ],
+	content: [ 'node_modules/@bsf/force-ui/dist/components/**/*.js' ],
 	theme: {
 		extend: {
 			colors: {
@@ -197,6 +197,12 @@ const defaultTheme = {
 			},
 			fontSize: {
 				tiny: '0.625rem',
+			},
+			size: {
+				3.25: '0.8125rem', // 13px
+			},
+			translate: {
+				3.75: '0.9375rem', // 15px
 			},
 			spacing: {
 				4.5: '1.125rem', // 18px
