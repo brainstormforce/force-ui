@@ -346,7 +346,16 @@ export const RadioButtonComponent = (
 				) }
 			>
 				{ icon && <>{ icon }</> }
-				<div className={ cn( 'space-y-0.5' ) }>
+				<div
+					className={ cn(
+						! ( icon && useSwitch ) || ( icon && badgeItem )
+							? {
+								'space-y-0.5': size === 'sm',
+								'space-y-1': size === 'md',
+							}
+							: 'space-y-0.5'
+					) }
+				>
 					<p
 						className={ cn(
 							'text-text-primary font-medium m-0',
