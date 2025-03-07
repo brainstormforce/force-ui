@@ -6,10 +6,10 @@ export type FilePreviewFile =
 	| { name: string; url: string; type: string; size: number };
 
 export interface FilePreviewProps {
-	/** The file to display. */
+	/** The file to display. It can be a File object or an object with name, url, type, and size properties. */
 	file: FilePreviewFile;
 
-	/** Function called when the file is removed. */
+	/** Function called when the file is removed. The parameter is the selected file object, which can be a File object or an object with name, url, type, and size properties or null. */
 	onRemove: ( selectedFile: FilePreviewFile ) => void;
 
 	/** Indicates whether the file preview is disabled. */
