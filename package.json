@@ -1,21 +1,25 @@
 {
     "name": "@bsf/force-ui",
-    "version": "1.4.1",
+    "version": "1.4.2",
     "description": "Library of components for the BSF project",
-    "main": "./dist/force-ui.js",
-    "module": "./dist/force-ui.js",
+    "main": "./dist/force-ui.cjs.js",
+    "module": "./dist/force-ui.es.js",
+    "types": "./dist/force-ui.d.ts",
     "type": "module",
+    "sideEffects": false,
     "exports": {
         "./package.json": "./package.json",
         ".": {
-            "import": "./dist/force-ui.js",
-            "types": "./dist/force-ui.d.ts"
+            "types": "./dist/force-ui.d.ts",
+            "import": "./dist/force-ui.es.js",
+            "require": "./dist/force-ui.cjs.js"
         },
         "./withTW": {
-            "import": "./dist/withTW.js",
             "types": "./dist/withTW.d.ts",
-            "require": "./dist/withTW.cjs"
-        }
+            "import": "./dist/withTW.es.js",
+            "require": "./dist/withTW.cjs.js"
+        },
+        "./dist/*": "./dist/*"
     },
     "scripts": {
         "build": "cross-env tsc -b && vite build",

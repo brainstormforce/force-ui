@@ -3,6 +3,7 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import { resolve } from 'path';
 import dts from 'vite-plugin-dts';
+import pkg from './package.json';
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -13,15 +14,50 @@ export default defineConfig({
 				withTW: resolve(process.cwd(), 'src/utilities/withTW.js'),
 			},
 			name: '[name]',
-			fileName: '[name]',
-			formats: ['es', 'cjs'],
+			fileName: (format, entryName) => `${entryName}.${format}.js`,
 		},
 		outDir: 'dist',
 		rollupOptions: {
-			// make sure to externalize deps that shouldn't be bundled
-			// into your library
-			external: ['react', 'react-dom', 'react/jsx-runtime'],
+			external: [
+				'react', 
+				'react-dom', 
+				'react/jsx-runtime',
+				...Object.keys(pkg.dependencies),
+				...Object.keys(pkg.peerDependencies),
+				...Object.keys(pkg.devDependencies),
+				/^@lexical\//,
+			],
+			output: [
+				{
+					format: 'es',
+					preserveModules: true,
+					preserveModulesRoot: 'src',
+					entryFileNames: '[name].es.js',
+					chunkFileNames: '[name]-[hash].es.js',
+					exports: 'named',
+				},
+				{
+					format: 'cjs',
+					preserveModules: true,
+					preserveModulesRoot: 'src',
+					entryFileNames: '[name].cjs.js',
+					chunkFileNames: '[name]-[hash].cjs.js',
+					exports: 'named',
+				}
+			],
+			treeshake: {
+				moduleSideEffects: false,
+				propertyReadSideEffects: false,
+				tryCatchDeoptimization: false
+			},
 		},
+		minify: 'esbuild',
+		sourcemap: true,
+		emptyOutDir: true,
+		target: 'esnext',
+		cssCodeSplit: true,
+		reportCompressedSize: true,
+		chunkSizeWarningLimit: 100,
 	},
 	resolve: {
 		alias: {
@@ -34,7 +70,16 @@ export default defineConfig({
 	},
 	plugins: [
 		react(),
-		dts({ rollupTypes: true, tsconfigPath: './tsconfig.app.json' }),
+		dts({ 
+			rollupTypes: true,
+			tsconfigPath: './tsconfig.app.json',
+			insertTypesEntry: true,
+			exclude: ['**/node_modules/**', '**/_virtual/**'],
+		}),
 		preserveDirectives(),
 	],
+	esbuild: {
+		treeShaking: true,
+		legalComments: 'none',
+	},
 });

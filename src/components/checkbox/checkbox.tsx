@@ -60,18 +60,16 @@ export const CheckboxComponent = (
 			checkbox: 'size-4 rounded gap-1',
 			icon: 'size-3',
 			text: 'text-sm', // text class for sm
+			description: 'text-sm',
 			gap: 'gap-0.5',
 		},
 		md: {
 			checkbox: 'size-5 rounded gap-1',
 			icon: 'size-4',
 			text: 'text-base', // text class for md
+			description: 'text-sm',
 			gap: 'gap-1',
 		},
-	};
-	const descriptionSize = {
-		sm: 'xs',
-		md: 'sm',
 	};
 	const colorClassNames = {
 		primary: {
@@ -136,9 +134,9 @@ export const CheckboxComponent = (
 						tag="p"
 						className={ cn(
 							'font-normal leading-5 m-0',
+							sizeClassNames[ size ].description,
 							disabled && 'text-text-disabled'
 						) }
-						size={ descriptionSize[ size ] as 'xs' | 'sm' }
 						variant="help"
 					>
 						{ label?.description }

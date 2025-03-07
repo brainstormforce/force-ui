@@ -3,9 +3,9 @@ export const sizeClassNames = {
 		icon: '[&>svg]:size-4',
 		searchIcon: '[&>svg]:size-4',
 		selectButton:
-			'px-2.5 py-2 rounded text-sm font-medium leading-4 min-h-[2rem]',
+			'px-2.5 py-2 rounded text-xs font-medium leading-4 min-h-[2rem]',
 		multiSelect: 'pl-2 pr-2 py-1.5',
-		displaySelected: 'text-sm font-normal',
+		displaySelected: 'text-xs font-normal',
 		dropdown: 'rounded-md',
 		dropdownItemsWrapper: 'p-1.5',
 		searchbarWrapper: 'p-3 flex items-center gap-0.5',
@@ -17,7 +17,7 @@ export const sizeClassNames = {
 		icon: '[&>svg]:size-5',
 		searchIcon: '[&>svg]:size-5',
 		selectButton:
-			'px-3.5 py-2.5 rounded-md text-xs font-medium leading-4 min-h-[2.5rem]',
+			'px-3.5 py-2.5 rounded-md text-sm font-medium leading-4 min-h-[2.5rem]',
 		multiSelect: 'pl-2 pr-2.5 py-2',
 		displaySelected: 'text-sm font-normal',
 		dropdown: 'rounded-lg',

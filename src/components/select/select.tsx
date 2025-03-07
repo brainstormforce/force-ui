@@ -12,7 +12,6 @@ import {
 	useLayoutEffect,
 	Fragment,
 	type ReactNode,
-	memo,
 } from 'react';
 import { cn } from '@/utilities/functions';
 import { CheckIcon, ChevronDown, ChevronsUpDown, Search } from 'lucide-react';
@@ -726,7 +725,7 @@ export function SelectItem( {
 	const initialIndxRef = useRef( indx );
 
 	const selectItemClassNames = {
-		sm: 'py-1.5 px-2 text-sm font-normal',
+		sm: 'py-1.5 px-2 text-xs font-normal',
 		md: 'p-2 text-sm font-normal',
 		lg: 'p-2 text-base font-normal',
 	};
@@ -1021,12 +1020,12 @@ const SelectComponent = ( {
 
 SelectComponent.displayName = 'Select';
 
-const Select = Object.assign( memo( SelectComponent ), {
-	Portal: memo( SelectPortal ),
-	Button: memo( SelectButton ),
-	Options: memo( SelectOptions ),
-	Option: memo( SelectItem ),
-	OptionGroup: memo( SelectOptionGroup ),
+const Select = Object.assign( SelectComponent, {
+	Portal: SelectPortal,
+	Button: SelectButton,
+	Options: SelectOptions,
+	Option: SelectItem,
+	OptionGroup: SelectOptionGroup,
 } );
 
 SelectPortal.displayName = 'Select.Portal';
