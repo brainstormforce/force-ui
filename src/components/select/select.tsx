@@ -725,7 +725,7 @@ export function SelectItem( {
 	const initialIndxRef = useRef( indx );
 
 	const selectItemClassNames = {
-		sm: 'py-1.5 px-2 text-sm font-normal',
+		sm: 'py-1.5 px-2 text-xs font-normal',
 		md: 'p-2 text-sm font-normal',
 		lg: 'p-2 text-base font-normal',
 	};

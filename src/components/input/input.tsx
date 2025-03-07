@@ -36,7 +36,7 @@ export declare interface InputProps {
 	disabled?: boolean;
 
 	/** Function called when the input value changes. */
-	onChange?: ( value: string | null ) => void;
+	onChange?: ( value: string | FileList | null ) => void;
 
 	/** Indicates whether the input has an error state. */
 	error?: boolean;
@@ -77,7 +77,10 @@ export const InputComponent = (
 		label = '',
 		...props
 	}: InputProps &
-		Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size' | 'prefix'>,
+		Omit<
+			React.InputHTMLAttributes<HTMLInputElement>,
+			'size' | 'prefix' | 'onChange'
+		>,
 	ref: React.ForwardedRef<HTMLInputElement>
 ) => {
 	const inputRef = useRef<HTMLInputElement>( null );
@@ -96,7 +99,7 @@ export const InputComponent = (
 			return;
 		}
 
-		let newValue: string | FileList | null;
+		let newValue: FileList | string | null;
 		if ( type === 'file' ) {
 			newValue = event.target.files;
 			if ( newValue && newValue.length > 0 ) {
@@ -115,7 +118,7 @@ export const InputComponent = (
 		if ( typeof onChange !== 'function' ) {
 			return;
 		}
-		onChange( newValue as string );
+		onChange( newValue );
 	};
 
 	const handleReset = () => {
