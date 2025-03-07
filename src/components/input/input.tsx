@@ -77,7 +77,10 @@ export const InputComponent = (
 		label = '',
 		...props
 	}: InputProps &
-		Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size' | 'prefix' | 'onChange'>,
+		Omit<
+			React.InputHTMLAttributes<HTMLInputElement>,
+			'size' | 'prefix' | 'onChange'
+		>,
 	ref: React.ForwardedRef<HTMLInputElement>
 ) => {
 	const inputRef = useRef<HTMLInputElement>( null );

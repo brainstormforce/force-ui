@@ -1,7 +1,9 @@
 import { cn, formatFileSize } from '@/utilities/functions';
 import { File, ImageOff, Trash } from 'lucide-react';
 
-export type FilePreviewFile = File | { name: string; url: string; type: string; size: number };
+export type FilePreviewFile =
+	| File
+	| { name: string; url: string; type: string; size: number };
 
 export interface FilePreviewProps {
 	/** The file to display. */

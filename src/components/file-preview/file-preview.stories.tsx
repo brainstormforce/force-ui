@@ -22,11 +22,11 @@ const meta = {
 			</div>
 		),
 	],
-} satisfies Meta< typeof FilePreview >;
+} satisfies Meta<typeof FilePreview>;
 
 export default meta;
 
-type Story = StoryFn< typeof FilePreview >;
+type Story = StoryFn<typeof FilePreview>;
 
 const Template: Story = ( args: FilePreviewProps ) => <FilePreview { ...args } />;
 
@@ -84,10 +84,20 @@ export const FileInputWithPreview: Story = ( args ) => {
 
 	return (
 		<>
-			<Input type="file" size="md" disabled={ false } error={ false } onChange={ handleFileChange } />
+			<Input
+				type="file"
+				size="md"
+				disabled={ false }
+				error={ false }
+				onChange={ handleFileChange }
+			/>
 			{ selectedFile && (
 				<div className="mt-2">
-					<FilePreview { ...args } file={ selectedFile } onRemove={ () => setSelectedFile( null ) } />
+					<FilePreview
+						{ ...args }
+						file={ selectedFile }
+						onRemove={ () => setSelectedFile( null ) }
+					/>
 				</div>
 			) }
 		</>
