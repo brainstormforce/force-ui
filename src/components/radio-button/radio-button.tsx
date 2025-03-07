@@ -425,6 +425,7 @@ export const RadioButtonComponent = (
 					checkedValue &&
 					'outline-border-interactive',
 				paddingClasses,
+				'pr-12',
 				isDisabled && 'cursor-not-allowed opacity-40',
 				buttonWrapperClasses
 			) }
