@@ -166,6 +166,8 @@ export const SearchBox = forwardRef<HTMLDivElement, BaseSearchBoxProps>(
 			activeIndex,
 			onNavigate: setActiveIndex,
 			loop: true,
+			// Prevent opening the dropdown with arrow keys
+			openOnArrowKeyDown: false,
 		} );
 
 		const dismiss = useDismiss( context );
@@ -291,8 +293,9 @@ export const SearchBoxInput = forwardRef<HTMLInputElement, SearchBoxInputProps>(
 			getReferenceProps,
 			searchTerm,
 			setSearchTerm,
-			setActiveIndex,
 			open,
+			setActiveIndex,
+			listRef,
 		} = useSearchContext();
 		const badgeSize = size === 'lg' ? 'sm' : 'xs';
 
@@ -324,13 +327,28 @@ export const SearchBoxInput = forwardRef<HTMLInputElement, SearchBoxInputProps>(
 				return;
 			}
 
-			if ( event.key === 'ArrowDown' ) {
-				event.preventDefault();
-				if ( ! open && searchTerm?.trim() ) {
-					onOpenChange!( true );
+			// Do not open dropdown on arrow keys
+			if ( event.key === 'ArrowDown' || event.key === 'ArrowUp' ) {
+				// Only navigate if dropdown is already open
+				if ( open ) {
+					event.preventDefault();
+					if ( event.key === 'ArrowDown' ) {
+						// Navigate to first item if none selected, otherwise listNavigation will handle it
+						setActiveIndex!( ( prev ) => ( prev === null ? 0 : prev ) );
+					} else if ( event.key === 'ArrowUp' ) {
+						// Navigate to last item if none selected, otherwise listNavigation will handle it
+						setActiveIndex!( ( prev ) => {
+							// Get the length of the list to select the last item
+							const listLength = listRef?.current?.length || 0;
+							return prev === null && listLength > 0 ? listLength - 1 : prev;
+						} );
+					}
 				}
-				setActiveIndex!( 0 );
-			} else if ( event.key === 'Escape' ) {
+				// Do not open the dropdown
+				return;
+			}
+
+			if ( event.key === 'Escape' ) {
 				onOpenChange!( false );
 			}
 		};
