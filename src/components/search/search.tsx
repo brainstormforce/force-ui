@@ -7,9 +7,10 @@ import React, {
 	useContext,
 	Children,
 	cloneElement,
+	type MouseEventHandler,
 } from 'react';
 import { omit } from 'lodash'; // or define your own omit function
-import { cn, getOperatingSystem } from '@/utilities/functions';
+import { callAll, cn, getOperatingSystem } from '@/utilities/functions';
 import { Search } from 'lucide-react';
 import Loader from '../loader';
 import Badge from '../badge';
@@ -46,6 +47,7 @@ type TSearchContentValue = Partial<{
 	open: boolean;
 	context: UseFloatingReturn['context'];
 	setIsLoading: ( loading: boolean ) => void;
+	clearSearchOnClick: boolean;
 }>;
 
 // Define a context for the SearchBox
@@ -77,12 +79,12 @@ export interface BaseSearchBoxProps {
 
 	/** Child components to be rendered. */
 	children?: ReactNode;
+
+	/** Clear search on clicking result item. */
+	clearSearchOnClick?: boolean;
 }
 
 type SearchBoxPortalProps = {
-	/** Additional class names for styling. */
-	className?: string;
-
 	/** Child components to be rendered. */
 	children: ReactNode;
 
@@ -116,6 +118,7 @@ export const SearchBox = forwardRef<HTMLDivElement, BaseSearchBoxProps>(
 			open = false,
 			onOpenChange = () => {},
 			loading = false,
+			clearSearchOnClick = false,
 			...props
 		},
 		ref
@@ -195,6 +198,7 @@ export const SearchBox = forwardRef<HTMLDivElement, BaseSearchBoxProps>(
 					setSearchTerm,
 					isLoading,
 					setIsLoading,
+					clearSearchOnClick,
 				} }
 			>
 				<div
@@ -254,6 +258,7 @@ export const SearchBoxInput = forwardRef<HTMLInputElement, SearchBoxInputProps>(
 			setSearchTerm,
 		} = useSearchContext();
 		const badgeSize = size === 'lg' ? 'sm' : 'xs';
+
 		const handleChange = ( event: React.ChangeEvent<HTMLInputElement> ) => {
 			const newValue = event.target.value;
 			setSearchTerm!( newValue );
@@ -268,18 +273,28 @@ export const SearchBoxInput = forwardRef<HTMLInputElement, SearchBoxInputProps>(
 			}
 		};
 
+		const handleFocus = () => {
+			if ( disabled || typeof onOpenChange !== 'function' ) {
+				return;
+			}
+			if ( searchTerm?.trim() ) {
+				onOpenChange( true ); // Open the dropdown on focus if input is not empty
+			}
+		};
+
 		return (
 			<div
 				ref={ refs!.setReference }
 				className={ cn(
-					'w-full group relative flex justify-center items-center gap-1.5 focus-within:z-10 transition-colors ease-in-out duration-150',
+					'w-full group relative flex justify-center items-center gap-1.5 focus-within:z-10 transition-all ease-in-out duration-200',
 					variantClassNames[ variant ],
 					sizeClassNames.input[ size! ],
 					disabled
 						? disabledClassNames[ variant ]
-						: 'focus-within:ring-2 focus-within:ring-focus focus-within:ring-offset-2 focus-within:border-focus-border focus-within:hover:border-focus-border'
+						: 'focus-within:ring-2 focus-within:ring-focus focus-within:ring-offset-2 focus-within:border-focus-border focus-within:hover:border-focus-border',
+					className
 				) }
-				{ ...getReferenceProps }
+				{ ...getReferenceProps!() }
 			>
 				<span
 					className={ cn(
@@ -296,17 +311,13 @@ export const SearchBoxInput = forwardRef<HTMLInputElement, SearchBoxInputProps>(
 					className={ cn(
 						textSizeClassNames[ size! ],
 						'flex-grow font-medium bg-transparent border-none outline-none border-transparent focus:ring-0 py-0',
-						disabled
-							? disabledClassNames[ variant ]
-							: [
-								'text-field-placeholder focus-within:text-field-input group-hover:text-field-input',
-								'placeholder:text-field-placeholder',
-							],
-						className
+						disabled &&
+							'text-field-placeholder focus-within:text-field-input group-hover:text-field-input placeholder:text-field-placeholder',
 					) }
 					disabled={ disabled }
 					value={ searchTerm }
 					onChange={ handleChange }
+					onFocus={ handleFocus } // Set open state on focus
 					placeholder={ placeholder }
 					// Omit custom props that are not valid for input
 					{ ...omit( props, [
@@ -520,11 +531,20 @@ export interface SearchBoxItemProps {
 
 	/** Child components to be rendered. */
 	children: ReactNode;
+
+	/** On click handler. */
+	onClick?: () => void;
 }
 
 export const SearchBoxItem = forwardRef<HTMLDivElement, SearchBoxItemProps>(
-	( { className, icon, children, ...props }, ref ) => {
-		const { size } = useSearchContext();
+	( { className, icon, children, onClick, ...props }, ref ) => {
+		const { size, setSearchTerm, clearSearchOnClick } = useSearchContext();
+
+		const handleClick = () => {
+			if ( typeof onClick === 'function' ) {
+				onClick();
+			}
+		};
 		return (
 			<div
 				ref={ ref }
@@ -532,7 +552,14 @@ export const SearchBoxItem = forwardRef<HTMLDivElement, SearchBoxItemProps>(
 					'flex items-center justify-start gap-1 p-1 hover:bg-background-secondary focus:bg-background-secondary cursor-pointer',
 					sizeClassNames.item[ size! ]
 				) }
+				onClick={ callAll( handleClick, () => {
+					if ( clearSearchOnClick ) {
+						setSearchTerm!( '' );
+					}
+				} ) as MouseEventHandler<HTMLDivElement> }
 				{ ...props }
+				tabIndex={ 0 }
+				role="button"
 			>
 				{ icon && (
 					<span
