@@ -79,6 +79,20 @@ export interface BaseSearchBoxProps {
 	children?: ReactNode;
 }
 
+type SearchBoxPortalProps = {
+	/** Additional class names for styling. */
+	className?: string;
+
+	/** Child components to be rendered. */
+	children: ReactNode;
+
+	/** Unique identifier for the portal, which determines where the dropdown will be rendered in the DOM. */
+	id?: string;
+
+	/** The HTML element that serves as the root for the portal, defining the location in the DOM where the dropdown will be displayed. This can be null if no specific root is provided. */
+	root?: HTMLElement | null;
+};
+
 // Extend the type to allow assigning subcomponents to SearchBox
 type SearchBoxComponent = React.ForwardRefExoticComponent<
 	BaseSearchBoxProps & React.RefAttributes<HTMLDivElement>
@@ -91,6 +105,7 @@ type SearchBoxComponent = React.ForwardRefExoticComponent<
 	Empty: typeof SearchBoxEmpty;
 	Group: typeof SearchBoxGroup;
 	Item: typeof SearchBoxItem;
+	Portal: typeof SearchBoxPortal;
 };
 
 export const SearchBox = forwardRef<HTMLDivElement, BaseSearchBoxProps>(
@@ -330,8 +345,8 @@ export interface SearchBoxContentProps {
 
 export const SearchBoxContent = ( {
 	className,
-	dropdownPortalRoot = null, // Root element where the dropdown will be rendered.
-	dropdownPortalId = '', // Id of the dropdown portal where the dropdown will be rendered.
+	dropdownPortalRoot, // Root element where the dropdown will be rendered.
+	dropdownPortalId, // Id of the dropdown portal where the dropdown will be rendered.
 	children,
 	...props
 }: SearchBoxContentProps ) => {
@@ -363,6 +378,19 @@ export const SearchBoxContent = ( {
 	);
 };
 SearchBoxContent.displayName = 'SearchBox.Content';
+
+export const SearchBoxPortal = ( {
+	children,
+	id,
+	root,
+}: SearchBoxPortalProps ) => {
+	return (
+		<FloatingPortal id={ id } root={ root }>
+			{ children }
+		</FloatingPortal>
+	);
+};
+SearchBoxPortal.displayName = 'SearchBox.Portal';
 
 // Define props for SearchBoxList
 export interface SearchBoxListProps {
@@ -470,7 +498,7 @@ export const SearchBoxGroup = ( { heading, children }: SearchBoxGroupProps ) => 
 				<div
 					className={ cn(
 						sizeClassNames.title[ size! ],
-						'text-text-secondary'
+						'text-text-tertiary'
 					) }
 				>
 					{ heading }
@@ -589,5 +617,5 @@ SearchBox.List = SearchBoxList;
 SearchBox.Empty = SearchBoxEmpty;
 SearchBox.Group = SearchBoxGroup;
 SearchBox.Item = SearchBoxItem;
-
+SearchBox.Portal = SearchBoxPortal;
 export default SearchBox;
