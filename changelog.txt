@@ -1,3 +1,7 @@
+Version 1.4.3 - xth xxxx, 2025
+- Improvement - Enhanced the UI and functionality of the Searchbox component for better flexibility and user experience.
+
+
 Version 1.4.2 - 6th March, 2025
 - New - Added new size 'xs' to the Switch component.
 - Improvement - Adjusted the ring width and padding of the Radio Button component.
