@@ -55,6 +55,7 @@ type TSearchContentValue = Partial<{
 	context: UseFloatingReturn['context'];
 	setIsLoading: ( loading: boolean ) => void;
 	clearSearchOnClick: boolean;
+	closeOnClick: boolean;
 }>;
 
 // Define a context for the SearchBox
@@ -89,6 +90,9 @@ export interface BaseSearchBoxProps {
 
 	/** Clear search on clicking result item. */
 	clearSearchOnClick?: boolean;
+
+	/** Close on clicking result item. */
+	closeOnClick?: boolean;
 }
 
 type SearchBoxPortalProps = {
@@ -126,6 +130,7 @@ export const SearchBox = forwardRef<HTMLDivElement, BaseSearchBoxProps>(
 			onOpenChange = () => {},
 			loading = false,
 			clearSearchOnClick = false,
+			closeOnClick = false,
 			...props
 		},
 		ref
@@ -228,6 +233,7 @@ export const SearchBox = forwardRef<HTMLDivElement, BaseSearchBoxProps>(
 					isLoading,
 					setIsLoading,
 					clearSearchOnClick,
+					closeOnClick,
 				} }
 			>
 				<div
@@ -590,7 +596,15 @@ export interface SearchBoxItemProps {
 
 export const SearchBoxItem = forwardRef<HTMLButtonElement, SearchBoxItemProps>(
 	( { className, icon, children, onClick, ...props }, ref ) => {
-		const { size, setSearchTerm, clearSearchOnClick, getItemProps, activeIndex } = useSearchContext();
+		const {
+			size,
+			setSearchTerm,
+			clearSearchOnClick,
+			getItemProps,
+			activeIndex,
+			onOpenChange,
+			closeOnClick,
+		} = useSearchContext();
 		const { ref: itemRef, index } = useListItem();
 
 		// Combine the refs
@@ -612,6 +626,10 @@ export const SearchBoxItem = forwardRef<HTMLButtonElement, SearchBoxItemProps>(
 
 			if ( clearSearchOnClick ) {
 				setSearchTerm!( '' );
+			}
+
+			if ( closeOnClick ) {
+				onOpenChange!( false );
 			}
 		};
 
