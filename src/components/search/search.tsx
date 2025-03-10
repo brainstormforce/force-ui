@@ -7,10 +7,9 @@ import React, {
 	useContext,
 	Children,
 	cloneElement,
-	type MouseEventHandler,
 } from 'react';
 import { omit } from 'lodash'; // or define your own omit function
-import { callAll, cn, getOperatingSystem } from '@/utilities/functions';
+import { cn, getOperatingSystem } from '@/utilities/functions';
 import { Search } from 'lucide-react';
 import Loader from '../loader';
 import Badge from '../badge';
@@ -32,6 +31,10 @@ import {
 	useInteractions,
 	type UseFloatingReturn,
 	type UseInteractionsReturn,
+	useListNavigation,
+	FloatingFocusManager,
+	FloatingList,
+	useListItem,
 } from '@floating-ui/react';
 
 type TSearchContentValue = Partial<{
@@ -43,6 +46,10 @@ type TSearchContentValue = Partial<{
 	floatingStyles: UseFloatingReturn['floatingStyles'];
 	getReferenceProps: UseInteractionsReturn['getReferenceProps'];
 	getFloatingProps: UseInteractionsReturn['getFloatingProps'];
+	getItemProps: ( userProps?: React.HTMLProps<HTMLElement> ) => Record<string, unknown>;
+	activeIndex: number | null;
+	setActiveIndex: React.Dispatch<React.SetStateAction<number | null>>;
+	listRef: React.MutableRefObject<( HTMLElement | null )[]>;
 	setSearchTerm: React.Dispatch<React.SetStateAction<string | undefined>>;
 	open: boolean;
 	context: UseFloatingReturn['context'];
@@ -125,6 +132,8 @@ export const SearchBox = forwardRef<HTMLDivElement, BaseSearchBoxProps>(
 	) => {
 		const [ searchTerm, setSearchTerm ] = useState<string | undefined>( '' );
 		const [ isLoading, setIsLoading ] = useState<boolean>( loading ?? false );
+		const [ activeIndex, setActiveIndex ] = useState<number | null>( null );
+		const listRef = React.useRef<( HTMLElement | null )[]>( [] );
 
 		const { refs, floatingStyles, context } = useFloating( {
 			open,
@@ -146,10 +155,19 @@ export const SearchBox = forwardRef<HTMLDivElement, BaseSearchBoxProps>(
 				} ),
 			],
 		} );
+
+		const listNavigation = useListNavigation( context, {
+			listRef,
+			activeIndex,
+			onNavigate: setActiveIndex,
+			loop: true,
+		} );
+
 		const dismiss = useDismiss( context );
 
-		const { getReferenceProps, getFloatingProps } = useInteractions( [
+		const { getReferenceProps, getFloatingProps, getItemProps } = useInteractions( [
 			dismiss,
+			listNavigation,
 		] );
 
 		useEffect( () => {
@@ -183,6 +201,13 @@ export const SearchBox = forwardRef<HTMLDivElement, BaseSearchBoxProps>(
 			};
 		}, [ refs.reference ] );
 
+		// Reset active index when closing dropdown
+		useEffect( () => {
+			if ( ! open ) {
+				setActiveIndex( null );
+			}
+		}, [ open ] );
+
 		return (
 			<SearchContext.Provider
 				value={ {
@@ -194,6 +219,10 @@ export const SearchBox = forwardRef<HTMLDivElement, BaseSearchBoxProps>(
 					context,
 					getReferenceProps,
 					getFloatingProps,
+					getItemProps,
+					activeIndex,
+					setActiveIndex,
+					listRef,
 					searchTerm,
 					setSearchTerm,
 					isLoading,
@@ -256,6 +285,8 @@ export const SearchBoxInput = forwardRef<HTMLInputElement, SearchBoxInputProps>(
 			getReferenceProps,
 			searchTerm,
 			setSearchTerm,
+			setActiveIndex,
+			open,
 		} = useSearchContext();
 		const badgeSize = size === 'lg' ? 'sm' : 'xs';
 
@@ -279,6 +310,22 @@ export const SearchBoxInput = forwardRef<HTMLInputElement, SearchBoxInputProps>(
 			}
 			if ( searchTerm?.trim() ) {
 				onOpenChange( true ); // Open the dropdown on focus if input is not empty
+			}
+		};
+
+		const handleKeyDown = ( event: React.KeyboardEvent ) => {
+			if ( disabled ) {
+				return;
+			}
+
+			if ( event.key === 'ArrowDown' ) {
+				event.preventDefault();
+				if ( ! open && searchTerm?.trim() ) {
+					onOpenChange!( true );
+				}
+				setActiveIndex!( 0 );
+			} else if ( event.key === 'Escape' ) {
+				onOpenChange!( false );
 			}
 		};
 
@@ -317,7 +364,8 @@ export const SearchBoxInput = forwardRef<HTMLInputElement, SearchBoxInputProps>(
 					disabled={ disabled }
 					value={ searchTerm }
 					onChange={ handleChange }
-					onFocus={ handleFocus } // Set open state on focus
+					onFocus={ handleFocus }
+					onKeyDown={ handleKeyDown }
 					placeholder={ placeholder }
 					// Omit custom props that are not valid for input
 					{ ...omit( props, [
@@ -356,12 +404,10 @@ export interface SearchBoxContentProps {
 
 export const SearchBoxContent = ( {
 	className,
-	dropdownPortalRoot, // Root element where the dropdown will be rendered.
-	dropdownPortalId, // Id of the dropdown portal where the dropdown will be rendered.
 	children,
 	...props
 }: SearchBoxContentProps ) => {
-	const { size, open, refs, floatingStyles, getFloatingProps } =
+	const { size, open, refs, floatingStyles, getFloatingProps, context } =
 		useSearchContext();
 
 	if ( ! open ) {
@@ -369,14 +415,14 @@ export const SearchBoxContent = ( {
 	}
 
 	return (
-		<FloatingPortal id={ dropdownPortalId } root={ dropdownPortalRoot }>
+		<FloatingFocusManager context={ context! } initialFocus={ -1 } returnFocus={ true }>
 			<div
 				ref={ refs!.setFloating }
 				style={ {
 					...floatingStyles,
 				} }
 				className={ cn(
-					'bg-background-primary rounded-md border border-solid border-border-subtle shadow-soft-shadow-lg overflow-y-auto text-wrap',
+					'bg-background-primary rounded-md border border-solid border-border-subtle shadow-soft-shadow-lg overflow-y-auto text-wrap focus:outline-none',
 					sizeClassNames.dialog[ size! ],
 					className
 				) }
@@ -385,7 +431,7 @@ export const SearchBoxContent = ( {
 			>
 				{ children }
 			</div>
-		</FloatingPortal>
+		</FloatingFocusManager>
 	);
 };
 SearchBoxContent.displayName = 'SearchBox.Content';
@@ -416,10 +462,14 @@ export const SearchBoxList = ( {
 	filter = true,
 	children,
 }: SearchBoxListProps ) => {
-	const { searchTerm, isLoading } = useSearchContext();
+	const { searchTerm, isLoading, listRef } = useSearchContext();
 
 	if ( ! filter ) {
-		return <div>{ children }</div>;
+		return (
+			<FloatingList elementsRef={ listRef! }>
+				<div>{ children }</div>
+			</FloatingList>
+		);
 	}
 	const filteredChildren = Children.toArray( children )
 		.map( ( child ) => {
@@ -448,17 +498,19 @@ export const SearchBoxList = ( {
 		return <SearchBoxLoading />;
 	}
 	return (
-		<div>
-			{ filteredChildren.some(
-				( child ) =>
-					React.isValidElement( child ) &&
-					child.type !== SearchBoxSeparator
-			) ? (
-					filteredChildren
-				) : (
-					<SearchBoxEmpty />
-				) }
-		</div>
+		<FloatingList elementsRef={ listRef! }>
+			<div>
+				{ filteredChildren.some(
+					( child ) =>
+						React.isValidElement( child ) &&
+						child.type !== SearchBoxSeparator
+				) ? (
+						filteredChildren
+					) : (
+						<SearchBoxEmpty />
+					) }
+			</div>
+		</FloatingList>
 	);
 };
 SearchBoxList.displayName = 'SearchBox.List';
@@ -536,30 +588,49 @@ export interface SearchBoxItemProps {
 	onClick?: () => void;
 }
 
-export const SearchBoxItem = forwardRef<HTMLDivElement, SearchBoxItemProps>(
+export const SearchBoxItem = forwardRef<HTMLButtonElement, SearchBoxItemProps>(
 	( { className, icon, children, onClick, ...props }, ref ) => {
-		const { size, setSearchTerm, clearSearchOnClick } = useSearchContext();
+		const { size, setSearchTerm, clearSearchOnClick, getItemProps, activeIndex } = useSearchContext();
+		const { ref: itemRef, index } = useListItem();
+
+		// Combine the refs
+		const combinedRef = ( node: HTMLButtonElement | null ) => {
+			if ( typeof ref === 'function' ) {
+				ref( node );
+			} else if ( ref ) {
+				ref.current = node;
+			}
+			itemRef( node );
+		};
+
+		const isActive = activeIndex === index;
 
 		const handleClick = () => {
 			if ( typeof onClick === 'function' ) {
 				onClick();
 			}
+
+			if ( clearSearchOnClick ) {
+				setSearchTerm!( '' );
+			}
 		};
+
 		return (
-			<div
-				ref={ ref }
+			<button
+				type="button"
+				ref={ combinedRef }
 				className={ cn(
-					'flex items-center justify-start gap-1 p-1 hover:bg-background-secondary focus:bg-background-secondary cursor-pointer',
+					'flex w-full items-center justify-start gap-1 p-1 cursor-pointer border-none bg-transparent text-left focus:outline-none',
+					isActive && 'bg-background-secondary',
+					! isActive && 'hover:bg-background-secondary focus:bg-background-secondary',
 					sizeClassNames.item[ size! ]
 				) }
-				onClick={ callAll( handleClick, () => {
-					if ( clearSearchOnClick ) {
-						setSearchTerm!( '' );
-					}
-				} ) as MouseEventHandler<HTMLDivElement> }
-				{ ...props }
-				tabIndex={ 0 }
-				role="button"
+				{ ...getItemProps?.( {
+					role: 'option',
+					'aria-selected': isActive,
+					onClick: handleClick,
+					...props,
+				} ) }
 			>
 				{ icon && (
 					<span
@@ -573,14 +644,14 @@ export const SearchBoxItem = forwardRef<HTMLDivElement, SearchBoxItemProps>(
 				) }
 				<span
 					className={ cn(
-						'flex-grow p-1 font-normal cursor-pointer',
+						'flex-grow p-1 font-normal',
 						sizeClassNames.item[ size! ],
 						className
 					) }
 				>
 					{ children }
 				</span>
-			</div>
+			</button>
 		);
 	}
 );
