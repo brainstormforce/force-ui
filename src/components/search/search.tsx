@@ -310,7 +310,7 @@ export const SearchBoxInput = forwardRef<HTMLInputElement, SearchBoxInputProps>(
 					ref={ ref }
 					className={ cn(
 						textSizeClassNames[ size! ],
-						'flex-grow font-medium bg-transparent border-none outline-none border-transparent focus:ring-0 py-0',
+						'flex-grow font-medium bg-transparent border-none outline-none border-transparent focus:ring-0 p-0 min-h-fit',
 						disabled &&
 							'text-field-placeholder focus-within:text-field-input group-hover:text-field-input placeholder:text-field-placeholder',
 					) }
