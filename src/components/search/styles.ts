@@ -43,9 +43,9 @@ export const sizeClassNames = {
 };
 export const variantClassNames = {
 	primary:
-		'bg-field-primary-background outline outline-1 outline-field-border hover:outline-border-strong',
+		'bg-field-primary-background outline outline-1 outline-field-border hover:outline-border-strong focus-within:outline-focus-border focus-within:hover:outline-focus-border',
 	secondary:
-		'bg-field-secondary-background outline outline-1 outline-field-border hover:outline-border-strong',
+		'bg-field-secondary-background outline outline-1 outline-field-border hover:outline-border-strong focus-within:outline-focus-border focus-within:hover:outline-focus-border',
 	ghost: 'bg-field-secondary-background outline outline-1 outline-transparent',
 };
 
@@ -55,7 +55,7 @@ export const iconClasses =
 export const disabledClassNames = {
 	ghost: 'cursor-not-allowed text-text-disabled placeholder:text-text-disabled',
 	primary:
-		'border-border-disabled hover:border-border-disabled bg-field-background-disabled cursor-not-allowed text-text-disabled placeholder:text-text-disabled',
+		'outline-border-disabled hover:outline-border-disabled bg-field-background-disabled cursor-not-allowed text-text-disabled placeholder:text-text-disabled',
 	secondary:
-		'border-border-disabled hover:border-border-disabled cursor-not-allowed text-text-disabled placeholder:text-text-disabled',
+		'outline-border-disabled hover:outline-border-disabled cursor-not-allowed text-text-disabled placeholder:text-text-disabled',
 };

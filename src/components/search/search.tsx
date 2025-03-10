@@ -31,6 +31,10 @@ import {
 	useInteractions,
 	type UseFloatingReturn,
 	type UseInteractionsReturn,
+	useListNavigation,
+	FloatingFocusManager,
+	FloatingList,
+	useListItem,
 } from '@floating-ui/react';
 
 type TSearchContentValue = Partial<{
@@ -42,10 +46,16 @@ type TSearchContentValue = Partial<{
 	floatingStyles: UseFloatingReturn['floatingStyles'];
 	getReferenceProps: UseInteractionsReturn['getReferenceProps'];
 	getFloatingProps: UseInteractionsReturn['getFloatingProps'];
+	getItemProps: ( userProps?: React.HTMLProps<HTMLElement> ) => Record<string, unknown>;
+	activeIndex: number | null;
+	setActiveIndex: React.Dispatch<React.SetStateAction<number | null>>;
+	listRef: React.MutableRefObject<( HTMLElement | null )[]>;
 	setSearchTerm: React.Dispatch<React.SetStateAction<string | undefined>>;
 	open: boolean;
 	context: UseFloatingReturn['context'];
 	setIsLoading: ( loading: boolean ) => void;
+	clearSearchOnClick: boolean;
+	closeOnClick: boolean;
 }>;
 
 // Define a context for the SearchBox
@@ -77,7 +87,24 @@ export interface BaseSearchBoxProps {
 
 	/** Child components to be rendered. */
 	children?: ReactNode;
+
+	/** Clear search on clicking result item. */
+	clearSearchOnClick?: boolean;
+
+	/** Close on clicking result item. */
+	closeOnClick?: boolean;
 }
+
+type SearchBoxPortalProps = {
+	/** Child components to be rendered. */
+	children: ReactNode;
+
+	/** Unique identifier for the portal, which determines where the dropdown will be rendered in the DOM. */
+	id?: string;
+
+	/** The HTML element that serves as the root for the portal, defining the location in the DOM where the dropdown will be displayed. This can be null if no specific root is provided. */
+	root?: HTMLElement | null;
+};
 
 // Extend the type to allow assigning subcomponents to SearchBox
 type SearchBoxComponent = React.ForwardRefExoticComponent<
@@ -91,6 +118,7 @@ type SearchBoxComponent = React.ForwardRefExoticComponent<
 	Empty: typeof SearchBoxEmpty;
 	Group: typeof SearchBoxGroup;
 	Item: typeof SearchBoxItem;
+	Portal: typeof SearchBoxPortal;
 };
 
 export const SearchBox = forwardRef<HTMLDivElement, BaseSearchBoxProps>(
@@ -101,12 +129,16 @@ export const SearchBox = forwardRef<HTMLDivElement, BaseSearchBoxProps>(
 			open = false,
 			onOpenChange = () => {},
 			loading = false,
+			clearSearchOnClick = false,
+			closeOnClick = false,
 			...props
 		},
 		ref
 	) => {
 		const [ searchTerm, setSearchTerm ] = useState<string | undefined>( '' );
 		const [ isLoading, setIsLoading ] = useState<boolean>( loading ?? false );
+		const [ activeIndex, setActiveIndex ] = useState<number | null>( null );
+		const listRef = React.useRef<( HTMLElement | null )[]>( [] );
 
 		const { refs, floatingStyles, context } = useFloating( {
 			open,
@@ -128,10 +160,21 @@ export const SearchBox = forwardRef<HTMLDivElement, BaseSearchBoxProps>(
 				} ),
 			],
 		} );
+
+		const listNavigation = useListNavigation( context, {
+			listRef,
+			activeIndex,
+			onNavigate: setActiveIndex,
+			loop: true,
+			// Prevent opening the dropdown with arrow keys
+			openOnArrowKeyDown: false,
+		} );
+
 		const dismiss = useDismiss( context );
 
-		const { getReferenceProps, getFloatingProps } = useInteractions( [
+		const { getReferenceProps, getFloatingProps, getItemProps } = useInteractions( [
 			dismiss,
+			listNavigation,
 		] );
 
 		useEffect( () => {
@@ -165,6 +208,13 @@ export const SearchBox = forwardRef<HTMLDivElement, BaseSearchBoxProps>(
 			};
 		}, [ refs.reference ] );
 
+		// Reset active index when closing dropdown
+		useEffect( () => {
+			if ( ! open ) {
+				setActiveIndex( null );
+			}
+		}, [ open ] );
+
 		return (
 			<SearchContext.Provider
 				value={ {
@@ -176,10 +226,16 @@ export const SearchBox = forwardRef<HTMLDivElement, BaseSearchBoxProps>(
 					context,
 					getReferenceProps,
 					getFloatingProps,
+					getItemProps,
+					activeIndex,
+					setActiveIndex,
+					listRef,
 					searchTerm,
 					setSearchTerm,
 					isLoading,
 					setIsLoading,
+					clearSearchOnClick,
+					closeOnClick,
 				} }
 			>
 				<div
@@ -237,8 +293,12 @@ export const SearchBoxInput = forwardRef<HTMLInputElement, SearchBoxInputProps>(
 			getReferenceProps,
 			searchTerm,
 			setSearchTerm,
+			open,
+			setActiveIndex,
+			listRef,
 		} = useSearchContext();
 		const badgeSize = size === 'lg' ? 'sm' : 'xs';
+
 		const handleChange = ( event: React.ChangeEvent<HTMLInputElement> ) => {
 			const newValue = event.target.value;
 			setSearchTerm!( newValue );
@@ -253,18 +313,59 @@ export const SearchBoxInput = forwardRef<HTMLInputElement, SearchBoxInputProps>(
 			}
 		};
 
+		const handleFocus = () => {
+			if ( disabled || typeof onOpenChange !== 'function' ) {
+				return;
+			}
+			if ( searchTerm?.trim() ) {
+				onOpenChange( true ); // Open the dropdown on focus if input is not empty
+			}
+		};
+
+		const handleKeyDown = ( event: React.KeyboardEvent ) => {
+			if ( disabled ) {
+				return;
+			}
+
+			// Do not open dropdown on arrow keys
+			if ( event.key === 'ArrowDown' || event.key === 'ArrowUp' ) {
+				// Only navigate if dropdown is already open
+				if ( open ) {
+					event.preventDefault();
+					if ( event.key === 'ArrowDown' ) {
+						// Navigate to first item if none selected, otherwise listNavigation will handle it
+						setActiveIndex!( ( prev ) => ( prev === null ? 0 : prev ) );
+					} else if ( event.key === 'ArrowUp' ) {
+						// Navigate to last item if none selected, otherwise listNavigation will handle it
+						setActiveIndex!( ( prev ) => {
+							// Get the length of the list to select the last item
+							const listLength = listRef?.current?.length || 0;
+							return prev === null && listLength > 0 ? listLength - 1 : prev;
+						} );
+					}
+				}
+				// Do not open the dropdown
+				return;
+			}
+
+			if ( event.key === 'Escape' ) {
+				onOpenChange!( false );
+			}
+		};
+
 		return (
 			<div
 				ref={ refs!.setReference }
 				className={ cn(
-					'w-full group relative flex justify-center items-center gap-1.5 focus-within:z-10 transition-colors ease-in-out duration-150',
+					'w-full group relative flex justify-center items-center gap-1.5 focus-within:z-10 transition-all ease-in-out duration-200',
 					variantClassNames[ variant ],
 					sizeClassNames.input[ size! ],
 					disabled
 						? disabledClassNames[ variant ]
-						: 'focus-within:ring-2 focus-within:ring-focus focus-within:ring-offset-2 focus-within:border-focus-border focus-within:hover:border-focus-border'
+						: 'focus-within:ring-2 focus-within:ring-focus focus-within:ring-offset-2 focus-within:border-focus-border focus-within:hover:border-focus-border',
+					className
 				) }
-				{ ...getReferenceProps }
+				{ ...getReferenceProps!() }
 			>
 				<span
 					className={ cn(
@@ -280,18 +381,15 @@ export const SearchBoxInput = forwardRef<HTMLInputElement, SearchBoxInputProps>(
 					ref={ ref }
 					className={ cn(
 						textSizeClassNames[ size! ],
-						'flex-grow font-medium bg-transparent border-none outline-none border-transparent focus:ring-0 py-0',
-						disabled
-							? disabledClassNames[ variant ]
-							: [
-								'text-field-placeholder focus-within:text-field-input group-hover:text-field-input',
-								'placeholder:text-field-placeholder',
-							],
-						className
+						'flex-grow font-medium bg-transparent border-none outline-none border-transparent focus:ring-0 p-0 min-h-fit',
+						disabled &&
+							'text-field-placeholder focus-within:text-field-input group-hover:text-field-input placeholder:text-field-placeholder',
 					) }
 					disabled={ disabled }
 					value={ searchTerm }
 					onChange={ handleChange }
+					onFocus={ handleFocus }
+					onKeyDown={ handleKeyDown }
 					placeholder={ placeholder }
 					// Omit custom props that are not valid for input
 					{ ...omit( props, [
@@ -330,12 +428,10 @@ export interface SearchBoxContentProps {
 
 export const SearchBoxContent = ( {
 	className,
-	dropdownPortalRoot = null, // Root element where the dropdown will be rendered.
-	dropdownPortalId = '', // Id of the dropdown portal where the dropdown will be rendered.
 	children,
 	...props
 }: SearchBoxContentProps ) => {
-	const { size, open, refs, floatingStyles, getFloatingProps } =
+	const { size, open, refs, floatingStyles, getFloatingProps, context } =
 		useSearchContext();
 
 	if ( ! open ) {
@@ -343,14 +439,14 @@ export const SearchBoxContent = ( {
 	}
 
 	return (
-		<FloatingPortal id={ dropdownPortalId } root={ dropdownPortalRoot }>
+		<FloatingFocusManager context={ context! } initialFocus={ -1 } returnFocus={ true }>
 			<div
 				ref={ refs!.setFloating }
 				style={ {
 					...floatingStyles,
 				} }
 				className={ cn(
-					'bg-background-primary rounded-md border border-solid border-border-subtle shadow-soft-shadow-lg overflow-y-auto text-wrap',
+					'bg-background-primary rounded-md border border-solid border-border-subtle shadow-soft-shadow-lg overflow-y-auto text-wrap focus:outline-none',
 					sizeClassNames.dialog[ size! ],
 					className
 				) }
@@ -359,10 +455,23 @@ export const SearchBoxContent = ( {
 			>
 				{ children }
 			</div>
-		</FloatingPortal>
+		</FloatingFocusManager>
 	);
 };
 SearchBoxContent.displayName = 'SearchBox.Content';
+
+export const SearchBoxPortal = ( {
+	children,
+	id,
+	root,
+}: SearchBoxPortalProps ) => {
+	return (
+		<FloatingPortal id={ id } root={ root }>
+			{ children }
+		</FloatingPortal>
+	);
+};
+SearchBoxPortal.displayName = 'SearchBox.Portal';
 
 // Define props for SearchBoxList
 export interface SearchBoxListProps {
@@ -377,10 +486,14 @@ export const SearchBoxList = ( {
 	filter = true,
 	children,
 }: SearchBoxListProps ) => {
-	const { searchTerm, isLoading } = useSearchContext();
+	const { searchTerm, isLoading, listRef } = useSearchContext();
 
 	if ( ! filter ) {
-		return <div>{ children }</div>;
+		return (
+			<FloatingList elementsRef={ listRef! }>
+				<div>{ children }</div>
+			</FloatingList>
+		);
 	}
 	const filteredChildren = Children.toArray( children )
 		.map( ( child ) => {
@@ -409,17 +522,19 @@ export const SearchBoxList = ( {
 		return <SearchBoxLoading />;
 	}
 	return (
-		<div>
-			{ filteredChildren.some(
-				( child ) =>
-					React.isValidElement( child ) &&
-					child.type !== SearchBoxSeparator
-			) ? (
-					filteredChildren
-				) : (
-					<SearchBoxEmpty />
-				) }
-		</div>
+		<FloatingList elementsRef={ listRef! }>
+			<div>
+				{ filteredChildren.some(
+					( child ) =>
+						React.isValidElement( child ) &&
+						child.type !== SearchBoxSeparator
+				) ? (
+						filteredChildren
+					) : (
+						<SearchBoxEmpty />
+					) }
+			</div>
+		</FloatingList>
 	);
 };
 SearchBoxList.displayName = 'SearchBox.List';
@@ -470,7 +585,7 @@ export const SearchBoxGroup = ( { heading, children }: SearchBoxGroupProps ) => 
 				<div
 					className={ cn(
 						sizeClassNames.title[ size! ],
-						'text-text-secondary'
+						'text-text-tertiary'
 					) }
 				>
 					{ heading }
@@ -492,19 +607,66 @@ export interface SearchBoxItemProps {
 
 	/** Child components to be rendered. */
 	children: ReactNode;
+
+	/** On click handler. */
+	onClick?: () => void;
 }
 
-export const SearchBoxItem = forwardRef<HTMLDivElement, SearchBoxItemProps>(
-	( { className, icon, children, ...props }, ref ) => {
-		const { size } = useSearchContext();
+export const SearchBoxItem = forwardRef<HTMLButtonElement, SearchBoxItemProps>(
+	( { className, icon, children, onClick, ...props }, ref ) => {
+		const {
+			size,
+			setSearchTerm,
+			clearSearchOnClick,
+			getItemProps,
+			activeIndex,
+			onOpenChange,
+			closeOnClick,
+		} = useSearchContext();
+		const { ref: itemRef, index } = useListItem();
+
+		// Combine the refs
+		const combinedRef = ( node: HTMLButtonElement | null ) => {
+			if ( typeof ref === 'function' ) {
+				ref( node );
+			} else if ( ref ) {
+				ref.current = node;
+			}
+			itemRef( node );
+		};
+
+		const isActive = activeIndex === index;
+
+		const handleClick = () => {
+			if ( typeof onClick === 'function' ) {
+				onClick();
+			}
+
+			if ( clearSearchOnClick ) {
+				setSearchTerm!( '' );
+			}
+
+			if ( closeOnClick ) {
+				onOpenChange!( false );
+			}
+		};
+
 		return (
-			<div
-				ref={ ref }
+			<button
+				type="button"
+				ref={ combinedRef }
 				className={ cn(
-					'flex items-center justify-start gap-1 p-1 hover:bg-background-secondary focus:bg-background-secondary cursor-pointer',
+					'flex w-full items-center justify-start gap-1 p-1 cursor-pointer border-none bg-transparent text-left focus:outline-none',
+					isActive && 'bg-background-secondary',
+					! isActive && 'hover:bg-background-secondary focus:bg-background-secondary',
 					sizeClassNames.item[ size! ]
 				) }
-				{ ...props }
+				{ ...getItemProps?.( {
+					role: 'option',
+					'aria-selected': isActive,
+					onClick: handleClick,
+					...props,
+				} ) }
 			>
 				{ icon && (
 					<span
@@ -518,14 +680,14 @@ export const SearchBoxItem = forwardRef<HTMLDivElement, SearchBoxItemProps>(
 				) }
 				<span
 					className={ cn(
-						'flex-grow p-1 font-normal cursor-pointer',
+						'flex-grow p-1 font-normal',
 						sizeClassNames.item[ size! ],
 						className
 					) }
 				>
 					{ children }
 				</span>
-			</div>
+			</button>
 		);
 	}
 );
@@ -589,5 +751,5 @@ SearchBox.List = SearchBoxList;
 SearchBox.Empty = SearchBoxEmpty;
 SearchBox.Group = SearchBoxGroup;
 SearchBox.Item = SearchBoxItem;
-
+SearchBox.Portal = SearchBoxPortal;
 export default SearchBox;

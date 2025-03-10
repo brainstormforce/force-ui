@@ -10,6 +10,7 @@ const meta: Meta<typeof SearchBox> = {
 		'SearchBox.Input': SearchBox.Input,
 		'SearchBox.Loading': SearchBox.Loading,
 		'SearchBox.Separator': SearchBox.Separator,
+		'SearchBox.Portal': SearchBox.Portal,
 		'SearchBox.Content': SearchBox.Content,
 		'SearchBox.List': SearchBox.List,
 		'SearchBox.Empty': SearchBox.Empty,
@@ -51,33 +52,35 @@ const Template: StoryFn<typeof SearchBox> = ( args ) => {
 			onOpenChange={ handleOpenChange }
 		>
 			<SearchBox.Input ref={ inputRef } onChange={ handleSearch } />
-			<SearchBox.Content>
-				<SearchBox.List>
-					<SearchBox.Group heading="Suggestions">
-						<SearchBox.Item icon={ <File /> }>
-							Calendar
-						</SearchBox.Item>
-						<SearchBox.Item icon={ <File /> }>
-							Document
-						</SearchBox.Item>
-						<SearchBox.Item icon={ <File /> }>
-							Attendance
-						</SearchBox.Item>
-					</SearchBox.Group>
-					<SearchBox.Separator />
-					<SearchBox.Group heading="Folders">
-						<SearchBox.Item icon={ <Folder /> }>
-							Calendar Folder
-						</SearchBox.Item>
-						<SearchBox.Item icon={ <Folder /> }>
-							Document Folder
-						</SearchBox.Item>
-						<SearchBox.Item icon={ <Folder /> }>
-							Attendance Folder
-						</SearchBox.Item>
-					</SearchBox.Group>
-				</SearchBox.List>
-			</SearchBox.Content>
+			<SearchBox.Portal>
+				<SearchBox.Content>
+					<SearchBox.List>
+						<SearchBox.Group heading="Suggestions">
+							<SearchBox.Item icon={ <File /> }>
+								Calendar
+							</SearchBox.Item>
+							<SearchBox.Item icon={ <File /> }>
+								Document
+							</SearchBox.Item>
+							<SearchBox.Item icon={ <File /> }>
+								Attendance
+							</SearchBox.Item>
+						</SearchBox.Group>
+						<SearchBox.Separator />
+						<SearchBox.Group heading="Folders">
+							<SearchBox.Item icon={ <Folder /> }>
+								Calendar Folder
+							</SearchBox.Item>
+							<SearchBox.Item icon={ <Folder /> }>
+								Document Folder
+							</SearchBox.Item>
+							<SearchBox.Item icon={ <Folder /> }>
+								Attendance Folder
+							</SearchBox.Item>
+						</SearchBox.Group>
+					</SearchBox.List>
+				</SearchBox.Content>
+			</SearchBox.Portal>
 		</SearchBox>
 	);
 };
