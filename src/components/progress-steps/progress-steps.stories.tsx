@@ -1,5 +1,5 @@
 import ProgressSteps, { ProgressStepsProps } from './progress-steps';
-import { Check, Home } from 'lucide-react';
+import { Check, Home, BadgeCheck } from 'lucide-react';
 import type { Meta, StoryFn } from '@storybook/react';
 
 // ProgressSteps.Step display name for better documentation in Storybook
@@ -105,6 +105,38 @@ export const StackType = {
 		size: 'md',
 		type: 'stack',
 		currentStep: 3,
+	},
+	render: Template,
+};
+
+// Numbered Completed Steps Variant
+export const NumberedCompletedSteps = {
+	args: {
+		variant: 'dot',
+		size: 'md',
+		type: 'inline',
+		currentStep: 3,
+		completedVariant: 'numbered',
+	},
+	parameters: {
+		docs: {
+			description: {
+				story: 'Shows completed steps with step numbers in colored circles',
+			},
+		},
+	},
+	render: Template,
+};
+
+// custom icon in completed steps
+export const CustomIconInCompletedSteps = {
+	args: {
+		variant: 'icon',
+		size: 'md',
+		type: 'inline',
+		currentStep: 3,
+		completedVariant: 'icon',
+		completedIcon: <BadgeCheck />,
 	},
 	render: Template,
 };
