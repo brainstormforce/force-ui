@@ -46,7 +46,9 @@ type TSearchContentValue = Partial<{
 	floatingStyles: UseFloatingReturn['floatingStyles'];
 	getReferenceProps: UseInteractionsReturn['getReferenceProps'];
 	getFloatingProps: UseInteractionsReturn['getFloatingProps'];
-	getItemProps: ( userProps?: React.HTMLProps<HTMLElement> ) => Record<string, unknown>;
+	getItemProps: (
+		userProps?: React.HTMLProps<HTMLElement>
+	) => Record<string, unknown>;
 	activeIndex: number | null;
 	setActiveIndex: React.Dispatch<React.SetStateAction<number | null>>;
 	listRef: React.MutableRefObject<( HTMLElement | null )[]>;
@@ -65,6 +67,11 @@ const useSearchContext = () => {
 	return useContext<TSearchContentValue>( SearchContext );
 };
 
+export interface CommonSearchBoxProps {
+	/** Additional class names for styling. */
+	className?: string;
+}
+
 // Define the Size type
 type Size = 'sm' | 'md' | 'lg';
 
@@ -75,6 +82,9 @@ export interface BaseSearchBoxProps {
 
 	/** Size of the SearchBox. */
 	size?: 'sm' | 'md' | 'lg';
+
+	/** Style variant of the input. */
+	variant?: 'primary' | 'secondary' | 'ghost';
 
 	/** Whether the dropdown is open. */
 	open?: boolean;
@@ -131,6 +141,7 @@ export const SearchBox = forwardRef<HTMLDivElement, BaseSearchBoxProps>(
 			loading = false,
 			clearSearchOnClick = false,
 			closeOnClick = false,
+			variant = 'primary',
 			...props
 		},
 		ref
@@ -172,10 +183,8 @@ export const SearchBox = forwardRef<HTMLDivElement, BaseSearchBoxProps>(
 
 		const dismiss = useDismiss( context );
 
-		const { getReferenceProps, getFloatingProps, getItemProps } = useInteractions( [
-			dismiss,
-			listNavigation,
-		] );
+		const { getReferenceProps, getFloatingProps, getItemProps } =
+			useInteractions( [ dismiss, listNavigation ] );
 
 		useEffect( () => {
 			const operatingSystem = getOperatingSystem();
@@ -236,6 +245,7 @@ export const SearchBox = forwardRef<HTMLDivElement, BaseSearchBoxProps>(
 					setIsLoading,
 					clearSearchOnClick,
 					closeOnClick,
+					variant,
 				} }
 			>
 				<div
@@ -253,15 +263,12 @@ export const SearchBox = forwardRef<HTMLDivElement, BaseSearchBoxProps>(
 SearchBox.displayName = 'SearchBox';
 
 // Define props for SearchBoxInput
-export interface SearchBoxInputProps extends BaseSearchBoxProps {
+export interface SearchBoxInputProps extends CommonSearchBoxProps {
 	/** Type of the input (e.g., text, search). */
 	type?: string;
 
 	/** Placeholder text for the input. */
 	placeholder?: string;
-
-	/** Style variant of the input. */
-	variant?: 'primary' | 'secondary' | 'ghost';
 
 	/** Whether the input is disabled. */
 	disabled?: boolean;
@@ -279,7 +286,6 @@ export const SearchBoxInput = forwardRef<HTMLInputElement, SearchBoxInputProps>(
 			className,
 			type = 'text',
 			placeholder = 'Search...',
-			variant = 'primary',
 			disabled = false,
 			onChange = () => {},
 			...props
@@ -288,7 +294,6 @@ export const SearchBoxInput = forwardRef<HTMLInputElement, SearchBoxInputProps>(
 	) => {
 		const {
 			size,
-			onOpenChange,
 			refs,
 			getReferenceProps,
 			searchTerm,
@@ -296,6 +301,8 @@ export const SearchBoxInput = forwardRef<HTMLInputElement, SearchBoxInputProps>(
 			open,
 			setActiveIndex,
 			listRef,
+			onOpenChange,
+			variant,
 		} = useSearchContext();
 		const badgeSize = size === 'lg' ? 'sm' : 'xs';
 
@@ -318,7 +325,7 @@ export const SearchBoxInput = forwardRef<HTMLInputElement, SearchBoxInputProps>(
 				return;
 			}
 			if ( searchTerm?.trim() ) {
-				onOpenChange( true ); // Open the dropdown on focus if input is not empty
+				onOpenChange!( true ); // Open the dropdown on focus if input is not empty
 			}
 		};
 
@@ -340,7 +347,9 @@ export const SearchBoxInput = forwardRef<HTMLInputElement, SearchBoxInputProps>(
 						setActiveIndex!( ( prev ) => {
 							// Get the length of the list to select the last item
 							const listLength = listRef?.current?.length || 0;
-							return prev === null && listLength > 0 ? listLength - 1 : prev;
+							return prev === null && listLength > 0
+								? listLength - 1
+								: prev;
 						} );
 					}
 				}
@@ -383,7 +392,7 @@ export const SearchBoxInput = forwardRef<HTMLInputElement, SearchBoxInputProps>(
 						textSizeClassNames[ size! ],
 						'flex-grow font-medium bg-transparent border-none outline-none border-transparent focus:ring-0 p-0 min-h-fit',
 						disabled &&
-							'text-field-placeholder focus-within:text-field-input group-hover:text-field-input placeholder:text-field-placeholder',
+							'text-field-placeholder focus-within:text-field-input group-hover:text-field-input placeholder:text-field-placeholder'
 					) }
 					disabled={ disabled }
 					value={ searchTerm }
@@ -416,12 +425,6 @@ export interface SearchBoxContentProps {
 	/** Additional class names for styling. */
 	className?: string;
 
-	/** Root element where the dropdown will be rendered. */
-	dropdownPortalRoot?: HTMLElement | null;
-
-	/** Id of the dropdown portal where the dropdown will be rendered. */
-	dropdownPortalId?: string;
-
 	/** Child components to be rendered inside the dropdown. */
 	children: ReactNode;
 }
@@ -439,7 +442,11 @@ export const SearchBoxContent = ( {
 	}
 
 	return (
-		<FloatingFocusManager context={ context! } initialFocus={ -1 } returnFocus={ true }>
+		<FloatingFocusManager
+			context={ context! }
+			initialFocus={ -1 }
+			returnFocus={ true }
+		>
 			<div
 				ref={ refs!.setFloating }
 				style={ {
@@ -658,7 +665,8 @@ export const SearchBoxItem = forwardRef<HTMLButtonElement, SearchBoxItemProps>(
 				className={ cn(
 					'flex w-full items-center justify-start gap-1 p-1 cursor-pointer border-none bg-transparent text-left focus:outline-none',
 					isActive && 'bg-background-secondary',
-					! isActive && 'hover:bg-background-secondary focus:bg-background-secondary',
+					! isActive &&
+						'hover:bg-background-secondary focus:bg-background-secondary',
 					sizeClassNames.item[ size! ]
 				) }
 				{ ...getItemProps?.( {
