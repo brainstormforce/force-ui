@@ -37,36 +37,6 @@ import {
 	useListItem,
 } from '@floating-ui/react';
 
-type TSearchContentValue = Partial<{
-	size: 'sm' | 'md' | 'lg';
-	searchTerm: string;
-	isLoading: boolean;
-	onOpenChange: ( open: boolean ) => void;
-	refs: UseFloatingReturn['refs'];
-	floatingStyles: UseFloatingReturn['floatingStyles'];
-	getReferenceProps: UseInteractionsReturn['getReferenceProps'];
-	getFloatingProps: UseInteractionsReturn['getFloatingProps'];
-	getItemProps: (
-		userProps?: React.HTMLProps<HTMLElement>
-	) => Record<string, unknown>;
-	activeIndex: number | null;
-	setActiveIndex: React.Dispatch<React.SetStateAction<number | null>>;
-	listRef: React.MutableRefObject<( HTMLElement | null )[]>;
-	setSearchTerm: React.Dispatch<React.SetStateAction<string | undefined>>;
-	open: boolean;
-	context: UseFloatingReturn['context'];
-	setIsLoading: ( loading: boolean ) => void;
-	clearSearchOnClick: boolean;
-	closeOnClick: boolean;
-}>;
-
-// Define a context for the SearchBox
-const SearchContext = createContext<TSearchContentValue>( {} );
-
-const useSearchContext = () => {
-	return useContext<TSearchContentValue>( SearchContext );
-};
-
 export interface CommonSearchBoxProps {
 	/** Additional class names for styling. */
 	className?: string;
@@ -116,6 +86,24 @@ type SearchBoxPortalProps = {
 	root?: HTMLElement | null;
 };
 
+// Define props for SearchBoxInput
+export interface SearchBoxInputProps extends CommonSearchBoxProps {
+	/** Type of the input (e.g., text, search). */
+	type?: string;
+
+	/** Placeholder text for the input. */
+	placeholder?: string;
+
+	/** Whether the input is disabled. */
+	disabled?: boolean;
+
+	/** Callback for input changes. */
+	onChange?: ( value: string ) => void;
+
+	/** Child components to be rendered. */
+	children?: ReactNode;
+}
+
 // Extend the type to allow assigning subcomponents to SearchBox
 type SearchBoxComponent = React.ForwardRefExoticComponent<
 	BaseSearchBoxProps & React.RefAttributes<HTMLDivElement>
@@ -129,6 +117,37 @@ type SearchBoxComponent = React.ForwardRefExoticComponent<
 	Group: typeof SearchBoxGroup;
 	Item: typeof SearchBoxItem;
 	Portal: typeof SearchBoxPortal;
+};
+
+type TSearchContentValue = Partial<{
+	size: 'sm' | 'md' | 'lg';
+	searchTerm: string;
+	isLoading: boolean;
+	onOpenChange: ( open: boolean ) => void;
+	refs: UseFloatingReturn['refs'];
+	floatingStyles: UseFloatingReturn['floatingStyles'];
+	getReferenceProps: UseInteractionsReturn['getReferenceProps'];
+	getFloatingProps: UseInteractionsReturn['getFloatingProps'];
+	getItemProps: (
+		userProps?: React.HTMLProps<HTMLElement>
+	) => Record<string, unknown>;
+	activeIndex: number | null;
+	setActiveIndex: React.Dispatch<React.SetStateAction<number | null>>;
+	listRef: React.MutableRefObject<( HTMLElement | null )[]>;
+	setSearchTerm: React.Dispatch<React.SetStateAction<string | undefined>>;
+	open: boolean;
+	context: UseFloatingReturn['context'];
+	setIsLoading: ( loading: boolean ) => void;
+	clearSearchOnClick: boolean;
+	closeOnClick: boolean;
+	variant: BaseSearchBoxProps['variant'];
+}>;
+
+// Define a context for the SearchBox
+const SearchContext = createContext<TSearchContentValue>( {} );
+
+const useSearchContext = () => {
+	return useContext<TSearchContentValue>( SearchContext );
 };
 
 export const SearchBox = forwardRef<HTMLDivElement, BaseSearchBoxProps>(
@@ -262,24 +281,6 @@ export const SearchBox = forwardRef<HTMLDivElement, BaseSearchBoxProps>(
 ) as SearchBoxComponent;
 SearchBox.displayName = 'SearchBox';
 
-// Define props for SearchBoxInput
-export interface SearchBoxInputProps extends CommonSearchBoxProps {
-	/** Type of the input (e.g., text, search). */
-	type?: string;
-
-	/** Placeholder text for the input. */
-	placeholder?: string;
-
-	/** Whether the input is disabled. */
-	disabled?: boolean;
-
-	/** Callback for input changes. */
-	onChange?: ( value: string ) => void;
-
-	/** Child components to be rendered. */
-	children?: ReactNode;
-}
-
 export const SearchBoxInput = forwardRef<HTMLInputElement, SearchBoxInputProps>(
 	(
 		{
@@ -367,10 +368,10 @@ export const SearchBoxInput = forwardRef<HTMLInputElement, SearchBoxInputProps>(
 				ref={ refs!.setReference }
 				className={ cn(
 					'w-full group relative flex justify-center items-center gap-1.5 focus-within:z-10 transition-all ease-in-out duration-200',
-					variantClassNames[ variant ],
+					variantClassNames[ variant! ],
 					sizeClassNames.input[ size! ],
 					disabled
-						? disabledClassNames[ variant ]
+						? disabledClassNames[ variant! ]
 						: 'focus-within:ring-2 focus-within:ring-focus focus-within:ring-offset-2 focus-within:border-focus-border focus-within:hover:border-focus-border',
 					className
 				) }
