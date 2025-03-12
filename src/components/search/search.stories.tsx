@@ -94,8 +94,8 @@ export const SecondarySearchBox = Template.bind( {} );
 SecondarySearchBox.args = {};
 SecondarySearchBox.decorators = [
 	() => (
-		<SearchBox>
-			<SearchBox.Input variant="secondary" />
+		<SearchBox variant="secondary">
+			<SearchBox.Input />
 		</SearchBox>
 	),
 ];
@@ -104,8 +104,8 @@ export const GhostSearchBox = Template.bind( {} );
 GhostSearchBox.args = {};
 GhostSearchBox.decorators = [
 	() => (
-		<SearchBox>
-			<SearchBox.Input variant="ghost" />
+		<SearchBox variant="ghost">
+			<SearchBox.Input />
 		</SearchBox>
 	),
 ];
