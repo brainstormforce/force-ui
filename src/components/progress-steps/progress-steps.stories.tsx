@@ -112,7 +112,7 @@ export const StackType = {
 // Numbered Completed Steps Variant
 export const NumberedCompletedSteps = {
 	args: {
-		variant: 'dot',
+		variant: 'number',
 		size: 'md',
 		type: 'inline',
 		currentStep: 3,

@@ -308,7 +308,7 @@ export const createStepContent = (
 				<span
 					className={ cn(
 						completedStepCommonClasses( sizeClasses, size ),
-						'flex items-center justify-center bg-brand-primary-600 text-white rounded-full'
+						'flex items-center justify-center bg-brand-primary-600 text-text-on-color rounded-full'
 					) }
 				>
 					{ index + 1 }
