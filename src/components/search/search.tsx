@@ -671,7 +671,8 @@ export const SearchBoxItem = forwardRef<HTMLButtonElement, SearchBoxItemProps>(
 					isActive && 'bg-background-secondary',
 					! isActive &&
 						'hover:bg-background-secondary focus:bg-background-secondary',
-					sizeClassNames.item[ size! ]
+					sizeClassNames.item[ size! ],
+					className
 				) }
 				{ ...getItemProps?.( {
 					role: 'option',
@@ -694,7 +695,6 @@ export const SearchBoxItem = forwardRef<HTMLButtonElement, SearchBoxItemProps>(
 					className={ cn(
 						'flex-grow p-1 font-normal',
 						sizeClassNames.item[ size! ],
-						className
 					) }
 				>
 					{ children }
