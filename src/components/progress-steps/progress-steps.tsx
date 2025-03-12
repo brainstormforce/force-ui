@@ -34,7 +34,7 @@ const sizeClassnames = {
 type StepSizeClasses = typeof sizeClassnames;
 
 // Enhanced to include completed step variants
-export type CompletedVariant = 'icon' | 'numbered';
+export type CompletedVariant = 'icon' | 'number';
 
 // Common props interface
 export interface ProgressCommonProps {
@@ -303,7 +303,7 @@ export const createStepContent = (
 	completedIcon: ReactNode = <Check />
 ) => {
 	if ( isCompleted ) {
-		if ( completedVariant === 'numbered' ) {
+		if ( completedVariant === 'number' ) {
 			return (
 				<span
 					className={ cn(

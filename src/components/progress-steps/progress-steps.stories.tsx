@@ -116,7 +116,7 @@ export const NumberedCompletedSteps = {
 		size: 'md',
 		type: 'inline',
 		currentStep: 3,
-		completedVariant: 'numbered',
+		completedVariant: 'number',
 	},
 	parameters: {
 		docs: {
