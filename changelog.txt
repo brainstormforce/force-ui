@@ -1,5 +1,6 @@
 Version 1.4.3 - xth x, 2025
 - New - Added a variant in Input component to show uploaded file preview.
+- New - Added a variant in Progress Steps component to show icon and number in the completed step.
 
 Version 1.4.2 - 6th March, 2025
 - New - Added new size 'xs' to the Switch component.
