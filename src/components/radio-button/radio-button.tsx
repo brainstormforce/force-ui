@@ -25,7 +25,6 @@ import {
 	baseClasses,
 	hoverClasses,
 	focusClasses,
-	positionClassNames,
 } from './styles';
 import Tooltip from '../tooltip';
 
@@ -337,14 +336,26 @@ export const RadioButtonComponent = (
 		return (
 			<div
 				className={ cn(
-					! inlineIcon && 'space-y-1.5 mt-[2px]',
+					! inlineIcon && {
+						'space-y-3': size === 'sm',
+						'space-y-4': size === 'md',
+					},
 					reversePosition && ( useSwitch ? 'ml-10' : 'ml-4' ),
 					inlineIcon && 'flex gap-2',
 					inlineIcon && ! label.description && 'items-center'
 				) }
 			>
 				{ icon && <>{ icon }</> }
-				<div className={ cn( 'space-y-1.5' ) }>
+				<div
+					className={ cn(
+						! ( icon && useSwitch ) || ( icon && badgeItem )
+							? {
+								'space-y-0.5': size === 'sm',
+								'space-y-1': size === 'md',
+							}
+							: 'space-y-0.5'
+					) }
+				>
 					<p
 						className={ cn(
 							'text-text-primary font-medium m-0',
@@ -394,6 +405,13 @@ export const RadioButtonComponent = (
 		}
 	};
 
+	const paddingClasses = {
+		'pl-3.5 pr-2.5 py-2.5': size === 'sm' && ! ( icon && useSwitch ),
+		'p-3': size === 'sm' && ( ( icon && useSwitch ) || ( icon && badgeItem ) ),
+		'pl-4 pr-3 py-3': size === 'md' && ! ( icon && useSwitch ),
+		'p-4': size === 'md' && ( ( icon && useSwitch ) || ( icon && badgeItem ) ),
+	};
+
 	return (
 		<label
 			className={ cn(
@@ -401,12 +419,12 @@ export const RadioButtonComponent = (
 				!! label && 'items-start justify-between',
 				minWidth && 'min-w-[180px]',
 				borderOn &&
-					'border border-border-subtle border-solid rounded-md shadow-sm hover:ring-1 hover:ring-border-interactive',
+					'outline outline-field-border outline-1 rounded-md shadow-sm hover:outline-border-interactive',
 				borderOnActive &&
 					borderOn &&
 					checkedValue &&
-					'ring-1 ring-border-interactive',
-				size === 'sm' ? 'px-3 py-3' : 'px-4 py-4',
+					'outline-border-interactive',
+				paddingClasses,
 				'pr-12',
 				isDisabled && 'cursor-not-allowed opacity-40',
 				buttonWrapperClasses
@@ -443,9 +461,6 @@ export const RadioButtonComponent = (
 					reversePosition && 'left-0',
 					isDisabled && 'cursor-not-allowed',
 					inlineIcon && 'mr-3',
-					useSwitch
-						? positionClassNames[ size ].switch
-						: positionClassNames[ size ].radio
 				) }
 				onClick={ handleLabelClick }
 			>
@@ -507,7 +522,6 @@ export const RadioButtonComponent = (
 									<div
 										className={ cn(
 											'rounded-full bg-current',
-											size === 'sm' && 'mt-[0.5px]',
 											sizeClassNames[ size ]?.icon
 										) }
 									/>
