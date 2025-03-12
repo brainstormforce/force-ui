@@ -62,6 +62,9 @@ export interface BaseSearchBoxProps {
 	/** Callback when dropdown state changes. */
 	onOpenChange?: ( open: boolean ) => void;
 
+	/** Whether to filter children based on the search term. Turn off when you want to filter children manually. */
+	filter?: boolean;
+
 	/** Whether to show loading state. */
 	loading?: boolean;
 
@@ -141,6 +144,7 @@ type TSearchContentValue = Partial<{
 	clearSearchOnClick: boolean;
 	closeOnClick: boolean;
 	variant: BaseSearchBoxProps['variant'];
+	filter: boolean;
 }>;
 
 // Define a context for the SearchBox
@@ -161,6 +165,7 @@ export const SearchBox = forwardRef<HTMLDivElement, BaseSearchBoxProps>(
 			clearSearchOnClick = false,
 			closeOnClick = false,
 			variant = 'primary',
+			filter = true,
 			...props
 		},
 		ref
@@ -265,6 +270,7 @@ export const SearchBox = forwardRef<HTMLDivElement, BaseSearchBoxProps>(
 					clearSearchOnClick,
 					closeOnClick,
 					variant,
+					filter,
 				} }
 			>
 				<div
@@ -482,19 +488,16 @@ export const SearchBoxPortal = ( {
 SearchBoxPortal.displayName = 'SearchBox.Portal';
 
 // Define props for SearchBoxList
-export interface SearchBoxListProps {
-	/** Whether to filter children based on the search term. */
-	filter?: boolean;
-
+export interface SearchBoxListProps extends CommonSearchBoxProps {
 	/** Child components to be rendered. */
 	children: ReactNode;
 }
 
 export const SearchBoxList = ( {
-	filter = true,
 	children,
+	className,
 }: SearchBoxListProps ) => {
-	const { searchTerm, isLoading, listRef } = useSearchContext();
+	const { searchTerm, isLoading, listRef, filter = true } = useSearchContext();
 
 	if ( ! filter ) {
 		return (
@@ -531,7 +534,7 @@ export const SearchBoxList = ( {
 	}
 	return (
 		<FloatingList elementsRef={ listRef! }>
-			<div>
+			<div className={ className }>
 				{ filteredChildren.some(
 					( child ) =>
 						React.isValidElement( child ) &&
