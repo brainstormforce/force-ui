@@ -531,7 +531,7 @@ export const SearchBoxList = ( {
 	if ( ! filter ) {
 		return (
 			<FloatingList elementsRef={ listRef! }>
-				<div>{ children }</div>
+				<div className={ className }>{ children }</div>
 			</FloatingList>
 		);
 	}
@@ -583,10 +583,14 @@ SearchBoxList.displayName = 'SearchBox.List';
 export interface SearchBoxEmptyProps {
 	/** Content to display when there are no results. */
 	children?: ReactNode;
+
+	/** Additional class names for styling. */
+	className?: string;
 }
 
 export const SearchBoxEmpty = ( {
 	children = 'No results found.',
+	className,
 }: SearchBoxEmptyProps ) => {
 	const { size } = useSearchContext();
 	return (
@@ -594,7 +598,8 @@ export const SearchBoxEmpty = ( {
 			className={ cn(
 				'flex justify-center items-center',
 				sizeClassNames.item[ size! ],
-				'text-text-tertiary p-4'
+				'text-text-tertiary p-4',
+				className
 			) }
 		>
 			{ children }
