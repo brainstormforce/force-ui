@@ -7,6 +7,7 @@ import React, {
 	useContext,
 	Children,
 	cloneElement,
+	useMemo,
 } from 'react';
 import { omit } from 'lodash'; // or define your own omit function
 import { cn, getOperatingSystem } from '@/utilities/functions';
@@ -59,7 +60,16 @@ export interface BaseSearchBoxProps {
 	/** Whether the dropdown is open. */
 	open?: boolean;
 
-	/** Callback when dropdown state changes. */
+	/**
+	 * Call back function to handle the open state of the dropdown.
+	 */
+	setOpen?: ( open: boolean ) => void;
+
+	/**
+	 * Callback when dropdown state changes.
+	 *
+	 * @deprecated Use `setOpen` instead.
+	 */
 	onOpenChange?: ( open: boolean ) => void;
 
 	/** Whether to filter children based on the search term. Turn off when you want to filter children manually. */
@@ -71,11 +81,19 @@ export interface BaseSearchBoxProps {
 	/** Child components to be rendered. */
 	children?: ReactNode;
 
-	/** Clear search on clicking result item. */
-	clearSearchOnClick?: boolean;
+	/**
+	 * Clear search term after selecting a result.
+	 *
+	 * @default true
+	 */
+	clearAfterSelect?: boolean;
 
-	/** Close on clicking result item. */
-	closeOnClick?: boolean;
+	/**
+	 * Close dropdown after selecting a result.
+	 *
+	 * @default true
+	 */
+	closeAfterSelect?: boolean;
 }
 
 type SearchBoxPortalProps = {
@@ -141,8 +159,8 @@ type TSearchContentValue = Partial<{
 	open: boolean;
 	context: UseFloatingReturn['context'];
 	setIsLoading: ( loading: boolean ) => void;
-	clearSearchOnClick: boolean;
-	closeOnClick: boolean;
+	clearAfterSelect: boolean;
+	closeAfterSelect: boolean;
 	variant: BaseSearchBoxProps['variant'];
 	filter: boolean;
 }>;
@@ -160,10 +178,11 @@ export const SearchBox = forwardRef<HTMLDivElement, BaseSearchBoxProps>(
 			className,
 			size = 'sm' as Size,
 			open = false,
-			onOpenChange = () => {},
+			setOpen = () => {},
+			onOpenChange: _onOpenChange = () => {},
 			loading = false,
-			clearSearchOnClick = false,
-			closeOnClick = false,
+			clearAfterSelect = true,
+			closeAfterSelect = true,
 			variant = 'primary',
 			filter = true,
 			...props
@@ -174,6 +193,16 @@ export const SearchBox = forwardRef<HTMLDivElement, BaseSearchBoxProps>(
 		const [ isLoading, setIsLoading ] = useState<boolean>( loading ?? false );
 		const [ activeIndex, setActiveIndex ] = useState<number | null>( null );
 		const listRef = React.useRef<( HTMLElement | null )[]>( [] );
+
+		/**
+		 * Memoized function to handle the open state of the dropdown.
+		 */
+		const onOpenChange = useMemo( () => {
+			if ( typeof setOpen === 'function' ) {
+				return setOpen;
+			}
+			return _onOpenChange;
+		}, [ setOpen, _onOpenChange ] );
 
 		const { refs, floatingStyles, context } = useFloating( {
 			open,
@@ -267,8 +296,8 @@ export const SearchBox = forwardRef<HTMLDivElement, BaseSearchBoxProps>(
 					setSearchTerm,
 					isLoading,
 					setIsLoading,
-					clearSearchOnClick,
-					closeOnClick,
+					clearAfterSelect,
+					closeAfterSelect,
 					variant,
 					filter,
 				} }
@@ -628,11 +657,11 @@ export const SearchBoxItem = forwardRef<HTMLButtonElement, SearchBoxItemProps>(
 		const {
 			size,
 			setSearchTerm,
-			clearSearchOnClick,
+			clearAfterSelect,
 			getItemProps,
 			activeIndex,
 			onOpenChange,
-			closeOnClick,
+			closeAfterSelect,
 		} = useSearchContext();
 		const { ref: itemRef, index } = useListItem();
 
@@ -653,11 +682,11 @@ export const SearchBoxItem = forwardRef<HTMLButtonElement, SearchBoxItemProps>(
 				onClick();
 			}
 
-			if ( clearSearchOnClick ) {
+			if ( clearAfterSelect ) {
 				setSearchTerm!( '' );
 			}
 
-			if ( closeOnClick ) {
+			if ( closeAfterSelect ) {
 				onOpenChange!( false );
 			}
 		};

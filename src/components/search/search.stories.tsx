@@ -49,7 +49,7 @@ const Template: StoryFn<typeof SearchBox> = ( args ) => {
 		<SearchBox
 			{ ...args }
 			open={ open || args.open }
-			onOpenChange={ handleOpenChange }
+			setOpen={ handleOpenChange }
 		>
 			<SearchBox.Input ref={ inputRef } onChange={ handleSearch } />
 			<SearchBox.Portal>
