@@ -46,7 +46,7 @@ export const variantClassNames = {
 		'bg-field-primary-background outline outline-1 outline-field-border hover:outline-border-strong focus-within:outline-focus-border focus-within:hover:outline-focus-border',
 	secondary:
 		'bg-field-secondary-background outline outline-1 outline-field-border hover:outline-border-strong focus-within:outline-focus-border focus-within:hover:outline-focus-border',
-	ghost: 'bg-field-secondary-background outline outline-1 outline-transparent',
+	ghost: 'bg-field-secondary-background outline outline-1 outline-transparent focus-within:outline-focus-border',
 };
 
 export const iconClasses =
