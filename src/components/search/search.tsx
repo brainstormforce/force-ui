@@ -445,10 +445,11 @@ export const SearchBoxInput = forwardRef<HTMLInputElement, SearchBoxInputProps>(
 					] ) }
 				/>
 				<Badge
-					label={ `⌘/` }
+					label={ getOperatingSystem() === 'Mac OS' ? '⌘/' : 'Ctrl /' }
 					size={ badgeSize }
 					type="rounded"
 					variant="neutral"
+					className="bg-background-primary"
 				/>
 			</div>
 		);
