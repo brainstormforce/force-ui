@@ -33,6 +33,9 @@ const sizeClassnames = {
 
 type StepSizeClasses = typeof sizeClassnames;
 
+// Enhanced to include completed step variants
+export type CompletedVariant = 'icon' | 'number';
+
 // Common props interface
 export interface ProgressCommonProps {
 	/** Defines the children of the progress steps. */
@@ -53,6 +56,10 @@ export interface ProgressStepsProps extends ProgressCommonProps {
 	currentStep?: number;
 	/** Additional props for the connecting line. */
 	lineClassName?: string;
+	/** Defines how completed steps should be displayed */
+	completedVariant?: CompletedVariant;
+	/** Custom icon for completed steps when completedVariant is 'icon' */
+	completedIcon?: ReactNode;
 }
 
 // Progress Step props interface
@@ -89,6 +96,12 @@ export interface ProgressStepProps extends ProgressCommonProps {
 
 	/** Additional class names for the connecting line. */
 	lineClassName?: string;
+
+	/** How to display completed steps */
+	completedVariant?: CompletedVariant;
+
+	/** Custom icon for completed steps */
+	completedIcon?: ReactNode;
 }
 
 export const ProgressSteps = ( {
@@ -99,6 +112,8 @@ export const ProgressSteps = ( {
 	children,
 	className,
 	lineClassName = 'min-w-10',
+	completedVariant = 'icon',
+	completedIcon = <Check />,
 	...rest
 }: ProgressStepsProps ) => {
 	const totalSteps = React.Children.count( children );
@@ -120,6 +135,8 @@ export const ProgressSteps = ( {
 			isLast,
 			index,
 			lineClassName,
+			completedVariant,
+			completedIcon,
 		};
 
 		return (
@@ -159,6 +176,8 @@ export const ProgressStep = ( {
 	isLast,
 	index,
 	lineClassName,
+	completedVariant = 'icon',
+	completedIcon = <Check />,
 	...rest
 }: ProgressStepProps ) => {
 	const stepContent = createStepContent(
@@ -168,7 +187,9 @@ export const ProgressStep = ( {
 		sizeClasses!,
 		size,
 		icon,
-		index as number
+		index as number,
+		completedVariant,
+		completedIcon
 	);
 
 	const stackSizeOffset = {
@@ -277,11 +298,27 @@ export const createStepContent = (
 	sizeClasses: StepSizeClasses,
 	size: 'sm' | 'md' | 'lg',
 	icon: ReactNode,
-	index: number
+	index: number,
+	completedVariant: CompletedVariant = 'icon',
+	completedIcon: ReactNode = <Check />
 ) => {
 	if ( isCompleted ) {
+		if ( completedVariant === 'number' ) {
+			return (
+				<span
+					className={ cn(
+						completedStepCommonClasses( sizeClasses, size ),
+						'flex items-center justify-center bg-brand-primary-600 text-text-on-color rounded-full'
+					) }
+				>
+					{ index + 1 }
+				</span>
+			);
+		}
 		return (
-			<Check className={ completedStepCommonClasses( sizeClasses, size ) } />
+			<span className={ completedStepCommonClasses( sizeClasses, size ) }>
+				{ completedIcon }
+			</span>
 		);
 	}
 

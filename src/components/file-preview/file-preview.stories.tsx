@@ -6,7 +6,7 @@ import { useState } from 'react';
 type InputValue = string | FileList | null;
 
 const meta = {
-	title: 'Components/FilePreview',
+	title: 'Atoms/FilePreview',
 	component: FilePreview,
 	parameters: {
 		layout: 'centered',
@@ -85,6 +85,7 @@ export const FileInputWithPreview: Story = ( args ) => {
 	return (
 		<>
 			<Input
+				label="Upload File"
 				type="file"
 				size="md"
 				disabled={ false }
