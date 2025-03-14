@@ -122,6 +122,7 @@ export const FilePreview = ( {
 					<button
 						onClick={ () => onRemove( file ) }
 						className="inline-flex cursor-pointer bg-transparent border-0 p-1 my-0 ml-auto mr-0 ring-0 focus:outline-none self-start"
+						aria-label="Remove file"
 					>
 						<Trash className="size-4 text-support-error" />
 					</button>
