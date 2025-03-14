@@ -727,7 +727,7 @@ export const SearchBoxItem = forwardRef<HTMLButtonElement, SearchBoxItemProps>(
 				) }
 				<span
 					className={ cn(
-						'flex-grow p-1 font-normal',
+						'flex-grow py-0.5 px-1 font-normal',
 						sizeClassNames.item[ size! ],
 					) }
 				>
