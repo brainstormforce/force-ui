@@ -204,13 +204,27 @@ export const SearchBox = forwardRef<HTMLDivElement, BaseSearchBoxProps>(
 			return _onOpenChange;
 		}, [ setOpen, _onOpenChange ] );
 
+		// Offset value for the dropdown based on the size.
+		const offsetValue = useMemo( () => {
+			switch ( size ) {
+				case 'sm':
+					return 4;
+				case 'md':
+					return 6;
+				case 'lg':
+					return 8;
+				default:
+					return 6;
+			}
+		}, [ size ] );
+
 		const { refs, floatingStyles, context } = useFloating( {
 			open,
 			onOpenChange,
 			placement: 'bottom-start',
 			whileElementsMounted: autoUpdate,
 			middleware: [
-				offset( size === 'sm' ? 4 : 6 ),
+				offset( offsetValue ),
 				flip( { padding: 10 } ),
 				floatingSize( {
 					apply( { rects, elements, availableHeight } ) {
