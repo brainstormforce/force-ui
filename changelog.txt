@@ -1,4 +1,4 @@
-Version 1.4.3 - xth xxxx, 2025
+Version 1.5.0 - 14th March, 2025
 - New - Added new Atom, File Preview - to show uploaded file preview.
 - New - Added new variants in Progress Steps component to show icon and number in the completed step.
 - Improvement - Enhanced the UI and functionality of the Searchbox component for better flexibility and user experience.
