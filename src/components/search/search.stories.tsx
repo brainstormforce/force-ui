@@ -10,6 +10,7 @@ const meta: Meta<typeof SearchBox> = {
 		'SearchBox.Input': SearchBox.Input,
 		'SearchBox.Loading': SearchBox.Loading,
 		'SearchBox.Separator': SearchBox.Separator,
+		'SearchBox.Portal': SearchBox.Portal,
 		'SearchBox.Content': SearchBox.Content,
 		'SearchBox.List': SearchBox.List,
 		'SearchBox.Empty': SearchBox.Empty,
@@ -48,36 +49,38 @@ const Template: StoryFn<typeof SearchBox> = ( args ) => {
 		<SearchBox
 			{ ...args }
 			open={ open || args.open }
-			onOpenChange={ handleOpenChange }
+			setOpen={ handleOpenChange }
 		>
 			<SearchBox.Input ref={ inputRef } onChange={ handleSearch } />
-			<SearchBox.Content>
-				<SearchBox.List>
-					<SearchBox.Group heading="Suggestions">
-						<SearchBox.Item icon={ <File /> }>
-							Calendar
-						</SearchBox.Item>
-						<SearchBox.Item icon={ <File /> }>
-							Document
-						</SearchBox.Item>
-						<SearchBox.Item icon={ <File /> }>
-							Attendance
-						</SearchBox.Item>
-					</SearchBox.Group>
-					<SearchBox.Separator />
-					<SearchBox.Group heading="Folders">
-						<SearchBox.Item icon={ <Folder /> }>
-							Calendar Folder
-						</SearchBox.Item>
-						<SearchBox.Item icon={ <Folder /> }>
-							Document Folder
-						</SearchBox.Item>
-						<SearchBox.Item icon={ <Folder /> }>
-							Attendance Folder
-						</SearchBox.Item>
-					</SearchBox.Group>
-				</SearchBox.List>
-			</SearchBox.Content>
+			<SearchBox.Portal>
+				<SearchBox.Content>
+					<SearchBox.List>
+						<SearchBox.Group heading="Suggestions">
+							<SearchBox.Item icon={ <File /> }>
+								Calendar
+							</SearchBox.Item>
+							<SearchBox.Item icon={ <File /> }>
+								Document
+							</SearchBox.Item>
+							<SearchBox.Item icon={ <File /> }>
+								Attendance
+							</SearchBox.Item>
+						</SearchBox.Group>
+						<SearchBox.Separator />
+						<SearchBox.Group heading="Folders">
+							<SearchBox.Item icon={ <Folder /> }>
+								Calendar Folder
+							</SearchBox.Item>
+							<SearchBox.Item icon={ <Folder /> }>
+								Document Folder
+							</SearchBox.Item>
+							<SearchBox.Item icon={ <Folder /> }>
+								Attendance Folder
+							</SearchBox.Item>
+						</SearchBox.Group>
+					</SearchBox.List>
+				</SearchBox.Content>
+			</SearchBox.Portal>
 		</SearchBox>
 	);
 };
@@ -91,8 +94,8 @@ export const SecondarySearchBox = Template.bind( {} );
 SecondarySearchBox.args = {};
 SecondarySearchBox.decorators = [
 	() => (
-		<SearchBox>
-			<SearchBox.Input variant="secondary" />
+		<SearchBox variant="secondary">
+			<SearchBox.Input />
 		</SearchBox>
 	),
 ];
@@ -101,8 +104,8 @@ export const GhostSearchBox = Template.bind( {} );
 GhostSearchBox.args = {};
 GhostSearchBox.decorators = [
 	() => (
-		<SearchBox>
-			<SearchBox.Input variant="ghost" />
+		<SearchBox variant="ghost">
+			<SearchBox.Input />
 		</SearchBox>
 	),
 ];
@@ -119,6 +122,6 @@ DisabledSearchBox.decorators = [
 
 export const LoadingSearchBox = Template.bind( {} );
 LoadingSearchBox.args = {
-	open: true,
+	open: false,
 	loading: true,
 };
