@@ -1,6 +1,6 @@
 Version 1.4.3 - xth xxxx, 2025
+- New - Added new Atom, File Uploader - to show uploaded file preview.
 - Improvement - Enhanced the UI and functionality of the Searchbox component for better flexibility and user experience.
-
 
 Version 1.4.2 - 6th March, 2025
 - New - Added new size 'xs' to the Switch component.
