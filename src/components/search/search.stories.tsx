@@ -122,6 +122,6 @@ DisabledSearchBox.decorators = [
 
 export const LoadingSearchBox = Template.bind( {} );
 LoadingSearchBox.args = {
-	open: true,
+	open: false,
 	loading: true,
 };
