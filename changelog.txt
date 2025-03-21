@@ -1,3 +1,7 @@
+Version 1.5.1 - xth x, 2025
+- Improvement - Introduced the `areaChartWrapper` prop in the AreaChart component to allow for better customization options.
+- Improvement - Removed the group selector from the Tabs component to simplify style overrides.
+
 Version 1.5.0 - 14th March, 2025
 - New - Added new Atom, File Preview - to show uploaded file preview.
 - New - Added new variants in Progress Steps component to show icon and number in the completed step.
