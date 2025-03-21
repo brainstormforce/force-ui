@@ -12,6 +12,7 @@ import {
 import ChartLegendContent from './chart-legend-content';
 import ChartTooltipContent from './chart-tooltip-content';
 import Label from '../label';
+import type { CategoricalChartProps } from 'recharts/types/chart/generateCategoricalChart';
 
 interface DataItem {
 	[key: string]: number | string; // Adjust based on your data structure
@@ -75,6 +76,15 @@ interface AreaChartProps {
 
 	/** Height of the chart container. */
 	chartHeight?: number;
+
+	/**
+	 * Area chart Wrapper props to apply additional props to the wrapper component. Ex. `margin`, or `onClick` etc.
+	 * @see https://recharts.org/en-US/api/AreaChart
+	 */
+	areaChartWrapperProps?: Omit<
+		CategoricalChartProps,
+		'width' | 'height' | 'data'
+	>;
 }
 
 const AreaChart = ( {
@@ -96,6 +106,14 @@ const AreaChart = ( {
 	xAxisFontColor = '#6B7280',
 	chartWidth = 350,
 	chartHeight = 200,
+	areaChartWrapperProps = {
+		margin: {
+			left: 14,
+			right: 14,
+			top: 6,
+			bottom: 6,
+		},
+	},
 }: AreaChartProps ) => {
 	const [ width, setWidth ] = useState( chartWidth );
 	const [ height, setHeight ] = useState( chartHeight );
@@ -157,7 +175,7 @@ const AreaChart = ( {
 
 	return (
 		<ResponsiveContainer width={ width } height={ height }>
-			<AreaChartWrapper data={ data } margin={ { left: 14, right: 14 } }>
+			<AreaChartWrapper { ...areaChartWrapperProps } data={ data }>
 				{ showCartesianGrid && <CartesianGrid vertical={ false } /> }
 				{ showXAxis && (
 					<XAxis
