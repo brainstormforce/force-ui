@@ -257,7 +257,7 @@ export const Tab = forwardRef<Ref, TabProps>(
 		}
 
 		// Additional classes.
-		const hoverClasses = 'hover:text-text-primary group';
+		const hoverClasses = 'hover:text-text-primary';
 		const focusClasses = 'focus:outline-none';
 		const disabledClasses = disabled
 			? 'text-text-disabled cursor-not-allowed hover:text-text-disabled'
@@ -281,8 +281,7 @@ export const Tab = forwardRef<Ref, TabProps>(
 		);
 
 		const iconParentClasses = cn(
-			'flex items-center gap-1 group-hover:text-text-primary',
-			disabled && 'group-hover:text-text-disabled'
+			'flex items-center gap-1',
 		);
 
 		// Handle click event.
