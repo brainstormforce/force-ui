@@ -507,7 +507,7 @@ export const RadioButtonComponent = (
 							/>
 							<span
 								className={ cn(
-									'inline-flex items-center absolute top-2/4 left-2/4 -translate-y-2/4 -translate-x-2/4 text-white opacity-0 transition-opacity peer-checked:opacity-100',
+									'inline-flex items-center absolute top-2/4 not-rtl:left-2/4 rtl:right-2/4 -translate-y-2/4 -translate-x-2/4 text-white opacity-0 transition-opacity peer-checked:opacity-100',
 									colorClassNames[ color ].icon,
 									isDisabled && disabledClassNames.icon
 								) }
