@@ -1,3 +1,9 @@
+import plugin from 'tailwindcss/plugin';
+
+const notRTLPlugin = plugin( ( { addVariant } ) => {
+	addVariant( 'not-rtl', '&:not([dir="rtl"], [dir="rtl"] *)' );
+} );
+
 const defaultTheme = {
 	content: [ 'node_modules/@bsf/force-ui/dist/components/**/*.js' ],
 	theme: {
@@ -220,7 +226,7 @@ const defaultTheme = {
 			},
 		},
 	},
-	plugins: [],
+	plugins: [ notRTLPlugin ],
 	corePlugins: {
 		preflight: false,
 	},
