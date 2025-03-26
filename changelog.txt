@@ -1,6 +1,7 @@
 Version 1.5.1 - xth x, 2025
 - Improvement - Introduced the `areaChartWrapper` prop in the AreaChart component to allow for better customization options.
 - Improvement - Removed the group selector from the Tabs component to simplify style overrides.
+- Improvement - Introduced a new prop to handle the Sidebar's default collapse state when collapsible is set to false.
 - Fix - Addressed UI inconsistencies in the Switch, Checkbox, and RadioButton components for improved support in RTL (Right-to-Left) layouts.
 
 Version 1.5.0 - 14th March, 2025
