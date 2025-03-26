@@ -38,6 +38,8 @@ export interface SidebarProps extends SidebarCommonProps {
 	collapsible?: boolean;
 	/** Controls whether a border should appear on the right of the Sidebar. */
 	borderOn?: boolean;
+	/** Set the sidebar collapse state. This is useful when collapsible is false and you want to use the sidebar as collapsed by default. */
+	collapsed?: boolean;
 }
 
 // Sidebar subcomponents props interfaces
@@ -54,25 +56,32 @@ export const Sidebar = ( {
 	onCollapseChange,
 	collapsible = true,
 	borderOn = true,
+	collapsed = false,
 	...props
 }: SidebarProps ) => {
 	const sideBarRef = useRef<HTMLDivElement>( null );
 	const [ isCollapsed, setIsCollapsed ] = useState( () => {
+		if ( ! collapsible && collapsed ) {
+			return collapsed;
+		}
 		const storedState = safeLocalStorage.get( 'sidebar-collapsed' );
-		const isSmallScreen = window.innerWidth < 1280;
 		if ( storedState ) {
 			return storedState;
 		}
+		const isSmallScreen = window.innerWidth < 1280;
 		return isSmallScreen;
 	} );
 
 	useEffect( () => {
-		if ( onCollapseChange ) {
+		if ( typeof onCollapseChange === 'function' ) {
 			onCollapseChange( isCollapsed );
 		}
 	}, [ isCollapsed, onCollapseChange ] );
 
 	useEffect( () => {
+		if ( ! collapsible && collapsed ) {
+			return;
+		}
 		const handleScreenResize = () => {
 			const isSmallScreen = window.innerWidth < 1280;
 			if ( ! collapsible ) {
