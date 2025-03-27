@@ -99,11 +99,11 @@ const Text = forwardRef( function Text<C extends ElementType = 'p'>(
 	{
 		as,
 		children,
-		weight,
-		size,
+		weight = 400,
+		size = 16,
 		lineHeight,
 		letterSpacing,
-		color,
+		color = 'primary',
 		className,
 		...rest
 	}: PropsWithoutRef<TextProps<C>>,

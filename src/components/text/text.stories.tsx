@@ -65,6 +65,9 @@ export const Default: Story = Template.bind( {} );
 Default.args = {
 	children: 'The quick brown fox jumps over the lazy dog',
 	as: 'p',
+	color: 'primary',
+	weight: 400,
+	size: 16,
 };
 
 // Heading example
