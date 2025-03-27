@@ -99,8 +99,8 @@ const Text = forwardRef( function Text<C extends ElementType = 'p'>(
 	{
 		as,
 		children,
-		weight = 400,
-		size = 16,
+		weight,
+		size,
 		lineHeight,
 		letterSpacing,
 		color = 'primary',
@@ -115,6 +115,7 @@ const Text = forwardRef( function Text<C extends ElementType = 'p'>(
 		<Component
 			ref={ ref }
 			className={ cn(
+				'm-0 p-0',
 				weight ? fontWeightClassNames[ weight ] : '',
 				size ? fontSizeClassNames[ size ] : '',
 				lineHeight ? lineHeightClassNames[ lineHeight ] : '',
