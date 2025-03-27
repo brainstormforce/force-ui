@@ -1,6 +1,5 @@
 import { Meta, StoryFn } from '@storybook/react';
 import Text from './text';
-import { type ElementType } from 'react';
 import {
 	fontWeightClassNames,
 	fontSizeClassNames,
@@ -8,18 +7,6 @@ import {
 	letterSpacingClassNames,
 	fontColorClassNames,
 } from './styles';
-
-// Define a simplified interface for Storybook docs
-interface TextStoryProps {
-	children: React.ReactNode;
-	weight?: keyof typeof fontWeightClassNames;
-	size?: keyof typeof fontSizeClassNames;
-	lineHeight?: keyof typeof lineHeightClassNames;
-	letterSpacing?: keyof typeof letterSpacingClassNames;
-	color?: keyof typeof fontColorClassNames;
-	className?: string;
-	as?: ElementType;
-}
 
 export default {
 	title: 'Atoms/Text',
@@ -65,10 +52,10 @@ export default {
 			description: 'Additional class names to apply',
 		},
 	},
-} satisfies Meta<TextStoryProps>;
+} satisfies Meta<typeof Text>;
 
 // Create our story type
-type Story = StoryFn<TextStoryProps>;
+type Story = StoryFn<typeof Text>;
 
 // Main template for all stories
 const Template: Story = ( args ) => <Text { ...args } />;
