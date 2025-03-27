@@ -16,7 +16,7 @@ import {
 
 // Polymorphic component type utilities
 export type PropsOf<
-	C extends keyof JSX.IntrinsicElements | ComponentType<unknown>
+	C extends keyof JSX.IntrinsicElements | ComponentType<unknown>,
 > = JSX.LibraryManagedAttributes<C, React.ComponentPropsWithoutRef<C>>;
 
 type AsProp<C extends ElementType> = {
@@ -30,26 +30,25 @@ type AsProp<C extends ElementType> = {
 
 export type ExtendableProps<
 	ExtendedProps = object,
-	OverrideProps = object
+	OverrideProps = object,
 > = OverrideProps & Omit<ExtendedProps, keyof OverrideProps>;
 
 export type InheritableElementProps<
 	C extends ElementType,
-	Props = object
+	Props = object,
 > = ExtendableProps<PropsOf<C>, Props>;
 
 export type PolymorphicComponentProps<
 	C extends ElementType,
-	Props = object
+	Props = object,
 > = InheritableElementProps<C, Props & AsProp<C>>;
 
-export type PolymorphicRef<
-	C extends ElementType
-> = React.ComponentPropsWithRef<C>['ref'];
+export type PolymorphicRef<C extends ElementType> =
+	React.ComponentPropsWithRef<C>['ref'];
 
 export type PolymorphicComponentPropsWithRef<
 	C extends ElementType,
-	Props = object
+	Props = object,
 > = PolymorphicComponentProps<C, Props> & { ref?: PolymorphicRef<C> };
 
 // Base props for the Text component
@@ -84,10 +83,8 @@ export interface TextBaseProps {
 	className?: string;
 }
 
-export type TextProps<C extends ElementType = 'p'> = PolymorphicComponentPropsWithRef<
-	C,
-	TextBaseProps
->;
+export type TextProps<C extends ElementType = 'p'> =
+	PolymorphicComponentPropsWithRef<C, TextBaseProps>;
 
 // Type definition for Text component with proper forwarded ref
 export type TextComponent = <C extends ElementType = 'p'>(

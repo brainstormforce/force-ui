@@ -81,7 +81,8 @@ Heading.args = {
 // Paragraph example
 export const Paragraph: Story = Template.bind( {} );
 Paragraph.args = {
-	children: 'This is a paragraph with some longer text to demonstrate how the component handles multi-line content. The Text component is designed to be flexible and work with various HTML elements.',
+	children:
+		'This is a paragraph with some longer text to demonstrate how the component handles multi-line content. The Text component is designed to be flexible and work with various HTML elements.',
 	as: 'p',
 	size: 16,
 	weight: 400,
