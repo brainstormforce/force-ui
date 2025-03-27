@@ -74,7 +74,7 @@ Heading.args = {
 	children: 'This is a heading',
 	as: 'h1',
 	size: 36,
-	weight: 700,
+	weight: 600,
 	color: 'primary',
 };
 
