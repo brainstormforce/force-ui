@@ -9,7 +9,7 @@ export default {
 
 type Story = StoryFn<typeof Text>;
 
-const Template: Story = ( args ) => <Text as="div" { ...args } />;
+const Template: Story = ( args ) => <Text { ...args } />;
 
 export const Default: Story = Template.bind( {} );
 Default.args = {

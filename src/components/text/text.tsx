@@ -1,67 +1,104 @@
 import { cn } from '@/utilities/functions';
-import { fontColorClassNames, fontSizeClassNames, fontWeightClassNames, letterSpacingClassNames, lineHeightClassNames } from './styles';
-import { forwardRef } from 'react';
+import {
+	fontColorClassNames,
+	fontSizeClassNames,
+	fontWeightClassNames,
+	letterSpacingClassNames,
+	lineHeightClassNames,
+} from './styles';
+import {
+	forwardRef,
+	type ElementType,
+	type ComponentPropsWithRef,
+	type ReactNode,
+} from 'react';
 
-export interface TextProps {
+// Base props for the Text component
+interface BaseTextProps {
 	/**
 	 * The content of the text.
 	 */
-	children: React.ReactNode;
-	/**
-	 * The element to render the text as.
-	 *
-	 * @default 'div'
-	 */
-	as?: React.ElementType;
+	children: ReactNode;
 	/**
 	 * The font weight of the text.
-	 *
-	 * @default 'undefined'
 	 */
-	fontWeight?: keyof typeof fontWeightClassNames;
+	weight?: keyof typeof fontWeightClassNames;
 	/**
 	 * The font size of the text.
-	 *
-	 * @default 'undefined'
 	 */
-	fontSize?: keyof typeof fontSizeClassNames;
+	size?: keyof typeof fontSizeClassNames;
 	/**
 	 * The line height of the text.
-	 *
-	 * @default 'undefined'
 	 */
 	lineHeight?: keyof typeof lineHeightClassNames;
 	/**
 	 * The letter spacing of the text.
-	 *
-	 * @default 'undefined'
 	 */
 	letterSpacing?: keyof typeof letterSpacingClassNames;
 	/**
 	 * The font color of the text.
-	 *
-	 * @default 'undefined'
 	 */
-	fontColor?: keyof typeof fontColorClassNames;
+	color?: keyof typeof fontColorClassNames;
+	/**
+	 * Additional class names to apply
+	 */
+	className?: string;
 }
 
-export const Text = forwardRef( <T extends object>( { children, fontWeight, fontSize, lineHeight, letterSpacing, fontColor, as: Component = 'div', ...props }: TextProps & T, ref: React.Ref<HTMLElement> ) => {
+// Component props with the "as" prop
+export type TextProps<E extends ElementType> = BaseTextProps & {
+	/**
+	 * The element to render the text as.
+	 *
+	 * @default 'p'
+	 */
+	as?: E;
+} & Omit<ComponentPropsWithRef<E>, keyof BaseTextProps | 'as'>;
+
+const TextWithoutRef = <
+	E extends ElementType,
+>(
+		{
+			children,
+			weight,
+			size,
+			lineHeight,
+			letterSpacing,
+			color,
+			as,
+			className,
+			...rest
+		}: TextProps<E>,
+		ref: React.Ref<E>
+	) => {
+	const Component = as || 'p';
+
 	return (
 		<Component
 			ref={ ref }
 			className={ cn(
-				fontWeightClassNames[ fontWeight! ] ?? '',
-				fontSizeClassNames[ fontSize! ] ?? '',
-				lineHeightClassNames[ lineHeight! ] ?? '',
-				letterSpacingClassNames[ letterSpacing! ] ?? '',
-				fontColorClassNames[ fontColor! ] ?? '',
+				weight ? fontWeightClassNames[ weight ] : '',
+				size ? fontSizeClassNames[ size ] : '',
+				lineHeight ? lineHeightClassNames[ lineHeight ] : '',
+				letterSpacing ? letterSpacingClassNames[ letterSpacing ] : '',
+				color ? fontColorClassNames[ color ] : '',
+				className
 			) }
-			{ ...props }
+			{ ...rest }
 		>
 			{ children }
 		</Component>
 	);
-} );
+};
 
-// Extend component default props type
-export default Text as <T extends object>( props: TextProps & T, ref: React.Ref<HTMLElement> ) => React.ReactNode;
+// We use forwardRef and cast to our TextComponent type
+const Text = forwardRef(
+	TextWithoutRef
+) as <E extends ElementType>(
+	props: TextProps<E>,
+	ref: React.Ref<E>
+) => ReturnType<typeof TextWithoutRef>;
+
+export { Text };
+
+export default Text;
