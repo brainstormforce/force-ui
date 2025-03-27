@@ -9,12 +9,51 @@ import {
 import {
 	forwardRef,
 	type ElementType,
-	type ComponentPropsWithRef,
 	type ReactNode,
+	type ComponentType,
+	type PropsWithoutRef,
 } from 'react';
 
+// Polymorphic component type utilities
+export type PropsOf<
+	C extends keyof JSX.IntrinsicElements | ComponentType<unknown>
+> = JSX.LibraryManagedAttributes<C, React.ComponentPropsWithoutRef<C>>;
+
+type AsProp<C extends ElementType> = {
+	/**
+	 * The element to render the text as.
+	 *
+	 * @default 'p'
+	 */
+	as?: C;
+};
+
+export type ExtendableProps<
+	ExtendedProps = object,
+	OverrideProps = object
+> = OverrideProps & Omit<ExtendedProps, keyof OverrideProps>;
+
+export type InheritableElementProps<
+	C extends ElementType,
+	Props = object
+> = ExtendableProps<PropsOf<C>, Props>;
+
+export type PolymorphicComponentProps<
+	C extends ElementType,
+	Props = object
+> = InheritableElementProps<C, Props & AsProp<C>>;
+
+export type PolymorphicRef<
+	C extends ElementType
+> = React.ComponentPropsWithRef<C>['ref'];
+
+export type PolymorphicComponentPropsWithRef<
+	C extends ElementType,
+	Props = object
+> = PolymorphicComponentProps<C, Props> & { ref?: PolymorphicRef<C> };
+
 // Base props for the Text component
-interface BaseTextProps {
+export interface TextBaseProps {
 	/**
 	 * The content of the text.
 	 */
@@ -45,32 +84,31 @@ interface BaseTextProps {
 	className?: string;
 }
 
-// Component props with the "as" prop
-export type TextProps<E extends ElementType> = BaseTextProps & {
-	/**
-	 * The element to render the text as.
-	 *
-	 * @default 'p'
-	 */
-	as?: E;
-} & Omit<ComponentPropsWithRef<E>, keyof BaseTextProps | 'as'>;
+export type TextProps<C extends ElementType = 'p'> = PolymorphicComponentPropsWithRef<
+	C,
+	TextBaseProps
+>;
 
-const TextWithoutRef = <
-	E extends ElementType,
->(
-		{
-			children,
-			weight,
-			size,
-			lineHeight,
-			letterSpacing,
-			color,
-			as,
-			className,
-			...rest
-		}: TextProps<E>,
-		ref: React.Ref<E>
-	) => {
+// Type definition for Text component with proper forwarded ref
+export type TextComponent = <C extends ElementType = 'p'>(
+	props: TextProps<C>
+) => JSX.Element;
+
+// Create component with properly typed forwardRef
+const Text = forwardRef( function Text<C extends ElementType = 'p'>(
+	{
+		as,
+		children,
+		weight,
+		size,
+		lineHeight,
+		letterSpacing,
+		color,
+		className,
+		...rest
+	}: PropsWithoutRef<TextProps<C>>,
+	ref: PolymorphicRef<C>
+) {
 	const Component = as || 'p';
 
 	return (
@@ -89,15 +127,7 @@ const TextWithoutRef = <
 			{ children }
 		</Component>
 	);
-};
-
-// We use forwardRef and cast to our TextComponent type
-const Text = forwardRef(
-	TextWithoutRef
-) as <E extends ElementType>(
-	props: TextProps<E>,
-	ref: React.Ref<E>
-) => ReturnType<typeof TextWithoutRef>;
+} ) as TextComponent;
 
 export { Text };
 
