@@ -1,7 +1,7 @@
 import { Meta, StoryFn } from '@storybook/react';
 import { FilePreview, FilePreviewFile, FilePreviewProps } from './file-preview';
 import { Input } from '@/index';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 
 type InputValue = string | FileList | null;
 
@@ -65,6 +65,7 @@ DisabledState.args = {
 };
 
 export const FileInputWithPreview: Story = ( args ) => {
+	const fileInputRef = useRef<HTMLInputElement>( null );
 	const [ selectedFile, setSelectedFile ] = useState<File | null>( null );
 
 	const handleFileChange = ( value: InputValue ) => {
@@ -85,6 +86,7 @@ export const FileInputWithPreview: Story = ( args ) => {
 	return (
 		<>
 			<Input
+				ref={ fileInputRef }
 				label="Upload File"
 				type="file"
 				size="md"
@@ -97,7 +99,12 @@ export const FileInputWithPreview: Story = ( args ) => {
 					<FilePreview
 						{ ...args }
 						file={ selectedFile }
-						onRemove={ () => setSelectedFile( null ) }
+						onRemove={ () => {
+							setSelectedFile( null );
+							if ( fileInputRef.current ) {
+								fileInputRef.current.value = '';
+							}
+						} }
 					/>
 				</div>
 			) }
