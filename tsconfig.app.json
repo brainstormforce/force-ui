@@ -1,0 +1,45 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "target": "ESNext",
+    "useDefineForClassFields": true,
+    "lib": ["ESNext", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "skipLibCheck": true,
+    "noErrorTruncation": true,
+
+    /* Bundler mode */
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "isolatedModules": true,
+    "moduleDetection": "force",
+    "noEmit": true,
+    "jsx": "react-jsx",
+    "allowJs": true,
+
+    /* Others */
+    "skipDefaultLibCheck": true,
+    "esModuleInterop": false,
+		"resolveJsonModule": true,
+    "declaration": true,
+		"declarationMap": true,
+		"composite": true,
+    "typeRoots": ["node_modules/@types"],
+
+    // Alias for vite
+    "paths": {
+      "@/components": ["./src/components"],
+      "@/components/*": ["./src/components/*"],
+      "@/utilities/*": ["./src/utilities/*"],
+      "@/icons": ["src/ui/icons.jsx"],
+      "@/*": ["./src/*"],
+    },
+
+    /* Linting */
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true
+  },
+  "include": ["src"]
+}
