@@ -81,6 +81,7 @@ const Template: StoryFn<typeof Sidebar> = ( args ) => {
 	return (
 		<Sidebar
 			{ ...args }
+			key={ args.collapsed && ! args.collapsible ? 'collapsed' : 'expanded' }
 			onCollapseChange={ ( isCollapsed ) => {
 				setSidebarCollapsed( isCollapsed );
 			} }

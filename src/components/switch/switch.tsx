@@ -204,9 +204,9 @@ export const SwitchComponent = (
 		},
 	};
 	const toggleDialHoverClassNames = {
-		md: 'group-hover/switch:size-5 group-focus-within/switch:size-5 group-focus-within/switch:left-0.5 group-hover/switch:left-0.5',
-		sm: 'group-hover/switch:size-4 group-focus-within/switch:size-4 group-focus-within/switch:left-0.5 group-hover/switch:left-0.5',
-		xs: 'group-hover/switch:size-3.25 group-focus-within/switch:size-3.25 group-focus-within/switch:left-0.5 group-hover/switch:left-0.5',
+		md: 'group-hover/switch:size-5 group-focus-within/switch:size-5 not-rtl:group-focus-within/switch:left-0.5 rtl:group-focus-within/switch:right-0.5 not-rtl:group-hover/switch:left-0.5 rtl:group-hover/switch:right-0.5',
+		sm: 'group-hover/switch:size-4 group-focus-within/switch:size-4 not-rtl:group-focus-within/switch:left-0.5 rtl:group-focus-within/switch:right-0.5 not-rtl:group-hover/switch:left-0.5 rtl:group-hover/switch:right-0.5',
+		xs: 'group-hover/switch:size-3.25 group-focus-within/switch:size-3.25 not-rtl:group-focus-within/switch:left-0.5 rtl:group-focus-within/switch:right-0.5 not-rtl:group-hover/switch:left-0.5 rtl:group-hover/switch:right-0.5',
 	};
 
 	const disabledClassNames = {
@@ -247,7 +247,7 @@ export const SwitchComponent = (
 				<label
 					htmlFor={ switchId }
 					className={ cn(
-						"peer/toggle-dial bg-white border rounded-full absolute cursor-pointer shadow-md before:content[''] before:transition-opacity before:opacity-0 hover:before:opacity-10 before:hidden border-none transition-all duration-300 top-2/4 left-1 -translate-y-2/4 before:w-10 before:h-10 before:rounded-full before:absolute before:top-2/4 before:left-2/4 before:-translate-y-2/4 before:-translate-x-2/4",
+						"peer/toggle-dial bg-white border rounded-full absolute cursor-pointer shadow-md before:content[''] before:transition-opacity before:opacity-0 hover:before:opacity-10 before:hidden border-none transition-all duration-300 top-2/4 not-rtl:left-1 rtl:right-1 -translate-y-2/4 before:w-10 before:h-10 before:rounded-full before:absolute before:top-2/4 not-rtl:before:left-2/4 rtl:before:right-2/4 before:-translate-y-2/4 before:-translate-x-2/4",
 						sizeClassNames[ normalSize ].toggleDial,
 						colorClassNames[ color ].toggleDial,
 						disabled && disabledClassNames.toggleDial,
