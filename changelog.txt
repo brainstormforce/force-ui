@@ -1,3 +1,6 @@
+Version 1.6.0 - xth x, 2025
+- New - Introduced a versatile Text component that supports multiple HTML elements and customizable styles for enhanced typography flexibility.
+
 Version 1.5.1 - 28th March, 2025
 - Improvement - Introduced the `areaChartWrapper` prop in the AreaChart component to allow for better customization options.
 - Improvement - Removed the group selector from the Tabs component to simplify style overrides.
