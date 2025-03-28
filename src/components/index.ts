@@ -41,3 +41,4 @@ export { default as AreaChart } from './area-chart';
 export { default as Dropzone } from './dropzone';
 export { default as Table } from './table';
 export { default as FilePreview } from './file-preview';
+export { default as Text } from './text';
