@@ -177,31 +177,29 @@ const AreaChart = ( {
 		<ResponsiveContainer width={ width } height={ height }>
 			<AreaChartWrapper { ...areaChartWrapperProps } data={ data }>
 				{ showCartesianGrid && <CartesianGrid vertical={ false } /> }
-				{ showXAxis && (
-					<XAxis
-						dataKey={ xAxisDataKey }
-						tickLine={ false }
-						axisLine={ false }
-						tickMargin={ 8 }
-						tickFormatter={ tickFormatter }
-						tick={ {
-							fontSize: fontSizeVariant,
-							fill: xAxisFontColor,
-						} }
-					/>
-				) }
-				{ showYAxis && (
-					<YAxis
-						dataKey={ yAxisDataKey }
-						tickLine={ false }
-						axisLine={ false }
-						tickMargin={ 8 }
-						tick={ {
-							fontSize: fontSizeVariant,
-							fill: xAxisFontColor,
-						} }
-					/>
-				) }
+				<XAxis
+					dataKey={ xAxisDataKey }
+					tickLine={ false }
+					axisLine={ false }
+					tickMargin={ 8 }
+					tickFormatter={ tickFormatter }
+					tick={ {
+						fontSize: fontSizeVariant,
+						fill: xAxisFontColor,
+					} }
+					hide={ ! showXAxis }
+				/>
+				<YAxis
+					dataKey={ yAxisDataKey }
+					tickLine={ false }
+					axisLine={ false }
+					tickMargin={ 8 }
+					tick={ {
+						fontSize: fontSizeVariant,
+						fill: xAxisFontColor,
+					} }
+					hide={ ! showYAxis }
+				/>
 				{ showTooltip && (
 					<Tooltip
 						content={
