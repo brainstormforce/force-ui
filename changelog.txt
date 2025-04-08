@@ -1,5 +1,6 @@
 Version 1.6.0 - 8th April, 2025
 - New - Introduced a versatile Text component that supports multiple HTML elements and customizable styles for enhanced typography flexibility.
+- Improvement - Display xAxis data on the tooltip when hovering.
 - Fix - Resolved a build error caused by incorrectly treating `tailwindcss` as an internal package and rectified the import path in the final build process to ensure proper functionality.
 
 Version 1.5.1 - 28th March, 2025
