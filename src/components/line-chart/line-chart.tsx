@@ -10,6 +10,7 @@ import {
 import ChartTooltipContent from './chart-tooltip-content';
 import Label from '../label';
 import type { CategoricalChartProps } from 'recharts/types/chart/generateCategoricalChart';
+import { type ReactNode } from 'react';
 
 // Default color constants
 const DEFAULT_FONT_COLOR = '#6B7280';
@@ -116,6 +117,12 @@ interface LineChartProps {
 	 * Biaxial chart.
 	 */
 	biaxial?: boolean;
+
+	/**
+	 * Custom component to display when no data is available.
+	 * If not provided, a default "No data available" message will be displayed.
+	 */
+	noDataComponent?: ReactNode;
 }
 
 const LineChart = ( {
@@ -143,6 +150,7 @@ const LineChart = ( {
 	strokeDasharray = '3 3',
 	gridColor = DEFAULT_GRID_COLOR,
 	biaxial = false,
+	noDataComponent,
 }: LineChartProps ) => {
 	const appliedColors = colors.length > 0 ? colors : DEFAULT_LINE_COLORS;
 
@@ -166,9 +174,11 @@ const LineChart = ( {
 
 	if ( ! data || data.length === 0 ) {
 		return (
-			<Label size="sm" variant="help">
-				No data available
-			</Label>
+			noDataComponent || (
+				<Label size="sm" variant="help">
+					No data available
+				</Label>
+			)
 		);
 	}
 

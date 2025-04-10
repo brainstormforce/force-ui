@@ -39,6 +39,9 @@ const largeValuesData = [
 	{ month: 'June', pageviews: 15000, users: 6500 },
 ];
 
+// Empty data for demonstrating custom no data component
+const emptyData: { month: string; desktop: number }[] = [];
+
 const dataKeys = [ 'desktop', 'mobile' ];
 const biaxialDataKeys = [ 'visits', 'revenue' ];
 const largeDataKeys = [ 'pageviews', 'users' ];
@@ -69,6 +72,31 @@ const yAxisFormatter = ( value: number ) => {
 	}
 	return value.toString();
 };
+
+// Custom No Data Component
+const CustomNoDataComponent = () => (
+	<div className="flex flex-col items-center justify-center p-4 rounded-lg bg-gray-50 text-gray-600">
+		<svg
+			xmlns="http://www.w3.org/2000/svg"
+			width="48"
+			height="48"
+			viewBox="0 0 24 24"
+			fill="none"
+			stroke="currentColor"
+			strokeWidth="1.5"
+			strokeLinecap="round"
+			strokeLinejoin="round"
+			className="mb-3 text-gray-400"
+		>
+			<path d="M3 3v18h18" />
+			<path d="m19 9-5 5-4-4-3 3" />
+		</svg>
+		<div className="text-base font-medium">No chart data available</div>
+		<p className="text-sm text-gray-500 mt-1">
+			Please select a different time period or check your filters
+		</p>
+	</div>
+);
 
 type Story = StoryObj<typeof LineChart>;
 
@@ -195,5 +223,19 @@ export const BiaxialLineChartWithFormattedYAxis: Story = {
 			margin: { top: 5, right: 45, bottom: 5, left: 35 },
 		},
 		yAxisFontColor: [ '#3b82f6', '#10B981' ],
+	},
+};
+
+export const LineChartWithCustomNoDataComponent: Story = {
+	args: {
+		data: emptyData,
+		dataKeys: [ 'desktop' ],
+		colors: [ { stroke: '#3b82f6' } ],
+		showXAxis: true,
+		showYAxis: true,
+		xAxisDataKey: 'month',
+		chartWidth: 500,
+		chartHeight: 300,
+		noDataComponent: <CustomNoDataComponent />,
 	},
 };

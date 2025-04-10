@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, type ReactNode } from 'react';
 import {
 	AreaChart as AreaChartWrapper,
 	Area,
@@ -101,6 +101,12 @@ interface AreaChartProps {
 		CategoricalChartProps,
 		'width' | 'height' | 'data'
 	>;
+
+	/**
+	 * Custom component to display when no data is available.
+	 * If not provided, a default "No data available" message will be displayed.
+	 */
+	noDataComponent?: ReactNode;
 }
 
 const AreaChart = ( {
@@ -132,6 +138,7 @@ const AreaChart = ( {
 			bottom: 6,
 		},
 	},
+	noDataComponent,
 }: AreaChartProps ) => {
 	const [ width, setWidth ] = useState( chartWidth );
 	const [ height, setHeight ] = useState( chartHeight );
@@ -179,9 +186,11 @@ const AreaChart = ( {
 
 	if ( ! data || data.length === 0 ) {
 		return (
-			<Label size="sm" variant="help">
-				No data available
-			</Label>
+			noDataComponent || (
+				<Label size="sm" variant="help">
+					No data available
+				</Label>
+			)
 		);
 	}
 

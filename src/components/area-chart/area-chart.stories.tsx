@@ -4,7 +4,7 @@ import Label from '../label';
 import Button from '../button';
 import Badge from '../badge';
 import Container from '../container';
-import { ArrowUpRight, ArrowUp } from 'lucide-react';
+import { ArrowUpRight, ArrowUp, AlertCircle } from 'lucide-react';
 
 const areaChartData = [
 	{ month: 'January', sales: 186, expenses: 80 },
@@ -24,6 +24,9 @@ const largeValuesData = [
 	{ month: 'May', pageviews: 14000, sessions: 6200 },
 	{ month: 'June', pageviews: 18500, sessions: 8800 },
 ];
+
+// Empty data for demonstrating custom no data component
+const emptyData: { month: string; sales: number; expenses: number }[] = [];
 
 const dataKeys = [ 'sales', 'expenses' ];
 const largeDataKeys = [ 'pageviews', 'sessions' ];
@@ -142,6 +145,18 @@ const yAxisFormatter = ( value: number ) => {
 	}
 	return value.toString();
 };
+
+// Custom No Data Component
+const CustomNoDataComponent = () => (
+	<div className="flex flex-col items-center justify-center p-6 rounded-lg bg-gray-50 text-gray-600">
+		<AlertCircle className="mb-3 text-amber-500" size={ 50 } />
+		<div className="text-base font-medium">No data found</div>
+		<p className="text-sm text-center text-gray-500 mt-1 max-w-xs">
+			There is no data available for this chart at the moment. Try
+			adjusting your filters or check back later.
+		</p>
+	</div>
+);
 
 const monthFormatterInteractive = ( value: string ) => {
 	const date = new Date( value );
@@ -265,10 +280,27 @@ export const AreaChartGradientWithFormattedYAxis: Story = {
 	},
 };
 
+export const AreaChartWithCustomNoDataComponent: Story = {
+	args: {
+		chartWidth: 600,
+		chartHeight: 300,
+		data: emptyData,
+		dataKeys,
+		colors,
+		variant: 'solid',
+		showXAxis: true,
+		xAxisDataKey: 'month',
+		showYAxis: true,
+		noDataComponent: <CustomNoDataComponent />,
+	},
+};
+
 AreaChartInteractive.storyName = 'Area Chart Gradient with Legend';
 AreaChartWithFormattedYAxis.storyName = 'Area Chart with Formatted Y-Axis';
 AreaChartGradientWithFormattedYAxis.storyName =
 	'Area Chart Gradient with Formatted Y-Axis';
+AreaChartWithCustomNoDataComponent.storyName =
+	'Area Chart with Custom No Data Component';
 
 type Story1 = StoryFn<typeof AreaChart>;
 
