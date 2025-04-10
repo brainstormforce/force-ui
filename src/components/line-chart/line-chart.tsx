@@ -157,7 +157,9 @@ const LineChart = ( {
 	// Handle Y-axis colors for biaxial chart
 	const getYAxisFontColor = ( index = 0 ) => {
 		if ( Array.isArray( yAxisFontColor ) ) {
-			return yAxisFontColor[ index ] || yAxisFontColor[ 0 ] || DEFAULT_FONT_COLOR;
+			return (
+				yAxisFontColor[ index ] || yAxisFontColor[ 0 ] || DEFAULT_FONT_COLOR
+			);
 		}
 		return yAxisFontColor;
 	};

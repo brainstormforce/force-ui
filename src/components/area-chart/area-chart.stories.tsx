@@ -135,10 +135,10 @@ const monthFormatter = ( value: string ) => value.slice( 0, 3 );
 // Custom Y-axis formatter function to display values in K/M format
 const yAxisFormatter = ( value: number ) => {
 	if ( value >= 1000000 ) {
-		return `${(value / 1000000).toFixed(1)}M`;
+		return `${ ( value / 1000000 ).toFixed( 1 ) }M`;
 	}
 	if ( value >= 1000 ) {
-		return `${(value / 1000).toFixed(1)}K`;
+		return `${ ( value / 1000 ).toFixed( 1 ) }K`;
 	}
 	return value.toString();
 };
@@ -267,7 +267,8 @@ export const AreaChartGradientWithFormattedYAxis: Story = {
 
 AreaChartInteractive.storyName = 'Area Chart Gradient with Legend';
 AreaChartWithFormattedYAxis.storyName = 'Area Chart with Formatted Y-Axis';
-AreaChartGradientWithFormattedYAxis.storyName = 'Area Chart Gradient with Formatted Y-Axis';
+AreaChartGradientWithFormattedYAxis.storyName =
+	'Area Chart Gradient with Formatted Y-Axis';
 
 type Story1 = StoryFn<typeof AreaChart>;
 
