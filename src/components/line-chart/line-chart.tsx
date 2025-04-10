@@ -52,7 +52,16 @@ interface LineChartProps {
 	showCartesianGrid?: boolean;
 
 	/** A function used to format the ticks on the x-axis, e.g., for formatting dates or numbers. */
+	xAxisTickFormatter?: ( value: string ) => string;
+
+	/**
+	 * A function used to format the ticks on the x-axis, e.g., for formatting dates or numbers.
+	 * @deprecated Use `xAxisTickFormatter` instead.
+	 */
 	tickFormatter?: ( value: string ) => string;
+
+	/** A function used to format the ticks on the y-axis, e.g., for converting 1000 to 1K. */
+	yAxisTickFormatter?: ( value: number ) => string;
 
 	/** The key in the data objects representing values for the x-axis. */
 	xAxisDataKey?: string;
@@ -119,6 +128,8 @@ const LineChart = ( {
 	tooltipIndicator = 'dot', // dot, line, dashed
 	tooltipLabelKey,
 	showCartesianGrid = true,
+	xAxisTickFormatter,
+	yAxisTickFormatter,
 	tickFormatter,
 	xAxisDataKey,
 	yAxisDataKey,
@@ -174,7 +185,7 @@ const LineChart = ( {
 					tickLine={ false }
 					axisLine={ false }
 					tickMargin={ 8 }
-					tickFormatter={ tickFormatter }
+					tickFormatter={ xAxisTickFormatter || tickFormatter }
 					tick={ {
 						fontSize: fontSizeVariant,
 						fill: xAxisFontColor,
@@ -188,6 +199,7 @@ const LineChart = ( {
 					tickLine={ false }
 					axisLine={ false }
 					tickMargin={ 8 }
+					tickFormatter={ yAxisTickFormatter }
 					tick={ {
 						fontSize: fontSizeVariant,
 						fill: getYAxisFontColor( 0 ),
@@ -203,6 +215,7 @@ const LineChart = ( {
 						tickLine={ false }
 						axisLine={ false }
 						tickMargin={ 8 }
+						tickFormatter={ yAxisTickFormatter }
 						tick={ {
 							fontSize: fontSizeVariant,
 							fill: getYAxisFontColor( 1 ),

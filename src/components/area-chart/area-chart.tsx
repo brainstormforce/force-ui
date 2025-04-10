@@ -14,6 +14,13 @@ import ChartTooltipContent from './chart-tooltip-content';
 import Label from '../label';
 import type { CategoricalChartProps } from 'recharts/types/chart/generateCategoricalChart';
 
+// Default color constants
+const DEFAULT_FONT_COLOR = '#6B7280';
+const DEFAULT_AREA_COLORS = [
+	{ stroke: '#2563EB', fill: '#BFDBFE' },
+	{ stroke: '#38BDF8', fill: '#BAE6FD' },
+];
+
 interface DataItem {
 	[key: string]: number | string; // Adjust based on your data structure
 }
@@ -56,8 +63,17 @@ interface AreaChartProps {
 	/** Whether to display the `<CartesianGrid />`, adding horizontal and vertical grid lines. */
 	showCartesianGrid?: boolean;
 
-	/** A function used to format the ticks on the axes, e.g., for formatting dates or numbers. */
+	/** A function used to format the ticks on the x-axis, e.g., for formatting dates or numbers. */
+	xAxisTickFormatter?: ( value: string ) => string;
+
+	/**
+	 * A function used to format the ticks on the x-axis, e.g., for formatting dates or numbers.
+	 * @deprecated Use `xAxisTickFormatter` instead.
+	 */
 	tickFormatter?: ( value: string ) => string;
+
+	/** A function used to format the ticks on the y-axis, e.g., for converting 1000 to 1K. */
+	yAxisTickFormatter?: ( value: number ) => string;
 
 	/** The key in the data objects representing values for the x-axis. This is used to access the x-axis values from each data entry. */
 	xAxisDataKey?: string;
@@ -99,11 +115,13 @@ const AreaChart = ( {
 	tooltipLabelKey,
 	showLegend = true,
 	showCartesianGrid = true,
+	xAxisTickFormatter,
 	tickFormatter,
+	yAxisTickFormatter,
 	xAxisDataKey,
 	yAxisDataKey,
 	xAxisFontSize = 'sm', // sm, md, lg
-	xAxisFontColor = '#6B7280',
+	xAxisFontColor = DEFAULT_FONT_COLOR,
 	chartWidth = 350,
 	chartHeight = 200,
 	areaChartWrapperProps = {
@@ -118,13 +136,7 @@ const AreaChart = ( {
 	const [ width, setWidth ] = useState( chartWidth );
 	const [ height, setHeight ] = useState( chartHeight );
 
-	// Default colors
-	const defaultColors: Color[] = [
-		{ stroke: '#2563EB', fill: '#BFDBFE' },
-		{ stroke: '#38BDF8', fill: '#BAE6FD' },
-	];
-
-	const appliedColors = colors.length > 0 ? colors : defaultColors;
+	const appliedColors = colors.length > 0 ? colors : DEFAULT_AREA_COLORS;
 
 	useEffect( () => {
 		setWidth( chartWidth );
@@ -182,7 +194,7 @@ const AreaChart = ( {
 					tickLine={ false }
 					axisLine={ false }
 					tickMargin={ 8 }
-					tickFormatter={ tickFormatter }
+					tickFormatter={ xAxisTickFormatter || tickFormatter }
 					tick={ {
 						fontSize: fontSizeVariant,
 						fill: xAxisFontColor,
@@ -195,6 +207,7 @@ const AreaChart = ( {
 					tickLine={ false }
 					axisLine={ false }
 					tickMargin={ 8 }
+					tickFormatter={ yAxisTickFormatter }
 					tick={ {
 						fontSize: fontSizeVariant,
 						fill: xAxisFontColor,

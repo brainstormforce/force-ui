@@ -29,8 +29,19 @@ const biaxialChartData = [
 	{ month: 'June', visits: 214, revenue: 6800 },
 ];
 
+// Data with large values to demonstrate Y-axis formatting
+const largeValuesData = [
+	{ month: 'January', pageviews: 1200, users: 500 },
+	{ month: 'February', pageviews: 2500, users: 1200 },
+	{ month: 'March', pageviews: 5000, users: 2300 },
+	{ month: 'April', pageviews: 7800, users: 3600 },
+	{ month: 'May', pageviews: 12000, users: 4800 },
+	{ month: 'June', pageviews: 15000, users: 6500 },
+];
+
 const dataKeys = [ 'desktop', 'mobile' ];
 const biaxialDataKeys = [ 'visits', 'revenue' ];
+const largeDataKeys = [ 'pageviews', 'users' ];
 
 const colors = [ { stroke: '#2563EB' }, { stroke: '#38BDF8' } ];
 
@@ -48,6 +59,17 @@ export default meta;
 // Custom tick formatter function for months
 const monthFormatter = ( value: string ) => value.slice( 0, 3 );
 
+// Custom Y-axis formatter function to display values in K/M format
+const yAxisFormatter = ( value: number ) => {
+	if ( value >= 1000000 ) {
+		return `${ ( value / 1000000 ).toFixed( 1 ) }M`;
+	}
+	if ( value >= 1000 ) {
+		return `${ ( value / 1000 ).toFixed( 1 ) }K`;
+	}
+	return value.toString();
+};
+
 type Story = StoryObj<typeof LineChart>;
 
 export const LineChartSimple: Story = {
@@ -59,7 +81,7 @@ export const LineChartSimple: Story = {
 		showYAxis: false,
 		showTooltip: true,
 		showCartesianGrid: true,
-		tickFormatter: monthFormatter,
+		xAxisTickFormatter: monthFormatter,
 		xAxisDataKey: 'month',
 		xAxisFontSize: 'sm',
 		withDots: false,
@@ -78,7 +100,7 @@ export const LineChartWithDots: Story = {
 		showYAxis: false,
 		showTooltip: true,
 		showCartesianGrid: true,
-		tickFormatter: monthFormatter,
+		xAxisTickFormatter: monthFormatter,
 		xAxisDataKey: 'month',
 		xAxisFontSize: 'sm',
 		withDots: true,
@@ -97,7 +119,7 @@ export const LineChartMultiple: Story = {
 		showYAxis: false,
 		showTooltip: true,
 		showCartesianGrid: true,
-		tickFormatter: monthFormatter,
+		xAxisTickFormatter: monthFormatter,
 		xAxisDataKey: 'month',
 		xAxisFontSize: 'sm',
 		withDots: false,
@@ -116,7 +138,7 @@ export const BiaxialLineChart: Story = {
 		showYAxis: true,
 		showTooltip: true,
 		showCartesianGrid: true,
-		tickFormatter: monthFormatter,
+		xAxisTickFormatter: monthFormatter,
 		xAxisDataKey: 'month',
 		xAxisFontSize: 'sm',
 		withDots: true,
@@ -124,7 +146,53 @@ export const BiaxialLineChart: Story = {
 		chartWidth: 500,
 		chartHeight: 300,
 		lineChartWrapperProps: {
-			margin: { top: 5, right: 5, bottom: 5, left: 5 },
+			margin: { top: 5, right: 45, bottom: 5, left: 5 },
+		},
+		yAxisFontColor: [ '#3b82f6', '#10B981' ],
+	},
+};
+
+export const LineChartWithFormattedYAxis: Story = {
+	args: {
+		data: largeValuesData,
+		dataKeys: largeDataKeys,
+		colors: [ { stroke: '#3b82f6' }, { stroke: '#f97316' } ],
+		showXAxis: true,
+		showYAxis: true,
+		showTooltip: true,
+		showCartesianGrid: true,
+		xAxisTickFormatter: monthFormatter,
+		yAxisTickFormatter: yAxisFormatter,
+		xAxisDataKey: 'month',
+		xAxisFontSize: 'sm',
+		withDots: true,
+		chartWidth: 500,
+		chartHeight: 300,
+		lineChartWrapperProps: {
+			margin: { top: 5, right: 15, bottom: 5, left: 35 },
+		},
+	},
+};
+
+export const BiaxialLineChartWithFormattedYAxis: Story = {
+	args: {
+		data: largeValuesData,
+		dataKeys: largeDataKeys,
+		colors: [ { stroke: '#2563EB' }, { stroke: '#10B981' } ],
+		showXAxis: true,
+		showYAxis: true,
+		showTooltip: true,
+		showCartesianGrid: true,
+		xAxisTickFormatter: monthFormatter,
+		yAxisTickFormatter: yAxisFormatter,
+		xAxisDataKey: 'month',
+		xAxisFontSize: 'sm',
+		withDots: true,
+		biaxial: true,
+		chartWidth: 500,
+		chartHeight: 300,
+		lineChartWrapperProps: {
+			margin: { top: 5, right: 45, bottom: 5, left: 35 },
 		},
 		yAxisFontColor: [ '#3b82f6', '#10B981' ],
 	},

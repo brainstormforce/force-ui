@@ -15,7 +15,18 @@ const areaChartData = [
 	{ month: 'June', sales: 214, expenses: 140 },
 ];
 
+// Data with large values to demonstrate Y-axis formatting
+const largeValuesData = [
+	{ month: 'January', pageviews: 1200, sessions: 800 },
+	{ month: 'February', pageviews: 2800, sessions: 1500 },
+	{ month: 'March', pageviews: 5500, sessions: 2900 },
+	{ month: 'April', pageviews: 8200, sessions: 4100 },
+	{ month: 'May', pageviews: 14000, sessions: 6200 },
+	{ month: 'June', pageviews: 18500, sessions: 8800 },
+];
+
 const dataKeys = [ 'sales', 'expenses' ];
+const largeDataKeys = [ 'pageviews', 'sessions' ];
 
 const chartDataIteractive = [
 	{ date: '2024-04-01', desktop: 222, mobile: 150 },
@@ -121,6 +132,17 @@ const colors = [
 // Custom tick formatter function for months
 const monthFormatter = ( value: string ) => value.slice( 0, 3 );
 
+// Custom Y-axis formatter function to display values in K/M format
+const yAxisFormatter = ( value: number ) => {
+	if ( value >= 1000000 ) {
+		return `${(value / 1000000).toFixed(1)}M`;
+	}
+	if ( value >= 1000 ) {
+		return `${(value / 1000).toFixed(1)}K`;
+	}
+	return value.toString();
+};
+
 const monthFormatterInteractive = ( value: string ) => {
 	const date = new Date( value );
 	return date.toLocaleDateString( 'en-US', {
@@ -187,7 +209,65 @@ export const AreaChartInteractive: Story = {
 	},
 };
 
+export const AreaChartWithFormattedYAxis: Story = {
+	args: {
+		chartWidth: 600,
+		chartHeight: 300,
+		data: largeValuesData,
+		dataKeys: largeDataKeys,
+		colors: [
+			{ stroke: '#3b82f6', fill: '#BFDBFE' },
+			{ stroke: '#f97316', fill: '#FFEDD5' },
+		],
+		variant: 'solid',
+		showXAxis: true,
+		xAxisDataKey: 'month',
+		showYAxis: true,
+		tickFormatter: monthFormatter,
+		yAxisTickFormatter: yAxisFormatter,
+		showLegend: true,
+		areaChartWrapperProps: {
+			margin: {
+				left: 35,
+				right: 14,
+				top: 6,
+				bottom: 6,
+			},
+		},
+	},
+};
+
+export const AreaChartGradientWithFormattedYAxis: Story = {
+	args: {
+		chartWidth: 600,
+		chartHeight: 300,
+		data: largeValuesData,
+		dataKeys: largeDataKeys,
+		colors: [
+			{ stroke: '#3b82f6', fill: '#BFDBFE' },
+			{ stroke: '#f97316', fill: '#FFEDD5' },
+		],
+		variant: 'gradient',
+		showXAxis: true,
+		xAxisDataKey: 'month',
+		showYAxis: true,
+		tickFormatter: monthFormatter,
+		yAxisTickFormatter: yAxisFormatter,
+		showLegend: true,
+		areaChartWrapperProps: {
+			margin: {
+				left: 35,
+				right: 14,
+				top: 6,
+				bottom: 6,
+			},
+		},
+	},
+};
+
 AreaChartInteractive.storyName = 'Area Chart Gradient with Legend';
+AreaChartWithFormattedYAxis.storyName = 'Area Chart with Formatted Y-Axis';
+AreaChartGradientWithFormattedYAxis.storyName = 'Area Chart Gradient with Formatted Y-Axis';
 
 type Story1 = StoryFn<typeof AreaChart>;
 
