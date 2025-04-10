@@ -19,7 +19,18 @@ const chartDataMultiple = [
 	{ month: 'June', desktop: 214, mobile: 140 },
 ];
 
+// Data for biaxial chart with different scales
+const biaxialChartData = [
+	{ month: 'January', visits: 186, revenue: 5800 },
+	{ month: 'February', visits: 305, revenue: 9200 },
+	{ month: 'March', visits: 237, revenue: 7400 },
+	{ month: 'April', visits: 173, revenue: 5100 },
+	{ month: 'May', visits: 209, revenue: 6300 },
+	{ month: 'June', visits: 214, revenue: 6800 },
+];
+
 const dataKeys = [ 'desktop', 'mobile' ];
+const biaxialDataKeys = [ 'visits', 'revenue' ];
 
 const colors = [ { stroke: '#2563EB' }, { stroke: '#38BDF8' } ];
 
@@ -84,5 +95,27 @@ export const LineChartMultiple: Story = {
 		xAxisDataKey: 'month',
 		xAxisFontSize: 'sm',
 		withDots: false,
+	},
+};
+
+export const BiaxialLineChart: Story = {
+	args: {
+		data: biaxialChartData,
+		dataKeys: biaxialDataKeys,
+		colors: [ { stroke: '#2563EB' }, { stroke: '#10B981' } ],
+		showXAxis: true,
+		showYAxis: true,
+		showTooltip: true,
+		showCartesianGrid: true,
+		tickFormatter: monthFormatter,
+		xAxisDataKey: 'month',
+		xAxisFontSize: 'sm',
+		withDots: true,
+		biaxial: true,
+		chartWidth: 500,
+		chartHeight: 300,
+		lineChartWrapperProps: {
+			margin: { top: 5, right: 5, bottom: 5, left: 5 },
+		},
 	},
 };

@@ -188,6 +188,7 @@ const AreaChart = ( {
 						fill: xAxisFontColor,
 					} }
 					hide={ ! showXAxis }
+					interval="preserveStartEnd"
 				/>
 				<YAxis
 					dataKey={ yAxisDataKey }

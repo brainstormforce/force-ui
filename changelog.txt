@@ -1,3 +1,6 @@
+Version 1.6.1 - xth April, 2025
+- Improvement - Added a new prop to the LineChart component to enable Biaxial Line chart functionality, along with various UI enhancements for improved user experience.
+
 Version 1.6.0 - 8th April, 2025
 - New - Introduced a versatile Text component that supports multiple HTML elements and customizable styles for enhanced typography flexibility.
 - Improvement - Display xAxis data on the tooltip when hovering.

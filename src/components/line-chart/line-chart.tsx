@@ -93,6 +93,11 @@ interface LineChartProps {
 	 * @default '#E5E7EB'
 	 */
 	gridColor?: string;
+
+	/**
+	 * Biaxial chart.
+	 */
+	biaxial?: boolean;
 }
 
 const LineChart = ( {
@@ -117,6 +122,7 @@ const LineChart = ( {
 	lineChartWrapperProps,
 	strokeDasharray = '3 3',
 	gridColor = '#E5E7EB',
+	biaxial = false,
 }: LineChartProps ) => {
 	const defaultColors = [ { stroke: '#2563EB' }, { stroke: '#38BDF8' } ];
 
@@ -159,9 +165,11 @@ const LineChart = ( {
 						fill: xAxisFontColor,
 					} }
 					hide={ ! showXAxis }
+					interval="equidistantPreserveStart"
 				/>
 				<YAxis
-					dataKey={ yAxisDataKey }
+					yAxisId="left"
+					dataKey={ biaxial ? dataKeys[ 0 ] : yAxisDataKey }
 					tickLine={ false }
 					axisLine={ false }
 					tickMargin={ 8 }
@@ -170,7 +178,24 @@ const LineChart = ( {
 						fill: yAxisFontColor,
 					} }
 					hide={ ! showYAxis }
+					orientation="left"
 				/>
+
+				{ biaxial && dataKeys.length > 1 && (
+					<YAxis
+						yAxisId="right"
+						dataKey={ dataKeys[ 1 ] }
+						tickLine={ false }
+						axisLine={ false }
+						tickMargin={ 8 }
+						tick={ {
+							fontSize: fontSizeVariant,
+							fill: yAxisFontColor,
+						} }
+						orientation="right"
+						hide={ ! showYAxis }
+					/>
+				) }
 
 				{ showTooltip && (
 					<Tooltip
@@ -183,17 +208,26 @@ const LineChart = ( {
 					/>
 				) }
 
-				{ dataKeys.map( ( key, index ) => (
-					<Line
-						key={ key }
-						type="natural"
-						dataKey={ key }
-						stroke={ appliedColors[ index ].stroke }
-						fill={ appliedColors[ index ].stroke }
-						strokeWidth={ 2 }
-						dot={ withDots }
-					/>
-				) ) }
+				{ dataKeys.map( ( key, index ) => {
+					// Determine which Y-axis this line should use
+					let axisId = 'left';
+					if ( biaxial && index > 0 ) {
+						axisId = 'right';
+					}
+
+					return (
+						<Line
+							key={ key }
+							type="natural"
+							dataKey={ key }
+							stroke={ appliedColors[ index ].stroke }
+							fill={ appliedColors[ index ].stroke }
+							strokeWidth={ 2 }
+							dot={ withDots }
+							yAxisId={ axisId }
+						/>
+					);
+				} ) }
 			</LineChartWrapper>
 		</ResponsiveContainer>
 	);
