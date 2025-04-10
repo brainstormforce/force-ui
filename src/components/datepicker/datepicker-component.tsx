@@ -349,7 +349,10 @@ const DatePickerComponent = ( {
 
 		const shouldShowDay =
 			isThisMonth || isRangeEndInCurrentMonth || isPartOfRange;
-		const showOutsideDates = ! showOutsideDays && isOutside;
+
+		// Fix: Corrected the logic for hiding outside dates
+		// Only hide outside days when showOutsideDays is false AND the day is outside
+		const hideOutsideDay = ! showOutsideDays && isOutside;
 
 		// Common class for disabled outside days
 		const disabledOutsideClass =
@@ -398,7 +401,7 @@ const DatePickerComponent = ( {
 				className={ cn(
 					buttonClasses,
 					isToday && 'font-semibold',
-					showOutsideDates && 'opacity-0',
+					hideOutsideDay && 'opacity-0',
 					isRangeStart && 'fui-range-start',
 					isRangeEnd && 'fui-range-end',
 					isRangeMiddle && 'fui-range-middle',
@@ -415,8 +418,7 @@ const DatePickerComponent = ( {
 				data-selected={ isSelected }
 				data-day={ format( day.date, 'yyyy-MM-dd' ) }
 			>
-				{ ( ! showOutsideDates || ( isPartOfRange && shouldShowDay ) ) &&
-					customDayProps.children }
+				{ customDayProps.children }
 				{ isToday && shouldShowDay && (
 					<span className="absolute h-1 w-1 bg-background-brand rounded-full bottom-1"></span>
 				) }
@@ -553,6 +555,7 @@ const DatePickerComponent = ( {
 					...classNames,
 				} }
 				numberOfMonths={ numberOfMonths }
+				showOutsideDays={ true }
 				components={ {
 					MonthCaption:
 						CustomMonthCaption as unknown as CustomComponents['MonthCaption'],

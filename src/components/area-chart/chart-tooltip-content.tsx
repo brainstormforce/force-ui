@@ -119,7 +119,7 @@ const ChartTooltipContent = forwardRef<
 										} }
 									/>
 								) }
-								<div className="flex-1 flex justify-between items-center">
+								<div className="flex-1 flex justify-between items-center gap-1">
 									<span>{ item[ nameKey ] || item.dataKey }</span>
 									<span className="font-mono font-medium">
 										{ formatter
