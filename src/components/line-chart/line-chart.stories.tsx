@@ -63,6 +63,9 @@ export const LineChartSimple: Story = {
 		xAxisDataKey: 'month',
 		xAxisFontSize: 'sm',
 		withDots: false,
+		lineChartWrapperProps: {
+			margin: { top: 5, right: 15, bottom: 5, left: 15 },
+		},
 	},
 };
 
@@ -79,6 +82,9 @@ export const LineChartWithDots: Story = {
 		xAxisDataKey: 'month',
 		xAxisFontSize: 'sm',
 		withDots: true,
+		lineChartWrapperProps: {
+			margin: { top: 5, right: 15, bottom: 5, left: 15 },
+		},
 	},
 };
 
@@ -95,6 +101,9 @@ export const LineChartMultiple: Story = {
 		xAxisDataKey: 'month',
 		xAxisFontSize: 'sm',
 		withDots: false,
+		lineChartWrapperProps: {
+			margin: { top: 5, right: 15, bottom: 5, left: 15 },
+		},
 	},
 };
 
@@ -117,5 +126,6 @@ export const BiaxialLineChart: Story = {
 		lineChartWrapperProps: {
 			margin: { top: 5, right: 5, bottom: 5, left: 5 },
 		},
+		yAxisFontColor: [ '#3b82f6', '#10B981' ],
 	},
 };
