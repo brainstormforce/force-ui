@@ -168,7 +168,7 @@ export const getContent = ( {
 		<span
 			className={ cn(
 				contentClasses[ theme as keyof typeof contentClasses ],
-				'block text-sm [&_*]:text-sm leading-5 [&_*]:leading-5 font-normal',
+				'block text-sm [&_*]:text-sm leading-5 [&_*]:leading-5 font-normal [word-break:break-word]',
 				inline ? 'inline' : 'block'
 			) }
 		>
