@@ -1,5 +1,6 @@
 Version 1.6.1 - 11th April, 2025
 - Improvement - Added a new prop to the LineChart component to enable Biaxial Line chart functionality, along with various UI enhancements for improved user experience.
+- Improvement - Added customizable properties for the LineChart and AreaChart components to tailor x-axis and y-axis ticks and labels for better data visualization.
 - Improvement - Introduced a `className` prop in the Dropzone component to enhance customizability and allow for more flexible styling options.
 - Fix - Corrected the positioning of days in the DatePicker component to ensure accurate display and improved user experience.
 
