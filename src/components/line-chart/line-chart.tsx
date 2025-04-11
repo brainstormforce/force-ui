@@ -10,6 +10,12 @@ import {
 import ChartTooltipContent from './chart-tooltip-content';
 import Label from '../label';
 import type { CategoricalChartProps } from 'recharts/types/chart/generateCategoricalChart';
+import { type ReactNode } from 'react';
+
+// Default color constants
+const DEFAULT_FONT_COLOR = '#6B7280';
+const DEFAULT_GRID_COLOR = '#E5E7EB';
+const DEFAULT_LINE_COLORS = [ { stroke: '#2563EB' }, { stroke: '#38BDF8' } ];
 
 interface DataItem {
 	[key: string]: number | string;
@@ -47,7 +53,16 @@ interface LineChartProps {
 	showCartesianGrid?: boolean;
 
 	/** A function used to format the ticks on the x-axis, e.g., for formatting dates or numbers. */
+	xAxisTickFormatter?: ( value: string ) => string;
+
+	/**
+	 * A function used to format the ticks on the x-axis, e.g., for formatting dates or numbers.
+	 * @deprecated Use `xAxisTickFormatter` instead.
+	 */
 	tickFormatter?: ( value: string ) => string;
+
+	/** A function used to format the ticks on the y-axis, e.g., for converting 1000 to 1K. */
+	yAxisTickFormatter?: ( value: number ) => string;
 
 	/** The key in the data objects representing values for the x-axis. */
 	xAxisDataKey?: string;
@@ -61,8 +76,12 @@ interface LineChartProps {
 	/** Font color for the labels on the x-axis. */
 	xAxisFontColor?: string;
 
-	/** Font color for the labels on the y-axis. */
-	yAxisFontColor?: string;
+	/**
+	 * Font color for the labels on the y-axis.
+	 * When biaxial is true, you can provide an array of two colors [leftAxisColor, rightAxisColor].
+	 * If a single color is provided, it will be used for both axes.
+	 */
+	yAxisFontColor?: string | string[];
 
 	/** Width of the chart container. */
 	chartWidth?: number | string;
@@ -98,6 +117,12 @@ interface LineChartProps {
 	 * Biaxial chart.
 	 */
 	biaxial?: boolean;
+
+	/**
+	 * Custom component to display when no data is available.
+	 * If not provided, a default "No data available" message will be displayed.
+	 */
+	noDataComponent?: ReactNode;
 }
 
 const LineChart = ( {
@@ -110,23 +135,24 @@ const LineChart = ( {
 	tooltipIndicator = 'dot', // dot, line, dashed
 	tooltipLabelKey,
 	showCartesianGrid = true,
+	xAxisTickFormatter,
+	yAxisTickFormatter,
 	tickFormatter,
 	xAxisDataKey,
 	yAxisDataKey,
 	xAxisFontSize = 'sm', // sm, md, lg
-	xAxisFontColor = '#6B7280',
-	yAxisFontColor = '#6B7280',
+	xAxisFontColor = DEFAULT_FONT_COLOR,
+	yAxisFontColor = DEFAULT_FONT_COLOR,
 	chartWidth = 350,
 	chartHeight = 200,
 	withDots = false,
 	lineChartWrapperProps,
 	strokeDasharray = '3 3',
-	gridColor = '#E5E7EB',
+	gridColor = DEFAULT_GRID_COLOR,
 	biaxial = false,
+	noDataComponent,
 }: LineChartProps ) => {
-	const defaultColors = [ { stroke: '#2563EB' }, { stroke: '#38BDF8' } ];
-
-	const appliedColors = colors.length > 0 ? colors : defaultColors;
+	const appliedColors = colors.length > 0 ? colors : DEFAULT_LINE_COLORS;
 
 	const fontSizeMap = {
 		sm: '12px',
@@ -136,11 +162,23 @@ const LineChart = ( {
 
 	const fontSizeVariant = fontSizeMap[ xAxisFontSize ] || fontSizeMap.sm;
 
+	// Handle Y-axis colors for biaxial chart
+	const getYAxisFontColor = ( index = 0 ) => {
+		if ( Array.isArray( yAxisFontColor ) ) {
+			return (
+				yAxisFontColor[ index ] || yAxisFontColor[ 0 ] || DEFAULT_FONT_COLOR
+			);
+		}
+		return yAxisFontColor;
+	};
+
 	if ( ! data || data.length === 0 ) {
 		return (
-			<Label size="sm" variant="help">
-				No data available
-			</Label>
+			noDataComponent || (
+				<Label size="sm" variant="help">
+					No data available
+				</Label>
+			)
 		);
 	}
 
@@ -159,7 +197,7 @@ const LineChart = ( {
 					tickLine={ false }
 					axisLine={ false }
 					tickMargin={ 8 }
-					tickFormatter={ tickFormatter }
+					tickFormatter={ xAxisTickFormatter || tickFormatter }
 					tick={ {
 						fontSize: fontSizeVariant,
 						fill: xAxisFontColor,
@@ -173,9 +211,10 @@ const LineChart = ( {
 					tickLine={ false }
 					axisLine={ false }
 					tickMargin={ 8 }
+					tickFormatter={ yAxisTickFormatter }
 					tick={ {
 						fontSize: fontSizeVariant,
-						fill: yAxisFontColor,
+						fill: getYAxisFontColor( 0 ),
 					} }
 					hide={ ! showYAxis }
 					orientation="left"
@@ -188,9 +227,10 @@ const LineChart = ( {
 						tickLine={ false }
 						axisLine={ false }
 						tickMargin={ 8 }
+						tickFormatter={ yAxisTickFormatter }
 						tick={ {
 							fontSize: fontSizeVariant,
-							fill: yAxisFontColor,
+							fill: getYAxisFontColor( 1 ),
 						} }
 						orientation="right"
 						hide={ ! showYAxis }

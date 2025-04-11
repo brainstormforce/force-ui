@@ -52,7 +52,8 @@ export default {
 				'h6',
 				'div',
 			],
-			description: 'The element to render the text as. Any HTML element or React component can be added here.',
+			description:
+				'The element to render the text as. Any HTML element or React component can be added here.',
 		},
 		children: {
 			control: 'text',
