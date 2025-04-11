@@ -4,7 +4,7 @@ import Label from '../label';
 import Button from '../button';
 import Badge from '../badge';
 import Container from '../container';
-import { ArrowUpRight, ArrowUp } from 'lucide-react';
+import { ArrowUpRight, ArrowUp, AlertCircle } from 'lucide-react';
 
 const areaChartData = [
 	{ month: 'January', sales: 186, expenses: 80 },
@@ -15,7 +15,21 @@ const areaChartData = [
 	{ month: 'June', sales: 214, expenses: 140 },
 ];
 
+// Data with large values to demonstrate Y-axis formatting
+const largeValuesData = [
+	{ month: 'January', pageviews: 1200, sessions: 800 },
+	{ month: 'February', pageviews: 2800, sessions: 1500 },
+	{ month: 'March', pageviews: 5500, sessions: 2900 },
+	{ month: 'April', pageviews: 8200, sessions: 4100 },
+	{ month: 'May', pageviews: 14000, sessions: 6200 },
+	{ month: 'June', pageviews: 18500, sessions: 8800 },
+];
+
+// Empty data for demonstrating custom no data component
+const emptyData: { month: string; sales: number; expenses: number }[] = [];
+
 const dataKeys = [ 'sales', 'expenses' ];
+const largeDataKeys = [ 'pageviews', 'sessions' ];
 
 const chartDataIteractive = [
 	{ date: '2024-04-01', desktop: 222, mobile: 150 },
@@ -121,6 +135,29 @@ const colors = [
 // Custom tick formatter function for months
 const monthFormatter = ( value: string ) => value.slice( 0, 3 );
 
+// Custom Y-axis formatter function to display values in K/M format
+const yAxisFormatter = ( value: number ) => {
+	if ( value >= 1000000 ) {
+		return `${ ( value / 1000000 ).toFixed( 1 ) }M`;
+	}
+	if ( value >= 1000 ) {
+		return `${ ( value / 1000 ).toFixed( 1 ) }K`;
+	}
+	return value.toString();
+};
+
+// Custom No Data Component
+const CustomNoDataComponent = () => (
+	<div className="flex flex-col items-center justify-center p-6 rounded-lg bg-gray-50 text-gray-600">
+		<AlertCircle className="mb-3 text-amber-500" size={ 50 } />
+		<div className="text-base font-medium">No data found</div>
+		<p className="text-sm text-center text-gray-500 mt-1 max-w-xs">
+			There is no data available for this chart at the moment. Try
+			adjusting your filters or check back later.
+		</p>
+	</div>
+);
+
 const monthFormatterInteractive = ( value: string ) => {
 	const date = new Date( value );
 	return date.toLocaleDateString( 'en-US', {
@@ -187,7 +224,83 @@ export const AreaChartInteractive: Story = {
 	},
 };
 
+export const AreaChartWithFormattedYAxis: Story = {
+	args: {
+		chartWidth: 600,
+		chartHeight: 300,
+		data: largeValuesData,
+		dataKeys: largeDataKeys,
+		colors: [
+			{ stroke: '#3b82f6', fill: '#BFDBFE' },
+			{ stroke: '#f97316', fill: '#FFEDD5' },
+		],
+		variant: 'solid',
+		showXAxis: true,
+		xAxisDataKey: 'month',
+		showYAxis: true,
+		tickFormatter: monthFormatter,
+		yAxisTickFormatter: yAxisFormatter,
+		showLegend: true,
+		areaChartWrapperProps: {
+			margin: {
+				left: 35,
+				right: 14,
+				top: 6,
+				bottom: 6,
+			},
+		},
+	},
+};
+
+export const AreaChartGradientWithFormattedYAxis: Story = {
+	args: {
+		chartWidth: 600,
+		chartHeight: 300,
+		data: largeValuesData,
+		dataKeys: largeDataKeys,
+		colors: [
+			{ stroke: '#3b82f6', fill: '#BFDBFE' },
+			{ stroke: '#f97316', fill: '#FFEDD5' },
+		],
+		variant: 'gradient',
+		showXAxis: true,
+		xAxisDataKey: 'month',
+		showYAxis: true,
+		tickFormatter: monthFormatter,
+		yAxisTickFormatter: yAxisFormatter,
+		showLegend: true,
+		areaChartWrapperProps: {
+			margin: {
+				left: 35,
+				right: 14,
+				top: 6,
+				bottom: 6,
+			},
+		},
+	},
+};
+
+export const AreaChartWithCustomNoDataComponent: Story = {
+	args: {
+		chartWidth: 600,
+		chartHeight: 300,
+		data: emptyData,
+		dataKeys,
+		colors,
+		variant: 'solid',
+		showXAxis: true,
+		xAxisDataKey: 'month',
+		showYAxis: true,
+		noDataComponent: <CustomNoDataComponent />,
+	},
+};
+
 AreaChartInteractive.storyName = 'Area Chart Gradient with Legend';
+AreaChartWithFormattedYAxis.storyName = 'Area Chart with Formatted Y-Axis';
+AreaChartGradientWithFormattedYAxis.storyName =
+	'Area Chart Gradient with Formatted Y-Axis';
+AreaChartWithCustomNoDataComponent.storyName =
+	'Area Chart with Custom No Data Component';
 
 type Story1 = StoryFn<typeof AreaChart>;
 

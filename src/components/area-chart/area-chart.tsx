@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, type ReactNode } from 'react';
 import {
 	AreaChart as AreaChartWrapper,
 	Area,
@@ -13,6 +13,13 @@ import ChartLegendContent from './chart-legend-content';
 import ChartTooltipContent from './chart-tooltip-content';
 import Label from '../label';
 import type { CategoricalChartProps } from 'recharts/types/chart/generateCategoricalChart';
+
+// Default color constants
+const DEFAULT_FONT_COLOR = '#6B7280';
+const DEFAULT_AREA_COLORS = [
+	{ stroke: '#2563EB', fill: '#BFDBFE' },
+	{ stroke: '#38BDF8', fill: '#BAE6FD' },
+];
 
 interface DataItem {
 	[key: string]: number | string; // Adjust based on your data structure
@@ -56,8 +63,17 @@ interface AreaChartProps {
 	/** Whether to display the `<CartesianGrid />`, adding horizontal and vertical grid lines. */
 	showCartesianGrid?: boolean;
 
-	/** A function used to format the ticks on the axes, e.g., for formatting dates or numbers. */
+	/** A function used to format the ticks on the x-axis, e.g., for formatting dates or numbers. */
+	xAxisTickFormatter?: ( value: string ) => string;
+
+	/**
+	 * A function used to format the ticks on the x-axis, e.g., for formatting dates or numbers.
+	 * @deprecated Use `xAxisTickFormatter` instead.
+	 */
 	tickFormatter?: ( value: string ) => string;
+
+	/** A function used to format the ticks on the y-axis, e.g., for converting 1000 to 1K. */
+	yAxisTickFormatter?: ( value: number ) => string;
 
 	/** The key in the data objects representing values for the x-axis. This is used to access the x-axis values from each data entry. */
 	xAxisDataKey?: string;
@@ -85,6 +101,12 @@ interface AreaChartProps {
 		CategoricalChartProps,
 		'width' | 'height' | 'data'
 	>;
+
+	/**
+	 * Custom component to display when no data is available.
+	 * If not provided, a default "No data available" message will be displayed.
+	 */
+	noDataComponent?: ReactNode;
 }
 
 const AreaChart = ( {
@@ -99,11 +121,13 @@ const AreaChart = ( {
 	tooltipLabelKey,
 	showLegend = true,
 	showCartesianGrid = true,
+	xAxisTickFormatter,
 	tickFormatter,
+	yAxisTickFormatter,
 	xAxisDataKey,
 	yAxisDataKey,
 	xAxisFontSize = 'sm', // sm, md, lg
-	xAxisFontColor = '#6B7280',
+	xAxisFontColor = DEFAULT_FONT_COLOR,
 	chartWidth = 350,
 	chartHeight = 200,
 	areaChartWrapperProps = {
@@ -114,17 +138,12 @@ const AreaChart = ( {
 			bottom: 6,
 		},
 	},
+	noDataComponent,
 }: AreaChartProps ) => {
 	const [ width, setWidth ] = useState( chartWidth );
 	const [ height, setHeight ] = useState( chartHeight );
 
-	// Default colors
-	const defaultColors: Color[] = [
-		{ stroke: '#2563EB', fill: '#BFDBFE' },
-		{ stroke: '#38BDF8', fill: '#BAE6FD' },
-	];
-
-	const appliedColors = colors.length > 0 ? colors : defaultColors;
+	const appliedColors = colors.length > 0 ? colors : DEFAULT_AREA_COLORS;
 
 	useEffect( () => {
 		setWidth( chartWidth );
@@ -167,9 +186,11 @@ const AreaChart = ( {
 
 	if ( ! data || data.length === 0 ) {
 		return (
-			<Label size="sm" variant="help">
-				No data available
-			</Label>
+			noDataComponent || (
+				<Label size="sm" variant="help">
+					No data available
+				</Label>
+			)
 		);
 	}
 
@@ -182,18 +203,20 @@ const AreaChart = ( {
 					tickLine={ false }
 					axisLine={ false }
 					tickMargin={ 8 }
-					tickFormatter={ tickFormatter }
+					tickFormatter={ xAxisTickFormatter || tickFormatter }
 					tick={ {
 						fontSize: fontSizeVariant,
 						fill: xAxisFontColor,
 					} }
 					hide={ ! showXAxis }
+					interval="preserveStartEnd"
 				/>
 				<YAxis
 					dataKey={ yAxisDataKey }
 					tickLine={ false }
 					axisLine={ false }
 					tickMargin={ 8 }
+					tickFormatter={ yAxisTickFormatter }
 					tick={ {
 						fontSize: fontSizeVariant,
 						fill: xAxisFontColor,

@@ -21,6 +21,10 @@ export interface DropzoneProps {
 	error?: boolean;
 	/** Error text to display */
 	errorText?: string;
+	/** Custom class name for the dropzone */
+	className?: string;
+	/** Custom class name for the wrapper */
+	wrapperClassName?: string;
 }
 
 // Context interface for file data sharing
@@ -127,6 +131,8 @@ export const Dropzone = ( {
 	disabled = false,
 	error = false,
 	errorText = 'Upload failed, please try again.',
+	className = '',
+	wrapperClassName = '',
 }: DropzoneProps ) => {
 	const [ isLoading, setIsLoading ] = useState( false );
 	const [ file, setFile ] = useState<File | null>( null );
@@ -214,7 +220,7 @@ export const Dropzone = ( {
 		<FileUploadContext.Provider
 			value={ { file, removeFile, isLoading, error, errorText } }
 		>
-			<div>
+			<div className={ cn( wrapperClassName ) }>
 				<label htmlFor={ uploadInputID.current }>
 					<div
 						className={ cn(
@@ -224,7 +230,8 @@ export const Dropzone = ( {
 								: 'border-field-border',
 							disabled &&
 								'border-field-border bg-field-background-disabled cursor-not-allowed hover:border-field-border',
-							sizeClasses[ size ].padding
+							sizeClasses[ size ].padding,
+							className
 						) }
 						onDragOver={ handleDragOver }
 						onDragLeave={ handleDragLeave }
