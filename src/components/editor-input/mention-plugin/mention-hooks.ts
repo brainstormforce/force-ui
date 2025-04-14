@@ -1,7 +1,5 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { OptionsArray } from './mention-plugin';
-
-const mentionsCache = new Map();
 
 type TBy<T> =
 	T extends Array<infer U>
@@ -16,6 +14,8 @@ function useMentionLookupService<T = OptionsArray>(
 	by: TBy<T> = 'name' as TBy<T>
 ): OptionsArray {
 	const [ results, setResults ] = useState<OptionsArray>( [] );
+	// Create an instance-specific cache using useRef
+	const mentionsCacheRef = useRef<Map<string, OptionsArray | null>>( new Map() );
 
 	useEffect( () => {
 		if ( mentionString === null ) {
@@ -23,6 +23,7 @@ function useMentionLookupService<T = OptionsArray>(
 			return;
 		}
 
+		const mentionsCache = mentionsCacheRef.current;
 		const cachedResults = mentionsCache.get( mentionString );
 		if ( cachedResults === null ) {
 			return;
@@ -36,12 +37,12 @@ function useMentionLookupService<T = OptionsArray>(
 			options,
 			mentionString,
 			( newResults ) => {
-				mentionsCache.set( mentionString, newResults );
+				mentionsCache.set( mentionString, newResults as OptionsArray );
 				setResults( newResults as OptionsArray );
 			},
 			by
 		);
-	}, [ mentionString ] );
+	}, [ mentionString, options, by ] );
 
 	return results;
 }

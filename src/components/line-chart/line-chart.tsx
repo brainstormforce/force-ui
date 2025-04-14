@@ -258,7 +258,7 @@ const LineChart = ( {
 					return (
 						<Line
 							key={ key }
-							type="natural"
+							type="monotone"
 							dataKey={ key }
 							stroke={ appliedColors[ index ].stroke }
 							fill={ appliedColors[ index ].stroke }
