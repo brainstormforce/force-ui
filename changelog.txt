@@ -1,3 +1,7 @@
+Version 1.6.2 - 14th April, 2025
+- Improvement - Enhanced the LineChart component by refining the line type and optimizing the spacing between tooltip contents for better clarity and visual appeal.
+- Fix - Resolved an issue in the EditorInput component where incorrect options were displayed due to a mismanaged global cache variable.
+
 Version 1.6.1 - 11th April, 2025
 - Improvement - Added a new prop to the LineChart component to enable Biaxial Line chart functionality, along with various UI enhancements for improved user experience.
 - Improvement - Added customizable properties for the LineChart and AreaChart components to tailor x-axis and y-axis ticks and labels for better data visualization.
