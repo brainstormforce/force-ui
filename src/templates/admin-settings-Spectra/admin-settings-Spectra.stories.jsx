@@ -163,8 +163,8 @@ const Template = ( args ) => {
 						</Topbar.Item>
 						<Topbar.Item>
 							<Avatar
-								size="sm"
-								className="bg-brand-background-50 text-icon-primary"
+								size="xs"
+								variant="primary-light"
 							>
 								<User strokeWidth="1.5" />
 							</Avatar>
