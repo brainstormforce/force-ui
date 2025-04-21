@@ -56,25 +56,31 @@ const Template = ( args ) => {
 		>
 			{ /* Info-bar Start */ }
 			<div className="py-2 flex items-center justify-center relative bg-brand-background-hover-100">
-				<div className="space-x-1 text-text-primary text-xs">
+				<div className="text-text-primary text-xs">
 					<span className="font-semibold">
-						Unlock Spectra&apos;s Full Potential!
+						Unlock Spectra&apos;s Full Potential! { ' ' }
 					</span>
 					<span className="font-normal">
 						Get exclusive features and unbeatable performance.
 					</span>
-					<a
+					<Button
+						tag="a"
 						href="#"
 						target="_self"
-						className="content-center text-inherit font-normal underline"
+						variant="link"
+						size="xs"
+						className="content-center text-inherit font-normal focus:[box-shadow:none]"
 					>
 						Upgrade now
-					</a>
+					</Button>
 				</div>
-				<button className="inline-flex items-center justify-center absolute right-2 top-2 p-0 bg-transparent shadow-none border-0 outline-none focus:outline-none cursor-pointer">
-					<X className="size-4" />
-					<span className="sr-only">Close</span>
-				</button>
+				<Button
+					className="absolute right-2 top-2 p-0 hover:bg-transparent focus:[box-shadow:none]"
+					icon={ <X /> }
+					variant="ghost"
+					size="sm"
+					aria-label="Close"
+				/>
 			</div>
 			{ /* Info-bar End */ }
 			<Container.Item>
@@ -108,10 +114,9 @@ const Template = ( args ) => {
 							<a
 								href="#"
 								target="_self"
-								className="content-center no-underline relative h-full py-0 px-1 m-0 bg-transparent outline-none shadow-none border-0 focus:outline-none text-text-primary text-sm font-medium cursor-pointer"
+								className="content-center no-underline relative h-full py-0 px-1 m-0 bg-transparent outline-none shadow-none border-0 focus:outline-none text-text-primary text-sm font-medium cursor-pointer after:content-[''] after:inline-block after:size-1 after:bg-brand-800 after:absolute after:bottom-0 after:left-0 after:w-full after:h-px"
 							>
 								<span>Settings</span>
-								<span className="absolute bottom-0 left-0 w-full h-px bg-brand-800"></span>
 							</a>
 							<a
 								href="#"
@@ -416,14 +421,19 @@ const Template = ( args ) => {
 									delivers relevant content for higher
 									engagement.
 								</p>
-								<a
+								<Button
+									tag="a"
 									href="#"
 									target="_self"
-									className="content-center inline-flex items-center p-0 m-0 bg-transparent outline-none focus:outline-none border-0 shadow-none space-x-1 text-xs font-semibold text-link-primary no-underline"
+									variant="link"
+									size="xs"
+									className="content-center hover:no-underline no-underline focus:[box-shadow:none]"
+									icon={ <ArrowUpRight className="size-3.5" /> }
+									iconPosition="right"
+									aria-label="Upgrade now"
 								>
-									Upgrade now{ ' ' }
-									<ArrowUpRight className="size-3.5" />
-								</a>
+									Upgrade now
+								</Button>
 							</div>
 
 							<hr className="w-full border-b-0 border-x-0 border-t border-solid border-t-border-subtle" />
