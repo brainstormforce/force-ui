@@ -381,9 +381,7 @@ const Template = ( args ) => {
 										>
 											Dynamic Content
 										</Label>
-										<span className="inline-block py-0.5 px-1 text-text-inverse bg-background-inverse border border-solid border-border-inverse text-xs font-medium rounded-full">
-											PRO
-										</span>
+										<Badge label="PRO" variant="inverse" size="xs" disableHover />
 									</div>
 									<Label
 										tag="p"
