@@ -14,7 +14,7 @@ Using Force UI as a dependency in package.json -
 
 ```json
 "dependencies": {
-  "@bsf/force-ui": "git+https://github.com/brainstormforce/force-ui#1.6.2"
+  "@bsf/force-ui": "git+https://github.com/brainstormforce/force-ui#1.6.3"
 }
 ```
 
@@ -28,7 +28,7 @@ npm install
 Or you can directly run the following command to install the package -
 
 ```bash
-npm i -S @bsf/force-ui@git+https://github.com/brainstormforce/force-ui.git#1.6.2
+npm i -S @bsf/force-ui@git+https://github.com/brainstormforce/force-ui.git#1.6.3
 ```
 
 <br />
