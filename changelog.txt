@@ -1,4 +1,4 @@
-Version 1.6.3 - xth April, 2025
+Version 1.6.3 - 23rd April, 2025
 - Fix - Resolved an issue where the Accordion component's content was not properly visible when expanded due to overflow hidden.
 
 Version 1.6.2 - 14th April, 2025
