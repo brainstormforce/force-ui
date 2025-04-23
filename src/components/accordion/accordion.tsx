@@ -218,8 +218,21 @@ export const AccordionContent = ( {
 	className,
 }: AccordionContentProps ) => {
 	const contentVariants = {
-		open: { height: 'auto', opacity: 1 },
-		closed: { height: 0, opacity: 0 },
+		open: {
+			height: 'auto',
+			opacity: 1,
+			overflow: 'unset',
+			transition: {
+				overflow: {
+					delay: 1,
+				},
+			},
+		},
+		closed: {
+			height: 0,
+			opacity: 0,
+			overflow: 'hidden',
+		},
 	};
 
 	const contentPaddingClasses = {
@@ -239,7 +252,7 @@ export const AccordionContent = ( {
 					exit="closed"
 					transition={ { duration: 0.3, ease: 'easeInOut' } }
 					className={ cn(
-						'overflow-hidden text-text-secondary w-full text-sm transition-[height, opacity, transform] ease-in box-border',
+						'text-text-secondary w-full text-sm transition-[height, opacity, transform] ease-in box-border',
 						disabled && 'opacity-40',
 						className
 					) }

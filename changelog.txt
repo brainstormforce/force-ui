@@ -1,3 +1,6 @@
+Version 1.6.3 - 23rd April, 2025
+- Fix - Atom - Accordion: Resolved an issue where the Accordion component's content was not properly visible when expanded due to overflow hidden.
+
 Version 1.6.2 - 14th April, 2025
 - Improvement - Enhanced the LineChart component by refining the line type and optimizing the spacing between tooltip contents for better clarity and visual appeal.
 - Fix - Resolved an issue in the EditorInput component where incorrect options were displayed due to a mismanaged global cache variable.
