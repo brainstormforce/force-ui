@@ -602,7 +602,11 @@ export function SelectOptions( {
 			{ /* Dropdown */ }
 			{ isOpen && (
 				<>
-					<FloatingFocusManager context={ context } modal={ false }>
+					<FloatingFocusManager
+						context={ context }
+						modal={ false }
+						visuallyHiddenDismiss
+					>
 						{ /* Dropdown Wrapper */ }
 						<div
 							ref={ refs.setFloating }
@@ -620,6 +624,7 @@ export function SelectOptions( {
 							) }
 							style={ {
 								...floatingStyles,
+								zIndex: 1,
 							} }
 							{ ...getFloatingProps() }
 						>
@@ -849,6 +854,7 @@ const SelectComponent = ( {
 	};
 
 	const { refs, floatingStyles, context } = useFloating( {
+		strategy: 'fixed',
 		placement: 'bottom-start',
 		open: isOpen,
 		onOpenChange: setIsOpen,

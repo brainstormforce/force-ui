@@ -74,3 +74,10 @@ export interface DropdownPortalProps extends DropdownCommonProps {
 export type DropdownMenuSeparatorProps = MenuSeparatorProps;
 
 export type DropdownMenuListProps = MenuListProps;
+
+export type DropdownMenuContentWrapperProps = {
+	/** Children of the component */
+	children: ReactNode;
+	/** Additional class name */
+	className?: string;
+};

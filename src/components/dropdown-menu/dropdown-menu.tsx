@@ -27,6 +27,7 @@ import Menu from '../menu-item/menu-item';
 import {
 	AdditionalProps,
 	DropdownCommonProps,
+	DropdownMenuContentWrapperProps,
 	DropdownMenuItemProps,
 	DropdownMenuListProps,
 	DropdownMenuProps,
@@ -51,7 +52,7 @@ export const DropdownMenu = ( {
 		open: isOpen,
 		onOpenChange: setIsOpen,
 		placement,
-		strategy: 'absolute',
+		strategy: 'fixed',
 		middleware: [
 			offset( offsetValue ),
 			flip( { boundary } ),
@@ -111,19 +112,19 @@ export const DropdownMenu = ( {
 					return null;
 				} ) }
 
-				{ React.Children.map( children, ( child ) => {
-					if (
-						React.isValidElement( child ) &&
-						(
-							child as ReactElement & {
-								type: { displayName: string };
-							}
-						)?.type?.displayName === 'DropdownMenu.Portal'
-					) {
-						return child;
-					}
-					return null;
-				} ) }
+				{ React.Children.toArray( children )
+					.filter(
+						( child ): child is React.ReactElement =>
+							React.isValidElement( child ) &&
+							[
+								'DropdownMenu.Portal',
+								'DropdownMenu.ContentWrapper',
+							].includes(
+								( child.type as { displayName?: string } )
+									.displayName || ''
+							)
+					)
+					.map( ( child ) => child ) }
 			</div>
 		</DropdownMenuContext.Provider>
 	);
@@ -131,12 +132,10 @@ export const DropdownMenu = ( {
 
 DropdownMenu.displayName = 'DropdownMenu';
 
-export const DropdownMenuPortal = ( {
+export const DropdownMenuContentWrapper = ( {
 	children,
 	className,
-	root,
-	id,
-}: DropdownPortalProps ) => {
+}: DropdownMenuContentWrapperProps ) => {
 	const { refs, floatingStyles, getFloatingProps, isMounted, styles } =
 		useDropdownMenuContext() as {
 			refs: UseFloatingReturn['refs'];
@@ -148,31 +147,43 @@ export const DropdownMenuPortal = ( {
 
 	return (
 		isMounted && (
-			<FloatingPortal id={ id } root={ root }>
-				<div
-					ref={ refs.setFloating }
-					className={ className }
-					style={ {
-						...floatingStyles!,
-						...styles!,
-					} }
-					{ ...getFloatingProps() }
-				>
-					{ React.Children.map( children, ( child ) => {
-						if (
-							(
-								child as ReactElement & {
-									type?: { displayName: string };
-								}
-							)?.type?.displayName === 'DropdownMenu.Content'
-						) {
-							return child;
-						}
-						return null;
-					} ) }
-				</div>
-			</FloatingPortal>
+			<div
+				ref={ refs.setFloating }
+				className={ className }
+				style={ {
+					...floatingStyles!,
+					...styles!,
+				} }
+				{ ...getFloatingProps() }
+			>
+				{ React.Children.map( children, ( child ) => {
+					if (
+						(
+							child as ReactElement & {
+								type?: { displayName: string };
+							}
+						)?.type?.displayName === 'DropdownMenu.Content'
+					) {
+						return child;
+					}
+					return null;
+				} ) }
+			</div>
 		)
+	);
+};
+
+DropdownMenuContentWrapper.displayName = 'DropdownMenu.ContentWrapper';
+
+export const DropdownMenuPortal = ( {
+	children,
+	root,
+	id,
+}: DropdownPortalProps ) => {
+	return (
+		<FloatingPortal id={ id } root={ root }>
+			{ children }
+		</FloatingPortal>
 	);
 };
 
@@ -274,5 +285,6 @@ DropdownMenu.List = DropdownMenuList;
 DropdownMenu.Item = DropdownMenuItem;
 DropdownMenu.Separator = DropdownMenuSeparator;
 DropdownMenu.Portal = DropdownMenuPortal;
+DropdownMenu.ContentWrapper = DropdownMenuContentWrapper;
 
 export default DropdownMenu;
