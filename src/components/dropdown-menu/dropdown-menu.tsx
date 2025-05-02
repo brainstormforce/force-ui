@@ -142,32 +142,34 @@ export const DropdownMenuContentWrapper = ( {
 			floatingStyles: UseFloatingReturn['floatingStyles'];
 			getFloatingProps: UseInteractionsReturn['getFloatingProps'];
 			isMounted: boolean;
-		styles: React.CSSProperties;
-	};
+			styles: React.CSSProperties;
+		};
 
-	return isMounted && (
-		<div
-			ref={ refs.setFloating }
-			className={ className }
-			style={ {
-				...floatingStyles!,
-				...styles!,
-			} }
-			{ ...getFloatingProps() }
-		>
-			{ React.Children.map( children, ( child ) => {
-				if (
-					(
-					child as ReactElement & {
-						type?: { displayName: string };
+	return (
+		isMounted && (
+			<div
+				ref={ refs.setFloating }
+				className={ className }
+				style={ {
+					...floatingStyles!,
+					...styles!,
+				} }
+				{ ...getFloatingProps() }
+			>
+				{ React.Children.map( children, ( child ) => {
+					if (
+						(
+							child as ReactElement & {
+								type?: { displayName: string };
+							}
+						)?.type?.displayName === 'DropdownMenu.Content'
+					) {
+						return child;
 					}
-					)?.type?.displayName === 'DropdownMenu.Content'
-				) {
-					return child;
-				}
-				return null;
-			} ) }
-		</div>
+					return null;
+				} ) }
+			</div>
+		)
 	);
 };
 
@@ -179,11 +181,9 @@ export const DropdownMenuPortal = ( {
 	id,
 }: DropdownPortalProps ) => {
 	return (
-		 (
-			<FloatingPortal id={ id } root={ root }>
-				{ children }
-			</FloatingPortal>
-		)
+		<FloatingPortal id={ id } root={ root }>
+			{ children }
+		</FloatingPortal>
 	);
 };
 

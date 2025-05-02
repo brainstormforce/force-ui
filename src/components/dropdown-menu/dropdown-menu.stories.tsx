@@ -139,4 +139,3 @@ const IconTriggerTemplate: Story = ( args ) => (
 	</DropdownMenu>
 );
 export const IconTrigger = IconTriggerTemplate.bind( {} );
-
