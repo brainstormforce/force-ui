@@ -65,6 +65,66 @@ export default meta;
 
 type Story = StoryFn<typeof Select>;
 
+// Single Select without portal
+const SelectWithoutPortalTemplate: Story = ( {
+	size,
+	multiple,
+	combobox,
+	disabled,
+} ) => (
+	<div className="w-full h-[200px]">
+		<Select
+			size={ size }
+			multiple={ multiple }
+			combobox={ combobox }
+			disabled={ disabled }
+			onChange={ ( value ) => value }
+		>
+			<Select.Button
+				placeholder={
+					multiple ? 'Select multiple options' : 'Select an option'
+				}
+				label={ multiple ? 'Select Multiple Colors' : 'Select a Color' }
+				render={ ( selected ) =>
+					( selected as Record<string, string> )?.name
+				}
+			/>
+			<Select.Options>
+				{ options.map( ( option ) => (
+					<Select.Option key={ option.id } value={ option }>
+						{ option.name }
+					</Select.Option>
+				) ) }
+			</Select.Options>
+		</Select>
+	</div>
+);
+
+export const SingleSelectWithoutPortal = SelectWithoutPortalTemplate.bind( {} );
+SingleSelectWithoutPortal.parameters = {
+	docs: {
+		description: {
+			story: `If you want to use the Select component inside a **Dialog**, **Drawer** or **Popover**, you can omit using the \`Select.Portal\` component. Using the portal is not required in this case and it might cause issues like the \`z-index\` problem and the dropdown menu not being visible.
+
+If you really need to use the portal and if you face \`z-index\` issues, in that case you can update the \`z-index\` of the Select dropdown to a higher value.
+
+#### When to use the \`Select.Portal\` component?
+
+Portal helps to render a floating element into a given container element. By default, outside of the app root and into the body. This is necessary to ensure the floating element can appear outside any potential parent containers that cause clipping (such as overflow: hidden), while retaining its location in the React tree.
+
+- When the dropdown is being cut off by parent elements. Ex. Parent container has \`overflow: hidden\` property.
+- When you need to render the dropdown menu into a different part of the DOM except the parent container.
+`,
+		},
+	},
+};
+SingleSelectWithoutPortal.args = {
+	size: 'md',
+	multiple: false,
+	combobox: false,
+	disabled: false,
+};
+
 // Single Select Story
 export const SingleSelect: Story = ( { size, multiple, combobox, disabled } ) => {
 	const [ selected, setSelected ] = useState<SelectOptionValue | null>( null );
@@ -128,48 +188,6 @@ SingleSelect.play = async ( { canvasElement } ) => {
 
 	// Check if the button text is updated
 	expect( selectButton ).toHaveTextContent( 'Red' );
-};
-
-const SelectWithoutPortalTemplate: Story = ( {
-	size,
-	multiple,
-	combobox,
-	disabled,
-} ) => (
-	<div className="w-full h-[200px]">
-		<Select
-			size={ size }
-			multiple={ multiple }
-			combobox={ combobox }
-			disabled={ disabled }
-			onChange={ ( value ) => value }
-		>
-			<Select.Button
-				placeholder={
-					multiple ? 'Select multiple options' : 'Select an option'
-				}
-				label={ multiple ? 'Select Multiple Colors' : 'Select a Color' }
-				render={ ( selected ) =>
-					( selected as Record<string, string> )?.name
-				}
-			/>
-			<Select.Options>
-				{ options.map( ( option ) => (
-					<Select.Option key={ option.id } value={ option }>
-						{ option.name }
-					</Select.Option>
-				) ) }
-			</Select.Options>
-		</Select>
-	</div>
-);
-
-export const SingleSelectWithoutPortal = SelectWithoutPortalTemplate.bind( {} );
-SingleSelectWithoutPortal.args = {
-	size: 'md',
-	multiple: false,
-	combobox: false,
-	disabled: false,
 };
 
 // Multi-select Story
