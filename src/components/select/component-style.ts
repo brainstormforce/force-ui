@@ -57,3 +57,9 @@ export const optionGroupDividerSizeClassNames = {
 	md: 'w-[calc(100%+1rem)] translate-x-[-0.5rem]',
 	lg: 'w-[calc(100%+1rem)] translate-x-[-0.5rem]',
 };
+
+export const selectItemClassNames = {
+	sm: 'py-1.5 px-2 text-xs font-normal',
+	md: 'p-2 text-sm font-normal',
+	lg: 'p-2 text-base font-normal',
+};
