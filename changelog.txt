@@ -2,6 +2,7 @@ Version 1.7.0 - 5th May, 2025
 - Improvement - Molecule - DropdownMenu: Added `Dropdown.ContentWrapper` sub-component to render dropdown content inside Dialog or Drawer contexts without requiring `Dropdown.Portal`.
 - Improvement - Atom - Select: Refined dropdown positioning and enhanced the Storybook documentation to clearly illustrate when to apply `Select.Portal`, especially within Dialog or Drawer contexts.
 - Improvement - Atom - Select: Enhanced the font size of the empty state to maintain a consistent and visually appealing user interface across all components.
+- Improvement - Molecule - Accordion: Added `collapsible` prop to control whether the accordion is collapsible.
 
 Version 1.6.3 - 23rd April, 2025
 - Fix - Atom - Accordion: Resolved an issue where the Accordion component's content was not properly visible when expanded due to overflow hidden.
