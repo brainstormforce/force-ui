@@ -136,8 +136,7 @@ export interface AccordionTriggerProps extends CommonProps {
 	tag?: ElementType;
 	/** Accordion type (same as parent) */
 	type?: 'simple' | 'separator' | 'boxed';
-
-	/** Indicates if the item is collapsible */
+	/** Specifies whether the accordion item can be collapsed. */
 	collapsible?: boolean
 }
 
