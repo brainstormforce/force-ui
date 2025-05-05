@@ -52,14 +52,21 @@ export const Accordion = ( {
 		<div className={ cn( typeClasses, className ) }>
 			{ React.Children.map( children, ( child ) => {
 				if ( React.isValidElement( child ) && 'value' in child.props ) {
+					const isCollapsible = child.props.collapsible !== false; // default true
+					const open = isCollapsible
+						? activeItems.includes( child.props.value )
+						: true;
+
 					return React.cloneElement(
-						child as React.ReactElement<AccordionItemProps>,
-						{
-							isOpen: activeItems.includes( child.props.value ),
-							onToggle: () => handleToggle( child.props.value ),
-							type,
-							disabled: disabled || child.props.disabled,
-						}
+            child as React.ReactElement<AccordionItemProps>,
+            {
+            	isOpen: open,
+            	onToggle: isCollapsible
+            		? () => handleToggle( child.props.value )
+            		: undefined,
+            	type,
+            	disabled: disabled || child.props.disabled,
+            }
 					);
 				}
 				return child;
@@ -124,17 +131,20 @@ export interface AccordionTriggerProps extends CommonProps {
 	/** Indicates if the item is open */
 	isOpen?: boolean;
 	/** Type of icon to display */
-	iconType?: 'arrow' | 'plus-minus';
+	iconType?: 'arrow' | 'plus-minus' | 'none';
 	/** Element to render trigger as */
 	tag?: ElementType;
 	/** Accordion type (same as parent) */
 	type?: 'simple' | 'separator' | 'boxed';
+	/** Specifies whether the accordion item can be collapsed. */
+	collapsible?: boolean
 }
 
 export const AccordionTrigger = ( {
 	onToggle,
 	isOpen,
-	iconType = 'arrow', // arrow, plus-minus
+	iconType = 'arrow',
+	collapsible = true,
 	disabled = false,
 	tag = 'h3',
 	type = 'simple',
@@ -149,6 +159,10 @@ export const AccordionTrigger = ( {
 	}?.[ type ];
 
 	const renderIcon = () => {
+		if ( ! collapsible ) {
+			return null;
+		}
+
 		if ( iconType === 'arrow' ) {
 			return (
 				<ChevronDown
@@ -186,7 +200,7 @@ export const AccordionTrigger = ( {
 					disabled && 'cursor-not-allowed opacity-40',
 					className
 				) }
-				onClick={ ! disabled ? onToggle : () => {} }
+				onClick={ ! disabled && collapsible ? onToggle : undefined }
 				aria-expanded={ isOpen }
 				disabled={ disabled }
 				{ ...props }

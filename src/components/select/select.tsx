@@ -36,6 +36,7 @@ import {
 	disabledClassNames,
 	optionGroupDividerClassNames,
 	optionGroupDividerSizeClassNames,
+	selectItemClassNames,
 	sizeClassNames,
 } from './component-style';
 import type {
@@ -602,7 +603,11 @@ export function SelectOptions( {
 			{ /* Dropdown */ }
 			{ isOpen && (
 				<>
-					<FloatingFocusManager context={ context } modal={ false }>
+					<FloatingFocusManager
+						context={ context }
+						modal={ false }
+						visuallyHiddenDismiss
+					>
 						{ /* Dropdown Wrapper */ }
 						<div
 							ref={ refs.setFloating }
@@ -620,6 +625,7 @@ export function SelectOptions( {
 							) }
 							style={ {
 								...floatingStyles,
+								zIndex: 1,
 							} }
 							{ ...getFloatingProps() }
 						>
@@ -681,7 +687,14 @@ export function SelectOptions( {
 
 								{ /* No items found */ }
 								{ ! childrenCount && (
-									<div className="p-2 text-center text-base font-medium text-field-placeholder">
+									<div
+										className={ cn(
+											'p-2 text-center font-medium text-field-placeholder',
+											selectItemClassNames[
+												sizeValue as SelectSizes
+											]
+										) }
+									>
 										No items found
 									</div>
 								) }
@@ -724,11 +737,6 @@ export function SelectItem( {
 	const { index: indx } = props;
 	const initialIndxRef = useRef( indx );
 
-	const selectItemClassNames = {
-		sm: 'py-1.5 px-2 text-xs font-normal',
-		md: 'p-2 text-sm font-normal',
-		lg: 'p-2 text-base font-normal',
-	};
 	const selectedIconClassName = {
 		sm: 'size-4',
 		md: 'size-4',
@@ -849,6 +857,7 @@ const SelectComponent = ( {
 	};
 
 	const { refs, floatingStyles, context } = useFloating( {
+		strategy: 'fixed',
 		placement: 'bottom-start',
 		open: isOpen,
 		onOpenChange: setIsOpen,
