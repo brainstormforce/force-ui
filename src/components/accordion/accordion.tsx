@@ -131,12 +131,13 @@ export interface AccordionTriggerProps extends CommonProps {
 	/** Indicates if the item is open */
 	isOpen?: boolean;
 	/** Type of icon to display */
-	iconType?: 'arrow' | 'plus-minus';
+	iconType?: 'arrow' | 'plus-minus' | 'none';
 	/** Element to render trigger as */
 	tag?: ElementType;
 	/** Accordion type (same as parent) */
 	type?: 'simple' | 'separator' | 'boxed';
 
+	/** Indicates if the item is collapsible */
 	collapsible?: boolean
 }
 
