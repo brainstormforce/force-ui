@@ -1,4 +1,4 @@
-Version 1.7.1 - xth May, 2025
+Version 1.7.1 - 6th May, 2025
 - Improvement - Atom - EditorInput: Eliminated the margin-right from the EditorInput token/badge to enhance layout consistency and visual alignment.
 
 Version 1.7.0 - 5th May, 2025
