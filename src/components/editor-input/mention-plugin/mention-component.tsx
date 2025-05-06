@@ -147,7 +147,7 @@ const MentionComponent = ( {
 
 	return (
 		<Badge
-			className="inline-flex mr-0.5"
+			className="inline-flex"
 			type="rounded"
 			size={ mapSizeToBadgeSize( size ) }
 			label={ renderLabel }
