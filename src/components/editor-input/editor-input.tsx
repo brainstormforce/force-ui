@@ -21,6 +21,7 @@ import MentionNode from './mention-plugin/mention-node';
 import editorTheme from './editor-theme';
 import EditorPlaceholder from './editor-placeholder';
 import { forwardRef, isValidElement } from 'react';
+import OverrideEditorStyle from './override-editor-style-plugin';
 
 import type { EditorState, LexicalEditor } from 'lexical';
 
@@ -178,6 +179,7 @@ const EditorInput = forwardRef<LexicalEditor, EditorInputProps>(
 					/>
 					{ ref && <EditorRefPlugin editorRef={ ref } /> }
 					{ autoFocus && <AutoFocusPlugin /> }
+					<OverrideEditorStyle />
 				</LexicalComposer>
 			</div>
 		);
