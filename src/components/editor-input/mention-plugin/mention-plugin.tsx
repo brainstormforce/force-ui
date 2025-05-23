@@ -26,6 +26,13 @@ import {
 } from 'lexical';
 import { mergeRegister } from '@lexical/utils';
 import { type TOptionItem } from '../editor-input';
+import {
+	useFloating,
+	autoPlacement,
+	offset,
+	flip,
+	shift,
+} from '@floating-ui/react';
 
 export type Trigger = '@' | '#' | ( string & {} );
 export type TSizes = 'lg' | 'md' | 'sm';
@@ -60,6 +67,12 @@ const MentionPlugin = ( {
 	menuItemComponent: MenuItemComponent = EditorCombobox.Item,
 	autoSpace = true,
 }: MentionPluginProps ) => {
+	const { y, refs, strategy } = useFloating( {
+		placement: 'bottom',
+		strategy: 'absolute',
+		middleware: [ offset( 8 ), autoPlacement(), shift(), flip() ],
+	} );
+
 	const autoSpaceTempOff = useRef( false );
 	// Define PUNCTUATION and other necessary variables inside the component
 	const PUNCTUATION =
@@ -225,6 +238,18 @@ const MentionPlugin = ( {
 		);
 	}, [ editor, handleAutoSpaceAfterMention ] );
 
+	// Set the floating reference to the editor input.
+	useEffect( () => {
+		if ( ! editor ) {
+			return;
+		}
+		const reference = editor.getRootElement()?.parentElement?.parentElement;
+		if ( ! reference ) {
+			return;
+		}
+		refs.setReference( reference );
+	}, [ editor, refs ] );
+
 	return (
 		<LexicalTypeaheadMenuPlugin
 			onQueryChange={ setQueryString }
@@ -236,7 +261,17 @@ const MentionPlugin = ( {
 				{ selectedIndex, selectOptionAndCleanUp, setHighlightedIndex }
 			): React.JSX.Element | null => {
 				return anchorElementRef.current && !! options?.length ? (
-					<MenuComponent size={ size }>
+					<MenuComponent
+						className="w-full"
+						size={ size }
+						ref={ refs.setFloating }
+						style={ {
+							position: strategy,
+							top: y ?? 0,
+							left: -2,
+							width: 'calc(100% + 4px)',
+						} }
+					>
 						{ options.map( ( option, index ) => (
 							<MenuItemComponent
 								key={ index }
