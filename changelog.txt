@@ -1,3 +1,6 @@
+Version 1.7.2 - 26th May, 2025
+- Improvement: Atom - EditorInput: Enhanced flexibility with a new `style` prop, auto-closing dropdown on outside clicks, and dynamic positioning based on available space.
+
 Version 1.7.1 - 6th May, 2025
 - Improvement - Atom - EditorInput: Eliminated the margin-right from the EditorInput token/badge to enhance layout consistency and visual alignment.
 
