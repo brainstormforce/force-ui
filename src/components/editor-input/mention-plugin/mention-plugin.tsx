@@ -23,6 +23,7 @@ import {
 	KEY_BACKSPACE_COMMAND,
 	type RangeSelection,
 	type CommandListener,
+	FOCUS_COMMAND,
 } from 'lexical';
 import { mergeRegister } from '@lexical/utils';
 import { type TOptionItem } from '../editor-input';
@@ -224,6 +225,21 @@ const MentionPlugin = ( {
 		[ autoSpaceTempOff ]
 	);
 
+	const handleOpen = useCallback(
+		() => {
+			setIsMenuOpen( true );
+		},
+		[]
+	);
+
+	const handleFocus = useCallback(
+		() => {
+			handleOpen();
+			return false;
+		},
+		[]
+	);
+
 	useEffect( () => {
 		if ( ! editor ) {
 			return;
@@ -239,7 +255,12 @@ const MentionPlugin = ( {
 				KEY_BACKSPACE_COMMAND,
 				turnOffAutoSpaceIfNecessary,
 				COMMAND_PRIORITY_LOW
-			)
+			),
+			editor.registerCommand(
+				FOCUS_COMMAND,
+				handleFocus,
+				COMMAND_PRIORITY_LOW
+			),
 		);
 	}, [ editor, handleAutoSpaceAfterMention ] );
 
@@ -328,6 +349,7 @@ const MentionPlugin = ( {
 
 	return (
 		<LexicalTypeaheadMenuPlugin
+			onOpen={ handleOpen }
 			onQueryChange={ setQueryString }
 			onSelectOption={ onSelectOption }
 			triggerFn={ checkForAtSignMentions } // Use the locally defined function
