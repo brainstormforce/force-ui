@@ -7,9 +7,7 @@ interface OverrideEditorStyleProps {
 }
 
 const OverrideEditorStyle = ( {
-	style = {
-		wordBreak: 'break-all',
-	},
+	style,
 }: OverrideEditorStyleProps ) => {
 	const [ editor ] = useLexicalComposerContext();
 
