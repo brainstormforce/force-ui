@@ -83,6 +83,14 @@ interface EditorInputProps<T = TOptionItem> {
 	disabled?: boolean;
 	/** Defines if the editor input should add a space after selecting a mention/tag option. */
 	autoSpaceAfterMention?: boolean;
+	/**
+	 * Override the default styles of the editor input.
+	 * This prop allows you to apply custom styles using a React.CSSProperties object.
+	 * Note that the editor utilizes inline styles, so to effectively override existing styles,
+	 * you must provide the desired styles through this `style` prop.
+	 *
+	 */
+	style?: React.CSSProperties;
 }
 
 type Ref = React.Ref<LexicalEditor>;
@@ -104,6 +112,7 @@ const EditorInput = forwardRef<LexicalEditor, EditorInputProps>(
 			wrapperClassName,
 			disabled = false,
 			autoSpaceAfterMention = false,
+			style,
 		}: EditorInputProps,
 		ref: Ref
 	) => {
@@ -179,7 +188,7 @@ const EditorInput = forwardRef<LexicalEditor, EditorInputProps>(
 					/>
 					{ ref && <EditorRefPlugin editorRef={ ref } /> }
 					{ autoFocus && <AutoFocusPlugin /> }
-					<OverrideEditorStyle />
+					<OverrideEditorStyle style={ style } />
 				</LexicalComposer>
 			</div>
 		);

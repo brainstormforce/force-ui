@@ -1,11 +1,16 @@
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
 import { useLayoutEffect } from 'react';
 
+interface OverrideEditorStyleProps {
+	/** Override the editor input style. */
+	style?: React.CSSProperties;
+}
+
 const OverrideEditorStyle = ( {
-	wordBreak = 'break-all',
-}: {
-	wordBreak?: string;
-} ) => {
+	style = {
+		wordBreak: 'break-all',
+	},
+}: OverrideEditorStyleProps ) => {
 	const [ editor ] = useLexicalComposerContext();
 
 	useLayoutEffect( () => {
@@ -14,12 +19,12 @@ const OverrideEditorStyle = ( {
 		}
 
 		editor.registerRootListener( ( root ) => {
-			if ( ! root ) {
+			if ( ! root || ! style || Object.keys( style ).length === 0 ) {
 				return;
 			}
 
-			const style = root.style;
-			style.wordBreak = wordBreak ?? 'break-all';
+			const rootStyle = root.style;
+			Object.assign( rootStyle, style );
 		} );
 	}, [ editor ] );
 
