@@ -22,7 +22,7 @@ import editorTheme from './editor-theme';
 import EditorPlaceholder from './editor-placeholder';
 import { forwardRef, isValidElement } from 'react';
 import OverrideEditorStyle from './override-editor-style-plugin';
-
+import CharacterLimit from './character-limit-plugin';
 import type { EditorState, LexicalEditor } from 'lexical';
 
 function onError( error: Error ) {
@@ -91,6 +91,8 @@ interface EditorInputProps<T = TOptionItem> {
 	 *
 	 */
 	style?: React.CSSProperties;
+	/** Defines the maximum character limit of the editor input. */
+	maxLength?: number;
 }
 
 type Ref = React.Ref<LexicalEditor>;
@@ -113,6 +115,7 @@ const EditorInput = forwardRef<LexicalEditor, EditorInputProps>(
 			disabled = false,
 			autoSpaceAfterMention = false,
 			style,
+			maxLength,
 		}: EditorInputProps,
 		ref: Ref
 	) => {
@@ -189,6 +192,7 @@ const EditorInput = forwardRef<LexicalEditor, EditorInputProps>(
 					{ ref && <EditorRefPlugin editorRef={ ref } /> }
 					{ autoFocus && <AutoFocusPlugin /> }
 					<OverrideEditorStyle style={ style } />
+					{ maxLength && <CharacterLimit maxLength={ maxLength } /> }
 				</LexicalComposer>
 			</div>
 		);

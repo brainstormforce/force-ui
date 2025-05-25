@@ -225,20 +225,14 @@ const MentionPlugin = ( {
 		[ autoSpaceTempOff ]
 	);
 
-	const handleOpen = useCallback(
-		() => {
-			setIsMenuOpen( true );
-		},
-		[]
-	);
+	const handleOpen = useCallback( () => {
+		setIsMenuOpen( true );
+	}, [] );
 
-	const handleFocus = useCallback(
-		() => {
-			handleOpen();
-			return false;
-		},
-		[]
-	);
+	const handleFocus = useCallback( () => {
+		handleOpen();
+		return false;
+	}, [] );
 
 	useEffect( () => {
 		if ( ! editor ) {
@@ -260,7 +254,7 @@ const MentionPlugin = ( {
 				FOCUS_COMMAND,
 				handleFocus,
 				COMMAND_PRIORITY_LOW
-			),
+			)
 		);
 	}, [ editor, handleAutoSpaceAfterMention ] );
 
