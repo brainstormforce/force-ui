@@ -32,6 +32,7 @@ import {
 	offset,
 	flip,
 	shift,
+	autoUpdate,
 } from '@floating-ui/react';
 
 export type Trigger = '@' | '#' | ( string & {} );
@@ -71,6 +72,7 @@ const MentionPlugin = ( {
 		placement: 'bottom',
 		strategy: 'absolute',
 		middleware: [ offset( 8 ), autoPlacement(), shift(), flip() ],
+		whileElementsMounted: autoUpdate,
 	} );
 
 	const autoSpaceTempOff = useRef( false );
