@@ -74,6 +74,7 @@ const MentionPlugin = ( {
 	} );
 
 	const autoSpaceTempOff = useRef( false );
+	const menuRef = useRef<HTMLElement | null>( null );
 	// Define PUNCTUATION and other necessary variables inside the component
 	const PUNCTUATION =
 		'\\.,\\+\\*\\?\\$\\@\\|#{}\\(\\)\\^\\-\\[\\]\\\\/!%\'"~=<>_:;';
@@ -131,6 +132,7 @@ const MentionPlugin = ( {
 
 	const [ editor ] = useLexicalComposerContext();
 	const [ queryString, setQueryString ] = useState<string | null>( null );
+	const [ isMenuOpen, setIsMenuOpen ] = useState<boolean>( false );
 
 	// Use the hook to get lookup results
 	const results = useMentionLookupService( optionsArray, queryString, by );
@@ -151,6 +153,7 @@ const MentionPlugin = ( {
 					nodeToReplace.replace( mentionNode );
 				}
 				closeMenu();
+				setIsMenuOpen( false );
 			} );
 		},
 		[ editor ]
@@ -250,6 +253,77 @@ const MentionPlugin = ( {
 		refs.setReference( reference );
 	}, [ editor, refs ] );
 
+	// Update menu open state based on options availability
+	useEffect( () => {
+		if ( isMenuOpen ) {
+			return;
+		}
+		setIsMenuOpen( options.length > 0 );
+	}, [ options ] );
+
+	// Handle outside clicks to close the dropdown
+	useEffect( () => {
+		if ( ! isMenuOpen ) {
+			return;
+		}
+
+		const handleOutsideClick = ( event: MouseEvent ) => {
+			const target = event.target as Node;
+			const editorRoot = editor.getRootElement();
+			const floatingElement = refs.floating.current;
+
+			// Check if click is outside editor and dropdown menu
+			if (
+				editorRoot &&
+				! editorRoot.contains( target ) &&
+				floatingElement &&
+				! floatingElement.contains( target )
+			) {
+				setIsMenuOpen( false );
+				setQueryString( null );
+			}
+		};
+
+		// Handle editor blur
+		const handleEditorBlur = () => {
+			// Small delay to check if focus moved to the dropdown
+			setTimeout( () => {
+				const editorRoot = editor.getRootElement();
+				const floatingElement = refs.floating.current;
+
+				if ( editorRoot ) {
+					const doc = editorRoot.ownerDocument;
+					const activeElement = doc.activeElement;
+
+					if (
+						floatingElement &&
+						( ! activeElement ||
+							! floatingElement.contains( activeElement ) )
+					) {
+						setIsMenuOpen( false );
+						setQueryString( null );
+					}
+				}
+			}, 100 );
+		};
+
+		// Add event listeners
+		document.addEventListener( 'mousedown', handleOutsideClick );
+
+		const editorRoot = editor.getRootElement();
+		if ( editorRoot ) {
+			editorRoot.addEventListener( 'blur', handleEditorBlur, true );
+		}
+
+		// Cleanup
+		return () => {
+			document.removeEventListener( 'mousedown', handleOutsideClick );
+			if ( editorRoot ) {
+				editorRoot.removeEventListener( 'blur', handleEditorBlur, true );
+			}
+		};
+	}, [ isMenuOpen, editor, refs.floating ] );
+
 	return (
 		<LexicalTypeaheadMenuPlugin
 			onQueryChange={ setQueryString }
@@ -260,11 +334,22 @@ const MentionPlugin = ( {
 				anchorElementRef,
 				{ selectedIndex, selectOptionAndCleanUp, setHighlightedIndex }
 			): React.JSX.Element | null => {
-				return anchorElementRef.current && !! options?.length ? (
+				if (
+					! isMenuOpen ||
+					! anchorElementRef.current ||
+					! options?.length
+				) {
+					return null;
+				}
+
+				return (
 					<MenuComponent
 						className="w-full"
 						size={ size }
-						ref={ refs.setFloating }
+						ref={ ( node ) => {
+							refs.setFloating( node );
+							menuRef.current = node;
+						} }
 						style={ {
 							position: strategy,
 							top: y ?? 0,
@@ -289,7 +374,7 @@ const MentionPlugin = ( {
 							</MenuItemComponent>
 						) ) }
 					</MenuComponent>
-				) : null;
+				);
 			} }
 		/>
 	);
