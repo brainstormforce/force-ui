@@ -6,28 +6,40 @@ import {
 	comboboxItemCommonClassNames,
 	comboboxSelectedItemClassNames,
 } from '../editor-input-style';
-import { forwardRef, type ReactNode } from 'react';
+import { ForwardedRef, forwardRef, type ReactNode } from 'react';
+
+type ComboboxSize = 'sm' | 'md' | 'lg';
 
 interface EditorComboboxProps {
 	/** The size of the combobox. */
-	size: 'sm' | 'md' | 'lg';
+	size?: ComboboxSize;
 	/** The class name of the combobox. */
 	className?: string;
 	/** The children of the combobox. */
-	children: ReactNode;
+	children?: ReactNode;
+	/** Additional props to be passed to the combobox. */
+	[key: string]: unknown;
 }
 
-const EditorCombobox = ( { size, className, children }: EditorComboboxProps ) => (
+const EditorComboboxWithoutRef = (
+	{ size, className, children, ...props }: EditorComboboxProps,
+	ref?: ForwardedRef<HTMLUListElement>
+) => (
 	<ul
 		role="menu"
+		ref={ ref }
 		className={ cn(
 			comboboxDropdownCommonClassNames,
-			comboboxDropdownClassNames[ size ],
+			comboboxDropdownClassNames[ size as ComboboxSize ],
 			className
 		) }
+		{ ...props }
 	>
 		{ children }
 	</ul>
+);
+const EditorCombobox = forwardRef<HTMLUListElement, EditorComboboxProps>(
+	EditorComboboxWithoutRef
 );
 
 EditorCombobox.displayName = 'EditorCombobox';
@@ -64,6 +76,8 @@ const EditorComboboxItem = forwardRef<Ref, EditorComboboxItemProps>(
 );
 EditorComboboxItem.displayName = 'EditorCombobox.Item';
 
-EditorCombobox.Item = EditorComboboxItem;
+const WithItem = Object.assign( EditorCombobox, {
+	Item: EditorComboboxItem,
+} );
 
-export default EditorCombobox;
+export { WithItem as default };

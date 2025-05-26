@@ -14,7 +14,7 @@ export const editorInputClassNames = {
 };
 
 export const comboboxDropdownCommonClassNames =
-	'absolute inset-x-0 top-full mt-2 mx-0 mb-0 w-full h-auto overflow-y-auto overflow-x-hidden z-10 bg-background-primary border border-solid border-border-subtle shadow-lg list-none';
+	'absolute inset-x-0 top-full m-0 w-full h-auto overflow-y-auto overflow-x-hidden z-10 bg-background-primary border border-solid border-border-subtle shadow-lg list-none';
 
 export const comboboxDropdownClassNames = {
 	sm: 'p-1.5 rounded-md max-h-[10.75rem]',

@@ -14,10 +14,7 @@ const meta: Meta<typeof EditorInput> = {
 	},
 	decorators: [
 		( Story ) => (
-			<div
-				className="[&_*]:box-border box-border"
-				style={ { maxWidth: '900px', height: '200px' } }
-			>
+			<div className="[&_*]:box-border box-border max-w-[900px] h-[300px]">
 				<Story />
 			</div>
 		),
