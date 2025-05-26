@@ -25,7 +25,9 @@ function useMentionLookupService<T = OptionsArray>(
 	const [ results, setResults ] = useState<OptionsArray>( [] );
 
 	// Create instance-specific cache using WeakMap
-	const mentionsCacheRef = useRef<WeakMap<StringKey, OptionsArray | null>>( new WeakMap() );
+	const mentionsCacheRef = useRef<WeakMap<StringKey, OptionsArray | null>>(
+		new WeakMap()
+	);
 
 	// Store reference to key objects
 	const keysRef = useRef<Map<string, StringKey>>( new Map() );
@@ -89,7 +91,10 @@ function useMentionLookupService<T = OptionsArray>(
 				// Ensure the key object still exists
 				const currentKeyObj = keysMap.get( mentionString );
 				if ( currentKeyObj ) {
-					mentionsCache.set( currentKeyObj, newResults as OptionsArray );
+					mentionsCache.set(
+						currentKeyObj,
+						newResults as OptionsArray
+					);
 					setResults( newResults as OptionsArray );
 				}
 			},

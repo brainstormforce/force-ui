@@ -23,9 +23,18 @@ import {
 	KEY_BACKSPACE_COMMAND,
 	type RangeSelection,
 	type CommandListener,
+	FOCUS_COMMAND,
 } from 'lexical';
 import { mergeRegister } from '@lexical/utils';
 import { type TOptionItem } from '../editor-input';
+import {
+	useFloating,
+	autoPlacement,
+	offset,
+	flip,
+	shift,
+	autoUpdate,
+} from '@floating-ui/react';
 
 export type Trigger = '@' | '#' | ( string & {} );
 export type TSizes = 'lg' | 'md' | 'sm';
@@ -60,7 +69,15 @@ const MentionPlugin = ( {
 	menuItemComponent: MenuItemComponent = EditorCombobox.Item,
 	autoSpace = true,
 }: MentionPluginProps ) => {
+	const { y, refs, strategy } = useFloating( {
+		placement: 'bottom',
+		strategy: 'absolute',
+		middleware: [ offset( 8 ), autoPlacement(), shift(), flip() ],
+		whileElementsMounted: autoUpdate,
+	} );
+
 	const autoSpaceTempOff = useRef( false );
+	const menuRef = useRef<HTMLElement | null>( null );
 	// Define PUNCTUATION and other necessary variables inside the component
 	const PUNCTUATION =
 		'\\.,\\+\\*\\?\\$\\@\\|#{}\\(\\)\\^\\-\\[\\]\\\\/!%\'"~=<>_:;';
@@ -118,6 +135,7 @@ const MentionPlugin = ( {
 
 	const [ editor ] = useLexicalComposerContext();
 	const [ queryString, setQueryString ] = useState<string | null>( null );
+	const [ isMenuOpen, setIsMenuOpen ] = useState<boolean>( false );
 
 	// Use the hook to get lookup results
 	const results = useMentionLookupService( optionsArray, queryString, by );
@@ -138,6 +156,7 @@ const MentionPlugin = ( {
 					nodeToReplace.replace( mentionNode );
 				}
 				closeMenu();
+				setIsMenuOpen( false );
 			} );
 		},
 		[ editor ]
@@ -206,6 +225,15 @@ const MentionPlugin = ( {
 		[ autoSpaceTempOff ]
 	);
 
+	const handleOpen = useCallback( () => {
+		setIsMenuOpen( true );
+	}, [] );
+
+	const handleFocus = useCallback( () => {
+		handleOpen();
+		return false;
+	}, [] );
+
 	useEffect( () => {
 		if ( ! editor ) {
 			return;
@@ -221,12 +249,101 @@ const MentionPlugin = ( {
 				KEY_BACKSPACE_COMMAND,
 				turnOffAutoSpaceIfNecessary,
 				COMMAND_PRIORITY_LOW
+			),
+			editor.registerCommand(
+				FOCUS_COMMAND,
+				handleFocus,
+				COMMAND_PRIORITY_LOW
 			)
 		);
 	}, [ editor, handleAutoSpaceAfterMention ] );
 
+	// Set the floating reference to the editor input.
+	useEffect( () => {
+		if ( ! editor ) {
+			return;
+		}
+		const reference = editor.getRootElement()?.parentElement?.parentElement;
+		if ( ! reference ) {
+			return;
+		}
+		refs.setReference( reference );
+	}, [ editor, refs ] );
+
+	// Update menu open state based on options availability
+	useEffect( () => {
+		if ( isMenuOpen ) {
+			return;
+		}
+		setIsMenuOpen( options.length > 0 );
+	}, [ options ] );
+
+	// Handle outside clicks to close the dropdown
+	useEffect( () => {
+		if ( ! isMenuOpen ) {
+			return;
+		}
+
+		const handleOutsideClick = ( event: MouseEvent ) => {
+			const target = event.target as Node;
+			const editorRoot = editor.getRootElement();
+			const floatingElement = refs.floating.current;
+
+			// Check if click is outside editor and dropdown menu
+			if (
+				editorRoot &&
+				! editorRoot.contains( target ) &&
+				floatingElement &&
+				! floatingElement.contains( target )
+			) {
+				setIsMenuOpen( false );
+				setQueryString( null );
+			}
+		};
+
+		// Handle editor blur
+		const handleEditorBlur = () => {
+			// Small delay to check if focus moved to the dropdown
+			setTimeout( () => {
+				const editorRoot = editor.getRootElement();
+				const floatingElement = refs.floating.current;
+
+				if ( editorRoot ) {
+					const doc = editorRoot.ownerDocument;
+					const activeElement = doc.activeElement;
+
+					if (
+						floatingElement &&
+						( ! activeElement ||
+							! floatingElement.contains( activeElement ) )
+					) {
+						setIsMenuOpen( false );
+						setQueryString( null );
+					}
+				}
+			}, 100 );
+		};
+
+		// Add event listeners
+		document.addEventListener( 'mousedown', handleOutsideClick );
+
+		const editorRoot = editor.getRootElement();
+		if ( editorRoot ) {
+			editorRoot.addEventListener( 'blur', handleEditorBlur, true );
+		}
+
+		// Cleanup
+		return () => {
+			document.removeEventListener( 'mousedown', handleOutsideClick );
+			if ( editorRoot ) {
+				editorRoot.removeEventListener( 'blur', handleEditorBlur, true );
+			}
+		};
+	}, [ isMenuOpen, editor, refs.floating ] );
+
 	return (
 		<LexicalTypeaheadMenuPlugin
+			onOpen={ handleOpen }
 			onQueryChange={ setQueryString }
 			onSelectOption={ onSelectOption }
 			triggerFn={ checkForAtSignMentions } // Use the locally defined function
@@ -235,8 +352,29 @@ const MentionPlugin = ( {
 				anchorElementRef,
 				{ selectedIndex, selectOptionAndCleanUp, setHighlightedIndex }
 			): React.JSX.Element | null => {
-				return anchorElementRef.current && !! options?.length ? (
-					<MenuComponent size={ size }>
+				if (
+					! isMenuOpen ||
+					! anchorElementRef.current ||
+					! options?.length
+				) {
+					return null;
+				}
+
+				return (
+					<MenuComponent
+						className="w-full"
+						size={ size }
+						ref={ ( node ) => {
+							refs.setFloating( node );
+							menuRef.current = node;
+						} }
+						style={ {
+							position: strategy,
+							top: y ?? 0,
+							left: -2,
+							width: 'calc(100% + 4px)',
+						} }
+					>
 						{ options.map( ( option, index ) => (
 							<MenuItemComponent
 								key={ index }
@@ -254,7 +392,7 @@ const MentionPlugin = ( {
 							</MenuItemComponent>
 						) ) }
 					</MenuComponent>
-				) : null;
+				);
 			} }
 		/>
 	);

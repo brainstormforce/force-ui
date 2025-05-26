@@ -21,7 +21,8 @@ import MentionNode from './mention-plugin/mention-node';
 import editorTheme from './editor-theme';
 import EditorPlaceholder from './editor-placeholder';
 import { forwardRef, isValidElement } from 'react';
-
+import OverrideEditorStyle from './override-editor-style-plugin';
+import CharacterLimit from './character-limit-plugin';
 import type { EditorState, LexicalEditor } from 'lexical';
 
 function onError( error: Error ) {
@@ -82,6 +83,16 @@ interface EditorInputProps<T = TOptionItem> {
 	disabled?: boolean;
 	/** Defines if the editor input should add a space after selecting a mention/tag option. */
 	autoSpaceAfterMention?: boolean;
+	/**
+	 * Override the default styles of the editor input.
+	 * This prop allows you to apply custom styles using a React.CSSProperties object.
+	 * Note that the editor utilizes inline styles, so to effectively override existing styles,
+	 * you must provide the desired styles through this `style` prop.
+	 *
+	 */
+	style?: React.CSSProperties;
+	/** Defines the maximum character limit of the editor input. */
+	maxLength?: number;
 }
 
 type Ref = React.Ref<LexicalEditor>;
@@ -103,6 +114,8 @@ const EditorInput = forwardRef<LexicalEditor, EditorInputProps>(
 			wrapperClassName,
 			disabled = false,
 			autoSpaceAfterMention = false,
+			style,
+			maxLength,
 		}: EditorInputProps,
 		ref: Ref
 	) => {
@@ -178,6 +191,8 @@ const EditorInput = forwardRef<LexicalEditor, EditorInputProps>(
 					/>
 					{ ref && <EditorRefPlugin editorRef={ ref } /> }
 					{ autoFocus && <AutoFocusPlugin /> }
+					<OverrideEditorStyle style={ style } />
+					{ maxLength && <CharacterLimit maxLength={ maxLength } /> }
 				</LexicalComposer>
 			</div>
 		);
