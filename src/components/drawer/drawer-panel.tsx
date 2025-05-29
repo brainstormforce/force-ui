@@ -2,7 +2,11 @@ import { type ReactNode } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useDrawerState } from './drawer';
 import { cn } from '@/utilities/functions';
-import { FloatingOverlay, FloatingFocusManager, type FloatingContext as FloatingContextType } from '@floating-ui/react';
+import {
+	FloatingOverlay,
+	FloatingFocusManager,
+	type FloatingContext as FloatingContextType,
+} from '@floating-ui/react';
 
 const animationVariants = {
 	left: {
@@ -31,7 +35,19 @@ export interface DrawerPanelProps {
 }
 
 const DrawerPanel = ( { children, className }: DrawerPanelProps ) => {
-	const { open, position, handleClose, transitionDuration, getFloatingProps, drawerContainerRef, scrollLock, context, drawerRef, className: drawerClassName } = useDrawerState();
+	const {
+		open,
+		position,
+		handleClose,
+		transitionDuration,
+		getFloatingProps,
+		drawerContainerRef,
+		scrollLock,
+		context,
+		drawerRef,
+		className: drawerClassName,
+		refs,
+	} = useDrawerState();
 
 	// Early return if any required props are missing
 	if ( ! context || ! getFloatingProps ) {
@@ -41,11 +57,19 @@ const DrawerPanel = ( { children, className }: DrawerPanelProps ) => {
 	return (
 		<AnimatePresence>
 			{ open && (
-				<FloatingOverlay ref={ drawerContainerRef } lockScroll={ scrollLock }>
-					<FloatingFocusManager context={ context as FloatingContextType } modal={ true }>
+				<FloatingOverlay
+					ref={ drawerContainerRef }
+					lockScroll={ scrollLock }
+					className="z-50"
+				>
+					<FloatingFocusManager
+						context={ context as FloatingContextType }
+						modal={ true }
+						{ ...( refs?.reference && { returnFocus: refs.reference as React.MutableRefObject<HTMLElement> } ) }
+					>
 						<div
 							className={ cn(
-								'fixed inset-0 z-auto overflow-hidden',
+								'fixed inset-0 overflow-hidden',
 								drawerClassName
 							) }
 							ref={ drawerRef as React.RefObject<HTMLDivElement> }
@@ -66,7 +90,7 @@ const DrawerPanel = ( { children, className }: DrawerPanelProps ) => {
 								>
 									<motion.div
 										className={ cn(
-											'flex flex-col w-120 h-full bg-background-primary shadow-2xl overflow-hidden',
+											'flex flex-col w-120 h-full bg-background-primary shadow-2xl overflow-hidden z-20',
 											className
 										) }
 										initial="exit"

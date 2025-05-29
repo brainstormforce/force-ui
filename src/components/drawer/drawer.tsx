@@ -10,7 +10,7 @@ import React, {
 	type ReactNode,
 } from 'react';
 import { callAll } from '@/utilities/functions';
-import { useFloating, useInteractions, useClick, useRole, useDismiss, type FloatingContext } from '@floating-ui/react';
+import { useFloating, useInteractions, useClick, useRole, useDismiss, type FloatingContext, type UseFloatingReturn } from '@floating-ui/react';
 import DrawerPanel from './drawer-panel';
 import DrawerHeader from './drawer-header';
 import DrawerTitle from './drawer-title';
@@ -61,6 +61,7 @@ export interface DrawerContextDefault {
 	scrollLock: boolean;
 	context: FloatingContext;
 	className?: string;
+	refs: UseFloatingReturn['refs'];
 }
 
 const DrawerContext = createContext<Partial<DrawerContextDefault>>( {} );
@@ -164,6 +165,7 @@ const Drawer = ( {
 					scrollLock,
 					context,
 					className,
+					refs,
 				} }
 			>
 				{ children }
