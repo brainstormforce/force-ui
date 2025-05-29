@@ -55,7 +55,6 @@ export interface DrawerContextDefault {
 	design: DrawerProps['design'];
 	position: DrawerProps['position'];
 	drawerContainerRef: React.RefObject<HTMLDivElement>;
-	drawerRef: React.RefObject<HTMLElement>;
 	transitionDuration: { duration: number };
 	getFloatingProps: ( props?: React.HTMLProps<HTMLElement> ) => Record<string, unknown>;
 	scrollLock: boolean;
@@ -159,7 +158,6 @@ const Drawer = ( {
 					design,
 					position,
 					drawerContainerRef,
-					drawerRef: refs.floating,
 					transitionDuration: { duration: transitionDuration },
 					getFloatingProps,
 					scrollLock,

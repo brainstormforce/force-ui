@@ -44,7 +44,6 @@ const DrawerPanel = ( { children, className }: DrawerPanelProps ) => {
 		drawerContainerRef,
 		scrollLock,
 		context,
-		drawerRef,
 		className: drawerClassName,
 		refs,
 	} = useDrawerState();
@@ -72,7 +71,7 @@ const DrawerPanel = ( { children, className }: DrawerPanelProps ) => {
 								'fixed inset-0 overflow-hidden',
 								drawerClassName
 							) }
-							ref={ drawerRef as React.RefObject<HTMLDivElement> }
+							ref={ refs?.setFloating }
 							aria-modal="true"
 							aria-label="drawer"
 							role="dialog"
