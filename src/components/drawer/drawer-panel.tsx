@@ -44,7 +44,7 @@ const DrawerPanel = ( { children, className }: DrawerPanelProps ) => {
 		drawerContainerRef,
 		scrollLock,
 		context,
-		className: drawerClassName,
+		className: rootClassName,
 		refs,
 	} = useDrawerState();
 
@@ -59,7 +59,7 @@ const DrawerPanel = ( { children, className }: DrawerPanelProps ) => {
 				<FloatingOverlay
 					ref={ drawerContainerRef }
 					lockScroll={ scrollLock }
-					className="z-50"
+					className={ cn( 'z-50', rootClassName ) }
 				>
 					<FloatingFocusManager
 						context={ context as FloatingContextType }
@@ -67,10 +67,7 @@ const DrawerPanel = ( { children, className }: DrawerPanelProps ) => {
 						{ ...( refs?.reference && { returnFocus: refs.reference as React.MutableRefObject<HTMLElement> } ) }
 					>
 						<div
-							className={ cn(
-								'fixed inset-0 overflow-hidden',
-								drawerClassName
-							) }
+							className="fixed inset-0 overflow-hidden"
 							ref={ refs?.setFloating }
 							aria-modal="true"
 							aria-label="drawer"
