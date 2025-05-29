@@ -68,11 +68,15 @@ const DrawerPanel = ( { children, className }: DrawerPanelProps ) => {
 					>
 						<div
 							className="fixed inset-0 overflow-hidden"
-							ref={ refs?.setFloating }
+							ref={ ( node ) => {
+								setTimeout( () => {
+									refs?.setFloating( node );
+								}, ( ( transitionDuration?.duration || 0.3 ) + 0.1 ) * 1000 );
+							} }
 							aria-modal="true"
 							aria-label="drawer"
 							role="dialog"
-							{ ...getFloatingProps() }
+							{ ...getFloatingProps?.() }
 						>
 							<div className="relative inset-0 h-full flex items-center">
 								<div

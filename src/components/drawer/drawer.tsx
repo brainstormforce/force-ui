@@ -113,6 +113,7 @@ const Drawer = ( {
 	const { refs, context } = useFloating( {
 		open: openState,
 		onOpenChange: setOpenState,
+		transform: false,
 	} );
 
 	// Setup interactions
