@@ -4,13 +4,13 @@ import React, {
 	isValidElement,
 	useCallback,
 	useContext,
-	useEffect,
 	useMemo,
 	useRef,
 	useState,
 	type ReactNode,
 } from 'react';
-import { callAll, cn } from '@/utilities/functions';
+import { callAll } from '@/utilities/functions';
+import { useFloating, useInteractions, useClick, useRole, useDismiss, type FloatingContext } from '@floating-ui/react';
 import DrawerPanel from './drawer-panel';
 import DrawerHeader from './drawer-header';
 import DrawerTitle from './drawer-title';
@@ -19,6 +19,7 @@ import DrawerBody from './drawer-body';
 import DrawerFooter from './drawer-footer';
 import DrawerCloseButton from './drawer-close-button';
 import DrawerBackdrop from './drawer-backdrop';
+import DrawerPortal from './drawer-portal';
 
 const TRANSITION_DURATION = 0.2;
 
@@ -54,8 +55,12 @@ export interface DrawerContextDefault {
 	design: DrawerProps['design'];
 	position: DrawerProps['position'];
 	drawerContainerRef: React.RefObject<HTMLDivElement>;
-	drawerRef: React.RefObject<HTMLDivElement>;
+	drawerRef: React.RefObject<HTMLElement>;
 	transitionDuration: { duration: number };
+	getFloatingProps: ( props?: React.HTMLProps<HTMLElement> ) => Record<string, unknown>;
+	scrollLock: boolean;
+	context: FloatingContext;
+	className?: string;
 }
 
 const DrawerContext = createContext<Partial<DrawerContextDefault>>( {} );
@@ -77,16 +82,15 @@ const Drawer = ( {
 }: DrawerProps ) => {
 	const isControlled = open !== undefined && setOpen !== undefined;
 	const [ isOpen, setIsOpen ] = useState( false );
-	const drawerRef = useRef<HTMLDivElement>( null );
 	const drawerContainerRef = useRef<HTMLDivElement>( null );
 
 	const openState = useMemo(
 		() => ( isControlled ? open : isOpen ),
-		[ open, isOpen ]
+		[ open, isOpen, isControlled ]
 	);
 	const setOpenState = useMemo(
 		() => ( isControlled ? setOpen : setIsOpen ),
-		[ setIsOpen, setIsOpen ]
+		[ setOpen, setIsOpen, isControlled ]
 	);
 
 	const handleOpen = () => {
@@ -105,10 +109,34 @@ const Drawer = ( {
 		setOpenState( false );
 	};
 
+	// Initialize Floating UI
+	const { refs, context } = useFloating( {
+		open: openState,
+		onOpenChange: setOpenState,
+	} );
+
+	// Setup interactions
+	const dismiss = useDismiss( context, {
+		enabled: exitOnEsc || exitOnClickOutside,
+		escapeKey: exitOnEsc,
+		outsidePress: exitOnClickOutside,
+	} );
+
+	const role = useRole( context, { role: 'dialog' } );
+
+	const click = useClick( context );
+
+	const { getFloatingProps } = useInteractions( [
+		dismiss,
+		role,
+		click,
+	] );
+
 	const renderTrigger = useCallback( () => {
 		if ( isValidElement( trigger ) ) {
 			return cloneElement( trigger as React.ReactElement, {
 				onClick: callAll( handleOpen, trigger.props.onClick ),
+				ref: refs.setReference,
 			} );
 		}
 
@@ -117,57 +145,7 @@ const Drawer = ( {
 		}
 
 		return null;
-	}, [ trigger, handleOpen, handleClose ] );
-
-	const handleKeyDown = ( event: KeyboardEvent ) => {
-		switch ( event.key ) {
-			case 'Escape':
-				if ( exitOnEsc ) {
-					handleClose();
-				}
-				break;
-			default:
-				break;
-		}
-	};
-
-	const handleClickOutside = ( event: MouseEvent ) => {
-		if (
-			exitOnClickOutside &&
-			drawerRef.current &&
-			! drawerRef.current.contains( event.target as Node )
-		) {
-			handleClose();
-		}
-	};
-
-	useEffect( () => {
-		window.addEventListener( 'keydown', handleKeyDown );
-		document.addEventListener( 'mousedown', handleClickOutside );
-
-		return () => {
-			window.removeEventListener( 'keydown', handleKeyDown );
-			document.removeEventListener( 'mousedown', handleClickOutside );
-		};
-	}, [ openState ] );
-
-	// Prevent scrolling when drawer is open.
-	useEffect( () => {
-		if ( ! scrollLock ) {
-			return;
-		}
-		const htmlElement = document.querySelector( 'html' );
-		if ( openState && htmlElement ) {
-			htmlElement.style.overflow = 'hidden';
-		}
-
-		return () => {
-			if ( ! htmlElement ) {
-				return;
-			}
-			htmlElement.style.overflow = '';
-		};
-	}, [ openState ] );
+	}, [ trigger, handleOpen, refs.setReference ] );
 
 	return (
 		<>
@@ -180,22 +158,15 @@ const Drawer = ( {
 					design,
 					position,
 					drawerContainerRef,
-					drawerRef,
+					drawerRef: refs.floating,
 					transitionDuration: { duration: transitionDuration },
+					getFloatingProps,
+					scrollLock,
+					context,
+					className,
 				} }
 			>
-				<div
-					className={ cn(
-						'fixed z-auto w-0 h-0 overflow-visible',
-						className
-					) }
-					ref={ drawerContainerRef }
-					role="dialog"
-					aria-modal="true"
-					aria-label="drawer"
-				>
-					{ children }
-				</div>
+				{ children }
 			</DrawerContext.Provider>
 		</>
 	);
@@ -211,5 +182,6 @@ Drawer.Body = DrawerBody;
 Drawer.CloseButton = DrawerCloseButton;
 Drawer.Footer = DrawerFooter;
 Drawer.Backdrop = DrawerBackdrop;
+Drawer.Portal = DrawerPortal;
 
 export default Drawer;

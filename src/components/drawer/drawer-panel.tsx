@@ -2,6 +2,7 @@ import { type ReactNode } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useDrawerState } from './drawer';
 import { cn } from '@/utilities/functions';
+import { FloatingOverlay, FloatingFocusManager, type FloatingContext as FloatingContextType } from '@floating-ui/react';
 
 const animationVariants = {
 	left: {
@@ -30,40 +31,59 @@ export interface DrawerPanelProps {
 }
 
 const DrawerPanel = ( { children, className }: DrawerPanelProps ) => {
-	const { open, position, handleClose, drawerRef, transitionDuration } =
-		useDrawerState();
+	const { open, position, handleClose, transitionDuration, getFloatingProps, drawerContainerRef, scrollLock, context, drawerRef, className: drawerClassName } = useDrawerState();
+
+	// Early return if any required props are missing
+	if ( ! context || ! getFloatingProps ) {
+		return null;
+	}
 
 	return (
 		<AnimatePresence>
 			{ open && (
-				<div className="fixed inset-0">
-					<div
-						className={ cn(
-							'flex items-center justify-center h-full',
-							{
-								'justify-start': position === 'left',
-								'justify-end': position === 'right',
-							}
-						) }
-					>
-						<motion.div
-							ref={ drawerRef }
+				<FloatingOverlay ref={ drawerContainerRef } lockScroll={ scrollLock }>
+					<FloatingFocusManager context={ context as FloatingContextType } modal={ true }>
+						<div
 							className={ cn(
-								'flex flex-col w-120 h-full bg-background-primary shadow-2xl my-5 overflow-hidden',
-								className
+								'fixed inset-0 z-auto overflow-hidden',
+								drawerClassName
 							) }
-							initial="exit"
-							animate="open"
-							exit="exit"
-							variants={ animationVariants[ position! ] }
-							transition={ transitionDuration }
+							ref={ drawerRef as React.RefObject<HTMLDivElement> }
+							aria-modal="true"
+							aria-label="drawer"
+							role="dialog"
+							{ ...getFloatingProps() }
 						>
-							{ typeof children === 'function'
-								? children( { close: handleClose! } )
-								: children }
-						</motion.div>
-					</div>
-				</div>
+							<div className="relative inset-0 h-full flex items-center">
+								<div
+									className={ cn(
+										'flex items-center justify-center h-full w-full',
+										{
+											'justify-start': position === 'left',
+											'justify-end': position === 'right',
+										}
+									) }
+								>
+									<motion.div
+										className={ cn(
+											'flex flex-col w-120 h-full bg-background-primary shadow-2xl overflow-hidden',
+											className
+										) }
+										initial="exit"
+										animate="open"
+										exit="exit"
+										variants={ animationVariants[ position! ] }
+										transition={ transitionDuration }
+									>
+										{ typeof children === 'function'
+											? children( { close: handleClose! } )
+											: children }
+									</motion.div>
+								</div>
+							</div>
+						</div>
+					</FloatingFocusManager>
+				</FloatingOverlay>
 			) }
 		</AnimatePresence>
 	);
