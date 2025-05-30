@@ -149,7 +149,8 @@ export const SwitchComponent = (
 	ref: React.ForwardedRef<HTMLInputElement>
 ) => {
 	// For backwards compatibility.
-	const normalSize = ( size as SwitchProps['size'] & 'lg' ) === 'lg' ? 'md' : size;
+	const normalSize =
+		( size as SwitchProps['size'] & 'lg' ) === 'lg' ? 'md' : size;
 
 	const isControlled = useMemo( () => typeof value !== 'undefined', [ value ] );
 	const switchId = useMemo( () => ( id ? id : `switch-${ nanoid() }` ), [] );

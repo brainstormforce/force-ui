@@ -280,9 +280,7 @@ export const Tab = forwardRef<Ref, TabProps>(
 			className
 		);
 
-		const iconParentClasses = cn(
-			'flex items-center gap-1',
-		);
+		const iconParentClasses = cn( 'flex items-center gap-1' );
 
 		// Handle click event.
 		const handleClick = ( event: React.MouseEvent<HTMLButtonElement> ) => {

@@ -11,6 +11,7 @@ import {
 	useEffect,
 	useLayoutEffect,
 	Fragment,
+	forwardRef,
 	type ReactNode,
 } from 'react';
 import { cn } from '@/utilities/functions';
@@ -32,6 +33,7 @@ import {
 } from '@floating-ui/react';
 import { Badge, Loader } from '@/components';
 import { nanoid } from 'nanoid';
+import { mergeRefs } from '@/components/toaster/utils';
 import {
 	disabledClassNames,
 	optionGroupDividerClassNames,
@@ -62,7 +64,7 @@ const SelectContext = createContext<SelectContextValue>(
 );
 const useSelectContext = () => useContext( SelectContext );
 
-export function SelectButton( {
+export const SelectButton = forwardRef<HTMLButtonElement, SelectButtonProps>( ( {
 	children,
 	icon = null, // Icon to show in the select button.
 	placeholder = 'Select an option', // Placeholder text.
@@ -71,7 +73,7 @@ export function SelectButton( {
 	label, // Label for the select component.
 	className,
 	...props
-}: SelectButtonProps ) {
+}: SelectButtonProps, ref ) => {
 	const {
 		sizeValue,
 		getReferenceProps,
@@ -228,7 +230,7 @@ export function SelectButton( {
 			) }
 			<button
 				id={ selectId }
-				ref={ refs.setReference }
+				ref={ mergeRefs( refs.setReference, ref ) }
 				className={ cn(
 					'flex items-center justify-between w-full box-border transition-[outline,background-color,color,box-shadow] duration-200 bg-white',
 					'outline outline-1 outline-field-border border-none cursor-pointer',
@@ -283,7 +285,7 @@ export function SelectButton( {
 			</button>
 		</div>
 	);
-}
+} );
 
 export function SelectOptionGroup( {
 	label,

@@ -460,7 +460,7 @@ export const RadioButtonComponent = (
 					'absolute mr-0.5 right-3 flex items-center cursor-pointer rounded-full gap-2',
 					reversePosition && 'left-0',
 					isDisabled && 'cursor-not-allowed',
-					inlineIcon && 'mr-3',
+					inlineIcon && 'mr-3'
 				) }
 				onClick={ handleLabelClick }
 			>

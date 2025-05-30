@@ -58,15 +58,15 @@ export const Accordion = ( {
 						: true;
 
 					return React.cloneElement(
-            child as React.ReactElement<AccordionItemProps>,
-            {
-            	isOpen: open,
-            	onToggle: isCollapsible
-            		? () => handleToggle( child.props.value )
-            		: undefined,
-            	type,
-            	disabled: disabled || child.props.disabled,
-            }
+						child as React.ReactElement<AccordionItemProps>,
+						{
+							isOpen: open,
+							onToggle: isCollapsible
+								? () => handleToggle( child.props.value )
+								: undefined,
+							type,
+							disabled: disabled || child.props.disabled,
+						}
 					);
 				}
 				return child;
@@ -137,7 +137,7 @@ export interface AccordionTriggerProps extends CommonProps {
 	/** Accordion type (same as parent) */
 	type?: 'simple' | 'separator' | 'boxed';
 	/** Specifies whether the accordion item can be collapsed. */
-	collapsible?: boolean
+	collapsible?: boolean;
 }
 
 export const AccordionTrigger = ( {
@@ -170,6 +170,7 @@ export const AccordionTrigger = ( {
 						'flex-shrink-0 text-icon-secondary size-5 transition-transform duration-300 ease-in-out',
 						isOpen ? 'rotate-180' : 'rotate-0'
 					) }
+					aria-hidden="true"
 				/>
 			);
 		}
@@ -182,6 +183,7 @@ export const AccordionTrigger = ( {
 					exit={ { opacity: 0 } }
 					transition={ { duration: 0.3, ease: 'easeInOut' } }
 					className="flex items-center flex-shrink-0 text-icon-secondary"
+					aria-hidden="true"
 				>
 					{ isOpen ? <Minus /> : <Plus /> }
 				</motion.span>
@@ -202,6 +204,7 @@ export const AccordionTrigger = ( {
 				) }
 				onClick={ ! disabled && collapsible ? onToggle : undefined }
 				aria-expanded={ isOpen }
+				aria-disabled={ disabled }
 				disabled={ disabled }
 				{ ...props }
 			>
@@ -271,6 +274,7 @@ export const AccordionContent = ( {
 						className
 					) }
 					aria-hidden={ ! isOpen }
+					role="region"
 				>
 					<div className={ cn( contentPaddingClasses ) }>{ children }</div>
 				</motion.div>

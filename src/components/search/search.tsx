@@ -523,11 +523,13 @@ export interface SearchBoxListProps extends CommonSearchBoxProps {
 	children: ReactNode;
 }
 
-export const SearchBoxList = ( {
-	children,
-	className,
-}: SearchBoxListProps ) => {
-	const { searchTerm, isLoading, listRef, filter = true } = useSearchContext();
+export const SearchBoxList = ( { children, className }: SearchBoxListProps ) => {
+	const {
+		searchTerm,
+		isLoading,
+		listRef,
+		filter = true,
+	} = useSearchContext();
 
 	if ( ! filter ) {
 		return (
@@ -729,7 +731,7 @@ export const SearchBoxItem = forwardRef<HTMLButtonElement, SearchBoxItemProps>(
 				<span
 					className={ cn(
 						'flex-grow py-0.5 px-1 font-normal',
-						sizeClassNames.item[ size! ],
+						sizeClassNames.item[ size! ]
 					) }
 				>
 					{ children }

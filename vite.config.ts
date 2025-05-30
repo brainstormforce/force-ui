@@ -19,8 +19,8 @@ export default defineConfig({
 		outDir: 'dist',
 		rollupOptions: {
 			external: [
-				'react', 
-				'react-dom', 
+				'react',
+				'react-dom',
 				'react/jsx-runtime',
 				...Object.keys(pkg.dependencies),
 				...Object.keys(pkg.peerDependencies),
@@ -44,12 +44,12 @@ export default defineConfig({
 					entryFileNames: '[name].cjs.js',
 					chunkFileNames: '[name]-[hash].cjs.js',
 					exports: 'named',
-				}
+				},
 			],
 			treeshake: {
 				moduleSideEffects: false,
 				propertyReadSideEffects: false,
-				tryCatchDeoptimization: false
+				tryCatchDeoptimization: false,
 			},
 		},
 		minify: 'esbuild',
@@ -71,7 +71,7 @@ export default defineConfig({
 	},
 	plugins: [
 		react(),
-		dts({ 
+		dts({
 			rollupTypes: true,
 			tsconfigPath: './tsconfig.app.json',
 			insertTypesEntry: true,

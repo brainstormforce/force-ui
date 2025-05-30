@@ -6,7 +6,6 @@ import {
 	isValidElement,
 	useCallback,
 	useContext,
-	useEffect,
 	useMemo,
 	useRef,
 	useState,
@@ -16,14 +15,32 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { callAll, cn } from '@/utilities/functions';
 import { X } from 'lucide-react';
 import { createPortal } from 'react-dom';
+import {
+	useFloating,
+	useClick,
+	useDismiss,
+	useRole,
+	useInteractions,
+	FloatingFocusManager,
+	FloatingOverlay,
+	FloatingPortal,
+	type UseFloatingReturn,
+} from '@floating-ui/react';
 
 export interface DialogState {
 	open: boolean;
 	setOpen: ( open: boolean ) => void;
 	handleClose: () => void;
 	design: 'simple' | 'footer-divided';
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	context: any;
+	getFloatingProps: () => Record<string, unknown>;
+	// Keep these refs for backward compatibility
 	dialogContainerRef: React.RefObject<HTMLDivElement | null>;
-	dialogRef: React.RefObject<HTMLDivElement>;
+	dialogRef: React.MutableRefObject<HTMLDivElement | null>;
+	scrollLock: boolean;
+	className: string,
+	refs: UseFloatingReturn['refs']
 }
 
 const DialogContext = createContext<Partial<DialogState>>( {} );
@@ -90,8 +107,25 @@ const Dialog = ( {
 	);
 	const setOpenState = useMemo(
 		() => ( isControlled ? setOpen : setIsOpen ),
-		[ setIsOpen, setIsOpen ]
+		[ setIsOpen, setOpen ]
 	);
+
+	// Floating UI setup
+	const { refs, context } = useFloating( {
+		open: openState,
+		onOpenChange: setOpenState,
+	} );
+
+	const click = useClick( context );
+	const dismiss = useDismiss( context, {
+		outsidePressEvent: 'mousedown',
+		enabled: exitOnClickOutside || exitOnEsc,
+		escapeKey: exitOnEsc,
+		outsidePress: exitOnClickOutside,
+	} );
+	const role = useRole( context, { role: 'dialog' } );
+
+	const { getFloatingProps } = useInteractions( [ click, dismiss, role ] );
 
 	const handleOpen = () => {
 		if ( openState ) {
@@ -113,6 +147,7 @@ const Dialog = ( {
 		if ( isValidElement( trigger ) ) {
 			return cloneElement( trigger as React.ReactElement, {
 				onClick: callAll( handleOpen, trigger?.props?.onClick ),
+				ref: refs.setReference,
 			} );
 		}
 
@@ -121,57 +156,7 @@ const Dialog = ( {
 		}
 
 		return null;
-	}, [ trigger, handleOpen, handleClose ] );
-
-	const handleKeyDown = ( event: KeyboardEvent ) => {
-		switch ( event.key ) {
-			case 'Escape':
-				if ( exitOnEsc ) {
-					handleClose();
-				}
-				break;
-			default:
-				break;
-		}
-	};
-
-	const handleClickOutside = ( event: MouseEvent ) => {
-		if (
-			exitOnClickOutside &&
-			dialogRef.current &&
-			! dialogRef.current.contains( event.target as Node )
-		) {
-			handleClose();
-		}
-	};
-
-	useEffect( () => {
-		window.addEventListener( 'keydown', handleKeyDown );
-		document.addEventListener( 'mousedown', handleClickOutside );
-
-		return () => {
-			window.removeEventListener( 'keydown', handleKeyDown );
-			document.removeEventListener( 'mousedown', handleClickOutside );
-		};
-	}, [ openState ] );
-
-	// Prevent scrolling when dialog is open.
-	useEffect( () => {
-		if ( ! scrollLock ) {
-			return;
-		}
-		const htmlElement: HTMLElement | null = document.querySelector( 'html' );
-		if ( openState && htmlElement ) {
-			htmlElement.style.overflow = 'hidden';
-		}
-
-		return () => {
-			if ( ! htmlElement ) {
-				return;
-			}
-			htmlElement.style.overflow = '';
-		};
-	}, [ openState ] );
+	}, [ trigger, handleOpen, refs.setReference ] );
 
 	return (
 		<>
@@ -182,19 +167,16 @@ const Dialog = ( {
 					setOpen: setOpenState,
 					handleClose,
 					design,
+					context,
+					getFloatingProps,
+					refs,
 					dialogContainerRef,
 					dialogRef,
+					scrollLock,
+					className,
 				} }
 			>
-				<div
-					ref={ dialogContainerRef }
-					className={ cn(
-						'fixed z-999999 w-0 h-0 overflow-visible',
-						className
-					) }
-				>
-					{ children }
-				</div>
+				{ children }
 			</DialogContext.Provider>
 		</>
 	);
@@ -210,39 +192,90 @@ export const DialogPanel = ( {
 	children,
 	className,
 }: DialogPanelProps ): JSX.Element => {
-	const { open, handleClose, dialogRef } = useDialogState();
+	const {
+		open,
+		handleClose,
+		context,
+		getFloatingProps,
+		dialogRef,
+		scrollLock,
+		dialogContainerRef,
+		className: rootClassName,
+		refs,
+	} = useDialogState();
 
-	return (
+	const dialogContent = (
 		<AnimatePresence>
 			{ open && (
-				<motion.div
-					className="fixed inset-0 overflow-y-auto"
-					initial="exit"
-					animate="open"
-					exit="exit"
-					variants={ animationVariants }
-					role="dialog"
-					transition={ TRANSITION_DURATION }
+				<FloatingOverlay
+					ref={ dialogContainerRef as React.RefObject<HTMLDivElement> }
+					lockScroll={ scrollLock }
+					className={ cn( 'z-999999', rootClassName ) }
 				>
-					<div className="flex items-center justify-center min-h-full">
-						<div
-							ref={ dialogRef }
-							className={ cn(
-								'flex flex-col gap-5 w-120 h-fit bg-background-primary border border-solid border-border-subtle rounded-xl shadow-soft-shadow-2xl my-5 overflow-hidden',
-								className
-							) }
+					<FloatingFocusManager
+						context={ context }
+						{ ...( refs?.reference && { returnFocus: refs.reference as React.MutableRefObject<HTMLElement> } ) }
+					>
+						<motion.div
+							className="fixed inset-0 overflow-y-auto"
+							initial="exit"
+							animate="open"
+							exit="exit"
+							variants={ animationVariants }
+							role="dialog"
+							transition={ TRANSITION_DURATION }
 						>
-							{ typeof children === 'function'
-								? children( { close: handleClose! } )
-								: children }
-						</div>
-					</div>
-				</motion.div>
+							<div className="flex items-center justify-center min-h-full">
+								<div
+									ref={ ( node ) => {
+										if ( node ) {
+											// Set both refs
+											dialogRef!.current = node;
+											if ( context ) {
+												context.refs.setFloating( node );
+											}
+										}
+									} }
+									{ ...getFloatingProps?.() }
+									className={ cn(
+										'flex flex-col gap-5 w-120 h-fit bg-background-primary border border-solid border-border-subtle rounded-xl shadow-soft-shadow-2xl my-5 overflow-hidden',
+										className
+									) }
+								>
+									{ typeof children === 'function'
+										? children( { close: handleClose! } )
+										: children }
+								</div>
+							</div>
+						</motion.div>
+					</FloatingFocusManager>
+				</FloatingOverlay>
 			) }
 		</AnimatePresence>
 	);
+
+	// If in portal context, don't wrap in portal again
+	return dialogContent;
 };
 DialogPanel.displayName = 'Dialog.Panel';
+
+// New Portal component
+export interface DialogPortalProps {
+	/** Children of the dialog portal. */
+	children: ReactNode;
+	/** Id of the dialog portal where the element will be rendered. If not provided, the dialog will be rendered in the body. */
+	id?: string;
+	/** Root element of the dialog portal. If not provided, the dialog will be rendered in the body. */
+	root?: HTMLElement;
+}
+
+export const DialogPortal = ( {
+	children,
+	...props
+}: DialogPortalProps ): JSX.Element => {
+	return <FloatingPortal { ...props }>{ children }</FloatingPortal>;
+};
+DialogPortal.displayName = 'Dialog.Portal';
 
 export const DialogBackdrop = ( {
 	className,
@@ -482,6 +515,7 @@ export const DialogFooter = ( {
 DialogFooter.displayName = 'Dialog.Footer';
 
 Dialog.Panel = DialogPanel;
+Dialog.Portal = DialogPortal;
 Dialog.Title = DialogTitle;
 Dialog.Description = DialogDescription;
 Dialog.CloseButton = DialogCloseButton;
