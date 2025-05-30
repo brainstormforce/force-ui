@@ -1,3 +1,7 @@
+Version 1.7.3 - xxth xxx, 2025
+- Improvement: Organism - Dialog, Drawer: Enhanced keyboard navigation and ARIA attributes for better accessibility.
+- Improvement: Atom - Select: Added `ref` prop to `Select.Button` component to enable direct access to the button element reference.
+
 Version 1.7.2 - 26th May, 2025
 - Improvement: Atom - EditorInput: Added `style` and `maxLength` props, improved dropdown behavior, and optimized dynamic positioning.
 
