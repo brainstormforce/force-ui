@@ -35,8 +35,6 @@ export interface PaginationProps extends PaginationCommonProps {
 	size?: PaginationSize;
 	/** Disables all pagination controls. */
 	disabled?: boolean;
-	/** Accessible label for the pagination navigation */
-	ariaLabel?: string;
 }
 
 export interface PaginationItemProps extends PaginationCommonProps {
@@ -53,8 +51,6 @@ export interface PaginationButtonProps extends PaginationCommonProps {
 	onClick?: React.MouseEventHandler;
 	/** The HTML tag to be rendered for the pagination button. */
 	tag?: 'a' | 'button';
-	/** Accessible label for the pagination button */
-	ariaLabel?: string;
 }
 
 export const Pagination = ( {
@@ -62,13 +58,11 @@ export const Pagination = ( {
 	disabled = false,
 	children,
 	className,
-	ariaLabel = 'pagination',
 	...props
 }: PaginationProps ) => (
 	<PageContext.Provider value={ { size, disabled } }>
 		<nav
 			role="navigation"
-			aria-label={ ariaLabel }
 			className={ cn(
 				'flex w-full justify-center box-border m-0',
 				className
@@ -178,7 +172,6 @@ export const PaginationPrevious = ( props: PaginationButtonProps ) => {
 			<PaginationButton
 				className={ cn( '[&>span]:flex [&>span]:items-center' ) }
 				{ ...props }
-				ariaLabel={ props.ariaLabel || 'Go to previous page' }
 			>
 				<ChevronLeft className={ cn( sizeClassNames[ size ].icon ) } />
 			</PaginationButton>
@@ -197,7 +190,6 @@ export const PaginationNext = ( props: PaginationButtonProps ) => {
 			<PaginationButton
 				className={ cn( '[&>span]:flex [&>span]:items-center' ) }
 				{ ...props }
-				ariaLabel={ props.ariaLabel || 'Go to next page' }
 			>
 				<ChevronRight className={ cn( sizeClassNames[ size ].icon ) } />
 			</PaginationButton>
