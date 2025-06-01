@@ -32,8 +32,7 @@ export interface DialogState {
 	setOpen: ( open: boolean ) => void;
 	handleClose: () => void;
 	design: 'simple' | 'footer-divided';
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	context: any;
+	context: UseFloatingReturn['context'];
 	getFloatingProps: () => Record<string, unknown>;
 	// Keep these refs for backward compatibility
 	dialogContainerRef: React.RefObject<HTMLDivElement | null>;
@@ -148,6 +147,8 @@ const Dialog = ( {
 			return cloneElement( trigger as React.ReactElement, {
 				onClick: callAll( handleOpen, trigger?.props?.onClick ),
 				ref: refs.setReference,
+				'aria-haspopup': 'dialog', // Added for accessibility
+				'aria-expanded': openState, // Added for accessibility
 			} );
 		}
 
@@ -156,7 +157,7 @@ const Dialog = ( {
 		}
 
 		return null;
-	}, [ trigger, handleOpen, refs.setReference ] );
+	}, [ trigger, handleOpen, refs.setReference, openState ] );
 
 	return (
 		<>
@@ -211,9 +212,10 @@ export const DialogPanel = ( {
 					ref={ dialogContainerRef as React.RefObject<HTMLDivElement> }
 					lockScroll={ scrollLock }
 					className={ cn( 'z-999999', rootClassName ) }
+					aria-modal="true"
 				>
 					<FloatingFocusManager
-						context={ context }
+						context={ context as UseFloatingReturn['context'] }
 						{ ...( refs?.reference && { returnFocus: refs.reference as React.MutableRefObject<HTMLElement> } ) }
 					>
 						<motion.div
@@ -448,7 +450,7 @@ export const DialogCloseButton = ( {
 	}
 
 	return (
-		<Tag { ...props } onClick={ handleClose }>
+		<Tag { ...props } onClick={ handleClose } aria-label="Close dialog">
 			{ children }
 		</Tag>
 	);
