@@ -73,9 +73,9 @@ const DrawerPanel = ( { children, className }: DrawerPanelProps ) => {
 									refs?.setFloating( node );
 								}, ( ( transitionDuration?.duration || 0.3 ) + 0.1 ) * 1000 );
 							} }
-							aria-modal="true"
 							aria-label="drawer"
 							role="dialog"
+							aria-modal="true"
 							{ ...getFloatingProps?.() }
 						>
 							<div className="relative inset-0 h-full flex items-center">

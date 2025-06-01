@@ -138,6 +138,8 @@ const Drawer = ( {
 			return cloneElement( trigger as React.ReactElement, {
 				onClick: callAll( handleOpen, trigger.props.onClick ),
 				ref: refs.setReference,
+				'aria-haspopup': 'dialog',
+				'aria-expanded': openState,
 			} );
 		}
 

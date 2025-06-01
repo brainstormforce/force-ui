@@ -225,6 +225,7 @@ export const DialogPanel = ( {
 							exit="exit"
 							variants={ animationVariants }
 							role="dialog"
+							aria-modal="true"
 							transition={ TRANSITION_DURATION }
 						>
 							<div className="flex items-center justify-center min-h-full">
