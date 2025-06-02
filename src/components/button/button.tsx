@@ -76,7 +76,8 @@ const Button: React.FunctionComponent<ButtonProps> = forwardRef(
 
 		const commonClass =
 			'outline outline-1 border-none cursor-pointer transition-colors duration-300 ease-in-out text-xs font-semibold focus:ring-2 focus:ring-toggle-on focus:ring-offset-2 disabled:text-text-disabled';
-		const commonDestructiveClassName = destructive && 'focus:ring-focus-error';
+		const commonDestructiveClassName =
+			destructive && 'focus:ring-focus-error';
 
 		const loadingClass = loading
 			? 'opacity-50 disabled:cursor-not-allowed'
@@ -145,6 +146,7 @@ const Button: React.FunctionComponent<ButtonProps> = forwardRef(
 					className
 				) }
 				disabled={ disabled }
+				aria-disabled={ disabled }
 				{ ...rest }
 			>
 				<Fragment key="left-icon">{ iconLeft }</Fragment>

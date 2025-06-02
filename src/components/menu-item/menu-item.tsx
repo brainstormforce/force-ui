@@ -187,6 +187,7 @@ export const MenuItem = ( {
 	onClick,
 	children,
 	className,
+	...props
 }: MenuItemProps ) => {
 	const { size } = useMenuContext();
 
@@ -209,8 +210,8 @@ export const MenuItem = ( {
 	return (
 		<li
 			role="menuitem"
-			tabIndex={ 0 }
-			onClick={ onClick }
+			tabIndex={ disabled ? -1 : 0 }
+			onClick={ disabled ? undefined : onClick }
 			onKeyDown={ ( event ) => {
 				if ( event.key === 'Enter' || event.key === ' ' ) {
 					onClick?.();
@@ -225,6 +226,8 @@ export const MenuItem = ( {
 				transitionClasses,
 				className
 			) }
+			aria-disabled={ disabled }
+			{ ...props }
 		>
 			{ children }
 		</li>

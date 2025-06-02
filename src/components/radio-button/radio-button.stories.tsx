@@ -1,6 +1,20 @@
 import React, { useState } from 'react';
 import RadioButton, { RadioButtonGroupProps } from './radio-button';
-import { AppWindow, ChartNoAxesGantt, House, Infinity, Instagram, LogIn, Map, Newspaper, PanelLeftClose, PictureInPicture, Plus, Share2, UserPlus } from 'lucide-react';
+import {
+	AppWindow,
+	ChartNoAxesGantt,
+	House,
+	Infinity,
+	Instagram,
+	LogIn,
+	Map,
+	Newspaper,
+	PanelLeftClose,
+	PictureInPicture,
+	Plus,
+	Share2,
+	UserPlus,
+} from 'lucide-react';
 import { Meta, StoryFn } from '@storybook/react';
 import Badge from '../badge';
 
@@ -338,27 +352,23 @@ const RadioButtonTileTemplate: StoryFn<RadioButtonGroupProps> = () => {
 			} }
 			className="w-full gap-1"
 		>
-			{ defaultRadioButtonGroupData.map(
-				( option ) => (
-					<RadioButton.Button
-						key={ `option-${ option.id }` }
-						borderOn={ true }
-						borderOnActive={ false }
-						value={ option.value }
-						icon={ option.icon }
-						hideSelection={
-							option.hideSelection
-						}
-						label={ {
-							heading: option.label,
-							description: option.description,
-						} }
-						useSwitch={ option.useSwitch }
-						badgeItem={ option.bagde }
-						buttonWrapperClasses="bg-background-primary border-0"
-					/>
-				)
-			) }
+			{ defaultRadioButtonGroupData.map( ( option ) => (
+				<RadioButton.Button
+					key={ `option-${ option.id }` }
+					borderOn={ true }
+					borderOnActive={ false }
+					value={ option.value }
+					icon={ option.icon }
+					hideSelection={ option.hideSelection }
+					label={ {
+						heading: option.label,
+						description: option.description,
+					} }
+					useSwitch={ option.useSwitch }
+					badgeItem={ option.bagde }
+					buttonWrapperClasses="bg-background-primary border-0"
+				/>
+			) ) }
 		</RadioButton.Group>
 	);
 };
