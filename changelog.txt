@@ -1,4 +1,4 @@
-Version 1.7.3 - xxth xxx, 2025
+Version 1.7.3 - 3rd June, 2025
 - Improvement: Organism - Dialog, Drawer: Enhanced keyboard navigation and ARIA attributes for better accessibility.
 - Improvement: Atom - Select: Added `ref` prop to `Select.Button` component to enable direct access to the button element reference.
 - Improvement: Molecule - Accordion: Added `onClick` handler to `Accordion.Trigger`, enabling better control for developers over user interactions.
