@@ -58,7 +58,7 @@ const Template = ( args ) => {
 			<div className="py-2 flex items-center justify-center relative bg-brand-background-hover-100">
 				<div className="text-text-primary text-xs">
 					<span className="font-semibold">
-						Unlock Spectra&apos;s Full Potential! { ' ' }
+						Unlock Spectra&apos;s Full Potential!{ ' ' }
 					</span>
 					<span className="font-normal">
 						Get exclusive features and unbeatable performance.
@@ -162,10 +162,7 @@ const Template = ( args ) => {
 							/>
 						</Topbar.Item>
 						<Topbar.Item>
-							<Avatar
-								size="xs"
-								variant="primary-light"
-							>
+							<Avatar size="xs" variant="primary-light">
 								<User strokeWidth="1.5" />
 							</Avatar>
 						</Topbar.Item>
@@ -381,7 +378,12 @@ const Template = ( args ) => {
 										>
 											Dynamic Content
 										</Label>
-										<Badge label="PRO" variant="inverse" size="xs" disableHover />
+										<Badge
+											label="PRO"
+											variant="inverse"
+											size="xs"
+											disableHover
+										/>
 									</div>
 									<Label
 										tag="p"

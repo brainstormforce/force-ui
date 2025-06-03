@@ -6,9 +6,7 @@ interface OverrideEditorStyleProps {
 	style?: React.CSSProperties;
 }
 
-const OverrideEditorStyle = ( {
-	style,
-}: OverrideEditorStyleProps ) => {
+const OverrideEditorStyle = ( { style }: OverrideEditorStyleProps ) => {
 	const [ editor ] = useLexicalComposerContext();
 
 	useLayoutEffect( () => {

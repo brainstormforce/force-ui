@@ -1,7 +1,12 @@
-import React, { useState, type ReactNode, type ElementType } from 'react';
+import React, {
+	type ReactNode,
+	type ElementType,
+	type MouseEventHandler,
+	useState,
+} from 'react';
 import { Plus, Minus, ChevronDown } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { cn } from '@/utilities/functions';
+import { callAll, cn } from '@/utilities/functions';
 
 // Define common props to be shared by all components
 export interface CommonProps {
@@ -58,15 +63,15 @@ export const Accordion = ( {
 						: true;
 
 					return React.cloneElement(
-            child as React.ReactElement<AccordionItemProps>,
-            {
-            	isOpen: open,
-            	onToggle: isCollapsible
-            		? () => handleToggle( child.props.value )
-            		: undefined,
-            	type,
-            	disabled: disabled || child.props.disabled,
-            }
+						child as React.ReactElement<AccordionItemProps>,
+						{
+							isOpen: open,
+							onToggle: isCollapsible
+								? () => handleToggle( child.props.value )
+								: undefined,
+							type,
+							disabled: disabled || child.props.disabled,
+						}
 					);
 				}
 				return child;
@@ -126,6 +131,8 @@ AccordionItem.displayName = 'Accordion.Item';
 
 // Define AccordionTrigger-specific props
 export interface AccordionTriggerProps extends CommonProps {
+	/** OnClick handler for the accordion trigger. This works only when collapsible is set to `false`. */
+	onClick?: () => void;
 	/** Callback for toggling item state */
 	onToggle?: () => void;
 	/** Indicates if the item is open */
@@ -137,10 +144,11 @@ export interface AccordionTriggerProps extends CommonProps {
 	/** Accordion type (same as parent) */
 	type?: 'simple' | 'separator' | 'boxed';
 	/** Specifies whether the accordion item can be collapsed. */
-	collapsible?: boolean
+	collapsible?: boolean;
 }
 
 export const AccordionTrigger = ( {
+	onClick,
 	onToggle,
 	isOpen,
 	iconType = 'arrow',
@@ -170,6 +178,7 @@ export const AccordionTrigger = ( {
 						'flex-shrink-0 text-icon-secondary size-5 transition-transform duration-300 ease-in-out',
 						isOpen ? 'rotate-180' : 'rotate-0'
 					) }
+					aria-hidden="true"
 				/>
 			);
 		}
@@ -182,6 +191,7 @@ export const AccordionTrigger = ( {
 					exit={ { opacity: 0 } }
 					transition={ { duration: 0.3, ease: 'easeInOut' } }
 					className="flex items-center flex-shrink-0 text-icon-secondary"
+					aria-hidden="true"
 				>
 					{ isOpen ? <Minus /> : <Plus /> }
 				</motion.span>
@@ -200,8 +210,12 @@ export const AccordionTrigger = ( {
 					disabled && 'cursor-not-allowed opacity-40',
 					className
 				) }
-				onClick={ ! disabled && collapsible ? onToggle : undefined }
+				onClick={ callAll(
+					onClick,
+					! disabled && collapsible ? onToggle : undefined
+				) as MouseEventHandler<HTMLButtonElement> }
 				aria-expanded={ isOpen }
+				aria-disabled={ disabled }
 				disabled={ disabled }
 				{ ...props }
 			>
@@ -271,6 +285,7 @@ export const AccordionContent = ( {
 						className
 					) }
 					aria-hidden={ ! isOpen }
+					role="region"
 				>
 					<div className={ cn( contentPaddingClasses ) }>{ children }</div>
 				</motion.div>
