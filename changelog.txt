@@ -1,4 +1,5 @@
-Version 1.7.4 - 16th June, 2025
+Version 1.7.4 - 13th June, 2025
+- Improvement: Atom - Select: Improved search option functionality of the Select (combobox) component.
 - Fix: Organism - Drawer: Resolved an issue where clicking outside the drawer did not trigger an exit.
 
 Version 1.7.3 - 3rd June, 2025
