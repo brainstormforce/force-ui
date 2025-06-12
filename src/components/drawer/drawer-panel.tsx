@@ -68,15 +68,6 @@ const DrawerPanel = ( { children, className }: DrawerPanelProps ) => {
 					>
 						<div
 							className="fixed inset-0 overflow-hidden"
-							ref={ ( node ) => {
-								setTimeout( () => {
-									refs?.setFloating( node );
-								}, ( ( transitionDuration?.duration || 0.3 ) + 0.1 ) * 1000 );
-							} }
-							aria-label="drawer"
-							role="dialog"
-							aria-modal="true"
-							{ ...getFloatingProps?.() }
 						>
 							<div className="relative inset-0 h-full flex items-center">
 								<div
@@ -98,6 +89,15 @@ const DrawerPanel = ( { children, className }: DrawerPanelProps ) => {
 										exit="exit"
 										variants={ animationVariants[ position! ] }
 										transition={ transitionDuration }
+										ref={ ( node ) => {
+											setTimeout( () => {
+												refs?.setFloating( node );
+											}, ( ( transitionDuration?.duration || 0.3 ) + 0.1 ) * 1000 );
+										} }
+										aria-label="drawer"
+										role="dialog"
+										aria-modal="true"
+										{ ...getFloatingProps?.() }
 									>
 										{ typeof children === 'function'
 											? children( { close: handleClose! } )

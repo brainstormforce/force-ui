@@ -1,3 +1,6 @@
+Version 1.7.4 - 16th June, 2025
+- Fix: Organism - Drawer: Resolved an issue where clicking outside the drawer did not trigger an exit.
+
 Version 1.7.3 - 3rd June, 2025
 - Improvement: Organism - Dialog, Drawer: Enhanced keyboard navigation and ARIA attributes for better accessibility.
 - Improvement: Atom - Select: Added `ref` prop to `Select.Button` component to enable direct access to the button element reference.
