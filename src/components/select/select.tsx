@@ -445,25 +445,37 @@ export function SelectOptions( {
 		// First pass - count total visible groups
 		Children.forEach( children, ( child ) => {
 			if ( isValidElement( child ) && child.type === SelectOptionGroup ) {
-				const hasVisibleChildren = Children.toArray(
-					child.props.children
-				).some( ( groupChild ) => {
-					if ( ! isValidElement( groupChild ) ) {
-						return false;
-					}
+				let hasVisibleChildren = false;
 
-					// Handle option groups when searchFn is not provided
-					// Search functionality will be handled outside of the select component
-					if ( searchKeyword && ! searchFn ) {
+				// If there's a search term and no external search function
+				if ( searchKeyword && ! searchFn ) {
+					const searchTerm = searchKeyword.toLowerCase();
+					const groupLabel = child.props.label?.toLowerCase() || '';
+
+					// Check if group label matches search term
+					const groupLabelMatches = groupLabel.includes( searchTerm );
+
+					// Check if any child option matches search term
+					const hasMatchingChildren = Children.toArray(
+						child.props.children
+					).some( ( groupChild ) => {
+						if ( ! isValidElement( groupChild ) ) {
+							return false;
+						}
+
 						const textContent = getTextContent(
 							groupChild.props.children
 						)?.toLowerCase();
-						const searchTerm = searchKeyword.toLowerCase();
 
 						return textContent.includes( searchTerm );
-					}
-					return true;
-				} );
+					} );
+
+					// Show group if either group label matches or any child matches
+					hasVisibleChildren = groupLabelMatches || hasMatchingChildren;
+				} else {
+					// No search term, show all groups
+					hasVisibleChildren = true;
+				}
 
 				if ( hasVisibleChildren ) {
 					visibleGroups++;
@@ -483,13 +495,58 @@ export function SelectOptions( {
 
 			// Handle option groups
 			if ( child.type === SelectOptionGroup ) {
+				let groupLabelMatches = false;
+
+				// Check if group label matches search term
+				if ( searchKeyword && ! searchFn ) {
+					const searchTerm = searchKeyword.toLowerCase();
+					const groupLabel = child.props.label?.toLowerCase() || '';
+					groupLabelMatches = groupLabel.includes( searchTerm );
+				}
+
 				// Recursively process children of the option group
 				const groupChildren = Children.map(
 					child.props.children,
-					processChild
+					( groupChild ) => {
+						if ( ! isValidElement( groupChild ) ) {
+							return null;
+						}
+
+						// If group label matches, show all children regardless of their content
+						if ( groupLabelMatches ) {
+							const childProps = {
+								...( groupChild.props as SelectOptionProps ),
+								index: childIndex++,
+							};
+
+							return cloneElement( groupChild, childProps );
+						}
+
+						// Otherwise, apply normal filtering to individual options
+						if ( searchKeyword && ! searchFn ) {
+							const textContent = getTextContent(
+								( groupChild.props as { children?: React.ReactNode } ).children
+							)?.toLowerCase();
+							const searchTerm = searchKeyword.toLowerCase();
+
+							const textMatch = textContent?.includes( searchTerm );
+
+							if ( ! textMatch ) {
+								return null;
+							}
+						}
+
+						const childProps = {
+							...( groupChild.props as SelectOptionProps ),
+							index: childIndex++,
+						};
+
+						return cloneElement( groupChild, childProps );
+					}
 				);
+
 				// Only render group if it has visible children
-				const hasChildren = groupChildren?.some( ( c ) => c !== null );
+				const hasChildren = groupChildren?.some( ( c: React.ReactNode ) => c !== null );
 
 				if ( ! hasChildren ) {
 					return null;
