@@ -117,7 +117,6 @@ const Dialog = ( {
 
 	const click = useClick( context );
 	const dismiss = useDismiss( context, {
-		outsidePressEvent: 'mousedown',
 		enabled: exitOnClickOutside || exitOnEsc,
 		escapeKey: exitOnEsc,
 		outsidePress: exitOnClickOutside,
