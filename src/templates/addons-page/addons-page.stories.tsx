@@ -58,7 +58,7 @@ const addonsData: Addon[] = [
 		description:
 			'The new way to sell on WordPress. Create beautiful checkout experiences.',
 		installed: false,
-		icon: <ShoppingCart className="size-8 text-link-primary" />,
+		icon: <ShoppingCart className="size-8" />,
 	},
 	{
 		id: '2',
@@ -66,7 +66,7 @@ const addonsData: Addon[] = [
 		description:
 			'Supercharge your website with 40+ advanced blocks and templates.',
 		installed: true,
-		icon: <Zap className="size-8 text-brand-primary-600" />,
+		icon: <Zap className="size-8" />,
 	},
 	{
 		id: '3',
@@ -74,7 +74,7 @@ const addonsData: Addon[] = [
 		description:
 			'Advanced Gutenberg blocks for creating stunning websites effortlessly.',
 		installed: false,
-		icon: <Paintbrush className="size-8 text-support-success" />,
+		icon: <Paintbrush className="size-8" />,
 	},
 	{
 		id: '4',
@@ -224,7 +224,7 @@ const AddonCard = ( { addon, onInstall, onConfigure }: AddonCardProps ) => (
 								<Text
 									as="a"
 									size={ 12 }
-									color="info"
+									color="link"
 									className="cursor-pointer no-underline focus:outline-none focus:ring-2 focus:ring-focus focus:ring-offset-2 rounded"
 									href="#"
 									aria-label={ `Learn more about ${ addon.name }` }
