@@ -163,6 +163,7 @@ const Template: StoryFn = (args: any) => {
           {plans.map((plan: Plan) => (
             <div
               key={plan.name}
+              role="listitem"
               className={`flex flex-col rounded-xl shadow-xs border border-solid border-gray-200 p-6 relative focus-within:ring-2 focus-within:ring-[#d2f059] transition-all duration-200 bg-white ${
                 plan.highlighted ? 'scale-105 z-10' : ''
               }`}
@@ -177,7 +178,7 @@ const Template: StoryFn = (args: any) => {
                 />
               )}
               <Text
-                as="h3"
+                as="h2"
                 size={20}
                 weight={600}
                 className="mb-2 text-start"
