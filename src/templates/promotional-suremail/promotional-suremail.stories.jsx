@@ -38,23 +38,23 @@ export const SureMailPromotional = () => {
 	return (
 		<div className="bg-background-primary min-h-screen w-full overflow-hidden">
 			{ /* Hero Section with Icons and Formula */ }
-			<section className="py-4 flex justify-center">
-				<Container className="max-w-4xl mx-auto px-4 sm:px-6 flex justify-center">
-					<div className="flex flex-col items-center mb-6 md:mb-10 max-w-3xl">
+			<section className="p-2 flex justify-center">
+				<Container className="max-w-4xl mx-auto p-2 flex justify-center">
+					<div className="flex flex-col items-center p-2">
 						<div className="flex items-center justify-center mb-4 gap-3 flex-wrap">
-							<div className="flex items-center justify-center bg-background-primary p-4 md:p-5 rounded-lg shadow-sm">
+							<div className="flex items-center justify-center bg-background-primary rounded-lg shadow-sm">
 								<Shield size={ 32 } className="text-brand-primary-600" />
 							</div>
 							<div className="mx-1 md:mx-3">
 								<Plus size={ 20 } className="text-text-secondary" />
 							</div>
-							<div className="flex items-center justify-center bg-background-primary p-4 md:p-5 rounded-lg shadow-sm">
+							<div className="flex items-center justify-center bg-background-primary rounded-lg shadow-sm">
 								<Mail size={ 32 } className="text-support-info" />
 							</div>
 							<div className="mx-1 md:mx-3">
 								<span className="text-xl md:text-2xl font-bold text-text-primary">=</span>
 							</div>
-							<div className="flex items-center justify-center bg-background-primary p-4 md:p-5 rounded-lg shadow-sm">
+							<div className="flex items-center justify-center bg-background-primary rounded-lg shadow-sm">
 								<Rocket size={ 32 } className="text-support-success" />
 							</div>
 						</div>
@@ -97,15 +97,15 @@ export const SureMailPromotional = () => {
 			</section>
 
 			{ /* Features Section - 3 rows with 2 boxes each */ }
-			<section className="py-4 ">
+			<section className="p-2 ">
 				<Container className="max-w-4xl mx-auto px-4 sm:px-6">
 					<div className="flex flex-col gap-6 md:gap-8">
 						{ /* Row 1 */ }
 						<div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
 							{ /* Feature Box 1 */ }
-							<div className="bg-background-primary p-5 rounded-lg border border-border-subtle shadow-sm">
+							<div className="bg-background-primary p-4 rounded-lg border border-border-subtle shadow-sm">
 								<div className="flex flex-col">
-									<div className="p-3 s-6 flex mb-3">
+									<div className="s-6 flex mb-3">
 										<Shield className="text-brand-primary-600 w-7 h-7" />
 									</div>
 									<Title
@@ -121,9 +121,9 @@ export const SureMailPromotional = () => {
 							</div>
 
 							{ /* Feature Box 2 */ }
-							<div className="bg-background-primary p-5 rounded-lg border border-border-subtle shadow-sm">
+							<div className="bg-background-primary p-4 rounded-lg border border-border-subtle shadow-sm">
 								<div className="flex flex-col">
-									<div className="p-3 s-6 flex mb-3">
+									<div className="s-6 flex mb-3">
 										<BarChart className="text-brand-primary-600 w-7 h-7" />
 									</div>
 									<Title
@@ -142,9 +142,9 @@ export const SureMailPromotional = () => {
 						{ /* Row 2 */ }
 						<div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
 							{ /* Feature Box 3 */ }
-							<div className="bg-background-primary p-5 rounded-lg border border-border-subtle shadow-sm">
+							<div className="bg-background-primary p-4 rounded-lg border border-border-subtle shadow-sm">
 								<div className="flex flex-col">
-									<div className="p-3 s-6 flex mb-3">
+									<div className="s-6 flex mb-3">
 										<Bell className="text-brand-primary-600 w-7 h-7" />
 									</div>
 									<Title
@@ -160,9 +160,9 @@ export const SureMailPromotional = () => {
 							</div>
 
 							{ /* Feature Box 4 */ }
-							<div className="bg-background-primary p-5 rounded-lg border border-border-subtle shadow-sm">
+							<div className="bg-background-primary p-4 rounded-lg border border-border-subtle shadow-sm">
 								<div className="flex flex-col">
-									<div className="p-3 s-6 flex mb-3">
+									<div className="s-6 flex mb-3">
 										<Settings className="text-brand-primary-600 w-7 h-7" />
 									</div>
 									<Title
@@ -181,9 +181,9 @@ export const SureMailPromotional = () => {
 						{ /* Row 3 */ }
 						<div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
 							{ /* Feature Box 5 */ }
-							<div className="bg-background-primary p-5 rounded-lg border border-border-subtle shadow-sm">
+							<div className="bg-background-primary p-4 rounded-lg border border-border-subtle shadow-sm">
 								<div className="flex flex-col">
-									<div className="p-3 s-6 flex mb-3">
+									<div className="s-6 flex mb-3">
 										<Users className="text-brand-primary-600 w-7 h-7" />
 									</div>
 									<Title
@@ -199,9 +199,9 @@ export const SureMailPromotional = () => {
 							</div>
 
 							{ /* Feature Box 6 */ }
-							<div className="bg-background-primary p-5 rounded-lg border border-border-subtle shadow-sm">
+							<div className="bg-background-primary p-4 rounded-lg border border-border-subtle shadow-sm">
 								<div className="flex flex-col">
-									<div className="p-3 s-6 flex mb-3">
+									<div className="s-6 flex mb-3">
 										<CloudLightning className="text-brand-primary-600 w-7 h-7" />
 									</div>
 									<Title
@@ -221,19 +221,19 @@ export const SureMailPromotional = () => {
 			</section>
 
 			{ /* Final CTA Section */ }
-			<section className="py-4 flex justify-center">
-				<Container className="max-w-4xl mx-auto px-4 sm:px-6 flex justify-center">
-					<div className="flex flex-col items-center max-w-3xl">
+			<section className="p-2 flex justify-center">
+				<Container className="max-w-4xl mx-auto p-2 sm:px-6 flex justify-center">
+					<div className="flex flex-col items-center">
 						<Title
 							tag="h2"
 							size="lg"
 							title="Ready to Transform Your Email Experience?"
-							className="mb-4 md:mb-6 text-text-primary text-center"
+							className="mb-2 text-text-primary texcleart-center"
 						/>
 						<Button
 							variant="primary"
 							size="lg"
-							className="px-8"
+							className=""
 						>
 							Install SureMail Now
 						</Button>
