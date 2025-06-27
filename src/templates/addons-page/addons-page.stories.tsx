@@ -148,7 +148,7 @@ const AddonCard = ( { addon, onInstall, onConfigure }: AddonCardProps ) => (
 		direction="column"
 		className="bg-background-primary border border-solid border-border-subtle rounded-lg shadow-xs h-full"
 	>
-		<Container.Item className="p-4 flex-1 flex flex-col space-y-4">
+		<Container.Item className="p-4 flex-1 flex flex-col gap-2">
 			<Container
 				containerType="flex"
 				align="start"
@@ -163,7 +163,7 @@ const AddonCard = ( { addon, onInstall, onConfigure }: AddonCardProps ) => (
 						gap="sm"
 					>
 						<Container.Item>
-							<div className="p-2 size-8" aria-hidden="true">
+							<div className="size-8" aria-hidden="true">
 								{ addon.icon }
 							</div>
 						</Container.Item>
