@@ -138,7 +138,7 @@ const Template = ( args: TemplateArgs ) => {
 							<div className="flex items-center justify-between flex-wrap gap-4">
 								<Title
 									size="lg"
-									tag="h1"
+									tag="h2"
 									title="Your Website's Onboarding Checklist 🎯"
 									className="text-text-primary"
 								/>
