@@ -11,18 +11,17 @@ import {
 	Pagination,
 	Tooltip,
 	Avatar,
+	Input,
 } from '@/components';
 import {
 	Filter,
-	Download,
 	Eye,
-	RotateCcw,
-	Mail,
 	AlertCircle,
 	CheckCircle,
 	Clock,
 	X,
 	MousePointer,
+	Calendar,
 } from 'lucide-react';
 
 export default {
@@ -112,7 +111,7 @@ const emailLogs = [
 ];
 
 const statusOptions = [
-	{ id: 'all', name: 'All Status' },
+	{ id: 'all', name: 'State' },
 	{ id: 'delivered', name: 'Delivered' },
 	{ id: 'pending', name: 'Pending' },
 	{ id: 'failed', name: 'Failed' },
@@ -172,7 +171,6 @@ const getStatusBadge = ( status: string ) => {
 const Template = () => {
 	const [ selectedRows, setSelectedRows ] = useState<number[]>( [] );
 	const [ statusFilter, setStatusFilter ] = useState( statusOptions[ 0 ] );
-	const [ providerFilter, setProviderFilter ] = useState( providerOptions[ 0 ] );
 	const [ searchOpen, setSearchOpen ] = useState( false );
 
 	const handleRowSelection = ( checked: boolean, log: typeof emailLogs[ 0 ] ) => {
@@ -195,50 +193,18 @@ const Template = () => {
 		setStatusFilter( value as { id: string; name: string } );
 	};
 
-	const handleProviderFilterChange = ( value: unknown ) => {
-		setProviderFilter( value as { id: string; name: string } );
-	};
-
-	const handleSearchChange = () => {
-		// Search functionality would be implemented here
-	};
-
 	return (
 		<div className="bg-background-primary min-h-screen">
-			{ /* Header */ }
+			{ /* Header with Filters and Search */ }
 			<Container className="border-b border-border-subtle">
 				<Container.Item className="px-8 py-8">
-					<div className="flex items-start justify-between">
+					<div className="flex items-center justify-between gap-8">
+						{ /* Header Section */ }
 						<div>
-							<Title size="lg" className="text-text-primary mb-3" title="Email Logs" />
-							<Text size={ 14 } className="text-text-secondary">
-								Track and monitor all your email delivery activity
-							</Text>
+							<Title size="lg" className="text-text-primary mb-2" title="Email Logs" />
 						</div>
-						<div className="flex items-center gap-3">
-							<Button
-								variant="outline"
-								icon={ <RotateCcw className="size-4" /> }
-								size="md"
-							>
-								Refresh
-							</Button>
-							<Button
-								variant="primary"
-								icon={ <Download className="size-4" /> }
-								size="md"
-							>
-								Export
-							</Button>
-						</div>
-					</div>
-				</Container.Item>
-			</Container>
 
-			{ /* Filters and Search */ }
-			<Container className="border-b border-border-subtle">
-				<Container.Item className="px-8 py-6">
-					<div className="flex items-center justify-between gap-6">
+						{ /* Filters and Search Section */ }
 						<div className="flex items-center gap-4">
 							{ /* Search */ }
 							<div className="w-80">
@@ -249,7 +215,6 @@ const Template = () => {
 								>
 									<SearchBox.Input
 										placeholder="Search emails..."
-										onChange={ handleSearchChange }
 									/>
 								</SearchBox>
 							</div>
@@ -284,38 +249,25 @@ const Template = () => {
 								</Select>
 
 								{ /* Provider Filter */ }
-								<Select
-									value={ providerFilter }
-									onChange={ handleProviderFilterChange }
-									by="id"
-									size="md"
+								<div
+									className="relative flex gap-1"
 								>
-									<Select.Button
-										label=""
-										render={ ( selected ) => (
-											<div className="flex items-center gap-2">
-												<Mail className="size-4 text-icon-secondary" />
-												<Text size={ 14 } className="text-text-primary">
-													{ ( selected as { name: string } )?.name || 'Provider' }
-												</Text>
-											</div>
-										) }
+									<Input
+										type="text"
+										size="sm"
+										suffix={
+											<Calendar className="text-icon-secondary" />
+										}
+										placeholder={ 'mm/dd/yyyy' }
+										className="min-w-[200px]"
+										readOnly
+										aria-label={
+											'Select Date Range'
+										}
 									/>
-									<Select.Options>
-										{ providerOptions.map( ( option ) => (
-											<Select.Option key={ option.id } value={ option }>
-												{ option.name }
-											</Select.Option>
-										) ) }
-									</Select.Options>
-								</Select>
+								</div>
 							</div>
 						</div>
-
-						{ /* Results count */ }
-						<Text size={ 14 } className="text-text-secondary">
-							{ emailLogs.length } emails
-						</Text>
 					</div>
 				</Container.Item>
 			</Container>
@@ -447,9 +399,6 @@ const Template = () => {
 						<div className="flex items-center gap-2">
 							<Button variant="outline" size="sm">
 								Resend
-							</Button>
-							<Button variant="outline" size="sm" icon={ <Download className="size-4" /> }>
-								Export
 							</Button>
 							<Button
 								variant="ghost"
