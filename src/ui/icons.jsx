@@ -1,11 +1,11 @@
-export const SureRankLogo = (props) => (
+export const SureRankLogo = ( props ) => (
 	<svg
 		width="24"
 		height="24"
 		viewBox="0 0 24 24"
 		fill="none"
 		xmlns="http://www.w3.org/2000/svg"
-		{...props}
+		{ ...props }
 	>
 		<path
 			fillRule="evenodd"
@@ -16,14 +16,14 @@ export const SureRankLogo = (props) => (
 	</svg>
 );
 
-export const SureEmailLogo = (props) => (
+export const SureEmailLogo = ( props ) => (
 	<svg
 		width="145"
 		height="24"
 		viewBox="0 0 145 24"
 		fill="none"
 		xmlns="http://www.w3.org/2000/svg"
-		{...props}
+		{ ...props }
 	>
 		<path
 			fillRule="evenodd"
@@ -42,14 +42,14 @@ export const SureEmailLogo = (props) => (
 	</svg>
 );
 
-export const SureEmailIcon = (props) => (
+export const SureEmailIcon = ( props ) => (
 	<svg
 		width="24"
 		height="24"
 		viewBox="0 0 24 24"
 		fill="none"
 		xmlns="http://www.w3.org/2000/svg"
-		{...props}
+		{ ...props }
 	>
 		<path
 			fillRule="evenodd"
@@ -60,14 +60,14 @@ export const SureEmailIcon = (props) => (
 	</svg>
 );
 
-export const SureCartLogo = (props) => (
+export const SureCartLogo = ( props ) => (
 	<svg
 		width="24"
 		height="24"
 		viewBox="0 0 24 24"
 		fill="none"
 		xmlns="http://www.w3.org/2000/svg"
-		{...props}
+		{ ...props }
 	>
 		<path
 			fillRule="evenodd"
@@ -78,14 +78,14 @@ export const SureCartLogo = (props) => (
 	</svg>
 );
 
-export const SpectraLogo = (props) => (
+export const SpectraLogo = ( props ) => (
 	<svg
 		width="24"
 		height="24"
 		viewBox="0 0 24 24"
 		fill="none"
 		xmlns="http://www.w3.org/2000/svg"
-		{...props}
+		{ ...props }
 	>
 		<path
 			fillRule="evenodd"
@@ -96,14 +96,14 @@ export const SpectraLogo = (props) => (
 	</svg>
 );
 
-export const AstraThemeLogo = (props) => (
+export const AstraThemeLogo = ( props ) => (
 	<svg
 		width="24"
 		height="24"
 		viewBox="0 0 21 20"
 		fill="none"
 		xmlns="http://www.w3.org/2000/svg"
-		{...props}
+		{ ...props }
 	>
 		<path
 			fillRule="evenodd"
@@ -127,14 +127,14 @@ export const AstraThemeLogo = (props) => (
 	</svg>
 );
 
-export const StartersTemplatesLogo = (props) => (
+export const StartersTemplatesLogo = ( props ) => (
 	<svg
 		width="24"
 		height="24"
 		viewBox="0 0 21 20"
 		fill="none"
 		xmlns="http://www.w3.org/2000/svg"
-		{...props}
+		{ ...props }
 	>
 		<g clipPath="url(#clip0_9150_48086)">
 			<path
@@ -185,14 +185,14 @@ export const StartersTemplatesLogo = (props) => (
 	</svg>
 );
 
-export const PrestoPlayerLogo = (props) => (
+export const PrestoPlayerLogo = ( props ) => (
 	<svg
 		width="24"
 		height="24"
 		viewBox="0 0 21 20"
 		fill="none"
 		xmlns="http://www.w3.org/2000/svg"
-		{...props}
+		{ ...props }
 	>
 		<path
 			d="M13.6094 9.93105L19.3338 6.60156V13.2606L13.6094 9.93105Z"
@@ -329,14 +329,14 @@ export const PrestoPlayerLogo = (props) => (
 	</svg>
 );
 
-export const EmailSetup = (props) => (
+export const EmailSetup = ( props ) => (
 	<svg
 		width="128"
 		height="128"
 		viewBox="0 0 128 128"
 		fill="none"
 		xmlns="http://www.w3.org/2000/svg"
-		{...props}
+		{ ...props }
 	>
 		<path
 			d="M63.7335 29.385C62.7029 29.385 13.5889 65.0722 13.5889 65.0722L63.7629 96.6371L113.937 65.0722C113.907 65.0722 64.764 29.385 63.7335 29.385Z"
@@ -613,6 +613,341 @@ export const EmailSetup = (props) => (
 		<path
 			d="M31.2795 66.9567C28.1289 66.78 24.8605 66.1911 22.4166 64.0416C20.3849 62.2161 19.3838 59.2127 20.6204 56.651C20.9149 56.0326 21.3271 55.5026 21.8571 55.0904C22.181 54.8548 22.8582 54.4721 23.2705 54.7371C23.6827 55.0021 23.5649 55.6204 23.4177 55.9738C23.1821 56.4743 22.6521 56.7688 22.1221 56.6804C20.7088 56.4743 20.1493 54.796 19.8843 53.6182C19.5899 52.2931 19.5604 50.9387 19.7371 49.5842C20.1788 46.4925 21.8277 43.6952 24.3305 41.8402C24.5366 41.6636 24.566 41.3691 24.3894 41.163C24.3599 41.1335 24.3305 41.1041 24.2716 41.0747C23.9772 40.8391 23.5649 40.8096 23.241 41.0158C20.591 42.9591 18.8243 45.9036 18.3237 49.1425C18.0587 50.762 18.1176 52.4109 18.5299 53.9715C18.9715 55.7087 20.0021 57.4166 21.916 57.7699C22.7994 57.976 23.7416 57.711 24.3894 57.0632C24.8605 56.5626 25.0666 55.8265 24.9194 55.1493C24.7133 54.3248 24.0066 53.7065 23.1527 53.5887C22.2694 53.4709 21.4154 53.7359 20.7088 54.2659C19.3838 55.2671 18.736 56.916 18.6182 58.5355C18.5299 60.2138 19.0304 61.8627 20.0315 63.2172C22.5932 66.8095 27.1866 67.84 31.3384 68.0756C31.6328 68.105 32.045 67.9284 32.0156 67.575C31.9862 67.2217 31.6034 66.9567 31.2795 66.9567Z"
 			fill="#082F49"
+		/>
+	</svg>
+);
+
+export const SureFormsLogo = ( props ) => (
+	<svg
+		width="48"
+		height="48"
+		viewBox="0 0 48 48"
+		fill="none"
+		xmlns="http://www.w3.org/2000/svg"
+		{ ...props }
+	>
+		<path d="M48 0H0V48H48V0Z" fill="#D54407" />
+		<path
+			d="M13.7 10.2861H34.2714V17.1433H17.1285L13.7 20.5719V17.1433V10.2861Z"
+			fill="white"
+		/>
+		<path
+			d="M13.7 20.5752H30.8427V27.4323H17.1285L13.7 30.8608V27.4323V20.5752Z"
+			fill="white"
+		/>
+		<path d="M13.7 30.8569H23.9856V37.714H13.7V30.8569Z" fill="white" />
+	</svg>
+);
+
+export const SureMailLogo = ( props ) => (
+	<svg
+		width="48"
+		height="48"
+		viewBox="0 0 48 48"
+		fill="none"
+		xmlns="http://www.w3.org/2000/svg"
+		{ ...props }
+	>
+		<path
+			d="M46.5 0H1.5C0.671573 0 0 0.671573 0 1.5V46.5C0 47.3284 0.671573 48 1.5 48H46.5C47.3284 48 48 47.3284 48 46.5V1.5C48 0.671573 47.3284 0 46.5 0Z"
+			fill="#0D7EE8"
+		/>
+		<path
+			d="M12.8049 23.3305C13.2223 23.6323 13.815 23.5332 14.0881 23.1271C14.3901 22.7096 14.2908 22.1168 13.8847 21.8437L9.86465 18.9637C9.72177 18.8536 9.73422 18.7156 9.74045 18.6467C9.74675 18.5778 9.79932 18.4575 9.97227 18.3898L36.7209 11.5701C36.8763 11.5425 36.9678 11.6064 37.0305 11.6815C37.0931 11.7568 37.1558 11.8319 37.0857 11.9923L26.951 37.6357C26.8808 37.7962 26.7543 37.8125 26.6966 37.8351C26.6277 37.8289 26.4898 37.8163 26.4045 37.6836L23.3412 32.0686C23.2446 31.907 23.1656 31.7053 23.069 31.5436C21.87 28.822 21.5674 26.8137 23.8176 24.8354L29.6111 19.474C30.0045 19.1205 30.0432 18.5402 29.7009 18.1756C29.3474 17.7823 28.7671 17.7436 28.4025 18.0858L22.3176 23.3305C19.2517 26.0272 19.7622 29.3815 21.7022 32.9765L24.7656 38.5914C25.1568 39.3357 25.9527 39.7553 26.8037 39.7212C27.028 39.6999 27.2699 39.6384 27.4716 39.5593C28.0192 39.3449 28.4478 38.9111 28.6932 38.3496L38.8279 12.7062C39.1322 11.9554 38.9891 11.0806 38.4475 10.4617C37.9059 9.84276 37.08 9.60111 36.2854 9.77931L9.50802 16.6102C8.696 16.8286 8.08205 17.4679 7.9094 18.3001C7.73667 19.1323 8.09285 19.9569 8.7848 20.4505L12.8049 23.3305Z"
+			fill="white"
+		/>
+		<path
+			d="M11.5375 31.0516C11.6128 31.0221 11.7033 30.9577 11.7688 30.9032L15.8177 27.3495C16.1602 27.0417 16.1939 26.5365 15.8959 26.2191C15.5881 25.8766 15.083 25.8429 14.7656 26.1409L10.7166 29.6946C10.3742 30.0024 10.3405 30.5076 10.6384 30.825C10.8665 31.1118 11.2113 31.1793 11.5375 31.0516Z"
+			fill="white"
+		/>
+		<path
+			d="M11.0227 36.7358C11.0981 36.7065 11.1889 36.6424 11.2544 36.588L18.1356 30.5619C18.4789 30.2551 18.514 29.7501 18.217 29.4318C17.9101 29.0884 17.4051 29.0533 17.0869 29.3504L10.2057 35.3765C9.86233 35.6833 9.82723 36.1884 10.1243 36.5066C10.3419 36.769 10.7213 36.8529 11.0227 36.7358Z"
+			fill="white"
+		/>
+	</svg>
+);
+
+export const Plus = ( props ) => (
+	<svg
+		width="19"
+		height="38"
+		viewBox="0 0 19 38"
+		fill="none"
+		xmlns="http://www.w3.org/2000/svg"
+		{ ...props }
+	>
+		<path
+			d="M8.04 27.93V14.19H10.83V27.93H8.04ZM2.55 22.47V19.68H16.32V22.47H2.55Z"
+			fill="#111827"
+		/>
+	</svg>
+);
+
+export const Equals = ( props ) => (
+	<svg
+		width="19"
+		height="38"
+		viewBox="0 0 19 38"
+		fill="none"
+		xmlns="http://www.w3.org/2000/svg"
+		{ ...props }
+	>
+		<path
+			d="M3.42 19.47V16.68H15.42V19.47H3.42ZM3.42 25.47V22.68H15.42V25.47H3.42Z"
+			fill="#111827"
+		/>
+	</svg>
+);
+
+export const Heart = ( props ) => (
+	<svg
+		width="28"
+		height="28"
+		viewBox="0 0 28 28"
+		fill="none"
+		xmlns="http://www.w3.org/2000/svg"
+		{ ...props }
+	>
+		<path
+			d="M23.8234 5.3432C23.2381 4.75587 22.5427 4.28986 21.7769 3.97189C21.0111 3.65391 20.1901 3.49023 19.3609 3.49023C18.5318 3.49023 17.7108 3.65391 16.945 3.97189C16.1792 4.28986 15.4837 4.75587 14.8984 5.3432L14.0001 6.2532L13.1018 5.3432C12.5165 4.75587 11.821 4.28986 11.0552 3.97189C10.2894 3.65391 9.46844 3.49023 8.63927 3.49023C7.8101 3.49023 6.98909 3.65391 6.22331 3.97189C5.45753 4.28986 4.76206 4.75587 4.17677 5.3432C1.70343 7.81654 1.55177 11.9932 4.66677 15.1665L14.0001 24.4999L23.3334 15.1665C26.4484 11.9932 26.2968 7.81654 23.8234 5.3432Z"
+			fill="#111827"
+			stroke="#111827"
+			strokeWidth="1.25"
+			strokeLinecap="round"
+			strokeLinejoin="round"
+		/>
+	</svg>
+);
+
+export const Database = ( props ) => (
+	<svg
+		width="24"
+		height="24"
+		viewBox="0 0 24 24"
+		fill="none"
+		xmlns="http://www.w3.org/2000/svg"
+		{ ...props }
+	>
+		<path
+			d="M12 8C16.9706 8 21 6.65685 21 5C21 3.34315 16.9706 2 12 2C7.02944 2 3 3.34315 3 5C3 6.65685 7.02944 8 12 8Z"
+			stroke="#0F77D9"
+			strokeWidth="1.25"
+			strokeLinecap="round"
+			strokeLinejoin="round"
+		/>
+		<path
+			d="M3 12C3 13.18 5.03 14.2 8 14.7"
+			stroke="#0F77D9"
+			strokeWidth="1.25"
+			strokeLinecap="round"
+			strokeLinejoin="round"
+		/>
+		<path
+			d="M21 5V9.5"
+			stroke="#0F77D9"
+			strokeWidth="1.25"
+			strokeLinecap="round"
+			strokeLinejoin="round"
+		/>
+		<path
+			d="M12 15.9998L13.27 14.6498C13.8142 13.818 14.6057 13.1779 15.533 12.8197C16.4602 12.4614 17.4764 12.4031 18.4385 12.6529C19.4007 12.9028 20.2602 13.4481 20.896 14.2122C21.5318 14.9763 21.9119 15.9206 21.9827 16.9121C22.0535 17.9036 21.8115 18.8923 21.2907 19.739C20.77 20.5857 19.9967 21.2476 19.0799 21.6317C18.163 22.0157 17.1488 22.1024 16.1801 21.8796C15.2114 21.6568 14.3369 21.1357 13.68 20.3898"
+			stroke="#0D7EE8"
+			strokeWidth="1.25"
+			strokeLinecap="round"
+			strokeLinejoin="round"
+		/>
+		<path
+			d="M12 12V16H16"
+			stroke="#0D7EE8"
+			strokeWidth="1.25"
+			strokeLinecap="round"
+			strokeLinejoin="round"
+		/>
+		<path
+			d="M3 5V19C3 20.43 5.97 21.63 10 21.93"
+			stroke="#0F77D9"
+			strokeWidth="1.25"
+			strokeLinecap="round"
+			strokeLinejoin="round"
+		/>
+	</svg>
+);
+
+export const Clipboard = ( props ) => (
+	<svg
+		width="24"
+		height="24"
+		viewBox="0 0 24 24"
+		fill="none"
+		xmlns="http://www.w3.org/2000/svg"
+		{ ...props }
+	>
+		<path
+			d="M15 2H9C8.44772 2 8 2.44772 8 3V5C8 5.55228 8.44772 6 9 6H15C15.5523 6 16 5.55228 16 5V3C16 2.44772 15.5523 2 15 2Z"
+			stroke="#0F77D9"
+			strokeWidth="1.25"
+			strokeLinecap="round"
+			strokeLinejoin="round"
+		/>
+		<path
+			d="M16 4H18C18.5304 4 19.0391 4.21071 19.4142 4.58579C19.7893 4.96086 20 5.46957 20 6V20C20 20.5304 19.7893 21.0391 19.4142 21.4142C19.0391 21.7893 18.5304 22 18 22H6C5.46957 22 4.96086 21.7893 4.58579 21.4142C4.21071 21.0391 4 20.5304 4 20V6C4 5.46957 4.21071 4.96086 4.58579 4.58579C4.96086 4.21071 5.46957 4 6 4H8"
+			stroke="#0F77D9"
+			strokeWidth="1.25"
+			strokeLinecap="round"
+			strokeLinejoin="round"
+		/>
+		<path
+			d="M12 11H16"
+			stroke="#0D7EE8"
+			strokeWidth="1.25"
+			strokeLinecap="round"
+			strokeLinejoin="round"
+		/>
+		<path
+			d="M12 16H16"
+			stroke="#0D7EE8"
+			strokeWidth="1.25"
+			strokeLinecap="round"
+			strokeLinejoin="round"
+		/>
+		<path
+			d="M8 11H8.01"
+			stroke="#0D7EE8"
+			strokeWidth="1.25"
+			strokeLinecap="round"
+			strokeLinejoin="round"
+		/>
+		<path
+			d="M8 16H8.01"
+			stroke="#0D7EE8"
+			strokeWidth="1.25"
+			strokeLinecap="round"
+			strokeLinejoin="round"
+		/>
+	</svg>
+);
+
+export const Shield = ( props ) => (
+	<svg
+		width="24"
+		height="24"
+		viewBox="0 0 24 24"
+		fill="none"
+		xmlns="http://www.w3.org/2000/svg"
+		{ ...props }
+	>
+		<path
+			d="M12 22C12 22 20 18 20 12V5L12 2L4 5V12C4 18 12 22 12 22Z"
+			stroke="#0F77D9"
+			strokeWidth="1.25"
+			strokeLinecap="round"
+			strokeLinejoin="round"
+		/>
+	</svg>
+);
+
+export const Refresh = ( props ) => (
+	<svg
+		width="24"
+		height="24"
+		viewBox="0 0 24 24"
+		fill="none"
+		xmlns="http://www.w3.org/2000/svg"
+		{ ...props }
+	>
+		<path
+			d="M3 2V8H9"
+			stroke="#0F77D9"
+			strokeWidth="1.25"
+			strokeLinecap="round"
+			strokeLinejoin="round"
+		/>
+		<path
+			d="M21 12.0001C20.9984 10.2634 20.4944 8.56429 19.5487 7.10764C18.6031 5.651 17.2562 4.49907 15.6705 3.79079C14.0848 3.08252 12.3281 2.84815 10.6121 3.11596C8.89623 3.38377 7.29445 4.14232 6 5.30011L3 8.00011"
+			stroke="#0F77D9"
+			strokeWidth="1.25"
+			strokeLinecap="round"
+			strokeLinejoin="round"
+		/>
+		<path
+			d="M21 22V16H15"
+			stroke="#0D7EE8"
+			strokeWidth="1.25"
+			strokeLinecap="round"
+			strokeLinejoin="round"
+		/>
+		<path
+			d="M3 12C3.00158 13.7367 3.5056 15.4358 4.45125 16.8925C5.39691 18.3491 6.74382 19.501 8.32951 20.2093C9.9152 20.9176 11.6719 21.152 13.3879 20.8841C15.1038 20.6163 16.7056 19.8578 18 18.7L21 16"
+			stroke="#0D7EE8"
+			strokeWidth="1.25"
+			strokeLinecap="round"
+			strokeLinejoin="round"
+		/>
+	</svg>
+);
+
+export const MailCheck = ( props ) => (
+	<svg
+		width="24"
+		height="24"
+		viewBox="0 0 24 24"
+		fill="none"
+		xmlns="http://www.w3.org/2000/svg"
+		{ ...props }
+	>
+		<path
+			d="M22 13V6C22 5.46957 21.7893 4.96086 21.4142 4.58579C21.0391 4.21071 20.5304 4 20 4H4C3.46957 4 2.96086 4.21071 2.58579 4.58579C2.21071 4.96086 2 5.46957 2 6V18C2 19.1 2.9 20 4 20H12"
+			stroke="#0F77D9"
+			strokeWidth="1.25"
+			strokeLinecap="round"
+			strokeLinejoin="round"
+		/>
+		<path
+			d="M22 7L13.03 12.7C12.7213 12.8934 12.3643 12.996 12 12.996C11.6357 12.996 11.2787 12.8934 10.97 12.7L2 7"
+			stroke="#0F77D9"
+			strokeWidth="1.25"
+			strokeLinecap="round"
+			strokeLinejoin="round"
+		/>
+		<path
+			d="M16 19L18 21L22 17"
+			stroke="#0D7EE8"
+			strokeWidth="1.25"
+			strokeLinecap="round"
+			strokeLinejoin="round"
+		/>
+	</svg>
+);
+
+export const Mails = ( props ) => (
+	<svg
+		width="24"
+		height="24"
+		viewBox="0 0 24 24"
+		fill="none"
+		xmlns="http://www.w3.org/2000/svg"
+		{ ...props }
+	>
+		<path
+			d="M20 4H8C6.89543 4 6 4.89543 6 6V15C6 16.1046 6.89543 17 8 17H20C21.1046 17 22 16.1046 22 15V6C22 4.89543 21.1046 4 20 4Z"
+			stroke="#0F77D9"
+			strokeWidth="1.25"
+			strokeLinecap="round"
+			strokeLinejoin="round"
+		/>
+		<path
+			d="M22 7L14.9 10.78C14.33 11.08 13.67 11.08 13.1 10.78L6 7"
+			stroke="#0F77D9"
+			strokeWidth="1.25"
+			strokeLinecap="round"
+			strokeLinejoin="round"
+		/>
+		<path
+			d="M2 8V19C2 20.1 2.9 21 4 21H18"
+			stroke="#0D7EE8"
+			strokeWidth="1.25"
+			strokeLinecap="round"
+			strokeLinejoin="round"
 		/>
 	</svg>
 );
