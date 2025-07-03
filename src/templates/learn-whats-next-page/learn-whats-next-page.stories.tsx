@@ -155,7 +155,7 @@ const Template = () => {
 				</Container.Item>
 				<Container.Item>
 					<Label size="sm" variant="help" className="text-text-primary">
-						To help you take full control and ensure success of your community, we've outlined a few tasks and prepared a set of instructional videos. These will help you learn how to setup, launch and grow your community.
+						To help you take full control and ensure success of your community, we have outlined a few tasks and prepared a set of instructional videos. These will help you learn how to setup, launch and grow your community.
 					</Label>
 				</Container.Item>
 			</Container>
