@@ -143,7 +143,7 @@ const Template = () => {
 			<Container
 				containerType="flex"
 				direction="column"
-				className="max-w-3xl mx-auto gap-0 mb-4"
+				className="max-w-3xl mx-auto gap-2 mb-6"
 			>
 				<Container.Item>
 					<Title
@@ -154,7 +154,7 @@ const Template = () => {
 					/>
 				</Container.Item>
 				<Container.Item>
-					<Label className="text-text-secondary text-base">
+					<Label size="sm" variant="help" className="text-text-primary">
 						To help you take full control and ensure success of your community, we've outlined a few tasks and prepared a set of instructional videos. These will help you learn how to setup, launch and grow your community.
 					</Label>
 				</Container.Item>
@@ -164,8 +164,7 @@ const Template = () => {
 			<Container
 				containerType="flex"
 				direction="column"
-				gap="lg"
-				className="max-w-3xl mx-auto bg-background-primary rounded-xl shadow-sm border border-border-subtle p-8"
+				className="max-w-3xl mx-auto bg-background-primary rounded-xl shadow-sm border border-border-subtle p-8 gap-6"
 			>
 				{ /* Header Section */ }
 				<Container.Item>
@@ -173,15 +172,12 @@ const Template = () => {
 						containerType="flex"
 						direction="row"
 						align="center"
-						gap="md"
-						className="w-full"
+						className="w-full gap-4"
 					>
 						<Container.Item className="flex-1">
 							<Title
-								size="md"
-								tag="h1"
-								title="Let&apos;s get ready to go live"
-								className="text-text-primary font-semibold text-lg"
+								size="sm"
+								title="Lets get ready to go live"
 							/>
 						</Container.Item>
 						<Container.Item>
@@ -210,7 +206,6 @@ const Template = () => {
 								size="sm"
 								icon={ <CheckCheck className="size-4" /> }
 								onClick={ markAllAsDone }
-								className="ml-4"
 							>
 								Mark All as Done
 							</Button>
@@ -223,7 +218,7 @@ const Template = () => {
 					<Container
 						containerType="flex"
 						direction="column"
-						gap="md"
+						className="gap-4"
 					>
 						{ steps.map( ( step ) => (
 							<Container.Item key={ step.id }>
