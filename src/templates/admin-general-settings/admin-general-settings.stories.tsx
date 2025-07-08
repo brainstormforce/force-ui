@@ -106,8 +106,7 @@ const Template = ( args: TemplateArgs = {} ) => {
 						<div className="flex items-center gap-2">
 							<Title
 								size="md"
-								tag="h1"
-								className="text-text-primary font-semibold"
+								tag="h4"
 								title="General Settings"
 							/>
 						</div>
@@ -136,7 +135,7 @@ const Template = ( args: TemplateArgs = {} ) => {
 							<div className="space-y-1.5">
 								<div className="flex items-center gap-1">
 									<label className="text-sm font-medium text-field-label">Delete Logs</label>
-									<Info className="w-4 h-4 text-icon-secondary" />
+									<Info className="s-3.5 text-icon-secondary" />
 								</div>
 								<Select
 									size="md"
@@ -155,7 +154,7 @@ const Template = ( args: TemplateArgs = {} ) => {
 										</Select.Options>
 									</Select.Portal>
 								</Select>
-								<Text size={ 14 } className="text-text-secondary">
+								<Text size={ 14 } className="text-field-helper">
 									Hint text can be added here. Link
 								</Text>
 							</div>
@@ -182,7 +181,7 @@ const Template = ( args: TemplateArgs = {} ) => {
 										</Select.Options>
 									</Select.Portal>
 								</Select>
-								<Text size={ 14 } className="text-text-secondary">
+								<Text size={ 14 } className="text-field-helper">
 									Hint text can be added here. Link
 								</Text>
 							</div>
