@@ -144,9 +144,7 @@ const Template = ( args: TemplateArgs = {} ) => {
 									onChange={ handleDeleteLogsChange }
 									by="id"
 								>
-									<Select.Button
-										render={ ( selected ) => ( selected as unknown as OptionType )?.name || 'Select option' }
-									/>
+									<Select.Button aria-label="Delete Logs" render={ ( selected ) => ( selected as unknown as OptionType )?.name || 'Select option' } />
 									<Select.Portal>
 										<Select.Options>
 											{ DELETE_LOG_OPTIONS.map( ( option ) => (
