@@ -62,7 +62,7 @@ const Template = ( args ) => {
 						title="Bring Your SEO Settings into SureRank"
 					/>
 					<Label className="text-text-secondary mt-1 text-sm max-w-[35rem] font-normal">
-						We found other SEO plugins installed on your website. Choose the ones you'd like to import data from into SureRank.
+						We found other SEO plugins installed on your website. Choose the ones you would like to import data from into SureRank.
 					</Label>
 				</div>
 				<div className="py-6">
