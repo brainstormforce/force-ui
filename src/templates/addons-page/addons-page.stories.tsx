@@ -1,4 +1,4 @@
-import { Container, Title, Text, Button, Badge } from '@/components';
+import { Container, Title, Text, Button, Badge, Topbar, Tabs } from '@/components';
 import {
 	Zap,
 	Shield,
@@ -9,7 +9,10 @@ import {
 	Image,
 	ShoppingCart,
 	ExternalLink,
+	HelpCircle,
+	Megaphone,
 } from 'lucide-react';
+import { SureEmailLogo } from '@/ui/icons';
 
 interface Addon {
 	id: string;
@@ -20,7 +23,7 @@ interface Addon {
 }
 
 export default {
-	title: 'Templates/Addons Page',
+	title: 'Templates/Addons/Addons Page',
 	parameters: {
 		layout: 'fullscreen',
 		a11y: {
@@ -249,7 +252,59 @@ const AddonCard = ( { addon, onInstall, onConfigure }: AddonCardProps ) => (
 export const AddonsPage = ( args: Record<string, unknown> ) => {
 	return (
 		<div className={ args.className as string }>
-			{ /* Main Content - No Topbar, simpler layout */ }
+			{ /* Top Navigation Bar */ }
+			<Topbar className="bg-background-primary border-b border-border-subtle">
+				<Topbar.Left>
+					<Topbar.Item>
+						<SureEmailLogo />
+					</Topbar.Item>
+				</Topbar.Left>
+				<Topbar.Middle>
+					<Topbar.Item>
+						<Tabs.Group
+							activeItem="addons"
+							variant="underline"
+							size="sm"
+							orientation="horizontal"
+							width="auto"
+						>
+							<Tabs.Tab slug="dashboard" text="Dashboard" />
+							<Tabs.Tab slug="settings" text="Settings" />
+							<Tabs.Tab slug="connections" text="Connections" />
+							<Tabs.Tab slug="email-logs" text="Email Logs" />
+							<Tabs.Tab slug="notifications" text="Notifications" />
+							<Tabs.Tab slug="addons" text="Add-ons" />
+						</Tabs.Group>
+					</Topbar.Item>
+				</Topbar.Middle>
+				<Topbar.Right>
+					<Topbar.Item>
+						<Badge
+							label="V 0.0.2"
+							variant="neutral"
+							size="xs"
+							type="pill"
+							closable={ false }
+						/>
+					</Topbar.Item>
+					<Topbar.Item>
+						<Container containerType="flex" align="center" gap="xs">
+							<Container.Item>
+								<Button variant="ghost" size="xs" className="p-1" aria-label="Support">
+									<HelpCircle className="size-4" />
+								</Button>
+							</Container.Item>
+							<Container.Item>
+								<Button variant="ghost" size="xs" className="p-1" aria-label="Notifications">
+									<Megaphone className="size-4" />
+								</Button>
+							</Container.Item>
+						</Container>
+					</Topbar.Item>
+				</Topbar.Right>
+			</Topbar>
+
+			{ /* Main Content */ }
 			<Container className="max-w-6xl mx-auto p-6">
 				<Container containerType="flex" direction="column" gap="lg">
 					{ /* Header Section */ }
