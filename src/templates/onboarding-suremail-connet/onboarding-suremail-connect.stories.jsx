@@ -8,7 +8,7 @@ import {
 	Badge,
 	Title,
 } from '@/components';
-import { SureEmailLogo, Gmail, MailJet, PepiPost, ElasticEmail, SparkPost, Brevo, Mailgun, SendGrid, PostMark, Amazon, AnySMTP, Microsoft, ZohoMail } from '@/ui/icons';
+import { SureEmailLogo, Gmail, PepiPost, MailJet, ElasticEmail, SparkPost, Brevo, Mailgun, SendGrid, PostMark, Amazon, AnySMTP, Microsoft, ZohoMail } from '@/ui/icons';
 
 export default {
 	title: 'Templates/Onboarding/SureMail Connect',
