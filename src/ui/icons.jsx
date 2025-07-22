@@ -616,3 +616,19 @@ export const EmailSetup = (props) => (
 		/>
 	</svg>
 );
+
+export const SureMailIcon = (props) => (
+	<svg
+		width="24"
+		height="24"
+		viewBox="0 0 24 24"
+		fill="none"
+		xmlns="http://www.w3.org/2000/svg"
+		{...props}
+	>
+		<path
+			d="M23.25 0H0.75C0.335787 0 0 0.335787 0 0.75V23.25C0 23.6642 0.335787 24 0.75 24H23.25C23.6642 24 24 23.6642 24 23.25V0.75C24 0.335787 23.6642 0 23.25 0Z"
+			fill="#0D7EE8"
+		/>
+	</svg>
+);
