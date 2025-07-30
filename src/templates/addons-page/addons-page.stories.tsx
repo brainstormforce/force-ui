@@ -12,7 +12,7 @@ import {
 	HelpCircle,
 	Megaphone,
 } from 'lucide-react';
-import { SureEmailLogo } from '@/ui/icons';
+import { SureRank } from '@/ui/icons';
 
 interface Addon {
 	id: string;
@@ -156,95 +156,92 @@ const AddonCard = ( { addon, onInstall, onConfigure }: AddonCardProps ) => (
 				containerType="flex"
 				align="start"
 				justify="between"
-				gap="sm"
+				className="p-1"
 			>
 				<Container.Item>
-					<Container
-						containerType="flex"
-						direction="column"
-						align="start"
-						gap="sm"
-					>
-						<Container.Item>
-							<div className="size-8" aria-hidden="true">
-								{ addon.icon }
-							</div>
-						</Container.Item>
-						<Container.Item>
-							<Text as="p" color="primary">
-								{ addon.name }
-							</Text>
-						</Container.Item>
-					</Container>
+					<div className="size-8" aria-hidden="true">
+						{ addon.icon }
+					</div>
 				</Container.Item>
 				<Container.Item>
 					<Badge label="Free" type="pill" variant="green" size="xs" />
 				</Container.Item>
 			</Container>
+			<Container
+				containerType="flex"
+				direction="column"
+				className="p-1 flex-1 gap-2"
+			>
+				<Container.Item className="mb-1">
+					<Text as="p" color="primary">
+						{ addon.name }
+					</Text>
+				</Container.Item>
+				<Container.Item className="flex-1">
+					<Text
+						as="p"
+						size={ 14 }
+						color="tertiary"
+						className="line-clamp-3 leading-relaxed font-normal"
+					>
+						{ addon.description }
+					</Text>
+				</Container.Item>
 
-			<Container.Item className="flex-1">
-				<Text
-					as="p"
-					size={ 14 }
-					color="tertiary"
-					className="line-clamp-3 leading-relaxed font-normal"
-				>
-					{ addon.description }
-				</Text>
-			</Container.Item>
-
-			<Container.Item>
-				<Container
-					containerType="flex"
-					align="center"
-					justify="between"
-					gap="sm"
-				>
-					<Container.Item>
-						{ addon.installed ? (
-							<Button
-								variant="outline"
-								size="sm"
-								onClick={ () => onConfigure?.( addon ) }
-								aria-label={ `Configure ${ addon.name }` }
-							>
-								Configure
-							</Button>
-						) : (
-							<Button
-								variant="outline"
-								size="sm"
-								onClick={ () => onInstall?.( addon ) }
-								aria-label={ `Install and activate ${ addon.name }` }
-							>
-								Install & Activate
-							</Button>
-						) }
-					</Container.Item>
-					<Container.Item>
-						<Container containerType="flex" align="center" gap="xs">
-							<Container.Item>
-								<Text
-									as="a"
-									size={ 12 }
-									color="link"
-									className="cursor-pointer no-underline focus:outline-none focus:ring-2 focus:ring-focus focus:ring-offset-2 rounded"
-									href="#"
-									aria-label={ `Learn more about ${ addon.name }` }
+				<Container.Item className="mt-auto">
+					<Container
+						containerType="flex"
+						align="center"
+						justify="between"
+						gap="sm"
+					>
+						<Container.Item>
+							{ addon.installed ? (
+								<Button
+									variant="outline"
+									size="sm"
+									onClick={ () => onConfigure?.( addon ) }
+									aria-label={ `Configure ${ addon.name }` }
+									className="bg-badge-background-green"
 								>
-									Learn More
-								</Text>
-							</Container.Item>
-							<Container.Item>
-								<ExternalLink
-									className="size-2.5 text-link-primary"
-									aria-hidden="true"
-								/>
-							</Container.Item>
-						</Container>
-					</Container.Item>
-				</Container>
-			</Container.Item>
+									Activated
+								</Button>
+							) : (
+								<Button
+									variant="outline"
+									size="sm"
+									onClick={ () => onInstall?.( addon ) }
+									aria-label={ `Install and activate ${ addon.name }` }
+								>
+									Install & Activate
+								</Button>
+							) }
+						</Container.Item>
+						<Container.Item>
+							<Container containerType="flex" align="center" gap="xs">
+								<Container.Item>
+									<Text
+										as="a"
+										size={ 12 }
+										color="link"
+										className="cursor-pointer no-underline focus:outline-none focus:ring-2 focus:ring-focus focus:ring-offset-2 rounded"
+										href="#"
+										aria-label={ `Learn more about ${ addon.name }` }
+									>
+										Learn More
+									</Text>
+								</Container.Item>
+								<Container.Item>
+									<ExternalLink
+										className="size-2.5 text-link-primary"
+										aria-hidden="true"
+									/>
+								</Container.Item>
+							</Container>
+						</Container.Item>
+					</Container>
+				</Container.Item>
+			</Container>
 		</Container.Item>
 	</Container>
 );
@@ -256,10 +253,8 @@ export const AddonsPage = ( args: Record<string, unknown> ) => {
 			<Topbar className="bg-background-primary border-b border-border-subtle">
 				<Topbar.Left>
 					<Topbar.Item>
-						<SureEmailLogo />
+						<SureRank />
 					</Topbar.Item>
-				</Topbar.Left>
-				<Topbar.Middle>
 					<Topbar.Item>
 						<Tabs.Group
 							activeItem="addons"
@@ -267,6 +262,7 @@ export const AddonsPage = ( args: Record<string, unknown> ) => {
 							size="sm"
 							orientation="horizontal"
 							width="auto"
+							className="bg-background-primary border-0 text-align-left"
 						>
 							<Tabs.Tab slug="dashboard" text="Dashboard" />
 							<Tabs.Tab slug="settings" text="Settings" />
@@ -276,7 +272,7 @@ export const AddonsPage = ( args: Record<string, unknown> ) => {
 							<Tabs.Tab slug="addons" text="Add-ons" />
 						</Tabs.Group>
 					</Topbar.Item>
-				</Topbar.Middle>
+				</Topbar.Left>
 				<Topbar.Right>
 					<Topbar.Item>
 						<Badge
@@ -305,8 +301,8 @@ export const AddonsPage = ( args: Record<string, unknown> ) => {
 			</Topbar>
 
 			{ /* Main Content */ }
-			<Container className="max-w-6xl mx-auto p-6">
-				<Container containerType="flex" direction="column" gap="lg">
+			<Container className="max-w-6xl mx-auto p-8">
+				<Container containerType="flex" direction="column" className="gap-6">
 					{ /* Header Section */ }
 					<Container.Item>
 						<Title
@@ -317,81 +313,82 @@ export const AddonsPage = ( args: Record<string, unknown> ) => {
 						/>
 					</Container.Item>
 
-					{ /* Recommended Plugins Section */ }
-					<Container.Item>
-						<Container
-							containerType="flex"
-							direction="column"
-							gap="md"
-						>
-							<Container.Item>
-								<Title
-									tag="h5"
-									title="Recommended Plugins"
-									size="sm"
-									className="text-text-primary"
-								/>
-							</Container.Item>
-							<Container.Item>
-								<Container
-									containerType="grid"
-									className="grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
-								>
-									{ addonsData.map( ( addon ) => (
-										<Container.Item key={ addon.id }>
-											<AddonCard
-												addon={ addon }
-												onInstall={ () => {
-													// Handle install action
-												} }
-												onConfigure={ () => {
-													// Handle configure action
-												} }
-											/>
-										</Container.Item>
-									) ) }
-								</Container>
-							</Container.Item>
-						</Container>
-					</Container.Item>
+					<Container className="p-6 gap-4 bg-background-primary rounded-xl shadow-sm" direction="column">
+						{ /* Recommended Plugins Section */ }
+						<Container.Item >
+							<Container
+								containerType="flex"
+								direction="column"
+							>
+								<Container.Item>
+									<Title
+										tag="h5"
+										title="Recommended Plugins"
+										size="sm"
+										className="text-text-primary"
+									/>
+								</Container.Item>
+								<Container.Item>
+									<Container
+										containerType="grid"
+										className="grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+									>
+										{ addonsData.map( ( addon ) => (
+											<Container.Item key={ addon.id }>
+												<AddonCard
+													addon={ addon }
+													onInstall={ () => {
+														// Handle install action
+													} }
+													onConfigure={ () => {
+														// Handle configure action
+													} }
+												/>
+											</Container.Item>
+										) ) }
+									</Container>
+								</Container.Item>
+							</Container>
+						</Container.Item>
 
-					{ /* Recommended Themes Section */ }
-					<Container.Item>
-						<Container
-							containerType="flex"
-							direction="column"
-							gap="md"
-						>
-							<Container.Item>
-								<Title
-									tag="h5"
-									title="Recommended Themes"
-									size="sm"
-									className="text-text-primary"
-								/>
-							</Container.Item>
-							<Container.Item>
-								<Container
-									containerType="grid"
-									className="grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
-								>
-									{ themesData.map( ( theme ) => (
-										<Container.Item key={ theme.id }>
-											<AddonCard
-												addon={ theme }
-												onInstall={ () => {
-													// Handle install action
-												} }
-												onConfigure={ () => {
-													// Handle configure action
-												} }
-											/>
-										</Container.Item>
-									) ) }
-								</Container>
-							</Container.Item>
-						</Container>
-					</Container.Item>
+						{ /* Recommended Themes Section */ }
+						<Container.Item>
+							<Container
+								containerType="flex"
+								direction="column"
+								gap="md"
+							>
+								<Container.Item>
+									<Title
+										tag="h5"
+										title="Recommended Themes"
+										size="sm"
+										className="text-text-primary"
+									/>
+								</Container.Item>
+								<Container.Item>
+									<Container
+										containerType="grid"
+										className="grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+									>
+										{ themesData.map( ( theme ) => (
+											<Container.Item key={ theme.id }>
+												<AddonCard
+													addon={ theme }
+													onInstall={ () => {
+														// Handle install action
+													} }
+													onConfigure={ () => {
+														// Handle configure action
+													} }
+												/>
+											</Container.Item>
+										) ) }
+									</Container>
+								</Container.Item>
+							</Container>
+						</Container.Item>
+					</Container>
 				</Container>
 			</Container>
 		</div>
