@@ -125,9 +125,9 @@ export const UAEDashboard = ( args ) => {
 				{ /* Navigation Topbar */ }
 				<Topbar
 					gap="0"
-					className="h-16 p-0 shadow-sm bg-background-primary border-b border-border-subtle"
+					className="h-14 p-0 shadow-sm bg-background-primary border-b border-border-subtle min-h-14"
 				>
-					<Topbar.Left className="p-4">
+					<Topbar.Left className="p-3">
 						<Topbar.Item>
 							<img
 								src="./src/templates/uae-dashboard/assets/uae-logo-header.svg"
@@ -185,12 +185,8 @@ export const UAEDashboard = ( args ) => {
 									icon={ <Megaphone /> }
 									aria-label="Notifications"
 								/>
-								<Badge
-									label="14"
-									size="xxs"
-									variant="red"
-									closable={ false }
-									className="absolute -top-1 -right-1 !rounded-full"
+								<div
+									className="absolute top-0 right-0 size-1.5 rounded-full bg-brand-primary-600"
 								/>
 							</div>
 						</Topbar.Item>
