@@ -31,7 +31,7 @@ export default {
 	decorators: [
 		( Story, parameters ) => (
 			<div className="@container">
-				<div className="box-border [&_*]:box-border @[80rem]:w-full w-[1376px]">
+				<div className="box-border [&_*]:box-border w-full">
 					<Story { ...parameters } />
 				</div>
 			</div>
@@ -199,7 +199,7 @@ export const UAEDashboard = ( args ) => {
 						className="mx-auto"
 					>
 						{ /* Main Content Column */ }
-						<Container.Item colSpan={ 8 } className="space-y-8">
+						<Container.Item colSpan={ { sm: 12, md: 12, lg: 8 } } className="space-y-8">
 							{ /* Welcome Banner */ }
 							<div className="bg-background-primary rounded-xl shadow-sm border-0.5 border-solid border-border-subtle p-4">
 								<div className="flex items-center gap-8">
@@ -272,7 +272,7 @@ export const UAEDashboard = ( args ) => {
 								<div className="bg-field-primary-background rounded-lg border border-border-subtle-lg p-1">
 									<Container
 										containerType="grid"
-										cols={ { sm: 2, md: 3, lg: 4 } }
+										cols={ { sm: 2, md: 2, lg: 4 } }
 										className="gap-1"
 									>
 										{ switchState.map( ( widget ) => (
@@ -401,7 +401,7 @@ export const UAEDashboard = ( args ) => {
 						</Container.Item>
 
 						{ /* Sidebar Column */ }
-						<Container.Item colSpan={ 4 } className="space-y-6">
+						<Container.Item colSpan={ { sm: 12, md: 12, lg: 4 } } className="space-y-6">
 							{ /* Upgrade to Pro */ }
 							<div className="bg-background-primary rounded-xl shadow-sm border-0.5 border-solid border-border-subtle overflow-hidden">
 								<img
