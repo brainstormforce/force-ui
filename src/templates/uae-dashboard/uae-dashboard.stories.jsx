@@ -289,20 +289,28 @@ export const UAEDashboard = ( args ) => {
 																interactive
 																arrow
 															>
+																<div>
+																	<Switch
+																		id={ `switch-${ widget.id }` }
+																		value={ widget.enabled }
+																		disabled={ widget.isPro }
+																		size="sm"
+																		onChange={ handleSwitchChange( widget.id ) }
+																	/>
+																	<label htmlFor={ `switch-${ widget.id }` } className="sr-only" />
+																</div>
+															</Tooltip>
+														) : (
+															<div>
 																<Switch
+																	id={ `switch-${ widget.id }` }
 																	value={ widget.enabled }
 																	disabled={ widget.isPro }
 																	size="sm"
 																	onChange={ handleSwitchChange( widget.id ) }
 																/>
-															</Tooltip>
-														) : (
-															<Switch
-																value={ widget.enabled }
-																disabled={ widget.isPro }
-																size="sm"
-																onChange={ handleSwitchChange( widget.id ) }
-															/>
+																<label htmlFor={ `switch-${ widget.id }` } className="sr-only" />
+															</div>
 														)
 													}
 												</div>
