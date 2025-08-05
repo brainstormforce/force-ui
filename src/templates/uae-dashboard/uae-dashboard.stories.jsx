@@ -108,7 +108,7 @@ const proFeatures = [
 
 export const UAEDashboard = ( args ) => {
 	return (
-		<div { ...args } className="min-h-screen bg-gray-50">
+		<div { ...args } className="min-h-screen bg-background-secondary">
 
 			{ /* Main Content */ }
 			<div className="w-full min-h-screen">
@@ -130,25 +130,25 @@ export const UAEDashboard = ( args ) => {
 						<Topbar.Item className="gap-8">
 							<a
 								href="#"
-								className="h-full flex items-center px-1 text-sm font-medium text-gray-900 border-b-2 border-purple-600"
+								className="h-full flex items-center px-1 text-sm font-medium text-text-primary border-x-0 border-t-0 border-b-1 border-solid border-border-interactive no-underline hover:no-underline"
 							>
 								Dashboard
 							</a>
 							<a
 								href="#"
-								className="h-full flex items-center px-1 text-sm font-medium text-gray-600 hover:text-gray-900"
+								className="h-full flex items-center px-1 text-sm font-medium text-text-secondary hover:text-text-primary no-underline hover:no-underline"
 							>
 								Header & Footer Builder
 							</a>
 							<a
 								href="#"
-								className="h-full flex items-center px-1 text-sm font-medium text-gray-600 hover:text-gray-900"
+								className="h-full flex items-center px-1 text-sm font-medium text-text-secondary hover:text-text-primary no-underline hover:no-underline"
 							>
 								Widgets
 							</a>
 							<a
 								href="#"
-								className="h-full flex items-center px-1 text-sm font-medium text-gray-600 hover:text-gray-900"
+								className="h-full flex items-center px-1 text-sm font-medium text-text-secondary hover:text-text-primary no-underline hover:no-underline"
 							>
 								Settings
 							</a>
@@ -205,9 +205,9 @@ export const UAEDashboard = ( args ) => {
 											tag="h2"
 											title="Welcome to Ultimate Addons for Elementor!"
 											size="lg"
-											className="text-gray-900 mb-2"
+											className="text-text-primary mb-2"
 										/>
-										<Text className="text-gray-600 mb-6">
+										<Text className="text-text-secondary mb-6">
 											Effortlessly design modern websites
 											with UAE using our powerful range of
 											widgets & features. Get started by
@@ -252,19 +252,23 @@ export const UAEDashboard = ( args ) => {
 										tag="h3"
 										title="Widgets / Features"
 										size="md"
-										className="text-gray-900"
+										className="text-text-primary"
 									/>
 								</div>
 
 								<div className="bg-gray-50 rounded-lg p-1">
-									<div className="grid grid-cols-3 gap-1">
+									<Container
+										containerType="grid"
+										cols={ { sm: 2, md: 3, lg: 4 } }
+										className="gap-1"
+									>
 										{ widgetData.map( ( widget ) => (
 											<div
 												key={ widget.id }
 												className="bg-white rounded p-3 shadow-sm"
 											>
 												<div className="flex items-center justify-between mb-3">
-													<widget.icon className="w-5 h-5 text-gray-600" />
+													<widget.icon className="w-5 h-5 text-text-secondary" />
 													<Switch
 														value={ widget.enabled }
 														disabled={ widget.isPro }
@@ -272,7 +276,7 @@ export const UAEDashboard = ( args ) => {
 													/>
 												</div>
 												<div className="flex items-center justify-between">
-													<Text className="text-sm font-medium text-gray-900">
+													<Text className="text-sm font-medium text-text-primary">
 														{ widget.title }
 													</Text>
 													<Button
@@ -284,7 +288,7 @@ export const UAEDashboard = ( args ) => {
 												</div>
 											</div>
 										) ) }
-									</div>
+									</Container>
 								</div>
 
 								<div className="flex justify-center mt-4">
@@ -304,7 +308,7 @@ export const UAEDashboard = ( args ) => {
 									tag="h3"
 									title="Super Charge Your Workflow"
 									size="md"
-									className="text-gray-900 mb-4"
+									className="text-text-primary mb-4"
 								/>
 
 								<div className="bg-gray-50 rounded-lg p-1">
@@ -322,7 +326,7 @@ export const UAEDashboard = ( args ) => {
 													size="sm"
 													className="text-purple-900 mb-2"
 												/>
-												<Text className="text-gray-600 mb-4">
+												<Text className="text-text-secondary mb-4">
 													Rank higher with effortless
 													SEO optimization. SureRank
 													offers a simple,
@@ -362,7 +366,7 @@ export const UAEDashboard = ( args ) => {
 									<div className="absolute inset-0 bg-black/10" />
 									<div className="relative h-full flex items-end p-6">
 										<div className="text-white">
-											<Text className="text-xs font-bold mb-2 text-gray-600">
+											<Text className="text-xs font-bold mb-2 text-text-secondary">
 												BUILD YOUR DREAM
 											</Text>
 											<Button
@@ -372,7 +376,7 @@ export const UAEDashboard = ( args ) => {
 											>
 												View Projects
 											</Button>
-											<Text className="text-sm mt-2 text-gray-600">
+											<Text className="text-sm mt-2 text-text-secondary">
 												Transforming Spaces with Purpose
 											</Text>
 										</div>
@@ -394,7 +398,7 @@ export const UAEDashboard = ( args ) => {
 										className="text-purple-900 mb-2"
 									/>
 
-									<Text className="text-gray-600 mb-4">
+									<Text className="text-text-secondary mb-4">
 										Streamline your workflow, skip the
 										repetitive tasks, and build modern,
 										high-performance websites.
@@ -429,7 +433,7 @@ export const UAEDashboard = ( args ) => {
 									tag="h3"
 									title="Quick Access"
 									size="md"
-									className="text-gray-900 mb-4"
+									className="text-text-primary mb-4"
 								/>
 
 								<div className="space-y-2">
@@ -459,15 +463,15 @@ export const UAEDashboard = ( args ) => {
 
 									<div className="flex items-center justify-center p-3 bg-gray-50 rounded">
 										<div className="flex items-center gap-2">
-											<CircleHelp className="w-4 h-4 text-gray-600" />
-											<Text className="text-sm text-gray-900">
+											<CircleHelp className="w-4 h-4 text-text-secondary" />
+											<Text className="text-sm text-text-primary">
 												Help Centre
 											</Text>
 										</div>
 									</div>
 
 									<div className="flex items-center justify-center p-3 bg-gray-50 rounded">
-										<Text className="text-sm text-gray-900">
+										<Text className="text-sm text-text-primary">
 											Request a Feature
 										</Text>
 									</div>
