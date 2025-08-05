@@ -202,8 +202,8 @@ export const UAEDashboard = ( args ) => {
 						<Container.Item colSpan={ { sm: 12, md: 12, lg: 8 } } className="space-y-8">
 							{ /* Welcome Banner */ }
 							<div className="bg-background-primary rounded-xl shadow-sm border-0.5 border-solid border-border-subtle p-4">
-								<div className="flex items-center gap-8">
-									<div className="flex-1 space-y-4">
+								<div className="flex items-center flex-col md:flex-row gap-8">
+									<div className="flex-1 space-y-4 order-2 md:order-1">
 										<Text
 											as="h3"
 											size={ 24 }
@@ -238,7 +238,7 @@ export const UAEDashboard = ( args ) => {
 											</Button>
 										</div>
 									</div>
-									<div className="w-76 h-40 bg-field-primary-background rounded border border-border-subtle flex items-center justify-center relative overflow-hidden">
+									<div className="w-full md:w-72 h-auto md:h-40 bg-field-primary-background rounded border border-border-subtle flex items-center justify-center relative overflow-hidden order-1 md:order-2">
 										<img
 											src="./src/templates/uae-dashboard/assets/video-background.svg"
 											alt="Getting Started Video"
@@ -272,7 +272,7 @@ export const UAEDashboard = ( args ) => {
 								<div className="bg-field-primary-background rounded-lg border border-border-subtle-lg p-1">
 									<Container
 										containerType="grid"
-										cols={ { sm: 2, md: 2, lg: 4 } }
+										cols={ { sm: 1, md: 2, lg: 4 } }
 										className="gap-1"
 									>
 										{ switchState.map( ( widget ) => (
