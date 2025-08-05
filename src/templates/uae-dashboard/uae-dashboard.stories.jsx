@@ -6,6 +6,7 @@ import {
 	Button,
 	Switch,
 	Text,
+	Tooltip,
 } from '@/components';
 import {
 	ArrowUpRight,
@@ -19,7 +20,11 @@ import {
 	Headphones,
 	BookOpen,
 	Quote,
+	MessageSquare,
+	MessageSquareCode,
+	Play,
 } from 'lucide-react';
+import { useState } from 'react';
 
 export default {
 	title: 'Templates/Dashboard/UAE Dashboard',
@@ -41,56 +46,56 @@ export default {
 const widgetData = [
 	{
 		id: '1',
-		icon: Quote,
+		icon: MessageSquareCode,
 		title: 'Navigation Menu',
 		enabled: true,
 		isPro: false,
 	},
 	{
 		id: '2',
-		icon: Quote,
+		icon: MessageSquareCode,
 		title: 'Info Card',
 		enabled: true,
 		isPro: false,
 	},
 	{
 		id: '3',
-		icon: Quote,
+		icon: MessageSquareCode,
 		title: 'Post Info',
 		enabled: true,
 		isPro: false,
 	},
 	{
 		id: '4',
-		icon: Quote,
+		icon: MessageSquareCode,
 		title: 'Modal Popup',
 		enabled: false,
 		isPro: true,
 	},
 	{
 		id: '5',
-		icon: Quote,
+		icon: MessageSquareCode,
 		title: 'Info Box',
 		enabled: false,
 		isPro: true,
 	},
 	{
 		id: '6',
-		icon: Quote,
+		icon: MessageSquareCode,
 		title: 'Content Toggle',
 		enabled: false,
 		isPro: true,
 	},
 	{
 		id: '7',
-		icon: Quote,
+		icon: MessageSquareCode,
 		title: 'Post Widget',
 		enabled: false,
 		isPro: true,
 	},
 	{
 		id: '8',
-		icon: Quote,
+		icon: MessageSquareCode,
 		title: 'Marketing Button',
 		enabled: false,
 		isPro: true,
@@ -107,6 +112,11 @@ const proFeatures = [
 ];
 
 export const UAEDashboard = ( args ) => {
+	const [ switchState, setSwitchState ] = useState( widgetData.map( ( widget ) => ( { ...widget } ) ) );
+	const handleSwitchChange = ( id ) => ( value ) => {
+		setSwitchState( switchState.map( ( widget ) => ( widget.id === id ? { ...widget, enabled: value } : widget ) ) );
+	};
+
 	return (
 		<div { ...args } className="min-h-screen bg-background-secondary">
 
@@ -115,7 +125,7 @@ export const UAEDashboard = ( args ) => {
 				{ /* Navigation Topbar */ }
 				<Topbar
 					gap="0"
-					className="h-16 p-0 shadow-sm bg-white border-b"
+					className="h-16 p-0 shadow-sm bg-background-primary border-b border-border-subtle"
 				>
 					<Topbar.Left className="p-4">
 						<Topbar.Item>
@@ -198,16 +208,25 @@ export const UAEDashboard = ( args ) => {
 						{ /* Main Content Column */ }
 						<Container.Item colSpan={ 8 } className="space-y-8">
 							{ /* Welcome Banner */ }
-							<div className="bg-white rounded-xl shadow-sm border border-gray-200 p-4">
+							<div className="bg-background-primary rounded-xl shadow-sm border-0.5 border-solid border-border-subtle p-4">
 								<div className="flex items-center gap-8">
-									<div className="flex-1">
-										<Title
-											tag="h2"
-											title="Welcome to Ultimate Addons for Elementor!"
-											size="lg"
-											className="text-text-primary mb-2"
-										/>
-										<Text className="text-text-secondary mb-6">
+									<div className="flex-1 space-y-4">
+										<Text
+											as="h3"
+											size={ 24 }
+											weight={ 600 }
+											color="primary"
+											className="mb-2"
+										>
+											Welcome to Ultimate Addons for Elementor!
+										</Text>
+										<Text
+											as="p"
+											size={ 14 }
+											weight={ 400 }
+											color="secondary"
+											className="mb-6"
+										>
 											Effortlessly design modern websites
 											with UAE using our powerful range of
 											widgets & features. Get started by
@@ -226,9 +245,9 @@ export const UAEDashboard = ( args ) => {
 											</Button>
 										</div>
 									</div>
-									<div className="w-76 h-40 bg-gray-100 rounded flex items-center justify-center relative overflow-hidden">
+									<div className="w-76 h-40 bg-field-primary-background rounded border border-border-subtle flex items-center justify-center relative overflow-hidden">
 										<img
-											src="./src/templates/uae-dashboard/assets/video-preview-43d1bf.png"
+											src="./src/templates/uae-dashboard/assets/video-background.svg"
 											alt="Getting Started Video"
 											className="w-full h-full object-cover rounded"
 										/>
@@ -236,9 +255,9 @@ export const UAEDashboard = ( args ) => {
 											variant="ghost"
 											size="lg"
 											icon={
-												<CirclePlay className="w-8 h-8 text-purple-600" />
+												<Play className="size-8 fill-brand-primary-600 text-brand-primary-600" />
 											}
-											className="absolute inset-0 bg-white/90 hover:bg-white/95"
+											className="bg-background-primary/20 rounded-full size-10 hover:bg-background-primary/95 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 focus:[box-shadow:none]"
 											aria-label="Play video"
 										/>
 									</div>
@@ -246,45 +265,71 @@ export const UAEDashboard = ( args ) => {
 							</div>
 
 							{ /* Widgets & Features */ }
-							<div className="bg-white rounded-xl shadow-sm border border-gray-200 p-4">
-								<div className="flex items-center justify-between mb-4">
-									<Title
-										tag="h3"
-										title="Widgets / Features"
-										size="md"
-										className="text-text-primary"
-									/>
-								</div>
+							<div className="bg-background-primary rounded-xl shadow-sm border-0.5 border-solid border-border-subtle p-4">
+								<Text
+									as="h4"
+									size={ 14 }
+									weight={ 600 }
+									color="primary"
+									className="mb-2 p-1"
+								>
+									Widgets / Features
+								</Text>
 
-								<div className="bg-gray-50 rounded-lg p-1">
+								<div className="bg-field-primary-background rounded-lg border border-border-subtle-lg p-1">
 									<Container
 										containerType="grid"
 										cols={ { sm: 2, md: 3, lg: 4 } }
 										className="gap-1"
 									>
-										{ widgetData.map( ( widget ) => (
+										{ switchState.map( ( widget ) => (
 											<div
 												key={ widget.id }
-												className="bg-white rounded p-3 shadow-sm"
+												className="bg-background-primary rounded p-3 shadow-sm"
 											>
-												<div className="flex items-center justify-between mb-3">
-													<widget.icon className="w-5 h-5 text-text-secondary" />
-													<Switch
-														value={ widget.enabled }
-														disabled={ widget.isPro }
-														size="sm"
-													/>
+												<div className="flex items-center justify-between mb-4">
+													<widget.icon className="w-5 h-5 text-icon-primary" />
+													{
+														widget.isPro ? (
+															<Tooltip
+																content={ ( <>Available in UAE Pro. Click to <Text as="a" color="link" href="#" target="_self" className="no-underline hover:no-underline">learn more.</Text></> ) }
+																interactive
+																arrow
+															>
+																<Switch
+																	value={ widget.enabled }
+																	disabled={ widget.isPro }
+																	size="sm"
+																	onChange={ handleSwitchChange( widget.id ) }
+																/>
+															</Tooltip>
+														) : (
+															<Switch
+																value={ widget.enabled }
+																disabled={ widget.isPro }
+																size="sm"
+																onChange={ handleSwitchChange( widget.id ) }
+															/>
+														)
+													}
 												</div>
 												<div className="flex items-center justify-between">
-													<Text className="text-sm font-medium text-text-primary">
+													<Text size={ 14 } weight={ 500 } color="primary">
 														{ widget.title }
 													</Text>
-													<Button
-														variant="link"
-														size="xs"
-														icon={ <Monitor /> }
-														aria-label="Preview"
-													/>
+													<Tooltip
+														content="View Demo"
+														interactive
+														arrow
+													>
+														<Button
+															variant="ghost"
+															size="xs"
+															className="[&>svg]:text-icon-secondary [&>svg]:size-3.5"
+															icon={ <Monitor /> }
+															aria-label="Preview"
+														/>
+													</Tooltip>
 												</div>
 											</div>
 										) ) }
@@ -303,30 +348,41 @@ export const UAEDashboard = ( args ) => {
 							</div>
 
 							{ /* Super Charge Your Workflow */ }
-							<div className="bg-white rounded-xl shadow-sm border border-gray-200 p-3">
-								<Title
-									tag="h3"
-									title="Super Charge Your Workflow"
-									size="md"
-									className="text-text-primary mb-4"
-								/>
+							<div className="bg-background-primary rounded-xl shadow-sm border-0.5 border-solid border-border-subtle p-3">
+								<Text
+									as="h4"
+									size={ 14 }
+									weight={ 600 }
+									color="primary"
+									className="mb-2 p-1"
+								>
+									Super Charge Your Workflow
+								</Text>
 
-								<div className="bg-gray-50 rounded-lg p-1">
-									<div className="bg-white rounded p-4 border">
-										<div className="flex items-start gap-4">
+								<div className="bg-field-primary-background rounded-lg border border-border-subtle-lg p-1">
+									<div className="bg-background-primary rounded p-4 border border-border-subtle">
+										<div className="flex flex-col items-start gap-4">
 											<img
 												src="./src/templates/uae-dashboard/assets/surerank-logo.svg"
 												alt="SureRank Logo"
-												className="w-32 h-5 mt-1"
+												className="w-32 h-7"
 											/>
 											<div className="flex-1">
-												<Title
-													tag="h4"
-													title="Boost Your Traffic with Easy SEO Optimization!"
-													size="sm"
-													className="text-purple-900 mb-2"
-												/>
-												<Text className="text-text-secondary mb-4">
+												<Text
+													as="h4"
+													size={ 16 }
+													weight={ 600 }
+													color="primary"
+													className="mb-2"
+												>
+													Boost Your Traffic with Easy SEO Optimization!
+												</Text>
+												<Text
+													as="p"
+													size={ 14 }
+													weight={ 400 }
+													color="secondary"
+												>
 													Rank higher with effortless
 													SEO optimization. SureRank
 													offers a simple,
@@ -338,13 +394,13 @@ export const UAEDashboard = ( args ) => {
 													makes sense, helping you
 													grow your traffic easily.
 												</Text>
-												<Button
-													variant="outline"
-													size="sm"
-												>
-													Install & Activate
-												</Button>
 											</div>
+											<Button
+												variant="outline"
+												size="sm"
+											>
+												Install & Activate
+											</Button>
 										</div>
 									</div>
 								</div>
@@ -354,64 +410,47 @@ export const UAEDashboard = ( args ) => {
 						{ /* Sidebar Column */ }
 						<Container.Item colSpan={ 4 } className="space-y-6">
 							{ /* Upgrade to Pro */ }
-							<div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
-								<div
-									className="h-44 bg-gradient-to-br from-purple-100 to-gray-100 relative"
-									style={ {
-										backgroundImage: `url('./src/templates/uae-dashboard/assets/upgrade-bg.png')`,
-										backgroundSize: 'cover',
-										backgroundPosition: 'center',
-									} }
-								>
-									<div className="absolute inset-0 bg-black/10" />
-									<div className="relative h-full flex items-end p-6">
-										<div className="text-white">
-											<Text className="text-xs font-bold mb-2 text-text-secondary">
-												BUILD YOUR DREAM
-											</Text>
-											<Button
-												variant="outline"
-												size="xs"
-												className="border-purple-600 text-purple-700 bg-white/90"
-											>
-												View Projects
-											</Button>
-											<Text className="text-sm mt-2 text-text-secondary">
-												Transforming Spaces with Purpose
+							<div className="bg-background-primary rounded-xl shadow-sm border-0.5 border-solid border-border-subtle overflow-hidden">
+								<img
+									src="./src/templates/uae-dashboard/assets/upgrade-banner.svg"
+									alt="Upgrade to Pro"
+									className="w-full relative object-contain px-3 pt-2"
+								/>
+
+								<div className="p-5 space-y-6">
+									<div className="space-y-1">
+										<div className="flex items-center gap-2 mb-1">
+											<Rocket className="size-4 text-brand-primary-600" />
+											<Text size={ 12 } weight={ 600 } color="brand600">
+												Unlock Ultimate Features
 											</Text>
 										</div>
-									</div>
-								</div>
 
-								<div className="p-4">
-									<div className="flex items-center gap-2 mb-4">
-										<Rocket className="w-4 h-4 text-purple-600" />
-										<Text className="text-xs font-semibold text-purple-600">
-											Unlock Ultimate Features
+										<Text
+											as="h4"
+											size={ 18 }
+											weight={ 600 }
+											color="primary"
+											className="mb-1"
+										>
+											Bring Your Vision to Life with UAE Pro
+										</Text>
+
+										<Text className="mb-6" color="secondary">
+											Streamline your workflow, skip the
+											repetitive tasks, and build modern,
+											high-performance websites.
 										</Text>
 									</div>
 
-									<Title
-										tag="h3"
-										title="Bring Your Vision to Life with UAE Pro"
-										size="lg"
-										className="text-purple-900 mb-2"
-									/>
-
-									<Text className="text-text-secondary mb-4">
-										Streamline your workflow, skip the
-										repetitive tasks, and build modern,
-										high-performance websites.
-									</Text>
-
-									<div className="space-y-2 mb-6">
+									<div className="grid grid-cols-2 gap-2 mb-6">
 										{ proFeatures.map( ( feature, index ) => (
 											<div
 												key={ index }
-												className="flex items-center gap-2"
+												className="flex items-center gap-1"
 											>
-												<Check className="w-4 h-4 text-purple-600" />
-												<Text className="text-sm text-purple-900">
+												<Check className="size-4 text-icon-interactive" />
+												<Text size={ 14 } weight={ 500 } color="primary">
 													{ feature }
 												</Text>
 											</div>
@@ -420,7 +459,7 @@ export const UAEDashboard = ( args ) => {
 
 									<Button
 										variant="primary"
-										className="w-full bg-purple-600 hover:bg-purple-700"
+										className="w-full bg-button-primary hover:bg-button-primary-hover"
 									>
 										Upgrade Now
 									</Button>
@@ -428,19 +467,22 @@ export const UAEDashboard = ( args ) => {
 							</div>
 
 							{ /* Quick Access */ }
-							<div className="bg-white rounded-xl shadow-sm border border-gray-200 p-3">
-								<Title
-									tag="h3"
-									title="Quick Access"
-									size="md"
-									className="text-text-primary mb-4"
-								/>
+							<div className="bg-background-primary rounded-xl space-y-2 shadow-sm border-0.5 border-solid border-border-subtle p-3">
+								<Text
+									as="h4"
+									size={ 14 }
+									weight={ 600 }
+									color="primary"
+									className="p-1"
+								>
+									Quick Access
+								</Text>
 
-								<div className="space-y-2">
-									<div className="flex items-center justify-between p-3 bg-gray-50 rounded border">
+								<div className="space-y-1 p-1 bg-field-primary-background rounded-lg">
+									<div className="flex items-center justify-between p-3 bg-background-primary rounded shadow-sm">
 										<div className="flex items-center gap-3">
-											<Headphones className="w-4 h-4 text-purple-900" />
-											<Text className="text-sm font-medium text-purple-900">
+											<Headphones className="size-4 text-icon-primary" />
+											<Text size={ 14 } weight={ 500 } color="primary">
 												VIP Priority Support
 											</Text>
 										</div>
@@ -452,28 +494,31 @@ export const UAEDashboard = ( args ) => {
 										/>
 									</div>
 
-									<div className="flex items-center justify-between p-3 bg-gray-50 rounded border">
+									<div className="flex items-center justify-between p-3 bg-background-primary rounded shadow-sm">
 										<div className="flex items-center gap-3">
-											<BookOpen className="w-4 h-4 text-purple-900" />
-											<Text className="text-sm font-medium text-purple-900">
+											<BookOpen className="size-4 text-icon-primary" />
+											<Text size={ 14 } weight={ 500 } color="primary">
 												Knowledge Base
 											</Text>
 										</div>
 									</div>
 
-									<div className="flex items-center justify-center p-3 bg-gray-50 rounded">
+									<div className="flex items-center justify-start p-3 bg-background-primary rounded shadow-sm">
 										<div className="flex items-center gap-2">
-											<CircleHelp className="w-4 h-4 text-text-secondary" />
-											<Text className="text-sm text-text-primary">
+											<CircleHelp className="size-4 text-icon-primary" />
+											<Text size={ 14 } weight={ 500 } color="primary">
 												Help Centre
 											</Text>
 										</div>
 									</div>
 
-									<div className="flex items-center justify-center p-3 bg-gray-50 rounded">
-										<Text className="text-sm text-text-primary">
-											Request a Feature
-										</Text>
+									<div className="flex items-center justify-start p-3 bg-background-primary rounded shadow-sm">
+										<div className="flex items-center gap-2">
+											<MessageSquare className="size-4 text-icon-primary" />
+											<Text size={ 14 } weight={ 500 } color="primary">
+												Request a Feature
+											</Text>
+										</div>
 									</div>
 								</div>
 							</div>
