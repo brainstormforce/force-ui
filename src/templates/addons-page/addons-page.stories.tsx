@@ -149,7 +149,7 @@ const AddonCard = ( { addon, onInstall, onConfigure }: AddonCardProps ) => (
 	<Container
 		containerType="flex"
 		direction="column"
-		className="bg-background-primary border border-solid border-border-subtle rounded-lg shadow-xs h-full"
+		className="bg-background-primary border border-solid border-border-subtle rounded-md shadow-xs h-full"
 	>
 		<Container.Item className="p-4 flex-1 flex flex-col gap-2">
 			<Container
@@ -188,7 +188,7 @@ const AddonCard = ( { addon, onInstall, onConfigure }: AddonCardProps ) => (
 					</Text>
 				</Container.Item>
 
-				<Container.Item className="mt-auto">
+				<Container.Item className="mt-auto py-0.5">
 					<Container
 						containerType="flex"
 						align="center"
@@ -218,7 +218,7 @@ const AddonCard = ( { addon, onInstall, onConfigure }: AddonCardProps ) => (
 							) }
 						</Container.Item>
 						<Container.Item>
-							<Container containerType="flex" align="center" gap="xs">
+							<Container containerType="flex" align="center" className="gap-1">
 								<Container.Item>
 									<Text
 										as="a"
@@ -250,14 +250,13 @@ export const AddonsPage = ( args: Record<string, unknown> ) => {
 	return (
 		<div className={ args.className as string }>
 			{ /* Top Navigation Bar */ }
-			<Topbar className="bg-background-primary border-b border-border-subtle">
+			<Topbar className="bg-background-primary border-solid border-t-0 border-l-0 border-r-0 border-b border-border-subtle">
 				<Topbar.Left>
 					<Topbar.Item>
 						<SureRank />
 					</Topbar.Item>
 					<Topbar.Item>
 						<Tabs.Group
-							activeItem="addons"
 							variant="underline"
 							size="sm"
 							orientation="horizontal"
@@ -273,7 +272,7 @@ export const AddonsPage = ( args: Record<string, unknown> ) => {
 						</Tabs.Group>
 					</Topbar.Item>
 				</Topbar.Left>
-				<Topbar.Right>
+				<Topbar.Right className="gap-3">
 					<Topbar.Item>
 						<Badge
 							label="V 0.0.2"
@@ -301,7 +300,7 @@ export const AddonsPage = ( args: Record<string, unknown> ) => {
 			</Topbar>
 
 			{ /* Main Content */ }
-			<Container className="max-w-6xl mx-auto p-8">
+			<Container className="max-w-6xl mx-auto p-8 bg-background-secondary">
 				<Container containerType="flex" direction="column" className="gap-6">
 					{ /* Header Section */ }
 					<Container.Item>
@@ -319,6 +318,7 @@ export const AddonsPage = ( args: Record<string, unknown> ) => {
 							<Container
 								containerType="flex"
 								direction="column"
+								className="gap-3"
 							>
 								<Container.Item>
 									<Title
@@ -331,7 +331,7 @@ export const AddonsPage = ( args: Record<string, unknown> ) => {
 								<Container.Item>
 									<Container
 										containerType="grid"
-										className="grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+										className="grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-0.5 bg-background-primary"
 									>
 										{ addonsData.map( ( addon ) => (
 											<Container.Item key={ addon.id }>
@@ -369,7 +369,7 @@ export const AddonsPage = ( args: Record<string, unknown> ) => {
 								<Container.Item>
 									<Container
 										containerType="grid"
-										className="grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+										className="grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-0.5 bg-background-primary"
 									>
 										{ themesData.map( ( theme ) => (
 											<Container.Item key={ theme.id }>
