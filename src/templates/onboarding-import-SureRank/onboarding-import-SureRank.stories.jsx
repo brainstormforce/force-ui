@@ -23,8 +23,8 @@ const Template = ( args ) => {
 			{ ...args }
 			className="bg-background-secondary min-h-screen w-full pb-10"
 		>
-			<Topbar className="bg-background-secondary">
-				<Topbar.Left>
+			<Topbar className="bg-background-secondary p-0">
+				<Topbar.Left className="p-4">
 					<Topbar.Item>
 						<SureRankLogoFull />
 					</Topbar.Item>
@@ -40,7 +40,7 @@ const Template = ( args ) => {
 						</ProgressSteps>
 					</Topbar.Item>
 				</Topbar.Middle>
-				<Topbar.Right>
+				<Topbar.Right className="p-4">
 					<Topbar.Item>
 						<Button
 							icon={ <X className="size-4" /> }
@@ -53,7 +53,7 @@ const Template = ( args ) => {
 					</Topbar.Item>
 				</Topbar.Right>
 			</Topbar>
-			<div className="md:w-[45rem] box-border mx-auto p-8 mt-10 border border-solid border-border-subtle bg-background-primary rounded-xl shadow-sm">
+			<div className="max-w-xl box-border mx-auto p-8 mt-10 border border-solid border-border-subtle bg-background-primary rounded-xl shadow-sm">
 				<div>
 					<Title
 						size="md"
