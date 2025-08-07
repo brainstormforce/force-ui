@@ -6,25 +6,27 @@ import {
 	Switch,
 	Text,
 	Tooltip,
+	Input,
+	RadioButton,
 } from '@/components';
 import {
-	ArrowUpRight,
 	CircleHelp,
 	Megaphone,
-	Plus,
 	Monitor,
-	Rocket,
-	Check,
+	User,
+	Search,
+	ListFilter,
 	Headphones,
 	BookOpen,
 	MessageSquare,
+	Rocket,
+	Check,
 	MessageSquareCode,
-	Play,
 } from 'lucide-react';
 import { useState } from 'react';
 
 export default {
-	title: 'Templates/Dashboard/UAE Dashboard',
+	title: 'Templates/Dashboard/UAE Widgets',
 	parameters: {
 		layout: 'fullscreen',
 	},
@@ -43,57 +45,121 @@ export default {
 const widgetData = [
 	{
 		id: '1',
-		icon: MessageSquareCode,
-		title: 'Navigation Menu',
+		title: 'Blockquote',
 		enabled: true,
 		isPro: false,
 	},
 	{
 		id: '2',
-		icon: MessageSquareCode,
-		title: 'Info Card',
+		title: 'Blockquote',
 		enabled: true,
 		isPro: false,
 	},
 	{
 		id: '3',
-		icon: MessageSquareCode,
-		title: 'Post Info',
+		title: 'Blockquote',
 		enabled: true,
 		isPro: false,
 	},
 	{
 		id: '4',
-		icon: MessageSquareCode,
-		title: 'Modal Popup',
-		enabled: false,
-		isPro: true,
+		title: 'Blockquote',
+		enabled: true,
+		isPro: false,
 	},
 	{
 		id: '5',
-		icon: MessageSquareCode,
-		title: 'Info Box',
-		enabled: false,
-		isPro: true,
+		title: 'Blockquote',
+		enabled: true,
+		isPro: false,
 	},
 	{
 		id: '6',
-		icon: MessageSquareCode,
-		title: 'Content Toggle',
-		enabled: false,
-		isPro: true,
+		title: 'Blockquote',
+		enabled: true,
+		isPro: false,
 	},
 	{
 		id: '7',
-		icon: MessageSquareCode,
-		title: 'Post Widget',
+		title: 'Blockquote',
+		enabled: true,
+		isPro: false,
+	},
+	{
+		id: '8',
+		title: 'Blockquote',
+		enabled: true,
+		isPro: false,
+	},
+	{
+		id: '9',
+		title: 'Blockquote',
+		enabled: true,
+		isPro: false,
+	},
+	{
+		id: '10',
+		title: 'Blockquote',
 		enabled: false,
 		isPro: true,
 	},
 	{
-		id: '8',
-		icon: MessageSquareCode,
-		title: 'Marketing Button',
+		id: '11',
+		title: 'Blockquote',
+		enabled: false,
+		isPro: true,
+	},
+	{
+		id: '12',
+		title: 'Blockquote',
+		enabled: false,
+		isPro: true,
+	},
+	{
+		id: '13',
+		title: 'Blockquote',
+		enabled: false,
+		isPro: true,
+	},
+	{
+		id: '14',
+		title: 'Blockquote',
+		enabled: false,
+		isPro: true,
+	},
+	{
+		id: '15',
+		title: 'Blockquote',
+		enabled: false,
+		isPro: true,
+	},
+	{
+		id: '16',
+		title: 'Blockquote',
+		enabled: false,
+		isPro: true,
+	},
+	{
+		id: '17',
+		title: 'Blockquote',
+		enabled: false,
+		isPro: true,
+	},
+	{
+		id: '18',
+		title: 'Blockquote',
+		enabled: false,
+		isPro: true,
+	},
+	{
+		id: '19',
+		title: 'Blockquote',
+		enabled: false,
+		isPro: true,
+	},
+	{
+		id: '20',
+		title: 'Blockquote',
 		enabled: false,
 		isPro: true,
 	},
@@ -108,15 +174,28 @@ const proFeatures = [
 	'WooCommerce Widgets',
 ];
 
-export const UAEDashboard = ( args ) => {
+export const UAEWidgets = ( args ) => {
 	const [ switchState, setSwitchState ] = useState( widgetData.map( ( widget ) => ( { ...widget } ) ) );
+	const [ searchQuery, setSearchQuery ] = useState( '' );
+
 	const handleSwitchChange = ( id ) => ( value ) => {
 		setSwitchState( switchState.map( ( widget ) => ( widget.id === id ? { ...widget, enabled: value } : widget ) ) );
 	};
 
+	const handleActivateAll = () => {
+		setSwitchState( switchState.map( ( widget ) => ( { ...widget, enabled: ! widget.isPro } ) ) );
+	};
+
+	const handleDeactivateAll = () => {
+		setSwitchState( switchState.map( ( widget ) => ( { ...widget, enabled: false } ) ) );
+	};
+
+	const filteredWidgets = switchState.filter( ( widget ) =>
+		widget.title.toLowerCase().includes( searchQuery.toLowerCase() )
+	);
+
 	return (
 		<div { ...args } className="min-h-screen bg-background-secondary">
-
 			{ /* Main Content */ }
 			<div className="w-full min-h-screen">
 				{ /* Navigation Topbar */ }
@@ -134,10 +213,10 @@ export const UAEDashboard = ( args ) => {
 						</Topbar.Item>
 					</Topbar.Left>
 					<Topbar.Middle align="left" className="h-full">
-						<Topbar.Item className="gap-8">
+						<Topbar.Item className="gap-3">
 							<a
 								href="#"
-								className="h-full flex items-center px-1 text-sm font-medium text-text-primary border-x-0 border-t-0 border-b-1 border-solid border-border-interactive no-underline hover:no-underline"
+								className="h-full flex items-center px-1 text-sm font-medium text-text-secondary hover:text-text-primary no-underline hover:no-underline"
 							>
 								Dashboard
 							</a>
@@ -149,7 +228,7 @@ export const UAEDashboard = ( args ) => {
 							</a>
 							<a
 								href="#"
-								className="h-full flex items-center px-1 text-sm font-medium text-text-secondary hover:text-text-primary no-underline hover:no-underline"
+								className="h-full flex items-center px-1 text-sm font-medium text-text-primary border-x-0 border-t-0 border-b-1 border-solid border-border-interactive no-underline hover:no-underline"
 							>
 								Widgets
 							</a>
@@ -186,6 +265,9 @@ export const UAEDashboard = ( args ) => {
 									className="absolute top-0 right-0 size-1.5 rounded-full bg-brand-primary-600"
 								/>
 							</div>
+							<div className="w-6 h-6 rounded-full bg-field-primary-background border border-border-subtle flex items-center justify-center">
+								<User className="w-4 h-4 text-icon-primary" />
+							</div>
 						</Topbar.Item>
 					</Topbar.Right>
 				</Topbar>
@@ -200,88 +282,79 @@ export const UAEDashboard = ( args ) => {
 					>
 						{ /* Main Content Column */ }
 						<Container.Item colSpan={ { sm: 12, md: 12, lg: 8 } } className="space-y-8">
-							{ /* Welcome Banner */ }
+							{ /* Widgets Section */ }
 							<div className="bg-background-primary rounded-xl shadow-sm border-0.5 border-solid border-border-subtle p-4">
-								<div className="flex items-center flex-col md:flex-row gap-8">
-									<div className="flex-1 space-y-4 order-2 md:order-1">
-										<Text
-											as="h3"
-											size={ 24 }
-											weight={ 600 }
-											color="primary"
-											className="mb-2"
-										>
-											Welcome to Ultimate Addons for Elementor!
-										</Text>
-										<Text
-											as="p"
-											size={ 14 }
-											weight={ 400 }
-											color="secondary"
-											className="mb-6"
-										>
-											Effortlessly design modern websites
-											with UAE using our powerful range of
-											widgets & features. Get started by
-											selecting an option based on your
-											needs.
-										</Text>
-										<div className="flex gap-3">
-											<Button variant="secondary">
-												Create Header/Footer
-											</Button>
-											<Button
-												variant="outline"
-												icon={ <Plus /> }
-											>
-												Create New Page
-											</Button>
-										</div>
-									</div>
-									<div className="w-full md:w-72 h-auto md:h-40 bg-field-primary-background rounded border border-border-subtle flex items-center justify-center relative overflow-hidden order-1 md:order-2">
-										<img
-											src="./src/templates/uae-dashboard/assets/video-background.svg"
-											alt="Getting Started Video"
-											className="w-full h-full object-cover rounded"
+								{ /* Header */ }
+								<div className="flex items-center justify-between mb-6 p-1">
+									<Text
+										as="h2"
+										size={ 20 }
+										weight={ 600 }
+										color="primary"
+									>
+										Widgets
+									</Text>
+									<div className="flex items-center gap-3">
+										<Input
+											placeholder="Search..."
+											value={ searchQuery }
+											onChange={ ( e ) => setSearchQuery( e.target.value ) }
+											prefix={ <Search /> }
+											type="search"
+											autoComplete="off"
 										/>
+										<RadioButton.Group
+											style="tile"
+											columns={ 2 }
+											onChange={ ( value ) => {
+												if ( value === 'activate' ) {
+													handleActivateAll();
+												} else {
+													handleDeactivateAll();
+												}
+											} }
+											size="md"
+										>
+											<RadioButton.Button
+												value="activate"
+											>
+												<Text size={ 12 } weight={ 500 } color="primary">
+													Activate all
+												</Text>
+											</RadioButton.Button>
+											<RadioButton.Button
+												value="deactivate"
+											>
+												<Text size={ 12 } weight={ 500 } color="primary">
+													Deactivate all
+												</Text>
+											</RadioButton.Button>
+										</RadioButton.Group>
 										<Button
-											variant="ghost"
-											size="lg"
-											icon={
-												<Play className="size-8 fill-brand-primary-600 text-brand-primary-600" />
-											}
-											className="bg-background-primary/20 rounded-full size-10 hover:bg-background-primary/95 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 focus:[box-shadow:none]"
-											aria-label="Play video"
+											variant="outline"
+											size="sm"
+											icon={ <ListFilter /> }
+											aria-label="Filter"
 										/>
 									</div>
 								</div>
-							</div>
 
-							{ /* Widgets & Features */ }
-							<div className="bg-background-primary rounded-xl shadow-sm border-0.5 border-solid border-border-subtle p-4">
-								<Text
-									as="h4"
-									size={ 14 }
-									weight={ 600 }
-									color="primary"
-									className="mb-2 p-1"
-								>
-									Widgets / Features
-								</Text>
-
-								<div className="bg-field-primary-background rounded-lg border border-border-subtle-lg p-1">
+								{ /* Widgets Grid */ }
+								<div className="bg-field-primary-background rounded-lg border border-border-subtle p-1">
 									<Container
 										containerType="grid"
 										cols={ { sm: 1, md: 2, lg: 4 } }
 										className="gap-1"
 									>
-										{ switchState.map( ( widget ) => (
+										{ filteredWidgets.map( ( widget ) => (
 											<div
 												key={ widget.id }
-												className="bg-background-primary rounded p-3 shadow-sm"
+												className="flex flex-col justify-start bg-background-primary rounded p-3 shadow-sm"
 											>
 												<div className="flex items-center justify-between mb-4">
-													<widget.icon className="w-5 h-5 text-icon-primary" />
+													<div className="flex items-center justify-center">
+														<MessageSquareCode className="size-5 text-icon-primary" strokeWidth={ 1.5 } />
+													</div>
 													{
 														widget.isPro ? (
 															<Tooltip
@@ -336,75 +409,6 @@ export const UAEDashboard = ( args ) => {
 										) ) }
 									</Container>
 								</div>
-
-								<div className="flex justify-center mt-4">
-									<Button
-										variant="ghost"
-										size="xs"
-										icon={ <ArrowUpRight /> }
-									>
-										View More Widgets
-									</Button>
-								</div>
-							</div>
-
-							{ /* Super Charge Your Workflow */ }
-							<div className="bg-background-primary rounded-xl shadow-sm border-0.5 border-solid border-border-subtle p-3">
-								<Text
-									as="h4"
-									size={ 14 }
-									weight={ 600 }
-									color="primary"
-									className="mb-2 p-1"
-								>
-									Super Charge Your Workflow
-								</Text>
-
-								<div className="bg-field-primary-background rounded-lg border border-border-subtle-lg p-1">
-									<div className="bg-background-primary rounded p-4 border border-border-subtle">
-										<div className="flex flex-col items-start gap-4">
-											<img
-												src="./src/templates/uae-dashboard/assets/surerank-logo.svg"
-												alt="SureRank Logo"
-												className="w-32 h-7"
-											/>
-											<div className="flex-1">
-												<Text
-													as="h4"
-													size={ 16 }
-													weight={ 600 }
-													color="primary"
-													className="mb-2"
-												>
-													Boost Your Traffic with Easy SEO Optimization!
-												</Text>
-												<Text
-													as="p"
-													size={ 14 }
-													weight={ 400 }
-													color="secondary"
-												>
-													Rank higher with effortless
-													SEO optimization. SureRank
-													offers a simple,
-													clutter-free interface with
-													lightweight code, minimal
-													setup, clear meta and schema
-													settings, and smart content
-													optimization that actually
-													makes sense, helping you
-													grow your traffic easily.
-												</Text>
-											</div>
-											<Button
-												variant="outline"
-												size="sm"
-											>
-												Install & Activate
-											</Button>
-										</div>
-									</div>
-								</div>
 							</div>
 						</Container.Item>
 
@@ -412,23 +416,25 @@ export const UAEDashboard = ( args ) => {
 						<Container.Item colSpan={ { sm: 12, md: 12, lg: 4 } } className="space-y-6">
 							{ /* Upgrade to Pro */ }
 							<div className="bg-background-primary rounded-xl shadow-sm border-0.5 border-solid border-border-subtle overflow-hidden">
-								<img
-									src="./src/templates/uae-dashboard/assets/upgrade-banner.svg"
-									alt="Upgrade to Pro"
-									className="w-full relative object-contain px-3 pt-2"
-								/>
+								<div className="p-3">
+									<img
+										src="./src/templates/uae-widgets/assets/upgrade-banner.svg"
+										alt="Upgrade to Pro"
+										className="w-full h-auto object-contain"
+									/>
+								</div>
 
 								<div className="p-5 space-y-6">
 									<div className="space-y-1">
 										<div className="flex items-center gap-2 mb-1">
 											<Rocket className="size-4 text-brand-primary-600" />
-											<Text size={ 12 } weight={ 600 } color="brand600">
+											<Text size={ 12 } weight={ 600 } className="text-brand-primary-600">
 												Unlock Ultimate Features
 											</Text>
 										</div>
 
 										<Text
-											as="h4"
+											as="h3"
 											size={ 18 }
 											weight={ 600 }
 											color="primary"
