@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import {
 	Topbar,
 	Container,
 	Text,
 	Button,
 	Badge,
+	Select,
+	DatePicker,
 } from '@/components';
 import {
 	ArrowUpRight,
@@ -86,7 +88,47 @@ const proFeatures = [
 	'And much more&hellip;',
 ];
 
+// Dummy data for form selection
+const formOptions = [
+	{ id: '1', name: 'Contact Form' },
+	{ id: '2', name: 'Newsletter Signup' },
+	{ id: '3', name: 'Event Registration' },
+	{ id: '4', name: 'Feedback Form' },
+	{ id: '5', name: 'Support Request' },
+];
+
 export const SureFormsDashboard = ( args ) => {
+	const [ selectedForm, setSelectedForm ] = useState( null );
+	const [ selectedDate, setSelectedDate ] = useState( { from: null, to: null } );
+	const [ isDatePickerOpen, setIsDatePickerOpen ] = useState( false );
+	const datePickerRef = useRef( null );
+
+	const getDateRangeText = () => {
+		if ( selectedDate.from && selectedDate.to ) {
+			return `${ selectedDate.from.toLocaleDateString() } - ${ selectedDate.to.toLocaleDateString() }`;
+		}
+		if ( selectedDate.from ) {
+			return `${ selectedDate.from.toLocaleDateString() } - Select end date`;
+		}
+		return 'mm/dd/yyyy - mm/dd/yyyy';
+	};
+
+	// Close datepicker when clicking outside
+	useEffect( () => {
+		const handleClickOutside = ( event ) => {
+			if ( datePickerRef.current && ! datePickerRef.current.contains( event.target ) ) {
+				setIsDatePickerOpen( false );
+			}
+		};
+
+		if ( isDatePickerOpen ) {
+			document.addEventListener( 'mousedown', handleClickOutside );
+		}
+
+		return () => {
+			document.removeEventListener( 'mousedown', handleClickOutside );
+		};
+	}, [ isDatePickerOpen ] );
 	return (
 		<div { ...args } className="min-h-screen bg-background-secondary">
 			{ /* Upgrade Alert Banner */ }
@@ -273,16 +315,66 @@ export const SureFormsDashboard = ( args ) => {
 									Forms Overview
 								</Text>
 								<div className="flex items-center gap-3">
-									<div className="w-48 border border-field-border rounded px-3 py-2 bg-field-secondary-background">
-										<Text size={ 14 } color="secondary">
-											Select Form
-										</Text>
+									{ /* Form Selection Dropdown */ }
+									<div className="w-48">
+										<Select
+											onChange={ ( value ) => setSelectedForm( value ) }
+											size="sm"
+										>
+											<Select.Button
+												placeholder="Select Form"
+												render={ ( selected ) => {
+													if ( selected ) {
+														return selected.name;
+													}
+													if ( selectedForm ) {
+														return selectedForm.name;
+													}
+													return 'Select Form';
+												} }
+											/>
+											<Select.Portal>
+												<Select.Options>
+													{ formOptions.map( ( option ) => (
+														<Select.Option key={ option.id } value={ option }>
+															{ option.name }
+														</Select.Option>
+													) ) }
+												</Select.Options>
+											</Select.Portal>
+										</Select>
 									</div>
-									<div className="w-48 border border-field-border rounded px-3 py-2 bg-field-secondary-background flex items-center justify-between">
-										<Text size={ 14 } color="secondary">
-											mm/dd/yyyy
-										</Text>
-										<Calendar className="size-4 text-icon-secondary" />
+
+									{ /* Date Picker */ }
+									<div className="w-48 relative" ref={ datePickerRef }>
+										<Button
+											variant="outline"
+											size="sm"
+											className="w-full justify-between text-text-secondary border-field-border bg-field-secondary-background hover:bg-field-secondary-background hover:border-field-border font-normal"
+											onClick={ () => setIsDatePickerOpen( ! isDatePickerOpen ) }
+											iconPosition="right"
+											icon={ <Calendar className="size-4 text-icon-secondary" /> }
+										>
+											{ getDateRangeText() }
+										</Button>
+
+										{ isDatePickerOpen && (
+											<div className="absolute top-full -right-0.5 z-50 mt-2 bg-background-primary border border-border-subtle rounded-md shadow-lg">
+												<DatePicker
+													selectionType="range"
+													variant="dualdate"
+													onApply={ ( dateRange ) => {
+														setSelectedDate( dateRange );
+														setIsDatePickerOpen( false );
+													} }
+													onCancel={ () => setIsDatePickerOpen( false ) }
+													selected={ selectedDate }
+													isFooter={ true }
+													applyButtonText="Apply"
+													cancelButtonText="Cancel"
+												/>
+											</div>
+										) }
 									</div>
 								</div>
 							</div>
