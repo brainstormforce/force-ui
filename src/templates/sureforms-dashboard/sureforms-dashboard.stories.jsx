@@ -7,6 +7,7 @@ import {
 	Badge,
 	Select,
 	DatePicker,
+	LineChart,
 } from '@/components';
 import {
 	ArrowUpRight,
@@ -95,6 +96,17 @@ const formOptions = [
 	{ id: '3', name: 'Event Registration' },
 	{ id: '4', name: 'Feedback Form' },
 	{ id: '5', name: 'Support Request' },
+];
+
+// Chart data for biaxial line chart
+const chartData = [
+	{ month: 'Jan', views: 186, entries: 80 },
+	{ month: 'Feb', views: 305, entries: 120 },
+	{ month: 'Mar', views: 237, entries: 95 },
+	{ month: 'Apr', views: 173, entries: 85 },
+	{ month: 'May', views: 209, entries: 110 },
+	{ month: 'Jun', views: 214, entries: 95 },
+	{ month: 'Jul', views: 256, entries: 135 },
 ];
 
 export const SureFormsDashboard = ( args ) => {
@@ -378,41 +390,47 @@ export const SureFormsDashboard = ( args ) => {
 							</div>
 
 							{ /* Chart Area */ }
-							<div className="bg-field-primary-background rounded-lg p-6 mb-4">
-								<div className="h-58 flex items-end justify-center space-x-16 mb-6">
-									{ /* Simple chart representation */ }
-									<div className="flex flex-col items-center space-y-2">
-										<div className="h-24 w-1 bg-brand-primary-600 rounded-full"></div>
-										<div className="h-8 w-1 bg-support-info rounded-full"></div>
-									</div>
-									<div className="flex flex-col items-center space-y-2">
-										<div className="h-32 w-1 bg-brand-primary-600 rounded-full"></div>
-										<div className="h-12 w-1 bg-support-info rounded-full"></div>
-									</div>
-									<div className="flex flex-col items-center space-y-2">
-										<div className="h-20 w-1 bg-brand-primary-600 rounded-full"></div>
-										<div className="h-6 w-1 bg-support-info rounded-full"></div>
+							<div className="px-1">
+								<div className="flex items-center justify-between">
+									<Text size={ 14 } weight={ 600 } color="tertiary">
+										All Forms
+									</Text>
+									<div className="flex items-center justify-end gap-6">
+										<div className="flex items-center gap-2">
+											<div className="w-2 h-2 rounded-sm" style={ { backgroundColor: '#0EA5E9' } }></div>
+											<Text size={ 12 } color="tertiary">
+												Views
+											</Text>
+										</div>
+										<div className="flex items-center gap-2">
+											<div className="w-2 h-2 rounded-sm" style={ { backgroundColor: '#A855F7' } }></div>
+											<Text size={ 12 } color="tertiary">
+												Entries
+											</Text>
+										</div>
 									</div>
 								</div>
-
-								<div className="flex items-center justify-end gap-6">
-									<div className="flex items-center gap-2">
-										<div className="w-2 h-2 bg-brand-primary-600 rounded"></div>
-										<Text size={ 12 } color="secondary">
-											Views
-										</Text>
-									</div>
-									<div className="flex items-center gap-2">
-										<div className="w-2 h-2 bg-support-info rounded"></div>
-										<Text size={ 12 } color="secondary">
-											Entries
-										</Text>
-									</div>
+								<div className="h-58 mt-6">
+									<LineChart
+										data={ chartData }
+										dataKeys={ [ 'views', 'entries' ] }
+										colors={ [ { stroke: '#0EA5E9' }, { stroke: '#A855F7' } ] }
+										showXAxis={ true }
+										showYAxis={ true }
+										showTooltip={ true }
+										showCartesianGrid={ true }
+										xAxisDataKey="month"
+										xAxisFontSize="sm"
+										biaxial={ true }
+										chartWidth="100%"
+										chartHeight={ 200 }
+										lineChartWrapperProps={ {
+											margin: { top: 5, right: 0, bottom: 5, left: 0 },
+										} }
+										yAxisFontColor={ [ '#0EA5E9', '#A855F7' ] }
+									/>
 								</div>
 							</div>
-							<Text size={ 14 } weight={ 500 } color="secondary">
-								All Forms
-							</Text>
 						</div>
 
 						{ /* Upgrade to Pro */ }
