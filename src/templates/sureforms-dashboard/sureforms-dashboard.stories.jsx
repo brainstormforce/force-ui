@@ -280,7 +280,7 @@ export const SureFormsDashboard = ( args ) => {
 						{ /* Left Column - Main Content */ }
 						<Container.Item
 							colSpan={ { sm: 12, md: 12, lg: 8 } }
-							className="space-y-8"
+							className="space-y-8 order-1"
 						>
 							{ /* Welcome Banner */ }
 							<div className="bg-background-primary rounded-xl shadow-sm border-0.5 border-solid border-border-subtle p-6">
@@ -535,92 +535,12 @@ export const SureFormsDashboard = ( args ) => {
 									</div>
 								</div>
 							</div>
-
-							{ /* Upgrade to Pro */ }
-							<div className="bg-background-primary rounded-xl shadow-sm border-0.5 border-solid border-border-subtle p-6">
-								<Container
-									containerType="grid"
-									align="center"
-									cols={ { sm: 1, md: 8 } }
-									gap="2xl"
-								>
-									<Container.Item
-										colSpan={ { sm: 1, md: 5 } }
-										className="flex flex-col gap-3"
-									>
-										<div className="flex items-center gap-2 text-brand-primary-600">
-											<Zap className="size-4" />
-											<Text
-												size={ 12 }
-												weight={ 600 }
-												color="brand600"
-											>
-												Upgrade to Pro
-											</Text>
-										</div>
-
-										<div className="space-y-2">
-											<Text
-												as="h4"
-												size={ 18 }
-												weight={ 600 }
-												color="primary"
-												className="mb-1"
-											>
-												Upgrade to Unlock SureForms
-												Premium Features!
-											</Text>
-											<Text color="secondary">
-												Access smarter fields, powerful
-												tools, and advanced features
-												that help you build better
-												forms, faster than ever.
-											</Text>
-										</div>
-
-										<div className="grid grid-cols-2 gap-2">
-											{ proFeatures.map(
-												( feature, index ) => (
-													<div
-														key={ index }
-														className="flex items-center gap-3"
-													>
-														<Check className="size-3.5 text-icon-interactive flex-shrink-0" />
-														<Text
-															size={ 14 }
-															weight={ 500 }
-															color="primary"
-														>
-															{ feature }
-														</Text>
-													</div>
-												)
-											) }
-										</div>
-
-										<Button
-											variant="secondary"
-											className="w-fit mt-3"
-										>
-											Upgrade Now
-										</Button>
-									</Container.Item>
-
-									<Container.Item colSpan={ { sm: 1, md: 3 } }>
-										<img
-											src="/src/templates/sureforms-dashboard/assets/upgrade-illustration.svg"
-											alt="Upgrade illustration"
-											className="w-full h-auto"
-										/>
-									</Container.Item>
-								</Container>
-							</div>
 						</Container.Item>
 
 						{ /* Right Column - Sidebar */ }
 						<Container.Item
 							colSpan={ { sm: 12, md: 12, lg: 4 } }
-							className="space-y-6"
+							className="space-y-6 order-2"
 						>
 							{ /* Extend Your Website - SureRank */ }
 							<div className="bg-background-primary rounded-xl shadow-sm border-0.5 border-solid border-border-subtle p-3">
@@ -713,6 +633,91 @@ export const SureFormsDashboard = ( args ) => {
 										</div>
 									) ) }
 								</div>
+							</div>
+						</Container.Item>
+
+						{ /* Upgrade to Pro Section - Appears last on mobile/tablet */ }
+						<Container.Item
+							colSpan={ 12 }
+							className="order-3 lg:order-2 lg:col-span-8 lg:col-start-1"
+						>
+							<div className="bg-background-primary rounded-xl shadow-sm border-0.5 border-solid border-border-subtle p-6">
+								<Container
+									containerType="grid"
+									align="center"
+									cols={ { sm: 1, md: 8 } }
+									gap="2xl"
+								>
+									<Container.Item
+										colSpan={ { sm: 1, md: 5 } }
+										className="flex flex-col gap-3"
+									>
+										<div className="flex items-center gap-2 text-brand-primary-600">
+											<Zap className="size-4" />
+											<Text
+												size={ 12 }
+												weight={ 600 }
+												color="brand600"
+											>
+												Upgrade to Pro
+											</Text>
+										</div>
+
+										<div className="space-y-2">
+											<Text
+												as="h4"
+												size={ 18 }
+												weight={ 600 }
+												color="primary"
+												className="mb-1"
+											>
+												Upgrade to Unlock SureForms
+												Premium Features!
+											</Text>
+											<Text color="secondary">
+												Access smarter fields, powerful
+												tools, and advanced features
+												that help you build better
+												forms, faster than ever.
+											</Text>
+										</div>
+
+										<div className="grid grid-cols-2 gap-2">
+											{ proFeatures.map(
+												( feature, index ) => (
+													<div
+														key={ index }
+														className="flex items-center gap-3"
+													>
+														<Check className="size-3.5 text-icon-interactive flex-shrink-0" />
+														<Text
+															size={ 14 }
+															weight={ 500 }
+															color="primary"
+														>
+															{ feature }
+														</Text>
+													</div>
+												)
+											) }
+										</div>
+
+										<Button
+											variant="secondary"
+											className="w-fit mt-3"
+										>
+											Upgrade Now
+										</Button>
+									</Container.Item>
+
+									<Container.Item colSpan={ { sm: 1, md: 3 } }>
+										<img
+											src="/src/templates/sureforms-dashboard/assets/upgrade-illustration.svg"
+											alt="Upgrade illustration"
+											className="w-full h-auto"
+										/>
+									</Container.Item>
+								</Container>
 							</div>
 						</Container.Item>
 					</Container>
