@@ -44,13 +44,27 @@ export default {
 };
 
 const SureFormsLogo = () => (
-	<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+	<svg
+		width="24"
+		height="24"
+		viewBox="0 0 24 24"
+		fill="none"
+		xmlns="http://www.w3.org/2000/svg"
+	>
 		<path d="M24 0H0V24H24V0Z" fill="#D54407" />
-		<path d="M6.8501 5.14209H17.1358V8.57068H8.56439L6.8501 10.285V8.57068V5.14209Z" fill="white" />
-		<path d="M6.8501 10.2866H15.4215V13.7152H8.56439L6.8501 15.4294V13.7152V10.2866Z" fill="white" />
-		<path d="M6.8501 15.4272H11.9929V18.8558H6.8501V15.4272Z" fill="white" />
+		<path
+			d="M6.8501 5.14209H17.1358V8.57068H8.56439L6.8501 10.285V8.57068V5.14209Z"
+			fill="white"
+		/>
+		<path
+			d="M6.8501 10.2866H15.4215V13.7152H8.56439L6.8501 15.4294V13.7152V10.2866Z"
+			fill="white"
+		/>
+		<path
+			d="M6.8501 15.4272H11.9929V18.8558H6.8501V15.4272Z"
+			fill="white"
+		/>
 	</svg>
-
 );
 
 const quickAccessItems = [
@@ -128,7 +142,10 @@ export const SureFormsDashboard = ( args ) => {
 	// Close datepicker when clicking outside
 	useEffect( () => {
 		const handleClickOutside = ( event ) => {
-			if ( datePickerRef.current && ! datePickerRef.current.contains( event.target ) ) {
+			if (
+				datePickerRef.current &&
+				! datePickerRef.current.contains( event.target )
+			) {
 				setIsDatePickerOpen( false );
 			}
 		};
@@ -146,11 +163,24 @@ export const SureFormsDashboard = ( args ) => {
 			{ /* Upgrade Alert Banner */ }
 			<div className="flex items-center justify-center gap-2 p-2 w-full bg-brand-background-hover-100 border-b border-border-subtle">
 				<div className="mx-auto w-full text-center space-x-1 px-1">
-					<Text size={ 12 } weight={ 600 } color="primary" className="leading-tight inline">
+					<Text
+						size={ 12 }
+						weight={ 600 }
+						color="primary"
+						className="leading-tight inline"
+					>
 						Ready to go beyond free plan?
 					</Text>
-					<Text size={ 12 } weight={ 400 } color="primary" className="leading-tight inline">
-						<Text as="a" href="#" target="_self" color="link">Upgrade now</Text> and unlock the full power of SureForms!
+					<Text
+						size={ 12 }
+						weight={ 400 }
+						color="primary"
+						className="leading-tight inline"
+					>
+						<Text as="a" href="#" target="_self" color="link">
+							Upgrade now
+						</Text>{ ' ' }
+						and unlock the full power of SureForms!
 					</Text>
 				</div>
 				<div className="ml-auto flex items-center">
@@ -246,13 +276,13 @@ export const SureFormsDashboard = ( args ) => {
 					className="mx-auto"
 				>
 					{ /* Left Column - Main Content */ }
-					<Container.Item colSpan={ { sm: 12, md: 12, lg: 8 } } className="space-y-8">
+					<Container.Item
+						colSpan={ { sm: 12, md: 12, lg: 8 } }
+						className="space-y-8"
+					>
 						{ /* Welcome Banner */ }
 						<div className="bg-background-primary rounded-xl shadow-sm border-0.5 border-solid border-border-subtle p-6">
-							<Container
-								align="center"
-								gap="2xl"
-							>
+							<Container align="center" gap="2xl">
 								<Container.Item className="space-y-6">
 									<div className="space-y-2">
 										<Text
@@ -272,10 +302,10 @@ export const SureFormsDashboard = ( args ) => {
 										>
 											SureForms is a WordPress plugin that
 											enables users to create beautiful
-											looking forms through a drag-and-drop
-											interface, without needing to code. It
-											integrates with the WordPress block
-											editor.
+											looking forms through a
+											drag-and-drop interface, without
+											needing to code. It integrates with
+											the WordPress block editor.
 										</Text>
 									</div>
 									<div className="flex gap-3">
@@ -328,7 +358,9 @@ export const SureFormsDashboard = ( args ) => {
 									{ /* Form Selection Dropdown */ }
 									<div className="w-48">
 										<Select
-											onChange={ ( value ) => setSelectedForm( value ) }
+											onChange={ ( value ) =>
+												setSelectedForm( value )
+											}
 											size="sm"
 										>
 											<Select.Button
@@ -345,25 +377,39 @@ export const SureFormsDashboard = ( args ) => {
 											/>
 											<Select.Portal>
 												<Select.Options>
-													{ formOptions.map( ( option ) => (
-														<Select.Option key={ option.id } value={ option }>
-															{ option.name }
-														</Select.Option>
-													) ) }
+													{ formOptions.map(
+														( option ) => (
+															<Select.Option
+																key={ option.id }
+																value={ option }
+															>
+																{ option.name }
+															</Select.Option>
+														)
+													) }
 												</Select.Options>
 											</Select.Portal>
 										</Select>
 									</div>
 
 									{ /* Date Picker */ }
-									<div className="w-48 relative" ref={ datePickerRef }>
+									<div
+										className="w-48 relative"
+										ref={ datePickerRef }
+									>
 										<Button
 											variant="outline"
 											size="sm"
 											className="w-full justify-between text-text-secondary border-field-border bg-field-secondary-background hover:bg-field-secondary-background hover:border-field-border font-normal"
-											onClick={ () => setIsDatePickerOpen( ! isDatePickerOpen ) }
+											onClick={ () =>
+												setIsDatePickerOpen(
+													! isDatePickerOpen
+												)
+											}
 											iconPosition="right"
-											icon={ <Calendar className="size-4 text-icon-secondary" /> }
+											icon={
+												<Calendar className="size-4 text-icon-secondary" />
+											}
 										>
 											{ getDateRangeText() }
 										</Button>
@@ -374,10 +420,18 @@ export const SureFormsDashboard = ( args ) => {
 													selectionType="range"
 													variant="dualdate"
 													onApply={ ( dateRange ) => {
-														setSelectedDate( dateRange );
-														setIsDatePickerOpen( false );
+														setSelectedDate(
+															dateRange
+														);
+														setIsDatePickerOpen(
+															false
+														);
 													} }
-													onCancel={ () => setIsDatePickerOpen( false ) }
+													onCancel={ () =>
+														setIsDatePickerOpen(
+															false
+														)
+													}
 													selected={ selectedDate }
 													isFooter={ true }
 													applyButtonText="Apply"
@@ -392,18 +446,32 @@ export const SureFormsDashboard = ( args ) => {
 							{ /* Chart Area */ }
 							<div className="px-1">
 								<div className="flex items-center justify-between">
-									<Text size={ 14 } weight={ 600 } color="tertiary">
+									<Text
+										size={ 14 }
+										weight={ 600 }
+										color="tertiary"
+									>
 										All Forms
 									</Text>
 									<div className="flex items-center justify-end gap-6">
 										<div className="flex items-center gap-2">
-											<div className="w-2 h-2 rounded-sm" style={ { backgroundColor: '#0EA5E9' } }></div>
+											<div
+												className="w-2 h-2 rounded-sm"
+												style={ {
+													backgroundColor: '#0EA5E9',
+												} }
+											></div>
 											<Text size={ 12 } color="tertiary">
 												Views
 											</Text>
 										</div>
 										<div className="flex items-center gap-2">
-											<div className="w-2 h-2 rounded-sm" style={ { backgroundColor: '#A855F7' } }></div>
+											<div
+												className="w-2 h-2 rounded-sm"
+												style={ {
+													backgroundColor: '#A855F7',
+												} }
+											></div>
 											<Text size={ 12 } color="tertiary">
 												Entries
 											</Text>
@@ -414,7 +482,10 @@ export const SureFormsDashboard = ( args ) => {
 									<LineChart
 										data={ chartData }
 										dataKeys={ [ 'views', 'entries' ] }
-										colors={ [ { stroke: '#0EA5E9' }, { stroke: '#A855F7' } ] }
+										colors={ [
+											{ stroke: '#0EA5E9' },
+											{ stroke: '#A855F7' },
+										] }
 										showXAxis={ true }
 										showYAxis={ true }
 										showTooltip={ true }
@@ -425,7 +496,12 @@ export const SureFormsDashboard = ( args ) => {
 										chartWidth="100%"
 										chartHeight={ 200 }
 										lineChartWrapperProps={ {
-											margin: { top: 5, right: 0, bottom: 5, left: 0 },
+											margin: {
+												top: 5,
+												right: 0,
+												bottom: 5,
+												left: 0,
+											},
 										} }
 										yAxisFontColor={ [ '#0EA5E9', '#A855F7' ] }
 									/>
@@ -441,10 +517,17 @@ export const SureFormsDashboard = ( args ) => {
 								cols={ 8 }
 								gap="2xl"
 							>
-								<Container.Item colSpan={ 5 } className="flex flex-col gap-3">
+								<Container.Item
+									colSpan={ 5 }
+									className="flex flex-col gap-3"
+								>
 									<div className="flex items-center gap-2 text-brand-primary-600">
 										<Zap className="size-4" />
-										<Text size={ 12 } weight={ 600 } color="brand600">
+										<Text
+											size={ 12 }
+											weight={ 600 }
+											color="brand600"
+										>
 											Upgrade to Pro
 										</Text>
 									</div>
@@ -457,12 +540,14 @@ export const SureFormsDashboard = ( args ) => {
 											color="primary"
 											className="mb-1"
 										>
-											Upgrade to Unlock SureForms Premium Features!
+											Upgrade to Unlock SureForms Premium
+											Features!
 										</Text>
 										<Text color="secondary">
-											Access smarter fields, powerful tools,
-											and advanced features that help you
-											build better forms, faster than ever.
+											Access smarter fields, powerful
+											tools, and advanced features that
+											help you build better forms, faster
+											than ever.
 										</Text>
 									</div>
 
@@ -473,14 +558,21 @@ export const SureFormsDashboard = ( args ) => {
 												className="flex items-center gap-3"
 											>
 												<Check className="size-3.5 text-icon-interactive flex-shrink-0" />
-												<Text size={ 14 } weight={ 500 } color="primary">
+												<Text
+													size={ 14 }
+													weight={ 500 }
+													color="primary"
+												>
 													{ feature }
 												</Text>
 											</div>
 										) ) }
 									</div>
 
-									<Button variant="secondary" className="w-fit mt-3">
+									<Button
+										variant="secondary"
+										className="w-fit mt-3"
+									>
 										Upgrade Now
 									</Button>
 								</Container.Item>
@@ -497,7 +589,10 @@ export const SureFormsDashboard = ( args ) => {
 					</Container.Item>
 
 					{ /* Right Column - Sidebar */ }
-					<Container.Item colSpan={ { sm: 12, md: 12, lg: 4 } } className="space-y-6">
+					<Container.Item
+						colSpan={ { sm: 12, md: 12, lg: 4 } }
+						className="space-y-6"
+					>
 						{ /* Extend Your Website - SureRank */ }
 						<div className="bg-background-primary rounded-xl shadow-sm border-0.5 border-solid border-border-subtle p-3">
 							<div className="flex items-center justify-between mb-2 px-1">
@@ -529,7 +624,8 @@ export const SureFormsDashboard = ( args ) => {
 											color="primary"
 											className="mb-2"
 										>
-											Boost Your Traffic with Easy SEO Optimization!
+											Boost Your Traffic with Easy SEO
+											Optimization!
 										</Text>
 										<Text size={ 14 } color="secondary">
 											Rank higher effortlessly with
