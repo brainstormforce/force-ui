@@ -238,12 +238,10 @@ export const SureFormsDashboard = ( args ) => {
 						{ /* Welcome Banner */ }
 						<div className="bg-background-primary rounded-xl shadow-sm border-0.5 border-solid border-border-subtle p-6">
 							<Container
-								containerType="grid"
 								align="center"
-								cols={ 12 }
 								gap="2xl"
 							>
-								<Container.Item colSpan={ 8 } className="space-y-6">
+								<Container.Item className="space-y-6">
 									<div className="space-y-2">
 										<Text
 											as="h3"
@@ -286,7 +284,7 @@ export const SureFormsDashboard = ( args ) => {
 									</div>
 								</Container.Item>
 
-								<Container.Item colSpan={ 2 } colStart={ 10 }>
+								<Container.Item>
 									<div className="relative w-full md:w-72 h-auto md:h-40 bg-field-primary-background rounded-lg aspect-video overflow-hidden border border-border-subtle flex items-center justify-center">
 										<Button
 											variant="ghost"
