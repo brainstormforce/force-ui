@@ -382,6 +382,8 @@ export const SureFormsDashboard = ( args ) => {
 														}
 														return 'Select Form';
 													} }
+													type="button"
+													aria-label="Select Form"
 												/>
 												<Select.Portal>
 													<Select.Options>
