@@ -86,7 +86,7 @@ const proFeatures = [
 	'Page Break',
 	'Conditional Logic',
 	'Rating Fields',
-	'And much more&hellip;',
+	'And much more…',
 ];
 
 // Dummy data for form selection
@@ -437,10 +437,11 @@ export const SureFormsDashboard = ( args ) => {
 						<div className="bg-background-primary rounded-xl shadow-sm border-0.5 border-solid border-border-subtle p-6">
 							<Container
 								containerType="grid"
+								align="center"
 								cols={ 8 }
 								gap="2xl"
 							>
-								<Container.Item colSpan={ 5 } className="space-y-6">
+								<Container.Item colSpan={ 5 } className="flex flex-col gap-3">
 									<div className="flex items-center gap-2 text-brand-primary-600">
 										<Zap className="size-4" />
 										<Text size={ 12 } weight={ 600 } color="brand600">
@@ -465,7 +466,7 @@ export const SureFormsDashboard = ( args ) => {
 										</Text>
 									</div>
 
-									<div className="grid grid-cols-2 gap-2 mb-6">
+									<div className="grid grid-cols-2 gap-2">
 										{ proFeatures.map( ( feature, index ) => (
 											<div
 												key={ index }
@@ -479,7 +480,7 @@ export const SureFormsDashboard = ( args ) => {
 										) ) }
 									</div>
 
-									<Button variant="secondary" className="w-fit">
+									<Button variant="secondary" className="w-fit mt-3">
 										Upgrade Now
 									</Button>
 								</Container.Item>
