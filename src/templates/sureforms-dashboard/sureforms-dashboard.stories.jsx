@@ -33,7 +33,7 @@ export default {
 	decorators: [
 		( Story, parameters ) => (
 			<div className="@container">
-				<div className="box-border [&_*]:box-border @[80rem]:w-full w-[1376px]">
+				<div className="box-border [&_*]:box-border">
 					<Story { ...parameters } />
 				</div>
 			</div>
