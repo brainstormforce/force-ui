@@ -286,11 +286,11 @@ export const SureFormsDashboard = ( args ) => {
 							<div className="bg-background-primary rounded-xl shadow-sm border-0.5 border-solid border-border-subtle p-6">
 								<Container
 									containerType="grid"
+									cols={ { sm: 1, md: 12, lg: 12 } }
 									align="center"
 									gap="2xl"
-									cols={ { sm: 1, md: 2 } }
 								>
-									<Container.Item className="space-y-6 order-2 md:order-1">
+									<Container.Item className="space-y-6 order-2 md:order-1" colSpan={ { sm: 1, md: 6, lg: 7 } }>
 										<div className="space-y-2">
 											<Text
 												as="h3"
@@ -316,10 +316,11 @@ export const SureFormsDashboard = ( args ) => {
 												block editor.
 											</Text>
 										</div>
-										<div className="flex gap-3">
+										<div className="flex gap-3 flex-wrap md:flex-nowrap">
 											<Button
 												variant="primary"
 												iconPosition="right"
+												className="w-full md:w-auto"
 												icon={ <Plus /> }
 											>
 												Create New Form
@@ -327,6 +328,7 @@ export const SureFormsDashboard = ( args ) => {
 											<Button
 												variant="outline"
 												iconPosition="right"
+												className="w-full md:w-auto"
 												icon={ <ExternalLink /> }
 											>
 												Read full guide
@@ -334,8 +336,8 @@ export const SureFormsDashboard = ( args ) => {
 										</div>
 									</Container.Item>
 
-									<Container.Item className="order-1 md:order-2">
-										<div className="relative w-full md:w-72 h-auto md:h-40 bg-field-primary-background rounded-lg aspect-video overflow-hidden border border-border-subtle flex items-center justify-center">
+									<Container.Item className="order-1 md:order-2" colSpan={ { sm: 1, md: 6, lg: 4 } } colStart={ { sm: 1, md: 7, lg: 9 } }>
+										<div className="relative w-full h-auto bg-field-primary-background rounded-lg aspect-video overflow-hidden border border-border-subtle flex items-center justify-center">
 											<Button
 												variant="ghost"
 												size="lg"
