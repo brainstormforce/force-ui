@@ -260,7 +260,7 @@ export const AddonsPage = ( args: Record<string, unknown> ) => {
 	return (
 		<div { ...args } className="bg-background-secondary min-h-screen w-full">
 			{ /* Top Navigation Bar */ }
-			<Topbar className="h-16 p-0 shadow-sm" gap={ 'xs' }>
+			<Topbar className="h-16 p-0 shadow-sm gap-0">
 				<Topbar.Left className="p-5">
 					<Topbar.Item>
 						<SureRank className="size-6" />
