@@ -1,18 +1,25 @@
-import { Container, Title, Text, Button, Badge, Topbar, Tabs } from '@/components';
 import {
-	Zap,
-	Shield,
-	Paintbrush,
-	BarChart3,
-	Globe,
-	Users,
-	Image,
-	ShoppingCart,
-	ExternalLink,
-	HelpCircle,
-	Megaphone,
-} from 'lucide-react';
-import { SureRank } from '@/ui/icons';
+	Container,
+	Title,
+	Text,
+	Button,
+	Badge,
+	Topbar,
+} from '@/components';
+import { ExternalLink, HelpCircle, Megaphone } from 'lucide-react';
+import {
+	SureRank,
+	SureFormsLogo,
+	SpectraLogo,
+	SureDashLogo,
+	CartFlowsLogo,
+	SureCartLogo,
+	OttokitLogo,
+	StartersTemplatesLogo,
+	PrestoPlayerLogo,
+	SureFeedbackLogo,
+	AstraThemeLogo,
+} from '@/ui/icons';
 
 interface Addon {
 	id: string;
@@ -57,74 +64,74 @@ export default {
 const addonsData: Addon[] = [
 	{
 		id: '1',
-		name: 'SureCart',
+		name: 'SureForms',
 		description:
 			'The new way to sell on WordPress. Create beautiful checkout experiences.',
 		installed: false,
-		icon: <ShoppingCart className="size-8" />,
+		icon: <SureFormsLogo className="size-8" />,
 	},
 	{
 		id: '2',
-		name: 'Ultimate Addons',
+		name: 'Spectra',
 		description:
 			'Supercharge your website with 40+ advanced blocks and templates.',
 		installed: true,
-		icon: <Zap className="size-8" />,
+		icon: <SpectraLogo className="size-8" />,
 	},
 	{
 		id: '3',
-		name: 'Spectra Pro',
+		name: 'SureDash',
 		description:
 			'Advanced Gutenberg blocks for creating stunning websites effortlessly.',
 		installed: false,
-		icon: <Paintbrush className="size-8" />,
+		icon: <SureDashLogo className="size-8" />,
 	},
 	{
 		id: '4',
-		name: 'Analytics Pro',
+		name: 'Cartflows',
 		description:
 			'Comprehensive analytics and reporting for your WordPress site.',
 		installed: false,
-		icon: <BarChart3 className="size-8 text-support-info" />,
+		icon: <CartFlowsLogo className="size-8" />,
 	},
 	{
 		id: '5',
-		name: 'Security Shield',
+		name: 'SureCart',
 		description:
 			'Protect your website from threats with advanced security features.',
 		installed: false,
-		icon: <Shield className="size-8 text-support-error" />,
+		icon: <SureCartLogo className="size-8" />,
 	},
 	{
 		id: '6',
-		name: 'Global Reach',
+		name: 'Ottokit',
 		description:
 			'Multi-language and translation support for global audiences.',
 		installed: true,
-		icon: <Globe className="size-8 text-support-info" />,
+		icon: <OttokitLogo className="size-8 text-support-info" />,
 	},
 	{
 		id: '7',
-		name: 'User Manager',
+		name: 'StarterTemplate',
 		description: 'Advanced user management and role customization tools.',
 		installed: false,
-		icon: <Users className="size-8 text-support-warning" />,
+		icon: <StartersTemplatesLogo className="size-8" />,
 	},
 	{
 		id: '8',
-		name: 'Media Library Pro',
+		name: 'Presto Player',
 		description:
 			'Enhanced media management with advanced organization features.',
 		installed: false,
-		icon: <Image className="size-8 text-brand-primary-600" />,
+		icon: <PrestoPlayerLogo className="size-8 text-brand-primary-600" />,
 	},
 	{
 		id: '9',
-		name: 'Performance Optimizer',
+		name: 'SureFeedback',
 		description:
 			'Boost your website speed with advanced caching and optimization.',
 		installed: true,
-		icon: <Zap className="size-8 text-support-warning" />,
+		icon: <SureFeedbackLogo className="size-8 text-support-warning" />,
 	},
 ];
 
@@ -135,7 +142,7 @@ const themesData: Addon[] = [
 		description:
 			'Fast, lightweight, and customizable WordPress theme perfect for any website.',
 		installed: false,
-		icon: <Shield className="size-8 text-support-error" />,
+		icon: <AstraThemeLogo className="size-8 text-support-error" />,
 	},
 ];
 
@@ -172,7 +179,7 @@ const AddonCard = ( { addon, onInstall, onConfigure }: AddonCardProps ) => (
 				direction="column"
 				className="p-1 flex-1 gap-2"
 			>
-				<Container.Item className="mb-1">
+				<Container.Item className="">
 					<Text as="p" color="primary">
 						{ addon.name }
 					</Text>
@@ -182,7 +189,7 @@ const AddonCard = ( { addon, onInstall, onConfigure }: AddonCardProps ) => (
 						as="p"
 						size={ 14 }
 						color="tertiary"
-						className="line-clamp-3 leading-relaxed font-normal"
+						className="line-clamp-3 leading-relaxed font-normal text-text-tertiary"
 					>
 						{ addon.description }
 					</Text>
@@ -218,24 +225,27 @@ const AddonCard = ( { addon, onInstall, onConfigure }: AddonCardProps ) => (
 							) }
 						</Container.Item>
 						<Container.Item>
-							<Container containerType="flex" align="center" className="gap-1">
+							<Container
+								containerType="flex"
+								align="center"
+								className="gap-1"
+							>
 								<Container.Item>
-									<Text
-										as="a"
-										size={ 12 }
-										color="link"
-										className="cursor-pointer no-underline focus:outline-none focus:ring-2 focus:ring-focus focus:ring-offset-2 rounded"
-										href="#"
+									<Button
+										className="cursor-pointer no-underline hover:no-underline rounded text-xs font-semibold"
+										icon={
+											<ExternalLink
+												className="size-4 text-link-primary"
+												aria-hidden="true"
+											/>
+										}
+										iconPosition="right"
+										size="sm"
+										variant="link"
 										aria-label={ `Learn more about ${ addon.name }` }
 									>
 										Learn More
-									</Text>
-								</Container.Item>
-								<Container.Item>
-									<ExternalLink
-										className="size-2.5 text-link-primary"
-										aria-hidden="true"
-									/>
+									</Button>
 								</Container.Item>
 							</Container>
 						</Container.Item>
@@ -248,60 +258,79 @@ const AddonCard = ( { addon, onInstall, onConfigure }: AddonCardProps ) => (
 
 export const AddonsPage = ( args: Record<string, unknown> ) => {
 	return (
-		<div className={ args.className as string }>
+		<div { ...args } className="bg-background-secondary min-h-screen w-full">
 			{ /* Top Navigation Bar */ }
-			<Topbar className="bg-background-primary border-solid border-t-0 border-l-0 border-r-0 border-b border-border-subtle">
-				<Topbar.Left>
+			<Topbar className="h-16 p-0 shadow-sm" gap={ 0 }>
+				<Topbar.Left className="p-5">
 					<Topbar.Item>
-						<SureRank />
-					</Topbar.Item>
-					<Topbar.Item>
-						<Tabs.Group
-							variant="underline"
-							size="sm"
-							orientation="horizontal"
-							width="auto"
-							className="bg-background-primary border-0 text-align-left"
-						>
-							<Tabs.Tab slug="dashboard" text="Dashboard" />
-							<Tabs.Tab slug="settings" text="Settings" />
-							<Tabs.Tab slug="connections" text="Connections" />
-							<Tabs.Tab slug="email-logs" text="Email Logs" />
-							<Tabs.Tab slug="notifications" text="Notifications" />
-							<Tabs.Tab slug="addons" text="Add-ons" />
-						</Tabs.Group>
+						<SureRank className="size-6" />
 					</Topbar.Item>
 				</Topbar.Left>
-				<Topbar.Right className="gap-3">
-					<Topbar.Item>
-						<Badge
-							label="V 0.0.2"
-							variant="neutral"
-							size="xs"
-							type="pill"
-							closable={ false }
-						/>
+				<Topbar.Middle align="left" className="h-full">
+					<Topbar.Item className="gap-3">
+						<a
+							className="content-center no-underline h-full py-0 px-1 m-0 bg-transparent outline-none shadow-none border-0 focus:outline-none text-text-tertiary text-sm font-medium cursor-pointer"
+							href="#"
+							target="_self"
+						>
+							Dashboard
+						</a>
+						<a
+							className="content-center no-underline h-full py-0 px-1 m-0 bg-transparent outline-none shadow-none border-0 focus:outline-none text-text-tertiary text-sm font-medium cursor-pointer"
+							href="#"
+							target="_self"
+						>
+							Settings
+						</a>
+						<a
+							className="content-center no-underline h-full py-0 px-1 m-0 bg-transparent outline-none shadow-none border-0 focus:outline-none text-text-tertiary text-sm font-medium cursor-pointer"
+							href="#"
+							target="_self"
+						>
+							Connections
+						</a>
+						<a
+							className="content-center no-underline h-full py-0 px-1 m-0 bg-transparent outline-none shadow-none border-0 focus:outline-none text-text-tertiary text-sm font-medium cursor-pointer"
+							href="#"
+							target="_self"
+						>
+							Email Logs
+						</a>
+						<a
+							className="content-center no-underline h-full py-0 px-1 m-0 bg-transparent outline-none shadow-none border-0 focus:outline-none text-text-tertiary text-sm font-medium cursor-pointer"
+							href="#"
+							target="_self"
+						>
+							Notifications
+						</a>
+						<a
+							className="content-center no-underline relative h-full py-0 px-1 m-0 bg-transparent outline-none shadow-none border-0 focus:outline-none text-text-primary text-sm font-medium cursor-pointer"
+							href="#"
+							target="_self"
+						>
+							<span>Add-ons</span>
+							<span className="absolute bottom-0 left-0 w-full h-px bg-brand-primary-600" />
+						</a>
 					</Topbar.Item>
+				</Topbar.Middle>
+				<Topbar.Right className="p-5">
 					<Topbar.Item>
-						<Container containerType="flex" align="center" gap="xs">
-							<Container.Item>
-								<Button variant="ghost" size="xs" className="p-1" aria-label="Support">
-									<HelpCircle className="size-4" />
-								</Button>
-							</Container.Item>
-							<Container.Item>
-								<Button variant="ghost" size="xs" className="p-1" aria-label="Notifications">
-									<Megaphone className="size-4" />
-								</Button>
-							</Container.Item>
-						</Container>
+						<Badge label="V 0.0.2" size="xs" variant="neutral" />
+					</Topbar.Item>
+					<Topbar.Item className="gap-2">
+						<HelpCircle className="size-4 m-1" strokeWidth={ 1.5 } />
+						<Megaphone className="size-4 m-1" strokeWidth={ 1.5 } />
 					</Topbar.Item>
 				</Topbar.Right>
 			</Topbar>
 
 			{ /* Main Content */ }
 			<Container className="max-w-6xl mx-auto p-8 bg-background-secondary">
-				<Container containerType="flex" direction="column" className="gap-6">
+				<Container
+					containerType="flex"
+					direction="column"
+					className="gap-6"
+				>
 					{ /* Header Section */ }
 					<Container.Item>
 						<Title
@@ -312,9 +341,12 @@ export const AddonsPage = ( args: Record<string, unknown> ) => {
 						/>
 					</Container.Item>
 
-					<Container className="p-6 gap-4 bg-background-primary rounded-xl shadow-sm" direction="column">
+					<Container
+						className="p-6 gap-4 bg-background-primary rounded-xl shadow-sm"
+						direction="column"
+					>
 						{ /* Recommended Plugins Section */ }
-						<Container.Item >
+						<Container.Item>
 							<Container
 								containerType="flex"
 								direction="column"
