@@ -23,6 +23,12 @@ import {
 } from 'lucide-react';
 import { useState } from 'react';
 
+// Import assets
+import uaeLogoHeader from './assets/uae-logo-header.svg';
+import videoBackground from './assets/video-background.svg';
+import sureRankLogo from './assets/surerank-logo.svg';
+import upgradeBanner from './assets/upgrade-banner.svg';
+
 export default {
 	title: 'Templates/Dashboard/UAE Dashboard',
 	parameters: {
@@ -127,7 +133,7 @@ export const UAEDashboard = ( args ) => {
 					<Topbar.Left className="p-3">
 						<Topbar.Item>
 							<img
-								src="./src/templates/uae-dashboard/assets/uae-logo-header.svg"
+								src={ uaeLogoHeader }
 								alt="UAE Logo"
 								className="w-7 h-7"
 							/>
@@ -240,7 +246,7 @@ export const UAEDashboard = ( args ) => {
 									</div>
 									<div className="w-full md:w-72 h-auto md:h-40 bg-field-primary-background rounded border border-border-subtle flex items-center justify-center relative overflow-hidden order-1 md:order-2">
 										<img
-											src="./src/templates/uae-dashboard/assets/video-background.svg"
+											src={ videoBackground }
 											alt="Getting Started Video"
 											className="w-full h-full object-cover rounded"
 										/>
@@ -364,7 +370,7 @@ export const UAEDashboard = ( args ) => {
 									<div className="bg-background-primary rounded p-4 border border-border-subtle">
 										<div className="flex flex-col items-start gap-4">
 											<img
-												src="./src/templates/uae-dashboard/assets/surerank-logo.svg"
+												src={ sureRankLogo }
 												alt="SureRank Logo"
 												className="w-32 h-7"
 											/>
@@ -413,7 +419,7 @@ export const UAEDashboard = ( args ) => {
 							{ /* Upgrade to Pro */ }
 							<div className="bg-background-primary rounded-xl shadow-sm border-0.5 border-solid border-border-subtle overflow-hidden">
 								<img
-									src="./src/templates/uae-dashboard/assets/upgrade-banner.svg"
+									src={ upgradeBanner }
 									alt="Upgrade to Pro"
 									className="w-full relative object-contain px-3 pt-2"
 								/>
