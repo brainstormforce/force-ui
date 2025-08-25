@@ -1,0 +1,2 @@
+"use strict";Object.defineProperties(exports,{__esModule:{value:!0},[Symbol.toStringTag]:{value:"Module"}});const o=require("react/jsx-runtime"),a=require("../../utilities/functions.cjs.js"),e=({children:t,as:r="p",className:s,...n})=>o.jsx(r,{className:a.cn("text-sm font-normal text-text-secondary my-0 ml-0 mr-1 p-0",s),...n,children:t});e.displayName="Drawer.Description";exports.default=e;
+//# sourceMappingURL=drawer-description.cjs.js.map
