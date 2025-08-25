@@ -2,16 +2,13 @@
 
 <!-- Please describe what you have changed or added -->
 
-### Screenshots
+### Screenshots | Video with voice-over
 
 <!-- if applicable -->
 
-### Types of changes
+### Link to Figma (If applicable)
 
-<!-- What types of changes does your code introduce?  -->
-<!-- Bug fix (non-breaking change which fixes an issue) -->
-<!-- New feature (non-breaking change which adds functionality) -->
-<!-- Breaking change -->
+<!-- if applicable -->
 
 ### How has this been tested?
 
@@ -20,10 +17,12 @@
 ### Checklist:
 
 -   [ ] My code is tested
--   [ ] My code passes the PHPCS tests
--   [ ] I've created the npm build.
+-   [ ] Screenshot added in PR
+-   [ ] Figma design linked
 -   [ ] My code follows accessibility standards <!-- Guidelines: https://make.wordpress.org/core/handbook/best-practices/coding-standards/accessibility-coding-standards/ -->
 -   [ ] My code has proper inline documentation <!-- Guidelines: https://make.wordpress.org/core/handbook/best-practices/inline-documentation-standards/javascript/ -->
--   [ ] I've included any necessary tests <!-- if applicable -->
--   [ ] I've included developer documentation <!-- if applicable -->
--   [ ] I've added proper labels to this pull request <!-- if applicable -->
+-   [ ] I have resolved all lint issues
+-   [ ] My templates are responsive
+-   [ ] I've added conditional class names use cn()
+-   [ ] I've followed theme color usage
+-   [ ] I have used clear and relevant file paths
