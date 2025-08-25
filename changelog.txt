@@ -1,4 +1,4 @@
-Version 1.7.5 - 26th August, 2025
+Version 1.7.5 - 25th August, 2025
 - New: Template - UAE Dashboard
 - New: Template - UAE Widgets
 - New: Template - SureForms Dashboard
