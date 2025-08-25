@@ -26,6 +26,10 @@ import {
 	X,
 } from 'lucide-react';
 
+// Import assets
+import sureRankLogo from './assets/surerank-logo.svg';
+import upgradeIllustration from './assets/upgrade-illustration.svg';
+
 export default {
 	title: 'Templates/Dashboard/SureForms Dashboard',
 	parameters: {
@@ -563,7 +567,7 @@ export const SureFormsDashboard = ( args ) => {
 									<div className="bg-background-primary border border-border-subtle rounded-md p-3 shadow-sm">
 										<div className="flex items-start justify-between mb-3">
 											<img
-												src="/src/templates/sureforms-dashboard/assets/surerank-logo.svg"
+												src={ sureRankLogo }
 												alt="SureRank"
 												className="h-5"
 											/>
@@ -716,7 +720,7 @@ export const SureFormsDashboard = ( args ) => {
 
 									<Container.Item colSpan={ { sm: 1, md: 3 } }>
 										<img
-											src="/src/templates/sureforms-dashboard/assets/upgrade-illustration.svg"
+											src={ upgradeIllustration }
 											alt="Upgrade illustration"
 											className="w-full h-auto"
 										/>

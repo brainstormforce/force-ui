@@ -25,6 +25,10 @@ import {
 } from 'lucide-react';
 import { useState } from 'react';
 
+// Import assets
+import uaeLogoHeader from '../uae-dashboard/assets/uae-logo-header.svg';
+import upgradeBanner from './assets/upgrade-banner.svg';
+
 export default {
 	title: 'Templates/Dashboard/UAE Widgets',
 	parameters: {
@@ -206,7 +210,7 @@ export const UAEWidgets = ( args ) => {
 					<Topbar.Left className="p-3">
 						<Topbar.Item>
 							<img
-								src="./src/templates/uae-dashboard/assets/uae-logo-header.svg"
+								src={ uaeLogoHeader }
 								alt="UAE Logo"
 								className="w-7 h-7"
 							/>
@@ -418,7 +422,7 @@ export const UAEWidgets = ( args ) => {
 							<div className="bg-background-primary rounded-xl shadow-sm border-0.5 border-solid border-border-subtle overflow-hidden">
 								<div className="p-3">
 									<img
-										src="./src/templates/uae-widgets/assets/upgrade-banner.svg"
+										src={ upgradeBanner }
 										alt="Upgrade to Pro"
 										className="w-full h-auto object-contain"
 									/>
