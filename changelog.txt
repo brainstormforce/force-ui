@@ -1,5 +1,5 @@
 Version 1.7.6 - 11th September, 2025
-- Improvements: Atom - Select - Added a `searchValue` prop to enhance search in Select component.
+- Improvements: Atom - Select - Improved search logic.
 
 
 Version 1.7.5 - 25th August, 2025
