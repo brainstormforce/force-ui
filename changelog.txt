@@ -1,3 +1,7 @@
+Version 1.7.6 - 11th September, 2025
+- Improvements: Atom - Select - Added a `searchValue` prop to enhance search in Select component.
+
+
 Version 1.7.5 - 25th August, 2025
 - New: Template - UAE Dashboard
 - New: Template - UAE Widgets
