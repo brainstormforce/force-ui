@@ -18,12 +18,12 @@ export const getTextContent = ( node: ReactNode ): string => {
 
 	// Handle arrays of React nodes
 	if ( Array.isArray( node ) ) {
-		return node.map( getTextContent ).join( ' ' );
+		return node.map( getTextContent ).join( ' ' ).trim();
 	}
 
-	// Handle React elements
+	// Handle React elements (JSX components)
 	if ( isValidElement( node ) ) {
-		// If it has children, recursively get text from children
+		// Recursively get text from children
 		if ( node.props && node.props.children ) {
 			return getTextContent( node.props.children );
 		}
@@ -32,17 +32,12 @@ export const getTextContent = ( node: ReactNode ): string => {
 
 	// Handle objects with textContent property (DOM nodes)
 	if ( typeof node === 'object' && 'textContent' in node! ) {
-		return node.textContent?.toString() || '';
+		return node.textContent?.toString().toLowerCase() || '';
 	}
 
 	// Handle objects with children property
-	if ( typeof node === 'object' && node && 'children' in node ) {
+	if ( typeof node === 'object' && 'children' in node! ) {
 		return getTextContent( ( node as { children: ReactNode } ).children );
-	}
-
-	// Fallback for other object types
-	if ( typeof node === 'object' ) {
-		return '';
 	}
 
 	return '';
