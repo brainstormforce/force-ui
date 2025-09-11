@@ -522,31 +522,21 @@ export function SelectOptions( {
 							return cloneElement( groupChild, childProps );
 						}
 
-				// Handle regular options when searchFn is not provided
-				if ( groupLabelMatches ) {
-					const childProps = {
-						...( groupChild.props as SelectOptionProps ),
-						index: childIndex++,
-					};
+						// Otherwise, apply normal filtering to individual options
+						if ( searchKeyword && ! searchFn ) {
+							const textContent = getTextContent(
+								( groupChild.props as { children?: React.ReactNode } ).children
+							)?.toLowerCase();
+							const searchTerm = searchKeyword.toLowerCase();
 
-					return cloneElement( groupChild, childProps );
-				}
+							const textMatch = textContent?.includes( searchTerm );
 
-				// Otherwise, apply normal filtering to individual options
-				if ( searchKeyword && ! searchFn ) {
-					const searchTerm = searchKeyword.toLowerCase();
-					
-					// Use searchValue prop if available, otherwise extract text from children
-					const searchableText = ( groupChild.props as SelectOptionProps ).searchValue 
-						? ( groupChild.props as SelectOptionProps ).searchValue?.toLowerCase()
-						: getTextContent( ( groupChild.props as { children?: React.ReactNode } ).children )?.toLowerCase();
+							if ( ! textMatch ) {
+								return null;
+							}
+						}
 
-					const textMatch = searchableText?.includes( searchTerm );
-
-					if ( ! textMatch ) {
-						return null;
-					}
-				}						const childProps = {
+						const childProps = {
 							...( groupChild.props as SelectOptionProps ),
 							index: childIndex++,
 						};
@@ -575,14 +565,12 @@ export function SelectOptions( {
 
 			// Handle regular options when searchFn is not provided
 			if ( searchKeyword && ! searchFn ) {
+				const textContent = getTextContent(
+					child.props?.children
+				)?.toLowerCase();
 				const searchTerm = searchKeyword.toLowerCase();
-				
-				// Use searchValue prop if available, otherwise extract text from children
-				const searchableText = ( child.props as SelectOptionProps ).searchValue 
-					? ( child.props as SelectOptionProps ).searchValue?.toLowerCase()
-					: getTextContent( child.props?.children )?.toLowerCase();
 
-				const textMatch = searchableText?.includes( searchTerm );
+				const textMatch = textContent?.includes( searchTerm );
 
 				if ( ! textMatch ) {
 					return null;
@@ -622,22 +610,20 @@ export function SelectOptions( {
 				return;
 			}
 
-			// Use searchValue prop if available, otherwise extract text from children
-			const searchableText = ( child.props as SelectOptionProps ).searchValue 
-				? ( child.props as SelectOptionProps ).searchValue?.toLowerCase()
-				: getTextContent( child.props?.children )?.toLowerCase();
-				
+			const textContent = getTextContent(
+				child.props?.children
+			)?.toLowerCase();
 			// Handle regular options when searchFn is not provided
 			if ( searchKeyword && ! searchFn ) {
 				const searchTerm = searchKeyword.toLowerCase();
-				const textMatch = searchableText?.includes( searchTerm );
+				const textMatch = textContent?.includes( searchTerm );
 
 				if ( ! textMatch ) {
 					return;
 				}
 			}
 
-			listContentRef.current.push( searchableText );
+			listContentRef.current.push( textContent );
 		} );
 	}, [ searchKeyword, searchFn ] );
 
