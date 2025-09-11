@@ -134,6 +134,8 @@ export interface SelectOptionProps {
 	children?: ReactNode;
 	/** Additional class name for the Select Option. */
 	className?: string;
+	/** Search value for complex JSX components. If provided, this will be used for search instead of extracting text from children. */
+	searchValue?: string;
 	/** Additional Props */
 	[key: string]: unknown;
 }

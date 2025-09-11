@@ -3,6 +3,7 @@ import Select from './select';
 import { expect, userEvent, within, screen } from '@storybook/test';
 import { SelectOptionValue } from './select-types';
 import { useState } from 'react';
+import { CheckCircle, XCircle, AlertCircle } from 'lucide-react';
 
 const options = [
 	{ id: '1', name: 'Red' },
@@ -432,4 +433,170 @@ GroupedSelect.play = async ( { canvasElement } ) => {
 	await userEvent.click( allOptions[ 0 ] );
 
 	expect( selectButton ).toHaveTextContent( 'Red' );
+};
+
+// Enhanced example with JSX components and searchValue
+const siteOptions = [
+	{ 
+		url: 'example.com', 
+		status: 'verified', 
+		label: 'Example.com',
+		description: 'Primary website'
+	},
+	{ 
+		url: 'test-site.org', 
+		status: 'pending', 
+		label: 'Test Site',
+		description: 'Development environment'
+	},
+	{ 
+		url: 'my-blog.net', 
+		status: 'error', 
+		label: 'My Blog',
+		description: 'Personal blog'
+	},
+];
+
+export const SelectWithJSXAndSearchValue: Story = ( {
+	size,
+	combobox,
+	disabled,
+} ) => {
+	const [ selectedSite, setSelectedSite ] = useState<SelectOptionValue | null>( null );
+	
+	const getStatusIcon = ( status: string ) => {
+		switch ( status ) {
+			case 'verified':
+				return <CheckCircle className="size-4 text-green-600" />;
+			case 'pending':
+				return <AlertCircle className="size-4 text-yellow-600" />;
+			case 'error':
+				return <XCircle className="size-4 text-red-600" />;
+			default:
+				return null;
+		}
+	};
+
+	const getStatusText = ( status: string ) => {
+		switch ( status ) {
+			case 'verified':
+				return 'Verified';
+			case 'pending':
+				return 'Pending verification';
+			case 'error':
+				return 'Verification failed';
+			default:
+				return '';
+		}
+	};
+
+	return (
+		<div style={ { width: '400px' } }>
+			<Select
+				size={ size }
+				combobox={ combobox }
+				disabled={ disabled }
+				onChange={ ( value ) => setSelectedSite( value as SelectOptionValue ) }
+				value={ selectedSite as SelectOptionValue }
+				searchPlaceholder="Search sites..."
+			>
+				<Select.Button
+					placeholder="Select a site"
+					label="Website Selection"
+					render={ ( selected ) =>
+						( selected as typeof siteOptions[0] )?.label
+					}
+				/>
+				<Select.Portal>
+					<Select.Options>
+						{ siteOptions.map( ( site ) => (
+							<Select.Option 
+								key={ site.url } 
+								value={ site }
+								searchValue={ `${site.label} ${site.url} ${site.description}` }
+							>
+								<div className="flex items-center justify-between w-full p-1">
+									<div className="flex flex-col flex-1 min-w-0">
+										<span className="font-medium truncate">{ site.label }</span>
+										<span className="text-sm text-gray-500 truncate">{ site.url }</span>
+										<span className="text-xs text-gray-400 truncate">{ site.description }</span>
+									</div>
+									<div className="flex items-center gap-2 ml-3">
+										{ getStatusIcon( site.status ) }
+										<span className="text-xs font-medium">
+											{ getStatusText( site.status ) }
+										</span>
+									</div>
+								</div>
+							</Select.Option>
+						) ) }
+					</Select.Options>
+				</Select.Portal>
+			</Select>
+		</div>
+	);
+};
+
+SelectWithJSXAndSearchValue.args = {
+	size: 'md',
+	combobox: true,
+	disabled: false,
+};
+
+SelectWithJSXAndSearchValue.parameters = {
+	docs: {
+		description: {
+			story: `This example demonstrates the new \`searchValue\` prop that enables reliable search functionality with complex JSX components.
+
+**Key Features:**
+- **Complex JSX Structure**: Each option contains multiple elements with icons, labels, and descriptions
+- **Reliable Search**: Uses \`searchValue\` prop to define what text should be searchable
+- **Visual Indicators**: Status icons and text show different states
+- **Multi-field Search**: Search works across label, URL, and description
+
+**The \`searchValue\` prop contains**: \`"Label URL Description"\` making all fields searchable while maintaining the rich visual design.
+
+**Try searching for:**
+- \`"example"\` - matches the first site
+- \`"development"\` - matches the test site description  
+- \`"blog"\` - matches both label and URL of the blog site
+- \`"pending"\` - won't match (status text is not in searchValue)`,
+		},
+	},
+};
+
+SelectWithJSXAndSearchValue.play = async ( { canvasElement } ) => {
+	const canvas = within( canvasElement );
+	
+	// Click on the select button
+	const selectButton = await canvas.findByRole( 'combobox' );
+	await userEvent.click( selectButton );
+
+	// Check if all options are visible initially
+	const listBox = await screen.findByRole( 'listbox' );
+	expect( listBox ).toHaveTextContent( 'Example.com' );
+	expect( listBox ).toHaveTextContent( 'Test Site' );
+	expect( listBox ).toHaveTextContent( 'My Blog' );
+
+	// Test search functionality
+	const searchInput = await screen.findByPlaceholderText( 'Search sites...' );
+	
+	// Search for "development" - should match test site description
+	await userEvent.clear( searchInput );
+	await userEvent.type( searchInput, 'development' );
+	expect( listBox ).toHaveTextContent( 'Test Site' );
+	expect( listBox ).not.toHaveTextContent( 'Example.com' );
+
+	// Search for "blog" - should match blog site
+	await userEvent.clear( searchInput );
+	await userEvent.type( searchInput, 'blog' );
+	expect( listBox ).toHaveTextContent( 'My Blog' );
+	expect( listBox ).not.toHaveTextContent( 'Test Site' );
+
+	// Select the blog option
+	const blogOption = await screen.findByRole( 'option' );
+	await userEvent.click( blogOption );
+
+	// Check if the button text is updated
+	expect( selectButton ).toHaveTextContent( 'My Blog' );
 };
