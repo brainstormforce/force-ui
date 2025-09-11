@@ -1,38 +1,48 @@
-import {
-	type ReactNode,
-	type ReactElement,
-} from 'react';
+import { type ReactNode, isValidElement } from 'react';
 
 /**
- * Simple text extraction utility for Force UI Select component
- *
- * Extracts searchable text from React nodes. For complex JSX components,
- * use the `searchValue` prop on Select.Option for reliable search.
- *
- * @param {ReactNode} node - React node to extract text from
- * @return {string} Extracted text content for search functionality
+ * Get text content of a node
+ * @param {ReactNode} node - React node
+ * @return {string} text content of the node
  */
 export const getTextContent = ( node: ReactNode ): string => {
-	// Handle primitives
+	// Handle null, undefined, boolean
 	if ( node === null || typeof node === 'boolean' ) {
 		return '';
 	}
 
+	// Handle string and number
 	if ( typeof node === 'string' || typeof node === 'number' ) {
 		return node.toString();
 	}
 
-	// Handle arrays
+	// Handle arrays of React nodes
 	if ( Array.isArray( node ) ) {
 		return node.map( getTextContent ).join( ' ' );
 	}
 
-	// Handle React elements - extract from children
-	if ( typeof node === 'object' && node !== null && 'props' in node ) {
-		const element = node as ReactElement;
-		if ( element.props?.children ) {
-			return getTextContent( element.props.children );
+	// Handle React elements
+	if ( isValidElement( node ) ) {
+		// If it has children, recursively get text from children
+		if ( node.props && node.props.children ) {
+			return getTextContent( node.props.children );
 		}
+		return '';
+	}
+
+	// Handle objects with textContent property (DOM nodes)
+	if ( typeof node === 'object' && 'textContent' in node! ) {
+		return node.textContent?.toString() || '';
+	}
+
+	// Handle objects with children property
+	if ( typeof node === 'object' && node && 'children' in node ) {
+		return getTextContent( ( node as { children: ReactNode } ).children );
+	}
+
+	// Fallback for other object types
+	if ( typeof node === 'object' ) {
+		return '';
 	}
 
 	return '';
