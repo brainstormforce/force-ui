@@ -122,29 +122,27 @@ const lookupService = {
 				: string
 			: string
 	) {
-		setTimeout( () => {
-			if ( ! Array.isArray( options ) ) {
-				return [];
-			}
-			const results = options.filter(
-				( mention: string | Record<string, unknown> ) => {
-					if ( typeof mention === 'string' ) {
-						return mention
-							.toLowerCase()
-							.includes( string.toLowerCase() );
-					}
+		// Remove setTimeout for immediate response - debouncing should happen at input level if needed
+		if ( ! Array.isArray( options ) ) {
+			callback( [] as T );
+			return;
+		}
 
-					const strValue = mention?.[ by ]?.toString();
-					if ( ! strValue ) {
-						return false;
-					}
-					return strValue
-						.toLowerCase()
-						.includes( string.toLowerCase() );
+		const lowerString = string.toLowerCase();
+		const results = options.filter(
+			( mention: string | Record<string, unknown> ) => {
+				if ( typeof mention === 'string' ) {
+					return mention.toLowerCase().includes( lowerString );
 				}
-			);
-			callback( results as T );
-		}, 500 );
+
+				const strValue = mention?.[ by ]?.toString();
+				if ( ! strValue ) {
+					return false;
+				}
+				return strValue.toLowerCase().includes( lowerString );
+			}
+		);
+		callback( results as T );
 	},
 };
 
