@@ -1,4 +1,4 @@
-Version 1.7.7 - xxth xx, xxxx
+Version 1.7.7 - 29th January, 2026
 - Fix: Organism - Dialog, Drawer: Resolved an issue where the component closed unexpectedly when `exitOnClickOutside` was enabled and a toaster was dismissed.
 
 Version 1.7.6 - 11th September, 2025
