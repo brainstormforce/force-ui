@@ -66,7 +66,7 @@ export const Toaster = ( {
 	return (
 		<ul
 			className={ cn(
-				'fixed flex flex-col list-none z-20 p-10 pointer-events-none [&>li]:pointer-events-auto gap-3',
+				'fui-toast-container fixed flex flex-col list-none z-20 p-10 pointer-events-none [&>li]:pointer-events-auto gap-3',
 				positionClassNames[ position ] ?? positionClassNames[ 'top-right' ],
 				className
 			) }
@@ -227,7 +227,9 @@ export const Toast = ( {
 									closeIconClassNames[ theme ] ??
 										closeIconClassNames.light
 								) }
-								onClick={ () => {
+								onClick={ ( event ) => {
+									event.preventDefault();
+									event.stopPropagation();
 									if ( typeof removeToast !== 'function' ) {
 										return;
 									}
