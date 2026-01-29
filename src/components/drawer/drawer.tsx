@@ -10,7 +10,15 @@ import React, {
 	type ReactNode,
 } from 'react';
 import { callAll } from '@/utilities/functions';
-import { useFloating, useInteractions, useClick, useRole, useDismiss, type FloatingContext, type UseFloatingReturn } from '@floating-ui/react';
+import {
+	useFloating,
+	useInteractions,
+	useClick,
+	useRole,
+	useDismiss,
+	type FloatingContext,
+	type UseFloatingReturn,
+} from '@floating-ui/react';
 import DrawerPanel from './drawer-panel';
 import DrawerHeader from './drawer-header';
 import DrawerTitle from './drawer-title';
@@ -56,7 +64,9 @@ export interface DrawerContextDefault {
 	position: DrawerProps['position'];
 	drawerContainerRef: React.RefObject<HTMLDivElement>;
 	transitionDuration: { duration: number };
-	getFloatingProps: ( props?: React.HTMLProps<HTMLElement> ) => Record<string, unknown>;
+	getFloatingProps: (
+		props?: React.HTMLProps<HTMLElement>
+	) => Record<string, unknown>;
 	scrollLock: boolean;
 	context: FloatingContext;
 	className?: string;
@@ -120,18 +130,21 @@ const Drawer = ( {
 	const dismiss = useDismiss( context, {
 		enabled: exitOnEsc || exitOnClickOutside,
 		escapeKey: exitOnEsc,
-		outsidePress: exitOnClickOutside,
+		outsidePress: ( event ) => {
+			if ( ! exitOnClickOutside ) {
+				return false;
+			}
+			const target = event?.target as HTMLElement;
+			const isToastElement = target?.closest( 'ul.fui-toast-container' );
+			return ! isToastElement;
+		},
 	} );
 
 	const role = useRole( context, { role: 'dialog' } );
 
 	const click = useClick( context );
 
-	const { getFloatingProps } = useInteractions( [
-		dismiss,
-		role,
-		click,
-	] );
+	const { getFloatingProps } = useInteractions( [ dismiss, role, click ] );
 
 	const renderTrigger = useCallback( () => {
 		if ( isValidElement( trigger ) ) {
