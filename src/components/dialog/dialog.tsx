@@ -119,7 +119,14 @@ const Dialog = ( {
 	const dismiss = useDismiss( context, {
 		enabled: exitOnClickOutside || exitOnEsc,
 		escapeKey: exitOnEsc,
-		outsidePress: exitOnClickOutside,
+		outsidePress: ( event ) => {
+			if ( ! exitOnClickOutside ) {
+				return false;
+			}
+			const target = event?.target as HTMLElement;
+			const isToastElement = target?.closest( 'ul.fui-toast-container' );
+			return ! isToastElement;
+		},
 	} );
 	const role = useRole( context, { role: 'dialog' } );
 
