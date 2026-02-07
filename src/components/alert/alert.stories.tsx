@@ -82,7 +82,7 @@ export const WithLongStringAndWithoutCloseButton: Story = {
 		variant: 'neutral',
 		content: (
 			<p className="m-0">
-				<b className="mr-1">Designer's Note:</b>Adjusting or changing
+				<b className="mr-1">Designer&apos;s Note:</b>Adjusting or changing
 				components here will update it on all other pages or templates
 				where it has been used
 			</p>
