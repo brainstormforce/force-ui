@@ -4,6 +4,7 @@
 .editorconfig
 .github
 .wordpress-org
+internal-docs
 .git
 .gitignore
 .gitattributes
