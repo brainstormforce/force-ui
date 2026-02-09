@@ -1,0 +1,59 @@
+name: Publish Public Build
+
+on:
+  push:
+    branches:
+      - publish-workflow
+  # release:
+  #   types: [created]
+
+jobs:
+  publish-build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      # Build the library
+      - name: Install and Build
+        run: |
+          npm ci
+          npm run build
+
+      # Push to public mirror repo
+      - name: Push Build to Public Mirror
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BSF_PRODUCTS_REPO_TOKEN: ${{ secrets.BSF_PRODUCTS_REPO_TOKEN }}
+        run: |
+          # Clone public mirror repo
+          git clone https://x-access-token:${{ secrets.BSF_PRODUCTS_REPO_TOKEN }}@github.com/brainstormforce/bsf-admin-ui.git build-repo
+
+          cd build-repo
+
+          # Clear old dist
+          rm -rf dist
+
+          # Copy new build
+          cp -r ../dist ./
+
+          # Update version in package.json
+          VERSION=$(node -p "require('../package.json').version")
+          node -e "
+            const pkg = require('./package.json');
+            pkg.version = '$VERSION';
+            require('fs').writeFileSync('package.json', JSON.stringify(pkg, null, 2));
+          "
+
+          # Commit and tag
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add dist package.json
+          git commit -m "Release v$VERSION - build artifacts only"
+          git tag v$VERSION
+          git push origin main
+          git push origin v$VERSION
