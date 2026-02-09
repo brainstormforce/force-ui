@@ -1,4 +1,4 @@
-## Getting Started - Development Repo
+## Getting Started - Development Repo.
 
 Learn how to use @bsf/force-ui components to quickly and easily create elegant and flexible pages using Tailwind CSS.
 
