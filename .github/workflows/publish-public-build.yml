@@ -2,7 +2,7 @@ name: Publish Public Build
 
 on:
   release:
-    types: [created]
+    types: [published]
 
 jobs:
   publish-build:
