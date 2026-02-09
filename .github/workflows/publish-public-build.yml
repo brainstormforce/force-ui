@@ -27,11 +27,10 @@ jobs:
       # Push to public mirror repo
       - name: Push Build to Public Mirror
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          BSF_PRODUCTS_REPO_TOKEN: ${{ secrets.BSF_PRODUCTS_REPO_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           # Clone public mirror repo
-          git clone https://x-access-token:${{ secrets.BSF_PRODUCTS_REPO_TOKEN }}@github.com/brainstormforce/bsf-admin-ui.git build-repo
+          git clone https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/brainstormforce/bsf-admin-ui.git build-repo
 
           cd build-repo
 
