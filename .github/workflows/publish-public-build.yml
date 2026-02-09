@@ -55,5 +55,5 @@ jobs:
           git add dist package.json
           git commit -m "Release v$VERSION - build artifacts only"
           git tag v$VERSION
-          git push origin main
+          git push origin master
           git push origin v$VERSION
