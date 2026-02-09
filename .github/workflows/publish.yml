@@ -1,11 +1,8 @@
 name: Publish Package
 
 on:
-  push:
-    branches:
-      - publish-workflow
-  # release:
-  #   types: [created]
+  release:
+    types: [created]
 
 jobs:
   publish:
@@ -15,16 +12,16 @@ jobs:
       packages: write
     steps:
       - uses: actions/checkout@v3
-      
+
       - uses: actions/setup-node@v3
         with:
           node-version: '18'
           registry-url: 'https://npm.pkg.github.com'
           scope: '@brainstormforce'
-      
+
       - run: npm ci
       - run: npm run build
-      
+
       - run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
