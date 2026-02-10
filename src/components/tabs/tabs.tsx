@@ -1,5 +1,6 @@
 import React, {
 	useCallback,
+	useMemo,
 	forwardRef,
 	isValidElement,
 	createContext,
@@ -89,7 +90,7 @@ export const TabsGroup = ( {
 	iconPosition = 'left', // Position of the icon in the tab ('left' or 'right').
 	width = 'full', // Width of the tabs ('auto' or 'full').
 }: TabsGroupProps ) => {
-	const tabGroupId = nanoid();
+	const tabGroupId = useMemo( () => nanoid(), [] );
 	const tabsState = useTabs();
 
 	// Determine the active item based on the activeTabSlug prop.
