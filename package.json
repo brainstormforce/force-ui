@@ -1,5 +1,5 @@
 {
-    "name": "@bsf/force-ui",
+    "name": "@brainstormforce/force-ui",
     "version": "1.7.8",
     "description": "Library of components for the BSF project",
     "main": "./dist/force-ui.cjs.js",
@@ -7,6 +7,10 @@
     "types": "./dist/force-ui.d.ts",
     "type": "module",
     "sideEffects": false,
+    "publishConfig": {
+        "registry": "https://npm.pkg.github.com",
+        "access": "restricted"
+    },
     "exports": {
         "./package.json": "./package.json",
         ".": {
@@ -41,7 +45,7 @@
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/rahulvarma722/bsf-admin-ui.git"
+        "url": "git+https://github.com/brainstormforce/force-ui.git"
     },
     "volta": {
         "node": "18.15.0"
