@@ -1,6 +1,11 @@
+Version 1.7.8 - 10th February, 2026
+- Fix: Organism - Dialog, Drawer, Tabs: Resolved an issue where Dialog and Drawer components failed to unmount when containing a Tabs component.
+
+Version 1.7.7 - 29th January, 2026
+- Fix: Organism - Dialog, Drawer: Resolved an issue where the component closed unexpectedly when `exitOnClickOutside` was enabled and a toaster was dismissed.
+
 Version 1.7.6 - 11th September, 2025
 - Improvements: Atom - Select - Improved search logic.
-
 
 Version 1.7.5 - 25th August, 2025
 - New: Template - UAE Dashboard

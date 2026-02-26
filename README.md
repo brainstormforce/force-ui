@@ -1,4 +1,4 @@
-## Getting Started
+## Getting Started - Development Repo
 
 Learn how to use @bsf/force-ui components to quickly and easily create elegant and flexible pages using Tailwind CSS.
 
@@ -14,7 +14,7 @@ Using Force UI as a dependency in package.json -
 
 ```json
 "dependencies": {
-  "@bsf/force-ui": "git+https://github.com/brainstormforce/force-ui#1.7.6"
+  "@bsf/force-ui": "git+https://github.com/brainstormforce/force-ui#1.7.8"
 }
 ```
 
@@ -28,7 +28,7 @@ npm install
 Or you can directly run the following command to install the package -
 
 ```bash
-npm i -S @bsf/force-ui@git+https://github.com/brainstormforce/force-ui.git#1.7.6
+npm i -S @bsf/force-ui@git+https://github.com/brainstormforce/force-ui.git#1.7.8
 ```
 
 <br />

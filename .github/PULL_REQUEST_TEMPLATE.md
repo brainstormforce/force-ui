@@ -1,17 +1,13 @@
 ### Description
-
 <!-- Please describe what you have changed or added -->
 
 ### Screenshots | Video with voice-over
-
 <!-- if applicable -->
 
 ### Link to Figma (If applicable)
-
 <!-- if applicable -->
 
 ### How has this been tested?
-
 <!-- Please describe in detail how you tested your changes. -->
 
 ### Checklist:
