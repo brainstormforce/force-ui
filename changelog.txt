@@ -1,3 +1,6 @@
+Version 1.7.9 - 26th February, 2026
+- Fix: Organism - Tabs: Resolved an issue where switching a tab prevented the parent Dialog or Drawer from unmounting by removing the incorrect `layoutRoot` prop from the Tab button.
+
 Version 1.7.8 - 10th February, 2026
 - Fix: Organism - Dialog, Drawer, Tabs: Resolved an issue where Dialog and Drawer components failed to unmount when containing a Tabs component.
 
