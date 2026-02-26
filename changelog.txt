@@ -1,0 +1,188 @@
+Version 1.7.9 - 26th February, 2026
+- Fix: Organism - Tabs: Resolved an issue where switching a tab prevented the parent Dialog or Drawer from unmounting by removing the incorrect `layoutRoot` prop from the Tab button.
+
+Version 1.7.8 - 10th February, 2026
+- Fix: Organism - Dialog, Drawer, Tabs: Resolved an issue where Dialog and Drawer components failed to unmount when containing a Tabs component.
+
+Version 1.7.7 - 29th January, 2026
+- Fix: Organism - Dialog, Drawer: Resolved an issue where the component closed unexpectedly when `exitOnClickOutside` was enabled and a toaster was dismissed.
+
+Version 1.7.6 - 11th September, 2025
+- Improvements: Atom - Select - Improved search logic.
+
+Version 1.7.5 - 25th August, 2025
+- New: Template - UAE Dashboard
+- New: Template - UAE Widgets
+- New: Template - SureForms Dashboard
+
+Version 1.7.4 - 13th June, 2025
+- Improvement: Atom - Select: Improved search option functionality of the Select (combobox) component.
+- Fix: Organism - Drawer: Resolved an issue where clicking outside the drawer did not trigger an exit.
+
+Version 1.7.3 - 3rd June, 2025
+- Improvement: Organism - Dialog, Drawer: Enhanced keyboard navigation and ARIA attributes for better accessibility.
+- Improvement: Atom - Select: Added `ref` prop to `Select.Button` component to enable direct access to the button element reference.
+- Improvement: Molecule - Accordion: Added `onClick` handler to `Accordion.Trigger`, enabling better control for developers over user interactions.
+
+Version 1.7.2 - 26th May, 2025
+- Improvement: Atom - EditorInput: Added `style` and `maxLength` props, improved dropdown behavior, and optimized dynamic positioning.
+
+Version 1.7.1 - 6th May, 2025
+- Improvement - Atom - EditorInput: Eliminated the margin-right from the EditorInput token/badge to enhance layout consistency and visual alignment.
+
+Version 1.7.0 - 5th May, 2025
+- Improvement - Molecule - DropdownMenu: Added `Dropdown.ContentWrapper` sub-component to render dropdown content inside Dialog or Drawer contexts without requiring `Dropdown.Portal`.
+- Improvement - Atom - Select: Refined dropdown positioning and enhanced the Storybook documentation to clearly illustrate when to apply `Select.Portal`, especially within Dialog or Drawer contexts.
+- Improvement - Atom - Select: Enhanced the font size of the empty state to maintain a consistent and visually appealing user interface across all components.
+- Improvement - Molecule - Accordion: Added `collapsible` prop to control whether the accordion is collapsible.
+
+Version 1.6.3 - 23rd April, 2025
+- Fix - Atom - Accordion: Resolved an issue where the Accordion component's content was not properly visible when expanded due to overflow hidden.
+
+Version 1.6.2 - 14th April, 2025
+- Improvement - Enhanced the LineChart component by refining the line type and optimizing the spacing between tooltip contents for better clarity and visual appeal.
+- Fix - Resolved an issue in the EditorInput component where incorrect options were displayed due to a mismanaged global cache variable.
+
+Version 1.6.1 - 11th April, 2025
+- Improvement - Added a new prop to the LineChart component to enable Biaxial Line chart functionality, along with various UI enhancements for improved user experience.
+- Improvement - Added customizable properties for the LineChart and AreaChart components to tailor x-axis and y-axis ticks and labels for better data visualization.
+- Improvement - Introduced a `className` prop in the Dropzone component to enhance customizability and allow for more flexible styling options.
+- Fix - Corrected the positioning of days in the DatePicker component to ensure accurate display and improved user experience.
+
+Version 1.6.0 - 8th April, 2025
+- New - Introduced a versatile Text component that supports multiple HTML elements and customizable styles for enhanced typography flexibility.
+- Improvement - Display xAxis data on the tooltip when hovering.
+- Fix - Resolved a build error caused by incorrectly treating `tailwindcss` as an internal package and rectified the import path in the final build process to ensure proper functionality.
+
+Version 1.5.1 - 28th March, 2025
+- Improvement - Introduced the `areaChartWrapper` prop in the AreaChart component to allow for better customization options.
+- Improvement - Removed the group selector from the Tabs component to simplify style overrides.
+- Improvement - Introduced a new prop to handle the Sidebar's default collapse state when collapsible is set to false.
+- Fix - Addressed UI inconsistencies in the Switch, Checkbox, and RadioButton components for improved support in RTL (Right-to-Left) layouts.
+
+Version 1.5.0 - 14th March, 2025
+- New - Added new Atom, File Preview - to show uploaded file preview.
+- New - Added new variants in Progress Steps component to show icon and number in the completed step.
+- Improvement - Enhanced the UI and functionality of the Searchbox component for better flexibility and user experience.
+
+Version 1.4.2 - 6th March, 2025
+- New - Added new size 'xs' to the Switch component.
+- Improvement - Adjusted the ring width and padding of the Radio Button component.
+- Improvement - Added shadow to the disabled switch component for better visual consistency.
+- Improvement - Add box-shadow to the Button component.
+- Improvement - Update destructive button ring color.
+- Improvement - Update select component font size for the small size.
+- Fixed - Undefined JSX error when @wordpress/scripts version is above 28.
+- Fixed - Tree shaking not working.
+
+Version 1.4.1 - 10th February, 2025
+- Improvement - Show active preset with background color in the DatePicker component.
+- Improvement - Introduced a new property in the Select component for personalized search beyond the component.
+
+Version 1.4.0 - 27th January, 2025
+- New - Added a Hamburger Menu component.
+- Improvement - Added Y-axis tick formatter to the BarChart component.
+
+Version 1.3.6 - 9th January, 2025
+- Improvement - Optimized the Select component item search logic and reorganized props for improved usability.
+- Improvement - Added a vertical dashed line feature to the LineChart.
+- Fixed - LineChart component Tooltip does not show the required information.
+
+Version 1.3.5 - 6th January, 2025
+- Improvement - Display a light blue color on hover when selecting a date range.
+
+Version 1.3.4 - 31th December, 2024
+- Improvement - Enhanced the UI of the Table and Line chart component for responsive design.
+- Improvement - Added option group to the Select component.
+- Improvement - Updated the Table component design.
+- Improvement - Added support for controlling selected dates through the 'selected' prop in DatePicker component.
+- Improvement - Enhanced the UI of the Drawer component.
+- Improvement - Added a new prop to the Badge component to disable hover effect.
+- Fixed - Adjusted search icon size in Select combobox for better visual consistency.
+- Fixed - Focus ring offset of Select, Switch, Checkbox, and dropdown component.
+- Fixed - Checkbox/Switch toggle behavior with hint text and adjusted help text size.
+- Fixed - DatePicker component crash when navigating through years.
+- Fixed - DatePicker component UI styles for better visual consistency.
+
+Version 1.3.3 - 20th December, 2024
+- Fixed - React `Each child in a list should have a unique "key" prop` console warning.
+- Fixed - Toaster content overlapping with the close button.
+
+Version 1.3.2 - 17th December, 2024
+- Fixed - Adjusted the color of the Switch component label and help text.
+
+Version 1.3.1 - 17th December, 2024
+- Fixed - The underline issue to enhance visual consistency.
+- Fixed - Issue with the Select component where a check mark was displayed even when no item was selected.
+- Fixed - Design mismatch in the Switch component.
+- Fixed - Text, icon size, alignment, and color inconsistencies in the Date Picker to ensure a uniform appearance.
+- Fixed - Input ref not pointing to the input field.
+- Fixed - Icon size and alignment issues in the Menu component for better visual clarity.
+- Fixed - Sidebar height not being overridable.
+- Improvement - Removed backdrop blur to enhance performance and visual clarity.
+
+Version 1.3.0 - 16th December, 2024
+- New - Table component.
+- Fixed - Asterisk missing on required input label.
+
+Version 1.2.2 - 4th December, 2024
+- Improvement - Removed margin and added new props to the Line Chart component for customizability.
+
+Version 1.2.1 - 25th November, 2024
+- Improvement - Added new props to the Bar Chart component for customizability.
+- Improvement - Dropzone UAT improvements.
+- Improvement - Sidebar Compatibility fixes with NextJS.
+- Improvement - Improved the storybook deployment workflow to use latest library.
+
+Version 1.2.0 - 20th November, 2024
+- New - Dropzone
+- New - Added Unit Tests setup and a11y CI setup
+- Improvement - All components are a11y compatible.
+- Fixes - Issues reported by internal dev team.
+
+Version 1.1.0 - 11th November, 2024
+- New - Area Chart
+- New - Bar Chart
+- New - Line Chart
+- New - Pie Chart
+- New - Accordion
+- New - Search
+- New - Pagination
+- New - Breadcrumb
+- Improvement - Used vite instead of webpack for better build performance
+- Improvement - Used typescript for better storybook development and easy documentation
+- Fixes - Button component used in dropdown component
+- Fixed - Fixed multiple issues suggested in developer UAT.
+
+Version 1.0.0 - 17th October, 2024
+- New - Alert
+- New - Avatar
+- New - Badge
+- New - Button
+- New - Buttom Group
+- New - Cards
+- New - Container
+- New - Checkbox
+- New - Datepicker
+- New - Dialog
+- New - Drawer
+- New - Dropdown Menu
+- New - Editor Input
+- New - Input
+- New - Label
+- New - Loader
+- New - Menu Item
+- New - Progress Bar
+- New - Progress Steps
+- New - Radio Button Group
+- New - Search
+- New - Select
+- New - Sidebar
+- New - Skeleton
+- New - Switch
+- New - Tabs
+- New - Text Area
+- New - Title
+- New - Toaster
+- New - Tooltip
+- New - Topbar
