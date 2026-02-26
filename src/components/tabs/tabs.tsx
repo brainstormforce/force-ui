@@ -295,7 +295,6 @@ export const Tab = forwardRef<Ref, TabProps>(
 				disabled={ disabled }
 				onClick={ handleClick }
 				{ ...rest }
-				layoutRoot
 			>
 				{ activeItem === slug && variant === 'underline' && (
 					<motion.span
