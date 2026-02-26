@@ -94,7 +94,7 @@
         "@storybook/react": "^8.6.17",
         "@storybook/react-vite": "^8.6.17",
         "@storybook/test": "^8.6.17",
-        "@storybook/test-runner": "^0.19.1",
+        "@storybook/test-runner": "^0.22.1",
         "@tailwindcss/container-queries": "^0.1.1",
         "@types/lodash": "^4.17.13",
         "@types/node": "^22.7.6",
