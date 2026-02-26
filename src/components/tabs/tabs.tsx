@@ -294,6 +294,7 @@ export const Tab = forwardRef<Ref, TabProps>(
 				className={ tabClassName }
 				disabled={ disabled }
 				onClick={ handleClick }
+				layoutRoot
 				{ ...rest }
 			>
 				{ activeItem === slug && variant === 'underline' && (

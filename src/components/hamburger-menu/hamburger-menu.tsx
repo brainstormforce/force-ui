@@ -145,7 +145,7 @@ const sidebar = (
 			clipPath: `circle(${ height * 2 + 200 }px at ${ buttonX }px ${ buttonY }px)`,
 			background: 'rgb(255, 255, 255, 1)',
 			transition: {
-				type: 'spring',
+				type: 'spring' as const,
 				stiffness: 20,
 				restDelta: 2,
 				background: {
@@ -158,7 +158,7 @@ const sidebar = (
 			background: 'rgb(255, 255, 255, 0)',
 			transition: {
 				delay: 0.5,
-				type: 'spring',
+				type: 'spring' as const,
 				stiffness: 400,
 				damping: 40,
 				background: {
