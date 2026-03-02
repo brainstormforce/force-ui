@@ -4,7 +4,9 @@ on:
     pull_request:
         types: [opened, synchronize, edited]
 
-permissions: write-all
+permissions:
+    contents: read
+    pull-requests: write
 
 jobs:
     CHECK_SHORTCODE:
@@ -12,10 +14,10 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - name: Checkout Repository
-              uses: actions/checkout@v3
+              uses: actions/checkout@v4
 
             - name: WRITE PR SUMMARY
-              uses: brainstormforce/pull-request-reviewer@master
+              uses: brainstormforce/pull-request-reviewer@d38b1e07527dd20ad58fd2407648e9689edc54de # master
               with:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
                   OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
@@ -30,10 +32,10 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - name: Checkout Repository
-              uses: actions/checkout@v3
+              uses: actions/checkout@v4
 
             - name: AI CODE REVIEW
-              uses: brainstormforce/pull-request-reviewer@master
+              uses: brainstormforce/pull-request-reviewer@d38b1e07527dd20ad58fd2407648e9689edc54de # master
               with:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
                   OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
