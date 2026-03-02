@@ -5,6 +5,9 @@ on:
         branches:
             - master
 
+permissions:
+    contents: write
+
 # Cancels all previous workflow runs for pull requests that have not completed.
 concurrency:
     # The concurrency group contains the workflow name and the branch name for pull requests
@@ -22,11 +25,11 @@ jobs:
             - name: Use desired version of NodeJS
               uses: actions/setup-node@v4
               with:
-                  node-version: 18.15
+                  node-version: 20
                   cache: 'npm'
 
             - name: Build the release
-              run: npm install && npm run release
+              run: npm ci && npm run release
 
             - name: Maybe create a tag
               run: bash bin/release.sh
