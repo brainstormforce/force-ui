@@ -1,5 +1,14 @@
 name: 'Storybook Tests'
-on: push
+
+on:
+    push:
+        branches:
+            - master
+            - staging
+
+permissions:
+    contents: read
+
 jobs:
     test:
         timeout-minutes: 60
@@ -13,7 +22,7 @@ jobs:
               with:
                   node-version: 20
             - name: Install dependencies
-              run: npm install
+              run: npm ci
             - name: Install Playwright
               run: npx playwright install --with-deps
             - name: Build force-ui
