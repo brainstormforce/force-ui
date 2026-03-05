@@ -9,14 +9,7 @@ import React, {
 	cloneElement,
 	useMemo,
 } from 'react';
-const omit = < T extends Record< string, unknown > >(
-	obj: T,
-	keys: string[]
-): Partial< T > =>
-	Object.fromEntries(
-		Object.entries( obj ).filter( ( [ k ] ) => ! keys.includes( k ) )
-	) as Partial< T >;
-import { cn, getOperatingSystem } from '@/utilities/functions';
+import { cn, getOperatingSystem, omit } from '@/utilities/functions';
 import { Search } from 'lucide-react';
 import Loader from '../loader';
 import Badge from '../badge';
