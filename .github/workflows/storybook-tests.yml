@@ -1,10 +1,6 @@
 name: 'Storybook Tests'
 
-on:
-    push:
-        branches:
-            - master
-            - staging
+on: push
 
 permissions:
     contents: read
