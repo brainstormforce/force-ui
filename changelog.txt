@@ -1,3 +1,7 @@
+Version 1.7.10 - 6th March, 2026
+- Improvement: CI/CD - Hardened security across various GitHub Action workflows and improved Storybook deployment.
+- Improvement: Package Dependencies & Utils - Created the `omit` function and removed `lodash` dependency.
+
 Version 1.7.9 - 26th February, 2026
 - Fix: Organism - Tabs: Resolved an issue where switching a tab prevented the parent Dialog or Drawer from unmounting by removing the incorrect `layoutRoot` prop from the Tab button.
 
