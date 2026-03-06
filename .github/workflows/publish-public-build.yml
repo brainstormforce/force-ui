@@ -10,9 +10,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v4
         with:
           node-version: '18'
 
@@ -42,9 +42,9 @@ jobs:
           VERSION=$(node -p "require('../package.json').version")
           node -e "
             const pkg = require('./package.json');
-            pkg.version = '$VERSION';
+            pkg.version = process.argv[1];
             require('fs').writeFileSync('package.json', JSON.stringify(pkg, null, 2));
-          "
+          " "$VERSION"
 
           # Commit and tag
           git config user.name github-actions

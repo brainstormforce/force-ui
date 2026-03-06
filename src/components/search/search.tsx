@@ -9,8 +9,7 @@ import React, {
 	cloneElement,
 	useMemo,
 } from 'react';
-import { omit } from 'lodash'; // or define your own omit function
-import { cn, getOperatingSystem } from '@/utilities/functions';
+import { cn, getOperatingSystem, omit } from '@/utilities/functions';
 import { Search } from 'lucide-react';
 import Loader from '../loader';
 import Badge from '../badge';

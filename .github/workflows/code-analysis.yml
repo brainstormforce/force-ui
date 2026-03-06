@@ -2,6 +2,9 @@ name: Code Analysis
 
 on: pull_request
 
+permissions:
+    contents: read
+
 # Cancels all previous workflow runs for pull requests that have not completed.
 concurrency:
     # The concurrency group contains the workflow name and the branch name for pull requests
@@ -15,14 +18,14 @@ jobs:
 
         strategy:
             matrix:
-                node: ['18.15']
+                node: ['20']
 
         steps:
             - name: Checkout
-              uses: actions/checkout@v2
+              uses: actions/checkout@v4
 
             - name: Use desired version of NodeJS
-              uses: actions/setup-node@v2
+              uses: actions/setup-node@v4
               with:
                   node-version: ${{ matrix.node }}
 
@@ -34,7 +37,7 @@ jobs:
                   key: ${{ runner.os }}-node-${{ matrix.node }}-npm-cache-${{ hashFiles('**/package-lock.json') }}
 
             - name: Install dependencies
-              run: npm install
+              run: npm ci
 
             - name: Lint JS
               if: always()

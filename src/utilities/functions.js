@@ -128,3 +128,17 @@ export const safeLocalStorage = {
 		}
 	},
 };
+
+/**
+ * Creates a new object with the specified keys omitted.
+ *
+ * @template {Record<string, unknown>} T
+ * @param {T}        obj  - The source object to omit keys from.
+ * @param {string[]} keys - An array of key names to exclude.
+ * @return {Partial<T>} A shallow copy of `obj` without the omitted keys.
+ *
+ * @example
+ * omit( { a: 1, b: 2, c: 3 }, [ 'b', 'c' ] ); // { a: 1 }
+ */
+export const omit = ( obj, keys ) =>
+	Object.fromEntries( Object.entries( obj ).filter( ( [ k ] ) => ! keys.includes( k ) ) );
