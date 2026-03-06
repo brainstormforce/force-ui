@@ -1,0 +1,2 @@
+"use strict";Object.defineProperty(exports,Symbol.toStringTag,{value:"Module"});const c=n=>{if(!n)return{error:"Element not found."};const t=n.getBoundingClientRect(),i=window.innerWidth,e=i/2,o=t.right<e,r=t.left>e;return{isLeft:o,isRight:r,isCenter:!o&&!r,elementRect:{left:t.left,right:t.right,width:t.width},viewport:{width:i,center:e}}};exports.getElementPositionRelativeToScreen=c;
+//# sourceMappingURL=utils.cjs.js.map

@@ -1,0 +1,3069 @@
+{
+  "components": {
+    "Accordion": {
+      "props": {
+        "className": {
+          "type": "string",
+          "required": false,
+          "description": "Custom class names for additional styling"
+        },
+        "disabled": {
+          "type": "boolean",
+          "required": false,
+          "description": "Disables the component"
+        },
+        "children": {
+          "type": "ReactNode",
+          "required": true,
+          "description": "Children components"
+        },
+        "type": {
+          "type": "'simple' | 'separator' | 'boxed'",
+          "required": false,
+          "description": "Accordion type (same as parent)"
+        },
+        "defaultValue": {
+          "type": "string | string[]",
+          "required": false,
+          "description": "Initial active item(s)"
+        },
+        "autoClose": {
+          "type": "boolean",
+          "required": false,
+          "description": "Automatically close other items when one is opened"
+        },
+        "isOpen": {
+          "type": "boolean",
+          "required": false,
+          "description": "Determines if the content is open"
+        },
+        "onToggle": {
+          "type": "() => void",
+          "required": false,
+          "description": "Callback for toggling item state"
+        },
+        "value": {
+          "type": "string",
+          "required": false,
+          "description": "The value associated with the accordion item"
+        },
+        "onClick": {
+          "type": "() => void",
+          "required": false,
+          "description": "OnClick handler for the accordion trigger. This works only when collapsible is set to `false`."
+        },
+        "iconType": {
+          "type": "'arrow' | 'plus-minus' | 'none'",
+          "required": false,
+          "description": "Type of icon to display"
+        },
+        "tag": {
+          "type": "ElementType",
+          "required": false,
+          "description": "Element to render trigger as"
+        },
+        "collapsible": {
+          "type": "boolean",
+          "required": false,
+          "description": "Specifies whether the accordion item can be collapsed."
+        }
+      },
+      "subComponents": {
+        "Item": {
+          "props": {
+            "isOpen": {
+              "type": "boolean",
+              "required": false,
+              "description": "Determines if the item is open"
+            },
+            "onToggle": {
+              "type": "() => void",
+              "required": false,
+              "description": "Callback to toggle the item's state"
+            },
+            "type": {
+              "type": "'simple' | 'separator' | 'boxed'",
+              "required": false,
+              "description": "Accordion type (same as parent)"
+            },
+            "value": {
+              "type": "string",
+              "required": false,
+              "description": "The value associated with the accordion item"
+            }
+          }
+        },
+        "Trigger": {
+          "props": {
+            "onClick": {
+              "type": "() => void",
+              "required": false,
+              "description": "OnClick handler for the accordion trigger. This works only when collapsible is set to `false`."
+            },
+            "onToggle": {
+              "type": "() => void",
+              "required": false,
+              "description": "Callback for toggling item state"
+            },
+            "isOpen": {
+              "type": "boolean",
+              "required": false,
+              "description": "Indicates if the item is open"
+            },
+            "iconType": {
+              "type": "'arrow' | 'plus-minus' | 'none'",
+              "required": false,
+              "description": "Type of icon to display"
+            },
+            "tag": {
+              "type": "ElementType",
+              "required": false,
+              "description": "Element to render trigger as"
+            },
+            "type": {
+              "type": "'simple' | 'separator' | 'boxed'",
+              "required": false,
+              "description": "Accordion type (same as parent)"
+            },
+            "collapsible": {
+              "type": "boolean",
+              "required": false,
+              "description": "Specifies whether the accordion item can be collapsed."
+            }
+          }
+        },
+        "Content": {
+          "props": {
+            "isOpen": {
+              "type": "boolean",
+              "required": false,
+              "description": "Determines if the content is open"
+            },
+            "type": {
+              "type": "'simple' | 'separator' | 'boxed'",
+              "required": false,
+              "description": "Accordion type (same as parent)"
+            }
+          }
+        }
+      }
+    },
+    "Alert": {
+      "props": {
+        "variant": {
+          "type": "'neutral' | 'info' | 'warning' | 'error' | 'success'",
+          "required": false,
+          "description": "Defines the style variant of the alert."
+        },
+        "theme": {
+          "type": "'light' | 'dark'",
+          "required": false,
+          "description": "Defines the theme of the alert."
+        },
+        "design": {
+          "type": "'inline' | 'stack'",
+          "required": false,
+          "description": "Defines the design of the alert."
+        },
+        "title": {
+          "type": "React.ReactNode",
+          "required": false,
+          "description": "Defines the title of the alert."
+        },
+        "content": {
+          "type": "React.ReactNode",
+          "required": false,
+          "description": "Defines the content of the alert."
+        },
+        "className": {
+          "type": "string",
+          "required": false,
+          "description": "Defines the extra classes."
+        },
+        "onClose": {
+          "type": "() => void",
+          "required": false,
+          "description": "Callback function for close event."
+        },
+        "icon": {
+          "type": "React.ReactElement | null",
+          "required": false,
+          "description": "Custom Icon for the alert."
+        },
+        "action": {
+          "type": "{",
+          "required": false,
+          "description": "Defines the action of the alert."
+        },
+        "label": {
+          "type": "string",
+          "required": true,
+          "description": ""
+        },
+        "onClick": {
+          "type": "( close: () => void ) => void",
+          "required": true,
+          "description": ""
+        },
+        "type": {
+          "type": "'link' | 'button'",
+          "required": true,
+          "description": ""
+        }
+      },
+      "subComponents": {}
+    },
+    "AreaChart": {
+      "props": {
+        "data": {
+          "type": "DataItem[]",
+          "required": true,
+          "description": "An array of objects representing the source data for the chart."
+        },
+        "dataKeys": {
+          "type": "string[]",
+          "required": true,
+          "description": "An array of strings representing the keys to access data in each data object. Used for identifying different data series."
+        },
+        "colors": {
+          "type": "Color[]",
+          "required": false,
+          "description": "An array of color strings that determine the colors for each data series in the chart."
+        },
+        "variant": {
+          "type": "'solid' | 'gradient'",
+          "required": false,
+          "description": "Defines the variant of Area Chart."
+        },
+        "showXAxis": {
+          "type": "boolean",
+          "required": false,
+          "description": "Whether to render the `<XAxis />` component for the x-axis."
+        },
+        "showYAxis": {
+          "type": "boolean",
+          "required": false,
+          "description": "Whether to render the `<XAxis />` component for the y-axis."
+        },
+        "showTooltip": {
+          "type": "boolean",
+          "required": false,
+          "description": "Toggle the visibility of the tooltip on hover, displaying detailed information for each data point."
+        },
+        "tooltipIndicator": {
+          "type": "'dot' | 'line' | 'dashed'",
+          "required": false,
+          "description": "The tooltip indicator. It can be `dot`, `line` or `dashed`."
+        },
+        "tooltipLabelKey": {
+          "type": "string",
+          "required": false,
+          "description": "An array of objects representing the source data for the chart."
+        },
+        "showLegend": {
+          "type": "boolean",
+          "required": false,
+          "description": "Whether to render the `<Legend />` component to identify data series."
+        },
+        "showCartesianGrid": {
+          "type": "boolean",
+          "required": false,
+          "description": "Whether to display the `<CartesianGrid />`, adding horizontal and vertical grid lines."
+        },
+        "xAxisTickFormatter": {
+          "type": "( value: string ) => string",
+          "required": false,
+          "description": "A function used to format the ticks on the x-axis, e.g., for formatting dates or numbers."
+        },
+        "tickFormatter": {
+          "type": "( value: string ) => string",
+          "required": false,
+          "description": " A function used to format the ticks on the x-axis, e.g., for formatting dates or numbers. @deprecated Use `xAxisTickFormatter` instead. "
+        },
+        "yAxisTickFormatter": {
+          "type": "( value: number ) => string",
+          "required": false,
+          "description": "A function used to format the ticks on the y-axis, e.g., for converting 1000 to 1K."
+        },
+        "xAxisDataKey": {
+          "type": "string",
+          "required": false,
+          "description": "The key in the data objects representing values for the x-axis. This is used to access the x-axis values from each data entry."
+        },
+        "yAxisDataKey": {
+          "type": "string",
+          "required": false,
+          "description": "The key in the data objects representing values for the y-axis. This is used to access the y-axis values from each data entry."
+        },
+        "xAxisFontSize": {
+          "type": "'sm' | 'md' | 'lg'",
+          "required": false,
+          "description": "Font size for the labels on the x-axis."
+        },
+        "xAxisFontColor": {
+          "type": "string",
+          "required": false,
+          "description": "Font color for the labels on the x-axis."
+        },
+        "chartWidth": {
+          "type": "number",
+          "required": false,
+          "description": "Width of the chart container."
+        },
+        "chartHeight": {
+          "type": "number",
+          "required": false,
+          "description": "Height of the chart container."
+        },
+        "areaChartWrapperProps": {
+          "type": "Omit<",
+          "required": false,
+          "description": " Area chart Wrapper props to apply additional props to the wrapper component. Ex. `margin`, or `onClick` etc. @see https://recharts.org/en-US/api/AreaChart "
+        },
+        "noDataComponent": {
+          "type": "ReactNode",
+          "required": false,
+          "description": " Custom component to display when no data is available. If not provided, a default \"No data available\" message will be displayed. "
+        }
+      },
+      "subComponents": {}
+    },
+    "Avatar": {
+      "props": {
+        "variant": {
+          "type": "'white' | 'gray' | 'primary' | 'primary-light' | 'dark'",
+          "required": false,
+          "description": "Defines the style variant of the avatar."
+        },
+        "size": {
+          "type": "'xxs' | 'xs' | 'sm' | 'md' | 'lg'",
+          "required": false,
+          "description": "Defines the size of the avatar."
+        },
+        "border": {
+          "type": "'none' | 'subtle' | 'ring'",
+          "required": false,
+          "description": "Defines the border of the avatar."
+        },
+        "url": {
+          "type": "string",
+          "required": false,
+          "description": "The URL of the Avatar image"
+        },
+        "children": {
+          "type": "ReactNode",
+          "required": false,
+          "description": "Defines the children of the avatar."
+        },
+        "className": {
+          "type": "string",
+          "required": false,
+          "description": "Defines the extra classes"
+        },
+        "src": {
+          "type": "string",
+          "required": false,
+          "description": "The URL of the Avatar image."
+        },
+        "alt": {
+          "type": "string",
+          "required": false,
+          "description": "Alt text for the avatar image."
+        }
+      },
+      "subComponents": {}
+    },
+    "Badge": {
+      "props": {
+        "label": {
+          "type": "ReactNode",
+          "required": false,
+          "description": " Defines the Label of the badge. "
+        },
+        "size": {
+          "type": "'xxs' | 'xs' | 'sm' | 'md' | 'lg'",
+          "required": false,
+          "description": " Defines the size of the badge. "
+        },
+        "className": {
+          "type": "string",
+          "required": false,
+          "description": " Defines the extra classes "
+        },
+        "type": {
+          "type": "'pill' | 'rounded'",
+          "required": false,
+          "description": " Defines the type of the badge. "
+        },
+        "variant": {
+          "type": "'neutral' | 'red' | 'yellow' | 'green' | 'blue' | 'inverse'",
+          "required": false,
+          "description": " Defines the style variant of the badge. "
+        },
+        "icon": {
+          "type": "ReactNode",
+          "required": false,
+          "description": " Custom Icon for the badge. "
+        },
+        "disableHover": {
+          "type": "boolean",
+          "required": false,
+          "description": " Disable hover effect. @default false "
+        },
+        "disabled": {
+          "type": "boolean",
+          "required": false,
+          "description": " Defines if the badge is disabled. "
+        },
+        "onClose": {
+          "type": "( event: React.MouseEvent ) => void",
+          "required": false,
+          "description": " Callback function for close event "
+        },
+        "closable": {
+          "type": "boolean",
+          "required": false,
+          "description": " Defines if the badge is closable. "
+        },
+        "onMouseDown": {
+          "type": "() => void",
+          "required": false,
+          "description": " Callback function for mouse down event. "
+        }
+      },
+      "subComponents": {}
+    },
+    "BarChart": {
+      "props": {
+        "data": {
+          "type": "DataItem[]",
+          "required": true,
+          "description": "An array of objects representing the source data for the chart."
+        },
+        "dataKeys": {
+          "type": "string[]",
+          "required": true,
+          "description": "An array of strings representing the keys to access data in each data object. Used for identifying different data series."
+        },
+        "colors": {
+          "type": "Color[]",
+          "required": false,
+          "description": "An array of color strings that determine the colors for each data series in the chart."
+        },
+        "layout": {
+          "type": "'horizontal' | 'vertical'",
+          "required": false,
+          "description": "Defines the layout of Bar Chart. if you want to check how layout `vertical` works, then you need to clear the xAxisDataKey value and set showCartesianGrid to false."
+        },
+        "stacked": {
+          "type": "boolean",
+          "required": false,
+          "description": "Defines are the chart bars are stacked."
+        },
+        "showXAxis": {
+          "type": "boolean",
+          "required": false,
+          "description": "Whether to render the `<XAxis />` component for the x-axis."
+        },
+        "showYAxis": {
+          "type": "boolean",
+          "required": false,
+          "description": "Whether to render the `<YAxis />` component for the y-axis."
+        },
+        "showTooltip": {
+          "type": "boolean",
+          "required": false,
+          "description": "Toggle the visibility of the tooltip on hover, displaying detailed information for each data point."
+        },
+        "tooltipIndicator": {
+          "type": "'dot' | 'line' | 'dashed'",
+          "required": false,
+          "description": "The tooltip indicator. It can be `dot`, `line` or `dashed`."
+        }
+      },
+      "subComponents": {}
+    },
+    "Breadcrumb": {
+      "props": {
+        "children": {
+          "type": "ReactNode",
+          "required": true,
+          "description": "Defines the children of the breadcrumb."
+        },
+        "size": {
+          "type": "'sm' | 'md'",
+          "required": false,
+          "description": "Defines the size of the breadcrumb."
+        },
+        "href": {
+          "type": "string",
+          "required": true,
+          "description": "Defines the href of the link."
+        },
+        "className": {
+          "type": "string",
+          "required": false,
+          "description": "Defines the class name of the link."
+        },
+        "as": {
+          "type": "ElementType",
+          "required": false,
+          "description": "Defines the element type of the link."
+        },
+        "type": {
+          "type": "'arrow' | 'slash'",
+          "required": true,
+          "description": " Defines the type of separator.  Available options: - arrow - slash "
+        }
+      },
+      "subComponents": {
+        "List": {
+          "props": {}
+        },
+        "Item": {
+          "props": {}
+        },
+        "Link": {
+          "props": {
+            "href": {
+              "type": "string",
+              "required": true,
+              "description": "Defines the href of the link."
+            },
+            "className": {
+              "type": "string",
+              "required": false,
+              "description": "Defines the class name of the link."
+            },
+            "as": {
+              "type": "ElementType",
+              "required": false,
+              "description": "Defines the element type of the link."
+            }
+          }
+        },
+        "Separator": {
+          "props": {
+            "type": {
+              "type": "'arrow' | 'slash'",
+              "required": true,
+              "description": " Defines the type of separator.  Available options: - arrow - slash "
+            }
+          }
+        },
+        "Ellipsis": {
+          "props": {}
+        },
+        "Page": {
+          "props": {}
+        }
+      }
+    },
+    "Button": {
+      "props": {
+        "variant": {
+          "type": "'primary' | 'secondary' | 'outline' | 'ghost' | 'link'",
+          "required": false,
+          "description": " Defines the style variant of the button. "
+        },
+        "size": {
+          "type": "'xs' | 'sm' | 'md' | 'lg'",
+          "required": false,
+          "description": " Defines the size of the button. "
+        },
+        "type": {
+          "type": "'button' | 'submit' | 'reset'",
+          "required": false,
+          "description": " Defines the type of the button. "
+        },
+        "tag": {
+          "type": "ElementType",
+          "required": false,
+          "description": " Defines the tag of the button. "
+        },
+        "className": {
+          "type": "string",
+          "required": false,
+          "description": " The class name of the button "
+        },
+        "children": {
+          "type": "ReactNode",
+          "required": false,
+          "description": " The children of the button "
+        },
+        "disabled": {
+          "type": "boolean",
+          "required": false,
+          "description": " Defines if the button is disabled. "
+        },
+        "destructive": {
+          "type": "boolean",
+          "required": false,
+          "description": " Defines if the button is destructive. "
+        },
+        "icon": {
+          "type": "ReactNode",
+          "required": false,
+          "description": " Custom Icon for the button. "
+        },
+        "iconPosition": {
+          "type": "'left' | 'right'",
+          "required": false,
+          "description": " Defines the position of the icon. "
+        },
+        "loading": {
+          "type": "boolean",
+          "required": false,
+          "description": " Defines if the button is loading. "
+        },
+        "onClick": {
+          "type": "( event: React.MouseEvent<HTMLButtonElement> ) => void",
+          "required": false,
+          "description": "On click event."
+        }
+      },
+      "subComponents": {}
+    },
+    "ButtonGroup": {
+      "props": {
+        "className": {
+          "type": "string",
+          "required": false,
+          "description": "Additional class names for styling."
+        },
+        "children": {
+          "type": "ReactNode",
+          "required": true,
+          "description": "Child elements, typically Button components."
+        },
+        "activeItem": {
+          "type": "string | null",
+          "required": false,
+          "description": "Active item slug in the group."
+        },
+        "onChange": {
+          "type": "( value: ButtonValue ) => void",
+          "required": false,
+          "description": "Callback when the active item changes."
+        },
+        "size": {
+          "type": "'xs' | 'sm' | 'md'",
+          "required": false,
+          "description": "Size of the buttons in the group."
+        },
+        "iconPosition": {
+          "type": "'left' | 'right'",
+          "required": false,
+          "description": "Position of the icon inside the button."
+        },
+        "slug": {
+          "type": "string",
+          "required": true,
+          "description": "Unique slug identifying the button."
+        },
+        "text": {
+          "type": "string",
+          "required": true,
+          "description": "Text content of the button."
+        },
+        "icon": {
+          "type": "ReactElement",
+          "required": false,
+          "description": "Icon displayed inside the button."
+        },
+        "disabled": {
+          "type": "boolean",
+          "required": false,
+          "description": "Marks the button as disabled."
+        },
+        "isFirstChild": {
+          "type": "boolean",
+          "required": false,
+          "description": "Indicates if the button is the first child in the group."
+        },
+        "isLastChild": {
+          "type": "boolean",
+          "required": false,
+          "description": "Indicates if the button is the last child in the group."
+        }
+      },
+      "subComponents": {}
+    },
+    "Checkbox": {
+      "props": {},
+      "subComponents": {}
+    },
+    "Container": {
+      "props": {
+        "containerType": {
+          "type": "TContainerType",
+          "required": false,
+          "description": "Defines the type of the container (default: 'flex')."
+        },
+        "cols": {
+          "type": "TCols",
+          "required": true,
+          "description": ""
+        },
+        "className": {
+          "type": "string",
+          "required": false,
+          "description": "Defines any additional CSS classes for the container."
+        },
+        "children": {
+          "type": "ReactNode",
+          "required": false,
+          "description": "Defines the children of the container."
+        }
+      },
+      "subComponents": {
+        "Item": {
+          "props": {
+            "containerType": {
+              "type": "TContainerType",
+              "required": true,
+              "description": ""
+            },
+            "cols": {
+              "type": "TCols",
+              "required": true,
+              "description": ""
+            }
+          }
+        }
+      }
+    },
+    "Dialog": {
+      "props": {
+        "className": {
+          "type": "string",
+          "required": false,
+          "description": "Additional class name for the dialog close button."
+        },
+        "style": {
+          "type": "React.CSSProperties",
+          "required": false,
+          "description": "Additional inline styles."
+        },
+        "open": {
+          "type": "boolean",
+          "required": false,
+          "description": "Control the dialog open state. If not provided, the dialog will be controlled internally."
+        },
+        "setOpen": {
+          "type": "( open: boolean ) => void",
+          "required": false,
+          "description": "Control the dialog open state. If not provided, the dialog will be controlled internally."
+        },
+        "children": {
+          "type": "ReactNode | ( ( props: { close: () => void",
+          "required": false,
+          "description": "Children of the dialog footer."
+        },
+        "id": {
+          "type": "string",
+          "required": false,
+          "description": "Id of the dialog portal where the element will be rendered. If not provided, the dialog will be rendered in the body."
+        },
+        "root": {
+          "type": "HTMLElement",
+          "required": false,
+          "description": "Root element of the dialog portal. If not provided, the dialog will be rendered in the body."
+        },
+        "as": {
+          "type": "ElementType",
+          "required": false,
+          "description": "Additional class name for the dialog close button."
+        },
+        "onClick": {
+          "type": "() => void",
+          "required": false,
+          "description": "On click event for the close button."
+        }
+      },
+      "subComponents": {
+        "Panel": {
+          "props": {
+            "children": {
+              "type": "ReactNode | ( ( param: { close: () => void",
+              "required": true,
+              "description": "Children of the dialog panel."
+            }
+          }
+        },
+        "Portal": {
+          "props": {
+            "children": {
+              "type": "ReactNode",
+              "required": true,
+              "description": "Children of the dialog portal."
+            },
+            "id": {
+              "type": "string",
+              "required": false,
+              "description": "Id of the dialog portal where the element will be rendered. If not provided, the dialog will be rendered in the body."
+            },
+            "root": {
+              "type": "HTMLElement",
+              "required": false,
+              "description": "Root element of the dialog portal. If not provided, the dialog will be rendered in the body."
+            }
+          }
+        },
+        "Title": {
+          "props": {}
+        },
+        "Description": {
+          "props": {}
+        },
+        "CloseButton": {
+          "props": {
+            "children": {
+              "type": "ReactNode",
+              "required": false,
+              "description": "Children of the dialog close button."
+            },
+            "as": {
+              "type": "ElementType",
+              "required": false,
+              "description": "Additional class name for the dialog close button."
+            },
+            "className": {
+              "type": "string",
+              "required": false,
+              "description": "Additional class name for the dialog close button."
+            },
+            "onClick": {
+              "type": "() => void",
+              "required": false,
+              "description": "On click event for the close button."
+            }
+          }
+        },
+        "Header": {
+          "props": {
+            "children": {
+              "type": "ReactNode",
+              "required": true,
+              "description": "Children of the dialog header."
+            }
+          }
+        },
+        "Body": {
+          "props": {
+            "children": {
+              "type": "ReactNode",
+              "required": true,
+              "description": "Children of the dialog body."
+            }
+          }
+        },
+        "Footer": {
+          "props": {
+            "children": {
+              "type": "ReactNode | ( ( props: { close: () => void",
+              "required": false,
+              "description": "Children of the dialog footer."
+            }
+          }
+        },
+        "Backdrop": {
+          "props": {}
+        }
+      }
+    },
+    "Drawer": {
+      "props": {
+        "open": {
+          "type": "boolean",
+          "required": false,
+          "description": "Open state of the drawer. Optional for uncontrolled component."
+        },
+        "setOpen": {
+          "type": "( open: boolean ) => void",
+          "required": false,
+          "description": "Set open state of the drawer. Optional for uncontrolled component."
+        },
+        "children": {
+          "type": "ReactNode",
+          "required": true,
+          "description": "Drawer content."
+        },
+        "trigger": {
+          "type": "ReactNode | ( ( props: { onClick: () => void",
+          "required": false,
+          "description": "Trigger element to open the drawer. Required for uncontrolled component."
+        }
+      },
+      "subComponents": {
+        "Panel": {
+          "props": {
+            "children": {
+              "type": "ReactNode | ( ( props: { close: () => void",
+              "required": true,
+              "description": "Drawer content."
+            }
+          }
+        },
+        "Header": {
+          "props": {
+            "children": {
+              "type": "ReactNode",
+              "required": true,
+              "description": "Header content."
+            },
+            "className": {
+              "type": "string",
+              "required": false,
+              "description": "Additional class names."
+            }
+          }
+        },
+        "Title": {
+          "props": {
+            "children": {
+              "type": "ReactNode",
+              "required": true,
+              "description": "Title content."
+            },
+            "as": {
+              "type": "ElementType",
+              "required": false,
+              "description": "HTML element to render."
+            },
+            "className": {
+              "type": "string",
+              "required": false,
+              "description": "Additional class names."
+            }
+          }
+        },
+        "Description": {
+          "props": {
+            "as": {
+              "type": "ElementType",
+              "required": false,
+              "description": "Description tag."
+            },
+            "children": {
+              "type": "ReactNode",
+              "required": true,
+              "description": "Description content."
+            },
+            "className": {
+              "type": "string",
+              "required": false,
+              "description": "Additional class names."
+            }
+          }
+        },
+        "Body": {
+          "props": {
+            "children": {
+              "type": "ReactNode",
+              "required": true,
+              "description": "Body content."
+            },
+            "className": {
+              "type": "string",
+              "required": false,
+              "description": "Additional class names."
+            }
+          }
+        },
+        "CloseButton": {
+          "props": {
+            "className": {
+              "type": "string",
+              "required": false,
+              "description": "Additional class names."
+            },
+            "onClick": {
+              "type": "() => void",
+              "required": true,
+              "description": "Click handler."
+            },
+            "children": {
+              "type": "ReactNode | ( ( { close",
+              "required": false,
+              "description": "Button content."
+            }
+          }
+        },
+        "Footer": {
+          "props": {
+            "children": {
+              "type": "ReactNode | ( ( { close",
+              "required": true,
+              "description": "Footer content."
+            }
+          }
+        },
+        "Backdrop": {
+          "props": {
+            "className": {
+              "type": "string",
+              "required": false,
+              "description": "Additional class names."
+            }
+          }
+        },
+        "Portal": {
+          "props": {}
+        }
+      }
+    },
+    "DropdownMenu": {
+      "props": {},
+      "subComponents": {
+        "Trigger": {
+          "props": {}
+        },
+        "Content": {
+          "props": {}
+        },
+        "List": {
+          "props": {}
+        },
+        "Item": {
+          "props": {}
+        },
+        "Separator": {
+          "props": {}
+        },
+        "Portal": {
+          "props": {}
+        },
+        "ContentWrapper": {
+          "props": {}
+        }
+      }
+    },
+    "Dropzone": {
+      "props": {
+        "onFileUpload": {
+          "type": "( file: File ) => void",
+          "required": false,
+          "description": "Callback function when a file is uploaded"
+        },
+        "inlineIcon": {
+          "type": "boolean",
+          "required": false,
+          "description": "Determines if the icon should be inline"
+        },
+        "label": {
+          "type": "string",
+          "required": false,
+          "description": "Label for the dropzone"
+        },
+        "helpText": {
+          "type": "string",
+          "required": false,
+          "description": "Help text for the dropzone"
+        },
+        "size": {
+          "type": "'sm' | 'md' | 'lg'",
+          "required": false,
+          "description": "Size variant of the dropzone"
+        },
+        "disabled": {
+          "type": "boolean",
+          "required": false,
+          "description": "Indicates if the component is disabled"
+        },
+        "error": {
+          "type": "boolean",
+          "required": false,
+          "description": "Indicates if the component is in error state"
+        },
+        "errorText": {
+          "type": "string",
+          "required": false,
+          "description": "Error text to display"
+        },
+        "className": {
+          "type": "string",
+          "required": false,
+          "description": "Custom class name for the dropzone"
+        },
+        "wrapperClassName": {
+          "type": "string",
+          "required": false,
+          "description": "Custom class name for the wrapper"
+        }
+      },
+      "subComponents": {}
+    },
+    "EditorInput": {
+      "props": {
+        "defaultValue": {
+          "type": "string",
+          "required": false,
+          "description": "Default value for the editor input field."
+        },
+        "placeholder": {
+          "type": "string",
+          "required": false,
+          "description": "Placeholder text for the editor input field."
+        },
+        "size": {
+          "type": "keyof typeof editorInputClassNames",
+          "required": false,
+          "description": "Defines the sizes of the editor input."
+        },
+        "autoFocus": {
+          "type": "boolean",
+          "required": false,
+          "description": "Defines if the editor input is focused automatically."
+        },
+        "options": {
+          "type": "T[]",
+          "required": true,
+          "description": "Array of options to be displayed in the editor input. Each option should be an object  or string."
+        },
+        "trigger": {
+          "type": "string",
+          "required": false,
+          "description": "The trigger to be used to show the mention options."
+        },
+        "menuComponent": {
+          "type": "TMenuComponent",
+          "required": false,
+          "description": "The component to be used for the mention menu."
+        },
+        "menuItemComponent": {
+          "type": "TMenuItemComponent",
+          "required": false,
+          "description": "The component to be used for the mention menu items."
+        },
+        "className": {
+          "type": "string",
+          "required": false,
+          "description": "Additional class names to be added to the editor input."
+        },
+        "wrapperClassName": {
+          "type": "string",
+          "required": false,
+          "description": "Additional class names to be added to the editor input wrapper."
+        },
+        "disabled": {
+          "type": "boolean",
+          "required": false,
+          "description": "Defines if the editor input is disabled."
+        },
+        "autoSpaceAfterMention": {
+          "type": "boolean",
+          "required": false,
+          "description": "Defines if the editor input should add a space after selecting a mention/tag option."
+        },
+        "style": {
+          "type": "React.CSSProperties",
+          "required": false,
+          "description": " Override the default styles of the editor input. This prop allows you to apply custom styles using a React.CSSProperties object. Note that the editor utilizes inline styles, so to effectively override existing styles, you must provide the desired styles through this `style` prop.  "
+        },
+        "maxLength": {
+          "type": "number",
+          "required": false,
+          "description": "Defines the maximum character limit of the editor input."
+        }
+      },
+      "subComponents": {}
+    },
+    "FilePreview": {
+      "props": {
+        "file": {
+          "type": "FilePreviewFile",
+          "required": true,
+          "description": "The file to display. It can be a File object or an object with name, url, type, and size properties."
+        },
+        "onRemove": {
+          "type": "( selectedFile: FilePreviewFile ) => void",
+          "required": true,
+          "description": "Function called when the file is removed. The parameter is the selected file object, which can be a File object or an object with name, url, type, and size properties or null."
+        },
+        "disabled": {
+          "type": "boolean",
+          "required": false,
+          "description": "Indicates whether the file preview is disabled."
+        },
+        "size": {
+          "type": "'sm' | 'md' | 'lg'",
+          "required": false,
+          "description": "The size of the file preview."
+        },
+        "error": {
+          "type": "boolean",
+          "required": false,
+          "description": "Indicates whether the file preview has an error."
+        }
+      },
+      "subComponents": {}
+    },
+    "HamburgerMenu": {
+      "props": {
+        "className": {
+          "type": "string",
+          "required": false,
+          "description": " Additional class name for styling. "
+        },
+        "children": {
+          "type": "ReactNode",
+          "required": false,
+          "description": " Children elements. "
+        },
+        "tag": {
+          "type": "T",
+          "required": false,
+          "description": " The tag or component to render the option as. "
+        },
+        "active": {
+          "type": "boolean",
+          "required": false,
+          "description": " Whether the option is active. "
+        },
+        "icon": {
+          "type": "React.ReactElement",
+          "required": false,
+          "description": " Icon component to display. "
+        },
+        "iconPosition": {
+          "type": "'left' | 'right'",
+          "required": false,
+          "description": " Position of the icon. "
+        },
+        "variants": {
+          "type": "{",
+          "required": true,
+          "description": ""
+        }
+      },
+      "subComponents": {
+        "Options": {
+          "props": {
+            "children": {
+              "type": "React.ReactNode",
+              "required": true,
+              "description": " The children to render in the menu options. "
+            },
+            "className": {
+              "type": "string",
+              "required": false,
+              "description": " The class name to apply to the menu options container. "
+            }
+          }
+        },
+        "Option": {
+          "props": {
+            "tag": {
+              "type": "T",
+              "required": false,
+              "description": " The tag or component to render the option as. "
+            },
+            "active": {
+              "type": "boolean",
+              "required": false,
+              "description": " Whether the option is active. "
+            },
+            "icon": {
+              "type": "React.ReactElement",
+              "required": false,
+              "description": " Icon component to display. "
+            },
+            "iconPosition": {
+              "type": "'left' | 'right'",
+              "required": false,
+              "description": " Position of the icon. "
+            },
+            "className": {
+              "type": "string",
+              "required": false,
+              "description": " Additional class name for styling. "
+            },
+            "children": {
+              "type": "ReactNode",
+              "required": false,
+              "description": " Children elements. "
+            }
+          }
+        },
+        "Toggle": {
+          "props": {
+            "className": {
+              "type": "string",
+              "required": false,
+              "description": " The class name to apply to the hamburger menu toggle button. "
+            }
+          }
+        }
+      }
+    },
+    "Input": {
+      "props": {
+        "id": {
+          "type": "string",
+          "required": false,
+          "description": "Unique identifier for the input element."
+        },
+        "type": {
+          "type": "'text' | 'password' | 'email' | 'file'",
+          "required": false,
+          "description": "Specifies the type of the input element (e.g., text, file)."
+        },
+        "defaultValue": {
+          "type": "string",
+          "required": false,
+          "description": "Initial value of the input element."
+        },
+        "value": {
+          "type": "string",
+          "required": false,
+          "description": "Controlled value of the input element."
+        },
+        "size": {
+          "type": "'sm' | 'md' | 'lg'",
+          "required": false,
+          "description": "Defines the size of the input (e.g., 'sm', 'md', 'lg')."
+        },
+        "className": {
+          "type": "string",
+          "required": false,
+          "description": "Additional custom classes for styling."
+        },
+        "disabled": {
+          "type": "boolean",
+          "required": false,
+          "description": "Disables the input element when true."
+        },
+        "onChange": {
+          "type": "( value: string | FileList | null ) => void",
+          "required": false,
+          "description": "Function called when the input value changes."
+        },
+        "error": {
+          "type": "boolean",
+          "required": false,
+          "description": "Indicates whether the input has an error state."
+        },
+        "onError": {
+          "type": "() => void",
+          "required": false,
+          "description": "Function called when the input encounters an error."
+        },
+        "prefix": {
+          "type": "ReactNode",
+          "required": false,
+          "description": "React node displayed as a prefix inside the input."
+        },
+        "suffix": {
+          "type": "ReactNode",
+          "required": false,
+          "description": "React node displayed as a suffix inside the input."
+        },
+        "label": {
+          "type": "string",
+          "required": false,
+          "description": "Label displayed above the input field."
+        },
+        "placeholder": {
+          "type": "string",
+          "required": false,
+          "description": "Placeholder text for the input field."
+        },
+        "required": {
+          "type": "boolean",
+          "required": false,
+          "description": "Indicates whether the input is required."
+        }
+      },
+      "subComponents": {}
+    },
+    "Label": {
+      "props": {
+        "children": {
+          "type": "ReactNode",
+          "required": true,
+          "description": "The content of the label."
+        },
+        "tag": {
+          "type": "string | ElementType",
+          "required": false,
+          "description": "Defines the HTML tag to use for the label."
+        },
+        "size": {
+          "type": "'xs' | 'sm' | 'md'",
+          "required": false,
+          "description": "Defines the size of the label."
+        },
+        "className": {
+          "type": "string",
+          "required": false,
+          "description": "Defines the extra classes."
+        },
+        "variant": {
+          "type": "'neutral' | 'help' | 'error' | 'disabled'",
+          "required": false,
+          "description": "Defines the style variant of the label."
+        },
+        "required": {
+          "type": "boolean",
+          "required": false,
+          "description": "Defines if the label is required."
+        }
+      },
+      "subComponents": {}
+    },
+    "LineChart": {
+      "props": {
+        "data": {
+          "type": "DataItem[]",
+          "required": true,
+          "description": "An array of objects representing the source data for the chart."
+        },
+        "dataKeys": {
+          "type": "string[]",
+          "required": true,
+          "description": "An array of strings representing the keys to access data in each data object. Used for identifying different data series."
+        },
+        "colors": {
+          "type": "Color[]",
+          "required": false,
+          "description": "An array of color objects that determine the stroke colors for each data series in the chart."
+        },
+        "showXAxis": {
+          "type": "boolean",
+          "required": false,
+          "description": "Whether to render the `<XAxis />` component for the x-axis."
+        },
+        "showYAxis": {
+          "type": "boolean",
+          "required": false,
+          "description": "Whether to render the `<YAxis />` component for the y-axis."
+        },
+        "showTooltip": {
+          "type": "boolean",
+          "required": false,
+          "description": "Toggle the visibility of the tooltip on hover, displaying detailed information for each data point."
+        },
+        "tooltipIndicator": {
+          "type": "'dot' | 'line' | 'dashed'",
+          "required": false,
+          "description": "The tooltip indicator. It can be `dot`, `line`, or `dashed`."
+        },
+        "tooltipLabelKey": {
+          "type": "string",
+          "required": false,
+          "description": "The key to use for the tooltip label."
+        },
+        "showCartesianGrid": {
+          "type": "boolean",
+          "required": false,
+          "description": "Whether to display the `<CartesianGrid />`, adding horizontal and vertical grid lines."
+        },
+        "xAxisTickFormatter": {
+          "type": "( value: string ) => string",
+          "required": false,
+          "description": "A function used to format the ticks on the x-axis, e.g., for formatting dates or numbers."
+        },
+        "tickFormatter": {
+          "type": "( value: string ) => string",
+          "required": false,
+          "description": " A function used to format the ticks on the x-axis, e.g., for formatting dates or numbers. @deprecated Use `xAxisTickFormatter` instead. "
+        },
+        "yAxisTickFormatter": {
+          "type": "( value: number ) => string",
+          "required": false,
+          "description": "A function used to format the ticks on the y-axis, e.g., for converting 1000 to 1K."
+        },
+        "xAxisDataKey": {
+          "type": "string",
+          "required": false,
+          "description": "The key in the data objects representing values for the x-axis."
+        },
+        "yAxisDataKey": {
+          "type": "string",
+          "required": false,
+          "description": "The key in the data objects representing values for the y-axis."
+        },
+        "xAxisFontSize": {
+          "type": "'sm' | 'md' | 'lg'",
+          "required": false,
+          "description": "Font size for the labels on the x-axis."
+        },
+        "xAxisFontColor": {
+          "type": "string",
+          "required": false,
+          "description": "Font color for the labels on the x-axis."
+        },
+        "yAxisFontColor": {
+          "type": "string | string[]",
+          "required": false,
+          "description": " Font color for the labels on the y-axis. When biaxial is true, you can provide an array of two colors [leftAxisColor, rightAxisColor]. If a single color is provided, it will be used for both axes. "
+        },
+        "chartWidth": {
+          "type": "number | string",
+          "required": false,
+          "description": "Width of the chart container."
+        },
+        "chartHeight": {
+          "type": "number | string",
+          "required": false,
+          "description": "Height of the chart container."
+        },
+        "withDots": {
+          "type": "boolean",
+          "required": false,
+          "description": "Determines whether dots are shown on each data point."
+        },
+        "lineChartWrapperProps": {
+          "type": "Omit<",
+          "required": false,
+          "description": " Line chart Wrapper props to apply additional props to the wrapper component. Ex. `margin`, or `onClick` etc. @see https://recharts.org/en-US/api/LineChart "
+        },
+        "strokeDasharray": {
+          "type": "string",
+          "required": false,
+          "description": " The stroke dasharray for the Cartesian grid. @default '3 3' @see https://recharts.org/en-US/api/CartesianGrid "
+        },
+        "gridColor": {
+          "type": "string",
+          "required": false,
+          "description": " The color of the Cartesian grid lines. @default '#E5E7EB' "
+        },
+        "biaxial": {
+          "type": "boolean",
+          "required": false,
+          "description": " Biaxial chart. "
+        },
+        "noDataComponent": {
+          "type": "ReactNode",
+          "required": false,
+          "description": " Custom component to display when no data is available. If not provided, a default \"No data available\" message will be displayed. "
+        }
+      },
+      "subComponents": {}
+    },
+    "Loader": {
+      "props": {
+        "variant": {
+          "type": "'primary' | 'secondary'",
+          "required": false,
+          "description": "Defines the variant of the loader. Options are 'primary' or 'secondary'."
+        },
+        "size": {
+          "type": "'sm' | 'md' | 'lg' | 'xl'",
+          "required": false,
+          "description": "Defines the size of the loader. Options are 'sm', 'md', 'lg', or 'xl'."
+        },
+        "icon": {
+          "type": "ReactNode",
+          "required": false,
+          "description": "Optional icon to display instead of the default loader icon."
+        },
+        "className": {
+          "type": "string",
+          "required": false,
+          "description": "Additional custom classes for styling."
+        }
+      },
+      "subComponents": {}
+    },
+    "Pagination": {
+      "props": {
+        "children": {
+          "type": "ReactNode",
+          "required": false,
+          "description": "Defines the children of the pagination component."
+        },
+        "className": {
+          "type": "string",
+          "required": false,
+          "description": "Additional CSS classes."
+        },
+        "size": {
+          "type": "PaginationSize",
+          "required": false,
+          "description": "Defines the size of pagination items."
+        },
+        "disabled": {
+          "type": "boolean",
+          "required": false,
+          "description": "Disables the button."
+        },
+        "isActive": {
+          "type": "boolean",
+          "required": false,
+          "description": "Marks the button as active."
+        },
+        "onClick": {
+          "type": "React.MouseEventHandler",
+          "required": false,
+          "description": "Optional click handler for the button."
+        },
+        "tag": {
+          "type": "'a' | 'button'",
+          "required": false,
+          "description": "The HTML tag to be rendered for the pagination button."
+        }
+      },
+      "subComponents": {
+        "Content": {
+          "props": {}
+        },
+        "Item": {
+          "props": {
+            "isActive": {
+              "type": "boolean",
+              "required": false,
+              "description": "Marks the pagination item as active."
+            }
+          }
+        },
+        "Previous": {
+          "props": {}
+        },
+        "Next": {
+          "props": {}
+        },
+        "Ellipsis": {
+          "props": {}
+        }
+      }
+    },
+    "PieChart": {
+      "props": {
+        "data": {
+          "type": "DataItem[]",
+          "required": true,
+          "description": "An array of objects representing the source data for the chart."
+        },
+        "dataKey": {
+          "type": "string",
+          "required": true,
+          "description": "A string which representing the key to access data in each data object. Used for identifying different data series."
+        },
+        "type": {
+          "type": "'simple' | 'donut'",
+          "required": false,
+          "description": "Type of pie chart. It can be `simple` or `donut`"
+        },
+        "showTooltip": {
+          "type": "boolean",
+          "required": false,
+          "description": "Toggle the visibility of the tooltip on hover, displaying detailed information for each data point."
+        },
+        "tooltipIndicator": {
+          "type": "'dot' | 'line' | 'dashed'",
+          "required": false,
+          "description": "The tooltip indicator. It can be `dot`, `line`, or `dashed`."
+        },
+        "tooltipLabelKey": {
+          "type": "string",
+          "required": false,
+          "description": "The key to use for the tooltip label."
+        },
+        "label": {
+          "type": "boolean",
+          "required": false,
+          "description": "When is true it show the label inside `donut` pie chart"
+        },
+        "labelName": {
+          "type": "string",
+          "required": false,
+          "description": "Label name which will be displayed inside donut pie chart."
+        },
+        "labelNameColor": {
+          "type": "string",
+          "required": false,
+          "description": "Label name color which will be displayed inside donut pie chart."
+        },
+        "labelValue": {
+          "type": "number | string",
+          "required": false,
+          "description": "Label value which will be displayed inside donut pie chart."
+        },
+        "showLegend": {
+          "type": "boolean",
+          "required": false,
+          "description": "Whether to render the `<Legend />` component to identify data series."
+        },
+        "chartWidth": {
+          "type": "number",
+          "required": false,
+          "description": "Width of the chart container."
+        },
+        "pieOuterRadius": {
+          "type": "number",
+          "required": false,
+          "description": "Outer radius of the pie chart."
+        },
+        "pieInnerRadius": {
+          "type": "number",
+          "required": false,
+          "description": "Inner radius of the pie chart."
+        }
+      },
+      "subComponents": {}
+    },
+    "ProgressBar": {
+      "props": {
+        "progress": {
+          "type": "number",
+          "required": false,
+          "description": "Current progress value (0 to 100)."
+        },
+        "speed": {
+          "type": "number",
+          "required": false,
+          "description": "Speed of the progress transition in milliseconds."
+        },
+        "className": {
+          "type": "string",
+          "required": false,
+          "description": "Additional custom classes for styling."
+        }
+      },
+      "subComponents": {}
+    },
+    "ProgressSteps": {
+      "props": {
+        "children": {
+          "type": "ReactNode",
+          "required": true,
+          "description": "Defines the children of the progress steps."
+        },
+        "className": {
+          "type": "string",
+          "required": false,
+          "description": "Defines the class name for the component."
+        },
+        "variant": {
+          "type": "'dot' | 'number' | 'icon'",
+          "required": false,
+          "description": "Specifies the variant style: 'dot', 'number', or 'icon'."
+        },
+        "size": {
+          "type": "'sm' | 'md' | 'lg'",
+          "required": true,
+          "description": "Defines the size of the step: 'sm', 'md', or 'lg'."
+        },
+        "type": {
+          "type": "'inline' | 'stack'",
+          "required": false,
+          "description": "Defines the layout type: 'inline' or 'stack'."
+        },
+        "currentStep": {
+          "type": "number",
+          "required": false,
+          "description": "Defines the current step number. `-1` keeps all steps completed."
+        },
+        "lineClassName": {
+          "type": "string",
+          "required": false,
+          "description": "Additional class names for the connecting line."
+        },
+        "completedVariant": {
+          "type": "CompletedVariant",
+          "required": false,
+          "description": "How to display completed steps"
+        },
+        "completedIcon": {
+          "type": "ReactNode",
+          "required": false,
+          "description": "Custom icon for completed steps"
+        },
+        "labelText": {
+          "type": "string",
+          "required": false,
+          "description": "Text label for the step."
+        },
+        "icon": {
+          "type": "ReactNode",
+          "required": false,
+          "description": "Custom icon for the step."
+        },
+        "isCurrent": {
+          "type": "boolean",
+          "required": false,
+          "description": "Indicates if this step is currently active."
+        },
+        "isCompleted": {
+          "type": "boolean",
+          "required": false,
+          "description": "Indicates if this step has been completed."
+        },
+        "sizeClasses": {
+          "type": "StepSizeClasses",
+          "required": false,
+          "description": "Size-specific CSS classes for the step."
+        },
+        "isLast": {
+          "type": "boolean",
+          "required": false,
+          "description": "Indicates if this step is the last in the sequence."
+        },
+        "index": {
+          "type": "number",
+          "required": false,
+          "description": "The index of the step in the sequence."
+        }
+      },
+      "subComponents": {
+        "Step": {
+          "props": {
+            "variant": {
+              "type": "'dot' | 'number' | 'icon'",
+              "required": false,
+              "description": "Specifies the variant style: 'dot', 'number', or 'icon'."
+            },
+            "size": {
+              "type": "'sm' | 'md' | 'lg'",
+              "required": true,
+              "description": "Defines the size of the step: 'sm', 'md', or 'lg'."
+            },
+            "type": {
+              "type": "'inline' | 'stack'",
+              "required": false,
+              "description": "Defines the layout type: 'inline' or 'stack'."
+            },
+            "currentStep": {
+              "type": "number",
+              "required": false,
+              "description": "Defines the current step number. `-1` keeps all steps completed."
+            },
+            "lineClassName": {
+              "type": "string",
+              "required": false,
+              "description": "Additional class names for the connecting line."
+            },
+            "completedVariant": {
+              "type": "CompletedVariant",
+              "required": false,
+              "description": "How to display completed steps"
+            },
+            "completedIcon": {
+              "type": "ReactNode",
+              "required": false,
+              "description": "Custom icon for completed steps"
+            },
+            "labelText": {
+              "type": "string",
+              "required": false,
+              "description": "Text label for the step."
+            },
+            "icon": {
+              "type": "ReactNode",
+              "required": false,
+              "description": "Custom icon for the step."
+            },
+            "isCurrent": {
+              "type": "boolean",
+              "required": false,
+              "description": "Indicates if this step is currently active."
+            },
+            "isCompleted": {
+              "type": "boolean",
+              "required": false,
+              "description": "Indicates if this step has been completed."
+            },
+            "sizeClasses": {
+              "type": "StepSizeClasses",
+              "required": false,
+              "description": "Size-specific CSS classes for the step."
+            },
+            "isLast": {
+              "type": "boolean",
+              "required": false,
+              "description": "Indicates if this step is the last in the sequence."
+            },
+            "index": {
+              "type": "number",
+              "required": false,
+              "description": "The index of the step in the sequence."
+            }
+          }
+        }
+      }
+    },
+    "RadioButton": {
+      "props": {
+        "className": {
+          "type": "string",
+          "required": false,
+          "description": "Custom class names for additional styling"
+        },
+        "as": {
+          "type": "ElementType",
+          "required": false,
+          "description": "HTML element or React component to render the element as"
+        },
+        "children": {
+          "type": "ReactNode",
+          "required": true,
+          "description": ""
+        },
+        "disabled": {
+          "type": "boolean",
+          "required": false,
+          "description": ""
+        },
+        "name": {
+          "type": "string",
+          "required": false,
+          "description": "Name used for form submission"
+        },
+        "style": {
+          "type": "'simple' | 'tile'",
+          "required": false,
+          "description": "Style of the radio button group: 'simple' or 'tile'"
+        },
+        "size": {
+          "type": "'sm' | 'md'",
+          "required": false,
+          "description": "Size of the radio buttons: 'sm' or 'md'"
+        },
+        "value": {
+          "type": "string | string[]",
+          "required": false,
+          "description": "Controlled value of the group"
+        },
+        "defaultValue": {
+          "type": "string | string[]",
+          "required": false,
+          "description": "Default value if the group is uncontrolled"
+        },
+        "by": {
+          "type": "string",
+          "required": false,
+          "description": "Attribute to compare selected values, typically 'id'"
+        },
+        "onChange": {
+          "type": "( value: string | string[] ) => void",
+          "required": false,
+          "description": "Handler invoked on value change"
+        },
+        "disableGroup": {
+          "type": "boolean",
+          "required": false,
+          "description": "Disables all radio buttons in the group"
+        },
+        "vertical": {
+          "type": "boolean",
+          "required": false,
+          "description": "Arranges the radio buttons vertically"
+        },
+        "columns": {
+          "type": "number",
+          "required": false,
+          "description": "Number of columns for arranging the buttons"
+        },
+        "multiSelection": {
+          "type": "boolean",
+          "required": false,
+          "description": "Enables multi-selection mode"
+        },
+        "gapClassName": {
+          "type": "string",
+          "required": false,
+          "description": "Gap between radio buttons"
+        },
+        "id": {
+          "type": "string",
+          "required": false,
+          "description": "Unique identifier for the radio button"
+        }
+      },
+      "subComponents": {
+        "Group": {
+          "props": {
+            "name": {
+              "type": "string",
+              "required": false,
+              "description": "Name used for form submission"
+            },
+            "style": {
+              "type": "'simple' | 'tile'",
+              "required": false,
+              "description": "Style of the radio button group: 'simple' or 'tile'"
+            },
+            "size": {
+              "type": "'sm' | 'md'",
+              "required": false,
+              "description": "Size of the radio buttons: 'sm' or 'md'"
+            },
+            "value": {
+              "type": "string | string[]",
+              "required": false,
+              "description": "Controlled value of the group"
+            },
+            "defaultValue": {
+              "type": "string | string[]",
+              "required": false,
+              "description": "Default value if the group is uncontrolled"
+            },
+            "by": {
+              "type": "string",
+              "required": false,
+              "description": "Attribute to compare selected values, typically 'id'"
+            },
+            "onChange": {
+              "type": "( value: string | string[] ) => void",
+              "required": false,
+              "description": "Handler invoked on value change"
+            },
+            "disableGroup": {
+              "type": "boolean",
+              "required": false,
+              "description": "Disables all radio buttons in the group"
+            },
+            "vertical": {
+              "type": "boolean",
+              "required": false,
+              "description": "Arranges the radio buttons vertically"
+            },
+            "columns": {
+              "type": "number",
+              "required": false,
+              "description": "Number of columns for arranging the buttons"
+            },
+            "multiSelection": {
+              "type": "boolean",
+              "required": false,
+              "description": "Enables multi-selection mode"
+            },
+            "gapClassName": {
+              "type": "string",
+              "required": false,
+              "description": "Gap between radio buttons"
+            },
+            "id": {
+              "type": "string",
+              "required": false,
+              "description": ""
+            },
+            "children": {
+              "type": "ReactNode",
+              "required": true,
+              "description": ""
+            },
+            "disabled": {
+              "type": "boolean",
+              "required": false,
+              "description": ""
+            }
+          }
+        },
+        "Button": {
+          "props": {
+            "className": {
+              "type": "string",
+              "required": false,
+              "description": "Custom class names for additional styling"
+            },
+            "as": {
+              "type": "ElementType",
+              "required": false,
+              "description": "HTML element or React component to render the element as"
+            },
+            "children": {
+              "type": "ReactNode",
+              "required": true,
+              "description": ""
+            },
+            "disabled": {
+              "type": "boolean",
+              "required": false,
+              "description": ""
+            },
+            "name": {
+              "type": "string",
+              "required": false,
+              "description": "Name used for form submission"
+            },
+            "style": {
+              "type": "'simple' | 'tile'",
+              "required": false,
+              "description": "Style of the radio button group: 'simple' or 'tile'"
+            },
+            "size": {
+              "type": "'sm' | 'md'",
+              "required": false,
+              "description": ""
+            },
+            "value": {
+              "type": "string",
+              "required": true,
+              "description": ""
+            },
+            "defaultValue": {
+              "type": "string | string[]",
+              "required": false,
+              "description": "Default value if the group is uncontrolled"
+            },
+            "by": {
+              "type": "string",
+              "required": false,
+              "description": "Attribute to compare selected values, typically 'id'"
+            },
+            "onChange": {
+              "type": "( value: string | string[] ) => void",
+              "required": false,
+              "description": "Handler invoked on value change"
+            },
+            "disableGroup": {
+              "type": "boolean",
+              "required": false,
+              "description": "Disables all radio buttons in the group"
+            },
+            "vertical": {
+              "type": "boolean",
+              "required": false,
+              "description": "Arranges the radio buttons vertically"
+            },
+            "columns": {
+              "type": "number",
+              "required": false,
+              "description": "Number of columns for arranging the buttons"
+            },
+            "multiSelection": {
+              "type": "boolean",
+              "required": false,
+              "description": "Enables multi-selection mode"
+            },
+            "gapClassName": {
+              "type": "string",
+              "required": false,
+              "description": "Gap between radio buttons"
+            },
+            "id": {
+              "type": "string",
+              "required": false,
+              "description": "Unique identifier for the radio button"
+            },
+            "label": {
+              "type": "{ heading: string; description?: string",
+              "required": false,
+              "description": "Label content for the radio button"
+            }
+          }
+        }
+      }
+    },
+    "Select": {
+      "props": {
+        "id": {
+          "type": "string",
+          "required": false,
+          "description": " Root element ID where the `Select.Options` will be rendered. If not provided Select.Options will be rendered in the body. "
+        },
+        "size": {
+          "type": "SelectSizes",
+          "required": false,
+          "description": "Defines the size of the Select Component."
+        },
+        "by": {
+          "type": "string",
+          "required": false,
+          "description": "When the value is an object, a key is required to compare the selected value. The default value is `id`."
+        },
+        "children": {
+          "type": "MultiTypeChildren",
+          "required": false,
+          "description": "Expects the `Select.Button` children of the Select Component."
+        },
+        "combobox": {
+          "type": "boolean",
+          "required": false,
+          "description": "Combobox mode."
+        },
+        "disabled": {
+          "type": "boolean",
+          "required": false,
+          "description": "Disables the Select Component."
+        },
+        "multiple": {
+          "type": "boolean",
+          "required": false,
+          "description": "Multi select mode."
+        },
+        "value": {
+          "type": "SelectOptionValue",
+          "required": true,
+          "description": "Value of the option."
+        },
+        "onChange": {
+          "type": "SelectOnChange",
+          "required": true,
+          "description": "onChange event to be triggered when the value of the Select Component changes."
+        },
+        "defaultValue": {
+          "type": "SelectOptionValue | SelectOptionValue[]",
+          "required": false,
+          "description": "Defines the default value of the Select Component."
+        },
+        "searchPlaceholder": {
+          "type": "string",
+          "required": false,
+          "description": "Placeholder text for search box."
+        },
+        "searchFn": {
+          "type": "( keyword: string ) => Promise<void>",
+          "required": false,
+          "description": "Function to fetch options. If provided, the search functionality will be handled outside of the select component."
+        },
+        "debounceDelay": {
+          "type": "number",
+          "required": false,
+          "description": "Delay in milliseconds for debounced search. If the searchFn is provided, the debounceDelay will be used to debounce the search."
+        },
+        "root": {
+          "type": "HTMLElement",
+          "required": false,
+          "description": " Root element where the `Select.Options` will be rendered.  If not provided Select.Options will be rendered in the body. "
+        },
+        "icon": {
+          "type": "ReactNode | null",
+          "required": false,
+          "description": "Option Icon to show at the right of the option trigger/button. By default it will show chevron down icon."
+        },
+        "placeholder": {
+          "type": "string",
+          "required": false,
+          "description": "Placeholder text when no option is selected."
+        },
+        "optionIcon": {
+          "type": "ReactNode | null",
+          "required": false,
+          "description": "Icon to show in the selected option badge (Multi-select mode only). By default it won't show unknown icon."
+        },
+        "render": {
+          "type": "( selected: SelectOptionValue ) => ReactNode | string",
+          "required": false,
+          "description": " Render function to display the selected option (Must use for multi-select mode). For multi-select mode, the selected option will be displayed as a badge but the render function will be used to display the selected options. For single-select mode, the render function will be used to display the selected option. "
+        },
+        "label": {
+          "type": "string",
+          "required": false,
+          "description": "Label for the Select component."
+        },
+        "className": {
+          "type": "string",
+          "required": false,
+          "description": "Additional class name for the Select Button."
+        },
+        "selected": {
+          "type": "boolean",
+          "required": false,
+          "description": "Selected state of the option."
+        }
+      },
+      "subComponents": {
+        "Portal": {
+          "props": {
+            "children": {
+              "type": "ReactNode",
+              "required": false,
+              "description": "Expects the `Select.Options` children of the Select.Portal Component."
+            },
+            "root": {
+              "type": "HTMLElement",
+              "required": false,
+              "description": " Root element where the `Select.Options` will be rendered.  If not provided Select.Options will be rendered in the body. "
+            },
+            "id": {
+              "type": "string",
+              "required": false,
+              "description": " Root element ID where the `Select.Options` will be rendered. If not provided Select.Options will be rendered in the body. "
+            }
+          }
+        },
+        "Button": {
+          "props": {
+            "children": {
+              "type": "MultiTypeChildren",
+              "required": false,
+              "description": "Expects the `Select.Button` children of the Select Component."
+            },
+            "icon": {
+              "type": "ReactNode | null",
+              "required": false,
+              "description": "Option Icon to show at the right of the option trigger/button. By default it will show chevron down icon."
+            },
+            "placeholder": {
+              "type": "string",
+              "required": false,
+              "description": "Placeholder text when no option is selected."
+            },
+            "optionIcon": {
+              "type": "ReactNode | null",
+              "required": false,
+              "description": "Icon to show in the selected option badge (Multi-select mode only). By default it won't show unknown icon."
+            },
+            "render": {
+              "type": "( selected: SelectOptionValue ) => ReactNode | string",
+              "required": false,
+              "description": " Render function to display the selected option (Must use for multi-select mode). For multi-select mode, the selected option will be displayed as a badge but the render function will be used to display the selected options. For single-select mode, the render function will be used to display the selected option. "
+            },
+            "label": {
+              "type": "string",
+              "required": false,
+              "description": "Label for the Select component."
+            },
+            "className": {
+              "type": "string",
+              "required": false,
+              "description": "Additional class name for the Select Button."
+            }
+          }
+        },
+        "Options": {
+          "props": {
+            "children": {
+              "type": "React.ReactNode",
+              "required": true,
+              "description": "Expects the `Select.Option` or `Select.OptionGroup` children"
+            },
+            "className": {
+              "type": "string",
+              "required": false,
+              "description": "Additional class name for the Select Options wrapper."
+            }
+          }
+        },
+        "Option": {
+          "props": {
+            "value": {
+              "type": "SelectOptionValue",
+              "required": true,
+              "description": "Value of the option."
+            },
+            "selected": {
+              "type": "boolean",
+              "required": false,
+              "description": "Selected state of the option."
+            },
+            "children": {
+              "type": "ReactNode",
+              "required": false,
+              "description": "Expects the `Select.Option` children of the Select Component."
+            },
+            "className": {
+              "type": "string",
+              "required": false,
+              "description": "Additional class name for the Select Option."
+            },
+            "label": {
+              "type": "string",
+              "required": true,
+              "description": "Label for the option group"
+            }
+          }
+        },
+        "OptionGroup": {
+          "props": {
+            "label": {
+              "type": "string",
+              "required": true,
+              "description": "Label for the option group"
+            },
+            "children": {
+              "type": "ReactNode",
+              "required": true,
+              "description": "Children options"
+            },
+            "className": {
+              "type": "string",
+              "required": false,
+              "description": "Additional class name for the option group"
+            }
+          }
+        }
+      }
+    },
+    "Sidebar": {
+      "props": {
+        "isCollapsed": {
+          "type": "boolean",
+          "required": true,
+          "description": ""
+        },
+        "setIsCollapsed": {
+          "type": "React.Dispatch<React.SetStateAction<boolean>>",
+          "required": true,
+          "description": ""
+        },
+        "collapsible": {
+          "type": "boolean",
+          "required": false,
+          "description": "Determines if the Sidebar can be collapsed or not. If true, a collapse button is shown."
+        },
+        "children": {
+          "type": "ReactNode",
+          "required": true,
+          "description": "Content to render inside the Sidebar. Typically includes Sidebar.Header, Sidebar.Body, and Sidebar.Footer components."
+        },
+        "className": {
+          "type": "string",
+          "required": false,
+          "description": "Optional custom CSS classes for styling the Sidebar item."
+        },
+        "onCollapseChange": {
+          "type": "( isCollapsed: boolean ) => void",
+          "required": false,
+          "description": "Callback function triggered when the Sidebar collapse state changes."
+        },
+        "borderOn": {
+          "type": "boolean",
+          "required": false,
+          "description": "Controls whether a border should appear on the right of the Sidebar."
+        },
+        "collapsed": {
+          "type": "boolean",
+          "required": false,
+          "description": "Set the sidebar collapse state. This is useful when collapsible is false and you want to use the sidebar as collapsed by default."
+        }
+      },
+      "subComponents": {
+        "Header": {
+          "props": {}
+        },
+        "Body": {
+          "props": {}
+        },
+        "Footer": {
+          "props": {}
+        },
+        "Item": {
+          "props": {
+            "className": {
+              "type": "string",
+              "required": false,
+              "description": "Optional custom CSS classes for styling the Sidebar item."
+            },
+            "onClick": {
+              "type": "() => void; // Add this line",
+              "required": false,
+              "description": "Click event handler"
+            }
+          }
+        }
+      }
+    },
+    "Skeleton": {
+      "props": {
+        "variant": {
+          "type": "'rectangular' | 'circular'",
+          "required": false,
+          "description": "Defines the style variant of the skeleton."
+        },
+        "className": {
+          "type": "string",
+          "required": false,
+          "description": "Allows you to pass custom classes to control the size and styles."
+        }
+      },
+      "subComponents": {}
+    },
+    "Switch": {
+      "props": {
+        "id": {
+          "type": "string",
+          "required": false,
+          "description": "Unique identifier for the switch component."
+        },
+        "onChange": {
+          "type": "( checked: boolean ) => void",
+          "required": false,
+          "description": "Callback function triggered when the switch value changes."
+        },
+        "value": {
+          "type": "boolean",
+          "required": false,
+          "description": "Controlled value of the switch (checked or unchecked)."
+        },
+        "defaultValue": {
+          "type": "boolean",
+          "required": false,
+          "description": "Initial value of the switch (checked or unchecked) when used as an uncontrolled component."
+        },
+        "size": {
+          "type": "'xs' | 'sm' | 'md'",
+          "required": false,
+          "description": " Defines the size of the switch (e.g., 'xs', 'sm', 'md'). @default 'sm' "
+        },
+        "disabled": {
+          "type": "boolean",
+          "required": false,
+          "description": "Disables the switch if true."
+        },
+        "label": {
+          "type": "{",
+          "required": false,
+          "description": "Defines the label for the switch, can include heading and description."
+        },
+        "heading": {
+          "type": "string",
+          "required": false,
+          "description": "Heading for the label."
+        },
+        "description": {
+          "type": "string",
+          "required": false,
+          "description": "Description for the label."
+        }
+      },
+      "subComponents": {}
+    },
+    "Table": {
+      "props": {
+        "children": {
+          "type": "ReactNode",
+          "required": false,
+          "description": " Child components to render within the table footer. "
+        },
+        "className": {
+          "type": "string",
+          "required": false,
+          "description": " Class name to apply to the component. "
+        },
+        "checkboxSelection": {
+          "type": "boolean",
+          "required": false,
+          "description": " Whether to show checkboxes for row selection. "
+        },
+        "selected": {
+          "type": "boolean",
+          "required": false,
+          "description": " Whether any of the rows are selected. "
+        },
+        "indeterminate": {
+          "type": "boolean",
+          "required": false,
+          "description": " Whether the checkbox is indeterminate. "
+        },
+        "disabled": {
+          "type": "boolean",
+          "required": false,
+          "description": " Whether the checkbox is disabled. "
+        },
+        "onChangeSelection": {
+          "type": "( checked: boolean ) => void",
+          "required": false,
+          "description": " On checkbox change for bulk selection/deselection.  @default undefined "
+        },
+        "value": {
+          "type": "T | undefined",
+          "required": false,
+          "description": " value of the row. "
+        }
+      },
+      "subComponents": {
+        "Head": {
+          "props": {
+            "children": {
+              "type": "ReactNode",
+              "required": false,
+              "description": " Child components to render within the table head. "
+            },
+            "selected": {
+              "type": "boolean",
+              "required": false,
+              "description": " Whether any of the rows are selected. "
+            },
+            "indeterminate": {
+              "type": "boolean",
+              "required": false,
+              "description": " Whether the checkbox is indeterminate. "
+            },
+            "disabled": {
+              "type": "boolean",
+              "required": false,
+              "description": " Whether the checkbox is disabled. "
+            },
+            "onChangeSelection": {
+              "type": "( checked: boolean ) => void",
+              "required": false,
+              "description": " On checkbox change for bulk selection/deselection.  @default undefined "
+            }
+          }
+        },
+        "HeadCell": {
+          "props": {
+            "children": {
+              "type": "ReactNode",
+              "required": false,
+              "description": " Content to display in the header cell. "
+            }
+          }
+        },
+        "Body": {
+          "props": {
+            "children": {
+              "type": "ReactNode",
+              "required": false,
+              "description": " Child components to render within the table body. "
+            }
+          }
+        },
+        "Row": {
+          "props": {
+            "children": {
+              "type": "ReactNode",
+              "required": false,
+              "description": " Child components to render within the table row. "
+            },
+            "value": {
+              "type": "T | undefined",
+              "required": false,
+              "description": " value of the row. "
+            },
+            "selected": {
+              "type": "boolean",
+              "required": false,
+              "description": " Whether the row is selected. "
+            },
+            "onChangeSelection": {
+              "type": "( checked: boolean, value: T ) => void",
+              "required": false,
+              "description": " On checkbox selection change. "
+            },
+            "disabled": {
+              "type": "boolean",
+              "required": false,
+              "description": " Whether the row is disabled. "
+            }
+          }
+        },
+        "Cell": {
+          "props": {
+            "children": {
+              "type": "ReactNode",
+              "required": false,
+              "description": " Content to display in the table cell. "
+            }
+          }
+        },
+        "Footer": {
+          "props": {
+            "children": {
+              "type": "ReactNode",
+              "required": false,
+              "description": " Child components to render within the table footer. "
+            }
+          }
+        }
+      }
+    },
+    "Tabs": {
+      "props": {
+        "activeItem": {
+          "type": "string | null",
+          "required": true,
+          "description": "The active tab value to identify active tab."
+        },
+        "onChange": {
+          "type": "( {",
+          "required": false,
+          "description": "Callback when the active item changes."
+        },
+        "slug": {
+          "type": "string",
+          "required": true,
+          "description": "Unique identifier for the tab panel that is used for the tab."
+        },
+        "text": {
+          "type": "string",
+          "required": true,
+          "description": "Text to display in the tab."
+        },
+        "icon": {
+          "type": "ReactNode",
+          "required": false,
+          "description": "Icon to display in the tab."
+        },
+        "className": {
+          "type": "string",
+          "required": false,
+          "description": "Additional class names for styling."
+        },
+        "disabled": {
+          "type": "boolean",
+          "required": false,
+          "description": "Disables the tab."
+        },
+        "badge": {
+          "type": "ReactNode",
+          "required": false,
+          "description": "Badge to display in the tab."
+        },
+        "children": {
+          "type": "ReactNode",
+          "required": true,
+          "description": "Content to display in the tab panel."
+        }
+      },
+      "subComponents": {
+        "Group": {
+          "props": {
+            "activeItem": {
+              "type": "string | null",
+              "required": false,
+              "description": "Controls the active tab."
+            },
+            "onChange": {
+              "type": "( {",
+              "required": false,
+              "description": "Callback when the active item changes."
+            }
+          }
+        },
+        "Tab": {
+          "props": {
+            "slug": {
+              "type": "string",
+              "required": true,
+              "description": "Unique identifier for the tab."
+            },
+            "text": {
+              "type": "string",
+              "required": true,
+              "description": "Text to display in the tab."
+            },
+            "icon": {
+              "type": "ReactNode",
+              "required": false,
+              "description": "Icon to display in the tab."
+            },
+            "className": {
+              "type": "string",
+              "required": false,
+              "description": "Additional class names for styling."
+            },
+            "disabled": {
+              "type": "boolean",
+              "required": false,
+              "description": "Disables the tab."
+            },
+            "badge": {
+              "type": "ReactNode",
+              "required": false,
+              "description": "Badge to display in the tab."
+            },
+            "activeItem": {
+              "type": "string | null",
+              "required": true,
+              "description": "The active tab value to identify active tab."
+            },
+            "onChange": {
+              "type": "( {",
+              "required": false,
+              "description": "Callback when the active item changes."
+            },
+            "children": {
+              "type": "ReactNode",
+              "required": true,
+              "description": "Content to display in the tab panel."
+            }
+          }
+        },
+        "Panel": {
+          "props": {
+            "slug": {
+              "type": "string",
+              "required": true,
+              "description": "Unique identifier for the tab panel that is used for the tab."
+            },
+            "children": {
+              "type": "ReactNode",
+              "required": true,
+              "description": "Content to display in the tab panel."
+            }
+          }
+        }
+      }
+    },
+    "Text": {
+      "props": {
+        "as": {
+          "type": "C",
+          "required": false,
+          "description": " The element to render the text as.  @default 'p' "
+        },
+        "ref": {
+          "type": "PolymorphicRef<C>",
+          "required": false,
+          "description": ""
+        },
+        "children": {
+          "type": "ReactNode",
+          "required": true,
+          "description": " The content of the text. "
+        },
+        "weight": {
+          "type": "keyof typeof fontWeightClassNames",
+          "required": false,
+          "description": " The font weight of the text. "
+        },
+        "size": {
+          "type": "keyof typeof fontSizeClassNames",
+          "required": false,
+          "description": " The font size of the text. "
+        },
+        "lineHeight": {
+          "type": "keyof typeof lineHeightClassNames",
+          "required": false,
+          "description": " The line height of the text. "
+        },
+        "letterSpacing": {
+          "type": "keyof typeof letterSpacingClassNames",
+          "required": false,
+          "description": " The letter spacing of the text. "
+        },
+        "color": {
+          "type": "keyof typeof fontColorClassNames",
+          "required": false,
+          "description": " The font color of the text. "
+        },
+        "className": {
+          "type": "string",
+          "required": false,
+          "description": " Additional class names to apply "
+        }
+      },
+      "subComponents": {}
+    },
+    "Title": {
+      "props": {
+        "title": {
+          "type": "string",
+          "required": false,
+          "description": "The main title text to render."
+        },
+        "description": {
+          "type": "string",
+          "required": false,
+          "description": "Optional description text to display below the title."
+        },
+        "icon": {
+          "type": "ReactNode",
+          "required": false,
+          "description": "Icon element to display alongside the title."
+        },
+        "iconPosition": {
+          "type": "'left' | 'right'",
+          "required": false,
+          "description": "Determines the position of the icon relative to the title."
+        },
+        "tag": {
+          "type": "'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'",
+          "required": false,
+          "description": "HTML tag to use for the title (e.g., h1, h2, h3)."
+        },
+        "size": {
+          "type": "'xs' | 'sm' | 'md' | 'lg'",
+          "required": false,
+          "description": "Size variant of the title (affects both title and description styles) - xs, sm, md, lg."
+        },
+        "className": {
+          "type": "string",
+          "required": false,
+          "description": "Additional class names to apply to the root element."
+        }
+      },
+      "subComponents": {}
+    },
+    "Toaster": {
+      "props": {
+        "position": {
+          "type": "'top-right' | 'top-left' | 'bottom-right' | 'bottom-left'",
+          "required": false,
+          "description": "Defines the position of the toaster."
+        },
+        "design": {
+          "type": "'stack' | 'inline'",
+          "required": false,
+          "description": "Defines the design of the toast."
+        },
+        "theme": {
+          "type": "'light' | 'dark'",
+          "required": false,
+          "description": "Defines the theme of the toast."
+        },
+        "className": {
+          "type": "string",
+          "required": false,
+          "description": "Additional classes to be added to the toaster."
+        },
+        "autoDismiss": {
+          "type": "boolean",
+          "required": false,
+          "description": "Defines if the toast should be auto dismissed or not."
+        },
+        "dismissAfter": {
+          "type": "number",
+          "required": false,
+          "description": "Time in milliseconds after which the toast will be dismissed."
+        },
+        "toastItem": {
+          "type": "ToastType",
+          "required": true,
+          "description": "The toast item."
+        },
+        "title": {
+          "type": "string | React.ReactElement",
+          "required": false,
+          "description": "The title of the toast."
+        },
+        "content": {
+          "type": "string | React.ReactElement",
+          "required": false,
+          "description": "The content of the toast."
+        },
+        "icon": {
+          "type": "React.ReactElement",
+          "required": false,
+          "description": "The icon for the toast."
+        },
+        "variant": {
+          "type": "ToastType['type']",
+          "required": false,
+          "description": "The variant of the toast."
+        },
+        "removeToast": {
+          "type": "( id: number ) => void",
+          "required": false,
+          "description": "Function to remove the toast."
+        }
+      },
+      "subComponents": {}
+    },
+    "Tooltip": {
+      "props": {
+        "variant": {
+          "type": "'light' | 'dark'",
+          "required": false,
+          "description": "Defines the visual variant of the tooltip."
+        },
+        "title": {
+          "type": "string",
+          "required": false,
+          "description": "The title displayed at the top of the tooltip."
+        },
+        "content": {
+          "type": "ReactNode",
+          "required": false,
+          "description": "The main content to be displayed within the tooltip."
+        },
+        "arrow": {
+          "type": "boolean",
+          "required": false,
+          "description": "Indicates whether to show an arrow pointing to the target element."
+        },
+        "open": {
+          "type": "boolean",
+          "required": false,
+          "description": "Controls the visibility of the tooltip in a controlled manner."
+        },
+        "setOpen": {
+          "type": "( isOpen: boolean ) => void",
+          "required": false,
+          "description": "Function to set the visibility state of the tooltip."
+        },
+        "children": {
+          "type": "ReactNode",
+          "required": true,
+          "description": "The child element to which the tooltip is attached."
+        },
+        "className": {
+          "type": "string",
+          "required": false,
+          "description": "Additional CSS classes to apply to the tooltip for custom styling."
+        },
+        "tooltipPortalRoot": {
+          "type": "HTMLElement | null",
+          "required": false,
+          "description": "The root element where the tooltip will be rendered."
+        },
+        "tooltipPortalId": {
+          "type": "string",
+          "required": false,
+          "description": "The ID of the tooltip portal."
+        },
+        "strategy": {
+          "type": "'fixed' | 'absolute'",
+          "required": false,
+          "description": "Specifies the positioning strategy for the tooltip."
+        },
+        "offset": {
+          "type": "number",
+          "required": false,
+          "description": "Offset distance (in pixels) from the target element to the tooltip."
+        },
+        "triggers": {
+          "type": "( 'click' | 'hover' | 'focus' )[]",
+          "required": false,
+          "description": "Events that trigger the tooltip."
+        },
+        "interactive": {
+          "type": "boolean",
+          "required": false,
+          "description": "Indicates whether the tooltip content is interactive. Keeps the tooltip open while the user interacts with its content."
+        },
+        "boundary": {
+          "type": "'viewport' | 'clippingAncestors' | HTMLElement | null",
+          "required": false,
+          "description": "Defines the boundary for positioning the tooltip, accepting 'viewport', 'clippingAncestors', or an HTML element reference."
+        }
+      },
+      "subComponents": {}
+    },
+    "Topbar": {
+      "props": {
+        "children": {
+          "type": "ReactNode",
+          "required": false,
+          "description": "Children to be rendered inside the Topbar."
+        },
+        "className": {
+          "type": "string",
+          "required": false,
+          "description": "Additional classes to be added to the Topbar."
+        },
+        "gap": {
+          "type": "'0' | 'xxs' | 'xs' | 'sm' | 'md' | 'lg' | 'xl' | '2xl'",
+          "required": false,
+          "description": "Defines the gap between items."
+        },
+        "align": {
+          "type": "'left' | 'center' | 'right'",
+          "required": false,
+          "description": "Defines how the content inside the Middle section is aligned."
+        }
+      },
+      "subComponents": {
+        "Left": {
+          "props": {}
+        },
+        "Middle": {
+          "props": {
+            "align": {
+              "type": "'left' | 'center' | 'right'",
+              "required": false,
+              "description": "Defines how the content inside the Middle section is aligned."
+            }
+          }
+        },
+        "Right": {
+          "props": {}
+        },
+        "Item": {
+          "props": {}
+        }
+      }
+    }
+  },
+  "metadata": {
+    "totalComponents": 38,
+    "extractedAt": "2025-06-05T10:11:20.250Z",
+    "componentsWithSubcomponents": 15
+  }
+}

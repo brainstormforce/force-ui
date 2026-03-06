@@ -1,0 +1,2 @@
+"use strict";Object.defineProperties(exports,{__esModule:{value:!0},[Symbol.toStringTag]:{value:"Module"}});const n=require("react/jsx-runtime"),s=require("../../utilities/functions.cjs.js"),l=({variant:e="rectangular",className:r,...t})=>{const u={circular:"rounded-full bg-gray-200 ",rectangular:"rounded-md bg-gray-200"}[e],a={circular:"size-10",rectangular:"w-96 h-3"}[e];return n.jsx("div",{className:s.cn(u,"animate-pulse",a,r),...t})};exports.default=l;
+//# sourceMappingURL=skeleton.cjs.js.map
