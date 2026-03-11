@@ -147,6 +147,7 @@ const Button: React.FunctionComponent<ButtonProps> = forwardRef(
 				) }
 				disabled={ disabled }
 				aria-disabled={ disabled }
+				aria-busy={ loading }
 				{ ...rest }
 			>
 				<Fragment key="left-icon">{ iconLeft }</Fragment>

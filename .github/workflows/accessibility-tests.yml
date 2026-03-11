@@ -1,0 +1,121 @@
+name: 'Accessibility Tests'
+
+on:
+  pull_request:
+    branches: [master, dev]
+  push:
+    branches: [master, dev]
+
+jobs:
+  accessibility-audit:
+    timeout-minutes: 60
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps chromium
+
+      - name: Build Storybook
+        run: npm run build-storybook --silent
+
+      - name: Run Storybook accessibility tests
+        run: |
+          npx concurrently -k -s first -n "SB,TEST" -c "magenta,blue" \
+            "npx http-server storybook-static --port 6006 --silent" \
+            "npx wait-on tcp:127.0.0.1:6006 && npm run test:a11y"
+
+      - name: Upload test results
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: accessibility-test-results
+          path: |
+            test-results/
+            storybook-static/
+          retention-days: 7
+
+      - name: Comment PR with accessibility results
+        if: github.event_name == 'pull_request' && failure()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const testResults = fs.existsSync('test-results/test-results.json')
+              ? fs.readFileSync('test-results/test-results.json', 'utf8')
+              : 'No test results found';
+
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `## ⚠️ Accessibility Tests Failed\n\n${testResults}\n\nPlease review the [test results](${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}).`
+            });
+
+  # Optional: axe CLI scan for additional coverage
+  axe-scan:
+    timeout-minutes: 30
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install axe-core CLI
+        run: npm install -g @axe-core/cli
+
+      - name: Build Storybook
+        run: npm run build-storybook --silent
+
+      - name: Start Storybook server
+        run: npx http-server storybook-static --port 6006 --silent &
+
+      - name: Wait for Storybook
+        run: npx wait-on tcp:127.0.0.1:6006
+
+      - name: Run axe scans on priority components
+        run: |
+          mkdir -p axe-results
+
+          # Button component
+          axe http://localhost:6006/?path=/story/button--primary \
+            --save axe-results/button-primary.json || true
+
+          # Input component
+          axe http://localhost:6006/?path=/story/input--default \
+            --save axe-results/input-default.json || true
+
+          # Dialog component
+          axe http://localhost:6006/?path=/story/dialog--simple \
+            --save axe-results/dialog-simple.json || true
+
+          echo "✅ axe scans complete"
+
+      - name: Upload axe results
+        uses: actions/upload-artifact@v4
+        with:
+          name: axe-scan-results
+          path: axe-results/
+          retention-days: 7

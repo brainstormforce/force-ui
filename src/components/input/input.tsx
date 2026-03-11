@@ -295,6 +295,7 @@ export const InputComponent = (
 						disabled={ disabled }
 						onChange={ handleChange }
 						onInvalid={ onError }
+						aria-invalid={ error }
 						{ ...props }
 					/>
 					<div
@@ -340,6 +341,7 @@ export const InputComponent = (
 					onChange={ handleChange }
 					onInvalid={ onError }
 					value={ getValue() }
+					aria-invalid={ error }
 					{ ...props }
 				/>
 				{ getSuffix() }
