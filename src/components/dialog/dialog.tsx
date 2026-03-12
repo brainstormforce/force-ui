@@ -6,6 +6,7 @@ import {
 	isValidElement,
 	useCallback,
 	useContext,
+	useId,
 	useMemo,
 	useRef,
 	useState,
@@ -39,7 +40,9 @@ export interface DialogState {
 	dialogRef: React.MutableRefObject<HTMLDivElement | null>;
 	scrollLock: boolean;
 	className: string,
-	refs: UseFloatingReturn['refs']
+	refs: UseFloatingReturn['refs'];
+	titleId: string;
+	descriptionId: string;
 }
 
 const DialogContext = createContext<Partial<DialogState>>( {} );
@@ -99,6 +102,9 @@ const Dialog = ( {
 	const [ isOpen, setIsOpen ] = useState( false );
 	const dialogRef = useRef<HTMLDivElement | null>( null );
 	const dialogContainerRef = useRef( null );
+	const baseId = useId();
+	const titleId = `${ baseId }-title`;
+	const descriptionId = `${ baseId }-description`;
 
 	const openState = useMemo(
 		() => ( isControlled ? open : isOpen ),
@@ -181,6 +187,8 @@ const Dialog = ( {
 					dialogRef,
 					scrollLock,
 					className,
+					titleId,
+					descriptionId,
 				} }
 			>
 				{ children }
@@ -209,6 +217,8 @@ export const DialogPanel = ( {
 		dialogContainerRef,
 		className: rootClassName,
 		refs,
+		titleId,
+		descriptionId,
 	} = useDialogState();
 
 	const dialogContent = (
@@ -232,6 +242,8 @@ export const DialogPanel = ( {
 							variants={ animationVariants }
 							role="dialog"
 							aria-modal="true"
+							aria-labelledby={ titleId }
+							aria-describedby={ descriptionId }
 							transition={ TRANSITION_DURATION }
 						>
 							<div className="flex items-center justify-center min-h-full">
@@ -355,8 +367,10 @@ export const DialogTitle = ( {
 	className,
 	...props
 }: DialogTitleProp ): JSX.Element => {
+	const { titleId } = useDialogState();
 	return (
 		<Tag
+			id={ titleId }
 			className={ cn(
 				'text-base font-semibold text-text-primary m-0 p-0',
 				className
@@ -383,8 +397,10 @@ export const DialogDescription = ( {
 	className,
 	...props
 }: DialogDescriptionProp ): JSX.Element => {
+	const { descriptionId } = useDialogState();
 	return (
 		<Tag
+			id={ descriptionId }
 			className={ cn(
 				'text-sm font-normal text-text-secondary my-0 ml-0 mr-1 p-0',
 				className
@@ -421,7 +437,7 @@ export const DefaultCloseButton = ( {
 	return (
 		<button
 			className={ cn(
-				'bg-transparent inline-flex justify-center items-center border-0 p-1 m-0 cursor-pointer focus:outline-none outline-none shadow-none',
+				'bg-transparent inline-flex justify-center items-center border-0 p-1 m-0 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-1 focus-visible:ring-border-strong outline-none shadow-none',
 				className
 			) }
 			aria-label="Close dialog"

@@ -6,6 +6,7 @@ import React, {
 	createContext,
 	useContext,
 	type ReactNode,
+	type KeyboardEvent,
 } from 'react';
 import { cn } from '@/utilities/functions';
 import { LayoutGroup, motion } from 'framer-motion';
@@ -162,8 +163,41 @@ export const TabsGroup = ( {
 		className
 	);
 
+	const handleKeyDown = ( event: KeyboardEvent<HTMLDivElement> ) => {
+		const tabs = Array.from(
+			event.currentTarget.querySelectorAll<HTMLButtonElement>( '[role="tab"]:not([disabled])' )
+		);
+		const currentIndex = tabs.findIndex( ( tab ) => tab === document.activeElement );
+		if ( currentIndex === -1 ) {
+			return;
+		}
+		const isHorizontal = orientation !== 'vertical';
+		const isPrev = isHorizontal ? event.key === 'ArrowLeft' : event.key === 'ArrowUp';
+		const isNext = isHorizontal ? event.key === 'ArrowRight' : event.key === 'ArrowDown';
+		if ( ! isPrev && ! isNext && event.key !== 'Home' && event.key !== 'End' ) {
+			return;
+		}
+		event.preventDefault();
+		let nextIndex = currentIndex;
+		if ( isPrev ) {
+			nextIndex = currentIndex <= 0 ? tabs.length - 1 : currentIndex - 1;
+		} else if ( isNext ) {
+			nextIndex = currentIndex >= tabs.length - 1 ? 0 : currentIndex + 1;
+		} else if ( event.key === 'Home' ) {
+			nextIndex = 0;
+		} else if ( event.key === 'End' ) {
+			nextIndex = tabs.length - 1;
+		}
+		tabs[ nextIndex ].focus();
+	};
+
 	return (
-		<div className={ groupClassName }>
+		<div
+			className={ groupClassName }
+			role="tablist"
+			aria-orientation={ orientation }
+			onKeyDown={ handleKeyDown }
+		>
 			<TabsGroupContext.Provider
 				value={ {
 					activeItem,
@@ -259,7 +293,7 @@ export const Tab = forwardRef<Ref, TabProps>(
 
 		// Additional classes.
 		const hoverClasses = 'hover:text-text-primary';
-		const focusClasses = 'focus:outline-none';
+		const focusClasses = 'focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-border-strong';
 		const disabledClasses = disabled
 			? 'text-text-disabled cursor-not-allowed hover:text-text-disabled'
 			: '';
@@ -295,6 +329,11 @@ export const Tab = forwardRef<Ref, TabProps>(
 				disabled={ disabled }
 				onClick={ handleClick }
 				layoutRoot
+				role="tab"
+				aria-selected={ activeItem === slug }
+				aria-controls={ `panel-${ slug }` }
+				id={ `tab-${ slug }` }
+				tabIndex={ activeItem === slug ? 0 : -1 }
 				{ ...rest }
 			>
 				{ activeItem === slug && variant === 'underline' && (
@@ -353,7 +392,20 @@ export const TabPanel = ( { slug, children }: TabPanelProps ) => {
 		throw new Error( 'TabPanel should be used inside Tabs' );
 	}
 
-	return slug === providerValue.activeItem ? <>{ children }</> : null;
+	if ( slug !== providerValue.activeItem ) {
+		return null;
+	}
+
+	return (
+		<div
+			role="tabpanel"
+			id={ `panel-${ slug }` }
+			aria-labelledby={ `tab-${ slug }` }
+			tabIndex={ 0 }
+		>
+			{ children }
+		</div>
+	);
 };
 TabPanel.displayName = 'Tabs.Panel';
 

@@ -165,6 +165,7 @@ export const CheckboxComponent = (
 					ref={ ref }
 					id={ checkboxId }
 					type="checkbox"
+					{ ...( indeterminate && { 'aria-checked': 'mixed' as const } ) }
 					className={ cn(
 						"peer relative cursor-pointer appearance-none transition-all m-0 before:content-[''] checked:before:content-[''] checked:before:hidden before:hidden !border-1.5 border-solid",
 						colorClassNames[ color ].checkbox,

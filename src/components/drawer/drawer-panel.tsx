@@ -46,6 +46,8 @@ const DrawerPanel = ( { children, className }: DrawerPanelProps ) => {
 		context,
 		className: rootClassName,
 		refs,
+		titleId,
+		descriptionId,
 	} = useDrawerState();
 
 	// Early return if any required props are missing
@@ -94,7 +96,8 @@ const DrawerPanel = ( { children, className }: DrawerPanelProps ) => {
 												refs?.setFloating( node );
 											}, ( ( transitionDuration?.duration || 0.3 ) + 0.1 ) * 1000 );
 										} }
-										aria-label="drawer"
+										aria-labelledby={ titleId }
+										aria-describedby={ descriptionId }
 										role="dialog"
 										aria-modal="true"
 										{ ...getFloatingProps?.() }

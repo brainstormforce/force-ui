@@ -2,8 +2,10 @@ import React, {
 	type ReactNode,
 	type ElementType,
 	type MouseEventHandler,
+	useMemo,
 	useState,
 } from 'react';
+import { nanoid } from 'nanoid';
 import { Plus, Minus, ChevronDown } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { callAll, cn } from '@/utilities/functions';
@@ -95,6 +97,8 @@ export interface AccordionItemProps extends CommonProps {
 	type?: 'simple' | 'separator' | 'boxed';
 	/** The value associated with the accordion item */
 	value?: string;
+	/** Internal ID linking trigger to content for aria-controls */
+	contentId?: string;
 }
 
 export const AccordionItem = ( {
@@ -105,6 +109,8 @@ export const AccordionItem = ( {
 	children,
 	className,
 }: AccordionItemProps ) => {
+	const contentId = useMemo( () => `accordion-content-${ nanoid() }`, [] );
+
 	const typeClasses = {
 		simple: 'border-0',
 		separator: 'border-0 border-b border-solid border-border-subtle',
@@ -120,6 +126,7 @@ export const AccordionItem = ( {
 						onToggle,
 						type,
 						disabled,
+						contentId,
 					} )
 					: child
 			) }
@@ -145,6 +152,8 @@ export interface AccordionTriggerProps extends CommonProps {
 	type?: 'simple' | 'separator' | 'boxed';
 	/** Specifies whether the accordion item can be collapsed. */
 	collapsible?: boolean;
+	/** Internal ID for aria-controls linking to content panel */
+	contentId?: string;
 }
 
 export const AccordionTrigger = ( {
@@ -158,6 +167,7 @@ export const AccordionTrigger = ( {
 	type = 'simple',
 	children,
 	className,
+	contentId,
 	...props
 }: AccordionTriggerProps ) => {
 	const paddingClasses = {
@@ -215,6 +225,7 @@ export const AccordionTrigger = ( {
 					! disabled && collapsible ? onToggle : undefined
 				) as MouseEventHandler<HTMLButtonElement> }
 				aria-expanded={ isOpen }
+				aria-controls={ contentId }
 				aria-disabled={ disabled }
 				disabled={ disabled }
 				{ ...props }
@@ -236,6 +247,8 @@ export interface AccordionContentProps extends CommonProps {
 	isOpen?: boolean;
 	/** Accordion type (same as parent) */
 	type?: 'simple' | 'separator' | 'boxed';
+	/** Internal ID for this content region (linked from AccordionTrigger aria-controls) */
+	contentId?: string;
 }
 
 export const AccordionContent = ( {
@@ -244,6 +257,7 @@ export const AccordionContent = ( {
 	type = 'simple',
 	children,
 	className,
+	contentId,
 }: AccordionContentProps ) => {
 	const contentVariants = {
 		open: {
@@ -286,6 +300,7 @@ export const AccordionContent = ( {
 					) }
 					aria-hidden={ ! isOpen }
 					role="region"
+					id={ contentId }
 				>
 					<div className={ cn( contentPaddingClasses ) }>{ children }</div>
 				</motion.div>

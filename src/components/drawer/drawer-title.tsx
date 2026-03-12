@@ -1,5 +1,6 @@
 import { type ReactNode, type ElementType } from 'react';
 import { cn } from '@/utilities/functions';
+import { useDrawerState } from './drawer';
 
 export interface DrawerTitleProps {
 	/** Title content. */
@@ -17,8 +18,10 @@ const DrawerTitle = ( {
 	className,
 	...props
 }: DrawerTitleProps ) => {
+	const { titleId } = useDrawerState();
 	return (
 		<Tag
+			id={ titleId }
 			className={ cn(
 				'text-base font-semibold text-text-primary m-0 p-0',
 				className

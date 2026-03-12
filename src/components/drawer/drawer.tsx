@@ -4,6 +4,7 @@ import React, {
 	isValidElement,
 	useCallback,
 	useContext,
+	useId,
 	useMemo,
 	useRef,
 	useState,
@@ -71,6 +72,8 @@ export interface DrawerContextDefault {
 	context: FloatingContext;
 	className?: string;
 	refs: UseFloatingReturn['refs'];
+	titleId: string;
+	descriptionId: string;
 }
 
 const DrawerContext = createContext<Partial<DrawerContextDefault>>( {} );
@@ -93,6 +96,9 @@ const Drawer = ( {
 	const isControlled = open !== undefined && setOpen !== undefined;
 	const [ isOpen, setIsOpen ] = useState( false );
 	const drawerContainerRef = useRef<HTMLDivElement>( null );
+	const baseId = useId();
+	const titleId = `${baseId}-title`;
+	const descriptionId = `${baseId}-description`;
 
 	const openState = useMemo(
 		() => ( isControlled ? open : isOpen ),
@@ -180,6 +186,8 @@ const Drawer = ( {
 					context,
 					className,
 					refs,
+					titleId,
+					descriptionId,
 				} }
 			>
 				{ children }
