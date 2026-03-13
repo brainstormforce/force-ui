@@ -375,6 +375,7 @@ const Template = ( args ) => {
 									size="md"
 									variant="underline"
 									width="auto"
+									aria-label="Settings"
 								>
 									{ TABS.map( ( { label, slug } ) => (
 										<Tabs.Tab

@@ -34,6 +34,7 @@ export interface FileUploadContextType {
 	isLoading: boolean;
 	error: boolean;
 	errorText?: string;
+	errorTextId: string;
 }
 
 // Create a context to share file data between Dropzone and FilePreview
@@ -43,7 +44,7 @@ const useFileUploadContext = () => useContext( FileUploadContext );
 
 // FilePreview
 export const FilePreview = () => {
-	const { file, removeFile, isLoading, error, errorText } =
+	const { file, removeFile, isLoading, error, errorText, errorTextId } =
 		useFileUploadContext()!;
 
 	const renderFileIcon = useMemo( () => {
@@ -80,7 +81,7 @@ export const FilePreview = () => {
 							) : (
 								<img
 									src={ URL.createObjectURL( file ) }
-									alt="Preview"
+									alt={ `Preview of ${ file.name }` }
 									className="w-full h-10 object-contain"
 								/>
 							) }
@@ -95,6 +96,7 @@ export const FilePreview = () => {
 					</span>
 					{ ! isLoading && (
 						<span
+							id={ error ? errorTextId : undefined }
 							className={ cn(
 								'text-xs text-field-helper',
 								error && 'text-support-error'
@@ -111,9 +113,10 @@ export const FilePreview = () => {
 				) : (
 					<button
 						onClick={ removeFile }
-						className="inline-flex cursor-pointer bg-transparent border-0 p-1 my-0 ml-auto mr-0 ring-0 focus:outline-none self-start"
+						aria-label="Remove file"
+						className="inline-flex cursor-pointer bg-transparent border-0 p-1 my-0 ml-auto mr-0 ring-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-toggle-on focus-visible:ring-offset-2 rounded self-start"
 					>
-						<Trash className="size-4 text-support-error" />
+						<Trash className="size-4 text-support-error" aria-hidden="true" />
 					</button>
 				) }
 			</div>
@@ -216,15 +219,17 @@ export const Dropzone = ( {
 		},
 	};
 	const uploadInputID = useRef( `fui-file-upload-${ nanoid() }` );
+	const helpTextId = useRef( `fui-file-upload-help-${ nanoid() }` );
+	const errorTextId = useRef( `fui-file-upload-error-${ nanoid() }` );
 	return (
 		<FileUploadContext.Provider
-			value={ { file, removeFile, isLoading, error, errorText } }
+			value={ { file, removeFile, isLoading, error, errorText, errorTextId: errorTextId.current } }
 		>
-			<div className={ cn( wrapperClassName ) }>
+			<div className={ cn( wrapperClassName ) } aria-busy={ isLoading || undefined }>
 				<label htmlFor={ uploadInputID.current }>
 					<div
 						className={ cn(
-							'min-w-80 cursor-pointer mx-auto border-dashed border rounded-md text-center hover:border-field-dropzone-color hover:bg-field-dropzone-background-hover focus:outline-none focus:ring focus:ring-toggle-on focus:ring-offset-2 transition duration-200 ease-in-out',
+							'min-w-80 cursor-pointer mx-auto border-dashed border rounded-md text-center hover:border-field-dropzone-color hover:bg-field-dropzone-background-hover focus-within:outline-none focus-within:ring-2 focus-within:ring-toggle-on focus-within:ring-offset-2 transition duration-200 ease-in-out',
 							isDragging
 								? 'border-field-dropzone-color bg-field-dropzone-background-hover'
 								: 'border-field-border',
@@ -246,6 +251,7 @@ export const Dropzone = ( {
 						>
 							<div>
 								<CloudUpload
+									aria-hidden="true"
 									className={ cn(
 										'text-field-dropzone-color size-6',
 										sizeClasses[ size ].icon,
@@ -266,6 +272,7 @@ export const Dropzone = ( {
 								</span>
 								{ helpText && (
 									<span
+										id={ helpTextId.current }
 										className={ cn(
 											'mt-1 text-center font-medium text-field-helper',
 											inlineIcon && 'text-left',
@@ -285,11 +292,22 @@ export const Dropzone = ( {
 							className="sr-only"
 							onChange={ handleFileChange }
 							disabled={ disabled }
+							aria-invalid={ error || undefined }
+							aria-describedby={
+								[ helpText ? helpTextId.current : '', error ? errorTextId.current : '' ]
+									.filter( Boolean )
+									.join( ' ' ) || undefined
+							}
 						/>
 					</div>
 				</label>
 
 				<FilePreview />
+				<div className="sr-only" aria-live="polite" aria-atomic="true">
+					{ isLoading ? 'Uploading file...' : '' }
+					{ ! isLoading && file && ! error ? `File ${ file.name } uploaded successfully` : '' }
+					{ ! isLoading && error ? errorText : '' }
+				</div>
 			</div>
 		</FileUploadContext.Provider>
 	);

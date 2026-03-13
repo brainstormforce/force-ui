@@ -86,61 +86,63 @@ const PieChart = ( {
 	}
 
 	return (
-		<PieChartWrapper width={ chartWidth } height={ chartWidth }>
-			{ showTooltip && (
-				<Tooltip
-					content={
-						<ChartTooltipContent
-							indicator={ tooltipIndicator }
-							labelKey={ tooltipLabelKey }
-						/>
-					}
-				/>
-			) }
-			{ showLegend && <Legend content={ <ChartLegendContent /> } /> }
-			<Pie
-				data={ data }
-				cx="50%"
-				cy="50%"
-				innerRadius={ innerRadius }
-				outerRadius={ outerRadius }
-				dataKey={ dataKey }
-			>
-				{ isDonut && label && (
-					<PieLabel
-						content={ ( { viewBox } ) => {
-							if ( viewBox && 'cx' in viewBox && 'cy' in viewBox ) {
-								return (
-									<text
-										x={ viewBox.cx }
-										y={ viewBox.cy }
-										textAnchor="middle"
-										dominantBaseline="middle"
-										className="space-y-3"
-									>
-										<tspan
-											x={ viewBox.cx }
-											dy="-4"
-											className="fill-foreground text-xl font-bold"
-										>
-											{ labelValue }
-										</tspan>
-										<tspan
-											x={ viewBox.cx }
-											dy="24"
-											className="text-sm"
-											style={ { fill: labelNameColor } }
-										>
-											{ labelName }
-										</tspan>
-									</text>
-								);
-							}
-						} }
+		<div role="img" aria-label="Pie chart">
+			<PieChartWrapper width={ chartWidth } height={ chartWidth }>
+				{ showTooltip && (
+					<Tooltip
+						content={
+							<ChartTooltipContent
+								indicator={ tooltipIndicator }
+								labelKey={ tooltipLabelKey }
+							/>
+						}
 					/>
 				) }
-			</Pie>
-		</PieChartWrapper>
+				{ showLegend && <Legend content={ <ChartLegendContent /> } /> }
+				<Pie
+					data={ data }
+					cx="50%"
+					cy="50%"
+					innerRadius={ innerRadius }
+					outerRadius={ outerRadius }
+					dataKey={ dataKey }
+				>
+					{ isDonut && label && (
+						<PieLabel
+							content={ ( { viewBox } ) => {
+								if ( viewBox && 'cx' in viewBox && 'cy' in viewBox ) {
+									return (
+										<text
+											x={ viewBox.cx }
+											y={ viewBox.cy }
+											textAnchor="middle"
+											dominantBaseline="middle"
+											className="space-y-3"
+										>
+											<tspan
+												x={ viewBox.cx }
+												dy="-4"
+												className="fill-foreground text-xl font-bold"
+											>
+												{ labelValue }
+											</tspan>
+											<tspan
+												x={ viewBox.cx }
+												dy="24"
+												className="text-sm"
+												style={ { fill: labelNameColor } }
+											>
+												{ labelName }
+											</tspan>
+										</text>
+									);
+								}
+							} }
+						/>
+					) }
+				</Pie>
+			</PieChartWrapper>
+		</div>
 	);
 };
 

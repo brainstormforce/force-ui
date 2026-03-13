@@ -165,118 +165,120 @@ const BarChart = ( {
 	}
 
 	return (
-		<ResponsiveContainer width={ chartWidth } height={ chartHeight }>
-			<BarChartWrapper
-				data={ data }
-				margin={ { left: 14, right: 14 } }
-				layout={ layout }
-			>
-				{ showCartesianGrid && <CartesianGrid vertical={ false } /> }
+		<div role="img" aria-label="Bar chart">
+			<ResponsiveContainer width={ chartWidth } height={ chartHeight }>
+				<BarChartWrapper
+					data={ data }
+					margin={ { left: 14, right: 14 } }
+					layout={ layout }
+				>
+					{ showCartesianGrid && <CartesianGrid vertical={ false } /> }
 
-				{ layout === 'horizontal' && showXAxis && (
-					<XAxis
-						{ ...xAxisProps }
-						dataKey={ xAxisDataKey }
-						tickLine={ false }
-						axisLine={ false }
-						tickMargin={ 8 }
-						tickFormatter={ xTickFormatter }
-						tick={ {
-							fontSize: fontSizeVariant,
-							fill: xAxisFontColor,
-						} }
-					/>
-				) }
-
-				{ layout === 'horizontal' && showYAxis && (
-					<YAxis
-						{ ...yAxisProps }
-						dataKey={ yAxisDataKey }
-						tickLine={ false }
-						tickMargin={ 10 }
-						axisLine={ false }
-						tickFormatter={ yTickFormatter }
-						tick={ {
-							fontSize: fontSizeVariant,
-							fill: yAxisFontColor,
-						} }
-					/>
-				) }
-
-				{ layout === 'vertical' && (
-					<>
+					{ layout === 'horizontal' && showXAxis && (
 						<XAxis
 							{ ...xAxisProps }
-							type="number"
 							dataKey={ xAxisDataKey }
-							hide
+							tickLine={ false }
+							axisLine={ false }
+							tickMargin={ 8 }
+							tickFormatter={ xTickFormatter }
+							tick={ {
+								fontSize: fontSizeVariant,
+								fill: xAxisFontColor,
+							} }
 						/>
+					) }
+
+					{ layout === 'horizontal' && showYAxis && (
 						<YAxis
 							{ ...yAxisProps }
 							dataKey={ yAxisDataKey }
-							type="category"
 							tickLine={ false }
 							tickMargin={ 10 }
 							axisLine={ false }
-							tickFormatter={ xTickFormatter }
+							tickFormatter={ yTickFormatter }
 							tick={ {
 								fontSize: fontSizeVariant,
 								fill: yAxisFontColor,
 							} }
 						/>
-					</>
-				) }
+					) }
 
-				{ showYAxis && <YAxis dataKey={ yAxisDataKey } /> }
-				{ showTooltip && (
-					<Tooltip
-						{ ...tooltipProps }
-						content={
-							<ChartTooltipContent
-								indicator={ tooltipIndicator }
-								labelKey={ tooltipLabelKey }
+					{ layout === 'vertical' && (
+						<>
+							<XAxis
+								{ ...xAxisProps }
+								type="number"
+								dataKey={ xAxisDataKey }
+								hide
 							/>
-						}
-					/>
-				) }
-				{ showLegend && (
-					<Legend
-						content={
-							<ChartLegendContent
-								fontSizeVariant={ fontSizeVariant }
+							<YAxis
+								{ ...yAxisProps }
+								dataKey={ yAxisDataKey }
+								type="category"
+								tickLine={ false }
+								tickMargin={ 10 }
+								axisLine={ false }
+								tickFormatter={ xTickFormatter }
+								tick={ {
+									fontSize: fontSizeVariant,
+									fill: yAxisFontColor,
+								} }
 							/>
-						}
-					/>
-				) }
+						</>
+					) }
 
-				{ dataKeys.map( ( key, index ) => {
-					let radius: number | [number, number, number, number];
-
-					if ( stacked ) {
-						if ( index === 0 ) {
-							radius = [ 0, 0, 4, 4 ]; // Bottom bar
-						} else if ( index === dataKeys.length - 1 ) {
-							radius = [ 4, 4, 0, 0 ]; // Top bar
-						} else {
-							radius = 0; // Middle bars have no radius
-						}
-					} else {
-						radius = borderRadius;
-					}
-
-					return (
-						<Bar
-							key={ key }
-							dataKey={ key }
-							fill={ appliedColors[ index ]?.fill }
-							radius={ radius }
-							stackId={ stacked ? 'a' : undefined }
-							activeBar={ activeBar }
+					{ showYAxis && <YAxis dataKey={ yAxisDataKey } /> }
+					{ showTooltip && (
+						<Tooltip
+							{ ...tooltipProps }
+							content={
+								<ChartTooltipContent
+									indicator={ tooltipIndicator }
+									labelKey={ tooltipLabelKey }
+								/>
+							}
 						/>
-					);
-				} ) }
-			</BarChartWrapper>
-		</ResponsiveContainer>
+					) }
+					{ showLegend && (
+						<Legend
+							content={
+								<ChartLegendContent
+									fontSizeVariant={ fontSizeVariant }
+								/>
+							}
+						/>
+					) }
+
+					{ dataKeys.map( ( key, index ) => {
+						let radius: number | [number, number, number, number];
+
+						if ( stacked ) {
+							if ( index === 0 ) {
+								radius = [ 0, 0, 4, 4 ]; // Bottom bar
+							} else if ( index === dataKeys.length - 1 ) {
+								radius = [ 4, 4, 0, 0 ]; // Top bar
+							} else {
+								radius = 0; // Middle bars have no radius
+							}
+						} else {
+							radius = borderRadius;
+						}
+
+						return (
+							<Bar
+								key={ key }
+								dataKey={ key }
+								fill={ appliedColors[ index ]?.fill }
+								radius={ radius }
+								stackId={ stacked ? 'a' : undefined }
+								activeBar={ activeBar }
+							/>
+						);
+					} ) }
+				</BarChartWrapper>
+			</ResponsiveContainer>
+		</div>
 	);
 };
 

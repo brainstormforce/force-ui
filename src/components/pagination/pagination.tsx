@@ -35,11 +35,15 @@ export interface PaginationProps extends PaginationCommonProps {
 	size?: PaginationSize;
 	/** Disables all pagination controls. */
 	disabled?: boolean;
+	/** Accessible label for the navigation landmark. */
+	ariaLabel?: string;
 }
 
 export interface PaginationItemProps extends PaginationCommonProps {
 	/** Marks the pagination item as active. */
 	isActive?: boolean;
+	/** Accessible label for the pagination item (e.g., "Page 3", "Go to page 3"). */
+	ariaLabel?: string;
 }
 
 export interface PaginationButtonProps extends PaginationCommonProps {
@@ -51,11 +55,14 @@ export interface PaginationButtonProps extends PaginationCommonProps {
 	onClick?: React.MouseEventHandler;
 	/** The HTML tag to be rendered for the pagination button. */
 	tag?: 'a' | 'button';
+	/** Accessible label for the button. */
+	'aria-label'?: string;
 }
 
 export const Pagination = ( {
 	size = 'sm',
 	disabled = false,
+	ariaLabel = 'Pagination',
 	children,
 	className,
 	...props
@@ -63,6 +70,7 @@ export const Pagination = ( {
 	<PageContext.Provider value={ { size, disabled } }>
 		<nav
 			role="navigation"
+			aria-label={ ariaLabel }
 			className={ cn(
 				'flex w-full justify-center box-border m-0',
 				className
@@ -95,7 +103,7 @@ export const PaginationContent = forwardRef<
 PaginationContent.displayName = 'Pagination.Content';
 
 export const PaginationItem = forwardRef<HTMLLIElement, PaginationItemProps>(
-	( { isActive = false, className, children, ...props }, ref ) => {
+	( { isActive = false, ariaLabel, className, children, ...props }, ref ) => {
 		const { disabled } = usePageContext();
 		return (
 			<li
@@ -105,6 +113,7 @@ export const PaginationItem = forwardRef<HTMLLIElement, PaginationItemProps>(
 				<PaginationButton
 					isActive={ isActive }
 					disabled={ disabled }
+					aria-label={ ariaLabel }
 					className={ className }
 					{ ...props }
 				>
@@ -118,7 +127,7 @@ PaginationItem.displayName = 'Pagination.Item';
 
 export const PaginationButton = ( {
 	isActive = false,
-	tag = 'a',
+	tag = 'button',
 	children,
 	className,
 	...props
@@ -167,9 +176,9 @@ export const PaginationPrevious = ( props: PaginationButtonProps ) => {
 	return (
 		<li
 			className={ cn( 'flex', disabled && disabledClassNames.general ) }
-			aria-label="Go to previous page"
 		>
 			<PaginationButton
+				aria-label="Go to previous page"
 				className={ cn( '[&>span]:flex [&>span]:items-center' ) }
 				{ ...props }
 			>
@@ -185,9 +194,9 @@ export const PaginationNext = ( props: PaginationButtonProps ) => {
 	return (
 		<li
 			className={ cn( 'flex', disabled && disabledClassNames.general ) }
-			aria-label="Go to next page"
 		>
 			<PaginationButton
+				aria-label="Go to next page"
 				className={ cn( '[&>span]:flex [&>span]:items-center' ) }
 				{ ...props }
 			>
@@ -213,6 +222,7 @@ export const PaginationEllipsis = ( props: PaginationCommonProps ) => {
 			>
 				•••
 			</span>
+			<span className="sr-only">More pages</span>
 		</li>
 	);
 };

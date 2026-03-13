@@ -492,7 +492,7 @@ export const RadioButtonComponent = (
 								id={ radioButtonId }
 								type={ multiSelection ? 'checkbox' : 'radio' }
 								className={ cn(
-									"peer flex relative cursor-pointer appearance-none transition-all m-0 before:content-[''] checked:before:content-[''] checked:before:hidden before:hidden !border-1.5 border-solid",
+									"peer flex relative cursor-pointer appearance-none transition-all m-0 before:content-[''] checked:before:content-[''] checked:before:hidden before:hidden !border-1.5 border-solid focus-within:outline-none",
 									! multiSelection && 'rounded-full',
 									colorClassNames[ color ].checkbox,
 									sizeClassNames[ size ].checkbox,
