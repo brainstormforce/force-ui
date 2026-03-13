@@ -199,7 +199,7 @@ export const Toast = ( {
 						<div className="self-start flex items-center justify-center [&_svg]:size-5 shrink-0">
 							{ getIcon( { variant, icon, theme } ) }
 						</div>
-						<div className="flex flex-col items-start justify-start gap-0.5 mr-6">
+						<div className="flex flex-col items-start justify-start gap-0.5 me-6">
 							{ getTitle( { title, theme } ) }
 							{ getContent( { content, theme } ) }
 							{
@@ -222,7 +222,7 @@ export const Toast = ( {
 								/* eslint-enable */
 							}
 						</div>
-						<div className="absolute right-4 top-4 [&_svg]:size-5">
+						<div className="absolute end-4 top-4 [&_svg]:size-5">
 							<button
 								className={ cn(
 									'inline-flex bg-transparent m-0 p-0 border-none focus:outline-none focus-visible:ring-2 focus-visible:ring-toggle-on focus-visible:ring-offset-2 active:outline-none cursor-pointer rounded',
@@ -269,11 +269,11 @@ export const Toast = ( {
 				<div className="self-start flex items-center justify-center [&_svg]:size-5 shrink-0">
 					{ getIcon( { variant, icon, theme } ) }
 				</div>
-				<div className="flex items-start justify-start gap-1 mr-10 [&>span:first-child]:shrink-0">
+				<div className="flex items-start justify-start gap-1 me-10 [&>span:first-child]:shrink-0">
 					{ getTitle( { title, theme } ) }
 					{ getContent( { content, theme } ) }
 				</div>
-				<div className="absolute right-3 top-3 [&_svg]:size-5">
+				<div className="absolute end-3 top-3 [&_svg]:size-5">
 					<button
 						className={ cn(
 							'bg-transparent m-0 p-0 border-none focus:outline-none focus-visible:ring-2 focus-visible:ring-toggle-on focus-visible:ring-offset-2 active:outline-none cursor-pointer rounded',
