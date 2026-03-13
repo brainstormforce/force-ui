@@ -1,3 +1,30 @@
+Version 1.7.11 - [DATE]
+- Improvement: Atom - Alert: Added `role="alert"` and improved focus-visible ring on the close button.
+- Improvement: Atom - Badge: Converted closable element to a semantic `<button>` with `aria-label` and `aria-hidden` on the icon.
+- Improvement: Atom - Breadcrumb: Wrapped ellipsis in a `role="img"` container with `aria-label="More pages"`.
+- Improvement: Atom - Checkbox: Added `aria-describedby` linking to the description, `aria-hidden` on the decorative icon, and changed outer wrapper from `<label>` to `<span>` to avoid duplicate labelling.
+- Improvement: Atom - Dropdown Menu: Replaced custom trigger element with a native `<button>` and wrapped floating content in `FloatingFocusManager` for keyboard focus management.
+- Improvement: Atom - Input: Added `aria-label` on the remove button, `aria-hidden` on decorative icons, and `aria-invalid` when in error state.
+- Improvement: Atom - Loader: Added `role="status"` and `aria-label="Loading"`, and marked the spinner icon as `aria-hidden`.
+- Improvement: Atom - Select: Added `aria-label` to the options search input for screen reader clarity.
+- Improvement: Atom - Skeleton: Added `role="status"`, `aria-busy="true"`, and `aria-label="Loading"`.
+- Improvement: Atom - Switch: Added `role="switch"` and `aria-checked` to reflect toggle state to assistive technologies.
+- Improvement: Atom - Tabs: Added `role="tablist"`, `aria-orientation`, `role="tab"`, `aria-selected`, `aria-controls`, and `role="tabpanel"` with `aria-labelledby`; implemented arrow key, Home, and End keyboard navigation.
+- Improvement: Atom - Textarea: Added `aria-invalid` when in error state and improved focus-visible styles.
+- Improvement: Atom - Toaster: Added `aria-live="polite"` and `aria-label="Notifications"` to the container; added `aria-label="Dismiss notification"` and improved focus-visible ring on close buttons.
+- Improvement: Molecule - Accordion: Linked trigger to content panel via `aria-controls` and `id` using generated IDs.
+- Improvement: Molecule - Dialog, Drawer: Added ARIA attributes and accessibility fallbacks.
+- Improvement: Molecule - Dropzone: Improved ARIA attributes and keyboard accessibility.
+- Improvement: Molecule - File Preview: Improved focus-visible ring on the remove button.
+- Improvement: Molecule - Hamburger Menu: Added `aria-expanded` on the toggle button to reflect open/close state.
+- Improvement: Organism - Charts (Area, Bar, Line, Pie): Wrapped chart components with `role` and `aria-label` for screen reader support.
+- Improvement: Organism - Editor Input: Added `aria-label` to the `ContentEditable` element.
+- Improvement: Organism - Menu Item: Changed collapsible heading trigger from a `div[role="button"]` to a native `<button>`.
+- Improvement: Organism - Pagination: Added `aria-label` support for the nav landmark, page items, and previous/next buttons; changed default button tag to `<button>`; added screen-reader text for ellipsis.
+- Improvement: Organism - Settings: Added `aria-label` to Settings tabs for screen reader identification.
+- Improvement: Organism - Sidebar: Changed wrapper from `<div>` to `<nav>` with `aria-label="Sidebar"`.
+- Improvement: Organism - Topbar: Changed wrapper from `<div>` to `<header>` for semantic document structure.
+
 Version 1.7.10 - 6th March, 2026
 - Improvement: CI/CD - Hardened security across various GitHub Action workflows and improved Storybook deployment.
 - Improvement: Package Dependencies & Utils - Created the `omit` function and removed `lodash` dependency.
