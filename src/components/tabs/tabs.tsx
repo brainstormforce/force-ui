@@ -42,6 +42,8 @@ export interface TabsGroupProps {
 	iconPosition?: 'left' | 'right';
 	/** Defines the width of the tabs. */
 	width?: 'auto' | 'full';
+	/** Accessible label for the tab list. */
+	'aria-label'?: string;
 	/** Tabs to display in the group. */
 	children: ReactNode;
 }
@@ -74,6 +76,7 @@ const TabsGroupContext = createContext<{
 	orientation: 'horizontal' | 'vertical';
 	iconPosition: 'left' | 'right';
 	width: 'auto' | 'full';
+	hasPanels: boolean;
 } | null>( null );
 
 // Hook to use the TabsGroup context.
@@ -90,9 +93,11 @@ export const TabsGroup = ( {
 	variant = 'pill', // Style variant of the tabs ('pill', 'rounded', 'underline').
 	iconPosition = 'left', // Position of the icon in the tab ('left' or 'right').
 	width = 'full', // Width of the tabs ('auto' or 'full').
+	'aria-label': ariaLabel,
 }: TabsGroupProps ) => {
 	const tabGroupId = useMemo( () => nanoid(), [] );
 	const tabsState = useTabs();
+	const hasPanels = 'activeItem' in tabsState;
 
 	// Determine the active item based on the activeTabSlug prop.
 	const activeItem =
@@ -196,6 +201,7 @@ export const TabsGroup = ( {
 			className={ groupClassName }
 			role="tablist"
 			aria-orientation={ orientation }
+			{ ...( ariaLabel && { 'aria-label': ariaLabel } ) }
 			onKeyDown={ handleKeyDown }
 		>
 			<TabsGroupContext.Provider
@@ -207,6 +213,7 @@ export const TabsGroup = ( {
 					orientation,
 					iconPosition,
 					width,
+					hasPanels,
 				} }
 			>
 				<LayoutGroup id={ tabGroupId }>
@@ -251,6 +258,7 @@ export const Tab = forwardRef<Ref, TabProps>(
 			orientation,
 			iconPosition,
 			width,
+			hasPanels,
 		} = providerValue;
 
 		// Determine size classes.
@@ -331,7 +339,7 @@ export const Tab = forwardRef<Ref, TabProps>(
 				layoutRoot
 				role="tab"
 				aria-selected={ activeItem === slug }
-				aria-controls={ `panel-${ slug }` }
+				{ ...( hasPanels && { 'aria-controls': `panel-${ slug }` } ) }
 				id={ `tab-${ slug }` }
 				tabIndex={ activeItem === slug ? 0 : -1 }
 				{ ...rest }
