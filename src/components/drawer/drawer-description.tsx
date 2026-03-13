@@ -1,5 +1,5 @@
 import { cn } from '@/utilities/functions';
-import { type ElementType, type ReactNode } from 'react';
+import { type ElementType, type ReactNode, useEffect } from 'react';
 import { useDrawerState } from './drawer';
 
 export interface DrawerDescriptionProps {
@@ -20,7 +20,19 @@ const DrawerDescription = ( {
 	className,
 	...props
 }: DrawerDescriptionProps ) => {
-	const { descriptionId } = useDrawerState();
+	const { descriptionId, hasDescriptionRef } = useDrawerState();
+
+	useEffect( () => {
+		if ( hasDescriptionRef ) {
+			hasDescriptionRef.current = true;
+		}
+		return () => {
+			if ( hasDescriptionRef ) {
+				hasDescriptionRef.current = false;
+			}
+		};
+	}, [ hasDescriptionRef ] );
+
 	return (
 		<Tag
 			id={ descriptionId }

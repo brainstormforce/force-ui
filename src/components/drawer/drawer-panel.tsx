@@ -32,9 +32,11 @@ export interface DrawerPanelProps {
 	children: ReactNode | ( ( props: { close: () => void } ) => ReactNode );
 	/** Additional class names. */
 	className?: string;
+	/** Accessible label for the drawer when Drawer.Title is not used. */
+	ariaLabel?: string;
 }
 
-const DrawerPanel = ( { children, className }: DrawerPanelProps ) => {
+const DrawerPanel = ( { children, className, ariaLabel }: DrawerPanelProps ) => {
 	const {
 		open,
 		position,
@@ -48,6 +50,8 @@ const DrawerPanel = ( { children, className }: DrawerPanelProps ) => {
 		refs,
 		titleId,
 		descriptionId,
+		hasTitleRef,
+		hasDescriptionRef,
 	} = useDrawerState();
 
 	// Early return if any required props are missing
@@ -96,8 +100,9 @@ const DrawerPanel = ( { children, className }: DrawerPanelProps ) => {
 												refs?.setFloating( node );
 											}, ( ( transitionDuration?.duration || 0.3 ) + 0.1 ) * 1000 );
 										} }
-										aria-labelledby={ titleId }
-										aria-describedby={ descriptionId }
+										aria-label={ ! hasTitleRef?.current ? ariaLabel : undefined }
+										aria-labelledby={ hasTitleRef?.current ? titleId : undefined }
+										aria-describedby={ hasDescriptionRef?.current ? descriptionId : undefined }
 										role="dialog"
 										aria-modal="true"
 										{ ...getFloatingProps?.() }

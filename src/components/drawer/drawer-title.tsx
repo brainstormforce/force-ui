@@ -1,4 +1,4 @@
-import { type ReactNode, type ElementType } from 'react';
+import { type ReactNode, type ElementType, useEffect } from 'react';
 import { cn } from '@/utilities/functions';
 import { useDrawerState } from './drawer';
 
@@ -18,7 +18,19 @@ const DrawerTitle = ( {
 	className,
 	...props
 }: DrawerTitleProps ) => {
-	const { titleId } = useDrawerState();
+	const { titleId, hasTitleRef } = useDrawerState();
+
+	useEffect( () => {
+		if ( hasTitleRef ) {
+			hasTitleRef.current = true;
+		}
+		return () => {
+			if ( hasTitleRef ) {
+				hasTitleRef.current = false;
+			}
+		};
+	}, [ hasTitleRef ] );
+
 	return (
 		<Tag
 			id={ titleId }
