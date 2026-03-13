@@ -104,21 +104,16 @@ export const MenuList = ( {
 	return (
 		<div>
 			{ !! heading && (
-				<div
-					role="button"
-					tabIndex={ 0 }
+				<button
+					type="button"
 					onClick={ handleToggle }
-					onKeyDown={ ( event ) => {
-						if ( event.key === 'Enter' || event.key === ' ' ) {
-							handleToggle();
-						}
-					} }
 					onMouseEnter={ () => showArrowOnHover && setIsHovered( true ) }
 					onMouseLeave={ () => showArrowOnHover && setIsHovered( false ) }
 					className={ cn(
 						baseClasses,
 						sizeClasses,
 						heading ? 'p-1' : 'p-0',
+						'border-none w-full',
 						className
 					) }
 					aria-expanded={ isOpen }
@@ -146,7 +141,7 @@ export const MenuList = ( {
 							</motion.span>
 						</motion.span>
 					) }
-				</div>
+				</button>
 			) }
 
 			<AnimatePresence initial={ false }>

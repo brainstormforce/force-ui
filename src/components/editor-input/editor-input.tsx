@@ -162,6 +162,7 @@ const EditorInput = forwardRef<LexicalEditor, EditorInputProps>(
 						<PlainTextPlugin
 							contentEditable={
 								<ContentEditable
+									aria-label={ placeholder || 'Text editor' }
 									className={ cn(
 										'editor-content focus-visible:outline-none outline-none',
 										editableContentAreaCommonClassNames,
