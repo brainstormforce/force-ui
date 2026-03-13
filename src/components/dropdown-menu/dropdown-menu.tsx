@@ -210,15 +210,14 @@ export const DropdownMenuTrigger = React.forwardRef<
 	}
 
 	return (
-		<div
-			ref={ ref }
-			className={ cn( 'cursor-pointer', className ) }
-			role="button"
-			tabIndex={ 0 }
+		<button
+			ref={ ref as React.Ref<HTMLButtonElement> }
+			type="button"
+			className={ cn( 'cursor-pointer bg-transparent border-none p-0', className ) }
 			{ ...props }
 		>
 			{ children }
-		</div>
+		</button>
 	);
 } );
 
