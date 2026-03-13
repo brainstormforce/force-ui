@@ -234,6 +234,7 @@ export const SwitchComponent = (
 					id={ switchId }
 					type="checkbox"
 					role="switch"
+					aria-checked={ getValue() }
 					className={ cn(
 						"peer appearance-none absolute rounded-full cursor-pointer transition-colors duration-300 h-full w-full  before:content-[''] checked:before:content-[''] m-0 checked:[background-image:none]",
 						colorClassNames[ color ].input,

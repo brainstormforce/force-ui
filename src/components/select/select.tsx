@@ -723,6 +723,7 @@ export function SelectOptions( {
 										) }
 										type="search"
 										name="keyword"
+										aria-label="Search options"
 										placeholder={ searchPlaceholder }
 										onChange={ ( event ) =>
 											setSearchKeyword( event.target.value )
