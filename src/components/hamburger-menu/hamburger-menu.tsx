@@ -182,7 +182,7 @@ const Path = ( props: PathProps ): React.ReactNode => (
 );
 
 export const MenuToggle = ( { className }: MenuToggleProps ) => {
-	const { toggleOpen, setTriggerRef } = useHamBurgerState();
+	const { toggleOpen, setTriggerRef, isOpen } = useHamBurgerState();
 
 	return (
 		<Button
@@ -196,6 +196,7 @@ export const MenuToggle = ( { className }: MenuToggleProps ) => {
 			size="xs"
 			onClick={ toggleOpen }
 			aria-label="Toggle menu"
+			aria-expanded={ isOpen }
 			icon={
 				<motion.svg
 					className="shrink-0 stroke-icon-primary"
