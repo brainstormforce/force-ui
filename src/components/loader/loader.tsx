@@ -36,9 +36,11 @@ export const Loader = ( {
 
 	return (
 		<span
+			role="status"
+			aria-label="Loading"
 			className={ cn( 'flex', sizeClassNames, variantClassNames, className ) }
 		>
-			{ icon ? icon : <LoaderCircle className="animate-spin shrink-0" /> }
+			{ icon ? icon : <LoaderCircle className="animate-spin shrink-0" aria-hidden="true" /> }
 		</span>
 	);
 };

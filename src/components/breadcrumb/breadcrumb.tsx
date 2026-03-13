@@ -126,10 +126,13 @@ export const BreadcrumbEllipsis = () => {
 	const { sizes } = useContext( BreadcrumbContext );
 
 	return (
-		<Ellipsis
-			className="mt-[2px] cursor-pointer text-text-tertiary hover:text-text-primary"
-			size={ sizes.separatorIconSize + 4 }
-		/>
+		<span role="img" aria-label="More pages">
+			<Ellipsis
+				aria-hidden="true"
+				className="mt-[2px] cursor-pointer text-text-tertiary hover:text-text-primary"
+				size={ sizes.separatorIconSize + 4 }
+			/>
+		</span>
 	);
 };
 BreadcrumbEllipsis.displayName = 'Breadcrumb.Ellipsis';
