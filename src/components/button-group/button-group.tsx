@@ -74,7 +74,7 @@ export const ButtonGroup = ( {
 	);
 
 	return (
-		<div className={ groupClassName }>
+		<div role="group" className={ groupClassName }>
 			<ButtonGroupContext.Provider
 				value={ {
 					activeItem,
