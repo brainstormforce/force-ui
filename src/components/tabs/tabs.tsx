@@ -172,7 +172,7 @@ export const TabsGroup = ( {
 		const tabs = Array.from(
 			event.currentTarget.querySelectorAll<HTMLButtonElement>( '[role="tab"]:not([disabled])' )
 		);
-		const currentIndex = tabs.findIndex( ( tab ) => tab === document.activeElement );
+		const currentIndex = tabs.findIndex( ( tab ) => tab === event.currentTarget.ownerDocument.activeElement );
 		if ( currentIndex === -1 ) {
 			return;
 		}
@@ -203,6 +203,7 @@ export const TabsGroup = ( {
 			aria-orientation={ orientation }
 			{ ...( ariaLabel && { 'aria-label': ariaLabel } ) }
 			onKeyDown={ handleKeyDown }
+			tabIndex={ -1 }
 		>
 			<TabsGroupContext.Provider
 				value={ {

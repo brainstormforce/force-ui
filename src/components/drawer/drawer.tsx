@@ -8,9 +8,9 @@ import React, {
 	useMemo,
 	useRef,
 	useState,
+	type MutableRefObject,
 	type ReactNode,
 } from 'react';
-import type { MutableRefObject } from 'react';
 import { callAll } from '@/utilities/functions';
 import {
 	useFloating,
