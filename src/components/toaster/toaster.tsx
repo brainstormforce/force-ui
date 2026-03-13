@@ -65,6 +65,8 @@ export const Toaster = ( {
 
 	return (
 		<ul
+			aria-live="polite"
+			aria-label="Notifications"
 			className={ cn(
 				'fui-toast-container fixed flex flex-col list-none z-20 p-10 pointer-events-none [&>li]:pointer-events-auto gap-3',
 				positionClassNames[ position ] ?? positionClassNames[ 'top-right' ],
@@ -223,10 +225,11 @@ export const Toast = ( {
 						<div className="absolute right-4 top-4 [&_svg]:size-5">
 							<button
 								className={ cn(
-									'bg-transparent m-0 p-0 border-none focus:outline-none active:outline-none cursor-pointer',
+									'inline-flex bg-transparent m-0 p-0 border-none focus:outline-none focus-visible:ring-2 focus-visible:ring-toggle-on focus-visible:ring-offset-2 active:outline-none cursor-pointer rounded',
 									closeIconClassNames[ theme ] ??
 										closeIconClassNames.light
 								) }
+								aria-label="Dismiss notification"
 								onClick={ ( event ) => {
 									event.preventDefault();
 									event.stopPropagation();
@@ -236,7 +239,7 @@ export const Toast = ( {
 									removeToast( toastItem.id! );
 								} }
 							>
-								<X />
+								<X aria-hidden="true" />
 							</button>
 						</div>
 					</>
@@ -273,13 +276,14 @@ export const Toast = ( {
 				<div className="absolute right-3 top-3 [&_svg]:size-5">
 					<button
 						className={ cn(
-							'bg-transparent m-0 p-0 border-none focus:outline-none active:outline-none cursor-pointer',
+							'bg-transparent m-0 p-0 border-none focus:outline-none focus-visible:ring-2 focus-visible:ring-toggle-on focus-visible:ring-offset-2 active:outline-none cursor-pointer rounded',
 							closeIconClassNames[ theme ] ??
 								closeIconClassNames.light
 						) }
+						aria-label="Dismiss notification"
 						onClick={ () => removeToast!( toastItem.id! ) }
 					>
-						<X />
+						<X aria-hidden="true" />
 					</button>
 				</div>
 			</div>
