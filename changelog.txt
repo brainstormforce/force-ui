@@ -11,7 +11,7 @@ Version 1.7.11 - [DATE]
 - Improvement: Atom - Switch: Added `role="switch"` and `aria-checked` to reflect toggle state to assistive technologies.
 - Improvement: Atom - Tabs: Added `role="tablist"`, `aria-orientation`, `role="tab"`, `aria-selected`, `aria-controls`, and `role="tabpanel"` with `aria-labelledby`; implemented arrow key, Home, and End keyboard navigation.
 - Improvement: Atom - Textarea: Added `aria-invalid` when in error state and improved focus-visible styles.
-- Improvement: Atom - Toaster: Added `aria-live="polite"` and `aria-label="Notifications"` to the container; added `aria-label="Dismiss notification"` and improved focus-visible ring on close buttons.
+- Improvement: Atom - Toaster: Added `aria-live="polite"` and `aria-label="Notifications"` to the container; added `aria-label="Dismiss notification"` and improved focus-visible ring on close buttons. Fixed RTL layout so the close button and text spacing correctly mirror using CSS logical properties.
 - Improvement: Molecule - Accordion: Linked trigger to content panel via `aria-controls` and `id` using generated IDs.
 - Improvement: Molecule - Dialog, Drawer: Added ARIA attributes and accessibility fallbacks.
 - Improvement: Molecule - Dropzone: Improved ARIA attributes and keyboard accessibility.
