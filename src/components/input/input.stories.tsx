@@ -1,6 +1,6 @@
 import Input from './input';
 import { Phone } from 'lucide-react';
-import { Meta, StoryFn } from '@storybook/react';
+import { Meta, StoryFn } from '@storybook/react-vite';
 
 const meta: Meta<typeof Input> = {
 	title: 'Atoms/Input',

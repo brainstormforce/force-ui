@@ -1,4 +1,4 @@
-import type { Meta, StoryFn } from '@storybook/react';
+import type { Meta, StoryFn } from '@storybook/react-vite';
 import { useState } from 'react';
 import Tabs, { type TabsGroupProps } from './tabs';
 import { House } from 'lucide-react';

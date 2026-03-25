@@ -1,4 +1,4 @@
-import type { Meta, StoryFn } from '@storybook/react';
+import type { Meta, StoryFn } from '@storybook/react-vite';
 import { Toaster } from './toaster';
 import { toast } from './controller';
 import { nanoid } from 'nanoid';

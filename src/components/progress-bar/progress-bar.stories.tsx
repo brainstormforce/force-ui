@@ -1,5 +1,5 @@
 import ProgressBar from './progress-bar';
-import { Meta, StoryFn } from '@storybook/react';
+import { Meta, StoryFn } from '@storybook/react-vite';
 
 const meta: Meta<typeof ProgressBar> = {
 	title: 'Atoms/ProgressBar',

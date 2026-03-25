@@ -1,4 +1,4 @@
-import type { Meta, StoryFn } from '@storybook/react';
+import type { Meta, StoryFn } from '@storybook/react-vite';
 import HamburgerMenu from './hamburger-menu';
 import {
 	ArrowUpRight,

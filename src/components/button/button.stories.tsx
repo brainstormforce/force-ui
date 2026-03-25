@@ -1,7 +1,7 @@
-import { Meta, StoryObj } from '@storybook/react';
+import { Meta, StoryObj } from '@storybook/react-vite';
 import Button from './button';
 import { Plus } from 'lucide-react';
-import { expect, userEvent, within } from '@storybook/test';
+import { expect, userEvent, within } from 'storybook/test';
 import { PlayFunc } from '@/utilities/ts-helper';
 
 // Button component story configuration

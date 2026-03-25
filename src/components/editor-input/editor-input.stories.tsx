@@ -1,5 +1,5 @@
 import EditorInput from './editor-input';
-import type { Meta, StoryFn } from '@storybook/react';
+import type { Meta, StoryFn } from '@storybook/react-vite';
 
 const meta: Meta<typeof EditorInput> = {
 	title: 'Atoms/EditorInput',

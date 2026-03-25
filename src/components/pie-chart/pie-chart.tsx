@@ -85,9 +85,19 @@ const PieChart = ( {
 		);
 	}
 
+	// Add aria-label to each data item so recharts sector paths get accessible names.
+	const accessibleData = data.map( ( item, index ) => ( {
+		...item,
+		'aria-label': `${ item.name ?? `Segment ${ index + 1 }` }: ${ item[ dataKey ] }`,
+	} ) );
+
 	return (
 		<div role="img" aria-label="Pie chart">
-			<PieChartWrapper width={ chartWidth } height={ chartWidth }>
+			<PieChartWrapper
+				width={ chartWidth }
+				height={ chartWidth }
+				accessibilityLayer={ false }
+			>
 				{ showTooltip && (
 					<Tooltip
 						content={
@@ -100,7 +110,7 @@ const PieChart = ( {
 				) }
 				{ showLegend && <Legend content={ <ChartLegendContent /> } /> }
 				<Pie
-					data={ data }
+					data={ accessibleData }
 					cx="50%"
 					cy="50%"
 					innerRadius={ innerRadius }

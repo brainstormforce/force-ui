@@ -15,7 +15,7 @@ import {
 	Share2,
 	UserPlus,
 } from 'lucide-react';
-import { Meta, StoryFn } from '@storybook/react';
+import { Meta, StoryFn } from '@storybook/react-vite';
 import Badge from '../badge';
 
 // Define `Meta` for RadioButton.Group (since that’s what receives most props)

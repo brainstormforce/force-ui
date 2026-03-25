@@ -1,4 +1,4 @@
-import { Meta, StoryObj, StoryFn } from '@storybook/react';
+import { Meta, StoryObj, StoryFn } from '@storybook/react-vite';
 import AreaChart from './area-chart';
 import Label from '../label';
 import Button from '../button';

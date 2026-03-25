@@ -12,7 +12,7 @@ import {
 	CloudUpload,
 	Bell,
 } from 'lucide-react';
-import { Meta, StoryFn } from '@storybook/react';
+import { Meta, StoryFn } from '@storybook/react-vite';
 
 const meta: Meta<typeof Menu> = {
 	title: 'Molecules/Menu',

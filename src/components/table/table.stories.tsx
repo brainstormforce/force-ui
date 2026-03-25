@@ -1,5 +1,5 @@
 import { useState, type ComponentType } from 'react';
-import { StoryFn, Meta } from '@storybook/react';
+import { StoryFn, Meta } from '@storybook/react-vite';
 import Table from './table';
 import { Button, Container, Pagination, Tooltip } from '@/components';
 import { Edit, Trash } from 'lucide-react';
