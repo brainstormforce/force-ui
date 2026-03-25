@@ -1,7 +1,7 @@
-const { getStoryContext } = require('@storybook/test-runner');
-const { injectAxe, checkA11y, configureAxe } = require('axe-playwright');
+import { getStoryContext } from '@storybook/test-runner';
+import { injectAxe, checkA11y, configureAxe } from 'axe-playwright';
 
-module.exports = {
+export default {
 	async preVisit(page) {
 		await injectAxe(page);
 	},
