@@ -9,7 +9,7 @@ import {
 	subMonths,
 } from 'date-fns';
 import DatePicker from './datepicker';
-import { Meta, StoryFn } from '@storybook/react';
+import type { Meta, StoryFn } from '@storybook/react-vite';
 
 const meta: Meta = {
 	title: 'Atoms/DatePicker',

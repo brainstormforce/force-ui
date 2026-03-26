@@ -1,7 +1,7 @@
 // Dropzone.stories.js
 
 import Dropzone from './dropzone'; // Adjust the import path as needed
-import type { Meta, StoryFn } from '@storybook/react';
+import type { Meta, StoryFn } from '@storybook/react-vite';
 
 const meta: Meta<typeof Dropzone> = {
 	title: 'Molecules/Dropzone',

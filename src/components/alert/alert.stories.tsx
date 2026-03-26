@@ -1,7 +1,7 @@
 import Alert from './alert';
-import { fn } from '@storybook/test';
+import { fn } from 'storybook/test';
 import { Plus } from 'lucide-react';
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react-vite';
 
 // Alert component story configuration
 const meta: Meta = {

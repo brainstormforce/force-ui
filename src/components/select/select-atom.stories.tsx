@@ -1,6 +1,6 @@
-import type { Meta, StoryFn } from '@storybook/react';
+import type { Meta, StoryFn } from '@storybook/react-vite';
 import Select from './select';
-import { expect, userEvent, within, screen } from '@storybook/test';
+import { expect, userEvent, within, screen } from 'storybook/test';
 import { SelectOptionValue } from './select-types';
 import { useState } from 'react';
 

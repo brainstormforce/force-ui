@@ -3,7 +3,7 @@ import Tooltip from './tooltip';
 import { CircleHelp } from 'lucide-react';
 import Label from '../label';
 import Button from '../button';
-import { Meta, StoryFn } from '@storybook/react';
+import type { Meta, StoryFn } from '@storybook/react-vite';
 
 const meta: Meta<typeof Tooltip> = {
 	title: 'Molecules/Tooltip',
