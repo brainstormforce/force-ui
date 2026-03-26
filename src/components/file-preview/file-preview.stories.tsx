@@ -1,4 +1,4 @@
-import { Meta, StoryFn } from '@storybook/react-vite';
+import type { Meta, StoryFn } from '@storybook/react-vite';
 import { FilePreview, FilePreviewFile, FilePreviewProps } from './file-preview';
 import { Input } from '@/index';
 import { useRef, useState } from 'react';
