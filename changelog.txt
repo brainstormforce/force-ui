@@ -1,4 +1,5 @@
 Version 1.7.11 - [DATE]
+- New: Added Storybook MCP compatibility support for smoother integration with MCP-based tooling and workflows.
 - Improvement: Atom - Alert: Added `role="alert"` and improved focus-visible ring on the close button.
 - Improvement: Atom - Badge: Converted closable element to a semantic `<button>` with `aria-label` and `aria-hidden` on the icon.
 - Improvement: Atom - Breadcrumb: Wrapped ellipsis in a `role="img"` container with `aria-label="More pages"`.
