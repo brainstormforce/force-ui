@@ -197,6 +197,7 @@ export const TabsGroup = ( {
 	};
 
 	return (
+		// eslint-disable-next-line jsx-a11y/interactive-supports-focus -- tablist uses roving tabindex on child tabs; the container itself should not be in the tab order per WAI-ARIA tabs pattern
 		<div
 			className={ groupClassName }
 			role="tablist"
