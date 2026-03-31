@@ -64,7 +64,7 @@ export const TextAreaComponent = (
 	};
 
 	const baseClasses =
-		'py-2 rounded border border-solid border-border-subtle bg-field-secondary-background font-normal placeholder-text-tertiary text-text-primary focus:outline-none transition ease-in-out duration-200';
+		'py-2 rounded border border-solid border-border-subtle bg-field-secondary-background font-normal placeholder-text-tertiary text-text-primary focus:outline-none focus-visible:outline-none transition ease-in-out duration-200';
 	const sizeClasses = {
 		sm: 'px-3 rounded text-xs',
 		md: 'px-3 rounded-md text-sm',
@@ -100,6 +100,7 @@ export const TextAreaComponent = (
 			onChange={ handleChange }
 			onInvalid={ onError }
 			value={ getValue() }
+			{ ...( error && { 'aria-invalid': true } ) }
 			{ ...props }
 		/>
 	);

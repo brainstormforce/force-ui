@@ -1,6 +1,6 @@
 import Loader from './loader.tsx';
 import { LoaderPinwheel } from 'lucide-react';
-import type { Meta, StoryFn } from '@storybook/react';
+import type { Meta, StoryFn } from '@storybook/react-vite';
 
 const meta: Meta<typeof Loader> = {
 	title: 'Atoms/Loader',

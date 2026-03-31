@@ -24,6 +24,8 @@ const Skeleton = ( {
 
 	return (
 		<div
+			role="status"
+			aria-label="Loading"
 			className={ cn(
 				variantClasses,
 				'animate-pulse',

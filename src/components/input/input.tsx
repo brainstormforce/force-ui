@@ -215,13 +215,14 @@ export const InputComponent = (
 						onClick={ handleReset }
 						role="button"
 						tabIndex={ 0 }
+						aria-label="Remove file"
 						onKeyDown={ ( e ) => {
 							if ( e.key === 'Enter' || e.key === ' ' ) {
 								handleReset();
 							}
 						} }
 					>
-						<X />
+						<X aria-hidden="true" />
 					</div>
 				);
 			}
@@ -232,6 +233,7 @@ export const InputComponent = (
 						'right-0 pr-3',
 						uploadIconSizeClasses[ size ]
 					) }
+					aria-hidden="true"
 				>
 					<Upload />
 				</div>
@@ -295,6 +297,7 @@ export const InputComponent = (
 						disabled={ disabled }
 						onChange={ handleChange }
 						onInvalid={ onError }
+						{ ...( error && { 'aria-invalid': true } ) }
 						{ ...props }
 					/>
 					<div
@@ -303,6 +306,7 @@ export const InputComponent = (
 							'right-0 pr-3',
 							uploadIconSizeClasses[ size ]
 						) }
+						aria-hidden="true"
 					>
 						<Upload />
 					</div>
@@ -340,6 +344,7 @@ export const InputComponent = (
 					onChange={ handleChange }
 					onInvalid={ onError }
 					value={ getValue() }
+					{ ...( error && { 'aria-invalid': true } ) }
 					{ ...props }
 				/>
 				{ getSuffix() }

@@ -48,6 +48,7 @@ export const CheckboxComponent = (
 	ref: React.ForwardedRef<HTMLInputElement>
 ) => {
 	const checkboxId = useMemo( () => id || `checkbox-${ nanoid() }`, [ id ] );
+	const descriptionId = useMemo( () => `${ checkboxId }-description`, [ checkboxId ] );
 	const isControlled = useMemo(
 		() => typeof checked !== 'undefined',
 		[ checked ]
@@ -132,6 +133,7 @@ export const CheckboxComponent = (
 				{ label?.description && (
 					<Label
 						tag="p"
+						id={ descriptionId }
 						className={ cn(
 							'font-normal leading-5 m-0',
 							sizeClassNames[ size ].description,
@@ -154,19 +156,20 @@ export const CheckboxComponent = (
 				disabled && 'cursor-not-allowed'
 			) }
 		>
-			<label
+			<span
 				className={ cn(
 					'relative flex items-center justify-center rounded-full p-0.5',
 					! disabled && 'cursor-pointer'
 				) }
-				htmlFor={ checkboxId }
 			>
 				<input
 					ref={ ref }
 					id={ checkboxId }
 					type="checkbox"
+					{ ...( indeterminate && { 'aria-checked': 'mixed' as const } ) }
+					{ ...( label?.description && { 'aria-describedby': descriptionId } ) }
 					className={ cn(
-						"peer relative cursor-pointer appearance-none transition-all m-0 before:content-[''] checked:before:content-[''] checked:before:hidden before:hidden !border-1.5 border-solid",
+						"peer relative cursor-pointer appearance-none transition-all m-0 before:content-[''] checked:before:content-[''] checked:before:hidden before:hidden !border-1.5 border-solid focus:outline-none",
 						colorClassNames[ color ].checkbox,
 						sizeClassNames[ size ].checkbox,
 						disabled && disabledClassNames.checkbox,
@@ -178,6 +181,7 @@ export const CheckboxComponent = (
 					{ ...props }
 				/>
 				<span
+					aria-hidden="true"
 					className={ cn(
 						'pointer-events-none inline-flex items-center absolute top-2/4 not-rtl:left-2/4 rtl:right-2/4 -translate-y-2/4 -translate-x-2/4 text-white opacity-0 transition-opacity peer-checked:opacity-100',
 						colorClassNames[ color ].icon,
@@ -190,7 +194,7 @@ export const CheckboxComponent = (
 						<Check className={ cn( sizeClassNames[ size ]?.icon ) } />
 					) }
 				</span>
-			</label>
+			</span>
 			{ !! label && renderLabel() }
 		</div>
 	);

@@ -1,4 +1,4 @@
-import type { Meta, StoryFn } from '@storybook/react';
+import type { Meta, StoryFn } from '@storybook/react-vite';
 import { useState } from 'react';
 import Tabs, { type TabsGroupProps } from './tabs';
 import { House } from 'lucide-react';
@@ -55,7 +55,7 @@ const Template: Story = ( args ) => {
 	};
 
 	return (
-		<Tabs.Group { ...args } activeItem={ activeTab } onChange={ handleTabChange }>
+		<Tabs.Group { ...args } activeItem={ activeTab } onChange={ handleTabChange } aria-label="Tabs">
 			<Tabs.Tab slug="tab1" text="Tab 1" icon={ <House /> } />
 			<Tabs.Tab slug="tab2" text="Tab 2" icon={ <House /> } />
 			<Tabs.Tab slug="tab3" text="Tab 3" icon={ <House /> } />

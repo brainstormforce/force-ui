@@ -183,93 +183,95 @@ const LineChart = ( {
 	}
 
 	return (
-		<ResponsiveContainer width={ chartWidth } height={ chartHeight }>
-			<LineChartWrapper { ...lineChartWrapperProps } data={ data }>
-				{ showCartesianGrid && (
-					<CartesianGrid
-						strokeDasharray={ strokeDasharray }
-						horizontal={ false }
-						stroke={ gridColor }
+		<div role="img" aria-label="Line chart">
+			<ResponsiveContainer width={ chartWidth } height={ chartHeight }>
+				<LineChartWrapper { ...lineChartWrapperProps } data={ data }>
+					{ showCartesianGrid && (
+						<CartesianGrid
+							strokeDasharray={ strokeDasharray }
+							horizontal={ false }
+							stroke={ gridColor }
+						/>
+					) }
+					<XAxis
+						dataKey={ xAxisDataKey }
+						tickLine={ false }
+						axisLine={ false }
+						tickMargin={ 8 }
+						tickFormatter={ xAxisTickFormatter || tickFormatter }
+						tick={ {
+							fontSize: fontSizeVariant,
+							fill: xAxisFontColor,
+						} }
+						hide={ ! showXAxis }
+						interval="equidistantPreserveStart"
 					/>
-				) }
-				<XAxis
-					dataKey={ xAxisDataKey }
-					tickLine={ false }
-					axisLine={ false }
-					tickMargin={ 8 }
-					tickFormatter={ xAxisTickFormatter || tickFormatter }
-					tick={ {
-						fontSize: fontSizeVariant,
-						fill: xAxisFontColor,
-					} }
-					hide={ ! showXAxis }
-					interval="equidistantPreserveStart"
-				/>
-				<YAxis
-					yAxisId="left"
-					dataKey={ biaxial ? dataKeys[ 0 ] : yAxisDataKey }
-					tickLine={ false }
-					axisLine={ false }
-					tickMargin={ 8 }
-					tickFormatter={ yAxisTickFormatter }
-					tick={ {
-						fontSize: fontSizeVariant,
-						fill: getYAxisFontColor( 0 ),
-					} }
-					hide={ ! showYAxis }
-					orientation="left"
-				/>
-
-				{ biaxial && dataKeys.length > 1 && (
 					<YAxis
-						yAxisId="right"
-						dataKey={ dataKeys[ 1 ] }
+						yAxisId="left"
+						dataKey={ biaxial ? dataKeys[ 0 ] : yAxisDataKey }
 						tickLine={ false }
 						axisLine={ false }
 						tickMargin={ 8 }
 						tickFormatter={ yAxisTickFormatter }
 						tick={ {
 							fontSize: fontSizeVariant,
-							fill: getYAxisFontColor( 1 ),
+							fill: getYAxisFontColor( 0 ),
 						} }
-						orientation="right"
 						hide={ ! showYAxis }
+						orientation="left"
 					/>
-				) }
 
-				{ showTooltip && (
-					<Tooltip
-						content={
-							<ChartTooltipContent
-								indicator={ tooltipIndicator }
-								labelKey={ tooltipLabelKey }
-							/>
-						}
-					/>
-				) }
-
-				{ dataKeys.map( ( key, index ) => {
-					// Determine which Y-axis this line should use
-					let axisId = 'left';
-					if ( biaxial && index > 0 ) {
-						axisId = 'right';
-					}
-
-					return (
-						<Line
-							key={ key }
-							type="monotone"
-							dataKey={ key }
-							stroke={ appliedColors[ index ].stroke }
-							fill={ appliedColors[ index ].stroke }
-							strokeWidth={ 2 }
-							dot={ withDots }
-							yAxisId={ axisId }
+					{ biaxial && dataKeys.length > 1 && (
+						<YAxis
+							yAxisId="right"
+							dataKey={ dataKeys[ 1 ] }
+							tickLine={ false }
+							axisLine={ false }
+							tickMargin={ 8 }
+							tickFormatter={ yAxisTickFormatter }
+							tick={ {
+								fontSize: fontSizeVariant,
+								fill: getYAxisFontColor( 1 ),
+							} }
+							orientation="right"
+							hide={ ! showYAxis }
 						/>
-					);
-				} ) }
-			</LineChartWrapper>
-		</ResponsiveContainer>
+					) }
+
+					{ showTooltip && (
+						<Tooltip
+							content={
+								<ChartTooltipContent
+									indicator={ tooltipIndicator }
+									labelKey={ tooltipLabelKey }
+								/>
+							}
+						/>
+					) }
+
+					{ dataKeys.map( ( key, index ) => {
+					// Determine which Y-axis this line should use
+						let axisId = 'left';
+						if ( biaxial && index > 0 ) {
+							axisId = 'right';
+						}
+
+						return (
+							<Line
+								key={ key }
+								type="monotone"
+								dataKey={ key }
+								stroke={ appliedColors[ index ].stroke }
+								fill={ appliedColors[ index ].stroke }
+								strokeWidth={ 2 }
+								dot={ withDots }
+								yAxisId={ axisId }
+							/>
+						);
+					} ) }
+				</LineChartWrapper>
+			</ResponsiveContainer>
+		</div>
 	);
 };
 

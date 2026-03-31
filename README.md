@@ -300,6 +300,31 @@ export default function Example() {
 }
 ```
 
+<br />
+
+## MCP Setup
+
+Force UI provides an MCP server that gives AI assistants accurate component usage context correct props, patterns, and examples. So you get reliable implementations without guesswork.
+
+```bash
+npx mcp-add --type http --url "https://brainstormforce.github.io/force-ui/mcp" --scope project # use `global` instead of `project` for making it accessible globally
+```
+
+When prompted, use the following configuration:
+
+| Prompt | Value |
+| --- | --- |
+| **What is the server name?** | `force-ui-mcp` |
+| **HTTP headers? (comma-separated Key=value, or leave empty)** | Leave empty |
+| **Which clients should be configured?** | Select your preferred AI client(s). Ex. Claude |
+| **claude code OAuth client ID? (leave empty if not needed)** | Leave empty |
+
+<br />
+
+Now you are ready to use Force-UI MCP in your project.
+
+<br />
+
 ## @bsf/force-ui Documentation
 
 Visit <a href="https://github.com/brainstormforce/force-ui/wiki">https://github.com/brainstormforce/force-ui/wiki</a> for full documentation.

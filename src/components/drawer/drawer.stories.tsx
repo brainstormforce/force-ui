@@ -1,5 +1,5 @@
 import { useState, Fragment, type ReactNode, type ElementType } from 'react';
-import type { Meta, StoryFn } from '@storybook/react';
+import type { Meta, StoryFn } from '@storybook/react-vite';
 import Drawer from './drawer';
 import Button from '../button';
 

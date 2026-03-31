@@ -4,9 +4,11 @@ import React, {
 	isValidElement,
 	useCallback,
 	useContext,
+	useId,
 	useMemo,
 	useRef,
 	useState,
+	type MutableRefObject,
 	type ReactNode,
 } from 'react';
 import { callAll } from '@/utilities/functions';
@@ -39,7 +41,7 @@ export interface DrawerProps {
 	/** Drawer content. */
 	children: ReactNode;
 	/** Trigger element to open the drawer. Required for uncontrolled component. */
-	trigger?: ReactNode | ( ( props: { onClick: () => void } ) => ReactNode );
+	trigger?: ReactNode | ( ( props: { onClick: () => void; 'aria-haspopup'?: 'dialog'; 'aria-expanded'?: boolean } ) => ReactNode );
 	/** Additional class names. */
 	className?: string;
 	/** Close drawer when clicking outside of the drawer. */
@@ -71,6 +73,10 @@ export interface DrawerContextDefault {
 	context: FloatingContext;
 	className?: string;
 	refs: UseFloatingReturn['refs'];
+	titleId: string;
+	descriptionId: string;
+	hasTitleRef: MutableRefObject<boolean>;
+	hasDescriptionRef: MutableRefObject<boolean>;
 }
 
 const DrawerContext = createContext<Partial<DrawerContextDefault>>( {} );
@@ -93,6 +99,11 @@ const Drawer = ( {
 	const isControlled = open !== undefined && setOpen !== undefined;
 	const [ isOpen, setIsOpen ] = useState( false );
 	const drawerContainerRef = useRef<HTMLDivElement>( null );
+	const baseId = useId();
+	const titleId = `${ baseId }-title`;
+	const descriptionId = `${ baseId }-description`;
+	const hasTitleRef = useRef( false );
+	const hasDescriptionRef = useRef( false );
 
 	const openState = useMemo(
 		() => ( isControlled ? open : isOpen ),
@@ -157,7 +168,11 @@ const Drawer = ( {
 		}
 
 		if ( typeof trigger === 'function' ) {
-			return trigger( { onClick: handleOpen } );
+			return trigger( {
+				onClick: handleOpen,
+				'aria-haspopup': 'dialog' as const,
+				'aria-expanded': openState,
+			} );
 		}
 
 		return null;
@@ -180,6 +195,10 @@ const Drawer = ( {
 					context,
 					className,
 					refs,
+					titleId,
+					descriptionId,
+					hasTitleRef,
+					hasDescriptionRef,
 				} }
 			>
 				{ children }

@@ -195,75 +195,77 @@ const AreaChart = ( {
 	}
 
 	return (
-		<ResponsiveContainer width={ width } height={ height }>
-			<AreaChartWrapper { ...areaChartWrapperProps } data={ data }>
-				{ showCartesianGrid && <CartesianGrid vertical={ false } /> }
-				<XAxis
-					dataKey={ xAxisDataKey }
-					tickLine={ false }
-					axisLine={ false }
-					tickMargin={ 8 }
-					tickFormatter={ xAxisTickFormatter || tickFormatter }
-					tick={ {
-						fontSize: fontSizeVariant,
-						fill: xAxisFontColor,
-					} }
-					hide={ ! showXAxis }
-					interval="preserveStartEnd"
-				/>
-				<YAxis
-					dataKey={ yAxisDataKey }
-					tickLine={ false }
-					axisLine={ false }
-					tickMargin={ 8 }
-					tickFormatter={ yAxisTickFormatter }
-					tick={ {
-						fontSize: fontSizeVariant,
-						fill: xAxisFontColor,
-					} }
-					hide={ ! showYAxis }
-				/>
-				{ showTooltip && (
-					<Tooltip
-						content={
-							<ChartTooltipContent
-								indicator={ tooltipIndicator }
-								labelKey={ tooltipLabelKey }
-							/>
-						}
+		<div role="img" aria-label="Area chart">
+			<ResponsiveContainer width={ width } height={ height }>
+				<AreaChartWrapper { ...areaChartWrapperProps } data={ data }>
+					{ showCartesianGrid && <CartesianGrid vertical={ false } /> }
+					<XAxis
+						dataKey={ xAxisDataKey }
+						tickLine={ false }
+						axisLine={ false }
+						tickMargin={ 8 }
+						tickFormatter={ xAxisTickFormatter || tickFormatter }
+						tick={ {
+							fontSize: fontSizeVariant,
+							fill: xAxisFontColor,
+						} }
+						hide={ ! showXAxis }
+						interval="preserveStartEnd"
 					/>
-				) }
-				{ showLegend && (
-					<Legend
-						content={
-							<ChartLegendContent
-								fontSizeVariant={ fontSizeVariant }
-							/>
-						}
+					<YAxis
+						dataKey={ yAxisDataKey }
+						tickLine={ false }
+						axisLine={ false }
+						tickMargin={ 8 }
+						tickFormatter={ yAxisTickFormatter }
+						tick={ {
+							fontSize: fontSizeVariant,
+							fill: xAxisFontColor,
+						} }
+						hide={ ! showYAxis }
 					/>
-				) }
+					{ showTooltip && (
+						<Tooltip
+							content={
+								<ChartTooltipContent
+									indicator={ tooltipIndicator }
+									labelKey={ tooltipLabelKey }
+								/>
+							}
+						/>
+					) }
+					{ showLegend && (
+						<Legend
+							content={
+								<ChartLegendContent
+									fontSizeVariant={ fontSizeVariant }
+								/>
+							}
+						/>
+					) }
 
-				{ variant === 'gradient' && renderGradients() }
+					{ variant === 'gradient' && renderGradients() }
 
-				{ dataKeys.map( ( key, index ) => (
-					<Area
-						key={ key }
-						type="monotone"
-						dataKey={ key }
-						stroke={
-							appliedColors[ index % appliedColors.length ].stroke
-						}
-						fill={
-							variant === 'gradient'
-								? `url(#fill${ index })`
-								: appliedColors[ index % appliedColors.length ]
-									.fill
-						}
-						stackId="1"
-					/>
-				) ) }
-			</AreaChartWrapper>
-		</ResponsiveContainer>
+					{ dataKeys.map( ( key, index ) => (
+						<Area
+							key={ key }
+							type="monotone"
+							dataKey={ key }
+							stroke={
+								appliedColors[ index % appliedColors.length ].stroke
+							}
+							fill={
+								variant === 'gradient'
+									? `url(#fill${ index })`
+									: appliedColors[ index % appliedColors.length ]
+										.fill
+							}
+							stackId="1"
+						/>
+					) ) }
+				</AreaChartWrapper>
+			</ResponsiveContainer>
+		</div>
 	);
 };
 

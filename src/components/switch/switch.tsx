@@ -233,6 +233,7 @@ export const SwitchComponent = (
 					ref={ ref }
 					id={ switchId }
 					type="checkbox"
+					role="switch"
 					className={ cn(
 						"peer appearance-none absolute rounded-full cursor-pointer transition-colors duration-300 h-full w-full  before:content-[''] checked:before:content-[''] m-0 checked:[background-image:none]",
 						colorClassNames[ color ].input,
@@ -245,8 +246,8 @@ export const SwitchComponent = (
 					name={ name }
 					{ ...props }
 				/>
-				<label
-					htmlFor={ switchId }
+				<span
+					aria-hidden="true"
 					className={ cn(
 						"peer/toggle-dial bg-white border rounded-full absolute cursor-pointer shadow-md before:content[''] before:transition-opacity before:opacity-0 hover:before:opacity-10 before:hidden border-none transition-all duration-300 top-2/4 not-rtl:left-1 rtl:right-1 -translate-y-2/4 before:w-10 before:h-10 before:rounded-full before:absolute before:top-2/4 not-rtl:before:left-2/4 rtl:before:right-2/4 before:-translate-y-2/4 before:-translate-x-2/4",
 						sizeClassNames[ normalSize ].toggleDial,

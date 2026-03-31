@@ -25,7 +25,7 @@ export const Topbar = ( {
 	...props
 }: TopbarProps ) => {
 	return (
-		<div
+		<header
 			className={ cn(
 				'w-full box-border flex items-center justify-between bg-background-primary p-5 min-h-16',
 				getGapClass( gap ),
@@ -34,7 +34,7 @@ export const Topbar = ( {
 			{ ...props }
 		>
 			{ children }
-		</div>
+		</header>
 	);
 };
 

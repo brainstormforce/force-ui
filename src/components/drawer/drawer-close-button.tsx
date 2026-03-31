@@ -36,7 +36,7 @@ const DefaultCloseButton = ( {
 	return (
 		<button
 			className={ cn(
-				'bg-transparent inline-flex justify-center items-center border-0 p-1 m-0 cursor-pointer focus:outline-none outline-none shadow-none',
+				'bg-transparent inline-flex justify-center items-center border-0 p-1 m-0 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-1 focus-visible:ring-border-strong outline-none shadow-none',
 				className
 			) }
 			aria-label="Close drawer"
