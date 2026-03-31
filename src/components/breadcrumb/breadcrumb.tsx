@@ -129,7 +129,7 @@ export const BreadcrumbEllipsis = () => {
 		<span role="img" aria-label="More pages">
 			<Ellipsis
 				aria-hidden="true"
-				className="mt-[2px] cursor-pointer text-text-tertiary hover:text-text-primary"
+				className="mt-[2px] text-text-tertiary"
 				size={ sizes.separatorIconSize + 4 }
 			/>
 		</span>

@@ -69,7 +69,6 @@ export const Pagination = ( {
 }: PaginationProps ) => (
 	<PageContext.Provider value={ { size, disabled } }>
 		<nav
-			role="navigation"
 			aria-label={ ariaLabel }
 			className={ cn(
 				'flex w-full justify-center box-border m-0',

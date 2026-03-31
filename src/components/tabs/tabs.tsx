@@ -203,7 +203,6 @@ export const TabsGroup = ( {
 			aria-orientation={ orientation }
 			{ ...( ariaLabel && { 'aria-label': ariaLabel } ) }
 			onKeyDown={ handleKeyDown }
-			tabIndex={ -1 }
 		>
 			<TabsGroupContext.Provider
 				value={ {

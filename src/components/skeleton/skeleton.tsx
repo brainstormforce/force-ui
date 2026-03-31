@@ -25,7 +25,6 @@ const Skeleton = ( {
 	return (
 		<div
 			role="status"
-			aria-busy="true"
 			aria-label="Loading"
 			className={ cn(
 				variantClasses,

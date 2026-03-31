@@ -7,7 +7,7 @@ import React, {
 } from 'react';
 import { nanoid } from 'nanoid';
 import { Plus, Minus, ChevronDown } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { callAll, cn } from '@/utilities/functions';
 
 // Define common props to be shared by all components
@@ -99,6 +99,8 @@ export interface AccordionItemProps extends CommonProps {
 	value?: string;
 	/** Internal ID linking trigger to content for aria-controls */
 	contentId?: string;
+	/** Internal ID for the trigger button, used by content region's aria-labelledby */
+	triggerId?: string;
 }
 
 export const AccordionItem = ( {
@@ -110,6 +112,7 @@ export const AccordionItem = ( {
 	className,
 }: AccordionItemProps ) => {
 	const contentId = useMemo( () => `accordion-content-${ nanoid() }`, [] );
+	const triggerId = useMemo( () => `accordion-trigger-${ nanoid() }`, [] );
 
 	const typeClasses = {
 		simple: 'border-0',
@@ -127,6 +130,7 @@ export const AccordionItem = ( {
 						type,
 						disabled,
 						contentId,
+						triggerId,
 					} )
 					: child
 			) }
@@ -154,6 +158,8 @@ export interface AccordionTriggerProps extends CommonProps {
 	collapsible?: boolean;
 	/** Internal ID for aria-controls linking to content panel */
 	contentId?: string;
+	/** Internal ID for this trigger button, used by content region's aria-labelledby */
+	triggerId?: string;
 }
 
 export const AccordionTrigger = ( {
@@ -168,6 +174,7 @@ export const AccordionTrigger = ( {
 	children,
 	className,
 	contentId,
+	triggerId,
 	...props
 }: AccordionTriggerProps ) => {
 	const paddingClasses = {
@@ -214,6 +221,7 @@ export const AccordionTrigger = ( {
 	return (
 		<Tag className="flex m-0 hover:bg-background-secondary transition duration-150 ease-in-out">
 			<button
+				id={ triggerId }
 				className={ cn(
 					'flex w-full items-center justify-between text-sm font-medium transition-all appearance-none bg-transparent border-0 cursor-pointer gap-3',
 					paddingClasses,
@@ -249,6 +257,8 @@ export interface AccordionContentProps extends CommonProps {
 	type?: 'simple' | 'separator' | 'boxed';
 	/** Internal ID for this content region (linked from AccordionTrigger aria-controls) */
 	contentId?: string;
+	/** Internal ID of the trigger button, used for aria-labelledby on this region */
+	triggerId?: string;
 }
 
 export const AccordionContent = ( {
@@ -258,6 +268,7 @@ export const AccordionContent = ( {
 	children,
 	className,
 	contentId,
+	triggerId,
 }: AccordionContentProps ) => {
 	const contentVariants = {
 		open: {
@@ -284,28 +295,23 @@ export const AccordionContent = ( {
 	}?.[ type ];
 
 	return (
-		<AnimatePresence initial={ false }>
-			{ isOpen && (
-				<motion.div
-					key="content"
-					variants={ contentVariants }
-					initial="closed"
-					animate="open"
-					exit="closed"
-					transition={ { duration: 0.3, ease: 'easeInOut' } }
-					className={ cn(
-						'text-text-secondary w-full text-sm transition-[height, opacity, transform] ease-in box-border',
-						disabled && 'opacity-40',
-						className
-					) }
-					aria-hidden={ ! isOpen }
-					role="region"
-					id={ contentId }
-				>
-					<div className={ cn( contentPaddingClasses ) }>{ children }</div>
-				</motion.div>
+		<motion.div
+			variants={ contentVariants }
+			initial={ false }
+			animate={ isOpen ? 'open' : 'closed' }
+			transition={ { duration: 0.3, ease: 'easeInOut' } }
+			className={ cn(
+				'text-text-secondary w-full text-sm box-border',
+				disabled && 'opacity-40',
+				className
 			) }
-		</AnimatePresence>
+			role="region"
+			id={ contentId }
+			aria-labelledby={ triggerId }
+			aria-hidden={ ! isOpen }
+		>
+			<div className={ cn( contentPaddingClasses ) }>{ children }</div>
+		</motion.div>
 	);
 };
 
