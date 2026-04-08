@@ -1,0 +1,2 @@
+"use strict";Object.defineProperty(exports,Symbol.toStringTag,{value:"Module"});const n=require("react/jsx-runtime"),a=require("date-fns"),o=()=>n.jsx("span",{className:"bg-icon-interactive h-1 w-1 absolute rounded-full inline-block bottom-0 left-1/2 right-1/2"}),u=e=>a.format(e,"E").slice(0,1),i=(e,t=24)=>Array.from({length:t},(c,r)=>e+r),l=e=>{if(e==="multiple")return[];if(e==="range")return{from:void 0,to:void 0}};exports.currentTimeDot=o;exports.formatWeekdayName=u;exports.generateYearRange=i;exports.getDefaultSelectedValue=l;
+//# sourceMappingURL=utils.cjs.js.map
