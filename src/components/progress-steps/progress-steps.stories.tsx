@@ -1,6 +1,6 @@
 import ProgressSteps, { ProgressStepsProps } from './progress-steps';
 import { Check, Home, BadgeCheck } from 'lucide-react';
-import type { Meta, StoryFn } from '@storybook/react';
+import type { Meta, StoryFn } from '@storybook/react-vite';
 
 // ProgressSteps.Step display name for better documentation in Storybook
 ProgressSteps.Step.displayName = 'ProgressSteps.Step';

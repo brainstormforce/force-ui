@@ -108,8 +108,9 @@ export const Sidebar = ( {
 		<SidebarContext.Provider
 			value={ { isCollapsed, setIsCollapsed, collapsible } }
 		>
-			<div
+			<nav
 				ref={ sideBarRef }
+				aria-label="Sidebar"
 				className={ cn(
 					'h-full overflow-auto w-72 px-4 py-4 gap-4 flex flex-col bg-background-primary',
 					borderOn &&
@@ -121,7 +122,7 @@ export const Sidebar = ( {
 				{ ...props }
 			>
 				{ children }
-			</div>
+			</nav>
 		</SidebarContext.Provider>
 	);
 };

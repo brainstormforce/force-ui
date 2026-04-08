@@ -75,6 +75,7 @@ const Alert = ( {
 	if ( design === 'stack' ) {
 		return (
 			<div
+				role="alert"
 				className={ cn(
 					'flex items-center justify-start p-4 gap-2 relative ring-1 rounded-md shadow-lg',
 					theme === 'dark'
@@ -105,14 +106,14 @@ const Alert = ( {
 					<div className="absolute right-4 top-4 [&_svg]:size-5">
 						<button
 							className={ cn(
-								'bg-transparent m-0 p-0 border-none focus:outline-none active:outline-none cursor-pointer',
+								'bg-transparent m-0 p-0 border-none focus:outline-none focus-visible:ring-2 focus-visible:ring-toggle-on focus-visible:ring-offset-2 active:outline-none cursor-pointer rounded',
 								closeIconClassNames[ theme ] ??
 									closeIconClassNames.light
 							) }
 							onClick={ () => closeAlert() }
 							aria-label="Close alert"
 						>
-							<X />
+							<X aria-hidden="true" />
 						</button>
 					</div>
 				</>
@@ -122,6 +123,7 @@ const Alert = ( {
 
 	return (
 		<div
+			role="alert"
 			className={ cn(
 				'flex items-center justify-between p-3 gap-2 relative ring-1 rounded-lg shadow-lg',
 				theme === 'dark'
@@ -153,14 +155,14 @@ const Alert = ( {
 				{ typeof onClose === 'function' && (
 					<button
 						className={ cn(
-							'self-start bg-transparent m-0 border-none p-0.5 focus:outline-none active:outline-none cursor-pointer size-5',
+							'self-start bg-transparent m-0 border-none p-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-toggle-on focus-visible:ring-offset-2 active:outline-none cursor-pointer size-5 rounded',
 							closeIconClassNames[ theme ] ??
 								closeIconClassNames.light
 						) }
 						onClick={ () => closeAlert() }
 						aria-label="Close alert"
 					>
-						<X />
+						<X aria-hidden="true" />
 					</button>
 				) }
 			</div>

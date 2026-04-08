@@ -161,19 +161,19 @@ const Badge = forwardRef<Ref, BadgeProps>(
 				) : null }
 				<span className="px-1 truncate inline-block">{ label }</span>
 				{ closable && (
-					<span
-						className={ cn( buttonClasses, iconSizeClasses[ size ] ) }
+					<button
+						type="button"
+						className={ cn( buttonClasses, iconSizeClasses[ size ], 'bg-transparent border-none p-0 m-0' ) }
 						onMouseDown={ onMouseDown }
-						role="button"
-						tabIndex={ 0 }
+						aria-label={ `Remove ${ label }` }
+						disabled={ disabled }
 						{ ...( ! disabled && {
 							onClick: onClose,
 						} ) }
 					>
-						<span className="sr-only">{ `Remove ${ label }` }</span>
-						<X />
+						<X aria-hidden="true" />
 						<span className="absolute -inset-1" />
-					</span>
+					</button>
 				) }
 			</span>
 		);

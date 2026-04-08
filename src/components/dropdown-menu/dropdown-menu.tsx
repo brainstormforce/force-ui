@@ -16,9 +16,11 @@ import {
 	useClick,
 	useDismiss,
 	useRole,
+	FloatingFocusManager,
 	FloatingPortal,
 	useInteractions,
 	useTransitionStyles,
+	type FloatingContext,
 	type UseFloatingReturn,
 	type UseInteractionsReturn,
 } from '@floating-ui/react';
@@ -91,6 +93,7 @@ export const DropdownMenu = ( {
 				styles,
 				floatingStyles,
 				getFloatingProps,
+				context,
 			} }
 		>
 			<div className={ cn( 'relative inline-block', className ) }>
@@ -136,17 +139,22 @@ export const DropdownMenuContentWrapper = ( {
 	children,
 	className,
 }: DropdownMenuContentWrapperProps ) => {
-	const { refs, floatingStyles, getFloatingProps, isMounted, styles } =
+	const { refs, floatingStyles, getFloatingProps, isMounted, styles, context } =
 		useDropdownMenuContext() as {
 			refs: UseFloatingReturn['refs'];
 			floatingStyles: UseFloatingReturn['floatingStyles'];
 			getFloatingProps: UseInteractionsReturn['getFloatingProps'];
 			isMounted: boolean;
 			styles: React.CSSProperties;
+			context: FloatingContext;
 		};
 
+	if ( ! isMounted || ! context ) {
+		return null;
+	}
+
 	return (
-		isMounted && (
+		<FloatingFocusManager context={ context } modal={ false }>
 			<div
 				ref={ refs.setFloating }
 				className={ className }
@@ -169,7 +177,7 @@ export const DropdownMenuContentWrapper = ( {
 					return null;
 				} ) }
 			</div>
-		)
+		</FloatingFocusManager>
 	);
 };
 
@@ -202,15 +210,14 @@ export const DropdownMenuTrigger = React.forwardRef<
 	}
 
 	return (
-		<div
-			ref={ ref }
-			className={ cn( 'cursor-pointer', className ) }
-			role="button"
-			tabIndex={ 0 }
+		<button
+			ref={ ref as React.Ref<HTMLButtonElement> }
+			type="button"
+			className={ cn( 'cursor-pointer bg-transparent border-none p-0', className ) }
 			{ ...props }
 		>
 			{ children }
-		</div>
+		</button>
 	);
 } );
 

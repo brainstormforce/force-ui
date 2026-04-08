@@ -6,6 +6,8 @@ import {
 	isValidElement,
 	useCallback,
 	useContext,
+	useEffect,
+	useId,
 	useMemo,
 	useRef,
 	useState,
@@ -39,7 +41,11 @@ export interface DialogState {
 	dialogRef: React.MutableRefObject<HTMLDivElement | null>;
 	scrollLock: boolean;
 	className: string,
-	refs: UseFloatingReturn['refs']
+	refs: UseFloatingReturn['refs'];
+	titleId: string;
+	descriptionId: string;
+	hasTitleRef: React.MutableRefObject<boolean>;
+	hasDescriptionRef: React.MutableRefObject<boolean>;
 }
 
 const DialogContext = createContext<Partial<DialogState>>( {} );
@@ -72,7 +78,7 @@ export interface DialogProps extends CommonProps {
 	/** Trigger element for the dialog. */
 	trigger?:
 		| ReactNode
-		| ( ( props: { onClick: () => void } ) => React.ReactElement );
+		| ( ( props: { onClick: () => void; 'aria-haspopup'?: 'dialog'; 'aria-expanded'?: boolean } ) => React.ReactElement );
 	/** Close the dialog on clicking outside the dialog. */
 	exitOnClickOutside?: boolean;
 	/** Close the dialog on pressing the escape key. */
@@ -99,6 +105,11 @@ const Dialog = ( {
 	const [ isOpen, setIsOpen ] = useState( false );
 	const dialogRef = useRef<HTMLDivElement | null>( null );
 	const dialogContainerRef = useRef( null );
+	const baseId = useId();
+	const titleId = `${ baseId }-title`;
+	const descriptionId = `${ baseId }-description`;
+	const hasTitleRef = useRef( false );
+	const hasDescriptionRef = useRef( false );
 
 	const openState = useMemo(
 		() => ( isControlled ? open : isOpen ),
@@ -159,7 +170,11 @@ const Dialog = ( {
 		}
 
 		if ( typeof trigger === 'function' ) {
-			return trigger( { onClick: handleOpen } );
+			return trigger( {
+				onClick: handleOpen,
+				'aria-haspopup': 'dialog' as const,
+				'aria-expanded': openState,
+			} );
 		}
 
 		return null;
@@ -181,6 +196,10 @@ const Dialog = ( {
 					dialogRef,
 					scrollLock,
 					className,
+					titleId,
+					descriptionId,
+					hasTitleRef,
+					hasDescriptionRef,
 				} }
 			>
 				{ children }
@@ -193,11 +212,14 @@ Dialog.displayName = 'Dialog';
 export interface DialogPanelProps extends CommonProps {
 	/** Children of the dialog panel. */
 	children: ReactNode | ( ( param: { close: () => void } ) => ReactNode );
+	/** Accessible label for the dialog when Dialog.Title is not used. */
+	ariaLabel?: string;
 }
 
 export const DialogPanel = ( {
 	children,
 	className,
+	ariaLabel,
 }: DialogPanelProps ): JSX.Element => {
 	const {
 		open,
@@ -209,6 +231,10 @@ export const DialogPanel = ( {
 		dialogContainerRef,
 		className: rootClassName,
 		refs,
+		titleId,
+		descriptionId,
+		hasTitleRef,
+		hasDescriptionRef,
 	} = useDialogState();
 
 	const dialogContent = (
@@ -232,6 +258,9 @@ export const DialogPanel = ( {
 							variants={ animationVariants }
 							role="dialog"
 							aria-modal="true"
+							aria-label={ ! hasTitleRef?.current ? ariaLabel : undefined }
+							aria-labelledby={ hasTitleRef?.current ? titleId : undefined }
+							aria-describedby={ hasDescriptionRef?.current ? descriptionId : undefined }
 							transition={ TRANSITION_DURATION }
 						>
 							<div className="flex items-center justify-center min-h-full">
@@ -355,8 +384,22 @@ export const DialogTitle = ( {
 	className,
 	...props
 }: DialogTitleProp ): JSX.Element => {
+	const { titleId, hasTitleRef } = useDialogState();
+
+	useEffect( () => {
+		if ( hasTitleRef ) {
+			hasTitleRef.current = true;
+		}
+		return () => {
+			if ( hasTitleRef ) {
+				hasTitleRef.current = false;
+			}
+		};
+	}, [ hasTitleRef ] );
+
 	return (
 		<Tag
+			id={ titleId }
 			className={ cn(
 				'text-base font-semibold text-text-primary m-0 p-0',
 				className
@@ -383,8 +426,22 @@ export const DialogDescription = ( {
 	className,
 	...props
 }: DialogDescriptionProp ): JSX.Element => {
+	const { descriptionId, hasDescriptionRef } = useDialogState();
+
+	useEffect( () => {
+		if ( hasDescriptionRef ) {
+			hasDescriptionRef.current = true;
+		}
+		return () => {
+			if ( hasDescriptionRef ) {
+				hasDescriptionRef.current = false;
+			}
+		};
+	}, [ hasDescriptionRef ] );
+
 	return (
 		<Tag
+			id={ descriptionId }
 			className={ cn(
 				'text-sm font-normal text-text-secondary my-0 ml-0 mr-1 p-0',
 				className
@@ -421,7 +478,7 @@ export const DefaultCloseButton = ( {
 	return (
 		<button
 			className={ cn(
-				'bg-transparent inline-flex justify-center items-center border-0 p-1 m-0 cursor-pointer focus:outline-none outline-none shadow-none',
+				'bg-transparent inline-flex justify-center items-center border-0 p-1 m-0 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-1 focus-visible:ring-border-strong outline-none shadow-none',
 				className
 			) }
 			aria-label="Close dialog"

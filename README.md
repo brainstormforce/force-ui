@@ -14,7 +14,7 @@ Using Force UI as a dependency in package.json -
 
 ```json
 "dependencies": {
-  "@bsf/force-ui": "git+https://github.com/brainstormforce/force-ui#1.7.10"
+  "@bsf/force-ui": "git+https://github.com/brainstormforce/force-ui#1.7.11"
 }
 ```
 
@@ -28,7 +28,7 @@ npm install
 Or you can directly run the following command to install the package -
 
 ```bash
-npm i -S @bsf/force-ui@git+https://github.com/brainstormforce/force-ui.git#1.7.10
+npm i -S @bsf/force-ui@git+https://github.com/brainstormforce/force-ui.git#1.7.11
 ```
 
 <br />
@@ -299,6 +299,31 @@ export default function Example() {
   return <Button>My Button</Button>;
 }
 ```
+
+<br />
+
+## MCP Setup
+
+Force UI provides an MCP server that gives AI assistants accurate component usage context correct props, patterns, and examples. So you get reliable implementations without guesswork.
+
+```bash
+npx mcp-add --type http --url "https://brainstormforce.github.io/force-ui/mcp" --scope project # use `global` instead of `project` for making it accessible globally
+```
+
+When prompted, use the following configuration:
+
+| Prompt | Value |
+| --- | --- |
+| **What is the server name?** | `force-ui-mcp` |
+| **HTTP headers? (comma-separated Key=value, or leave empty)** | Leave empty |
+| **Which clients should be configured?** | Select your preferred AI client(s). Ex. Claude |
+| **claude code OAuth client ID? (leave empty if not needed)** | Leave empty |
+
+<br />
+
+Now you are ready to use Force-UI MCP in your project.
+
+<br />
 
 ## @bsf/force-ui Documentation
 

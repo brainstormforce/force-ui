@@ -1,5 +1,5 @@
 import Breadcrumb from './breadcrumb';
-import type { Meta, StoryFn } from '@storybook/react';
+import type { Meta, StoryFn } from '@storybook/react-vite';
 
 interface AdditionalArgTypes {
 	separatorType: 'arrow' | 'slash';
