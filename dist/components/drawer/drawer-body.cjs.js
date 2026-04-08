@@ -1,0 +1,2 @@
+"use strict";Object.defineProperties(exports,{__esModule:{value:!0},[Symbol.toStringTag]:{value:"Module"}});const l=require("react/jsx-runtime"),s=require("../../utilities/functions.cjs.js"),e=({children:o,className:r,...t})=>l.jsx("div",{className:s.cn("px-5 pb-4 pt-2 flex flex-col flex-1 overflow-y-auto overflow-x-hidden",r),...t,children:o});e.displayName="Drawer.Body";exports.default=e;
+//# sourceMappingURL=drawer-body.cjs.js.map

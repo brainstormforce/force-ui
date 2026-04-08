@@ -1,0 +1,2 @@
+"use strict";Object.defineProperties(exports,{__esModule:{value:!0},[Symbol.toStringTag]:{value:"Module"}});const s=require("@lexical/react/LexicalComposerContext"),i=require("react"),n=({style:e})=>{const[t]=s.useLexicalComposerContext();return i.useLayoutEffect(()=>{t&&t.registerRootListener(r=>{if(!r||!e||Object.keys(e).length===0)return;const o=r.style;Object.assign(o,e)})},[t]),null};exports.default=n;
+//# sourceMappingURL=override-editor-style.cjs.js.map
