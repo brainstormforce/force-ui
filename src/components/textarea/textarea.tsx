@@ -1,6 +1,17 @@
-import { useState, useCallback, useMemo, forwardRef } from 'react';
+import {
+	useState,
+	useCallback,
+	useMemo,
+	useRef,
+	useLayoutEffect,
+	forwardRef,
+} from 'react';
 import { nanoid } from 'nanoid';
 import { cn } from '@/utilities/functions';
+import { mergeRefs } from '@/components/toaster/utils';
+
+const toCssSize = ( v: number | string | undefined ) =>
+	typeof v === 'number' ? `${ v }px` : v;
 
 export interface TextAreaProps {
 	/** ID of the textarea element. */
@@ -21,6 +32,12 @@ export interface TextAreaProps {
 	error?: boolean;
 	/** Callback triggered when the field is invalid. */
 	onError?: () => void;
+	/** When true, the textarea height auto-adjusts to fit its content. */
+	autoResize?: boolean;
+	/** Minimum height of the textarea. Accepts a number (px) or any CSS length string (e.g. '10rem'). Applied regardless of autoResize. */
+	minHeight?: number | string;
+	/** Maximum height of the textarea. When auto-resize reaches this value, the textarea becomes scrollable. Accepts a number (px) or any CSS length string. Applied regardless of autoResize. Defaults to 160px. */
+	maxHeight?: number | string;
 }
 
 export const TextAreaComponent = (
@@ -34,10 +51,19 @@ export const TextAreaComponent = (
 		onChange = () => {},
 		error = false,
 		onError = () => {},
+		autoResize = false,
+		minHeight,
+		maxHeight = 160,
+		style: callerStyle,
 		...props
-	}: TextAreaProps,
+	}: TextAreaProps &
+		Omit<
+			React.TextareaHTMLAttributes<HTMLTextAreaElement>,
+			'size' | 'onChange'
+		>,
 	ref: React.ForwardedRef<HTMLTextAreaElement>
 ) => {
+	const internalRef = useRef<HTMLTextAreaElement>( null );
 	const inputId = useMemo( () => id || `input-textarea-${ nanoid() }`, [ id ] );
 	const isControlled = useMemo( () => typeof value !== 'undefined', [ value ] );
 	const [ inputValue, setInputValue ] = useState( defaultValue );
@@ -46,6 +72,18 @@ export const TextAreaComponent = (
 		() => ( isControlled ? value : inputValue ),
 		[ isControlled, value, inputValue ]
 	);
+
+	useLayoutEffect( () => {
+		if ( ! autoResize ) {
+			return;
+		}
+		const el = internalRef.current;
+		if ( ! el ) {
+			return;
+		}
+		el.style.height = 'auto';
+		el.style.height = `${ el.scrollHeight }px`;
+	}, [ autoResize, getValue(), minHeight, maxHeight ] );
 
 	const handleChange = ( event: React.ChangeEvent<HTMLTextAreaElement> ) => {
 		if ( disabled ) {
@@ -83,9 +121,19 @@ export const TextAreaComponent = (
 		? 'border-border-disabled bg-field-background-disabled cursor-not-allowed text-text-disabled'
 		: '';
 
+	const computedStyle: React.CSSProperties = {
+		...( callerStyle ?? {} ),
+		minHeight: toCssSize( minHeight ),
+		maxHeight: toCssSize( maxHeight ),
+		...( autoResize && {
+			resize: 'none',
+			overflow: maxHeight != null ? 'auto' : 'hidden',
+		} ),
+	};
+
 	return (
 		<textarea
-			ref={ ref }
+			ref={ mergeRefs( internalRef, ref ) }
 			id={ inputId }
 			className={ cn(
 				baseClasses,
@@ -100,6 +148,7 @@ export const TextAreaComponent = (
 			onChange={ handleChange }
 			onInvalid={ onError }
 			value={ getValue() }
+			style={ computedStyle }
 			{ ...( error && { 'aria-invalid': true } ) }
 			{ ...props }
 		/>
