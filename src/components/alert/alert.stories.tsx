@@ -139,3 +139,70 @@ export const WithCustomIcon: Story = {
 		},
 	},
 };
+
+export const InlineSimpleVariants: Story = {
+	render: () => (
+		<div className="flex w-[1280px] flex-col gap-10 p-8 bg-background-secondary">
+			<Alert
+				design="inline-simple"
+				variant="neutral"
+				title="Title"
+				content="Alert message will be here.."
+				onClose={ fn() }
+				action={ {
+					label: 'Action',
+					onClick: () => {},
+					type: 'link',
+				} }
+			/>
+			<Alert
+				design="inline-simple"
+				variant="info"
+				title="Title"
+				content="Alert message will be here.."
+				onClose={ fn() }
+				action={ {
+					label: 'Action',
+					onClick: () => {},
+					type: 'link',
+				} }
+			/>
+			<Alert
+				design="inline-simple"
+				variant="success"
+				title="Title"
+				content="Alert message will be here.."
+				onClose={ fn() }
+				action={ {
+					label: 'Action',
+					onClick: () => {},
+					type: 'link',
+				} }
+			/>
+			<Alert
+				design="inline-simple"
+				variant="warning"
+				title="Title"
+				content="Alert message will be here.."
+				onClose={ fn() }
+				action={ {
+					label: 'Action',
+					onClick: () => {},
+					type: 'link',
+				} }
+			/>
+			<Alert
+				design="inline-simple"
+				variant="danger"
+				title="Title"
+				content="Alert message will be here.."
+				onClose={ fn() }
+				action={ {
+					label: 'Action',
+					onClick: () => {},
+					type: 'link',
+				} }
+			/>
+		</div>
+	),
+};
