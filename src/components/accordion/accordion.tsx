@@ -310,7 +310,9 @@ export const AccordionContent = ( {
 			aria-labelledby={ triggerId }
 			aria-hidden={ ! isOpen }
 		>
-			<div className={ cn( contentPaddingClasses ) }>{ children }</div>
+			<div className={ cn( 'flex flex-col gap-3', contentPaddingClasses ) }>
+				{ children }
+			</div>
 		</motion.div>
 	);
 };
