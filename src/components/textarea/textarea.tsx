@@ -127,7 +127,7 @@ export const TextAreaComponent = (
 		maxHeight: toCssSize( maxHeight ),
 		...( autoResize && {
 			resize: 'none',
-			overflow: maxHeight != null ? 'auto' : 'hidden',
+			overflow: maxHeight !== null ? 'auto' : 'hidden',
 		} ),
 	};
 

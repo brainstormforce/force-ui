@@ -79,7 +79,8 @@ AutoResize.args = {
 	autoResize: true,
 	minHeight: 80,
 	maxHeight: 200,
-	defaultValue: 'This textarea grows as you type. Try adding more lines of text to see the auto-resize in action.',
+	defaultValue:
+		'This textarea grows as you type. Try adding more lines of text to see the auto-resize in action.',
 };
 
 // Min/Max Height (no auto-resize) Example
@@ -91,5 +92,6 @@ WithMinMaxHeight.args = {
 	autoResize: false,
 	minHeight: 120,
 	maxHeight: 240,
-	defaultValue: 'Fixed height range — drag the corner grip to resize between minHeight and maxHeight.',
+	defaultValue:
+		'Fixed height range — drag the corner grip to resize between minHeight and maxHeight.',
 };
