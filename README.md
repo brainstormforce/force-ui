@@ -307,7 +307,7 @@ export default function Example() {
 Force UI provides an MCP server that gives AI assistants accurate component usage context correct props, patterns, and examples. So you get reliable implementations without guesswork.
 
 ```bash
-npx mcp-add --type http --url "https://brainstormforce.github.io/force-ui/mcp" --scope project # use `global` instead of `project` for making it accessible globally
+npx mcp-add --type http --url "https://forceui.brainstormforce.com/mcp" --scope project # use `global` instead of `project` for making it accessible globally
 ```
 
 When prompted, use the following configuration:
