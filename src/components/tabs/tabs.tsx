@@ -347,20 +347,21 @@ export const Tab = forwardRef<Ref, TabProps>(
 			>
 				{ activeItem === slug && variant === 'underline' && (
 					<motion.span
+						key="underline"
 						layoutId="underline"
 						layoutDependency={ activeItem }
 						className="absolute right-0 left-0 -bottom-px h-px bg-border-interactive"
 					/>
 				) }
-				<span className={ iconParentClasses }>
+				<span key="content" className={ iconParentClasses }>
 					{ iconPosition === 'left' && icon && (
-						<span className="mr-1 contents center-center transition duration-150">
+						<span key="icon-left" className="mr-1 contents center-center transition duration-150">
 							{ icon }
 						</span>
 					) }
 					{ text }
 					{ iconPosition === 'right' && icon && (
-						<span className="ml-1 contents center-center transition duration-150">
+						<span key="icon-right" className="ml-1 contents center-center transition duration-150">
 							{ icon }
 						</span>
 					) }
