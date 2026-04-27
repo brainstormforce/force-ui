@@ -33,7 +33,7 @@ jobs:
 
             - name: Release
               if: ${{ env.TAG_CREATED == 'true' }}
-              uses: softprops/action-gh-release@v2
+              uses: softprops/action-gh-release@v3
               with:
                   tag_name: ${{ env.BRAINSTORM_FORCE_RELEASE }}
                   body: ''
