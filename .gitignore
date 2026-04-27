@@ -17,3 +17,6 @@ tsconfig.node.tsbuildinfo
 *.app.tsbuildinfo
 *.node.tsbuildinfo
 tsconfig.app.tsbuildinfo
+.agents/skills
+.kiro
+.continue
