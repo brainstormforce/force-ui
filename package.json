@@ -116,7 +116,7 @@
         "gulp-replace": "^1.1.4",
         "inquirer": "^12.4.1",
         "postcss": "^8.4.39",
-        "prettier": "^3.2.5",
+        "prettier": "^3.8.3",
         "rollup-preserve-directives": "^1.1.2",
         "storybook": "^8.3.5",
         "storybook-addon-paddings": "^6.0.2",
