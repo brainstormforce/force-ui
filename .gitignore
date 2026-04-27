@@ -1,4 +1,5 @@
 node_modules
+.claude/settings.local.json
 dist/*
 .DS_Store
 .cursor

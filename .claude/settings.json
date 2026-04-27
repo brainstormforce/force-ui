@@ -1,0 +1,25 @@
+{
+  "attribution": {
+    "commit": "",
+    "pr": ""
+  },
+  "permissions": {
+    "allow": [
+      "Bash(npm run *)",
+      "Bash(npm install *)",
+      "Bash(npm view *)",
+      "Bash(npx tsc *)",
+      "Bash(npx eslint *)",
+      "Bash(npx stylelint *)",
+      "Bash(npx prettier *)",
+      "Bash(git status)",
+      "Bash(grep *)",
+      "Bash(find * -name *)",
+      "Bash(ls *)"
+    ]
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "bash \"/Users/jaieds/.claude/plugins/cache/caveman/caveman/63e797cd753b/hooks/caveman-statusline.sh\""
+  }
+}
