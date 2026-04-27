@@ -44,6 +44,35 @@ The `Select` component is a versatile, customizable select component built with 
 - **Default:** `false`
 - **Description:** If true, it will show a search box.
 
+### `inlineSearch`
+- **Type:** `boolean`
+- **Default:** `false`
+- **Description:** If true, renders the search input inside the trigger itself instead of inside the dropdown. Selected items render as badges (multi) or as the input value (single). Mutually exclusive with `combobox`; when both are passed, `inlineSearch` wins.
+
+#### Inline search — single
+```jsx
+<Select inlineSearch onChange={(v) => v} searchPlaceholder="Search colors...">
+  <Select.Button label="Color" render={(s) => s.name} />
+  <Select.Portal>
+    <Select.Options>
+      {options.map((o) => <Select.Option key={o.id} value={o}>{o.name}</Select.Option>)}
+    </Select.Options>
+  </Select.Portal>
+</Select>
+```
+
+#### Inline search — multi
+```jsx
+<Select inlineSearch multiple onChange={(v) => v} searchPlaceholder="Search colors...">
+  <Select.Button label="Colors" render={(s) => s.name} />
+  <Select.Portal>
+    <Select.Options>
+      {options.map((o) => <Select.Option key={o.id} value={o}>{o.name}</Select.Option>)}
+    </Select.Options>
+  </Select.Portal>
+</Select>
+```
+
 ### `size`
 - **Type:** `string`
 - **Default:** `"md"`

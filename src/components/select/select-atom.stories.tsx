@@ -344,6 +344,155 @@ SelectWithSearchWithoutPortal.args = {
 	disabled: false,
 };
 
+export const InlineSearchWithCombobox: Story = ( { size, disabled } ) => (
+	<div style={ { width: '300px' } }>
+		<Select
+			size={ size }
+			multiple={ false }
+			combobox
+			inlineSearch
+			disabled={ disabled }
+			onChange={ ( value ) => value }
+			searchPlaceholder="Search colors..."
+		>
+			<Select.Button
+				label="Select Color"
+				placeholder="Select an option"
+				render={ ( selected ) =>
+					( selected as Record<string, string> )?.name
+				}
+			/>
+			<Select.Portal>
+				<Select.Options>
+					{ options.map( ( option ) => (
+						<Select.Option key={ option.id } value={ option }>
+							{ option.name }
+						</Select.Option>
+					) ) }
+				</Select.Options>
+			</Select.Portal>
+		</Select>
+	</div>
+);
+InlineSearchWithCombobox.args = {
+	size: 'md',
+	disabled: false,
+};
+InlineSearchWithCombobox.parameters = {
+	docs: {
+		description: {
+			story: 'When both `combobox` and `inlineSearch` are passed, `inlineSearch` wins — the search input appears inside the trigger, not the dropdown.',
+		},
+	},
+};
+
+export const InlineSearchSingle: Story = ( { size, disabled } ) => (
+	<div style={ { width: '300px' } }>
+		<Select
+			size={ size }
+			multiple={ false }
+			inlineSearch
+			disabled={ disabled }
+			onChange={ ( value ) => value }
+			searchPlaceholder="Search colors..."
+		>
+			<Select.Button
+				label="Select Color"
+				placeholder="Select an option"
+				render={ ( selected ) =>
+					( selected as Record<string, string> )?.name
+				}
+			/>
+			<Select.Portal>
+				<Select.Options>
+					{ options.map( ( option ) => (
+						<Select.Option key={ option.id } value={ option }>
+							{ option.name }
+						</Select.Option>
+					) ) }
+				</Select.Options>
+			</Select.Portal>
+		</Select>
+	</div>
+);
+InlineSearchSingle.args = {
+	size: 'md',
+	disabled: false,
+};
+
+export const InlineSearchMulti: Story = ( { size, disabled } ) => (
+	<div style={ { width: '360px' } }>
+		<Select
+			size={ size }
+			multiple
+			inlineSearch
+			disabled={ disabled }
+			onChange={ ( value ) => value }
+			searchPlaceholder="Search colors..."
+		>
+			<Select.Button
+				label="Select Colors"
+				placeholder="Select options"
+				render={ ( selected ) =>
+					( selected as Record<string, string> )?.name
+				}
+			/>
+			<Select.Portal>
+				<Select.Options>
+					{ options.map( ( option ) => (
+						<Select.Option key={ option.id } value={ option }>
+							{ option.name }
+						</Select.Option>
+					) ) }
+				</Select.Options>
+			</Select.Portal>
+		</Select>
+	</div>
+);
+InlineSearchMulti.args = {
+	size: 'md',
+	disabled: false,
+};
+
+InlineSearchMulti.play = async ( { canvasElement } ) => {
+	const canvas = within( canvasElement );
+
+	// Open dropdown by clicking the trigger wrapper
+	const triggerWrapper = await canvas.findByRole( 'combobox' );
+	await userEvent.click( triggerWrapper );
+
+	// Type a query — 'r' matches Red and Orange
+	const input = await canvas.findByPlaceholderText( 'Search colors...' );
+	await userEvent.type( input, 'r' );
+
+	const listbox = await screen.findByRole( 'listbox' );
+	expect( listbox ).toHaveTextContent( 'Red' );
+	expect( listbox ).toHaveTextContent( 'Orange' );
+	expect( listbox ).not.toHaveTextContent( 'Cyan' );
+
+	// Clear and select two options
+	await userEvent.clear( input );
+	const allOptions = await screen.findAllByRole( 'option' );
+	await userEvent.click( allOptions[ 0 ] ); // Red
+
+	// Re-open and select Orange
+	await userEvent.click( triggerWrapper );
+	const allOptions2 = await screen.findAllByRole( 'option' );
+	await userEvent.click( allOptions2[ 1 ] ); // Orange
+
+	// Two badges should be visible inside trigger
+	const redBadge = await canvas.findByText( 'Red' );
+	const orangeBadge = await canvas.findByText( 'Orange' );
+	expect( redBadge ).toBeTruthy();
+	expect( orangeBadge ).toBeTruthy();
+
+	// Backspace on empty input removes last badge (Orange)
+	await userEvent.click( input );
+	await userEvent.keyboard( '{Backspace}' );
+	expect( canvas.queryByText( 'Orange' ) ).toBeNull();
+	expect( canvas.queryByText( 'Red' ) ).not.toBeNull();
+};
+
 const GroupedSelectTemplate: Story = ( {
 	size,
 	multiple,

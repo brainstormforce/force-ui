@@ -57,6 +57,8 @@ export type SelectProps = {
 	children?: ReactNode;
 	/** Combobox mode. */
 	combobox?: boolean;
+	/** Inline search mode — renders the search input inside the trigger instead of the dropdown. Mutually exclusive with `combobox`; `inlineSearch` wins if both are passed. Default `false`. */
+	inlineSearch?: boolean;
 	/** Disables the Select Component. */
 	disabled?: boolean;
 	/** Multi select mode. */
@@ -147,6 +149,8 @@ export type SelectContextValue = {
 	setSelected: ( selected: SelectOptionValue | SelectOptionValue[] ) => void;
 	handleSelect: OnClick;
 	combobox: boolean;
+	inlineSearch: boolean;
+	optionValuesRef: React.MutableRefObject<SelectOptionValue[]>;
 	sizeValue: SelectSizes;
 	multiple: boolean;
 	isTypingRef: React.MutableRefObject<boolean>;

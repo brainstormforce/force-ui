@@ -64,228 +64,425 @@ const SelectContext = createContext<SelectContextValue>(
 );
 const useSelectContext = () => useContext( SelectContext );
 
-export const SelectButton = forwardRef<HTMLButtonElement, SelectButtonProps>( ( {
-	children,
-	icon = null, // Icon to show in the select button.
-	placeholder = 'Select an option', // Placeholder text.
-	optionIcon = null, // Icon to show in the selected option.
-	render,
-	label, // Label for the select component.
-	className,
-	...props
-}: SelectButtonProps, ref ) => {
-	const {
-		sizeValue,
-		getReferenceProps,
-		getValues,
-		selectId,
-		refs,
-		isOpen,
-		multiple,
-		combobox,
-		setSelected,
-		onChange,
-		isControlled,
-		disabled,
-		by,
-	} = useSelectContext();
+export const SelectButton = forwardRef<HTMLElement, SelectButtonProps>(
+	(
+		{
+			children,
+			icon = null, // Icon to show in the select button.
+			placeholder = 'Select an option', // Placeholder text.
+			optionIcon = null, // Icon to show in the selected option.
+			render,
+			label, // Label for the select component.
+			className,
+			...props
+		}: SelectButtonProps,
+		ref
+	) => {
+		const {
+			sizeValue,
+			getReferenceProps,
+			getValues,
+			selectId,
+			refs,
+			isOpen,
+			multiple,
+			combobox,
+			inlineSearch,
+			setSelected,
+			onChange,
+			isControlled,
+			disabled,
+			by,
+			searchKeyword,
+			setSearchKeyword,
+			searchPlaceholder,
+			context,
+			activeIndex,
+			optionValuesRef,
+			handleSelect,
+		} = useSelectContext();
 
-	const badgeSize = {
-		sm: 'xs',
-		md: 'sm',
-		lg: 'md',
-	}?.[ sizeValue as SelectSizes ];
+		const badgeSize = {
+			sm: 'xs',
+			md: 'sm',
+			lg: 'md',
+		}?.[ sizeValue as SelectSizes ];
 
-	// Get icon based on the Select component type and user provided icon.
-	const getIcon = useCallback( () => {
-		if ( icon ) {
-			return icon;
-		}
+		const inputRef = useRef<HTMLInputElement>( null );
+		const [ hasTyped, setHasTyped ] = useState( false );
+		useEffect( () => {
+			if ( ! isOpen ) {
+				setHasTyped( false );
+			}
+		}, [ isOpen ] );
 
-		const iconClassNames =
-			'text-field-placeholder ' + disabledClassNames.icon;
+		// For inlineSearch single mode: derive string label of the selected value for input display.
+		const singleLabel = useMemo( () => {
+			if ( ! inlineSearch || multiple ) {
+				return '';
+			}
+			const val = getValues();
+			if ( ! val ) {
+				return '';
+			}
+			if ( typeof render === 'function' ) {
+				const rendered = render( val as SelectOptionValue );
+				if ( typeof rendered === 'string' ) {
+					return rendered;
+				}
+			}
+			if ( typeof val === 'string' || typeof val === 'number' ) {
+				return String( val );
+			}
+			const nameKey = ( val as Record<string, unknown> ).name;
+			return typeof nameKey === 'string' ? nameKey : '';
+		}, [ inlineSearch, multiple, getValues, render ] );
 
-		return combobox ? (
-			<ChevronsUpDown className={ iconClassNames } />
-		) : (
-			<ChevronDown className={ iconClassNames } />
-		);
-	}, [ icon ] );
+		// Get icon based on the Select component type and user provided icon.
+		const getIcon = useCallback( () => {
+			if ( icon ) {
+				return icon;
+			}
 
-	const renderSelected = useCallback( () => {
-		const selectedValue = getValues();
+			const iconClassNames =
+				'text-field-placeholder ' + disabledClassNames.icon;
 
-		if ( ! selectedValue ) {
-			return null;
-		}
+			return combobox ? (
+				<ChevronsUpDown className={ iconClassNames } />
+			) : (
+				<ChevronDown className={ iconClassNames } />
+			);
+		}, [ icon ] );
 
-		if ( multiple ) {
-			return ( selectedValue as SelectOptionValue[] ).map(
-				( valueItem: SelectOptionValue, index: number ) => (
-					<Badge
-						className="cursor-default"
-						icon={ optionIcon }
-						type="rounded"
-						key={ index }
-						size={ badgeSize as SelectSizes }
-						onMouseDown={ handleOnCloseItem( valueItem ) }
-						label={
-							typeof render === 'function'
-								? render( valueItem as SelectOptionValue )
-								: valueItem.toString()
+		const renderSelected = useCallback( () => {
+			const selectedValue = getValues();
+
+			if ( ! selectedValue ) {
+				return null;
+			}
+
+			if ( multiple ) {
+				return ( selectedValue as SelectOptionValue[] ).map(
+					( valueItem: SelectOptionValue, index: number ) => (
+						<Badge
+							className="cursor-default"
+							icon={ optionIcon }
+							type="rounded"
+							key={ index }
+							size={ badgeSize as SelectSizes }
+							onMouseDown={ handleOnCloseItem( valueItem ) }
+							label={
+								typeof render === 'function'
+									? render( valueItem as SelectOptionValue )
+									: valueItem.toString()
+							}
+							closable={ true }
+							disabled={ disabled }
+						/>
+					)
+				);
+			}
+
+			let renderValue: ReactNode =
+				typeof selectedValue === 'string' ? selectedValue : '';
+
+			if ( typeof render === 'function' ) {
+				renderValue = render( selectedValue as SelectOptionValue );
+			}
+
+			if (
+				typeof children === 'function' &&
+				typeof render !== 'function'
+			) {
+				const childProps = {
+					value: selectedValue as SelectOptionValue,
+					...( multiple
+						? {
+							onClose: handleOnCloseItem(
+									selectedValue as SelectOptionValue
+							),
 						}
-						closable={ true }
-						disabled={ disabled }
-					/>
-				)
+						: {} ),
+				};
+				renderValue = children( childProps );
+			}
+
+			if (
+				( isValidElement( children ) || typeof children === 'string' ) &&
+				typeof render !== 'function'
+			) {
+				renderValue = children;
+			}
+
+			return (
+				<span
+					className={ cn(
+						'truncate',
+						sizeClassNames[ sizeValue as SelectSizes ]
+							.displaySelected,
+						disabledClassNames.text
+					) }
+				>
+					{ renderValue as React.ReactNode }
+				</span>
+			);
+		}, [ getValues, disabled ] );
+
+		const handleOnCloseItem =
+			( value: SelectOptionValue ) =>
+				( event?: React.MouseEvent<HTMLElement> ) => {
+					event?.preventDefault();
+					event?.stopPropagation();
+
+					const selectedValues = [
+						...( ( getValues() as SelectOptionValue[] ) ?? [] ),
+					];
+					const selectedIndex = selectedValues.findIndex( ( val ) => {
+						if (
+							val !== null &&
+						value !== null &&
+						typeof val === 'object'
+						) {
+							return (
+								( val as Record<string, unknown> )[ by ] ===
+							( value as Record<string, unknown> )[ by ]
+							);
+						}
+						return val === value;
+					} );
+
+					if ( selectedIndex === -1 ) {
+						return;
+					}
+
+					selectedValues.splice( selectedIndex, 1 );
+
+					if ( ! isControlled ) {
+						setSelected( selectedValues );
+					}
+					if ( typeof onChange === 'function' ) {
+						onChange( selectedValues );
+					}
+				};
+
+		if ( inlineSearch ) {
+			let inputValue = '';
+			if ( ! multiple && getValues() ) {
+				// Single with value: show label until user types, then show query.
+				inputValue = isOpen && hasTyped ? searchKeyword : singleLabel;
+			} else if ( isOpen ) {
+				inputValue = searchKeyword;
+			}
+
+			const showPlaceholder = multiple
+				? ! ( getValues() as SelectOptionValue[] )?.length
+				: ! getValues() && ! searchKeyword;
+
+			return (
+				<div className="w-full flex flex-col items-start gap-1.5 [&_*]:box-border box-border">
+					{ !! label && (
+						<label
+							className={ cn(
+								sizeClassNames[ sizeValue as SelectSizes ]?.label,
+								'text-field-label'
+							) }
+							htmlFor={ selectId }
+						>
+							{ label }
+						</label>
+					) }
+					{ /* Visual chrome wrapper — POSITION reference only, not the interactive reference */ }
+					{ /* eslint-disable-next-line jsx-a11y/no-static-element-interactions */ }
+					<div
+						ref={ refs.setPositionReference }
+						className={ cn(
+							'flex flex-wrap items-center justify-between w-full box-border transition-[outline,background-color,color,box-shadow] duration-200 bg-white cursor-text',
+							'outline outline-1 outline-field-border border-none',
+							'focus-within:ring-2 focus-within:ring-offset-2 focus-within:outline-focus-border focus-within:ring-focus',
+							'[&:hover:not(:focus-within):not(:has(:disabled))]:outline-border-strong',
+							sizeClassNames[ sizeValue as SelectSizes ]
+								.selectButton,
+							multiple &&
+								sizeClassNames[ sizeValue as SelectSizes ]
+									.multiSelect,
+							disabledClassNames.selectButton,
+							className
+						) }
+						onMouseDown={ ( e: React.MouseEvent ) => {
+							// Click on chrome (badges/padding/icon) → focus input.
+							if ( e.target !== inputRef.current ) {
+								e.preventDefault();
+								inputRef.current?.focus();
+							}
+						} }
+					>
+						{ /* Badges + inline input */ }
+						<div className="flex-1 flex flex-wrap items-center gap-1.5 overflow-hidden">
+							{ multiple && renderSelected() }
+							{ /* Input IS the floating-ui interactive reference.
+							     useRole adds role/aria-expanded/aria-controls/aria-haspopup.
+							     useListNavigation (virtual) adds aria-activedescendant + arrow key nav.
+							     useDismiss adds Escape handling. */ }
+							<input
+								ref={ mergeRefs( refs.setReference, inputRef ) }
+								id={ selectId }
+								type="text"
+								autoComplete="off"
+								aria-autocomplete="list"
+								disabled={ disabled }
+								placeholder={
+									showPlaceholder ? searchPlaceholder : ''
+								}
+								value={ inputValue }
+								className={ cn(
+									'flex-1 min-w-[4rem] bg-transparent border-0 outline-none focus:ring-0 p-0',
+									'placeholder:text-field-placeholder',
+									sizeClassNames[ sizeValue as SelectSizes ]
+										.displaySelected,
+									disabledClassNames.text
+								) }
+								{ ...getReferenceProps( {
+									onFocus: () => {
+										if ( ! isOpen ) {
+											context.onOpenChange( true );
+										}
+									},
+									onClick: () => {
+										if ( ! isOpen ) {
+											context.onOpenChange( true );
+										}
+									},
+									onChange: (
+										e: React.ChangeEvent<HTMLInputElement>
+									) => {
+										setHasTyped( true );
+										setSearchKeyword( e.target.value );
+										if ( ! isOpen ) {
+											context.onOpenChange( true );
+										}
+									},
+									onKeyDown: ( e: React.KeyboardEvent ) => {
+										if (
+											e.key === 'Enter' &&
+											activeIndex !== null &&
+											activeIndex >= 0
+										) {
+											e.preventDefault();
+											const val =
+												optionValuesRef.current[
+													activeIndex
+												];
+											if ( val !== undefined ) {
+												handleSelect( activeIndex, val );
+											}
+											return;
+										}
+										if (
+											e.key === 'Backspace' &&
+											! inputValue &&
+											multiple
+										) {
+											e.preventDefault();
+											const arr =
+												( getValues() as SelectOptionValue[] ) ??
+												[];
+											if ( arr.length ) {
+												handleOnCloseItem(
+													arr[ arr.length - 1 ]
+												)();
+											}
+										}
+									},
+								} ) }
+							/>
+						</div>
+						{ /* Suffix Icon */ }
+						<div
+							className={ cn(
+								'flex items-center [&>svg]:shrink-0',
+								sizeClassNames[ sizeValue as SelectSizes ].icon
+							) }
+						>
+							{ getIcon() }
+						</div>
+					</div>
+				</div>
 			);
 		}
 
-		let renderValue: ReactNode =
-			typeof selectedValue === 'string' ? selectedValue : '';
-
-		if ( typeof render === 'function' ) {
-			renderValue = render( selectedValue as SelectOptionValue );
-		}
-
-		if ( typeof children === 'function' && typeof render !== 'function' ) {
-			const childProps = {
-				value: selectedValue as SelectOptionValue,
-				...( multiple
-					? {
-						onClose: handleOnCloseItem(
-								selectedValue as SelectOptionValue
-						),
-					}
-					: {} ),
-			};
-			renderValue = children( childProps );
-		}
-
-		if (
-			( isValidElement( children ) || typeof children === 'string' ) &&
-			typeof render !== 'function'
-		) {
-			renderValue = children;
-		}
-
 		return (
-			<span
-				className={ cn(
-					'truncate',
-					sizeClassNames[ sizeValue as SelectSizes ].displaySelected,
-					disabledClassNames.text
+			<div className="w-full flex flex-col items-start gap-1.5 [&_*]:box-border box-border">
+				{ !! label && (
+					<label
+						className={ cn(
+							sizeClassNames[ sizeValue as SelectSizes ]?.label,
+							'text-field-label'
+						) }
+						htmlFor={ selectId }
+					>
+						{ label }
+					</label>
 				) }
-			>
-				{ renderValue as React.ReactNode }
-			</span>
+				<button
+					id={ selectId }
+					ref={ mergeRefs( refs.setReference, ref ) }
+					className={ cn(
+						'flex items-center justify-between w-full box-border transition-[outline,background-color,color,box-shadow] duration-200 bg-white',
+						'outline outline-1 outline-field-border border-none cursor-pointer',
+						! isOpen &&
+							'focus:ring-2 focus:ring-offset-2 focus:outline-focus-border focus:ring-focus [&:hover:not(:focus):not(:disabled)]:outline-border-strong',
+						sizeClassNames[ sizeValue as SelectSizes ].selectButton,
+						multiple &&
+							sizeClassNames[ sizeValue as SelectSizes ]
+								.multiSelect,
+						disabledClassNames.selectButton,
+						className
+					) }
+					tabIndex={ 0 }
+					disabled={ disabled }
+					{ ...props }
+					{ ...getReferenceProps() }
+				>
+					{ /* Input and selected item container */ }
+					<div
+						className={ cn(
+							'flex-1 grid items-center justify-start gap-1.5 overflow-hidden',
+							getValues() && 'flex flex-wrap'
+						) }
+					>
+						{ /* Show Selected item/items (Multi-selector) */ }
+						{ renderSelected() }
+
+						{ /* Placeholder */ }
+						{ ( multiple
+							? ! ( getValues() as SelectOptionValue[] )?.length
+							: ! getValues() ) && (
+							<div
+								className={ cn(
+									'[grid-area:1/1/2/3] text-field-input px-1',
+									sizeClassNames[ sizeValue as SelectSizes ]
+										.displaySelected,
+									disabledClassNames.text
+								) }
+							>
+								{ placeholder }
+							</div>
+						) }
+					</div>
+					{ /* Suffix Icon */ }
+					<div
+						className={ cn(
+							'flex items-center [&>svg]:shrink-0',
+							sizeClassNames[ sizeValue as SelectSizes ].icon
+						) }
+					>
+						{ getIcon() }
+					</div>
+				</button>
+			</div>
 		);
-	}, [ getValues, disabled ] );
-
-	const handleOnCloseItem =
-		( value: SelectOptionValue ) =>
-			( event?: React.MouseEvent<HTMLElement> ) => {
-				event?.preventDefault();
-				event?.stopPropagation();
-
-				const selectedValues = [
-					...( ( getValues() as SelectOptionValue[] ) ?? [] ),
-				];
-				const selectedIndex = selectedValues.findIndex( ( val ) => {
-					if ( val !== null && value !== null && typeof val === 'object' ) {
-						return (
-							( val as Record<string, unknown> )[ by ] ===
-						( value as Record<string, unknown> )[ by ]
-						);
-					}
-					return val === value;
-				} );
-
-				if ( selectedIndex === -1 ) {
-					return;
-				}
-
-				selectedValues.splice( selectedIndex, 1 );
-
-				if ( ! isControlled ) {
-					setSelected( selectedValues );
-				}
-				if ( typeof onChange === 'function' ) {
-					onChange( selectedValues );
-				}
-			};
-
-	return (
-		<div className="w-full flex flex-col items-start gap-1.5 [&_*]:box-border box-border">
-			{ !! label && (
-				<label
-					className={ cn(
-						sizeClassNames[ sizeValue as SelectSizes ]?.label,
-						'text-field-label'
-					) }
-					htmlFor={ selectId }
-				>
-					{ label }
-				</label>
-			) }
-			<button
-				id={ selectId }
-				ref={ mergeRefs( refs.setReference, ref ) }
-				className={ cn(
-					'flex items-center justify-between w-full box-border transition-[outline,background-color,color,box-shadow] duration-200 bg-white',
-					'outline outline-1 outline-field-border border-none cursor-pointer',
-					! isOpen &&
-						'focus:ring-2 focus:ring-offset-2 focus:outline-focus-border focus:ring-focus [&:hover:not(:focus):not(:disabled)]:outline-border-strong',
-					sizeClassNames[ sizeValue as SelectSizes ].selectButton,
-					multiple &&
-						sizeClassNames[ sizeValue as SelectSizes ].multiSelect,
-					disabledClassNames.selectButton,
-					className
-				) }
-				tabIndex={ 0 }
-				disabled={ disabled }
-				{ ...props }
-				{ ...getReferenceProps() }
-			>
-				{ /* Input and selected item container */ }
-				<div
-					className={ cn(
-						'flex-1 grid items-center justify-start gap-1.5 overflow-hidden',
-						getValues() && 'flex flex-wrap'
-					) }
-				>
-					{ /* Show Selected item/items (Multi-selector) */ }
-					{ renderSelected() }
-
-					{ /* Placeholder */ }
-					{ ( multiple
-						? ! ( getValues() as SelectOptionValue[] )?.length
-						: ! getValues() ) && (
-						<div
-							className={ cn(
-								'[grid-area:1/1/2/3] text-field-input px-1',
-								sizeClassNames[ sizeValue as SelectSizes ]
-									.displaySelected,
-								disabledClassNames.text
-							) }
-						>
-							{ placeholder }
-						</div>
-					) }
-				</div>
-				{ /* Suffix Icon */ }
-				<div
-					className={ cn(
-						'flex items-center [&>svg]:shrink-0',
-						sizeClassNames[ sizeValue as SelectSizes ].icon
-					) }
-				>
-					{ getIcon() }
-				</div>
-			</button>
-		</div>
-	);
-} );
+	}
+);
 
 export function SelectOptionGroup( {
 	label,
@@ -350,6 +547,7 @@ export function SelectOptions( {
 		context,
 		refs,
 		combobox,
+		inlineSearch,
 		floatingStyles,
 		getFloatingProps,
 		sizeValue,
@@ -366,6 +564,8 @@ export function SelectOptions( {
 		activeIndex,
 		searchFn,
 		debounceDelay,
+		selectId,
+		optionValuesRef,
 	} = useSelectContext();
 
 	const initialSelectedValueIndex = useMemo( () => {
@@ -471,7 +671,8 @@ export function SelectOptions( {
 					} );
 
 					// Show group if either group label matches or any child matches
-					hasVisibleChildren = groupLabelMatches || hasMatchingChildren;
+					hasVisibleChildren =
+						groupLabelMatches || hasMatchingChildren;
 				} else {
 					// No search term, show all groups
 					hasVisibleChildren = true;
@@ -486,6 +687,7 @@ export function SelectOptions( {
 		totalGroups = Math.max( 0, visibleGroups - 1 ); // Subtract 1 since we don't need divider after last group
 		let childIndex = 0;
 		let groupIndex = 0;
+		optionValuesRef.current = [];
 
 		// Process child to render
 		const processChild = ( child: React.ReactNode ): React.ReactNode => {
@@ -514,9 +716,14 @@ export function SelectOptions( {
 
 						// If group label matches, show all children regardless of their content
 						if ( groupLabelMatches ) {
+							const itemIndex = childIndex++;
+							optionValuesRef.current[ itemIndex ] = (
+								groupChild.props as SelectOptionProps
+							).value;
 							const childProps = {
 								...( groupChild.props as SelectOptionProps ),
-								index: childIndex++,
+								index: itemIndex,
+								id: `${ selectId }-option-${ itemIndex }`,
 							};
 
 							return cloneElement( groupChild, childProps );
@@ -525,7 +732,11 @@ export function SelectOptions( {
 						// Otherwise, apply normal filtering to individual options
 						if ( searchKeyword && ! searchFn ) {
 							const textContent = getTextContent(
-								( groupChild.props as { children?: React.ReactNode } ).children
+								(
+									groupChild.props as {
+										children?: React.ReactNode;
+									}
+								).children
 							)?.toLowerCase();
 							const searchTerm = searchKeyword.toLowerCase();
 
@@ -536,9 +747,14 @@ export function SelectOptions( {
 							}
 						}
 
+						const itemIndex = childIndex++;
+						optionValuesRef.current[ itemIndex ] = (
+							groupChild.props as SelectOptionProps
+						).value;
 						const childProps = {
 							...( groupChild.props as SelectOptionProps ),
-							index: childIndex++,
+							index: itemIndex,
+							id: `${ selectId }-option-${ itemIndex }`,
 						};
 
 						return cloneElement( groupChild, childProps );
@@ -546,7 +762,9 @@ export function SelectOptions( {
 				);
 
 				// Only render group if it has visible children
-				const hasChildren = groupChildren?.some( ( c: React.ReactNode ) => c !== null );
+				const hasChildren = groupChildren?.some(
+					( c: React.ReactNode ) => c !== null
+				);
 
 				if ( ! hasChildren ) {
 					return null;
@@ -577,14 +795,25 @@ export function SelectOptions( {
 				}
 			}
 
+			const itemIndex = childIndex++;
+			optionValuesRef.current[ itemIndex ] = child.props.value;
 			return cloneElement( child, {
 				...child.props,
-				index: childIndex++,
+				index: itemIndex,
+				id: `${ selectId }-option-${ itemIndex }`,
 			} );
 		};
 
 		return Children.map( children, processChild );
-	}, [ searchKeyword, value, selected, children, searchFn ] );
+	}, [
+		searchKeyword,
+		value,
+		selected,
+		children,
+		searchFn,
+		selectId,
+		optionValuesRef,
+	] );
 	const childrenCount = Children.count( renderChildren );
 
 	// Update the content list reference.
@@ -657,110 +886,111 @@ export function SelectOptions( {
 		initiateSearch();
 	}, [ initiateSearch ] );
 
+	const dropdownContent = (
+		<div
+			ref={ refs.setFloating }
+			className={ cn(
+				'box-border [&_*]:box-border w-full bg-white outline-none shadow-lg outline outline-1 outline-border-subtle',
+				combobox &&
+					! inlineSearch &&
+					'grid grid-cols-1 grid-rows-[auto_1fr] divide-y divide-x-0 divide-solid divide-border-subtle',
+				sizeClassNames[ sizeValue as SelectSizes ].dropdown,
+				! ( combobox && ! inlineSearch ) && 'h-auto',
+				! ( combobox && ! inlineSearch )
+					? 'overflow-y-auto overflow-x-hidden'
+					: 'overflow-hidden',
+				className
+			) }
+			style={ {
+				...floatingStyles,
+				zIndex: 1,
+			} }
+			{ ...getFloatingProps() }
+		>
+			{ /* Searchbox — combobox only; inlineSearch uses trigger input */ }
+			{ combobox && ! inlineSearch && (
+				<div
+					className={ cn(
+						sizeClassNames[ sizeValue as SelectSizes ]
+							.searchbarWrapper
+					) }
+				>
+					{ searching ? (
+						<Loader
+							className={
+								sizeClassNames[ sizeValue as SelectSizes ]
+									.searchbarIcon
+							}
+						/>
+					) : (
+						<Search
+							className={ cn(
+								'text-icon-secondary shrink-0',
+								sizeClassNames[ sizeValue as SelectSizes ]
+									.searchbarIcon
+							) }
+						/>
+					) }
+					<input
+						className={ cn(
+							'px-1 w-full placeholder:text-field-placeholder border-0 focus:outline-none focus:shadow-none',
+							sizeClassNames[ sizeValue as SelectSizes ].searchbar
+						) }
+						type="search"
+						name="keyword"
+						aria-label="Search options"
+						placeholder={ searchPlaceholder }
+						onChange={ ( event ) =>
+							setSearchKeyword( event.target.value )
+						}
+						value={ searchKeyword }
+						autoComplete="off"
+					/>
+				</div>
+			) }
+			{ /* Dropdown Items Wrapper */ }
+			<div
+				className={ cn(
+					'overflow-y-auto overflow-x-hidden',
+					! ( combobox && ! inlineSearch ) && 'w-full h-full',
+					sizeClassNames[ sizeValue as SelectSizes ]
+						.dropdownItemsWrapper
+				) }
+			>
+				{ /* Dropdown Items */ }
+				{ !! childrenCount && renderChildren }
+
+				{ /* No items found */ }
+				{ ! childrenCount && (
+					<div
+						className={ cn(
+							'p-2 text-center font-medium text-field-placeholder',
+							selectItemClassNames[ sizeValue as SelectSizes ]
+						) }
+					>
+						No items found
+					</div>
+				) }
+			</div>
+		</div>
+	);
+
 	return (
 		<>
 			{ /* Dropdown */ }
 			{ isOpen && (
 				<>
-					<FloatingFocusManager
-						context={ context }
-						modal={ false }
-						visuallyHiddenDismiss
-					>
-						{ /* Dropdown Wrapper */ }
-						<div
-							ref={ refs.setFloating }
-							className={ cn(
-								'box-border [&_*]:box-border w-full bg-white outline-none shadow-lg outline outline-1 outline-border-subtle',
-								combobox &&
-									'grid grid-cols-1 grid-rows-[auto_1fr] divide-y divide-x-0 divide-solid divide-border-subtle',
-								sizeClassNames[ sizeValue as SelectSizes ]
-									.dropdown,
-								! combobox && 'h-auto',
-								! combobox
-									? 'overflow-y-auto overflow-x-hidden'
-									: 'overflow-hidden',
-								className
-							) }
-							style={ {
-								...floatingStyles,
-								zIndex: 1,
-							} }
-							{ ...getFloatingProps() }
+					{ inlineSearch ? (
+						dropdownContent
+					) : (
+						<FloatingFocusManager
+							context={ context }
+							modal={ false }
+							visuallyHiddenDismiss
 						>
-							{ /* Searchbox */ }
-							{ combobox && (
-								<div
-									className={ cn(
-										sizeClassNames[ sizeValue as SelectSizes ]
-											.searchbarWrapper
-									) }
-								>
-									{ searching ? (
-										<Loader
-											className={
-												sizeClassNames[
-													sizeValue as SelectSizes
-												].searchbarIcon
-											}
-										/>
-									) : (
-										<Search
-											className={ cn(
-												'text-icon-secondary shrink-0',
-												sizeClassNames[
-													sizeValue as SelectSizes
-												].searchbarIcon
-											) }
-										/>
-									) }
-									<input
-										className={ cn(
-											'px-1 w-full placeholder:text-field-placeholder border-0 focus:outline-none focus:shadow-none',
-											sizeClassNames[
-												sizeValue as SelectSizes
-											].searchbar
-										) }
-										type="search"
-										name="keyword"
-										aria-label="Search options"
-										placeholder={ searchPlaceholder }
-										onChange={ ( event ) =>
-											setSearchKeyword( event.target.value )
-										}
-										value={ searchKeyword }
-										autoComplete="off"
-									/>
-								</div>
-							) }
-							{ /* Dropdown Items Wrapper */ }
-							<div
-								className={ cn(
-									'overflow-y-auto overflow-x-hidden',
-									! combobox && 'w-full h-full',
-									sizeClassNames[ sizeValue as SelectSizes ]
-										.dropdownItemsWrapper
-								) }
-							>
-								{ /* Dropdown Items */ }
-								{ !! childrenCount && renderChildren }
-
-								{ /* No items found */ }
-								{ ! childrenCount && (
-									<div
-										className={ cn(
-											'p-2 text-center font-medium text-field-placeholder',
-											selectItemClassNames[
-												sizeValue as SelectSizes
-											]
-										) }
-									>
-										No items found
-									</div>
-								) }
-							</div>
-						</div>
-					</FloatingFocusManager>
+							{ dropdownContent }
+						</FloatingFocusManager>
+					) }
 				</>
 			) }
 		</>
@@ -793,8 +1023,13 @@ export function SelectItem( {
 		getValues,
 		by,
 		multiple,
+		inlineSearch,
 	} = useSelectContext();
-	const { index: indx } = props;
+	const { index: indx, id: optionId } = props as {
+		index: number;
+		id?: string;
+		[key: string]: unknown;
+	};
 	const initialIndxRef = useRef( indx );
 
 	const selectedIconClassName = {
@@ -834,8 +1069,14 @@ export function SelectItem( {
 		return indx === selectedIndex;
 	}, [ multipleChecked, selectedIndex, selected ] );
 
+	let itemTabIndex: number | undefined;
+	if ( ! inlineSearch ) {
+		itemTabIndex = indx === activeIndex ? 0 : -1;
+	}
+
 	return (
 		<div
+			id={ optionId }
 			className={ cn(
 				'w-full flex items-center justify-between text-text-primary hover:bg-button-tertiary-hover rounded-md transition-all duration-150 cursor-pointer focus:outline-none focus-within:outline-none outline-none',
 				selectItemClassNames[ sizeValue as SelectSizes ],
@@ -846,7 +1087,7 @@ export function SelectItem( {
 				updateListRef( indx as number, node as HTMLElement );
 			} }
 			role="option"
-			tabIndex={ indx === activeIndex ? 0 : -1 }
+			tabIndex={ itemTabIndex }
 			aria-selected={ isChecked && indx === activeIndex }
 			{ ...getItemProps( {
 				// Handle pointer select.
@@ -886,6 +1127,7 @@ const SelectComponent = ( {
 	children,
 	multiple = false, // If true, it will allow multiple selection.
 	combobox = false, // If true, it will show a search box.
+	inlineSearch = false, // If true, renders search input inside the trigger.
 	disabled = false, // If true, it will disable the select component.
 	searchPlaceholder = 'Search...', // Placeholder text for search box.
 	searchFn, // Function to handle the search.
@@ -893,6 +1135,13 @@ const SelectComponent = ( {
 }: SelectProps ) => {
 	const selectId = useMemo( () => id || `select-${ nanoid() }`, [ id ] );
 	const isControlled = useMemo( () => typeof value !== 'undefined', [ value ] );
+
+	if ( process.env.NODE_ENV !== 'production' && combobox && inlineSearch ) {
+		// eslint-disable-next-line no-console
+		console.warn(
+			'force-ui Select: `inlineSearch` and `combobox` are mutually exclusive. `inlineSearch` will take precedence.'
+		);
+	}
 	const [ selected, setSelected ] = useState<
 		SelectOptionValue | SelectOptionValue[]
 	>( defaultValue! );
@@ -911,9 +1160,9 @@ const SelectComponent = ( {
 	const [ selectedIndex, setSelectedIndex ] = useState<number | null>( null );
 
 	const dropdownMaxHeightBySize = {
-		sm: combobox ? 256 : 172,
-		md: combobox ? 256 : 216,
-		lg: combobox ? 256 : 216,
+		sm: combobox && ! inlineSearch ? 256 : 172,
+		md: combobox && ! inlineSearch ? 256 : 216,
+		lg: combobox && ! inlineSearch ? 256 : 216,
 	};
 
 	const { refs, floatingStyles, context } = useFloating( {
@@ -940,8 +1189,19 @@ const SelectComponent = ( {
 	const listRef = useRef<Array<HTMLElement | null>>( [] );
 	const listContentRef = useRef( [] );
 	const isTypingRef = useRef( false );
+	const optionValuesRef = useRef<SelectOptionValue[]>( [] );
 
-	const click = useClick( context, { event: 'mousedown' } );
+	// Clear search when dropdown closes (Escape, outside-click, or selection).
+	useEffect( () => {
+		if ( ! isOpen ) {
+			setSearchKeyword( '' );
+		}
+	}, [ isOpen ] );
+
+	const click = useClick( context, {
+		event: 'mousedown',
+		enabled: ! inlineSearch,
+	} );
 	const dismiss = useDismiss( context );
 	const role = useRole( context, { role: 'listbox' } );
 	const listNav = useListNavigation( context, {
@@ -949,8 +1209,9 @@ const SelectComponent = ( {
 		activeIndex,
 		selectedIndex,
 		onNavigate: setActiveIndex,
-		// This is a large list, allow looping.
 		loop: true,
+		// virtual: input is the reference, items use aria-activedescendant rather than DOM focus.
+		virtual: inlineSearch,
 	} );
 	const typeahead = useTypeahead( context, {
 		listRef: listContentRef,
@@ -968,7 +1229,7 @@ const SelectComponent = ( {
 			role,
 			listNav,
 			click,
-			...( ! combobox ? [ typeahead ] : [] ),
+			...( ! combobox && ! inlineSearch ? [ typeahead ] : [] ),
 		] );
 
 	const handleMultiSelect: OnClick = ( index, newValue ) => {
@@ -998,7 +1259,10 @@ const SelectComponent = ( {
 			setSelected( selectedValues );
 		}
 		setSelectedIndex( index );
-		( refs.reference.current as HTMLElement ).focus();
+		(
+			( refs.domReference.current ??
+				refs.reference.current ) as HTMLElement | null
+		)?.focus();
 		setIsOpen( false );
 		setSearchKeyword( '' );
 		if ( typeof onChange === 'function' ) {
@@ -1014,7 +1278,10 @@ const SelectComponent = ( {
 		if ( ! isControlled ) {
 			setSelected( newValue );
 		}
-		( refs.reference.current as HTMLElement ).focus();
+		(
+			( refs.domReference.current ??
+				refs.reference.current ) as HTMLElement | null
+		)?.focus();
 		setIsOpen( false );
 		setSearchKeyword( '' );
 		if ( typeof onChange === 'function' ) {
@@ -1054,6 +1321,8 @@ const SelectComponent = ( {
 				setSelected,
 				handleSelect,
 				combobox,
+				inlineSearch,
+				optionValuesRef,
 				sizeValue,
 				multiple,
 				onChange,
