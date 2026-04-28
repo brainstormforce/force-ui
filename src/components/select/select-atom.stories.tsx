@@ -71,6 +71,7 @@ const SelectWithoutPortalTemplate: Story = ( {
 	multiple,
 	combobox,
 	disabled,
+	...args
 } ) => (
 	<div className="w-full h-[200px]">
 		<Select
@@ -78,7 +79,7 @@ const SelectWithoutPortalTemplate: Story = ( {
 			multiple={ multiple }
 			combobox={ combobox }
 			disabled={ disabled }
-			onChange={ ( value ) => value }
+			{ ...args }
 		>
 			<Select.Button
 				placeholder={
@@ -385,6 +386,15 @@ InlineSearchWithCombobox.parameters = {
 		},
 	},
 };
+InlineSearchWithCombobox.play = async ( { canvasElement } ) => {
+	const canvas = within( canvasElement );
+	const trigger = await canvas.findByRole( 'combobox' );
+	await userEvent.click( trigger );
+
+	const input = await canvas.findByPlaceholderText( 'Search colors...' );
+	const listbox = await screen.findByRole( 'listbox' );
+	expect( listbox ).not.toContainElement( input );
+};
 
 export const InlineSearchSingle: Story = ( { size, disabled } ) => (
 	<div style={ { width: '300px' } }>
@@ -418,6 +428,24 @@ export const InlineSearchSingle: Story = ( { size, disabled } ) => (
 InlineSearchSingle.args = {
 	size: 'md',
 	disabled: false,
+};
+InlineSearchSingle.play = async ( { canvasElement } ) => {
+	const canvas = within( canvasElement );
+	const trigger = await canvas.findByRole( 'combobox' );
+	await userEvent.click( trigger );
+
+	const input = await canvas.findByPlaceholderText( 'Search colors...' );
+	await userEvent.type( input, 'pi' );
+
+	const listbox = await screen.findByRole( 'listbox' );
+	expect( listbox ).toHaveTextContent( 'Pink' );
+	expect( listbox ).not.toHaveTextContent( 'Red' );
+
+	const pinkOption = await screen.findByRole( 'option', { name: 'Pink' } );
+	await userEvent.click( pinkOption );
+
+	expect( screen.queryByRole( 'listbox' ) ).toBeNull();
+	expect( input ).toHaveValue( 'Pink' );
 };
 
 export const InlineSearchMulti: Story = ( { size, disabled } ) => (
@@ -491,6 +519,31 @@ InlineSearchMulti.play = async ( { canvasElement } ) => {
 	await userEvent.keyboard( '{Backspace}' );
 	expect( canvas.queryByText( 'Orange' ) ).toBeNull();
 	expect( canvas.queryByText( 'Red' ) ).not.toBeNull();
+
+	// Re-open if closed after Backspace
+	if ( ! screen.queryByRole( 'listbox' ) ) {
+		await userEvent.click( triggerWrapper );
+	}
+	await userEvent.clear( input );
+
+	// Case-insensitive filter
+	await userEvent.type( input, 'R' );
+	const listboxR = await screen.findByRole( 'listbox' );
+	expect( listboxR ).toHaveTextContent( 'Red' );
+	expect( listboxR ).toHaveTextContent( 'Orange' );
+
+	// Empty query restores all options
+	await userEvent.clear( input );
+	const listboxAll = await screen.findByRole( 'listbox' );
+	expect( listboxAll ).toHaveTextContent( 'Cyan' );
+
+	// No-results state
+	await userEvent.type( input, 'zzz' );
+	expect( screen.queryAllByRole( 'option' ) ).toHaveLength( 0 );
+
+	// Escape closes the dropdown
+	await userEvent.keyboard( '{Escape}' );
+	expect( screen.queryByRole( 'listbox' ) ).toBeNull();
 };
 
 const GroupedSelectTemplate: Story = ( {
