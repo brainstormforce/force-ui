@@ -1,3 +1,6 @@
+Version 1.7.12 - 28th April, 2026
+- New: Atom - Select: Added `inlineSearch` variant for the Select (combobox) component.
+
 Version 1.7.11 - 8th April, 2026
 - New: Added Storybook MCP compatibility support for smoother integration with MCP-based tooling and workflows.
 - Improvement: Atom - Alert: Added `role="alert"` and improved focus-visible ring on the close button.

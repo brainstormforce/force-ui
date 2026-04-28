@@ -20,3 +20,4 @@ tsconfig.app.tsbuildinfo
 .agents/skills
 .kiro
 .continue
+config.bat
