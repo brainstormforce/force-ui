@@ -114,6 +114,38 @@ interface BarChartProps {
 	 * @see https://recharts.org/en-US/api/Bar#activeBar
 	 */
 	activeBar?: BarProps['activeBar'];
+
+	/**
+	 * Maximum bar width in pixels. Caps the bar size regardless of available
+	 * space. Forwarded to each `<Bar>`.
+	 *
+	 * @see https://recharts.org/en-US/api/Bar#maxBarSize
+	 */
+	maxBarSize?: number;
+
+	/**
+	 * Fixed bar width. Overrides automatic sizing if set. Forwarded to each
+	 * `<Bar>`. Accepts a number (pixels) or a percentage string.
+	 *
+	 * @see https://recharts.org/en-US/api/Bar#barSize
+	 */
+	barSize?: number | string;
+
+	/**
+	 * Gap between bar groups (across data points). Accepts a number (pixels)
+	 * or a percentage string. Forwarded to the underlying `<BarChart>`.
+	 *
+	 * @see https://recharts.org/en-US/api/BarChart#barCategoryGap
+	 */
+	barCategoryGap?: number | string;
+
+	/**
+	 * Gap between bars within the same group (multi-series). Accepts a number
+	 * (pixels) or a percentage string. Forwarded to the underlying `<BarChart>`.
+	 *
+	 * @see https://recharts.org/en-US/api/BarChart#barGap
+	 */
+	barGap?: number | string;
 }
 
 const BarChart = ( {
@@ -143,6 +175,10 @@ const BarChart = ( {
 	yAxisProps,
 	tooltipProps,
 	activeBar,
+	maxBarSize,
+	barSize,
+	barCategoryGap,
+	barGap,
 }: BarChartProps ) => {
 	const defaultColors = [ { fill: '#7DD3FC' }, { fill: '#2563EB' } ];
 
@@ -171,6 +207,8 @@ const BarChart = ( {
 					data={ data }
 					margin={ { left: 14, right: 14 } }
 					layout={ layout }
+					barCategoryGap={ barCategoryGap }
+					barGap={ barGap }
 				>
 					{ showCartesianGrid && <CartesianGrid vertical={ false } /> }
 
@@ -273,6 +311,8 @@ const BarChart = ( {
 								radius={ radius }
 								stackId={ stacked ? 'a' : undefined }
 								activeBar={ activeBar }
+								maxBarSize={ maxBarSize }
+								barSize={ barSize }
 							/>
 						);
 					} ) }
