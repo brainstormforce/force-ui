@@ -20,7 +20,7 @@ import MentionPlugin, {
 import MentionNode from './mention-plugin/mention-node';
 import editorTheme from './editor-theme';
 import EditorPlaceholder from './editor-placeholder';
-import { forwardRef, isValidElement } from 'react';
+import { forwardRef, isValidElement, useMemo, useCallback } from 'react';
 import OverrideEditorStyle from './override-editor-style-plugin';
 import CharacterLimit from './character-limit-plugin';
 import type { EditorState, LexicalEditor } from 'lexical';
@@ -119,33 +119,43 @@ const EditorInput = forwardRef<LexicalEditor, EditorInputProps>(
 		}: EditorInputProps,
 		ref: Ref
 	) => {
-		const initialConfig = {
-			namespace: 'Editor',
-			editorTheme,
-			onError,
-			nodes: [ MentionNode ],
-			editorState: defaultValue ? defaultValue : EMPTY_CONTENT,
-			editable: disabled ? false : true,
-		};
+		// Memoize initial config to prevent re-initialization
+		const initialConfig = useMemo(
+			() => ( {
+				namespace: 'Editor',
+				editorTheme,
+				onError,
+				nodes: [ MentionNode ],
+				editorState: defaultValue ? defaultValue : EMPTY_CONTENT,
+				editable: ! disabled,
+			} ),
+			[ defaultValue, disabled ]
+		);
 
-		const handleOnChange = (
-			editorState: EditorState,
-			editor: LexicalEditor
-		) => {
-			if ( typeof onChange !== 'function' ) {
-				return;
-			}
-			onChange( editorState, editor );
-		};
+		// Memoize onChange handler to prevent unnecessary re-renders
+		const handleOnChange = useCallback(
+			( editorState: EditorState, editor: LexicalEditor ) => {
+				if ( typeof onChange !== 'function' ) {
+					return;
+				}
+				onChange( editorState, editor );
+			},
+			[ onChange ]
+		);
 
-		let menuComponentToUse;
-		let menuItemComponentToUse;
-		if ( isValidElement( menuComponent ) ) {
-			menuComponentToUse = menuComponent;
-		}
-		if ( isValidElement( menuItemComponent ) ) {
-			menuItemComponentToUse = menuItemComponent;
-		}
+		// Memoize menu components to prevent re-renders
+		const menuComponentToUse = useMemo(
+			() => ( isValidElement( menuComponent ) ? menuComponent : undefined ),
+			[ menuComponent ]
+		);
+
+		const menuItemComponentToUse = useMemo(
+			() =>
+				isValidElement( menuItemComponent )
+					? menuItemComponent
+					: undefined,
+			[ menuItemComponent ]
+		);
 
 		return (
 			<div
