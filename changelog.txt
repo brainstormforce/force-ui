@@ -1,3 +1,6 @@
+Version 1.7.12 - 13th April, 2026
+- Improvement: Atom - Textarea: Added `autoResize`, `minHeight`, and `maxHeight` props. When `autoResize` is enabled, the textarea height auto-adjusts to fit its content and stops growing at `maxHeight` (default 160px), at which point it becomes scrollable. `minHeight` and `maxHeight` apply as CSS constraints regardless of `autoResize`.
+
 Version 1.7.11 - 8th April, 2026
 - New: Added Storybook MCP compatibility support for smoother integration with MCP-based tooling and workflows.
 - Improvement: Atom - Alert: Added `role="alert"` and improved focus-visible ring on the close button.
