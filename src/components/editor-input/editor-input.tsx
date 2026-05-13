@@ -360,7 +360,7 @@ const EditorInput = forwardRef<Editor | null, EditorInputProps>(
 					</div>
 
 					{ suggestionState && suggestionItems.length > 0 && (
-						<MenuComponent size={ size } className="w-full">
+						<MenuComponent size={ size }>
 							{ suggestionItems.map( ( item, index ) => (
 								<MenuItemComponent
 									key={ index }
