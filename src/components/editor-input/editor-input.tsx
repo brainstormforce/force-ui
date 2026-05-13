@@ -171,7 +171,14 @@ const EditorInput = forwardRef<Editor | null, EditorInputProps>(
 		// Suggestion state
 		const [ suggestionState, setSuggestionState ] =
 			useState<SuggestionProps | null>( null );
+		const itemRefs = useRef<( HTMLElement | null )[]>( [] );
 		const [ selectedIndex, setSelectedIndex ] = useState( 0 );
+
+		// Scroll selected item into view when navigating with keyboard
+		useEffect( () => {
+			itemRefs.current[ selectedIndex ]?.scrollIntoView( { block: 'nearest' } );
+		}, [ selectedIndex ] );
+
 		const keyDownRef = useRef<
 			( ( props: SuggestionKeyDownProps ) => boolean ) | null
 				>( null );
@@ -357,6 +364,9 @@ const EditorInput = forwardRef<Editor | null, EditorInputProps>(
 							{ suggestionItems.map( ( item, index ) => (
 								<MenuItemComponent
 									key={ index }
+									ref={ ( el ) => {
+										itemRefs.current[ index ] = el;
+									} }
 									size={ size }
 									selected={ index === selectedIndex }
 									onMouseEnter={ () => setSelectedIndex( index ) }
