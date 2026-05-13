@@ -26,6 +26,8 @@ export default defineConfig({
 				...Object.keys(pkg.peerDependencies),
 				...Object.keys(pkg.devDependencies),
 				/^@lexical\//,
+				/^@tiptap\//,
+				/^prosemirror/,
 				/^tailwindcss(\/.*)?$/,
 			],
 			output: [
