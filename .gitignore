@@ -16,3 +16,4 @@ tsconfig.node.tsbuildinfo
 *.app.tsbuildinfo
 *.node.tsbuildinfo
 tsconfig.app.tsbuildinfo
+config.bat
