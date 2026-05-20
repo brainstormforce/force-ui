@@ -81,6 +81,73 @@ WithDefaultValue.args = {
 WithDefaultValue.storyName = 'With Default Value';
 
 // ---------------------------------------------------------------------------
+// v1.7 Lexical backward-compatibility story
+// ---------------------------------------------------------------------------
+
+const legacyLexicalDefaultValue = JSON.stringify( {
+	root: {
+		type: 'root',
+		direction: 'ltr',
+		format: '',
+		indent: 0,
+		version: 1,
+		children: [
+			{
+				type: 'paragraph',
+				direction: 'ltr',
+				format: '',
+				indent: 0,
+				version: 1,
+				textFormat: 0,
+				textStyle: '',
+				children: [
+					{
+						type: 'text',
+						text: 'Employee name: ',
+						detail: 0,
+						format: 0,
+						mode: 'normal',
+						style: '',
+						version: 1,
+					},
+					{
+						type: 'mention',
+						data: { id: 3, label: 'Catherine' },
+						version: 1,
+					},
+				],
+			},
+		],
+	},
+} );
+
+export const WithLexicalCompat: Story = Template.bind( {} );
+WithLexicalCompat.args = {
+	size: 'md',
+	options: [
+		{ id: 1, label: 'Anton' },
+		{ id: 2, label: 'Boris' },
+		{ id: 3, label: 'Catherine' },
+	],
+	by: 'label',
+	valueFormat: 'lexical',
+	defaultValue: legacyLexicalDefaultValue,
+	// Old v1.7 call sites used editorState.toJSON()
+	onChange: ( editorState ) => {
+		// eslint-disable-next-line no-console
+		console.log( ( editorState as { toJSON: () => unknown } ).toJSON() );
+	},
+};
+WithLexicalCompat.storyName = 'v1.7 Lexical Compat';
+WithLexicalCompat.parameters = {
+	docs: {
+		description: {
+			story: 'Demonstrates the `valueFormat="lexical"` backward-compatibility shim. Existing v1.7 consumers can opt in with one prop and keep their stored Lexical `EditorState` JSON `defaultValue` and `onChange( s => s.toJSON() )` call sites. Deprecated — removed in @bsf/force-ui 2.0.',
+		},
+	},
+};
+
+// ---------------------------------------------------------------------------
 // Shadow DOM story
 // ---------------------------------------------------------------------------
 

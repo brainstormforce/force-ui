@@ -18,6 +18,14 @@ import {
 	useEffect,
 	createContext,
 } from 'react';
+import {
+	useFloating,
+	offset,
+	flip,
+	shift,
+	autoUpdate,
+	size as floatingSize,
+} from '@floating-ui/react';
 import { cn } from '@/utilities/functions';
 import {
 	editableContentAreaCommonClassNames,
@@ -29,6 +37,12 @@ import MentionComponent from './mention-plugin/mention-component';
 import EditorCombobox from './mention-plugin/mention-combobox';
 import EditorPlaceholder from './editor-placeholder';
 import { parseMarkup, serializeToMarkup } from './utils/markup';
+import {
+	lexicalJSONToTipTapDoc,
+	tipTapDocToLexicalJSON,
+	warnDeprecation,
+	type LexicalJSON,
+} from './utils/lexical-compat';
 
 export type TOptionItem = Record<string, unknown> | string;
 export type TMenuComponent = React.ComponentType<
@@ -38,13 +52,43 @@ export type TMenuItemComponent = React.ComponentType<
 	React.ComponentProps<typeof EditorCombobox.Item>
 >;
 
+/**
+ * Synthetic EditorState-shaped object emitted to onChange when
+ * `valueFormat="lexical"` is set. Mirrors the v1.7 Lexical EditorState surface
+ * used by existing call sites (`editorState.toJSON()` / `editorState.read()`).
+ *
+ * @deprecated Use the default markup string instead. Removed in 2.0.
+ */
+export interface LegacyEditorState {
+	toJSON: () => LexicalJSON;
+	read: ( fn: ( state: LegacyEditorState ) => void ) => void;
+}
+
 interface EditorInputProps<T = TOptionItem> {
-	/** Default value for the editor input field. Accepts plain text with @[Label](id) mention markup. */
+	/**
+	 * Default value for the editor input field.
+	 * - When `valueFormat="markup"` (default): plain text with `@[Label](id)` mention markup.
+	 * - When `valueFormat="lexical"`: a Lexical `EditorState` JSON string (v1.7 compat).
+	 */
 	defaultValue?: string;
 	/** Placeholder text for the editor input field. */
 	placeholder?: string;
-	/** Called on every change with the serialised markup string and the TipTap Editor instance. */
-	onChange?: ( markup: string, editor: Editor ) => void;
+	/**
+	 * Called on every change.
+	 * - When `valueFormat="markup"` (default): receives the serialised markup string.
+	 * - When `valueFormat="lexical"`: receives a synthetic `LegacyEditorState` with
+	 *   `.toJSON()` returning a Lexical-shaped JSON object (v1.7 compat).
+	 */
+	onChange?: (
+		value: string | LegacyEditorState,
+		editor: Editor
+	) => void;
+	/**
+	 * IO format for `defaultValue` and the first argument to `onChange`.
+	 * - `'markup'` (default, recommended): plain text + `@[Label](id)` mentions.
+	 * - `'lexical'` (deprecated, v1.7 compat): Lexical `EditorState` JSON. Removed in 2.0.
+	 */
+	valueFormat?: 'markup' | 'lexical';
 	/** Defines the sizes of the editor input. */
 	size?: keyof typeof editorInputClassNames;
 	/** Defines if the editor input is focused automatically. */
@@ -129,7 +173,16 @@ const createCharacterLimitPlugin = ( maxLength: number ) =>
 		},
 	} );
 
-const EditorInput = forwardRef<Editor | null, EditorInputProps>(
+export type EditorInputRef = Editor & {
+	/** @deprecated v1.7 Lexical compat namespace. Removed in 2.0. */
+	legacy?: {
+		getEditorState: () => LegacyEditorState;
+		focus: () => void;
+		update: ( fn: () => void ) => void;
+	};
+};
+
+const EditorInput = forwardRef<EditorInputRef | null, EditorInputProps>(
 	(
 		{
 			defaultValue = '',
@@ -149,9 +202,43 @@ const EditorInput = forwardRef<Editor | null, EditorInputProps>(
 			style,
 			maxLength,
 			multiline = true,
+			valueFormat = 'markup',
 		}: EditorInputProps,
 		ref
 	) => {
+		const isLexicalMode = valueFormat === 'lexical';
+
+		useEffect( () => {
+			if ( isLexicalMode ) {
+				warnDeprecation( "valueFormat='lexical'" );
+			}
+		}, [ isLexicalMode ] );
+		// Floating-ui: position:fixed dropdown escapes overflow:hidden ancestors
+		const { refs: floatRefs, floatingStyles } = useFloating( {
+			placement: 'bottom-start',
+			strategy: 'fixed',
+			middleware: [
+				offset( 8 ),
+				flip(),
+				shift(),
+				floatingSize( {
+					apply( { rects, elements } ) {
+						Object.assign( elements.floating.style, {
+							width: `${ rects.reference.width }px`,
+						} );
+					},
+				} ),
+			],
+			whileElementsMounted: autoUpdate,
+		} );
+
+		const setWrapperRef = useCallback(
+			( el: HTMLDivElement | null ) => {
+				floatRefs.setReference( el );
+			},
+			[ floatRefs.setReference ]
+		);
+
 		// Refs for dynamic values read inside stable extension closures
 		const optionsRef = useRef( options );
 		useEffect( () => {
@@ -271,14 +358,25 @@ const EditorInput = forwardRef<Editor | null, EditorInputProps>(
 					},
 				} ),
 			],
-			content: parseMarkup( defaultValue ),
+			content: isLexicalMode
+				? lexicalJSONToTipTapDoc( defaultValue )
+				: parseMarkup( defaultValue ),
 			editable: ! disabled,
 			autofocus: autoFocus,
 			onUpdate( { editor: ed } ) {
 				setIsEmpty( ed.isEmpty );
-				if ( typeof onChange === 'function' ) {
-					onChange( serializeToMarkup( ed.getJSON() ), ed );
+				if ( typeof onChange !== 'function' ) {
+					return;
 				}
+				if ( isLexicalMode ) {
+					const legacyState: LegacyEditorState = {
+						toJSON: () => tipTapDocToLexicalJSON( ed.getJSON() ),
+						read: ( fn ) => fn( legacyState ),
+					};
+					onChange( legacyState, ed );
+					return;
+				}
+				onChange( serializeToMarkup( ed.getJSON() ), ed );
 			},
 			editorProps: {
 				attributes: {
@@ -307,8 +405,37 @@ const EditorInput = forwardRef<Editor | null, EditorInputProps>(
 			}
 		}, [ editor, disabled ] );
 
-		// Expose editor via ref
-		useImperativeHandle( ref, () => editor, [ editor ] );
+		// Expose editor via ref. In legacy mode, attach a `legacy` namespace
+		// exposing the v1.7 Lexical methods used in practice.
+		useImperativeHandle(
+			ref,
+			() => {
+				if ( ! editor ) {
+					return null as unknown as EditorInputRef;
+				}
+				if ( ! isLexicalMode ) {
+					return editor as EditorInputRef;
+				}
+				const buildLegacyState = (): LegacyEditorState => {
+					const state: LegacyEditorState = {
+						toJSON: () => tipTapDocToLexicalJSON( editor.getJSON() ),
+						read: ( fn ) => fn( state ),
+					};
+					return state;
+				};
+				return Object.assign( editor, {
+					get legacy() {
+						warnDeprecation( 'ref.current.legacy' );
+						return {
+							getEditorState: buildLegacyState,
+							focus: () => editor.commands.focus(),
+							update: ( fn: () => void ) => fn(),
+						};
+					},
+				} ) as EditorInputRef;
+			},
+			[ editor, isLexicalMode ]
+		);
 
 		// Register keyboard handler for suggestion navigation
 		useEffect( () => {
@@ -346,6 +473,7 @@ const EditorInput = forwardRef<Editor | null, EditorInputProps>(
 		return (
 			<EditorInputContext.Provider value={ { size, disabled } }>
 				<div
+					ref={ setWrapperRef }
 					className={ cn(
 						'relative w-full',
 						editorCommonClassNames,
@@ -360,26 +488,31 @@ const EditorInput = forwardRef<Editor | null, EditorInputProps>(
 					</div>
 
 					{ suggestionState && suggestionItems.length > 0 && (
-						<MenuComponent size={ size }>
-							{ suggestionItems.map( ( item, index ) => (
-								<MenuItemComponent
-									key={ index }
-									ref={ ( el ) => {
-										itemRefs.current[ index ] = el;
-									} }
-									size={ size }
-									selected={ index === selectedIndex }
-									onMouseEnter={ () => setSelectedIndex( index ) }
-									onClick={ () => {
-										suggestionState.command( item );
-									} }
-								>
-									{ typeof item === 'string'
-										? item
-										: ( ( item[ by as string ] as string ) ?? '' ) }
-								</MenuItemComponent>
-							) ) }
-						</MenuComponent>
+						<div
+							ref={ floatRefs.setFloating }
+							style={ { ...floatingStyles, zIndex: 999999 } }
+						>
+							<MenuComponent size={ size }>
+								{ suggestionItems.map( ( item, index ) => (
+									<MenuItemComponent
+										key={ index }
+										ref={ ( el ) => {
+											itemRefs.current[ index ] = el;
+										} }
+										size={ size }
+										selected={ index === selectedIndex }
+										onMouseEnter={ () => setSelectedIndex( index ) }
+										onClick={ () => {
+											suggestionState.command( item );
+										} }
+									>
+										{ typeof item === 'string'
+											? item
+											: ( ( item[ by as string ] as string ) ?? '' ) }
+									</MenuItemComponent>
+								) ) }
+							</MenuComponent>
+						</div>
 					) }
 				</div>
 			</EditorInputContext.Provider>

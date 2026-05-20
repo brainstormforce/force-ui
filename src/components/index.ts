@@ -20,6 +20,12 @@ export * from './toaster';
 export { default as Container } from './container';
 export { default as Alert } from './alert';
 export { default as EditorInput } from './editor-input';
+export {
+	lexicalJSONToTipTapDoc,
+	tipTapDocToLexicalJSON,
+	lexicalToMarkup,
+	markupToLexical,
+} from './editor-input';
 export { default as ProgressSteps } from './progress-steps';
 export { default as Skeleton } from './skeleton';
 export { default as Menu } from './menu-item';

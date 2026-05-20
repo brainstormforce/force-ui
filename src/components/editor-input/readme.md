@@ -1,173 +1,124 @@
 # Editor Input
 
 ## Description
-The Editor Input component is a text input field that allows users to input text as well as tags/mentions from the combobox.
+The Editor Input component is a text input field that allows users to input text as well as tags/mentions from the combobox. As of v1.8 it is built on TipTap; v1.7 used Lexical. See the **Migration from v1.7** section below if you are upgrading.
 
 ## Props
 
 ### defaultValue
-- **Type:** `json string`
+- **Type:** `string`
 - **Default:** `""`
-- Description: The default value of the editor input field. The value should be a JSON string.
-- Example:
-```json
-{
-    "root": {
-        "children": [
-            {
-                "children": [
-                    {
-                        "detail": 0,
-                        "format": 0,
-                        "mode": "normal",
-                        "style": "",
-                        "text": "Employee name: ",
-                        "type": "text",
-                        "version": 1
-                    },
-                    {
-                        "type": "mention",
-                        "data": {
-                            "id": 3,
-                            "label": "Catherine"
-                        },
-                        "version": 1
-                    }
-                ],
-                "direction": "ltr",
-                "format": "",
-                "indent": 0,
-                "type": "paragraph",
-                "version": 1,
-                "textFormat": 0,
-                "textStyle": ""
-            }
-        ],
-        "direction": "ltr",
-        "format": "",
-        "indent": 0,
-        "type": "root",
-        "version": 1
-    }
-}
+- **Description:** Default value of the editor.
+    - With `valueFormat="markup"` (default): plain text containing `@[Label](id)` mention markup.
+    - With `valueFormat="lexical"` (deprecated, v1.7 compat): the Lexical `EditorState` JSON string.
+- **Example (markup, recommended):**
+```jsx
+<EditorInput
+    defaultValue="Employee name: @[Catherine](3)"
+    options={ options }
+/>
 ```
-
 
 ### onChange
 - **Type:** `function`
-- **params:** `editorState` & `editor`
-- **Description:** Callback function that is called when the value of the input changes. The function receives the updated value as an argument.
+- **Signature:**
+    - With `valueFormat="markup"` (default): `( markup: string, editor: Editor ) => void`
+    - With `valueFormat="lexical"`: `( editorState: LegacyEditorState, editor: Editor ) => void` where `editorState.toJSON()` returns Lexical-shaped JSON.
+- **Description:** Called on every change.
+
+### valueFormat
+- **Type:** `'markup' | 'lexical'`
+- **Default:** `'markup'`
+- **Description:** Controls the shape of `defaultValue` and the first argument to `onChange`.
+- **Deprecation:** `'lexical'` is a compatibility shim for v1.7 consumers and will be removed in **v2.0**.
 
 ### placeholder
 - **Type:** `string`
 - **Default:** `Press @ to view variable suggestions`
-- **Description:** Placeholder text for the editor input field.
 
 ### size
-- **Type:** `string`
-- **Default:** `"sm"`
-- **Description:** Defines the size of the editor input field
-    - `"sm"`
-    - `"md"`
-    - `"lg"`
+- **Type:** `"sm" | "md" | "lg"`
+- **Default:** `"md"`
 
 ### options
 - **Type:** `array`
 - **Default:** `[]`
-- **Description:** Array of options to be displayed in the combobox. Each option should be an object  or string.
+- **Description:** Array of options shown in the mention dropdown. Items may be strings or objects.
 
 ### by
 - **Type:** `string`
 - **Default:** `"name"`
-- **Description:** The key to be used to display the label of the option in the combobox and in the editor after selecting any mention/tag option.
+- **Description:** Key on object options used as the display label.
+
+### trigger
+- **Type:** `string`
+- **Default:** `'@'`
+- **Description:** Character that opens the mention dropdown.
 
 ### autoFocus
 - **Type:** `boolean`
 - **Default:** `false`
-- **Description:** If `true`, the editor input field will be focused when the component is mounted.
 
 ### autoSpaceAfterMention
 - **Type:** `boolean`
+- **Default:** `false`
+- **Description:** If `true`, a space is inserted after a mention is selected.
+
+### maxLength
+- **Type:** `number`
+- **Description:** Maximum character count. Mentions count as 1 character.
+
+### multiline
+- **Type:** `boolean`
 - **Default:** `true`
-- **Description:** If `true`, a space will be added after the mention/tag node. If any other character is pressed after selecting a mention/tag option, the space will be added automatically.
+- **Description:** If `false`, the Enter key is swallowed instead of inserting a newline.
 
 ### className
 - **Type:** `string`
 - **Default:** `""`
-- **Description:** Additional classes to be added to the editor input field.
-- Example:
-```jsx
-    <EditorInput
-        ...
-        className="..."
-    />
-```
+- **Description:** Extra classes on the contenteditable element.
 
 ### wrapperClassName
 - **Type:** `string`
 - **Default:** `""`
-- **Description:** Additional classes to be added to the editor input wrapper.
+- **Description:** Extra classes on the outer wrapper.
+
+### style
+- **Type:** `React.CSSProperties`
+- **Description:** Inline styles applied to the contenteditable element.
 
 ### disabled
 - **Type:** `boolean`
 - **Default:** `false`
-- **Description:** If `true`, the editor input field will be disabled.
-- Example:
-```jsx
-    <EditorInput
-        ...
-        disabled
-    />
-```
 
 ### menuComponent
-- **Type:** `React.ReactNode`
-- **Description:** Custom component to be rendered in the combobox. The function should return a React component.
-- usage:
+- **Type:** `React.ComponentType`
+- **Description:** Custom component for the mention dropdown list.
+- **Usage:**
 ```jsx
-    const MenuComponent = ( { size, className, children } ) => (
-    	<ul
-    		className="..."
-    	>
-    		{ children }
-    	</ul>
-    );
+const MenuComponent = ( { size, className, children } ) => (
+    <ul className="...">{ children }</ul>
+);
 
-...
-    
-    <EditorInput
-        ...
-        menuComponent={MenuComponent}
-    />
+<EditorInput menuComponent={ MenuComponent } /* ... */ />
 ```
 
 ### menuItemComponent
-- **Type:** `React.ReactNode`
-- **Description:** Custom component to be rendered for each option in the combobox. The function should return a React component.
-- usage:
+- **Type:** `React.ComponentType`
+- **Description:** Custom component for individual mention dropdown items.
+- **Usage:**
 ```jsx
-    const MenuItemComponent = forwardRef(
-    	( { size, children, selected = false, className, ...props }, ref ) => (
-    		<li
-    			ref={ ref }
-    			className="..."
-    			{ ...props }
-    		>
-    			{ children }
-    		</li>
-    	)
-    );
+const MenuItemComponent = forwardRef(
+    ( { size, children, selected = false, className, ...props }, ref ) => (
+        <li ref={ ref } className="..." { ...props }>{ children }</li>
+    )
+);
 
-...
-
-    <EditorInput
-        ...
-        menuItemComponent={MenuItemComponent}
-    />
+<EditorInput menuItemComponent={ MenuItemComponent } /* ... */ />
 ```
 
 ### Access editor ref
-To access the editor ref, you can use the `useRef` hook. The editor ref can be accessed using the `current` property of the ref object.
+`ref.current` is the TipTap `Editor` instance.
 
 ```jsx
 import { useRef } from 'react';
@@ -177,18 +128,25 @@ const App = () => {
     const editorRef = useRef();
 
     return (
-        <div className="max-w-sm my-10">
-            <EditorInput
-                ref={ editorRef }
-                ...
-            />
-        </div>
+        <EditorInput
+            ref={ editorRef }
+            options={ options }
+        />
     );
 };
 ```
 
+When `valueFormat="lexical"`, the same ref also exposes a `legacy` namespace that mirrors the most-used Lexical methods:
 
-#### usage
+```jsx
+ref.current.legacy.getEditorState().toJSON(); // Lexical-shaped JSON
+ref.current.legacy.focus();
+ref.current.legacy.update( () => { /* ... */ } );
+```
+
+The `legacy` namespace is deprecated and removed in v2.0.
+
+## Usage
 ```jsx
 import { EditorInput } from '@bsf/force-ui';
 
@@ -196,36 +154,64 @@ const App = () => (
   <div className="max-w-sm my-10">
     <EditorInput
         size="md"
-        by='label'
+        by="label"
         options={ [
-            {
-                id: 1,
-                label: 'Anton'
-            },
-            {
-                id: 2,
-                label: 'Boris'
-            },
-            {
-                id: 3,
-                label: 'Catherine'
-            },
-            {
-                id: 4,
-                label: 'Dmitri'
-            },
-            {
-                id: 5,
-                label: 'Felix'
-            },
-            {
-                id: 6,
-                label: 'Gina'
-            }
+            { id: 1, label: 'Anton' },
+            { id: 2, label: 'Boris' },
+            { id: 3, label: 'Catherine' },
         ] }
-        onChange={ ( editorState ) =>
-            console.log( editorState.toJSON() )
-        }
+        onChange={ ( markup ) => console.log( markup ) }
     />
   </div>
 );
+```
+
+---
+
+## Migration from v1.7
+
+The v1.8 release replaces Lexical with TipTap. Three API surfaces changed:
+
+| Surface | v1.7 (Lexical) | v1.8 default (markup) |
+|---|---|---|
+| `defaultValue` | Lexical `EditorState` JSON string | Plain text + `@[Label](id)` |
+| `onChange` arg 1 | `EditorState` — caller does `.toJSON()` | `string` |
+| `ref.current` | `LexicalEditor` | TipTap `Editor` |
+
+### Option A — Drop-in compat (zero code change, deprecated)
+
+Add `valueFormat="lexical"` to every `<EditorInput>` and keep your existing `defaultValue` JSON and `onChange( s => s.toJSON() )` callbacks. Logs a one-time deprecation warning in development. Removed in v2.0.
+
+```jsx
+<EditorInput
+    valueFormat="lexical"
+    defaultValue={ storedLexicalJsonString }
+    onChange={ ( editorState ) => save( editorState.toJSON() ) }
+    options={ options }
+/>
+```
+
+### Option B — One-time data migration (recommended)
+
+Convert stored Lexical JSON into markup once (e.g., in a DB migration) and remove `valueFormat="lexical"` entirely.
+
+```js
+import { lexicalToMarkup, markupToLexical } from '@bsf/force-ui';
+
+const markup = lexicalToMarkup( storedLexicalJsonString );
+// → "Employee name: @[Catherine](3)"
+
+// Inverse, if you still need to write Lexical JSON to legacy stores:
+const lexicalJSON = markupToLexical( "Employee name: @[Catherine](3)" );
+```
+
+After migrating data, update call sites:
+
+```diff
+- onChange={ ( editorState ) => save( editorState.toJSON() ) }
++ onChange={ ( markup ) => save( markup ) }
+```
+
+### Rich text formatting
+
+The v1.7 Lexical editor tracked `format`/`style`/`detail`/`mode` on text nodes but the editor surface never let users apply rich formatting. The v1.8 markup form preserves the plain text only. If you relied on this metadata, file an issue before upgrading.
