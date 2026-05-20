@@ -8,13 +8,13 @@ export const editorDisabledClassNames =
 	'bg-field-secondary-background outline-field-border-disabled hover:outline-field-border-disabled [&_p]:text-badge-color-disabled cursor-not-allowed';
 
 export const editorInputClassNames = {
-	sm: 'px-3 py-1.5 rounded [&_.editor-content>p]:text-xs [&_.editor-content>p]:font-normal [&_.pointer-events-none]:text-xs [&_.pointer-events-none]:font-normal [&_.editor-content>p]:content-center [&_.editor-content>p]:min-h-5',
-	md: 'px-3.5 py-2 rounded-md [&_.editor-content>p]:text-sm [&_.editor-content>p]:font-normal [&_.pointer-events-none]:text-sm [&_.pointer-events-none]:font-normal [&_.editor-content>p]:content-center [&_.editor-content>p]:min-h-6',
-	lg: 'px-4 py-2.5 rounded-md [&_.editor-content>p]:text-base [&_.editor-content>p]:font-normal [&_.pointer-events-none]:text-base [&_.pointer-events-none]:font-normal [&_.editor-content>p]:content-center [&_.editor-content>p]:min-h-7',
+	sm: 'px-3 py-1.5 rounded [&_.editor-content>p]:text-xs [&_.editor-content>p]:font-normal [&_.pointer-events-none]:text-xs [&_.pointer-events-none]:font-normal [&_.editor-content>p]:content-center [&_.editor-content>p]:min-h-5 [&_.editor-placeholder]:min-h-5',
+	md: 'px-3.5 py-2 rounded-md [&_.editor-content>p]:text-sm [&_.editor-content>p]:font-normal [&_.pointer-events-none]:text-sm [&_.pointer-events-none]:font-normal [&_.editor-content>p]:content-center [&_.editor-content>p]:min-h-6 [&_.editor-placeholder]:min-h-6',
+	lg: 'px-4 py-2.5 rounded-md [&_.editor-content>p]:text-base [&_.editor-content>p]:font-normal [&_.pointer-events-none]:text-base [&_.pointer-events-none]:font-normal [&_.editor-content>p]:content-center [&_.editor-content>p]:min-h-7 [&_.editor-placeholder]:min-h-7',
 };
 
 export const comboboxDropdownCommonClassNames =
-	'absolute left-[-1px] right-[-1px] top-full mt-2 mb-0 h-auto overflow-y-auto overflow-x-hidden z-10 bg-background-primary border border-solid border-border-subtle shadow-lg list-none';
+	'm-0 w-full h-auto overflow-y-auto overflow-x-hidden bg-background-primary border border-solid border-border-subtle shadow-lg list-none';
 
 export const comboboxDropdownClassNames = {
 	sm: 'p-1.5 rounded-md max-h-[10.75rem]',
