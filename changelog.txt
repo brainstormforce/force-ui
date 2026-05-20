@@ -1,3 +1,6 @@
+Version 1.8.0 - 20th May, 2026
+- Improvement: Organism - Editor Input: Replaced Lexical with TipTap for better Shadow DOM support and smaller bundle; v1.7 IO contract remains available via the new `valueFormat="lexical"` prop (deprecated; removed in 2.0).
+
 Version 1.7.12 - 13th April, 2026
 - Improvement: Atom - Textarea: Added `autoResize`, `minHeight`, and `maxHeight` props. When `autoResize` is enabled, the textarea height auto-adjusts to fit its content and stops growing at `maxHeight` (default 160px), at which point it becomes scrollable. `minHeight` and `maxHeight` apply as CSS constraints regardless of `autoResize`.
 
