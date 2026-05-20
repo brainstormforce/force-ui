@@ -135,6 +135,9 @@ const filterOptions = (
 			return opt.toLowerCase().includes( q );
 		}
 		const val = ( opt[ by ] as string | undefined )?.toString() ?? '';
+		if ( ! val ) {
+			return false;
+		}
 		return val.toLowerCase().includes( q );
 	} );
 };
