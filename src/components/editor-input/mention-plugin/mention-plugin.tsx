@@ -6,11 +6,11 @@ import React, {
 	useRef,
 } from 'react';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
+import { type MenuOption } from '@lexical/react/LexicalTypeaheadMenuPlugin';
 import {
 	LexicalTypeaheadMenuPlugin,
 	type TypeaheadMenuPluginProps,
-	type MenuOption,
-} from '@lexical/react/LexicalTypeaheadMenuPlugin';
+} from './lexical-typeahead-menu';
 import { $createMentionNode, $isMentionNode } from './mention-node';
 import OptionItem from './mention-option-item';
 import useMentionLookupService from './mention-hooks';
@@ -136,6 +136,9 @@ const MentionPlugin = ( {
 	const [ editor ] = useLexicalComposerContext();
 	const [ queryString, setQueryString ] = useState<string | null>( null );
 	const [ isMenuOpen, setIsMenuOpen ] = useState<boolean>( false );
+	const [ menuParent, setMenuParent ] = useState<HTMLElement | undefined >(
+		undefined
+	);
 
 	// Use the hook to get lookup results
 	const results = useMentionLookupService( optionsArray, queryString, by );
@@ -163,8 +166,10 @@ const MentionPlugin = ( {
 	);
 
 	const options = useMemo( () => {
-		return results.map( ( result ) => new OptionItem( result ) );
-	}, [ editor, results ] );
+		return results.map(
+			( result, index ) => new OptionItem( result, by, index )
+		);
+	}, [ results, by ] );
 
 	const handleAutoSpaceAfterMention = useCallback<
 		CommandListener<KeyboardEvent>
@@ -258,6 +263,27 @@ const MentionPlugin = ( {
 		);
 	}, [ editor, handleAutoSpaceAfterMention ] );
 
+	// When the editor is mounted inside a Shadow DOM, portal the typeahead menu
+	// into the same shadow root so the editor's (shadow-scoped) styles reach it.
+	// By default the menu is appended to document.body, where those styles never
+	// apply, leaving an unstyled list (visible bullets, no dropdown chrome). In
+	// regular light DOM we keep the default (undefined -> document.body).
+	useEffect( () => {
+		if ( ! editor ) {
+			return;
+		}
+		const updateMenuParent = () => {
+			const rootNode = editor.getRootElement()?.getRootNode();
+			setMenuParent(
+				rootNode instanceof ShadowRoot
+					? ( rootNode as unknown as HTMLElement )
+					: undefined
+			);
+		};
+		updateMenuParent();
+		return editor.registerRootListener( updateMenuParent );
+	}, [ editor ] );
+
 	// Set the floating reference to the editor input.
 	useEffect( () => {
 		if ( ! editor ) {
@@ -285,17 +311,20 @@ const MentionPlugin = ( {
 		}
 
 		const handleOutsideClick = ( event: MouseEvent ) => {
-			const target = event.target as Node;
 			const editorRoot = editor.getRootElement();
 			const floatingElement = refs.floating.current;
 
-			// Check if click is outside editor and dropdown menu
-			if (
-				editorRoot &&
-				! editorRoot.contains( target ) &&
-				floatingElement &&
-				! floatingElement.contains( target )
-			) {
+			// In a Shadow DOM, `event.target` on a document-level listener is
+			// retargeted to the shadow host, so `contains()` would report a
+			// click inside the menu as being outside it. Use the composed path,
+			// which crosses the shadow boundary, to find the real target.
+			const path = event.composedPath();
+			const isInsideEditor =
+				!! editorRoot && path.includes( editorRoot );
+			const isInsideMenu =
+				!! floatingElement && path.includes( floatingElement );
+
+			if ( ! isInsideEditor && ! isInsideMenu ) {
 				setIsMenuOpen( false );
 				setQueryString( null );
 			}
@@ -309,8 +338,14 @@ const MentionPlugin = ( {
 				const floatingElement = refs.floating.current;
 
 				if ( editorRoot ) {
-					const doc = editorRoot.ownerDocument;
-					const activeElement = doc.activeElement;
+					// In a Shadow DOM, `document.activeElement` resolves to the
+					// shadow host, not the focused element inside the tree, so
+					// read `activeElement` from the shadow root when present.
+					const rootNode = editorRoot.getRootNode();
+					const activeElement =
+						rootNode instanceof ShadowRoot
+							? rootNode.activeElement
+							: editorRoot.ownerDocument.activeElement;
 
 					if (
 						floatingElement &&
@@ -348,6 +383,7 @@ const MentionPlugin = ( {
 			onSelectOption={ onSelectOption }
 			triggerFn={ checkForAtSignMentions } // Use the locally defined function
 			options={ options }
+			parent={ menuParent }
 			menuRenderFn={ (
 				anchorElementRef,
 				{ selectedIndex, selectOptionAndCleanUp, setHighlightedIndex }
@@ -368,19 +404,40 @@ const MentionPlugin = ( {
 							refs.setFloating( node );
 							menuRef.current = node;
 						} }
+						// Prevent the contenteditable from blurring when the
+						// pointer lands anywhere in the menu (items or the
+						// surrounding padding). Without this the editor loses its
+						// selection and the mention can't be inserted — most
+						// visibly inside a Shadow DOM.
+						onMouseDown={ ( event: React.MouseEvent ) =>
+							event.preventDefault()
+						}
 						style={ {
 							position: strategy,
 							top: y ?? 0,
-							left: -2,
-							width: 'calc(100% + 4px)',
+							// Match the editor's width exactly: 100% of the
+							// editor wrapper, with border-box so the menu's own
+							// padding/border don't make it wider than the editor.
+							left: 0,
+							width: '100%',
+							boxSizing: 'border-box',
 						} }
 					>
 						{ options.map( ( option, index ) => (
 							<MenuItemComponent
-								key={ index }
-								ref={ option.ref }
+								key={ option.key }
+								ref={
+									option.ref as React.RefObject< HTMLLIElement >
+								}
 								size={ size }
 								selected={ index === selectedIndex }
+								// Keep the editor's selection while clicking an
+								// option; without this the contenteditable blurs
+								// on mousedown and the query text node is gone by
+								// the time the mention is inserted.
+								onMouseDown={ ( event ) =>
+									event.preventDefault()
+								}
 								onMouseEnter={ () => {
 									setHighlightedIndex( index );
 								} }
