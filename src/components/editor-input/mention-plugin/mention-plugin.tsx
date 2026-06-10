@@ -78,60 +78,64 @@ const MentionPlugin = ( {
 
 	const autoSpaceTempOff = useRef( false );
 	const menuRef = useRef<HTMLElement | null>( null );
-	// Define PUNCTUATION and other necessary variables inside the component
-	const PUNCTUATION =
-		'\\.,\\+\\*\\?\\$\\@\\|#{}\\(\\)\\^\\-\\[\\]\\\\/!%\'"~=<>_:;';
 
-	const TRIGGERS = [ trigger ].join( '' ); // Use the trigger prop dynamically
+	// The match regexes only depend on the trigger, so build them (and the
+	// matcher) once per trigger instead of on every render — this runs on the
+	// editor's per-keystroke render path.
+	const checkForAtSignMentions = useMemo( () => {
+		const PUNCTUATION =
+			'\\.,\\+\\*\\?\\$\\@\\|#{}\\(\\)\\^\\-\\[\\]\\\\/!%\'"~=<>_:;';
 
-	const VALID_CHARS = '[^' + TRIGGERS + PUNCTUATION + '\\s]';
+		const TRIGGERS = [ trigger ].join( '' ); // Use the trigger prop dynamically
 
-	const VALID_JOINS =
-		'(?:' +
-		'\\.[ |$]|' + // E.g. "r. " in "Mr. Smith"
-		' |' + // E.g. " " in "Josh Duck"
-		'[' +
-		PUNCTUATION +
-		']|' + // E.g. "-' in "Salier-Hellendag"
-		')';
+		const VALID_CHARS = '[^' + TRIGGERS + PUNCTUATION + '\\s]';
 
-	const LENGTH_LIMIT = 75;
+		const VALID_JOINS =
+			'(?:' +
+			'\\.[ |$]|' + // E.g. "r. " in "Mr. Smith"
+			' |' + // E.g. " " in "Josh Duck"
+			'[' +
+			PUNCTUATION +
+			']|' + // E.g. "-' in "Salier-Hellendag"
+			')';
 
-	const AtSignMentionsRegex = new RegExp(
-		`(^|\\s|\\()([${ TRIGGERS }]((?:${ VALID_CHARS }${ VALID_JOINS }){0,${ LENGTH_LIMIT }}))$`
-	);
+		const LENGTH_LIMIT = 75;
 
-	// 50 is the longest alias length limit
-	const ALIAS_LENGTH_LIMIT = 50;
+		const AtSignMentionsRegex = new RegExp(
+			`(^|\\s|\\()([${ TRIGGERS }]((?:${ VALID_CHARS }${ VALID_JOINS }){0,${ LENGTH_LIMIT }}))$`
+		);
 
-	// Regex used to match alias
-	const AtSignMentionsRegexAliasRegex = new RegExp(
-		`(^|\\s|\\()([${ TRIGGERS }]((?:${ VALID_CHARS }){0,${ ALIAS_LENGTH_LIMIT }}))$`
-	);
+		// 50 is the longest alias length limit
+		const ALIAS_LENGTH_LIMIT = 50;
 
-	// Define checkForAtSignMentions function inside the component where it has access to the regex
-	const checkForAtSignMentions = ( text: string ) => {
-		let match = AtSignMentionsRegex.exec( text );
+		// Regex used to match alias
+		const AtSignMentionsRegexAliasRegex = new RegExp(
+			`(^|\\s|\\()([${ TRIGGERS }]((?:${ VALID_CHARS }){0,${ ALIAS_LENGTH_LIMIT }}))$`
+		);
 
-		if ( match === null ) {
-			match = AtSignMentionsRegexAliasRegex.exec( text );
-		}
-		if ( match !== null ) {
-			// The strategy ignores leading whitespace but we need to know its
-			// length to add it to the leadOffset
-			const maybeLeadingWhitespace = match[ 1 ];
+		return ( text: string ) => {
+			let match = AtSignMentionsRegex.exec( text );
 
-			const matchingString = match[ 3 ];
-			if ( matchingString.length >= 0 ) {
-				return {
-					leadOffset: match.index + maybeLeadingWhitespace.length,
-					matchingString,
-					replaceableString: match[ 2 ],
-				};
+			if ( match === null ) {
+				match = AtSignMentionsRegexAliasRegex.exec( text );
 			}
-		}
-		return null;
-	};
+			if ( match !== null ) {
+				// The strategy ignores leading whitespace but we need to know its
+				// length to add it to the leadOffset
+				const maybeLeadingWhitespace = match[ 1 ];
+
+				const matchingString = match[ 3 ];
+				if ( matchingString.length >= 0 ) {
+					return {
+						leadOffset: match.index + maybeLeadingWhitespace.length,
+						matchingString,
+						replaceableString: match[ 2 ],
+					};
+				}
+			}
+			return null;
+		};
+	}, [ trigger ] );
 
 	const [ editor ] = useLexicalComposerContext();
 	const [ queryString, setQueryString ] = useState<string | null>( null );
@@ -274,10 +278,15 @@ const MentionPlugin = ( {
 		}
 		const updateMenuParent = () => {
 			const rootNode = editor.getRootElement()?.getRootNode();
-			setMenuParent(
+			const nextParent =
 				rootNode instanceof ShadowRoot
 					? ( rootNode as unknown as HTMLElement )
-					: undefined
+					: undefined;
+			// Functional update so an unchanged parent (the common case — the
+			// root listener also fires on registration) bails out instead of
+			// scheduling an extra commit.
+			setMenuParent( ( prev ) =>
+				prev === nextParent ? prev : nextParent
 			);
 		};
 		updateMenuParent();
