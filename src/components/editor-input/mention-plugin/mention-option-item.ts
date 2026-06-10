@@ -1,35 +1,24 @@
-// class OptionItem {
-// 	data;
-// 	ref = { current: null };
-
-// 	constructor( data ) {
-// 		this.data = data;
-// 	}
-// }
-
-// export default OptionItem;
-
 import { MenuOption } from '@lexical/react/LexicalTypeaheadMenuPlugin';
-import React from 'react';
 import { type TOptionItem } from '../editor-input';
 
-class OptionItem implements MenuOption {
+class OptionItem extends MenuOption {
 	data: TOptionItem;
-	key: TOptionItem extends Record<string, unknown>
-		? keyof TOptionItem
-		: string;
-	ref: React.RefObject<HTMLLIElement>;
-	setRefElement: ( element: HTMLLIElement ) => void;
 
-	constructor( public initData: TOptionItem ) {
-		this.key = '';
+	constructor(
+		initData: TOptionItem,
+		by: keyof TOptionItem | string = 'name',
+		index?: number
+	) {
+		const label =
+			typeof initData === 'string'
+				? initData
+				: String( initData?.[ by as keyof TOptionItem ] ?? '' );
+		// Each option needs a unique, stable key. Lexical's menu keys both the
+		// rendered list items and its internal ref/scroll map by this value, so
+		// duplicate keys break keyboard navigation, highlighting and selection.
+		// The index disambiguates options that share the same label.
+		super( index === undefined ? label : `${ label }-${ index }` );
 		this.data = initData;
-		this.ref = { current: null };
-
-		this.setRefElement = ( element: HTMLLIElement ) => {
-			( this.ref as React.MutableRefObject<HTMLLIElement> ).current =
-				element;
-		};
 	}
 }
 

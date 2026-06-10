@@ -14,7 +14,7 @@ Using Force UI as a dependency in package.json -
 
 ```json
 "dependencies": {
-  "@bsf/force-ui": "git+https://github.com/brainstormforce/force-ui#1.7.11"
+  "@bsf/force-ui": "git+https://github.com/brainstormforce/force-ui#1.7.12"
 }
 ```
 
@@ -28,7 +28,7 @@ npm install
 Or you can directly run the following command to install the package -
 
 ```bash
-npm i -S @bsf/force-ui@git+https://github.com/brainstormforce/force-ui.git#1.7.11
+npm i -S @bsf/force-ui@git+https://github.com/brainstormforce/force-ui.git#1.7.12
 ```
 
 <br />
@@ -307,7 +307,7 @@ export default function Example() {
 Force UI provides an MCP server that gives AI assistants accurate component usage context correct props, patterns, and examples. So you get reliable implementations without guesswork.
 
 ```bash
-npx mcp-add --type http --url "https://brainstormforce.github.io/force-ui/mcp" --scope project # use `global` instead of `project` for making it accessible globally
+npx mcp-add --type http --url "https://forceui.brainstormforce.com/mcp" --scope project # use `global` instead of `project` for making it accessible globally
 ```
 
 When prompted, use the following configuration:
