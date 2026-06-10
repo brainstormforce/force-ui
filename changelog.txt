@@ -1,6 +1,9 @@
 Version 1.7.12 - 10th June, 2026
 - Improvement: Atom - Textarea: Added `autoResize`, `minHeight`, and `maxHeight` props. When `autoResize` is enabled, the textarea height auto-adjusts to fit its content and stops growing at `maxHeight` (default 160px), at which point it becomes scrollable. `minHeight` and `maxHeight` apply as CSS constraints regardless of `autoResize`.
+- Improvement: Organism - Line Chart: Added `seriesLabels` prop to map data keys to custom display names in the tooltip, useful for translated labels. Falls back to the data key when no label is provided.
 - Fix: Organism - Editor Input: Added Shadow DOM support for the mention suggestions menu.
+- Fix: Molecule - Accordion: Collapsed content children are unmounted again to prevent heavy panel content from rendering up front and re-rendering on every keystroke; the ARIA region element stays in the DOM so `aria-controls` and `aria-labelledby` still resolve.
+- Fix: Organism - Editor Input: The mention typeahead anchor is now created lazily and appended to the DOM only when the menu opens, eliminating per-mount style recalculations and typing lag on pages with many editors.
 
 Version 1.7.11 - 8th April, 2026
 - New: Added Storybook MCP compatibility support for smoother integration with MCP-based tooling and workflows.
