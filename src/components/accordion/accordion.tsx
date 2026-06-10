@@ -7,7 +7,7 @@ import React, {
 } from 'react';
 import { nanoid } from 'nanoid';
 import { Plus, Minus, ChevronDown } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { callAll, cn } from '@/utilities/functions';
 
 // Define common props to be shared by all components
@@ -294,12 +294,13 @@ export const AccordionContent = ( {
 		boxed: 'px-3 pb-4',
 	}?.[ type ];
 
+	// The outer region stays in the DOM so the trigger's aria-controls always
+	// references an existing element, but the children unmount while the
+	// panel is collapsed. Keeping collapsed content mounted is expensive for
+	// consumers that put heavy children (e.g. editors) in many panels: they
+	// all mount up front and re-render on every state change.
 	return (
-		<motion.div
-			variants={ contentVariants }
-			initial={ false }
-			animate={ isOpen ? 'open' : 'closed' }
-			transition={ { duration: 0.3, ease: 'easeInOut' } }
+		<div
 			className={ cn(
 				'text-text-secondary w-full text-sm box-border',
 				disabled && 'opacity-40',
@@ -310,8 +311,23 @@ export const AccordionContent = ( {
 			aria-labelledby={ triggerId }
 			aria-hidden={ ! isOpen }
 		>
-			<div className={ cn( contentPaddingClasses ) }>{ children }</div>
-		</motion.div>
+			<AnimatePresence initial={ false }>
+				{ isOpen && (
+					<motion.div
+						key="content"
+						variants={ contentVariants }
+						initial="closed"
+						animate="open"
+						exit="closed"
+						transition={ { duration: 0.3, ease: 'easeInOut' } }
+					>
+						<div className={ cn( contentPaddingClasses ) }>
+							{ children }
+						</div>
+					</motion.div>
+				) }
+			</AnimatePresence>
+		</div>
 	);
 };
 

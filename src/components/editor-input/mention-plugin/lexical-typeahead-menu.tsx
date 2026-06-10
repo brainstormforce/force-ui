@@ -260,12 +260,17 @@ function useMenuAnchorRef(
 	shouldIncludePageYOffset = true
 ): MutableRefObject< HTMLElement | null > {
 	const [ editor ] = useLexicalComposerContext();
-	const initialAnchorElement = CAN_USE_DOM
-		? document.createElement( 'div' )
-		: null;
-	const anchorElementRef = useRef< HTMLElement | null >(
-		initialAnchorElement
-	);
+	const anchorElementRef = useRef< HTMLElement | null >( null );
+	// Create the anchor element lazily, only once a menu actually has to be
+	// shown. Creating and appending it eagerly on every mount (as lexical
+	// 0.38 does) appends/removes a <div> on document.body for every editor
+	// instance, forcing style recalcs on heavy pages — very visible when a
+	// consumer mounts many editors or remounts them while typing. The element
+	// is created during render (lazy ref init) but only appended in
+	// positionMenu(), which runs from an effect.
+	if ( resolution !== null && anchorElementRef.current === null && CAN_USE_DOM ) {
+		anchorElementRef.current = document.createElement( 'div' );
+	}
 	const positionMenu = useCallback( () => {
 		if ( anchorElementRef.current === null || parent === undefined ) {
 			return;
@@ -360,17 +365,6 @@ function useMenuAnchorRef(
 		positionMenu,
 		onVisibilityChange
 	);
-
-	// Append the container for the menu immediately.
-	if (
-		initialAnchorElement !== null &&
-		initialAnchorElement === anchorElementRef.current
-	) {
-		setContainerDivAttributes( initialAnchorElement, className );
-		if ( parent !== undefined ) {
-			parent.append( initialAnchorElement );
-		}
-	}
 
 	return anchorElementRef;
 }
