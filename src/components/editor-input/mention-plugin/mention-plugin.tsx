@@ -6,11 +6,11 @@ import React, {
 	useRef,
 } from 'react';
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
+import { type MenuOption } from '@lexical/react/LexicalTypeaheadMenuPlugin';
 import {
 	LexicalTypeaheadMenuPlugin,
 	type TypeaheadMenuPluginProps,
-	type MenuOption,
-} from '@lexical/react/LexicalTypeaheadMenuPlugin';
+} from './lexical-typeahead-menu';
 import { $createMentionNode, $isMentionNode } from './mention-node';
 import OptionItem from './mention-option-item';
 import useMentionLookupService from './mention-hooks';
@@ -78,64 +78,71 @@ const MentionPlugin = ( {
 
 	const autoSpaceTempOff = useRef( false );
 	const menuRef = useRef<HTMLElement | null>( null );
-	// Define PUNCTUATION and other necessary variables inside the component
-	const PUNCTUATION =
-		'\\.,\\+\\*\\?\\$\\@\\|#{}\\(\\)\\^\\-\\[\\]\\\\/!%\'"~=<>_:;';
 
-	const TRIGGERS = [ trigger ].join( '' ); // Use the trigger prop dynamically
+	// The match regexes only depend on the trigger, so build them (and the
+	// matcher) once per trigger instead of on every render — this runs on the
+	// editor's per-keystroke render path.
+	const checkForAtSignMentions = useMemo( () => {
+		const PUNCTUATION =
+			'\\.,\\+\\*\\?\\$\\@\\|#{}\\(\\)\\^\\-\\[\\]\\\\/!%\'"~=<>_:;';
 
-	const VALID_CHARS = '[^' + TRIGGERS + PUNCTUATION + '\\s]';
+		const TRIGGERS = [ trigger ].join( '' ); // Use the trigger prop dynamically
 
-	const VALID_JOINS =
-		'(?:' +
-		'\\.[ |$]|' + // E.g. "r. " in "Mr. Smith"
-		' |' + // E.g. " " in "Josh Duck"
-		'[' +
-		PUNCTUATION +
-		']|' + // E.g. "-' in "Salier-Hellendag"
-		')';
+		const VALID_CHARS = '[^' + TRIGGERS + PUNCTUATION + '\\s]';
 
-	const LENGTH_LIMIT = 75;
+		const VALID_JOINS =
+			'(?:' +
+			'\\.[ |$]|' + // E.g. "r. " in "Mr. Smith"
+			' |' + // E.g. " " in "Josh Duck"
+			'[' +
+			PUNCTUATION +
+			']|' + // E.g. "-' in "Salier-Hellendag"
+			')';
 
-	const AtSignMentionsRegex = new RegExp(
-		`(^|\\s|\\()([${ TRIGGERS }]((?:${ VALID_CHARS }${ VALID_JOINS }){0,${ LENGTH_LIMIT }}))$`
-	);
+		const LENGTH_LIMIT = 75;
 
-	// 50 is the longest alias length limit
-	const ALIAS_LENGTH_LIMIT = 50;
+		const AtSignMentionsRegex = new RegExp(
+			`(^|\\s|\\()([${ TRIGGERS }]((?:${ VALID_CHARS }${ VALID_JOINS }){0,${ LENGTH_LIMIT }}))$`
+		);
 
-	// Regex used to match alias
-	const AtSignMentionsRegexAliasRegex = new RegExp(
-		`(^|\\s|\\()([${ TRIGGERS }]((?:${ VALID_CHARS }){0,${ ALIAS_LENGTH_LIMIT }}))$`
-	);
+		// 50 is the longest alias length limit
+		const ALIAS_LENGTH_LIMIT = 50;
 
-	// Define checkForAtSignMentions function inside the component where it has access to the regex
-	const checkForAtSignMentions = ( text: string ) => {
-		let match = AtSignMentionsRegex.exec( text );
+		// Regex used to match alias
+		const AtSignMentionsRegexAliasRegex = new RegExp(
+			`(^|\\s|\\()([${ TRIGGERS }]((?:${ VALID_CHARS }){0,${ ALIAS_LENGTH_LIMIT }}))$`
+		);
 
-		if ( match === null ) {
-			match = AtSignMentionsRegexAliasRegex.exec( text );
-		}
-		if ( match !== null ) {
-			// The strategy ignores leading whitespace but we need to know its
-			// length to add it to the leadOffset
-			const maybeLeadingWhitespace = match[ 1 ];
+		return ( text: string ) => {
+			let match = AtSignMentionsRegex.exec( text );
 
-			const matchingString = match[ 3 ];
-			if ( matchingString.length >= 0 ) {
-				return {
-					leadOffset: match.index + maybeLeadingWhitespace.length,
-					matchingString,
-					replaceableString: match[ 2 ],
-				};
+			if ( match === null ) {
+				match = AtSignMentionsRegexAliasRegex.exec( text );
 			}
-		}
-		return null;
-	};
+			if ( match !== null ) {
+				// The strategy ignores leading whitespace but we need to know its
+				// length to add it to the leadOffset
+				const maybeLeadingWhitespace = match[ 1 ];
+
+				const matchingString = match[ 3 ];
+				if ( matchingString.length >= 0 ) {
+					return {
+						leadOffset: match.index + maybeLeadingWhitespace.length,
+						matchingString,
+						replaceableString: match[ 2 ],
+					};
+				}
+			}
+			return null;
+		};
+	}, [ trigger ] );
 
 	const [ editor ] = useLexicalComposerContext();
 	const [ queryString, setQueryString ] = useState<string | null>( null );
 	const [ isMenuOpen, setIsMenuOpen ] = useState<boolean>( false );
+	const [ menuParent, setMenuParent ] = useState<HTMLElement | undefined >(
+		undefined
+	);
 
 	// Use the hook to get lookup results
 	const results = useMentionLookupService( optionsArray, queryString, by );
@@ -163,8 +170,10 @@ const MentionPlugin = ( {
 	);
 
 	const options = useMemo( () => {
-		return results.map( ( result ) => new OptionItem( result ) );
-	}, [ editor, results ] );
+		return results.map(
+			( result, index ) => new OptionItem( result, by, index )
+		);
+	}, [ results, by ] );
 
 	const handleAutoSpaceAfterMention = useCallback<
 		CommandListener<KeyboardEvent>
@@ -258,6 +267,32 @@ const MentionPlugin = ( {
 		);
 	}, [ editor, handleAutoSpaceAfterMention ] );
 
+	// When the editor is mounted inside a Shadow DOM, portal the typeahead menu
+	// into the same shadow root so the editor's (shadow-scoped) styles reach it.
+	// By default the menu is appended to document.body, where those styles never
+	// apply, leaving an unstyled list (visible bullets, no dropdown chrome). In
+	// regular light DOM we keep the default (undefined -> document.body).
+	useEffect( () => {
+		if ( ! editor ) {
+			return;
+		}
+		const updateMenuParent = () => {
+			const rootNode = editor.getRootElement()?.getRootNode();
+			const nextParent =
+				rootNode instanceof ShadowRoot
+					? ( rootNode as unknown as HTMLElement )
+					: undefined;
+			// Functional update so an unchanged parent (the common case — the
+			// root listener also fires on registration) bails out instead of
+			// scheduling an extra commit.
+			setMenuParent( ( prev ) =>
+				prev === nextParent ? prev : nextParent
+			);
+		};
+		updateMenuParent();
+		return editor.registerRootListener( updateMenuParent );
+	}, [ editor ] );
+
 	// Set the floating reference to the editor input.
 	useEffect( () => {
 		if ( ! editor ) {
@@ -285,17 +320,20 @@ const MentionPlugin = ( {
 		}
 
 		const handleOutsideClick = ( event: MouseEvent ) => {
-			const target = event.target as Node;
 			const editorRoot = editor.getRootElement();
 			const floatingElement = refs.floating.current;
 
-			// Check if click is outside editor and dropdown menu
-			if (
-				editorRoot &&
-				! editorRoot.contains( target ) &&
-				floatingElement &&
-				! floatingElement.contains( target )
-			) {
+			// In a Shadow DOM, `event.target` on a document-level listener is
+			// retargeted to the shadow host, so `contains()` would report a
+			// click inside the menu as being outside it. Use the composed path,
+			// which crosses the shadow boundary, to find the real target.
+			const path = event.composedPath();
+			const isInsideEditor =
+				!! editorRoot && path.includes( editorRoot );
+			const isInsideMenu =
+				!! floatingElement && path.includes( floatingElement );
+
+			if ( ! isInsideEditor && ! isInsideMenu ) {
 				setIsMenuOpen( false );
 				setQueryString( null );
 			}
@@ -309,8 +347,14 @@ const MentionPlugin = ( {
 				const floatingElement = refs.floating.current;
 
 				if ( editorRoot ) {
-					const doc = editorRoot.ownerDocument;
-					const activeElement = doc.activeElement;
+					// In a Shadow DOM, `document.activeElement` resolves to the
+					// shadow host, not the focused element inside the tree, so
+					// read `activeElement` from the shadow root when present.
+					const rootNode = editorRoot.getRootNode();
+					const activeElement =
+						rootNode instanceof ShadowRoot
+							? rootNode.activeElement
+							: editorRoot.ownerDocument.activeElement;
 
 					if (
 						floatingElement &&
@@ -348,6 +392,7 @@ const MentionPlugin = ( {
 			onSelectOption={ onSelectOption }
 			triggerFn={ checkForAtSignMentions } // Use the locally defined function
 			options={ options }
+			parent={ menuParent }
 			menuRenderFn={ (
 				anchorElementRef,
 				{ selectedIndex, selectOptionAndCleanUp, setHighlightedIndex }
@@ -368,19 +413,40 @@ const MentionPlugin = ( {
 							refs.setFloating( node );
 							menuRef.current = node;
 						} }
+						// Prevent the contenteditable from blurring when the
+						// pointer lands anywhere in the menu (items or the
+						// surrounding padding). Without this the editor loses its
+						// selection and the mention can't be inserted — most
+						// visibly inside a Shadow DOM.
+						onMouseDown={ ( event: React.MouseEvent ) =>
+							event.preventDefault()
+						}
 						style={ {
 							position: strategy,
 							top: y ?? 0,
-							left: -2,
-							width: 'calc(100% + 4px)',
+							// Match the editor's width exactly: 100% of the
+							// editor wrapper, with border-box so the menu's own
+							// padding/border don't make it wider than the editor.
+							left: 0,
+							width: '100%',
+							boxSizing: 'border-box',
 						} }
 					>
 						{ options.map( ( option, index ) => (
 							<MenuItemComponent
-								key={ index }
-								ref={ option.ref }
+								key={ option.key }
+								ref={
+									option.ref as React.RefObject< HTMLLIElement >
+								}
 								size={ size }
 								selected={ index === selectedIndex }
+								// Keep the editor's selection while clicking an
+								// option; without this the contenteditable blurs
+								// on mousedown and the query text node is gone by
+								// the time the mention is inserted.
+								onMouseDown={ ( event ) =>
+									event.preventDefault()
+								}
 								onMouseEnter={ () => {
 									setHighlightedIndex( index );
 								} }
