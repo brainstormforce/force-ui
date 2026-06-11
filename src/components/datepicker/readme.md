@@ -38,6 +38,16 @@ The component is customizable and includes various features like month and year 
 - **Default:** `false`
 - **Description:** If true, days outside the current month will be shown.
 
+### `enableTimeSelection`
+- **Type:** `boolean`
+- **Default:** `false`
+- **Description:** Renders time selection inputs below the calendar grid, above the footer.
+  - `single`: one time input that sets hours/minutes on the selected date.
+  - `range`: two time inputs — start time for `from`, end time for `to` (the end input is disabled until an end date is selected).
+  - `multiple`: the flag is ignored; no time inputs are rendered.
+
+  The chosen time is merged into the selected `Date` objects (the date portion is never replaced), so the `onDateSelect` and `onApply` payloads carry the hours/minutes. Picking a new date preserves the previously chosen time. When a preset is clicked, the preset's own times are kept and can then be adjusted via the inputs. For same-day ranges, the times are kept valid automatically — the end is never allowed to land before the start.
+
 ### `width`
 - **Type:** `string`
 - **Description:** Custom width of the date picker.
@@ -136,6 +146,24 @@ const App = () => {
       variant="dualdate"
       selectedDates={{ from: new Date(), to: new Date() }}
       setSelectedDates={(dates) => console.log(dates)}
+    />
+  );
+};
+
+export default App;
+```
+
+### Datepicker with Time Selection
+```jsx
+import DatePicker from '@bsf/force-ui';
+
+const App = () => {
+  return (
+    <DatePicker
+      selectionType="range"
+      variant="normal"
+      enableTimeSelection
+      onApply={(selectedDates) => console.log(selectedDates)} // from/to carry the chosen time
     />
   );
 };
