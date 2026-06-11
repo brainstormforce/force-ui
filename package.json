@@ -1,12 +1,17 @@
 {
     "name": "@bsf/force-ui",
-    "version": "1.7.12",
+    "version": "1.7.13",
     "description": "Library of components for the BSF project",
     "main": "./dist/force-ui.cjs.js",
     "module": "./dist/force-ui.es.js",
     "types": "./dist/force-ui.d.ts",
     "type": "module",
     "sideEffects": false,
+    "files": [
+        "dist",
+        "patches",
+        "apply-patches.cjs"
+    ],
     "publishConfig": {
         "registry": "https://npm.pkg.github.com",
         "access": "restricted"
@@ -43,7 +48,7 @@
         "chromatic": "npx chromatic --project-token $CHROMATIC_PROJECT_TOKEN",
         "package": "sh bin/build.sh",
         "release": "npm run build && npm run package ",
-        "postinstall": "patch-package"
+        "postinstall": "node apply-patches.cjs"
     },
     "repository": {
         "type": "git",

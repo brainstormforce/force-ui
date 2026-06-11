@@ -6,6 +6,8 @@ echo "Creating archive... 🎁"
 
 zip -r force-ui.zip \
     dist \
+    patches \
+    apply-patches.cjs \
     package.json \
     version.json \
     changelog.txt

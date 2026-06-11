@@ -32,24 +32,32 @@ jobs:
 
                   cd build-repo
 
-                  # Clear old dist
-                  rm -rf dist
+                  # Clear old dist and patches
+                  rm -rf dist patches
 
-                  # Copy new build
+                  # Copy new build, Lexical patches, and the postinstall script
                   cp -r ../dist ./
+                  cp -r ../patches ./
+                  cp ../apply-patches.cjs ./
 
-                  # Update version in package.json
+                  # Update version in package.json and keep the postinstall
+                  # setup in sync so consumers get the Lexical patches applied
                   VERSION=$(node -p "require('../package.json').version")
                   node -e "
                     const pkg = require('./package.json');
+                    const src = require('../package.json');
                     pkg.version = process.argv[1];
+                    pkg.scripts = pkg.scripts || {};
+                    pkg.scripts.postinstall = src.scripts.postinstall;
+                    pkg.dependencies = pkg.dependencies || {};
+                    pkg.dependencies['patch-package'] = src.dependencies['patch-package'];
                     require('fs').writeFileSync('package.json', JSON.stringify(pkg, null, 2));
                   " "$VERSION"
 
                   # Commit and tag
                   git config user.name github-actions
                   git config user.email github-actions@github.com
-                  git add dist package.json
+                  git add dist patches apply-patches.cjs package.json
                   git commit -m "Release v$VERSION - build artifacts only"
                   git tag v$VERSION
                   git push origin master
