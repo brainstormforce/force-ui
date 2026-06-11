@@ -1,4 +1,5 @@
 import {
+	addMonths,
 	format,
 	startOfToday,
 	startOfYesterday,
@@ -52,9 +53,13 @@ const Template: Story = ( args ) => (
 	<DatePicker key={ args.selectionType } { ...args } />
 );
 
-// Find the enabled calendar button for a day of the currently displayed month.
-const getDayButton = ( canvasElement: HTMLElement, day: number ) => {
-	const dayString = `${ format( new Date(), 'yyyy-MM' ) }-${ String(
+// Find the enabled calendar button for a day of the given month (defaults to the current month).
+const getDayButton = (
+	canvasElement: HTMLElement,
+	day: number,
+	monthDate: Date = new Date()
+) => {
+	const dayString = `${ format( monthDate, 'yyyy-MM' ) }-${ String(
 		day
 	).padStart( 2, '0' ) }`;
 	return canvasElement.querySelector(
@@ -200,6 +205,180 @@ const multipleTimeSelectionTest: PlayFunction = async ( {
 	await expect( lastSelected ).toHaveLength( 2 );
 };
 
+// Regression tests: with enableTimeSelection off, the previous behavior
+// must be unchanged and no time inputs may render.
+const singleRegressionTest: PlayFunction = async ( {
+	canvasElement,
+	args,
+} ) => {
+	const canvas = within( canvasElement );
+	await expect(
+		canvasElement.querySelector( 'input[type="time"]' )
+	).toBeNull();
+
+	const onDateSelect = args.onDateSelect as ReturnType<typeof fn>;
+	// Selecting a date reports it at midnight.
+	await userEvent.click( getDayButton( canvasElement, 15 ) );
+	const selected = onDateSelect.mock.calls.at( -1 )?.[ 0 ] as Date;
+	await expect( selected.getDate() ).toBe( 15 );
+	await expect( selected.getHours() ).toBe( 0 );
+	await expect( selected.getMinutes() ).toBe( 0 );
+
+	// Re-clicking the selected date deselects it.
+	await userEvent.click( getDayButton( canvasElement, 15 ) );
+	await expect( onDateSelect.mock.calls.at( -1 )?.[ 0 ] ).toBeUndefined();
+
+	// Apply and Cancel callbacks still fire with the expected payloads.
+	await userEvent.click( getDayButton( canvasElement, 18 ) );
+	await userEvent.click( canvas.getByRole( 'button', { name: 'Apply' } ) );
+	const onApply = args.onApply as ReturnType<typeof fn>;
+	const applied = onApply.mock.calls.at( -1 )?.[ 0 ] as Date;
+	await expect( applied.getDate() ).toBe( 18 );
+	await userEvent.click( canvas.getByRole( 'button', { name: 'Cancel' } ) );
+	await expect( args.onCancel ).toHaveBeenCalled();
+};
+
+const rangeRegressionTest: PlayFunction = async ( {
+	canvasElement,
+	args,
+} ) => {
+	const canvas = within( canvasElement );
+	await expect(
+		canvasElement.querySelector( 'input[type="time"]' )
+	).toBeNull();
+
+	const onDateSelect = args.onDateSelect as ReturnType<typeof fn>;
+	const lastRange = () =>
+		onDateSelect.mock.calls.at( -1 )?.[ 0 ] as {
+			from: Date | undefined;
+			to: Date | undefined;
+		};
+
+	// Starting a range sets only the start date.
+	await userEvent.click( getDayButton( canvasElement, 10 ) );
+	await expect( lastRange().from?.getDate() ).toBe( 10 );
+	await expect( lastRange().to ).toBeUndefined();
+
+	// A later click completes the range.
+	await userEvent.click( getDayButton( canvasElement, 20 ) );
+	await expect( lastRange().from?.getDate() ).toBe( 10 );
+	await expect( lastRange().to?.getDate() ).toBe( 20 );
+
+	// Clicking the start date of a complete range deselects it.
+	await userEvent.click( getDayButton( canvasElement, 10 ) );
+	await expect( lastRange().from ).toBeUndefined();
+	await expect( lastRange().to ).toBeUndefined();
+
+	// Clicking an earlier day than the start swaps the endpoints.
+	await userEvent.click( getDayButton( canvasElement, 20 ) );
+	await userEvent.click( getDayButton( canvasElement, 12 ) );
+	await expect( lastRange().from?.getDate() ).toBe( 12 );
+	await expect( lastRange().to?.getDate() ).toBe( 20 );
+
+	// Clicking the end date of a complete range deselects it.
+	await userEvent.click( getDayButton( canvasElement, 20 ) );
+	await expect( lastRange().from ).toBeUndefined();
+
+	// Clicking the same day twice creates a same-day range.
+	await userEvent.click( getDayButton( canvasElement, 15 ) );
+	await userEvent.click( getDayButton( canvasElement, 15 ) );
+	await expect( lastRange().from?.getDate() ).toBe( 15 );
+	await expect( lastRange().to?.getDate() ).toBe( 15 );
+
+	// The Apply payload stays at midnight.
+	await userEvent.click( canvas.getByRole( 'button', { name: 'Apply' } ) );
+	const onApply = args.onApply as ReturnType<typeof fn>;
+	const applied = onApply.mock.calls.at( -1 )?.[ 0 ] as {
+		from: Date;
+		to: Date;
+	};
+	await expect( applied.from.getHours() ).toBe( 0 );
+	await expect( applied.to.getHours() ).toBe( 0 );
+
+	await userEvent.click( canvas.getByRole( 'button', { name: 'Cancel' } ) );
+	await expect( args.onCancel ).toHaveBeenCalled();
+};
+
+const multipleRegressionTest: PlayFunction = async ( {
+	canvasElement,
+	args,
+} ) => {
+	const canvas = within( canvasElement );
+	await expect(
+		canvasElement.querySelector( 'input[type="time"]' )
+	).toBeNull();
+
+	const onDateSelect = args.onDateSelect as ReturnType<typeof fn>;
+	// Selecting dates accumulates them.
+	await userEvent.click( getDayButton( canvasElement, 15 ) );
+	await userEvent.click( getDayButton( canvasElement, 18 ) );
+	await expect( onDateSelect.mock.calls.at( -1 )?.[ 0 ] ).toHaveLength( 2 );
+
+	// Re-clicking a selected date removes it.
+	await userEvent.click( getDayButton( canvasElement, 15 ) );
+	const remaining = onDateSelect.mock.calls.at( -1 )?.[ 0 ] as Date[];
+	await expect( remaining ).toHaveLength( 1 );
+	await expect( remaining[ 0 ].getDate() ).toBe( 18 );
+
+	// The Apply payload is the array of selected dates.
+	await userEvent.click( canvas.getByRole( 'button', { name: 'Apply' } ) );
+	const onApply = args.onApply as ReturnType<typeof fn>;
+	await expect( onApply.mock.calls.at( -1 )?.[ 0 ] ).toHaveLength( 1 );
+};
+
+const dualDateRegressionTest: PlayFunction = async ( {
+	canvasElement,
+	args,
+} ) => {
+	await expect(
+		canvasElement.querySelector( 'input[type="time"]' )
+	).toBeNull();
+
+	// A range can span the two displayed months.
+	await userEvent.click( getDayButton( canvasElement, 25 ) );
+	await userEvent.click(
+		getDayButton( canvasElement, 5, addMonths( new Date(), 1 ) )
+	);
+	const onDateSelect = args.onDateSelect as ReturnType<typeof fn>;
+	const lastRange = onDateSelect.mock.calls.at( -1 )?.[ 0 ] as {
+		from: Date;
+		to: Date;
+	};
+	await expect( lastRange.from.getDate() ).toBe( 25 );
+	await expect( lastRange.to.getDate() ).toBe( 5 );
+	await expect( lastRange.to.getMonth() ).toBe(
+		addMonths( new Date(), 1 ).getMonth()
+	);
+};
+
+const presetsRegressionTest: PlayFunction = async ( {
+	canvasElement,
+	args,
+} ) => {
+	const canvas = within( canvasElement );
+	await expect(
+		canvasElement.querySelector( 'input[type="time"]' )
+	).toBeNull();
+
+	const onApply = args.onApply as ReturnType<typeof fn>;
+	// The initial `selected` value flows through to Apply.
+	await userEvent.click( canvas.getByRole( 'button', { name: 'Apply' } ) );
+	let applied = onApply.mock.calls.at( -1 )?.[ 0 ] as {
+		from: Date;
+		to: Date;
+	};
+	await expect( applied.from.getTime() ).toBe(
+		startOfMonth( new Date() ).getTime()
+	);
+
+	// Clicking a preset updates the selection.
+	await userEvent.click( canvas.getByRole( 'button', { name: 'Today' } ) );
+	await userEvent.click( canvas.getByRole( 'button', { name: 'Apply' } ) );
+	applied = onApply.mock.calls.at( -1 )?.[ 0 ] as { from: Date; to: Date };
+	await expect( applied.from.getTime() ).toBe( startOfToday().getTime() );
+	await expect( applied.to.getTime() ).toBe( startOfToday().getTime() );
+};
+
 export const Default = Template.bind( {} );
 Default.args = {
 	selectionType: 'single',
@@ -207,16 +386,11 @@ Default.args = {
 	applyButtonText: 'Apply',
 	cancelButtonText: 'Cancel',
 	showOutsideDays: true,
-	onApply: () => {
-		//code
-	},
-	onCancel: () => {
-		//code
-	},
-	onDateSelect: () => {
-		//code
-	},
+	onApply: fn(),
+	onCancel: fn(),
+	onDateSelect: fn(),
 };
+Default.play = singleRegressionTest;
 
 export const Range = Template.bind( {} );
 Range.args = {
@@ -225,16 +399,11 @@ Range.args = {
 	applyButtonText: 'Apply',
 	cancelButtonText: 'Cancel',
 	showOutsideDays: true,
-	onApply: () => {
-		//code
-	},
-	onCancel: () => {
-		//code
-	},
-	onDateSelect: () => {
-		//code
-	},
+	onApply: fn(),
+	onCancel: fn(),
+	onDateSelect: fn(),
 };
+Range.play = rangeRegressionTest;
 
 export const Multiple = Template.bind( {} );
 Multiple.args = {
@@ -243,16 +412,11 @@ Multiple.args = {
 	applyButtonText: 'Apply',
 	cancelButtonText: 'Cancel',
 	showOutsideDays: true,
-	onApply: () => {
-		//code
-	},
-	onCancel: () => {
-		//code
-	},
-	onDateSelect: () => {
-		//code
-	},
+	onApply: fn(),
+	onCancel: fn(),
+	onDateSelect: fn(),
 };
+Multiple.play = multipleRegressionTest;
 
 export const SingleWithTimeSelection = Template.bind( {} );
 SingleWithTimeSelection.args = {
@@ -304,16 +468,11 @@ DualDate.args = {
 	applyButtonText: 'Apply',
 	cancelButtonText: 'Cancel',
 	showOutsideDays: true,
-	onApply: () => {
-		//code
-	},
-	onCancel: () => {
-		//code
-	},
-	onDateSelect: () => {
-		//code
-	},
+	onApply: fn(),
+	onCancel: fn(),
+	onDateSelect: fn(),
 };
+DualDate.play = dualDateRegressionTest;
 
 export const WithPresets = Template.bind( {} );
 WithPresets.args = {
@@ -365,13 +524,8 @@ WithPresets.args = {
 		from: startOfMonth( new Date() ),
 		to: endOfMonth( new Date() ),
 	},
-	onApply: () => {
-		//code
-	},
-	onCancel: () => {
-		//code
-	},
-	onDateSelect: () => {
-		//code
-	},
+	onApply: fn(),
+	onCancel: fn(),
+	onDateSelect: fn(),
 };
+WithPresets.play = presetsRegressionTest;
