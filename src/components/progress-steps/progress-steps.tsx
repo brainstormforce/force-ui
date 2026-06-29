@@ -1,3 +1,4 @@
+'use client';
 import React, { type ReactNode } from 'react';
 import { cn } from '@/utilities/functions';
 import { Plus, Check } from 'lucide-react';

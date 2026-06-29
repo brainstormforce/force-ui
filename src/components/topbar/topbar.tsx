@@ -1,3 +1,4 @@
+'use client';
 import { type ReactNode } from 'react';
 import { cn, getGapClass } from '@/utilities/functions';
 
