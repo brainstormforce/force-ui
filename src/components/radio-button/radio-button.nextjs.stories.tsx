@@ -8,7 +8,7 @@ const meta: Meta = {
 	title: 'Atoms/RadioButton/Next.js Example',
 	component: RadioButton,
 	tags: [ '!dev', '!autodocs' ],
-	parameters: { layout: 'padded' },
+	parameters: { layout: 'centered' },
 };
 
 export default meta;

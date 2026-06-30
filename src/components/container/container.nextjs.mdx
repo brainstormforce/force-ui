@@ -6,7 +6,7 @@ import * as NextjsStories from './container.nextjs.stories';
 
 # Container — Next.js (App Router)
 
-`Container` ships with the `"use client"` directive compiled into its `dist` chunk, so it works in the **Next.js App Router** out of the box and can render inside a **Server Component**.
+> **TL;DR** — `Container` works in the Next.js App Router out of the box: import it and render it inside a **Server Component**. Use its named subpart exports (e.g. `ContainerItem`) — not dot notation (`Container.X`). Put anything interactive (event handlers, state) in a file that starts with `'use client'`.
 
 ## Usage in a Server Component
 
@@ -41,8 +41,24 @@ import { Container } from '@bsf/force-ui';
 </Container>
 ```
 
+## Event handlers & state
+
+Server Components can't hold state or receive event handlers (`onClick`, `onChange`, …). Move the interactive part into its own client component:
+
+```tsx
+'use client';
+import { Container } from '@bsf/force-ui';
+
+export default function Interactive() {
+	// useState, onClick, onChange … live in this client file
+	return <Container />;
+}
+```
+
+Then import that into your Server Component — the page itself stays a Server Component.
+
 ## Live preview
 
-_Rendered with the named (App-Router) pattern. Use **Show code** to copy it._
+_Rendered with the named (App-Router) pattern._
 
 <Canvas of={NextjsStories.ServerComponentPattern} />

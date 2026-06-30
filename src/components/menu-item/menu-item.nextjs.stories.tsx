@@ -8,7 +8,7 @@ const meta: Meta = {
 	title: 'Molecules/Menu/Next.js Example',
 	component: Menu,
 	tags: [ '!dev', '!autodocs' ],
-	parameters: { layout: 'padded' },
+	parameters: { layout: 'centered' },
 };
 
 export default meta;
@@ -17,12 +17,14 @@ export const ServerComponentPattern: StoryObj = {
 	name: 'Named exports (App Router)',
 	render: () => {
 		return (
-			<Menu>
-				<MenuList heading="Group">
-					<MenuItem>Item</MenuItem>
-					<MenuSeparator />
-				</MenuList>
-			</Menu>
+			<div className="w-60">
+				<Menu>
+					<MenuList heading="Group">
+						<MenuItem>Item</MenuItem>
+						<MenuSeparator />
+					</MenuList>
+				</Menu>
+			</div>
 		);
 	},
 };

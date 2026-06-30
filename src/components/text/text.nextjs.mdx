@@ -5,7 +5,7 @@ import * as Stories from './text.stories';
 
 # Text — Next.js (App Router)
 
-`Text` ships with the `"use client"` directive compiled into its `dist` chunk, so it works in the **Next.js App Router** out of the box. Import it and render it directly inside a **Server Component**.
+> **TL;DR** — `Text` works in the Next.js App Router out of the box: import it and render it inside a **Server Component**. Put anything interactive (event handlers, state) in a file that starts with `'use client'`.
 
 ## Usage in a Server Component
 
@@ -17,6 +17,22 @@ export default function Page() {
 	return <Text />;
 }
 ```
+
+## Event handlers & state
+
+Server Components can't hold state or receive event handlers (`onClick`, `onChange`, …). Move the interactive part into its own client component:
+
+```tsx
+'use client';
+import { Text } from '@bsf/force-ui';
+
+export default function Interactive() {
+	// useState, onClick, onChange … live in this client file
+	return <Text />;
+}
+```
+
+Then import that into your Server Component — the page itself stays a Server Component.
 
 ## Live preview
 

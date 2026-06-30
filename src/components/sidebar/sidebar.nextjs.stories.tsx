@@ -8,7 +8,7 @@ const meta: Meta = {
 	title: 'Organisms/Sidebar/Next.js Example',
 	component: Sidebar,
 	tags: [ '!dev', '!autodocs' ],
-	parameters: { layout: 'padded' },
+	parameters: { layout: 'fullscreen' },
 };
 
 export default meta;
@@ -17,7 +17,7 @@ export const ServerComponentPattern: StoryObj = {
 	name: 'Named exports (App Router)',
 	render: () => {
 		return (
-			<div style={ { height: 220 } }>
+			<div className="h-[340px]">
 				<Sidebar>
 					<SidebarHeader>Logo</SidebarHeader>
 					<SidebarBody>

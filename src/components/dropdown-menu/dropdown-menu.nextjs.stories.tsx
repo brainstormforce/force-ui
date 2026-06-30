@@ -8,7 +8,7 @@ const meta: Meta = {
 	title: 'Molecules/DropdownMenu/Next.js Example',
 	component: DropdownMenu,
 	tags: [ '!dev', '!autodocs' ],
-	parameters: { layout: 'padded' },
+	parameters: { layout: 'centered' },
 };
 
 export default meta;
@@ -17,20 +17,22 @@ export const ServerComponentPattern: StoryObj = {
 	name: 'Named exports (App Router)',
 	render: () => {
 		return (
-			<DropdownMenu>
-				<DropdownMenuTrigger>
-					<Button>Open menu</Button>
-				</DropdownMenuTrigger>
-				<DropdownMenuContentWrapper>
-					<DropdownMenuContent className="w-60">
-						<DropdownMenuList>
-							<DropdownMenuItem>Item 1</DropdownMenuItem>
-							<DropdownMenuSeparator />
-							<DropdownMenuItem>Item 2</DropdownMenuItem>
-						</DropdownMenuList>
-					</DropdownMenuContent>
-				</DropdownMenuContentWrapper>
-			</DropdownMenu>
+			<div className="flex justify-center">
+				<DropdownMenu>
+					<DropdownMenuTrigger>
+						<Button>Open menu</Button>
+					</DropdownMenuTrigger>
+					<DropdownMenuContentWrapper>
+						<DropdownMenuContent className="w-60">
+							<DropdownMenuList>
+								<DropdownMenuItem>Item 1</DropdownMenuItem>
+								<DropdownMenuSeparator />
+								<DropdownMenuItem>Item 2</DropdownMenuItem>
+							</DropdownMenuList>
+						</DropdownMenuContent>
+					</DropdownMenuContentWrapper>
+				</DropdownMenu>
+			</div>
 		);
 	},
 };

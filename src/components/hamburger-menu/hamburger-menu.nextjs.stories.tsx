@@ -8,7 +8,7 @@ const meta: Meta = {
 	title: 'Organisms/Hamburger Menu/Next.js Example',
 	component: HamburgerMenu,
 	tags: [ '!dev', '!autodocs' ],
-	parameters: { layout: 'padded' },
+	parameters: { layout: 'fullscreen' },
 };
 
 export default meta;
@@ -17,13 +17,15 @@ export const ServerComponentPattern: StoryObj = {
 	name: 'Named exports (App Router)',
 	render: () => {
 		return (
-			<HamburgerMenu>
-				<HamburgerMenuToggle />
-				<HamburgerMenuOptions>
-					<HamburgerMenuOption>Option 1</HamburgerMenuOption>
-					<HamburgerMenuOption>Option 2</HamburgerMenuOption>
-				</HamburgerMenuOptions>
-			</HamburgerMenu>
+			<div className="h-[360px]">
+				<HamburgerMenu>
+					<HamburgerMenuToggle />
+					<HamburgerMenuOptions>
+						<HamburgerMenuOption>Option 1</HamburgerMenuOption>
+						<HamburgerMenuOption>Option 2</HamburgerMenuOption>
+					</HamburgerMenuOptions>
+				</HamburgerMenu>
+			</div>
 		);
 	},
 };

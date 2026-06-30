@@ -8,7 +8,7 @@ const meta: Meta = {
 	title: 'Atoms/Container/Next.js Example',
 	component: Container,
 	tags: [ '!dev', '!autodocs' ],
-	parameters: { layout: 'padded' },
+	parameters: { layout: 'centered' },
 };
 
 export default meta;

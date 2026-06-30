@@ -9,7 +9,7 @@ const meta: Meta = {
 	title: 'Organisms/Dialog/Next.js Example',
 	component: Dialog,
 	tags: [ '!dev', '!autodocs' ],
-	parameters: { layout: 'padded' },
+	parameters: { layout: 'fullscreen' },
 };
 
 export default meta;
@@ -20,19 +20,23 @@ export const ServerComponentPattern: StoryObj = {
 		// eslint-disable-next-line react-hooks/rules-of-hooks
 		const [ open, setOpen ] = useState( false );
 		return (
-			<Dialog open={ open } setOpen={ setOpen } trigger={ <Button>Open Dialog</Button> }>
-				<DialogBackdrop />
-				<DialogPanel>
-					<DialogHeader>
-						<DialogTitle>Dialog Title</DialogTitle>
-						<DialogCloseButton />
-					</DialogHeader>
-					<DialogBody>Dialog body content.</DialogBody>
-					<DialogFooter>
-						<Button onClick={ () => setOpen( false ) }>Close</Button>
-					</DialogFooter>
-				</DialogPanel>
-			</Dialog>
+			<div className="h-[460px] flex items-center justify-center">
+				<Dialog open={ open } setOpen={ setOpen } trigger={ <Button>Open Dialog</Button> }>
+					<DialogBackdrop />
+					<DialogPanel>
+						<DialogHeader>
+							<div className="flex items-center justify-between">
+								<DialogTitle>Dialog Title</DialogTitle>
+								<DialogCloseButton />
+							</div>
+						</DialogHeader>
+						<DialogBody>Dialog body content.</DialogBody>
+						<DialogFooter>
+							<Button onClick={ () => setOpen( false ) }>Close</Button>
+						</DialogFooter>
+					</DialogPanel>
+				</Dialog>
+			</div>
 		);
 	},
 };

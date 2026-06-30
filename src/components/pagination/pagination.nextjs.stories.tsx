@@ -8,7 +8,7 @@ const meta: Meta = {
 	title: 'Molecules/Pagination/Next.js Example',
 	component: Pagination,
 	tags: [ '!dev', '!autodocs' ],
-	parameters: { layout: 'padded' },
+	parameters: { layout: 'centered' },
 };
 
 export default meta;

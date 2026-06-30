@@ -8,7 +8,7 @@ const meta: Meta = {
 	title: 'Organisms/Topbar/Next.js Example',
 	component: Topbar,
 	tags: [ '!dev', '!autodocs' ],
-	parameters: { layout: 'padded' },
+	parameters: { layout: 'fullscreen' },
 };
 
 export default meta;

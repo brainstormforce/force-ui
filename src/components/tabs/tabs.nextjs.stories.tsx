@@ -9,7 +9,7 @@ const meta: Meta = {
 	title: 'Atoms/Tabs/Next.js Example',
 	component: Tabs,
 	tags: [ '!dev', '!autodocs' ],
-	parameters: { layout: 'padded' },
+	parameters: { layout: 'centered' },
 };
 
 export default meta;
@@ -20,14 +20,16 @@ export const ServerComponentPattern: StoryObj = {
 		// eslint-disable-next-line react-hooks/rules-of-hooks
 		const [ active, setActive ] = useState( 'a' );
 		return (
-			<Tabs activeItem={ active }>
-				<TabsGroup activeItem={ active } onChange={ ( { value } ) => setActive( value.slug ) }>
-					<TabsTab slug="a" text="Tab A" />
-					<TabsTab slug="b" text="Tab B" />
-				</TabsGroup>
-				<TabsPanel slug="a">Panel A</TabsPanel>
-				<TabsPanel slug="b">Panel B</TabsPanel>
-			</Tabs>
+			<div className="w-full max-w-lg">
+				<Tabs activeItem={ active }>
+					<TabsGroup activeItem={ active } onChange={ ( { value } ) => setActive( value.slug ) }>
+						<TabsTab slug="a" text="Tab A" />
+						<TabsTab slug="b" text="Tab B" />
+					</TabsGroup>
+					<TabsPanel slug="a">Panel A</TabsPanel>
+					<TabsPanel slug="b">Panel B</TabsPanel>
+				</Tabs>
+			</div>
 		);
 	},
 };

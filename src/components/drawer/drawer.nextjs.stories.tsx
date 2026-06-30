@@ -9,7 +9,7 @@ const meta: Meta = {
 	title: 'Organisms/Drawer/Next.js Example',
 	component: Drawer,
 	tags: [ '!dev', '!autodocs' ],
-	parameters: { layout: 'padded' },
+	parameters: { layout: 'fullscreen' },
 };
 
 export default meta;
@@ -20,19 +20,23 @@ export const ServerComponentPattern: StoryObj = {
 		// eslint-disable-next-line react-hooks/rules-of-hooks
 		const [ open, setOpen ] = useState( false );
 		return (
-			<Drawer open={ open } setOpen={ setOpen } position="right" trigger={ <Button>Open Drawer</Button> }>
-				<DrawerPanel>
-					<DrawerHeader>
-						<DrawerTitle>Drawer Title</DrawerTitle>
-						<DrawerCloseButton />
-					</DrawerHeader>
-					<DrawerBody>Drawer body content.</DrawerBody>
-					<DrawerFooter>
-						<Button onClick={ () => setOpen( false ) }>Close</Button>
-					</DrawerFooter>
-				</DrawerPanel>
-				<DrawerBackdrop />
-			</Drawer>
+			<div className="h-[460px] flex items-center justify-center">
+				<Drawer open={ open } setOpen={ setOpen } position="right" trigger={ <Button>Open Drawer</Button> }>
+					<DrawerPanel>
+						<DrawerHeader>
+							<div className="flex items-center justify-between">
+								<DrawerTitle>Drawer Title</DrawerTitle>
+								<DrawerCloseButton />
+							</div>
+						</DrawerHeader>
+						<DrawerBody>Drawer body content.</DrawerBody>
+						<DrawerFooter>
+							<Button onClick={ () => setOpen( false ) }>Close</Button>
+						</DrawerFooter>
+					</DrawerPanel>
+					<DrawerBackdrop />
+				</Drawer>
+			</div>
 		);
 	},
 };

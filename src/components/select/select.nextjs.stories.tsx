@@ -9,7 +9,7 @@ const meta: Meta = {
 	title: 'Atoms/Select/Next.js Example',
 	component: Select,
 	tags: [ '!dev', '!autodocs' ],
-	parameters: { layout: 'padded' },
+	parameters: { layout: 'centered' },
 };
 
 export default meta;
@@ -20,13 +20,15 @@ export const ServerComponentPattern: StoryObj = {
 		// eslint-disable-next-line react-hooks/rules-of-hooks
 		const [ value, setValue ] = useState< string | undefined >();
 		return (
-			<Select value={ value } onChange={ ( v ) => setValue( v as string ) }>
-				<SelectButton placeholder="Pick a color" />
-				<SelectOptions>
-					<SelectOption value="red">Red</SelectOption>
-					<SelectOption value="green">Green</SelectOption>
-				</SelectOptions>
-			</Select>
+			<div className="w-full max-w-sm h-[220px]">
+				<Select value={ value } onChange={ ( v ) => setValue( v as string ) }>
+					<SelectButton placeholder="Pick a color" />
+					<SelectOptions>
+						<SelectOption value="red">Red</SelectOption>
+						<SelectOption value="green">Green</SelectOption>
+					</SelectOptions>
+				</Select>
+			</div>
 		);
 	},
 };

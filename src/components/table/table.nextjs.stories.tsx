@@ -17,16 +17,18 @@ export const ServerComponentPattern: StoryObj = {
 	name: 'Named exports (App Router)',
 	render: () => {
 		return (
-			<Table>
-				<TableHead>
-					<TableHeadCell>Name</TableHeadCell>
-					<TableHeadCell>Role</TableHeadCell>
-				</TableHead>
-				<TableBody>
-					<TableRow><TableCell>Ada</TableCell><TableCell>Engineer</TableCell></TableRow>
-					<TableRow><TableCell>Linus</TableCell><TableCell>Maintainer</TableCell></TableRow>
-				</TableBody>
-			</Table>
+			<div className="w-full">
+				<Table>
+					<TableHead>
+						<TableHeadCell>Name</TableHeadCell>
+						<TableHeadCell>Role</TableHeadCell>
+					</TableHead>
+					<TableBody>
+						<TableRow><TableCell>Ada</TableCell><TableCell>Engineer</TableCell></TableRow>
+						<TableRow><TableCell>Linus</TableCell><TableCell>Maintainer</TableCell></TableRow>
+					</TableBody>
+				</Table>
+			</div>
 		);
 	},
 };

@@ -8,7 +8,7 @@ const meta: Meta = {
 	title: 'Molecules/SearchBox/Next.js Example',
 	component: SearchBox,
 	tags: [ '!dev', '!autodocs' ],
-	parameters: { layout: 'padded' },
+	parameters: { layout: 'centered' },
 };
 
 export default meta;
@@ -17,14 +17,16 @@ export const ServerComponentPattern: StoryObj = {
 	name: 'Named exports (App Router)',
 	render: () => {
 		return (
-			<SearchBox>
-				<SearchBoxInput />
-				<SearchBoxContent>
-					<SearchBoxList>
-						<SearchBoxItem>Item</SearchBoxItem>
-					</SearchBoxList>
-				</SearchBoxContent>
-			</SearchBox>
+			<div className="w-full max-w-md">
+				<SearchBox>
+					<SearchBoxInput />
+					<SearchBoxContent>
+						<SearchBoxList>
+							<SearchBoxItem>Item</SearchBoxItem>
+						</SearchBoxList>
+					</SearchBoxContent>
+				</SearchBox>
+			</div>
 		);
 	},
 };

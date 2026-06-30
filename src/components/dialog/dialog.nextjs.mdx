@@ -6,7 +6,7 @@ import * as NextjsStories from './dialog.nextjs.stories';
 
 # Dialog — Next.js (App Router)
 
-`Dialog` ships with the `"use client"` directive compiled into its `dist` chunk, so it works in the **Next.js App Router** out of the box and can render inside a **Server Component**.
+> **TL;DR** — `Dialog` works in the Next.js App Router out of the box: import it and render it inside a **Server Component**. Use its named subpart exports (e.g. `DialogPanel`) — not dot notation (`Dialog.X`). Put anything interactive (event handlers, state) in a file that starts with `'use client'`.
 
 ## Usage in a Server Component
 
@@ -25,8 +25,10 @@ export default function Demo() {
 			<DialogBackdrop />
 			<DialogPanel>
 				<DialogHeader>
-					<DialogTitle>Dialog Title</DialogTitle>
-					<DialogCloseButton />
+					<div className="flex items-center justify-between">
+						<DialogTitle>Dialog Title</DialogTitle>
+						<DialogCloseButton />
+					</div>
 				</DialogHeader>
 				<DialogBody>Dialog body content.</DialogBody>
 				<DialogFooter>
@@ -61,6 +63,6 @@ import { Dialog } from '@bsf/force-ui';
 
 ## Live preview
 
-_Rendered with the named (App-Router) pattern. Use **Show code** to copy it._
+_Rendered with the named (App-Router) pattern._
 
 <Canvas of={NextjsStories.ServerComponentPattern} />

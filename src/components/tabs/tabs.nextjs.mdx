@@ -6,7 +6,7 @@ import * as NextjsStories from './tabs.nextjs.stories';
 
 # Tabs — Next.js (App Router)
 
-`Tabs` ships with the `"use client"` directive compiled into its `dist` chunk, so it works in the **Next.js App Router** out of the box and can render inside a **Server Component**.
+> **TL;DR** — `Tabs` works in the Next.js App Router out of the box: import it and render it inside a **Server Component**. Use its named subpart exports (e.g. `TabsGroup`) — not dot notation (`Tabs.X`). Put anything interactive (event handlers, state) in a file that starts with `'use client'`.
 
 ## Usage in a Server Component
 
@@ -57,6 +57,6 @@ import { Tabs } from '@bsf/force-ui';
 
 ## Live preview
 
-_Rendered with the named (App-Router) pattern. Use **Show code** to copy it._
+_Rendered with the named (App-Router) pattern._
 
 <Canvas of={NextjsStories.ServerComponentPattern} />

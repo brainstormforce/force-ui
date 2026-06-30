@@ -6,7 +6,7 @@ import * as NextjsStories from './drawer.nextjs.stories';
 
 # Drawer — Next.js (App Router)
 
-`Drawer` ships with the `"use client"` directive compiled into its `dist` chunk, so it works in the **Next.js App Router** out of the box and can render inside a **Server Component**.
+> **TL;DR** — `Drawer` works in the Next.js App Router out of the box: import it and render it inside a **Server Component**. Use its named subpart exports (e.g. `DrawerPanel`) — not dot notation (`Drawer.X`). Put anything interactive (event handlers, state) in a file that starts with `'use client'`.
 
 ## Usage in a Server Component
 
@@ -24,8 +24,10 @@ export default function Demo() {
 		<Drawer open={ open } setOpen={ setOpen } position="right" trigger={ <Button>Open Drawer</Button> }>
 			<DrawerPanel>
 				<DrawerHeader>
-					<DrawerTitle>Drawer Title</DrawerTitle>
-					<DrawerCloseButton />
+					<div className="flex items-center justify-between">
+						<DrawerTitle>Drawer Title</DrawerTitle>
+						<DrawerCloseButton />
+					</div>
 				</DrawerHeader>
 				<DrawerBody>Drawer body content.</DrawerBody>
 				<DrawerFooter>
@@ -61,6 +63,6 @@ import { Drawer } from '@bsf/force-ui';
 
 ## Live preview
 
-_Rendered with the named (App-Router) pattern. Use **Show code** to copy it._
+_Rendered with the named (App-Router) pattern._
 
 <Canvas of={NextjsStories.ServerComponentPattern} />

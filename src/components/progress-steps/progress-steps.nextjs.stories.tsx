@@ -8,7 +8,7 @@ const meta: Meta = {
 	title: 'Atoms/ProgressSteps/Next.js Example',
 	component: ProgressSteps,
 	tags: [ '!dev', '!autodocs' ],
-	parameters: { layout: 'padded' },
+	parameters: { layout: 'centered' },
 };
 
 export default meta;
@@ -17,10 +17,12 @@ export const ServerComponentPattern: StoryObj = {
 	name: 'Named exports (App Router)',
 	render: () => {
 		return (
-			<ProgressSteps>
-				<ProgressStep size="md">Step 1</ProgressStep>
-				<ProgressStep size="md">Step 2</ProgressStep>
-			</ProgressSteps>
+			<div className="w-full max-w-xl">
+				<ProgressSteps>
+					<ProgressStep size="md">Step 1</ProgressStep>
+					<ProgressStep size="md">Step 2</ProgressStep>
+				</ProgressSteps>
+			</div>
 		);
 	},
 };

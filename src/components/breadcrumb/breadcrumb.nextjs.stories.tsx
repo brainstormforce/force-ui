@@ -8,7 +8,7 @@ const meta: Meta = {
 	title: 'Atoms/Breadcrumb/Next.js Example',
 	component: Breadcrumb,
 	tags: [ '!dev', '!autodocs' ],
-	parameters: { layout: 'padded' },
+	parameters: { layout: 'centered' },
 };
 
 export default meta;
