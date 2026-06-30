@@ -1,0 +1,53 @@
+import { Meta, Canvas } from '@storybook/addon-docs/blocks';
+import * as Stories from './breadcrumb.stories';
+import * as NextjsStories from './breadcrumb.nextjs.stories';
+
+<Meta of={Stories} name="Next.js Usage" />
+
+# Breadcrumb — Next.js (App Router)
+
+`Breadcrumb` ships with the `"use client"` directive compiled into its `dist` chunk, so it works in the **Next.js App Router** out of the box and can render inside a **Server Component**.
+
+## Usage in a Server Component
+
+Use the **named subpart exports** — not dot access (`Breadcrumb.X`). In a Server Component, React cannot read sub-components attached to a client reference, so dot access resolves to `undefined`. The named exports are individual client references:
+
+```tsx
+// app/page.tsx — Server Component
+import { Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbLink, BreadcrumbSeparator, BreadcrumbPage } from '@bsf/force-ui';
+
+export default function Page() {
+	return (
+		<Breadcrumb>
+			<BreadcrumbList>
+				<BreadcrumbItem><BreadcrumbLink href="#">Home</BreadcrumbLink></BreadcrumbItem>
+				<BreadcrumbSeparator type="slash" />
+				<BreadcrumbItem><BreadcrumbPage>Current</BreadcrumbPage></BreadcrumbItem>
+			</BreadcrumbList>
+		</Breadcrumb>
+	);
+}
+```
+
+## Dot notation (client components only)
+
+Inside your own client components the familiar compound dot syntax still works — it is only Server Components that require the named exports above:
+
+```tsx
+'use client';
+import { Breadcrumb } from '@bsf/force-ui';
+
+<Breadcrumb>
+	<Breadcrumb.List>
+		<Breadcrumb.Item><Breadcrumb.Link href="#">Home</Breadcrumb.Link></Breadcrumb.Item>
+		<Breadcrumb.Separator type="slash" />
+		<Breadcrumb.Item><Breadcrumb.Page>Current</Breadcrumb.Page></Breadcrumb.Item>
+	</Breadcrumb.List>
+</Breadcrumb>
+```
+
+## Live preview
+
+_Rendered with the named (App-Router) pattern. Use **Show code** to copy it._
+
+<Canvas of={NextjsStories.ServerComponentPattern} />

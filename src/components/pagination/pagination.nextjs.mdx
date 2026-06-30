@@ -1,0 +1,54 @@
+import { Meta, Canvas } from '@storybook/addon-docs/blocks';
+import * as Stories from './pagination.stories';
+import * as NextjsStories from './pagination.nextjs.stories';
+
+<Meta of={Stories} name="Next.js Usage" />
+
+# Pagination — Next.js (App Router)
+
+`Pagination` ships with the `"use client"` directive compiled into its `dist` chunk, so it works in the **Next.js App Router** out of the box and can render inside a **Server Component**.
+
+## Usage in a Server Component
+
+Use the **named subpart exports** — not dot access (`Pagination.X`). In a Server Component, React cannot read sub-components attached to a client reference, so dot access resolves to `undefined`. The named exports are individual client references:
+
+```tsx
+// app/page.tsx — Server Component
+import { Pagination, PaginationContent, PaginationItem, PaginationPrevious, PaginationNext, PaginationEllipsis } from '@bsf/force-ui';
+
+export default function Page() {
+	return (
+		<Pagination>
+			<PaginationContent>
+				<PaginationPrevious />
+				<PaginationItem>1</PaginationItem>
+				<PaginationEllipsis />
+				<PaginationNext />
+			</PaginationContent>
+		</Pagination>
+	);
+}
+```
+
+## Dot notation (client components only)
+
+Inside your own client components the familiar compound dot syntax still works — it is only Server Components that require the named exports above:
+
+```tsx
+'use client';
+import { Pagination } from '@bsf/force-ui';
+
+<Pagination>
+	<Pagination.Content>
+		<Pagination.Previous />
+		<Pagination.Item>1</Pagination.Item>
+		<Pagination.Next />
+	</Pagination.Content>
+</Pagination>
+```
+
+## Live preview
+
+_Rendered with the named (App-Router) pattern. Use **Show code** to copy it._
+
+<Canvas of={NextjsStories.ServerComponentPattern} />

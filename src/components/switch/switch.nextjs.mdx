@@ -1,0 +1,27 @@
+import { Meta, Canvas } from '@storybook/addon-docs/blocks';
+import * as Stories from './switch.stories';
+
+<Meta of={Stories} name="Next.js Usage" />
+
+# Switch — Next.js (App Router)
+
+`Switch` ships with the `"use client"` directive compiled into its `dist` chunk, so it works in the **Next.js App Router** out of the box. Import it and render it directly inside a **Server Component**.
+
+## Usage in a Server Component
+
+```tsx
+// app/page.tsx — Server Component
+import { Switch } from '@bsf/force-ui';
+
+export default function Page() {
+	return <Switch />;
+}
+```
+
+## Notes
+
+- Value/`onChange` handlers must be defined in a client component.
+
+## Live preview
+
+<Canvas of={Stories.Basic} />

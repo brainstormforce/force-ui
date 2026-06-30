@@ -1,0 +1,65 @@
+import { Meta, Canvas } from '@storybook/addon-docs/blocks';
+import * as Stories from './dropdown-menu.stories';
+import * as NextjsStories from './dropdown-menu.nextjs.stories';
+
+<Meta of={Stories} name="Next.js Usage" />
+
+# DropdownMenu — Next.js (App Router)
+
+`DropdownMenu` ships with the `"use client"` directive compiled into its `dist` chunk, so it works in the **Next.js App Router** out of the box and can render inside a **Server Component**.
+
+## Usage in a Server Component
+
+Use the **named subpart exports** — not dot access (`DropdownMenu.X`). In a Server Component, React cannot read sub-components attached to a client reference, so dot access resolves to `undefined`. The named exports are individual client references:
+
+```tsx
+// app/page.tsx — Server Component
+import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContentWrapper, DropdownMenuContent, DropdownMenuList, DropdownMenuItem, DropdownMenuSeparator, Button } from '@bsf/force-ui';
+
+export default function Page() {
+	return (
+		<DropdownMenu>
+			<DropdownMenuTrigger>
+				<Button>Open menu</Button>
+			</DropdownMenuTrigger>
+			<DropdownMenuContentWrapper>
+				<DropdownMenuContent className="w-60">
+					<DropdownMenuList>
+						<DropdownMenuItem>Item 1</DropdownMenuItem>
+						<DropdownMenuSeparator />
+						<DropdownMenuItem>Item 2</DropdownMenuItem>
+					</DropdownMenuList>
+				</DropdownMenuContent>
+			</DropdownMenuContentWrapper>
+		</DropdownMenu>
+	);
+}
+```
+
+## Dot notation (client components only)
+
+Inside your own client components the familiar compound dot syntax still works — it is only Server Components that require the named exports above:
+
+```tsx
+'use client';
+import { DropdownMenu } from '@bsf/force-ui';
+
+<DropdownMenu>
+	<DropdownMenu.Trigger><Button>Open</Button></DropdownMenu.Trigger>
+	<DropdownMenu.ContentWrapper>
+		<DropdownMenu.Content>
+			<DropdownMenu.List><DropdownMenu.Item>Item</DropdownMenu.Item></DropdownMenu.List>
+		</DropdownMenu.Content>
+	</DropdownMenu.ContentWrapper>
+</DropdownMenu>
+```
+
+## Notes
+
+- Wrap the content in `DropdownMenuContentWrapper`. Open/close state is managed internally (click the trigger).
+
+## Live preview
+
+_Rendered with the named (App-Router) pattern. Use **Show code** to copy it._
+
+<Canvas of={NextjsStories.ServerComponentPattern} />

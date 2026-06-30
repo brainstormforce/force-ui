@@ -1,0 +1,51 @@
+import { Meta, Canvas } from '@storybook/addon-docs/blocks';
+import * as Stories from './accordion.stories';
+import * as NextjsStories from './accordion.nextjs.stories';
+
+<Meta of={Stories} name="Next.js Usage" />
+
+# Accordion — Next.js (App Router)
+
+`Accordion` ships with the `"use client"` directive compiled into its `dist` chunk, so it works in the **Next.js App Router** out of the box and can render inside a **Server Component**.
+
+## Usage in a Server Component
+
+Use the **named subpart exports** — not dot access (`Accordion.X`). In a Server Component, React cannot read sub-components attached to a client reference, so dot access resolves to `undefined`. The named exports are individual client references:
+
+```tsx
+// app/page.tsx — Server Component
+import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from '@bsf/force-ui';
+
+export default function Page() {
+	return (
+		<Accordion>
+			<AccordionItem value="a">
+				<AccordionTrigger>What is force-ui?</AccordionTrigger>
+				<AccordionContent>A React + Tailwind component library.</AccordionContent>
+			</AccordionItem>
+		</Accordion>
+	);
+}
+```
+
+## Dot notation (client components only)
+
+Inside your own client components the familiar compound dot syntax still works — it is only Server Components that require the named exports above:
+
+```tsx
+'use client';
+import { Accordion } from '@bsf/force-ui';
+
+<Accordion>
+	<Accordion.Item value="a">
+		<Accordion.Trigger>Title</Accordion.Trigger>
+		<Accordion.Content>Body</Accordion.Content>
+	</Accordion.Item>
+</Accordion>
+```
+
+## Live preview
+
+_Rendered with the named (App-Router) pattern. Use **Show code** to copy it._
+
+<Canvas of={NextjsStories.ServerComponentPattern} />

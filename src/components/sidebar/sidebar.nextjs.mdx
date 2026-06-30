@@ -1,0 +1,58 @@
+import { Meta, Canvas } from '@storybook/addon-docs/blocks';
+import * as Stories from './sidebar.stories';
+import * as NextjsStories from './sidebar.nextjs.stories';
+
+<Meta of={Stories} name="Next.js Usage" />
+
+# Sidebar — Next.js (App Router)
+
+`Sidebar` ships with the `"use client"` directive compiled into its `dist` chunk, so it works in the **Next.js App Router** out of the box and can render inside a **Server Component**.
+
+## Usage in a Server Component
+
+Use the **named subpart exports** — not dot access (`Sidebar.X`). In a Server Component, React cannot read sub-components attached to a client reference, so dot access resolves to `undefined`. The named exports are individual client references:
+
+```tsx
+// app/page.tsx — Server Component
+import { Sidebar, SidebarHeader, SidebarBody, SidebarFooter, SidebarItem } from '@bsf/force-ui';
+
+export default function Page() {
+	return (
+		<Sidebar>
+			<SidebarHeader>Logo</SidebarHeader>
+			<SidebarBody>
+				<SidebarItem>Dashboard</SidebarItem>
+				<SidebarItem>Settings</SidebarItem>
+			</SidebarBody>
+			<SidebarFooter>v1.7.13</SidebarFooter>
+		</Sidebar>
+	);
+}
+```
+
+## Dot notation (client components only)
+
+Inside your own client components the familiar compound dot syntax still works — it is only Server Components that require the named exports above:
+
+```tsx
+'use client';
+import { Sidebar } from '@bsf/force-ui';
+
+<Sidebar>
+	<Sidebar.Header>Logo</Sidebar.Header>
+	<Sidebar.Body>
+		<Sidebar.Item>Dashboard</Sidebar.Item>
+	</Sidebar.Body>
+	<Sidebar.Footer>v1</Sidebar.Footer>
+</Sidebar>
+```
+
+## Notes
+
+- SSR-safe: the initial collapsed state is guarded with `typeof window === 'undefined'`, then corrected on mount, so it renders in Server Components without touching `window`.
+
+## Live preview
+
+_Rendered with the named (App-Router) pattern. Use **Show code** to copy it._
+
+<Canvas of={NextjsStories.ServerComponentPattern} />

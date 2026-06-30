@@ -1,0 +1,57 @@
+import { Meta, Canvas } from '@storybook/addon-docs/blocks';
+import * as Stories from './search.stories';
+import * as NextjsStories from './search.nextjs.stories';
+
+<Meta of={Stories} name="Next.js Usage" />
+
+# SearchBox — Next.js (App Router)
+
+`SearchBox` ships with the `"use client"` directive compiled into its `dist` chunk, so it works in the **Next.js App Router** out of the box and can render inside a **Server Component**.
+
+## Usage in a Server Component
+
+Use the **named subpart exports** — not dot access (`SearchBox.X`). In a Server Component, React cannot read sub-components attached to a client reference, so dot access resolves to `undefined`. The named exports are individual client references:
+
+```tsx
+// app/page.tsx — Server Component
+import { SearchBox, SearchBoxInput, SearchBoxContent, SearchBoxList, SearchBoxItem } from '@bsf/force-ui';
+
+export default function Page() {
+	return (
+		<SearchBox>
+			<SearchBoxInput />
+			<SearchBoxContent>
+				<SearchBoxList>
+					<SearchBoxItem>Item</SearchBoxItem>
+				</SearchBoxList>
+			</SearchBoxContent>
+		</SearchBox>
+	);
+}
+```
+
+## Dot notation (client components only)
+
+Inside your own client components the familiar compound dot syntax still works — it is only Server Components that require the named exports above:
+
+```tsx
+'use client';
+import { SearchBox } from '@bsf/force-ui';
+
+<SearchBox>
+	<SearchBox.Input />
+	<SearchBox.Content>
+		<SearchBox.List><SearchBox.Item>Item</SearchBox.Item></SearchBox.List>
+	</SearchBox.Content>
+</SearchBox>
+```
+
+## Notes
+
+- Search value/handlers live in a client component.
+
+## Live preview
+
+_Rendered with the named (App-Router) pattern. Use **Show code** to copy it._
+
+<Canvas of={NextjsStories.ServerComponentPattern} />

@@ -1,0 +1,23 @@
+import { Meta, Canvas } from '@storybook/addon-docs/blocks';
+import * as Stories from './skeleton.stories';
+
+<Meta of={Stories} name="Next.js Usage" />
+
+# Skeleton — Next.js (App Router)
+
+`Skeleton` ships with the `"use client"` directive compiled into its `dist` chunk, so it works in the **Next.js App Router** out of the box. Import it and render it directly inside a **Server Component**.
+
+## Usage in a Server Component
+
+```tsx
+// app/page.tsx — Server Component
+import { Skeleton } from '@bsf/force-ui';
+
+export default function Page() {
+	return <Skeleton />;
+}
+```
+
+## Live preview
+
+<Canvas of={Stories.Rectangular} />

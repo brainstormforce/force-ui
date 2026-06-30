@@ -1,0 +1,27 @@
+import { Meta, Canvas } from '@storybook/addon-docs/blocks';
+import * as Stories from './pie-chart.stories';
+
+<Meta of={Stories} name="Next.js Usage" />
+
+# PieChart — Next.js (App Router)
+
+`PieChart` ships with the `"use client"` directive compiled into its `dist` chunk, so it works in the **Next.js App Router** out of the box. Import it and render it directly inside a **Server Component**.
+
+## Usage in a Server Component
+
+```tsx
+// app/page.tsx — Server Component
+import { PieChart } from '@bsf/force-ui';
+
+export default function Page() {
+	return <PieChart />;
+}
+```
+
+## Notes
+
+- Chart data is passed as props; renders client-side after hydration.
+
+## Live preview
+
+<Canvas of={Stories.PieChartSimple} />

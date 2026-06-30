@@ -1,0 +1,53 @@
+import { Meta, Canvas } from '@storybook/addon-docs/blocks';
+import * as Stories from './table.stories';
+import * as NextjsStories from './table.nextjs.stories';
+
+<Meta of={Stories} name="Next.js Usage" />
+
+# Table — Next.js (App Router)
+
+`Table` ships with the `"use client"` directive compiled into its `dist` chunk, so it works in the **Next.js App Router** out of the box and can render inside a **Server Component**.
+
+## Usage in a Server Component
+
+Use the **named subpart exports** — not dot access (`Table.X`). In a Server Component, React cannot read sub-components attached to a client reference, so dot access resolves to `undefined`. The named exports are individual client references:
+
+```tsx
+// app/page.tsx — Server Component
+import { Table, TableHead, TableHeadCell, TableBody, TableRow, TableCell } from '@bsf/force-ui';
+
+export default function Page() {
+	return (
+		<Table>
+			<TableHead>
+				<TableHeadCell>Name</TableHeadCell>
+				<TableHeadCell>Role</TableHeadCell>
+			</TableHead>
+			<TableBody>
+				<TableRow><TableCell>Ada</TableCell><TableCell>Engineer</TableCell></TableRow>
+				<TableRow><TableCell>Linus</TableCell><TableCell>Maintainer</TableCell></TableRow>
+			</TableBody>
+		</Table>
+	);
+}
+```
+
+## Dot notation (client components only)
+
+Inside your own client components the familiar compound dot syntax still works — it is only Server Components that require the named exports above:
+
+```tsx
+'use client';
+import { Table } from '@bsf/force-ui';
+
+<Table>
+	<Table.Head><Table.HeadCell>Name</Table.HeadCell></Table.Head>
+	<Table.Body><Table.Row><Table.Cell>Ada</Table.Cell></Table.Row></Table.Body>
+</Table>
+```
+
+## Live preview
+
+_Rendered with the named (App-Router) pattern. Use **Show code** to copy it._
+
+<Canvas of={NextjsStories.ServerComponentPattern} />
