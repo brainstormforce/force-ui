@@ -22,7 +22,7 @@ export default function Demo() {
 	const [ value, setValue ] = useState< string | undefined >();
 	return (
 		<Select value={ value } onChange={ ( v ) => setValue( v as string ) }>
-			<SelectButton placeholder="Pick a color" />
+			<SelectButton label="Color" placeholder="Pick a color" />
 			<SelectOptions>
 				<SelectOption value="red">Red</SelectOption>
 				<SelectOption value="green">Green</SelectOption>
@@ -43,7 +43,7 @@ Inside your own client components the familiar compound dot syntax still works â
 import { Select } from '@bsf/force-ui';
 
 <Select value={ value } onChange={ setValue }>
-	<Select.Button placeholder="Pick a color" />
+	<Select.Button label="Color" placeholder="Pick a color" />
 	<Select.Options>
 		<Select.Option value="red">Red</Select.Option>
 	</Select.Options>

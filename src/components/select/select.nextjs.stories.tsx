@@ -22,7 +22,7 @@ export const ServerComponentPattern: StoryObj = {
 		return (
 			<div className="w-full max-w-sm h-[220px]">
 				<Select value={ value } onChange={ ( v ) => setValue( v as string ) }>
-					<SelectButton placeholder="Pick a color" />
+					<SelectButton label="Color" placeholder="Pick a color" />
 					<SelectOptions>
 						<SelectOption value="red">Red</SelectOption>
 						<SelectOption value="green">Green</SelectOption>
