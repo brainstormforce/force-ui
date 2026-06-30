@@ -13,6 +13,7 @@ export { default as Loader } from './loader';
 export { default as ProgressBar } from './progress-bar';
 export { default as Tooltip } from './tooltip';
 export { default as ButtonGroup } from './button-group';
+export { ButtonGroupContainer, ButtonGroupButton } from './button-group';
 export { default as Tabs } from './tabs';
 export { default as Select } from './select';
 export {
