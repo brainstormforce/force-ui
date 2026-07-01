@@ -189,7 +189,7 @@ export const MenuToggle = ( { className }: MenuToggleProps ) => {
 			// @ts-expect-error Ref is not present in Button component type, but we need it for the hamburger menu
 			ref={ setTriggerRef }
 			className={ cn(
-				'relative z-[1] rounded-full hover:shadow-sm focus:[box-shadow:none] pointer-events-auto bg-background-primary',
+				'relative z-[1] rounded-full hover:shadow-xs focus:[box-shadow:none] pointer-events-auto bg-background-primary',
 				className
 			) }
 			variant="ghost"
@@ -291,7 +291,7 @@ export const MenuOption: MenuOptionComponent = ( {
 		<MenuItem>
 			<Tag
 				className={ cn(
-					'w-full no-underline hover:no-underline text-text-primary text-lg font-medium flex items-center gap-2 px-2.5 py-1.5 rounded-md hover:bg-background-secondary hover:text-text-primary focus:outline-none focus:shadow-none transition ease-in-out duration-150',
+					'w-full no-underline hover:no-underline text-text-primary text-lg font-medium flex items-center gap-2 px-2.5 py-1.5 rounded-md hover:bg-background-secondary hover:text-text-primary focus:outline-hidden focus:shadow-none transition ease-in-out duration-150',
 					active
 						? 'text-text-primary bg-background-secondary'
 						: 'text-text-secondary',

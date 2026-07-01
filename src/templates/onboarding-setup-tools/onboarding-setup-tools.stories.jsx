@@ -55,7 +55,7 @@ const Template = ( args ) => {
 				</Topbar.Right>
 			</Topbar>
 			<form onSubmit={ ( event ) => event.preventDefault() }>
-				<div className="md:w-[47rem] box-border mx-auto p-8 mt-10 border border-solid border-border-subtle bg-background-primary rounded-xl shadow-sm space-y-4">
+				<div className="md:w-[47rem] box-border mx-auto p-8 mt-10 border border-solid border-border-subtle bg-background-primary rounded-xl shadow-xs space-y-4">
 					<div>
 						<Title
 							size="md"

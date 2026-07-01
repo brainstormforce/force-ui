@@ -2,8 +2,21 @@ import preserveDirectives from 'rollup-preserve-directives';
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import { resolve } from 'path';
+import { copyFileSync } from 'fs';
 import dts from 'vite-plugin-dts';
 import pkg from './package.json';
+
+// Ship the CSS-first design tokens as a raw asset (@bsf/force-ui/theme.css).
+// Runs on closeBundle so it lands after Vite clears dist (emptyOutDir).
+const copyThemeCss = () => ( {
+	name: 'force-ui-copy-theme-css',
+	closeBundle() {
+		copyFileSync(
+			resolve(process.cwd(), 'src/theme/theme.css'),
+			resolve(process.cwd(), 'dist/theme.css')
+		);
+	},
+} );
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -78,6 +91,7 @@ export default defineConfig({
 			exclude: ['**/node_modules/**', '**/_virtual/**'],
 		}),
 		preserveDirectives(),
+		copyThemeCss(),
 	],
 	esbuild: {
 		treeShaking: true,

@@ -133,8 +133,8 @@ export const InputComponent = (
 	const baseClasses =
 		'bg-field-secondary-background font-normal placeholder-text-tertiary text-text-primary w-full outline outline-1 outline-border-subtle border-none transition-[color,box-shadow,outline] duration-200';
 	const sizeClasses = {
-		xs: 'px-2 py-1 rounded',
-		sm: 'p-3 py-2 rounded',
+		xs: 'px-2 py-1 rounded-sm',
+		sm: 'p-3 py-2 rounded-sm',
 		md: 'p-3.5 py-2.5 rounded-md',
 		lg: 'p-4 py-3 rounded-lg',
 	};

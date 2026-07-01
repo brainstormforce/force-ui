@@ -304,7 +304,7 @@ export const AstraDashboard = ( args ) => {
 	return (
 		<div { ...args }>
 			{ /* Navigation Topbar */ }
-			<Topbar gap={ 0 } className="h-16 p-0 shadow-sm">
+			<Topbar gap={ 0 } className="h-16 p-0 shadow-xs">
 				<Topbar.Left className="p-5">
 					<Topbar.Item>
 						<Logo className="size-6" />
@@ -315,7 +315,7 @@ export const AstraDashboard = ( args ) => {
 						<a
 							href="#"
 							target="_self"
-							className="content-center no-underline relative h-full py-0 px-1 m-0 bg-transparent outline-none shadow-none border-0 focus:outline-none text-text-primary text-sm font-medium cursor-pointer"
+							className="content-center no-underline relative h-full py-0 px-1 m-0 bg-transparent outline-hidden shadow-none border-0 focus:outline-hidden text-text-primary text-sm font-medium cursor-pointer"
 						>
 							<span>Dashboard</span>
 							<span className="absolute bottom-0 left-0 w-full h-px bg-brand-primary-600"></span>
@@ -323,21 +323,21 @@ export const AstraDashboard = ( args ) => {
 						<a
 							href="#"
 							target="_self"
-							className="content-center no-underline h-full py-0 px-1 m-0 bg-transparent outline-none shadow-none border-0 focus:outline-none text-text-tertiary text-sm font-medium cursor-pointer"
+							className="content-center no-underline h-full py-0 px-1 m-0 bg-transparent outline-hidden shadow-none border-0 focus:outline-hidden text-text-tertiary text-sm font-medium cursor-pointer"
 						>
 							Settings
 						</a>
 						<a
 							href="#"
 							target="_self"
-							className="content-center no-underline h-full py-0 px-1 m-0 bg-transparent outline-none shadow-none border-0 focus:outline-none text-text-tertiary text-sm font-medium cursor-pointer"
+							className="content-center no-underline h-full py-0 px-1 m-0 bg-transparent outline-hidden shadow-none border-0 focus:outline-hidden text-text-tertiary text-sm font-medium cursor-pointer"
 						>
 							Starter Templates
 						</a>
 						<a
 							href="#"
 							target="_self"
-							className="content-center no-underline h-full inline-flex items-center py-0 px-1 m-0 bg-transparent outline-none shadow-none border-0 focus:outline-none cursor-pointer text-sm font-semibold text-brand-primary-600"
+							className="content-center no-underline h-full inline-flex items-center py-0 px-1 m-0 bg-transparent outline-hidden shadow-none border-0 focus:outline-hidden cursor-pointer text-sm font-semibold text-brand-primary-600"
 						>
 							<span>Upgrade to Pro</span>
 							<ArrowUpRight
@@ -384,7 +384,7 @@ export const AstraDashboard = ( args ) => {
 							containerType="grid"
 							cols={ 8 }
 							gap="2xl"
-							className="bg-background-primary p-6 shadow-sm rounded-xl"
+							className="bg-background-primary p-6 shadow-xs rounded-xl"
 						>
 							<Container.Item
 								colSpan={ 5 }
@@ -420,7 +420,7 @@ export const AstraDashboard = ( args ) => {
 								<img
 									src="https://placehold.co/272x154"
 									alt="Astra video"
-									className="w-full h-full object-cover rounded"
+									className="w-full h-full object-cover rounded-sm"
 								/>
 							</Container.Item>
 						</Container>
@@ -489,7 +489,7 @@ export const AstraDashboard = ( args ) => {
 												className="px-2"
 												badgeItem={ option.badge }
 												disabled={ option.disabled }
-												buttonWrapperClasses="bg-background-primary rounded-md shadow-sm border-0"
+												buttonWrapperClasses="bg-background-primary rounded-md shadow-xs border-0"
 											/>
 										)
 									) }
@@ -507,7 +507,7 @@ export const AstraDashboard = ( args ) => {
 								<a
 									href="#"
 									target="_self"
-									className="content-center no-underline h-full inline-flex items-center py-0 px-1 m-0 bg-transparent outline-none shadow-none border-0 focus:outline-none cursor-pointer text-sm font-semibold text-brand-primary-600"
+									className="content-center no-underline h-full inline-flex items-center py-0 px-1 m-0 bg-transparent outline-hidden shadow-none border-0 focus:outline-hidden cursor-pointer text-sm font-semibold text-brand-primary-600"
 								>
 									<span>Upgrade to Pro</span>
 									<ArrowUpRight
@@ -599,7 +599,7 @@ export const AstraDashboard = ( args ) => {
 						<Container
 							containerType="grid"
 							gap="xs"
-							className="p-5 bg-background-primary border-[0.5px] border-solid border-border-subtle shadow-sm rounded-xl"
+							className="p-5 bg-background-primary border-[0.5px] border-solid border-border-subtle shadow-xs rounded-xl"
 						>
 							<Container.Item>
 								<Container gap="xs" align="center">
@@ -633,7 +633,7 @@ export const AstraDashboard = ( args ) => {
 						<Container
 							containerType="grid"
 							gap="xs"
-							className="p-5 bg-background-primary border-[0.5px] border-solid border-border-subtle shadow-sm rounded-xl"
+							className="p-5 bg-background-primary border-[0.5px] border-solid border-border-subtle shadow-xs rounded-xl"
 						>
 							<Container.Item>
 								<Container gap="xs" align="center">

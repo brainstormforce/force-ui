@@ -69,7 +69,7 @@ export const ButtonGroup = ( {
 	);
 
 	const groupClassName = cn(
-		'box-border flex border border-border-subtle border-solid rounded',
+		'box-border flex border border-border-subtle border-solid rounded-sm',
 		className
 	);
 
@@ -152,7 +152,7 @@ export const ButtonComponent = (
 	const hoverClasses = 'hover:bg-button-tertiary-hover';
 
 	// Button focus classes.
-	const focusClasses = 'focus:outline-none';
+	const focusClasses = 'focus:outline-hidden';
 
 	// Button disabled classes.
 	const disabledClasses = disabled

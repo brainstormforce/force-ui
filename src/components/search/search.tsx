@@ -425,7 +425,7 @@ export const SearchBoxInput = forwardRef<HTMLInputElement, SearchBoxInputProps>(
 					ref={ ref }
 					className={ cn(
 						textSizeClassNames[ size! ],
-						'flex-grow font-medium bg-transparent border-none outline-none border-transparent focus:ring-0 p-0 min-h-fit',
+						'flex-grow font-medium bg-transparent border-none outline-hidden border-transparent focus:ring-0 p-0 min-h-fit',
 						disabled &&
 							'text-field-placeholder focus-within:text-field-input group-hover:text-field-input placeholder:text-field-placeholder'
 					) }
@@ -489,7 +489,7 @@ export const SearchBoxContent = ( {
 					...floatingStyles,
 				} }
 				className={ cn(
-					'bg-background-primary rounded-md border border-solid border-border-subtle shadow-soft-shadow-lg overflow-y-auto text-wrap focus:outline-none',
+					'bg-background-primary rounded-md border border-solid border-border-subtle shadow-soft-shadow-lg overflow-y-auto text-wrap focus:outline-hidden',
 					sizeClassNames.dialog[ size! ],
 					className
 				) }
@@ -703,7 +703,7 @@ export const SearchBoxItem = forwardRef<HTMLButtonElement, SearchBoxItemProps>(
 				type="button"
 				ref={ combinedRef }
 				className={ cn(
-					'flex w-full items-center justify-start gap-1 p-1 cursor-pointer border-none bg-transparent text-left focus:outline-none',
+					'flex w-full items-center justify-start gap-1 p-1 cursor-pointer border-none bg-transparent text-left focus:outline-hidden',
 					isActive && 'bg-background-secondary',
 					! isActive &&
 						'hover:bg-background-secondary focus:bg-background-secondary',

@@ -62,7 +62,7 @@ export const FilePreview = () => {
 	return (
 		<div
 			className={ cn(
-				'border border-solid border-transparent flex items-start justify-between rounded mt-2 bg-field-primary-background p-3 gap-3',
+				'border border-solid border-transparent flex items-start justify-between rounded-sm mt-2 bg-field-primary-background p-3 gap-3',
 				error && 'border-alert-border-danger bg-alert-background-danger'
 			) }
 		>
@@ -72,7 +72,7 @@ export const FilePreview = () => {
 					( file.type.startsWith( 'image/' ) ? (
 						<div
 							className={ cn(
-								'size-10 rounded-sm flex items-center justify-center shrink-0',
+								'size-10 rounded-xs flex items-center justify-center shrink-0',
 								error && 'bg-gray-200 '
 							) }
 						>
@@ -114,7 +114,7 @@ export const FilePreview = () => {
 					<button
 						onClick={ removeFile }
 						aria-label="Remove file"
-						className="inline-flex cursor-pointer bg-transparent border-0 p-1 my-0 ml-auto mr-0 ring-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-toggle-on focus-visible:ring-offset-2 rounded self-start"
+						className="inline-flex cursor-pointer bg-transparent border-0 p-1 my-0 ml-auto mr-0 ring-0 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-toggle-on focus-visible:ring-offset-2 rounded-sm self-start"
 					>
 						<Trash className="size-4 text-support-error" aria-hidden="true" />
 					</button>
@@ -229,7 +229,7 @@ export const Dropzone = ( {
 				<label htmlFor={ uploadInputID.current }>
 					<div
 						className={ cn(
-							'min-w-80 cursor-pointer mx-auto border-dashed border rounded-md text-center hover:border-field-dropzone-color hover:bg-field-dropzone-background-hover focus-within:outline-none focus-within:ring-2 focus-within:ring-toggle-on focus-within:ring-offset-2 transition duration-200 ease-in-out',
+							'min-w-80 cursor-pointer mx-auto border-dashed border rounded-md text-center hover:border-field-dropzone-color hover:bg-field-dropzone-background-hover focus-within:outline-hidden focus-within:ring-2 focus-within:ring-toggle-on focus-within:ring-offset-2 transition duration-200 ease-in-out',
 							isDragging
 								? 'border-field-dropzone-color bg-field-dropzone-background-hover'
 								: 'border-field-border',

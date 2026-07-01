@@ -193,7 +193,7 @@ const Template = ( args ) => {
 				{ /* Navigation Bar */ }
 				<Topbar
 					gap={ 0 }
-					className="w-auto min-h-[unset] h-16 shadow-sm p-0 relative z-[1]"
+					className="w-auto min-h-[unset] h-16 shadow-xs p-0 relative z-[1]"
 				>
 					<Topbar.Left className="p-5">
 						<Topbar.Item>
@@ -205,14 +205,14 @@ const Template = ( args ) => {
 							<a
 								href="#"
 								target="_self"
-								className="content-center no-underline h-full py-0 px-1 m-0 bg-transparent outline-none shadow-none border-0 focus:outline-none text-text-secondary text-sm font-medium cursor-pointer"
+								className="content-center no-underline h-full py-0 px-1 m-0 bg-transparent outline-hidden shadow-none border-0 focus:outline-hidden text-text-secondary text-sm font-medium cursor-pointer"
 							>
 								Dashboard
 							</a>
 							<a
 								href="#"
 								target="_self"
-								className="content-center no-underline inline-flex items-center gap-1 h-full py-0 px-1 m-0 bg-transparent outline-none shadow-none border-0 focus:outline-none text-text-secondary text-sm font-medium cursor-pointer"
+								className="content-center no-underline inline-flex items-center gap-1 h-full py-0 px-1 m-0 bg-transparent outline-hidden shadow-none border-0 focus:outline-hidden text-text-secondary text-sm font-medium cursor-pointer"
 							>
 								<span>Orders</span>
 								<Badge
@@ -225,7 +225,7 @@ const Template = ( args ) => {
 							<a
 								href="#"
 								target="_self"
-								className="content-center no-underline h-full py-0 px-1 m-0 bg-transparent outline-none shadow-none border-0 focus:outline-none text-text-secondary text-sm font-medium cursor-pointer"
+								className="content-center no-underline h-full py-0 px-1 m-0 bg-transparent outline-hidden shadow-none border-0 focus:outline-hidden text-text-secondary text-sm font-medium cursor-pointer"
 							>
 								Products
 							</a>
@@ -233,7 +233,7 @@ const Template = ( args ) => {
 							<a
 								href="#"
 								target="_self"
-								className="content-center no-underline relative h-full py-0 px-1 m-0 bg-transparent outline-none shadow-none border-0 focus:outline-none text-text-primary text-sm font-medium cursor-pointer"
+								className="content-center no-underline relative h-full py-0 px-1 m-0 bg-transparent outline-hidden shadow-none border-0 focus:outline-hidden text-text-primary text-sm font-medium cursor-pointer"
 							>
 								<span>Settings</span>
 								<span className="absolute bottom-0 left-0 w-full h-px bg-brand-800"></span>
@@ -241,14 +241,14 @@ const Template = ( args ) => {
 							<a
 								href="#"
 								target="_self"
-								className="content-center no-underline h-full py-0 px-1 m-0 bg-transparent outline-none shadow-none border-0 focus:outline-none text-text-secondary text-sm font-medium cursor-pointer"
+								className="content-center no-underline h-full py-0 px-1 m-0 bg-transparent outline-hidden shadow-none border-0 focus:outline-hidden text-text-secondary text-sm font-medium cursor-pointer"
 							>
 								Integrations
 							</a>
 							<a
 								href="#"
 								target="_self"
-								className="content-center no-underline h-full inline-flex items-center py-0 px-1 m-0 bg-transparent outline-none shadow-none border-0 focus:outline-none cursor-pointer text-sm font-semibold text-brand-800"
+								className="content-center no-underline h-full inline-flex items-center py-0 px-1 m-0 bg-transparent outline-hidden shadow-none border-0 focus:outline-hidden cursor-pointer text-sm font-semibold text-brand-800"
 							>
 								<span>Upgrade to Pro</span>
 								<ArrowUpRight
@@ -395,7 +395,7 @@ const Template = ( args ) => {
 						{ /* Settings */ }
 						<Container
 							direction="column"
-							className="bg-background-primary rounded-xl shadow py-4 px-6"
+							className="bg-background-primary rounded-xl shadow-sm py-4 px-6"
 						>
 							{ /* Tabs */ }
 							<Container.Item className="mb-0.5">

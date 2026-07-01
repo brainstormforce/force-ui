@@ -164,7 +164,7 @@ const EditorInput = forwardRef<LexicalEditor, EditorInputProps>(
 								<ContentEditable
 									aria-label={ placeholder || 'Text editor' }
 									className={ cn(
-										'editor-content focus-visible:outline-none outline-none',
+										'editor-content focus-visible:outline-hidden outline-hidden',
 										editableContentAreaCommonClassNames,
 										className
 									) }

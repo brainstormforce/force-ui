@@ -102,9 +102,9 @@ export const TextAreaComponent = (
 	};
 
 	const baseClasses =
-		'py-2 rounded border border-solid border-border-subtle bg-field-secondary-background font-normal placeholder-text-tertiary text-text-primary focus:outline-none focus-visible:outline-none transition ease-in-out duration-200';
+		'py-2 rounded-sm border border-solid border-border-subtle bg-field-secondary-background font-normal placeholder-text-tertiary text-text-primary focus:outline-hidden focus-visible:outline-hidden transition ease-in-out duration-200';
 	const sizeClasses = {
-		sm: 'px-3 rounded text-xs',
+		sm: 'px-3 rounded-sm text-xs',
 		md: 'px-3 rounded-md text-sm',
 		lg: 'px-4 rounded-lg text-base',
 	};

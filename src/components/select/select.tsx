@@ -671,7 +671,7 @@ export function SelectOptions( {
 						<div
 							ref={ refs.setFloating }
 							className={ cn(
-								'box-border [&_*]:box-border w-full bg-white outline-none shadow-lg outline outline-1 outline-border-subtle',
+								'box-border [&_*]:box-border w-full bg-white outline-hidden shadow-lg outline outline-1 outline-border-subtle',
 								combobox &&
 									'grid grid-cols-1 grid-rows-[auto_1fr] divide-y divide-x-0 divide-solid divide-border-subtle',
 								sizeClassNames[ sizeValue as SelectSizes ]
@@ -716,7 +716,7 @@ export function SelectOptions( {
 									) }
 									<input
 										className={ cn(
-											'px-1 w-full placeholder:text-field-placeholder border-0 focus:outline-none focus:shadow-none',
+											'px-1 w-full placeholder:text-field-placeholder border-0 focus:outline-hidden focus:shadow-none',
 											sizeClassNames[
 												sizeValue as SelectSizes
 											].searchbar
@@ -837,7 +837,7 @@ export function SelectItem( {
 	return (
 		<div
 			className={ cn(
-				'w-full flex items-center justify-between text-text-primary hover:bg-button-tertiary-hover rounded-md transition-all duration-150 cursor-pointer focus:outline-none focus-within:outline-none outline-none',
+				'w-full flex items-center justify-between text-text-primary hover:bg-button-tertiary-hover rounded-md transition-all duration-150 cursor-pointer focus:outline-hidden focus-within:outline-hidden outline-hidden',
 				selectItemClassNames[ sizeValue as SelectSizes ],
 				indx === activeIndex && 'bg-button-tertiary-hover',
 				className
