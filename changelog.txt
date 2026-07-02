@@ -1,3 +1,6 @@
+Version 2.0.0 - 2nd July, 2026
+- New: Migrated to TailwindCSS v4 (CSS-first) — the theme now ships as `@bsf/force-ui/theme.css` and the `withTW()` helper is deprecated; see the README migration guide for consumer upgrade steps (breaking).
+
 Version 1.7.13 - 11th June, 2026
 - Fix: Resolved `patch-package: command not found` install failure when the library is consumed as a git dependency. `patch-package` is now a runtime dependency so the bundled Lexical Shadow DOM patches are applied in consumer projects, which is required for the Editor Input mention menu Shadow DOM fix to work.
 
