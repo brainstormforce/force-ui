@@ -280,7 +280,7 @@ const Template = ( args ) => {
 						borderOn
 						collapsible={ false }
 						screenHeight={ false }
-						className="!h-full w-64"
+						className="h-full! w-64"
 					>
 						<Sidebar.Body>
 							<Sidebar.Item>
@@ -523,7 +523,7 @@ const Template = ( args ) => {
 										</Container.Item>
 										<EditorInput
 											by="label"
-											className="!min-h-32 [&+div]:items-start [&+div]:pt-1"
+											className="min-h-32! [&+div]:items-start [&+div]:pt-1"
 											placeholder=""
 											options={ INPUT_SUGGESTIONS }
 											trigger="#"

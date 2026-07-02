@@ -169,7 +169,7 @@ export const CheckboxComponent = (
 					{ ...( indeterminate && { 'aria-checked': 'mixed' as const } ) }
 					{ ...( label?.description && { 'aria-describedby': descriptionId } ) }
 					className={ cn(
-						"peer relative cursor-pointer appearance-none transition-all m-0 before:content-[''] checked:before:content-[''] checked:before:hidden before:hidden !border-1.5 border-solid focus:outline-hidden",
+						"peer relative cursor-pointer appearance-none transition-all m-0 before:content-[''] checked:before:content-[''] checked:before:hidden before:hidden border-1.5! border-solid focus:outline-hidden",
 						colorClassNames[ color ].checkbox,
 						sizeClassNames[ size ].checkbox,
 						disabled && disabledClassNames.checkbox,

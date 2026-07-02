@@ -59,6 +59,32 @@ module.exports = { plugins: { '@tailwindcss/postcss': {} } };
 
 You can usually **delete `tailwind.config.js`** (Tailwind v4 auto-detects sources). If you must keep a JS config, load it explicitly with `@config "./tailwind.config.js";` in your CSS — but note the keys below are gone.
 
+### Upgrade checklist
+
+1. **Dependencies**: `@bsf/force-ui@^2`, `tailwindcss@^4`, add `@tailwindcss/postcss`; remove `autoprefixer` and `@tailwindcss/container-queries` (both built in). If you depend on `tailwind-merge` directly, bump it to `^3` — v2 doesn't understand v4's trailing-`!` syntax and can drop classes at runtime.
+2. **CSS entry + PostCSS**: as shown above. Delete `tailwind.config.js`; move theme overrides into `@theme`.
+3. **Templates**: run `npx @tailwindcss/upgrade`, or manually rename `shadow-sm→shadow-xs`, `shadow→shadow-sm`, `rounded-sm→rounded-xs`, `rounded→rounded-sm`, `outline-none→outline-hidden`, and move the important modifier from prefix to suffix (`!p-0` → `p-0!`).
+4. **`@apply` outside the entry**: any other stylesheet using `@apply` needs `@reference "<path-to-your-entry>.css";` at the top (registers utilities, emits nothing).
+5. **`safelist`** → `@source inline("class-a class-b …")` in the entry.
+
+### WordPress / webpack consumers (wp-scripts)
+
+Hard-won gotchas if your build is `@wordpress/scripts` (webpack) inside wp-admin:
+
+- **Build the Tailwind entry in a standalone PostCSS pass, not through webpack.** css-loader splits v4's single-pass compilation (the `@theme` gets separated from utility generation), so classes silently fail to generate. One extra line in your build script fixes it: `postcss src/tailwind.css -o build/tailwind.css`, enqueued once.
+- **Never put your CSS in `@layer` inside wp-admin.** WP core's CSS is unlayered, and unlayered always beats layered regardless of specificity — responsive utilities and resets will silently lose.
+- **Preflight off means browser defaults leak.** Add this once in your entry (scoped to your app root):
+
+```css
+:where(#your-root) *, :where(#your-root) ::before, :where(#your-root) ::after {
+	border-width: 0;
+	border-style: solid;
+	border-color: var(--color-border-subtle, #E5E7EB); /* v4 default is currentColor */
+}
+```
+
+- **`space-x/y-*` changed in v4** (zero-specificity selector, margins on first child): legacy element resets like `#root h1–h6 { margin: 0 }` now override them, and first-child margins get trampled. Prefer `flex flex-col gap-*`; for a drop-in compat shim that restores the v3 selector shape, see the `postcss-v3-space` plugin in SureRank's `postcss.config.js`.
+
 **Config keys removed in Tailwind v4** (drop or replace them):
 
 | v3 key | v4 replacement |

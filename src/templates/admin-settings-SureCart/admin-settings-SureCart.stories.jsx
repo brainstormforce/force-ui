@@ -293,7 +293,7 @@ const Template = ( args ) => {
 						borderOn
 						collapsible={ false }
 						screenHeight={ false }
-						className="!h-full w-64"
+						className="h-full! w-64"
 					>
 						<Sidebar.Body>
 							<Sidebar.Item>

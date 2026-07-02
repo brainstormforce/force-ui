@@ -1,15 +1,7 @@
 /**
- * Force UI design tokens for Tailwind CSS v4 (CSS-first).
- *
- * Import-agnostic on purpose: this file declares only `@theme` tokens, custom
- * utilities and variants. It intentionally does NOT `@import "tailwindcss"` and
- * does NOT emit preflight, so consumers keep full control of the base layer
- * (mirrors the v3 `corePlugins.preflight: false` behavior).
- *
- * Consumer usage:
- *   @import "tailwindcss";
- *   @import "@bsf/force-ui/theme.css";
- *   @theme { ...overrides... }
+ * Force UI design tokens for Tailwind CSS v4. Import-agnostic: declares only
+ * tokens, utilities and variants — no preflight, so consumers keep control of
+ * the base layer. Consumers: @import "tailwindcss"; @import "@bsf/force-ui/theme.css";
  *
  * @since x.x.x
  */
@@ -216,20 +208,47 @@
 	--tracking-2: 0.125em;
 }
 
-/**
- * Custom RTL-aware variant (was defined via tailwindcss/plugin in v3).
- * @since x.x.x
- */
+/* RTL-aware variant (was a tailwindcss/plugin addVariant in v3). */
 @custom-variant not-rtl (&:not([dir="rtl"], [dir="rtl"] *));
 
-/*
- * Note: v3 `theme.extend` entries for spacing, size, translate, lineHeight,
- * zIndex and fraction widths (e.g. w-1/7) are intentionally omitted — Tailwind
- * v4 reproduces them exactly via its dynamic utility scale
- * (n × 0.25rem) and dynamic fraction widths (calc(a / b * 100%)).
- */
-
-/* Hairline border width (v3 borderWidth 0.5) — v4 has no dynamic border-<n>. */
+/* v3 borderWidth {0.5} parity, incl. per-side variants. */
 @utility border-0\.5 {
 	border-width: 0.5px;
+}
+@utility border-t-0\.5 {
+	border-top-width: 0.5px;
+}
+@utility border-b-0\.5 {
+	border-bottom-width: 0.5px;
+}
+@utility border-l-0\.5 {
+	border-left-width: 0.5px;
+}
+@utility border-r-0\.5 {
+	border-right-width: 0.5px;
+}
+@utility border-x-0\.5 {
+	border-inline-width: 0.5px;
+}
+@utility border-y-0\.5 {
+	border-block-width: 0.5px;
+}
+
+/* v3 divide 0.5 parity; shapes mirror v4 divide-* emission. */
+@utility divide-y-0\.5 {
+	:where(& > :not(:last-child)) {
+		--tw-divide-y-reverse: 0;
+		border-bottom-style: var(--tw-border-style);
+		border-top-style: var(--tw-border-style);
+		border-top-width: calc(0.5px * var(--tw-divide-y-reverse));
+		border-bottom-width: calc(0.5px * calc(1 - var(--tw-divide-y-reverse)));
+	}
+}
+@utility divide-x-0\.5 {
+	:where(& > :not(:last-child)) {
+		--tw-divide-x-reverse: 0;
+		border-inline-style: var(--tw-border-style);
+		border-inline-start-width: calc(0.5px * var(--tw-divide-x-reverse));
+		border-inline-end-width: calc(0.5px * calc(1 - var(--tw-divide-x-reverse)));
+	}
 }
