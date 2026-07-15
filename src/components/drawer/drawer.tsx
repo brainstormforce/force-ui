@@ -1,3 +1,4 @@
+'use client';
 import React, {
 	cloneElement,
 	createContext,
@@ -220,3 +221,15 @@ Drawer.Backdrop = DrawerBackdrop;
 Drawer.Portal = DrawerPortal;
 
 export default Drawer;
+
+export {
+	DrawerPanel,
+	DrawerHeader,
+	DrawerTitle,
+	DrawerDescription,
+	DrawerBody,
+	DrawerCloseButton,
+	DrawerFooter,
+	DrawerBackdrop,
+	DrawerPortal,
+};

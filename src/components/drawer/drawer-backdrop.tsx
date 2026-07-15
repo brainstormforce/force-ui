@@ -1,3 +1,4 @@
+'use client';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useDrawerState } from './drawer';
 import { createPortal } from 'react-dom';

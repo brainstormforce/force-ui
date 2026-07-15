@@ -1,3 +1,4 @@
+'use client';
 import { useEffect, useRef, useState } from 'react';
 import { X } from 'lucide-react';
 import { ToastState } from './controller';

@@ -1,0 +1,55 @@
+import { Meta, Canvas } from '@storybook/addon-docs/blocks';
+import * as NextjsStories from './button-group.nextjs.stories';
+
+<Meta title="Atoms/ButtonGroup/Next.js Usage" />
+
+# ButtonGroup — Next.js (App Router)
+
+> **TL;DR** — `ButtonGroup` works in the Next.js App Router out of the box. In a **Server Component**, use its named exports (`ButtonGroupContainer`, `ButtonGroupButton`) — not dot notation (`ButtonGroup.Group` / `ButtonGroup.Button`). Put anything interactive (event handlers, state) in a file that starts with `'use client'`.
+
+## Usage in a Server Component
+
+`ButtonGroup` is a compound component exposed as an object (`ButtonGroup.Group`, `ButtonGroup.Button`). Dot access doesn't work in a Server Component — React can't read those sub-components across the client boundary, so they resolve to `undefined`. Import the named exports instead:
+
+```tsx
+// app/view-toggle.tsx
+'use client';
+import { useState } from 'react';
+import { ButtonGroupContainer, ButtonGroupButton } from '@bsf/force-ui';
+
+export default function ViewToggle() {
+	const [ active, setActive ] = useState( 'list' );
+	return (
+		<ButtonGroupContainer activeItem={ active } onChange={ ( { value } ) => setActive( value.slug ) }>
+			<ButtonGroupButton slug="list" text="List" />
+			<ButtonGroupButton slug="grid" text="Grid" />
+		</ButtonGroupContainer>
+	);
+}
+```
+
+> `ButtonGroup.Group` is exported as **`ButtonGroupContainer`** and `ButtonGroup.Button` as **`ButtonGroupButton`**.
+
+## Dot notation (client components only)
+
+Inside your own client components the compound dot syntax still works — it is only Server Components that require the named exports above:
+
+```tsx
+'use client';
+import { ButtonGroup } from '@bsf/force-ui';
+
+<ButtonGroup.Group activeItem={ active } onChange={ handleChange }>
+	<ButtonGroup.Button slug="list" text="List" />
+	<ButtonGroup.Button slug="grid" text="Grid" />
+</ButtonGroup.Group>
+```
+
+## Notes
+
+- The `activeItem` / `onChange` state must live in a client component.
+
+## Live preview
+
+_Rendered with the named (App-Router) pattern._
+
+<Canvas of={NextjsStories.ServerComponentPattern} />
