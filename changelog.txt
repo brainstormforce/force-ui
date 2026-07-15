@@ -1,4 +1,5 @@
-Version 1.8.0 - 30th June, 2026
+Version x.x.x - xth July, 2026
+- Improvement: Atom - Radio Button: Added reverse position support.
 - New: Added Next.js React Server Components support. Every component now ships the `"use client"` directive in its build output, and compound components additionally expose named subpart exports (e.g. `SelectButton`, `DialogPanel`) so they can be rendered directly inside Server Components.
 
 Version 1.7.13 - 11th June, 2026

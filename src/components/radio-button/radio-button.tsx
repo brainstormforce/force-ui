@@ -102,7 +102,7 @@ export interface RadioButtonProps extends RadioButtonCommonProps {
 	inlineIcon?: boolean;
 	/** Hides the selection indicator */
 	hideSelection?: boolean;
-	/** Reverses the position of icon and label */
+	/** Places the selection control (radio/switch) on the left and the label on the right. Works with the bordered variant (`borderOn`) */
 	reversePosition?: boolean;
 	/** Adds a border around the button */
 	borderOn?: boolean;
@@ -341,7 +341,6 @@ export const RadioButtonComponent = (
 						'space-y-3': size === 'sm',
 						'space-y-4': size === 'md',
 					},
-					reversePosition && ( useSwitch ? 'ml-10' : 'ml-4' ),
 					inlineIcon && 'flex gap-2',
 					inlineIcon && ! label.description && 'items-center'
 				) }
@@ -359,7 +358,7 @@ export const RadioButtonComponent = (
 				>
 					<p
 						className={ cn(
-							'text-text-primary font-medium m-0',
+							'text-text-primary font-medium m-0 [overflow-wrap:anywhere]',
 							textSizeClassNames[
 								size as keyof typeof textSizeClassNames
 							],
@@ -369,7 +368,7 @@ export const RadioButtonComponent = (
 						{ label.heading }
 					</p>
 					{ label.description && (
-						<p className="text-text-tertiary text-sm font-normal leading-5 m-0">
+						<p className="text-text-tertiary text-sm font-normal leading-5 m-0 [overflow-wrap:anywhere]">
 							{ label.description }
 						</p>
 					) }
@@ -406,6 +405,13 @@ export const RadioButtonComponent = (
 		}
 	};
 
+	// Reserve space on the control side. Default: control on the right (pr-12).
+	// Reversed: control on the left; the switch needs more room than the radio.
+	let controlSpacingClass = 'pr-12';
+	if ( reversePosition ) {
+		controlSpacingClass = useSwitch ? 'pl-16' : 'pl-12';
+	}
+
 	const paddingClasses = {
 		'pl-3.5 pr-2.5 py-2.5': size === 'sm' && ! ( icon && useSwitch ),
 		'p-3': size === 'sm' && ( ( icon && useSwitch ) || ( icon && badgeItem ) ),
@@ -426,7 +432,7 @@ export const RadioButtonComponent = (
 					checkedValue &&
 					'outline-border-interactive',
 				paddingClasses,
-				'pr-12',
+				controlSpacingClass,
 				isDisabled && 'cursor-not-allowed opacity-40',
 				buttonWrapperClasses
 			) }
@@ -458,10 +464,10 @@ export const RadioButtonComponent = (
 			) }
 			<label
 				className={ cn(
-					'absolute mr-0.5 right-3 flex items-center cursor-pointer rounded-full gap-2',
-					reversePosition && 'left-0',
+					'absolute flex items-center cursor-pointer rounded-full gap-2',
+					reversePosition ? 'left-3 ml-0.5' : 'right-3 mr-0.5',
 					isDisabled && 'cursor-not-allowed',
-					inlineIcon && 'mr-3'
+					inlineIcon && ( reversePosition ? 'ml-3' : 'mr-3' )
 				) }
 				onClick={ handleLabelClick }
 			>
