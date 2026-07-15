@@ -1,0 +1,31 @@
+import { Meta, Canvas } from '@storybook/addon-docs/blocks';
+import * as Stories from './toaster.stories';
+
+<Meta of={Stories} name="Next.js Usage" />
+
+# Toaster — Next.js (App Router)
+
+> **TL;DR** — `Toaster` works in the Next.js App Router out of the box: import it and render it inside a **Server Component**. Put anything interactive (event handlers, state) in a file that starts with `'use client'`.
+
+## Usage in a Server Component
+
+Render the `<Toaster />` provider once in a client boundary; call `toast()` from client event handlers.
+
+```tsx
+// app/providers.tsx
+'use client';
+import { Toaster, toast } from '@bsf/force-ui';
+
+export function Providers( { children } ) {
+	return (
+		<>
+			{ children }
+			<Toaster />
+		</>
+	);
+}
+```
+
+## Live preview
+
+<Canvas of={Stories.Default} />

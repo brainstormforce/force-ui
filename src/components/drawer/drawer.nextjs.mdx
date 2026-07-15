@@ -1,0 +1,68 @@
+import { Meta, Canvas } from '@storybook/addon-docs/blocks';
+import * as Stories from './drawer.stories';
+import * as NextjsStories from './drawer.nextjs.stories';
+
+<Meta of={Stories} name="Next.js Usage" />
+
+# Drawer — Next.js (App Router)
+
+> **TL;DR** — `Drawer` works in the Next.js App Router out of the box: import it and render it inside a **Server Component**. Use its named subpart exports (e.g. `DrawerPanel`) — not dot notation (`Drawer.X`). Put anything interactive (event handlers, state) in a file that starts with `'use client'`.
+
+## Usage in a Server Component
+
+Use the **named subpart exports** — not dot access (`Drawer.X`). In a Server Component, React cannot read sub-components attached to a client reference, so dot access resolves to `undefined`. The named exports are individual client references:
+
+```tsx
+// app/drawer-demo.tsx
+'use client';
+import { useState } from 'react';
+import { Drawer, DrawerPanel, DrawerHeader, DrawerTitle, DrawerBody, DrawerFooter, DrawerCloseButton, DrawerBackdrop, Button } from '@bsf/force-ui';
+
+export default function Demo() {
+	const [ open, setOpen ] = useState( false );
+	return (
+		<Drawer open={ open } setOpen={ setOpen } position="right" trigger={ <Button>Open Drawer</Button> }>
+			<DrawerPanel>
+				<DrawerHeader>
+					<div className="flex items-center justify-between">
+						<DrawerTitle>Drawer Title</DrawerTitle>
+						<DrawerCloseButton />
+					</div>
+				</DrawerHeader>
+				<DrawerBody>Drawer body content.</DrawerBody>
+				<DrawerFooter>
+					<Button onClick={ () => setOpen( false ) }>Close</Button>
+				</DrawerFooter>
+			</DrawerPanel>
+			<DrawerBackdrop />
+		</Drawer>
+	);
+}
+```
+
+## Dot notation (client components only)
+
+Inside your own client components the familiar compound dot syntax still works — it is only Server Components that require the named exports above:
+
+```tsx
+'use client';
+import { Drawer } from '@bsf/force-ui';
+
+<Drawer open={ open } setOpen={ setOpen }>
+	<Drawer.Panel>
+		<Drawer.Header><Drawer.Title>Title</Drawer.Title><Drawer.CloseButton /></Drawer.Header>
+		<Drawer.Body>Body</Drawer.Body>
+	</Drawer.Panel>
+	<Drawer.Backdrop />
+</Drawer>
+```
+
+## Notes
+
+- Open state (`open` / `setOpen`) and the `trigger` live in a client component.
+
+## Live preview
+
+_Rendered with the named (App-Router) pattern._
+
+<Canvas of={NextjsStories.ServerComponentPattern} />

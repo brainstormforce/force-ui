@@ -1,0 +1,39 @@
+import { Meta, Canvas } from '@storybook/addon-docs/blocks';
+import * as Stories from './label.stories';
+
+<Meta of={Stories} name="Next.js Usage" />
+
+# Label — Next.js (App Router)
+
+> **TL;DR** — `Label` works in the Next.js App Router out of the box: import it and render it inside a **Server Component**. Put anything interactive (event handlers, state) in a file that starts with `'use client'`.
+
+## Usage in a Server Component
+
+```tsx
+// app/page.tsx — Server Component
+import { Label } from '@bsf/force-ui';
+
+export default function Page() {
+	return <Label />;
+}
+```
+
+## Event handlers & state
+
+Server Components can't hold state or receive event handlers (`onClick`, `onChange`, …). Move the interactive part into its own client component:
+
+```tsx
+'use client';
+import { Label } from '@bsf/force-ui';
+
+export default function Interactive() {
+	// useState, onClick, onChange … live in this client file
+	return <Label />;
+}
+```
+
+Then import that into your Server Component — the page itself stays a Server Component.
+
+## Live preview
+
+<Canvas of={Stories.Basic} />
