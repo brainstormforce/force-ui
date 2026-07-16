@@ -11,7 +11,6 @@ import { nanoid } from 'nanoid';
 import { cn } from '@/utilities/functions';
 import { Upload, X } from 'lucide-react';
 import Label from '../label';
-import FilePicker from '../file-picker';
 import { mergeRefs } from '@/components/toaster/utils';
 
 export declare interface InputProps {
@@ -170,8 +169,14 @@ export const InputComponent = (
 	const errorClasses = error
 		? 'focus:outline-focus-error-border focus:ring-field-color-error outline-focus-error-border'
 		: '';
+	const errorFileClasses = error
+		? 'focus:outline-focus-error-border focus:ring-field-color-error outline-focus-error-border'
+		: '';
 	const disabledClasses = disabled
 		? 'outline-border-disabled bg-field-background-disabled cursor-not-allowed text-text-disabled'
+		: '';
+	const disabledUploadFileClasses = disabled
+		? 'outline-border-disabled cursor-not-allowed text-text-disabled file:text-text-tertiary'
 		: '';
 	const iconClasses =
 		'font-normal placeholder-text-tertiary text-text-primary pointer-events-none absolute inset-y-0 flex flex-1 items-center [&>svg]:h-4 [&>svg]:w-4';
@@ -261,21 +266,52 @@ export const InputComponent = (
 		);
 	}, [ label, size, inputId ] );
 
+	const fileClasses = selectedFile
+		? 'file:border-0 file:bg-transparent pr-10'
+		: 'text-text-tertiary file:border-0 file:bg-transparent pr-10';
+
 	if ( type === 'file' ) {
 		return (
-			<FilePicker
-				ref={ ref }
-				id={ id }
-				size={ size }
-				className={ className }
-				disabled={ disabled }
-				onChange={ onChange }
-				error={ error }
-				label={ label }
-				value={ value }
-				onInvalid={ onError }
-				{ ...props }
-			/>
+			<div className="flex flex-col items-start gap-1.5 [&_*]:box-border box-border">
+				{ renderLabel }
+				<div
+					className={ cn(
+						'w-full relative flex focus-within:z-10',
+						className
+					) }
+				>
+					<input
+						ref={ mergeRefs( inputRef, ref ) }
+						id={ inputId }
+						type="file"
+						className={ cn(
+							baseClasses,
+							disabledUploadFileClasses,
+							sizeClasses[ size ],
+							textClasses[ size ],
+							focusClasses,
+							hoverClasses,
+							errorFileClasses,
+							fileClasses
+						) }
+						disabled={ disabled }
+						onChange={ handleChange }
+						onInvalid={ onError }
+						{ ...( error && { 'aria-invalid': true } ) }
+						{ ...props }
+					/>
+					<div
+						className={ cn(
+							uploadIconClasses,
+							'right-0 pr-3',
+							uploadIconSizeClasses[ size ]
+						) }
+						aria-hidden="true"
+					>
+						<Upload />
+					</div>
+				</div>
+			</div>
 		);
 	}
 
