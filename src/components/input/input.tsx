@@ -12,15 +12,14 @@ import { cn } from '@/utilities/functions';
 import { Upload, X } from 'lucide-react';
 import Label from '../label';
 import FilePicker from '../file-picker';
-import type { FilePickerProps } from '../file-picker/file-picker';
 import { mergeRefs } from '@/components/toaster/utils';
 
-export declare interface InputTextProps {
+export declare interface InputProps {
 	/** Unique identifier for the input element. */
 	id?: string;
 
-	/** Specifies the type of the input element (e.g., text, password, email). */
-	type?: 'text' | 'password' | 'email';
+	/** Specifies the type of the input element (e.g., text, file). */
+	type?: 'text' | 'password' | 'email' | 'file';
 
 	/** Initial value of the input element. */
 	defaultValue?: string;
@@ -38,7 +37,7 @@ export declare interface InputTextProps {
 	disabled?: boolean;
 
 	/** Function called when the input value changes. */
-	onChange?: ( value: string ) => void;
+	onChange?: ( value: string | FileList | null ) => void;
 
 	/** Indicates whether the input has an error state. */
 	error?: boolean;
@@ -62,64 +61,6 @@ export declare interface InputTextProps {
 	required?: boolean;
 }
 
-export declare interface InputFileProps extends FilePickerProps {
-	/** Renders the FilePicker component under the hood; all FilePicker props apply. */
-	type: 'file';
-
-	/** Function called when the input encounters an error. */
-	onError?: () => void;
-}
-
-export type InputProps =
-	| ( InputTextProps &
-			Omit<
-				React.InputHTMLAttributes<HTMLInputElement>,
-				// accept/multiple are file-input attributes; omitting them here
-				// (and in the file branch) makes their only declaration
-				// FilePickerProps, so the docgen propFilter keeps them.
-				| 'size'
-				| 'prefix'
-				| 'onChange'
-				| 'type'
-				| 'value'
-				| 'defaultValue'
-				| 'accept'
-				| 'multiple'
-			> )
-	| ( InputFileProps &
-			Omit<
-				React.InputHTMLAttributes<HTMLInputElement>,
-				// accept/multiple are omitted so their declarations resolve to
-				// FilePickerProps — otherwise the docgen propFilter drops them
-				// as inherited node_modules props. defaultValue is omitted so
-				// the text branch's `string` typing is what docgen reports.
-				| 'size'
-				| 'onChange'
-				| 'value'
-				| 'type'
-				| 'accept'
-				| 'multiple'
-				| 'defaultValue'
-			> );
-
-/**
- * Internal, non-discriminated props for the implementation, derived from the
- * public branch types. The members redeclared inline are the ones whose type
- * differs between the two branches. The public `InputProps` union narrows
- * what consumers can pass per `type`.
- */
-type InputComponentProps = Omit<InputTextProps, 'type' | 'value' | 'onChange'> &
-	Pick<FilePickerProps, 'clearable' | 'accept' | 'multiple'> & {
-		/** Specifies the type of the input element (e.g., text, file). */
-		type?: 'text' | 'password' | 'email' | 'file';
-
-		/** Controlled value of the input element. For `type="file"`, accepts a File, an array of Files, or a previously saved filename string. */
-		value?: string | File | File[] | null;
-
-		/** Function called when the input value changes. Receives the string value, or the selected FileList (null when cleared) for `type="file"`. */
-		onChange?: ( value: string | FileList | null ) => void;
-	};
-
 export const InputComponent = (
 	{
 		id,
@@ -136,10 +77,10 @@ export const InputComponent = (
 		suffix = null,
 		label = '',
 		...props
-	}: InputComponentProps &
+	}: InputProps &
 		Omit<
 			React.InputHTMLAttributes<HTMLInputElement>,
-			'size' | 'prefix' | 'onChange' | 'value'
+			'size' | 'prefix' | 'onChange'
 		>,
 	ref: React.ForwardedRef<HTMLInputElement>
 ) => {
@@ -366,7 +307,7 @@ export const InputComponent = (
 					disabled={ disabled }
 					onChange={ handleChange }
 					onInvalid={ onError }
-					value={ getValue() as string | undefined }
+					value={ getValue() }
 					{ ...( error && { 'aria-invalid': true } ) }
 					{ ...props }
 				/>
@@ -376,11 +317,7 @@ export const InputComponent = (
 	);
 };
 
-// Cast to the public discriminated union so `type="file"` narrows the
-// accepted props to the FilePicker API and other types reject them.
-const Input = forwardRef( InputComponent ) as unknown as ( (
-	props: InputProps & React.RefAttributes<HTMLInputElement>
-) => JSX.Element ) & { displayName?: string };
+const Input = forwardRef( InputComponent );
 Input.displayName = 'Input';
 
 export default Input;
