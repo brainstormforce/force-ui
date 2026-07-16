@@ -16,6 +16,32 @@ const meta: Meta<typeof Input> = {
 		size: {
 			control: 'select',
 		},
+		// FilePicker-only props: visible only when type="file".
+		clearable: {
+			control: 'boolean',
+			if: { arg: 'type', eq: 'file' },
+		},
+		accept: {
+			control: 'text',
+			if: { arg: 'type', eq: 'file' },
+		},
+		multiple: {
+			control: 'boolean',
+			if: { arg: 'type', eq: 'file' },
+		},
+		defaultValue: {
+			if: { arg: 'type', neq: 'file' },
+		},
+		// Not supported by the FilePicker branch.
+		prefix: {
+			if: { arg: 'type', neq: 'file' },
+		},
+		suffix: {
+			if: { arg: 'type', neq: 'file' },
+		},
+		placeholder: {
+			if: { arg: 'type', neq: 'file' },
+		},
 	},
 };
 

@@ -86,6 +86,20 @@ export declare interface FilePickerProps {
 	 * @since x.x.x
 	 */
 	clearable?: boolean;
+
+	/**
+	 * Comma-separated list of accepted file types (e.g., ".pdf,image/*").
+	 *
+	 * @since x.x.x
+	 */
+	accept?: string;
+
+	/**
+	 * Allows selecting multiple files when true.
+	 *
+	 * @since x.x.x
+	 */
+	multiple?: boolean;
 }
 
 export const FilePickerComponent = (
@@ -106,7 +120,9 @@ export const FilePickerComponent = (
 	}: FilePickerProps &
 		Omit<
 			React.InputHTMLAttributes<HTMLInputElement>,
-			'size' | 'onChange' | 'value' | 'type'
+			// accept/multiple resolve to FilePickerProps so the docgen
+			// propFilter doesn't drop them as inherited node_modules props.
+			'size' | 'onChange' | 'value' | 'type' | 'accept' | 'multiple'
 		>,
 	ref: React.ForwardedRef<HTMLInputElement>
 ) => {
