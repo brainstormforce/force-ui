@@ -1,4 +1,5 @@
 Version x.x.x - xth July, 2026
+- New: Atom - File Picker: Added a standalone file upload component that displays the selected file name and supports a controlled value and an optional clear action.
 - Improvement: Atom - Radio Button: Added reverse position support.
 - New: Added Next.js React Server Components support. Every component now ships the `"use client"` directive in its build output, and compound components additionally expose named subpart exports (e.g. `SelectButton`, `DialogPanel`) so they can be rendered directly inside Server Components.
 
