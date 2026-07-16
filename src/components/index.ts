@@ -1,9 +1,8 @@
-'use client';
-
 export { default as Button } from './button';
 export { default as Switch } from './switch';
 export { default as Checkbox } from './checkbox';
 export { default as RadioButton } from './radio-button';
+export { RadioButtonGroup } from './radio-button';
 export { default as Badge } from './badge';
 export { default as TextArea } from './textarea';
 export { default as Avatar } from './avatar';
@@ -14,8 +13,17 @@ export { default as Loader } from './loader';
 export { default as ProgressBar } from './progress-bar';
 export { default as Tooltip } from './tooltip';
 export { default as ButtonGroup } from './button-group';
+export { ButtonGroupContainer, ButtonGroupButton } from './button-group';
 export { default as Tabs } from './tabs';
 export { default as Select } from './select';
+export {
+	SelectButton,
+	SelectOptions,
+	SelectItem,
+	SelectItem as SelectOption,
+	SelectOptionGroup,
+	SelectPortal,
+} from './select';
 export * from './toaster';
 export { default as Container } from './container';
 export { default as Alert } from './alert';
@@ -24,6 +32,12 @@ export { default as ProgressSteps } from './progress-steps';
 export { default as Skeleton } from './skeleton';
 export { default as Menu } from './menu-item';
 export { default as Sidebar } from './sidebar';
+export {
+	SidebarHeader,
+	SidebarBody,
+	SidebarFooter,
+	SidebarItem,
+} from './sidebar';
 export { default as Breadcrumb } from './breadcrumb';
 export { default as Dialog } from './dialog';
 export { default as Topbar } from './topbar';
@@ -34,6 +48,11 @@ export { default as Drawer } from './drawer';
 export { default as Pagination } from './pagination';
 export { default as DatePicker } from './datepicker';
 export { default as Accordion } from './accordion';
+export {
+	AccordionItem,
+	AccordionTrigger,
+	AccordionContent,
+} from './accordion';
 export { default as BarChart } from './bar-chart';
 export { default as LineChart } from './line-chart';
 export { default as PieChart } from './pie-chart';
@@ -43,3 +62,97 @@ export { default as Table } from './table';
 export { default as FilePreview } from './file-preview';
 export { default as FilePicker } from './file-picker';
 export { default as Text } from './text';
+
+// --- RSC: named compound subparts (dot-matching) ---
+export {
+	DialogPanel,
+	DialogPortal,
+	DialogTitle,
+	DialogDescription,
+	DialogCloseButton,
+	DialogHeader,
+	DialogBody,
+	DialogFooter,
+	DialogBackdrop,
+} from './dialog';
+export {
+	DrawerPanel,
+	DrawerHeader,
+	DrawerTitle,
+	DrawerDescription,
+	DrawerBody,
+	DrawerCloseButton,
+	DrawerFooter,
+	DrawerBackdrop,
+	DrawerPortal,
+} from './drawer';
+export {
+	TableHead,
+	TableHeadCell,
+	TableBody,
+	TableRow,
+	TableCell,
+	TableFooter,
+} from './table';
+export {
+	DropdownMenuTrigger,
+	DropdownMenuContent,
+	DropdownMenuList,
+	DropdownMenuItem,
+	DropdownMenuSeparator,
+	DropdownMenuPortal,
+	DropdownMenuContentWrapper,
+} from './dropdown-menu';
+export {
+	SearchBoxInput,
+	SearchBoxLoading,
+	SearchBoxSeparator,
+	SearchBoxContent,
+	SearchBoxList,
+	SearchBoxEmpty,
+	SearchBoxGroup,
+	SearchBoxItem,
+	SearchBoxPortal,
+} from './search';
+export {
+	BreadcrumbList,
+	BreadcrumbItem,
+	BreadcrumbLink,
+	BreadcrumbSeparator,
+	BreadcrumbEllipsis,
+	BreadcrumbPage,
+} from './breadcrumb';
+export {
+	PaginationContent,
+	PaginationItem,
+	PaginationPrevious,
+	PaginationNext,
+	PaginationEllipsis,
+} from './pagination';
+export {
+	TabsGroup,
+	TabsTab,
+	TabsPanel,
+} from './tabs';
+export {
+	MenuList,
+	MenuItem,
+	MenuSeparator,
+} from './menu-item';
+export {
+	TopbarLeft,
+	TopbarMiddle,
+	TopbarRight,
+	TopbarItem,
+} from './topbar';
+export {
+	HamburgerMenuOptions,
+	HamburgerMenuOption,
+	HamburgerMenuToggle,
+} from './hamburger-menu';
+export {
+	ContainerItem,
+} from './container';
+export {
+	ProgressStep,
+} from './progress-steps';

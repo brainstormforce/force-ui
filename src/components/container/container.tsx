@@ -1,3 +1,4 @@
+'use client';
 import { createContext, useContext } from 'react';
 import { cn } from '@/utilities/functions';
 import GridContainer from './grid-container';
