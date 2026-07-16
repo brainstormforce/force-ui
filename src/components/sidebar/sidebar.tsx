@@ -1,3 +1,4 @@
+'use client';
 import React, {
 	type ReactNode,
 	createContext,
@@ -67,6 +68,9 @@ export const Sidebar = ( {
 		const storedState = safeLocalStorage.get( 'sidebar-collapsed' );
 		if ( storedState ) {
 			return storedState;
+		}
+		if ( typeof window === 'undefined' ) {
+			return collapsed;
 		}
 		const isSmallScreen = window.innerWidth < 1280;
 		return isSmallScreen;

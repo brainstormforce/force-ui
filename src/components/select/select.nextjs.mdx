@@ -1,0 +1,61 @@
+import { Meta, Canvas } from '@storybook/addon-docs/blocks';
+import * as Stories from './select-atom.stories';
+import * as NextjsStories from './select.nextjs.stories';
+
+<Meta of={Stories} name="Next.js Usage" />
+
+# Select — Next.js (App Router)
+
+> **TL;DR** — `Select` works in the Next.js App Router out of the box: import it and render it inside a **Server Component**. Use its named subpart exports (e.g. `SelectButton`) — not dot notation (`Select.X`). Put anything interactive (event handlers, state) in a file that starts with `'use client'`.
+
+## Usage in a Server Component
+
+Use the **named subpart exports** — not dot access (`Select.X`). In a Server Component, React cannot read sub-components attached to a client reference, so dot access resolves to `undefined`. The named exports are individual client references:
+
+```tsx
+// app/select-demo.tsx
+'use client';
+import { useState } from 'react';
+import { Select, SelectButton, SelectOptions, SelectOption } from '@bsf/force-ui';
+
+export default function Demo() {
+	const [ value, setValue ] = useState< string | undefined >();
+	return (
+		<Select value={ value } onChange={ ( v ) => setValue( v as string ) }>
+			<SelectButton label="Color" placeholder="Pick a color" />
+			<SelectOptions>
+				<SelectOption value="red">Red</SelectOption>
+				<SelectOption value="green">Green</SelectOption>
+			</SelectOptions>
+		</Select>
+	);
+}
+```
+
+> `Select.Option` is exported as **`SelectOption`** (alias of `SelectItem`).
+
+## Dot notation (client components only)
+
+Inside your own client components the familiar compound dot syntax still works — it is only Server Components that require the named exports above:
+
+```tsx
+'use client';
+import { Select } from '@bsf/force-ui';
+
+<Select value={ value } onChange={ setValue }>
+	<Select.Button label="Color" placeholder="Pick a color" />
+	<Select.Options>
+		<Select.Option value="red">Red</Select.Option>
+	</Select.Options>
+</Select>
+```
+
+## Notes
+
+- The `onChange` handler must live in a client component — handlers cannot be passed from a Server Component.
+
+## Live preview
+
+_Rendered with the named (App-Router) pattern._
+
+<Canvas of={NextjsStories.ServerComponentPattern} />

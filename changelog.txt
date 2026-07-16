@@ -1,5 +1,19 @@
-Version 1.7.12 - 28th April, 2026
+Version x.x.x - xth July, 2026
+- New: Atom - File Picker: Added a standalone file upload component that displays the selected file name and supports a controlled value and an optional clear action.
+- New: Added Next.js React Server Components support. Every component now ships the `"use client"` directive in its build output, and compound components additionally expose named subpart exports (e.g. `SelectButton`, `DialogPanel`) so they can be rendered directly inside Server Components.
 - New: Atom - Select: Added `inlineSearch` variant for the Select (combobox) component.
+- Improvement: Atom - Radio Button: Added reverse position support.
+
+Version 1.7.13 - 11th June, 2026
+- Fix: Resolved `patch-package: command not found` install failure when the library is consumed as a git dependency. `patch-package` is now a runtime dependency so the bundled Lexical Shadow DOM patches are applied in consumer projects, which is required for the Editor Input mention menu Shadow DOM fix to work.
+
+Version 1.7.12 - 10th June, 2026
+- Improvement: Atom - Textarea: Added `autoResize`, `minHeight`, and `maxHeight` props. When `autoResize` is enabled, the textarea height auto-adjusts to fit its content and stops growing at `maxHeight` (default 160px), at which point it becomes scrollable. `minHeight` and `maxHeight` apply as CSS constraints regardless of `autoResize`.
+- Improvement: Organism - Line Chart: Added `seriesLabels` prop to map data keys to custom display names in the tooltip, useful for translated labels. Falls back to the data key when no label is provided.
+- Improvement: Atom - DatePicker: Added opt-in `enableTimeSelection` prop that renders time inputs below the calendar grid for `single` and `range` selection types (ignored for `multiple`). The chosen time is merged into the selected dates and carried in the `onDateSelect`/`onApply` payloads.
+- Fix: Organism - Editor Input: Added Shadow DOM support for the mention suggestions menu.
+- Fix: Molecule - Accordion: Collapsed content children are unmounted again to prevent heavy panel content from rendering up front and re-rendering on every keystroke; the ARIA region element stays in the DOM so `aria-controls` and `aria-labelledby` still resolve.
+- Fix: Organism - Editor Input: The mention typeahead anchor is now created lazily and appended to the DOM only when the menu opens, eliminating per-mount style recalculations and typing lag on pages with many editors.
 
 Version 1.7.11 - 8th April, 2026
 - New: Added Storybook MCP compatibility support for smoother integration with MCP-based tooling and workflows.

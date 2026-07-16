@@ -7,10 +7,25 @@ import {
 	type CustomComponents,
 	type OnSelectHandler,
 } from 'react-day-picker';
-import { format, isAfter, isBefore, isEqual, subMonths } from 'date-fns';
+import {
+	format,
+	isAfter,
+	isBefore,
+	isEqual,
+	isSameDay,
+	setHours,
+	setMinutes,
+	startOfDay,
+	subMonths,
+} from 'date-fns';
 import { cn } from '@/utilities/functions';
 import Button from '../button';
-import { currentTimeDot, formatWeekdayName, generateYearRange } from './utils';
+import {
+	currentTimeDot,
+	formatWeekdayName,
+	generateYearRange,
+	mergeDateTime,
+} from './utils';
 
 export type TDateRange = { from: Date | undefined; to: Date | undefined };
 
@@ -56,6 +71,13 @@ export interface DatePickerProps {
 	numberOfMonths?: number;
 	/** Footer content to be displayed at the bottom of the date picker. */
 	footer?: ReactNode;
+	/**
+	 * Show time selection inputs below the calendar grid.
+	 * Applies to `single` and `range` modes only; ignored for `multiple`.
+	 *
+	 * @default false
+	 */
+	enableTimeSelection?: boolean;
 	/** Additional props to be passed to the date picker. */
 	[key: string]: unknown;
 }
@@ -99,6 +121,7 @@ const DatePickerComponent = ( {
 	variant = 'normal',
 	alignment = 'horizontal',
 	numberOfMonths,
+	enableTimeSelection = false,
 	disabled,
 	...props
 }: DatePickerProps ) => {
@@ -106,6 +129,7 @@ const DatePickerComponent = ( {
 	const isFooter =
 		React.isValidElement( props.footer ) ||
 		typeof props.footer === 'function';
+	const hasTimeSelection = enableTimeSelection && mode !== 'multiple';
 	const [ showMonthSelect, setShowMonthSelect ] = useState( false );
 	const [ showYearSelect, setShowYearSelect ] = useState( false ); // New state for year selection
 	const [ selectedYear, setSelectedYear ] = useState( new Date().getFullYear() );
@@ -452,33 +476,65 @@ const DatePickerComponent = ( {
 	> = ( selectedDate, trigger ) => {
 		if ( mode === 'range' ) {
 			const currentSelectedValue = selectedDates as TDateRange;
+			const isSameSelectedDate = ( date: Date | undefined ) =>
+				!! date &&
+				( enableTimeSelection
+					? isSameDay( trigger, date )
+					: isEqual( trigger, date ) );
+			const withPreservedTime = ( date: Date, source: Date | undefined ) =>
+				enableTimeSelection ? mergeDateTime( date, source ) : date;
 			if (
 				( ! currentSelectedValue?.from && ! currentSelectedValue?.to ) ||
 				( currentSelectedValue?.from && currentSelectedValue?.to )
 			) {
 				if (
-					( currentSelectedValue.from &&
-						isEqual( trigger, currentSelectedValue?.from ) ) ||
-					( currentSelectedValue.to &&
-						isEqual( trigger, currentSelectedValue?.to ) )
+					isSameSelectedDate( currentSelectedValue?.from ) ||
+					isSameSelectedDate( currentSelectedValue?.to )
 				) {
 					setSelectedDates( { from: undefined, to: undefined } );
 					return;
 				}
-				setSelectedDates( { from: trigger, to: undefined } );
+				setSelectedDates( {
+					from: withPreservedTime(
+						trigger,
+						currentSelectedValue?.from
+					),
+					to: undefined,
+				} );
 				return;
 			}
 			if ( currentSelectedValue?.from && ! currentSelectedValue?.to ) {
-				if ( trigger < currentSelectedValue.from ) {
+				const isTriggerBeforeFrom = enableTimeSelection
+					? isBefore( trigger, startOfDay( currentSelectedValue.from ) )
+					: trigger < currentSelectedValue.from;
+				if ( isTriggerBeforeFrom ) {
 					setSelectedDates( {
-						from: trigger,
+						from: withPreservedTime(
+							trigger,
+							currentSelectedValue.from
+						),
 						to: currentSelectedValue.from,
 					} );
 					return;
 				}
+				let rangeEndDate = withPreservedTime(
+					trigger,
+					currentSelectedValue.to
+				);
+				// Same-day completion: keep the end from landing before a
+				// start that already carries a later time.
+				if (
+					enableTimeSelection &&
+					isBefore( rangeEndDate, currentSelectedValue.from )
+				) {
+					rangeEndDate = mergeDateTime(
+						rangeEndDate,
+						currentSelectedValue.from
+					);
+				}
 				setSelectedDates( {
 					from: currentSelectedValue.from,
-					to: trigger,
+					to: rangeEndDate,
 				} );
 				return;
 			}
@@ -502,9 +558,125 @@ const DatePickerComponent = ( {
 				setSelectedDates( [ ...( selectedDates as Date[] ), trigger ] );
 			}
 		} else if ( mode === 'single' ) {
+			if (
+				enableTimeSelection &&
+				selectedDate instanceof Date &&
+				selectedDates instanceof Date
+			) {
+				setSelectedDates( mergeDateTime( selectedDate, selectedDates ) );
+				return;
+			}
 			setSelectedDates( selectedDate as Date );
 		}
 	};
+
+	const handleTimeChange = (
+		event: React.ChangeEvent<HTMLInputElement>,
+		target: 'single' | 'from' | 'to'
+	) => {
+		const { value } = event.target;
+		if ( ! value ) {
+			return;
+		}
+		if ( target === 'single' ) {
+			if ( ! ( selectedDates instanceof Date ) ) {
+				return;
+			}
+			const [ hours, minutes ] = value.split( ':' ).map( Number );
+			setSelectedDates(
+				setMinutes( setHours( selectedDates, hours ), minutes )
+			);
+			return;
+		}
+		const currentRange = selectedDates as TDateRange;
+		if ( ! currentRange?.[ target ] ) {
+			return;
+		}
+		const [ hours, minutes ] = value.split( ':' ).map( Number );
+		const updatedDate = setMinutes(
+			setHours( currentRange[ target ]!, hours ),
+			minutes
+		);
+		const updatedRange = {
+			...currentRange,
+			[ target ]: updatedDate,
+		};
+		// Keep the range valid: align the other endpoint's time when the
+		// edited time would put the start after the end on the same day.
+		const counterpart = target === 'from' ? 'to' : 'from';
+		if (
+			updatedRange.from &&
+			updatedRange.to &&
+			isAfter( updatedRange.from, updatedRange.to )
+		) {
+			updatedRange[ counterpart ] = mergeDateTime(
+				updatedRange[ counterpart ]!,
+				updatedDate
+			);
+		}
+		setSelectedDates( updatedRange );
+	};
+
+	const renderTimeInput = (
+		target: 'single' | 'from' | 'to',
+		date: Date | undefined,
+		label: string
+	) => (
+		<div className="flex flex-col items-start gap-1 flex-1">
+			<span className="text-xs font-medium text-text-secondary">
+				{ label }
+			</span>
+			<input
+				type="time"
+				className={ cn(
+					'w-full px-2 py-1 rounded text-sm font-normal text-text-primary bg-field-secondary-background outline outline-1 outline-border-subtle border-none transition-[color,box-shadow,outline] duration-200',
+					'focus:outline-focus-border focus:ring-2 focus:ring-toggle-on focus:ring-offset-2',
+					! date &&
+						'outline-border-disabled bg-field-background-disabled cursor-not-allowed text-text-disabled'
+				) }
+				value={ date ? format( date, 'HH:mm' ) : '' }
+				disabled={ ! date }
+				onChange={ ( event ) => handleTimeChange( event, target ) }
+				aria-label={ label }
+			/>
+		</div>
+	);
+
+	const timeSection = hasTimeSelection ? (
+		<div
+			className={ cn(
+				'flex items-end gap-3 p-2 bg-background-primary border-solid border-border-subtle',
+				variant === 'presets'
+					? 'border-l border-r border-t-0 border-b'
+					: 'border border-t-0',
+				! isFooter &&
+					( variant === 'presets'
+						? 'rounded-br-md'
+						: 'rounded-bl-md rounded-br-md' )
+			) }
+		>
+			{ mode === 'single' ? (
+				renderTimeInput(
+					'single',
+					selectedDates as Date | undefined,
+					'Time'
+				)
+			) : (
+				<>
+					{ renderTimeInput(
+						'from',
+						( selectedDates as TDateRange )?.from,
+						'Start time'
+					) }
+					{ renderTimeInput(
+						'to',
+						( selectedDates as TDateRange )?.to,
+						'End time'
+					) }
+				</>
+			) }
+		</div>
+	) : null;
 
 	const monthsClassName = cn(
 		'relative bg-background-primary shadow-datepicker-wrapper',
@@ -519,7 +691,9 @@ const DatePickerComponent = ( {
 		variant === 'dualdate'
 			? 'rounded-tr-md rounded-tl-md border border-solid border-border-subtle'
 			: '',
-		isFooter ? 'rounded-b-none' : 'rounded-bl-md rounded-br-md'
+		isFooter || hasTimeSelection
+			? 'rounded-b-none'
+			: 'rounded-bl-md rounded-br-md'
 	);
 
 	return (
@@ -644,6 +818,16 @@ const DatePickerComponent = ( {
 				/* eslint-disable  @typescript-eslint/no-explicit-any */
 				{ ...( ( mode === 'range' ? { required: false } : {} ) as any ) }
 				{ ...props }
+				footer={
+					hasTimeSelection ? (
+						<>
+							{ timeSection }
+							{ props.footer }
+						</>
+					) : (
+						( props.footer as ReactNode )
+					)
+				}
 				onDayMouseEnter={ ( _, __, event ) => {
 					if ( mode !== 'range' ) {
 						return;

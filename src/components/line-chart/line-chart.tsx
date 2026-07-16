@@ -1,3 +1,4 @@
+'use client';
 import {
 	LineChart as LineChartWrapper,
 	Line,
@@ -30,6 +31,9 @@ interface LineChartProps {
 
 	/** An array of strings representing the keys to access data in each data object. Used for identifying different data series. */
 	dataKeys: string[];
+
+	/** An object mapping data keys to display labels used as series names in the tooltip. Useful for translated or custom labels. E.g. `{ impressions: 'Impressionen' }`. Falls back to the data key when no label is provided. */
+	seriesLabels?: Record<string, string>;
 
 	/** An array of color objects that determine the stroke colors for each data series in the chart. */
 	colors?: Color[];
@@ -128,6 +132,7 @@ interface LineChartProps {
 const LineChart = ( {
 	data,
 	dataKeys = [],
+	seriesLabels,
 	colors = [],
 	showXAxis = false,
 	showYAxis = false,
@@ -261,6 +266,7 @@ const LineChart = ( {
 								key={ key }
 								type="monotone"
 								dataKey={ key }
+								name={ seriesLabels?.[ key ] }
 								stroke={ appliedColors[ index ].stroke }
 								fill={ appliedColors[ index ].stroke }
 								strokeWidth={ 2 }

@@ -1,0 +1,62 @@
+import { Meta, Canvas } from '@storybook/addon-docs/blocks';
+import * as Stories from './tabs.stories';
+import * as NextjsStories from './tabs.nextjs.stories';
+
+<Meta of={Stories} name="Next.js Usage" />
+
+# Tabs — Next.js (App Router)
+
+> **TL;DR** — `Tabs` works in the Next.js App Router out of the box: import it and render it inside a **Server Component**. Use its named subpart exports (e.g. `TabsGroup`) — not dot notation (`Tabs.X`). Put anything interactive (event handlers, state) in a file that starts with `'use client'`.
+
+## Usage in a Server Component
+
+Use the **named subpart exports** — not dot access (`Tabs.X`). In a Server Component, React cannot read sub-components attached to a client reference, so dot access resolves to `undefined`. The named exports are individual client references:
+
+```tsx
+// app/tabs-demo.tsx
+'use client';
+import { useState } from 'react';
+import { Tabs, TabsGroup, TabsTab, TabsPanel } from '@bsf/force-ui';
+
+export default function Demo() {
+	const [ active, setActive ] = useState( 'a' );
+	return (
+		<Tabs activeItem={ active }>
+			<TabsGroup activeItem={ active } onChange={ ( { value } ) => setActive( value.slug ) }>
+				<TabsTab slug="a" text="Tab A" />
+				<TabsTab slug="b" text="Tab B" />
+			</TabsGroup>
+			<TabsPanel slug="a">Panel A</TabsPanel>
+			<TabsPanel slug="b">Panel B</TabsPanel>
+		</Tabs>
+	);
+}
+```
+
+> `Tabs.Tab` / `Tabs.Panel` are exported as **`TabsTab`** / **`TabsPanel`**.
+
+## Dot notation (client components only)
+
+Inside your own client components the familiar compound dot syntax still works — it is only Server Components that require the named exports above:
+
+```tsx
+'use client';
+import { Tabs } from '@bsf/force-ui';
+
+<Tabs activeItem={ active }>
+	<Tabs.Group activeItem={ active } onChange={ handleChange }>
+		<Tabs.Tab slug="a" text="Tab A" />
+	</Tabs.Group>
+	<Tabs.Panel slug="a">Panel A</Tabs.Panel>
+</Tabs>
+```
+
+## Notes
+
+- The active tab state (`activeItem` / `onChange`) lives in a client component.
+
+## Live preview
+
+_Rendered with the named (App-Router) pattern._
+
+<Canvas of={NextjsStories.ServerComponentPattern} />

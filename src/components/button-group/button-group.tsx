@@ -1,3 +1,4 @@
+'use client';
 import React, {
 	useCallback,
 	forwardRef,
@@ -210,5 +211,12 @@ const exports = {
 	Group: ButtonGroup,
 	Button,
 };
+
+// Named exports for React Server Components: dot access (`ButtonGroup.Group` /
+// `ButtonGroup.Button`) can't cross the RSC client boundary, so expose each
+// part as its own named export. The default compound object is kept for
+// backward-compatible dot usage inside client components.
+export const ButtonGroupContainer = ButtonGroup;
+export const ButtonGroupButton = Button;
 
 export default exports;

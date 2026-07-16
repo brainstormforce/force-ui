@@ -1,0 +1,84 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Guides/Using force-ui with Next.js" />
+
+# Using force-ui with Next.js (App Router)
+
+How to use force-ui in a Next.js **App Router** project. Every component also has
+its own **"Next.js Usage"** tab with a ready-to-copy example.
+
+## Background: Server vs Client Components
+
+In the App Router, components are **Server Components** by default — they render on
+the server and ship no JavaScript. A **Client Component** runs in the browser and is
+required for anything interactive (state, effects, event handlers). You turn a file
+into a Client Component by adding `'use client'` as its very first line.
+
+## 1. Install & styles
+
+```bash
+npm install @bsf/force-ui
+```
+
+Import the stylesheet once, e.g. in `app/layout.tsx`:
+
+```tsx
+import '@bsf/force-ui/dist/tailwind.css';
+```
+
+## 2. Components work in Server Components out of the box
+
+Every force-ui component is already marked with `'use client'` internally, so you can
+import and render it directly inside a Server Component — no wrapper needed:
+
+```tsx
+// app/page.tsx — Server Component
+import { Button } from '@bsf/force-ui';
+
+export default function Page() {
+	return <Button>Hello</Button>;
+}
+```
+
+## 3. Interactivity goes in a client component
+
+Server Components can't hold state or receive event handlers (`onClick`, `onChange`, …).
+Put the interactive part in its own file that starts with `'use client'`:
+
+```tsx
+// app/save-button.tsx
+'use client';
+import { Button } from '@bsf/force-ui';
+
+export default function SaveButton() {
+	return <Button onClick={ () => console.log( 'saved' ) }>Save</Button>;
+}
+```
+
+Then import that into your Server Component page. The page stays a Server Component;
+only the small interactive "island" is a Client Component.
+
+> Put an event handler directly in a Server Component and you'll see:
+> **"Event handlers cannot be passed to Client Component props."**
+
+## 4. Compound components: use named exports in Server Components
+
+Some components are **compound** — they expose sub-parts (e.g. `Select.Button`,
+`Select.Options`). In a **Server Component**, the dot syntax does not work: React can't
+read sub-components attached to a client component across the server/client boundary,
+so `Select.Button` becomes `undefined` and you get:
+
+> **Error: Element type is invalid … but got: undefined.**
+
+Import each sub-part by its **named export** instead:
+
+```tsx
+import { Select, SelectButton, SelectOptions, SelectOption } from '@bsf/force-ui';
+```
+
+The dot syntax still works fine inside your own client components. Each component's
+**Next.js Usage** tab lists its named sub-parts.
+
+---
+
+Open any component's **Next.js Usage** tab for a copy-paste example.

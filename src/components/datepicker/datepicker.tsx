@@ -1,3 +1,4 @@
+'use client';
 import { useState } from 'react';
 import DatePickerComponent, { TDateRange } from './datepicker-component';
 import Button from '../button';
@@ -36,6 +37,13 @@ export interface DatePickerProps {
 	showOutsideDays?: boolean;
 	/** Show or hide the footer. */
 	isFooter?: boolean;
+	/**
+	 * Show time selection inputs below the calendar grid.
+	 * Applies to `single` and `range` selection types only; ignored for `multiple`.
+	 *
+	 * @default false
+	 */
+	enableTimeSelection?: boolean;
 	/** Selected date value. */
 	selected?: Date | Date[] | TDateRange | undefined;
 	/**
@@ -61,6 +69,7 @@ const DatePicker = ( {
 	cancelButtonText = 'Cancel',
 	showOutsideDays = true,
 	isFooter = true,
+	enableTimeSelection = false,
 	selected,
 	disabled,
 	...props
@@ -166,6 +175,7 @@ const DatePicker = ( {
 				mode={ selectionType }
 				variant={ variant }
 				width="w-[18.5rem]"
+				enableTimeSelection={ enableTimeSelection }
 				selectedDates={ selectedDates }
 				showOutsideDays={ showOutsideDays }
 				setSelectedDates={
@@ -199,6 +209,7 @@ const DatePicker = ( {
 				mode={ selectionType }
 				numberOfMonths={ 2 }
 				alignment="horizontal"
+				enableTimeSelection={ enableTimeSelection }
 				selectedDates={ selectedDates }
 				setSelectedDates={
 					handleSelect as (
@@ -256,6 +267,7 @@ const DatePicker = ( {
 				<DatePickerComponent
 					{ ...props }
 					mode={ selectionType }
+					enableTimeSelection={ enableTimeSelection }
 					selectedDates={ selectedDates }
 					setSelectedDates={
 						handleSelect as (

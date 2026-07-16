@@ -1,4 +1,4 @@
-import { format } from 'date-fns';
+import { format, getHours, getMinutes, setHours, setMinutes } from 'date-fns';
 
 export const currentTimeDot = () => {
 	return (
@@ -12,6 +12,16 @@ export const formatWeekdayName = ( date: Date ) => {
 
 export const generateYearRange = ( start: number, count = 24 ) => {
 	return Array.from( { length: count }, ( _, i ) => start + i );
+};
+
+export const mergeDateTime = ( date: Date, timeSource: Date | undefined ) => {
+	if ( ! timeSource ) {
+		return date;
+	}
+	return setMinutes(
+		setHours( date, getHours( timeSource ) ),
+		getMinutes( timeSource )
+	);
 };
 
 export const getDefaultSelectedValue = ( type: string ) => {

@@ -12,6 +12,15 @@ const meta: Meta<TextAreaProps> = {
 		size: {
 			control: 'select',
 		},
+		autoResize: {
+			control: 'boolean',
+		},
+		minHeight: {
+			control: 'text',
+		},
+		maxHeight: {
+			control: 'text',
+		},
 	},
 };
 
@@ -59,4 +68,30 @@ Large.args = {
 	disabled: false,
 	error: false,
 	defaultValue: 'Large TextArea',
+};
+
+// Auto-resize TextArea Example
+export const AutoResize = Template.bind( {} );
+AutoResize.args = {
+	size: 'md',
+	disabled: false,
+	error: false,
+	autoResize: true,
+	minHeight: 80,
+	maxHeight: 200,
+	defaultValue:
+		'This textarea grows as you type. Try adding more lines of text to see the auto-resize in action.',
+};
+
+// Min/Max Height (no auto-resize) Example
+export const WithMinMaxHeight = Template.bind( {} );
+WithMinMaxHeight.args = {
+	size: 'md',
+	disabled: false,
+	error: false,
+	autoResize: false,
+	minHeight: 120,
+	maxHeight: 240,
+	defaultValue:
+		'Fixed height range — drag the corner grip to resize between minHeight and maxHeight.',
 };
