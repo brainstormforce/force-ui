@@ -1,3 +1,4 @@
+'use client';
 import { cn } from '@/utilities/functions';
 import { type ReactNode } from 'react';
 

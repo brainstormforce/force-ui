@@ -1,0 +1,68 @@
+import { Meta, Canvas } from '@storybook/addon-docs/blocks';
+import * as Stories from './dialog.stories';
+import * as NextjsStories from './dialog.nextjs.stories';
+
+<Meta of={Stories} name="Next.js Usage" />
+
+# Dialog — Next.js (App Router)
+
+> **TL;DR** — `Dialog` works in the Next.js App Router out of the box: import it and render it inside a **Server Component**. Use its named subpart exports (e.g. `DialogPanel`) — not dot notation (`Dialog.X`). Put anything interactive (event handlers, state) in a file that starts with `'use client'`.
+
+## Usage in a Server Component
+
+Use the **named subpart exports** — not dot access (`Dialog.X`). In a Server Component, React cannot read sub-components attached to a client reference, so dot access resolves to `undefined`. The named exports are individual client references:
+
+```tsx
+// app/dialog-demo.tsx
+'use client';
+import { useState } from 'react';
+import { Dialog, DialogPanel, DialogHeader, DialogTitle, DialogBody, DialogFooter, DialogCloseButton, DialogBackdrop, Button } from '@bsf/force-ui';
+
+export default function Demo() {
+	const [ open, setOpen ] = useState( false );
+	return (
+		<Dialog open={ open } setOpen={ setOpen } trigger={ <Button>Open Dialog</Button> }>
+			<DialogBackdrop />
+			<DialogPanel>
+				<DialogHeader>
+					<div className="flex items-center justify-between">
+						<DialogTitle>Dialog Title</DialogTitle>
+						<DialogCloseButton />
+					</div>
+				</DialogHeader>
+				<DialogBody>Dialog body content.</DialogBody>
+				<DialogFooter>
+					<Button onClick={ () => setOpen( false ) }>Close</Button>
+				</DialogFooter>
+			</DialogPanel>
+		</Dialog>
+	);
+}
+```
+
+## Dot notation (client components only)
+
+Inside your own client components the familiar compound dot syntax still works — it is only Server Components that require the named exports above:
+
+```tsx
+'use client';
+import { Dialog } from '@bsf/force-ui';
+
+<Dialog open={ open } setOpen={ setOpen }>
+	<Dialog.Backdrop />
+	<Dialog.Panel>
+		<Dialog.Header><Dialog.Title>Title</Dialog.Title><Dialog.CloseButton /></Dialog.Header>
+		<Dialog.Body>Body</Dialog.Body>
+	</Dialog.Panel>
+</Dialog>
+```
+
+## Notes
+
+- Open state (`open` / `setOpen`) and any `trigger` handler live in a client component.
+
+## Live preview
+
+_Rendered with the named (App-Router) pattern._
+
+<Canvas of={NextjsStories.ServerComponentPattern} />

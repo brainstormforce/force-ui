@@ -1,3 +1,4 @@
+'use client';
 import { cn } from '@/utilities/functions';
 import { type ElementType, type ReactNode, useEffect } from 'react';
 import { useDrawerState } from './drawer';

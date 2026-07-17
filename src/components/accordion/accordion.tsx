@@ -1,3 +1,4 @@
+'use client';
 import React, {
 	type ReactNode,
 	type ElementType,
