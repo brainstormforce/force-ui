@@ -341,6 +341,11 @@ export const RadioButtonComponent = (
 						'space-y-3': size === 'sm',
 						'space-y-4': size === 'md',
 					},
+					// Borderless reverse layout keeps the control flush left, so
+					// offset the content by the control width (legacy behavior).
+					reversePosition &&
+						! borderOn &&
+						( useSwitch ? 'ml-10' : 'ml-4' ),
 					inlineIcon && 'flex gap-2',
 					inlineIcon && ! label.description && 'items-center'
 				) }
@@ -375,7 +380,7 @@ export const RadioButtonComponent = (
 				</div>
 			</div>
 		);
-	}, [ label ] );
+	}, [ label, reversePosition, borderOn, useSwitch ] );
 
 	if ( providerValue.style === 'tile' ) {
 		return (
@@ -406,10 +411,19 @@ export const RadioButtonComponent = (
 	};
 
 	// Reserve space on the control side. Default: control on the right (pr-12).
-	// Reversed: control on the left; the switch needs more room than the radio.
+	// Bordered + reversed: control on the left, inset from the border; the
+	// switch needs more room than the radio. Borderless reverse keeps the
+	// legacy flush-left layout (content offset handled in renderLabel).
 	let controlSpacingClass = 'pr-12';
-	if ( reversePosition ) {
+	if ( reversePosition && borderOn ) {
 		controlSpacingClass = useSwitch ? 'pl-16' : 'pl-12';
+	}
+
+	// Control anchor: right by default; reversed sits left — inset inside a
+	// border, flush against the edge without one (legacy behavior).
+	let controlPositionClass = 'right-3 mr-0.5';
+	if ( reversePosition ) {
+		controlPositionClass = borderOn ? 'left-3 ml-0.5' : 'left-0';
 	}
 
 	const paddingClasses = {
@@ -465,9 +479,10 @@ export const RadioButtonComponent = (
 			<label
 				className={ cn(
 					'absolute flex items-center cursor-pointer rounded-full gap-2',
-					reversePosition ? 'left-3 ml-0.5' : 'right-3 mr-0.5',
+					controlPositionClass,
 					isDisabled && 'cursor-not-allowed',
-					inlineIcon && ( reversePosition ? 'ml-3' : 'mr-3' )
+					inlineIcon &&
+						( reversePosition && borderOn ? 'ml-3' : 'mr-3' )
 				) }
 				onClick={ handleLabelClick }
 			>
