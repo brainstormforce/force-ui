@@ -157,6 +157,81 @@ RadioWithBorderSmallSize.args = {
 	size: 'sm',
 };
 
+const RadioWithBorderReversePositionTemplate: StoryFn<RadioButtonGroupProps> = (
+	args
+) => {
+	const [ value, setValue ] = useState( args.value || args.defaultValue );
+
+	return (
+		<RadioButton.Group
+			value={ value }
+			columns={ args.columns ?? 3 }
+			onChange={ ( val ) => {
+				setValue( val as string );
+			} }
+			{ ...args }
+		>
+			{ [ 1, 2, 3, 4, 5, 6 ].map( ( num ) => (
+				<RadioButton.Button
+					key={ num }
+					value={ `option${ num }` }
+					label={ {
+						heading: `Option ${ num }`,
+					} }
+					disabled={ args.disabled }
+					borderOn={ true }
+					reversePosition={ true }
+				/>
+			) ) }
+		</RadioButton.Group>
+	);
+};
+
+export const RadioWithBorderReversePosition =
+	RadioWithBorderReversePositionTemplate.bind( {} );
+RadioWithBorderReversePosition.args = {
+	size: 'md',
+};
+
+const SwitchWithBorderReversePositionTemplate: StoryFn<
+	RadioButtonGroupProps
+> = ( args ) => {
+	const [ value, setValue ] = useState<string[]>( [] );
+
+	return (
+		<RadioButton.Group
+			value={ value }
+			columns={ args.columns ?? 2 }
+			multiSelection={ true }
+			onChange={ ( val ) => {
+				setValue( val as string[] );
+			} }
+			{ ...args }
+		>
+			{ [ 1, 2, 3, 4 ].map( ( num ) => (
+				<RadioButton.Button
+					key={ num }
+					value={ `option${ num }` }
+					label={ {
+						heading: `Option ${ num }`,
+						description: `Description ${ num }`,
+					} }
+					disabled={ args.disabled }
+					borderOn={ true }
+					reversePosition={ true }
+					useSwitch={ true }
+				/>
+			) ) }
+		</RadioButton.Group>
+	);
+};
+
+export const SwitchWithBorderReversePosition =
+	SwitchWithBorderReversePositionTemplate.bind( {} );
+SwitchWithBorderReversePosition.args = {
+	size: 'md',
+};
+
 const defaultRadioButtonGroupData = [
 	{
 		id: '1',

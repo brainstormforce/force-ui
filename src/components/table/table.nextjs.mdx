@@ -1,0 +1,69 @@
+import { Meta, Canvas } from '@storybook/addon-docs/blocks';
+import * as Stories from './table.stories';
+import * as NextjsStories from './table.nextjs.stories';
+
+<Meta of={Stories} name="Next.js Usage" />
+
+# Table — Next.js (App Router)
+
+> **TL;DR** — `Table` works in the Next.js App Router out of the box: import it and render it inside a **Server Component**. Use its named subpart exports (e.g. `TableHead`) — not dot notation (`Table.X`). Put anything interactive (event handlers, state) in a file that starts with `'use client'`.
+
+## Usage in a Server Component
+
+Use the **named subpart exports** — not dot access (`Table.X`). In a Server Component, React cannot read sub-components attached to a client reference, so dot access resolves to `undefined`. The named exports are individual client references:
+
+```tsx
+// app/page.tsx — Server Component
+import { Table, TableHead, TableHeadCell, TableBody, TableRow, TableCell } from '@bsf/force-ui';
+
+export default function Page() {
+	return (
+		<Table>
+			<TableHead>
+				<TableHeadCell>Name</TableHeadCell>
+				<TableHeadCell>Role</TableHeadCell>
+			</TableHead>
+			<TableBody>
+				<TableRow><TableCell>Ada</TableCell><TableCell>Engineer</TableCell></TableRow>
+				<TableRow><TableCell>Linus</TableCell><TableCell>Maintainer</TableCell></TableRow>
+			</TableBody>
+		</Table>
+	);
+}
+```
+
+## Dot notation (client components only)
+
+Inside your own client components the familiar compound dot syntax still works — it is only Server Components that require the named exports above:
+
+```tsx
+'use client';
+import { Table } from '@bsf/force-ui';
+
+<Table>
+	<Table.Head><Table.HeadCell>Name</Table.HeadCell></Table.Head>
+	<Table.Body><Table.Row><Table.Cell>Ada</Table.Cell></Table.Row></Table.Body>
+</Table>
+```
+
+## Event handlers & state
+
+Server Components can't hold state or receive event handlers (`onClick`, `onChange`, …). Move the interactive part into its own client component:
+
+```tsx
+'use client';
+import { Table } from '@bsf/force-ui';
+
+export default function Interactive() {
+	// useState, onClick, onChange … live in this client file
+	return <Table />;
+}
+```
+
+Then import that into your Server Component — the page itself stays a Server Component.
+
+## Live preview
+
+_Rendered with the named (App-Router) pattern._
+
+<Canvas of={NextjsStories.ServerComponentPattern} />

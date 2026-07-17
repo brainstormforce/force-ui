@@ -1,3 +1,4 @@
+'use client';
 import { FloatingPortal } from '@floating-ui/react';
 import type { ReactNode } from 'react';
 

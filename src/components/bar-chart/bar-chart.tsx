@@ -1,3 +1,4 @@
+'use client';
 import {
 	BarChart as BarChartWrapper,
 	Bar,

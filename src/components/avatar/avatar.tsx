@@ -1,3 +1,4 @@
+'use client';
 import React, { forwardRef, useEffect, useState, type ReactNode } from 'react';
 import { cn } from '@/utilities/functions';
 import { User } from 'lucide-react';
