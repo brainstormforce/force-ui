@@ -1,0 +1,75 @@
+name: Deploy to Production Server
+
+on:
+    push:
+        branches:
+            - master
+    workflow_dispatch:
+
+jobs:
+    deploy:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v4
+
+            - name: Setup Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: '20'
+                  cache: 'npm'
+
+            - name: Install dependencies
+              run: npm ci
+
+            - name: Build library
+              run: npm run build
+
+            - name: Build Storybook
+              run: npm run build-storybook
+
+            - name: Setup SSH key
+              run: |
+                  mkdir -p ~/.ssh
+                  echo "${{ secrets.PRODUCTION_SSH_KEY }}" > ~/.ssh/deploy_key
+                  chmod 600 ~/.ssh/deploy_key
+                  ssh-keyscan -H ${{ secrets.PRODUCTION_HOST }} >> ~/.ssh/known_hosts
+
+            - name: Deploy to production server
+              run: |
+                  rsync -avz --delete \
+                    --exclude '.git' \
+                    --exclude '.github' \
+                    --exclude 'logs/*.log' \
+                    --exclude '.env*' \
+                    --exclude 'coverage' \
+                    --exclude '.DS_Store' \
+                    --exclude 'debug-storybook.log' \
+                    -e "ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no" \
+                    ./ ${{ secrets.PRODUCTION_USER }}@${{ secrets.PRODUCTION_HOST }}:${{ secrets.PRODUCTION_PATH }}/
+
+            - name: Restart PM2 process
+              run: |
+                  ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no \
+                    ${{ secrets.PRODUCTION_USER }}@${{ secrets.PRODUCTION_HOST }} << 'EOF'
+                  cd ${{ secrets.PRODUCTION_PATH }}
+                  echo "🔄 Restarting PM2 storybook process..."
+                  pm2 restart storybook
+                  echo "✅ PM2 process restarted successfully"
+                  echo ""
+                  echo "📊 PM2 Status:"
+                  pm2 list
+                  echo ""
+                  echo "📁 Deployed to: $(pwd)"
+                  echo "📅 Deployment time: $(date)"
+                  EOF
+
+            - name: Cleanup SSH key
+              if: always()
+              run: rm -f ~/.ssh/deploy_key
+
+            - name: Deployment summary
+              if: success()
+              run: |
+                  echo "✅ Deployment completed successfully!"
+                  echo "📂 Files deployed to production server"
