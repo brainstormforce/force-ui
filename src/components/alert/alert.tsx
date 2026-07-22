@@ -107,7 +107,7 @@ const Alert = ( {
 					<div className="absolute right-4 top-4 [&_svg]:size-5">
 						<button
 							className={ cn(
-								'bg-transparent m-0 p-0 border-none focus:outline-none focus-visible:ring-2 focus-visible:ring-toggle-on focus-visible:ring-offset-2 active:outline-none cursor-pointer rounded',
+								'bg-transparent m-0 p-0 border-none focus:outline-hidden focus-visible:ring-2 focus-visible:ring-toggle-on focus-visible:ring-offset-2 active:outline-hidden cursor-pointer rounded-sm',
 								closeIconClassNames[ theme ] ??
 									closeIconClassNames.light
 							) }
@@ -156,7 +156,7 @@ const Alert = ( {
 				{ typeof onClose === 'function' && (
 					<button
 						className={ cn(
-							'self-start bg-transparent m-0 border-none p-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-toggle-on focus-visible:ring-offset-2 active:outline-none cursor-pointer size-5 rounded',
+							'self-start bg-transparent m-0 border-none p-0.5 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-toggle-on focus-visible:ring-offset-2 active:outline-hidden cursor-pointer size-5 rounded-sm',
 							closeIconClassNames[ theme ] ??
 								closeIconClassNames.light
 						) }
