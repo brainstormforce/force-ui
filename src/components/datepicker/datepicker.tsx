@@ -1,3 +1,4 @@
+'use client';
 import { useState } from 'react';
 import DatePickerComponent, { TDateRange } from './datepicker-component';
 import Button from '../button';

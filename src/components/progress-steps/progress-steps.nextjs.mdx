@@ -1,0 +1,62 @@
+import { Meta, Canvas } from '@storybook/addon-docs/blocks';
+import * as Stories from './progress-steps.stories';
+import * as NextjsStories from './progress-steps.nextjs.stories';
+
+<Meta of={Stories} name="Next.js Usage" />
+
+# ProgressSteps — Next.js (App Router)
+
+> **TL;DR** — `ProgressSteps` works in the Next.js App Router out of the box: import it and render it inside a **Server Component**. Use its named subpart exports (e.g. `ProgressStep`) — not dot notation (`ProgressSteps.X`). Put anything interactive (event handlers, state) in a file that starts with `'use client'`.
+
+## Usage in a Server Component
+
+Use the **named subpart exports** — not dot access (`ProgressSteps.X`). In a Server Component, React cannot read sub-components attached to a client reference, so dot access resolves to `undefined`. The named exports are individual client references:
+
+```tsx
+// app/page.tsx — Server Component
+import { ProgressSteps, ProgressStep } from '@bsf/force-ui';
+
+export default function Page() {
+	return (
+		<ProgressSteps>
+			<ProgressStep size="md">Step 1</ProgressStep>
+			<ProgressStep size="md">Step 2</ProgressStep>
+		</ProgressSteps>
+	);
+}
+```
+
+## Dot notation (client components only)
+
+Inside your own client components the familiar compound dot syntax still works — it is only Server Components that require the named exports above:
+
+```tsx
+'use client';
+import { ProgressSteps } from '@bsf/force-ui';
+
+<ProgressSteps>
+	<ProgressSteps.Step size="md">Step 1</ProgressSteps.Step>
+</ProgressSteps>
+```
+
+## Event handlers & state
+
+Server Components can't hold state or receive event handlers (`onClick`, `onChange`, …). Move the interactive part into its own client component:
+
+```tsx
+'use client';
+import { ProgressSteps } from '@bsf/force-ui';
+
+export default function Interactive() {
+	// useState, onClick, onChange … live in this client file
+	return <ProgressSteps />;
+}
+```
+
+Then import that into your Server Component — the page itself stays a Server Component.
+
+## Live preview
+
+_Rendered with the named (App-Router) pattern._
+
+<Canvas of={NextjsStories.ServerComponentPattern} />

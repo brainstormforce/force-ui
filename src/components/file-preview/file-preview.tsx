@@ -1,3 +1,4 @@
+'use client';
 import { cn, formatFileSize } from '@/utilities/functions';
 import { File, ImageOff, Trash } from 'lucide-react';
 

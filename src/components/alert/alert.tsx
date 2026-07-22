@@ -1,3 +1,4 @@
+'use client';
 import { cn } from '@/utilities/functions';
 import { getIcon, getAction, getContent, getTitle } from '../toaster/utils';
 import { X } from 'lucide-react';

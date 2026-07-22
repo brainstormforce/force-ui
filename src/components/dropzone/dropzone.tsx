@@ -1,3 +1,4 @@
+'use client';
 import { useState, createContext, useContext, useRef, useMemo } from 'react';
 import { CloudUpload, File, ImageOff, Trash } from 'lucide-react';
 import { cn, formatFileSize } from '@/utilities/functions';

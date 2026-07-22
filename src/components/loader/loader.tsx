@@ -1,3 +1,4 @@
+'use client';
 import { cn } from '@/utilities/functions';
 import { LoaderCircle } from 'lucide-react';
 import { type ReactNode } from 'react';

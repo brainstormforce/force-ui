@@ -52,6 +52,9 @@ export const columnClasses = {
 };
 
 export const getOperatingSystem = () => {
+	if ( typeof window === 'undefined' ) {
+		return 'null';
+	}
 	const platform =
 		window.navigator?.userAgentData?.platform || window.navigator.platform;
 	const macosPlatforms = [

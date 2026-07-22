@@ -1,3 +1,4 @@
+'use client';
 import { Button } from '@/components';
 import { cn } from '@/utilities/functions';
 import { motion, useCycle } from 'framer-motion';

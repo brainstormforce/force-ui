@@ -1,3 +1,4 @@
+'use client';
 import {
 	PieChart as PieChartWrapper,
 	Pie,
