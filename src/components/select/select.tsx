@@ -1251,20 +1251,19 @@ const SelectComponent = ( {
 			return selectedValue === newValue;
 		} );
 
+		// Toggle: deselect if already selected, otherwise select. The
+		// dropdown stays open so multiple options can be picked in one go;
+		// Escape and outside click (useDismiss) still close it.
 		if ( valueIndex !== -1 ) {
-			return;
+			selectedValues.splice( valueIndex, 1 );
+		} else {
+			selectedValues.push( newValue );
+			setSelectedIndex( index );
 		}
-		selectedValues.push( newValue );
 
 		if ( ! isControlled ) {
 			setSelected( selectedValues );
 		}
-		setSelectedIndex( index );
-		(
-			( refs.domReference.current ??
-				refs.reference.current ) as HTMLElement | null
-		)?.focus();
-		setIsOpen( false );
 		setSearchKeyword( '' );
 		if ( typeof onChange === 'function' ) {
 			onChange( selectedValues );

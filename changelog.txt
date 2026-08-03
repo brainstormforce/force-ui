@@ -1,4 +1,5 @@
-Version 1.8.1 - 3rd August, 2026
+Version 1.8.1 - 4th August, 2026
+- Fix: Atom - Select: In `multiple` mode the dropdown now stays open while selecting or deselecting options, closing only on Escape or outside click.
 - New: Organism - Editor Input: Added optional `triggerRegex` prop that overrides the built-in mention-suggestion matcher, so consumers can allow the trigger without a leading blank space (e.g. directly after a double quote inside JSON string values). The custom regex must expose the same capture groups as the built-in matcher: 1 = leading boundary, 2 = replaceable string (trigger + query), 3 = query string used to filter options. When omitted, the existing trigger-based matcher is used unchanged.
 
 Version 1.8.0 - 17th July, 2026
