@@ -2,7 +2,7 @@ import EditorInput from './editor-input';
 import type { Meta, StoryFn } from '@storybook/react-vite';
 import { useEffect, useRef, type ReactNode } from 'react';
 import { createRoot, type Root } from 'react-dom/client';
-import { expect, userEvent, within } from 'storybook/test';
+import { expect, userEvent, waitFor, within } from 'storybook/test';
 
 // Renders its children inside an open Shadow DOM root, the way a real consumer
 // mounts the editor in a web component: a SEPARATE React root created on the
@@ -146,6 +146,14 @@ CustomTriggerRegex.play = async ( { canvasElement } ) => {
 	await expect(
 		await body.findByText( 'Red', {}, { timeout: 3000 } )
 	).toBeVisible();
+
+	// Close the menu before the story settles: the test-runner's axe scan
+	// runs on the final story state, and the open combobox popup has known
+	// aria-required-parent/children violations unrelated to this feature.
+	await userEvent.keyboard( '{Escape}' );
+	await waitFor( () =>
+		expect( body.queryByText( 'Red' ) ).not.toBeInTheDocument()
+	);
 };
 
 // SureRank PR #2776: smart tags must be insertable WITHOUT a blank space
@@ -175,6 +183,14 @@ MentionWithoutLeadingSpace.play = async ( { canvasElement } ) => {
 	await expect(
 		await body.findByText( 'Red', {}, { timeout: 3000 } )
 	).toBeVisible();
+
+	// Close the menu before the story settles: the test-runner's axe scan
+	// runs on the final story state, and the open combobox popup has known
+	// aria-required-parent/children violations unrelated to this feature.
+	await userEvent.keyboard( '{Escape}' );
+	await waitFor( () =>
+		expect( body.queryByText( 'Red' ) ).not.toBeInTheDocument()
+	);
 };
 
 // Renders the editor inside a Shadow DOM to verify it works across the shadow
