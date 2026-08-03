@@ -72,6 +72,15 @@ interface EditorInputProps<T = TOptionItem> {
 	by?: T extends Record<string, unknown> ? keyof T : string;
 	/** The trigger to be used to show the mention options. */
 	trigger?: string;
+	/**
+	 * Custom regex that overrides the default mention-suggestion matcher.
+	 * When provided, the `trigger` prop is ignored for matching. The regex
+	 * must expose the same capture groups as the default matcher:
+	 * 1 = leading whitespace/boundary, 2 = replaceable string (trigger +
+	 * query), 3 = query string used to filter the options.
+	 * When omitted, the default trigger-based matcher is used.
+	 */
+	triggerRegex?: RegExp;
 	/** The component to be used for the mention menu. */
 	menuComponent?: TMenuComponent;
 	/** The component to be used for the mention menu items. */
@@ -109,6 +118,7 @@ const EditorInput = forwardRef<LexicalEditor, EditorInputProps>(
 			options,
 			by = 'name',
 			trigger = '@',
+			triggerRegex,
 			menuComponent,
 			menuItemComponent,
 			className,
@@ -185,6 +195,7 @@ const EditorInput = forwardRef<LexicalEditor, EditorInputProps>(
 						by={ by }
 						optionsArray={ options }
 						trigger={ trigger }
+						triggerRegex={ triggerRegex }
 						autoSpace={ autoSpaceAfterMention }
 					/>
 					<OnChangePlugin
