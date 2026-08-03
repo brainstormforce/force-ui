@@ -76,7 +76,7 @@ export const getAction = ( {
 	theme = DEFAULT_THEME,
 } ) => {
 	const commonClassNames =
-		'focus:ring-0 focus:ring-offset-0 ring-offset-0 focus:outline-hidden';
+		'focus:ring-0 focus:ring-offset-0 ring-offset-0 focus:outline-none';
 	let classNames =
 		'text-button-primary border-button-primary hover:border-button-primary hover:text-button-primary-hover';
 	if ( theme === 'dark' ) {
@@ -91,7 +91,7 @@ export const getAction = ( {
 					size="xs"
 					onClick={ onAction }
 					className={ cn(
-						'rounded-sm',
+						'rounded',
 						commonClassNames,
 						classNames,
 						theme === 'dark'

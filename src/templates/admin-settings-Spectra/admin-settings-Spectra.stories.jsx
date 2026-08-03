@@ -87,7 +87,7 @@ const Template = ( args ) => {
 				{ /* Navigation Bar */ }
 				<Topbar
 					gap={ 0 }
-					className="w-auto min-h-[unset] h-16 shadow-xs p-0 relative z-[1]"
+					className="w-auto min-h-[unset] h-16 shadow-sm p-0 relative z-[1]"
 				>
 					<Topbar.Left className="p-5">
 						<Topbar.Item>
@@ -99,14 +99,14 @@ const Template = ( args ) => {
 							<a
 								href="#"
 								target="_self"
-								className="content-center no-underline h-full py-0 px-1 m-0 bg-transparent outline-hidden shadow-none border-0 focus:outline-hidden text-text-secondary text-sm font-medium cursor-pointer"
+								className="content-center no-underline h-full py-0 px-1 m-0 bg-transparent outline-none shadow-none border-0 focus:outline-none text-text-secondary text-sm font-medium cursor-pointer"
 							>
 								Dashboard
 							</a>
 							<a
 								href="#"
 								target="_self"
-								className="content-center no-underline h-full py-0 px-1 m-0 bg-transparent outline-hidden shadow-none border-0 focus:outline-hidden text-text-secondary text-sm font-medium cursor-pointer"
+								className="content-center no-underline h-full py-0 px-1 m-0 bg-transparent outline-none shadow-none border-0 focus:outline-none text-text-secondary text-sm font-medium cursor-pointer"
 							>
 								Blocks
 							</a>
@@ -114,28 +114,28 @@ const Template = ( args ) => {
 							<a
 								href="#"
 								target="_self"
-								className="content-center no-underline relative h-full py-0 px-1 m-0 bg-transparent outline-hidden shadow-none border-0 focus:outline-hidden text-text-primary text-sm font-medium cursor-pointer after:content-[''] after:inline-block after:size-1 after:bg-brand-800 after:absolute after:bottom-0 after:left-0 after:w-full after:h-px"
+								className="content-center no-underline relative h-full py-0 px-1 m-0 bg-transparent outline-none shadow-none border-0 focus:outline-none text-text-primary text-sm font-medium cursor-pointer after:content-[''] after:inline-block after:size-1 after:bg-brand-800 after:absolute after:bottom-0 after:left-0 after:w-full after:h-px"
 							>
 								<span>Settings</span>
 							</a>
 							<a
 								href="#"
 								target="_self"
-								className="content-center no-underline h-full py-0 px-1 m-0 bg-transparent outline-hidden shadow-none border-0 focus:outline-hidden text-text-secondary text-sm font-medium cursor-pointer"
+								className="content-center no-underline h-full py-0 px-1 m-0 bg-transparent outline-none shadow-none border-0 focus:outline-none text-text-secondary text-sm font-medium cursor-pointer"
 							>
 								AI Features
 							</a>
 							<a
 								href="#"
 								target="_self"
-								className="content-center no-underline h-full py-0 px-1 m-0 bg-transparent outline-hidden shadow-none border-0 focus:outline-hidden text-text-secondary text-sm font-medium cursor-pointer"
+								className="content-center no-underline h-full py-0 px-1 m-0 bg-transparent outline-none shadow-none border-0 focus:outline-none text-text-secondary text-sm font-medium cursor-pointer"
 							>
 								Free vs Pro
 							</a>
 							<a
 								href="#"
 								target="_self"
-								className="content-center no-underline h-full inline-flex items-center py-0 px-1 m-0 bg-transparent outline-hidden shadow-none border-0 focus:outline-hidden cursor-pointer text-sm font-semibold text-brand-800"
+								className="content-center no-underline h-full inline-flex items-center py-0 px-1 m-0 bg-transparent outline-none shadow-none border-0 focus:outline-none cursor-pointer text-sm font-semibold text-brand-800"
 							>
 								<span>Upgrade Pro Features</span>
 								<ArrowUpRight
@@ -176,7 +176,7 @@ const Template = ( args ) => {
 						borderOn
 						collapsible={ false }
 						screenHeight={ false }
-						className="h-full! w-64"
+						className="!h-full w-64"
 					>
 						<Sidebar.Body>
 							<Sidebar.Item>
@@ -254,7 +254,7 @@ const Template = ( args ) => {
 						<Container
 							direction="column"
 							gap="sm"
-							className="bg-background-primary rounded-xl shadow-sm p-6"
+							className="bg-background-primary rounded-xl shadow p-6"
 						>
 							{ /* Setting Section */ }
 							<Container className="mb-0.5" align="center">
@@ -290,7 +290,7 @@ const Template = ( args ) => {
 									id="default-width"
 									defaultValue={ 1280 }
 									suffix={
-										<span className="text-badge-color-gray rounded-sm border border-solid border-border-subtle p-0.5 text-center text-xs font-medium bg-badge-background-gray">
+										<span className="text-badge-color-gray rounded border border-solid border-border-subtle p-0.5 text-center text-xs font-medium bg-badge-background-gray">
 											PX
 										</span>
 									}
@@ -324,7 +324,7 @@ const Template = ( args ) => {
 									id="container-padding"
 									defaultValue={ 10 }
 									suffix={
-										<span className="text-badge-color-gray rounded-sm border border-solid border-border-subtle p-0.5 text-center text-xs font-medium bg-badge-background-gray">
+										<span className="text-badge-color-gray rounded border border-solid border-border-subtle p-0.5 text-center text-xs font-medium bg-badge-background-gray">
 											PX
 										</span>
 									}
@@ -358,7 +358,7 @@ const Template = ( args ) => {
 									id="container-element-gap"
 									defaultValue={ 20 }
 									suffix={
-										<span className="text-badge-color-gray rounded-sm border border-solid border-border-subtle p-0.5 text-center text-xs font-medium bg-badge-background-gray">
+										<span className="text-badge-color-gray rounded border border-solid border-border-subtle p-0.5 text-center text-xs font-medium bg-badge-background-gray">
 											PX
 										</span>
 									}

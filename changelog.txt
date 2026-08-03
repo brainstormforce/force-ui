@@ -1,6 +1,3 @@
-Version 2.0.0 - 2nd July, 2026
-- New: Migrated to TailwindCSS v4 (CSS-first) — the theme now ships as `@bsf/force-ui/theme.css` and the `withTW()` helper is deprecated; see the README migration guide for consumer upgrade steps (breaking).
-
 Version 1.8.0 - 17th July, 2026
 - New: Atom - File Picker: Added a standalone file upload component that displays the selected file name and supports a controlled value and an optional clear action.
 - New: Atom - Select: Added `inlineSearch` prop that renders the search input inside the trigger instead of the dropdown. Selected items render as badges (multiple) or as the input value (single). Mutually exclusive with `combobox`; `inlineSearch` wins when both are passed.

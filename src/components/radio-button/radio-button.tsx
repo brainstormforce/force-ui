@@ -205,7 +205,7 @@ export const RadioButtonGroup = ( {
 
 	const groupClassName = cn(
 		style === 'tile'
-			? 'border border-border-subtle border-solid rounded-md shadow-xs'
+			? 'border border-border-subtle border-solid rounded-md shadow-sm'
 			: 'gap-6',
 		className
 	);
@@ -440,7 +440,7 @@ export const RadioButtonComponent = (
 				!! label && 'items-start justify-between',
 				minWidth && 'min-w-[180px]',
 				borderOn &&
-					'outline outline-field-border outline-1 rounded-md shadow-xs hover:outline-border-interactive',
+					'outline outline-field-border outline-1 rounded-md shadow-sm hover:outline-border-interactive',
 				borderOnActive &&
 					borderOn &&
 					checkedValue &&
@@ -514,7 +514,7 @@ export const RadioButtonComponent = (
 								id={ radioButtonId }
 								type={ multiSelection ? 'checkbox' : 'radio' }
 								className={ cn(
-									"peer flex relative cursor-pointer appearance-none transition-all m-0 before:content-[''] checked:before:content-[''] checked:before:hidden before:hidden border-1.5! border-solid focus-within:outline-hidden",
+									"peer flex relative cursor-pointer appearance-none transition-all m-0 before:content-[''] checked:before:content-[''] checked:before:hidden before:hidden !border-1.5 border-solid focus-within:outline-none",
 									! multiSelection && 'rounded-full',
 									colorClassNames[ color ].checkbox,
 									sizeClassNames[ size ].checkbox,

@@ -1079,7 +1079,7 @@ export function SelectItem( {
 		<div
 			id={ optionId }
 			className={ cn(
-				'w-full flex items-center justify-between text-text-primary hover:bg-button-tertiary-hover rounded-md transition-all duration-150 cursor-pointer focus:outline-hidden focus-within:outline-hidden outline-hidden',
+				'w-full flex items-center justify-between text-text-primary hover:bg-button-tertiary-hover rounded-md transition-all duration-150 cursor-pointer focus:outline-none focus-within:outline-none outline-none',
 				selectItemClassNames[ sizeValue as SelectSizes ],
 				indx === activeIndex && 'bg-button-tertiary-hover',
 				className
