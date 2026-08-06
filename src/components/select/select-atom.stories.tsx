@@ -554,6 +554,81 @@ InlineSearchMulti.play = async ( { canvasElement } ) => {
 	expect( screen.queryByRole( 'listbox' ) ).toBeNull();
 };
 
+// Toggling `multiple` at runtime while a selection already exists.
+export const ToggleMultipleAtRuntime: Story = ( { size, disabled } ) => {
+	const [ multiple, setMultiple ] = useState( false );
+	return (
+		<div style={ { width: '300px' } }>
+			<button type="button" onClick={ () => setMultiple( ( v ) => ! v ) }>
+				{ multiple ? 'Disable multiple' : 'Enable multiple' }
+			</button>
+			<Select
+				size={ size }
+				multiple={ multiple }
+				disabled={ disabled }
+				onChange={ ( value ) => value }
+			>
+				<Select.Button
+					label="Select a Color"
+					placeholder="Select an option"
+					render={ ( selected ) =>
+						( selected as Record<string, string> )?.name
+					}
+				/>
+				<Select.Portal>
+					<Select.Options>
+						{ options.map( ( option ) => (
+							<Select.Option key={ option.id } value={ option }>
+								{ option.name }
+							</Select.Option>
+						) ) }
+					</Select.Options>
+				</Select.Portal>
+			</Select>
+		</div>
+	);
+};
+ToggleMultipleAtRuntime.args = {
+	size: 'md',
+	disabled: false,
+};
+ToggleMultipleAtRuntime.parameters = {
+	docs: {
+		description: {
+			story: 'The `multiple` prop can be flipped after a selection exists. The existing single value is treated as a one-item list instead of throwing.',
+		},
+	},
+};
+ToggleMultipleAtRuntime.play = async ( { canvasElement } ) => {
+	const canvas = within( canvasElement );
+
+	// Single mode: pick Red.
+	const trigger = await canvas.findByRole( 'combobox' );
+	await userEvent.click( trigger );
+	await userEvent.click( await screen.findByRole( 'option', { name: 'Red' } ) );
+	expect( trigger ).toHaveTextContent( 'Red' );
+
+	// Flip to multiple mode — previous single value survives as a badge.
+	await userEvent.click(
+		await canvas.findByRole( 'button', { name: 'Enable multiple' } )
+	);
+	expect( trigger ).toHaveTextContent( 'Red' );
+
+	// Selecting another option must not crash and must append.
+	await userEvent.click( trigger );
+	await userEvent.click(
+		await screen.findByRole( 'option', { name: 'Orange' } )
+	);
+	expect( trigger ).toHaveTextContent( /Red.*Orange/ );
+
+	// Flip back to single mode — first value is shown, still no crash.
+	await userEvent.keyboard( '{Escape}' );
+	await userEvent.click(
+		await canvas.findByRole( 'button', { name: 'Disable multiple' } )
+	);
+	expect( trigger ).toHaveTextContent( 'Red' );
+};
+
 const GroupedSelectTemplate: Story = ( {
 	size,
 	multiple,
