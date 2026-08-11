@@ -1,3 +1,6 @@
+Version 2.0.0 - 11th August, 2026
+- New: Migrated to TailwindCSS v4 (CSS-first) — the theme now ships as `@bsf/force-ui/theme.css` and the `withTW()` helper is deprecated; see the README migration guide for consumer upgrade steps (breaking).
+
 Version 1.8.1 - 11th August, 2026
 - Improvement: Organism - Editor Input: Added optional `triggerRegex` prop that overrides the built-in mention-suggestion matcher, so consumers can allow the trigger without a leading blank space (e.g. directly after a double quote inside JSON string values). The custom regex must expose the same capture groups as the built-in matcher: 1 = leading boundary, 2 = replaceable string (trigger + query), 3 = query string used to filter options. When omitted, the existing trigger-based matcher is used unchanged.
 - Fix: Atom - Select: In `multiple` mode the dropdown now stays open while selecting or deselecting options, closing only on Escape or outside click.

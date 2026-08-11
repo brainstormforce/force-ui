@@ -41,4 +41,4 @@ export const borderClasses =
 export const baseClasses =
 	'bg-background-primary text-primary cursor-pointer flex items-center justify-center';
 export const hoverClasses = 'hover:bg-button-tertiary-hover';
-export const focusClasses = 'focus:outline-none';
+export const focusClasses = 'focus:outline-hidden';

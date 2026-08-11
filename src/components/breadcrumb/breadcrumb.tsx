@@ -92,7 +92,7 @@ export const BreadcrumbLink = ( {
 			className={ cn(
 				sizes.text,
 				'px-1 font-medium no-underline text-text-tertiary hover:text-text-primary hover:underline',
-				'focus:outline-none focus:ring-1 focus:ring-border-interactive focus:border-border-interactive focus:rounded-sm',
+				'focus:outline-hidden focus:ring-1 focus:ring-border-interactive focus:border-border-interactive focus:rounded-xs',
 				'transition-all duration-200',
 				className
 			) }

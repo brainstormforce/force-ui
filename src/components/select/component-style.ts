@@ -3,7 +3,7 @@ export const sizeClassNames = {
 		icon: '[&>svg]:size-4',
 		searchIcon: '[&>svg]:size-4',
 		selectButton:
-			'px-2.5 py-2 rounded text-xs font-medium leading-4 min-h-[2rem]',
+			'px-2.5 py-2 rounded-sm text-xs font-medium leading-4 min-h-[2rem]',
 		multiSelect: 'pl-2 pr-2 py-1.5',
 		displaySelected: 'text-xs font-normal',
 		dropdown: 'rounded-md',

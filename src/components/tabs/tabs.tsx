@@ -303,13 +303,13 @@ export const Tab = forwardRef<Ref, TabProps>(
 
 		// Additional classes.
 		const hoverClasses = 'hover:text-text-primary';
-		const focusClasses = 'focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-border-strong';
+		const focusClasses = 'focus:outline-hidden focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-border-strong';
 		const disabledClasses = disabled
 			? 'text-text-disabled cursor-not-allowed hover:text-text-disabled'
 			: '';
 		const activeClasses =
 			activeItem === slug
-				? 'bg-background-primary text-text-primary shadow-sm'
+				? 'bg-background-primary text-text-primary shadow-xs'
 				: '';
 
 		// Merge classes.
