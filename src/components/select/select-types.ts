@@ -12,10 +12,8 @@ export type SelectOnClose = ( event: React.MouseEvent ) => void;
 
 export type SelectFunctionChildren = ( {
 	value,
-	onClose,
 }: {
 	value: SelectOptionValue;
-	onClose?: ( event: React.MouseEvent<HTMLElement> ) => void;
 } ) => React.JSX.Element;
 
 export type MultiTypeChildren =
