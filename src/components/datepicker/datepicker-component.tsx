@@ -384,7 +384,7 @@ const DatePickerComponent = ( {
 
 		const buttonClasses = cn(
 			'h-10 w-10 flex items-center justify-center transition text-text-secondary relative text-sm',
-			'border-none rounded',
+			'border-none rounded-sm',
 			( isSelected || isPartOfRange ) && ! isOutside
 				? 'bg-background-brand text-text-on-color'
 				: 'bg-transparent hover:bg-button-tertiary-hover',
@@ -629,7 +629,7 @@ const DatePickerComponent = ( {
 			<input
 				type="time"
 				className={ cn(
-					'w-full px-2 py-1 rounded text-sm font-normal text-text-primary bg-field-secondary-background outline outline-1 outline-border-subtle border-none transition-[color,box-shadow,outline] duration-200',
+					'w-full px-2 py-1 rounded-sm text-sm font-normal text-text-primary bg-field-secondary-background outline outline-1 outline-border-subtle border-none transition-[color,box-shadow,outline] duration-200',
 					'focus:outline-focus-border focus:ring-2 focus:ring-toggle-on focus:ring-offset-2',
 					! date &&
 						'outline-border-disabled bg-field-background-disabled cursor-not-allowed text-text-disabled'

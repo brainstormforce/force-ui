@@ -154,7 +154,7 @@ export const MenuList = ( {
 						animate="open"
 						exit="closed"
 						transition={ { duration: 0.3, ease: 'easeInOut' } }
-						className="overflow flex gap-0.5 flex-col m-0 bg-white rounded p-0"
+						className="overflow flex gap-0.5 flex-col m-0 bg-white rounded-sm p-0"
 					>
 						{ children }
 					</motion.ul>
@@ -188,7 +188,7 @@ export const MenuItem = ( {
 	const { size } = useMenuContext();
 
 	const baseClasses =
-		'flex p-1 gap-1 items-center bg-transparent border-none rounded text-text-secondary cursor-pointer m-0';
+		'flex p-1 gap-1 items-center bg-transparent border-none rounded-sm text-text-secondary cursor-pointer m-0';
 	const sizeClasses = {
 		sm: '[&>svg]:size-4 [&>svg]:m-1 [&>*:not(svg)]:mx-1 [&>*:not(svg)]:my-0.5 text-sm',
 		md: '[&>svg]:size-5 [&>svg]:m-1.5 [&>*:not(svg)]:m-1 text-base',

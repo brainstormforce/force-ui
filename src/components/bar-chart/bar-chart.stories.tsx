@@ -250,7 +250,7 @@ export const BarChartCard1: Story1 = ( args ) => (
 	<Container
 		containerType="grid"
 		gap="xs"
-		className="p-4 bg-background-primary rounded-lg shadow-sm"
+		className="p-4 bg-background-primary rounded-lg shadow-xs"
 		{ ...args }
 	>
 		<Container.Item className="p-1 space-y-2">
@@ -312,7 +312,7 @@ export const BarChartCard2: Story1 = ( args ) => (
 	<Container
 		containerType="grid"
 		gap="xs"
-		className="p-4 bg-background-primary rounded-lg shadow-sm"
+		className="p-4 bg-background-primary rounded-lg shadow-xs"
 		{ ...args }
 	>
 		<Container.Item className="p-1 space-y-2">
@@ -377,7 +377,7 @@ export const BarChartCard3: Story1 = ( args ) => (
 	<Container
 		containerType="grid"
 		gap="xs"
-		className="p-4 bg-background-primary rounded-lg shadow-sm"
+		className="p-4 bg-background-primary rounded-lg shadow-xs"
 		{ ...args }
 	>
 		<Container.Item className="p-1 space-y-2">
@@ -443,7 +443,7 @@ export const BarChartCard4: Story1 = ( args ) => (
 	<Container
 		containerType="grid"
 		gap="xs"
-		className="p-4 bg-background-primary rounded-lg shadow-sm"
+		className="p-4 bg-background-primary rounded-lg shadow-xs"
 		{ ...args }
 	>
 		<Container.Item className="p-1 space-y-2">
@@ -508,7 +508,7 @@ export const AreaChartCard5: Story1 = ( args ) => (
 	<Container
 		containerType="grid"
 		gap="xs"
-		className="p-4 bg-background-primary rounded-lg shadow-sm"
+		className="p-4 bg-background-primary rounded-lg shadow-xs"
 		{ ...args }
 	>
 		<Container.Item className="p-1 space-y-2">
