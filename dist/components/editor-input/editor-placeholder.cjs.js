@@ -1,0 +1,2 @@
+"use strict";Object.defineProperties(exports,{__esModule:{value:!0},[Symbol.toStringTag]:{value:"Module"}});const e=require("react/jsx-runtime"),s=({content:t})=>e.jsx("div",{"aria-hidden":"true",className:"pointer-events-none absolute inset-0 flex items-center justify-start text-field-placeholder w-full",children:e.jsx("span",{className:"truncate",children:t})});exports.default=s;
+//# sourceMappingURL=editor-placeholder.cjs.js.map

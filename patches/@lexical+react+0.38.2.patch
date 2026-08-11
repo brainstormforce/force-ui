@@ -1,0 +1,2146 @@
+diff --git a/node_modules/@lexical/react/LexicalAutoEmbedPlugin.d.ts b/node_modules/@lexical/react/LexicalAutoEmbedPlugin.d.ts
+index 1abdfa6..4cb519d 100644
+--- a/node_modules/@lexical/react/LexicalAutoEmbedPlugin.d.ts
++++ b/node_modules/@lexical/react/LexicalAutoEmbedPlugin.d.ts
+@@ -7,7 +7,7 @@
+  */
+ import type { CommandListenerPriority, LexicalNode } from 'lexical';
+ import type { JSX } from 'react';
+-import { MenuOption, MenuRenderFn } from '@lexical/react/LexicalNodeMenuPlugin';
++import { MenuOption } from '@lexical/react/LexicalNodeMenuPlugin';
+ import { LexicalCommand, LexicalEditor } from 'lexical';
+ export type EmbedMatchResult<TEmbedMatchResult = unknown> = {
+     url: string;
+@@ -32,8 +32,7 @@ type LexicalAutoEmbedPluginProps<TEmbedConfig extends EmbedConfig> = {
+     embedConfigs: Array<TEmbedConfig>;
+     onOpenEmbedModalForConfig: (embedConfig: TEmbedConfig) => void;
+     getMenuOptions: (activeEmbedConfig: TEmbedConfig, embedFn: () => void, dismissFn: () => void) => Array<AutoEmbedOption>;
+-    menuRenderFn: MenuRenderFn<AutoEmbedOption>;
+     menuCommandPriority?: CommandListenerPriority;
+ };
+-export declare function LexicalAutoEmbedPlugin<TEmbedConfig extends EmbedConfig>({ embedConfigs, onOpenEmbedModalForConfig, getMenuOptions, menuRenderFn, menuCommandPriority, }: LexicalAutoEmbedPluginProps<TEmbedConfig>): JSX.Element | null;
++export declare function LexicalAutoEmbedPlugin<TEmbedConfig extends EmbedConfig>({ embedConfigs, onOpenEmbedModalForConfig, getMenuOptions, menuCommandPriority, }: LexicalAutoEmbedPluginProps<TEmbedConfig>): JSX.Element | null;
+ export {};
+diff --git a/node_modules/@lexical/react/LexicalAutoEmbedPlugin.dev.js b/node_modules/@lexical/react/LexicalAutoEmbedPlugin.dev.js
+index ef822a0..31b7b6c 100644
+--- a/node_modules/@lexical/react/LexicalAutoEmbedPlugin.dev.js
++++ b/node_modules/@lexical/react/LexicalAutoEmbedPlugin.dev.js
+@@ -39,7 +39,6 @@ function LexicalAutoEmbedPlugin({
+   embedConfigs,
+   onOpenEmbedModalForConfig,
+   getMenuOptions,
+-  menuRenderFn,
+   menuCommandPriority = lexical.COMMAND_PRIORITY_LOW
+ }) {
+   const [editor] = LexicalComposerContext.useLexicalComposerContext();
+@@ -135,7 +134,6 @@ function LexicalAutoEmbedPlugin({
+     onClose: reset,
+     onSelectOption: onSelectOption,
+     options: options,
+-    menuRenderFn: menuRenderFn,
+     commandPriority: menuCommandPriority
+   }) : null;
+ }
+diff --git a/node_modules/@lexical/react/LexicalAutoEmbedPlugin.dev.mjs b/node_modules/@lexical/react/LexicalAutoEmbedPlugin.dev.mjs
+index 745e0d6..18d4ed8 100644
+--- a/node_modules/@lexical/react/LexicalAutoEmbedPlugin.dev.mjs
++++ b/node_modules/@lexical/react/LexicalAutoEmbedPlugin.dev.mjs
+@@ -37,7 +37,6 @@ function LexicalAutoEmbedPlugin({
+   embedConfigs,
+   onOpenEmbedModalForConfig,
+   getMenuOptions,
+-  menuRenderFn,
+   menuCommandPriority = COMMAND_PRIORITY_LOW
+ }) {
+   const [editor] = useLexicalComposerContext();
+@@ -133,7 +132,6 @@ function LexicalAutoEmbedPlugin({
+     onClose: reset,
+     onSelectOption: onSelectOption,
+     options: options,
+-    menuRenderFn: menuRenderFn,
+     commandPriority: menuCommandPriority
+   }) : null;
+ }
+diff --git a/node_modules/@lexical/react/LexicalAutoEmbedPlugin.js.flow b/node_modules/@lexical/react/LexicalAutoEmbedPlugin.js.flow
+index b30259d..d44fe47 100644
+--- a/node_modules/@lexical/react/LexicalAutoEmbedPlugin.js.flow
++++ b/node_modules/@lexical/react/LexicalAutoEmbedPlugin.js.flow
+@@ -13,7 +13,6 @@ import {MenuOption} from '@lexical/react/LexicalTypeaheadMenuPlugin';
+ import type {LexicalCommand, LexicalEditor, NodeKey, TextNode} from 'lexical';
+ import * as React from 'react';
+ import {createCommand} from 'lexical';
+-import type {MenuRenderFn} from './LexicalTypeaheadMenuPlugin';
+ 
+ export type EmbedMatchResult = {
+   url: string,
+@@ -43,7 +42,6 @@ type LexicalAutoEmbedPluginProps<TEmbedConfig> = {
+     embedFn: () => void,
+     dismissFn: () => void,
+   ) => Array<AutoEmbedOption>,
+-  menuRenderFn: MenuRenderFn<AutoEmbedOption>,
+ };
+ 
+ declare export class AutoEmbedOption extends MenuOption {
+diff --git a/node_modules/@lexical/react/LexicalAutoEmbedPlugin.prod.js b/node_modules/@lexical/react/LexicalAutoEmbedPlugin.prod.js
+index c410388..5f91054 100644
+--- a/node_modules/@lexical/react/LexicalAutoEmbedPlugin.prod.js
++++ b/node_modules/@lexical/react/LexicalAutoEmbedPlugin.prod.js
+@@ -6,4 +6,4 @@
+  *
+  */
+ 
+-"use strict";var e=require("@lexical/link"),t=require("@lexical/react/LexicalComposerContext"),n=require("@lexical/react/LexicalNodeMenuPlugin"),o=require("@lexical/utils"),i=require("lexical"),l=require("react"),r=require("react/jsx-runtime");const s=i.createCommand("INSERT_EMBED_COMMAND");class u extends n.MenuOption{title;onSelect;constructor(e,t){super(e),this.title=e,this.onSelect=t.onSelect.bind(this)}}exports.AutoEmbedOption=u,exports.INSERT_EMBED_COMMAND=s,exports.LexicalAutoEmbedPlugin=function({embedConfigs:u,onOpenEmbedModalForConfig:a,getMenuOptions:c,menuRenderFn:d,menuCommandPriority:m=i.COMMAND_PRIORITY_LOW}){const[p]=t.useLexicalComposerContext(),[x,C]=l.useState(null),[f,M]=l.useState(null),g=l.useCallback(()=>{C(null),M(null)},[]),E=l.useCallback(async t=>{const n=p.getEditorState().read(function(){const n=i.$getNodeByKey(t);if(e.$isLinkNode(n))return n.getURL()});if(void 0!==n)for(const e of u){null!=await Promise.resolve(e.parseUrl(n))&&(M(e),C(t))}},[p,u]);l.useEffect(()=>o.mergeRegister(...[e.LinkNode,e.AutoLinkNode].map(e=>p.registerMutationListener(e,(...e)=>((e,{updateTags:t,dirtyLeaves:n})=>{for(const[o,l]of e)"created"===l&&t.has(i.PASTE_TAG)&&n.size<=3?E(o):o===x&&g()})(...e),{skipInitialization:!0}))),[E,p,u,x,g]),l.useEffect(()=>p.registerCommand(s,e=>{const t=u.find(({type:t})=>t===e);return!!t&&(a(t),!0)},i.COMMAND_PRIORITY_EDITOR),[p,u,a]);const N=l.useCallback(async function(){if(null!=f&&null!=x){const t=p.getEditorState().read(()=>{const t=i.$getNodeByKey(x);return e.$isLinkNode(t)?t:null});if(e.$isLinkNode(t)){const e=await Promise.resolve(f.parseUrl(t.__url));null!=e&&p.update(()=>{i.$getSelection()||t.selectEnd(),f.insertNode(p,e),t.isAttached()&&t.remove()})}}},[f,p,x]),L=l.useMemo(()=>null!=f&&null!=x?c(f,N,g):[],[f,N,c,x,g]),A=l.useCallback((e,t,n)=>{p.update(()=>{e.onSelect(t),n()})},[p]);return null!=x?r.jsx(n.LexicalNodeMenuPlugin,{nodeKey:x,onClose:g,onSelectOption:A,options:L,menuRenderFn:d,commandPriority:m}):null},exports.URL_MATCHER=/((https?:\/\/(www\.)?)|(www\.))[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)/;
++"use strict";var e=require("@lexical/link"),t=require("@lexical/react/LexicalComposerContext"),n=require("@lexical/react/LexicalNodeMenuPlugin"),o=require("@lexical/utils"),i=require("lexical"),l=require("react"),r=require("react/jsx-runtime");const s=i.createCommand("INSERT_EMBED_COMMAND");class a extends n.MenuOption{title;onSelect;constructor(e,t){super(e),this.title=e,this.onSelect=t.onSelect.bind(this)}}exports.AutoEmbedOption=a,exports.INSERT_EMBED_COMMAND=s,exports.LexicalAutoEmbedPlugin=function({embedConfigs:a,onOpenEmbedModalForConfig:u,getMenuOptions:c,menuCommandPriority:d=i.COMMAND_PRIORITY_LOW}){const[m]=t.useLexicalComposerContext(),[p,x]=l.useState(null),[C,f]=l.useState(null),M=l.useCallback(()=>{x(null),f(null)},[]),g=l.useCallback(async t=>{const n=m.getEditorState().read(function(){const n=i.$getNodeByKey(t);if(e.$isLinkNode(n))return n.getURL()});if(void 0!==n)for(const e of a){null!=await Promise.resolve(e.parseUrl(n))&&(f(e),x(t))}},[m,a]);l.useEffect(()=>o.mergeRegister(...[e.LinkNode,e.AutoLinkNode].map(e=>m.registerMutationListener(e,(...e)=>((e,{updateTags:t,dirtyLeaves:n})=>{for(const[o,l]of e)"created"===l&&t.has(i.PASTE_TAG)&&n.size<=3?g(o):o===p&&M()})(...e),{skipInitialization:!0}))),[g,m,a,p,M]),l.useEffect(()=>m.registerCommand(s,e=>{const t=a.find(({type:t})=>t===e);return!!t&&(u(t),!0)},i.COMMAND_PRIORITY_EDITOR),[m,a,u]);const E=l.useCallback(async function(){if(null!=C&&null!=p){const t=m.getEditorState().read(()=>{const t=i.$getNodeByKey(p);return e.$isLinkNode(t)?t:null});if(e.$isLinkNode(t)){const e=await Promise.resolve(C.parseUrl(t.__url));null!=e&&m.update(()=>{i.$getSelection()||t.selectEnd(),C.insertNode(m,e),t.isAttached()&&t.remove()})}}},[C,m,p]),N=l.useMemo(()=>null!=C&&null!=p?c(C,E,M):[],[C,E,c,p,M]),L=l.useCallback((e,t,n)=>{m.update(()=>{e.onSelect(t),n()})},[m]);return null!=p?r.jsx(n.LexicalNodeMenuPlugin,{nodeKey:p,onClose:M,onSelectOption:L,options:N,commandPriority:d}):null},exports.URL_MATCHER=/((https?:\/\/(www\.)?)|(www\.))[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)/;
+diff --git a/node_modules/@lexical/react/LexicalAutoEmbedPlugin.prod.mjs b/node_modules/@lexical/react/LexicalAutoEmbedPlugin.prod.mjs
+index bbb95b1..f9c8a22 100644
+--- a/node_modules/@lexical/react/LexicalAutoEmbedPlugin.prod.mjs
++++ b/node_modules/@lexical/react/LexicalAutoEmbedPlugin.prod.mjs
+@@ -6,4 +6,4 @@
+  *
+  */
+ 
+-import{$isLinkNode as e,LinkNode as t,AutoLinkNode as n}from"@lexical/link";import{useLexicalComposerContext as o}from"@lexical/react/LexicalComposerContext";import{MenuOption as r,LexicalNodeMenuPlugin as i}from"@lexical/react/LexicalNodeMenuPlugin";import{mergeRegister as l}from"@lexical/utils";import{createCommand as s,$getNodeByKey as a,COMMAND_PRIORITY_EDITOR as c,$getSelection as u,COMMAND_PRIORITY_LOW as m,PASTE_TAG as d}from"lexical";import{useState as p,useCallback as f,useEffect as x,useMemo as g}from"react";import{jsx as w}from"react/jsx-runtime";const C=/((https?:\/\/(www\.)?)|(www\.))[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)/,S=s("INSERT_EMBED_COMMAND");class y extends r{title;onSelect;constructor(e,t){super(e),this.title=e,this.onSelect=t.onSelect.bind(this)}}function E({embedConfigs:r,onOpenEmbedModalForConfig:s,getMenuOptions:C,menuRenderFn:y,menuCommandPriority:E=m}){const[M]=o(),[h,_]=p(null),[v,z]=p(null),A=f(()=>{_(null),z(null)},[]),L=f(async t=>{const n=M.getEditorState().read(function(){const n=a(t);if(e(n))return n.getURL()});if(void 0!==n)for(const e of r){null!=await Promise.resolve(e.parseUrl(n))&&(z(e),_(t))}},[M,r]);x(()=>l(...[t,n].map(e=>M.registerMutationListener(e,(...e)=>((e,{updateTags:t,dirtyLeaves:n})=>{for(const[o,r]of e)"created"===r&&t.has(d)&&n.size<=3?L(o):o===h&&A()})(...e),{skipInitialization:!0}))),[L,M,r,h,A]),x(()=>M.registerCommand(S,e=>{const t=r.find(({type:t})=>t===e);return!!t&&(s(t),!0)},c),[M,r,s]);const P=f(async function(){if(null!=v&&null!=h){const t=M.getEditorState().read(()=>{const t=a(h);return e(t)?t:null});if(e(t)){const e=await Promise.resolve(v.parseUrl(t.__url));null!=e&&M.update(()=>{u()||t.selectEnd(),v.insertNode(M,e),t.isAttached()&&t.remove()})}}},[v,M,h]),b=g(()=>null!=v&&null!=h?C(v,P,A):[],[v,P,C,h,A]),N=f((e,t,n)=>{M.update(()=>{e.onSelect(t),n()})},[M]);return null!=h?w(i,{nodeKey:h,onClose:A,onSelectOption:N,options:b,menuRenderFn:y,commandPriority:E}):null}export{y as AutoEmbedOption,S as INSERT_EMBED_COMMAND,E as LexicalAutoEmbedPlugin,C as URL_MATCHER};
++import{$isLinkNode as t,LinkNode as e,AutoLinkNode as o}from"@lexical/link";import{useLexicalComposerContext as n}from"@lexical/react/LexicalComposerContext";import{MenuOption as i,LexicalNodeMenuPlugin as r}from"@lexical/react/LexicalNodeMenuPlugin";import{mergeRegister as l}from"@lexical/utils";import{createCommand as s,$getNodeByKey as a,COMMAND_PRIORITY_EDITOR as c,$getSelection as u,COMMAND_PRIORITY_LOW as m,PASTE_TAG as d}from"lexical";import{useState as p,useCallback as f,useEffect as x,useMemo as g}from"react";import{jsx as w}from"react/jsx-runtime";const C=/((https?:\/\/(www\.)?)|(www\.))[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)/,S=s("INSERT_EMBED_COMMAND");class y extends i{title;onSelect;constructor(t,e){super(t),this.title=t,this.onSelect=e.onSelect.bind(this)}}function E({embedConfigs:i,onOpenEmbedModalForConfig:s,getMenuOptions:C,menuCommandPriority:y=m}){const[E]=n(),[M,h]=p(null),[_,v]=p(null),z=f(()=>{h(null),v(null)},[]),A=f(async e=>{const o=E.getEditorState().read(function(){const o=a(e);if(t(o))return o.getURL()});if(void 0!==o)for(const t of i){null!=await Promise.resolve(t.parseUrl(o))&&(v(t),h(e))}},[E,i]);x(()=>l(...[e,o].map(t=>E.registerMutationListener(t,(...t)=>((t,{updateTags:e,dirtyLeaves:o})=>{for(const[n,i]of t)"created"===i&&e.has(d)&&o.size<=3?A(n):n===M&&z()})(...t),{skipInitialization:!0}))),[A,E,i,M,z]),x(()=>E.registerCommand(S,t=>{const e=i.find(({type:e})=>e===t);return!!e&&(s(e),!0)},c),[E,i,s]);const L=f(async function(){if(null!=_&&null!=M){const e=E.getEditorState().read(()=>{const e=a(M);return t(e)?e:null});if(t(e)){const t=await Promise.resolve(_.parseUrl(e.__url));null!=t&&E.update(()=>{u()||e.selectEnd(),_.insertNode(E,t),e.isAttached()&&e.remove()})}}},[_,E,M]),P=g(()=>null!=_&&null!=M?C(_,L,z):[],[_,L,C,M,z]),b=f((t,e,o)=>{E.update(()=>{t.onSelect(e),o()})},[E]);return null!=M?w(r,{nodeKey:M,onClose:z,onSelectOption:b,options:P,commandPriority:y}):null}export{y as AutoEmbedOption,S as INSERT_EMBED_COMMAND,E as LexicalAutoEmbedPlugin,C as URL_MATCHER};
+diff --git a/node_modules/@lexical/react/LexicalContextMenuPlugin.d.ts b/node_modules/@lexical/react/LexicalContextMenuPlugin.d.ts
+deleted file mode 100644
+index 5958fef..0000000
+--- a/node_modules/@lexical/react/LexicalContextMenuPlugin.d.ts
++++ /dev/null
+@@ -1,36 +0,0 @@
+-/**
+- * Copyright (c) Meta Platforms, Inc. and affiliates.
+- *
+- * This source code is licensed under the MIT license found in the
+- * LICENSE file in the root directory of this source tree.
+- *
+- */
+-import type { MenuRenderFn, MenuResolution } from './shared/LexicalMenu';
+-import type { JSX } from 'react';
+-import { CommandListenerPriority, LexicalNode } from 'lexical';
+-import { ReactPortal, RefObject } from 'react';
+-import { MenuOption } from './shared/LexicalMenu';
+-export type ContextMenuRenderFn<TOption extends MenuOption> = (anchorElementRef: RefObject<HTMLElement | null>, itemProps: {
+-    selectedIndex: number | null;
+-    selectOptionAndCleanUp: (option: TOption) => void;
+-    setHighlightedIndex: (index: number) => void;
+-    options: Array<TOption>;
+-}, menuProps: {
+-    setMenuRef: (element: HTMLElement | null) => void;
+-}) => ReactPortal | JSX.Element | null;
+-export type LexicalContextMenuPluginProps<TOption extends MenuOption> = {
+-    onSelectOption: (option: TOption, textNodeContainingQuery: LexicalNode | null, closeMenu: () => void, matchingString: string) => void;
+-    options: Array<TOption>;
+-    onClose?: () => void;
+-    onWillOpen?: (event: MouseEvent) => void;
+-    onOpen?: (resolution: MenuResolution) => void;
+-    menuRenderFn: ContextMenuRenderFn<TOption>;
+-    anchorClassName?: string;
+-    commandPriority?: CommandListenerPriority;
+-    parent?: HTMLElement;
+-};
+-/**
+- * @deprecated Use LexicalNodeContextMenuPlugin instead.
+- */
+-export declare function LexicalContextMenuPlugin<TOption extends MenuOption>({ options, onWillOpen, onClose, onOpen, onSelectOption, menuRenderFn: contextMenuRenderFn, anchorClassName, commandPriority, parent, }: LexicalContextMenuPluginProps<TOption>): JSX.Element | null;
+-export { MenuOption, MenuRenderFn, MenuResolution };
+diff --git a/node_modules/@lexical/react/LexicalContextMenuPlugin.dev.js b/node_modules/@lexical/react/LexicalContextMenuPlugin.dev.js
+deleted file mode 100644
+index 1afd361..0000000
+--- a/node_modules/@lexical/react/LexicalContextMenuPlugin.dev.js
++++ /dev/null
+@@ -1,524 +0,0 @@
+-/**
+- * Copyright (c) Meta Platforms, Inc. and affiliates.
+- *
+- * This source code is licensed under the MIT license found in the
+- * LICENSE file in the root directory of this source tree.
+- *
+- */
+-
+-'use strict';
+-
+-var LexicalComposerContext = require('@lexical/react/LexicalComposerContext');
+-var utils = require('@lexical/utils');
+-var lexical = require('lexical');
+-var React = require('react');
+-var jsxRuntime = require('react/jsx-runtime');
+-
+-function _interopNamespaceDefault(e) {
+-  var n = Object.create(null);
+-  if (e) {
+-    for (var k in e) {
+-      n[k] = e[k];
+-    }
+-  }
+-  n.default = e;
+-  return n;
+-}
+-
+-var React__namespace = /*#__PURE__*/_interopNamespaceDefault(React);
+-
+-/**
+- * Copyright (c) Meta Platforms, Inc. and affiliates.
+- *
+- * This source code is licensed under the MIT license found in the
+- * LICENSE file in the root directory of this source tree.
+- *
+- */
+-
+-const CAN_USE_DOM = typeof window !== 'undefined' && typeof window.document !== 'undefined' && typeof window.document.createElement !== 'undefined';
+-
+-/**
+- * Copyright (c) Meta Platforms, Inc. and affiliates.
+- *
+- * This source code is licensed under the MIT license found in the
+- * LICENSE file in the root directory of this source tree.
+- *
+- */
+-
+-
+-// This workaround is no longer necessary in React 19,
+-// but we currently support React >=17.x
+-// https://github.com/facebook/react/pull/26395
+-const useLayoutEffectImpl = CAN_USE_DOM ? React.useLayoutEffect : React.useEffect;
+-
+-/**
+- * Copyright (c) Meta Platforms, Inc. and affiliates.
+- *
+- * This source code is licensed under the MIT license found in the
+- * LICENSE file in the root directory of this source tree.
+- *
+- */
+-
+-class MenuOption {
+-  key;
+-  ref;
+-  constructor(key) {
+-    this.key = key;
+-    this.ref = {
+-      current: null
+-    };
+-    this.setRefElement = this.setRefElement.bind(this);
+-  }
+-  setRefElement(element) {
+-    this.ref = {
+-      current: element
+-    };
+-  }
+-}
+-const scrollIntoViewIfNeeded = target => {
+-  const typeaheadContainerNode = document.getElementById('typeahead-menu');
+-  if (!typeaheadContainerNode) {
+-    return;
+-  }
+-  const typeaheadRect = typeaheadContainerNode.getBoundingClientRect();
+-  if (typeaheadRect.top + typeaheadRect.height > window.innerHeight) {
+-    typeaheadContainerNode.scrollIntoView({
+-      block: 'center'
+-    });
+-  }
+-  if (typeaheadRect.top < 0) {
+-    typeaheadContainerNode.scrollIntoView({
+-      block: 'center'
+-    });
+-  }
+-  target.scrollIntoView({
+-    block: 'nearest'
+-  });
+-};
+-
+-/**
+- * Walk backwards along user input and forward through entity title to try
+- * and replace more of the user's text with entity.
+- */
+-function getFullMatchOffset(documentText, entryText, offset) {
+-  let triggerOffset = offset;
+-  for (let i = triggerOffset; i <= entryText.length; i++) {
+-    if (documentText.slice(-i) === entryText.substring(0, i)) {
+-      triggerOffset = i;
+-    }
+-  }
+-  return triggerOffset;
+-}
+-
+-/**
+- * Split Lexical TextNode and return a new TextNode only containing matched text.
+- * Common use cases include: removing the node, replacing with a new node.
+- */
+-function $splitNodeContainingQuery(match) {
+-  const selection = lexical.$getSelection();
+-  if (!lexical.$isRangeSelection(selection) || !selection.isCollapsed()) {
+-    return null;
+-  }
+-  const anchor = selection.anchor;
+-  if (anchor.type !== 'text') {
+-    return null;
+-  }
+-  const anchorNode = anchor.getNode();
+-  if (!anchorNode.isSimpleText()) {
+-    return null;
+-  }
+-  const selectionOffset = anchor.offset;
+-  const textContent = anchorNode.getTextContent().slice(0, selectionOffset);
+-  const characterOffset = match.replaceableString.length;
+-  const queryOffset = getFullMatchOffset(textContent, match.matchingString, characterOffset);
+-  const startOffset = selectionOffset - queryOffset;
+-  if (startOffset < 0) {
+-    return null;
+-  }
+-  let newNode;
+-  if (startOffset === 0) {
+-    [newNode] = anchorNode.splitText(selectionOffset);
+-  } else {
+-    [, newNode] = anchorNode.splitText(startOffset, selectionOffset);
+-  }
+-  return newNode;
+-}
+-
+-// Got from https://stackoverflow.com/a/42543908/2013580
+-function getScrollParent(element, includeHidden) {
+-  let style = getComputedStyle(element);
+-  const excludeStaticParent = style.position === 'absolute';
+-  const overflowRegex = /(auto|scroll)/;
+-  if (style.position === 'fixed') {
+-    return document.body;
+-  }
+-  for (let parent = element; parent = parent.parentElement;) {
+-    style = getComputedStyle(parent);
+-    if (excludeStaticParent && style.position === 'static') {
+-      continue;
+-    }
+-    if (overflowRegex.test(style.overflow + style.overflowY + style.overflowX)) {
+-      return parent;
+-    }
+-  }
+-  return document.body;
+-}
+-function isTriggerVisibleInNearestScrollContainer(targetElement, containerElement) {
+-  const tRect = targetElement.getBoundingClientRect();
+-  const cRect = containerElement.getBoundingClientRect();
+-  const VISIBILITY_MARGIN_PX = 6;
+-  return tRect.top >= cRect.top - VISIBILITY_MARGIN_PX && tRect.top <= cRect.bottom + VISIBILITY_MARGIN_PX;
+-}
+-
+-// Reposition the menu on scroll, window resize, and element resize.
+-function useDynamicPositioning(resolution, targetElement, onReposition, onVisibilityChange) {
+-  const [editor] = LexicalComposerContext.useLexicalComposerContext();
+-  React.useEffect(() => {
+-    if (targetElement != null && resolution != null) {
+-      const rootElement = editor.getRootElement();
+-      const rootScrollParent = rootElement != null ? getScrollParent(rootElement) : document.body;
+-      let ticking = false;
+-      let previousIsInView = isTriggerVisibleInNearestScrollContainer(targetElement, rootScrollParent);
+-      const handleScroll = function () {
+-        if (!ticking) {
+-          window.requestAnimationFrame(function () {
+-            onReposition();
+-            ticking = false;
+-          });
+-          ticking = true;
+-        }
+-        const isInView = isTriggerVisibleInNearestScrollContainer(targetElement, rootScrollParent);
+-        if (isInView !== previousIsInView) {
+-          previousIsInView = isInView;
+-          if (onVisibilityChange != null) {
+-            onVisibilityChange(isInView);
+-          }
+-        }
+-      };
+-      const resizeObserver = new ResizeObserver(onReposition);
+-      window.addEventListener('resize', onReposition);
+-      document.addEventListener('scroll', handleScroll, {
+-        capture: true,
+-        passive: true
+-      });
+-      resizeObserver.observe(targetElement);
+-      return () => {
+-        resizeObserver.unobserve(targetElement);
+-        window.removeEventListener('resize', onReposition);
+-        document.removeEventListener('scroll', handleScroll, true);
+-      };
+-    }
+-  }, [targetElement, editor, onVisibilityChange, onReposition, resolution]);
+-}
+-const SCROLL_TYPEAHEAD_OPTION_INTO_VIEW_COMMAND = lexical.createCommand('SCROLL_TYPEAHEAD_OPTION_INTO_VIEW_COMMAND');
+-function LexicalMenu({
+-  close,
+-  editor,
+-  anchorElementRef,
+-  resolution,
+-  options,
+-  menuRenderFn,
+-  onSelectOption,
+-  shouldSplitNodeWithQuery = false,
+-  commandPriority = lexical.COMMAND_PRIORITY_LOW,
+-  preselectFirstItem = true
+-}) {
+-  const [rawSelectedIndex, setHighlightedIndex] = React.useState(null);
+-  // Clamp highlighted index if options list shrinks
+-  const selectedIndex = rawSelectedIndex !== null ? Math.min(options.length - 1, rawSelectedIndex) : null;
+-  const matchingString = resolution.match && resolution.match.matchingString;
+-  React.useEffect(() => {
+-    if (preselectFirstItem) {
+-      setHighlightedIndex(0);
+-    }
+-  }, [matchingString, preselectFirstItem]);
+-  const selectOptionAndCleanUp = React.useCallback(selectedEntry => {
+-    editor.update(() => {
+-      const textNodeContainingQuery = resolution.match != null && shouldSplitNodeWithQuery ? $splitNodeContainingQuery(resolution.match) : null;
+-      onSelectOption(selectedEntry, textNodeContainingQuery, close, resolution.match ? resolution.match.matchingString : '');
+-    });
+-  }, [editor, shouldSplitNodeWithQuery, resolution.match, onSelectOption, close]);
+-  const updateSelectedIndex = React.useCallback(index => {
+-    const rootElem = editor.getRootElement();
+-    if (rootElem !== null) {
+-      rootElem.setAttribute('aria-activedescendant', 'typeahead-item-' + index);
+-      setHighlightedIndex(index);
+-    }
+-  }, [editor]);
+-  React.useEffect(() => {
+-    return () => {
+-      const rootElem = editor.getRootElement();
+-      if (rootElem !== null) {
+-        rootElem.removeAttribute('aria-activedescendant');
+-      }
+-    };
+-  }, [editor]);
+-  useLayoutEffectImpl(() => {
+-    if (options === null) {
+-      setHighlightedIndex(null);
+-    } else if (selectedIndex === null && preselectFirstItem) {
+-      updateSelectedIndex(0);
+-    }
+-  }, [options, selectedIndex, updateSelectedIndex, preselectFirstItem]);
+-  React.useEffect(() => {
+-    return utils.mergeRegister(editor.registerCommand(SCROLL_TYPEAHEAD_OPTION_INTO_VIEW_COMMAND, ({
+-      option
+-    }) => {
+-      if (option.ref && option.ref.current != null) {
+-        scrollIntoViewIfNeeded(option.ref.current);
+-        return true;
+-      }
+-      return false;
+-    }, commandPriority));
+-  }, [editor, updateSelectedIndex, commandPriority]);
+-  React.useEffect(() => {
+-    return utils.mergeRegister(editor.registerCommand(lexical.KEY_ARROW_DOWN_COMMAND, payload => {
+-      const event = payload;
+-      if (options !== null && options.length) {
+-        const newSelectedIndex = selectedIndex === null ? 0 : selectedIndex !== options.length - 1 ? selectedIndex + 1 : 0;
+-        updateSelectedIndex(newSelectedIndex);
+-        const option = options[newSelectedIndex];
+-        if (!option) {
+-          updateSelectedIndex(-1);
+-          event.preventDefault();
+-          event.stopImmediatePropagation();
+-          return true;
+-        }
+-        if (option.ref && option.ref.current) {
+-          editor.dispatchCommand(SCROLL_TYPEAHEAD_OPTION_INTO_VIEW_COMMAND, {
+-            index: newSelectedIndex,
+-            option
+-          });
+-        }
+-        event.preventDefault();
+-        event.stopImmediatePropagation();
+-      }
+-      return true;
+-    }, commandPriority), editor.registerCommand(lexical.KEY_ARROW_UP_COMMAND, payload => {
+-      const event = payload;
+-      if (options !== null && options.length) {
+-        const newSelectedIndex = selectedIndex === null ? options.length - 1 : selectedIndex !== 0 ? selectedIndex - 1 : options.length - 1;
+-        updateSelectedIndex(newSelectedIndex);
+-        const option = options[newSelectedIndex];
+-        if (!option) {
+-          updateSelectedIndex(-1);
+-          event.preventDefault();
+-          event.stopImmediatePropagation();
+-          return true;
+-        }
+-        if (option.ref && option.ref.current) {
+-          scrollIntoViewIfNeeded(option.ref.current);
+-        }
+-        event.preventDefault();
+-        event.stopImmediatePropagation();
+-      }
+-      return true;
+-    }, commandPriority), editor.registerCommand(lexical.KEY_ESCAPE_COMMAND, payload => {
+-      const event = payload;
+-      event.preventDefault();
+-      event.stopImmediatePropagation();
+-      close();
+-      return true;
+-    }, commandPriority), editor.registerCommand(lexical.KEY_TAB_COMMAND, payload => {
+-      const event = payload;
+-      if (options === null || selectedIndex === null || options[selectedIndex] == null) {
+-        return false;
+-      }
+-      event.preventDefault();
+-      event.stopImmediatePropagation();
+-      selectOptionAndCleanUp(options[selectedIndex]);
+-      return true;
+-    }, commandPriority), editor.registerCommand(lexical.KEY_ENTER_COMMAND, event => {
+-      if (options === null || selectedIndex === null || options[selectedIndex] == null) {
+-        return false;
+-      }
+-      if (event !== null) {
+-        event.preventDefault();
+-        event.stopImmediatePropagation();
+-      }
+-      selectOptionAndCleanUp(options[selectedIndex]);
+-      return true;
+-    }, commandPriority));
+-  }, [selectOptionAndCleanUp, close, editor, options, selectedIndex, updateSelectedIndex, commandPriority]);
+-  const listItemProps = React.useMemo(() => ({
+-    options,
+-    selectOptionAndCleanUp,
+-    selectedIndex,
+-    setHighlightedIndex
+-  }), [selectOptionAndCleanUp, selectedIndex, options]);
+-  return menuRenderFn(anchorElementRef, listItemProps, resolution.match ? resolution.match.matchingString : '');
+-}
+-function setContainerDivAttributes(containerDiv, className) {
+-  if (className != null) {
+-    containerDiv.className = className;
+-  }
+-  containerDiv.setAttribute('aria-label', 'Typeahead menu');
+-  containerDiv.setAttribute('role', 'listbox');
+-  containerDiv.style.display = 'block';
+-  containerDiv.style.position = 'absolute';
+-}
+-function useMenuAnchorRef(resolution, setResolution, className, parent = CAN_USE_DOM ? document.body : undefined, shouldIncludePageYOffset__EXPERIMENTAL = true) {
+-  const [editor] = LexicalComposerContext.useLexicalComposerContext();
+-  const initialAnchorElement = CAN_USE_DOM ? document.createElement('div') : null;
+-  const anchorElementRef = React.useRef(initialAnchorElement);
+-  const positionMenu = React.useCallback(() => {
+-    if (anchorElementRef.current === null || parent === undefined) {
+-      return;
+-    }
+-    anchorElementRef.current.style.top = anchorElementRef.current.style.bottom;
+-    const rootElement = editor.getRootElement();
+-    const containerDiv = anchorElementRef.current;
+-    const menuEle = containerDiv.firstChild;
+-    if (rootElement !== null && resolution !== null) {
+-      const {
+-        left,
+-        top,
+-        width,
+-        height
+-      } = resolution.getRect();
+-      const anchorHeight = anchorElementRef.current.offsetHeight; // use to position under anchor
+-      containerDiv.style.top = `${top + anchorHeight + 3 + (shouldIncludePageYOffset__EXPERIMENTAL ? window.pageYOffset : 0)}px`;
+-      containerDiv.style.left = `${left + window.pageXOffset}px`;
+-      containerDiv.style.height = `${height}px`;
+-      containerDiv.style.width = `${width}px`;
+-      if (menuEle !== null) {
+-        menuEle.style.top = `${top}`;
+-        const menuRect = menuEle.getBoundingClientRect();
+-        const menuHeight = menuRect.height;
+-        const menuWidth = menuRect.width;
+-        const rootElementRect = rootElement.getBoundingClientRect();
+-        if (left + menuWidth > rootElementRect.right) {
+-          containerDiv.style.left = `${rootElementRect.right - menuWidth + window.pageXOffset}px`;
+-        }
+-        if ((top + menuHeight > window.innerHeight || top + menuHeight > rootElementRect.bottom) && top - rootElementRect.top > menuHeight + height) {
+-          containerDiv.style.top = `${top - menuHeight - height + (shouldIncludePageYOffset__EXPERIMENTAL ? window.pageYOffset : 0)}px`;
+-        }
+-      }
+-      if (!containerDiv.isConnected) {
+-        setContainerDivAttributes(containerDiv, className);
+-        parent.append(containerDiv);
+-      }
+-      containerDiv.setAttribute('id', 'typeahead-menu');
+-      rootElement.setAttribute('aria-controls', 'typeahead-menu');
+-    }
+-  }, [editor, resolution, shouldIncludePageYOffset__EXPERIMENTAL, className, parent]);
+-  React.useEffect(() => {
+-    const rootElement = editor.getRootElement();
+-    if (resolution !== null) {
+-      positionMenu();
+-    }
+-    return () => {
+-      if (rootElement !== null) {
+-        rootElement.removeAttribute('aria-controls');
+-      }
+-      // eslint-disable-next-line react-hooks/exhaustive-deps
+-      const containerDiv = anchorElementRef.current;
+-      if (containerDiv !== null && containerDiv.isConnected) {
+-        containerDiv.remove();
+-        containerDiv.removeAttribute('id');
+-      }
+-    };
+-  }, [editor, positionMenu, resolution]);
+-  const onVisibilityChange = React.useCallback(isInView => {
+-    if (resolution !== null) {
+-      if (!isInView) {
+-        setResolution(null);
+-      }
+-    }
+-  }, [resolution, setResolution]);
+-  useDynamicPositioning(resolution, anchorElementRef.current, positionMenu, onVisibilityChange);
+-
+-  // Append the context for the menu immediately
+-  if (initialAnchorElement != null && initialAnchorElement === anchorElementRef.current) {
+-    setContainerDivAttributes(initialAnchorElement, className);
+-    if (parent != null) {
+-      parent.append(initialAnchorElement);
+-    }
+-  }
+-  return anchorElementRef;
+-}
+-
+-/**
+- * Copyright (c) Meta Platforms, Inc. and affiliates.
+- *
+- * This source code is licensed under the MIT license found in the
+- * LICENSE file in the root directory of this source tree.
+- *
+- */
+-
+-const PRE_PORTAL_DIV_SIZE = 1;
+-
+-/**
+- * @deprecated Use LexicalNodeContextMenuPlugin instead.
+- */
+-function LexicalContextMenuPlugin({
+-  options,
+-  onWillOpen,
+-  onClose,
+-  onOpen,
+-  onSelectOption,
+-  menuRenderFn: contextMenuRenderFn,
+-  anchorClassName,
+-  commandPriority = lexical.COMMAND_PRIORITY_LOW,
+-  parent
+-}) {
+-  const [editor] = LexicalComposerContext.useLexicalComposerContext();
+-  const [resolution, setResolution] = React.useState(null);
+-  const menuRef = React__namespace.useRef(null);
+-  const anchorElementRef = useMenuAnchorRef(resolution, setResolution, anchorClassName, parent);
+-  const closeNodeMenu = React.useCallback(() => {
+-    setResolution(null);
+-    if (onClose != null && resolution !== null) {
+-      onClose();
+-    }
+-  }, [onClose, resolution]);
+-  const openNodeMenu = React.useCallback(res => {
+-    setResolution(res);
+-    if (onOpen != null && resolution === null) {
+-      onOpen(res);
+-    }
+-  }, [onOpen, resolution]);
+-  const handleContextMenu = React.useCallback(event => {
+-    event.preventDefault();
+-    if (onWillOpen != null) {
+-      onWillOpen(event);
+-    }
+-    const zoom = utils.calculateZoomLevel(event.target);
+-    openNodeMenu({
+-      getRect: () => new DOMRect(event.clientX / zoom, event.clientY / zoom, PRE_PORTAL_DIV_SIZE, PRE_PORTAL_DIV_SIZE)
+-    });
+-  }, [openNodeMenu, onWillOpen]);
+-  const handleClick = React.useCallback(event => {
+-    if (resolution !== null && menuRef.current != null && event.target != null && lexical.isDOMNode(event.target) && !menuRef.current.contains(event.target)) {
+-      closeNodeMenu();
+-    }
+-  }, [closeNodeMenu, resolution]);
+-  React.useEffect(() => {
+-    const editorElement = editor.getRootElement();
+-    if (editorElement) {
+-      editorElement.addEventListener('contextmenu', handleContextMenu);
+-      return () => editorElement.removeEventListener('contextmenu', handleContextMenu);
+-    }
+-  }, [editor, handleContextMenu]);
+-  React.useEffect(() => {
+-    document.addEventListener('click', handleClick);
+-    return () => document.removeEventListener('click', handleClick);
+-  }, [editor, handleClick]);
+-  return anchorElementRef.current === null || resolution === null || editor === null ? null : /*#__PURE__*/jsxRuntime.jsx(LexicalMenu, {
+-    close: closeNodeMenu,
+-    resolution: resolution,
+-    editor: editor,
+-    anchorElementRef: anchorElementRef,
+-    options: options,
+-    menuRenderFn: (anchorRef, itemProps) => contextMenuRenderFn(anchorRef, itemProps, {
+-      setMenuRef: ref => {
+-        menuRef.current = ref;
+-      }
+-    }),
+-    onSelectOption: onSelectOption,
+-    commandPriority: commandPriority
+-  });
+-}
+-
+-exports.LexicalContextMenuPlugin = LexicalContextMenuPlugin;
+-exports.MenuOption = MenuOption;
+diff --git a/node_modules/@lexical/react/LexicalContextMenuPlugin.dev.mjs b/node_modules/@lexical/react/LexicalContextMenuPlugin.dev.mjs
+deleted file mode 100644
+index 3214b3a..0000000
+--- a/node_modules/@lexical/react/LexicalContextMenuPlugin.dev.mjs
++++ /dev/null
+@@ -1,509 +0,0 @@
+-/**
+- * Copyright (c) Meta Platforms, Inc. and affiliates.
+- *
+- * This source code is licensed under the MIT license found in the
+- * LICENSE file in the root directory of this source tree.
+- *
+- */
+-
+-import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
+-import { mergeRegister, calculateZoomLevel } from '@lexical/utils';
+-import { createCommand, COMMAND_PRIORITY_LOW, KEY_ARROW_DOWN_COMMAND, KEY_ARROW_UP_COMMAND, KEY_ESCAPE_COMMAND, KEY_TAB_COMMAND, KEY_ENTER_COMMAND, $getSelection, $isRangeSelection, isDOMNode } from 'lexical';
+-import * as React from 'react';
+-import { useLayoutEffect, useEffect, useRef, useCallback, useState, useMemo } from 'react';
+-import { jsx } from 'react/jsx-runtime';
+-
+-/**
+- * Copyright (c) Meta Platforms, Inc. and affiliates.
+- *
+- * This source code is licensed under the MIT license found in the
+- * LICENSE file in the root directory of this source tree.
+- *
+- */
+-
+-const CAN_USE_DOM = typeof window !== 'undefined' && typeof window.document !== 'undefined' && typeof window.document.createElement !== 'undefined';
+-
+-/**
+- * Copyright (c) Meta Platforms, Inc. and affiliates.
+- *
+- * This source code is licensed under the MIT license found in the
+- * LICENSE file in the root directory of this source tree.
+- *
+- */
+-
+-
+-// This workaround is no longer necessary in React 19,
+-// but we currently support React >=17.x
+-// https://github.com/facebook/react/pull/26395
+-const useLayoutEffectImpl = CAN_USE_DOM ? useLayoutEffect : useEffect;
+-
+-/**
+- * Copyright (c) Meta Platforms, Inc. and affiliates.
+- *
+- * This source code is licensed under the MIT license found in the
+- * LICENSE file in the root directory of this source tree.
+- *
+- */
+-
+-class MenuOption {
+-  key;
+-  ref;
+-  constructor(key) {
+-    this.key = key;
+-    this.ref = {
+-      current: null
+-    };
+-    this.setRefElement = this.setRefElement.bind(this);
+-  }
+-  setRefElement(element) {
+-    this.ref = {
+-      current: element
+-    };
+-  }
+-}
+-const scrollIntoViewIfNeeded = target => {
+-  const typeaheadContainerNode = document.getElementById('typeahead-menu');
+-  if (!typeaheadContainerNode) {
+-    return;
+-  }
+-  const typeaheadRect = typeaheadContainerNode.getBoundingClientRect();
+-  if (typeaheadRect.top + typeaheadRect.height > window.innerHeight) {
+-    typeaheadContainerNode.scrollIntoView({
+-      block: 'center'
+-    });
+-  }
+-  if (typeaheadRect.top < 0) {
+-    typeaheadContainerNode.scrollIntoView({
+-      block: 'center'
+-    });
+-  }
+-  target.scrollIntoView({
+-    block: 'nearest'
+-  });
+-};
+-
+-/**
+- * Walk backwards along user input and forward through entity title to try
+- * and replace more of the user's text with entity.
+- */
+-function getFullMatchOffset(documentText, entryText, offset) {
+-  let triggerOffset = offset;
+-  for (let i = triggerOffset; i <= entryText.length; i++) {
+-    if (documentText.slice(-i) === entryText.substring(0, i)) {
+-      triggerOffset = i;
+-    }
+-  }
+-  return triggerOffset;
+-}
+-
+-/**
+- * Split Lexical TextNode and return a new TextNode only containing matched text.
+- * Common use cases include: removing the node, replacing with a new node.
+- */
+-function $splitNodeContainingQuery(match) {
+-  const selection = $getSelection();
+-  if (!$isRangeSelection(selection) || !selection.isCollapsed()) {
+-    return null;
+-  }
+-  const anchor = selection.anchor;
+-  if (anchor.type !== 'text') {
+-    return null;
+-  }
+-  const anchorNode = anchor.getNode();
+-  if (!anchorNode.isSimpleText()) {
+-    return null;
+-  }
+-  const selectionOffset = anchor.offset;
+-  const textContent = anchorNode.getTextContent().slice(0, selectionOffset);
+-  const characterOffset = match.replaceableString.length;
+-  const queryOffset = getFullMatchOffset(textContent, match.matchingString, characterOffset);
+-  const startOffset = selectionOffset - queryOffset;
+-  if (startOffset < 0) {
+-    return null;
+-  }
+-  let newNode;
+-  if (startOffset === 0) {
+-    [newNode] = anchorNode.splitText(selectionOffset);
+-  } else {
+-    [, newNode] = anchorNode.splitText(startOffset, selectionOffset);
+-  }
+-  return newNode;
+-}
+-
+-// Got from https://stackoverflow.com/a/42543908/2013580
+-function getScrollParent(element, includeHidden) {
+-  let style = getComputedStyle(element);
+-  const excludeStaticParent = style.position === 'absolute';
+-  const overflowRegex = /(auto|scroll)/;
+-  if (style.position === 'fixed') {
+-    return document.body;
+-  }
+-  for (let parent = element; parent = parent.parentElement;) {
+-    style = getComputedStyle(parent);
+-    if (excludeStaticParent && style.position === 'static') {
+-      continue;
+-    }
+-    if (overflowRegex.test(style.overflow + style.overflowY + style.overflowX)) {
+-      return parent;
+-    }
+-  }
+-  return document.body;
+-}
+-function isTriggerVisibleInNearestScrollContainer(targetElement, containerElement) {
+-  const tRect = targetElement.getBoundingClientRect();
+-  const cRect = containerElement.getBoundingClientRect();
+-  const VISIBILITY_MARGIN_PX = 6;
+-  return tRect.top >= cRect.top - VISIBILITY_MARGIN_PX && tRect.top <= cRect.bottom + VISIBILITY_MARGIN_PX;
+-}
+-
+-// Reposition the menu on scroll, window resize, and element resize.
+-function useDynamicPositioning(resolution, targetElement, onReposition, onVisibilityChange) {
+-  const [editor] = useLexicalComposerContext();
+-  useEffect(() => {
+-    if (targetElement != null && resolution != null) {
+-      const rootElement = editor.getRootElement();
+-      const rootScrollParent = rootElement != null ? getScrollParent(rootElement) : document.body;
+-      let ticking = false;
+-      let previousIsInView = isTriggerVisibleInNearestScrollContainer(targetElement, rootScrollParent);
+-      const handleScroll = function () {
+-        if (!ticking) {
+-          window.requestAnimationFrame(function () {
+-            onReposition();
+-            ticking = false;
+-          });
+-          ticking = true;
+-        }
+-        const isInView = isTriggerVisibleInNearestScrollContainer(targetElement, rootScrollParent);
+-        if (isInView !== previousIsInView) {
+-          previousIsInView = isInView;
+-          if (onVisibilityChange != null) {
+-            onVisibilityChange(isInView);
+-          }
+-        }
+-      };
+-      const resizeObserver = new ResizeObserver(onReposition);
+-      window.addEventListener('resize', onReposition);
+-      document.addEventListener('scroll', handleScroll, {
+-        capture: true,
+-        passive: true
+-      });
+-      resizeObserver.observe(targetElement);
+-      return () => {
+-        resizeObserver.unobserve(targetElement);
+-        window.removeEventListener('resize', onReposition);
+-        document.removeEventListener('scroll', handleScroll, true);
+-      };
+-    }
+-  }, [targetElement, editor, onVisibilityChange, onReposition, resolution]);
+-}
+-const SCROLL_TYPEAHEAD_OPTION_INTO_VIEW_COMMAND = createCommand('SCROLL_TYPEAHEAD_OPTION_INTO_VIEW_COMMAND');
+-function LexicalMenu({
+-  close,
+-  editor,
+-  anchorElementRef,
+-  resolution,
+-  options,
+-  menuRenderFn,
+-  onSelectOption,
+-  shouldSplitNodeWithQuery = false,
+-  commandPriority = COMMAND_PRIORITY_LOW,
+-  preselectFirstItem = true
+-}) {
+-  const [rawSelectedIndex, setHighlightedIndex] = useState(null);
+-  // Clamp highlighted index if options list shrinks
+-  const selectedIndex = rawSelectedIndex !== null ? Math.min(options.length - 1, rawSelectedIndex) : null;
+-  const matchingString = resolution.match && resolution.match.matchingString;
+-  useEffect(() => {
+-    if (preselectFirstItem) {
+-      setHighlightedIndex(0);
+-    }
+-  }, [matchingString, preselectFirstItem]);
+-  const selectOptionAndCleanUp = useCallback(selectedEntry => {
+-    editor.update(() => {
+-      const textNodeContainingQuery = resolution.match != null && shouldSplitNodeWithQuery ? $splitNodeContainingQuery(resolution.match) : null;
+-      onSelectOption(selectedEntry, textNodeContainingQuery, close, resolution.match ? resolution.match.matchingString : '');
+-    });
+-  }, [editor, shouldSplitNodeWithQuery, resolution.match, onSelectOption, close]);
+-  const updateSelectedIndex = useCallback(index => {
+-    const rootElem = editor.getRootElement();
+-    if (rootElem !== null) {
+-      rootElem.setAttribute('aria-activedescendant', 'typeahead-item-' + index);
+-      setHighlightedIndex(index);
+-    }
+-  }, [editor]);
+-  useEffect(() => {
+-    return () => {
+-      const rootElem = editor.getRootElement();
+-      if (rootElem !== null) {
+-        rootElem.removeAttribute('aria-activedescendant');
+-      }
+-    };
+-  }, [editor]);
+-  useLayoutEffectImpl(() => {
+-    if (options === null) {
+-      setHighlightedIndex(null);
+-    } else if (selectedIndex === null && preselectFirstItem) {
+-      updateSelectedIndex(0);
+-    }
+-  }, [options, selectedIndex, updateSelectedIndex, preselectFirstItem]);
+-  useEffect(() => {
+-    return mergeRegister(editor.registerCommand(SCROLL_TYPEAHEAD_OPTION_INTO_VIEW_COMMAND, ({
+-      option
+-    }) => {
+-      if (option.ref && option.ref.current != null) {
+-        scrollIntoViewIfNeeded(option.ref.current);
+-        return true;
+-      }
+-      return false;
+-    }, commandPriority));
+-  }, [editor, updateSelectedIndex, commandPriority]);
+-  useEffect(() => {
+-    return mergeRegister(editor.registerCommand(KEY_ARROW_DOWN_COMMAND, payload => {
+-      const event = payload;
+-      if (options !== null && options.length) {
+-        const newSelectedIndex = selectedIndex === null ? 0 : selectedIndex !== options.length - 1 ? selectedIndex + 1 : 0;
+-        updateSelectedIndex(newSelectedIndex);
+-        const option = options[newSelectedIndex];
+-        if (!option) {
+-          updateSelectedIndex(-1);
+-          event.preventDefault();
+-          event.stopImmediatePropagation();
+-          return true;
+-        }
+-        if (option.ref && option.ref.current) {
+-          editor.dispatchCommand(SCROLL_TYPEAHEAD_OPTION_INTO_VIEW_COMMAND, {
+-            index: newSelectedIndex,
+-            option
+-          });
+-        }
+-        event.preventDefault();
+-        event.stopImmediatePropagation();
+-      }
+-      return true;
+-    }, commandPriority), editor.registerCommand(KEY_ARROW_UP_COMMAND, payload => {
+-      const event = payload;
+-      if (options !== null && options.length) {
+-        const newSelectedIndex = selectedIndex === null ? options.length - 1 : selectedIndex !== 0 ? selectedIndex - 1 : options.length - 1;
+-        updateSelectedIndex(newSelectedIndex);
+-        const option = options[newSelectedIndex];
+-        if (!option) {
+-          updateSelectedIndex(-1);
+-          event.preventDefault();
+-          event.stopImmediatePropagation();
+-          return true;
+-        }
+-        if (option.ref && option.ref.current) {
+-          scrollIntoViewIfNeeded(option.ref.current);
+-        }
+-        event.preventDefault();
+-        event.stopImmediatePropagation();
+-      }
+-      return true;
+-    }, commandPriority), editor.registerCommand(KEY_ESCAPE_COMMAND, payload => {
+-      const event = payload;
+-      event.preventDefault();
+-      event.stopImmediatePropagation();
+-      close();
+-      return true;
+-    }, commandPriority), editor.registerCommand(KEY_TAB_COMMAND, payload => {
+-      const event = payload;
+-      if (options === null || selectedIndex === null || options[selectedIndex] == null) {
+-        return false;
+-      }
+-      event.preventDefault();
+-      event.stopImmediatePropagation();
+-      selectOptionAndCleanUp(options[selectedIndex]);
+-      return true;
+-    }, commandPriority), editor.registerCommand(KEY_ENTER_COMMAND, event => {
+-      if (options === null || selectedIndex === null || options[selectedIndex] == null) {
+-        return false;
+-      }
+-      if (event !== null) {
+-        event.preventDefault();
+-        event.stopImmediatePropagation();
+-      }
+-      selectOptionAndCleanUp(options[selectedIndex]);
+-      return true;
+-    }, commandPriority));
+-  }, [selectOptionAndCleanUp, close, editor, options, selectedIndex, updateSelectedIndex, commandPriority]);
+-  const listItemProps = useMemo(() => ({
+-    options,
+-    selectOptionAndCleanUp,
+-    selectedIndex,
+-    setHighlightedIndex
+-  }), [selectOptionAndCleanUp, selectedIndex, options]);
+-  return menuRenderFn(anchorElementRef, listItemProps, resolution.match ? resolution.match.matchingString : '');
+-}
+-function setContainerDivAttributes(containerDiv, className) {
+-  if (className != null) {
+-    containerDiv.className = className;
+-  }
+-  containerDiv.setAttribute('aria-label', 'Typeahead menu');
+-  containerDiv.setAttribute('role', 'listbox');
+-  containerDiv.style.display = 'block';
+-  containerDiv.style.position = 'absolute';
+-}
+-function useMenuAnchorRef(resolution, setResolution, className, parent = CAN_USE_DOM ? document.body : undefined, shouldIncludePageYOffset__EXPERIMENTAL = true) {
+-  const [editor] = useLexicalComposerContext();
+-  const initialAnchorElement = CAN_USE_DOM ? document.createElement('div') : null;
+-  const anchorElementRef = useRef(initialAnchorElement);
+-  const positionMenu = useCallback(() => {
+-    if (anchorElementRef.current === null || parent === undefined) {
+-      return;
+-    }
+-    anchorElementRef.current.style.top = anchorElementRef.current.style.bottom;
+-    const rootElement = editor.getRootElement();
+-    const containerDiv = anchorElementRef.current;
+-    const menuEle = containerDiv.firstChild;
+-    if (rootElement !== null && resolution !== null) {
+-      const {
+-        left,
+-        top,
+-        width,
+-        height
+-      } = resolution.getRect();
+-      const anchorHeight = anchorElementRef.current.offsetHeight; // use to position under anchor
+-      containerDiv.style.top = `${top + anchorHeight + 3 + (shouldIncludePageYOffset__EXPERIMENTAL ? window.pageYOffset : 0)}px`;
+-      containerDiv.style.left = `${left + window.pageXOffset}px`;
+-      containerDiv.style.height = `${height}px`;
+-      containerDiv.style.width = `${width}px`;
+-      if (menuEle !== null) {
+-        menuEle.style.top = `${top}`;
+-        const menuRect = menuEle.getBoundingClientRect();
+-        const menuHeight = menuRect.height;
+-        const menuWidth = menuRect.width;
+-        const rootElementRect = rootElement.getBoundingClientRect();
+-        if (left + menuWidth > rootElementRect.right) {
+-          containerDiv.style.left = `${rootElementRect.right - menuWidth + window.pageXOffset}px`;
+-        }
+-        if ((top + menuHeight > window.innerHeight || top + menuHeight > rootElementRect.bottom) && top - rootElementRect.top > menuHeight + height) {
+-          containerDiv.style.top = `${top - menuHeight - height + (shouldIncludePageYOffset__EXPERIMENTAL ? window.pageYOffset : 0)}px`;
+-        }
+-      }
+-      if (!containerDiv.isConnected) {
+-        setContainerDivAttributes(containerDiv, className);
+-        parent.append(containerDiv);
+-      }
+-      containerDiv.setAttribute('id', 'typeahead-menu');
+-      rootElement.setAttribute('aria-controls', 'typeahead-menu');
+-    }
+-  }, [editor, resolution, shouldIncludePageYOffset__EXPERIMENTAL, className, parent]);
+-  useEffect(() => {
+-    const rootElement = editor.getRootElement();
+-    if (resolution !== null) {
+-      positionMenu();
+-    }
+-    return () => {
+-      if (rootElement !== null) {
+-        rootElement.removeAttribute('aria-controls');
+-      }
+-      // eslint-disable-next-line react-hooks/exhaustive-deps
+-      const containerDiv = anchorElementRef.current;
+-      if (containerDiv !== null && containerDiv.isConnected) {
+-        containerDiv.remove();
+-        containerDiv.removeAttribute('id');
+-      }
+-    };
+-  }, [editor, positionMenu, resolution]);
+-  const onVisibilityChange = useCallback(isInView => {
+-    if (resolution !== null) {
+-      if (!isInView) {
+-        setResolution(null);
+-      }
+-    }
+-  }, [resolution, setResolution]);
+-  useDynamicPositioning(resolution, anchorElementRef.current, positionMenu, onVisibilityChange);
+-
+-  // Append the context for the menu immediately
+-  if (initialAnchorElement != null && initialAnchorElement === anchorElementRef.current) {
+-    setContainerDivAttributes(initialAnchorElement, className);
+-    if (parent != null) {
+-      parent.append(initialAnchorElement);
+-    }
+-  }
+-  return anchorElementRef;
+-}
+-
+-/**
+- * Copyright (c) Meta Platforms, Inc. and affiliates.
+- *
+- * This source code is licensed under the MIT license found in the
+- * LICENSE file in the root directory of this source tree.
+- *
+- */
+-
+-const PRE_PORTAL_DIV_SIZE = 1;
+-
+-/**
+- * @deprecated Use LexicalNodeContextMenuPlugin instead.
+- */
+-function LexicalContextMenuPlugin({
+-  options,
+-  onWillOpen,
+-  onClose,
+-  onOpen,
+-  onSelectOption,
+-  menuRenderFn: contextMenuRenderFn,
+-  anchorClassName,
+-  commandPriority = COMMAND_PRIORITY_LOW,
+-  parent
+-}) {
+-  const [editor] = useLexicalComposerContext();
+-  const [resolution, setResolution] = useState(null);
+-  const menuRef = React.useRef(null);
+-  const anchorElementRef = useMenuAnchorRef(resolution, setResolution, anchorClassName, parent);
+-  const closeNodeMenu = useCallback(() => {
+-    setResolution(null);
+-    if (onClose != null && resolution !== null) {
+-      onClose();
+-    }
+-  }, [onClose, resolution]);
+-  const openNodeMenu = useCallback(res => {
+-    setResolution(res);
+-    if (onOpen != null && resolution === null) {
+-      onOpen(res);
+-    }
+-  }, [onOpen, resolution]);
+-  const handleContextMenu = useCallback(event => {
+-    event.preventDefault();
+-    if (onWillOpen != null) {
+-      onWillOpen(event);
+-    }
+-    const zoom = calculateZoomLevel(event.target);
+-    openNodeMenu({
+-      getRect: () => new DOMRect(event.clientX / zoom, event.clientY / zoom, PRE_PORTAL_DIV_SIZE, PRE_PORTAL_DIV_SIZE)
+-    });
+-  }, [openNodeMenu, onWillOpen]);
+-  const handleClick = useCallback(event => {
+-    if (resolution !== null && menuRef.current != null && event.target != null && isDOMNode(event.target) && !menuRef.current.contains(event.target)) {
+-      closeNodeMenu();
+-    }
+-  }, [closeNodeMenu, resolution]);
+-  useEffect(() => {
+-    const editorElement = editor.getRootElement();
+-    if (editorElement) {
+-      editorElement.addEventListener('contextmenu', handleContextMenu);
+-      return () => editorElement.removeEventListener('contextmenu', handleContextMenu);
+-    }
+-  }, [editor, handleContextMenu]);
+-  useEffect(() => {
+-    document.addEventListener('click', handleClick);
+-    return () => document.removeEventListener('click', handleClick);
+-  }, [editor, handleClick]);
+-  return anchorElementRef.current === null || resolution === null || editor === null ? null : /*#__PURE__*/jsx(LexicalMenu, {
+-    close: closeNodeMenu,
+-    resolution: resolution,
+-    editor: editor,
+-    anchorElementRef: anchorElementRef,
+-    options: options,
+-    menuRenderFn: (anchorRef, itemProps) => contextMenuRenderFn(anchorRef, itemProps, {
+-      setMenuRef: ref => {
+-        menuRef.current = ref;
+-      }
+-    }),
+-    onSelectOption: onSelectOption,
+-    commandPriority: commandPriority
+-  });
+-}
+-
+-export { LexicalContextMenuPlugin, MenuOption };
+diff --git a/node_modules/@lexical/react/LexicalContextMenuPlugin.js b/node_modules/@lexical/react/LexicalContextMenuPlugin.js
+deleted file mode 100644
+index b3f6da5..0000000
+--- a/node_modules/@lexical/react/LexicalContextMenuPlugin.js
++++ /dev/null
+@@ -1,11 +0,0 @@
+-/**
+- * Copyright (c) Meta Platforms, Inc. and affiliates.
+- *
+- * This source code is licensed under the MIT license found in the
+- * LICENSE file in the root directory of this source tree.
+- *
+- */
+-
+-'use strict'
+-const LexicalContextMenuPlugin = process.env.NODE_ENV !== 'production' ? require('./LexicalContextMenuPlugin.dev.js') : require('./LexicalContextMenuPlugin.prod.js');
+-module.exports = LexicalContextMenuPlugin;
+\ No newline at end of file
+diff --git a/node_modules/@lexical/react/LexicalContextMenuPlugin.mjs b/node_modules/@lexical/react/LexicalContextMenuPlugin.mjs
+deleted file mode 100644
+index bff384c..0000000
+--- a/node_modules/@lexical/react/LexicalContextMenuPlugin.mjs
++++ /dev/null
+@@ -1,13 +0,0 @@
+-/**
+- * Copyright (c) Meta Platforms, Inc. and affiliates.
+- *
+- * This source code is licensed under the MIT license found in the
+- * LICENSE file in the root directory of this source tree.
+- *
+- */
+-
+-import * as modDev from './LexicalContextMenuPlugin.dev.mjs';
+-import * as modProd from './LexicalContextMenuPlugin.prod.mjs';
+-const mod = process.env.NODE_ENV !== 'production' ? modDev : modProd;
+-export const LexicalContextMenuPlugin = mod.LexicalContextMenuPlugin;
+-export const MenuOption = mod.MenuOption;
+\ No newline at end of file
+diff --git a/node_modules/@lexical/react/LexicalContextMenuPlugin.node.mjs b/node_modules/@lexical/react/LexicalContextMenuPlugin.node.mjs
+deleted file mode 100644
+index 89b8196..0000000
+--- a/node_modules/@lexical/react/LexicalContextMenuPlugin.node.mjs
++++ /dev/null
+@@ -1,11 +0,0 @@
+-/**
+- * Copyright (c) Meta Platforms, Inc. and affiliates.
+- *
+- * This source code is licensed under the MIT license found in the
+- * LICENSE file in the root directory of this source tree.
+- *
+- */
+-
+-const mod = await (process.env.NODE_ENV !== 'production' ? import('./LexicalContextMenuPlugin.dev.mjs') : import('./LexicalContextMenuPlugin.prod.mjs'));
+-export const LexicalContextMenuPlugin = mod.LexicalContextMenuPlugin;
+-export const MenuOption = mod.MenuOption;
+\ No newline at end of file
+diff --git a/node_modules/@lexical/react/LexicalContextMenuPlugin.prod.js b/node_modules/@lexical/react/LexicalContextMenuPlugin.prod.js
+deleted file mode 100644
+index c713b15..0000000
+--- a/node_modules/@lexical/react/LexicalContextMenuPlugin.prod.js
++++ /dev/null
+@@ -1,9 +0,0 @@
+-/**
+- * Copyright (c) Meta Platforms, Inc. and affiliates.
+- *
+- * This source code is licensed under the MIT license found in the
+- * LICENSE file in the root directory of this source tree.
+- *
+- */
+-
+-"use strict";var e=require("@lexical/react/LexicalComposerContext"),t=require("@lexical/utils"),n=require("lexical"),o=require("react"),l=require("react/jsx-runtime");function r(e){var t=Object.create(null);if(e)for(var n in e)t[n]=e[n];return t.default=e,t}var i=r(o);const u="undefined"!=typeof window&&void 0!==window.document&&void 0!==window.document.createElement,s=u?o.useLayoutEffect:o.useEffect;const c=e=>{const t=document.getElementById("typeahead-menu");if(!t)return;const n=t.getBoundingClientRect();n.top+n.height>window.innerHeight&&t.scrollIntoView({block:"center"}),n.top<0&&t.scrollIntoView({block:"center"}),e.scrollIntoView({block:"nearest"})};function a(e,t){const n=e.getBoundingClientRect(),o=t.getBoundingClientRect();return n.top>=o.top-6&&n.top<=o.bottom+6}function m(t,n,l,r){const[i]=e.useLexicalComposerContext();o.useEffect(()=>{if(null!=n&&null!=t){const e=i.getRootElement(),t=null!=e?function(e){let t=getComputedStyle(e);const n="absolute"===t.position,o=/(auto|scroll)/;if("fixed"===t.position)return document.body;for(let l=e;l=l.parentElement;)if(t=getComputedStyle(l),(!n||"static"!==t.position)&&o.test(t.overflow+t.overflowY+t.overflowX))return l;return document.body}(e):document.body;let o=!1,u=a(n,t);const s=function(){o||(window.requestAnimationFrame(function(){l(),o=!1}),o=!0);const e=a(n,t);e!==u&&(u=e,null!=r&&r(e))},c=new ResizeObserver(l);return window.addEventListener("resize",l),document.addEventListener("scroll",s,{capture:!0,passive:!0}),c.observe(n),()=>{c.unobserve(n),window.removeEventListener("resize",l),document.removeEventListener("scroll",s,!0)}}},[n,i,r,l,t])}const d=n.createCommand("SCROLL_TYPEAHEAD_OPTION_INTO_VIEW_COMMAND");function f({close:e,editor:l,anchorElementRef:r,resolution:i,options:u,menuRenderFn:a,onSelectOption:m,shouldSplitNodeWithQuery:f=!1,commandPriority:p=n.COMMAND_PRIORITY_LOW,preselectFirstItem:g=!0}){const[h,C]=o.useState(null),E=null!==h?Math.min(u.length-1,h):null,v=i.match&&i.match.matchingString;o.useEffect(()=>{g&&C(0)},[v,g]);const R=o.useCallback(t=>{l.update(()=>{const o=null!=i.match&&f?function(e){const t=n.$getSelection();if(!n.$isRangeSelection(t)||!t.isCollapsed())return null;const o=t.anchor;if("text"!==o.type)return null;const l=o.getNode();if(!l.isSimpleText())return null;const r=o.offset,i=l.getTextContent().slice(0,r),u=e.replaceableString.length,s=r-function(e,t,n){let o=n;for(let n=o;n<=t.length;n++)e.slice(-n)===t.substring(0,n)&&(o=n);return o}(i,e.matchingString,u);if(s<0)return null;let c;return 0===s?[c]=l.splitText(r):[,c]=l.splitText(s,r),c}(i.match):null;m(t,o,e,i.match?i.match.matchingString:"")})},[l,f,i.match,m,e]),b=o.useCallback(e=>{const t=l.getRootElement();null!==t&&(t.setAttribute("aria-activedescendant","typeahead-item-"+e),C(e))},[l]);o.useEffect(()=>()=>{const e=l.getRootElement();null!==e&&e.removeAttribute("aria-activedescendant")},[l]),s(()=>{null===u?C(null):null===E&&g&&b(0)},[u,E,b,g]),o.useEffect(()=>t.mergeRegister(l.registerCommand(d,({option:e})=>!(!e.ref||null==e.ref.current)&&(c(e.ref.current),!0),p)),[l,b,p]),o.useEffect(()=>t.mergeRegister(l.registerCommand(n.KEY_ARROW_DOWN_COMMAND,e=>{const t=e;if(null!==u&&u.length){const e=null===E?0:E!==u.length-1?E+1:0;b(e);const n=u[e];if(!n)return b(-1),t.preventDefault(),t.stopImmediatePropagation(),!0;n.ref&&n.ref.current&&l.dispatchCommand(d,{index:e,option:n}),t.preventDefault(),t.stopImmediatePropagation()}return!0},p),l.registerCommand(n.KEY_ARROW_UP_COMMAND,e=>{const t=e;if(null!==u&&u.length){const e=null===E?u.length-1:0!==E?E-1:u.length-1;b(e);const n=u[e];if(!n)return b(-1),t.preventDefault(),t.stopImmediatePropagation(),!0;n.ref&&n.ref.current&&c(n.ref.current),t.preventDefault(),t.stopImmediatePropagation()}return!0},p),l.registerCommand(n.KEY_ESCAPE_COMMAND,t=>{const n=t;return n.preventDefault(),n.stopImmediatePropagation(),e(),!0},p),l.registerCommand(n.KEY_TAB_COMMAND,e=>{const t=e;return null!==u&&null!==E&&null!=u[E]&&(t.preventDefault(),t.stopImmediatePropagation(),R(u[E]),!0)},p),l.registerCommand(n.KEY_ENTER_COMMAND,e=>null!==u&&null!==E&&null!=u[E]&&(null!==e&&(e.preventDefault(),e.stopImmediatePropagation()),R(u[E]),!0),p)),[R,e,l,u,E,b,p]);return a(r,o.useMemo(()=>({options:u,selectOptionAndCleanUp:R,selectedIndex:E,setHighlightedIndex:C}),[R,E,u]),i.match?i.match.matchingString:"")}function p(e,t){null!=t&&(e.className=t),e.setAttribute("aria-label","Typeahead menu"),e.setAttribute("role","listbox"),e.style.display="block",e.style.position="absolute"}exports.LexicalContextMenuPlugin=function({options:r,onWillOpen:s,onClose:c,onOpen:a,onSelectOption:d,menuRenderFn:g,anchorClassName:h,commandPriority:C=n.COMMAND_PRIORITY_LOW,parent:E}){const[v]=e.useLexicalComposerContext(),[R,b]=o.useState(null),w=i.useRef(null),x=function(t,n,l,r=(u?document.body:void 0),i=!0){const[s]=e.useLexicalComposerContext(),c=u?document.createElement("div"):null,a=o.useRef(c),d=o.useCallback(()=>{if(null===a.current||void 0===r)return;a.current.style.top=a.current.style.bottom;const e=s.getRootElement(),n=a.current,o=n.firstChild;if(null!==e&&null!==t){const{left:u,top:s,width:c,height:m}=t.getRect(),d=a.current.offsetHeight;if(n.style.top=`${s+d+3+(i?window.pageYOffset:0)}px`,n.style.left=`${u+window.pageXOffset}px`,n.style.height=`${m}px`,n.style.width=`${c}px`,null!==o){o.style.top=`${s}`;const t=o.getBoundingClientRect(),l=t.height,r=t.width,c=e.getBoundingClientRect();u+r>c.right&&(n.style.left=`${c.right-r+window.pageXOffset}px`),(s+l>window.innerHeight||s+l>c.bottom)&&s-c.top>l+m&&(n.style.top=`${s-l-m+(i?window.pageYOffset:0)}px`)}n.isConnected||(p(n,l),r.append(n)),n.setAttribute("id","typeahead-menu"),e.setAttribute("aria-controls","typeahead-menu")}},[s,t,i,l,r]);o.useEffect(()=>{const e=s.getRootElement();return null!==t&&d(),()=>{null!==e&&e.removeAttribute("aria-controls");const t=a.current;null!==t&&t.isConnected&&(t.remove(),t.removeAttribute("id"))}},[s,d,t]);const f=o.useCallback(e=>{null!==t&&(e||n(null))},[t,n]);return m(t,a.current,d,f),null!=c&&c===a.current&&(p(c,l),null!=r&&r.append(c)),a}(R,b,h,E),O=o.useCallback(()=>{b(null),null!=c&&null!==R&&c()},[c,R]),y=o.useCallback(e=>{b(e),null!=a&&null===R&&a(e)},[a,R]),A=o.useCallback(e=>{e.preventDefault(),null!=s&&s(e);const n=t.calculateZoomLevel(e.target);y({getRect:()=>new DOMRect(e.clientX/n,e.clientY/n,1,1)})},[y,s]),M=o.useCallback(e=>{null!==R&&null!=w.current&&null!=e.target&&n.isDOMNode(e.target)&&!w.current.contains(e.target)&&O()},[O,R]);return o.useEffect(()=>{const e=v.getRootElement();if(e)return e.addEventListener("contextmenu",A),()=>e.removeEventListener("contextmenu",A)},[v,A]),o.useEffect(()=>(document.addEventListener("click",M),()=>document.removeEventListener("click",M)),[v,M]),null===x.current||null===R||null===v?null:l.jsx(f,{close:O,resolution:R,editor:v,anchorElementRef:x,options:r,menuRenderFn:(e,t)=>g(e,t,{setMenuRef:e=>{w.current=e}}),onSelectOption:d,commandPriority:C})},exports.MenuOption=class{key;ref;constructor(e){this.key=e,this.ref={current:null},this.setRefElement=this.setRefElement.bind(this)}setRefElement(e){this.ref={current:e}}};
+diff --git a/node_modules/@lexical/react/LexicalContextMenuPlugin.prod.mjs b/node_modules/@lexical/react/LexicalContextMenuPlugin.prod.mjs
+deleted file mode 100644
+index 7d26d16..0000000
+--- a/node_modules/@lexical/react/LexicalContextMenuPlugin.prod.mjs
++++ /dev/null
+@@ -1,9 +0,0 @@
+-/**
+- * Copyright (c) Meta Platforms, Inc. and affiliates.
+- *
+- * This source code is licensed under the MIT license found in the
+- * LICENSE file in the root directory of this source tree.
+- *
+- */
+-
+-import{useLexicalComposerContext as t}from"@lexical/react/LexicalComposerContext";import{mergeRegister as e,calculateZoomLevel as n}from"@lexical/utils";import{createCommand as o,COMMAND_PRIORITY_LOW as l,KEY_ARROW_DOWN_COMMAND as r,KEY_ARROW_UP_COMMAND as i,KEY_ESCAPE_COMMAND as u,KEY_TAB_COMMAND as c,KEY_ENTER_COMMAND as s,$getSelection as a,$isRangeSelection as m,isDOMNode as d}from"lexical";import*as p from"react";import{useLayoutEffect as f,useEffect as g,useRef as h,useCallback as v,useState as w,useMemo as y}from"react";import{jsx as b}from"react/jsx-runtime";const C="undefined"!=typeof window&&void 0!==window.document&&void 0!==window.document.createElement,E=C?f:g;class R{key;ref;constructor(t){this.key=t,this.ref={current:null},this.setRefElement=this.setRefElement.bind(this)}setRefElement(t){this.ref={current:t}}}const x=t=>{const e=document.getElementById("typeahead-menu");if(!e)return;const n=e.getBoundingClientRect();n.top+n.height>window.innerHeight&&e.scrollIntoView({block:"center"}),n.top<0&&e.scrollIntoView({block:"center"}),t.scrollIntoView({block:"nearest"})};function I(t,e){const n=t.getBoundingClientRect(),o=e.getBoundingClientRect();return n.top>=o.top-6&&n.top<=o.bottom+6}function O(e,n,o,l){const[r]=t();g(()=>{if(null!=n&&null!=e){const t=r.getRootElement(),e=null!=t?function(t){let e=getComputedStyle(t);const n="absolute"===e.position,o=/(auto|scroll)/;if("fixed"===e.position)return document.body;for(let l=t;l=l.parentElement;)if(e=getComputedStyle(l),(!n||"static"!==e.position)&&o.test(e.overflow+e.overflowY+e.overflowX))return l;return document.body}(t):document.body;let i=!1,u=I(n,e);const c=function(){i||(window.requestAnimationFrame(function(){o(),i=!1}),i=!0);const t=I(n,e);t!==u&&(u=t,null!=l&&l(t))},s=new ResizeObserver(o);return window.addEventListener("resize",o),document.addEventListener("scroll",c,{capture:!0,passive:!0}),s.observe(n),()=>{s.unobserve(n),window.removeEventListener("resize",o),document.removeEventListener("scroll",c,!0)}}},[n,r,l,o,e])}const A=o("SCROLL_TYPEAHEAD_OPTION_INTO_VIEW_COMMAND");function S({close:t,editor:n,anchorElementRef:o,resolution:d,options:p,menuRenderFn:f,onSelectOption:h,shouldSplitNodeWithQuery:b=!1,commandPriority:C=l,preselectFirstItem:R=!0}){const[I,O]=w(null),S=null!==I?Math.min(p.length-1,I):null,P=d.match&&d.match.matchingString;g(()=>{R&&O(0)},[P,R]);const D=v(e=>{n.update(()=>{const n=null!=d.match&&b?function(t){const e=a();if(!m(e)||!e.isCollapsed())return null;const n=e.anchor;if("text"!==n.type)return null;const o=n.getNode();if(!o.isSimpleText())return null;const l=n.offset,r=o.getTextContent().slice(0,l),i=t.replaceableString.length,u=l-function(t,e,n){let o=n;for(let n=o;n<=e.length;n++)t.slice(-n)===e.substring(0,n)&&(o=n);return o}(r,t.matchingString,i);if(u<0)return null;let c;return 0===u?[c]=o.splitText(l):[,c]=o.splitText(u,l),c}(d.match):null;h(e,n,t,d.match?d.match.matchingString:"")})},[n,b,d.match,h,t]),L=v(t=>{const e=n.getRootElement();null!==e&&(e.setAttribute("aria-activedescendant","typeahead-item-"+t),O(t))},[n]);g(()=>()=>{const t=n.getRootElement();null!==t&&t.removeAttribute("aria-activedescendant")},[n]),E(()=>{null===p?O(null):null===S&&R&&L(0)},[p,S,L,R]),g(()=>e(n.registerCommand(A,({option:t})=>!(!t.ref||null==t.ref.current)&&(x(t.ref.current),!0),C)),[n,L,C]),g(()=>e(n.registerCommand(r,t=>{const e=t;if(null!==p&&p.length){const t=null===S?0:S!==p.length-1?S+1:0;L(t);const o=p[t];if(!o)return L(-1),e.preventDefault(),e.stopImmediatePropagation(),!0;o.ref&&o.ref.current&&n.dispatchCommand(A,{index:t,option:o}),e.preventDefault(),e.stopImmediatePropagation()}return!0},C),n.registerCommand(i,t=>{const e=t;if(null!==p&&p.length){const t=null===S?p.length-1:0!==S?S-1:p.length-1;L(t);const n=p[t];if(!n)return L(-1),e.preventDefault(),e.stopImmediatePropagation(),!0;n.ref&&n.ref.current&&x(n.ref.current),e.preventDefault(),e.stopImmediatePropagation()}return!0},C),n.registerCommand(u,e=>{const n=e;return n.preventDefault(),n.stopImmediatePropagation(),t(),!0},C),n.registerCommand(c,t=>{const e=t;return null!==p&&null!==S&&null!=p[S]&&(e.preventDefault(),e.stopImmediatePropagation(),D(p[S]),!0)},C),n.registerCommand(s,t=>null!==p&&null!==S&&null!=p[S]&&(null!==t&&(t.preventDefault(),t.stopImmediatePropagation()),D(p[S]),!0),C)),[D,t,n,p,S,L,C]);return f(o,y(()=>({options:p,selectOptionAndCleanUp:D,selectedIndex:S,setHighlightedIndex:O}),[D,S,p]),d.match?d.match.matchingString:"")}function P(t,e){null!=e&&(t.className=e),t.setAttribute("aria-label","Typeahead menu"),t.setAttribute("role","listbox"),t.style.display="block",t.style.position="absolute"}function D({options:e,onWillOpen:o,onClose:r,onOpen:i,onSelectOption:u,menuRenderFn:c,anchorClassName:s,commandPriority:a=l,parent:m}){const[f]=t(),[y,E]=w(null),R=p.useRef(null),x=function(e,n,o,l=(C?document.body:void 0),r=!0){const[i]=t(),u=C?document.createElement("div"):null,c=h(u),s=v(()=>{if(null===c.current||void 0===l)return;c.current.style.top=c.current.style.bottom;const t=i.getRootElement(),n=c.current,u=n.firstChild;if(null!==t&&null!==e){const{left:i,top:s,width:a,height:m}=e.getRect(),d=c.current.offsetHeight;if(n.style.top=`${s+d+3+(r?window.pageYOffset:0)}px`,n.style.left=`${i+window.pageXOffset}px`,n.style.height=`${m}px`,n.style.width=`${a}px`,null!==u){u.style.top=`${s}`;const e=u.getBoundingClientRect(),o=e.height,l=e.width,c=t.getBoundingClientRect();i+l>c.right&&(n.style.left=`${c.right-l+window.pageXOffset}px`),(s+o>window.innerHeight||s+o>c.bottom)&&s-c.top>o+m&&(n.style.top=`${s-o-m+(r?window.pageYOffset:0)}px`)}n.isConnected||(P(n,o),l.append(n)),n.setAttribute("id","typeahead-menu"),t.setAttribute("aria-controls","typeahead-menu")}},[i,e,r,o,l]);g(()=>{const t=i.getRootElement();return null!==e&&s(),()=>{null!==t&&t.removeAttribute("aria-controls");const e=c.current;null!==e&&e.isConnected&&(e.remove(),e.removeAttribute("id"))}},[i,s,e]);const a=v(t=>{null!==e&&(t||n(null))},[e,n]);return O(e,c.current,s,a),null!=u&&u===c.current&&(P(u,o),null!=l&&l.append(u)),c}(y,E,s,m),I=v(()=>{E(null),null!=r&&null!==y&&r()},[r,y]),A=v(t=>{E(t),null!=i&&null===y&&i(t)},[i,y]),D=v(t=>{t.preventDefault(),null!=o&&o(t);const e=n(t.target);A({getRect:()=>new DOMRect(t.clientX/e,t.clientY/e,1,1)})},[A,o]),L=v(t=>{null!==y&&null!=R.current&&null!=t.target&&d(t.target)&&!R.current.contains(t.target)&&I()},[I,y]);return g(()=>{const t=f.getRootElement();if(t)return t.addEventListener("contextmenu",D),()=>t.removeEventListener("contextmenu",D)},[f,D]),g(()=>(document.addEventListener("click",L),()=>document.removeEventListener("click",L)),[f,L]),null===x.current||null===y||null===f?null:b(S,{close:I,resolution:y,editor:f,anchorElementRef:x,options:e,menuRenderFn:(t,e)=>c(t,e,{setMenuRef:t=>{R.current=t}}),onSelectOption:u,commandPriority:a})}export{D as LexicalContextMenuPlugin,R as MenuOption};
+diff --git a/node_modules/@lexical/react/LexicalNodeMenuPlugin.d.ts b/node_modules/@lexical/react/LexicalNodeMenuPlugin.d.ts
+index 651b7d7..8ad7623 100644
+--- a/node_modules/@lexical/react/LexicalNodeMenuPlugin.d.ts
++++ b/node_modules/@lexical/react/LexicalNodeMenuPlugin.d.ts
+@@ -5,7 +5,7 @@
+  * LICENSE file in the root directory of this source tree.
+  *
+  */
+-import type { MenuRenderFn, MenuResolution } from './shared/LexicalMenu';
++import type { MenuResolution } from './shared/LexicalMenu';
+ import type { JSX } from 'react';
+ import { CommandListenerPriority, NodeKey, TextNode } from 'lexical';
+ import { MenuOption } from './shared/LexicalMenu';
+@@ -15,10 +15,9 @@ export type NodeMenuPluginProps<TOption extends MenuOption> = {
+     nodeKey: NodeKey | null;
+     onClose?: () => void;
+     onOpen?: (resolution: MenuResolution) => void;
+-    menuRenderFn: MenuRenderFn<TOption>;
+     anchorClassName?: string;
+     commandPriority?: CommandListenerPriority;
+     parent?: HTMLElement;
+ };
+-export declare function LexicalNodeMenuPlugin<TOption extends MenuOption>({ options, nodeKey, onClose, onOpen, onSelectOption, menuRenderFn, anchorClassName, commandPriority, parent, }: NodeMenuPluginProps<TOption>): JSX.Element | null;
+-export { MenuOption, MenuRenderFn, MenuResolution };
++export declare function LexicalNodeMenuPlugin<TOption extends MenuOption>({ options, nodeKey, onClose, onOpen, onSelectOption, anchorClassName, commandPriority, parent, }: NodeMenuPluginProps<TOption>): JSX.Element | null;
++export { MenuOption, MenuResolution };
+diff --git a/node_modules/@lexical/react/LexicalNodeMenuPlugin.dev.js b/node_modules/@lexical/react/LexicalNodeMenuPlugin.dev.js
+index cc367e3..5615c93 100644
+--- a/node_modules/@lexical/react/LexicalNodeMenuPlugin.dev.js
++++ b/node_modules/@lexical/react/LexicalNodeMenuPlugin.dev.js
+@@ -12,6 +12,7 @@ var LexicalComposerContext = require('@lexical/react/LexicalComposerContext');
+ var lexical = require('lexical');
+ var React = require('react');
+ var utils = require('@lexical/utils');
++var ReactDOM = require('react-dom');
+ var jsxRuntime = require('react/jsx-runtime');
+ 
+ /**
+@@ -70,6 +71,8 @@ const useLayoutEffectImpl = CAN_USE_DOM ? React.useLayoutEffect : React.useEffec
+ class MenuOption {
+   key;
+   ref;
++  icon;
++  title;
+   constructor(key) {
+     this.key = key;
+     this.ref = {
+@@ -219,13 +222,38 @@ function useDynamicPositioning(resolution, targetElement, onReposition, onVisibi
+   }, [targetElement, editor, onVisibilityChange, onReposition, resolution]);
+ }
+ const SCROLL_TYPEAHEAD_OPTION_INTO_VIEW_COMMAND = lexical.createCommand('SCROLL_TYPEAHEAD_OPTION_INTO_VIEW_COMMAND');
++function MenuItem({
++  index,
++  isSelected,
++  onClick,
++  onMouseEnter,
++  option
++}) {
++  let className = 'item';
++  if (isSelected) {
++    className += ' selected';
++  }
++  return /*#__PURE__*/jsxRuntime.jsxs("li", {
++    tabIndex: -1,
++    className: className,
++    ref: option.setRefElement,
++    role: "option",
++    "aria-selected": isSelected,
++    id: 'typeahead-item-' + index,
++    onMouseEnter: onMouseEnter,
++    onClick: onClick,
++    children: [option.icon, /*#__PURE__*/jsxRuntime.jsx("span", {
++      className: "text",
++      children: option.title
++    })]
++  }, option.key);
++}
+ function LexicalMenu({
+   close,
+   editor,
+   anchorElementRef,
+   resolution,
+   options,
+-  menuRenderFn,
+   onSelectOption,
+   shouldSplitNodeWithQuery = false,
+   commandPriority = lexical.COMMAND_PRIORITY_LOW,
+@@ -253,6 +281,25 @@ function LexicalMenu({
+       setHighlightedIndex(index);
+     }
+   }, [editor]);
++  const menuRenderFn = React.useCallback(() => {
++    return anchorElementRef.current && options.length ? /*#__PURE__*/ReactDOM.createPortal(/*#__PURE__*/jsxRuntime.jsx("div", {
++      className: "typeahead-popover mentions-menu",
++      children: /*#__PURE__*/jsxRuntime.jsx("ul", {
++        children: options.map((option, i) => /*#__PURE__*/jsxRuntime.jsx(MenuItem, {
++          index: i,
++          isSelected: selectedIndex === i,
++          onClick: () => {
++            setHighlightedIndex(i);
++            selectOptionAndCleanUp(option);
++          },
++          onMouseEnter: () => {
++            setHighlightedIndex(i);
++          },
++          option: option
++        }, option.key))
++      })
++    }), anchorElementRef.current) : null;
++  }, [anchorElementRef, options, selectedIndex, selectOptionAndCleanUp, setHighlightedIndex]);
+   React.useEffect(() => {
+     return () => {
+       const rootElem = editor.getRootElement();
+@@ -348,13 +395,7 @@ function LexicalMenu({
+       return true;
+     }, commandPriority));
+   }, [selectOptionAndCleanUp, close, editor, options, selectedIndex, updateSelectedIndex, commandPriority]);
+-  const listItemProps = React.useMemo(() => ({
+-    options,
+-    selectOptionAndCleanUp,
+-    selectedIndex,
+-    setHighlightedIndex
+-  }), [selectOptionAndCleanUp, selectedIndex, options]);
+-  return menuRenderFn(anchorElementRef, listItemProps, resolution.match ? resolution.match.matchingString : '');
++  return menuRenderFn();
+ }
+ function setContainerDivAttributes(containerDiv, className) {
+   if (className != null) {
+@@ -460,7 +501,6 @@ function LexicalNodeMenuPlugin({
+   onClose,
+   onOpen,
+   onSelectOption,
+-  menuRenderFn,
+   anchorClassName,
+   commandPriority = lexical.COMMAND_PRIORITY_LOW,
+   parent
+@@ -517,7 +557,6 @@ function LexicalNodeMenuPlugin({
+     editor: editor,
+     anchorElementRef: anchorElementRef,
+     options: options,
+-    menuRenderFn: menuRenderFn,
+     onSelectOption: onSelectOption,
+     commandPriority: commandPriority
+   });
+diff --git a/node_modules/@lexical/react/LexicalNodeMenuPlugin.dev.mjs b/node_modules/@lexical/react/LexicalNodeMenuPlugin.dev.mjs
+index 5355ecb..283f88c 100644
+--- a/node_modules/@lexical/react/LexicalNodeMenuPlugin.dev.mjs
++++ b/node_modules/@lexical/react/LexicalNodeMenuPlugin.dev.mjs
+@@ -8,9 +8,10 @@
+ 
+ import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
+ import { createCommand, COMMAND_PRIORITY_LOW, KEY_ARROW_DOWN_COMMAND, KEY_ARROW_UP_COMMAND, KEY_ESCAPE_COMMAND, KEY_TAB_COMMAND, KEY_ENTER_COMMAND, $getSelection, $isRangeSelection, $getNodeByKey } from 'lexical';
+-import React, { useLayoutEffect, useEffect, useRef, useCallback, useState, useMemo } from 'react';
++import React, { useLayoutEffect, useEffect, useRef, useCallback, useState } from 'react';
+ import { mergeRegister } from '@lexical/utils';
+-import { jsx } from 'react/jsx-runtime';
++import ReactDOM from 'react-dom';
++import { jsx, jsxs } from 'react/jsx-runtime';
+ 
+ /**
+  * Copyright (c) Meta Platforms, Inc. and affiliates.
+@@ -68,6 +69,8 @@ const useLayoutEffectImpl = CAN_USE_DOM ? useLayoutEffect : useEffect;
+ class MenuOption {
+   key;
+   ref;
++  icon;
++  title;
+   constructor(key) {
+     this.key = key;
+     this.ref = {
+@@ -217,13 +220,38 @@ function useDynamicPositioning(resolution, targetElement, onReposition, onVisibi
+   }, [targetElement, editor, onVisibilityChange, onReposition, resolution]);
+ }
+ const SCROLL_TYPEAHEAD_OPTION_INTO_VIEW_COMMAND = createCommand('SCROLL_TYPEAHEAD_OPTION_INTO_VIEW_COMMAND');
++function MenuItem({
++  index,
++  isSelected,
++  onClick,
++  onMouseEnter,
++  option
++}) {
++  let className = 'item';
++  if (isSelected) {
++    className += ' selected';
++  }
++  return /*#__PURE__*/jsxs("li", {
++    tabIndex: -1,
++    className: className,
++    ref: option.setRefElement,
++    role: "option",
++    "aria-selected": isSelected,
++    id: 'typeahead-item-' + index,
++    onMouseEnter: onMouseEnter,
++    onClick: onClick,
++    children: [option.icon, /*#__PURE__*/jsx("span", {
++      className: "text",
++      children: option.title
++    })]
++  }, option.key);
++}
+ function LexicalMenu({
+   close,
+   editor,
+   anchorElementRef,
+   resolution,
+   options,
+-  menuRenderFn,
+   onSelectOption,
+   shouldSplitNodeWithQuery = false,
+   commandPriority = COMMAND_PRIORITY_LOW,
+@@ -251,6 +279,25 @@ function LexicalMenu({
+       setHighlightedIndex(index);
+     }
+   }, [editor]);
++  const menuRenderFn = useCallback(() => {
++    return anchorElementRef.current && options.length ? /*#__PURE__*/ReactDOM.createPortal(/*#__PURE__*/jsx("div", {
++      className: "typeahead-popover mentions-menu",
++      children: /*#__PURE__*/jsx("ul", {
++        children: options.map((option, i) => /*#__PURE__*/jsx(MenuItem, {
++          index: i,
++          isSelected: selectedIndex === i,
++          onClick: () => {
++            setHighlightedIndex(i);
++            selectOptionAndCleanUp(option);
++          },
++          onMouseEnter: () => {
++            setHighlightedIndex(i);
++          },
++          option: option
++        }, option.key))
++      })
++    }), anchorElementRef.current) : null;
++  }, [anchorElementRef, options, selectedIndex, selectOptionAndCleanUp, setHighlightedIndex]);
+   useEffect(() => {
+     return () => {
+       const rootElem = editor.getRootElement();
+@@ -346,13 +393,7 @@ function LexicalMenu({
+       return true;
+     }, commandPriority));
+   }, [selectOptionAndCleanUp, close, editor, options, selectedIndex, updateSelectedIndex, commandPriority]);
+-  const listItemProps = useMemo(() => ({
+-    options,
+-    selectOptionAndCleanUp,
+-    selectedIndex,
+-    setHighlightedIndex
+-  }), [selectOptionAndCleanUp, selectedIndex, options]);
+-  return menuRenderFn(anchorElementRef, listItemProps, resolution.match ? resolution.match.matchingString : '');
++  return menuRenderFn();
+ }
+ function setContainerDivAttributes(containerDiv, className) {
+   if (className != null) {
+@@ -458,7 +499,6 @@ function LexicalNodeMenuPlugin({
+   onClose,
+   onOpen,
+   onSelectOption,
+-  menuRenderFn,
+   anchorClassName,
+   commandPriority = COMMAND_PRIORITY_LOW,
+   parent
+@@ -515,7 +555,6 @@ function LexicalNodeMenuPlugin({
+     editor: editor,
+     anchorElementRef: anchorElementRef,
+     options: options,
+-    menuRenderFn: menuRenderFn,
+     onSelectOption: onSelectOption,
+     commandPriority: commandPriority
+   });
+diff --git a/node_modules/@lexical/react/LexicalNodeMenuPlugin.js.flow b/node_modules/@lexical/react/LexicalNodeMenuPlugin.js.flow
+index 8376c18..716a9ec 100644
+--- a/node_modules/@lexical/react/LexicalNodeMenuPlugin.js.flow
++++ b/node_modules/@lexical/react/LexicalNodeMenuPlugin.js.flow
+@@ -28,17 +28,6 @@ declare export class MenuOption {
+   setRefElement(element: HTMLElement | null): void;
+ }
+ 
+-export type MenuRenderFn<TOption> = (
+-  anchorElementRef: {current: HTMLElement | null},
+-  itemProps: {
+-    selectedIndex: number | null,
+-    selectOptionAndCleanUp: (option: TOption) => void,
+-    setHighlightedIndex: (index: number) => void,
+-    options: Array<TOption>,
+-  },
+-  matchingString: string,
+-) => React.Portal | React.MixedElement | null;
+-
+ export type TriggerFn = (
+   text: string,
+   editor: LexicalEditor,
+@@ -55,7 +44,6 @@ type NodeMenuPluginProps<TOption> = {
+   nodeKey: NodeKey | null,
+   onClose?: () => void,
+   onOpen?: (resolution: MenuResolution) => void,
+-  menuRenderFn: MenuRenderFn<TOption>,
+   anchorClassName?: string,
+ };
+ 
+diff --git a/node_modules/@lexical/react/LexicalNodeMenuPlugin.prod.js b/node_modules/@lexical/react/LexicalNodeMenuPlugin.prod.js
+index bf399f1..5b79d2f 100644
+--- a/node_modules/@lexical/react/LexicalNodeMenuPlugin.prod.js
++++ b/node_modules/@lexical/react/LexicalNodeMenuPlugin.prod.js
+@@ -6,4 +6,4 @@
+  *
+  */
+ 
+-"use strict";var e=require("@lexical/react/LexicalComposerContext"),t=require("lexical"),n=require("react"),o=require("@lexical/utils"),l=require("react/jsx-runtime");const r="startTransition";const i="undefined"!=typeof window&&void 0!==window.document&&void 0!==window.document.createElement,u=i?n.useLayoutEffect:n.useEffect;const s=e=>{const t=document.getElementById("typeahead-menu");if(!t)return;const n=t.getBoundingClientRect();n.top+n.height>window.innerHeight&&t.scrollIntoView({block:"center"}),n.top<0&&t.scrollIntoView({block:"center"}),e.scrollIntoView({block:"nearest"})};function c(e,t){const n=e.getBoundingClientRect(),o=t.getBoundingClientRect();return n.top>=o.top-6&&n.top<=o.bottom+6}function a(t,o,l,r){const[i]=e.useLexicalComposerContext();n.useEffect(()=>{if(null!=o&&null!=t){const e=i.getRootElement(),t=null!=e?function(e){let t=getComputedStyle(e);const n="absolute"===t.position,o=/(auto|scroll)/;if("fixed"===t.position)return document.body;for(let l=e;l=l.parentElement;)if(t=getComputedStyle(l),(!n||"static"!==t.position)&&o.test(t.overflow+t.overflowY+t.overflowX))return l;return document.body}(e):document.body;let n=!1,u=c(o,t);const s=function(){n||(window.requestAnimationFrame(function(){l(),n=!1}),n=!0);const e=c(o,t);e!==u&&(u=e,null!=r&&r(e))},a=new ResizeObserver(l);return window.addEventListener("resize",l),document.addEventListener("scroll",s,{capture:!0,passive:!0}),a.observe(o),()=>{a.unobserve(o),window.removeEventListener("resize",l),document.removeEventListener("scroll",s,!0)}}},[o,i,r,l,t])}const d=t.createCommand("SCROLL_TYPEAHEAD_OPTION_INTO_VIEW_COMMAND");function m({close:e,editor:l,anchorElementRef:r,resolution:i,options:c,menuRenderFn:a,onSelectOption:m,shouldSplitNodeWithQuery:f=!1,commandPriority:p=t.COMMAND_PRIORITY_LOW,preselectFirstItem:g=!0}){const[h,C]=n.useState(null),E=null!==h?Math.min(c.length-1,h):null,y=i.match&&i.match.matchingString;n.useEffect(()=>{g&&C(0)},[y,g]);const b=n.useCallback(n=>{l.update(()=>{const o=null!=i.match&&f?function(e){const n=t.$getSelection();if(!t.$isRangeSelection(n)||!n.isCollapsed())return null;const o=n.anchor;if("text"!==o.type)return null;const l=o.getNode();if(!l.isSimpleText())return null;const r=o.offset,i=l.getTextContent().slice(0,r),u=e.replaceableString.length,s=r-function(e,t,n){let o=n;for(let n=o;n<=t.length;n++)e.slice(-n)===t.substring(0,n)&&(o=n);return o}(i,e.matchingString,u);if(s<0)return null;let c;return 0===s?[c]=l.splitText(r):[,c]=l.splitText(s,r),c}(i.match):null;m(n,o,e,i.match?i.match.matchingString:"")})},[l,f,i.match,m,e]),R=n.useCallback(e=>{const t=l.getRootElement();null!==t&&(t.setAttribute("aria-activedescendant","typeahead-item-"+e),C(e))},[l]);n.useEffect(()=>()=>{const e=l.getRootElement();null!==e&&e.removeAttribute("aria-activedescendant")},[l]),u(()=>{null===c?C(null):null===E&&g&&R(0)},[c,E,R,g]),n.useEffect(()=>o.mergeRegister(l.registerCommand(d,({option:e})=>!(!e.ref||null==e.ref.current)&&(s(e.ref.current),!0),p)),[l,R,p]),n.useEffect(()=>o.mergeRegister(l.registerCommand(t.KEY_ARROW_DOWN_COMMAND,e=>{const t=e;if(null!==c&&c.length){const e=null===E?0:E!==c.length-1?E+1:0;R(e);const n=c[e];if(!n)return R(-1),t.preventDefault(),t.stopImmediatePropagation(),!0;n.ref&&n.ref.current&&l.dispatchCommand(d,{index:e,option:n}),t.preventDefault(),t.stopImmediatePropagation()}return!0},p),l.registerCommand(t.KEY_ARROW_UP_COMMAND,e=>{const t=e;if(null!==c&&c.length){const e=null===E?c.length-1:0!==E?E-1:c.length-1;R(e);const n=c[e];if(!n)return R(-1),t.preventDefault(),t.stopImmediatePropagation(),!0;n.ref&&n.ref.current&&s(n.ref.current),t.preventDefault(),t.stopImmediatePropagation()}return!0},p),l.registerCommand(t.KEY_ESCAPE_COMMAND,t=>{const n=t;return n.preventDefault(),n.stopImmediatePropagation(),e(),!0},p),l.registerCommand(t.KEY_TAB_COMMAND,e=>{const t=e;return null!==c&&null!==E&&null!=c[E]&&(t.preventDefault(),t.stopImmediatePropagation(),b(c[E]),!0)},p),l.registerCommand(t.KEY_ENTER_COMMAND,e=>null!==c&&null!==E&&null!=c[E]&&(null!==e&&(e.preventDefault(),e.stopImmediatePropagation()),b(c[E]),!0),p)),[b,e,l,c,E,R,p]);return a(r,n.useMemo(()=>({options:c,selectOptionAndCleanUp:b,selectedIndex:E,setHighlightedIndex:C}),[b,E,c]),i.match?i.match.matchingString:"")}function f(e,t){null!=t&&(e.className=t),e.setAttribute("aria-label","Typeahead menu"),e.setAttribute("role","listbox"),e.style.display="block",e.style.position="absolute"}exports.LexicalNodeMenuPlugin=function({options:o,nodeKey:u,onClose:s,onOpen:c,onSelectOption:d,menuRenderFn:p,anchorClassName:g,commandPriority:h=t.COMMAND_PRIORITY_LOW,parent:C}){const[E]=e.useLexicalComposerContext(),[y,b]=n.useState(null),R=function(t,o,l,r=(i?document.body:void 0),u=!0){const[s]=e.useLexicalComposerContext(),c=i?document.createElement("div"):null,d=n.useRef(c),m=n.useCallback(()=>{if(null===d.current||void 0===r)return;d.current.style.top=d.current.style.bottom;const e=s.getRootElement(),n=d.current,o=n.firstChild;if(null!==e&&null!==t){const{left:i,top:s,width:c,height:a}=t.getRect(),m=d.current.offsetHeight;if(n.style.top=`${s+m+3+(u?window.pageYOffset:0)}px`,n.style.left=`${i+window.pageXOffset}px`,n.style.height=`${a}px`,n.style.width=`${c}px`,null!==o){o.style.top=`${s}`;const t=o.getBoundingClientRect(),l=t.height,r=t.width,c=e.getBoundingClientRect();i+r>c.right&&(n.style.left=`${c.right-r+window.pageXOffset}px`),(s+l>window.innerHeight||s+l>c.bottom)&&s-c.top>l+a&&(n.style.top=`${s-l-a+(u?window.pageYOffset:0)}px`)}n.isConnected||(f(n,l),r.append(n)),n.setAttribute("id","typeahead-menu"),e.setAttribute("aria-controls","typeahead-menu")}},[s,t,u,l,r]);n.useEffect(()=>{const e=s.getRootElement();return null!==t&&m(),()=>{null!==e&&e.removeAttribute("aria-controls");const t=d.current;null!==t&&t.isConnected&&(t.remove(),t.removeAttribute("id"))}},[s,m,t]);const p=n.useCallback(e=>{null!==t&&(e||o(null))},[t,o]);return a(t,d.current,m,p),null!=c&&c===d.current&&(f(c,l),null!=r&&r.append(c)),d}(y,b,g,C),w=n.useCallback(()=>{b(null),null!=s&&null!==y&&s()},[s,y]),v=n.useCallback(e=>{b(e),null!=c&&null===y&&c(e)},[c,y]),x=n.useCallback(()=>{u?E.update(()=>{const e=t.$getNodeByKey(u),o=E.getElementByKey(u);var l;null!=e&&null!=o&&null==y&&(l=()=>v({getRect:()=>o.getBoundingClientRect()}),r in n?n[r](l):l())}):null==u&&null!=y&&w()},[w,E,u,v,y]);return n.useEffect(()=>{x()},[x,u]),n.useEffect(()=>{if(null!=u)return E.registerUpdateListener(({dirtyElements:e})=>{e.get(u)&&x()})},[E,x,u]),null===R.current||null===y||null===E?null:l.jsx(m,{close:w,resolution:y,editor:E,anchorElementRef:R,options:o,menuRenderFn:p,onSelectOption:d,commandPriority:h})},exports.MenuOption=class{key;ref;constructor(e){this.key=e,this.ref={current:null},this.setRefElement=this.setRefElement.bind(this)}setRefElement(e){this.ref={current:e}}};
++"use strict";var e=require("@lexical/react/LexicalComposerContext"),t=require("lexical"),n=require("react"),l=require("@lexical/utils"),o=require("react-dom"),r=require("react/jsx-runtime");const i="startTransition";const s="undefined"!=typeof window&&void 0!==window.document&&void 0!==window.document.createElement,u=s?n.useLayoutEffect:n.useEffect;const c=e=>{const t=document.getElementById("typeahead-menu");if(!t)return;const n=t.getBoundingClientRect();n.top+n.height>window.innerHeight&&t.scrollIntoView({block:"center"}),n.top<0&&t.scrollIntoView({block:"center"}),e.scrollIntoView({block:"nearest"})};function a(e,t){const n=e.getBoundingClientRect(),l=t.getBoundingClientRect();return n.top>=l.top-6&&n.top<=l.bottom+6}function d(t,l,o,r){const[i]=e.useLexicalComposerContext();n.useEffect(()=>{if(null!=l&&null!=t){const e=i.getRootElement(),t=null!=e?function(e){let t=getComputedStyle(e);const n="absolute"===t.position,l=/(auto|scroll)/;if("fixed"===t.position)return document.body;for(let o=e;o=o.parentElement;)if(t=getComputedStyle(o),(!n||"static"!==t.position)&&l.test(t.overflow+t.overflowY+t.overflowX))return o;return document.body}(e):document.body;let n=!1,s=a(l,t);const u=function(){n||(window.requestAnimationFrame(function(){o(),n=!1}),n=!0);const e=a(l,t);e!==s&&(s=e,null!=r&&r(e))},c=new ResizeObserver(o);return window.addEventListener("resize",o),document.addEventListener("scroll",u,{capture:!0,passive:!0}),c.observe(l),()=>{c.unobserve(l),window.removeEventListener("resize",o),document.removeEventListener("scroll",u,!0)}}},[l,i,r,o,t])}const m=t.createCommand("SCROLL_TYPEAHEAD_OPTION_INTO_VIEW_COMMAND");function p({index:e,isSelected:t,onClick:n,onMouseEnter:l,option:o}){let i="item";return t&&(i+=" selected"),r.jsxs("li",{tabIndex:-1,className:i,ref:o.setRefElement,role:"option","aria-selected":t,id:"typeahead-item-"+e,onMouseEnter:l,onClick:n,children:[o.icon,r.jsx("span",{className:"text",children:o.title})]},o.key)}function f({close:e,editor:i,anchorElementRef:s,resolution:a,options:d,onSelectOption:f,shouldSplitNodeWithQuery:g=!1,commandPriority:h=t.COMMAND_PRIORITY_LOW,preselectFirstItem:C=!0}){const[E,y]=n.useState(null),x=null!==E?Math.min(d.length-1,E):null,b=a.match&&a.match.matchingString;n.useEffect(()=>{C&&y(0)},[b,C]);const v=n.useCallback(n=>{i.update(()=>{const l=null!=a.match&&g?function(e){const n=t.$getSelection();if(!t.$isRangeSelection(n)||!n.isCollapsed())return null;const l=n.anchor;if("text"!==l.type)return null;const o=l.getNode();if(!o.isSimpleText())return null;const r=l.offset,i=o.getTextContent().slice(0,r),s=e.replaceableString.length,u=r-function(e,t,n){let l=n;for(let n=l;n<=t.length;n++)e.slice(-n)===t.substring(0,n)&&(l=n);return l}(i,e.matchingString,s);if(u<0)return null;let c;return 0===u?[c]=o.splitText(r):[,c]=o.splitText(u,r),c}(a.match):null;f(n,l,e,a.match?a.match.matchingString:"")})},[i,g,a.match,f,e]),w=n.useCallback(e=>{const t=i.getRootElement();null!==t&&(t.setAttribute("aria-activedescendant","typeahead-item-"+e),y(e))},[i]),R=n.useCallback(()=>s.current&&d.length?o.createPortal(r.jsx("div",{className:"typeahead-popover mentions-menu",children:r.jsx("ul",{children:d.map((e,t)=>r.jsx(p,{index:t,isSelected:x===t,onClick:()=>{y(t),v(e)},onMouseEnter:()=>{y(t)},option:e},e.key))})}),s.current):null,[s,d,x,v,y]);return n.useEffect(()=>()=>{const e=i.getRootElement();null!==e&&e.removeAttribute("aria-activedescendant")},[i]),u(()=>{null===d?y(null):null===x&&C&&w(0)},[d,x,w,C]),n.useEffect(()=>l.mergeRegister(i.registerCommand(m,({option:e})=>!(!e.ref||null==e.ref.current)&&(c(e.ref.current),!0),h)),[i,w,h]),n.useEffect(()=>l.mergeRegister(i.registerCommand(t.KEY_ARROW_DOWN_COMMAND,e=>{const t=e;if(null!==d&&d.length){const e=null===x?0:x!==d.length-1?x+1:0;w(e);const n=d[e];if(!n)return w(-1),t.preventDefault(),t.stopImmediatePropagation(),!0;n.ref&&n.ref.current&&i.dispatchCommand(m,{index:e,option:n}),t.preventDefault(),t.stopImmediatePropagation()}return!0},h),i.registerCommand(t.KEY_ARROW_UP_COMMAND,e=>{const t=e;if(null!==d&&d.length){const e=null===x?d.length-1:0!==x?x-1:d.length-1;w(e);const n=d[e];if(!n)return w(-1),t.preventDefault(),t.stopImmediatePropagation(),!0;n.ref&&n.ref.current&&c(n.ref.current),t.preventDefault(),t.stopImmediatePropagation()}return!0},h),i.registerCommand(t.KEY_ESCAPE_COMMAND,t=>{const n=t;return n.preventDefault(),n.stopImmediatePropagation(),e(),!0},h),i.registerCommand(t.KEY_TAB_COMMAND,e=>{const t=e;return null!==d&&null!==x&&null!=d[x]&&(t.preventDefault(),t.stopImmediatePropagation(),v(d[x]),!0)},h),i.registerCommand(t.KEY_ENTER_COMMAND,e=>null!==d&&null!==x&&null!=d[x]&&(null!==e&&(e.preventDefault(),e.stopImmediatePropagation()),v(d[x]),!0),h)),[v,e,i,d,x,w,h]),R()}function g(e,t){null!=t&&(e.className=t),e.setAttribute("aria-label","Typeahead menu"),e.setAttribute("role","listbox"),e.style.display="block",e.style.position="absolute"}exports.LexicalNodeMenuPlugin=function({options:l,nodeKey:o,onClose:u,onOpen:c,onSelectOption:a,anchorClassName:m,commandPriority:p=t.COMMAND_PRIORITY_LOW,parent:h}){const[C]=e.useLexicalComposerContext(),[E,y]=n.useState(null),x=function(t,l,o,r=(s?document.body:void 0),i=!0){const[u]=e.useLexicalComposerContext(),c=s?document.createElement("div"):null,a=n.useRef(c),m=n.useCallback(()=>{if(null===a.current||void 0===r)return;a.current.style.top=a.current.style.bottom;const e=u.getRootElement(),n=a.current,l=n.firstChild;if(null!==e&&null!==t){const{left:s,top:u,width:c,height:d}=t.getRect(),m=a.current.offsetHeight;if(n.style.top=`${u+m+3+(i?window.pageYOffset:0)}px`,n.style.left=`${s+window.pageXOffset}px`,n.style.height=`${d}px`,n.style.width=`${c}px`,null!==l){l.style.top=`${u}`;const t=l.getBoundingClientRect(),o=t.height,r=t.width,c=e.getBoundingClientRect();s+r>c.right&&(n.style.left=`${c.right-r+window.pageXOffset}px`),(u+o>window.innerHeight||u+o>c.bottom)&&u-c.top>o+d&&(n.style.top=`${u-o-d+(i?window.pageYOffset:0)}px`)}n.isConnected||(g(n,o),r.append(n)),n.setAttribute("id","typeahead-menu"),e.setAttribute("aria-controls","typeahead-menu")}},[u,t,i,o,r]);n.useEffect(()=>{const e=u.getRootElement();return null!==t&&m(),()=>{null!==e&&e.removeAttribute("aria-controls");const t=a.current;null!==t&&t.isConnected&&(t.remove(),t.removeAttribute("id"))}},[u,m,t]);const p=n.useCallback(e=>{null!==t&&(e||l(null))},[t,l]);return d(t,a.current,m,p),null!=c&&c===a.current&&(g(c,o),null!=r&&r.append(c)),a}(E,y,m,h),b=n.useCallback(()=>{y(null),null!=u&&null!==E&&u()},[u,E]),v=n.useCallback(e=>{y(e),null!=c&&null===E&&c(e)},[c,E]),w=n.useCallback(()=>{o?C.update(()=>{const e=t.$getNodeByKey(o),l=C.getElementByKey(o);var r;null!=e&&null!=l&&null==E&&(r=()=>v({getRect:()=>l.getBoundingClientRect()}),i in n?n[i](r):r())}):null==o&&null!=E&&b()},[b,C,o,v,E]);return n.useEffect(()=>{w()},[w,o]),n.useEffect(()=>{if(null!=o)return C.registerUpdateListener(({dirtyElements:e})=>{e.get(o)&&w()})},[C,w,o]),null===x.current||null===E||null===C?null:r.jsx(f,{close:b,resolution:E,editor:C,anchorElementRef:x,options:l,onSelectOption:a,commandPriority:p})},exports.MenuOption=class{key;ref;icon;title;constructor(e){this.key=e,this.ref={current:null},this.setRefElement=this.setRefElement.bind(this)}setRefElement(e){this.ref={current:e}}};
+diff --git a/node_modules/@lexical/react/LexicalNodeMenuPlugin.prod.mjs b/node_modules/@lexical/react/LexicalNodeMenuPlugin.prod.mjs
+index edcacbe..e1589d5 100644
+--- a/node_modules/@lexical/react/LexicalNodeMenuPlugin.prod.mjs
++++ b/node_modules/@lexical/react/LexicalNodeMenuPlugin.prod.mjs
+@@ -6,4 +6,4 @@
+  *
+  */
+ 
+-import{useLexicalComposerContext as t}from"@lexical/react/LexicalComposerContext";import{createCommand as e,COMMAND_PRIORITY_LOW as n,KEY_ARROW_DOWN_COMMAND as o,KEY_ARROW_UP_COMMAND as l,KEY_ESCAPE_COMMAND as r,KEY_TAB_COMMAND as i,KEY_ENTER_COMMAND as u,$getSelection as s,$isRangeSelection as c,$getNodeByKey as a}from"lexical";import m,{useLayoutEffect as d,useEffect as p,useRef as f,useCallback as g,useState as h,useMemo as y}from"react";import{mergeRegister as w}from"@lexical/utils";import{jsx as v}from"react/jsx-runtime";const b="startTransition";const C="undefined"!=typeof window&&void 0!==window.document&&void 0!==window.document.createElement,x=C?d:p;class E{key;ref;constructor(t){this.key=t,this.ref={current:null},this.setRefElement=this.setRefElement.bind(this)}setRefElement(t){this.ref={current:t}}}const R=t=>{const e=document.getElementById("typeahead-menu");if(!e)return;const n=e.getBoundingClientRect();n.top+n.height>window.innerHeight&&e.scrollIntoView({block:"center"}),n.top<0&&e.scrollIntoView({block:"center"}),t.scrollIntoView({block:"nearest"})};function I(t,e){const n=t.getBoundingClientRect(),o=e.getBoundingClientRect();return n.top>=o.top-6&&n.top<=o.bottom+6}function O(e,n,o,l){const[r]=t();p(()=>{if(null!=n&&null!=e){const t=r.getRootElement(),e=null!=t?function(t){let e=getComputedStyle(t);const n="absolute"===e.position,o=/(auto|scroll)/;if("fixed"===e.position)return document.body;for(let l=t;l=l.parentElement;)if(e=getComputedStyle(l),(!n||"static"!==e.position)&&o.test(e.overflow+e.overflowY+e.overflowX))return l;return document.body}(t):document.body;let i=!1,u=I(n,e);const s=function(){i||(window.requestAnimationFrame(function(){o(),i=!1}),i=!0);const t=I(n,e);t!==u&&(u=t,null!=l&&l(t))},c=new ResizeObserver(o);return window.addEventListener("resize",o),document.addEventListener("scroll",s,{capture:!0,passive:!0}),c.observe(n),()=>{c.unobserve(n),window.removeEventListener("resize",o),document.removeEventListener("scroll",s,!0)}}},[n,r,l,o,e])}const A=e("SCROLL_TYPEAHEAD_OPTION_INTO_VIEW_COMMAND");function S({close:t,editor:e,anchorElementRef:a,resolution:m,options:d,menuRenderFn:f,onSelectOption:v,shouldSplitNodeWithQuery:b=!1,commandPriority:C=n,preselectFirstItem:E=!0}){const[I,O]=h(null),S=null!==I?Math.min(d.length-1,I):null,P=m.match&&m.match.matchingString;p(()=>{E&&O(0)},[P,E]);const D=g(n=>{e.update(()=>{const e=null!=m.match&&b?function(t){const e=s();if(!c(e)||!e.isCollapsed())return null;const n=e.anchor;if("text"!==n.type)return null;const o=n.getNode();if(!o.isSimpleText())return null;const l=n.offset,r=o.getTextContent().slice(0,l),i=t.replaceableString.length,u=l-function(t,e,n){let o=n;for(let n=o;n<=e.length;n++)t.slice(-n)===e.substring(0,n)&&(o=n);return o}(r,t.matchingString,i);if(u<0)return null;let a;return 0===u?[a]=o.splitText(l):[,a]=o.splitText(u,l),a}(m.match):null;v(n,e,t,m.match?m.match.matchingString:"")})},[e,b,m.match,v,t]),T=g(t=>{const n=e.getRootElement();null!==n&&(n.setAttribute("aria-activedescendant","typeahead-item-"+t),O(t))},[e]);p(()=>()=>{const t=e.getRootElement();null!==t&&t.removeAttribute("aria-activedescendant")},[e]),x(()=>{null===d?O(null):null===S&&E&&T(0)},[d,S,T,E]),p(()=>w(e.registerCommand(A,({option:t})=>!(!t.ref||null==t.ref.current)&&(R(t.ref.current),!0),C)),[e,T,C]),p(()=>w(e.registerCommand(o,t=>{const n=t;if(null!==d&&d.length){const t=null===S?0:S!==d.length-1?S+1:0;T(t);const o=d[t];if(!o)return T(-1),n.preventDefault(),n.stopImmediatePropagation(),!0;o.ref&&o.ref.current&&e.dispatchCommand(A,{index:t,option:o}),n.preventDefault(),n.stopImmediatePropagation()}return!0},C),e.registerCommand(l,t=>{const e=t;if(null!==d&&d.length){const t=null===S?d.length-1:0!==S?S-1:d.length-1;T(t);const n=d[t];if(!n)return T(-1),e.preventDefault(),e.stopImmediatePropagation(),!0;n.ref&&n.ref.current&&R(n.ref.current),e.preventDefault(),e.stopImmediatePropagation()}return!0},C),e.registerCommand(r,e=>{const n=e;return n.preventDefault(),n.stopImmediatePropagation(),t(),!0},C),e.registerCommand(i,t=>{const e=t;return null!==d&&null!==S&&null!=d[S]&&(e.preventDefault(),e.stopImmediatePropagation(),D(d[S]),!0)},C),e.registerCommand(u,t=>null!==d&&null!==S&&null!=d[S]&&(null!==t&&(t.preventDefault(),t.stopImmediatePropagation()),D(d[S]),!0),C)),[D,t,e,d,S,T,C]);return f(a,y(()=>({options:d,selectOptionAndCleanUp:D,selectedIndex:S,setHighlightedIndex:O}),[D,S,d]),m.match?m.match.matchingString:"")}function P(t,e){null!=e&&(t.className=e),t.setAttribute("aria-label","Typeahead menu"),t.setAttribute("role","listbox"),t.style.display="block",t.style.position="absolute"}function D({options:e,nodeKey:o,onClose:l,onOpen:r,onSelectOption:i,menuRenderFn:u,anchorClassName:s,commandPriority:c=n,parent:d}){const[y]=t(),[w,x]=h(null),E=function(e,n,o,l=(C?document.body:void 0),r=!0){const[i]=t(),u=C?document.createElement("div"):null,s=f(u),c=g(()=>{if(null===s.current||void 0===l)return;s.current.style.top=s.current.style.bottom;const t=i.getRootElement(),n=s.current,u=n.firstChild;if(null!==t&&null!==e){const{left:i,top:c,width:a,height:m}=e.getRect(),d=s.current.offsetHeight;if(n.style.top=`${c+d+3+(r?window.pageYOffset:0)}px`,n.style.left=`${i+window.pageXOffset}px`,n.style.height=`${m}px`,n.style.width=`${a}px`,null!==u){u.style.top=`${c}`;const e=u.getBoundingClientRect(),o=e.height,l=e.width,s=t.getBoundingClientRect();i+l>s.right&&(n.style.left=`${s.right-l+window.pageXOffset}px`),(c+o>window.innerHeight||c+o>s.bottom)&&c-s.top>o+m&&(n.style.top=`${c-o-m+(r?window.pageYOffset:0)}px`)}n.isConnected||(P(n,o),l.append(n)),n.setAttribute("id","typeahead-menu"),t.setAttribute("aria-controls","typeahead-menu")}},[i,e,r,o,l]);p(()=>{const t=i.getRootElement();return null!==e&&c(),()=>{null!==t&&t.removeAttribute("aria-controls");const e=s.current;null!==e&&e.isConnected&&(e.remove(),e.removeAttribute("id"))}},[i,c,e]);const a=g(t=>{null!==e&&(t||n(null))},[e,n]);return O(e,s.current,c,a),null!=u&&u===s.current&&(P(u,o),null!=l&&l.append(u)),s}(w,x,s,d),R=g(()=>{x(null),null!=l&&null!==w&&l()},[l,w]),I=g(t=>{x(t),null!=r&&null===w&&r(t)},[r,w]),A=g(()=>{o?y.update(()=>{const t=a(o),e=y.getElementByKey(o);var n;null!=t&&null!=e&&null==w&&(n=()=>I({getRect:()=>e.getBoundingClientRect()}),b in m?m[b](n):n())}):null==o&&null!=w&&R()},[R,y,o,I,w]);return p(()=>{A()},[A,o]),p(()=>{if(null!=o)return y.registerUpdateListener(({dirtyElements:t})=>{t.get(o)&&A()})},[y,A,o]),null===E.current||null===w||null===y?null:v(S,{close:R,resolution:w,editor:y,anchorElementRef:E,options:e,menuRenderFn:u,onSelectOption:i,commandPriority:c})}export{D as LexicalNodeMenuPlugin,E as MenuOption};
++import{useLexicalComposerContext as e}from"@lexical/react/LexicalComposerContext";import{createCommand as t,COMMAND_PRIORITY_LOW as n,KEY_ARROW_DOWN_COMMAND as o,KEY_ARROW_UP_COMMAND as l,KEY_ESCAPE_COMMAND as r,KEY_TAB_COMMAND as i,KEY_ENTER_COMMAND as u,$getSelection as s,$isRangeSelection as c,$getNodeByKey as a}from"lexical";import m,{useLayoutEffect as d,useEffect as p,useRef as f,useCallback as g,useState as h}from"react";import{mergeRegister as y}from"@lexical/utils";import v from"react-dom";import{jsx as w,jsxs as b}from"react/jsx-runtime";const C="startTransition";const E="undefined"!=typeof window&&void 0!==window.document&&void 0!==window.document.createElement,x=E?d:p;class R{key;ref;icon;title;constructor(e){this.key=e,this.ref={current:null},this.setRefElement=this.setRefElement.bind(this)}setRefElement(e){this.ref={current:e}}}const I=e=>{const t=document.getElementById("typeahead-menu");if(!t)return;const n=t.getBoundingClientRect();n.top+n.height>window.innerHeight&&t.scrollIntoView({block:"center"}),n.top<0&&t.scrollIntoView({block:"center"}),e.scrollIntoView({block:"nearest"})};function O(e,t){const n=e.getBoundingClientRect(),o=t.getBoundingClientRect();return n.top>=o.top-6&&n.top<=o.bottom+6}function S(t,n,o,l){const[r]=e();p(()=>{if(null!=n&&null!=t){const e=r.getRootElement(),t=null!=e?function(e){let t=getComputedStyle(e);const n="absolute"===t.position,o=/(auto|scroll)/;if("fixed"===t.position)return document.body;for(let l=e;l=l.parentElement;)if(t=getComputedStyle(l),(!n||"static"!==t.position)&&o.test(t.overflow+t.overflowY+t.overflowX))return l;return document.body}(e):document.body;let i=!1,u=O(n,t);const s=function(){i||(window.requestAnimationFrame(function(){o(),i=!1}),i=!0);const e=O(n,t);e!==u&&(u=e,null!=l&&l(e))},c=new ResizeObserver(o);return window.addEventListener("resize",o),document.addEventListener("scroll",s,{capture:!0,passive:!0}),c.observe(n),()=>{c.unobserve(n),window.removeEventListener("resize",o),document.removeEventListener("scroll",s,!0)}}},[n,r,l,o,t])}const P=t("SCROLL_TYPEAHEAD_OPTION_INTO_VIEW_COMMAND");function A({index:e,isSelected:t,onClick:n,onMouseEnter:o,option:l}){let r="item";return t&&(r+=" selected"),b("li",{tabIndex:-1,className:r,ref:l.setRefElement,role:"option","aria-selected":t,id:"typeahead-item-"+e,onMouseEnter:o,onClick:n,children:[l.icon,w("span",{className:"text",children:l.title})]},l.key)}function k({close:e,editor:t,anchorElementRef:a,resolution:m,options:d,onSelectOption:f,shouldSplitNodeWithQuery:b=!1,commandPriority:C=n,preselectFirstItem:E=!0}){const[R,O]=h(null),S=null!==R?Math.min(d.length-1,R):null,k=m.match&&m.match.matchingString;p(()=>{E&&O(0)},[k,E]);const N=g(n=>{t.update(()=>{const t=null!=m.match&&b?function(e){const t=s();if(!c(t)||!t.isCollapsed())return null;const n=t.anchor;if("text"!==n.type)return null;const o=n.getNode();if(!o.isSimpleText())return null;const l=n.offset,r=o.getTextContent().slice(0,l),i=e.replaceableString.length,u=l-function(e,t,n){let o=n;for(let n=o;n<=t.length;n++)e.slice(-n)===t.substring(0,n)&&(o=n);return o}(r,e.matchingString,i);if(u<0)return null;let a;return 0===u?[a]=o.splitText(l):[,a]=o.splitText(u,l),a}(m.match):null;f(n,t,e,m.match?m.match.matchingString:"")})},[t,b,m.match,f,e]),D=g(e=>{const n=t.getRootElement();null!==n&&(n.setAttribute("aria-activedescendant","typeahead-item-"+e),O(e))},[t]),T=g(()=>a.current&&d.length?v.createPortal(w("div",{className:"typeahead-popover mentions-menu",children:w("ul",{children:d.map((e,t)=>w(A,{index:t,isSelected:S===t,onClick:()=>{O(t),N(e)},onMouseEnter:()=>{O(t)},option:e},e.key))})}),a.current):null,[a,d,S,N,O]);return p(()=>()=>{const e=t.getRootElement();null!==e&&e.removeAttribute("aria-activedescendant")},[t]),x(()=>{null===d?O(null):null===S&&E&&D(0)},[d,S,D,E]),p(()=>y(t.registerCommand(P,({option:e})=>!(!e.ref||null==e.ref.current)&&(I(e.ref.current),!0),C)),[t,D,C]),p(()=>y(t.registerCommand(o,e=>{const n=e;if(null!==d&&d.length){const e=null===S?0:S!==d.length-1?S+1:0;D(e);const o=d[e];if(!o)return D(-1),n.preventDefault(),n.stopImmediatePropagation(),!0;o.ref&&o.ref.current&&t.dispatchCommand(P,{index:e,option:o}),n.preventDefault(),n.stopImmediatePropagation()}return!0},C),t.registerCommand(l,e=>{const t=e;if(null!==d&&d.length){const e=null===S?d.length-1:0!==S?S-1:d.length-1;D(e);const n=d[e];if(!n)return D(-1),t.preventDefault(),t.stopImmediatePropagation(),!0;n.ref&&n.ref.current&&I(n.ref.current),t.preventDefault(),t.stopImmediatePropagation()}return!0},C),t.registerCommand(r,t=>{const n=t;return n.preventDefault(),n.stopImmediatePropagation(),e(),!0},C),t.registerCommand(i,e=>{const t=e;return null!==d&&null!==S&&null!=d[S]&&(t.preventDefault(),t.stopImmediatePropagation(),N(d[S]),!0)},C),t.registerCommand(u,e=>null!==d&&null!==S&&null!=d[S]&&(null!==e&&(e.preventDefault(),e.stopImmediatePropagation()),N(d[S]),!0),C)),[N,e,t,d,S,D,C]),T()}function N(e,t){null!=t&&(e.className=t),e.setAttribute("aria-label","Typeahead menu"),e.setAttribute("role","listbox"),e.style.display="block",e.style.position="absolute"}function D({options:t,nodeKey:o,onClose:l,onOpen:r,onSelectOption:i,anchorClassName:u,commandPriority:s=n,parent:c}){const[d]=e(),[y,v]=h(null),b=function(t,n,o,l=(E?document.body:void 0),r=!0){const[i]=e(),u=E?document.createElement("div"):null,s=f(u),c=g(()=>{if(null===s.current||void 0===l)return;s.current.style.top=s.current.style.bottom;const e=i.getRootElement(),n=s.current,u=n.firstChild;if(null!==e&&null!==t){const{left:i,top:c,width:a,height:m}=t.getRect(),d=s.current.offsetHeight;if(n.style.top=`${c+d+3+(r?window.pageYOffset:0)}px`,n.style.left=`${i+window.pageXOffset}px`,n.style.height=`${m}px`,n.style.width=`${a}px`,null!==u){u.style.top=`${c}`;const t=u.getBoundingClientRect(),o=t.height,l=t.width,s=e.getBoundingClientRect();i+l>s.right&&(n.style.left=`${s.right-l+window.pageXOffset}px`),(c+o>window.innerHeight||c+o>s.bottom)&&c-s.top>o+m&&(n.style.top=`${c-o-m+(r?window.pageYOffset:0)}px`)}n.isConnected||(N(n,o),l.append(n)),n.setAttribute("id","typeahead-menu"),e.setAttribute("aria-controls","typeahead-menu")}},[i,t,r,o,l]);p(()=>{const e=i.getRootElement();return null!==t&&c(),()=>{null!==e&&e.removeAttribute("aria-controls");const t=s.current;null!==t&&t.isConnected&&(t.remove(),t.removeAttribute("id"))}},[i,c,t]);const a=g(e=>{null!==t&&(e||n(null))},[t,n]);return S(t,s.current,c,a),null!=u&&u===s.current&&(N(u,o),null!=l&&l.append(u)),s}(y,v,u,c),x=g(()=>{v(null),null!=l&&null!==y&&l()},[l,y]),R=g(e=>{v(e),null!=r&&null===y&&r(e)},[r,y]),I=g(()=>{o?d.update(()=>{const e=a(o),t=d.getElementByKey(o);var n;null!=e&&null!=t&&null==y&&(n=()=>R({getRect:()=>t.getBoundingClientRect()}),C in m?m[C](n):n())}):null==o&&null!=y&&x()},[x,d,o,R,y]);return p(()=>{I()},[I,o]),p(()=>{if(null!=o)return d.registerUpdateListener(({dirtyElements:e})=>{e.get(o)&&I()})},[d,I,o]),null===b.current||null===y||null===d?null:w(k,{close:x,resolution:y,editor:d,anchorElementRef:b,options:t,onSelectOption:i,commandPriority:s})}export{D as LexicalNodeMenuPlugin,R as MenuOption};
+diff --git a/node_modules/@lexical/react/LexicalTablePlugin.d.ts b/node_modules/@lexical/react/LexicalTablePlugin.d.ts
+index 78fed1a..d3ddb2c 100644
+--- a/node_modules/@lexical/react/LexicalTablePlugin.d.ts
++++ b/node_modules/@lexical/react/LexicalTablePlugin.d.ts
+@@ -24,6 +24,12 @@ export interface TablePluginProps {
+      * When `true` (default `false`), tables will be wrapped in a `<div>` to enable horizontal scrolling
+      */
+     hasHorizontalScroll?: boolean;
++    /**
++     * When `true` (default `false`), nested tables will be allowed.
++     *
++     * @experimental Nested tables are not officially supported.
++     */
++    hasNestedTables?: boolean;
+ }
+ /**
+  * A plugin to enable all of the features of Lexical's TableNode.
+@@ -31,4 +37,4 @@ export interface TablePluginProps {
+  * @param props - See type for documentation
+  * @returns An element to render in your LexicalComposer
+  */
+-export declare function TablePlugin({ hasCellMerge, hasCellBackgroundColor, hasTabHandler, hasHorizontalScroll, }: TablePluginProps): JSX.Element | null;
++export declare function TablePlugin({ hasCellMerge, hasCellBackgroundColor, hasTabHandler, hasHorizontalScroll, hasNestedTables, }: TablePluginProps): JSX.Element | null;
+diff --git a/node_modules/@lexical/react/LexicalTablePlugin.dev.js b/node_modules/@lexical/react/LexicalTablePlugin.dev.js
+index ee13d80..6cb3a73 100644
+--- a/node_modules/@lexical/react/LexicalTablePlugin.dev.js
++++ b/node_modules/@lexical/react/LexicalTablePlugin.dev.js
+@@ -8,6 +8,7 @@
+ 
+ 'use strict';
+ 
++var extension = require('@lexical/extension');
+ var LexicalComposerContext = require('@lexical/react/LexicalComposerContext');
+ var table = require('@lexical/table');
+ var react = require('react');
+@@ -30,7 +31,8 @@ function TablePlugin({
+   hasCellMerge = true,
+   hasCellBackgroundColor = true,
+   hasTabHandler = true,
+-  hasHorizontalScroll = false
++  hasHorizontalScroll = false,
++  hasNestedTables = false
+ }) {
+   const [editor] = LexicalComposerContext.useLexicalComposerContext();
+   react.useEffect(() => {
+@@ -42,7 +44,13 @@ function TablePlugin({
+       editor.registerNodeTransform(table.TableNode, () => {})();
+     }
+   }, [editor, hasHorizontalScroll]);
+-  react.useEffect(() => table.registerTablePlugin(editor), [editor]);
++  const hasNestedTablesSignal = react.useMemo(() => extension.signal(false), []);
++  if (hasNestedTablesSignal.peek() !== hasNestedTables) {
++    hasNestedTablesSignal.value = hasNestedTables;
++  }
++  react.useEffect(() => table.registerTablePlugin(editor, {
++    hasNestedTables: hasNestedTablesSignal
++  }), [editor, hasNestedTablesSignal]);
+   react.useEffect(() => table.registerTableSelectionObserver(editor, hasTabHandler), [editor, hasTabHandler]);
+ 
+   // Unmerge cells when the feature isn't enabled
+diff --git a/node_modules/@lexical/react/LexicalTablePlugin.dev.mjs b/node_modules/@lexical/react/LexicalTablePlugin.dev.mjs
+index 8217ccb..95ab1c0 100644
+--- a/node_modules/@lexical/react/LexicalTablePlugin.dev.mjs
++++ b/node_modules/@lexical/react/LexicalTablePlugin.dev.mjs
+@@ -6,9 +6,10 @@
+  *
+  */
+ 
++import { signal } from '@lexical/extension';
+ import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
+ import { $isScrollableTablesActive, setScrollableTablesActive, TableNode, registerTablePlugin, registerTableSelectionObserver, registerTableCellUnmergeTransform, TableCellNode } from '@lexical/table';
+-import { useEffect } from 'react';
++import { useEffect, useMemo } from 'react';
+ 
+ /**
+  * Copyright (c) Meta Platforms, Inc. and affiliates.
+@@ -28,7 +29,8 @@ function TablePlugin({
+   hasCellMerge = true,
+   hasCellBackgroundColor = true,
+   hasTabHandler = true,
+-  hasHorizontalScroll = false
++  hasHorizontalScroll = false,
++  hasNestedTables = false
+ }) {
+   const [editor] = useLexicalComposerContext();
+   useEffect(() => {
+@@ -40,7 +42,13 @@ function TablePlugin({
+       editor.registerNodeTransform(TableNode, () => {})();
+     }
+   }, [editor, hasHorizontalScroll]);
+-  useEffect(() => registerTablePlugin(editor), [editor]);
++  const hasNestedTablesSignal = useMemo(() => signal(false), []);
++  if (hasNestedTablesSignal.peek() !== hasNestedTables) {
++    hasNestedTablesSignal.value = hasNestedTables;
++  }
++  useEffect(() => registerTablePlugin(editor, {
++    hasNestedTables: hasNestedTablesSignal
++  }), [editor, hasNestedTablesSignal]);
+   useEffect(() => registerTableSelectionObserver(editor, hasTabHandler), [editor, hasTabHandler]);
+ 
+   // Unmerge cells when the feature isn't enabled
+diff --git a/node_modules/@lexical/react/LexicalTablePlugin.prod.js b/node_modules/@lexical/react/LexicalTablePlugin.prod.js
+index 3b68b89..ea31fbd 100644
+--- a/node_modules/@lexical/react/LexicalTablePlugin.prod.js
++++ b/node_modules/@lexical/react/LexicalTablePlugin.prod.js
+@@ -6,4 +6,4 @@
+  *
+  */
+ 
+-"use strict";var e=require("@lexical/react/LexicalComposerContext"),r=require("@lexical/table"),l=require("react");exports.TablePlugin=function({hasCellMerge:t=!0,hasCellBackgroundColor:a=!0,hasTabHandler:o=!0,hasHorizontalScroll:s=!1}){const[c]=e.useLexicalComposerContext();return l.useEffect(()=>{r.$isScrollableTablesActive(c)!==s&&(r.setScrollableTablesActive(c,s),c.registerNodeTransform(r.TableNode,()=>{})())},[c,s]),l.useEffect(()=>r.registerTablePlugin(c),[c]),l.useEffect(()=>r.registerTableSelectionObserver(c,o),[c,o]),l.useEffect(()=>{if(!t)return r.registerTableCellUnmergeTransform(c)},[c,t]),l.useEffect(()=>{if(!a)return c.registerNodeTransform(r.TableCellNode,e=>{null!==e.getBackgroundColor()&&e.setBackgroundColor(null)})},[c,a,t]),null};
++"use strict";var e=require("@lexical/extension"),r=require("@lexical/react/LexicalComposerContext"),l=require("@lexical/table"),s=require("react");exports.TablePlugin=function({hasCellMerge:a=!0,hasCellBackgroundColor:t=!0,hasTabHandler:o=!0,hasHorizontalScroll:i=!1,hasNestedTables:n=!1}){const[c]=r.useLexicalComposerContext();s.useEffect(()=>{l.$isScrollableTablesActive(c)!==i&&(l.setScrollableTablesActive(c,i),c.registerNodeTransform(l.TableNode,()=>{})())},[c,i]);const u=s.useMemo(()=>e.signal(!1),[]);return u.peek()!==n&&(u.value=n),s.useEffect(()=>l.registerTablePlugin(c,{hasNestedTables:u}),[c,u]),s.useEffect(()=>l.registerTableSelectionObserver(c,o),[c,o]),s.useEffect(()=>{if(!a)return l.registerTableCellUnmergeTransform(c)},[c,a]),s.useEffect(()=>{if(!t)return c.registerNodeTransform(l.TableCellNode,e=>{null!==e.getBackgroundColor()&&e.setBackgroundColor(null)})},[c,t,a]),null};
+diff --git a/node_modules/@lexical/react/LexicalTablePlugin.prod.mjs b/node_modules/@lexical/react/LexicalTablePlugin.prod.mjs
+index 9b12bce..c3cb971 100644
+--- a/node_modules/@lexical/react/LexicalTablePlugin.prod.mjs
++++ b/node_modules/@lexical/react/LexicalTablePlugin.prod.mjs
+@@ -6,4 +6,4 @@
+  *
+  */
+ 
+-import{useLexicalComposerContext as r}from"@lexical/react/LexicalComposerContext";import{$isScrollableTablesActive as o,setScrollableTablesActive as e,TableNode as l,registerTablePlugin as t,registerTableSelectionObserver as a,registerTableCellUnmergeTransform as n,TableCellNode as i}from"@lexical/table";import{useEffect as c}from"react";function s({hasCellMerge:s=!0,hasCellBackgroundColor:u=!0,hasTabHandler:m=!0,hasHorizontalScroll:f=!1}){const[g]=r();return c(()=>{o(g)!==f&&(e(g,f),g.registerNodeTransform(l,()=>{})())},[g,f]),c(()=>t(g),[g]),c(()=>a(g,m),[g,m]),c(()=>{if(!s)return n(g)},[g,s]),c(()=>{if(!u)return g.registerNodeTransform(i,r=>{null!==r.getBackgroundColor()&&r.setBackgroundColor(null)})},[g,u,s]),null}export{s as TablePlugin};
++import{signal as e}from"@lexical/extension";import{useLexicalComposerContext as r}from"@lexical/react/LexicalComposerContext";import{$isScrollableTablesActive as o,setScrollableTablesActive as l,TableNode as a,registerTablePlugin as t,registerTableSelectionObserver as n,registerTableCellUnmergeTransform as s,TableCellNode as i}from"@lexical/table";import{useEffect as c,useMemo as m}from"react";function u({hasCellMerge:u=!0,hasCellBackgroundColor:f=!0,hasTabHandler:d=!0,hasHorizontalScroll:g=!1,hasNestedTables:p=!1}){const[x]=r();c(()=>{o(x)!==g&&(l(x,g),x.registerNodeTransform(a,()=>{})())},[x,g]);const C=m(()=>e(!1),[]);return C.peek()!==p&&(C.value=p),c(()=>t(x,{hasNestedTables:C}),[x,C]),c(()=>n(x,d),[x,d]),c(()=>{if(!u)return s(x)},[x,u]),c(()=>{if(!f)return x.registerNodeTransform(i,e=>{null!==e.getBackgroundColor()&&e.setBackgroundColor(null)})},[x,f,u]),null}export{u as TablePlugin};
+diff --git a/node_modules/@lexical/react/LexicalTypeaheadMenuPlugin.d.ts b/node_modules/@lexical/react/LexicalTypeaheadMenuPlugin.d.ts
+index 31eb4db..03ca321 100644
+--- a/node_modules/@lexical/react/LexicalTypeaheadMenuPlugin.d.ts
++++ b/node_modules/@lexical/react/LexicalTypeaheadMenuPlugin.d.ts
+@@ -5,7 +5,7 @@
+  * LICENSE file in the root directory of this source tree.
+  *
+  */
+-import type { MenuRenderFn, MenuResolution, MenuTextMatch, TriggerFn } from './shared/LexicalMenu';
++import type { MenuResolution, MenuTextMatch, TriggerFn } from './shared/LexicalMenu';
+ import type { JSX } from 'react';
+ import { CommandListenerPriority, LexicalCommand, TextNode } from 'lexical';
+ import { MenuOption } from './shared/LexicalMenu';
+@@ -26,7 +26,6 @@ export type TypeaheadMenuPluginProps<TOption extends MenuOption> = {
+     onQueryChange: (matchingString: string | null) => void;
+     onSelectOption: (option: TOption, textNodeContainingQuery: TextNode | null, closeMenu: () => void, matchingString: string) => void;
+     options: Array<TOption>;
+-    menuRenderFn: MenuRenderFn<TOption>;
+     triggerFn: TriggerFn;
+     onOpen?: (resolution: MenuResolution) => void;
+     onClose?: () => void;
+@@ -36,5 +35,5 @@ export type TypeaheadMenuPluginProps<TOption extends MenuOption> = {
+     preselectFirstItem?: boolean;
+     ignoreEntityBoundary?: boolean;
+ };
+-export declare function LexicalTypeaheadMenuPlugin<TOption extends MenuOption>({ options, onQueryChange, onSelectOption, onOpen, onClose, menuRenderFn, triggerFn, anchorClassName, commandPriority, parent, preselectFirstItem, ignoreEntityBoundary, }: TypeaheadMenuPluginProps<TOption>): JSX.Element | null;
+-export { MenuOption, MenuRenderFn, MenuResolution, MenuTextMatch, TriggerFn };
++export declare function LexicalTypeaheadMenuPlugin<TOption extends MenuOption>({ options, onQueryChange, onSelectOption, onOpen, onClose, triggerFn, anchorClassName, commandPriority, parent, preselectFirstItem, ignoreEntityBoundary, }: TypeaheadMenuPluginProps<TOption>): JSX.Element | null;
++export { MenuOption, MenuResolution, MenuTextMatch, TriggerFn };
+diff --git a/node_modules/@lexical/react/LexicalTypeaheadMenuPlugin.dev.js b/node_modules/@lexical/react/LexicalTypeaheadMenuPlugin.dev.js
+index 0611c30..bf6046f 100644
+--- a/node_modules/@lexical/react/LexicalTypeaheadMenuPlugin.dev.js
++++ b/node_modules/@lexical/react/LexicalTypeaheadMenuPlugin.dev.js
+@@ -12,6 +12,7 @@ var LexicalComposerContext = require('@lexical/react/LexicalComposerContext');
+ var lexical = require('lexical');
+ var React = require('react');
+ var utils = require('@lexical/utils');
++var ReactDOM = require('react-dom');
+ var jsxRuntime = require('react/jsx-runtime');
+ 
+ /**
+@@ -70,6 +71,8 @@ const useLayoutEffectImpl = CAN_USE_DOM ? React.useLayoutEffect : React.useEffec
+ class MenuOption {
+   key;
+   ref;
++  icon;
++  title;
+   constructor(key) {
+     this.key = key;
+     this.ref = {
+@@ -219,13 +222,38 @@ function useDynamicPositioning(resolution, targetElement, onReposition, onVisibi
+   }, [targetElement, editor, onVisibilityChange, onReposition, resolution]);
+ }
+ const SCROLL_TYPEAHEAD_OPTION_INTO_VIEW_COMMAND$1 = lexical.createCommand('SCROLL_TYPEAHEAD_OPTION_INTO_VIEW_COMMAND');
++function MenuItem({
++  index,
++  isSelected,
++  onClick,
++  onMouseEnter,
++  option
++}) {
++  let className = 'item';
++  if (isSelected) {
++    className += ' selected';
++  }
++  return /*#__PURE__*/jsxRuntime.jsxs("li", {
++    tabIndex: -1,
++    className: className,
++    ref: option.setRefElement,
++    role: "option",
++    "aria-selected": isSelected,
++    id: 'typeahead-item-' + index,
++    onMouseEnter: onMouseEnter,
++    onClick: onClick,
++    children: [option.icon, /*#__PURE__*/jsxRuntime.jsx("span", {
++      className: "text",
++      children: option.title
++    })]
++  }, option.key);
++}
+ function LexicalMenu({
+   close,
+   editor,
+   anchorElementRef,
+   resolution,
+   options,
+-  menuRenderFn,
+   onSelectOption,
+   shouldSplitNodeWithQuery = false,
+   commandPriority = lexical.COMMAND_PRIORITY_LOW,
+@@ -253,6 +281,25 @@ function LexicalMenu({
+       setHighlightedIndex(index);
+     }
+   }, [editor]);
++  const menuRenderFn = React.useCallback(() => {
++    return anchorElementRef.current && options.length ? /*#__PURE__*/ReactDOM.createPortal(/*#__PURE__*/jsxRuntime.jsx("div", {
++      className: "typeahead-popover mentions-menu",
++      children: /*#__PURE__*/jsxRuntime.jsx("ul", {
++        children: options.map((option, i) => /*#__PURE__*/jsxRuntime.jsx(MenuItem, {
++          index: i,
++          isSelected: selectedIndex === i,
++          onClick: () => {
++            setHighlightedIndex(i);
++            selectOptionAndCleanUp(option);
++          },
++          onMouseEnter: () => {
++            setHighlightedIndex(i);
++          },
++          option: option
++        }, option.key))
++      })
++    }), anchorElementRef.current) : null;
++  }, [anchorElementRef, options, selectedIndex, selectOptionAndCleanUp, setHighlightedIndex]);
+   React.useEffect(() => {
+     return () => {
+       const rootElem = editor.getRootElement();
+@@ -348,13 +395,7 @@ function LexicalMenu({
+       return true;
+     }, commandPriority));
+   }, [selectOptionAndCleanUp, close, editor, options, selectedIndex, updateSelectedIndex, commandPriority]);
+-  const listItemProps = React.useMemo(() => ({
+-    options,
+-    selectOptionAndCleanUp,
+-    selectedIndex,
+-    setHighlightedIndex
+-  }), [selectOptionAndCleanUp, selectedIndex, options]);
+-  return menuRenderFn(anchorElementRef, listItemProps, resolution.match ? resolution.match.matchingString : '');
++  return menuRenderFn();
+ }
+ function setContainerDivAttributes(containerDiv, className) {
+   if (className != null) {
+@@ -467,8 +508,8 @@ function getTextUpToAnchor(selection) {
+   const anchorOffset = anchor.offset;
+   return anchorNode.getTextContent().slice(0, anchorOffset);
+ }
+-function tryToPositionRange(leadOffset, range, editorWindow) {
+-  const domSelection = lexical.getDOMSelection(editorWindow);
++function tryToPositionRange(leadOffset, range, editor) {
++  const domSelection = lexical.getDOMSelectionForEditor(editor);
+   if (domSelection === null || !domSelection.isCollapsed) {
+     return false;
+   }
+@@ -564,7 +605,6 @@ function LexicalTypeaheadMenuPlugin({
+   onSelectOption,
+   onOpen,
+   onClose,
+-  menuRenderFn,
+   triggerFn,
+   anchorClassName,
+   commandPriority = lexical.COMMAND_PRIORITY_LOW,
+@@ -595,6 +635,9 @@ function LexicalTypeaheadMenuPlugin({
+           closeTypeahead();
+           return;
+         }
++        if (editor.isComposing()) {
++          return;
++        }
+         const editorWindow = editor._window || window;
+         const range = editorWindow.document.createRange();
+         const selection = lexical.$getSelection();
+@@ -606,7 +649,7 @@ function LexicalTypeaheadMenuPlugin({
+         const match = triggerFn(text, editor);
+         onQueryChange(match ? match.matchingString : null);
+         if (match !== null && (ignoreEntityBoundary || !isSelectionOnEntityBoundary(editor, match.leadOffset))) {
+-          const isRangePositioned = tryToPositionRange(match.leadOffset, range, editorWindow);
++          const isRangePositioned = tryToPositionRange(match.leadOffset, range, editor);
+           if (isRangePositioned !== null) {
+             startTransition(() => openTypeahead({
+               getRect: () => range.getBoundingClientRect(),
+@@ -634,7 +677,6 @@ function LexicalTypeaheadMenuPlugin({
+     editor: editor,
+     anchorElementRef: anchorElementRef,
+     options: options,
+-    menuRenderFn: menuRenderFn,
+     shouldSplitNodeWithQuery: true,
+     onSelectOption: onSelectOption,
+     commandPriority: commandPriority,
+diff --git a/node_modules/@lexical/react/LexicalTypeaheadMenuPlugin.dev.mjs b/node_modules/@lexical/react/LexicalTypeaheadMenuPlugin.dev.mjs
+index df6ae52..8cffbc1 100644
+--- a/node_modules/@lexical/react/LexicalTypeaheadMenuPlugin.dev.mjs
++++ b/node_modules/@lexical/react/LexicalTypeaheadMenuPlugin.dev.mjs
+@@ -7,10 +7,11 @@
+  */
+ 
+ import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext';
+-import { createCommand, COMMAND_PRIORITY_LOW, KEY_ARROW_DOWN_COMMAND, KEY_ARROW_UP_COMMAND, KEY_ESCAPE_COMMAND, KEY_TAB_COMMAND, KEY_ENTER_COMMAND, $getSelection, $isRangeSelection, $isTextNode, getDOMSelection } from 'lexical';
+-import React, { useLayoutEffect, useEffect, useRef, useCallback, useState, useMemo } from 'react';
++import { createCommand, COMMAND_PRIORITY_LOW, KEY_ARROW_DOWN_COMMAND, KEY_ARROW_UP_COMMAND, KEY_ESCAPE_COMMAND, KEY_TAB_COMMAND, KEY_ENTER_COMMAND, $getSelection, $isRangeSelection, $isTextNode, getDOMSelectionForEditor } from 'lexical';
++import React, { useLayoutEffect, useEffect, useRef, useCallback, useState } from 'react';
+ import { mergeRegister } from '@lexical/utils';
+-import { jsx } from 'react/jsx-runtime';
++import ReactDOM from 'react-dom';
++import { jsx, jsxs } from 'react/jsx-runtime';
+ 
+ /**
+  * Copyright (c) Meta Platforms, Inc. and affiliates.
+@@ -68,6 +69,8 @@ const useLayoutEffectImpl = CAN_USE_DOM ? useLayoutEffect : useEffect;
+ class MenuOption {
+   key;
+   ref;
++  icon;
++  title;
+   constructor(key) {
+     this.key = key;
+     this.ref = {
+@@ -217,13 +220,38 @@ function useDynamicPositioning(resolution, targetElement, onReposition, onVisibi
+   }, [targetElement, editor, onVisibilityChange, onReposition, resolution]);
+ }
+ const SCROLL_TYPEAHEAD_OPTION_INTO_VIEW_COMMAND$1 = createCommand('SCROLL_TYPEAHEAD_OPTION_INTO_VIEW_COMMAND');
++function MenuItem({
++  index,
++  isSelected,
++  onClick,
++  onMouseEnter,
++  option
++}) {
++  let className = 'item';
++  if (isSelected) {
++    className += ' selected';
++  }
++  return /*#__PURE__*/jsxs("li", {
++    tabIndex: -1,
++    className: className,
++    ref: option.setRefElement,
++    role: "option",
++    "aria-selected": isSelected,
++    id: 'typeahead-item-' + index,
++    onMouseEnter: onMouseEnter,
++    onClick: onClick,
++    children: [option.icon, /*#__PURE__*/jsx("span", {
++      className: "text",
++      children: option.title
++    })]
++  }, option.key);
++}
+ function LexicalMenu({
+   close,
+   editor,
+   anchorElementRef,
+   resolution,
+   options,
+-  menuRenderFn,
+   onSelectOption,
+   shouldSplitNodeWithQuery = false,
+   commandPriority = COMMAND_PRIORITY_LOW,
+@@ -251,6 +279,25 @@ function LexicalMenu({
+       setHighlightedIndex(index);
+     }
+   }, [editor]);
++  const menuRenderFn = useCallback(() => {
++    return anchorElementRef.current && options.length ? /*#__PURE__*/ReactDOM.createPortal(/*#__PURE__*/jsx("div", {
++      className: "typeahead-popover mentions-menu",
++      children: /*#__PURE__*/jsx("ul", {
++        children: options.map((option, i) => /*#__PURE__*/jsx(MenuItem, {
++          index: i,
++          isSelected: selectedIndex === i,
++          onClick: () => {
++            setHighlightedIndex(i);
++            selectOptionAndCleanUp(option);
++          },
++          onMouseEnter: () => {
++            setHighlightedIndex(i);
++          },
++          option: option
++        }, option.key))
++      })
++    }), anchorElementRef.current) : null;
++  }, [anchorElementRef, options, selectedIndex, selectOptionAndCleanUp, setHighlightedIndex]);
+   useEffect(() => {
+     return () => {
+       const rootElem = editor.getRootElement();
+@@ -346,13 +393,7 @@ function LexicalMenu({
+       return true;
+     }, commandPriority));
+   }, [selectOptionAndCleanUp, close, editor, options, selectedIndex, updateSelectedIndex, commandPriority]);
+-  const listItemProps = useMemo(() => ({
+-    options,
+-    selectOptionAndCleanUp,
+-    selectedIndex,
+-    setHighlightedIndex
+-  }), [selectOptionAndCleanUp, selectedIndex, options]);
+-  return menuRenderFn(anchorElementRef, listItemProps, resolution.match ? resolution.match.matchingString : '');
++  return menuRenderFn();
+ }
+ function setContainerDivAttributes(containerDiv, className) {
+   if (className != null) {
+@@ -465,8 +506,8 @@ function getTextUpToAnchor(selection) {
+   const anchorOffset = anchor.offset;
+   return anchorNode.getTextContent().slice(0, anchorOffset);
+ }
+-function tryToPositionRange(leadOffset, range, editorWindow) {
+-  const domSelection = getDOMSelection(editorWindow);
++function tryToPositionRange(leadOffset, range, editor) {
++  const domSelection = getDOMSelectionForEditor(editor);
+   if (domSelection === null || !domSelection.isCollapsed) {
+     return false;
+   }
+@@ -562,7 +603,6 @@ function LexicalTypeaheadMenuPlugin({
+   onSelectOption,
+   onOpen,
+   onClose,
+-  menuRenderFn,
+   triggerFn,
+   anchorClassName,
+   commandPriority = COMMAND_PRIORITY_LOW,
+@@ -593,6 +633,9 @@ function LexicalTypeaheadMenuPlugin({
+           closeTypeahead();
+           return;
+         }
++        if (editor.isComposing()) {
++          return;
++        }
+         const editorWindow = editor._window || window;
+         const range = editorWindow.document.createRange();
+         const selection = $getSelection();
+@@ -604,7 +647,7 @@ function LexicalTypeaheadMenuPlugin({
+         const match = triggerFn(text, editor);
+         onQueryChange(match ? match.matchingString : null);
+         if (match !== null && (ignoreEntityBoundary || !isSelectionOnEntityBoundary(editor, match.leadOffset))) {
+-          const isRangePositioned = tryToPositionRange(match.leadOffset, range, editorWindow);
++          const isRangePositioned = tryToPositionRange(match.leadOffset, range, editor);
+           if (isRangePositioned !== null) {
+             startTransition(() => openTypeahead({
+               getRect: () => range.getBoundingClientRect(),
+@@ -632,7 +675,6 @@ function LexicalTypeaheadMenuPlugin({
+     editor: editor,
+     anchorElementRef: anchorElementRef,
+     options: options,
+-    menuRenderFn: menuRenderFn,
+     shouldSplitNodeWithQuery: true,
+     onSelectOption: onSelectOption,
+     commandPriority: commandPriority,
+diff --git a/node_modules/@lexical/react/LexicalTypeaheadMenuPlugin.js.flow b/node_modules/@lexical/react/LexicalTypeaheadMenuPlugin.js.flow
+index 82c3883..3e4b7d2 100644
+--- a/node_modules/@lexical/react/LexicalTypeaheadMenuPlugin.js.flow
++++ b/node_modules/@lexical/react/LexicalTypeaheadMenuPlugin.js.flow
+@@ -36,17 +36,6 @@ declare export var SCROLL_TYPEAHEAD_OPTION_INTO_VIEW_COMMAND: LexicalCommand<{
+   option: MenuOption,
+ }>;
+ 
+-export type MenuRenderFn<TOption> = (
+-  anchorElementRef: {current: HTMLElement | null},
+-  itemProps: {
+-    selectedIndex: number | null,
+-    selectOptionAndCleanUp: (option: TOption) => void,
+-    setHighlightedIndex: (index: number) => void,
+-    options: Array<TOption>,
+-  },
+-  matchingString: string,
+-) => React.Portal | React.MixedElement | null;
+-
+ declare export function getScrollParent(
+   element: HTMLElement,
+   includeHidden: boolean,
+@@ -66,7 +55,6 @@ export type TypeaheadMenuPluginProps<TOption> = {
+     matchingString: string,
+   ) => void,
+   options: Array<TOption>,
+-  menuRenderFn: MenuRenderFn<TOption>,
+   triggerFn: TriggerFn,
+   onOpen?: (resolution: MenuResolution) => void,
+   onClose?: () => void,
+diff --git a/node_modules/@lexical/react/LexicalTypeaheadMenuPlugin.prod.js b/node_modules/@lexical/react/LexicalTypeaheadMenuPlugin.prod.js
+index 7dc6b12..af9dc7e 100644
+--- a/node_modules/@lexical/react/LexicalTypeaheadMenuPlugin.prod.js
++++ b/node_modules/@lexical/react/LexicalTypeaheadMenuPlugin.prod.js
+@@ -6,4 +6,4 @@
+  *
+  */
+ 
+-"use strict";var e=require("@lexical/react/LexicalComposerContext"),t=require("lexical"),n=require("react"),o=require("@lexical/utils"),r=require("react/jsx-runtime");const l="startTransition";const i="undefined"!=typeof window&&void 0!==window.document&&void 0!==window.document.createElement,s=i?n.useLayoutEffect:n.useEffect;const u=e=>{const t=document.getElementById("typeahead-menu");if(!t)return;const n=t.getBoundingClientRect();n.top+n.height>window.innerHeight&&t.scrollIntoView({block:"center"}),n.top<0&&t.scrollIntoView({block:"center"}),e.scrollIntoView({block:"nearest"})};function c(e,t){const n=e.getBoundingClientRect(),o=t.getBoundingClientRect();return n.top>=o.top-6&&n.top<=o.bottom+6}function a(t,o,r,l){const[i]=e.useLexicalComposerContext();n.useEffect(()=>{if(null!=o&&null!=t){const e=i.getRootElement(),t=null!=e?function(e){let t=getComputedStyle(e);const n="absolute"===t.position,o=/(auto|scroll)/;if("fixed"===t.position)return document.body;for(let r=e;r=r.parentElement;)if(t=getComputedStyle(r),(!n||"static"!==t.position)&&o.test(t.overflow+t.overflowY+t.overflowX))return r;return document.body}(e):document.body;let n=!1,s=c(o,t);const u=function(){n||(window.requestAnimationFrame(function(){r(),n=!1}),n=!0);const e=c(o,t);e!==s&&(s=e,null!=l&&l(e))},a=new ResizeObserver(r);return window.addEventListener("resize",r),document.addEventListener("scroll",u,{capture:!0,passive:!0}),a.observe(o),()=>{a.unobserve(o),window.removeEventListener("resize",r),document.removeEventListener("scroll",u,!0)}}},[o,i,l,r,t])}const d=t.createCommand("SCROLL_TYPEAHEAD_OPTION_INTO_VIEW_COMMAND");function f({close:e,editor:r,anchorElementRef:l,resolution:i,options:c,menuRenderFn:a,onSelectOption:f,shouldSplitNodeWithQuery:m=!1,commandPriority:p=t.COMMAND_PRIORITY_LOW,preselectFirstItem:g=!0}){const[h,C]=n.useState(null),E=null!==h?Math.min(c.length-1,h):null,x=i.match&&i.match.matchingString;n.useEffect(()=>{g&&C(0)},[x,g]);const y=n.useCallback(n=>{r.update(()=>{const o=null!=i.match&&m?function(e){const n=t.$getSelection();if(!t.$isRangeSelection(n)||!n.isCollapsed())return null;const o=n.anchor;if("text"!==o.type)return null;const r=o.getNode();if(!r.isSimpleText())return null;const l=o.offset,i=r.getTextContent().slice(0,l),s=e.replaceableString.length,u=l-function(e,t,n){let o=n;for(let n=o;n<=t.length;n++)e.slice(-n)===t.substring(0,n)&&(o=n);return o}(i,e.matchingString,s);if(u<0)return null;let c;return 0===u?[c]=r.splitText(l):[,c]=r.splitText(u,l),c}(i.match):null;f(n,o,e,i.match?i.match.matchingString:"")})},[r,m,i.match,f,e]),O=n.useCallback(e=>{const t=r.getRootElement();null!==t&&(t.setAttribute("aria-activedescendant","typeahead-item-"+e),C(e))},[r]);n.useEffect(()=>()=>{const e=r.getRootElement();null!==e&&e.removeAttribute("aria-activedescendant")},[r]),s(()=>{null===c?C(null):null===E&&g&&O(0)},[c,E,O,g]),n.useEffect(()=>o.mergeRegister(r.registerCommand(d,({option:e})=>!(!e.ref||null==e.ref.current)&&(u(e.ref.current),!0),p)),[r,O,p]),n.useEffect(()=>o.mergeRegister(r.registerCommand(t.KEY_ARROW_DOWN_COMMAND,e=>{const t=e;if(null!==c&&c.length){const e=null===E?0:E!==c.length-1?E+1:0;O(e);const n=c[e];if(!n)return O(-1),t.preventDefault(),t.stopImmediatePropagation(),!0;n.ref&&n.ref.current&&r.dispatchCommand(d,{index:e,option:n}),t.preventDefault(),t.stopImmediatePropagation()}return!0},p),r.registerCommand(t.KEY_ARROW_UP_COMMAND,e=>{const t=e;if(null!==c&&c.length){const e=null===E?c.length-1:0!==E?E-1:c.length-1;O(e);const n=c[e];if(!n)return O(-1),t.preventDefault(),t.stopImmediatePropagation(),!0;n.ref&&n.ref.current&&u(n.ref.current),t.preventDefault(),t.stopImmediatePropagation()}return!0},p),r.registerCommand(t.KEY_ESCAPE_COMMAND,t=>{const n=t;return n.preventDefault(),n.stopImmediatePropagation(),e(),!0},p),r.registerCommand(t.KEY_TAB_COMMAND,e=>{const t=e;return null!==c&&null!==E&&null!=c[E]&&(t.preventDefault(),t.stopImmediatePropagation(),y(c[E]),!0)},p),r.registerCommand(t.KEY_ENTER_COMMAND,e=>null!==c&&null!==E&&null!=c[E]&&(null!==e&&(e.preventDefault(),e.stopImmediatePropagation()),y(c[E]),!0),p)),[y,e,r,c,E,O,p]);return a(l,n.useMemo(()=>({options:c,selectOptionAndCleanUp:y,selectedIndex:E,setHighlightedIndex:C}),[y,E,c]),i.match?i.match.matchingString:"")}function m(e,t){null!=t&&(e.className=t),e.setAttribute("aria-label","Typeahead menu"),e.setAttribute("role","listbox"),e.style.display="block",e.style.position="absolute"}const p="\\.,\\+\\*\\?\\$\\@\\|#{}\\(\\)\\^\\-\\[\\]\\\\/!%'\"~=<>_:;";const g=t.createCommand("SCROLL_TYPEAHEAD_OPTION_INTO_VIEW_COMMAND");exports.LexicalTypeaheadMenuPlugin=function({options:o,onQueryChange:s,onSelectOption:u,onOpen:c,onClose:d,menuRenderFn:p,triggerFn:g,anchorClassName:h,commandPriority:C=t.COMMAND_PRIORITY_LOW,parent:E,preselectFirstItem:x=!0,ignoreEntityBoundary:y=!1}){const[O]=e.useLexicalComposerContext(),[b,w]=n.useState(null),R=function(t,o,r,l=(i?document.body:void 0),s=!0){const[u]=e.useLexicalComposerContext(),c=i?document.createElement("div"):null,d=n.useRef(c),f=n.useCallback(()=>{if(null===d.current||void 0===l)return;d.current.style.top=d.current.style.bottom;const e=u.getRootElement(),n=d.current,o=n.firstChild;if(null!==e&&null!==t){const{left:i,top:u,width:c,height:a}=t.getRect(),f=d.current.offsetHeight;if(n.style.top=`${u+f+3+(s?window.pageYOffset:0)}px`,n.style.left=`${i+window.pageXOffset}px`,n.style.height=`${a}px`,n.style.width=`${c}px`,null!==o){o.style.top=`${u}`;const t=o.getBoundingClientRect(),r=t.height,l=t.width,c=e.getBoundingClientRect();i+l>c.right&&(n.style.left=`${c.right-l+window.pageXOffset}px`),(u+r>window.innerHeight||u+r>c.bottom)&&u-c.top>r+a&&(n.style.top=`${u-r-a+(s?window.pageYOffset:0)}px`)}n.isConnected||(m(n,r),l.append(n)),n.setAttribute("id","typeahead-menu"),e.setAttribute("aria-controls","typeahead-menu")}},[u,t,s,r,l]);n.useEffect(()=>{const e=u.getRootElement();return null!==t&&f(),()=>{null!==e&&e.removeAttribute("aria-controls");const t=d.current;null!==t&&t.isConnected&&(t.remove(),t.removeAttribute("id"))}},[u,f,t]);const p=n.useCallback(e=>{null!==t&&(e||o(null))},[t,o]);return a(t,d.current,f,p),null!=c&&c===d.current&&(m(c,r),null!=l&&l.append(c)),d}(b,w,h,E),v=n.useCallback(()=>{w(null),null!=d&&null!==b&&d()},[d,b]),S=n.useCallback(e=>{w(e),null!=c&&null===b&&c(e)},[c,b]);return n.useEffect(()=>{const e=O.registerUpdateListener(()=>{O.getEditorState().read(()=>{if(!O.isEditable())return void v();const e=O._window||window,o=e.document.createRange(),r=t.$getSelection(),i=function(e){let n=null;return e.getEditorState().read(()=>{const e=t.$getSelection();t.$isRangeSelection(e)&&(n=function(e){const t=e.anchor;if("text"!==t.type)return null;const n=t.getNode();if(!n.isSimpleText())return null;const o=t.offset;return n.getTextContent().slice(0,o)}(e))}),n}(O);if(!t.$isRangeSelection(r)||!r.isCollapsed()||null===i||null===o)return void v();const u=g(i,O);if(s(u?u.matchingString:null),null!==u&&(y||!function(e,n){return 0===n&&e.getEditorState().read(()=>{const e=t.$getSelection();if(t.$isRangeSelection(e)){const n=e.anchor.getNode().getPreviousSibling();return t.$isTextNode(n)&&n.isTextEntity()}return!1})}(O,u.leadOffset))){const r=function(e,n,o){const r=t.getDOMSelection(o);if(null===r||!r.isCollapsed)return!1;const l=r.anchorNode,i=e,s=r.anchorOffset;if(null==l||null==s)return!1;try{n.setStart(l,i),n.setEnd(l,s)}catch(e){return!1}return!0}(u.leadOffset,o,e);if(null!==r)return c=()=>S({getRect:()=>o.getBoundingClientRect(),match:u}),void(l in n?n[l](c):c())}var c;v()})});return()=>{e()}},[O,g,s,b,v,S,y]),n.useEffect(()=>O.registerEditableListener(e=>{e||v()}),[O,v]),null===b||null===O||null===R.current?null:r.jsx(f,{close:v,resolution:b,editor:O,anchorElementRef:R,options:o,menuRenderFn:p,shouldSplitNodeWithQuery:!0,onSelectOption:u,commandPriority:C,preselectFirstItem:x})},exports.MenuOption=class{key;ref;constructor(e){this.key=e,this.ref={current:null},this.setRefElement=this.setRefElement.bind(this)}setRefElement(e){this.ref={current:e}}},exports.PUNCTUATION=p,exports.SCROLL_TYPEAHEAD_OPTION_INTO_VIEW_COMMAND=g,exports.getScrollParent=function(e,t){let n=getComputedStyle(e);const o="absolute"===n.position,r=t?/(auto|scroll|hidden)/:/(auto|scroll)/;if("fixed"===n.position)return document.body;for(let t=e;t=t.parentElement;)if(n=getComputedStyle(t),(!o||"static"!==n.position)&&r.test(n.overflow+n.overflowY+n.overflowX))return t;return document.body},exports.useBasicTypeaheadTriggerMatch=function(e,{minLength:t=1,maxLength:o=75,punctuation:r=p,allowWhitespace:l=!1}){return n.useCallback(n=>{const i=new RegExp("(^|\\s|\\()(["+e+"]((?:"+("[^"+e+r+(l?"":"\\s")+"]")+"){0,"+o+"}))$").exec(n);if(null!==i){const e=i[1],n=i[3];if(n.length>=t)return{leadOffset:i.index+e.length,matchingString:n,replaceableString:i[2]}}return null},[l,e,r,o,t])},exports.useDynamicPositioning=a;
++"use strict";var e=require("@lexical/react/LexicalComposerContext"),t=require("lexical"),n=require("react"),o=require("@lexical/utils"),r=require("react-dom"),l=require("react/jsx-runtime");const i="startTransition";const s="undefined"!=typeof window&&void 0!==window.document&&void 0!==window.document.createElement,u=s?n.useLayoutEffect:n.useEffect;const c=e=>{const t=document.getElementById("typeahead-menu");if(!t)return;const n=t.getBoundingClientRect();n.top+n.height>window.innerHeight&&t.scrollIntoView({block:"center"}),n.top<0&&t.scrollIntoView({block:"center"}),e.scrollIntoView({block:"nearest"})};function a(e,t){const n=e.getBoundingClientRect(),o=t.getBoundingClientRect();return n.top>=o.top-6&&n.top<=o.bottom+6}function d(t,o,r,l){const[i]=e.useLexicalComposerContext();n.useEffect(()=>{if(null!=o&&null!=t){const e=i.getRootElement(),t=null!=e?function(e){let t=getComputedStyle(e);const n="absolute"===t.position,o=/(auto|scroll)/;if("fixed"===t.position)return document.body;for(let r=e;r=r.parentElement;)if(t=getComputedStyle(r),(!n||"static"!==t.position)&&o.test(t.overflow+t.overflowY+t.overflowX))return r;return document.body}(e):document.body;let n=!1,s=a(o,t);const u=function(){n||(window.requestAnimationFrame(function(){r(),n=!1}),n=!0);const e=a(o,t);e!==s&&(s=e,null!=l&&l(e))},c=new ResizeObserver(r);return window.addEventListener("resize",r),document.addEventListener("scroll",u,{capture:!0,passive:!0}),c.observe(o),()=>{c.unobserve(o),window.removeEventListener("resize",r),document.removeEventListener("scroll",u,!0)}}},[o,i,l,r,t])}const f=t.createCommand("SCROLL_TYPEAHEAD_OPTION_INTO_VIEW_COMMAND");function m({index:e,isSelected:t,onClick:n,onMouseEnter:o,option:r}){let i="item";return t&&(i+=" selected"),l.jsxs("li",{tabIndex:-1,className:i,ref:r.setRefElement,role:"option","aria-selected":t,id:"typeahead-item-"+e,onMouseEnter:o,onClick:n,children:[r.icon,l.jsx("span",{className:"text",children:r.title})]},r.key)}function p({close:e,editor:i,anchorElementRef:s,resolution:a,options:d,onSelectOption:p,shouldSplitNodeWithQuery:g=!1,commandPriority:h=t.COMMAND_PRIORITY_LOW,preselectFirstItem:C=!0}){const[E,x]=n.useState(null),y=null!==E?Math.min(d.length-1,E):null,b=a.match&&a.match.matchingString;n.useEffect(()=>{C&&x(0)},[b,C]);const O=n.useCallback(n=>{i.update(()=>{const o=null!=a.match&&g?function(e){const n=t.$getSelection();if(!t.$isRangeSelection(n)||!n.isCollapsed())return null;const o=n.anchor;if("text"!==o.type)return null;const r=o.getNode();if(!r.isSimpleText())return null;const l=o.offset,i=r.getTextContent().slice(0,l),s=e.replaceableString.length,u=l-function(e,t,n){let o=n;for(let n=o;n<=t.length;n++)e.slice(-n)===t.substring(0,n)&&(o=n);return o}(i,e.matchingString,s);if(u<0)return null;let c;return 0===u?[c]=r.splitText(l):[,c]=r.splitText(u,l),c}(a.match):null;p(n,o,e,a.match?a.match.matchingString:"")})},[i,g,a.match,p,e]),w=n.useCallback(e=>{const t=i.getRootElement();null!==t&&(t.setAttribute("aria-activedescendant","typeahead-item-"+e),x(e))},[i]),v=n.useCallback(()=>s.current&&d.length?r.createPortal(l.jsx("div",{className:"typeahead-popover mentions-menu",children:l.jsx("ul",{children:d.map((e,t)=>l.jsx(m,{index:t,isSelected:y===t,onClick:()=>{x(t),O(e)},onMouseEnter:()=>{x(t)},option:e},e.key))})}),s.current):null,[s,d,y,O,x]);return n.useEffect(()=>()=>{const e=i.getRootElement();null!==e&&e.removeAttribute("aria-activedescendant")},[i]),u(()=>{null===d?x(null):null===y&&C&&w(0)},[d,y,w,C]),n.useEffect(()=>o.mergeRegister(i.registerCommand(f,({option:e})=>!(!e.ref||null==e.ref.current)&&(c(e.ref.current),!0),h)),[i,w,h]),n.useEffect(()=>o.mergeRegister(i.registerCommand(t.KEY_ARROW_DOWN_COMMAND,e=>{const t=e;if(null!==d&&d.length){const e=null===y?0:y!==d.length-1?y+1:0;w(e);const n=d[e];if(!n)return w(-1),t.preventDefault(),t.stopImmediatePropagation(),!0;n.ref&&n.ref.current&&i.dispatchCommand(f,{index:e,option:n}),t.preventDefault(),t.stopImmediatePropagation()}return!0},h),i.registerCommand(t.KEY_ARROW_UP_COMMAND,e=>{const t=e;if(null!==d&&d.length){const e=null===y?d.length-1:0!==y?y-1:d.length-1;w(e);const n=d[e];if(!n)return w(-1),t.preventDefault(),t.stopImmediatePropagation(),!0;n.ref&&n.ref.current&&c(n.ref.current),t.preventDefault(),t.stopImmediatePropagation()}return!0},h),i.registerCommand(t.KEY_ESCAPE_COMMAND,t=>{const n=t;return n.preventDefault(),n.stopImmediatePropagation(),e(),!0},h),i.registerCommand(t.KEY_TAB_COMMAND,e=>{const t=e;return null!==d&&null!==y&&null!=d[y]&&(t.preventDefault(),t.stopImmediatePropagation(),O(d[y]),!0)},h),i.registerCommand(t.KEY_ENTER_COMMAND,e=>null!==d&&null!==y&&null!=d[y]&&(null!==e&&(e.preventDefault(),e.stopImmediatePropagation()),O(d[y]),!0),h)),[O,e,i,d,y,w,h]),v()}function g(e,t){null!=t&&(e.className=t),e.setAttribute("aria-label","Typeahead menu"),e.setAttribute("role","listbox"),e.style.display="block",e.style.position="absolute"}const h="\\.,\\+\\*\\?\\$\\@\\|#{}\\(\\)\\^\\-\\[\\]\\\\/!%'\"~=<>_:;";const C=t.createCommand("SCROLL_TYPEAHEAD_OPTION_INTO_VIEW_COMMAND");exports.LexicalTypeaheadMenuPlugin=function({options:o,onQueryChange:r,onSelectOption:u,onOpen:c,onClose:a,triggerFn:f,anchorClassName:m,commandPriority:h=t.COMMAND_PRIORITY_LOW,parent:C,preselectFirstItem:E=!0,ignoreEntityBoundary:x=!1}){const[y]=e.useLexicalComposerContext(),[b,O]=n.useState(null),w=function(t,o,r,l=(s?document.body:void 0),i=!0){const[u]=e.useLexicalComposerContext(),c=s?document.createElement("div"):null,a=n.useRef(c),f=n.useCallback(()=>{if(null===a.current||void 0===l)return;a.current.style.top=a.current.style.bottom;const e=u.getRootElement(),n=a.current,o=n.firstChild;if(null!==e&&null!==t){const{left:s,top:u,width:c,height:d}=t.getRect(),f=a.current.offsetHeight;if(n.style.top=`${u+f+3+(i?window.pageYOffset:0)}px`,n.style.left=`${s+window.pageXOffset}px`,n.style.height=`${d}px`,n.style.width=`${c}px`,null!==o){o.style.top=`${u}`;const t=o.getBoundingClientRect(),r=t.height,l=t.width,c=e.getBoundingClientRect();s+l>c.right&&(n.style.left=`${c.right-l+window.pageXOffset}px`),(u+r>window.innerHeight||u+r>c.bottom)&&u-c.top>r+d&&(n.style.top=`${u-r-d+(i?window.pageYOffset:0)}px`)}n.isConnected||(g(n,r),l.append(n)),n.setAttribute("id","typeahead-menu"),e.setAttribute("aria-controls","typeahead-menu")}},[u,t,i,r,l]);n.useEffect(()=>{const e=u.getRootElement();return null!==t&&f(),()=>{null!==e&&e.removeAttribute("aria-controls");const t=a.current;null!==t&&t.isConnected&&(t.remove(),t.removeAttribute("id"))}},[u,f,t]);const m=n.useCallback(e=>{null!==t&&(e||o(null))},[t,o]);return d(t,a.current,f,m),null!=c&&c===a.current&&(g(c,r),null!=l&&l.append(c)),a}(b,O,m,C),v=n.useCallback(()=>{O(null),null!=a&&null!==b&&a()},[a,b]),R=n.useCallback(e=>{O(e),null!=c&&null===b&&c(e)},[c,b]);return n.useEffect(()=>{const e=y.registerUpdateListener(()=>{y.getEditorState().read(()=>{if(!y.isEditable())return void v();if(y.isComposing())return;const e=(y._window||window).document.createRange(),o=t.$getSelection(),l=function(e){let n=null;return e.getEditorState().read(()=>{const e=t.$getSelection();t.$isRangeSelection(e)&&(n=function(e){const t=e.anchor;if("text"!==t.type)return null;const n=t.getNode();if(!n.isSimpleText())return null;const o=t.offset;return n.getTextContent().slice(0,o)}(e))}),n}(y);if(!t.$isRangeSelection(o)||!o.isCollapsed()||null===l||null===e)return void v();const s=f(l,y);if(r(s?s.matchingString:null),null!==s&&(x||!function(e,n){return 0===n&&e.getEditorState().read(()=>{const e=t.$getSelection();if(t.$isRangeSelection(e)){const n=e.anchor.getNode().getPreviousSibling();return t.$isTextNode(n)&&n.isTextEntity()}return!1})}(y,s.leadOffset))){const o=function(e,n,o){const r=t.getDOMSelectionForEditor(o);if(null===r||!r.isCollapsed)return!1;const l=r.anchorNode,i=e,s=r.anchorOffset;if(null==l||null==s)return!1;try{n.setStart(l,i),n.setEnd(l,s)}catch(e){return!1}return!0}(s.leadOffset,e,y);if(null!==o)return u=()=>R({getRect:()=>e.getBoundingClientRect(),match:s}),void(i in n?n[i](u):u())}var u;v()})});return()=>{e()}},[y,f,r,b,v,R,x]),n.useEffect(()=>y.registerEditableListener(e=>{e||v()}),[y,v]),null===b||null===y||null===w.current?null:l.jsx(p,{close:v,resolution:b,editor:y,anchorElementRef:w,options:o,shouldSplitNodeWithQuery:!0,onSelectOption:u,commandPriority:h,preselectFirstItem:E})},exports.MenuOption=class{key;ref;icon;title;constructor(e){this.key=e,this.ref={current:null},this.setRefElement=this.setRefElement.bind(this)}setRefElement(e){this.ref={current:e}}},exports.PUNCTUATION=h,exports.SCROLL_TYPEAHEAD_OPTION_INTO_VIEW_COMMAND=C,exports.getScrollParent=function(e,t){let n=getComputedStyle(e);const o="absolute"===n.position,r=t?/(auto|scroll|hidden)/:/(auto|scroll)/;if("fixed"===n.position)return document.body;for(let t=e;t=t.parentElement;)if(n=getComputedStyle(t),(!o||"static"!==n.position)&&r.test(n.overflow+n.overflowY+n.overflowX))return t;return document.body},exports.useBasicTypeaheadTriggerMatch=function(e,{minLength:t=1,maxLength:o=75,punctuation:r=h,allowWhitespace:l=!1}){return n.useCallback(n=>{const i=new RegExp("(^|\\s|\\()(["+e+"]((?:"+("[^"+e+r+(l?"":"\\s")+"]")+"){0,"+o+"}))$").exec(n);if(null!==i){const e=i[1],n=i[3];if(n.length>=t)return{leadOffset:i.index+e.length,matchingString:n,replaceableString:i[2]}}return null},[l,e,r,o,t])},exports.useDynamicPositioning=d;
+diff --git a/node_modules/@lexical/react/LexicalTypeaheadMenuPlugin.prod.mjs b/node_modules/@lexical/react/LexicalTypeaheadMenuPlugin.prod.mjs
+index 35303d3..f9c281f 100644
+--- a/node_modules/@lexical/react/LexicalTypeaheadMenuPlugin.prod.mjs
++++ b/node_modules/@lexical/react/LexicalTypeaheadMenuPlugin.prod.mjs
+@@ -6,4 +6,4 @@
+  *
+  */
+ 
+-import{useLexicalComposerContext as t}from"@lexical/react/LexicalComposerContext";import{createCommand as e,COMMAND_PRIORITY_LOW as n,KEY_ARROW_DOWN_COMMAND as o,KEY_ARROW_UP_COMMAND as r,KEY_ESCAPE_COMMAND as l,KEY_TAB_COMMAND as i,KEY_ENTER_COMMAND as u,$getSelection as s,$isRangeSelection as c,$isTextNode as a,getDOMSelection as d}from"lexical";import m,{useLayoutEffect as f,useEffect as p,useRef as g,useCallback as h,useState as w,useMemo as y}from"react";import{mergeRegister as v}from"@lexical/utils";import{jsx as b}from"react/jsx-runtime";const C="startTransition";const E="undefined"!=typeof window&&void 0!==window.document&&void 0!==window.document.createElement,x=E?f:p;class R{key;ref;constructor(t){this.key=t,this.ref={current:null},this.setRefElement=this.setRefElement.bind(this)}setRefElement(t){this.ref={current:t}}}const S=t=>{const e=document.getElementById("typeahead-menu");if(!e)return;const n=e.getBoundingClientRect();n.top+n.height>window.innerHeight&&e.scrollIntoView({block:"center"}),n.top<0&&e.scrollIntoView({block:"center"}),t.scrollIntoView({block:"nearest"})};function O(t,e){const n=t.getBoundingClientRect(),o=e.getBoundingClientRect();return n.top>=o.top-6&&n.top<=o.bottom+6}function I(e,n,o,r){const[l]=t();p(()=>{if(null!=n&&null!=e){const t=l.getRootElement(),e=null!=t?function(t){let e=getComputedStyle(t);const n="absolute"===e.position,o=/(auto|scroll)/;if("fixed"===e.position)return document.body;for(let r=t;r=r.parentElement;)if(e=getComputedStyle(r),(!n||"static"!==e.position)&&o.test(e.overflow+e.overflowY+e.overflowX))return r;return document.body}(t):document.body;let i=!1,u=O(n,e);const s=function(){i||(window.requestAnimationFrame(function(){o(),i=!1}),i=!0);const t=O(n,e);t!==u&&(u=t,null!=r&&r(t))},c=new ResizeObserver(o);return window.addEventListener("resize",o),document.addEventListener("scroll",s,{capture:!0,passive:!0}),c.observe(n),()=>{c.unobserve(n),window.removeEventListener("resize",o),document.removeEventListener("scroll",s,!0)}}},[n,l,r,o,e])}const A=e("SCROLL_TYPEAHEAD_OPTION_INTO_VIEW_COMMAND");function P({close:t,editor:e,anchorElementRef:a,resolution:d,options:m,menuRenderFn:f,onSelectOption:g,shouldSplitNodeWithQuery:b=!1,commandPriority:C=n,preselectFirstItem:E=!0}){const[R,O]=w(null),I=null!==R?Math.min(m.length-1,R):null,P=d.match&&d.match.matchingString;p(()=>{E&&O(0)},[P,E]);const T=h(n=>{e.update(()=>{const e=null!=d.match&&b?function(t){const e=s();if(!c(e)||!e.isCollapsed())return null;const n=e.anchor;if("text"!==n.type)return null;const o=n.getNode();if(!o.isSimpleText())return null;const r=n.offset,l=o.getTextContent().slice(0,r),i=t.replaceableString.length,u=r-function(t,e,n){let o=n;for(let n=o;n<=e.length;n++)t.slice(-n)===e.substring(0,n)&&(o=n);return o}(l,t.matchingString,i);if(u<0)return null;let a;return 0===u?[a]=o.splitText(r):[,a]=o.splitText(u,r),a}(d.match):null;g(n,e,t,d.match?d.match.matchingString:"")})},[e,b,d.match,g,t]),N=h(t=>{const n=e.getRootElement();null!==n&&(n.setAttribute("aria-activedescendant","typeahead-item-"+t),O(t))},[e]);p(()=>()=>{const t=e.getRootElement();null!==t&&t.removeAttribute("aria-activedescendant")},[e]),x(()=>{null===m?O(null):null===I&&E&&N(0)},[m,I,N,E]),p(()=>v(e.registerCommand(A,({option:t})=>!(!t.ref||null==t.ref.current)&&(S(t.ref.current),!0),C)),[e,N,C]),p(()=>v(e.registerCommand(o,t=>{const n=t;if(null!==m&&m.length){const t=null===I?0:I!==m.length-1?I+1:0;N(t);const o=m[t];if(!o)return N(-1),n.preventDefault(),n.stopImmediatePropagation(),!0;o.ref&&o.ref.current&&e.dispatchCommand(A,{index:t,option:o}),n.preventDefault(),n.stopImmediatePropagation()}return!0},C),e.registerCommand(r,t=>{const e=t;if(null!==m&&m.length){const t=null===I?m.length-1:0!==I?I-1:m.length-1;N(t);const n=m[t];if(!n)return N(-1),e.preventDefault(),e.stopImmediatePropagation(),!0;n.ref&&n.ref.current&&S(n.ref.current),e.preventDefault(),e.stopImmediatePropagation()}return!0},C),e.registerCommand(l,e=>{const n=e;return n.preventDefault(),n.stopImmediatePropagation(),t(),!0},C),e.registerCommand(i,t=>{const e=t;return null!==m&&null!==I&&null!=m[I]&&(e.preventDefault(),e.stopImmediatePropagation(),T(m[I]),!0)},C),e.registerCommand(u,t=>null!==m&&null!==I&&null!=m[I]&&(null!==t&&(t.preventDefault(),t.stopImmediatePropagation()),T(m[I]),!0),C)),[T,t,e,m,I,N,C]);return f(a,y(()=>({options:m,selectOptionAndCleanUp:T,selectedIndex:I,setHighlightedIndex:O}),[T,I,m]),d.match?d.match.matchingString:"")}function T(t,e){null!=e&&(t.className=e),t.setAttribute("aria-label","Typeahead menu"),t.setAttribute("role","listbox"),t.style.display="block",t.style.position="absolute"}const N="\\.,\\+\\*\\?\\$\\@\\|#{}\\(\\)\\^\\-\\[\\]\\\\/!%'\"~=<>_:;";function L(t,e){let n=getComputedStyle(t);const o="absolute"===n.position,r=e?/(auto|scroll|hidden)/:/(auto|scroll)/;if("fixed"===n.position)return document.body;for(let e=t;e=e.parentElement;)if(n=getComputedStyle(e),(!o||"static"!==n.position)&&r.test(n.overflow+n.overflowY+n.overflowX))return e;return document.body}const _=e("SCROLL_TYPEAHEAD_OPTION_INTO_VIEW_COMMAND");function D(t,{minLength:e=1,maxLength:n=75,punctuation:o=N,allowWhitespace:r=!1}){return h(l=>{const i=new RegExp("(^|\\s|\\()(["+t+"]((?:"+("[^"+t+o+(r?"":"\\s")+"]")+"){0,"+n+"}))$").exec(l);if(null!==i){const t=i[1],n=i[3];if(n.length>=e)return{leadOffset:i.index+t.length,matchingString:n,replaceableString:i[2]}}return null},[r,t,o,n,e])}function $({options:e,onQueryChange:o,onSelectOption:r,onOpen:l,onClose:i,menuRenderFn:u,triggerFn:f,anchorClassName:y,commandPriority:v=n,parent:x,preselectFirstItem:R=!0,ignoreEntityBoundary:S=!1}){const[O]=t(),[A,N]=w(null),L=function(e,n,o,r=(E?document.body:void 0),l=!0){const[i]=t(),u=E?document.createElement("div"):null,s=g(u),c=h(()=>{if(null===s.current||void 0===r)return;s.current.style.top=s.current.style.bottom;const t=i.getRootElement(),n=s.current,u=n.firstChild;if(null!==t&&null!==e){const{left:i,top:c,width:a,height:d}=e.getRect(),m=s.current.offsetHeight;if(n.style.top=`${c+m+3+(l?window.pageYOffset:0)}px`,n.style.left=`${i+window.pageXOffset}px`,n.style.height=`${d}px`,n.style.width=`${a}px`,null!==u){u.style.top=`${c}`;const e=u.getBoundingClientRect(),o=e.height,r=e.width,s=t.getBoundingClientRect();i+r>s.right&&(n.style.left=`${s.right-r+window.pageXOffset}px`),(c+o>window.innerHeight||c+o>s.bottom)&&c-s.top>o+d&&(n.style.top=`${c-o-d+(l?window.pageYOffset:0)}px`)}n.isConnected||(T(n,o),r.append(n)),n.setAttribute("id","typeahead-menu"),t.setAttribute("aria-controls","typeahead-menu")}},[i,e,l,o,r]);p(()=>{const t=i.getRootElement();return null!==e&&c(),()=>{null!==t&&t.removeAttribute("aria-controls");const e=s.current;null!==e&&e.isConnected&&(e.remove(),e.removeAttribute("id"))}},[i,c,e]);const a=h(t=>{null!==e&&(t||n(null))},[e,n]);return I(e,s.current,c,a),null!=u&&u===s.current&&(T(u,o),null!=r&&r.append(u)),s}(A,N,y,x),_=h(()=>{N(null),null!=i&&null!==A&&i()},[i,A]),D=h(t=>{N(t),null!=l&&null===A&&l(t)},[l,A]);return p(()=>{const t=O.registerUpdateListener(()=>{O.getEditorState().read(()=>{if(!O.isEditable())return void _();const t=O._window||window,e=t.document.createRange(),n=s(),r=function(t){let e=null;return t.getEditorState().read(()=>{const t=s();c(t)&&(e=function(t){const e=t.anchor;if("text"!==e.type)return null;const n=e.getNode();if(!n.isSimpleText())return null;const o=e.offset;return n.getTextContent().slice(0,o)}(t))}),e}(O);if(!c(n)||!n.isCollapsed()||null===r||null===e)return void _();const l=f(r,O);if(o(l?l.matchingString:null),null!==l&&(S||!function(t,e){return 0===e&&t.getEditorState().read(()=>{const t=s();if(c(t)){const e=t.anchor.getNode().getPreviousSibling();return a(e)&&e.isTextEntity()}return!1})}(O,l.leadOffset))){const n=function(t,e,n){const o=d(n);if(null===o||!o.isCollapsed)return!1;const r=o.anchorNode,l=t,i=o.anchorOffset;if(null==r||null==i)return!1;try{e.setStart(r,l),e.setEnd(r,i)}catch(t){return!1}return!0}(l.leadOffset,e,t);if(null!==n)return i=()=>D({getRect:()=>e.getBoundingClientRect(),match:l}),void(C in m?m[C](i):i())}var i;_()})});return()=>{t()}},[O,f,o,A,_,D,S]),p(()=>O.registerEditableListener(t=>{t||_()}),[O,_]),null===A||null===O||null===L.current?null:b(P,{close:_,resolution:A,editor:O,anchorElementRef:L,options:e,menuRenderFn:u,shouldSplitNodeWithQuery:!0,onSelectOption:r,commandPriority:v,preselectFirstItem:R})}export{$ as LexicalTypeaheadMenuPlugin,R as MenuOption,N as PUNCTUATION,_ as SCROLL_TYPEAHEAD_OPTION_INTO_VIEW_COMMAND,L as getScrollParent,D as useBasicTypeaheadTriggerMatch,I as useDynamicPositioning};
++import{useLexicalComposerContext as t}from"@lexical/react/LexicalComposerContext";import{createCommand as e,COMMAND_PRIORITY_LOW as n,KEY_ARROW_DOWN_COMMAND as o,KEY_ARROW_UP_COMMAND as r,KEY_ESCAPE_COMMAND as l,KEY_TAB_COMMAND as i,KEY_ENTER_COMMAND as u,$getSelection as s,$isRangeSelection as c,$isTextNode as a,getDOMSelectionForEditor as d}from"lexical";import m,{useLayoutEffect as p,useEffect as f,useRef as g,useCallback as h,useState as y}from"react";import{mergeRegister as w}from"@lexical/utils";import v from"react-dom";import{jsx as C,jsxs as E}from"react/jsx-runtime";const b="startTransition";const x="undefined"!=typeof window&&void 0!==window.document&&void 0!==window.document.createElement,S=x?p:f;class R{key;ref;icon;title;constructor(t){this.key=t,this.ref={current:null},this.setRefElement=this.setRefElement.bind(this)}setRefElement(t){this.ref={current:t}}}const O=t=>{const e=document.getElementById("typeahead-menu");if(!e)return;const n=e.getBoundingClientRect();n.top+n.height>window.innerHeight&&e.scrollIntoView({block:"center"}),n.top<0&&e.scrollIntoView({block:"center"}),t.scrollIntoView({block:"nearest"})};function I(t,e){const n=t.getBoundingClientRect(),o=e.getBoundingClientRect();return n.top>=o.top-6&&n.top<=o.bottom+6}function N(e,n,o,r){const[l]=t();f(()=>{if(null!=n&&null!=e){const t=l.getRootElement(),e=null!=t?function(t){let e=getComputedStyle(t);const n="absolute"===e.position,o=/(auto|scroll)/;if("fixed"===e.position)return document.body;for(let r=t;r=r.parentElement;)if(e=getComputedStyle(r),(!n||"static"!==e.position)&&o.test(e.overflow+e.overflowY+e.overflowX))return r;return document.body}(t):document.body;let i=!1,u=I(n,e);const s=function(){i||(window.requestAnimationFrame(function(){o(),i=!1}),i=!0);const t=I(n,e);t!==u&&(u=t,null!=r&&r(t))},c=new ResizeObserver(o);return window.addEventListener("resize",o),document.addEventListener("scroll",s,{capture:!0,passive:!0}),c.observe(n),()=>{c.unobserve(n),window.removeEventListener("resize",o),document.removeEventListener("scroll",s,!0)}}},[n,l,r,o,e])}const P=e("SCROLL_TYPEAHEAD_OPTION_INTO_VIEW_COMMAND");function A({index:t,isSelected:e,onClick:n,onMouseEnter:o,option:r}){let l="item";return e&&(l+=" selected"),E("li",{tabIndex:-1,className:l,ref:r.setRefElement,role:"option","aria-selected":e,id:"typeahead-item-"+t,onMouseEnter:o,onClick:n,children:[r.icon,C("span",{className:"text",children:r.title})]},r.key)}function T({close:t,editor:e,anchorElementRef:a,resolution:d,options:m,onSelectOption:p,shouldSplitNodeWithQuery:g=!1,commandPriority:E=n,preselectFirstItem:b=!0}){const[x,R]=y(null),I=null!==x?Math.min(m.length-1,x):null,N=d.match&&d.match.matchingString;f(()=>{b&&R(0)},[N,b]);const T=h(n=>{e.update(()=>{const e=null!=d.match&&g?function(t){const e=s();if(!c(e)||!e.isCollapsed())return null;const n=e.anchor;if("text"!==n.type)return null;const o=n.getNode();if(!o.isSimpleText())return null;const r=n.offset,l=o.getTextContent().slice(0,r),i=t.replaceableString.length,u=r-function(t,e,n){let o=n;for(let n=o;n<=e.length;n++)t.slice(-n)===e.substring(0,n)&&(o=n);return o}(l,t.matchingString,i);if(u<0)return null;let a;return 0===u?[a]=o.splitText(r):[,a]=o.splitText(u,r),a}(d.match):null;p(n,e,t,d.match?d.match.matchingString:"")})},[e,g,d.match,p,t]),L=h(t=>{const n=e.getRootElement();null!==n&&(n.setAttribute("aria-activedescendant","typeahead-item-"+t),R(t))},[e]),_=h(()=>a.current&&m.length?v.createPortal(C("div",{className:"typeahead-popover mentions-menu",children:C("ul",{children:m.map((t,e)=>C(A,{index:e,isSelected:I===e,onClick:()=>{R(e),T(t)},onMouseEnter:()=>{R(e)},option:t},t.key))})}),a.current):null,[a,m,I,T,R]);return f(()=>()=>{const t=e.getRootElement();null!==t&&t.removeAttribute("aria-activedescendant")},[e]),S(()=>{null===m?R(null):null===I&&b&&L(0)},[m,I,L,b]),f(()=>w(e.registerCommand(P,({option:t})=>!(!t.ref||null==t.ref.current)&&(O(t.ref.current),!0),E)),[e,L,E]),f(()=>w(e.registerCommand(o,t=>{const n=t;if(null!==m&&m.length){const t=null===I?0:I!==m.length-1?I+1:0;L(t);const o=m[t];if(!o)return L(-1),n.preventDefault(),n.stopImmediatePropagation(),!0;o.ref&&o.ref.current&&e.dispatchCommand(P,{index:t,option:o}),n.preventDefault(),n.stopImmediatePropagation()}return!0},E),e.registerCommand(r,t=>{const e=t;if(null!==m&&m.length){const t=null===I?m.length-1:0!==I?I-1:m.length-1;L(t);const n=m[t];if(!n)return L(-1),e.preventDefault(),e.stopImmediatePropagation(),!0;n.ref&&n.ref.current&&O(n.ref.current),e.preventDefault(),e.stopImmediatePropagation()}return!0},E),e.registerCommand(l,e=>{const n=e;return n.preventDefault(),n.stopImmediatePropagation(),t(),!0},E),e.registerCommand(i,t=>{const e=t;return null!==m&&null!==I&&null!=m[I]&&(e.preventDefault(),e.stopImmediatePropagation(),T(m[I]),!0)},E),e.registerCommand(u,t=>null!==m&&null!==I&&null!=m[I]&&(null!==t&&(t.preventDefault(),t.stopImmediatePropagation()),T(m[I]),!0),E)),[T,t,e,m,I,L,E]),_()}function L(t,e){null!=e&&(t.className=e),t.setAttribute("aria-label","Typeahead menu"),t.setAttribute("role","listbox"),t.style.display="block",t.style.position="absolute"}const _="\\.,\\+\\*\\?\\$\\@\\|#{}\\(\\)\\^\\-\\[\\]\\\\/!%'\"~=<>_:;";function k(t,e){let n=getComputedStyle(t);const o="absolute"===n.position,r=e?/(auto|scroll|hidden)/:/(auto|scroll)/;if("fixed"===n.position)return document.body;for(let e=t;e=e.parentElement;)if(n=getComputedStyle(e),(!o||"static"!==n.position)&&r.test(n.overflow+n.overflowY+n.overflowX))return e;return document.body}const D=e("SCROLL_TYPEAHEAD_OPTION_INTO_VIEW_COMMAND");function $(t,{minLength:e=1,maxLength:n=75,punctuation:o=_,allowWhitespace:r=!1}){return h(l=>{const i=new RegExp("(^|\\s|\\()(["+t+"]((?:"+("[^"+t+o+(r?"":"\\s")+"]")+"){0,"+n+"}))$").exec(l);if(null!==i){const t=i[1],n=i[3];if(n.length>=e)return{leadOffset:i.index+t.length,matchingString:n,replaceableString:i[2]}}return null},[r,t,o,n,e])}function B({options:e,onQueryChange:o,onSelectOption:r,onOpen:l,onClose:i,triggerFn:u,anchorClassName:p,commandPriority:w=n,parent:v,preselectFirstItem:E=!0,ignoreEntityBoundary:S=!1}){const[R]=t(),[O,I]=y(null),P=function(e,n,o,r=(x?document.body:void 0),l=!0){const[i]=t(),u=x?document.createElement("div"):null,s=g(u),c=h(()=>{if(null===s.current||void 0===r)return;s.current.style.top=s.current.style.bottom;const t=i.getRootElement(),n=s.current,u=n.firstChild;if(null!==t&&null!==e){const{left:i,top:c,width:a,height:d}=e.getRect(),m=s.current.offsetHeight;if(n.style.top=`${c+m+3+(l?window.pageYOffset:0)}px`,n.style.left=`${i+window.pageXOffset}px`,n.style.height=`${d}px`,n.style.width=`${a}px`,null!==u){u.style.top=`${c}`;const e=u.getBoundingClientRect(),o=e.height,r=e.width,s=t.getBoundingClientRect();i+r>s.right&&(n.style.left=`${s.right-r+window.pageXOffset}px`),(c+o>window.innerHeight||c+o>s.bottom)&&c-s.top>o+d&&(n.style.top=`${c-o-d+(l?window.pageYOffset:0)}px`)}n.isConnected||(L(n,o),r.append(n)),n.setAttribute("id","typeahead-menu"),t.setAttribute("aria-controls","typeahead-menu")}},[i,e,l,o,r]);f(()=>{const t=i.getRootElement();return null!==e&&c(),()=>{null!==t&&t.removeAttribute("aria-controls");const e=s.current;null!==e&&e.isConnected&&(e.remove(),e.removeAttribute("id"))}},[i,c,e]);const a=h(t=>{null!==e&&(t||n(null))},[e,n]);return N(e,s.current,c,a),null!=u&&u===s.current&&(L(u,o),null!=r&&r.append(u)),s}(O,I,p,v),A=h(()=>{I(null),null!=i&&null!==O&&i()},[i,O]),_=h(t=>{I(t),null!=l&&null===O&&l(t)},[l,O]);return f(()=>{const t=R.registerUpdateListener(()=>{R.getEditorState().read(()=>{if(!R.isEditable())return void A();if(R.isComposing())return;const t=(R._window||window).document.createRange(),e=s(),n=function(t){let e=null;return t.getEditorState().read(()=>{const t=s();c(t)&&(e=function(t){const e=t.anchor;if("text"!==e.type)return null;const n=e.getNode();if(!n.isSimpleText())return null;const o=e.offset;return n.getTextContent().slice(0,o)}(t))}),e}(R);if(!c(e)||!e.isCollapsed()||null===n||null===t)return void A();const r=u(n,R);if(o(r?r.matchingString:null),null!==r&&(S||!function(t,e){return 0===e&&t.getEditorState().read(()=>{const t=s();if(c(t)){const e=t.anchor.getNode().getPreviousSibling();return a(e)&&e.isTextEntity()}return!1})}(R,r.leadOffset))){const e=function(t,e,n){const o=d(n);if(null===o||!o.isCollapsed)return!1;const r=o.anchorNode,l=t,i=o.anchorOffset;if(null==r||null==i)return!1;try{e.setStart(r,l),e.setEnd(r,i)}catch(t){return!1}return!0}(r.leadOffset,t,R);if(null!==e)return l=()=>_({getRect:()=>t.getBoundingClientRect(),match:r}),void(b in m?m[b](l):l())}var l;A()})});return()=>{t()}},[R,u,o,O,A,_,S]),f(()=>R.registerEditableListener(t=>{t||A()}),[R,A]),null===O||null===R||null===P.current?null:C(T,{close:A,resolution:O,editor:R,anchorElementRef:P,options:e,shouldSplitNodeWithQuery:!0,onSelectOption:r,commandPriority:w,preselectFirstItem:E})}export{B as LexicalTypeaheadMenuPlugin,R as MenuOption,_ as PUNCTUATION,D as SCROLL_TYPEAHEAD_OPTION_INTO_VIEW_COMMAND,k as getScrollParent,$ as useBasicTypeaheadTriggerMatch,N as useDynamicPositioning};
+diff --git a/node_modules/@lexical/react/shared/LexicalMenu.d.ts b/node_modules/@lexical/react/shared/LexicalMenu.d.ts
+index 9773e10..2638679 100644
+--- a/node_modules/@lexical/react/shared/LexicalMenu.d.ts
++++ b/node_modules/@lexical/react/shared/LexicalMenu.d.ts
+@@ -7,7 +7,7 @@
+  */
+ import type { JSX } from 'react';
+ import { CommandListenerPriority, LexicalCommand, LexicalEditor, TextNode } from 'lexical';
+-import { ReactPortal, RefObject } from 'react';
++import { RefObject } from 'react';
+ export type MenuTextMatch = {
+     leadOffset: number;
+     matchingString: string;
+@@ -17,33 +17,27 @@ export type MenuResolution = {
+     match?: MenuTextMatch;
+     getRect: () => DOMRect;
+ };
+-export declare const PUNCTUATION = "\\.,\\+\\*\\?\\$\\@\\|#{}\\(\\)\\^\\-\\[\\]\\\\/!%'\"~=<>_:;";
+ export declare class MenuOption {
+     key: string;
+     ref?: RefObject<HTMLElement | null>;
++    icon?: JSX.Element;
++    title?: JSX.Element | string | null;
+     constructor(key: string);
+     setRefElement(element: HTMLElement | null): void;
+ }
+-export type MenuRenderFn<TOption extends MenuOption> = (anchorElementRef: RefObject<HTMLElement | null>, itemProps: {
+-    selectedIndex: number | null;
+-    selectOptionAndCleanUp: (option: TOption) => void;
+-    setHighlightedIndex: (index: number) => void;
+-    options: Array<TOption>;
+-}, matchingString: string | null) => ReactPortal | JSX.Element | null;
+ export declare function getScrollParent(element: HTMLElement, includeHidden: boolean): HTMLElement | HTMLBodyElement;
+ export declare function useDynamicPositioning(resolution: MenuResolution | null, targetElement: HTMLElement | null, onReposition: () => void, onVisibilityChange?: (isInView: boolean) => void): void;
+ export declare const SCROLL_TYPEAHEAD_OPTION_INTO_VIEW_COMMAND: LexicalCommand<{
+     index: number;
+     option: MenuOption;
+ }>;
+-export declare function LexicalMenu<TOption extends MenuOption>({ close, editor, anchorElementRef, resolution, options, menuRenderFn, onSelectOption, shouldSplitNodeWithQuery, commandPriority, preselectFirstItem, }: {
++export declare function LexicalMenu<TOption extends MenuOption>({ close, editor, anchorElementRef, resolution, options, onSelectOption, shouldSplitNodeWithQuery, commandPriority, preselectFirstItem, }: {
+     close: () => void;
+     editor: LexicalEditor;
+     anchorElementRef: RefObject<HTMLElement | null>;
+     resolution: MenuResolution;
+     options: Array<TOption>;
+     shouldSplitNodeWithQuery?: boolean;
+-    menuRenderFn: MenuRenderFn<TOption>;
+     onSelectOption: (option: TOption, textNodeContainingQuery: TextNode | null, closeMenu: () => void, matchingString: string) => void;
+     commandPriority?: CommandListenerPriority;
+     preselectFirstItem?: boolean;
