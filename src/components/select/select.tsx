@@ -56,7 +56,7 @@ import type {
 	SelectSizes,
 	SelectOptionGroupProps,
 } from './select-types';
-import { getTextContent } from './utils';
+import { getTextContent, toValuesArray } from './utils';
 import { useDebouncedCallback } from '@/utilities/hooks';
 
 // Context to manage the state of the select component.
@@ -156,20 +156,27 @@ export const SelectButton = forwardRef<HTMLElement, SelectButtonProps>(
 		}, [ icon ] );
 
 		const renderSelected = useCallback( () => {
-			const selectedValue = getValues();
+			const currentValue = getValues();
 
-			if ( ! selectedValue ) {
+			if ( ! currentValue ) {
 				return null;
 			}
 
 			if ( multiple ) {
-				return ( selectedValue as SelectOptionValue[] ).map(
-					( valueItem: SelectOptionValue, index: number ) => (
+				return toValuesArray( currentValue ).map(
+					( valueItem: SelectOptionValue ) => (
 						<Badge
 							className="cursor-default"
 							icon={ optionIcon }
 							type="rounded"
-							key={ index }
+							key={ String(
+								valueItem !== null &&
+									typeof valueItem === 'object'
+									? ( valueItem as Record<string, unknown> )[
+										by
+									]
+									: valueItem
+							) }
 							size={ badgeSize as SelectSizes }
 							onMouseDown={ handleOnCloseItem( valueItem ) }
 							label={
@@ -184,6 +191,15 @@ export const SelectButton = forwardRef<HTMLElement, SelectButtonProps>(
 				);
 			}
 
+			// Single mode can still hold an array when `multiple` is toggled at
+			// runtime — fall back to the first entry so render()/children get a
+			// single value. An empty array is passed through untouched to keep
+			// the value render()/children already received.
+			const selectedValue =
+				Array.isArray( currentValue ) && currentValue.length
+					? currentValue[ 0 ]
+					: currentValue;
+
 			let renderValue: ReactNode =
 				typeof selectedValue === 'string' ? selectedValue : '';
 
@@ -197,13 +213,6 @@ export const SelectButton = forwardRef<HTMLElement, SelectButtonProps>(
 			) {
 				const childProps = {
 					value: selectedValue as SelectOptionValue,
-					...( multiple
-						? {
-							onClose: handleOnCloseItem(
-									selectedValue as SelectOptionValue
-							),
-						}
-						: {} ),
 				};
 				renderValue = children( childProps );
 			}
@@ -227,7 +236,7 @@ export const SelectButton = forwardRef<HTMLElement, SelectButtonProps>(
 					{ renderValue as React.ReactNode }
 				</span>
 			);
-		}, [ getValues, disabled ] );
+		}, [ getValues, disabled, multiple, render, children, by ] );
 
 		const handleOnCloseItem =
 			( value: SelectOptionValue ) =>
@@ -235,9 +244,7 @@ export const SelectButton = forwardRef<HTMLElement, SelectButtonProps>(
 					event?.preventDefault();
 					event?.stopPropagation();
 
-					const selectedValues = [
-						...( ( getValues() as SelectOptionValue[] ) ?? [] ),
-					];
+					const selectedValues = [ ...toValuesArray( getValues() ) ];
 					const selectedIndex = selectedValues.findIndex( ( val ) => {
 						if (
 							val !== null &&
@@ -276,7 +283,7 @@ export const SelectButton = forwardRef<HTMLElement, SelectButtonProps>(
 			}
 
 			const showPlaceholder = multiple
-				? ! ( getValues() as SelectOptionValue[] )?.length
+				? ! toValuesArray( getValues() ).length
 				: ! getValues() && ! searchKeyword;
 
 			return (
@@ -384,9 +391,9 @@ export const SelectButton = forwardRef<HTMLElement, SelectButtonProps>(
 											multiple
 										) {
 											e.preventDefault();
-											const arr =
-												( getValues() as SelectOptionValue[] ) ??
-												[];
+											const arr = toValuesArray(
+												getValues()
+											);
 											if ( arr.length ) {
 												handleOnCloseItem(
 													arr[ arr.length - 1 ]
@@ -456,7 +463,7 @@ export const SelectButton = forwardRef<HTMLElement, SelectButtonProps>(
 
 						{ /* Placeholder */ }
 						{ ( multiple
-							? ! ( getValues() as SelectOptionValue[] )?.length
+							? ! toValuesArray( getValues() ).length
 							: ! getValues() ) && (
 							<div
 								className={ cn(
@@ -1047,7 +1054,7 @@ export function SelectItem( {
 		if ( ! currentValue ) {
 			return false;
 		}
-		return ( currentValue as SelectOptionValue[] ).some( ( val ) => {
+		return toValuesArray( currentValue ).some( ( val ) => {
 			if ( val !== null && value !== null && typeof val === 'object' ) {
 				return (
 					( val as Record<string, unknown> )[ by ] ===
@@ -1056,7 +1063,7 @@ export function SelectItem( {
 			}
 			return val === value;
 		} );
-	}, [ value, getValues ] );
+	}, [ value, getValues, multiple, by ] );
 
 	const isChecked = useMemo( () => {
 		if ( typeof selected === 'boolean' ) {
@@ -1068,7 +1075,7 @@ export function SelectItem( {
 		}
 
 		return indx === selectedIndex;
-	}, [ multipleChecked, selectedIndex, selected ] );
+	}, [ multipleChecked, selectedIndex, selected, multiple, indx ] );
 
 	let itemTabIndex: number | undefined;
 	if ( ! inlineSearch ) {
@@ -1234,9 +1241,10 @@ const SelectComponent = ( {
 		] );
 
 	const handleMultiSelect: OnClick = ( index, newValue ) => {
-		const selectedValues = [
-			...( ( getValues() as SelectOptionValue[] ) ?? [] ),
-		];
+		// getValues() can return a single value here — e.g. `multiple` flipped
+		// to true while a single selection was already made — so normalize
+		// before treating it as a list.
+		const selectedValues = [ ...toValuesArray( getValues() ) ];
 		const valueIndex = selectedValues.findIndex( ( selectedValue ) => {
 			if (
 				selectedValue !== null &&
@@ -1251,20 +1259,31 @@ const SelectComponent = ( {
 			return selectedValue === newValue;
 		} );
 
+		// Toggle: deselect if already selected, otherwise select. The
+		// dropdown stays open so multiple options can be picked in one go;
+		// Escape and outside click (useDismiss) still close it.
 		if ( valueIndex !== -1 ) {
-			return;
+			selectedValues.splice( valueIndex, 1 );
+			if ( selectedIndex === index ) {
+				setSelectedIndex( null );
+			}
+		} else {
+			selectedValues.push( newValue );
+			setSelectedIndex( index );
 		}
-		selectedValues.push( newValue );
 
 		if ( ! isControlled ) {
 			setSelected( selectedValues );
 		}
-		setSelectedIndex( index );
-		(
-			( refs.domReference.current ??
-				refs.reference.current ) as HTMLElement | null
-		)?.focus();
-		setIsOpen( false );
+		// inlineSearch options carry no tabIndex and render without a
+		// FloatingFocusManager, so a click would drop focus to document.body
+		// and kill type-to-filter, arrow nav and Backspace-removes-badge.
+		if ( inlineSearch ) {
+			(
+				( refs.domReference.current ??
+					refs.reference.current ) as HTMLElement | null
+			)?.focus();
+		}
 		setSearchKeyword( '' );
 		if ( typeof onChange === 'function' ) {
 			onChange( selectedValues );

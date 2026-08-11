@@ -1,4 +1,29 @@
 import { type ReactNode, isValidElement } from 'react';
+import type { SelectOptionValue } from './select-types';
+
+/**
+ * Normalize a select value into an array of selected values.
+ *
+ * Multi-select code paths assume an array, but the value can be a single
+ * value when `multiple` is toggled at runtime or when a single value is
+ * passed while `multiple` is true. Wrapping instead of assuming keeps those
+ * paths from throwing on non-iterable values.
+ *
+ * @param {SelectOptionValue | SelectOptionValue[] | null | undefined} value - Current select value.
+ * @return {SelectOptionValue[]} Array of selected values.
+ * @since x.x.x
+ */
+export const toValuesArray = (
+	value: SelectOptionValue | SelectOptionValue[] | null | undefined
+): SelectOptionValue[] => {
+	if ( Array.isArray( value ) ) {
+		return value;
+	}
+	if ( value === null || typeof value === 'undefined' || value === '' ) {
+		return [];
+	}
+	return [ value ];
+};
 
 /**
  * Get text content of a node
