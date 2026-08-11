@@ -203,7 +203,7 @@ export const SureFormsDashboard = ( args ) => {
 				{ /* Main Navigation */ }
 				<Topbar
 					gap="0"
-					className="h-14 p-0 shadow-xs bg-background-primary border-b border-border-subtle min-h-14"
+					className="h-14 p-0 shadow-sm bg-background-primary border-b border-border-subtle min-h-14"
 				>
 					<Topbar.Left className="p-4">
 						<SureFormsLogo />
@@ -287,7 +287,7 @@ export const SureFormsDashboard = ( args ) => {
 							className="space-y-8 order-1"
 						>
 							{ /* Welcome Banner */ }
-							<div className="bg-background-primary rounded-xl shadow-xs border-0.5 border-solid border-border-subtle p-6">
+							<div className="bg-background-primary rounded-xl shadow-sm border-0.5 border-solid border-border-subtle p-6">
 								<Container
 									containerType="grid"
 									cols={ { sm: 1, md: 12, lg: 12 } }
@@ -357,7 +357,7 @@ export const SureFormsDashboard = ( args ) => {
 							</div>
 
 							{ /* Forms Overview */ }
-							<div className="bg-background-primary rounded-xl shadow-xs border-0.5 border-solid border-border-subtle p-4">
+							<div className="bg-background-primary rounded-xl shadow-sm border-0.5 border-solid border-border-subtle p-4">
 								<div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-4 px-1 gap-4">
 									<Text
 										as="h4"
@@ -480,7 +480,7 @@ export const SureFormsDashboard = ( args ) => {
 										<div className="flex items-center justify-end gap-6">
 											<div className="flex items-center gap-2">
 												<div
-													className="w-2 h-2 rounded-xs"
+													className="w-2 h-2 rounded-sm"
 													style={ {
 														backgroundColor:
 															'#0EA5E9',
@@ -495,7 +495,7 @@ export const SureFormsDashboard = ( args ) => {
 											</div>
 											<div className="flex items-center gap-2">
 												<div
-													className="w-2 h-2 rounded-xs"
+													className="w-2 h-2 rounded-sm"
 													style={ {
 														backgroundColor:
 															'#A855F7',
@@ -551,7 +551,7 @@ export const SureFormsDashboard = ( args ) => {
 							className="space-y-6 order-2"
 						>
 							{ /* Extend Your Website - SureRank */ }
-							<div className="bg-background-primary rounded-xl shadow-xs border-0.5 border-solid border-border-subtle p-3">
+							<div className="bg-background-primary rounded-xl shadow-sm border-0.5 border-solid border-border-subtle p-3">
 								<div className="flex items-center justify-between mb-2 px-1">
 									<Text
 										as="h4"
@@ -564,7 +564,7 @@ export const SureFormsDashboard = ( args ) => {
 								</div>
 
 								<div className="bg-field-primary-background rounded-lg p-1">
-									<div className="bg-background-primary border border-border-subtle rounded-md p-3 shadow-xs">
+									<div className="bg-background-primary border border-border-subtle rounded-md p-3 shadow-sm">
 										<div className="flex items-start justify-between mb-3">
 											<img
 												src={ sureRankLogo }
@@ -607,7 +607,7 @@ export const SureFormsDashboard = ( args ) => {
 							</div>
 
 							{ /* Quick Access */ }
-							<div className="bg-background-primary rounded-xl shadow-xs border-0.5 border-solid border-border-subtle p-3">
+							<div className="bg-background-primary rounded-xl shadow-sm border-0.5 border-solid border-border-subtle p-3">
 								<div className="mb-2 px-1">
 									<Text
 										as="h4"
@@ -623,7 +623,7 @@ export const SureFormsDashboard = ( args ) => {
 									{ quickAccessItems.map( ( item ) => (
 										<div
 											key={ item.id }
-											className="bg-background-primary rounded-sm shadow-xs p-3"
+											className="bg-background-primary rounded shadow-sm p-3"
 										>
 											<div className="flex items-center gap-3">
 												{ item.icon }
@@ -649,7 +649,7 @@ export const SureFormsDashboard = ( args ) => {
 							colSpan={ 12 }
 							className="order-3 lg:order-2 lg:col-span-8 lg:col-start-1"
 						>
-							<div className="bg-background-primary rounded-xl shadow-xs border-0.5 border-solid border-border-subtle p-6">
+							<div className="bg-background-primary rounded-xl shadow-sm border-0.5 border-solid border-border-subtle p-6">
 								<Container
 									containerType="grid"
 									align="center"

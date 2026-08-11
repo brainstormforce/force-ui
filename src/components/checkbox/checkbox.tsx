@@ -59,14 +59,14 @@ export const CheckboxComponent = (
 
 	const sizeClassNames = {
 		sm: {
-			checkbox: 'size-4 rounded-sm gap-1',
+			checkbox: 'size-4 rounded gap-1',
 			icon: 'size-3',
 			text: 'text-sm', // text class for sm
 			description: 'text-sm',
 			gap: 'gap-0.5',
 		},
 		md: {
-			checkbox: 'size-5 rounded-sm gap-1',
+			checkbox: 'size-5 rounded gap-1',
 			icon: 'size-4',
 			text: 'text-base', // text class for md
 			description: 'text-sm',
@@ -170,7 +170,7 @@ export const CheckboxComponent = (
 					{ ...( indeterminate && { 'aria-checked': 'mixed' as const } ) }
 					{ ...( label?.description && { 'aria-describedby': descriptionId } ) }
 					className={ cn(
-						"peer relative cursor-pointer appearance-none transition-all m-0 before:content-[''] checked:before:content-[''] checked:before:hidden before:hidden border-1.5! border-solid focus:outline-hidden",
+						"peer relative cursor-pointer appearance-none transition-all m-0 before:content-[''] checked:before:content-[''] checked:before:hidden before:hidden !border-1.5 border-solid focus:outline-none",
 						colorClassNames[ color ].checkbox,
 						sizeClassNames[ size ].checkbox,
 						disabled && disabledClassNames.checkbox,

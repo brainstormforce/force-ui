@@ -226,7 +226,7 @@ export const Toast = ( {
 						<div className="absolute end-4 top-4 [&_svg]:size-5">
 							<button
 								className={ cn(
-									'inline-flex bg-transparent m-0 p-0 border-none focus:outline-hidden focus-visible:ring-2 focus-visible:ring-toggle-on focus-visible:ring-offset-2 active:outline-hidden cursor-pointer rounded-sm',
+									'inline-flex bg-transparent m-0 p-0 border-none focus:outline-none focus-visible:ring-2 focus-visible:ring-toggle-on focus-visible:ring-offset-2 active:outline-none cursor-pointer rounded',
 									closeIconClassNames[ theme ] ??
 										closeIconClassNames.light
 								) }
@@ -277,7 +277,7 @@ export const Toast = ( {
 				<div className="absolute end-3 top-3 [&_svg]:size-5">
 					<button
 						className={ cn(
-							'bg-transparent m-0 p-0 border-none focus:outline-hidden focus-visible:ring-2 focus-visible:ring-toggle-on focus-visible:ring-offset-2 active:outline-hidden cursor-pointer rounded-sm',
+							'bg-transparent m-0 p-0 border-none focus:outline-none focus-visible:ring-2 focus-visible:ring-toggle-on focus-visible:ring-offset-2 active:outline-none cursor-pointer rounded',
 							closeIconClassNames[ theme ] ??
 								closeIconClassNames.light
 						) }

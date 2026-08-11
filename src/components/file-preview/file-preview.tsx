@@ -65,7 +65,7 @@ export const FilePreview = ( {
 	return (
 		<div
 			className={ cn(
-				'w-full flex items-start justify-between rounded-sm mt-2 bg-field-primary-background p-2 gap-3',
+				'w-full flex items-start justify-between rounded mt-2 bg-field-primary-background p-2 gap-3',
 				error && 'border-alert-border-danger bg-alert-background-danger'
 			) }
 		>
@@ -73,7 +73,7 @@ export const FilePreview = ( {
 				{ file.type.startsWith( 'image' ) ? (
 					<div
 						className={ cn(
-							'rounded-xs flex items-center justify-center shrink-0',
+							'rounded-sm flex items-center justify-center shrink-0',
 							error && 'bg-gray-200'
 						) }
 					>
@@ -88,7 +88,7 @@ export const FilePreview = ( {
 								}
 								alt="Preview"
 								className={ cn(
-									'w-full object-contain rounded-xs',
+									'w-full object-contain rounded-sm',
 									commonFilePreviewClasses[ size ].image
 								) }
 							/>
@@ -122,7 +122,7 @@ export const FilePreview = ( {
 				{ ! disabled && (
 					<button
 						onClick={ () => onRemove( file ) }
-						className="inline-flex cursor-pointer bg-transparent border-0 p-1 my-0 ml-auto mr-0 focus:outline-hidden focus-visible:ring-2 focus-visible:ring-support-error focus-visible:ring-offset-1 rounded-sm self-start shadow-none"
+						className="inline-flex cursor-pointer bg-transparent border-0 p-1 my-0 ml-auto mr-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-support-error focus-visible:ring-offset-1 rounded self-start shadow-none"
 						aria-label="Remove file"
 					>
 						<Trash className="size-4 text-support-error" />

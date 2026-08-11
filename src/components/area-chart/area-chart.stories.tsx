@@ -308,7 +308,7 @@ export const AreaChartCard1: Story1 = ( args ) => (
 	<Container
 		containerType="grid"
 		gap="xs"
-		className="p-4 bg-background-primary rounded-lg shadow-xs"
+		className="p-4 bg-background-primary rounded-lg shadow-sm"
 		{ ...args }
 	>
 		<Container.Item className="p-1 space-y-2">
@@ -371,7 +371,7 @@ export const AreaChartCard2: Story1 = ( args ) => (
 	<Container
 		containerType="grid"
 		gap="xs"
-		className="p-4 bg-background-primary rounded-lg shadow-xs"
+		className="p-4 bg-background-primary rounded-lg shadow-sm"
 		{ ...args }
 	>
 		<Container.Item className="p-1 space-y-2">

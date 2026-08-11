@@ -58,6 +58,7 @@ export interface MentionPluginProps<T = OptionsArray> {
 	menuComponent?: TMenuComponent;
 	menuItemComponent?: TMenuItemComponent;
 	autoSpace: boolean;
+	triggerRegex?: RegExp;
 }
 
 const MentionPlugin = ( {
@@ -68,6 +69,7 @@ const MentionPlugin = ( {
 	menuComponent: MenuComponent = EditorCombobox,
 	menuItemComponent: MenuItemComponent = EditorCombobox.Item,
 	autoSpace = true,
+	triggerRegex,
 }: MentionPluginProps ) => {
 	const { y, refs, strategy } = useFloating( {
 		placement: 'bottom',
@@ -83,6 +85,25 @@ const MentionPlugin = ( {
 	// matcher) once per trigger instead of on every render — this runs on the
 	// editor's per-keystroke render path.
 	const checkForAtSignMentions = useMemo( () => {
+		// A custom trigger regex replaces the built-in matcher entirely. It
+		// must expose the same capture groups the built-in regex does:
+		// 1 = leading whitespace/boundary, 2 = replaceable string (trigger +
+		// query), 3 = query string used to filter the options.
+		if ( triggerRegex ) {
+			return ( text: string ) => {
+				const match = triggerRegex.exec( text );
+				if ( match === null ) {
+					return null;
+				}
+				const maybeLeadingWhitespace = match[ 1 ] ?? '';
+				return {
+					leadOffset: match.index + maybeLeadingWhitespace.length,
+					matchingString: match[ 3 ] ?? '',
+					replaceableString: match[ 2 ] ?? '',
+				};
+			};
+		}
+
 		const PUNCTUATION =
 			'\\.,\\+\\*\\?\\$\\@\\|#{}\\(\\)\\^\\-\\[\\]\\\\/!%\'"~=<>_:;';
 
@@ -135,7 +156,7 @@ const MentionPlugin = ( {
 			}
 			return null;
 		};
-	}, [ trigger ] );
+	}, [ trigger, triggerRegex ] );
 
 	const [ editor ] = useLexicalComposerContext();
 	const [ queryString, setQueryString ] = useState<string | null>( null );

@@ -143,7 +143,7 @@ export const PaginationButton = ( {
 			variant={ 'ghost' }
 			className={ cn(
 				'no-underline bg-transparent p-0 m-0 border-none',
-				'flex justify-center items-center rounded-sm text-button-secondary',
+				'flex justify-center items-center rounded text-button-secondary',
 				'focus:outline focus:outline-1 focus:outline-border-subtle focus:bg-button-tertiary-hover',
 				sizeClassNames[ size ].general,
 				! disabled &&

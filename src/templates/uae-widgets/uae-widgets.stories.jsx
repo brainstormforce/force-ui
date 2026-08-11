@@ -205,7 +205,7 @@ export const UAEWidgets = ( args ) => {
 				{ /* Navigation Topbar */ }
 				<Topbar
 					gap="0"
-					className="h-14 p-0 shadow-xs bg-background-primary border-b border-border-subtle min-h-14"
+					className="h-14 p-0 shadow-sm bg-background-primary border-b border-border-subtle min-h-14"
 				>
 					<Topbar.Left className="p-3">
 						<Topbar.Item>
@@ -287,7 +287,7 @@ export const UAEWidgets = ( args ) => {
 						{ /* Main Content Column */ }
 						<Container.Item colSpan={ { sm: 12, md: 12, lg: 8 } } className="space-y-8">
 							{ /* Widgets Section */ }
-							<div className="bg-background-primary rounded-xl shadow-xs border-0.5 border-solid border-border-subtle p-4">
+							<div className="bg-background-primary rounded-xl shadow-sm border-0.5 border-solid border-border-subtle p-4">
 								{ /* Header */ }
 								<div className="flex items-center justify-between mb-6 p-1">
 									<Text
@@ -353,7 +353,7 @@ export const UAEWidgets = ( args ) => {
 										{ filteredWidgets.map( ( widget ) => (
 											<div
 												key={ widget.id }
-												className="flex flex-col justify-start bg-background-primary rounded-sm p-3 shadow-xs"
+												className="flex flex-col justify-start bg-background-primary rounded p-3 shadow-sm"
 											>
 												<div className="flex items-center justify-between mb-4">
 													<div className="flex items-center justify-center">
@@ -419,7 +419,7 @@ export const UAEWidgets = ( args ) => {
 						{ /* Sidebar Column */ }
 						<Container.Item colSpan={ { sm: 12, md: 12, lg: 4 } } className="space-y-6">
 							{ /* Upgrade to Pro */ }
-							<div className="bg-background-primary rounded-xl shadow-xs border-0.5 border-solid border-border-subtle overflow-hidden">
+							<div className="bg-background-primary rounded-xl shadow-sm border-0.5 border-solid border-border-subtle overflow-hidden">
 								<div className="p-3">
 									<img
 										src={ upgradeBanner }
@@ -478,7 +478,7 @@ export const UAEWidgets = ( args ) => {
 							</div>
 
 							{ /* Quick Access */ }
-							<div className="bg-background-primary rounded-xl space-y-2 shadow-xs border-0.5 border-solid border-border-subtle p-3">
+							<div className="bg-background-primary rounded-xl space-y-2 shadow-sm border-0.5 border-solid border-border-subtle p-3">
 								<Text
 									as="h4"
 									size={ 14 }
@@ -490,7 +490,7 @@ export const UAEWidgets = ( args ) => {
 								</Text>
 
 								<div className="space-y-1 p-1 bg-field-primary-background rounded-lg">
-									<div className="flex items-center justify-between p-3 bg-background-primary rounded-sm shadow-xs">
+									<div className="flex items-center justify-between p-3 bg-background-primary rounded shadow-sm">
 										<div className="flex items-center gap-3">
 											<Headphones className="size-4 text-icon-primary" />
 											<Text size={ 14 } weight={ 500 } color="primary">
@@ -505,7 +505,7 @@ export const UAEWidgets = ( args ) => {
 										/>
 									</div>
 
-									<div className="flex items-center justify-between p-3 bg-background-primary rounded-sm shadow-xs">
+									<div className="flex items-center justify-between p-3 bg-background-primary rounded shadow-sm">
 										<div className="flex items-center gap-3">
 											<BookOpen className="size-4 text-icon-primary" />
 											<Text size={ 14 } weight={ 500 } color="primary">
@@ -514,7 +514,7 @@ export const UAEWidgets = ( args ) => {
 										</div>
 									</div>
 
-									<div className="flex items-center justify-start p-3 bg-background-primary rounded-sm shadow-xs">
+									<div className="flex items-center justify-start p-3 bg-background-primary rounded shadow-sm">
 										<div className="flex items-center gap-2">
 											<CircleHelp className="size-4 text-icon-primary" />
 											<Text size={ 14 } weight={ 500 } color="primary">
@@ -523,7 +523,7 @@ export const UAEWidgets = ( args ) => {
 										</div>
 									</div>
 
-									<div className="flex items-center justify-start p-3 bg-background-primary rounded-sm shadow-xs">
+									<div className="flex items-center justify-start p-3 bg-background-primary rounded shadow-sm">
 										<div className="flex items-center gap-2">
 											<MessageSquare className="size-4 text-icon-primary" />
 											<Text size={ 14 } weight={ 500 } color="primary">

@@ -90,9 +90,9 @@ const Button: React.FunctionComponent<ButtonProps> = forwardRef(
 			secondary:
 				'text-text-on-color bg-button-secondary hover:bg-button-secondary-hover outline-button-secondary hover:outline-button-secondary-hover shadow-xs focus:shadow-none disabled:shadow-none disabled:bg-button-disabled disabled:outline-button-disabled',
 			outline:
-				'text-button-tertiary-color outline-border-subtle bg-button-tertiary shadow-xs focus:shadow-none hover:bg-button-tertiary-hover hover:outline-border-subtle disabled:bg-button-tertiary disabled:outline-border-disabled',
+				'text-button-tertiary-color outline-border-subtle bg-button-tertiary shadow-sm focus:shadow-none hover:bg-button-tertiary-hover hover:outline-border-subtle disabled:bg-button-tertiary disabled:outline-border-disabled',
 			ghost: 'text-text-primary bg-transparent outline-transparent hover:bg-button-tertiary-hover',
-			link: 'outline-hidden text-link-primary bg-transparent hover:text-link-primary-hover hover:underline p-0 border-0 leading-none',
+			link: 'outline-none text-link-primary bg-transparent hover:text-link-primary-hover hover:underline p-0 border-0 leading-none',
 		}?.[ variant ];
 
 		const destructiveClassNames =
@@ -110,8 +110,8 @@ const Button: React.FunctionComponent<ButtonProps> = forwardRef(
 				: '';
 
 		const sizeClassNames = {
-			xs: 'p-1 rounded-sm [&>svg]:size-4',
-			sm: 'p-2 rounded-sm [&>svg]:size-4 gap-0.5',
+			xs: 'p-1 rounded [&>svg]:size-4',
+			sm: 'p-2 rounded [&>svg]:size-4 gap-0.5',
 			md: 'p-2.5 rounded-md text-sm [&>svg]:size-5 gap-1',
 			lg: 'p-3 rounded-lg text-base [&>svg]:size-6 gap-1',
 		}?.[ size ];

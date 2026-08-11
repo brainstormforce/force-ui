@@ -1,5 +1,5 @@
-Version 2.0.0 - 2nd July, 2026
-- New: Migrated to TailwindCSS v4 (CSS-first) — the theme now ships as `@bsf/force-ui/theme.css` and the `withTW()` helper is deprecated; see the README migration guide for consumer upgrade steps (breaking).
+Version 1.8.1 - 3rd August, 2026
+- New: Organism - Editor Input: Added optional `triggerRegex` prop that overrides the built-in mention-suggestion matcher, so consumers can allow the trigger without a leading blank space (e.g. directly after a double quote inside JSON string values). The custom regex must expose the same capture groups as the built-in matcher: 1 = leading boundary, 2 = replaceable string (trigger + query), 3 = query string used to filter options. When omitted, the existing trigger-based matcher is used unchanged.
 
 Version 1.8.0 - 17th July, 2026
 - New: Atom - File Picker: Added a standalone file upload component that displays the selected file name and supports a controlled value and an optional clear action.

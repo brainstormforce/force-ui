@@ -1,12 +1,12 @@
 export const textSizeClassNames = {
-	sm: 'text-xs [&>svg]:size-4 rounded-sm',
+	sm: 'text-xs [&>svg]:size-4 rounded',
 	md: 'text-sm [&>svg]:size-5 rounded-md',
 	lg: 'text-base [&>svg]:size-6 rounded-md',
 };
 
 export const sizeClassNames = {
 	input: {
-		sm: 'py-1.5 px-2 rounded-sm',
+		sm: 'py-1.5 px-2 rounded',
 		md: 'p-2.5 rounded-md',
 		lg: 'p-3 rounded-md',
 	},
@@ -21,7 +21,7 @@ export const sizeClassNames = {
 		lg: 'p-2 text-sm',
 	},
 	item: {
-		sm: 'text-sm text-text-secondary rounded-sm',
+		sm: 'text-sm text-text-secondary rounded',
 		md: 'text-base text-text-secondary rounded-md',
 		lg: 'text-base text-text-secondary rounded-md',
 	},
