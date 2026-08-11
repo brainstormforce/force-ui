@@ -164,12 +164,19 @@ export const SelectButton = forwardRef<HTMLElement, SelectButtonProps>(
 
 			if ( multiple ) {
 				return toValuesArray( currentValue ).map(
-					( valueItem: SelectOptionValue, index: number ) => (
+					( valueItem: SelectOptionValue ) => (
 						<Badge
 							className="cursor-default"
 							icon={ optionIcon }
 							type="rounded"
-							key={ index }
+							key={ String(
+								valueItem !== null &&
+									typeof valueItem === 'object'
+									? ( valueItem as Record<string, unknown> )[
+										by
+									]
+									: valueItem
+							) }
 							size={ badgeSize as SelectSizes }
 							onMouseDown={ handleOnCloseItem( valueItem ) }
 							label={
@@ -229,7 +236,7 @@ export const SelectButton = forwardRef<HTMLElement, SelectButtonProps>(
 					{ renderValue as React.ReactNode }
 				</span>
 			);
-		}, [ getValues, disabled, multiple, render, children ] );
+		}, [ getValues, disabled, multiple, render, children, by ] );
 
 		const handleOnCloseItem =
 			( value: SelectOptionValue ) =>
@@ -1068,7 +1075,7 @@ export function SelectItem( {
 		}
 
 		return indx === selectedIndex;
-	}, [ multipleChecked, selectedIndex, selected, multiple ] );
+	}, [ multipleChecked, selectedIndex, selected, multiple, indx ] );
 
 	let itemTabIndex: number | undefined;
 	if ( ! inlineSearch ) {
@@ -1257,6 +1264,9 @@ const SelectComponent = ( {
 		// Escape and outside click (useDismiss) still close it.
 		if ( valueIndex !== -1 ) {
 			selectedValues.splice( valueIndex, 1 );
+			if ( selectedIndex === index ) {
+				setSelectedIndex( null );
+			}
 		} else {
 			selectedValues.push( newValue );
 			setSelectedIndex( index );
@@ -1264,6 +1274,15 @@ const SelectComponent = ( {
 
 		if ( ! isControlled ) {
 			setSelected( selectedValues );
+		}
+		// inlineSearch options carry no tabIndex and render without a
+		// FloatingFocusManager, so a click would drop focus to document.body
+		// and kill type-to-filter, arrow nav and Backspace-removes-badge.
+		if ( inlineSearch ) {
+			(
+				( refs.domReference.current ??
+					refs.reference.current ) as HTMLElement | null
+			)?.focus();
 		}
 		setSearchKeyword( '' );
 		if ( typeof onChange === 'function' ) {

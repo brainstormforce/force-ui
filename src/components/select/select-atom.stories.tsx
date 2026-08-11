@@ -248,18 +248,22 @@ MultiSelect.play = async ( { canvasElement } ) => {
 	const listBox = await screen.findByRole( 'listbox' );
 	expect( listBox ).toHaveTextContent( 'Red' );
 
-	// Select two options — the dropdown stays open in multiple mode
-	const allOptions = await screen.findAllByRole( 'option' );
-	await userEvent.click( allOptions[ 0 ] ); // Red
+	// Select two options — the dropdown stays open in multiple mode.
+	// Options are re-queried after each click since the list re-renders.
+	await userEvent.click( await screen.findByRole( 'option', { name: 'Red' } ) );
 	expect( screen.queryByRole( 'listbox' ) ).not.toBeNull();
-	await userEvent.click( allOptions[ 1 ] ); // Orange
+	await userEvent.click(
+		await screen.findByRole( 'option', { name: 'Orange' } )
+	);
 	expect( screen.queryByRole( 'listbox' ) ).not.toBeNull();
 
 	// Check if the button text is updated
 	expect( selectButton ).toHaveTextContent( /Red.*Orange/ );
 
 	// Clicking an already-selected option deselects it without closing
-	await userEvent.click( allOptions[ 1 ] ); // Orange (toggle off)
+	await userEvent.click(
+		await screen.findByRole( 'option', { name: 'Orange' } )
+	); // Orange (toggle off)
 	expect( screen.queryByRole( 'listbox' ) ).not.toBeNull();
 	expect( selectButton ).toHaveTextContent( 'Red' );
 	expect( selectButton ).not.toHaveTextContent( 'Orange' );
@@ -508,12 +512,20 @@ InlineSearchMulti.play = async ( { canvasElement } ) => {
 
 	// Clear and select two options — dropdown stays open in multiple mode
 	await userEvent.clear( input );
-	const allOptions = await screen.findAllByRole( 'option' );
-	await userEvent.click( allOptions[ 0 ] ); // Red
+	await userEvent.click( await screen.findByRole( 'option', { name: 'Red' } ) );
 	expect( screen.queryByRole( 'listbox' ) ).not.toBeNull();
 
-	const allOptions2 = await screen.findAllByRole( 'option' );
-	await userEvent.click( allOptions2[ 1 ] ); // Orange
+	// Focus must return to the input after a pick — typing (no re-click)
+	// keeps filtering, proving type-to-filter survives the selection.
+	await userEvent.keyboard( 'oran' );
+	const listboxAfterPick = await screen.findByRole( 'listbox' );
+	expect( listboxAfterPick ).toHaveTextContent( 'Orange' );
+	expect( listboxAfterPick ).not.toHaveTextContent( 'Cyan' );
+	await userEvent.clear( input );
+
+	await userEvent.click(
+		await screen.findByRole( 'option', { name: 'Orange' } )
+	);
 	expect( screen.queryByRole( 'listbox' ) ).not.toBeNull();
 
 	// Two badges should be visible inside trigger
