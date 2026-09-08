@@ -1,3 +1,6 @@
+Version 1.8.2 - 8th September, 2026
+- Fix: Resolved `npm install` failure (`Cannot read properties of null (reading 'edgesOut')`) when the library is consumed as a git dependency on npm 9.x. The release tag ships no lockfile, so devDependencies were re-resolved on every install and drifted to Vite 8 / Vitest 5 peers after Vitest 5.0.0 was published. Storybook packages are now pinned to 10.3.3 and Vite moved to `^6` so the resolution can no longer reach that chain.
+
 Version 1.8.1 - 11th August, 2026
 - Improvement: Organism - Editor Input: Added optional `triggerRegex` prop that overrides the built-in mention-suggestion matcher, so consumers can allow the trigger without a leading blank space (e.g. directly after a double quote inside JSON string values). The custom regex must expose the same capture groups as the built-in matcher: 1 = leading boundary, 2 = replaceable string (trigger + query), 3 = query string used to filter options. When omitted, the existing trigger-based matcher is used unchanged.
 - Fix: Atom - Select: In `multiple` mode the dropdown now stays open while selecting or deselecting options, closing only on Escape or outside click.
