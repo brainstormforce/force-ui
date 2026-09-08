@@ -1,5 +1,6 @@
 Version 1.8.2 - 8th September, 2026
-- Fix: Installing the library as a git dependency on npm 9 failed with `Cannot read properties of null (reading 'edgesOut')` after Vitest 5 was released. Pinned Storybook to 10.3.3 and moved Vite to `^6` to prevent the peer-dependency conflict.
+- Fix: Installing the library as a git dependency on npm 9 failed with `Cannot read properties of null (reading 'edgesOut')` after Vitest 5 was released. Vite is now locked to `^6` through npm `overrides` so the dependency resolution can no longer drift to Vite 8 and pull in Vitest 5 peers.
+- Improvement: Moved the build tooling from Vite 5 to Vite 6 and refreshed the lockfile. Published JavaScript and sourcemaps are byte-identical. `dist/tailwind.css` changes slightly due to the newer CSS minifier, and `dist/force-ui.d.ts` now imports the `JSX` namespace from `react` instead of `react/jsx-runtime` (same types, newer `@types/react`).
 
 Version 1.8.1 - 11th August, 2026
 - Improvement: Organism - Editor Input: Added optional `triggerRegex` prop that overrides the built-in mention-suggestion matcher, so consumers can allow the trigger without a leading blank space (e.g. directly after a double quote inside JSON string values). The custom regex must expose the same capture groups as the built-in matcher: 1 = leading boundary, 2 = replaceable string (trigger + query), 3 = query string used to filter options. When omitted, the existing trigger-based matcher is used unchanged.
