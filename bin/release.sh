@@ -66,6 +66,37 @@ echo -e "\nSyncing files..."
 
 rsync -av "$SRC_DIR/" "$BUILD_DIR" --exclude-from "$SRC_DIR/.distignore"
 
+# Trim the manifest consumers receive. npm's git fetcher runs a nested
+# `npm install --include=dev` inside any git dependency declaring an install
+# script, and our postinstall makes force-ui one, so every devDependency named
+# here gets re-resolved live in every consumer's CI.
+# Errors are handled explicitly: `bash bin/release.sh` ignores the shebang's -e.
+echo -e "\nTrimming package.json for distribution..."
+DIST_MANIFEST="$BUILD_DIR/package.json" node <<'NODE' || { echo "ERROR: could not trim the distribution manifest." >&2; exit 1; }
+const fs = require( 'fs' );
+const file = process.env.DIST_MANIFEST;
+const pkg = JSON.parse( fs.readFileSync( file, 'utf8' ) );
+
+// postinstall -> patch-package is what applies the Lexical patches in a
+// consumer's tree; never ship a manifest that has lost it.
+if ( pkg.scripts?.postinstall !== 'node apply-patches.cjs' || ! pkg.dependencies?.[ 'patch-package' ] ) {
+	throw new Error( 'refusing to trim: postinstall or patch-package is missing' );
+}
+
+delete pkg.devDependencies;
+pkg.scripts = { postinstall: pkg.scripts.postinstall };
+
+fs.writeFileSync( file, JSON.stringify( pkg, null, 4 ) + '\n' );
+NODE
+
+# Pin what the nested install resolves, so a publish between releases cannot
+# break consumers. `files` keeps this out of the packed tarball.
+echo -e "\nResolving distribution lockfile..."
+npm install --package-lock-only --ignore-scripts --no-audit --no-fund || {
+	echo "ERROR: could not resolve the distribution lockfile." >&2
+	exit 1
+}
+
 # Add changed files
 git add .
 
