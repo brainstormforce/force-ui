@@ -88,7 +88,7 @@
         "@storybook/blocks": "^8.3.5",
         "@storybook/react": "^8.3.5",
         "@storybook/react-vite": "^8.3.5",
-        "@storybook/test": "^8.3.5",
+        "@storybook/test": "^8.6.15",
         "@storybook/test-runner": "^0.19.1",
         "@tailwindcss/container-queries": "^0.1.1",
         "@types/lodash": "^4.17.13",
